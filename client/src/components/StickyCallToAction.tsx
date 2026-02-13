@@ -53,8 +53,10 @@ function useVisualViewportBottom() {
     updateOffset();
 
     vv.addEventListener("resize", updateOffset);
+    vv.addEventListener("scroll", updateOffset);
     return () => {
       vv.removeEventListener("resize", updateOffset);
+      vv.removeEventListener("scroll", updateOffset);
     };
   }, [updateOffset]);
 
@@ -102,10 +104,9 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
   const stickyBar = (
     <div
       className={cn(
-        "fixed left-0 right-0 z-50 bg-card border-t shadow-lg transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 bg-card border-t shadow-lg transition-all duration-300",
         isExpanded && "max-h-[80vh] overflow-auto"
       )}
-      style={{ bottom: `${bottomOffset}px` }}
       data-testid="sticky-cta-bar"
     >
       <div className="container mx-auto px-4">
