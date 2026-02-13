@@ -1285,7 +1285,7 @@ export function SectionEditorPanel({
                 arrayFieldGroups[arrPath].push({ fieldName, editorType: edType, variant: edVariant, fullPath: fieldPath });
               });
 
-              const supportedGroupedTypes = new Set(["color-picker", "image-picker", "link-picker"]);
+              const supportedGroupedTypes = new Set(["color-picker", "image-picker", "link-picker", "rich-text-editor"]);
               const groupedArrayPaths = new Set(
                 Object.entries(arrayFieldGroups)
                   .filter(([, fields]) => fields.length >= 2 && fields.every(f => supportedGroupedTypes.has(f.editorType)))
@@ -1576,6 +1576,22 @@ export function SectionEditorPanel({
                                             placeholder={`https://...`}
                                             className="h-8 text-sm"
                                             data-testid={`props-grouped-link-${fieldKey}-${index}`}
+                                          />
+                                        </div>
+                                      );
+                                    }
+                                    if (configuredField.editorType === "rich-text-editor") {
+                                      return (
+                                        <div key={fieldKey} className="space-y-1">
+                                          <Label className="text-xs text-muted-foreground">{label}</Label>
+                                          <RichTextArea
+                                            key={`${sectionIndex}-${arrPath}-${index}-${fieldKey}`}
+                                            value={currentValue}
+                                            onChange={(html) => updateNestedField(index, fieldKey, html)}
+                                            placeholder={`Edit ${label}…`}
+                                            minHeight="80px"
+                                            locale={locale}
+                                            data-testid={`props-grouped-richtext-${fieldKey}-${index}`}
                                           />
                                         </div>
                                       );
@@ -1890,7 +1906,7 @@ export function SectionEditorPanel({
                 const groupedSkipMatch = fieldPath.match(/^([\w.]+)\[\]\./);
                 if (groupedSkipMatch) {
                   const arrPathCheck = groupedSkipMatch[1];
-                  const supportedTypes = new Set(["color-picker", "image-picker", "link-picker"]);
+                  const supportedTypes = new Set(["color-picker", "image-picker", "link-picker", "rich-text-editor"]);
                   const allForArr = Object.entries(configuredFields).filter(([fp]) => fp.startsWith(`${arrPathCheck}[].`));
                   const allSupported = allForArr.every(([, et]) => supportedTypes.has(parseEditorType(et).type));
                   if (allForArr.length >= 2 && allSupported) return null;
