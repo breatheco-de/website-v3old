@@ -81,7 +81,10 @@ function getVariableContext(req: { headers: Record<string, string | string[] | u
   };
 }
 
-function resolveContentVariables<T>(data: T, context: VariableContext): { data: T; _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> } {
+function resolveContentVariables<T>(data: T, context: VariableContext, req?: Request): { data: T; _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> } {
+  if (req?.headers['x-edit-mode'] === 'true') {
+    return { data };
+  }
   if (!context.location && !context.region && !context.locale) {
     return { data };
   }
@@ -654,7 +657,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Resolve template variables
     const varCtx = getVariableContext(req, locale);
-    const { data: resolvedProgram, _variables } = resolveContentVariables(program, varCtx);
+    const { data: resolvedProgram, _variables } = resolveContentVariables(program, varCtx, req);
 
     res.json({
       ...resolvedProgram,
@@ -723,7 +726,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const landingLocations = (commonData?.locations as string[] | undefined) || undefined;
     const varCtx = getVariableContext(req, locale);
-    const { data: resolvedLanding, _variables } = resolveContentVariables(landing, varCtx);
+    const { data: resolvedLanding, _variables } = resolveContentVariables(landing, varCtx, req);
     res.json({ ...resolvedLanding, locale, landing_locations: landingLocations, _experiment: experimentInfo, _variables });
   });
 
@@ -752,7 +755,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     const varCtx = getVariableContext(req, locale);
-    const { data: resolvedLocation, _variables } = resolveContentVariables(location, varCtx);
+    const { data: resolvedLocation, _variables } = resolveContentVariables(location, varCtx, req);
     res.json({ ...resolvedLocation, _variables });
   });
 
@@ -851,7 +854,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     const varCtx = getVariableContext(req, locale);
-    const { data: resolvedPage, _variables } = resolveContentVariables(page, varCtx);
+    const { data: resolvedPage, _variables } = resolveContentVariables(page, varCtx, req);
     res.json({ ...resolvedPage, _variables });
   });
 
