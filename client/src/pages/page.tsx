@@ -39,7 +39,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div 
-        className="min-h-dvh flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         data-testid="loading-page"
       >
         <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
@@ -50,7 +50,7 @@ export default function Page() {
   if (error || !page) {
     return (
       <div 
-        className="min-h-dvh flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         data-testid="error-page"
       >
         <div className="text-center">

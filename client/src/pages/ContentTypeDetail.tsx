@@ -82,7 +82,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
   if (isLoading) {
     return (
       <div 
-        className="min-h-dvh flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         data-testid={`loading-${config.testIdPrefix}`}
       >
         <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
@@ -93,7 +93,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
   if (error || !data) {
     return (
       <div 
-        className="min-h-dvh flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         data-testid={`error-${config.testIdPrefix}`}
       >
         <div className="text-center">

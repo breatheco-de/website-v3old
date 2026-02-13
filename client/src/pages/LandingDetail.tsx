@@ -50,7 +50,7 @@ export default function LandingDetail() {
   if (isLoading) {
     return (
       <div 
-        className="min-h-dvh flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         data-testid="loading-landing"
       >
         <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
@@ -61,7 +61,7 @@ export default function LandingDetail() {
   if (error || !landing) {
     return (
       <div 
-        className="min-h-dvh flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         data-testid="error-landing"
       >
         <div className="text-center">

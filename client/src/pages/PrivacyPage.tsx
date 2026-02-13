@@ -7,7 +7,7 @@ export default function PrivacyPage() {
   const locale = i18n.language === "es" ? "es" : "en";
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="min-h-screen bg-background">
       <Header />
       <main className="max-w-4xl mx-auto px-4 py-12">
         {locale === "es" ? <PrivacyContentES /> : <PrivacyContentEN />}

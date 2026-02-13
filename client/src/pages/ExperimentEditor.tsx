@@ -388,7 +388,7 @@ export default function ExperimentEditor() {
 
   if (isLoading) {
     return (
-      <div className="min-h-dvh bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
@@ -396,7 +396,7 @@ export default function ExperimentEditor() {
 
   if (error || !data?.experiment) {
     return (
-      <div className="min-h-dvh bg-background flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
         <IconFlask className="h-12 w-12 text-muted-foreground" />
         <h1 className="text-xl font-semibold">Experiment not found</h1>
         <p className="text-muted-foreground">
@@ -413,7 +413,7 @@ export default function ExperimentEditor() {
   const experiment = data.experiment;
 
   return (
-    <div className="h-dvh flex flex-col bg-background overflow-hidden">
+    <div className="h-screen flex flex-col bg-background overflow-hidden">
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center justify-between">
           <div className="flex items-center gap-4">

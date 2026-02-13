@@ -528,9 +528,10 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   }, [sendToIframe]);
 
   return (
-    <div className="flex justify-center bg-muted/50 min-h-dvh py-8">
+    <div className="flex justify-center bg-muted/50 min-h-screen py-8">
       <div 
-        className="w-[375px] bg-background shadow-2xl rounded-[32px] overflow-hidden border-4 border-foreground/20 relative h-dvh"
+        className="w-[375px] bg-background shadow-2xl rounded-[32px] overflow-hidden border-4 border-foreground/20 relative"
+        style={{ height: 'calc(100vh - 4rem)' }}
       >
         {/* Phone notch */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-foreground/20 rounded-b-xl z-10" />
@@ -639,18 +640,6 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
 
-  const stickySections: { section: Section; index: number }[] = [];
-  const regularSections: { section: Section; index: number }[] = [];
-
-  sections.forEach((section, index) => {
-    const sectionType = (section as { type: string }).type;
-    if (sectionType === "sticky_cta") {
-      stickySections.push({ section, index });
-    } else {
-      regularSections.push({ section, index });
-    }
-  });
-
   const content = (
     <>
       <AddSectionButton
@@ -670,11 +659,8 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       )}
       {sections.map((section, index) => {
         const sectionType = (section as { type: string }).type;
-
-        // Skip sticky_cta sections here — they are rendered after all other sections
-        if (sectionType === "sticky_cta") return null;
-
         const renderedSection = renderSectionWithContext(section, index);
+        const layoutStyles = getSectionLayoutStyles(section);
         const showOn = (section as SectionLayout).showOn;
 
         // In edit mode: previewBreakpoint controls visibility, no CSS classes needed
@@ -699,7 +685,6 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           );
         }
 
-        const layoutStyles = getSectionLayoutStyles(section);
         const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
@@ -726,29 +711,6 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               locale={locale}
             />
           </div>
-        );
-      })}
-      {/* Render sticky_cta sections at the very end so sticky bottom-0 works */}
-      {stickySections.map(({ section, index }) => {
-        const renderedSection = renderSectionWithContext(section, index);
-        if (!renderedSection) return null;
-        return (
-          <EditableSection
-            key={`sticky-${index}`}
-            section={section}
-            index={index}
-            sectionType="sticky_cta"
-            contentType={contentType}
-            slug={slug}
-            locale={locale}
-            totalSections={sections.length}
-            onMoveUp={handleMoveUp}
-            onMoveDown={handleMoveDown}
-            onDelete={handleDelete}
-            onDuplicate={handleDuplicate}
-          >
-            {renderedSection}
-          </EditableSection>
         );
       })}
     </>

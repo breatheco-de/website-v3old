@@ -69,7 +69,7 @@ export default function PrivatePreview() {
 
   if (!isValidContentType) {
     return (
-      <div className="min-h-dvh flex items-center justify-center" data-testid="error-invalid-type">
+      <div className="min-h-screen flex items-center justify-center" data-testid="error-invalid-type">
         <div className="text-center">
           <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-foreground mb-2">Invalid Content Type</h1>
@@ -86,7 +86,7 @@ export default function PrivatePreview() {
 
   if (isLoading) {
     return (
-      <div className="min-h-dvh flex items-center justify-center" data-testid="loading-preview">
+      <div className="min-h-screen flex items-center justify-center" data-testid="loading-preview">
         <div className="text-center">
           <IconLoader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
           <p className="text-sm text-muted-foreground">
@@ -99,7 +99,7 @@ export default function PrivatePreview() {
 
   if (error || !content) {
     return (
-      <div className="min-h-dvh flex items-center justify-center" data-testid="error-preview">
+      <div className="min-h-screen flex items-center justify-center" data-testid="error-preview">
         <div className="text-center">
           <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-foreground mb-2">
