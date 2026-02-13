@@ -670,6 +670,10 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       )}
       {sections.map((section, index) => {
         const sectionType = (section as { type: string }).type;
+
+        // Skip sticky_cta sections here — they are rendered after all other sections
+        if (sectionType === "sticky_cta") return null;
+
         const renderedSection = renderSectionWithContext(section, index);
         const showOn = (section as SectionLayout).showOn;
 
@@ -684,36 +688,6 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
         if (!isVisible && isEditMode) {
           return (
             <div key={index}>
-              <AddSectionButton
-                insertIndex={index + 1}
-                sections={sections}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-              />
-            </div>
-          );
-        }
-
-        // sticky_cta sections: render without section-wrapper and layoutStyles
-        if (sectionType === "sticky_cta") {
-          return (
-            <div key={index}>
-              <EditableSection
-                section={section}
-                index={index}
-                sectionType={sectionType}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-                totalSections={sections.length}
-                onMoveUp={handleMoveUp}
-                onMoveDown={handleMoveDown}
-                onDelete={handleDelete}
-                onDuplicate={handleDuplicate}
-              >
-                {renderedSection}
-              </EditableSection>
               <AddSectionButton
                 insertIndex={index + 1}
                 sections={sections}
@@ -752,6 +726,29 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               locale={locale}
             />
           </div>
+        );
+      })}
+      {/* Render sticky_cta sections at the very end so sticky bottom-0 works */}
+      {stickySections.map(({ section, index }) => {
+        const renderedSection = renderSectionWithContext(section, index);
+        if (!renderedSection) return null;
+        return (
+          <EditableSection
+            key={`sticky-${index}`}
+            section={section}
+            index={index}
+            sectionType="sticky_cta"
+            contentType={contentType}
+            slug={slug}
+            locale={locale}
+            totalSections={sections.length}
+            onMoveUp={handleMoveUp}
+            onMoveDown={handleMoveDown}
+            onDelete={handleDelete}
+            onDuplicate={handleDuplicate}
+          >
+            {renderedSection}
+          </EditableSection>
         );
       })}
     </>
