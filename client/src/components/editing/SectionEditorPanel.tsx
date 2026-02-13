@@ -1503,6 +1503,31 @@ export function SectionEditorPanel({
                                   const configuredField = fields.find(f => f.fieldName === fieldKey);
 
                                   if (configuredField) {
+                                    if (configuredField.editorType === "icon-picker") {
+                                      return (
+                                        <div key={fieldKey} className="space-y-1">
+                                          <Label className="text-xs text-muted-foreground">{label}</Label>
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              setIconPickerTarget({
+                                                arrayField: arrPath,
+                                                index,
+                                                field: fieldKey,
+                                                label: itemLabel,
+                                                currentIcon: currentValue,
+                                              });
+                                              setIconPickerOpen(true);
+                                            }}
+                                            className="flex items-center justify-center w-10 h-10 rounded border bg-muted/30 hover:bg-muted transition-colors"
+                                            data-testid={`props-grouped-icon-${fieldKey}-${index}`}
+                                            title={`${itemLabel}: ${currentValue || "no icon"}`}
+                                          >
+                                            {renderIconByName(currentValue)}
+                                          </button>
+                                        </div>
+                                      );
+                                    }
                                     if (configuredField.editorType === "color-picker") {
                                       const colorType = (configuredField.variant as ColorPickerVariant) || "accent";
                                       return (
