@@ -2,6 +2,7 @@ import { useState, type ComponentType } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 import {
   IconFlame,
   IconCertificate,
@@ -263,9 +264,11 @@ export function PricingSection({ data }: PricingSectionProps) {
                           <IconCertificate size={22} className="text-primary" />
                         )}
                       </div>
-                      <span className="text-[#061258] text-xs leading-relaxed">
-                        {feature.text}
-                      </span>
+                      <RichTextContent
+                        html={feature.text}
+                        className="text-[#061258] text-xs leading-relaxed [&_p]:mb-0"
+                        data-testid={`text-feature-compact-${index}`}
+                      />
                     </div>
                   );
                 })}
@@ -475,9 +478,11 @@ export function PricingSection({ data }: PricingSectionProps) {
                         <IconCertificate size={22} className="text-primary" />
                       )}
                     </div>
-                    <span className="text-[#061258] text-xs leading-relaxed">
-                      {feature.text}
-                    </span>
+                    <RichTextContent
+                      html={feature.text}
+                      className="text-[#061258] text-xs leading-relaxed [&_p]:mb-0"
+                      data-testid={`text-feature-${index}`}
+                    />
                   </div>
                 );
               })}
