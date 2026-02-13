@@ -43,7 +43,7 @@ export function FeaturesGridStatsTextCard({
 
   return (
     <section ref={sectionRef} className="py-12" data-testid="section-features-grid-stats-text-card">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 overflow-x-hidden">
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 md:items-center">
           <div className="flex flex-col gap-4 md:w-[280px] lg:w-[420px] md:flex-shrink-0">
             <div className="grid grid-cols-2 gap-6">
