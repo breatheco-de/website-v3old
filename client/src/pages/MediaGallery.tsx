@@ -51,6 +51,7 @@ export default function MediaGallery() {
   const [bulkDeleting, setBulkDeleting] = useState(false);
   const [bulkDeleteResults, setBulkDeleteResults] = useState<BulkDeleteResult[] | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsProviderView, setSettingsProviderView] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -626,7 +627,7 @@ export default function MediaGallery() {
         </div>
       )}
 
-      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+      <Dialog open={settingsOpen} onOpenChange={(open) => { setSettingsOpen(open); if (!open) setSettingsProviderView(null); }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Media Storage Settings</DialogTitle>
@@ -653,15 +654,51 @@ export default function MediaGallery() {
                 <p className="text-sm font-medium">Active Providers</p>
                 <div className="flex flex-wrap gap-2">
                   {mediaStatus?.providers.map((p) => (
-                    <Badge key={p} variant={p === mediaStatus.defaultProvider ? "default" : "outline"} data-testid={`badge-provider-${p}`}>
-                      {p === "gcs" ? "Google Cloud Storage" : p === "local" ? "Local Filesystem" : p}
-                      {p === mediaStatus.defaultProvider && " (default)"}
-                    </Badge>
+                    <button
+                      key={p}
+                      onClick={() => setSettingsProviderView(settingsProviderView === p ? null : p)}
+                      data-testid={`badge-provider-${p}`}
+                    >
+                      <Badge variant={settingsProviderView === p ? "default" : "outline"} className="cursor-pointer">
+                        {p === "gcs" ? "Google Cloud Storage" : p === "local" ? "Local Filesystem" : p}
+                        {p === mediaStatus.defaultProvider && " (default)"}
+                      </Badge>
+                    </button>
                   ))}
                 </div>
               </div>
 
-              {mediaStatus?.gcs && (
+              {settingsProviderView === "local" && (
+                <div className="rounded-md border p-3 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <IconFolder className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-sm font-medium">Local Filesystem</p>
+                  </div>
+                  <div className="text-xs text-muted-foreground space-y-2">
+                    <p>Images stored locally are served from the <code className="bg-muted px-1 rounded text-foreground">marketing-content/images/</code> folder.</p>
+                    <div className="space-y-1.5">
+                      <p className="font-medium text-foreground text-xs">How to add images:</p>
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>Place image files (PNG, JPG, WebP, SVG, AVIF, GIF) into <code className="bg-muted px-1 rounded text-foreground">marketing-content/images/</code></li>
+                        <li>Click the scan button in the gallery toolbar to detect new files</li>
+                        <li>Review the scan results and click Apply to register them</li>
+                      </ol>
+                    </div>
+                    <div className="space-y-1.5">
+                      <p className="font-medium text-foreground text-xs">How they appear in the gallery:</p>
+                      <p>Each registered image gets a unique ID derived from its filename. The ID, alt text, tags, and focal point are stored in <code className="bg-muted px-1 rounded text-foreground">image-registry.json</code>. Images can then be selected by ID or URL in any content editor.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 p-2 rounded bg-muted/50 border border-dashed">
+                    <IconAlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-muted-foreground">
+                      Always delete images through the gallery (not manually from the filesystem). Manual deletion can leave broken references in YAML content files and the image registry.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {settingsProviderView === "gcs" && mediaStatus?.gcs && (
                 <div className="rounded-md border p-3 space-y-2">
                   <div className="flex items-center gap-2">
                     <IconCloud className="h-4 w-4 text-muted-foreground" />
@@ -686,23 +723,25 @@ export default function MediaGallery() {
                 </div>
               )}
 
-              <div className="rounded-md border p-3 space-y-2">
-                <p className="text-sm font-medium">Setup Guide</p>
-                <div className="text-xs text-muted-foreground space-y-1.5">
-                  <p>Configure these environment variables to set up cloud storage:</p>
-                  <div className="space-y-1 font-mono bg-muted p-2 rounded">
-                    <p><span className="text-foreground">GCS_BUCKET_NAME</span> - Bucket name</p>
-                    <p><span className="text-foreground">GCS_PROJECT_ID</span> - GCP project ID</p>
-                    <p><span className="text-foreground">GCS_CREDENTIALS_JSON</span> - Service account key JSON</p>
-                    <p><span className="text-foreground">GCS_BASE_PATH</span> - Folder prefix (default: media)</p>
-                    <p><span className="text-foreground">MEDIA_DEFAULT_PROVIDER</span> - Set to "gcs" for cloud default</p>
+              {settingsProviderView === "gcs" && (
+                <div className="rounded-md border p-3 space-y-2">
+                  <p className="text-sm font-medium">Setup Guide</p>
+                  <div className="text-xs text-muted-foreground space-y-1.5">
+                    <p>Configure these environment variables to set up cloud storage:</p>
+                    <div className="space-y-1 font-mono bg-muted p-2 rounded">
+                      <p><span className="text-foreground">GCS_BUCKET_NAME</span> - Bucket name</p>
+                      <p><span className="text-foreground">GCS_PROJECT_ID</span> - GCP project ID</p>
+                      <p><span className="text-foreground">GCS_CREDENTIALS_JSON</span> - Service account key JSON</p>
+                      <p><span className="text-foreground">GCS_BASE_PATH</span> - Folder prefix (default: media)</p>
+                      <p><span className="text-foreground">MEDIA_DEFAULT_PROVIDER</span> - Set to "gcs" for cloud default</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={() => setSettingsOpen(false)} data-testid="button-close-settings">
+            <Button onClick={() => { setSettingsOpen(false); setSettingsProviderView(null); }} data-testid="button-close-settings">
               Close
             </Button>
           </DialogFooter>

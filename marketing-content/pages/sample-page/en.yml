@@ -85,9 +85,9 @@ sections:
       subtitle: 4Geeks Academy Certificate
   - type: image_row
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Screenshot-2026-02-13-at-1.30.53-PM.png
-        alt: "Image: Screenshot 2026-02-13 at 1.30.53â\x80¯PM"
-        id: screenshot-2026-02-13-at-13053-pm
+      - src: /attached_assets/image_1765318600261.png
+        alt: Feature illustration
+        id: image-feature-5
       - src: /attached_assets/student-2-latin.png
         alt: Latino student working on a project
       - src: /attached_assets/student-3-african.png
