@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconVariable } from "@tabler/icons-react";
 import type { Section, SectionLayout, ShowOn } from "@shared/schema";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { getLocationBySlug } from "@/lib/locations";
@@ -48,6 +48,14 @@ const SectionEditorPanel = lazy(() =>
   import("./SectionEditorPanel").then(mod => ({ default: mod.SectionEditorPanel }))
 );
 
+interface VariableInfo {
+  path: string;
+  variable: string;
+  value: string;
+  source: string;
+  defaultValue: string;
+}
+
 interface EditableSectionProps {
   children: React.ReactNode;
   section: Section;
@@ -63,9 +71,10 @@ interface EditableSectionProps {
   onMoveDown?: (index: number) => void;
   onDelete?: (index: number) => void;
   onDuplicate?: (index: number) => void;
+  variables?: VariableInfo[];
 }
 
-export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
+export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, onMoveUp, onMoveDown, onDelete, onDuplicate, variables }: EditableSectionProps) {
   const editMode = useEditModeOptional();
   const pageHistory = usePageHistoryOptional();
   const { toast } = useToast();
@@ -716,6 +725,41 @@ export function EditableSection({ children, section, index, sectionType, content
           </div>
         );
       })()}
+
+      {variables && variables.length > 0 && (
+        <div
+          className={`
+            absolute z-30 flex flex-wrap items-center gap-1.5 px-2 py-1 bg-violet-500/90 text-white text-xs font-medium rounded
+            transition-opacity duration-150
+            ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
+          `}
+          style={{
+            top: (() => {
+              const showOn = (section as SectionLayout).showOn || 'all';
+              const showOnLocations = (section as SectionLayout).showOnLocations || [];
+              const showOnRegions = (section as SectionLayout).showOnRegions || [];
+              const hasVisibilityBadge = showOn !== 'all' || showOnLocations.length > 0 || showOnRegions.length > 0;
+              return hasVisibilityBadge ? '4.5rem' : '3rem';
+            })(),
+            right: '0.5rem'
+          }}
+          data-testid={`badge-variables-${index}`}
+        >
+          <IconVariable className="h-3.5 w-3.5" />
+          {variables.map((v, vi) => (
+            <span
+              key={vi}
+              className="inline-flex items-center gap-1 bg-white/20 rounded px-1.5 py-0.5"
+              title={`Variable: ${v.variable}\nSource: ${v.source}\nValue: ${v.value}\nDefault: ${v.defaultValue}`}
+            >
+              <span className="font-mono">{v.variable}</span>
+              <span className="opacity-70">=</span>
+              <span className="max-w-[120px] truncate">{v.value}</span>
+              <span className="opacity-50 text-[10px]">({v.source})</span>
+            </span>
+          ))}
+        </div>
+      )}
       
       {/* Section label - top left */}
       <div 

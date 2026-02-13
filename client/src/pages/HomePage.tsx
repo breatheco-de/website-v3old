@@ -8,6 +8,8 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useVariableQueryString } from "@/hooks/useVariableParams";
+import type { VariableInfo } from "@/hooks/useVariableParams";
 import Header from "@/components/Header";
 
 export default function HomePage() {
@@ -18,6 +20,7 @@ export default function HomePage() {
   const urlLocale = location.startsWith("/es") ? "es" : "en";
   const locale = urlLocale;
   const slug = "home";
+  const varQS = useVariableQueryString();
   
   // Sync i18n language with URL locale
   useEffect(() => {
@@ -26,10 +29,10 @@ export default function HomePage() {
     }
   }, [urlLocale, i18n]);
 
-  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
-    queryKey: ["/api/pages", slug, locale],
+  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage & { _variables?: VariableInfo[] }>({
+    queryKey: ["/api/pages", slug, locale, varQS],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/${slug}?locale=${locale}`);
+      const response = await fetch(`/api/pages/${slug}?locale=${locale}${varQS}`);
       if (!response.ok) {
         throw new Error("Page not found");
       }
@@ -85,6 +88,7 @@ export default function HomePage() {
         contentType="page"
         slug={slug}
         locale={locale}
+        variables={page._variables}
       />
     </div>
   );

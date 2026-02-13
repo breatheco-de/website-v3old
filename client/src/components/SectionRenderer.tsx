@@ -264,6 +264,7 @@ interface SectionRendererProps {
   locale?: string;
   programSlug?: string;
   landingLocations?: string[];
+  variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }>;
 }
 
 function EmptyPageState({ 
@@ -570,7 +571,7 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   );
 }
 
-export function SectionRenderer({ sections, contentType, slug, locale, programSlug, landingLocations }: SectionRendererProps) {
+export function SectionRenderer({ sections, contentType, slug, locale, programSlug, landingLocations, variables }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -711,6 +712,9 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           );
         }
 
+        const sectionPrefix = `sections[${index}]`;
+        const sectionVariables = variables?.filter(v => v.path.startsWith(sectionPrefix));
+
         const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
@@ -726,6 +730,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               onMoveDown={handleMoveDown}
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}
+              variables={sectionVariables}
             >
               {renderedSection}
             </EditableSection>

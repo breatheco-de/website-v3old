@@ -8,6 +8,8 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useVariableQueryString } from "@/hooks/useVariableParams";
+import type { VariableInfo } from "@/hooks/useVariableParams";
 
 export default function LandingDetail() {
   const { i18n } = useTranslation();
@@ -26,10 +28,12 @@ export default function LandingDetail() {
     }
   }, [urlLocale, i18n]);
 
-  const { data: landing, isLoading, error, refetch } = useQuery<LandingPage>({
-    queryKey: ["/api/landings", slug, locale],
+  const varQS = useVariableQueryString();
+
+  const { data: landing, isLoading, error, refetch } = useQuery<LandingPage & { _variables?: VariableInfo[] }>({
+    queryKey: ["/api/landings", slug, locale, varQS],
     queryFn: async () => {
-      const response = await fetch(`/api/landings/${slug}?locale=${locale}`);
+      const response = await fetch(`/api/landings/${slug}?locale=${locale}${varQS}`);
       if (!response.ok) {
         throw new Error("Landing page not found");
       }
@@ -86,6 +90,7 @@ export default function LandingDetail() {
         slug={slug}
         locale={locale}
         landingLocations={landing.landing_locations}
+        variables={landing._variables}
       />
     </div>
   );

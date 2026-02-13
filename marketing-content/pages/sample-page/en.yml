@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Work smarter, not harder, apply AI at Work
+    title: "{{ sample_greeting | Welcome to 4Geeks Academy }}"
     subtitle: Boost your career, harness the power of Applied AI.
     students_enrolled:
       avatars:
@@ -50,7 +50,7 @@ sections:
       title: Sign up to 4Geeks Plus
       description: Subscribe and get access to hundreds of challenges, projects and courses
       cta_button:
-        text: Join now from $39/mo.
+        text: "{{ call_to_action_text | Apply now }}"
         url: /signup
         variant: primary
       login_link:

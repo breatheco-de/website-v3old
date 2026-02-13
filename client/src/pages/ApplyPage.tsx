@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { renderSection } from "@/components/SectionRenderer";
 import { ApplyFormSection } from "@/components/ApplyFormSection";
 import { FooterSection } from "@/components/FooterSection";
+import { useVariableQueryString } from "@/hooks/useVariableParams";
 
 interface ApplyPageData {
   slug: string;
@@ -20,11 +21,12 @@ interface ApplyPageData {
 export default function ApplyPage() {
   const { i18n } = useTranslation();
   const locale = i18n.language === "es" ? "es" : "en";
+  const varQS = useVariableQueryString();
 
   const { data: page, isLoading, error, refetch } = useQuery<ApplyPageData>({
-    queryKey: ["/api/pages/apply", locale],
+    queryKey: ["/api/pages/apply", locale, varQS],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/apply?locale=${locale}`);
+      const response = await fetch(`/api/pages/apply?locale=${locale}${varQS}`);
       if (!response.ok) {
         throw new Error("Apply page not found");
       }

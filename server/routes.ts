@@ -64,6 +64,7 @@ import {
 } from "./utils/contentLoader";
 import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
+import { variableManager, type VariableContext } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
@@ -71,6 +72,31 @@ import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItem
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
+
+function getVariableContext(req: { query: Record<string, unknown> }, locale?: string): VariableContext {
+  return {
+    location: (req.query.var_location as string) || undefined,
+    region: (req.query.var_region as string) || undefined,
+    locale: locale || (req.query.locale as string) || undefined,
+  };
+}
+
+function resolveContentVariables<T>(data: T, context: VariableContext): { data: T; _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> } {
+  if (!context.location && !context.region && !context.locale) {
+    return { data };
+  }
+  const result = variableManager.resolveDeep(data, context);
+  const variableEntries = result.variableMap.length > 0
+    ? result.variableMap.map(v => ({
+        path: v.path,
+        variable: v.variableName,
+        value: v.resolvedValue,
+        source: v.source,
+        defaultValue: v.defaultValue,
+      }))
+    : undefined;
+  return { data: result.data as T, _variables: variableEntries };
+}
 
 // Schema for career-programs listing page (custom page type)
 const careerProgramsListingSchema = z.object({
@@ -626,10 +652,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    // Include experiment info in response for analytics
+    // Resolve template variables
+    const varCtx = getVariableContext(req, locale);
+    const { data: resolvedProgram, _variables } = resolveContentVariables(program, varCtx);
+
     res.json({
-      ...program,
+      ...resolvedProgram,
       _experiment: experimentInfo,
+      _variables,
     });
   });
 
@@ -692,7 +722,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     const landingLocations = (commonData?.locations as string[] | undefined) || undefined;
-    res.json({ ...landing, locale, landing_locations: landingLocations, _experiment: experimentInfo });
+    const varCtx = getVariableContext(req, locale);
+    const { data: resolvedLanding, _variables } = resolveContentVariables(landing, varCtx);
+    res.json({ ...resolvedLanding, locale, landing_locations: landingLocations, _experiment: experimentInfo, _variables });
   });
 
   // Locations API
@@ -719,7 +751,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    res.json(location);
+    const varCtx = getVariableContext(req, locale);
+    const { data: resolvedLocation, _variables } = resolveContentVariables(location, varCtx);
+    res.json({ ...resolvedLocation, _variables });
   });
 
   // Template Pages API
@@ -816,7 +850,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    res.json(page);
+    const varCtx = getVariableContext(req, locale);
+    const { data: resolvedPage, _variables } = resolveContentVariables(page, varCtx);
+    res.json({ ...resolvedPage, _variables });
   });
 
   // Dynamic sitemap with caching

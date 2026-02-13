@@ -7,6 +7,8 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useVariableQueryString } from "@/hooks/useVariableParams";
+import type { VariableInfo } from "@/hooks/useVariableParams";
 import Header from "@/components/Header";
 
 export default function Page() {
@@ -14,11 +16,12 @@ export default function Page() {
   const locale = location.startsWith("/es/") ? "es" : "en";
   const params = useParams<{ slug: string }>();
   const slug = params.slug || "";
+  const varQS = useVariableQueryString();
 
-  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
-    queryKey: ["/api/pages", slug, locale],
+  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage & { _variables?: VariableInfo[] }>({
+    queryKey: ["/api/pages", slug, locale, varQS],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/${slug}?locale=${locale}`);
+      const response = await fetch(`/api/pages/${slug}?locale=${locale}${varQS}`);
       if (!response.ok) {
         throw new Error("Page not found");
       }
@@ -75,6 +78,7 @@ export default function Page() {
         contentType="page"
         slug={slug}
         locale={locale}
+        variables={page._variables}
       />
     </div>
   );
