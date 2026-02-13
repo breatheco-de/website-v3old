@@ -438,7 +438,7 @@ sections:
     static_icons: false
     features_title: Choose the option that fits you best.
     features:
-      - icon: IconCheck
+      - icon: Rigobot
         text: Standard tuition is $14,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back. *Not available in all regions. Terms and conditions apply.

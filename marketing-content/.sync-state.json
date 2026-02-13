@@ -905,11 +905,11 @@
       "remoteSha": "f669df218d2c2361074495bc397bb46af0aded3679583d99be09bc9e86e2beaf"
     },
     "marketing-content/programs/ai-engineering/en.yml": {
-      "sha": "a8e1296c567eaa84826a582d2fa3df079c4de376722c36ccc5d40a4ca565a5f9",
-      "lastModified": 1771016850999.556,
+      "sha": "768e1f70e72145fb2f2481b3e0494a1e5146fba13c3ea792d69de42754d448e1",
+      "lastModified": 1771017650978.3208,
       "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
       "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-13T21:07:31.001Z"
+      "modifiedAt": "2026-02-13T21:20:50.981Z"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725",

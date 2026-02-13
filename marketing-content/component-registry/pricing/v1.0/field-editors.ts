@@ -17,5 +17,6 @@ export type EditorType =
 
 export const fieldEditors: Record<string, EditorType> = {
   "features[].text": "rich-text-editor",
+  "features[].icon": "icon-picker",
   "static_icons": "boolean-toggle"
 };
