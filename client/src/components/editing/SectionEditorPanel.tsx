@@ -2832,6 +2832,47 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (editorType === "rich-text-editor") {
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium capitalize">
+                        {arrayFieldLabel} Text
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => {
+                          const currentValue =
+                            (item[itemField] as string) || "";
+                          const itemLabel =
+                            (item.tab_label as string) ||
+                            (item.title as string) ||
+                            (item.label as string) ||
+                            (item.name as string) ||
+                            `Item ${index + 1}`;
+
+                          return (
+                            <div key={index} className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">
+                                {itemLabel}
+                              </Label>
+                              <RichTextArea
+                                key={`${sectionIndex}-${arrayPath}-${index}-${itemField}`}
+                                value={currentValue}
+                                onChange={(html) =>
+                                  updateArrayItemField(arrayPath, index, itemField, html)
+                                }
+                                placeholder={`Edit ${itemLabel}…`}
+                                minHeight="80px"
+                                locale={locale}
+                                data-testid={`props-richtext-${arrayFieldLabel}-${index}`}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
                 if (editorType === "image-with-style-picker") {
                   const MAX_IMAGES = 4;
                   const hasImages = safeArrayData.length > 0;
