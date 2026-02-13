@@ -40,6 +40,8 @@ interface BulkDeleteResult {
 
 export default function MediaGallery() {
   const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const [scanning, setScanning] = useState(false);
@@ -241,16 +243,47 @@ export default function MediaGallery() {
                   <IconRefresh className={`h-4 w-4 mr-1.5 ${scanning ? 'animate-spin' : ''}`} />
                   {scanning ? "Scanning..." : "Scan Registry"}
                 </Button>
-                <div className="relative w-64">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="pl-10 h-9"
-                    data-testid="input-search"
-                  />
-                </div>
+                {searchOpen ? (
+                  <div className="relative w-64 flex items-center gap-1">
+                    <div className="relative flex-1">
+                      <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        ref={searchInputRef}
+                        placeholder="Search..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="pl-10 h-9"
+                        data-testid="input-search"
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") {
+                            setSearch("");
+                            setSearchOpen(false);
+                          }
+                        }}
+                      />
+                    </div>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => { setSearch(""); setSearchOpen(false); }}
+                      data-testid="button-close-search"
+                    >
+                      <IconX className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => {
+                      setSearchOpen(true);
+                      setTimeout(() => searchInputRef.current?.focus(), 0);
+                    }}
+                    data-testid="button-open-search"
+                  >
+                    <IconSearch className="h-4 w-4" />
+                  </Button>
+                )}
               </div>
               {registry && (
                 <div className="flex flex-wrap gap-1.5 justify-end">
@@ -259,7 +292,7 @@ export default function MediaGallery() {
                       key={name}
                       variant="outline"
                       className="cursor-pointer text-xs"
-                      onClick={() => setSearch(name)}
+                      onClick={() => { setSearch(name); setSearchOpen(true); }}
                       data-testid={`badge-preset-${name}`}
                     >
                       {name}
@@ -489,7 +522,7 @@ export default function MediaGallery() {
                               key={tag} 
                               variant="secondary" 
                               className="text-xs px-1.5 py-0 cursor-pointer"
-                              onClick={() => setSearch(tag)}
+                              onClick={() => { setSearch(tag); setSearchOpen(true); }}
                             >
                               {tag}
                             </Badge>
