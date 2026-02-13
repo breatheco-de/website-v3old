@@ -17,7 +17,7 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: The AI Reskilling Platform
+    title: The AI Reskilling Platformm
     subtitle: Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance.
     trust_bar:
       rating: 4.9/5
