@@ -53,8 +53,8 @@ import {
   setExperimentCookie,
   buildVisitorContext,
 } from "./experiments";
-import { loadImageRegistry, clearImageRegistryCache } from "./image-registry";
-import { scanImageRegistry, applyRegistryChanges } from "./image-registry-scanner";
+import { mediaGallery } from "./media-gallery";
+import { media } from "./media";
 import {
   loadContent,
   listContentSlugs,
@@ -289,6 +289,9 @@ function detectLanguageFromRequest(req: Request): "en" | "es" {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  media.initFromEnv();
+  mediaGallery.setContentIndex(contentIndex);
+
   app.get("/apply", (req, res) => {
     const lang = detectLanguageFromRequest(req);
     const target = lang === "es" ? "/es/aplica" : "/en/apply";
@@ -3621,9 +3624,9 @@ sections: []
     }
   });
 
-  // Image Registry API endpoint
-  app.get("/api/image-registry", (req, res) => {
-    const registry = loadImageRegistry();
+  // Image Registry API endpoints (delegated to MediaGallery singleton)
+  app.get("/api/image-registry", (_req, res) => {
+    const registry = mediaGallery.getRegistry();
     if (!registry) {
       res.status(500).json({ error: "Failed to load image registry" });
       return;
@@ -3633,35 +3636,17 @@ sections: []
 
   app.delete("/api/image-registry/:id", (req, res) => {
     try {
-      const imageId = req.params.id;
-      const registry = loadImageRegistry();
-      if (!registry) {
-        res.status(500).json({ error: "Failed to load image registry" });
-        return;
-      }
-
-      const imageEntry = registry.images[imageId];
-      if (!imageEntry) {
-        res.status(404).json({ error: `Image "${imageId}" not found in registry` });
-        return;
-      }
-
-      const usedIn = contentIndex.getImageUsage(imageId, imageEntry.src);
-      if (usedIn.length > 0) {
-        res.status(409).json({
-          error: "Image is in use",
-          message: `Cannot delete "${imageId}" because it is referenced in ${usedIn.length} file(s)`,
-          usedIn,
+      const result = mediaGallery.unregister(req.params.id);
+      if (!result.success) {
+        const status = result.usedIn ? 409 : 404;
+        res.status(status).json({
+          error: result.usedIn ? "Image is in use" : result.error,
+          message: result.error,
+          ...(result.usedIn ? { usedIn: result.usedIn } : {}),
         });
         return;
       }
-
-      delete registry.images[imageId];
-      const registryPath = path.join(process.cwd(), "marketing-content", "image-registry.json");
-      fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2) + "\n", "utf8");
-      clearImageRegistryCache();
-
-      res.json({ success: true, message: `Deleted "${imageId}" from registry` });
+      res.json({ success: true, message: `Deleted "${req.params.id}" from registry` });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Delete failed" });
     }
@@ -3674,80 +3659,37 @@ sections: []
         res.status(400).json({ error: "Missing or empty 'ids' array" });
         return;
       }
-
-      const registry = loadImageRegistry();
-      if (!registry) {
-        res.status(500).json({ error: "Failed to load image registry" });
-        return;
-      }
-
-      const results: Array<{ id: string; success: boolean; message: string }> = [];
-      let deletedCount = 0;
-
-      for (const imageId of ids) {
-        const imageEntry = registry.images[imageId];
-        if (!imageEntry) {
-          results.push({ id: imageId, success: false, message: "Not found in registry" });
-          continue;
-        }
-
-        const usedIn = contentIndex.getImageUsage(imageId, imageEntry.src);
-        if (usedIn.length > 0) {
-          results.push({
-            id: imageId,
-            success: false,
-            message: `Referenced in ${usedIn.length} file(s): ${usedIn.join(", ")}`,
-          });
-          continue;
-        }
-
-        delete registry.images[imageId];
-        deletedCount++;
-        results.push({ id: imageId, success: true, message: "Deleted" });
-      }
-
-      if (deletedCount > 0) {
-        const registryPath = path.join(process.cwd(), "marketing-content", "image-registry.json");
-        fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2) + "\n", "utf8");
-        clearImageRegistryCache();
-      }
-
+      const { results, deletedCount } = mediaGallery.bulkUnregister(ids);
       res.json({ results, deletedCount, totalRequested: ids.length });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Bulk delete failed" });
     }
   });
 
-  // ============================================
-  // Image Registry Scanner Endpoints
-  // ============================================
-
-  app.post("/api/image-registry/scan", (_req, res) => {
+  // Image Registry Scanner Endpoints (delegated to MediaGallery singleton)
+  app.post("/api/image-registry/scan", async (_req, res) => {
     try {
-      const result = scanImageRegistry();
+      const result = await mediaGallery.scan();
       res.json(result);
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Scan failed" });
     }
   });
 
-  app.post("/api/image-registry/apply", (req, res) => {
+  app.post("/api/image-registry/apply", async (req, res) => {
     try {
       const action = req.query.action as string | undefined;
-      const scanResult = scanImageRegistry();
-
+      const scanResult = await mediaGallery.scan();
       const filtered = {
         ...scanResult,
         newImages: action === "update" ? [] : scanResult.newImages,
         updatedImages: action === "add" ? [] : scanResult.updatedImages,
       };
-
       if (filtered.newImages.length === 0 && filtered.updatedImages.length === 0) {
         res.json({ message: "Nothing to apply", added: 0, updated: 0 });
         return;
       }
-      const applied = applyRegistryChanges(filtered);
-      clearImageRegistryCache();
+      const applied = mediaGallery.applyChanges(filtered);
       const yamlMsg = applied.yamlFilesUpdated.length > 0
         ? `. Updated paths in ${applied.yamlFilesUpdated.length} YAML file(s)`
         : "";
@@ -3757,6 +3699,30 @@ sections: []
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Apply failed" });
+    }
+  });
+
+  app.post("/api/image-registry/migrate", async (req, res) => {
+    try {
+      const { from, to, dryRun, prefix } = req.body as {
+        from?: string; to?: string; dryRun?: boolean; prefix?: string;
+      };
+      if (!from || !to) {
+        res.status(400).json({ error: "Missing 'from' and/or 'to' provider name" });
+        return;
+      }
+      const results = await mediaGallery.migrate(from, to, { dryRun, prefix });
+      const migrated = results.filter(r => r.status === "migrated").length;
+      res.json({
+        message: dryRun
+          ? `Dry run: ${results.length} image(s) would be migrated from ${from} to ${to}`
+          : `Migrated ${migrated} of ${results.length} image(s) from ${from} to ${to}`,
+        results,
+        totalProcessed: results.length,
+        migratedCount: migrated,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Migration failed" });
     }
   });
 
@@ -4054,13 +4020,8 @@ sections: []
 
       let registryImages: Record<string, any> = {};
       try {
-        const registryPath = path.join(
-          process.cwd(),
-          "marketing-content",
-          "image-registry.json"
-        );
-        if (fs.existsSync(registryPath)) {
-          const reg = JSON.parse(fs.readFileSync(registryPath, "utf-8"));
+        const reg = mediaGallery.getRegistry();
+        if (reg) {
           registryImages = reg.images || {};
         }
       } catch {}
