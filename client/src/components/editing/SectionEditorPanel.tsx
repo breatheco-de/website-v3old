@@ -3184,23 +3184,24 @@ export function SectionEditorPanel({
             </DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-hidden flex flex-col gap-4 py-2">
-            <div className="flex items-center gap-2">
+            <div className="flex rounded-md border overflow-visible">
               <Button
                 type="button"
                 size="sm"
-                variant={imagePickerMode === "browse" ? "default" : "outline"}
-                className="toggle-elevate"
+                variant="ghost"
+                className={`flex-1 rounded-none toggle-elevate ${imagePickerMode === "browse" ? "toggle-elevated bg-muted" : ""}`}
                 onClick={() => setImagePickerMode("browse")}
                 data-testid="button-picker-browse"
               >
                 <IconSearch className="h-4 w-4 mr-1.5" />
                 Browse
               </Button>
+              <div className="w-px bg-border" />
               <Button
                 type="button"
                 size="sm"
-                variant={imagePickerMode === "upload" ? "default" : "outline"}
-                className="toggle-elevate"
+                variant="ghost"
+                className={`flex-1 rounded-none toggle-elevate ${imagePickerMode === "upload" ? "toggle-elevated bg-muted" : ""}`}
                 onClick={() => setImagePickerMode("upload")}
                 data-testid="button-picker-upload"
               >
