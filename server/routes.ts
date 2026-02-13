@@ -534,6 +534,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(variableManager.getDefinitions());
   });
 
+  app.put("/api/variables/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { level, key, value } = req.body as {
+        level: string;
+        key?: string;
+        value: string;
+      };
+
+      const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
+      if (!level || value === undefined) {
+        return res.status(400).json({ error: "level and value are required" });
+      }
+      if (!VALID_LEVELS.includes(level)) {
+        return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
+      }
+      if (level !== "default" && !key) {
+        return res.status(400).json({ error: "key is required for non-default levels" });
+      }
+
+      variableManager.updateVariable(name, level, key, value);
+      res.json({ success: true, definitions: variableManager.getDefinitions() });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to update variable" });
+    }
+  });
+
+  app.delete("/api/variables/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { level, key } = req.body as { level: string; key?: string };
+
+      const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
+      if (!level) {
+        return res.status(400).json({ error: "level is required" });
+      }
+      if (!VALID_LEVELS.includes(level)) {
+        return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
+      }
+      if (level !== "default" && !key) {
+        return res.status(400).json({ error: "key is required for non-default levels" });
+      }
+
+      const result = variableManager.deleteVariableEntry(name, level, key);
+      if (!result) {
+        return res.status(404).json({ error: "Variable not found" });
+      }
+      res.json({ success: true, definitions: variableManager.getDefinitions() });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to delete variable entry" });
+    }
+  });
+
   app.get("/api/career-programs", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
     const _location = req.query.location as string | undefined;

@@ -198,6 +198,78 @@ class VariableManager {
     return this.variables[name] || null;
   }
 
+  updateVariable(
+    name: string,
+    level: string,
+    key: string | undefined,
+    value: string,
+  ): void {
+    this.ensureInitialized();
+
+    if (!this.variables[name]) {
+      this.variables[name] = {};
+    }
+
+    const def = this.variables[name];
+
+    if (level === "default") {
+      def.default = value;
+    } else {
+      const bucket = level as "by_locale" | "by_region" | "by_location";
+      if (!def[bucket]) {
+        def[bucket] = {};
+      }
+      if (key) {
+        def[bucket]![key] = value;
+      }
+    }
+
+    this.save();
+  }
+
+  deleteVariableEntry(
+    name: string,
+    level: string,
+    key: string | undefined,
+  ): boolean {
+    this.ensureInitialized();
+
+    const def = this.variables[name];
+    if (!def) return false;
+
+    if (level === "default") {
+      delete def.default;
+    } else {
+      const bucket = level as "by_locale" | "by_region" | "by_location";
+      if (key && def[bucket]) {
+        delete def[bucket]![key];
+        if (Object.keys(def[bucket]!).length === 0) {
+          delete def[bucket];
+        }
+      }
+    }
+
+    this.save();
+    return true;
+  }
+
+  private save(): void {
+    try {
+      const content = yaml.dump(this.variables, {
+        lineWidth: -1,
+        quotingType: '"',
+        forceQuotes: true,
+      });
+      fs.writeFileSync(VARIABLES_PATH, content, "utf-8");
+      const stat = fs.statSync(VARIABLES_PATH);
+      this.lastModified = stat.mtimeMs;
+      console.log("[VariableManager] Saved variables.yml");
+    } catch (err) {
+      console.error("[VariableManager] Failed to save variables.yml:", err);
+      throw err;
+    }
+  }
+
   refresh(): void {
     this.load();
   }

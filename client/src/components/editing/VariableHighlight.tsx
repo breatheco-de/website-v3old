@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useRef, useLayoutEffect, useCallback } from "react";
+import { createContext, useContext, useMemo, useRef, useLayoutEffect, useCallback, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
@@ -7,6 +7,7 @@ import {
   type VariableDefinition,
   type VariableContext as VarCtx,
 } from "@/lib/variable-resolver";
+import { VariableDetailModal } from "./VariableDetailModal";
 
 interface VariableHighlightContextValue {
   definitions: Record<string, VariableDefinition>;
@@ -17,6 +18,13 @@ interface VariableHighlightContextValue {
 const VariableHighlightContext = createContext<VariableHighlightContextValue | null>(null);
 
 const TEMPLATE_REGEX = /\{\{\s*([^|}]+?)\s*(?:\|\s*([\s\S]*?))?\s*\}\}/g;
+
+const VARIABLE_CLICK_EVENT = "variable-highlight-click";
+
+interface VariableClickDetail {
+  variableName: string;
+  inlineDefault: string;
+}
 
 function highlightDomVariables(
   container: HTMLElement,
@@ -75,8 +83,18 @@ function highlightDomVariables(
         span.style.outline = "2px solid rgb(239, 68, 68)";
         span.style.outlineOffset = "1px";
         span.style.borderRadius = "3px";
-        span.style.cursor = "help";
-        span.title = `{{ ${varName} }}\nSource: ${source}${inlineDefault ? `\nDefault: ${inlineDefault}` : ""}`;
+        span.style.cursor = "pointer";
+        span.title = `Click to inspect {{ ${varName} }}`;
+
+        span.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.dispatchEvent(
+            new CustomEvent<VariableClickDetail>(VARIABLE_CLICK_EVENT, {
+              detail: { variableName: varName, inlineDefault },
+            }),
+          );
+        });
       } else {
         span.style.textDecoration = "underline";
         span.style.textDecorationStyle = "dotted";
@@ -160,6 +178,37 @@ export function VariableHighlightProvider({
         {children}
       </div>
     </VariableHighlightContext.Provider>
+  );
+}
+
+export function VariableModalHost() {
+  const [modalState, setModalState] = useState<{
+    open: boolean;
+    variableName: string;
+    inlineDefault: string;
+  }>({ open: false, variableName: "", inlineDefault: "" });
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<VariableClickDetail>).detail;
+      setModalState({
+        open: true,
+        variableName: detail.variableName,
+        inlineDefault: detail.inlineDefault,
+      });
+    };
+
+    window.addEventListener(VARIABLE_CLICK_EVENT, handler);
+    return () => window.removeEventListener(VARIABLE_CLICK_EVENT, handler);
+  }, []);
+
+  return (
+    <VariableDetailModal
+      open={modalState.open}
+      onOpenChange={(open) => setModalState((prev) => ({ ...prev, open }))}
+      variableName={modalState.variableName}
+      inlineDefault={modalState.inlineDefault}
+    />
   );
 }
 
