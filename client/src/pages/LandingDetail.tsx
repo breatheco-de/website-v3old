@@ -79,7 +79,7 @@ export default function LandingDetail() {
   }
 
   return (
-    <div data-testid="page-landing">
+    <div data-testid="page-landing" className="min-h-screen">
       <SectionRenderer 
         sections={landing.sections} 
         contentType="landing"
