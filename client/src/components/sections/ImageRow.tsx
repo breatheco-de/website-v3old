@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
+import { hasHtmlTags, getTextLength, sliceHtml } from "@/lib/htmlTypewriter";
 import type { ImageRowSection, ImageRowSlide } from "../../../../marketing-content/component-registry/image_row/v1.0/schema";
 
 interface ImageRowProps {
@@ -40,13 +41,15 @@ function TypewriterText({
   const [visibleChars, setVisibleChars] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isHtml = useMemo(() => hasHtmlTags(text), [text]);
+  const totalChars = useMemo(() => isHtml ? getTextLength(text) : text.length, [text, isHtml]);
 
   useEffect(() => {
     if (startTimerRef.current) clearTimeout(startTimerRef.current);
     if (timerRef.current) clearInterval(timerRef.current);
 
     if (isEditMode || !isActive) {
-      setVisibleChars(isEditMode ? text.length : 0);
+      setVisibleChars(isEditMode ? totalChars : 0);
       return;
     }
 
@@ -57,7 +60,7 @@ function TypewriterText({
       timerRef.current = setInterval(() => {
         currentChar++;
         setVisibleChars(currentChar);
-        if (currentChar >= text.length) {
+        if (currentChar >= totalChars) {
           if (timerRef.current) clearInterval(timerRef.current);
         }
       }, charDelayMs);
@@ -67,7 +70,19 @@ function TypewriterText({
       if (startTimerRef.current) clearTimeout(startTimerRef.current);
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [text, startDelayMs, charDelayMs, isActive, isEditMode]);
+  }, [text, totalChars, startDelayMs, charDelayMs, isActive, isEditMode]);
+
+  if (isHtml) {
+    if (isEditMode || visibleChars >= totalChars) {
+      return <span className={className} dangerouslySetInnerHTML={{ __html: text }} />;
+    }
+    return (
+      <span className={className} style={{ position: "relative" }}>
+        <span style={{ opacity: 0 }} dangerouslySetInnerHTML={{ __html: text }} />
+        <span style={{ position: "absolute", left: 0, top: 0 }} dangerouslySetInnerHTML={{ __html: sliceHtml(text, visibleChars) }} />
+      </span>
+    );
+  }
 
   if (isEditMode) {
     return <span className={className}>{text}</span>;
@@ -163,7 +178,8 @@ function HighlightSlideshow({
                 pointerEvents: isActive ? "auto" : "none",
               };
 
-          const headingDuration = slide.heading.length * 30;
+          const headingTextLen = hasHtmlTags(slide.heading) ? getTextLength(slide.heading) : slide.heading.length;
+          const headingDuration = headingTextLen * 30;
           const textStartDelay = 650 + headingDuration + 400;
 
           return (
