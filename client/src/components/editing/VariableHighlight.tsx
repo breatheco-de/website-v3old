@@ -32,11 +32,12 @@ function InlineHighlight({
   isEditMode: boolean;
 }) {
   const editModeStyles: React.CSSProperties = {
-    backgroundColor: "rgba(250, 204, 21, 0.25)",
-    border: "1.5px solid rgb(239, 68, 68)",
-    borderRadius: "4px",
-    padding: "1px 4px",
+    backgroundColor: "rgba(250, 204, 21, 0.3)",
+    outline: "2px solid rgb(239, 68, 68)",
+    outlineOffset: "1px",
+    borderRadius: "3px",
     cursor: "help",
+    position: "relative",
   };
 
   const previewStyles: React.CSSProperties = {
