@@ -83,6 +83,12 @@ sections:
       title: Full Stack Developer
       subtitle: 4Geeks Academy Certificate
     showOn: mobile
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - munich-germany
+      - madrid-spain
   - type: image_row
     images:
       - src: /attached_assets/image_1765318600261.png

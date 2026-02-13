@@ -5,12 +5,18 @@ import { editContent } from "@/lib/contentApi";
 export type PreviewBreakpoint = 'desktop' | 'mobile';
 
 const PREVIEW_BREAKPOINT_KEY = '4geeks_preview_breakpoint';
+const EDIT_MODE_KEY = '4geeks_edit_mode';
 
 function getStoredPreviewBreakpoint(): PreviewBreakpoint {
   if (typeof localStorage === 'undefined') return 'desktop';
   const stored = localStorage.getItem(PREVIEW_BREAKPOINT_KEY);
   if (stored === 'mobile' || stored === 'desktop') return stored;
   return 'desktop';
+}
+
+function getStoredEditMode(): boolean {
+  if (typeof localStorage === 'undefined') return false;
+  return localStorage.getItem(EDIT_MODE_KEY) === 'true';
 }
 
 interface EditModeContextValue {
@@ -44,7 +50,7 @@ function shouldAutoEnableEditMode(): boolean {
 }
 
 export function EditModeProvider({ children }: EditModeProviderProps) {
-  const [isEditMode, setIsEditMode] = useState(shouldAutoEnableEditMode);
+  const [isEditMode, setIsEditMode] = useState(() => shouldAutoEnableEditMode() || getStoredEditMode());
   const [selectedSectionIndex, setSelectedSectionIndex] = useState<number | null>(null);
   const [pendingChanges, setPendingChanges] = useState<Map<string, EditOperation[]>>(new Map());
   const [isSaving, setIsSaving] = useState(false);
@@ -67,23 +73,37 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
     });
   }, []);
 
+  const persistEditMode = useCallback((value: boolean) => {
+    if (typeof localStorage !== 'undefined') {
+      if (value) {
+        localStorage.setItem(EDIT_MODE_KEY, 'true');
+      } else {
+        localStorage.removeItem(EDIT_MODE_KEY);
+      }
+    }
+  }, []);
+
   const enableEditMode = useCallback(() => {
     setIsEditMode(true);
-  }, []);
+    persistEditMode(true);
+  }, [persistEditMode]);
 
   const disableEditMode = useCallback(() => {
     setIsEditMode(false);
+    persistEditMode(false);
     setSelectedSectionIndex(null);
-  }, []);
+  }, [persistEditMode]);
 
   const toggleEditMode = useCallback(() => {
     setIsEditMode(prev => {
+      const next = !prev;
+      persistEditMode(next);
       if (prev) {
         setSelectedSectionIndex(null);
       }
-      return !prev;
+      return next;
     });
-  }, []);
+  }, [persistEditMode]);
 
   const addPendingChange = useCallback((pageKey: string, operation: EditOperation) => {
     setPendingChanges(prev => {
