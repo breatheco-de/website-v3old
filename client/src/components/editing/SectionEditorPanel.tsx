@@ -3382,20 +3382,25 @@ export function SectionEditorPanel({
                     className="text-sm"
                     data-testid="input-image-url"
                   />
-                  <Input
-                    value={imagePickerTarget?.currentAlt || ""}
-                    onChange={(e) => {
-                      if (imagePickerTarget) {
-                        setImagePickerTarget({
-                          ...imagePickerTarget,
-                          currentAlt: e.target.value,
-                        });
-                      }
-                    }}
-                    placeholder="Alt text"
-                    className="text-sm"
-                    data-testid="input-image-alt"
-                  />
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 bg-muted text-muted-foreground text-xs select-none">
+                      Alt
+                    </span>
+                    <Input
+                      value={imagePickerTarget?.currentAlt || ""}
+                      onChange={(e) => {
+                        if (imagePickerTarget) {
+                          setImagePickerTarget({
+                            ...imagePickerTarget,
+                            currentAlt: e.target.value,
+                          });
+                        }
+                      }}
+                      placeholder="Alt text"
+                      className="text-sm rounded-l-none"
+                      data-testid="input-image-alt"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
