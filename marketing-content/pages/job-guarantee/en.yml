@@ -106,12 +106,10 @@ sections:
         badges:
           - icon: DollarSign
             text: $14,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
         price: $349
         price_info: or less depending on your plan
-        cta_text: Discover program
+        cta_text: more info
         cta_url: /en/ai-engineering
         course_background: accent
       - name: Full Stack Development
