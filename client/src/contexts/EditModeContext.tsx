@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback, useMemo, useEffect } from "react";
 import type { Section, EditOperation } from "@shared/schema";
 import { editContent } from "@/lib/contentApi";
+import { navigate } from "wouter/use-browser-location";
 
 export type PreviewBreakpoint = 'desktop' | 'mobile';
 
@@ -16,7 +17,37 @@ function getStoredPreviewBreakpoint(): PreviewBreakpoint {
 
 function getStoredEditMode(): boolean {
   if (typeof localStorage === 'undefined') return false;
+  if (!window.location.pathname.startsWith('/private/')) return false;
   return localStorage.getItem(EDIT_MODE_KEY) === 'true';
+}
+
+function publicUrlToPreviewUrl(pathname: string): string | null {
+  const programEnMatch = pathname.match(/^\/en\/career-programs\/([^/]+)\/?$/);
+  if (programEnMatch) return `/private/preview/programs/${programEnMatch[1]}?locale=en`;
+
+  const programEsMatch = pathname.match(/^\/es\/programas-de-carrera\/([^/]+)\/?$/);
+  if (programEsMatch) return `/private/preview/programs/${programEsMatch[1]}?locale=es`;
+
+  const landingMatch = pathname.match(/^\/landing\/([^/]+)\/?$/);
+  if (landingMatch) return `/private/preview/landings/${landingMatch[1]}?locale=en`;
+
+  const locationEnMatch = pathname.match(/^\/en\/location\/([^/]+)\/?$/);
+  if (locationEnMatch) return `/private/preview/locations/${locationEnMatch[1]}?locale=en`;
+
+  const locationEsMatch = pathname.match(/^\/es\/ubicacion\/([^/]+)\/?$/);
+  if (locationEsMatch) return `/private/preview/locations/${locationEsMatch[1]}?locale=es`;
+
+  const pageEnMatch = pathname.match(/^\/en\/([^/]+)\/?$/);
+  if (pageEnMatch && !["career-programs", "location"].includes(pageEnMatch[1])) {
+    return `/private/preview/pages/${pageEnMatch[1]}?locale=en`;
+  }
+
+  const pageEsMatch = pathname.match(/^\/es\/([^/]+)\/?$/);
+  if (pageEsMatch && !["programas-de-carrera", "ubicacion"].includes(pageEsMatch[1])) {
+    return `/private/preview/pages/${pageEsMatch[1]}?locale=es`;
+  }
+
+  return null;
 }
 
 interface EditModeContextValue {
@@ -160,6 +191,28 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
       setIsSaving(false);
     }
   }, [pendingChanges, clearPendingChanges]);
+
+  useEffect(() => {
+    if (!isEditMode) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest('a');
+      if (!anchor) return;
+
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:')) return;
+
+      const previewUrl = publicUrlToPreviewUrl(href);
+      if (previewUrl) {
+        e.preventDefault();
+        e.stopPropagation();
+        navigate(previewUrl);
+      }
+    };
+
+    document.addEventListener('click', handleClick, true);
+    return () => document.removeEventListener('click', handleClick, true);
+  }, [isEditMode]);
 
   const value = useMemo(() => ({
     isEditMode,
