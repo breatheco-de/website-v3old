@@ -80,18 +80,18 @@ sections:
       - src: /attached_assets/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: The 'average student' doesn't exist.
-      text: YOU DO—with your unique strengths, weaknesses and learning style.
+      heading: Tech Careers Aren’t Built on Average.
+      text: That’s why our programs combine dedicated 1:1 mentorship with AI-powered learning systems that adapt to your strengths, identify skill gaps, and accelerate your transition into high-growth tech roles.
       background: primary
       width: 2
     height: 31rem
     mobile_height: 24rem
     gap: md
     rounded: true
-    paddingY:
-      desktop: md none
     marginY:
       desktop: none lg
+    paddingY:
+      desktop: md none
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
