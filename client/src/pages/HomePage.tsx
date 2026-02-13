@@ -49,7 +49,7 @@ export default function HomePage() {
   if (isLoading) {
     return (
       <div 
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-dvh flex items-center justify-center"
         data-testid="loading-home"
       >
         <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
@@ -60,7 +60,7 @@ export default function HomePage() {
   if (error || !page) {
     return (
       <div 
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-dvh flex items-center justify-center"
         data-testid="error-home"
       >
         <div className="text-center">

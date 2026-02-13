@@ -269,7 +269,7 @@ export default function PrivateRedirects() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-dvh bg-background flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle>Access Denied</CardTitle>
@@ -291,7 +291,7 @@ export default function PrivateRedirects() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <div className="border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-4">

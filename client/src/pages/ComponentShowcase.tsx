@@ -1066,7 +1066,7 @@ export default function ComponentShowcase() {
   if (componentType) {
     if (singleLoading) {
       return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-dvh bg-background">
           <main className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-muted-foreground">Loading component...</p>
@@ -1078,7 +1078,7 @@ export default function ComponentShowcase() {
 
     if (!singleComponent) {
       return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-dvh bg-background">
           <main className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-3xl font-bold mb-4">Component Not Found</h1>
@@ -1102,7 +1102,7 @@ export default function ComponentShowcase() {
     const nextComponent = currentIndex < components.length - 1 ? components[currentIndex + 1] : null;
 
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <ComponentCard 
           key={componentType} 
           componentType={componentType}
@@ -1120,7 +1120,7 @@ export default function ComponentShowcase() {
   // All components view
   if (registryLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-muted-foreground">Loading components...</p>
@@ -1131,7 +1131,7 @@ export default function ComponentShowcase() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <AllComponentsLoader 

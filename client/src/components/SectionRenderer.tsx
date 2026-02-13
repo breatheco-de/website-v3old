@@ -528,10 +528,9 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   }, [sendToIframe]);
 
   return (
-    <div className="flex justify-center bg-muted/50 min-h-screen py-8">
+    <div className="flex justify-center bg-muted/50 min-h-dvh py-8">
       <div 
-        className="w-[375px] bg-background shadow-2xl rounded-[32px] overflow-hidden border-4 border-foreground/20 relative"
-        style={{ height: 'calc(100vh - 4rem)' }}
+        className="w-[375px] bg-background shadow-2xl rounded-[32px] overflow-hidden border-4 border-foreground/20 relative h-dvh"
       >
         {/* Phone notch */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-foreground/20 rounded-b-xl z-10" />

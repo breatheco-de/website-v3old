@@ -34,7 +34,7 @@ export default function ApplyPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-dvh bg-background flex items-center justify-center">
         <div className="text-center">
           <div
             className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent align-[-0.125em]"
@@ -47,7 +47,7 @@ export default function ApplyPage() {
 
   if (error || !page) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center" data-testid="apply-page-error">
+      <div className="min-h-dvh bg-background flex items-center justify-center" data-testid="apply-page-error">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">
             {locale === "es" ? "Página no encontrada" : "Page not found"}

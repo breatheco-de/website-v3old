@@ -76,7 +76,7 @@ export default function MoleculesShowcase() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-dvh bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
           <p className="mt-4 text-muted-foreground">Loading molecules...</p>
@@ -87,7 +87,7 @@ export default function MoleculesShowcase() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-dvh bg-background flex items-center justify-center">
         <Card className="max-w-md">
           <CardContent className="pt-6">
             <p className="text-destructive">Failed to load molecules data</p>
@@ -98,7 +98,7 @@ export default function MoleculesShowcase() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3 mb-4">

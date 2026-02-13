@@ -162,7 +162,7 @@ export default function ComponentPreview() {
   }
 
   return (
-    <div ref={containerRef} className="bg-background min-h-screen">
+    <div ref={containerRef} className="bg-background min-h-dvh">
       {isStandalone && !debug && (
         <div className="fixed top-4 left-4 z-50">
           <button

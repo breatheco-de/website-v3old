@@ -526,7 +526,7 @@ export default function MenuEditor() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-dvh bg-background flex items-center justify-center">
         <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
@@ -534,7 +534,7 @@ export default function MenuEditor() {
 
   if (error || (!menuData && !yamlError)) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-dvh bg-background flex items-center justify-center">
         <div className="text-center">
           <p className="text-destructive mb-4">Failed to load menu</p>
           <Button variant="outline" onClick={() => navigate("/")}>
@@ -546,7 +546,7 @@ export default function MenuEditor() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <header className="sticky top-0 z-50 bg-background border-b">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">

@@ -848,7 +848,7 @@ function PageAnalysisTab() {
 
 export default function DiagnosticsPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <Link href="/">
