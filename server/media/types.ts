@@ -17,5 +17,6 @@ export interface MediaConfig {
     projectId?: string;
     keyFilename?: string;
     credentialsJson?: string;
+    basePath?: string;
   };
 }

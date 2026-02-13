@@ -40,6 +40,7 @@ class Media {
         projectId: process.env.GCS_PROJECT_ID,
         keyFilename: process.env.GCS_KEY_FILENAME,
         credentialsJson: process.env.GCS_CREDENTIALS_JSON,
+        basePath: process.env.GCS_BASE_PATH || "media",
       };
     }
 
