@@ -75,13 +75,13 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
     <div
       className={cn(
         "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg transition-all duration-300",
-        isExpanded ? "max-h-[80vh] overflow-auto" : "max-h-20"
+        isExpanded && "max-h-[80vh] overflow-auto"
       )}
       data-testid="sticky-cta-bar"
     >
       <div className="container mx-auto px-4">
         {!isExpanded ? (
-          <div className="flex items-center justify-center py-4 gap-4">
+          <div className="flex items-center justify-center flex-wrap py-4 gap-4">
             <p className="text-sm md:text-base font-medium text-foreground">
               {data.heading}
             </p>
