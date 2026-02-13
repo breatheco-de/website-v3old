@@ -7,7 +7,7 @@
  * EditorType options: "icon-picker" | "color-picker" | "image-picker" | "image-with-style-picker" | "link-picker" | "rich-text-editor"
  */
 
-export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "image-with-style-picker" | "link-picker" | "rich-text-editor";
+export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "image-with-style-picker" | "link-picker" | "rich-text-editor" | "boolean-toggle";
 
 export const fieldEditors: Record<string, EditorType> = {
   "images[].src": "image-with-style-picker",
@@ -15,4 +15,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "highlight.text": "rich-text-editor",
   "highlight.slides[].heading": "rich-text-editor",
   "highlight.slides[].text": "rich-text-editor",
+  "highlight.reverse_text_order": "boolean-toggle"
 };
