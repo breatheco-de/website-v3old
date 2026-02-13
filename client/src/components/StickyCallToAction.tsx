@@ -1,5 +1,4 @@
 import { useState, lazy, Suspense } from "react";
-import { createPortal } from "react-dom";
 import { IconX, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -72,16 +71,12 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
     return null;
   }
 
-  return createPortal(
+  return (
     <div
       className={cn(
-        "fixed left-0 right-0 z-50 bg-card border-t shadow-lg",
+        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg",
         isExpanded && "max-h-[80vh] overflow-auto"
       )}
-      style={{
-        bottom: "env(safe-area-inset-bottom, 0px)",
-        paddingBottom: "env(safe-area-inset-bottom, 0px)",
-      }}
       data-testid="sticky-cta-bar"
     >
       <div className="container mx-auto px-4">
@@ -142,8 +137,7 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
           </div>
         )}
       </div>
-    </div>,
-    document.body
+    </div>
   );
 }
 
