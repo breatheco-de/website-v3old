@@ -59,6 +59,7 @@ import {
   loadContent,
   listContentSlugs,
   loadCommonData,
+  type ContentType,
 } from "./utils/contentLoader";
 import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
@@ -3918,9 +3919,14 @@ sections: []
         context = await service.buildContext();
       }
 
-      const file = context.contentFiles.find(
+      const matchingFiles = context.contentFiles.filter(
         (f: any) => getCanonicalUrl(f) === url
       );
+      const urlLocale = url.startsWith("/es/") ? "es" : url.startsWith("/en/") ? "en" : null;
+      const file = (urlLocale && matchingFiles.find((f: any) => f.locale === urlLocale))
+        || matchingFiles.find((f: any) => f.locale !== "_common")
+        || matchingFiles[0]
+        || null;
 
       if (!file) {
         res.status(404).json({ error: `No content found for URL: ${url}` });
@@ -3933,6 +3939,77 @@ sections: []
           rawData = yaml.load(fs.readFileSync(file.filePath, "utf-8")) || {};
         }
       } catch {}
+
+      const schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> } = { valid: true, errors: [] };
+      try {
+        const typeToContentType: Record<string, ContentType> = {
+          program: "programs",
+          landing: "landings",
+          location: "locations",
+          page: "pages",
+        };
+        const typeToSchema: Record<string, any> = {
+          program: careerProgramSchema,
+          landing: landingPageSchema,
+          location: locationPageSchema,
+          page: templatePageSchema,
+        };
+        const ct = typeToContentType[file.type];
+        const zodSchema = typeToSchema[file.type];
+        if (ct && zodSchema) {
+          let inferredLocale = file.locale;
+          if (!inferredLocale || inferredLocale === "_common") {
+            inferredLocale = urlLocale || (url.startsWith("/es/") ? "es" : "en");
+          }
+          const localeOrVariant = file.type === "landing" ? "promoted" : inferredLocale;
+          const folderSlug = path.basename(path.dirname(file.filePath));
+          const result = loadContent({
+            contentType: ct,
+            slug: folderSlug,
+            schema: zodSchema,
+            localeOrVariant,
+          });
+          if (!result.success) {
+            schemaValidation.valid = false;
+            const zodErrorMatch = result.error.match(/Invalid YAML structure[^:]*:\s*([\s\S]*)/);
+            if (zodErrorMatch) {
+              try {
+                const parsed = JSON.parse(zodErrorMatch[1]);
+                if (Array.isArray(parsed)) {
+                  for (const issue of parsed) {
+                    schemaValidation.errors.push({
+                      path: Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || ""),
+                      code: issue.code || "unknown",
+                      message: issue.message || "Validation failed",
+                      expected: issue.expected ? String(issue.expected) : undefined,
+                      received: issue.received ? String(issue.received) : undefined,
+                    });
+                  }
+                }
+              } catch {
+                schemaValidation.errors.push({
+                  path: "",
+                  code: "SCHEMA_VALIDATION_FAILED",
+                  message: zodErrorMatch[1] || result.error,
+                });
+              }
+            } else {
+              schemaValidation.errors.push({
+                path: "",
+                code: "CONTENT_LOAD_FAILED",
+                message: result.error,
+              });
+            }
+          }
+        }
+      } catch (e) {
+        schemaValidation.valid = false;
+        schemaValidation.errors.push({
+          path: "",
+          code: "SCHEMA_CHECK_ERROR",
+          message: String(e),
+        });
+      }
 
       const sections = (rawData.sections as any[]) || [];
       const sectionTypes = sections
@@ -4022,6 +4099,23 @@ sections: []
       }
 
       const issues: any[] = [];
+
+      if (!schemaValidation.valid) {
+        for (const err of schemaValidation.errors) {
+          issues.push({
+            type: "error",
+            code: err.code,
+            message: err.path ? `${err.path}: ${err.message}` : err.message,
+            category: "schema-validation",
+            details: {
+              path: err.path,
+              expected: err.expected,
+              received: err.received,
+            },
+          });
+        }
+      }
+
       const meta = file.meta || {};
       let seoScore = 0;
       let seoMax = 0;
@@ -4190,6 +4284,8 @@ sections: []
         filePath: file.filePath,
         title: file.title,
 
+        schemaValidation,
+
         meta: {
           page_title: meta.page_title || null,
           titleLength: meta.page_title ? meta.page_title.length : 0,
@@ -4234,6 +4330,8 @@ sections: []
         },
 
         emptyFields,
+
+        issues,
 
         score: {
           total: totalScore,
