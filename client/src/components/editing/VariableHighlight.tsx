@@ -23,26 +23,38 @@ function InlineHighlight({
   variable,
   source,
   defaultValue,
+  isEditMode,
 }: {
   children: ReactNode;
   variable: string;
   source: string;
   defaultValue: string;
+  isEditMode: boolean;
 }) {
+  const editModeStyles: React.CSSProperties = {
+    backgroundColor: "rgba(250, 204, 21, 0.25)",
+    border: "1.5px solid rgb(239, 68, 68)",
+    borderRadius: "4px",
+    padding: "1px 4px",
+    cursor: "help",
+  };
+
+  const previewStyles: React.CSSProperties = {
+    textDecoration: "underline",
+    textDecorationStyle: "dotted",
+    textDecorationColor: "rgb(139, 92, 246)",
+    textDecorationThickness: "2px",
+    textUnderlineOffset: "3px",
+    borderRadius: "2px",
+    cursor: "help",
+  };
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <span
           className="variable-highlight"
-          style={{
-            textDecoration: "underline",
-            textDecorationStyle: "dotted",
-            textDecorationColor: "rgb(139, 92, 246)",
-            textDecorationThickness: "2px",
-            textUnderlineOffset: "3px",
-            borderRadius: "2px",
-            cursor: "help",
-          }}
+          style={isEditMode ? editModeStyles : previewStyles}
           data-testid={`variable-highlight-${variable}`}
         >
           {children}
@@ -55,7 +67,7 @@ function InlineHighlight({
         <div className="text-xs space-y-0.5">
           <div className="font-mono font-semibold">{`{{ ${variable} }}`}</div>
           <div className="opacity-80">Source: {source}</div>
-          <div className="opacity-80">Default: {defaultValue}</div>
+          {defaultValue && <div className="opacity-80">Default: {defaultValue}</div>}
         </div>
       </TooltipContent>
     </Tooltip>
@@ -73,10 +85,6 @@ function resolveAndHighlightText(
   const tokens = extractTemplateTokens(text);
   if (tokens.length === 0) return text;
 
-  if (isEditMode) {
-    return text;
-  }
-
   const parts: ReactNode[] = [];
   let lastEnd = 0;
 
@@ -87,7 +95,7 @@ function resolveAndHighlightText(
 
     const result = resolveVariable(token.variableName, definitions, context);
     const value = result?.value || token.defaultValue || token.variableName;
-    const source = result?.source || "inline";
+    const source = result?.source || (token.defaultValue ? "inline" : "unresolved");
 
     parts.push(
       <InlineHighlight
@@ -95,6 +103,7 @@ function resolveAndHighlightText(
         variable={token.variableName}
         source={source}
         defaultValue={token.defaultValue}
+        isEditMode={isEditMode}
       >
         {value}
       </InlineHighlight>
