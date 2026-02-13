@@ -51,7 +51,7 @@
   },
   "images": {
     "clark_university": {
-      "src": "/attached_assets/clark-university_1769653206336.png",
+      "src": "/marketing-content/images/clark-university_1769653206336.png",
       "alt": "Clark University Logo",
       "focal_point": "center",
       "tags": ["logo", "university", "partner"],
@@ -754,7 +754,7 @@
       "usage_count": 0
     },
     "students_group_collaboration": {
-      "src": "/attached_assets/00FAV_IMG_8709.jpg",
+      "src": "/marketing-content/images/00FAV_IMG_8709.jpg",
       "alt": "Group of 4Geeks Academy students collaborating around laptops",
       "focal_point": "center",
       "tags": ["students", "group", "collaboration", "classroom", "photo"],

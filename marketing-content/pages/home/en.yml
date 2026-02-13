@@ -55,7 +55,7 @@ sections:
         linkText: Read reviews
       - id: switchup-detailed
         alt: Clark University Logo
-        logo: /attached_assets/clark-university_1769653206336.png
+        logo: /marketing-content/images/clark-university_1769653206336.png
         logoHeight: 64px
         description: We are certified by the most recognized universities
         link: https://www.switchup.org

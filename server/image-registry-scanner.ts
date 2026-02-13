@@ -244,6 +244,20 @@ export function scanImageRegistry(): ScanResult {
     }
   }
 
+  for (const [id, entry] of Object.entries(registry.images)) {
+    const src = (entry as any).src;
+    if (!src || typeof src !== "string") continue;
+    const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
+    const diskPath = path.join(process.cwd(), normalizedSrc);
+    if (!fs.existsSync(diskPath)) {
+      brokenReferences.push({
+        yamlFile: `image-registry.json (id: ${id})`,
+        field: "src",
+        missingSrc: normalizedSrc,
+      });
+    }
+  }
+
   return {
     newImages,
     updatedImages,

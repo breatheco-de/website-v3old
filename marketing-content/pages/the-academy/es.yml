@@ -135,7 +135,7 @@ sections:
         logoHeight: 56px
       - id: clark-university
         alt: Logo Clark University
-        logo: /attached_assets/clark-university_1769653206336.png
+        logo: /marketing-content/images/clark-university_1769653206336.png
         logoHeight: 56px
       - id: logo-cinde
         alt: Logo CINDE Invest in Costa Rica
