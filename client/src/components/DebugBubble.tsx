@@ -664,6 +664,21 @@ export function DebugBubble() {
   // Breathecode host state
   const [breathecodeHost, setBreathecodeHost] = useState<{ host: string; isDefault: boolean } | null>(null);
   
+  // Page diagnostics state
+  const [pageErrorsModalOpen, setPageErrorsModalOpen] = useState(false);
+  const [pageDiagnostics, setPageDiagnostics] = useState<{
+    url: string;
+    contentType: string;
+    slug: string;
+    locale: string;
+    filePath: string;
+    title: string;
+    schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> };
+    issues: Array<{ type: "error" | "warning" | "info"; code: string; message: string; category?: string; details?: { path?: string; expected?: string; received?: string } }>;
+    score: { total: number; seo: number; schema: number; content: number };
+  } | null>(null);
+  const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
+
   // Detect current content info from URL
   const contentInfo = useMemo(() => detectContentInfo(pathname), [pathname]);
 
@@ -694,6 +709,36 @@ export function DebugBubble() {
       setMenuViewState("experiments");
     }
   }, [pathname, contentInfo.type, contentInfo.slug]);
+
+  // Auto-fetch page diagnostics when debug mode is active (on every page)
+  useEffect(() => {
+    if (!isDebugMode || pathname.startsWith('/private/')) {
+      setPageDiagnostics(null);
+      return;
+    }
+    setPageDiagnosticsLoading(true);
+    setPageDiagnostics(null);
+    fetch(`/api/diagnostics/page?url=${encodeURIComponent(pathname)}`)
+      .then((res) => {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then((data) => {
+        if (data) setPageDiagnostics(data);
+      })
+      .catch(() => {})
+      .finally(() => setPageDiagnosticsLoading(false));
+  }, [pathname, isDebugMode]);
+
+  const pageErrorCount = useMemo(() => {
+    if (!pageDiagnostics) return 0;
+    return pageDiagnostics.issues?.filter(i => i.type === "error").length || 0;
+  }, [pageDiagnostics]);
+
+  const pageWarningCount = useMemo(() => {
+    if (!pageDiagnostics) return 0;
+    return pageDiagnostics.issues?.filter(i => i.type === "warning").length || 0;
+  }, [pageDiagnostics]);
 
   // Auto-enable edit mode after successful token validation
   useEffect(() => {
@@ -1681,6 +1726,26 @@ export function DebugBubble() {
               >
                 <IconArrowUp className="h-3 w-3" />
                 <span>Commit</span>
+              </button>
+            )}
+            {/* Show "Page errors" indicator when diagnostics found issues */}
+            {(pageErrorCount > 0 || pageWarningCount > 0) && (
+              <button
+                onClick={() => setPageErrorsModalOpen(true)}
+                className="absolute left-full ml-1 flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium cursor-pointer hover:opacity-90 transition-opacity"
+                style={{
+                  top: githubSyncStatus?.syncEnabled && pendingChanges.some(c => c.source === 'local' || c.source === 'conflict') && !noTokenDetected && !tokenWithoutCapabilities ? '1.5rem' : '-0.25rem',
+                  backgroundColor: pageErrorCount > 0 ? '#ef4444' : '#f59e0b',
+                  color: '#fff',
+                  boxShadow: pageErrorCount > 0
+                    ? '0 0 12px 2px rgba(239, 68, 68, 0.6), 0 0 20px 4px rgba(239, 68, 68, 0.3)'
+                    : '0 0 12px 2px rgba(245, 158, 11, 0.6), 0 0 20px 4px rgba(245, 158, 11, 0.3)',
+                }}
+                data-testid="indicator-page-errors"
+                title={`${pageErrorCount} error${pageErrorCount !== 1 ? 's' : ''}, ${pageWarningCount} warning${pageWarningCount !== 1 ? 's' : ''} - click to view`}
+              >
+                <IconAlertTriangle className="h-3 w-3" />
+                <span>Page errors</span>
               </button>
             )}
           </div>
@@ -3957,6 +4022,109 @@ export function DebugBubble() {
                   Create {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
                 </>
               )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* Page Errors Modal */}
+      <Dialog open={pageErrorsModalOpen} onOpenChange={setPageErrorsModalOpen}>
+        <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Page Diagnostics
+            </DialogTitle>
+            <DialogDescription>
+              {pageDiagnostics ? `Issues found on ${pageDiagnostics.url}` : 'Loading diagnostics...'}
+            </DialogDescription>
+          </DialogHeader>
+          {pageDiagnostics && (
+            <div className="space-y-4">
+              <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
+                <div className="grid grid-cols-2 gap-1 text-muted-foreground">
+                  <span>Content Type:</span>
+                  <span className="font-mono text-foreground" data-testid="text-modal-content-type">{pageDiagnostics.contentType}</span>
+                  <span>Slug:</span>
+                  <span className="font-mono text-foreground" data-testid="text-modal-slug">{pageDiagnostics.slug}</span>
+                  <span>Locale:</span>
+                  <span className="font-mono text-foreground" data-testid="text-modal-locale">{pageDiagnostics.locale}</span>
+                  <span>Schema Valid:</span>
+                  <span className={`font-mono ${pageDiagnostics.schemaValidation?.valid ? "text-green-600 dark:text-green-400" : "text-destructive"}`} data-testid="text-modal-schema-valid">
+                    {pageDiagnostics.schemaValidation?.valid ? "Yes" : "No"}
+                  </span>
+                </div>
+              </div>
+
+              {(() => {
+                const errors = pageDiagnostics.issues?.filter(i => i.type === "error") || [];
+                const warnings = pageDiagnostics.issues?.filter(i => i.type === "warning") || [];
+                const infos = pageDiagnostics.issues?.filter(i => i.type === "info") || [];
+                return (
+                  <>
+                    {errors.length > 0 && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-destructive">Errors</h3>
+                        {errors.map((issue, i) => (
+                          <div key={i} className="p-3 rounded-md bg-destructive/10 border border-destructive/30 text-sm" data-testid={`modal-error-${i}`}>
+                            <div className="font-mono font-medium text-destructive text-xs">{issue.code}</div>
+                            <div className="mt-1 text-foreground">{issue.message}</div>
+                            {issue.details?.expected && (
+                              <div className="mt-1 text-xs text-muted-foreground">
+                                Expected: <span className="font-mono">{issue.details.expected}</span>
+                                {issue.details.received && (
+                                  <> | Received: <span className="font-mono">{issue.details.received}</span></>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {warnings.length > 0 && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-amber-600 dark:text-amber-400">Warnings</h3>
+                        {warnings.map((issue, i) => (
+                          <div key={i} className="p-3 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm" data-testid={`modal-warning-${i}`}>
+                            <div className="font-mono font-medium text-amber-700 dark:text-amber-300 text-xs">{issue.code}</div>
+                            <div className="mt-1 text-foreground">{issue.message}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {infos.length > 0 && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-muted-foreground">Info</h3>
+                        {infos.map((issue, i) => (
+                          <div key={i} className="p-3 rounded-md bg-muted/50 border border-border text-sm" data-testid={`modal-info-${i}`}>
+                            <div className="font-mono font-medium text-muted-foreground text-xs">{issue.code}</div>
+                            <div className="mt-1 text-foreground">{issue.message}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {errors.length === 0 && warnings.length === 0 && infos.length === 0 && (
+                      <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="modal-no-issues">
+                        No issues found. The content loads and validates correctly.
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+
+              <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
+                <div className="text-muted-foreground mb-1">Health Score</div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span data-testid="text-modal-score-total">Total: <strong>{pageDiagnostics.score?.total}%</strong></span>
+                  <span data-testid="text-modal-score-seo">SEO: {pageDiagnostics.score?.seo}%</span>
+                  <span data-testid="text-modal-score-schema">Schema: {pageDiagnostics.score?.schema}%</span>
+                  <span data-testid="text-modal-score-content">Content: {pageDiagnostics.score?.content}%</span>
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPageErrorsModalOpen(false)} data-testid="button-close-page-errors">
+              Close
             </Button>
           </DialogFooter>
         </DialogContent>
