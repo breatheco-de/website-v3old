@@ -269,7 +269,7 @@ sections:
       desktop: none
   - type: career_support_explain
     version: v1.0
-    heading: Finance your future
+    heading: Get Hired. With Career Support Built for the AI Era
     description: Our career support program is designed to help you land your first job in tech
     background: hsl(var(--muted))
     tabs:
@@ -278,7 +278,7 @@ sections:
         col1_subtitle: Build a recruiter-ready profile, smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal  impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
