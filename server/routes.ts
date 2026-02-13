@@ -55,6 +55,7 @@ import {
 } from "./experiments";
 import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
+import multer from "multer";
 import {
   loadContent,
   listContentSlugs,
@@ -3731,6 +3732,41 @@ sections: []
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Migration failed" });
+    }
+  });
+
+  const imageUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+      const allowed = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (allowed.includes(ext)) {
+        cb(null, true);
+      } else {
+        cb(new Error(`Unsupported file type: ${ext}`));
+      }
+    },
+  });
+
+  app.post("/api/image-registry/upload", imageUpload.single("file"), async (req, res) => {
+    try {
+      const file = (req as any).file;
+      if (!file) {
+        res.status(400).json({ error: "No file provided" });
+        return;
+      }
+      const alt = (req.body?.alt as string) || undefined;
+      const tags = req.body?.tags ? JSON.parse(req.body.tags) : undefined;
+      const result = await mediaGallery.uploadAndRegister(
+        file.originalname,
+        file.buffer,
+        file.mimetype,
+        { alt, tags }
+      );
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Upload failed" });
     }
   });
 

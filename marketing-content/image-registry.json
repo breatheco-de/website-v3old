@@ -2,49 +2,82 @@
   "presets": {
     "hero-wide": {
       "aspect_ratio": "16:9",
-      "widths": [640, 960, 1280, 1920],
+      "widths": [
+        640,
+        960,
+        1280,
+        1920
+      ],
       "quality": 85,
       "description": "Full-width hero images"
     },
     "hero-tall": {
       "aspect_ratio": "9:16",
-      "widths": [360, 480, 640],
+      "widths": [
+        360,
+        480,
+        640
+      ],
       "quality": 85,
       "description": "Vertical hero images for mobile-style content"
     },
     "card": {
       "aspect_ratio": "4:3",
-      "widths": [320, 480, 640],
+      "widths": [
+        320,
+        480,
+        640
+      ],
       "quality": 80,
       "description": "Standard card thumbnails"
     },
     "card-wide": {
       "aspect_ratio": "16:9",
-      "widths": [320, 480, 640],
+      "widths": [
+        320,
+        480,
+        640
+      ],
       "quality": 80,
       "description": "Wide card thumbnails"
     },
     "avatar": {
       "aspect_ratio": "1:1",
-      "widths": [64, 128, 256],
+      "widths": [
+        64,
+        128,
+        256
+      ],
       "quality": 85,
       "description": "Profile pictures and avatars"
     },
     "logo": {
       "aspect_ratio": null,
-      "widths": [120, 240],
+      "widths": [
+        120,
+        240
+      ],
       "quality": 90,
       "description": "Company logos, preserves original aspect ratio"
     },
     "icon": {
       "aspect_ratio": "1:1",
-      "widths": [32, 64, 128],
+      "widths": [
+        32,
+        64,
+        128
+      ],
       "quality": 90,
       "description": "Small icons and badges"
     },
     "full": {
       "aspect_ratio": null,
-      "widths": [640, 960, 1280, 1920],
+      "widths": [
+        640,
+        960,
+        1280,
+        1920
+      ],
       "quality": 85,
       "description": "Full-size images, preserves original aspect ratio"
     }
@@ -54,731 +87,1136 @@
       "src": "/marketing-content/images/clark-university_1769653206336.png",
       "alt": "Clark University Logo",
       "focal_point": "center",
-      "tags": ["logo", "university", "partner"],
+      "tags": [
+        "logo",
+        "university",
+        "partner"
+      ],
       "usage_count": 0
     },
     "arp_logo_certification": {
       "src": "/attached_assets/arp-logo-certification_1765548854924.png",
       "alt": "ARP Certification Logo",
       "focal_point": "center",
-      "tags": ["logo", "certification", "award"],
+      "tags": [
+        "logo",
+        "certification",
+        "award"
+      ],
       "usage_count": 2
     },
     "badges_new": {
       "src": "/attached_assets/badges-new.avif",
       "alt": "Award badges",
       "focal_point": "center",
-      "tags": ["badge", "award"],
+      "tags": [
+        "badge",
+        "award"
+      ],
       "usage_count": 2
     },
     "logo_beacon_council": {
       "src": "/attached_assets/beacon_council_1764720100166.jpg",
       "alt": "Beacon Council logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "logo_blackstone": {
       "src": "/attached_assets/blackstone_1764720124773.png",
       "alt": "Blackstone logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 4
     },
     "logo_boats": {
       "src": "/attached_assets/boats_1764719939123.jpg",
       "alt": "Boats company logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 9
     },
     "caracas_graduates": {
       "src": "/attached_assets/caracas-graduates_1765387638222.png",
       "alt": "Caracas graduates celebration",
       "focal_point": "center",
-      "tags": ["photo", "graduates", "location"],
+      "tags": [
+        "photo",
+        "graduates",
+        "location"
+      ],
       "usage_count": 3
     },
     "logo_cemex": {
       "src": "/attached_assets/cemex_1764720131666.png",
       "alt": "CEMEX logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 4
     },
     "logo_coinet": {
       "src": "/attached_assets/coinet_1764720056569.jpg",
       "alt": "Coinet logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "community": {
       "src": "/attached_assets/community_1764717588840.png",
       "alt": "Community illustration",
       "focal_point": "center",
-      "tags": ["illustration", "community"]
+      "tags": [
+        "illustration",
+        "community"
+      ]
     },
     "community_support": {
       "src": "/attached_assets/community-support-2_1765406601448.webp",
       "alt": "Community support image",
       "focal_point": "center",
-      "tags": ["photo", "community", "support"],
+      "tags": [
+        "photo",
+        "community",
+        "support"
+      ],
       "usage_count": 2
     },
     "course_report_badge": {
       "src": "/attached_assets/Course-Report-Badge-2025_1764709632231.webp",
       "alt": "Course Report Badge 2025",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award", "course-report"],
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "course-report"
+      ],
       "usage_count": 2
     },
     "logo_course_report": {
       "src": "/attached_assets/course-report_1765590146414.webp",
       "alt": "Course Report logo",
       "focal_point": "center",
-      "tags": ["logo", "review"],
+      "tags": [
+        "logo",
+        "review"
+      ],
       "usage_count": 0
     },
     "logo_ds9": {
       "src": "/attached_assets/ds9_1764720051158.png",
       "alt": "DS9 logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "logo_ebay": {
       "src": "/attached_assets/ebay_1764719967118.png",
       "alt": "eBay logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 14
     },
     "ebootcamp_top": {
       "src": "/attached_assets/ebootcamp-top_1765549056325.png",
       "alt": "eBootcamp Top Award",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award"],
+      "tags": [
+        "logo",
+        "badge",
+        "award"
+      ],
       "usage_count": 2
     },
     "logo_evernote": {
       "src": "/attached_assets/evernote_1764719981901.png",
       "alt": "Evernote logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 10
     },
     "exelencia_educativa": {
       "src": "/attached_assets/exelencia-educativa-es_1765549347699.png",
       "alt": "Excelencia Educativa award",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award", "spanish"],
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "spanish"
+      ],
       "usage_count": 2
     },
     "feliz_empresario_laptop": {
       "src": "/attached_assets/feliz-empresario-laptop_1765406479465.png",
       "alt": "Happy professional with laptop",
       "focal_point": "center",
-      "tags": ["photo", "professional", "hero"],
+      "tags": [
+        "photo",
+        "professional",
+        "hero"
+      ],
       "usage_count": 3
     },
     "fernando_funez": {
       "src": "/attached_assets/fernando-funez_1765315920677.jpg",
       "alt": "Fernando Funez testimonial",
       "focal_point": "center",
-      "tags": ["photo", "testimonial", "avatar"],
+      "tags": [
+        "photo",
+        "testimonial",
+        "avatar"
+      ],
       "usage_count": 3
     },
     "forbes_logo_award": {
       "src": "/attached_assets/forbes-logo-award_1764709625651.webp",
       "alt": "Forbes Award logo",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award", "forbes"],
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "forbes"
+      ],
       "usage_count": 2
     },
     "fortune_logo": {
       "src": "/attached_assets/fortune-logo_1764709618095.webp",
       "alt": "Fortune logo",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award", "fortune"],
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "fortune"
+      ],
       "usage_count": 2
     },
     "students_collaborating": {
       "src": "/attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp",
       "alt": "Students collaborating in workspace",
       "focal_point": "center",
-      "tags": ["photo", "students", "hero"],
+      "tags": [
+        "photo",
+        "students",
+        "hero"
+      ],
       "usage_count": 2
     },
     "logo_google": {
       "src": "/attached_assets/google_1765590146414.webp",
       "alt": "Google logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 0
     },
     "logo_google_developers": {
       "src": "/attached_assets/google-developers_1764719904190.png",
       "alt": "Google Developers logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 14
     },
     "group_career_support": {
       "src": "/attached_assets/Group-6663_1764711021914.png",
       "alt": "Career support illustration",
       "focal_point": "center",
-      "tags": ["illustration", "career"]
+      "tags": [
+        "illustration",
+        "career"
+      ]
     },
     "group_geekpal": {
       "src": "/attached_assets/Group_6685_(1)_1765300162049.png",
       "alt": "GeekPal support illustration",
       "focal_point": "center",
-      "tags": ["illustration", "support"],
+      "tags": [
+        "illustration",
+        "support"
+      ],
       "usage_count": 3
     },
     "group_original": {
       "src": "/attached_assets/Group-original_1765419144159.webp",
       "alt": "Original group illustration",
       "focal_point": "center",
-      "tags": ["illustration"],
+      "tags": [
+        "illustration"
+      ],
       "usage_count": 2
     },
     "hombre_joven_laptop": {
       "src": "/attached_assets/hombre-joven-con-laptop_1764691956393.webp",
       "alt": "Young man with laptop",
       "focal_point": "center",
-      "tags": ["photo", "student", "hero"],
+      "tags": [
+        "photo",
+        "student",
+        "hero"
+      ],
       "usage_count": 2
     },
     "image_geekpal_support": {
       "src": "/attached_assets/image_1765300905942.png",
       "alt": "GeekPal support feature",
       "focal_point": "center",
-      "tags": ["illustration", "support"]
+      "tags": [
+        "illustration",
+        "support"
+      ]
     },
     "image_feature_1": {
       "src": "/attached_assets/image_1765310359129.png",
       "alt": "Feature illustration",
       "focal_point": "center",
-      "tags": ["illustration", "feature"],
+      "tags": [
+        "illustration",
+        "feature"
+      ],
       "usage_count": 1
     },
     "image_feature_2": {
       "src": "/attached_assets/image_1765318479754.png",
       "alt": "Feature illustration",
       "focal_point": "center",
-      "tags": ["illustration", "feature"],
+      "tags": [
+        "illustration",
+        "feature"
+      ],
       "usage_count": 2
     },
     "image_feature_3": {
       "src": "/attached_assets/image_1765318521904.png",
       "alt": "Feature illustration",
       "focal_point": "center",
-      "tags": ["illustration", "feature"],
+      "tags": [
+        "illustration",
+        "feature"
+      ],
       "usage_count": 2
     },
     "image_feature_4": {
       "src": "/attached_assets/image_1765318556862.png",
       "alt": "Feature illustration",
       "focal_point": "center",
-      "tags": ["illustration", "feature"],
+      "tags": [
+        "illustration",
+        "feature"
+      ],
       "usage_count": 2
     },
     "image_feature_5": {
       "src": "/attached_assets/image_1765318600261.png",
       "alt": "Feature illustration",
       "focal_point": "center",
-      "tags": ["illustration", "feature"],
+      "tags": [
+        "illustration",
+        "feature"
+      ],
       "usage_count": 2
     },
     "logo_jooble": {
       "src": "/attached_assets/jooble_1764720010702.png",
       "alt": "Jooble logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 10
     },
     "logo_kpmg": {
       "src": "/attached_assets/kpmg-logo1_1764720019827.png",
       "alt": "KPMG logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 6
     },
     "logo_mdc": {
       "src": "/attached_assets/mdc_ce_1764720089793.png",
       "alt": "MDC CE logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "logo_meta": {
       "src": "/attached_assets/meta-logo_1764719959855.png",
       "alt": "Meta logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 14
     },
     "logo_microsoft": {
       "src": "/attached_assets/microsoft_1764719829995.png",
       "alt": "Microsoft logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 15
     },
     "logo_natgeo": {
       "src": "/attached_assets/natgeo_1764719975443.png",
       "alt": "National Geographic logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 10
     },
     "logo_neo9": {
       "src": "/attached_assets/Neo9_1764720006347.png",
       "alt": "Neo9 logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 10
     },
     "newsweek_badge": {
       "src": "/attached_assets/newsweek_1764709608255.webp",
       "alt": "Newsweek award badge",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award", "newsweek"],
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "newsweek"
+      ],
       "usage_count": 2
     },
     "our_story": {
       "src": "/attached_assets/our-story_1765323971104.webp",
       "alt": "Our story image",
       "focal_point": "center",
-      "tags": ["photo", "about"],
+      "tags": [
+        "photo",
+        "about"
+      ],
       "usage_count": 2
     },
     "logo_overseas": {
       "src": "/attached_assets/overseas_1764720045331.png",
       "alt": "Overseas logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "pee_career": {
       "src": "/attached_assets/pee-career_1765549482702.png",
       "alt": "Career excellence award",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award"],
+      "tags": [
+        "logo",
+        "badge",
+        "award"
+      ],
       "usage_count": 2
     },
     "pee_innovation": {
       "src": "/attached_assets/pee-innovation_1765549510015.png",
       "alt": "Innovation excellence award",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award"],
+      "tags": [
+        "logo",
+        "badge",
+        "award"
+      ],
       "usage_count": 2
     },
     "pee_trajectory": {
       "src": "/attached_assets/pee-trajectory_1765549529048.png",
       "alt": "Trajectory excellence award",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award"],
+      "tags": [
+        "logo",
+        "badge",
+        "award"
+      ],
       "usage_count": 2
     },
     "premios_tecnologia": {
       "src": "/attached_assets/premios_tecnologia_sigloxxi_1765549146476.png",
       "alt": "Technology Awards XXI Century",
       "focal_point": "center",
-      "tags": ["logo", "badge", "award", "spanish"],
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "spanish"
+      ],
       "usage_count": 2
     },
     "logo_razz": {
       "src": "/attached_assets/razz_1764720036807.png",
       "alt": "Razz logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "reservation_form": {
       "src": "/attached_assets/reservation-es_1764814854635.webp",
       "alt": "Reservation form illustration",
       "focal_point": "center",
-      "tags": ["illustration", "form"],
+      "tags": [
+        "illustration",
+        "form"
+      ],
       "usage_count": 4
     },
     "reviews_badge": {
       "src": "/attached_assets/reviews_1765549549051.png",
       "alt": "Reviews badge",
       "focal_point": "center",
-      "tags": ["logo", "badge", "reviews"],
+      "tags": [
+        "logo",
+        "badge",
+        "reviews"
+      ],
       "usage_count": 2
     },
     "south_florida_tech_hub": {
       "src": "/attached_assets/south-florida-tech-hub_1765548979070.jpeg",
       "alt": "South Florida Tech Hub",
       "focal_point": "center",
-      "tags": ["logo", "photo", "location", "miami"],
+      "tags": [
+        "logo",
+        "photo",
+        "location",
+        "miami"
+      ],
       "usage_count": 2
     },
     "logo_strata": {
       "src": "/attached_assets/strata_1764720063140.png",
       "alt": "Strata logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "logo_switchup": {
       "src": "/attached_assets/switchup_1765590146414.webp",
       "alt": "SwitchUp logo",
       "focal_point": "center",
-      "tags": ["logo", "review"],
+      "tags": [
+        "logo",
+        "review"
+      ],
       "usage_count": 0
     },
     "logo_tcg": {
       "src": "/attached_assets/tcg_1764720028893.png",
       "alt": "TCG logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "logo_telefonica": {
       "src": "/attached_assets/telefonica_1764719987250.png",
       "alt": "Telefonica logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 14
     },
     "logo_twilio": {
       "src": "/attached_assets/twilio_1764719992371.png",
       "alt": "Twilio logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 10
     },
     "logo_uber": {
       "src": "/attached_assets/uber_1764719999685.png",
       "alt": "Uber logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 14
     },
     "logo_ultimate": {
       "src": "/attached_assets/ultimate_1764720025067.png",
       "alt": "Ultimate logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 2
     },
     "unsplash_workspace": {
       "src": "/attached_assets/unsplash_QckxruozjRg_1765395521123.png",
       "alt": "Workspace image",
       "focal_point": "center",
-      "tags": ["photo", "workspace"]
+      "tags": [
+        "photo",
+        "workspace"
+      ]
     },
     "placeholder_career_guidance": {
       "src": "/attached_assets/comunity-support_1765908983485.png",
       "alt": "Career guidance placeholder",
       "focal_point": "center",
-      "tags": ["placeholder", "career"],
+      "tags": [
+        "placeholder",
+        "career"
+      ],
       "usage_count": 6
     },
     "placeholder_mentorship": {
       "src": "/attached_assets/community_1764717588840.png",
       "alt": "Mentorship placeholder",
       "focal_point": "center",
-      "tags": ["placeholder", "mentorship"],
+      "tags": [
+        "placeholder",
+        "mentorship"
+      ],
       "usage_count": 8
     },
     "placeholder_strategies": {
       "src": "/attached_assets/unsplash_QckxruozjRg_1765395521123.png",
       "alt": "Strategies placeholder",
       "focal_point": "center",
-      "tags": ["placeholder", "strategies"],
+      "tags": [
+        "placeholder",
+        "strategies"
+      ],
       "usage_count": 6
     },
     "geekforce_rigobot_ai": {
       "src": "/attached_assets/image_1766026923754.png",
       "alt": "Rigobot AI coding tutor - Meet our internally developed AI designed to help you become a great coder",
       "focal_point": "center",
-      "tags": ["geekforce", "rigobot", "ai", "career"],
+      "tags": [
+        "geekforce",
+        "rigobot",
+        "ai",
+        "career"
+      ],
       "usage_count": 2
     },
     "geekforce_linkedin_profile": {
       "src": "/attached_assets/image_1766027250007.png",
       "alt": "Professional Profile Creation - LinkedIn profile optimization example",
       "focal_point": "center",
-      "tags": ["geekforce", "linkedin", "profile", "career"],
+      "tags": [
+        "geekforce",
+        "linkedin",
+        "profile",
+        "career"
+      ],
       "usage_count": 2
     },
     "graduates_celebration": {
       "src": "/attached_assets/graduation_1766029503175.webp",
       "alt": "4Geeks Academy graduates celebrating with their certificates",
       "focal_point": "center",
-      "tags": ["graduates", "celebration", "certificates", "community"],
+      "tags": [
+        "graduates",
+        "celebration",
+        "certificates",
+        "community"
+      ],
       "usage_count": 1
     },
     "graduates_workspace": {
       "src": "/attached_assets/unsplash_QckxruozjRg_(1)_1766029639606.png",
       "alt": "Students working together at laptops in a collaborative workspace",
       "focal_point": "center",
-      "tags": ["graduates", "workspace", "collaboration", "coding"],
+      "tags": [
+        "graduates",
+        "workspace",
+        "collaboration",
+        "coding"
+      ],
       "usage_count": 1
     },
     "graduates_team_1": {
       "src": "/attached_assets/Rectangle_3_1766029735830.png",
       "alt": "4Geeks team members smiling together",
       "focal_point": "center",
-      "tags": ["graduates", "team", "community"],
+      "tags": [
+        "graduates",
+        "team",
+        "community"
+      ],
       "usage_count": 2
     },
     "graduates_team_2": {
       "src": "/attached_assets/Rectangle_4_1766029735563.png",
       "alt": "Large group of 4Geeks graduates celebrating with certificates",
       "focal_point": "center",
-      "tags": ["graduates", "team", "celebration"],
+      "tags": [
+        "graduates",
+        "team",
+        "celebration"
+      ],
       "usage_count": 2
     },
     "graduates_coding": {
       "src": "/attached_assets/Rectangle_5_1766029737050.png",
       "alt": "Student coding at a desk with multiple monitors",
       "focal_point": "center",
-      "tags": ["graduates", "coding", "workspace"],
+      "tags": [
+        "graduates",
+        "coding",
+        "workspace"
+      ],
       "usage_count": 2
     },
     "graduates_friends": {
       "src": "/attached_assets/Rectangle_6_1766029738660.png",
       "alt": "4Geeks students laughing and enjoying time together",
       "focal_point": "center",
-      "tags": ["graduates", "friends", "community"],
+      "tags": [
+        "graduates",
+        "friends",
+        "community"
+      ],
       "usage_count": 2
     },
     "mentoring_zoom_call": {
       "src": "/attached_assets/1614626903622_1_(1)_1767038293575.png",
       "alt": "4Geeks mentors and students in a live online session",
       "focal_point": "center",
-      "tags": ["mentoring", "zoom", "live", "community"],
+      "tags": [
+        "mentoring",
+        "zoom",
+        "live",
+        "community"
+      ],
       "usage_count": 11
     },
     "student_asian": {
       "src": "/attached_assets/student-1-asian.png",
       "alt": "Asian student learning to code",
       "focal_point": "center",
-      "tags": ["student", "portrait", "diversity"],
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
       "usage_count": 1
     },
     "student_latin_male": {
       "src": "/attached_assets/student-2-latin.png",
       "alt": "Latino student working on a project",
       "focal_point": "center",
-      "tags": ["student", "portrait", "diversity"],
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
       "usage_count": 1
     },
     "student_african": {
       "src": "/attached_assets/student-3-african.png",
       "alt": "African student collaborating with team",
       "focal_point": "center",
-      "tags": ["student", "portrait", "diversity"],
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
       "usage_count": 1
     },
     "student_latina_female": {
       "src": "/attached_assets/student-4-lady-latin.png",
       "alt": "Latina student celebrating success",
       "focal_point": "center",
-      "tags": ["student", "portrait", "diversity"],
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
       "usage_count": 1
     },
     "logo_coursereport_best_bootcamp_2025": {
       "src": "/attached_assets/CourseReport-best-bootcamp_-2025_1770392145137.png",
       "alt": "CourseReport Best European Bootcamp 2025",
       "focal_point": "center",
-      "tags": ["logo", "award", "bootcamp"],
+      "tags": [
+        "logo",
+        "award",
+        "bootcamp"
+      ],
       "usage_count": 0
     },
     "logo_european_excellence_education": {
       "src": "/attached_assets/european-excellence-education-ealde_1_1770392145138.png",
       "alt": "European Excellence Education",
       "focal_point": "center",
-      "tags": ["logo", "award", "certification"],
+      "tags": [
+        "logo",
+        "award",
+        "certification"
+      ],
       "usage_count": 0
     },
     "logo_financial_magazine": {
       "src": "/attached_assets/Financial-Magazine_1770392145138.png",
       "alt": "Financial Magazine - Actualidad Económica & Centros de Formación",
       "focal_point": "center",
-      "tags": ["logo", "media", "press"],
+      "tags": [
+        "logo",
+        "media",
+        "press"
+      ],
       "usage_count": 0
     },
     "logo_premios_excelencia_educativa": {
       "src": "/attached_assets/premios-excelencia-educativa-17_1770392145139.png",
       "alt": "17 Premios Excelencia Educativa",
       "focal_point": "center",
-      "tags": ["logo", "award", "certification"],
+      "tags": [
+        "logo",
+        "award",
+        "certification"
+      ],
       "usage_count": 0
     },
     "logo_switchup_best_bootcamps_2025": {
       "src": "/attached_assets/switchup-best-bootcamps-2025_1770392145139.png",
       "alt": "SwitchUp Best Bootcamps 2025",
       "focal_point": "center",
-      "tags": ["logo", "award", "bootcamp"],
+      "tags": [
+        "logo",
+        "award",
+        "bootcamp"
+      ],
       "usage_count": 0
     },
     "logo_forbes_advisor_2025": {
       "src": "/attached_assets/Forbes-Advisor_1770392260031.png",
       "alt": "Forbes Advisor Best of 2025 - Best for lifetime career support",
       "focal_point": "center",
-      "tags": ["logo", "award", "media"],
+      "tags": [
+        "logo",
+        "award",
+        "media"
+      ],
       "usage_count": 0
     },
     "logo_licensed_by_florida": {
       "src": "/attached_assets/Licensed-by-Florida_1770392260032.png",
       "alt": "Licensed by the State of Florida",
       "focal_point": "center",
-      "tags": ["logo", "certification", "license"],
+      "tags": [
+        "logo",
+        "certification",
+        "license"
+      ],
       "usage_count": 0
     },
     "logo_ebootcamp_top_2025": {
       "src": "/attached_assets/ebootcamp-top_1_1770392737758.png",
       "alt": "ebootcamp Top Bootcamp Programación 2025",
       "focal_point": "center",
-      "tags": ["logo", "award", "bootcamp"],
+      "tags": [
+        "logo",
+        "award",
+        "bootcamp"
+      ],
       "usage_count": 0
     },
     "what_is_4geeks": {
       "src": "/attached_assets/what-is-4geeks.jpg",
       "alt": "What is 4Geeks Academy",
       "focal_point": "center",
-      "tags": ["about", "education", "bootcamp"],
+      "tags": [
+        "about",
+        "education",
+        "bootcamp"
+      ],
       "usage_count": 0
     },
     "crusa_forte_scholarship": {
       "src": "/attached_assets/crusa-forte-scholarship_1770606829241.webp",
       "alt": "CRUSA Forte Scholarship group photo with colorful dome",
       "focal_point": "center",
-      "tags": ["scholarship", "community", "event", "crusa"],
+      "tags": [
+        "scholarship",
+        "community",
+        "event",
+        "crusa"
+      ],
       "usage_count": 0
     },
     "miami_old_classroom": {
       "src": "/attached_assets/miami-old_1770606843360.jpg",
       "alt": "4Geeks Academy Miami original classroom - Intro to Coding event",
       "focal_point": "center",
-      "tags": ["miami", "classroom", "campus", "event"],
+      "tags": [
+        "miami",
+        "classroom",
+        "campus",
+        "event"
+      ],
       "usage_count": 0
     },
     "miami_old_classroom_2": {
       "src": "/attached_assets/miami-old2_1770606866999.jpg",
       "alt": "4Geeks Academy Miami original classroom - coding presentation",
       "focal_point": "center",
-      "tags": ["miami", "classroom", "campus", "event"],
+      "tags": [
+        "miami",
+        "classroom",
+        "campus",
+        "event"
+      ],
       "usage_count": 0
     },
     "miami_people_graduation": {
       "src": "/attached_assets/miami-people_1770606916405.jpeg",
       "alt": "4Geeks Academy Miami graduates celebrating with certificates",
       "focal_point": "center",
-      "tags": ["miami", "graduates", "people", "celebration"],
+      "tags": [
+        "miami",
+        "graduates",
+        "people",
+        "celebration"
+      ],
       "usage_count": 0
     },
     "miami_city_skyline": {
       "src": "/attached_assets/miami-loc_1770606947264.jpg",
       "alt": "Miami city skyline at night with bridge and lights",
       "focal_point": "center",
-      "tags": ["miami", "city", "location", "skyline"],
+      "tags": [
+        "miami",
+        "city",
+        "location",
+        "skyline"
+      ],
       "usage_count": 0
     },
     "logo_united_way": {
       "src": "/attached_assets/united_way_mini_1770608055840.PNG",
       "alt": "United Way logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "nonprofit"],
+      "tags": [
+        "logo",
+        "partner",
+        "nonprofit"
+      ],
       "usage_count": 0
     },
     "logo_cinde": {
       "src": "/attached_assets/cinde_1770608132364.png",
       "alt": "CINDE Invest in Costa Rica logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "costa-rica"],
+      "tags": [
+        "logo",
+        "partner",
+        "costa-rica"
+      ],
       "usage_count": 0
     },
     "logo_utec": {
       "src": "/attached_assets/utec_1770608159144.png",
       "alt": "UTEC Universidad Tecnológica logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "university"],
+      "tags": [
+        "logo",
+        "partner",
+        "university"
+      ],
       "usage_count": 0
     },
     "logo_crusa": {
       "src": "/attached_assets/crusa-logo_1770608198366.webp",
       "alt": "CRUSA Foundation logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "foundation", "costa-rica"],
+      "tags": [
+        "logo",
+        "partner",
+        "foundation",
+        "costa-rica"
+      ],
       "usage_count": 0
     },
     "logo_miami_tech_works": {
       "src": "/attached_assets/miamitech-logo-sidetext_1770608261416.png",
       "alt": "Miami Tech Works logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "miami"],
+      "tags": [
+        "logo",
+        "partner",
+        "miami"
+      ],
       "usage_count": 0
     },
     "logo_bite_con": {
       "src": "/attached_assets/bite-con_1770608313051.png",
       "alt": "BITE-CON logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "event"],
+      "tags": [
+        "logo",
+        "partner",
+        "event"
+      ],
       "usage_count": 0
     },
     "logo_kosmos": {
       "src": "/attached_assets/kosmos-logo_1770608352885.png",
       "alt": "Kosmos logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 0
     },
     "academy_header_coding": {
       "src": "/attached_assets/the-academy-header_1770614327963.png",
       "alt": "Students coding at computers in a classroom",
       "focal_point": "center",
-      "tags": ["classroom", "coding", "students", "academy", "header"],
+      "tags": [
+        "classroom",
+        "coding",
+        "students",
+        "academy",
+        "header"
+      ],
       "usage_count": 0
     },
     "academy_header_group": {
       "src": "/attached_assets/the-academy-header_1770614353717.jpg",
       "alt": "4Geeks Academy students and instructors group photo in classroom",
       "focal_point": "center",
-      "tags": ["classroom", "group", "students", "academy", "header"],
+      "tags": [
+        "classroom",
+        "group",
+        "students",
+        "academy",
+        "header"
+      ],
       "usage_count": 0
     },
     "student_coding_laptop": {
       "src": "/attached_assets/Copia de Fav_DSC_1146.JPG",
       "alt": "4Geeks Academy student coding on laptop wearing branded t-shirt",
       "focal_point": "center",
-      "tags": ["student", "coding", "laptop", "classroom", "photo"],
+      "tags": [
+        "student",
+        "coding",
+        "laptop",
+        "classroom",
+        "photo"
+      ],
       "usage_count": 0
     },
     "students_group_collaboration": {
       "src": "/marketing-content/images/00FAV_IMG_8709.jpg",
       "alt": "Group of 4Geeks Academy students collaborating around laptops",
       "focal_point": "center",
-      "tags": ["students", "group", "collaboration", "classroom", "photo"],
+      "tags": [
+        "students",
+        "group",
+        "collaboration",
+        "classroom",
+        "photo"
+      ],
       "usage_count": 0
     },
     "costa_rica_city": {
       "src": "/attached_assets/costa-rica_1770694091715.png",
       "alt": "Learn coding related skills in Costa Rica - aerial city view",
       "focal_point": "center",
-      "tags": ["costa-rica", "city", "location", "partnership", "photo"],
+      "tags": [
+        "costa-rica",
+        "city",
+        "location",
+        "partnership",
+        "photo"
+      ],
       "usage_count": 0
     },
     "united_way_event": {
       "src": "/attached_assets/united-way_1770694150571.png",
       "alt": "United Way Miami and 4Geeks Academy partnership event",
       "focal_point": "center bottom",
-      "tags": ["united-way", "partnership", "event", "photo"],
+      "tags": [
+        "united-way",
+        "partnership",
+        "event",
+        "photo"
+      ],
       "usage_count": 0
     },
     "uruguay_city": {
       "src": "/attached_assets/uruguay_1770694189072.png",
       "alt": "Learn coding in Uruguay - Montevideo city skyline",
       "focal_point": "center",
-      "tags": ["uruguay", "city", "location", "partnership", "photo"],
+      "tags": [
+        "uruguay",
+        "city",
+        "location",
+        "partnership",
+        "photo"
+      ],
       "usage_count": 0
     },
     "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581": {
@@ -3347,223 +3785,341 @@
       "src": "/attached_assets/refresh-miami_1770833423710.png",
       "alt": "Refresh Miami logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "the-miami-herald-logo": {
       "src": "/attached_assets/the-miami-herald_1770833423711.png",
       "alt": "The Miami Herald logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "nbc-logo": {
       "src": "/attached_assets/nbc_1770833423713.png",
       "alt": "NBC logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "newsweek-logo": {
       "src": "/attached_assets/newsweek_1770833423714.png",
       "alt": "Newsweek logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "global-miami-logo": {
       "src": "/attached_assets/Global-Miami-Logo_1770833423716.webp",
       "alt": "Global Miami logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "businesswire-logo": {
       "src": "/attached_assets/businesswire_1770833423717.png",
       "alt": "BusinessWire - A Berkshire Hathaway Company logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "cnn-logo": {
       "src": "/attached_assets/cnn-logo_1770834336934.png",
       "alt": "CNN Español logo",
       "focal_point": "center",
-      "tags": ["logo", "press"],
+      "tags": [
+        "logo",
+        "press"
+      ],
       "usage_count": 0
     },
     "economista-logo": {
       "src": "/attached_assets/economista_1770834336932.png",
       "alt": "El Economista logo",
       "focal_point": "center",
-      "tags": ["logo", "press"]
+      "tags": [
+        "logo",
+        "press"
+      ]
     },
     "bid_logo": {
       "src": "/attached_assets/bid-logo.webp",
       "alt": "BID logo",
       "focal_point": "center",
-      "tags": ["logo", "partner", "finance"],
+      "tags": [
+        "logo",
+        "partner",
+        "finance"
+      ],
       "usage_count": 0
     },
     "4geeks_academy_logo": {
       "src": "/attached_assets/4geeks_academy_logo_black.webp",
       "alt": "4Geeks Academy logo",
       "focal_point": "center",
-      "tags": ["logo", "brand", "academy"],
+      "tags": [
+        "logo",
+        "brand",
+        "academy"
+      ],
       "usage_count": 0
     },
     "micitt-logo": {
       "src": "/attached_assets/micitt-logo.webp",
       "alt": "MICITT logo",
       "focal_point": "center",
-      "tags": ["logo", "partner"],
+      "tags": [
+        "logo",
+        "partner"
+      ],
       "usage_count": 0
     },
     "4geeks_member": {
       "src": "/attached_assets/4geeks_member.webp",
       "alt": "4Geeks Member",
       "focal_point": "center",
-      "tags": ["brand", "academy"],
+      "tags": [
+        "brand",
+        "academy"
+      ],
       "usage_count": 0
     },
     "alejandro_sanchez": {
       "src": "/attached_assets/alejandrosanchez.webp",
       "alt": "Alejandro Sanchez",
       "focal_point": "center",
-      "tags": ["photo", "testimonial", "avatar"],
+      "tags": [
+        "photo",
+        "testimonial",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "laura": {
       "src": "/attached_assets/laura_1770843532792.webp",
       "alt": "Laura",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "valentina_botana": {
       "src": "/attached_assets/valentina-botana_1770843535798.webp",
       "alt": "Valentina Botana",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "alissalandra": {
       "src": "/attached_assets/alissalandra_1770843649003.webp",
       "alt": "Alissalandra",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "marcelo_ricigliano": {
       "src": "/attached_assets/marceloricigliano_1770843650728.webp",
       "alt": "Marcelo Ricigliano",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "martha_lopez": {
       "src": "/attached_assets/martha-lopez_1770843651992.webp",
       "alt": "Martha Lopez",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "pablo_bullor": {
       "src": "/attached_assets/pablobullor2_1770843653192.webp",
       "alt": "Pablo Bullor",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "valentina_ancieta": {
       "src": "/attached_assets/valentina-ancieta_1770843654768.webp",
       "alt": "Valentina Ancieta",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "victor_gomez": {
       "src": "/attached_assets/victorgomez_1770843663893.webp",
       "alt": "Victor Gomez",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "anahi_lacava": {
       "src": "/attached_assets/partners_anahi_lacava_1770843882971.webp",
       "alt": "Anahi Lacava",
       "focal_point": "center top",
-      "tags": ["photo", "partner", "avatar"],
+      "tags": [
+        "photo",
+        "partner",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "antonio_delgado": {
       "src": "/attached_assets/partners_antonio_delgado_1770843884179.webp",
       "alt": "Antonio Delgado",
       "focal_point": "center top",
-      "tags": ["photo", "partner", "avatar"],
+      "tags": [
+        "photo",
+        "partner",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "dug_jones": {
       "src": "/attached_assets/partners_dug_jones_1770843885581.webp",
       "alt": "Dug Jones",
       "focal_point": "center top",
-      "tags": ["photo", "partner", "avatar"],
+      "tags": [
+        "photo",
+        "partner",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "enrique_infanzon": {
       "src": "/attached_assets/partners_enrique_infanzon_1770843887140.webp",
       "alt": "Enrique Infanzon",
       "focal_point": "center top",
-      "tags": ["photo", "partner", "avatar"],
+      "tags": [
+        "photo",
+        "partner",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "juancarlos_navarro": {
       "src": "/attached_assets/partners_juancarlos_navarro_1770843889351.webp",
       "alt": "Juan Carlos Navarro",
       "focal_point": "center top",
-      "tags": ["photo", "partner", "avatar"],
+      "tags": [
+        "photo",
+        "partner",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "ariana_sanchez": {
       "src": "/attached_assets/ariana-sanchez_1770845254732.webp",
       "alt": "Ariana Sanchez",
       "focal_point": "center top",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "career_team_women": {
       "src": "/attached_assets/IMG_3662_1770849949826.jpg",
       "alt": "4Geeks career support team members",
       "focal_point": "center",
-      "tags": ["photo", "staff", "team"],
+      "tags": [
+        "photo",
+        "staff",
+        "team"
+      ],
       "usage_count": 0
     },
     "geekforce_valentina_ancieta": {
       "src": "/attached_assets/geekforce_valentina_ancieta.webp",
       "alt": "Valentina Ancieta",
       "focal_point": "center",
-      "tags": ["photo", "staff", "avatar"],
+      "tags": [
+        "photo",
+        "staff",
+        "avatar"
+      ],
       "usage_count": 0
     },
     "mailinh_tran": {
       "src": "/attached_assets/MaiLinh2_1770856306817.webp",
       "alt": "MaiLinh Tran",
       "focal_point": "center",
-      "tags": ["photo", "testimonial", "graduate"],
+      "tags": [
+        "photo",
+        "testimonial",
+        "graduate"
+      ],
       "usage_count": 0
     },
     "martin_coimbra": {
       "src": "/attached_assets/jorge-martin-coimbra_1770856856628.webp",
       "alt": "Martín Coimbra",
       "focal_point": "center",
-      "tags": ["photo", "testimonial", "graduate"],
+      "tags": [
+        "photo",
+        "testimonial",
+        "graduate"
+      ],
       "usage_count": 0
     },
     "melanie_galaretto": {
       "src": "/attached_assets/MelamnieGalaretto2_1770857254721.webp",
       "alt": "Melanie Galaretto",
       "focal_point": "center",
-      "tags": ["photo", "testimonial", "graduate"],
+      "tags": [
+        "photo",
+        "testimonial",
+        "graduate"
+      ],
       "usage_count": 0
     }
   }

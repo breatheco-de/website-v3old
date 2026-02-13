@@ -51,7 +51,7 @@ import { DynamicTableChat } from "./DynamicTableChat";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import type { Section, ImageRegistry } from "@shared/schema";
-import { IconSearch } from "@tabler/icons-react";
+import { IconSearch, IconUpload, IconCloudUpload } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -204,6 +204,10 @@ export function SectionEditorPanel({
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
+  const [imagePickerMode, setImagePickerMode] = useState<"browse" | "upload">("browse");
+  const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUndoRedoRestore = useCallback((content: string) => {
     setYamlContent(content);
@@ -249,9 +253,56 @@ export function SectionEditorPanel({
   }, [sectionIndex, section, clearUndoHistory]);
 
   // Fetch image registry for gallery picker
-  const { data: imageRegistry } = useQuery<ImageRegistry>({
+  const { data: imageRegistry, refetch: refetchRegistry } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
   });
+
+  const { data: mediaStatus } = useQuery<{
+    defaultProvider: string;
+    providers: string[];
+    gcs?: { bucket: string; basePath: string; projectId?: string };
+  }>({
+    queryKey: ["/api/media/status"],
+  });
+
+  const hasCloudProvider = (mediaStatus?.providers ?? []).some(p => p !== "local");
+
+  const handleImageUpload = useCallback(async (files: FileList | File[]) => {
+    if (!files.length || !imagePickerTarget) return;
+    const file = files[0];
+    const allowed = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+    const ext = `.${file.name.split(".").pop()?.toLowerCase()}`;
+    if (!allowed.includes(ext)) {
+      toast({ title: "Unsupported file type", description: `${ext} files are not supported`, variant: "destructive" });
+      return;
+    }
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const resp = await fetch("/api/image-registry/upload", { method: "POST", body: formData });
+      if (!resp.ok) {
+        const err = await resp.json();
+        throw new Error(err.error || "Upload failed");
+      }
+      const result = await resp.json() as { id: string; src: string; alt: string };
+      await refetchRegistry();
+      const fieldName = imagePickerTarget.srcField || imagePickerTarget.fieldPath || "";
+      const isIdField = fieldName.endsWith("_id");
+      setImagePickerTarget({
+        ...imagePickerTarget,
+        currentSrc: isIdField ? result.id : result.src,
+        currentAlt: result.alt,
+        currentRegistryId: result.id,
+      });
+      setImagePickerMode("browse");
+      toast({ title: "Image uploaded", description: `Registered as "${result.id}"` });
+    } catch (err: any) {
+      toast({ title: "Upload failed", description: err.message, variant: "destructive" });
+    } finally {
+      setUploading(false);
+    }
+  }, [imagePickerTarget, refetchRegistry, toast]);
 
   // Filter and sort gallery images by usage count (most used first)
   const filteredGalleryImages = useMemo(() => {
@@ -3119,7 +3170,10 @@ export function SectionEditorPanel({
       {/* Image Picker Modal */}
       <Dialog open={imagePickerOpen} onOpenChange={(open) => {
         setImagePickerOpen(open);
-        if (!open) setImageGallerySearch("");
+        if (!open) {
+          setImageGallerySearch("");
+          setImagePickerMode("browse");
+        }
       }}>
         <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col">
           <DialogHeader>
@@ -3130,74 +3184,168 @@ export function SectionEditorPanel({
             </DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-hidden flex flex-col gap-4 py-2">
-            {/* Search bar */}
-            <div className="relative">
-              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search images..."
-                value={imageGallerySearch}
-                onChange={(e) => setImageGallerySearch(e.target.value)}
-                className="pl-10"
-                data-testid="input-image-gallery-search"
-              />
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                size="sm"
+                variant={imagePickerMode === "browse" ? "default" : "outline"}
+                className="toggle-elevate"
+                onClick={() => setImagePickerMode("browse")}
+                data-testid="button-picker-browse"
+              >
+                <IconSearch className="h-4 w-4 mr-1.5" />
+                Browse
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant={imagePickerMode === "upload" ? "default" : "outline"}
+                className="toggle-elevate"
+                onClick={() => setImagePickerMode("upload")}
+                data-testid="button-picker-upload"
+              >
+                <IconUpload className="h-4 w-4 mr-1.5" />
+                Upload
+              </Button>
             </div>
 
-            {/* Gallery grid */}
-            <div className="flex-1 overflow-y-auto min-h-0">
-              <div className="columns-4 sm:columns-5 md:columns-6 gap-2">
-                {filteredGalleryImages.slice(0, visibleImageCount).map(([id, img]) => (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => {
-                      if (imagePickerTarget) {
-                        const fieldName = imagePickerTarget.srcField || imagePickerTarget.fieldPath || "";
-                        const isIdField = fieldName.endsWith("_id");
-                        setImagePickerTarget({
-                          ...imagePickerTarget,
-                          currentSrc: isIdField ? id : img.src,
-                          currentAlt: img.alt,
-                          currentRegistryId: id,
-                        });
-                      }
-                    }}
-                    className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${
-                      imagePickerTarget?.currentSrc === img.src || imagePickerTarget?.currentSrc === id
-                        ? "border-primary"
-                        : "border-transparent hover:border-muted-foreground/50"
-                    }`}
-                    title={img.alt}
-                    data-testid={`gallery-image-${id}`}
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      className="w-full h-auto"
-                      loading="lazy"
+            {imagePickerMode === "browse" ? (
+              <>
+                <div className="relative">
+                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search images..."
+                    value={imageGallerySearch}
+                    onChange={(e) => setImageGallerySearch(e.target.value)}
+                    className="pl-10"
+                    data-testid="input-image-gallery-search"
+                  />
+                </div>
+
+                <div className="flex-1 overflow-y-auto min-h-0">
+                  <div className="columns-4 sm:columns-5 md:columns-6 gap-2">
+                    {filteredGalleryImages.slice(0, visibleImageCount).map(([id, img]) => (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => {
+                          if (imagePickerTarget) {
+                            const fieldName = imagePickerTarget.srcField || imagePickerTarget.fieldPath || "";
+                            const isIdField = fieldName.endsWith("_id");
+                            setImagePickerTarget({
+                              ...imagePickerTarget,
+                              currentSrc: isIdField ? id : img.src,
+                              currentAlt: img.alt,
+                              currentRegistryId: id,
+                            });
+                          }
+                        }}
+                        className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${
+                          imagePickerTarget?.currentSrc === img.src || imagePickerTarget?.currentSrc === id
+                            ? "border-primary"
+                            : "border-transparent hover:border-muted-foreground/50"
+                        }`}
+                        title={img.alt}
+                        data-testid={`gallery-image-${id}`}
+                      >
+                        <img
+                          src={img.src}
+                          alt={img.alt}
+                          className="w-full h-auto"
+                          loading="lazy"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                  {visibleImageCount < filteredGalleryImages.length && (
+                    <div className="py-3 flex justify-center">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setVisibleImageCount((prev) => Math.min(prev + 24, filteredGalleryImages.length))}
+                        data-testid="button-load-more-images"
+                      >
+                        Load more ({filteredGalleryImages.length - visibleImageCount} remaining)
+                      </Button>
+                    </div>
+                  )}
+                  {filteredGalleryImages.length === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      No images found
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center min-h-[200px]">
+                {hasCloudProvider || mediaStatus?.defaultProvider === "local" ? (
+                  <>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".png,.jpg,.jpeg,.webp,.svg,.avif,.gif"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files?.length) handleImageUpload(e.target.files);
+                        e.target.value = "";
+                      }}
+                      data-testid="input-file-upload"
                     />
-                  </button>
-                ))}
+                    <div
+                      className={`w-full rounded-md border-2 border-dashed p-8 text-center transition-colors cursor-pointer ${
+                        dragOver
+                          ? "border-primary bg-primary/5"
+                          : "border-muted-foreground/30 hover:border-muted-foreground/50"
+                      }`}
+                      onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                      onDragLeave={() => setDragOver(false)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setDragOver(false);
+                        if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files);
+                      }}
+                      onClick={() => fileInputRef.current?.click()}
+                      data-testid="dropzone-upload"
+                    >
+                      {uploading ? (
+                        <div className="flex flex-col items-center gap-2">
+                          <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                          <p className="text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center gap-2">
+                          <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                          <p className="text-sm font-medium">Drop an image here or click to browse</p>
+                          <p className="text-xs text-muted-foreground">
+                            PNG, JPG, WebP, SVG, AVIF, GIF (max 10 MB)
+                          </p>
+                          {hasCloudProvider && mediaStatus?.gcs && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Uploading to {mediaStatus.gcs.bucket}/{mediaStatus.gcs.basePath}
+                            </p>
+                          )}
+                          {!hasCloudProvider && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Saving to marketing-content/images/
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center space-y-3 p-4">
+                    <IconUpload className="h-8 w-8 text-muted-foreground mx-auto" />
+                    <p className="text-sm font-medium">No storage provider configured</p>
+                    <p className="text-sm text-muted-foreground">
+                      Drop images directly into the <code className="bg-muted px-1 rounded text-xs">marketing-content/images/</code> folder,
+                      then scan the registry to include them. Or configure a cloud provider in the Media Gallery settings.
+                    </p>
+                  </div>
+                )}
               </div>
-              {/* Load more button */}
-              {visibleImageCount < filteredGalleryImages.length && (
-                <div className="py-3 flex justify-center">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setVisibleImageCount((prev) => Math.min(prev + 24, filteredGalleryImages.length))}
-                    data-testid="button-load-more-images"
-                  >
-                    Load more ({filteredGalleryImages.length - visibleImageCount} remaining)
-                  </Button>
-                </div>
-              )}
-              {filteredGalleryImages.length === 0 && (
-                <div className="text-center py-8 text-muted-foreground">
-                  No images found
-                </div>
-              )}
-            </div>
+            )}
 
             {/* Selected image preview and fields */}
             <div className="border-t pt-4 space-y-3">

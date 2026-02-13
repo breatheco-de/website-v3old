@@ -572,6 +572,63 @@ class MediaGallery {
     return results;
   }
 
+  async uploadAndRegister(
+    filename: string,
+    data: Buffer,
+    contentType: string,
+    opts?: { alt?: string; tags?: string[] }
+  ): Promise<{ id: string; src: string; alt: string }> {
+    const registry = this.getRegistry();
+    if (!registry) throw new Error("Failed to load registry");
+
+    const ext = path.extname(filename).toLowerCase();
+    if (!IMAGE_EXTENSIONS.has(ext)) {
+      throw new Error(`Unsupported file type: ${ext}`);
+    }
+
+    const sanitized = filename
+      .replace(/[^a-zA-Z0-9._-]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    const id = filenameToId(sanitized);
+    if (!id) throw new Error("Could not derive a valid ID from filename");
+
+    let uniqueId = id;
+    let counter = 1;
+    while (registry.images[uniqueId]) {
+      uniqueId = `${id}-${counter}`;
+      counter++;
+    }
+
+    const defaultProvider = media.getDefaultProvider();
+    let src: string;
+
+    if (defaultProvider.name === "local") {
+      const destDir = MARKETING_IMAGES_DIR;
+      if (!fs.existsSync(destDir)) {
+        fs.mkdirSync(destDir, { recursive: true });
+      }
+      const destPath = path.join(destDir, sanitized);
+      fs.writeFileSync(destPath, data);
+      src = `/marketing-content/images/${sanitized}`;
+    } else {
+      const key = sanitized;
+      src = await defaultProvider.upload(key, data, contentType);
+    }
+
+    const alt = opts?.alt || `Image: ${path.parse(filename).name}`;
+    this.register(uniqueId, {
+      src,
+      alt,
+      tags: opts?.tags || [],
+    });
+
+    this.existenceCache.clear();
+
+    return { id: uniqueId, src, alt };
+  }
+
   private saveRegistry(registry: ImageRegistry): void {
     fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
     this.clearCache();
