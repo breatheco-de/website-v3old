@@ -26,7 +26,7 @@ sections:
     version: "1.0"
     variant: simpleTwoColumn
     title: Get Into Tech With Our Job Guarantee*
-    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*Conditions apply.</span></span></span></span></a></div>"
+    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>*Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
     image:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
@@ -98,6 +98,22 @@ sections:
     heading: Programs Covered by the Job Guarantee
     subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
     courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: $14,999 full tuition
+          - icon: CheckCircle
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+        price: $349
+        price_info: or less depending on your plan
+        cta_text: Discover program
+        cta_url: /en/ai-engineering
+        course_background: accent
       - name: Full Stack Development
         duration: 9 months part-time
         label: Updated in 2025
