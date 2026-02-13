@@ -639,6 +639,18 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
 
+  const stickySections: { section: Section; index: number }[] = [];
+  const regularSections: { section: Section; index: number }[] = [];
+
+  sections.forEach((section, index) => {
+    const sectionType = (section as { type: string }).type;
+    if (sectionType === "sticky_cta") {
+      stickySections.push({ section, index });
+    } else {
+      regularSections.push({ section, index });
+    }
+  });
+
   const content = (
     <>
       <AddSectionButton
@@ -659,7 +671,6 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       {sections.map((section, index) => {
         const sectionType = (section as { type: string }).type;
         const renderedSection = renderSectionWithContext(section, index);
-        const layoutStyles = getSectionLayoutStyles(section);
         const showOn = (section as SectionLayout).showOn;
 
         // In edit mode: previewBreakpoint controls visibility, no CSS classes needed
@@ -684,6 +695,37 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           );
         }
 
+        // sticky_cta sections: render without section-wrapper and layoutStyles
+        if (sectionType === "sticky_cta") {
+          return (
+            <div key={index}>
+              <EditableSection
+                section={section}
+                index={index}
+                sectionType={sectionType}
+                contentType={contentType}
+                slug={slug}
+                locale={locale}
+                totalSections={sections.length}
+                onMoveUp={handleMoveUp}
+                onMoveDown={handleMoveDown}
+                onDelete={handleDelete}
+                onDuplicate={handleDuplicate}
+              >
+                {renderedSection}
+              </EditableSection>
+              <AddSectionButton
+                insertIndex={index + 1}
+                sections={sections}
+                contentType={contentType}
+                slug={slug}
+                locale={locale}
+              />
+            </div>
+          );
+        }
+
+        const layoutStyles = getSectionLayoutStyles(section);
         const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
