@@ -178,8 +178,7 @@ function HighlightSlideshow({
                 pointerEvents: isActive ? "auto" : "none",
               };
 
-          const headingTextLen = hasHtmlTags(slide.heading) ? getTextLength(slide.heading) : slide.heading.length;
-          const headingDuration = headingTextLen * 30;
+          const headingDuration = slide.heading.length * 30;
           const textStartDelay = 650 + headingDuration + 400;
 
           return (
