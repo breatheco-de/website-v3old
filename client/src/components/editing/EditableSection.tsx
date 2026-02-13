@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
 import yaml from "js-yaml";
+import * as CountryFlags from "country-flag-icons/react/3x2";
 
 function deslugify(str: string): string {
   return str
@@ -24,25 +25,23 @@ function deslugify(str: string): string {
     .replace(/\b\w/g, c => c.toUpperCase());
 }
 
-function countryCodeToFlag(code: string): string {
-  return code
-    .toUpperCase()
-    .split('')
-    .map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65))
-    .join('');
+function CountryFlag({ code, className = "h-3 w-4 rounded-[1px]" }: { code: string; className?: string }) {
+  const FlagComponent = (CountryFlags as Record<string, React.ComponentType<{ className?: string }>>)[code.toUpperCase()];
+  if (!FlagComponent) return null;
+  return <FlagComponent className={className} />;
 }
 
-function getUniqueCountryFlags(locationSlugs: string[]): string[] {
+function getUniqueCountryCodes(locationSlugs: string[]): string[] {
   const seen = new Set<string>();
-  const flags: string[] = [];
+  const codes: string[] = [];
   for (const slug of locationSlugs) {
     const loc = getLocationBySlug(slug);
     if (loc && !seen.has(loc.country_code)) {
       seen.add(loc.country_code);
-      flags.push(countryCodeToFlag(loc.country_code));
+      codes.push(loc.country_code);
     }
   }
-  return flags;
+  return codes;
 }
 
 const SectionEditorPanel = lazy(() => 
@@ -696,7 +695,7 @@ export function EditableSection({ children, section, index, sectionType, content
         
         if (!hasDeviceFilter && !hasLocationFilter) return null;
         
-        const flags = hasLocationFilter ? getUniqueCountryFlags(showOnLocations) : [];
+        const countryCodes = hasLocationFilter ? getUniqueCountryCodes(showOnLocations) : [];
         
         return (
           <div 
@@ -711,8 +710,8 @@ export function EditableSection({ children, section, index, sectionType, content
                 ? <IconDeviceDesktop className="h-3.5 w-3.5" /> 
                 : <IconDeviceMobile className="h-3.5 w-3.5" />
             )}
-            {flags.map((flag, i) => (
-              <span key={i} className="text-sm leading-none">{flag}</span>
+            {countryCodes.map((code) => (
+              <CountryFlag key={code} code={code} />
             ))}
           </div>
         );
