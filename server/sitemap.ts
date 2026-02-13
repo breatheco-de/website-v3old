@@ -8,6 +8,7 @@ import {
   loadCommonData,
   MARKETING_CONTENT_PATH as BASE_CONTENT_PATH,
 } from "./utils/contentLoader";
+import { contentIndex } from "./content-index";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -341,10 +342,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       continue;
     }
 
-    const url =
-      program.locale === "es"
-        ? `${getBaseUrl()}/es/programas-de-carrera/${program.slug}`
-        : `${getBaseUrl()}/en/career-programs/${program.slug}`;
+    const url = `${getBaseUrl()}${contentIndex.buildUrl("programs", program.locale, program.slug)}`;
 
     entries.push({
       loc: url,
@@ -371,7 +369,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     processedLandingSlugs.add(landing.slug);
 
     entries.push({
-      loc: `${getBaseUrl()}/landing/${landing.slug}`,
+      loc: `${getBaseUrl()}${contentIndex.buildUrl("landings", landing.locale || "en", landing.slug)}`,
       lastmod: today,
       changefreq: landing.meta.change_frequency || "weekly",
       priority: landing.meta.priority || 0.8,
@@ -390,10 +388,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       continue;
     }
 
-    const url =
-      location.locale === "es"
-        ? `${getBaseUrl()}/es/ubicacion/${location.slug}`
-        : `${getBaseUrl()}/en/location/${location.slug}`;
+    const url = `${getBaseUrl()}${contentIndex.buildUrl("locations", location.locale, location.slug)}`;
 
     entries.push({
       loc: url,

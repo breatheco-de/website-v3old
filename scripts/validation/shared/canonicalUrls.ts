@@ -5,38 +5,19 @@
  */
 
 import type { ContentFile } from "./types";
+import { contentIndex } from "../../../server/content-index";
+
+const typeToContentType: Record<string, string> = {
+  program: "programs",
+  landing: "landings",
+  location: "locations",
+  page: "pages",
+};
 
 export function getCanonicalUrl(file: ContentFile): string {
-  if (file.locale === "_common") {
-    if (file.type === "landing") return `/landing/${file.slug}`;
-    if (file.type === "program") return `/en/career-programs/${file.slug}`;
-    return `/${file.slug}`;
-  }
-
-  switch (file.type) {
-    case "program":
-      return file.locale === "es"
-        ? `/es/programas-de-carrera/${file.slug}`
-        : `/en/career-programs/${file.slug}`;
-    
-    case "landing":
-      return file.locale === "es"
-        ? `/es/${file.slug}`
-        : `/us/${file.slug}`;
-    
-    case "location":
-      return file.locale === "es"
-        ? `/es/ubicaciones/${file.slug}`
-        : `/en/locations/${file.slug}`;
-    
-    case "page":
-      return file.locale === "es"
-        ? `/es/${file.slug}`
-        : `/us/${file.slug}`;
-    
-    default:
-      return `/${file.slug}`;
-  }
+  const contentType = typeToContentType[file.type] || file.type;
+  const locale = file.locale === "_common" ? "en" : file.locale;
+  return contentIndex.buildUrl(contentType, locale, file.slug);
 }
 
 export function normalizeUrl(url: string): string {

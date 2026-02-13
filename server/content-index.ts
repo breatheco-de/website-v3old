@@ -3,9 +3,13 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 
+export interface ContentTypeConfig {
+  url_pattern: Record<string, string>;
+}
+
 export interface ContentEntry {
   slug: string;
-  contentType: "pages" | "programs" | "locations" | "landings";
+  contentType: string;
   folder: string;
   files: string[];
   locales: string[];
@@ -13,7 +17,7 @@ export interface ContentEntry {
 }
 
 export interface FindOptions {
-  contentType?: ContentEntry["contentType"];
+  contentType?: string;
 }
 
 export interface RedirectEntry {
@@ -31,6 +35,7 @@ class ContentIndex {
   private imageUsage: Map<string, Set<string>> = new Map();
   private redirectEntries: RedirectEntry[] = [];
   private localeSlugMap: Map<string, string> = new Map();
+  private contentTypeConfigs: Record<string, ContentTypeConfig> = {};
   private initialized = false;
 
   private static instance: ContentIndex;
@@ -44,9 +49,46 @@ class ContentIndex {
 
   private constructor() {}
 
+  private loadContentTypes(): Record<string, ContentTypeConfig> {
+    const configPath = path.join(process.cwd(), "marketing-content", "content-types.yml");
+    if (!fs.existsSync(configPath)) {
+      console.warn("[ContentIndex] content-types.yml not found, using empty config");
+      return {};
+    }
+    try {
+      const raw = fs.readFileSync(configPath, "utf-8");
+      const parsed = yaml.load(raw) as Record<string, ContentTypeConfig> | null;
+      return parsed || {};
+    } catch (err) {
+      console.error("[ContentIndex] Failed to read content-types.yml:", err);
+      return {};
+    }
+  }
+
+  buildUrl(contentType: string, locale: string, slug: string): string {
+    const config = this.contentTypeConfigs[contentType];
+    if (!config?.url_pattern) {
+      return `/${locale}/${slug}`;
+    }
+
+    const pattern = config.url_pattern[locale] || config.url_pattern["default"] || `/${locale}/${slug}`;
+    return pattern.replace(":slug", slug);
+  }
+
+  getContentTypes(): string[] {
+    this.ensureInitialized();
+    return Object.keys(this.contentTypeConfigs);
+  }
+
+  getContentTypeConfig(contentType: string): ContentTypeConfig | undefined {
+    this.ensureInitialized();
+    return this.contentTypeConfigs[contentType];
+  }
+
   scan(): void {
     const baseDir = path.join(process.cwd(), "marketing-content");
-    const contentTypes: ContentEntry["contentType"][] = ["pages", "programs", "locations", "landings"];
+    this.contentTypeConfigs = this.loadContentTypes();
+    const contentTypes = Object.keys(this.contentTypeConfigs);
 
     this.entries = [];
     this.bySlug = new Map();
@@ -99,8 +141,8 @@ class ContentIndex {
             const raw = fs.readFileSync(filePath, "utf-8");
             const parsed = yaml.load(raw) as Record<string, unknown> | null;
             this.extractImageReferences(parsed, relFilePath);
-            if (parsed && (contentType === "programs" || contentType === "landings")) {
-              const locale = file.replace(/\.(yml|yaml)$/, "");
+            const locale = file.replace(/\.(yml|yaml)$/, "");
+            if (parsed && this.contentTypeHasRedirects(contentType)) {
               this.extractRedirects(parsed, slug, locale, contentType, relFilePath);
             }
             if (parsed?.slug && typeof parsed.slug === "string") {
@@ -119,6 +161,10 @@ class ContentIndex {
     this.initialized = true;
     const imageRefCount = this.imageUsage.size;
     console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${this.redirectEntries.length} redirects`);
+  }
+
+  private contentTypeHasRedirects(contentType: string): boolean {
+    return contentType === "programs" || contentType === "landings";
   }
 
   private addImageRef(ref: string, filePath: string): void {
@@ -158,7 +204,7 @@ class ContentIndex {
     }
   }
 
-  private buildLocaleUrlsInternal(slug: string, contentType: ContentEntry["contentType"]): Record<string, string> {
+  private buildLocaleUrlsInternal(slug: string, contentType: string): Record<string, string> {
     const matches = this.bySlug.get(slug) || [];
     const entry = matches.find(e => e.contentType === contentType);
     if (!entry) return {};
@@ -185,38 +231,21 @@ class ContentIndex {
         }
       }
 
-      if (contentType === "programs") {
-        urls[locale] = locale === "es"
-          ? `/es/programas-de-carrera/${localeSlug}`
-          : `/${locale}/career-programs/${localeSlug}`;
-      } else if (contentType === "locations") {
-        urls[locale] = locale === "es"
-          ? `/es/ubicaciones/${localeSlug}`
-          : `/${locale}/locations/${localeSlug}`;
-      } else if (contentType === "landings") {
-        urls[locale] = `/landing/${localeSlug}`;
-      } else {
-        urls[locale] = `/${locale}/${localeSlug}`;
-      }
+      urls[locale] = this.buildUrl(contentType, locale, localeSlug);
     }
 
     return urls;
   }
 
-  private getCanonicalUrl(type: "programs" | "landings", slug: string, locale: string): string {
-    if (type === "programs") {
-      return locale === "es"
-        ? `/es/programas-de-carrera/${slug}`
-        : `/en/career-programs/${slug}`;
-    }
-    return `/landing/${slug}`;
+  private getCanonicalUrl(contentType: string, slug: string, locale: string): string {
+    return this.buildUrl(contentType, locale, slug);
   }
 
   private extractRedirects(
     parsed: Record<string, unknown>,
     slug: string,
     locale: string,
-    contentType: "programs" | "landings",
+    contentType: string,
     filePath: string,
   ): void {
     const meta = parsed.meta as Record<string, unknown> | undefined;
@@ -224,9 +253,8 @@ class ContentIndex {
     if (!Array.isArray(redirects)) return;
 
     const isCommon = locale === "_common";
-    const typeLabel = isCommon
-      ? `${contentType === "programs" ? "program" : "landing"}-common`
-      : (contentType === "programs" ? "program" : "landing");
+    const singularType = contentType === "programs" ? "program" : contentType === "landings" ? "landing" : contentType;
+    const typeLabel = isCommon ? `${singularType}-common` : singularType;
 
     let targetTo: string | Record<string, string>;
     if (isCommon) {
@@ -371,7 +399,7 @@ class ContentIndex {
     return this.byPath.get(folderPath);
   }
 
-  findByType(contentType: ContentEntry["contentType"]): ContentEntry[] {
+  findByType(contentType: string): ContentEntry[] {
     this.ensureInitialized();
     return this.entries.filter(e => e.contentType === contentType);
   }
@@ -426,13 +454,13 @@ class ContentIndex {
     return results;
   }
 
-  resolveBaseSlug(slug: string, contentType: ContentEntry["contentType"]): string {
+  resolveBaseSlug(slug: string, contentType: string): string {
     this.ensureInitialized();
     if (this.bySlug.has(slug)) return slug;
     return this.localeSlugMap.get(`${slug}:${contentType}`) || slug;
   }
 
-  getLocaleUrls(slug: string, contentType: ContentEntry["contentType"]): Record<string, string> {
+  getLocaleUrls(slug: string, contentType: string): Record<string, string> {
     this.ensureInitialized();
     const entries = this.findBySlug(slug, { contentType });
     if (entries.length === 0) return {};
@@ -460,19 +488,7 @@ class ContentIndex {
         }
       }
 
-      if (contentType === "programs") {
-        urls[locale] = locale === "es"
-          ? `/es/programas-de-carrera/${localeSlug}`
-          : `/${locale}/career-programs/${localeSlug}`;
-      } else if (contentType === "locations") {
-        urls[locale] = locale === "es"
-          ? `/es/ubicaciones/${localeSlug}`
-          : `/${locale}/locations/${localeSlug}`;
-      } else if (contentType === "landings") {
-        urls[locale] = `/landing/${localeSlug}`;
-      } else {
-        urls[locale] = `/${locale}/${localeSlug}`;
-      }
+      urls[locale] = this.buildUrl(contentType, locale, localeSlug);
     }
 
     return urls;

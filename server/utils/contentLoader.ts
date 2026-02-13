@@ -16,6 +16,7 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { deepMerge } from "./deepMerge";
+import { contentIndex } from "../content-index";
 
 /**
  * Recursively strip null values from an object, converting them to undefined.
@@ -72,11 +73,16 @@ export function loadContent<T>(options: LoadContentOptions<T>): LoadContentResul
   const { contentType, slug, schema, localeOrVariant, requireCommon = false } = options;
 
   try {
-    const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, slug);
+    let resolvedSlug = slug;
+    const initialDir = path.join(MARKETING_CONTENT_PATH, contentType, slug);
+    if (!fs.existsSync(initialDir)) {
+      resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+    }
+
+    const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, resolvedSlug);
     const commonPath = path.join(contentDir, "_common.yml");
     const contentPath = path.join(contentDir, `${localeOrVariant}.yml`);
 
-    // Check if content file exists
     if (!fs.existsSync(contentPath)) {
       return { success: false, error: `Content file not found: ${contentPath}` };
     }
