@@ -9,6 +9,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { locations } from "@/lib/locations";
 import { useToast } from "@/hooks/use-toast";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveVariable, type VariableDefinition } from "@/lib/variable-resolver";
@@ -189,6 +197,35 @@ interface EditableSectionProps {
   onAdd: (level: ResolutionLevel, key: string, value: string) => Promise<void>;
 }
 
+const SUPPORTED_LOCALES = [
+  { value: "en", label: "English (en)" },
+  { value: "es", label: "Spanish (es)" },
+];
+
+function getKeyOptionsForLevel(level: ResolutionLevel, existingKeys: string[]): { value: string; label: string }[] {
+  const existing = new Set(existingKeys);
+
+  if (level === "by_location") {
+    return locations
+      .filter((loc) => loc.visibility === "listed" && !existing.has(loc.slug))
+      .map((loc) => ({ value: loc.slug, label: `${loc.name} (${loc.slug})` }));
+  }
+
+  if (level === "by_region") {
+    const regionSet = new Set(locations.map((loc) => loc.region));
+    return Array.from(regionSet)
+      .filter((r) => !existing.has(r))
+      .sort()
+      .map((r) => ({ value: r, label: r }));
+  }
+
+  if (level === "by_locale") {
+    return SUPPORTED_LOCALES.filter((l) => !existing.has(l.value));
+  }
+
+  return [];
+}
+
 function EditableSection({ level, label, entries, defaultValue, onSave, onDelete, onAdd }: EditableSectionProps) {
   const [adding, setAdding] = useState(false);
   const [newKey, setNewKey] = useState("");
@@ -249,35 +286,50 @@ function EditableSection({ level, label, entries, defaultValue, onSave, onDelete
         </>
       )}
 
-      {adding && !isDefault && (
-        <div className="flex items-center gap-2 py-1">
-          <Input
-            placeholder="Key (e.g., miami)"
-            value={newKey}
-            onChange={(e) => setNewKey(e.target.value)}
-            className="w-40 flex-shrink-0"
-            autoFocus
-            data-testid={`input-new-key-${level}`}
-          />
-          <Input
-            placeholder="Value"
-            value={newValue}
-            onChange={(e) => setNewValue(e.target.value)}
-            className="flex-1"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAdd();
-              if (e.key === "Escape") setAdding(false);
-            }}
-            data-testid={`input-new-value-${level}`}
-          />
-          <Button size="icon" variant="ghost" onClick={handleAdd} data-testid={`button-confirm-add-${level}`}>
-            <IconCheck className="w-3.5 h-3.5 text-primary" />
-          </Button>
-          <Button size="icon" variant="ghost" onClick={() => setAdding(false)} data-testid={`button-cancel-add-${level}`}>
-            <IconX className="w-3.5 h-3.5" />
-          </Button>
-        </div>
-      )}
+      {adding && !isDefault && (() => {
+        const existingKeys = entries ? Object.keys(entries) : [];
+        const options = getKeyOptionsForLevel(level, existingKeys);
+        return (
+          <div className="flex items-center gap-2 py-1">
+            <Select value={newKey} onValueChange={setNewKey} data-testid={`select-new-key-${level}`}>
+              <SelectTrigger className="w-48 flex-shrink-0" data-testid={`select-trigger-new-key-${level}`}>
+                <SelectValue placeholder={
+                  level === "by_location" ? "Select location" :
+                  level === "by_region" ? "Select region" :
+                  "Select locale"
+                } />
+              </SelectTrigger>
+              <SelectContent>
+                {options.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value} data-testid={`select-option-${opt.value}`}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+                {options.length === 0 && (
+                  <div className="px-3 py-2 text-sm text-muted-foreground italic">All options already added</div>
+                )}
+              </SelectContent>
+            </Select>
+            <Input
+              placeholder="Value"
+              value={newValue}
+              onChange={(e) => setNewValue(e.target.value)}
+              className="flex-1"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleAdd();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              data-testid={`input-new-value-${level}`}
+            />
+            <Button size="icon" variant="ghost" onClick={handleAdd} data-testid={`button-confirm-add-${level}`}>
+              <IconCheck className="w-3.5 h-3.5 text-primary" />
+            </Button>
+            <Button size="icon" variant="ghost" onClick={() => setAdding(false)} data-testid={`button-cancel-add-${level}`}>
+              <IconX className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        );
+      })()}
     </div>
   );
 }
