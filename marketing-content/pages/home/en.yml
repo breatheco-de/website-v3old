@@ -149,9 +149,6 @@ sections:
           - icon: Plus
             text: API Development
         description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
         cta_text: Discover program
         cta_url: /en/full-stack
         course_background: primary
@@ -163,9 +160,6 @@ sections:
           - icon: Brain
             text: LLMs & Generative AI training
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
         cta_text: Discover program
         cta_url: /en/ai-machine-learning
         course_background: accent

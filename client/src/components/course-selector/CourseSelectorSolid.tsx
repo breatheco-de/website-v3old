@@ -164,7 +164,7 @@ export function CourseContent({
             >
               {course.price}
             </span>
-            <span className="text-base text-muted-foreground">/mo</span>
+            <span className="text-base text-muted-foreground">{course.price_period || "/mo"}</span>
           </div>
           {course.price_info && (
             <p
