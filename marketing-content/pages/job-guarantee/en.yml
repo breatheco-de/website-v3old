@@ -25,8 +25,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Get into tech with our Job Guarantee
-    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*Conditions apply.</span></span></span></span></a></div>"
+    title: Get Into Tech With Our Job Guarantee*
+    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>*Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
     image:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
@@ -95,12 +95,26 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    heading: Career Programs Backed by Our Job Guarantee
+    subheading: Our programs qualify for the Job Guarantee when all eligibility requirements are met.
     courses:
-      - name: Full Stack Development
-        duration: 9 months part-time
-        label: Updated in 2025
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: APIS, automation, telemetry
+        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+        price: $349
+        price_info: or less depending on your plan
+        cta_text: Program details
+        cta_url: /en/ai-engineering
+        course_background: accent
+      - name: Full Stack Development with AI
+        duration: 20 weeks
+        label: Updated in 2026
         title: Full Stack Software Development
         badges:
           - icon: Code
@@ -112,26 +126,26 @@ sections:
         price: $439
         original_price: $588
         price_info: with 4Geeks Installments
-        cta_text: Discover program
+        cta_text: Program details
         cta_url: /en/full-stack
         course_background: primary
-      - name: AI and Machine Learning
-        duration: 9 months part-time
-        label: Updated in 2025
+      - name: Data Science and Machine Learning
+        duration: 16 weeks
+        label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
           - icon: Brain
-            text: LLMs & Generative AI training
+            text: Python, TensorFlow, SQL
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
         price: $439
         original_price: $588
         price_info: with 4Geeks Installments
-        cta_text: Discover program
+        cta_text: Program details
         cta_url: /en/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 9 months part-time
-        label: Updated in 2025
+        duration: 16 weeks
+        label: Updated in 2026
         title: Cybersecurity
         badges:
           - icon: Code
@@ -140,7 +154,7 @@ sections:
         price: $439
         original_price: $588
         price_info: with 4Geeks Installments
-        cta_text: Discover program
+        cta_text: Program details
         cta_url: /en/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: features_quad

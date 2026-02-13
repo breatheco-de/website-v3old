@@ -1,0 +1,15 @@
+slug: ai-engineering-chile
+title: Programa de Ingeniería de IA (Chile)
+locale: es
+meta:
+  robots: index, follow
+  og_image: /images/programs/ai-engineering-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - santiago-chile
