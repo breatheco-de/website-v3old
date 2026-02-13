@@ -13,8 +13,9 @@ export type EditorType =
   | "image-picker"
   | "link-picker"
   | "rich-text-editor"
+  | "boolean-toggle"
 
 export const fieldEditors: Record<string, EditorType> = {
-  "features[].icon": "icon-picker",
-  "features[].text": "rich-text-editor"
+  "features[].text": "rich-text-editor",
+  "static_icons": "boolean-toggle"
 };
