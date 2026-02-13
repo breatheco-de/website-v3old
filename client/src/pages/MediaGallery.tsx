@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -519,6 +519,18 @@ export default function MediaGallery() {
                             >
                               <IconCopy className="h-4 w-4 mr-2" />
                               Copy ID
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => {
+                                const url = img.src.startsWith("http") ? img.src : `${window.location.origin}${img.src}`;
+                                navigator.clipboard.writeText(url);
+                                setCopiedId(id);
+                                setTimeout(() => setCopiedId(null), 2000);
+                              }}
+                              data-testid={`button-copy-url-${id}`}
+                            >
+                              <IconLink className="h-4 w-4 mr-2" />
+                              Copy URL
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               className="text-destructive focus:text-destructive"
