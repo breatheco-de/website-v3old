@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { useState, useCallback, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
+import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 
 // ============================================
 // Component Load Strategy Registry
@@ -713,7 +714,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
         }
 
         const sectionPrefix = `sections[${index}]`;
-        const sectionVariables = variables?.filter(v => v.path.startsWith(sectionPrefix));
+        const sectionVariables = variables?.filter(v => v.path.startsWith(sectionPrefix)) || [];
 
         const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
@@ -730,9 +731,10 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               onMoveDown={handleMoveDown}
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}
-              variables={sectionVariables}
             >
-              {renderedSection}
+              <VariableHighlightProvider variables={sectionVariables} sectionIndex={index}>
+                {renderedSection}
+              </VariableHighlightProvider>
             </EditableSection>
             <AddSectionButton
               insertIndex={index + 1}
