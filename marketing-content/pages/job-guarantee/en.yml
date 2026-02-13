@@ -95,8 +95,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    heading: Career Programs Backed by Our Job Guarantee
+    subheading: Our programs qualify for the Job Guarantee when all eligibility requirements are met.
     courses:
       - name: AI Engineering
         icon: Brain
