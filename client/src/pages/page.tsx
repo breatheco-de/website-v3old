@@ -16,7 +16,7 @@ export default function Page() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug || "";
 
-  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage & { _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> }>({
+  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
     queryKey: ["/api/pages", slug, locale],
     queryFn: async () => {
       const response = await apiFetch(`/api/pages/${slug}?locale=${locale}`);
@@ -76,7 +76,6 @@ export default function Page() {
         contentType="page"
         slug={slug}
         locale={locale}
-        variables={page._variables}
       />
     </div>
   );

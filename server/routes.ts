@@ -64,7 +64,7 @@ import {
 } from "./utils/contentLoader";
 import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
-import { variableManager, type VariableContext } from "./variable-manager";
+import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
@@ -73,33 +73,6 @@ import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItem
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
 
-function getVariableContext(req: { headers: Record<string, string | string[] | undefined>; query: Record<string, unknown> }, locale?: string): VariableContext {
-  return {
-    location: (req.headers['x-session-location'] as string) || undefined,
-    region: (req.headers['x-session-region'] as string) || undefined,
-    locale: locale || (req.headers['x-session-locale'] as string) || (req.query.locale as string) || undefined,
-  };
-}
-
-function resolveContentVariables<T>(data: T, context: VariableContext, req?: Request): { data: T; _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> } {
-  if (req?.headers['x-edit-mode'] === 'true') {
-    return { data };
-  }
-  if (!context.location && !context.region && !context.locale) {
-    return { data };
-  }
-  const result = variableManager.resolveDeep(data, context);
-  const variableEntries = result.variableMap.length > 0
-    ? result.variableMap.map(v => ({
-        path: v.path,
-        variable: v.variableName,
-        value: v.resolvedValue,
-        source: v.source,
-        defaultValue: v.defaultValue,
-      }))
-    : undefined;
-  return { data: result.data as T, _variables: variableEntries };
-}
 
 // Schema for career-programs listing page (custom page type)
 const careerProgramsListingSchema = z.object({
@@ -557,6 +530,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/variables", (_req, res) => {
+    res.json(variableManager.getDefinitions());
+  });
+
   app.get("/api/career-programs", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
     const _location = req.query.location as string | undefined;
@@ -655,14 +632,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    // Resolve template variables
-    const varCtx = getVariableContext(req, locale);
-    const { data: resolvedProgram, _variables } = resolveContentVariables(program, varCtx, req);
-
     res.json({
-      ...resolvedProgram,
+      ...program,
       _experiment: experimentInfo,
-      _variables,
     });
   });
 
@@ -725,9 +697,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     const landingLocations = (commonData?.locations as string[] | undefined) || undefined;
-    const varCtx = getVariableContext(req, locale);
-    const { data: resolvedLanding, _variables } = resolveContentVariables(landing, varCtx, req);
-    res.json({ ...resolvedLanding, locale, landing_locations: landingLocations, _experiment: experimentInfo, _variables });
+    res.json({ ...landing, locale, landing_locations: landingLocations, _experiment: experimentInfo });
   });
 
   // Locations API
@@ -754,9 +724,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const varCtx = getVariableContext(req, locale);
-    const { data: resolvedLocation, _variables } = resolveContentVariables(location, varCtx, req);
-    res.json({ ...resolvedLocation, _variables });
+    res.json(location);
   });
 
   // Template Pages API
@@ -853,9 +821,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const varCtx = getVariableContext(req, locale);
-    const { data: resolvedPage, _variables } = resolveContentVariables(page, varCtx, req);
-    res.json({ ...resolvedPage, _variables });
+    res.json(page);
   });
 
   // Dynamic sitemap with caching

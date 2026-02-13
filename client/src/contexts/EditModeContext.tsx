@@ -2,8 +2,6 @@ import { createContext, useContext, useState, useCallback, useMemo, useEffect } 
 import type { Section, EditOperation } from "@shared/schema";
 import { editContent } from "@/lib/contentApi";
 import { navigate } from "wouter/use-browser-location";
-import { setEditModeHeader } from "@/lib/sessionHeaders";
-import { queryClient } from "@/lib/queryClient";
 
 export type PreviewBreakpoint = 'desktop' | 'mobile';
 
@@ -89,13 +87,6 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [previewBreakpoint, setPreviewBreakpointState] = useState<PreviewBreakpoint>(getStoredPreviewBreakpoint);
 
-  useEffect(() => {
-    setEditModeHeader(isEditMode);
-    queryClient.invalidateQueries({ queryKey: ["/api/pages"] });
-    queryClient.invalidateQueries({ queryKey: ["/api/career-programs"] });
-    queryClient.invalidateQueries({ queryKey: ["/api/landings"] });
-    queryClient.invalidateQueries({ queryKey: ["/api/locations"] });
-  }, [isEditMode]);
 
   const setPreviewBreakpoint = useCallback((breakpoint: PreviewBreakpoint) => {
     setPreviewBreakpointState(breakpoint);

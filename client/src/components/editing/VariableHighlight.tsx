@@ -2,18 +2,18 @@ import { createContext, useContext, useMemo, Children, isValidElement, cloneElem
 import type { ReactNode, ReactElement } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-
-interface VariableInfo {
-  path: string;
-  variable: string;
-  value: string;
-  source: string;
-  defaultValue: string;
-}
+import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
+import {
+  resolveVariable,
+  extractTemplateTokens,
+  type VariableDefinition,
+  type VariableContext as VarCtx,
+} from "@/lib/variable-resolver";
 
 interface VariableHighlightContextValue {
-  variables: VariableInfo[];
-  sectionIndex: number;
+  definitions: Record<string, VariableDefinition>;
+  context: VarCtx;
+  isEditMode: boolean;
 }
 
 const VariableHighlightContext = createContext<VariableHighlightContextValue | null>(null);
@@ -64,22 +64,61 @@ function InlineHighlight({
 
 const SKIP_ELEMENTS = new Set(["img", "video", "iframe", "svg", "input", "textarea", "select"]);
 
-function highlightChildren(children: ReactNode, variablesByValue: Map<string, VariableInfo>): ReactNode {
+function resolveAndHighlightText(
+  text: string,
+  definitions: Record<string, VariableDefinition>,
+  context: VarCtx,
+  isEditMode: boolean,
+): ReactNode {
+  const tokens = extractTemplateTokens(text);
+  if (tokens.length === 0) return text;
+
+  if (isEditMode) {
+    return text;
+  }
+
+  const parts: ReactNode[] = [];
+  let lastEnd = 0;
+
+  for (const token of tokens) {
+    if (token.start > lastEnd) {
+      parts.push(text.slice(lastEnd, token.start));
+    }
+
+    const result = resolveVariable(token.variableName, definitions, context);
+    const value = result?.value || token.defaultValue || token.variableName;
+    const source = result?.source || "inline";
+
+    parts.push(
+      <InlineHighlight
+        key={`var-${token.start}`}
+        variable={token.variableName}
+        source={source}
+        defaultValue={token.defaultValue}
+      >
+        {value}
+      </InlineHighlight>
+    );
+
+    lastEnd = token.end;
+  }
+
+  if (lastEnd < text.length) {
+    parts.push(text.slice(lastEnd));
+  }
+
+  return parts.length === 1 ? parts[0] : <>{parts}</>;
+}
+
+function processChildren(
+  children: ReactNode,
+  definitions: Record<string, VariableDefinition>,
+  context: VarCtx,
+  isEditMode: boolean,
+): ReactNode {
   return Children.map(children, (child) => {
     if (typeof child === "string" && child.trim().length > 0) {
-      const match = variablesByValue.get(child);
-      if (match) {
-        return (
-          <InlineHighlight
-            variable={match.variable}
-            source={match.source}
-            defaultValue={match.defaultValue}
-          >
-            {child}
-          </InlineHighlight>
-        );
-      }
-      return child;
+      return resolveAndHighlightText(child, definitions, context, isEditMode);
     }
 
     if (isValidElement(child)) {
@@ -91,7 +130,7 @@ function highlightChildren(children: ReactNode, variablesByValue: Map<string, Va
       }
 
       if (el.props && el.props.children != null) {
-        const newChildren = highlightChildren(el.props.children as ReactNode, variablesByValue);
+        const newChildren = processChildren(el.props.children as ReactNode, definitions, context, isEditMode);
         return cloneElement(el, { children: newChildren });
       }
     }
@@ -102,28 +141,27 @@ function highlightChildren(children: ReactNode, variablesByValue: Map<string, Va
 
 export function VariableHighlightProvider({
   children,
-  variables,
-  sectionIndex,
+  sectionIndex: _sectionIndex,
 }: {
   children: ReactNode;
-  variables: VariableInfo[];
+  variables?: unknown[];
   sectionIndex: number;
 }) {
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
+  const { data: definitions } = useVariableDefinitions();
+  const varContext = useVariableContext();
 
-  const contextValue = useMemo(() => ({ variables, sectionIndex }), [variables, sectionIndex]);
+  const contextValue = useMemo(() => ({
+    definitions: definitions || {},
+    context: varContext,
+    isEditMode,
+  }), [definitions, varContext, isEditMode]);
 
   const processedChildren = useMemo(() => {
-    if (!isEditMode || variables.length === 0) return children;
-
-    const variablesByValue = new Map<string, VariableInfo>();
-    for (const v of variables) {
-      variablesByValue.set(v.value, v);
-    }
-
-    return highlightChildren(children, variablesByValue);
-  }, [children, variables, isEditMode]);
+    if (!definitions || Object.keys(definitions).length === 0) return children;
+    return processChildren(children, definitions, varContext, isEditMode);
+  }, [children, definitions, varContext, isEditMode]);
 
   return (
     <VariableHighlightContext.Provider value={contextValue}>
@@ -134,53 +172,17 @@ export function VariableHighlightProvider({
 
 export function useVariableText() {
   const ctx = useContext(VariableHighlightContext);
-  const editMode = useEditModeOptional();
-  const isEditMode = editMode?.isEditMode ?? false;
 
   return useMemo(() => {
-    if (!isEditMode || !ctx || ctx.variables.length === 0) {
+    if (!ctx || Object.keys(ctx.definitions).length === 0) {
       return (text: ReactNode) => text;
     }
 
-    const variablesByValue = new Map<string, VariableInfo>();
-    for (const v of ctx.variables) {
-      variablesByValue.set(v.value, v);
-    }
-
-    return (text: ReactNode, path?: string): ReactNode => {
-      if (path) {
-        const sectionPrefix = `sections[${ctx.sectionIndex}].`;
-        const fullPath = `${sectionPrefix}${path}`;
-        const match = ctx.variables.find(v => v.path === fullPath);
-        if (match) {
-          return (
-            <InlineHighlight
-              variable={match.variable}
-              source={match.source}
-              defaultValue={match.defaultValue}
-            >
-              {text}
-            </InlineHighlight>
-          );
-        }
-      }
-
+    return (text: ReactNode, _path?: string): ReactNode => {
       if (typeof text === "string") {
-        const match = variablesByValue.get(text);
-        if (match) {
-          return (
-            <InlineHighlight
-              variable={match.variable}
-              source={match.source}
-              defaultValue={match.defaultValue}
-            >
-              {text}
-            </InlineHighlight>
-          );
-        }
+        return resolveAndHighlightText(text, ctx.definitions, ctx.context, ctx.isEditMode);
       }
-
       return text;
     };
-  }, [isEditMode, ctx]);
+  }, [ctx]);
 }

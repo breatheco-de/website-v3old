@@ -27,7 +27,7 @@ export default function LandingDetail() {
     }
   }, [urlLocale, i18n]);
 
-  const { data: landing, isLoading, error, refetch } = useQuery<LandingPage & { _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> }>({
+  const { data: landing, isLoading, error, refetch } = useQuery<LandingPage>({
     queryKey: ["/api/landings", slug, locale],
     queryFn: async () => {
       const response = await apiFetch(`/api/landings/${slug}?locale=${locale}`);
@@ -87,7 +87,6 @@ export default function LandingDetail() {
         slug={slug}
         locale={locale}
         landingLocations={landing.landing_locations}
-        variables={landing._variables}
       />
     </div>
   );

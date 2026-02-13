@@ -3,6 +3,8 @@ import { useState, useCallback, useMemo, useRef, useEffect, lazy, Suspense } fro
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
+import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
+import { resolveDeep } from "@/lib/variable-resolver";
 
 // ============================================
 // Component Load Strategy Registry
@@ -265,7 +267,6 @@ interface SectionRendererProps {
   locale?: string;
   programSlug?: string;
   landingLocations?: string[];
-  variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }>;
 }
 
 function EmptyPageState({ 
@@ -572,7 +573,7 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   );
 }
 
-export function SectionRenderer({ sections, contentType, slug, locale, programSlug, landingLocations, variables }: SectionRendererProps) {
+export function SectionRenderer({ sections, contentType, slug, locale, programSlug, landingLocations }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -580,6 +581,17 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   const { session } = useSession();
   const sessionLocationSlug = session.location?.slug;
   const sessionLocationRegion = session.location?.region;
+
+  const { data: varDefinitions } = useVariableDefinitions();
+  const varContext = useVariableContext();
+
+  const resolvedSections = useMemo(() => {
+    if (isEditMode || !varDefinitions || Object.keys(varDefinitions).length === 0) {
+      return sections;
+    }
+    const { data } = resolveDeep(sections, varDefinitions, varContext);
+    return data as Section[];
+  }, [sections, isEditMode, varDefinitions, varContext]);
 
   const renderSectionWithContext = useCallback((section: Section, index: number) => {
     const sectionType = (section as { type: string }).type;
@@ -685,14 +697,15 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           slug={slug}
         />
       )}
-      {sections.map((section, index) => {
+      {resolvedSections.map((section, index) => {
+        const rawSection = sections[index];
         const sectionType = (section as { type: string }).type;
         const renderedSection = renderSectionWithContext(section, index);
         const layoutStyles = getSectionLayoutStyles(section);
-        const showOn = (section as SectionLayout).showOn;
+        const showOn = (rawSection as SectionLayout).showOn;
 
         const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
-        const isLocationVisible = shouldShowSectionForLocation(section, sessionLocationSlug, sessionLocationRegion, isEditMode);
+        const isLocationVisible = shouldShowSectionForLocation(rawSection, sessionLocationSlug, sessionLocationRegion, isEditMode);
         const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
 
         if (!renderedSection) return null;
@@ -713,14 +726,12 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           );
         }
 
-        const sectionPrefix = `sections[${index}]`;
-        const sectionVariables = variables?.filter(v => v.path.startsWith(sectionPrefix)) || [];
 
-        const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
+        const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
             <EditableSection
-              section={section}
+              section={rawSection}
               index={index}
               sectionType={sectionType}
               contentType={contentType}
@@ -732,7 +743,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}
             >
-              <VariableHighlightProvider variables={sectionVariables} sectionIndex={index}>
+              <VariableHighlightProvider sectionIndex={index}>
                 {renderedSection}
               </VariableHighlightProvider>
             </EditableSection>

@@ -39,7 +39,7 @@ export default function PrivatePreview() {
   const config = contentTypeConfig[contentType];
   const isValidContentType = !!config;
 
-  const { data: content, isLoading, error, refetch } = useQuery<ContentData & { _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> }>({
+  const { data: content, isLoading, error, refetch } = useQuery<ContentData>({
     queryKey: ["/api/preview", contentType, slug, variant, version, locale],
     queryFn: async () => {
       let url = `/api/${config.apiPath}/${slug}?locale=${locale}`;
@@ -128,7 +128,6 @@ export default function PrivatePreview() {
         contentType={config.singular as "program" | "landing" | "location" | "page"}
         slug={slug}
         locale={locale}
-        variables={content._variables}
       />
     </div>
   );
