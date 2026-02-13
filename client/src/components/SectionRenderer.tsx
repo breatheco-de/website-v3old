@@ -686,36 +686,6 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
         }
 
         const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
-
-        if (sectionType === "sticky_cta") {
-          return (
-            <div key={index} id={sectionId} className={visibilityClasses || undefined}>
-              <EditableSection
-                section={section}
-                index={index}
-                sectionType={sectionType}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-                totalSections={sections.length}
-                onMoveUp={handleMoveUp}
-                onMoveDown={handleMoveDown}
-                onDelete={handleDelete}
-                onDuplicate={handleDuplicate}
-              >
-                {renderedSection}
-              </EditableSection>
-              <AddSectionButton
-                insertIndex={index + 1}
-                sections={sections}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-              />
-            </div>
-          );
-        }
-
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
             <EditableSection

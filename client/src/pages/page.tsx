@@ -68,7 +68,7 @@ export default function Page() {
   }
 
   return (
-    <div data-testid={`page-${slug}`} className="min-h-screen">
+    <div data-testid={`page-${slug}`}>
       <Header />
       <SectionRenderer 
         sections={page.sections} 

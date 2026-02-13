@@ -109,7 +109,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
   }
 
   return (
-    <div data-testid={`page-${config.testIdPrefix}`} className="min-h-screen">
+    <div data-testid={`page-${config.testIdPrefix}`}>
       <Header />
       <SectionRenderer 
         sections={data.sections || []} 
