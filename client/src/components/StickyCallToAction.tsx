@@ -74,7 +74,7 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg transition-all duration-300",
+        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg",
         isExpanded && "max-h-[80vh] overflow-auto"
       )}
       data-testid="sticky-cta-bar"
