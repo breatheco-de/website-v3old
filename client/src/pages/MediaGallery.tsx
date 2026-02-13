@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -360,7 +360,7 @@ export default function MediaGallery() {
                   disabled={scanning}
                   data-testid="button-scan-registry"
                 >
-                  <IconStethoscope className={`h-4 w-4 ${scanning ? 'animate-pulse' : ''}`} />
+                  {scanning ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconStethoscope className="h-4 w-4" />}
                 </Button>
                 <Button
                   size="icon"
