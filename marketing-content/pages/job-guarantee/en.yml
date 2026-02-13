@@ -105,16 +105,16 @@ sections:
         title: AI Engineering
         badges:
           - icon: DollarSign
-            text: $14,999 full tuition
+            text: APIS, automation, telemetry
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
         price: $349
         price_info: or less depending on your plan
-        cta_text: more info
+        cta_text: More info
         cta_url: /en/ai-engineering
         course_background: accent
-      - name: Full Stack Development
+      - name: Full Stack Development with AI
         duration: 9 months part-time
-        label: Updated in 2025
+        label: Updated in 2026
         title: Full Stack Software Development
         badges:
           - icon: Code
@@ -129,13 +129,13 @@ sections:
         cta_text: Discover program
         cta_url: /en/full-stack
         course_background: primary
-      - name: AI and Machine Learning
-        duration: 9 months part-time
-        label: Updated in 2025
+      - name: Data Science and Machine Learning
+        duration: 16 weeks
+        label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
           - icon: Brain
-            text: LLMs & Generative AI training
+            text: Python, TensorFlow, SQL
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
         price: $439
         original_price: $588
@@ -144,8 +144,8 @@ sections:
         cta_url: /en/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 9 months part-time
-        label: Updated in 2025
+        duration: 16 weeks
+        label: Updated in 2026
         title: Cybersecurity
         badges:
           - icon: Code
