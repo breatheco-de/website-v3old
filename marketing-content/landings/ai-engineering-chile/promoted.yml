@@ -1,4 +1,4 @@
-slug: "ai-engineering-chile"
+slug: ai-engineering-chile
 title: Programa de Ingeniería de IA
 locale: es
 meta:
@@ -59,7 +59,7 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
+          default_country: CL
         program:
           visible: false
           default: ai-engineering
@@ -621,7 +621,7 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
+          default_country: CL
           placeholder: Teléfono
         program:
           visible: false
