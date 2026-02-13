@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconRefresh, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -245,14 +245,13 @@ export default function MediaGallery() {
             <div className="flex flex-col items-end gap-2">
               <div className="flex items-center gap-2">
                 <Button
-                  variant="outline"
-                  size="sm"
+                  size="icon"
+                  variant="ghost"
                   onClick={handleScan}
                   disabled={scanning}
                   data-testid="button-scan-registry"
                 >
-                  <IconRefresh className={`h-4 w-4 mr-1.5 ${scanning ? 'animate-spin' : ''}`} />
-                  {scanning ? "Scanning..." : "Scan Registry"}
+                  <IconStethoscope className={`h-4 w-4 ${scanning ? 'animate-pulse' : ''}`} />
                 </Button>
                 <Button
                   size="icon"
