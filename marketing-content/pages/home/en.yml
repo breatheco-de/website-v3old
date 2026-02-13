@@ -17,8 +17,8 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: The AI Reskilling Platform
-    subtitle: Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance.
+    title: Next-Generation Tech Careers. Powered by AI.
+    subtitle: Career-focused programs in AI Engineering, Software Development, Data Science, and Cybersecurity. Built to launch high-growth careers in today’s AI-powered tech.
     trust_bar:
       rating: 4.9/5
       rating_count: 3,000+
