@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback, lazy, Suspense } from "react";
-import { createPortal } from "react-dom";
+import { useState, lazy, Suspense } from "react";
 import { IconX, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -35,40 +34,11 @@ function FormSkeleton() {
   );
 }
 
-function useVisualViewportBottom() {
-  const [bottomOffset, setBottomOffset] = useState(0);
-
-  const updateOffset = useCallback(() => {
-    if (window.visualViewport) {
-      const vv = window.visualViewport;
-      const offset = window.innerHeight - (vv.offsetTop + vv.height);
-      setBottomOffset(Math.max(0, offset));
-    }
-  }, []);
-
-  useEffect(() => {
-    const vv = window.visualViewport;
-    if (!vv) return;
-
-    updateOffset();
-
-    vv.addEventListener("resize", updateOffset);
-    vv.addEventListener("scroll", updateOffset);
-    return () => {
-      vv.removeEventListener("resize", updateOffset);
-      vv.removeEventListener("scroll", updateOffset);
-    };
-  }, [updateOffset]);
-
-  return bottomOffset;
-}
-
 export function StickyCallToAction({ data, landingLocations }: StickyCallToActionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
-  const bottomOffset = useVisualViewportBottom();
 
   const buttonLabel = data.button_label || "Apply Now";
 
@@ -101,13 +71,12 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
     return null;
   }
 
-  const stickyBar = (
+  return (
     <div
       className={cn(
-        "fixed left-0 right-0 z-50 bg-card border-t shadow-lg transition-all duration-300",
+        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg",
         isExpanded && "max-h-[80vh] overflow-auto"
       )}
-      style={{ bottom: `${bottomOffset}px` }}
       data-testid="sticky-cta-bar"
     >
       <div className="container mx-auto px-4">
@@ -170,8 +139,6 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
       </div>
     </div>
   );
-
-  return createPortal(stickyBar, document.body);
 }
 
 export default StickyCallToAction;
