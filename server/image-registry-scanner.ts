@@ -171,7 +171,8 @@ function scanYamlFiles(): Array<{ yamlFile: string; field: string; src: string }
 
 export function scanImageRegistry(): ScanResult {
   const registry = loadRegistry();
-  const attachedAssets = scanAllImageDirectories();
+  const allImages = scanAllImageDirectories();
+  const marketingOnly = scanImageDirectory(MARKETING_IMAGES_DIR, "/marketing-content/images/", false);
   const yamlRefs = scanYamlFiles();
 
   const existingSrcSet = new Set<string>();
@@ -193,7 +194,9 @@ export function scanImageRegistry(): ScanResult {
   const newImages: ScanNewImage[] = [];
   const updatedImages: ScanUpdatedImage[] = [];
 
-  attachedAssets.forEach((src, filename) => {
+  // Only flag images from marketing-content/images/ as new/unregistered
+  // attached_assets/ is legacy and should not produce new registration suggestions
+  marketingOnly.forEach((src, filename) => {
     if (existingSrcSet.has(src)) return;
 
     const base = getIdBase(filename);
@@ -246,7 +249,7 @@ export function scanImageRegistry(): ScanResult {
     updatedImages,
     brokenReferences,
     registeredCount: Object.keys(registry.images).length,
-    scannedImagesCount: attachedAssets.size,
+    scannedImagesCount: allImages.size,
     summary: {
       new: newImages.length,
       updated: updatedImages.length,
