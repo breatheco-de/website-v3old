@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link } from "wouter";
@@ -52,6 +53,9 @@ export default function MediaGallery() {
   const [bulkDeleteResults, setBulkDeleteResults] = useState<BulkDeleteResult[] | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsProviderView, setSettingsProviderView] = useState<string | null>(null);
+  const [migrating, setMigrating] = useState(false);
+  const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
+  const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -150,6 +154,39 @@ export default function MediaGallery() {
       }
       return next;
     });
+  };
+
+  const localImageCount = registry?.images
+    ? Object.values(registry.images).filter(img => !img.src.startsWith("http")).length
+    : 0;
+
+  const cloudProvider = mediaStatus?.providers.find(p => p !== "local") ?? null;
+  const cloudProviderLabel = cloudProvider === "gcs" ? "Google Bucket" : cloudProvider ?? "";
+
+  const handleMigrate = async () => {
+    setMigrateConfirmOpen(false);
+    setMigrating(true);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/migrate", {
+        from: "local",
+        to: cloudProvider,
+      });
+      const data = await res.json();
+      setMigrateResults(data);
+      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      toast({
+        title: "Migration complete",
+        description: data.message,
+      });
+    } catch (err: any) {
+      toast({
+        title: "Migration failed",
+        description: err.message,
+        variant: "destructive",
+      });
+    } finally {
+      setMigrating(false);
+    }
   };
 
   const PAGE_SIZE = 50;
@@ -716,6 +753,29 @@ export default function MediaGallery() {
                       Always delete images through the gallery (not manually from the filesystem). Manual deletion can leave broken references in YAML content files and the image registry.
                     </p>
                   </div>
+                  {cloudProvider && localImageCount > 0 && (
+                    <div className="border-t pt-3 space-y-2">
+                      <p className="text-xs font-medium text-foreground">Migrate to {cloudProviderLabel}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Upload all <span className="font-semibold text-foreground">{localImageCount}</span> local image{localImageCount !== 1 ? "s" : ""} to <span className="font-semibold text-foreground">{cloudProviderLabel}</span>. All YAML content references will be updated automatically.
+                      </p>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setMigrateConfirmOpen(true)}
+                        disabled={migrating}
+                        data-testid="button-migrate-to-cloud"
+                      >
+                        <IconCloud className="h-4 w-4 mr-2" />
+                        {migrating ? "Migrating..." : `Migrate ${localImageCount} image${localImageCount !== 1 ? "s" : ""} to ${cloudProviderLabel}`}
+                      </Button>
+                    </div>
+                  )}
+                  {cloudProvider && localImageCount === 0 && (
+                    <div className="border-t pt-3">
+                      <p className="text-xs text-muted-foreground">All images are already stored in {cloudProviderLabel}.</p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -820,6 +880,98 @@ export default function MediaGallery() {
           )}
           <DialogFooter>
             <Button onClick={() => setBulkDeleteResults(null)} data-testid="button-close-results">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={migrateConfirmOpen} onOpenChange={setMigrateConfirmOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Migrate Local Images to {cloudProviderLabel}</DialogTitle>
+            <DialogDescription>
+              This will upload {localImageCount} local image{localImageCount !== 1 ? "s" : ""} to {cloudProviderLabel}.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div className="flex items-start gap-2 p-3 rounded bg-destructive/10 border border-destructive/20">
+              <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+              <div className="text-xs space-y-1.5">
+                <p className="font-medium text-destructive">This action is not reversible</p>
+                <p className="text-muted-foreground">
+                  All {localImageCount} local image{localImageCount !== 1 ? "s" : ""} will be uploaded to {cloudProviderLabel}. Image references in YAML content files and the image registry will be permanently updated to point to the cloud URLs.
+                </p>
+                <p className="text-muted-foreground">
+                  The updated YAML files will <span className="font-medium text-foreground">not</span> be automatically committed to GitHub. You will need to commit and push the changes manually after migration.
+                </p>
+              </div>
+            </div>
+          </div>
+          <DialogFooter className="flex-row gap-2 sm:justify-end">
+            <Button variant="outline" onClick={() => setMigrateConfirmOpen(false)} data-testid="button-cancel-migrate">
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleMigrate} data-testid="button-confirm-migrate">
+              <IconCloud className="h-4 w-4 mr-2" />
+              Migrate {localImageCount} image{localImageCount !== 1 ? "s" : ""} to {cloudProviderLabel}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={migrateResults !== null} onOpenChange={(open) => { if (!open) setMigrateResults(null); }}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Migration Results</DialogTitle>
+          </DialogHeader>
+          {migrateResults && (
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">{migrateResults.message}</p>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="text-green-600 dark:text-green-400">
+                  {migrateResults.migratedCount} migrated
+                </span>
+                {migrateResults.totalProcessed - migrateResults.migratedCount > 0 && (
+                  <span className="text-muted-foreground">
+                    {migrateResults.totalProcessed - migrateResults.migratedCount} skipped/failed
+                  </span>
+                )}
+              </div>
+              <ScrollArea className="max-h-[300px]">
+                <div className="border rounded-md">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        <th className="text-left px-3 py-2 font-medium">Image ID</th>
+                        <th className="text-left px-3 py-2 font-medium">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {migrateResults.results.map((result) => (
+                        <tr
+                          key={result.id}
+                          className={result.status === "migrated"
+                            ? "bg-green-50 dark:bg-green-950/30"
+                            : "bg-muted/30"
+                          }
+                        >
+                          <td className="px-3 py-2 font-mono text-xs truncate max-w-[200px]" data-testid={`text-migrate-id-${result.id}`}>
+                            {result.id}
+                          </td>
+                          <td className={`px-3 py-2 text-xs ${result.status === "migrated" ? "text-green-700 dark:text-green-400" : "text-muted-foreground"}`} data-testid={`text-migrate-status-${result.id}`}>
+                            {result.status}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </ScrollArea>
+            </div>
+          )}
+          <DialogFooter>
+            <Button onClick={() => setMigrateResults(null)} data-testid="button-close-migrate-results">
               Close
             </Button>
           </DialogFooter>
