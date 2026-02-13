@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconRefresh, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconRefresh, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -50,8 +50,19 @@ export default function MediaGallery() {
   const [selectedImages, setSelectedImages] = useState<Set<string>>(new Set());
   const [bulkDeleting, setBulkDeleting] = useState(false);
   const [bulkDeleteResults, setBulkDeleteResults] = useState<BulkDeleteResult[] | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  interface MediaStatus {
+    defaultProvider: string;
+    providers: string[];
+    gcs?: { bucket: string; basePath: string; projectId?: string };
+  }
+
+  const { data: mediaStatus } = useQuery<MediaStatus>({
+    queryKey: ["/api/media/status"],
+  });
 
   const { data: registry, isLoading, error } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
@@ -242,6 +253,14 @@ export default function MediaGallery() {
                 >
                   <IconRefresh className={`h-4 w-4 mr-1.5 ${scanning ? 'animate-spin' : ''}`} />
                   {scanning ? "Scanning..." : "Scan Registry"}
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setSettingsOpen(true)}
+                  data-testid="button-media-settings"
+                >
+                  <IconSettings className="h-4 w-4" />
                 </Button>
                 {searchOpen ? (
                   <div className="relative w-64 flex items-center gap-1">
@@ -607,6 +626,89 @@ export default function MediaGallery() {
           </div>
         </div>
       )}
+
+      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Media Storage Settings</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                {mediaStatus?.defaultProvider === "gcs" ? (
+                  <IconCloud className="h-5 w-5 text-primary" />
+                ) : (
+                  <IconFolder className="h-5 w-5 text-primary" />
+                )}
+                <div>
+                  <p className="text-sm font-medium" data-testid="text-default-provider">
+                    Default Provider: <span className="font-semibold">{mediaStatus?.defaultProvider === "gcs" ? "Google Cloud Storage" : "Local"}</span>
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    New uploads will use this provider
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-md border p-3 space-y-2">
+                <p className="text-sm font-medium">Active Providers</p>
+                <div className="flex flex-wrap gap-2">
+                  {mediaStatus?.providers.map((p) => (
+                    <Badge key={p} variant={p === mediaStatus.defaultProvider ? "default" : "outline"} data-testid={`badge-provider-${p}`}>
+                      {p === "gcs" ? "Google Cloud Storage" : p === "local" ? "Local Filesystem" : p}
+                      {p === mediaStatus.defaultProvider && " (default)"}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {mediaStatus?.gcs && (
+                <div className="rounded-md border p-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <IconCloud className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-sm font-medium">Google Cloud Storage</p>
+                  </div>
+                  <div className="space-y-1.5 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground">Bucket</span>
+                      <code className="text-xs bg-muted px-2 py-0.5 rounded" data-testid="text-gcs-bucket">{mediaStatus.gcs.bucket}</code>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground">Base Path</span>
+                      <code className="text-xs bg-muted px-2 py-0.5 rounded" data-testid="text-gcs-base-path">{mediaStatus.gcs.basePath}/</code>
+                    </div>
+                    {mediaStatus.gcs.projectId && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Project ID</span>
+                        <code className="text-xs bg-muted px-2 py-0.5 rounded" data-testid="text-gcs-project">{mediaStatus.gcs.projectId}</code>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className="rounded-md border p-3 space-y-2">
+                <p className="text-sm font-medium">Setup Guide</p>
+                <div className="text-xs text-muted-foreground space-y-1.5">
+                  <p>Configure these environment variables to set up cloud storage:</p>
+                  <div className="space-y-1 font-mono bg-muted p-2 rounded">
+                    <p><span className="text-foreground">GCS_BUCKET_NAME</span> - Bucket name</p>
+                    <p><span className="text-foreground">GCS_PROJECT_ID</span> - GCP project ID</p>
+                    <p><span className="text-foreground">GCS_CREDENTIALS_JSON</span> - Service account key JSON</p>
+                    <p><span className="text-foreground">GCS_BASE_PATH</span> - Folder prefix (default: media)</p>
+                    <p><span className="text-foreground">MEDIA_DEFAULT_PROVIDER</span> - Set to "gcs" for cloud default</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setSettingsOpen(false)} data-testid="button-close-settings">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={bulkDeleteResults !== null} onOpenChange={(open) => { if (!open) setBulkDeleteResults(null); }}>
         <DialogContent className="sm:max-w-lg">

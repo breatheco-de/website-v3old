@@ -45,3 +45,4 @@ integrations = ["javascript_openai_ai_integrations:1.0.0"]
 [userenv]
 
 [userenv.shared]
+MEDIA_DEFAULT_PROVIDER = "gcs"

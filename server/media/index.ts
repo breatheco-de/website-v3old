@@ -107,6 +107,26 @@ class Media {
     this.ensureInit();
     return Array.from(this.providers.keys());
   }
+
+  getStatus(): {
+    defaultProvider: string;
+    providers: string[];
+    gcs?: { bucket: string; basePath: string; projectId?: string };
+  } {
+    this.ensureInit();
+    const status: ReturnType<Media["getStatus"]> = {
+      defaultProvider: this.defaultProviderName,
+      providers: this.getAllProviderNames(),
+    };
+    if (this.providers.has("gcs")) {
+      status.gcs = {
+        bucket: process.env.GCS_BUCKET_NAME || "",
+        basePath: process.env.GCS_BASE_PATH || "media",
+        projectId: process.env.GCS_PROJECT_ID,
+      };
+    }
+    return status;
+  }
 }
 
 export const media = new Media();

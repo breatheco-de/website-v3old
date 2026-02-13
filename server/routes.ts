@@ -3666,6 +3666,14 @@ sections: []
     }
   });
 
+  app.get("/api/media/status", (_req, res) => {
+    try {
+      res.json(media.getStatus());
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // Image Registry Scanner Endpoints (delegated to MediaGallery singleton)
   app.post("/api/image-registry/scan", async (_req, res) => {
     try {
