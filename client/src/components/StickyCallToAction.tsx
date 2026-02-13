@@ -53,10 +53,8 @@ function useVisualViewportBottom() {
     updateOffset();
 
     vv.addEventListener("resize", updateOffset);
-    vv.addEventListener("scroll", updateOffset);
     return () => {
       vv.removeEventListener("resize", updateOffset);
-      vv.removeEventListener("scroll", updateOffset);
     };
   }, [updateOffset]);
 
