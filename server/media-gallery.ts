@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as crypto from "crypto";
 import * as yaml from "js-yaml";
 import type { ImageRegistry, ImageEntry } from "@shared/schema";
 import { media } from "./media";
@@ -29,16 +30,25 @@ export interface BrokenReference {
   missingSrc: string;
 }
 
+export interface DuplicateGroup {
+  hash: string;
+  ids: string[];
+  canonical: string;
+}
+
 export interface ScanResult {
   newImages: ScanNewImage[];
   updatedImages: ScanUpdatedImage[];
   brokenReferences: BrokenReference[];
+  duplicates: DuplicateGroup[];
+  hashesComputed: number;
   registeredCount: number;
   scannedImagesCount: number;
   summary: {
     new: number;
     updated: number;
     broken: number;
+    duplicates: number;
   };
 }
 
@@ -247,6 +257,35 @@ class MediaGallery {
     return refs;
   }
 
+  private computeFileHash(filePath: string): string | null {
+    try {
+      const data = fs.readFileSync(filePath);
+      return crypto.createHash("sha256").update(data).digest("hex");
+    } catch {
+      return null;
+    }
+  }
+
+  computeBufferHash(data: Buffer): string {
+    return crypto.createHash("sha256").update(data).digest("hex");
+  }
+
+  private resolveLocalPath(src: string): string | null {
+    const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
+    const diskPath = path.join(process.cwd(), normalizedSrc);
+    if (fs.existsSync(diskPath)) return diskPath;
+    return null;
+  }
+
+  findByHash(hash: string): { id: string; entry: ImageEntry } | null {
+    const registry = this.getRegistry();
+    if (!registry) return null;
+    for (const [id, entry] of Object.entries(registry.images)) {
+      if (entry.hash === hash) return { id, entry };
+    }
+    return null;
+  }
+
   async scan(): Promise<ScanResult> {
     const registry = this.getRegistry() || { presets: {}, images: {} };
     const allImages = this.scanAllLocalImages();
@@ -338,16 +377,53 @@ class MediaGallery {
       }
     }
 
+    let hashesComputed = 0;
+    let registryDirty = false;
+    for (const [id, entry] of Object.entries(registry.images)) {
+      if (entry.hash) continue;
+      const isLocal = !entry.src.startsWith("http://") && !entry.src.startsWith("https://");
+      if (!isLocal) continue;
+      const localPath = this.resolveLocalPath(entry.src);
+      if (!localPath) continue;
+      const hash = this.computeFileHash(localPath);
+      if (hash) {
+        (registry.images[id] as any).hash = hash;
+        hashesComputed++;
+        registryDirty = true;
+      }
+    }
+    if (registryDirty) {
+      this.saveRegistry(registry);
+    }
+
+    const hashGroups = new Map<string, string[]>();
+    for (const [id, entry] of Object.entries(registry.images)) {
+      if (!entry.hash) continue;
+      const group = hashGroups.get(entry.hash) || [];
+      group.push(id);
+      hashGroups.set(entry.hash, group);
+    }
+
+    const duplicates: DuplicateGroup[] = [];
+    for (const [hash, ids] of hashGroups) {
+      if (ids.length < 2) continue;
+      const sorted = [...ids].sort((a, b) => a.length - b.length || a.localeCompare(b));
+      duplicates.push({ hash, ids: sorted, canonical: sorted[0] });
+    }
+
     return {
       newImages,
       updatedImages,
       brokenReferences,
+      duplicates,
+      hashesComputed,
       registeredCount: Object.keys(registry.images).length,
       scannedImagesCount: allImages.size,
       summary: {
         new: newImages.length,
         updated: updatedImages.length,
         broken: brokenReferences.length,
+        duplicates: duplicates.length,
       },
     };
   }
@@ -419,6 +495,7 @@ class MediaGallery {
       focal_point: entry.focal_point || "center",
       tags: entry.tags || [],
       usage_count: entry.usage_count || 0,
+      ...(entry.hash ? { hash: entry.hash } : {}),
     };
 
     this.saveRegistry(registry);
@@ -577,13 +654,25 @@ class MediaGallery {
     data: Buffer,
     contentType: string,
     opts?: { alt?: string; tags?: string[] }
-  ): Promise<{ id: string; src: string; alt: string }> {
+  ): Promise<{ id: string; src: string; alt: string; duplicate?: boolean; existingId?: string }> {
     const registry = this.getRegistry();
     if (!registry) throw new Error("Failed to load registry");
 
     const ext = path.extname(filename).toLowerCase();
     if (!IMAGE_EXTENSIONS.has(ext)) {
       throw new Error(`Unsupported file type: ${ext}`);
+    }
+
+    const hash = this.computeBufferHash(data);
+    const existing = this.findByHash(hash);
+    if (existing) {
+      return {
+        id: existing.id,
+        src: existing.entry.src,
+        alt: existing.entry.alt,
+        duplicate: true,
+        existingId: existing.id,
+      };
     }
 
     const sanitized = filename
@@ -622,11 +711,64 @@ class MediaGallery {
       src,
       alt,
       tags: opts?.tags || [],
+      hash,
     });
 
     this.existenceCache.clear();
 
     return { id: uniqueId, src, alt };
+  }
+
+  removeDuplicates(duplicateGroups: DuplicateGroup[]): {
+    removedCount: number;
+    yamlFilesUpdated: string[];
+    results: Array<{ id: string; status: string; rewrittenTo?: string }>;
+  } {
+    const registry = this.getRegistry();
+    if (!registry) throw new Error("Failed to load registry");
+
+    const results: Array<{ id: string; status: string; rewrittenTo?: string }> = [];
+    const allYamlFilesUpdated: string[] = [];
+    let removedCount = 0;
+
+    for (const group of duplicateGroups) {
+      const canonical = group.canonical;
+      const canonicalEntry = registry.images[canonical];
+      if (!canonicalEntry) continue;
+
+      for (const id of group.ids) {
+        if (id === canonical) {
+          results.push({ id, status: "kept" });
+          continue;
+        }
+
+        const entry = registry.images[id];
+        if (!entry) {
+          results.push({ id, status: "not_found" });
+          continue;
+        }
+
+        if (entry.src !== canonicalEntry.src) {
+          const files = this.replacePathsInYamlFiles(entry.src, canonicalEntry.src);
+          allYamlFilesUpdated.push(...files);
+        }
+
+        delete (registry.images as Record<string, any>)[id];
+        removedCount++;
+        results.push({ id, status: "removed", rewrittenTo: canonical });
+      }
+    }
+
+    if (removedCount > 0) {
+      this.saveRegistry(registry);
+      this.existenceCache.clear();
+    }
+
+    return {
+      removedCount,
+      yamlFilesUpdated: Array.from(new Set(allYamlFilesUpdated)),
+      results,
+    };
   }
 
   private saveRegistry(registry: ImageRegistry): void {

@@ -24,13 +24,21 @@ import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 
+interface DuplicateGroup {
+  hash: string;
+  ids: string[];
+  canonical: string;
+}
+
 interface ScanResult {
   newImages: Array<{ id: string; src: string; filename: string }>;
   updatedImages: Array<{ id: string; oldSrc: string; newSrc: string }>;
   brokenReferences: Array<{ yamlFile: string; field: string; missingSrc: string }>;
+  duplicates: DuplicateGroup[];
+  hashesComputed: number;
   registeredCount: number;
   scannedImagesCount: number;
-  summary: { new: number; updated: number; broken: number };
+  summary: { new: number; updated: number; broken: number; duplicates: number };
 }
 
 interface BulkDeleteResult {
@@ -53,6 +61,7 @@ export default function MediaGallery() {
   const [bulkDeleteResults, setBulkDeleteResults] = useState<BulkDeleteResult[] | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsProviderView, setSettingsProviderView] = useState<string | null>(null);
+  const [deduplicating, setDeduplicating] = useState(false);
   const [migrating, setMigrating] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
   const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
@@ -132,7 +141,7 @@ export default function MediaGallery() {
       queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
       const refreshed = await apiRequest("POST", "/api/image-registry/scan");
       const freshScan: ScanResult = await refreshed.json();
-      if (freshScan.summary.new === 0 && freshScan.summary.updated === 0 && freshScan.summary.broken === 0) {
+      if (freshScan.summary.new === 0 && freshScan.summary.updated === 0 && freshScan.summary.broken === 0 && freshScan.summary.duplicates === 0) {
         setScanResult(null);
       } else {
         setScanResult(freshScan);
@@ -141,6 +150,27 @@ export default function MediaGallery() {
       toast({ title: "Apply failed", description: "Could not apply changes", variant: "destructive" });
     } finally {
       setApplying(false);
+    }
+  };
+
+  const handleDeduplicate = async () => {
+    setDeduplicating(true);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/deduplicate");
+      const data = await res.json();
+      toast({ title: "Duplicates removed", description: data.message });
+      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      const refreshed = await apiRequest("POST", "/api/image-registry/scan");
+      const freshScan: ScanResult = await refreshed.json();
+      if (freshScan.summary.new === 0 && freshScan.summary.updated === 0 && freshScan.summary.broken === 0 && freshScan.summary.duplicates === 0) {
+        setScanResult(null);
+      } else {
+        setScanResult(freshScan);
+      }
+    } catch {
+      toast({ title: "Deduplication failed", description: "Could not remove duplicates", variant: "destructive" });
+    } finally {
+      setDeduplicating(false);
     }
   };
 
@@ -368,6 +398,17 @@ export default function MediaGallery() {
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-sm">Scan Results</h3>
               <div className="flex items-center gap-2">
+                {scanResult.summary.duplicates > 0 && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={handleDeduplicate}
+                    disabled={deduplicating}
+                    data-testid="button-remove-duplicates"
+                  >
+                    {deduplicating ? "Removing..." : `Remove ${scanResult.duplicates.reduce((sum, g) => sum + g.ids.length - 1, 0)} duplicate(s)`}
+                  </Button>
+                )}
                 {scanResult.summary.updated > 0 && (
                   <Button
                     size="sm"
@@ -459,7 +500,35 @@ export default function MediaGallery() {
               </div>
             )}
 
-            {scanResult.summary.new === 0 && scanResult.summary.updated === 0 && scanResult.summary.broken === 0 && (
+            {scanResult.duplicates.length > 0 && (
+              <div className="space-y-1.5">
+                <div className="text-sm font-medium text-amber-600 dark:text-amber-400">
+                  {scanResult.duplicates.length} duplicate group(s) ({scanResult.duplicates.reduce((sum, g) => sum + g.ids.length - 1, 0)} extra image(s))
+                </div>
+                <div className="max-h-32 overflow-y-auto space-y-1 pl-6">
+                  {scanResult.duplicates.map((group, i) => (
+                    <div key={i} className="text-xs text-muted-foreground">
+                      <span className="font-medium text-foreground">{group.ids.length} copies:</span>{" "}
+                      {group.ids.map((id, j) => (
+                        <span key={id}>
+                          {j > 0 && ", "}
+                          <code className={id === group.canonical ? "text-foreground font-semibold" : ""}>{id}</code>
+                          {id === group.canonical && <span className="text-xs text-muted-foreground ml-0.5">(keep)</span>}
+                        </span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {scanResult.hashesComputed > 0 && (
+              <div className="text-xs text-muted-foreground">
+                Computed {scanResult.hashesComputed} new hash(es) during this scan
+              </div>
+            )}
+
+            {scanResult.summary.new === 0 && scanResult.summary.updated === 0 && scanResult.summary.broken === 0 && scanResult.summary.duplicates === 0 && (
               <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
                 <IconCheck className="h-4 w-4" />
                 All image references are valid

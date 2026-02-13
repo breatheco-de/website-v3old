@@ -3711,6 +3711,26 @@ sections: []
     }
   });
 
+  app.post("/api/image-registry/deduplicate", async (req, res) => {
+    try {
+      const scanResult = await mediaGallery.scan();
+      if (scanResult.duplicates.length === 0) {
+        res.json({ message: "No duplicates found", removedCount: 0, results: [] });
+        return;
+      }
+      const result = mediaGallery.removeDuplicates(scanResult.duplicates);
+      const yamlMsg = result.yamlFilesUpdated.length > 0
+        ? `. Updated references in ${result.yamlFilesUpdated.length} YAML file(s)`
+        : "";
+      res.json({
+        message: `Removed ${result.removedCount} duplicate(s)${yamlMsg}`,
+        ...result,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Deduplication failed" });
+    }
+  });
+
   app.post("/api/image-registry/migrate", async (req, res) => {
     try {
       const { from, to, dryRun, prefix } = req.body as {

@@ -285,7 +285,7 @@ export function SectionEditorPanel({
         const err = await resp.json();
         throw new Error(err.error || "Upload failed");
       }
-      const result = await resp.json() as { id: string; src: string; alt: string };
+      const result = await resp.json() as { id: string; src: string; alt: string; duplicate?: boolean; existingId?: string };
       await refetchRegistry();
       const fieldName = imagePickerTarget.srcField || imagePickerTarget.fieldPath || "";
       const isIdField = fieldName.endsWith("_id");
@@ -296,7 +296,11 @@ export function SectionEditorPanel({
         currentRegistryId: result.id,
       });
       setImagePickerMode("browse");
-      toast({ title: "Image uploaded", description: `Registered as "${result.id}"` });
+      if (result.duplicate) {
+        toast({ title: "Image already exists", description: `This image is already registered as "${result.existingId}". Using the existing one.` });
+      } else {
+        toast({ title: "Image uploaded", description: `Registered as "${result.id}"` });
+      }
     } catch (err: any) {
       toast({ title: "Upload failed", description: err.message, variant: "destructive" });
     } finally {
