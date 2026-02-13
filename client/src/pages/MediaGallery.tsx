@@ -244,23 +244,6 @@ export default function MediaGallery() {
             </div>
             <div className="flex flex-col items-end gap-2">
               <div className="flex items-center gap-2">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={handleScan}
-                  disabled={scanning}
-                  data-testid="button-scan-registry"
-                >
-                  <IconStethoscope className={`h-4 w-4 ${scanning ? 'animate-pulse' : ''}`} />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={() => setSettingsOpen(true)}
-                  data-testid="button-media-settings"
-                >
-                  <IconSettings className="h-4 w-4" />
-                </Button>
                 {searchOpen ? (
                   <div className="relative w-64 flex items-center gap-1">
                     <div className="relative flex-1">
@@ -302,6 +285,23 @@ export default function MediaGallery() {
                     <IconSearch className="h-4 w-4" />
                   </Button>
                 )}
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={handleScan}
+                  disabled={scanning}
+                  data-testid="button-scan-registry"
+                >
+                  <IconStethoscope className={`h-4 w-4 ${scanning ? 'animate-pulse' : ''}`} />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setSettingsOpen(true)}
+                  data-testid="button-media-settings"
+                >
+                  <IconSettings className="h-4 w-4" />
+                </Button>
               </div>
               {registry && (
                 <div className="flex flex-wrap gap-1.5 justify-end">
