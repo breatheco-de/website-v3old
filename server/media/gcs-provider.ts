@@ -7,13 +7,23 @@ export class GCSProvider implements StorageProvider {
   private bucketName: string;
   private urlPrefix: string;
 
-  constructor(config: { bucketName: string; projectId?: string; keyFilename?: string }) {
+  constructor(config: { bucketName: string; projectId?: string; keyFilename?: string; credentialsJson?: string }) {
     this.bucketName = config.bucketName;
     this.urlPrefix = `https://storage.googleapis.com/${config.bucketName}/`;
 
-    const storageOpts: Record<string, string> = {};
+    const storageOpts: Record<string, any> = {};
     if (config.projectId) storageOpts.projectId = config.projectId;
-    if (config.keyFilename) storageOpts.keyFilename = config.keyFilename;
+
+    if (config.credentialsJson) {
+      try {
+        storageOpts.credentials = JSON.parse(config.credentialsJson);
+      } catch {
+        console.error("[GCSProvider] Failed to parse GCS_CREDENTIALS_JSON, falling back to default auth");
+      }
+    } else if (config.keyFilename) {
+      storageOpts.keyFilename = config.keyFilename;
+    }
+
     this.storage = new Storage(storageOpts);
   }
 

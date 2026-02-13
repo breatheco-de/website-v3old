@@ -39,6 +39,7 @@ class Media {
         bucketName: gcsBucket,
         projectId: process.env.GCS_PROJECT_ID,
         keyFilename: process.env.GCS_KEY_FILENAME,
+        credentialsJson: process.env.GCS_CREDENTIALS_JSON,
       };
     }
 

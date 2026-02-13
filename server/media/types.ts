@@ -16,5 +16,6 @@ export interface MediaConfig {
     bucketName: string;
     projectId?: string;
     keyFilename?: string;
+    credentialsJson?: string;
   };
 }
