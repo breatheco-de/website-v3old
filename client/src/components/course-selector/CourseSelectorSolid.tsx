@@ -98,10 +98,13 @@ export function CourseContent({
         className="text-3xl md:text-4xl font-bold text-foreground leading-tight flex items-center gap-3"
         data-testid="text-course-title"
       >
-        {course.icon && (() => {
-          const TitleIcon = getIcon(course.icon);
-          return TitleIcon ? <TitleIcon className="w-8 h-8 md:w-10 md:h-10 shrink-0" /> : null;
-        })()}
+        {course.icon &&
+          (() => {
+            const TitleIcon = getIcon(course.icon);
+            return TitleIcon ? (
+              <TitleIcon className="w-8 h-8 md:w-10 md:h-10 shrink-0" />
+            ) : null;
+          })()}
         {course.title}
       </h3>
 
@@ -110,18 +113,23 @@ export function CourseContent({
           {course.subtitle}
         </p>
       )}
-      <div className="flex items-center flex-wrap gap-2" data-testid="container-badges-tags">
-        {course.badges && course.badges.map((badge, i) => (
-          <CourseBadgeItem
-            key={`badge-${i}`}
-            icon={badge.icon}
-            text={badge.text}
-            resolved={resolved}
-          />
-        ))}
-        {course.tags && course.tags.map((tag, i) => (
-          <CourseTagItem key={`tag-${i}`} icon={tag.icon} text={tag.text} />
-        ))}
+      <div
+        className="flex items-center flex-wrap gap-2"
+        data-testid="container-badges-tags"
+      >
+        {course.badges &&
+          course.badges.map((badge, i) => (
+            <CourseBadgeItem
+              key={`badge-${i}`}
+              icon={badge.icon}
+              text={badge.text}
+              resolved={resolved}
+            />
+          ))}
+        {course.tags &&
+          course.tags.map((tag, i) => (
+            <CourseTagItem key={`tag-${i}`} icon={tag.icon} text={tag.text} />
+          ))}
       </div>
 
       <div className="relative mt-2 md:mt-0 md:me-28 lg:me-40">
@@ -158,13 +166,18 @@ export function CourseContent({
                 {course.original_price}
               </span>
             )}
+
             <span
               className="text-4xl font-bold text-foreground"
               data-testid="text-price"
             >
               {course.price}
             </span>
-            <span className="text-base text-muted-foreground">{course.price_period || "/mo"}</span>
+            {course.price && (
+              <span className="text-base text-muted-foreground">
+                {course.price_period || "/mo"}
+              </span>
+            )}
           </div>
           {course.price_info && (
             <p
@@ -175,7 +188,12 @@ export function CourseContent({
             </p>
           )}
         </div>
-        <a href={course.cta_url} onClick={handleLinkClick} className="w-full md:w-auto" data-testid="link-cta">
+        <a
+          href={course.cta_url}
+          onClick={handleLinkClick}
+          className="w-full md:w-auto"
+          data-testid="link-cta"
+        >
           <Button variant="outline" className="gap-2 w-full md:w-auto">
             {course.cta_text}
             <IconArrowRight className="w-4 h-4" />
@@ -243,14 +261,19 @@ export function CourseSelectorSolid({ data }: CourseSelectorSolidProps) {
                   className={`
                     relative text-left px-5 py-4 transition-colors duration-200 ms-2 my-2 rounded-s-xl
                     flex items-center justify-between gap-2
-                    ${isActive
-                      ? "font-semibold text-foreground"
-                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                    ${
+                      isActive
+                        ? "font-semibold text-foreground"
+                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                     }
                   `}
-                  style={isActive ? {
-                    backgroundColor: hslColor(tabResolved, 0.06),
-                  } : undefined}
+                  style={
+                    isActive
+                      ? {
+                          backgroundColor: hslColor(tabResolved, 0.06),
+                        }
+                      : undefined
+                  }
                   data-testid={`button-tab-${index}`}
                 >
                   <span className="text-sm md:text-lg">{course.name}</span>
