@@ -17,6 +17,8 @@ import {
   IconPhoto,
   IconChevronDown,
   IconTrash,
+  IconPencil,
+  IconMapPin,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { getIcon } from "@/lib/icons";
@@ -50,7 +52,12 @@ import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { DynamicTableChat } from "./DynamicTableChat";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
-import type { Section, ImageRegistry } from "@shared/schema";
+import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
+import { locations as allLocations, getLocationBySlug } from "@/lib/locations";
+import type { Location } from "@shared/session";
+import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconSearch, IconUpload, IconCloudUpload } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml } from "@codemirror/lang-yaml";
@@ -112,6 +119,170 @@ function ShowOnPicker({ value, onChange }: ShowOnPickerProps) {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function countryCodeToFlag(code: string): string {
+  return code
+    .toUpperCase()
+    .split('')
+    .map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65))
+    .join('');
+}
+
+interface ShowOnLocationsPickerProps {
+  value: string[];
+  onChange: (value: string[]) => void;
+}
+
+function ShowOnLocationsPicker({ value, onChange }: ShowOnLocationsPickerProps) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  
+  const hasLocations = value.length > 0;
+
+  const grouped = useMemo(() => {
+    const groups: Record<string, Location[]> = {};
+    const searchLower = search.toLowerCase();
+    for (const loc of allLocations) {
+      if (loc.visibility !== 'listed') continue;
+      if (searchLower && !loc.name.toLowerCase().includes(searchLower) && !loc.country.toLowerCase().includes(searchLower) && !loc.slug.toLowerCase().includes(searchLower)) continue;
+      const region = loc.region;
+      if (!groups[region]) groups[region] = [];
+      groups[region].push(loc);
+    }
+    return groups;
+  }, [search]);
+
+  const regionLabels: Record<string, string> = {
+    'usa-canada': 'USA & Canada',
+    'latam': 'Latin America',
+    'europe': 'Europe',
+    'online': 'Online',
+  };
+
+  const toggleLocation = (slug: string) => {
+    if (value.includes(slug)) {
+      onChange(value.filter(s => s !== slug));
+    } else {
+      onChange([...value, slug]);
+    }
+  };
+
+  const removeLocation = (slug: string) => {
+    onChange(value.filter(s => s !== slug));
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-3">
+        <Label className="text-sm font-medium whitespace-nowrap flex items-center gap-1.5">
+          <IconMapPin className="h-3.5 w-3.5" />
+          Show on locations
+        </Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button 
+              variant="outline" 
+              size="sm"
+              data-testid="button-edit-locations"
+            >
+              {hasLocations ? (
+                <IconPencil className="h-3.5 w-3.5" />
+              ) : (
+                <>
+                  <IconPlus className="h-3.5 w-3.5 mr-1" />
+                  <span>Add filter</span>
+                </>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-72 p-0" align="end">
+            <div className="p-2 border-b">
+              <div className="relative">
+                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Search locations..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                  data-testid="input-location-filter-search"
+                  autoFocus
+                />
+              </div>
+            </div>
+            <ScrollArea className="h-[240px]">
+              <div className="p-1">
+                {Object.entries(grouped).map(([region, locs]) => (
+                  <div key={region} className="mb-1">
+                    <div className="px-2 py-1 text-xs font-semibold text-muted-foreground">
+                      {regionLabels[region] || region}
+                    </div>
+                    {locs.map((loc) => {
+                      const isSelected = value.includes(loc.slug);
+                      return (
+                        <button
+                          key={loc.slug}
+                          type="button"
+                          onClick={() => toggleLocation(loc.slug)}
+                          className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors ${
+                            isSelected ? 'bg-primary/10 text-foreground' : 'text-muted-foreground hover:bg-muted'
+                          }`}
+                          data-testid={`button-location-toggle-${loc.slug}`}
+                        >
+                          <span className="text-base leading-none">{countryCodeToFlag(loc.country_code)}</span>
+                          <span className="flex-1 text-left truncate">{loc.name}, {loc.country}</span>
+                          {isSelected && <IconCheck className="h-3.5 w-3.5 text-primary flex-shrink-0" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                ))}
+                {Object.keys(grouped).length === 0 && (
+                  <div className="text-center py-4 text-sm text-muted-foreground">No locations found</div>
+                )}
+              </div>
+            </ScrollArea>
+            {hasLocations && (
+              <div className="p-2 border-t">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full text-destructive"
+                  onClick={() => { onChange([]); setOpen(false); }}
+                  data-testid="button-clear-location-filters"
+                >
+                  Clear all filters
+                </Button>
+              </div>
+            )}
+          </PopoverContent>
+        </Popover>
+      </div>
+      {hasLocations && (
+        <div className="flex flex-wrap gap-1.5">
+          {value.map((slug) => {
+            const loc = getLocationBySlug(slug);
+            if (!loc) return null;
+            return (
+              <Badge key={slug} variant="secondary" className="gap-1 pr-1">
+                <span className="text-xs leading-none">{countryCodeToFlag(loc.country_code)}</span>
+                <span>{loc.name}</span>
+                <button
+                  type="button"
+                  onClick={() => removeLocation(slug)}
+                  className="ml-0.5 rounded-full p-0.5 hover:bg-muted"
+                  data-testid={`button-remove-location-${slug}`}
+                >
+                  <IconX className="h-3 w-3" />
+                </button>
+              </Badge>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -345,6 +516,7 @@ export function SectionEditorPanel({
 
   const currentBackground = (parsedSection?.background as string) || "";
   const currentShowOn = (parsedSection?.showOn as string) || "";
+  const currentShowOnLocations = (parsedSection?.showOnLocations as string[]) || [];
 
   // Initialize YAML content from section
   useEffect(() => {
@@ -1117,6 +1289,10 @@ export function SectionEditorPanel({
           className="flex-1 overflow-auto p-4 mt-0 data-[state=inactive]:hidden"
         >
           <div className="space-y-6">
+            <ShowOnLocationsPicker
+              value={currentShowOnLocations}
+              onChange={(value) => updateArrayProperty("showOnLocations", value)}
+            />
             <ShowOnPicker
               value={currentShowOn}
               onChange={(value) => updateProperty("showOn", value)}

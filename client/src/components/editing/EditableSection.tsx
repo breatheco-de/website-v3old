@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye } from "@tabler/icons-react";
 import type { Section, SectionLayout, ShowOn } from "@shared/schema";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
+import { getLocationBySlug } from "@/lib/locations";
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -16,12 +17,32 @@ import { emitContentUpdated } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
 import yaml from "js-yaml";
 
-// Convert slug/camelCase to human readable format
 function deslugify(str: string): string {
   return str
     .replace(/[-_]/g, ' ')
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function countryCodeToFlag(code: string): string {
+  return code
+    .toUpperCase()
+    .split('')
+    .map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65))
+    .join('');
+}
+
+function getUniqueCountryFlags(locationSlugs: string[]): string[] {
+  const seen = new Set<string>();
+  const flags: string[] = [];
+  for (const slug of locationSlugs) {
+    const loc = getLocationBySlug(slug);
+    if (loc && !seen.has(loc.country_code)) {
+      seen.add(loc.country_code);
+      flags.push(countryCodeToFlag(loc.country_code));
+    }
+  }
+  return flags;
 }
 
 const SectionEditorPanel = lazy(() => 
@@ -665,32 +686,34 @@ export function EditableSection({ children, section, index, sectionType, content
         </Popover>
       </div>
       
-      {/* Visibility badge - subtle indicator for sections with restricted visibility */}
       {(() => {
         const showOn = (section as SectionLayout).showOn || 'all';
-        if (showOn === 'all') return null;
+        const showOnLocations = (section as SectionLayout).showOnLocations || [];
+        const showOnRegions = (section as SectionLayout).showOnRegions || [];
         
-        const isDesktopOnly = showOn === 'desktop';
-        const isMobileOnly = showOn === 'mobile';
+        const hasDeviceFilter = showOn !== 'all';
+        const hasLocationFilter = showOnLocations.length > 0 || showOnRegions.length > 0;
+        
+        if (!hasDeviceFilter && !hasLocationFilter) return null;
+        
+        const flags = hasLocationFilter ? getUniqueCountryFlags(showOnLocations) : [];
         
         return (
           <div 
-            className="absolute top-12 left-2 z-30 flex items-center gap-1.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
-            title={isDesktopOnly ? "This section is only displayed on desktop" : "This section is only displayed on mobile"}
+            className="absolute top-12 right-2 z-30 flex items-center gap-1.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
+            title="Special Visibility Conditions"
             data-testid={`badge-visibility-${index}`}
           >
-            {isDesktopOnly && (
-              <>
-                <IconDeviceDesktop className="h-3.5 w-3.5" />
-                <span>Desktop only</span>
-              </>
+            <IconEye className="h-3.5 w-3.5" />
+            <span>Special Visibility Conditions</span>
+            {hasDeviceFilter && (
+              showOn === 'desktop' 
+                ? <IconDeviceDesktop className="h-3.5 w-3.5" /> 
+                : <IconDeviceMobile className="h-3.5 w-3.5" />
             )}
-            {isMobileOnly && (
-              <>
-                <IconDeviceMobile className="h-3.5 w-3.5" />
-                <span>Mobile only</span>
-              </>
-            )}
+            {flags.map((flag, i) => (
+              <span key={i} className="text-sm leading-none">{flag}</span>
+            ))}
           </div>
         );
       })()}

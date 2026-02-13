@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { useState, useCallback, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn } from "@shared/schema";
+import { useSession } from "@/contexts/SessionContext";
 
 // ============================================
 // Component Load Strategy Registry
@@ -214,11 +215,33 @@ import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditMode
 // In edit mode: always show all sections (visibility alert is shown instead of hiding)
 // In production: CSS handles visibility
 function shouldShowSection(showOn: ShowOn | undefined, previewBreakpoint: PreviewBreakpoint | undefined, isEditMode: boolean): boolean {
-  // In edit mode, always show all sections (EditableSection will display visibility alerts)
+  if (isEditMode) return true;
+  return true;
+}
+
+function shouldShowSectionForLocation(
+  section: Section,
+  locationSlug: string | undefined,
+  locationRegion: string | undefined,
+  isEditMode: boolean
+): boolean {
   if (isEditMode) return true;
 
-  // In production, always return true - CSS classes handle responsive visibility
-  return true;
+  const layout = section as SectionLayout;
+  const { showOnLocations, showOnRegions } = layout;
+
+  const hasLocationFilter = showOnLocations && showOnLocations.length > 0;
+  const hasRegionFilter = showOnRegions && showOnRegions.length > 0;
+
+  if (!hasLocationFilter && !hasRegionFilter) return true;
+
+  if (hasLocationFilter && locationSlug && showOnLocations.includes(locationSlug)) return true;
+  if (hasRegionFilter && locationRegion && showOnRegions.includes(locationRegion)) return true;
+
+  if (hasLocationFilter && !hasRegionFilter) return false;
+  if (hasRegionFilter && !hasLocationFilter) return false;
+
+  return false;
 }
 
 // Loading fallback for lazy sections
@@ -552,6 +575,9 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
   const previewBreakpoint = editMode?.previewBreakpoint;
+  const { session } = useSession();
+  const sessionLocationSlug = session.location?.slug;
+  const sessionLocationRegion = session.location?.region;
 
   const renderSectionWithContext = useCallback((section: Section, index: number) => {
     const sectionType = (section as { type: string }).type;
@@ -663,14 +689,14 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
         const layoutStyles = getSectionLayoutStyles(section);
         const showOn = (section as SectionLayout).showOn;
 
-        // In edit mode: previewBreakpoint controls visibility, no CSS classes needed
-        // In production: CSS classes handle responsive visibility
         const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
+        const isLocationVisible = shouldShowSectionForLocation(section, sessionLocationSlug, sessionLocationRegion, isEditMode);
         const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
 
         if (!renderedSection) return null;
 
-        // In edit mode, hide section content but keep AddSectionButton for insertion points
+        if (!isLocationVisible) return null;
+
         if (!isVisible && isEditMode) {
           return (
             <div key={index}>
