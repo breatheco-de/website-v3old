@@ -2516,67 +2516,77 @@ export function DebugBubble() {
           ) : (
             <>
               <div className="px-3 py-2 border-b">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => setMenuView("main")}
-                      className="p-1 rounded-md hover-elevate"
-                      data-testid="button-back-to-main-sitemap"
-                    >
-                      <IconArrowLeft className="h-4 w-4" />
-                    </button>
-                    <div>
-                      <h3 className="font-semibold text-sm">Sitemap URLs</h3>
-                      <p className="text-xs text-muted-foreground">{sitemapUrls.length} URLs indexed</p>
+                <div className="flex items-center justify-between gap-2">
+                  {showSitemapSearch ? (
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <div className="relative flex-1 min-w-0">
+                        <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <input
+                          type="text"
+                          placeholder="Search URLs..."
+                          value={sitemapSearch}
+                          onChange={(e) => setSitemapSearch(e.target.value)}
+                          className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                          data-testid="input-sitemap-search"
+                          autoFocus
+                        />
+                      </div>
+                      <button
+                        onClick={() => { setShowSitemapSearch(false); setSitemapSearch(""); }}
+                        className="p-1.5 rounded hover-elevate flex-shrink-0"
+                        title="Cancel search"
+                        data-testid="button-cancel-sitemap-search"
+                      >
+                        <IconX className="h-4 w-4 text-muted-foreground" />
+                      </button>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() => setCreateContentModalOpen(true)}
-                      className="p-1.5 rounded hover-elevate"
-                      title="Create new content"
-                      data-testid="button-create-content"
-                    >
-                      <IconPlus className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                    <button
-                      onClick={() => setShowSitemapSearch(!showSitemapSearch)}
-                      className={`p-1.5 rounded hover-elevate ${showSitemapSearch ? 'bg-muted' : ''}`}
-                      title="Toggle search"
-                      data-testid="button-toggle-sitemap-search"
-                    >
-                      <IconSearch className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                    <a
-                      href="/sitemap.xml"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded hover-elevate"
-                      title="Open sitemap.xml"
-                      data-testid="link-sitemap-xml"
-                    >
-                      <IconExternalLink className="h-4 w-4 text-muted-foreground" />
-                    </a>
-                  </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => setMenuView("main")}
+                          className="p-1 rounded-md hover-elevate"
+                          data-testid="button-back-to-main-sitemap"
+                        >
+                          <IconArrowLeft className="h-4 w-4" />
+                        </button>
+                        <div>
+                          <h3 className="font-semibold text-sm">Sitemap URLs</h3>
+                          <p className="text-xs text-muted-foreground">{sitemapUrls.length} URLs indexed</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => setCreateContentModalOpen(true)}
+                          className="p-1.5 rounded hover-elevate"
+                          title="Create new content"
+                          data-testid="button-create-content"
+                        >
+                          <IconPlus className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                        <button
+                          onClick={() => setShowSitemapSearch(true)}
+                          className="p-1.5 rounded hover-elevate"
+                          title="Search"
+                          data-testid="button-toggle-sitemap-search"
+                        >
+                          <IconSearch className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                        <a
+                          href="/sitemap.xml"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded hover-elevate"
+                          title="Open sitemap.xml"
+                          data-testid="link-sitemap-xml"
+                        >
+                          <IconExternalLink className="h-4 w-4 text-muted-foreground" />
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-              
-              {showSitemapSearch && (
-                <div className="p-2 border-b">
-                  <div className="relative">
-                    <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <input
-                      type="text"
-                      placeholder="Search URLs..."
-                      value={sitemapSearch}
-                      onChange={(e) => setSitemapSearch(e.target.value)}
-                      className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-sitemap-search"
-                      autoFocus
-                    />
-                  </div>
-                </div>
-              )}
               
               <ScrollArea className="h-[240px]">
                 <div className="p-2 space-y-1">
