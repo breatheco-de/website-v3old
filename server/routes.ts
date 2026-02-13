@@ -73,11 +73,11 @@ import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItem
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
 
-function getVariableContext(req: { query: Record<string, unknown> }, locale?: string): VariableContext {
+function getVariableContext(req: { headers: Record<string, string | string[] | undefined>; query: Record<string, unknown> }, locale?: string): VariableContext {
   return {
-    location: (req.query.var_location as string) || undefined,
-    region: (req.query.var_region as string) || undefined,
-    locale: locale || (req.query.locale as string) || undefined,
+    location: (req.headers['x-session-location'] as string) || undefined,
+    region: (req.headers['x-session-region'] as string) || undefined,
+    locale: locale || (req.headers['x-session-locale'] as string) || (req.query.locale as string) || undefined,
   };
 }
 

@@ -2,13 +2,12 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import type { TemplatePage } from "@shared/schema";
 import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
-import { useVariableQueryString } from "@/hooks/useVariableParams";
-import type { VariableInfo } from "@/hooks/useVariableParams";
 import Header from "@/components/Header";
 
 export default function Page() {
@@ -16,12 +15,11 @@ export default function Page() {
   const locale = location.startsWith("/es/") ? "es" : "en";
   const params = useParams<{ slug: string }>();
   const slug = params.slug || "";
-  const varQS = useVariableQueryString();
 
-  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage & { _variables?: VariableInfo[] }>({
-    queryKey: ["/api/pages", slug, locale, varQS],
+  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage & { _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> }>({
+    queryKey: ["/api/pages", slug, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/${slug}?locale=${locale}${varQS}`);
+      const response = await apiFetch(`/api/pages/${slug}?locale=${locale}`);
       if (!response.ok) {
         throw new Error("Page not found");
       }

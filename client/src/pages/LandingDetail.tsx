@@ -3,13 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import type { LandingPage } from "@shared/schema";
 import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
-import { useVariableQueryString } from "@/hooks/useVariableParams";
-import type { VariableInfo } from "@/hooks/useVariableParams";
 
 export default function LandingDetail() {
   const { i18n } = useTranslation();
@@ -28,12 +27,10 @@ export default function LandingDetail() {
     }
   }, [urlLocale, i18n]);
 
-  const varQS = useVariableQueryString();
-
-  const { data: landing, isLoading, error, refetch } = useQuery<LandingPage & { _variables?: VariableInfo[] }>({
-    queryKey: ["/api/landings", slug, locale, varQS],
+  const { data: landing, isLoading, error, refetch } = useQuery<LandingPage & { _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> }>({
+    queryKey: ["/api/landings", slug, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/landings/${slug}?locale=${locale}${varQS}`);
+      const response = await apiFetch(`/api/landings/${slug}?locale=${locale}`);
       if (!response.ok) {
         throw new Error("Landing page not found");
       }

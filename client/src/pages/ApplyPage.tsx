@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import { renderSection } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import { ApplyFormSection } from "@/components/ApplyFormSection";
 import { FooterSection } from "@/components/FooterSection";
-import { useVariableQueryString } from "@/hooks/useVariableParams";
 
 interface ApplyPageData {
   slug: string;
@@ -21,12 +21,11 @@ interface ApplyPageData {
 export default function ApplyPage() {
   const { i18n } = useTranslation();
   const locale = i18n.language === "es" ? "es" : "en";
-  const varQS = useVariableQueryString();
 
   const { data: page, isLoading, error, refetch } = useQuery<ApplyPageData>({
-    queryKey: ["/api/pages/apply", locale, varQS],
+    queryKey: ["/api/pages/apply", locale],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/apply?locale=${locale}${varQS}`);
+      const response = await apiFetch(`/api/pages/apply?locale=${locale}`);
       if (!response.ok) {
         throw new Error("Apply page not found");
       }

@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
 import { IconLoader2, IconAlertTriangle, IconArrowLeft } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -38,13 +39,13 @@ export default function PrivatePreview() {
   const config = contentTypeConfig[contentType];
   const isValidContentType = !!config;
 
-  const { data: content, isLoading, error, refetch } = useQuery<ContentData>({
+  const { data: content, isLoading, error, refetch } = useQuery<ContentData & { _variables?: Array<{ path: string; variable: string; value: string; source: string; defaultValue: string }> }>({
     queryKey: ["/api/preview", contentType, slug, variant, version, locale],
     queryFn: async () => {
       let url = `/api/${config.apiPath}/${slug}?locale=${locale}`;
       if (variant) url += `&force_variant=${variant}`;
       if (version) url += `&force_version=${version}`;
-      const response = await fetch(url);
+      const response = await apiFetch(url);
       if (!response.ok) {
         throw new Error("Content not found");
       }
@@ -127,6 +128,7 @@ export default function PrivatePreview() {
         contentType={config.singular as "program" | "landing" | "location" | "page"}
         slug={slug}
         locale={locale}
+        variables={content._variables}
       />
     </div>
   );
