@@ -1,5 +1,5 @@
-slug: ai-engineering-chile
-title: Programa de Ingeniería de IA (Chile)
+slug: "ai-engineering-chile"
+title: "Conviértete en Ingeniero de IA en 24 semanas | 4Geeks Academy  Chile"
 locale: es
 meta:
   robots: index, follow
@@ -12,4 +12,14 @@ schema:
     - website
     - courses:ai-engineering
 locations:
+  - caracas-venezuela
+  - buenosaires-argentina
+  - costa-rica
+  - lapaz-bolivia
+  - lima-peru
+  - mexicocity-mexico
+  - montevideo-uruguay
+  - panamacity-panama
+  - quito-ecuador
   - santiago-chile
+  - bogota-colombia
