@@ -58,7 +58,7 @@ sections:
     items:
       - value: {{ global_job_placement_rate | 84 }}%
         title: Job placement rate
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         title: Salary increase after graduation
       - value: 3-6 Months
         title: Average time to get hired
