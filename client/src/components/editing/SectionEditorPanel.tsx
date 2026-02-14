@@ -63,6 +63,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
 import { yaml } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
+import { variableHighlightPlugin } from "@/lib/cm-variable-highlight";
 import * as yamlParser from "js-yaml";
 import { useUndoRedo } from "@/hooks/useUndoRedo";
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
@@ -1329,7 +1330,7 @@ export function SectionEditorPanel({
             <CodeMirror
               value={yamlContent}
               height="100%"
-              extensions={[yaml()]}
+              extensions={[yaml(), variableHighlightPlugin]}
               theme={oneDark}
               onChange={handleYamlChange}
               onCreateEditor={(view) => { editorViewRef.current = view; }}
