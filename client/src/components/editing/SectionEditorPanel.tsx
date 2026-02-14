@@ -1325,7 +1325,7 @@ export function SectionEditorPanel({
           value="code"
           className="flex-1 flex flex-col min-h-0 mt-0 data-[state=inactive]:hidden"
         >
-          <div className="flex-1 min-h-0">
+          <div className="flex-1 min-h-0" data-section-index={sectionIndex}>
             <CodeMirror
               value={yamlContent}
               height="100%"

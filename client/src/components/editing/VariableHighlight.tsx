@@ -165,6 +165,13 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
         return;
       }
 
+      const sectionAttr = cmEditor.closest("[data-section-index]")?.getAttribute("data-section-index");
+      if (sectionAttr !== null && sectionAttr !== undefined && Number(sectionAttr) !== sectionIndex) {
+        setPosition(null);
+        setSelectedText("");
+        return;
+      }
+
       const text = selection.toString().trim();
       if (text.length < 2 || text.length > 500) {
         setPosition(null);
@@ -196,17 +203,25 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
     let from: number | undefined;
     let to: number | undefined;
     let cmText: string | undefined;
+    let resolvedSectionIndex = sectionIndex;
 
     try {
       const sel = window.getSelection();
       const anchor = sel?.anchorNode;
       const cmEditor = anchor?.parentElement?.closest(".cm-editor") as HTMLElement | null;
-      const cmViewObj = cmEditor && (cmEditor as unknown as { cmView?: { view?: { state: { selection: { main: { from: number; to: number } }; sliceDoc: (from: number, to: number) => string } } } }).cmView;
-      if (cmViewObj?.view) {
-        const mainSel = cmViewObj.view.state.selection.main;
-        from = mainSel.from;
-        to = mainSel.to;
-        cmText = cmViewObj.view.state.sliceDoc(from, to);
+      if (cmEditor) {
+        const sectionAttr = cmEditor.closest("[data-section-index]")?.getAttribute("data-section-index");
+        if (sectionAttr !== null && sectionAttr !== undefined) {
+          resolvedSectionIndex = Number(sectionAttr);
+        }
+
+        const cmViewObj = (cmEditor as unknown as { cmView?: { view?: { state: { selection: { main: { from: number; to: number } }; sliceDoc: (from: number, to: number) => string } } } }).cmView;
+        if (cmViewObj?.view) {
+          const mainSel = cmViewObj.view.state.selection.main;
+          from = mainSel.from;
+          to = mainSel.to;
+          cmText = cmViewObj.view.state.sliceDoc(from, to);
+        }
       }
     } catch { /* ignore */ }
 
@@ -216,7 +231,7 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
       new CustomEvent<VariableCreateDetail>(VARIABLE_CREATE_EVENT, {
         detail: {
           selectedText: textToUse,
-          sectionIndex,
+          sectionIndex: resolvedSectionIndex,
           selectionFrom: from,
           selectionTo: to,
         },
