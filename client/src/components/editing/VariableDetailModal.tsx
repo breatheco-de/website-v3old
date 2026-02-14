@@ -569,7 +569,7 @@ export function VariableDetailModal({
                         <SelectItem value="_empty_" disabled>No variables defined yet</SelectItem>
                       ) : (
                         existingVarNames.map((name) => (
-                          <SelectItem key={name} value={name}>
+                          <SelectItem key={name} value={name} className="cursor-pointer hover-elevate">
                             <span className="font-mono text-sm">{name}</span>
                           </SelectItem>
                         ))
