@@ -27,14 +27,14 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +48 students enrolled
     bullet_points:
-      - Learn prompt engineering techniques to control AI outputs precisely
+      - Learn "{{ workflowlele | prompt engineering }}" techniques to control AI outputs precisely
       - Create professional images, videos, and documents using AI tools
       - Build automated workflows that save hours of repetitive work
       - Develop websites and chatbots without writing code
       - Apply AI to enhance your learning and personal development
     tutors:
       - name: Charly Chacón
-        role: Main Instructor
+        role: "{{ sample_greeting | Main Instructor }}"
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
@@ -43,8 +43,8 @@ sections:
     description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
     media:
       type: video
-      thumbnail: https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop
       src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      thumbnail: https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop
       alt: Course introduction video
     signup_card:
       title: Sign up to 4Geeks Plus

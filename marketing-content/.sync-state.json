@@ -822,11 +822,11 @@
       "remoteSha": "9ca8eb10aed3e448ff200c95cc835ca77fc554c057ef0772a638902545ed036d"
     },
     "marketing-content/pages/sample-page/en.yml": {
-      "sha": "a3228e30a6addac24705d481f9d1cd6467c67f2e8c7d9377de595d5c13bc36e4",
-      "lastModified": 1771016709650.566,
+      "sha": "a852d919c37fa3d47d155e546e3465bd75fb40df88ec5b8afeaa2b3296ccd14a",
+      "lastModified": 1771036167979.8179,
       "remoteSha": "2ded928ddaa147ca4f4e1a6da9ce0cbf1425ebea3349511fd13ab273b35d89e4",
       "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-13T21:05:09.653Z"
+      "modifiedAt": "2026-02-14T02:29:27.983Z"
     },
     "marketing-content/pages/scholarships/_common.yml": {
       "sha": "5677fc83cf087a10ec0eb37590806ea58e28acc63f09f86dfc8fe8d43ca9f7e0",
