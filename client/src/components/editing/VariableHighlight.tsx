@@ -135,7 +135,7 @@ function highlightDomVariables(
   };
 }
 
-function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
+function SelectionFloatingButton({ sectionIndex, containerRef }: { sectionIndex: number; containerRef: React.RefObject<HTMLDivElement | null> }) {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [selectedText, setSelectedText] = useState("");
   const editMode = useEditModeOptional();
@@ -150,6 +150,12 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
     const handleSelectionChange = () => {
       const selection = window.getSelection();
       if (!selection || selection.isCollapsed || !selection.toString().trim()) {
+        setPosition(null);
+        setSelectedText("");
+        return;
+      }
+
+      if (containerRef.current && selection.anchorNode && !containerRef.current.contains(selection.anchorNode)) {
         setPosition(null);
         setSelectedText("");
         return;
@@ -178,7 +184,7 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
 
     document.addEventListener("selectionchange", handleSelectionChange);
     return () => document.removeEventListener("selectionchange", handleSelectionChange);
-  }, [isEditMode]);
+  }, [isEditMode, containerRef]);
 
   const handleClick = useCallback(() => {
     if (!selectedText) return;
@@ -270,7 +276,7 @@ export function VariableHighlightProvider({
       <div ref={wrapperRef} style={{ display: "contents" }}>
         {children}
       </div>
-      <SelectionFloatingButton sectionIndex={sectionIndex} />
+      <SelectionFloatingButton sectionIndex={sectionIndex} containerRef={wrapperRef} />
     </VariableHighlightContext.Provider>
   );
 }
