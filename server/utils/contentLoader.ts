@@ -17,6 +17,7 @@ import * as yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { deepMerge } from "./deepMerge";
 import { contentIndex } from "../content-index";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 
 /**
  * Recursively strip null values from an object, converting them to undefined.
@@ -44,6 +45,12 @@ function stripNullValues<T>(obj: T): T {
 }
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
 
 export type ContentType = "programs" | "pages" | "locations" | "landings";
 
@@ -96,12 +103,12 @@ export function loadContent<T>(options: LoadContentOptions<T>): LoadContentResul
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {
       const commonContent = fs.readFileSync(commonPath, "utf8");
-      commonData = yaml.load(commonContent) as Record<string, unknown>;
+      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
     }
 
     // Load content file
     const contentContent = fs.readFileSync(contentPath, "utf8");
-    const contentData = yaml.load(contentContent) as Record<string, unknown>;
+    const contentData = safeYamlLoad(contentContent) as Record<string, unknown>;
 
     // Deep merge: common data as base, content data overrides
     const mergedData = deepMerge(commonData, contentData);
@@ -187,7 +194,7 @@ export function loadCommonData(contentType: ContentType, slug: string): Record<s
 
   try {
     const content = fs.readFileSync(commonPath, "utf8");
-    return yaml.load(content) as Record<string, unknown>;
+    return safeYamlLoad(content) as Record<string, unknown>;
   } catch (error) {
     console.error(`Error loading common data for ${contentType}/${slug}:`, error);
     return null;

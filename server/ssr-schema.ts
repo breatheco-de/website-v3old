@@ -4,8 +4,15 @@ import * as yaml from "js-yaml";
 import { getMergedSchemas } from "./schema-org";
 import { getFolderFromSlug } from "../shared/slugMappings";
 import { deepMerge } from "./utils/deepMerge";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
 
 interface FaqItem {
   question: string;
@@ -43,7 +50,7 @@ function loadCentralizedFaqs(locale: string): FaqItem[] {
 
   try {
     const content = fs.readFileSync(faqPath, "utf-8");
-    const data = yaml.load(content) as { faqs?: FaqItem[] };
+    const data = safeYamlLoad(content) as { faqs?: FaqItem[] };
     faqCache[locale] = data?.faqs || [];
     return faqCache[locale];
   } catch {
@@ -104,10 +111,10 @@ export function loadRawYaml(contentType: string, slug: string, locale: string): 
   try {
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {
-      commonData = yaml.load(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>;
+      commonData = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>;
     }
 
-    const contentData = yaml.load(fs.readFileSync(contentPath, "utf-8")) as Record<string, unknown>;
+    const contentData = safeYamlLoad(fs.readFileSync(contentPath, "utf-8")) as Record<string, unknown>;
     return deepMerge(commonData, contentData);
   } catch {
     return null;

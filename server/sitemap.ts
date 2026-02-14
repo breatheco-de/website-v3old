@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import { deepMerge } from "./utils/deepMerge";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import {
   listContentSlugs,
   getAvailableLocalesOrVariants,
@@ -11,6 +12,12 @@ import {
 import { contentIndex } from "./content-index";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
 
 function getBaseUrl(): string {
   // Use explicit SITE_URL if set
@@ -126,11 +133,11 @@ function loadMergedContent(
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {
       const commonContent = fs.readFileSync(commonPath, "utf-8");
-      commonData = yaml.load(commonContent) as Record<string, unknown>;
+      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
     }
 
     const content = fs.readFileSync(contentPath, "utf-8");
-    const contentData = yaml.load(content) as Record<string, unknown>;
+    const contentData = safeYamlLoad(content) as Record<string, unknown>;
 
     return deepMerge(commonData, contentData) as Record<string, unknown>;
   } catch (error) {

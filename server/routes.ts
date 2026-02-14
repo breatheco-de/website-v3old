@@ -46,6 +46,7 @@ import {
   loadAllFieldEditors,
 } from "./component-registry";
 import { editContent, getContentForEdit } from "./content-editor";
+import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import {
   getExperimentManager,
   getOrCreateSessionId,
@@ -72,6 +73,20 @@ import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItem
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const serialized = JSON.stringify(obj);
+  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
+  const escapedObj = JSON.parse(escapedJson);
+  const dumped = yaml.dump(escapedObj, opts);
+  return unescapeYamlDump(dumped, map);
+}
 
 
 // Schema for career-programs listing page (custom page type)
@@ -1041,7 +1056,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         let parsed: { redirects: Array<{ from: string; to: string; status?: number }> } = { redirects: [] };
         if (fs.existsSync(customFilePath)) {
           const raw = fs.readFileSync(customFilePath, "utf-8");
-          const loaded = yaml.load(raw) as { redirects?: unknown[] } | null;
+          const loaded = safeYamlLoad(raw) as { redirects?: unknown[] } | null;
           if (loaded && Array.isArray(loaded.redirects)) {
             parsed.redirects = loaded.redirects as Array<{ from: string; to: string; status?: number }>;
           }
@@ -1058,7 +1073,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         parsed.redirects.push(newEntry);
 
-        const yamlContent = yaml.dump(parsed, { lineWidth: -1, noRefs: true });
+        const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
         contentIndex.scan();
@@ -1168,7 +1183,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let parsed: Record<string, unknown> = {};
       if (fs.existsSync(filePath)) {
         const raw = fs.readFileSync(filePath, "utf-8");
-        parsed = (yaml.load(raw) as Record<string, unknown>) || {};
+        parsed = (safeYamlLoad(raw) as Record<string, unknown>) || {};
       }
 
       if (!parsed.meta || typeof parsed.meta !== "object") {
@@ -1197,7 +1212,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         redirects.push(normalizedFrom);
       }
 
-      const yamlContent = yaml.dump(parsed, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -1252,7 +1267,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         const raw = fs.readFileSync(customFilePath, "utf-8");
-        const loaded = yaml.load(raw) as { redirects?: Array<{ from: string; to: string; status?: number }> } | null;
+        const loaded = safeYamlLoad(raw) as { redirects?: Array<{ from: string; to: string; status?: number }> } | null;
 
         if (!loaded || !Array.isArray(loaded.redirects)) {
           res.status(404).json({ error: "No redirects found in custom redirects file" });
@@ -1272,7 +1287,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return;
         }
 
-        const yamlContent = yaml.dump(loaded, { lineWidth: -1, noRefs: true });
+        const yamlContent = safeYamlDump(loaded, { lineWidth: -1, noRefs: true });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
         contentIndex.scan();
@@ -1293,7 +1308,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const raw = fs.readFileSync(filePath, "utf-8");
-      const parsed = (yaml.load(raw) as Record<string, unknown>) || {};
+      const parsed = (safeYamlLoad(raw) as Record<string, unknown>) || {};
 
       const meta = parsed.meta as Record<string, unknown> | undefined;
       if (!meta || !Array.isArray(meta.redirects)) {
@@ -1328,7 +1343,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const yamlContent = yaml.dump(parsed, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -1388,7 +1403,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     try {
       const content = fs.readFileSync(filePath, "utf-8");
-      const data = yaml.load(content);
+      const data = safeYamlLoad(content);
       res.json({ name, locale: locale || "en", data });
     } catch (error) {
       console.error(`Error loading menu ${name}:`, error);
@@ -1587,7 +1602,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
-      const yamlContent = yaml.dump(data, {
+      const yamlContent = safeYamlDump(data, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -1606,12 +1621,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (fs.existsSync(translationFilePath)) {
           try {
             const translationContent = fs.readFileSync(translationFilePath, "utf-8");
-            const translationData = yaml.load(translationContent) as any;
+            const translationData = safeYamlLoad(translationContent) as any;
             
             // Sync structure from English to translation, preserving existing translations
             const syncedData = syncMenuStructure(data, translationData);
             
-            const syncedYaml = yaml.dump(syncedData, {
+            const syncedYaml = safeYamlDump(syncedData, {
               indent: 2,
               lineWidth: -1,
               noRefs: true,
@@ -1683,7 +1698,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     try {
       const masterContent = fs.readFileSync(masterFilePath, "utf-8");
-      const masterData = yaml.load(masterContent) as any;
+      const masterData = safeYamlLoad(masterContent) as any;
       
       // ENFORCE: Strict text-only merge for ALL locales (including English)
       // Structure is ALWAYS from master - only text fields come from submitted data
@@ -1695,7 +1710,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
-      const yamlContent = yaml.dump(dataToSave, {
+      const yamlContent = safeYamlDump(dataToSave, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -1935,7 +1950,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const commonContent = fs.readFileSync(commonPath, "utf-8");
-      const commonData = yaml.load(commonContent) as Record<string, unknown>;
+      const commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
 
       if (locations.length === 0) {
         delete commonData.locations;
@@ -1943,7 +1958,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         commonData.locations = locations;
       }
 
-      const updatedYaml = yaml.dump(commonData, {
+      const updatedYaml = safeYamlDump(commonData, {
         lineWidth: -1,
         noRefs: true,
         quotingType: '"',
@@ -1962,10 +1977,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const variantPath = path.join(landingDir, variantFile);
         try {
           const variantContent = fs.readFileSync(variantPath, "utf-8");
-          const variantData = yaml.load(variantContent) as Record<string, unknown>;
+          const variantData = safeYamlLoad(variantContent) as Record<string, unknown>;
           if (variantData && "locations" in variantData) {
             delete variantData.locations;
-            const variantYaml = yaml.dump(variantData, {
+            const variantYaml = safeYamlDump(variantData, {
               lineWidth: -1,
               noRefs: true,
               quotingType: '"',
@@ -3542,7 +3557,7 @@ sections: []
         for (const dir of dirs) {
           const commonPath = path.join(locationsPath, dir, "_common.yml");
           if (fs.existsSync(commonPath)) {
-            const campusData = yaml.load(
+            const campusData = safeYamlLoad(
               fs.readFileSync(commonPath, "utf8"),
             ) as {
               slug: string;
@@ -4024,7 +4039,7 @@ sections: []
       let rawData: Record<string, unknown> = {};
       try {
         if (fs.existsSync(file.filePath)) {
-          rawData = yaml.load(fs.readFileSync(file.filePath, "utf-8")) || {};
+          rawData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
         }
       } catch {}
 
@@ -4606,7 +4621,7 @@ sections: []
 
     try {
       const content = fs.readFileSync(testimonialsPath, "utf8");
-      const data = yaml.load(content) as unknown[];
+      const data = safeYamlLoad(content) as unknown[];
       res.json({ testimonials: data || [] });
     } catch (error) {
       console.error("Error loading testimonials:", error);
@@ -4632,7 +4647,7 @@ sections: []
     
     try {
       const content = fs.readFileSync(faqsPath, "utf8");
-      const data = yaml.load(content) as { faqs: unknown[] };
+      const data = safeYamlLoad(content) as { faqs: unknown[] };
       res.json(data);
     } catch (error) {
       console.error("Error loading FAQs:", error);
@@ -4706,7 +4721,7 @@ sections: []
 # No HTML tags - plain text only
 
 `;
-      const yamlContent = header + yaml.dump({ faqs }, { 
+      const yamlContent = header + safeYamlDump({ faqs }, { 
         lineWidth: -1, 
         quotingType: '"',
         forceQuotes: false,

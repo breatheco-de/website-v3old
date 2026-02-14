@@ -65,7 +65,22 @@ import { yaml } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { variableHighlightPlugin } from "@/lib/cm-variable-highlight";
 import * as yamlParser from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { useUndoRedo } from "@/hooks/useUndoRedo";
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yamlParser.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
+
+function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
+  const serialized = JSON.stringify(obj);
+  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
+  const escapedObj = JSON.parse(escapedJson);
+  const dumped = yamlParser.dump(escapedObj, opts);
+  return unescapeYamlDump(dumped, map);
+}
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 
 interface SectionEditorPanelProps {
@@ -387,7 +402,7 @@ export function SectionEditorPanel({
     setYamlContent(content);
     setHasChanges(true);
     try {
-      const parsed = yamlParser.load(content) as Section;
+      const parsed = safeYamlLoad(content) as Section;
       setParseError(null);
       if (parsed && typeof parsed === "object" && onPreviewChange) {
         onPreviewChange(parsed);
@@ -415,7 +430,7 @@ export function SectionEditorPanel({
     clearUndoHistory();
     // Store the initial YAML so we can undo back to it
     try {
-      const yamlStr = yamlParser.dump(section, {
+      const yamlStr = safeYamlDump(section, {
         lineWidth: -1,
         noRefs: true,
         quotingType: '"',
@@ -469,7 +484,7 @@ export function SectionEditorPanel({
           setHasChanges(true);
           setParseError(null);
           try {
-            const parsed = yamlParser.load(updated) as Record<string, unknown>;
+            const parsed = safeYamlLoad(updated) as Record<string, unknown>;
             if (onPreviewChange) onPreviewChange(parsed as Section);
           } catch { /* ignore parse errors during preview */ }
           toast({ title: "Variable inserted", description: "Text replaced with variable template." });
@@ -567,7 +582,7 @@ export function SectionEditorPanel({
   // Parse current YAML to extract props
   const parsedSection = useMemo(() => {
     try {
-      return yamlParser.load(yamlContent) as Record<string, unknown> | null;
+      return safeYamlLoad(yamlContent) as Record<string, unknown> | null;
     } catch {
       return null;
     }
@@ -580,7 +595,7 @@ export function SectionEditorPanel({
   // Initialize YAML content from section
   useEffect(() => {
     try {
-      const yamlStr = yamlParser.dump(section, {
+      const yamlStr = safeYamlDump(section, {
         lineWidth: -1,
         noRefs: true,
         quotingType: '"',
@@ -604,7 +619,7 @@ export function SectionEditorPanel({
 
       // Validate YAML on change and trigger live preview
       try {
-        const parsed = yamlParser.load(value) as Section;
+        const parsed = safeYamlLoad(value) as Section;
         setParseError(null);
 
         // Trigger live preview if valid section
@@ -624,7 +639,7 @@ export function SectionEditorPanel({
   const updateProperty = useCallback(
     (key: string, value: string) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -656,7 +671,7 @@ export function SectionEditorPanel({
           }
         }
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -681,7 +696,7 @@ export function SectionEditorPanel({
   const updatePropertyWithValue = useCallback(
     (key: string, value: unknown) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -710,7 +725,7 @@ export function SectionEditorPanel({
           }
         }
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -735,7 +750,7 @@ export function SectionEditorPanel({
   const updateArrayProperty = useCallback(
     (key: string, value: string[]) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -793,7 +808,7 @@ export function SectionEditorPanel({
           }
         }
 
-        const newYaml = yamlParser.dump(updated, {
+        const newYaml = safeYamlDump(updated, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -818,7 +833,7 @@ export function SectionEditorPanel({
   const updateArrayItemField = useCallback(
     (arrayPath: string, index: number, field: string, value: string | number) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -843,7 +858,7 @@ export function SectionEditorPanel({
 
         array[index][field] = value;
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -867,7 +882,7 @@ export function SectionEditorPanel({
   const updateArrayItemFields = useCallback(
     (arrayPath: string, index: number, updates: Record<string, string>) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -890,7 +905,7 @@ export function SectionEditorPanel({
           array[index][field] = value;
         }
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -914,7 +929,7 @@ export function SectionEditorPanel({
   const addArrayItem = useCallback(
     (arrayPath: string, defaultItem: Record<string, unknown>) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -943,7 +958,7 @@ export function SectionEditorPanel({
 
         array.push(defaultItem);
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -967,7 +982,7 @@ export function SectionEditorPanel({
   const removeArrayItem = useCallback(
     (arrayPath: string, indexToRemove: number) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -988,7 +1003,7 @@ export function SectionEditorPanel({
 
         array.splice(indexToRemove, 1);
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -1012,7 +1027,7 @@ export function SectionEditorPanel({
   const updateArrayField = useCallback(
     (arrayPath: string, newArray: Record<string, unknown>[]) => {
       try {
-        const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
         pushUndoState(yamlContent);
@@ -1040,7 +1055,7 @@ export function SectionEditorPanel({
           current[arrayField] = newArray;
         }
 
-        const newYaml = yamlParser.dump(parsed, {
+        const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -1142,7 +1157,7 @@ export function SectionEditorPanel({
 
     let parsed: Section;
     try {
-      parsed = yamlParser.load(yamlContent) as Section;
+      parsed = safeYamlLoad(yamlContent) as Section;
       if (!parsed || typeof parsed !== "object") {
         setParseError("Invalid section structure");
         return { success: false };
@@ -1416,7 +1431,7 @@ export function SectionEditorPanel({
                 locale={locale}
                 onApplyConfig={(config) => {
                   try {
-                    const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+                    const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
                     if (!parsed || typeof parsed !== "object") return;
                     pushUndoState(yamlContent);
                     parsed.columns = config.columns;
@@ -1425,7 +1440,7 @@ export function SectionEditorPanel({
                     } else {
                       delete parsed.title;
                     }
-                    const newYaml = yamlParser.dump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                    const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
                     setYamlContent(newYaml);
                     setHasChanges(true);
                     setParseError(null);
@@ -1641,7 +1656,7 @@ export function SectionEditorPanel({
                   if (fieldName.includes(".")) {
                     const parts = fieldName.split(".");
                     try {
-                      const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+                      const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
                       if (!parsed || typeof parsed !== "object") return;
                       pushUndoState(yamlContent);
                       const arrParts = arrPath.split(".");
@@ -1662,7 +1677,7 @@ export function SectionEditorPanel({
                       if (target && typeof target === "object") {
                         (target as Record<string, unknown>)[parts[parts.length - 1]] = value;
                       }
-                      const newYaml = yamlParser.dump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                      const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
                       setYamlContent(newYaml);
                       setHasChanges(true);
                       setParseError(null);
@@ -2479,7 +2494,7 @@ export function SectionEditorPanel({
                   
                   const updateNestedField = (nestedItem: NestedItem, value: string) => {
                     try {
-                      const parsed = yamlParser.load(yamlContent) as Record<string, unknown>;
+                      const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
                       if (!parsed || typeof parsed !== "object") return;
                       
                       pushUndoState(yamlContent);
@@ -2498,7 +2513,7 @@ export function SectionEditorPanel({
                       if (!current || typeof current !== "object") return;
                       (current as Record<string, unknown>)[itemField] = value;
                       
-                      const newYaml = yamlParser.dump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                      const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
                       setYamlContent(newYaml);
                       setHasChanges(true);
                       setParseError(null);
