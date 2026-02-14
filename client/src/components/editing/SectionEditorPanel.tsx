@@ -423,6 +423,34 @@ export function SectionEditorPanel({
     }
   }, [sectionIndex, section, clearUndoHistory]);
 
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { sectionIndex: idx, originalText, templateSyntax } = (e as CustomEvent).detail;
+      if (idx !== sectionIndex) return;
+
+      e.stopImmediatePropagation();
+
+      setYamlContent((prev) => {
+        if (!prev.includes(originalText)) {
+          toast({ title: "Text not found", description: "The selected text was not found in the YAML content.", variant: "destructive" });
+          return prev;
+        }
+        const updated = prev.replace(originalText, templateSyntax);
+        setHasChanges(true);
+        setParseError(null);
+        try {
+          const parsed = yamlParser.load(updated) as Record<string, unknown>;
+          if (onPreviewChange) onPreviewChange(parsed as Section);
+        } catch { /* ignore parse errors during preview */ }
+        toast({ title: "Variable inserted", description: "Text replaced with variable template." });
+        return updated;
+      });
+    };
+
+    window.addEventListener("variable-created-replace", handler);
+    return () => window.removeEventListener("variable-created-replace", handler);
+  }, [sectionIndex, toast, onPreviewChange]);
+
   // Fetch image registry for gallery picker
   const { data: imageRegistry, refetch: refetchRegistry } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
