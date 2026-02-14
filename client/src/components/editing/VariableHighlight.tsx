@@ -135,7 +135,7 @@ function highlightDomVariables(
   };
 }
 
-function SelectionFloatingButton({ sectionIndex, containerRef }: { sectionIndex: number; containerRef: React.RefObject<HTMLDivElement | null> }) {
+function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [selectedText, setSelectedText] = useState("");
   const editMode = useEditModeOptional();
@@ -155,7 +155,8 @@ function SelectionFloatingButton({ sectionIndex, containerRef }: { sectionIndex:
         return;
       }
 
-      if (containerRef.current && selection.anchorNode && !containerRef.current.contains(selection.anchorNode)) {
+      const anchor = selection.anchorNode;
+      if (!anchor || !anchor.parentElement?.closest(".cm-editor")) {
         setPosition(null);
         setSelectedText("");
         return;
@@ -184,7 +185,7 @@ function SelectionFloatingButton({ sectionIndex, containerRef }: { sectionIndex:
 
     document.addEventListener("selectionchange", handleSelectionChange);
     return () => document.removeEventListener("selectionchange", handleSelectionChange);
-  }, [isEditMode, containerRef]);
+  }, [isEditMode]);
 
   const handleClick = useCallback(() => {
     if (!selectedText) return;
@@ -276,7 +277,7 @@ export function VariableHighlightProvider({
       <div ref={wrapperRef} style={{ display: "contents" }}>
         {children}
       </div>
-      <SelectionFloatingButton sectionIndex={sectionIndex} containerRef={wrapperRef} />
+      <SelectionFloatingButton sectionIndex={sectionIndex} />
     </VariableHighlightContext.Provider>
   );
 }
