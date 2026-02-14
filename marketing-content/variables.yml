@@ -29,3 +29,5 @@ sample_greeting:
     madrid-spain: "Bienvenido a 4Geeks Madrid"
 workflowlele:
   default: "workflows"
+global_job_placement_rate:
+  default: "84"
