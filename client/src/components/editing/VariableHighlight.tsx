@@ -33,6 +33,8 @@ interface VariableClickDetail {
 interface VariableCreateDetail {
   selectedText: string;
   sectionIndex: number;
+  selectionFrom?: number;
+  selectionTo?: number;
 }
 
 function highlightDomVariables(
@@ -156,7 +158,8 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
       }
 
       const anchor = selection.anchorNode;
-      if (!anchor || !anchor.parentElement?.closest(".cm-editor")) {
+      const cmEditor = anchor?.parentElement?.closest(".cm-editor") as HTMLElement | null;
+      if (!cmEditor) {
         setPosition(null);
         setSelectedText("");
         return;
@@ -189,9 +192,34 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
 
   const handleClick = useCallback(() => {
     if (!selectedText) return;
+
+    let from: number | undefined;
+    let to: number | undefined;
+    let cmText: string | undefined;
+
+    try {
+      const sel = window.getSelection();
+      const anchor = sel?.anchorNode;
+      const cmEditor = anchor?.parentElement?.closest(".cm-editor") as HTMLElement | null;
+      const cmViewObj = cmEditor && (cmEditor as unknown as { cmView?: { view?: { state: { selection: { main: { from: number; to: number } }; sliceDoc: (from: number, to: number) => string } } } }).cmView;
+      if (cmViewObj?.view) {
+        const mainSel = cmViewObj.view.state.selection.main;
+        from = mainSel.from;
+        to = mainSel.to;
+        cmText = cmViewObj.view.state.sliceDoc(from, to);
+      }
+    } catch { /* ignore */ }
+
+    const textToUse = cmText || selectedText;
+
     window.dispatchEvent(
       new CustomEvent<VariableCreateDetail>(VARIABLE_CREATE_EVENT, {
-        detail: { selectedText, sectionIndex },
+        detail: {
+          selectedText: textToUse,
+          sectionIndex,
+          selectionFrom: from,
+          selectionTo: to,
+        },
       }),
     );
     window.getSelection()?.removeAllRanges();
@@ -289,6 +317,8 @@ export function VariableModalHost() {
     inlineDefault: string;
     mode: "inspect" | "create";
     sectionIndex: number;
+    selectionFrom?: number;
+    selectionTo?: number;
   }>({ open: false, variableName: "", inlineDefault: "", mode: "inspect", sectionIndex: -1 });
 
   const modalStateRef = useRef(modalState);
@@ -314,6 +344,8 @@ export function VariableModalHost() {
         inlineDefault: detail.selectedText,
         mode: "create",
         sectionIndex: detail.sectionIndex,
+        selectionFrom: detail.selectionFrom,
+        selectionTo: detail.selectionTo,
       });
     };
 
@@ -342,6 +374,8 @@ export function VariableModalHost() {
           sectionIndex: current.sectionIndex,
           originalText: current.inlineDefault,
           templateSyntax,
+          selectionFrom: current.selectionFrom,
+          selectionTo: current.selectionTo,
         },
       }),
     );

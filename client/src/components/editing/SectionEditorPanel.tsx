@@ -60,6 +60,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconSearch, IconUpload, IconCloudUpload } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
+import type { EditorView } from "@codemirror/view";
 import { yaml } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
 import * as yamlParser from "js-yaml";
@@ -379,6 +380,7 @@ export function SectionEditorPanel({
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const editorViewRef = useRef<EditorView | null>(null);
 
   const handleUndoRedoRestore = useCallback((content: string) => {
     setYamlContent(content);
@@ -426,26 +428,53 @@ export function SectionEditorPanel({
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent).detail;
-      const { sectionIndex: idx, originalText, templateSyntax } = detail;
+      const { sectionIndex: idx, originalText, templateSyntax, selectionFrom, selectionTo } = detail;
       if (idx !== sectionIndex) return;
 
       detail._handled = true;
 
-      setYamlContent((prev) => {
-        if (!prev.includes(originalText)) {
-          toast({ title: "Text not found", description: "The selected text was not found in the YAML content.", variant: "destructive" });
-          return prev;
+      const view = editorViewRef.current;
+      if (view) {
+        const doc = view.state.doc.toString();
+        let from: number;
+        let to: number;
+
+        if (selectionFrom !== undefined && selectionTo !== undefined
+            && selectionFrom >= 0 && selectionTo <= doc.length
+            && doc.slice(selectionFrom, selectionTo) === originalText) {
+          from = selectionFrom;
+          to = selectionTo;
+        } else {
+          const pos = doc.indexOf(originalText);
+          if (pos === -1) {
+            toast({ title: "Text not found", description: "The selected text was not found in the YAML content.", variant: "destructive" });
+            return;
+          }
+          from = pos;
+          to = pos + originalText.length;
         }
-        const updated = prev.replace(originalText, templateSyntax);
-        setHasChanges(true);
-        setParseError(null);
-        try {
-          const parsed = yamlParser.load(updated) as Record<string, unknown>;
-          if (onPreviewChange) onPreviewChange(parsed as Section);
-        } catch { /* ignore parse errors during preview */ }
+
+        view.dispatch({
+          changes: { from, to, insert: templateSyntax },
+        });
         toast({ title: "Variable inserted", description: "Text replaced with variable template." });
-        return updated;
-      });
+      } else {
+        setYamlContent((prev) => {
+          if (!prev.includes(originalText)) {
+            toast({ title: "Text not found", description: "The selected text was not found in the YAML content.", variant: "destructive" });
+            return prev;
+          }
+          const updated = prev.replace(originalText, templateSyntax);
+          setHasChanges(true);
+          setParseError(null);
+          try {
+            const parsed = yamlParser.load(updated) as Record<string, unknown>;
+            if (onPreviewChange) onPreviewChange(parsed as Section);
+          } catch { /* ignore parse errors during preview */ }
+          toast({ title: "Variable inserted", description: "Text replaced with variable template." });
+          return updated;
+        });
+      }
     };
 
     window.addEventListener("variable-created-replace", handler);
@@ -1303,6 +1332,7 @@ export function SectionEditorPanel({
               extensions={[yaml()]}
               theme={oneDark}
               onChange={handleYamlChange}
+              onCreateEditor={(view) => { editorViewRef.current = view; }}
               basicSetup={{
                 lineNumbers: true,
                 foldGutter: true,
