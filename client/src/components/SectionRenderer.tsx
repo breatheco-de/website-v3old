@@ -585,6 +585,61 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   const { data: varDefinitions } = useVariableDefinitions();
   const varContext = useVariableContext();
 
+  useEffect(() => {
+    if (!contentType || !slug || !locale) return;
+
+    const handler = async (e: Event) => {
+      const { sectionIndex, originalText, templateSyntax } = (e as CustomEvent).detail;
+      if (sectionIndex < 0 || sectionIndex >= sections.length) return;
+
+      const section = sections[sectionIndex];
+      if (!section) return;
+
+      let foundMatch = false;
+      const replaceInObj = (obj: unknown): unknown => {
+        if (typeof obj === "string") {
+          if (obj.includes(originalText)) {
+            foundMatch = true;
+            return obj.replace(originalText, templateSyntax);
+          }
+          return obj;
+        }
+        if (Array.isArray(obj)) {
+          return obj.map(replaceInObj);
+        }
+        if (obj && typeof obj === "object") {
+          const result: Record<string, unknown> = {};
+          for (const [k, v] of Object.entries(obj)) {
+            result[k] = replaceInObj(v);
+          }
+          return result;
+        }
+        return obj;
+      };
+
+      const updatedSection = replaceInObj(section);
+
+      if (!foundMatch) {
+        toast({ title: "Text not found", description: "The selected text was not found in the section content.", variant: "destructive" });
+        return;
+      }
+
+      const result = await sendEditOperation(contentType, slug, locale, [
+        { action: "update_section", index: sectionIndex, section: updatedSection }
+      ]);
+
+      if (result.success) {
+        toast({ title: "Variable inserted", description: "Text replaced with variable template." });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to insert variable", description: result.error, variant: "destructive" });
+      }
+    };
+
+    window.addEventListener("variable-created-replace", handler);
+    return () => window.removeEventListener("variable-created-replace", handler);
+  }, [contentType, slug, locale, sections, toast]);
+
   const resolvedSections = useMemo(() => {
     if (isEditMode || !varDefinitions || Object.keys(varDefinitions).length === 0) {
       return sections;

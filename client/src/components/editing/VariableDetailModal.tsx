@@ -29,6 +29,8 @@ interface VariableDetailModalProps {
   onOpenChange: (open: boolean) => void;
   variableName: string;
   inlineDefault: string;
+  mode?: "inspect" | "create";
+  onCreated?: (variableName: string, templateSyntax: string) => void;
 }
 
 type ResolutionLevel = "by_location" | "by_region" | "by_locale" | "default";
@@ -339,19 +341,67 @@ export function VariableDetailModal({
   onOpenChange,
   variableName,
   inlineDefault,
+  mode = "inspect",
+  onCreated,
 }: VariableDetailModalProps) {
   const { toast } = useToast();
   const { data: definitions, refetch } = useVariableDefinitions();
   const varContext = useVariableContext();
   const [activeTab, setActiveTab] = useState<"explain" | "edit">("explain");
+  const [createName, setCreateName] = useState("");
+  const [createSaving, setCreateSaving] = useState(false);
+  const [currentMode, setCurrentMode] = useState(mode);
 
-  const definition = definitions?.[variableName];
+  useEffect(() => {
+    setCurrentMode(mode);
+    if (mode === "create") {
+      setCreateName("");
+      setCreateSaving(false);
+    }
+  }, [mode, open]);
+
+  const effectiveVarName = currentMode === "create" ? createName : variableName;
+
+  const definition = definitions?.[effectiveVarName];
   const resolution = definition
-    ? resolveVariable(variableName, definitions!, varContext)
+    ? resolveVariable(effectiveVarName, definitions!, varContext)
     : null;
 
-  const resolvedValue = resolution?.value || inlineDefault || variableName;
+  const resolvedValue = resolution?.value || inlineDefault || effectiveVarName;
   const resolvedSource = resolution?.source || (inlineDefault ? "inline" : "unresolved");
+
+  const handleCreate = useCallback(async () => {
+    const name = createName.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!name) {
+      toast({ title: "Name required", description: "Please enter a name for the variable.", variant: "destructive" });
+      return;
+    }
+    if (definitions?.[name]) {
+      toast({ title: "Already exists", description: `Variable "${name}" already exists. Choose a different name.`, variant: "destructive" });
+      return;
+    }
+    setCreateSaving(true);
+    try {
+      await apiRequest("PUT", `/api/variables/${name}`, {
+        level: "default",
+        value: inlineDefault,
+      });
+      await refetch();
+      queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
+      const templateSyntax = `{{ ${name} | ${inlineDefault} }}`;
+      toast({ title: "Variable created", description: `"${name}" is ready to use.` });
+      onCreated?.(name, templateSyntax);
+      setCurrentMode("inspect");
+    } catch (err) {
+      toast({
+        title: "Failed to create",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    } finally {
+      setCreateSaving(false);
+    }
+  }, [createName, inlineDefault, definitions, refetch, toast, onCreated]);
 
   const getValueForLevel = (level: ResolutionLevel): string | undefined => {
     if (!definition) return undefined;
@@ -389,14 +439,14 @@ export function VariableDetailModal({
   const handleSave = useCallback(
     async (level: ResolutionLevel, key: string, value: string) => {
       try {
-        await apiRequest("PUT", `/api/variables/${variableName}`, {
+        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
           level,
           key: key || undefined,
           value,
         });
         await refetch();
         queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-        toast({ title: "Variable updated", description: `${variableName} saved successfully.` });
+        toast({ title: "Variable updated", description: `${effectiveVarName} saved successfully.` });
       } catch (err) {
         toast({
           title: "Failed to save",
@@ -405,19 +455,19 @@ export function VariableDetailModal({
         });
       }
     },
-    [variableName, refetch, toast],
+    [effectiveVarName, refetch, toast],
   );
 
   const handleDelete = useCallback(
     async (level: ResolutionLevel, key: string) => {
       try {
-        await apiRequest("DELETE", `/api/variables/${variableName}`, {
+        await apiRequest("DELETE", `/api/variables/${effectiveVarName}`, {
           level,
           key: key || undefined,
         });
         await refetch();
         queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-        toast({ title: "Value removed", description: `Removed from ${variableName}.` });
+        toast({ title: "Value removed", description: `Removed from ${effectiveVarName}.` });
       } catch (err) {
         toast({
           title: "Failed to delete",
@@ -426,7 +476,7 @@ export function VariableDetailModal({
         });
       }
     },
-    [variableName, refetch, toast],
+    [effectiveVarName, refetch, toast],
   );
 
   const handleAdd = useCallback(
@@ -439,11 +489,70 @@ export function VariableDetailModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto" data-testid="variable-detail-modal">
+        {currentMode === "create" ? (
+          <>
+            <DialogHeader>
+              <DialogTitle>Create Variable</DialogTitle>
+              <DialogDescription>
+                Convert the selected text into a reusable variable. The text will become the default value.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4 mt-2">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground" htmlFor="var-name-input">Variable name</label>
+                <Input
+                  id="var-name-input"
+                  placeholder="e.g., hero_title, cta_text"
+                  value={createName}
+                  onChange={(e) => setCreateName(e.target.value.replace(/[^a-zA-Z0-9_]/g, "_"))}
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleCreate();
+                  }}
+                  data-testid="input-variable-name"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Use snake_case (letters, numbers, underscores only)
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Default value</label>
+                <div className="px-3 py-2 rounded-md bg-muted text-sm">
+                  "{inlineDefault}"
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  This is the selected text. It will be used as the default value.
+                </p>
+              </div>
+
+              {createName.trim() && (
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Preview</label>
+                  <div className="px-3 py-2 rounded-md bg-muted font-mono text-sm">
+                    {"{{ "}{createName.trim().replace(/\s+/g, "_").toLowerCase()}{" | "}{inlineDefault}{" }}"}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-end gap-2 pt-2">
+                <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-create">
+                  Cancel
+                </Button>
+                <Button onClick={handleCreate} disabled={createSaving || !createName.trim()} data-testid="button-confirm-create">
+                  {createSaving ? "Creating..." : "Create Variable"}
+                </Button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <span className="font-mono text-sm px-2 py-1 rounded-md bg-muted">
               {"{{ "}
-              {variableName}
+              {effectiveVarName}
               {" }}"}
             </span>
           </DialogTitle>
@@ -571,6 +680,8 @@ export function VariableDetailModal({
               onAdd={handleAdd}
             />
           </div>
+        )}
+        </>
         )}
       </DialogContent>
     </Dialog>

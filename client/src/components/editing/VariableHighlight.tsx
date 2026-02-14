@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useRef, useLayoutEffect, useCallback, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import {
@@ -8,6 +9,8 @@ import {
   type VariableContext as VarCtx,
 } from "@/lib/variable-resolver";
 import { VariableDetailModal } from "./VariableDetailModal";
+import { Button } from "@/components/ui/button";
+import { IconVariable } from "@tabler/icons-react";
 
 interface VariableHighlightContextValue {
   definitions: Record<string, VariableDefinition>;
@@ -20,10 +23,16 @@ const VariableHighlightContext = createContext<VariableHighlightContextValue | n
 const TEMPLATE_REGEX = /\{\{\s*([^|}]+?)\s*(?:\|\s*([\s\S]*?))?\s*\}\}/g;
 
 const VARIABLE_CLICK_EVENT = "variable-highlight-click";
+const VARIABLE_CREATE_EVENT = "variable-create-from-selection";
 
 interface VariableClickDetail {
   variableName: string;
   inlineDefault: string;
+}
+
+interface VariableCreateDetail {
+  selectedText: string;
+  sectionIndex: number;
 }
 
 function highlightDomVariables(
@@ -126,9 +135,93 @@ function highlightDomVariables(
   };
 }
 
+function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
+  const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
+  const [selectedText, setSelectedText] = useState("");
+  const editMode = useEditModeOptional();
+  const isEditMode = editMode?.isEditMode ?? false;
+
+  useEffect(() => {
+    if (!isEditMode) {
+      setPosition(null);
+      return;
+    }
+
+    const handleSelectionChange = () => {
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed || !selection.toString().trim()) {
+        setPosition(null);
+        setSelectedText("");
+        return;
+      }
+
+      const text = selection.toString().trim();
+      if (text.length < 2 || text.length > 500) {
+        setPosition(null);
+        return;
+      }
+
+      if (/\{\{.*\}\}/.test(text)) {
+        setPosition(null);
+        return;
+      }
+
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+
+      setSelectedText(text);
+      setPosition({
+        top: rect.top + window.scrollY - 40,
+        left: rect.left + window.scrollX + rect.width / 2,
+      });
+    };
+
+    document.addEventListener("selectionchange", handleSelectionChange);
+    return () => document.removeEventListener("selectionchange", handleSelectionChange);
+  }, [isEditMode]);
+
+  const handleClick = useCallback(() => {
+    if (!selectedText) return;
+    window.dispatchEvent(
+      new CustomEvent<VariableCreateDetail>(VARIABLE_CREATE_EVENT, {
+        detail: { selectedText, sectionIndex },
+      }),
+    );
+    window.getSelection()?.removeAllRanges();
+    setPosition(null);
+    setSelectedText("");
+  }, [selectedText, sectionIndex]);
+
+  if (!position || !isEditMode) return null;
+
+  return createPortal(
+    <div
+      style={{
+        position: "absolute",
+        top: position.top,
+        left: position.left,
+        transform: "translateX(-50%)",
+        zIndex: 9999,
+      }}
+      data-testid="button-convert-to-variable"
+    >
+      <Button
+        size="sm"
+        variant="default"
+        onClick={handleClick}
+        className="shadow-lg whitespace-nowrap gap-1.5"
+      >
+        <IconVariable className="w-3.5 h-3.5" />
+        Convert to variable
+      </Button>
+    </div>,
+    document.body,
+  );
+}
+
 export function VariableHighlightProvider({
   children,
-  sectionIndex: _sectionIndex,
+  sectionIndex,
 }: {
   children: ReactNode;
   variables?: unknown[];
@@ -177,6 +270,7 @@ export function VariableHighlightProvider({
       <div ref={wrapperRef} style={{ display: "contents" }}>
         {children}
       </div>
+      <SelectionFloatingButton sectionIndex={sectionIndex} />
     </VariableHighlightContext.Provider>
   );
 }
@@ -186,20 +280,64 @@ export function VariableModalHost() {
     open: boolean;
     variableName: string;
     inlineDefault: string;
-  }>({ open: false, variableName: "", inlineDefault: "" });
+    mode: "inspect" | "create";
+    sectionIndex: number;
+  }>({ open: false, variableName: "", inlineDefault: "", mode: "inspect", sectionIndex: -1 });
+
+  const modalStateRef = useRef(modalState);
+  modalStateRef.current = modalState;
 
   useEffect(() => {
-    const handler = (e: Event) => {
+    const handleClick = (e: Event) => {
       const detail = (e as CustomEvent<VariableClickDetail>).detail;
       setModalState({
         open: true,
         variableName: detail.variableName,
         inlineDefault: detail.inlineDefault,
+        mode: "inspect",
+        sectionIndex: -1,
       });
     };
 
-    window.addEventListener(VARIABLE_CLICK_EVENT, handler);
-    return () => window.removeEventListener(VARIABLE_CLICK_EVENT, handler);
+    const handleCreate = (e: Event) => {
+      const detail = (e as CustomEvent<VariableCreateDetail>).detail;
+      setModalState({
+        open: true,
+        variableName: "",
+        inlineDefault: detail.selectedText,
+        mode: "create",
+        sectionIndex: detail.sectionIndex,
+      });
+    };
+
+    window.addEventListener(VARIABLE_CLICK_EVENT, handleClick);
+    window.addEventListener(VARIABLE_CREATE_EVENT, handleCreate);
+    return () => {
+      window.removeEventListener(VARIABLE_CLICK_EVENT, handleClick);
+      window.removeEventListener(VARIABLE_CREATE_EVENT, handleCreate);
+    };
+  }, []);
+
+  const handleCreated = useCallback((variableName: string, templateSyntax: string) => {
+    const current = modalStateRef.current;
+
+    setModalState((prev) => ({
+      ...prev,
+      variableName,
+      mode: "inspect",
+    }));
+
+    if (current.sectionIndex < 0 || !current.inlineDefault) return;
+
+    window.dispatchEvent(
+      new CustomEvent("variable-created-replace", {
+        detail: {
+          sectionIndex: current.sectionIndex,
+          originalText: current.inlineDefault,
+          templateSyntax,
+        },
+      }),
+    );
   }, []);
 
   return (
@@ -208,6 +346,8 @@ export function VariableModalHost() {
       onOpenChange={(open) => setModalState((prev) => ({ ...prev, open }))}
       variableName={modalState.variableName}
       inlineDefault={modalState.inlineDefault}
+      mode={modalState.mode}
+      onCreated={handleCreated}
     />
   );
 }
