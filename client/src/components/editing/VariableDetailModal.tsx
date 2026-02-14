@@ -351,16 +351,22 @@ export function VariableDetailModal({
   const [createName, setCreateName] = useState("");
   const [createSaving, setCreateSaving] = useState(false);
   const [currentMode, setCurrentMode] = useState(mode);
+  const [createSubMode, setCreateSubMode] = useState<"new" | "existing">("new");
+  const [existingVarName, setExistingVarName] = useState("");
 
   useEffect(() => {
     setCurrentMode(mode);
     if (mode === "create") {
       setCreateName("");
       setCreateSaving(false);
+      setCreateSubMode("new");
+      setExistingVarName("");
     }
   }, [mode, open]);
 
-  const effectiveVarName = currentMode === "create" ? createName : variableName;
+  const effectiveVarName = currentMode === "create"
+    ? (createSubMode === "existing" ? existingVarName : createName)
+    : variableName;
 
   const definition = definitions?.[effectiveVarName];
   const resolution = definition
@@ -402,6 +408,19 @@ export function VariableDetailModal({
       setCreateSaving(false);
     }
   }, [createName, inlineDefault, definitions, refetch, toast, onCreated]);
+
+  const handleUseExisting = useCallback(() => {
+    if (!existingVarName) {
+      toast({ title: "Select a variable", description: "Please choose an existing variable.", variant: "destructive" });
+      return;
+    }
+    const templateSyntax = `{{ ${existingVarName} | ${inlineDefault} }}`;
+    toast({ title: "Variable linked", description: `Text will use "{{ ${existingVarName} }}".` });
+    onCreated?.(existingVarName, templateSyntax);
+    setCurrentMode("inspect");
+  }, [existingVarName, inlineDefault, toast, onCreated]);
+
+  const existingVarNames = definitions ? Object.keys(definitions).sort() : [];
 
   const getValueForLevel = (level: ResolutionLevel): string | undefined => {
     if (!definition) return undefined;
@@ -492,46 +511,91 @@ export function VariableDetailModal({
         {currentMode === "create" ? (
           <>
             <DialogHeader>
-              <DialogTitle>Create Variable</DialogTitle>
+              <DialogTitle>Convert to Variable</DialogTitle>
               <DialogDescription>
-                Convert the selected text into a reusable variable. The text will become the default value.
+                Replace the selected text with a variable template.
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4 mt-2">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground" htmlFor="var-name-input">Variable name</label>
-                <Input
-                  id="var-name-input"
-                  placeholder="e.g., hero_title, cta_text"
-                  value={createName}
-                  onChange={(e) => setCreateName(e.target.value.replace(/[^a-zA-Z0-9_]/g, "_"))}
-                  autoFocus
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") handleCreate();
-                  }}
-                  data-testid="input-variable-name"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Use snake_case (letters, numbers, underscores only)
-                </p>
+              <div className="flex gap-1" data-testid="toggle-create-mode">
+                <Button
+                  variant={createSubMode === "new" ? "default" : "outline"}
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => setCreateSubMode("new")}
+                  data-testid="toggle-create-new"
+                >
+                  Create new
+                </Button>
+                <Button
+                  variant={createSubMode === "existing" ? "default" : "outline"}
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => setCreateSubMode("existing")}
+                  data-testid="toggle-use-existing"
+                >
+                  Use existing
+                </Button>
               </div>
 
+              {createSubMode === "new" ? (
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground" htmlFor="var-name-input">Variable name</label>
+                  <Input
+                    id="var-name-input"
+                    placeholder="e.g., hero_title, cta_text"
+                    value={createName}
+                    onChange={(e) => setCreateName(e.target.value.replace(/[^a-zA-Z0-9_]/g, "_"))}
+                    autoFocus
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleCreate();
+                    }}
+                    data-testid="input-variable-name"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Use snake_case (letters, numbers, underscores only)
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Select variable</label>
+                  <Select value={existingVarName} onValueChange={setExistingVarName}>
+                    <SelectTrigger data-testid="select-existing-variable">
+                      <SelectValue placeholder="Choose a variable..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {existingVarNames.length === 0 ? (
+                        <SelectItem value="_empty_" disabled>No variables defined yet</SelectItem>
+                      ) : (
+                        existingVarNames.map((name) => (
+                          <SelectItem key={name} value={name}>
+                            <span className="font-mono text-sm">{name}</span>
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+                  {existingVarName && definitions?.[existingVarName] && (
+                    <p className="text-xs text-muted-foreground">
+                      Current default: "{definitions[existingVarName].default || "none"}"
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Default value</label>
+                <label className="text-sm font-medium text-foreground">Selected text (inline default)</label>
                 <div className="px-3 py-2 rounded-md bg-muted text-sm">
                   "{inlineDefault}"
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  This is the selected text. It will be used as the default value.
-                </p>
               </div>
 
-              {createName.trim() && (
+              {((createSubMode === "new" && createName.trim()) || (createSubMode === "existing" && existingVarName)) && (
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Preview</label>
                   <div className="px-3 py-2 rounded-md bg-muted font-mono text-sm">
-                    {"{{ "}{createName.trim().replace(/\s+/g, "_").toLowerCase()}{" | "}{inlineDefault}{" }}"}
+                    {"{{ "}{createSubMode === "new" ? createName.trim().replace(/\s+/g, "_").toLowerCase() : existingVarName}{" | "}{inlineDefault}{" }}"}
                   </div>
                 </div>
               )}
@@ -540,9 +604,15 @@ export function VariableDetailModal({
                 <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-create">
                   Cancel
                 </Button>
-                <Button onClick={handleCreate} disabled={createSaving || !createName.trim()} data-testid="button-confirm-create">
-                  {createSaving ? "Creating..." : "Create Variable"}
-                </Button>
+                {createSubMode === "new" ? (
+                  <Button onClick={handleCreate} disabled={createSaving || !createName.trim()} data-testid="button-confirm-create">
+                    {createSaving ? "Creating..." : "Create Variable"}
+                  </Button>
+                ) : (
+                  <Button onClick={handleUseExisting} disabled={!existingVarName} data-testid="button-confirm-use-existing">
+                    Use Variable
+                  </Button>
+                )}
               </div>
             </div>
           </>
