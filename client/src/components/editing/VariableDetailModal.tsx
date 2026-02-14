@@ -360,7 +360,9 @@ export function VariableDetailModal({
   const [createName, setCreateName] = useState("");
   const [createSaving, setCreateSaving] = useState(false);
   const [currentMode, setCurrentMode] = useState(mode);
-  const [createSubMode, setCreateSubMode] = useState<"new" | "existing">("new");
+  const [createSubMode, setCreateSubMode] = useState<"new" | "existing">("existing");
+  const [nameAvailable, setNameAvailable] = useState<boolean | null>(null);
+  const nameCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [existingVarName, setExistingVarName] = useState("");
   const [varComboboxOpen, setVarComboboxOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -370,8 +372,10 @@ export function VariableDetailModal({
     if (mode === "create") {
       setCreateName("");
       setCreateSaving(false);
-      setCreateSubMode("new");
+      setCreateSubMode("existing");
       setExistingVarName("");
+      setNameAvailable(null);
+      if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
     }
   }, [mode, open]);
 
@@ -432,6 +436,28 @@ export function VariableDetailModal({
   }, [existingVarName, inlineDefault, toast, onCreated]);
 
   const existingVarNames = definitions ? Object.keys(definitions).sort() : [];
+
+  const handleNameChange = useCallback((rawValue: string) => {
+    const sanitized = rawValue.replace(/[^a-zA-Z0-9_]/g, "_");
+    setCreateName(sanitized);
+    setNameAvailable(null);
+    if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
+    const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!normalized) {
+      setNameAvailable(null);
+      return;
+    }
+    nameCheckTimerRef.current = setTimeout(() => {
+      setNameAvailable(!definitions?.[normalized]);
+    }, 500);
+  }, [definitions]);
+
+  const resolvedCreateValue = (() => {
+    const varName = createSubMode === "existing" ? existingVarName : createName.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!varName || !definitions?.[varName]) return inlineDefault;
+    const res = resolveVariable(varName, definitions, varContext);
+    return res?.value || inlineDefault || varName;
+  })();
 
   const getValueForLevel = (level: ResolutionLevel): string | undefined => {
     if (!definition) return undefined;
@@ -529,104 +555,125 @@ export function VariableDetailModal({
             </DialogHeader>
 
             <div className="space-y-4 mt-2">
-              <div className="flex gap-1" data-testid="toggle-create-mode">
-                <Button
-                  variant={createSubMode === "new" ? "default" : "outline"}
-                  size="sm"
-                  className="flex-1"
-                  onClick={() => setCreateSubMode("new")}
-                  data-testid="toggle-create-new"
-                >
-                  Create new
-                </Button>
-                <Button
-                  variant={createSubMode === "existing" ? "default" : "outline"}
-                  size="sm"
-                  className="flex-1"
-                  onClick={() => setCreateSubMode("existing")}
-                  data-testid="toggle-use-existing"
-                >
-                  Use existing
-                </Button>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">
+                  {createSubMode === "new" ? "New variable name" : "Select variable"}
+                </label>
+                <div className="flex gap-2 items-start">
+                  {createSubMode === "existing" ? (
+                    <div className="flex-1">
+                      <Popover open={varComboboxOpen} onOpenChange={setVarComboboxOpen}>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={varComboboxOpen}
+                            className="w-full justify-between font-normal"
+                            data-testid="select-existing-variable"
+                          >
+                            {existingVarName ? (
+                              <span className="font-mono text-sm">{existingVarName}</span>
+                            ) : (
+                              <span className="text-muted-foreground">Choose a variable...</span>
+                            )}
+                            <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current}>
+                          <Command>
+                            <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
+                            <CommandList>
+                              <CommandEmpty>No variables found.</CommandEmpty>
+                              <CommandGroup>
+                                {existingVarNames.map((name) => (
+                                  <CommandItem
+                                    key={name}
+                                    value={name}
+                                    onSelect={(val) => {
+                                      setExistingVarName(val === existingVarName ? "" : val);
+                                      setVarComboboxOpen(false);
+                                    }}
+                                    data-testid={`variable-option-${name}`}
+                                  >
+                                    <IconCheck
+                                      className={`mr-2 h-4 w-4 ${existingVarName === name ? "opacity-100" : "opacity-0"}`}
+                                    />
+                                    <span className="font-mono text-sm">{name}</span>
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  ) : (
+                    <div className="flex-1 space-y-1">
+                      <div className="relative">
+                        <Input
+                          id="var-name-input"
+                          placeholder="e.g., hero_title, cta_text"
+                          value={createName}
+                          onChange={(e) => handleNameChange(e.target.value)}
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && nameAvailable) handleCreate();
+                          }}
+                          className={`pr-8 font-mono ${nameAvailable === false ? "border-destructive" : nameAvailable === true ? "border-chart-3" : ""}`}
+                          data-testid="input-variable-name"
+                        />
+                        {createName.trim() && nameAvailable !== null && (
+                          <span className="absolute right-2 top-1/2 -translate-y-1/2">
+                            {nameAvailable ? (
+                              <IconCheck className="h-4 w-4 text-chart-3" />
+                            ) : (
+                              <IconX className="h-4 w-4 text-destructive" />
+                            )}
+                          </span>
+                        )}
+                      </div>
+                      {createName.trim() && nameAvailable === false && (
+                        <p className="text-xs text-destructive">This variable name is already taken</p>
+                      )}
+                      {createName.trim() && nameAvailable === true && (
+                        <p className="text-xs text-chart-3">Name available</p>
+                      )}
+                      {!createName.trim() && (
+                        <p className="text-xs text-muted-foreground">Use snake_case (letters, numbers, underscores only)</p>
+                      )}
+                    </div>
+                  )}
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={() => {
+                      if (createSubMode === "existing") {
+                        setCreateSubMode("new");
+                        setCreateName("");
+                        setNameAvailable(null);
+                      } else {
+                        setCreateSubMode("existing");
+                      }
+                    }}
+                    data-testid="button-toggle-create-mode"
+                  >
+                    {createSubMode === "existing" ? (
+                      <IconPlus className="h-4 w-4" />
+                    ) : (
+                      <IconX className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
               </div>
 
-              {createSubMode === "new" ? (
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground" htmlFor="var-name-input">Variable name</label>
-                  <Input
-                    id="var-name-input"
-                    placeholder="e.g., hero_title, cta_text"
-                    value={createName}
-                    onChange={(e) => setCreateName(e.target.value.replace(/[^a-zA-Z0-9_]/g, "_"))}
-                    autoFocus
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleCreate();
-                    }}
-                    data-testid="input-variable-name"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Use snake_case (letters, numbers, underscores only)
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Select variable</label>
-                  <Popover open={varComboboxOpen} onOpenChange={setVarComboboxOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={varComboboxOpen}
-                        className="w-full justify-between font-normal"
-                        data-testid="select-existing-variable"
-                      >
-                        {existingVarName ? (
-                          <span className="font-mono text-sm">{existingVarName}</span>
-                        ) : (
-                          <span className="text-muted-foreground">Choose a variable...</span>
-                        )}
-                        <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current}>
-                      <Command>
-                        <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
-                        <CommandList>
-                          <CommandEmpty>No variables found.</CommandEmpty>
-                          <CommandGroup>
-                            {existingVarNames.map((name) => (
-                              <CommandItem
-                                key={name}
-                                value={name}
-                                onSelect={(val) => {
-                                  setExistingVarName(val === existingVarName ? "" : val);
-                                  setVarComboboxOpen(false);
-                                }}
-                                data-testid={`variable-option-${name}`}
-                              >
-                                <IconCheck
-                                  className={`mr-2 h-4 w-4 ${existingVarName === name ? "opacity-100" : "opacity-0"}`}
-                                />
-                                <span className="font-mono text-sm">{name}</span>
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                  {existingVarName && definitions?.[existingVarName] && (
-                    <p className="text-xs text-muted-foreground">
-                      Current default: "{definitions[existingVarName].default || "none"}"
-                    </p>
-                  )}
-                </div>
-              )}
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Selected text (inline default)</label>
-                <div className="px-3 py-2 rounded-md bg-muted text-sm">
-                  "{inlineDefault}"
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground">
+                  Based on your current session in <span className="font-medium text-foreground">{varContext.locale || "en"}</span>,{" "}
+                  <span className="font-medium text-foreground">{varContext.region || "unknown"}</span> and location{" "}
+                  <span className="font-medium text-foreground">{varContext.location || "unknown"}</span>, the value of this variable will be:
+                </p>
+                <div className="px-3 py-2 rounded-md bg-muted text-sm font-medium">
+                  "{resolvedCreateValue}"
                 </div>
               </div>
 
@@ -644,7 +691,7 @@ export function VariableDetailModal({
                   Cancel
                 </Button>
                 {createSubMode === "new" ? (
-                  <Button onClick={handleCreate} disabled={createSaving || !createName.trim()} data-testid="button-confirm-create">
+                  <Button onClick={handleCreate} disabled={createSaving || !createName.trim() || nameAvailable === false} data-testid="button-confirm-create">
                     {createSaving ? "Creating..." : "Create Variable"}
                   </Button>
                 ) : (
