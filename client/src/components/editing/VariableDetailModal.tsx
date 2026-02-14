@@ -22,7 +22,16 @@ import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables
 import { resolveVariable, type VariableDefinition } from "@/lib/variable-resolver";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
-import { IconCheck, IconX, IconArrowRight, IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
+import { IconCheck, IconX, IconArrowRight, IconEdit, IconPlus, IconTrash, IconSelector, IconSearch } from "@tabler/icons-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 interface VariableDetailModalProps {
   open: boolean;
@@ -353,6 +362,7 @@ export function VariableDetailModal({
   const [currentMode, setCurrentMode] = useState(mode);
   const [createSubMode, setCreateSubMode] = useState<"new" | "existing">("new");
   const [existingVarName, setExistingVarName] = useState("");
+  const [varComboboxOpen, setVarComboboxOpen] = useState(false);
 
   useEffect(() => {
     setCurrentMode(mode);
@@ -560,22 +570,50 @@ export function VariableDetailModal({
               ) : (
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Select variable</label>
-                  <Select value={existingVarName} onValueChange={setExistingVarName}>
-                    <SelectTrigger data-testid="select-existing-variable">
-                      <SelectValue placeholder="Choose a variable..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {existingVarNames.length === 0 ? (
-                        <SelectItem value="_empty_" disabled>No variables defined yet</SelectItem>
-                      ) : (
-                        existingVarNames.map((name) => (
-                          <SelectItem key={name} value={name} className="cursor-pointer hover-elevate">
-                            <span className="font-mono text-sm">{name}</span>
-                          </SelectItem>
-                        ))
-                      )}
-                    </SelectContent>
-                  </Select>
+                  <Popover open={varComboboxOpen} onOpenChange={setVarComboboxOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={varComboboxOpen}
+                        className="w-full justify-between font-normal"
+                        data-testid="select-existing-variable"
+                      >
+                        {existingVarName ? (
+                          <span className="font-mono text-sm">{existingVarName}</span>
+                        ) : (
+                          <span className="text-muted-foreground">Choose a variable...</span>
+                        )}
+                        <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                      <Command>
+                        <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
+                        <CommandList>
+                          <CommandEmpty>No variables found.</CommandEmpty>
+                          <CommandGroup>
+                            {existingVarNames.map((name) => (
+                              <CommandItem
+                                key={name}
+                                value={name}
+                                onSelect={(val) => {
+                                  setExistingVarName(val === existingVarName ? "" : val);
+                                  setVarComboboxOpen(false);
+                                }}
+                                data-testid={`variable-option-${name}`}
+                              >
+                                <IconCheck
+                                  className={`mr-2 h-4 w-4 ${existingVarName === name ? "opacity-100" : "opacity-0"}`}
+                                />
+                                <span className="font-mono text-sm">{name}</span>
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   {existingVarName && definitions?.[existingVarName] && (
                     <p className="text-xs text-muted-foreground">
                       Current default: "{definitions[existingVarName].default || "none"}"

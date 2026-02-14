@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "80907ceee7f0977d7215d034c41536f85d4a4091",
-  "lastSyncedAt": "2026-02-13T14:38:08.219Z",
+  "lastSyncedCommit": "06b14fe5159786bc63f724e13dde40702b9c0d9c",
+  "lastSyncedAt": "2026-02-14T03:23:56.666Z",
   "files": {
     "marketing-content/brand-context.yml": {
       "sha": "93b786256fece2f4411ebb81bb41cb15800887da71f9bb963662fb223daff620",
@@ -635,9 +635,9 @@
       "remoteSha": "0a20ed628666a4f3abd896728ff4b6e1cae06e8fd144d7088b4fb60376c71687"
     },
     "marketing-content/pages/financials/en.yml": {
-      "sha": "fe05f794a7ce45c9f149d5a96356adedc9e57ac4126945d54941bd3abcd7fa43",
-      "lastModified": 1770990978686.6233,
-      "remoteSha": "fe05f794a7ce45c9f149d5a96356adedc9e57ac4126945d54941bd3abcd7fa43"
+      "sha": "1f897c13b5c176c569792271e50274840e49d26aeec8944238f2c52abc61d5ee",
+      "lastModified": 1771039397399.6677,
+      "remoteSha": "1f897c13b5c176c569792271e50274840e49d26aeec8944238f2c52abc61d5ee"
     },
     "marketing-content/pages/financials/es.yml": {
       "sha": "90e3ed132dcb727e8205aa2ce30a149d4649081f20949a77f892ab81572c5b7f",
@@ -987,6 +987,16 @@
       "sha": "e45f6ad2de7e90954c3aae3f8dc320f366a65e8b567116a3b7dd3a1469e6f0cf",
       "lastModified": 1770848589708.1216,
       "remoteSha": "e45f6ad2de7e90954c3aae3f8dc320f366a65e8b567116a3b7dd3a1469e6f0cf"
+    },
+    "marketing-content/content-types.yml": {
+      "sha": "3c4ccf24aa7e39c8c5ab6d9f04abfd3e03e974ff591619cb8ae97cea7edc6b69",
+      "lastModified": 1771037670754.9236,
+      "remoteSha": "3c4ccf24aa7e39c8c5ab6d9f04abfd3e03e974ff591619cb8ae97cea7edc6b69"
+    },
+    "marketing-content/variables.yml": {
+      "sha": "550317c6bf886b60f96ce3c8fbf909b430427beaf3fe4b20609029390142d977",
+      "lastModified": 1771039389435.6736,
+      "remoteSha": "550317c6bf886b60f96ce3c8fbf909b430427beaf3fe4b20609029390142d977"
     }
   }
 }
