@@ -425,10 +425,11 @@ export function SectionEditorPanel({
 
   useEffect(() => {
     const handler = (e: Event) => {
-      const { sectionIndex: idx, originalText, templateSyntax } = (e as CustomEvent).detail;
+      const detail = (e as CustomEvent).detail;
+      const { sectionIndex: idx, originalText, templateSyntax } = detail;
       if (idx !== sectionIndex) return;
 
-      e.stopImmediatePropagation();
+      detail._handled = true;
 
       setYamlContent((prev) => {
         if (!prev.includes(originalText)) {

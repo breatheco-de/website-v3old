@@ -589,7 +589,10 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
     if (!contentType || !slug || !locale) return;
 
     const handler = async (e: Event) => {
-      const { sectionIndex, originalText, templateSyntax } = (e as CustomEvent).detail;
+      const detail = (e as CustomEvent).detail;
+      await new Promise((r) => setTimeout(r, 0));
+      if (detail._handled) return;
+      const { sectionIndex, originalText, templateSyntax } = detail;
       if (sectionIndex < 0 || sectionIndex >= sections.length) return;
 
       const section = sections[sectionIndex];
