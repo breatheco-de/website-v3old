@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "95a5af224910dd7684686c245d375deffa766607",
-  "lastSyncedAt": "2026-02-13T19:49:37.806Z",
+  "lastSyncedCommit": "167e0832b5e8baaba596424cb49a82bec12d2854",
+  "lastSyncedAt": "2026-02-14T00:09:18.621Z",
   "files": {
     "marketing-content/brand-context.yml": {
       "sha": "93b786256fece2f4411ebb81bb41cb15800887da71f9bb963662fb223daff620",
@@ -18,14 +18,14 @@
       "remoteSha": "0c1adc0ad466a4ccf2f739575acc86e3e6396fe0fba81c210bddac8ebef7350b"
     },
     "marketing-content/landings/ai-engineering-chile/_common.yml": {
-      "sha": "74522fbe55e25786314f3dbde3792132200eb454646cd40890fa5c43185f3afb",
-      "lastModified": 1771012174475.7932,
-      "remoteSha": "74522fbe55e25786314f3dbde3792132200eb454646cd40890fa5c43185f3afb"
+      "sha": "251853d6b6da4aeb0f99e128bce56db17016f589ff17b2fc48ff18531496daf3",
+      "lastModified": 1771027755715.6357,
+      "remoteSha": "251853d6b6da4aeb0f99e128bce56db17016f589ff17b2fc48ff18531496daf3"
     },
     "marketing-content/landings/ai-engineering-chile/promoted.yml": {
-      "sha": "c064d0ede77096ca49d1fe24f79dda03aaab82d435226d57ed917b847f33e878",
-      "lastModified": 1771012174956.7925,
-      "remoteSha": "c064d0ede77096ca49d1fe24f79dda03aaab82d435226d57ed917b847f33e878"
+      "sha": "af2dbca607b6ded9d79c6e7fb8df586017418b94399b4ccd92ba9df7ddecc099",
+      "lastModified": 1771027756219.6353,
+      "remoteSha": "af2dbca607b6ded9d79c6e7fb8df586017418b94399b4ccd92ba9df7ddecc099"
     },
     "marketing-content/landings/ai-engineering-en/_common.yml": {
       "sha": "e5e9d3bd4c576f50c2d9678d7f51b0ab0647c6101a9016129bb0fb2ee3bae0e5",
@@ -48,14 +48,14 @@
       "remoteSha": "9746600b48283e7ff1d14b889c25a7aaf93c5a0b31fa629a5020d7a8e9b8fd41"
     },
     "marketing-content/landings/ai-engineering-mexico/_common.yml": {
-      "sha": "dad9a24ad8c9a47bf79eb6ba417efe6da5e5a774afb7bd5d6c257ff3e507ecda",
-      "lastModified": 1771012175374.7917,
-      "remoteSha": "dad9a24ad8c9a47bf79eb6ba417efe6da5e5a774afb7bd5d6c257ff3e507ecda"
+      "sha": "fffaf39ea8a48552b282047959f75e6ab5ffbd287dc6f7eacd225b0f9559a098",
+      "lastModified": 1771027756679.6348,
+      "remoteSha": "fffaf39ea8a48552b282047959f75e6ab5ffbd287dc6f7eacd225b0f9559a098"
     },
     "marketing-content/landings/ai-engineering-mexico/promoted.yml": {
-      "sha": "7f6b8bb954dca8c7e005effe2b60154f001c11ae7c52d36c84894b6431de339b",
-      "lastModified": 1771012175810.791,
-      "remoteSha": "7f6b8bb954dca8c7e005effe2b60154f001c11ae7c52d36c84894b6431de339b"
+      "sha": "9f30740e99ef1c97ea0db24b42876876f337a8d57d716b9ea9b60f46027f84a3",
+      "lastModified": 1771027757146.6345,
+      "remoteSha": "9f30740e99ef1c97ea0db24b42876876f337a8d57d716b9ea9b60f46027f84a3"
     },
     "marketing-content/landings/ai-engineering-spain/_common.yml": {
       "sha": "d6d96282be4b98f2ed5d8a1adc383d9906f6c2e5b1266c7b0dcefc43084d1eed",
@@ -728,11 +728,9 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "563c930890d9b63d539673c9553247bbefb9e8b40697429ecdb15b0c694721c6",
-      "lastModified": 1771027449890.9368,
-      "remoteSha": "7efc7cfdb6a82563dc8e18fccf89a8f776729b138c14f40f82ec2b31828be2f3",
-      "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-14T00:04:09.893Z"
+      "sha": "eff6ec412787abb7f5beac9ee4578a26b6171d630e2b4f21aeb362aedf887421",
+      "lastModified": 1771027757855.6338,
+      "remoteSha": "eff6ec412787abb7f5beac9ee4578a26b6171d630e2b4f21aeb362aedf887421"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",
@@ -905,11 +903,9 @@
       "remoteSha": "f669df218d2c2361074495bc397bb46af0aded3679583d99be09bc9e86e2beaf"
     },
     "marketing-content/programs/ai-engineering/en.yml": {
-      "sha": "768e1f70e72145fb2f2481b3e0494a1e5146fba13c3ea792d69de42754d448e1",
-      "lastModified": 1771017650978.3208,
-      "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
-      "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-13T21:20:50.981Z"
+      "sha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
+      "lastModified": 1771027758327.6333,
+      "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725",

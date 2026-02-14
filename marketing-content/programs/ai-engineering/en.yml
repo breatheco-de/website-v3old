@@ -377,49 +377,6 @@ sections:
     background: hsl(var(--muted))
   - type: pricing
     version: "1.0"
-    title: Get access to all of our learning database, courses, and services
-    subtitle: Earn new skills every 30 min, never get stuck or lost again.
-    monthly:
-      discount_badge: 35% OFF
-      price: "38.99"
-      period: mo
-      original_price: "59.99"
-    yearly:
-      discount_badge: 35% OFF
-      price: "311.99"
-      period: yr
-      original_price: "479.99"
-      savings_badge: Save 3 months
-    tech_icons:
-      - html
-      - css
-      - javascript
-      - react
-      - python
-      - nodejs
-      - git
-      - bootstrap
-      - api
-      - settings
-    static_icons: false
-    features_title: Access hundreds of exercises, projects tutorials and courses
-    features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects.
-      - icon: cloud
-        text: Thousands of cloud-based coding challenges (no setup needed).
-      - icon: RigobotIconTiny
-        text: AI-powered feedback as you code.
-      - icon: certificate
-        text: Course certificates
-      - icon: certificate
-        text: Earn certificates from a USA certified school.
-    cta:
-      text: Get plan
-      url: /signup
-      variant: primary
-  - type: pricing
-    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
@@ -435,10 +392,9 @@ sections:
       - brain
       - robot
       - settings
-    static_icons: false
     features_title: Choose the option that fits you best.
     features:
-      - icon: Rigobot
+      - icon: IconCheck
         text: Standard tuition is $14,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back. *Not available in all regions. Terms and conditions apply.
