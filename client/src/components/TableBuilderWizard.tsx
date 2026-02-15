@@ -1,10 +1,9 @@
 import { useState, useCallback, useRef, useMemo, useEffect } from "react";
-import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown, IconCode } from "@tabler/icons-react";
+import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown, IconCode, IconExternalLink } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -156,7 +155,13 @@ function decodeBase64(encoded: string): string {
   }
 }
 
-function PreviewTable({ config, sampleData }: { config: TableConfig; sampleData: Record<string, unknown>[] }) {
+interface PreviewTableProps {
+  config: TableConfig;
+  sampleData: Record<string, unknown>[];
+  action?: { label: string; href: string } | null;
+}
+
+function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [showFunctions, setShowFunctions] = useState(false);
@@ -217,12 +222,17 @@ function PreviewTable({ config, sampleData }: { config: TableConfig; sampleData:
                 </div>
               </th>
             ))}
+            {action && (
+              <th className="px-3 py-2 text-left font-medium text-foreground">
+                {action.label}
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
           {previewRows.length === 0 ? (
             <tr>
-              <td colSpan={config.columns.length} className="px-3 py-4 text-center text-muted-foreground">
+              <td colSpan={config.columns.length + (action ? 1 : 0)} className="px-3 py-4 text-center text-muted-foreground">
                 No data available
               </td>
             </tr>
@@ -237,6 +247,14 @@ function PreviewTable({ config, sampleData }: { config: TableConfig; sampleData:
                     </td>
                   );
                 })}
+                {action && (
+                  <td className="px-3 py-2">
+                    <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded border text-foreground">
+                      {action.label}
+                      <IconExternalLink className="w-2.5 h-2.5" />
+                    </span>
+                  </td>
+                )}
               </tr>
             ))
           )}
@@ -717,26 +735,16 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
 
         {step === "action" && (
           <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-action-title">
-                Add row actions?
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Would you like to add an action button to each row? This can link to a detail page or external URL.
-              </p>
-            </div>
+            <p className="text-lg font-semibold text-foreground" data-testid="text-action-title">
+              Would you like to add an action button to each row? This can link to a detail page or external URL.
+            </p>
 
             {state.tableConfig && (
-              <div className="p-3 bg-muted/50 rounded-md">
-                <p className="text-xs text-muted-foreground mb-2 font-medium">Preview of generated columns:</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {state.tableConfig.columns.map((col) => (
-                    <Badge key={col.key} variant="outline" data-testid={`badge-generated-${col.key}`}>
-                      {col.label}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+              <PreviewTable
+                config={state.tableConfig}
+                sampleData={state.dataArray}
+                action={state.addAction && state.actionLabel ? { label: state.actionLabel, href: state.actionHref } : null}
+              />
             )}
 
             <div className="space-y-3">
