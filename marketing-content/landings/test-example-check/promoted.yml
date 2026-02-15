@@ -32,6 +32,30 @@ sections:
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
   - type: dynamic_table
     version: "1.0"
+    endpoint: https://breathecode-test.herokuapp.com/v1/events/all?academy=47
+    title: Event Details
+    columns:
+      - key: title
+        label: Event Title
+        type: text
+        function: KHJvdykgPT4gcm93LnRpdGxlIHx8ICIi
+      - key: starting_at
+        label: Start Date
+        type: date
+        function: KHJvdykgPT4gcm93LnN0YXJ0aW5nX2F0ID8gbmV3IERhdGUocm93LnN0YXJ0aW5nX2F0KS50b0xvY2FsZURhdGVTdHJpbmcoKSA6ICIi
+      - key: ending_at
+        label: End Date
+        type: date
+        function: KHJvdykgPT4gcm93LmVuZGluZ19hdCA/IG5ldyBEYXRlKHJvdy5lbmRpbmdfYXQpLnRvTG9jYWxlRGF0ZVN0cmluZygpIDogIiI=
+      - key: venue.city
+        label: Venue City
+        type: text
+        function: KHJvdykgPT4gcm93LnZlbnVlPy5jaXR5IHx8ICIi
+    action:
+      label: View
+      href: google.com
+  - type: dynamic_table
+    version: "1.0"
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
     title: Programs Table
