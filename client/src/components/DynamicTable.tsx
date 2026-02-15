@@ -80,9 +80,33 @@ function getCellValue(row: Record<string, unknown>, col: { key: string; function
   return getNestedValue(row, col.key);
 }
 
-function CellValue({ value, type }: { value: unknown; type: string }) {
+function CellValue({ value, type, hasFunction }: { value: unknown; type: string; hasFunction?: boolean }) {
   if (value === null || value === undefined) {
     return <span className="text-muted-foreground">-</span>;
+  }
+
+  if (hasFunction) {
+    const str = String(value).trim();
+    if (!str || str === "-") return <span className="text-muted-foreground">-</span>;
+    if (type === "image") {
+      return (
+        <div className="flex items-center justify-center">
+          <img src={str} alt="" className="w-8 h-8 rounded object-cover" loading="lazy" />
+        </div>
+      );
+    }
+    if (type === "link") {
+      return (
+        <a href={str} target="_blank" rel="noopener noreferrer" className="text-foreground underline inline-flex items-center gap-1 text-sm">
+          Link
+          <IconExternalLink className="w-3 h-3" />
+        </a>
+      );
+    }
+    if (type === "boolean") {
+      return value ? <IconCheck className="w-4 h-4 text-green-600" /> : <IconX className="w-4 h-4 text-muted-foreground" />;
+    }
+    return <span className={type === "number" ? "tabular-nums" : "line-clamp-2"}>{str}</span>;
   }
 
   switch (type) {
@@ -307,7 +331,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
                   >
                     {data.columns.map((col) => (
                       <td key={col.key} className="px-4 py-3 text-foreground" data-testid={`cell-${col.key}-${idx}`}>
-                        <CellValue value={getCellValue(row, col)} type={col.type} />
+                        <CellValue value={getCellValue(row, col)} type={col.type} hasFunction={!!col.function} />
                       </td>
                     ))}
                     {data.action && (
