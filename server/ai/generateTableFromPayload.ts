@@ -80,6 +80,25 @@ function decodeColumnsFromBase64(config: TableConfig): TableConfig {
   };
 }
 
+function generateDefaultFunction(key: string): string {
+  const parts = key.split(".");
+  if (parts.length === 1) {
+    return `(row) => row.${key} != null ? String(row.${key}) : ""`;
+  }
+  const chain = parts.join("?.");
+  return `(row) => row.${chain} != null ? String(row.${chain}) : ""`;
+}
+
+function ensureColumnFunctions(config: TableConfig): TableConfig {
+  return {
+    ...config,
+    columns: config.columns.map(col => ({
+      ...col,
+      function: col.function || generateDefaultFunction(col.key),
+    })),
+  };
+}
+
 function parseTableConfigResponse(content: string): TableConfig {
   let cleaned = content.trim();
   const fenceMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -99,7 +118,7 @@ function parseTableConfigResponse(content: string): TableConfig {
     }
   }
 
-  return parsed;
+  return ensureColumnFunctions(parsed);
 }
 
 export interface AnalyzeDataInput {
