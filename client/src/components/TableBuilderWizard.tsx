@@ -166,9 +166,12 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [showFunctions, setShowFunctions] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const PREVIEW_LIMIT = 5;
+  const hasMore = sampleData.length > PREVIEW_LIMIT;
 
   const previewRows = useMemo(() => {
-    let rows = sampleData.slice(0, 5);
+    let rows = expanded ? [...sampleData] : sampleData.slice(0, PREVIEW_LIMIT);
     if (sortKey) {
       rows = [...rows].sort((a, b) => {
         const aVal = getNestedValue(a, sortKey);
@@ -184,7 +187,7 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
       });
     }
     return rows;
-  }, [sampleData, sortKey, sortDir]);
+  }, [sampleData, sortKey, sortDir, expanded]);
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -202,8 +205,9 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
           <span className="text-sm font-medium text-foreground">{config.title}</span>
         </div>
       )}
+      <div className={expanded ? "max-h-[400px] overflow-y-auto" : ""}>
       <table className="w-full text-xs" data-testid="preview-table">
-        <thead>
+        <thead className="sticky top-0 z-10">
           <tr className="bg-muted/50 border-b">
             {config.columns.map((col) => (
               <th
@@ -261,21 +265,35 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
           )}
         </tbody>
       </table>
-      <div className="px-3 py-1.5 border-t bg-muted/20 flex items-center justify-between">
+      </div>
+      <div className="px-3 py-1.5 border-t bg-muted/20 flex items-center justify-between gap-2">
         <span className="text-[10px] text-muted-foreground">
-          Preview: {previewRows.length} of {sampleData.length} rows
+          {expanded ? `Showing all ${sampleData.length} rows` : `Preview: ${previewRows.length} of ${sampleData.length} rows`}
         </span>
-        {config.columns.some((c) => c.function) && (
-          <button
-            type="button"
-            onClick={() => setShowFunctions((v) => !v)}
-            className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
-            data-testid="button-toggle-functions"
-          >
-            <IconCode className="w-3 h-3" />
-            {showFunctions ? "Hide" : "Show"} column functions
-          </button>
-        )}
+        <div className="flex items-center gap-3">
+          {hasMore && (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="button-toggle-rows"
+            >
+              <IconChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
+              {expanded ? "Show less" : `Show all ${sampleData.length}`}
+            </button>
+          )}
+          {config.columns.some((c) => c.function) && (
+            <button
+              type="button"
+              onClick={() => setShowFunctions((v) => !v)}
+              className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="button-toggle-functions"
+            >
+              <IconCode className="w-3 h-3" />
+              {showFunctions ? "Hide" : "Show"} column functions
+            </button>
+          )}
+        </div>
       </div>
       {showFunctions && (
         <div className="border-t px-3 py-2 space-y-1.5 bg-muted/10">
