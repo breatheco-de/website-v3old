@@ -235,6 +235,92 @@ Rules:
 }
 Do not include any text outside the JSON object.`;
 
+export interface GenerateFilterInput {
+  sampleData: Record<string, unknown>[];
+  availableKeys: string[];
+  userPrompt: string;
+  currentFilter?: string;
+  locale?: string;
+}
+
+export interface FilterResult {
+  function: string;
+  description: string;
+}
+
+const FILTER_SYSTEM_PROMPT = `You are a data filtering assistant. Given sample data items and a user's description, produce a JavaScript arrow function that filters an array of data rows.
+
+Rules:
+- The function receives the FULL array of rows and must return a filtered array.
+- Signature: (rows) => rows.filter(row => ...)
+- Available keys use dot notation for nested fields (e.g. "academy.name", "syllabus_version.status").
+- Use optional chaining (?.) for nested access to prevent crashes on null/undefined.
+- Always handle null/undefined values gracefully.
+- The function should be a single arrow function expression.
+- Common patterns:
+  - Filter by field value: (rows) => rows.filter(row => row.status === "ACTIVE")
+  - Filter by nested field: (rows) => rows.filter(row => row.academy?.country?.code === "US")
+  - Filter by multiple conditions: (rows) => rows.filter(row => row.status === "ACTIVE" && row.academy?.slug !== "test")
+  - Filter by date range: (rows) => rows.filter(row => row.kickoff_date && new Date(row.kickoff_date) > new Date())
+  - Filter out nulls: (rows) => rows.filter(row => row.name != null && row.name !== "")
+  - Exclude specific values: (rows) => rows.filter(row => !["test", "demo"].includes(row.academy?.slug))
+- Include a "description" field with a brief summary of what the filter does, in 1 sentence.
+- Return ONLY valid JSON:
+{
+  "function": "(rows) => rows.filter(row => ...)",
+  "description": "Brief description of the filter"
+}
+Do not include any text outside the JSON object.`;
+
+export async function generateGlobalFilter(input: GenerateFilterInput): Promise<FilterResult> {
+  const llm = getLLMService();
+
+  const samplePreview = JSON.stringify(input.sampleData.slice(0, 3), null, 2);
+  const langNote = input.locale === "es"
+    ? "\nIMPORTANT: Respond in Spanish for the description."
+    : "\nIMPORTANT: Respond in English for the description.";
+
+  const currentFilterNote = input.currentFilter
+    ? `\nCurrent filter function: ${Buffer.from(input.currentFilter, "base64").toString("utf-8")}\nModify or replace this filter based on the user's request.`
+    : "";
+
+  const userPrompt = `Available data keys: ${JSON.stringify(input.availableKeys)}
+
+Sample data (first 3 items):
+${samplePreview}
+${currentFilterNote}
+
+User's request: "${input.userPrompt}"
+${langNote}
+
+Generate a JavaScript arrow function that filters the data array according to the user's request.`;
+
+  const result = await llm.adaptContent(
+    FILTER_SYSTEM_PROMPT,
+    userPrompt,
+    {
+      temperature: 0.3,
+      maxTokens: 800,
+    }
+  );
+
+  let cleaned = result.content.trim();
+  const fenceMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (fenceMatch) {
+    cleaned = fenceMatch[1].trim();
+  }
+
+  const parsed = JSON.parse(cleaned) as FilterResult;
+  if (!parsed.function || typeof parsed.function !== "string") {
+    throw new Error("AI returned invalid filter: missing function");
+  }
+
+  return {
+    function: Buffer.from(parsed.function).toString("base64"),
+    description: parsed.description || "",
+  };
+}
+
 export async function refineTableConfig(input: RefineTableInput): Promise<TableConfig> {
   const llm = getLLMService();
 

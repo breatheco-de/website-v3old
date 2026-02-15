@@ -4427,6 +4427,36 @@ sections: []
     }
   });
 
+  app.post("/api/ai/generate-global-filter", async (req, res) => {
+    try {
+      const { generateGlobalFilter } = await import("./ai/generateTableFromPayload");
+
+      const { sampleData, availableKeys, userPrompt, currentFilter, locale } = req.body;
+
+      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+        res.status(400).json({ error: "sampleData must be a non-empty array" });
+        return;
+      }
+      if (!userPrompt || typeof userPrompt !== "string") {
+        res.status(400).json({ error: "userPrompt must be a non-empty string" });
+        return;
+      }
+
+      const result = await generateGlobalFilter({
+        sampleData,
+        availableKeys: availableKeys || [],
+        userPrompt,
+        currentFilter: currentFilter || undefined,
+        locale: locale || "en",
+      });
+      res.json(result);
+    } catch (error: any) {
+      console.error("Error generating global filter:", error?.message || error);
+      const message = error?.message || "Failed to generate global filter";
+      res.status(500).json({ error: message });
+    }
+  });
+
   // ============================================
   // Centralized FAQs API
   // ============================================

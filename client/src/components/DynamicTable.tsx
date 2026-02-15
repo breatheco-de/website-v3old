@@ -2,13 +2,7 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IconExternalLink, IconPhoto, IconCheck, IconX, IconArrowUp, IconArrowDown, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { useLocation } from "@/contexts/SessionContext";
 import type { DynamicTableConfig } from "./TableBuilderWizard";
-
-interface RegionFilter {
-  key: string;
-  mapping: Record<string, string[]>;
-}
 
 interface DynamicTableSection {
   type: "dynamic_table";
@@ -27,7 +21,7 @@ interface DynamicTableSection {
     href: string;
   };
   background?: string;
-  region_filter?: RegionFilter;
+  global_filter?: string;
   max_rows?: number;
 }
 
@@ -63,6 +57,17 @@ function executeColumnFunction(fnBase64: string, row: Record<string, unknown>): 
     return fn(row);
   } catch {
     return null;
+  }
+}
+
+function executeGlobalFilter(fnBase64: string, rows: Record<string, unknown>[]): Record<string, unknown>[] {
+  try {
+    const fnString = atob(fnBase64);
+    const fn = new Function("rows", `return (${fnString})(rows);`);
+    const result = fn(rows);
+    return Array.isArray(result) ? result : rows;
+  } catch {
+    return rows;
   }
 }
 
@@ -158,9 +163,6 @@ export function DynamicTable({ data }: DynamicTableProps) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [expanded, setExpanded] = useState(false);
-  const location = useLocation();
-
-  const sessionRegion = location?.region || null;
 
   const { data: fetchedData, isLoading, error } = useQuery<unknown>({
     queryKey: ["dynamic-table", data.endpoint],
@@ -189,17 +191,8 @@ export function DynamicTable({ data }: DynamicTableProps) {
 
     let filtered = arr as Record<string, unknown>[];
 
-    if (data.region_filter && data.region_filter.key && sessionRegion) {
-      const { key, mapping } = data.region_filter;
-      const allowedValues = mapping[sessionRegion];
-      if (allowedValues && allowedValues.length > 0) {
-        const lowerAllowed = allowedValues.map(v => v.toLowerCase());
-        filtered = filtered.filter(row => {
-          const val = getNestedValue(row, key);
-          if (val === null || val === undefined) return false;
-          return lowerAllowed.includes(String(val).toLowerCase());
-        });
-      }
+    if (data.global_filter) {
+      filtered = executeGlobalFilter(data.global_filter, filtered);
     }
 
     if (sortKey) {
@@ -217,7 +210,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
       });
     }
     return filtered;
-  }, [fetchedData, data.data_path, data.region_filter, sessionRegion, sortKey, sortDir]);
+  }, [fetchedData, data.data_path, data.global_filter, sortKey, sortDir]);
 
   const maxRows = data.max_rows && data.max_rows > 0 ? data.max_rows : null;
   const hasMore = maxRows !== null && allRows.length > maxRows;
