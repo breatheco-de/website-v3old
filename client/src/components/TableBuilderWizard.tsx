@@ -755,9 +755,14 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
 
         {step === "action" && (
           <div className="space-y-4">
-            <p className="text-lg font-semibold text-foreground" data-testid="text-action-title">
-              Would you like to add an action button to each row? This can link to a detail page or external URL.
-            </p>
+            <div data-testid="text-action-title">
+              <p className="text-lg font-semibold text-foreground">
+                Add an Action Call?
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Action calls are a new column that will include a button on the table so that users can be redirected to other pages.
+              </p>
+            </div>
 
             <div className="space-y-3">
               <div className="flex gap-2">
