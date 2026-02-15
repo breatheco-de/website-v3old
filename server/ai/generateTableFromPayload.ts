@@ -99,6 +99,66 @@ function parseTableConfigResponse(content: string): TableConfig {
   return parsed;
 }
 
+export interface AnalyzeDataInput {
+  sampleData: Record<string, unknown>[];
+  availableKeys: string[];
+  locale?: string;
+}
+
+export interface DataAnalysis {
+  description: string;
+  suggestedPrompts: string[];
+}
+
+const ANALYZE_SYSTEM_PROMPT = `You are a data analyst assistant. Given a sample of data items and their available keys, provide:
+1. A short, friendly description of what this data appears to be about (1-2 sentences max).
+2. 3-4 suggested prompts the user could use to create a useful table from this data.
+
+Rules:
+- The description should be conversational and helpful, e.g. "This data contains a list of coding bootcamp cohorts with details like schedule, location, and language."
+- Suggested prompts should be practical and varied - some simple, some more advanced.
+- Each prompt should be a natural language instruction like "Show me a table with the name, start date, and location" or "Create a summary with course name and duration in days".
+- Return ONLY valid JSON with this exact structure:
+{
+  "description": "Your friendly description here",
+  "suggestedPrompts": ["prompt 1", "prompt 2", "prompt 3", "prompt 4"]
+}
+Do not include any text outside the JSON object.`;
+
+export async function analyzeDataPayload(input: AnalyzeDataInput): Promise<DataAnalysis> {
+  const llm = getLLMService();
+
+  const samplePreview = JSON.stringify(input.sampleData.slice(0, 3), null, 2);
+  const userPrompt = `Available data keys: ${JSON.stringify(input.availableKeys)}
+
+Sample data (first 3 items):
+${samplePreview}
+
+Analyze this data and provide a friendly description and suggested prompts. Always respond in English.`;
+
+  const result = await llm.adaptContent(
+    ANALYZE_SYSTEM_PROMPT,
+    userPrompt,
+    {
+      temperature: 0.4,
+      maxTokens: 600,
+    }
+  );
+
+  let cleaned = result.content.trim();
+  const fenceMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (fenceMatch) {
+    cleaned = fenceMatch[1].trim();
+  }
+
+  const parsed = JSON.parse(cleaned) as DataAnalysis;
+  if (!parsed.description || !parsed.suggestedPrompts || !Array.isArray(parsed.suggestedPrompts)) {
+    throw new Error("AI returned invalid analysis format");
+  }
+
+  return parsed;
+}
+
 export async function generateTableFromPayload(input: GenerateTableInput): Promise<TableConfig> {
   const llm = getLLMService();
 

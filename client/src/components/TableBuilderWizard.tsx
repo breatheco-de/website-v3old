@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo } from "react";
+import { useState, useCallback, useRef, useMemo, useEffect } from "react";
 import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,12 +37,17 @@ interface TableBuilderWizardProps {
   locale?: string;
 }
 
-type WizardStep = "url" | "select-array" | "consistency" | "columns-prompt" | "ai-processing" | "review" | "action" | "done";
+type WizardStep = "url" | "select-array" | "consistency" | "data-analysis" | "columns-prompt" | "ai-processing" | "review" | "action" | "done";
 
 interface ChatMessage {
   role: "user" | "ai";
   content: string;
   config?: TableConfig;
+}
+
+interface DataAnalysis {
+  description: string;
+  suggestedPrompts: string[];
 }
 
 interface StepState {
@@ -52,6 +57,8 @@ interface StepState {
   selectedArrayPath: string;
   dataArray: Record<string, unknown>[];
   availableKeys: string[];
+  dataAnalysis: DataAnalysis | null;
+  analysisLoading: boolean;
   columnsPrompt: string;
   tableConfig: TableConfig | null;
   refinementPrompt: string;
@@ -247,6 +254,8 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     selectedArrayPath: "",
     dataArray: [],
     availableKeys: [],
+    dataAnalysis: null,
+    analysisLoading: false,
     columnsPrompt: "",
     tableConfig: null,
     refinementPrompt: "",
@@ -291,7 +300,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
         if (!consistency.consistent) {
           setStep("consistency");
         } else {
-          setStep("columns-prompt");
+          setStep("data-analysis");
         }
       } else if (typeof data === "object" && data !== null) {
         const arrayProps = extractArrayProperties(data);
@@ -312,7 +321,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
           if (!consistency.consistent) {
             setStep("consistency");
           } else {
-            setStep("columns-prompt");
+            setStep("data-analysis");
           }
         } else {
           updateState({
@@ -344,7 +353,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
       if (!consistency.consistent) {
         setStep("consistency");
       } else {
-        setStep("columns-prompt");
+        setStep("data-analysis");
       }
     },
     [state.rawData, updateState]
@@ -353,6 +362,24 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
   const scrollChatToBottom = useCallback(() => {
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }, []);
+
+  const handleAnalyzeData = useCallback(async () => {
+    if (state.dataAnalysis) return;
+    updateState({ analysisLoading: true });
+    setError(null);
+    try {
+      const response = await apiRequest("POST", "/api/ai/analyze-data-payload", {
+        sampleData: state.dataArray.slice(0, 5),
+        availableKeys: state.availableKeys,
+        locale: locale || "en",
+      });
+      const analysis = await response.json();
+      updateState({ dataAnalysis: analysis, analysisLoading: false });
+    } catch (err) {
+      updateState({ analysisLoading: false });
+      setError(err instanceof Error ? err.message : "Failed to analyze data");
+    }
+  }, [state.dataAnalysis, state.dataArray, state.availableKeys, locale, updateState]);
 
   const handleGenerateColumns = useCallback(async () => {
     if (!state.columnsPrompt.trim()) {
@@ -530,7 +557,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setStep("columns-prompt")}
+                onClick={() => setStep("data-analysis")}
                 data-testid="button-continue-anyway"
               >
                 Continue anyway
@@ -540,49 +567,51 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
           </div>
         )}
 
+        {step === "data-analysis" && (
+          <DataAnalysisStep
+            state={state}
+            error={error}
+            sampleExpanded={sampleExpanded}
+            onToggleSample={() => setSampleExpanded((v) => !v)}
+            onAnalyze={handleAnalyzeData}
+            onNext={() => { setError(null); setStep("columns-prompt"); }}
+            onBack={() => {
+              if (state.arrayOptions.length > 1) setStep("select-array");
+              else setStep("url");
+            }}
+          />
+        )}
+
         {step === "columns-prompt" && (
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-columns-title">
-                Configure your columns
+                Describe your table
               </h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                We detected the following columns in your data:
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {state.availableKeys.map((key) => (
-                  <Badge key={key} variant="secondary" data-testid={`badge-column-${key}`}>
-                    {key}
-                  </Badge>
-                ))}
-              </div>
-
-              {state.dataArray.length > 0 && (
-                <div className="mb-4">
-                  <button
-                    type="button"
-                    onClick={() => setSampleExpanded((v) => !v)}
-                    className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-                    data-testid="button-toggle-sample"
-                  >
-                    {sampleExpanded ? <IconChevronDown className="w-3.5 h-3.5" /> : <IconChevronRight className="w-3.5 h-3.5" />}
-                    Sample item preview
-                  </button>
-                  {sampleExpanded && (
-                    <pre
-                      className="mt-2 p-3 rounded-md bg-muted text-xs text-foreground overflow-auto max-h-[200px] border"
-                      data-testid="text-sample-item"
-                    >
-                      {JSON.stringify(state.dataArray[0], null, 2)}
-                    </pre>
-                  )}
-                </div>
-              )}
-
               <p className="text-sm text-muted-foreground">
-                Describe which columns you want to display and in what order. For example: "4 columns: first the weekday, then the name, then the email, and finally the age"
+                Tell the AI what columns you want to see and how they should look.
               </p>
             </div>
+
+            {state.dataAnalysis && state.dataAnalysis.suggestedPrompts.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs font-medium text-muted-foreground">Suggestions you can try:</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {state.dataAnalysis.suggestedPrompts.map((prompt, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => updateState({ columnsPrompt: prompt })}
+                      className="text-xs px-3 py-1.5 rounded-full border text-foreground hover-elevate text-left"
+                      data-testid={`button-suggestion-${i}`}
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <Textarea
               placeholder="Describe the columns you want..."
               value={state.columnsPrompt}
@@ -594,10 +623,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
             <div className="flex justify-between">
               <Button
                 variant="outline"
-                onClick={() => {
-                  if (state.arrayOptions.length > 1) setStep("select-array");
-                  else setStep("url");
-                }}
+                onClick={() => setStep("data-analysis")}
                 data-testid="button-back-columns"
               >
                 <IconArrowLeft className="w-4 h-4 mr-1" />
@@ -807,11 +833,118 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
   );
 }
 
+interface DataAnalysisStepProps {
+  state: StepState;
+  error: string | null;
+  sampleExpanded: boolean;
+  onToggleSample: () => void;
+  onAnalyze: () => void;
+  onNext: () => void;
+  onBack: () => void;
+}
+
+function DataAnalysisStep({ state, error, sampleExpanded, onToggleSample, onAnalyze, onNext, onBack }: DataAnalysisStepProps) {
+  const hasAnalysis = state.dataAnalysis !== null;
+  const analysisTriggered = useRef(false);
+
+  useEffect(() => {
+    if (!hasAnalysis && !state.analysisLoading && !analysisTriggered.current && !error) {
+      analysisTriggered.current = true;
+      onAnalyze();
+    }
+  }, [hasAnalysis, state.analysisLoading, onAnalyze, error]);
+
+  const handleRetry = () => {
+    analysisTriggered.current = false;
+    onAnalyze();
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-analysis-title">
+          Understanding your data
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          We're analyzing your data to help you build the right table.
+        </p>
+      </div>
+
+      {state.analysisLoading && (
+        <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-md">
+          <IconLoader2 className="w-5 h-5 text-primary animate-spin flex-shrink-0" />
+          <p className="text-sm text-muted-foreground" data-testid="text-analysis-loading">
+            AI is analyzing your data...
+          </p>
+        </div>
+      )}
+
+      {hasAnalysis && (
+        <div className="p-4 bg-muted/50 rounded-md space-y-1">
+          <p className="text-sm text-foreground" data-testid="text-analysis-description">
+            {state.dataAnalysis!.description}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {state.dataArray.length} items found with {state.availableKeys.length} available fields
+          </p>
+        </div>
+      )}
+
+      {state.dataArray.length > 0 && (
+        <div>
+          <button
+            type="button"
+            onClick={onToggleSample}
+            className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+            data-testid="button-toggle-sample"
+          >
+            {sampleExpanded ? <IconChevronDown className="w-3.5 h-3.5" /> : <IconChevronRight className="w-3.5 h-3.5" />}
+            Sample item preview
+          </button>
+          {sampleExpanded && (
+            <pre
+              className="mt-2 p-3 rounded-md bg-muted text-xs text-foreground overflow-auto max-h-[200px] border"
+              data-testid="text-sample-item"
+            >
+              {JSON.stringify(state.dataArray[0], null, 2)}
+            </pre>
+          )}
+        </div>
+      )}
+
+      {error && (
+        <div className="space-y-2">
+          <ErrorMessage message={error} />
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleRetry} data-testid="button-retry-analysis">
+              Try again
+            </Button>
+            <Button variant="outline" size="sm" onClick={onNext} data-testid="button-skip-analysis">
+              Continue without analysis
+            </Button>
+          </div>
+        </div>
+      )}
+      <div className="flex justify-between">
+        <Button variant="outline" onClick={onBack} data-testid="button-back-analysis">
+          <IconArrowLeft className="w-4 h-4 mr-1" />
+          Back
+        </Button>
+        <Button onClick={onNext} disabled={state.analysisLoading} data-testid="button-next-describe">
+          <IconArrowRight className="w-4 h-4 mr-1" />
+          Next
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function StepIndicator({ current }: { current: WizardStep }) {
   const steps: { key: WizardStep[]; label: string }[] = [
     { key: ["url"], label: "Data source" },
     { key: ["select-array", "consistency"], label: "Validate" },
-    { key: ["columns-prompt", "ai-processing"], label: "Columns" },
+    { key: ["data-analysis"], label: "Analyze" },
+    { key: ["columns-prompt", "ai-processing"], label: "Describe" },
     { key: ["review"], label: "Review" },
     { key: ["action", "done"], label: "Actions" },
   ];

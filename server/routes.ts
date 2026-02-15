@@ -4339,6 +4339,31 @@ sections: []
     }
   });
 
+  app.post("/api/ai/analyze-data-payload", async (req, res) => {
+    try {
+      const { analyzeDataPayload } = await import("./ai/generateTableFromPayload");
+
+      const { sampleData, availableKeys } = req.body;
+
+      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+        res.status(400).json({ error: "sampleData must be a non-empty array" });
+        return;
+      }
+      if (!availableKeys || !Array.isArray(availableKeys) || availableKeys.length === 0) {
+        res.status(400).json({ error: "availableKeys must be a non-empty array" });
+        return;
+      }
+
+      const locale = req.body.locale || "en";
+      const analysis = await analyzeDataPayload({ sampleData, availableKeys, locale });
+      res.json(analysis);
+    } catch (error: any) {
+      console.error("Error analyzing data payload:", error?.message || error);
+      const message = error?.message || "Failed to analyze data";
+      res.status(500).json({ error: message });
+    }
+  });
+
   app.post("/api/ai/generate-table-from-payload", async (req, res) => {
     try {
       const { generateTableFromPayload } = await import("./ai/generateTableFromPayload");
