@@ -27,6 +27,11 @@ export interface ValidatorIssue {
   suggestion?: string;
 }
 
+function normalizeFilePath(p: string): string {
+  const idx = p.indexOf("marketing-content/");
+  return idx >= 0 ? p.substring(idx) : p;
+}
+
 export function parseRedirectConflict(issue: ValidatorIssue): RedirectConflictInfo | null {
   const codes = ["REDIRECT_CONFLICT", "REDIRECT_OVERLAP", "SELF_REDIRECT", "REDIRECT_OVERWRITES_CONTENT"];
   if (!codes.includes(issue.code)) return null;
@@ -37,14 +42,14 @@ export function parseRedirectConflict(issue: ValidatorIssue): RedirectConflictIn
   if (issue.code === "REDIRECT_CONFLICT" || issue.code === "REDIRECT_OVERLAP") {
     const urlMatch = issue.message.match(/"([^"]+)"/);
     if (urlMatch) redirectUrl = urlMatch[1];
-    const fileMatches = issue.message.match(/"(marketing-content\/[^"]+\.yml)"/g);
+    const fileMatches = issue.message.match(/"([^"]*marketing-content\/[^"]+\.yml)"/g);
     if (fileMatches) {
       for (const m of fileMatches) {
-        files.push(m.replace(/"/g, ""));
+        files.push(normalizeFilePath(m.replace(/"/g, "")));
       }
     }
-    if (issue.file && !files.includes(issue.file)) {
-      files.push(issue.file);
+    if (issue.file && !files.includes(normalizeFilePath(issue.file))) {
+      files.push(normalizeFilePath(issue.file));
     }
     if (issue.code === "REDIRECT_OVERLAP" && !files.some(f => f.includes("_common.yml"))) {
       const localeFile = files.find(f => !f.includes("_common.yml"));
@@ -56,11 +61,11 @@ export function parseRedirectConflict(issue: ValidatorIssue): RedirectConflictIn
   } else if (issue.code === "SELF_REDIRECT") {
     const urlMatch = issue.message.match(/"([^"]+)"/);
     if (urlMatch) redirectUrl = urlMatch[1];
-    if (issue.file) files.push(issue.file);
+    if (issue.file) files.push(normalizeFilePath(issue.file));
   } else if (issue.code === "REDIRECT_OVERWRITES_CONTENT") {
     const urlMatch = issue.message.match(/"([^"]+)"/);
     if (urlMatch) redirectUrl = urlMatch[1];
-    if (issue.file) files.push(issue.file);
+    if (issue.file) files.push(normalizeFilePath(issue.file));
   }
 
   if (!redirectUrl) return null;
