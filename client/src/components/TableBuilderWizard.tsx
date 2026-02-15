@@ -64,6 +64,7 @@ interface StepState {
   refinementPrompt: string;
   chatMessages: ChatMessage[];
   addAction: boolean;
+  actionColumnName: string;
   actionLabel: string;
   actionHref: string;
 }
@@ -158,7 +159,7 @@ function decodeBase64(encoded: string): string {
 interface PreviewTableProps {
   config: TableConfig;
   sampleData: Record<string, unknown>[];
-  action?: { label: string; href: string } | null;
+  action?: { columnName: string; label: string; href: string } | null;
 }
 
 function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
@@ -224,7 +225,7 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
             ))}
             {action && (
               <th className="px-3 py-2 text-left font-medium text-foreground">
-                {action.label}
+                {action.columnName}
               </th>
             )}
           </tr>
@@ -314,6 +315,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     refinementPrompt: "",
     chatMessages: [],
     addAction: false,
+    actionColumnName: "Actions",
     actionLabel: "View",
     actionHref: "",
   });
@@ -739,14 +741,6 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
               Would you like to add an action button to each row? This can link to a detail page or external URL.
             </p>
 
-            {state.tableConfig && (
-              <PreviewTable
-                config={state.tableConfig}
-                sampleData={state.dataArray}
-                action={state.addAction && state.actionLabel ? { label: state.actionLabel, href: state.actionHref } : null}
-              />
-            )}
-
             <div className="space-y-3">
               <div className="flex gap-2">
                 <Button
@@ -767,6 +761,16 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
 
               {state.addAction && (
                 <div className="space-y-2 pl-1">
+                  <div className="space-y-1">
+                    <Label htmlFor="action-column-name">Column name</Label>
+                    <Input
+                      id="action-column-name"
+                      placeholder="Actions"
+                      value={state.actionColumnName}
+                      onChange={(e) => updateState({ actionColumnName: e.target.value })}
+                      data-testid="input-action-column-name"
+                    />
+                  </div>
                   <div className="space-y-1">
                     <Label htmlFor="action-label">Button label</Label>
                     <Input
@@ -796,6 +800,14 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 </div>
               )}
             </div>
+
+            {state.tableConfig && (
+              <PreviewTable
+                config={state.tableConfig}
+                sampleData={state.dataArray}
+                action={state.addAction ? { columnName: state.actionColumnName || "Actions", label: state.actionLabel || "View", href: state.actionHref } : null}
+              />
+            )}
 
             {error && <ErrorMessage message={error} />}
             <div className="flex justify-between">
