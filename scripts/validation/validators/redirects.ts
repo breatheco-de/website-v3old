@@ -92,10 +92,12 @@ export const redirectValidator: Validator = {
               suggestion: "Remove one of the conflicting redirects",
             });
           } else {
+            const commonPath = isCommon ? file.filePath : existing.source.filePath;
+            const localePath = isCommon ? existing.source.filePath : file.filePath;
             warnings.push({
               type: "warning",
               code: "REDIRECT_OVERLAP",
-              message: `Redirect "${normalizedRedirect}" exists in both _common.yml and locale file "${isCommon ? existing.source.filePath : file.filePath}"`,
+              message: `Redirect "${normalizedRedirect}" exists in both "${commonPath}" and "${localePath}"`,
               file: file.filePath,
               suggestion: "Keep the redirect in only one place: _common.yml for all languages, or locale file for a specific language",
             });
