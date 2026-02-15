@@ -809,6 +809,12 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
               />
             )}
 
+            {state.addAction && !state.actionHref.trim() && (
+              <p className="text-sm text-destructive" data-testid="text-action-validation">
+                Please fill in all action fields or choose "No, skip" to continue without actions.
+              </p>
+            )}
+
             {error && <ErrorMessage message={error} />}
             <div className="flex justify-between">
               <Button
@@ -819,7 +825,11 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 <IconArrowLeft className="w-4 h-4 mr-1" />
                 Back
               </Button>
-              <Button onClick={handleFinish} data-testid="button-finish">
+              <Button
+                onClick={handleFinish}
+                disabled={state.addAction && !state.actionHref.trim()}
+                data-testid="button-finish"
+              >
                 <IconCheck className="w-4 h-4 mr-1" />
                 Create table
               </Button>
