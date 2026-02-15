@@ -4,7 +4,7 @@ export interface TableColumnConfig {
   key: string;
   label: string;
   type: "text" | "number" | "date" | "image" | "link" | "boolean";
-  template?: string;
+  function?: string;
 }
 
 export interface TableConfig {
@@ -30,28 +30,52 @@ export interface RefineTableInput {
 const SYSTEM_PROMPT = `You are a data table configuration assistant. Given a sample of data items and a user's description of what columns they want, produce a JSON configuration for a data table.
 
 Rules:
-- Available keys use dot notation for nested fields (e.g. "academy.name", "syllabus_version.duration_in_days"). Use these exact paths as the "key" value.
-- Only use keys that exist in the available keys list provided.
+- Available keys use dot notation for nested fields (e.g. "academy.name", "syllabus_version.duration_in_days").
 - Map the user's natural language descriptions to the correct data keys by examining the sample data values.
 - Infer the best column type based on the sample values: "text" for strings, "number" for numeric values, "date" for ISO date strings, "image" for URLs ending in image extensions, "link" for other URLs, "boolean" for true/false values.
 - Use the user's desired labels for column headers. If the user doesn't specify labels, generate clean human-readable labels from the key names.
 - Preserve the order the user specifies.
 - If the user says something vague like "show all columns", include the most meaningful top-level and nested keys (skip internal IDs, slugs, and redundant fields).
-- TEMPLATE SUPPORT: When a column should combine multiple fields or add formatting, use the "template" property with {dotted.path} placeholders. Examples:
-  - Combining date range: { "key": "kickoff_date", "template": "{kickoff_date} - {ending_date}", "label": "Date", "type": "text" }
-  - Combining location: { "key": "academy.name", "template": "{academy.name} ({academy.city.name})", "label": "Location", "type": "text" }
-  - Adding units: { "key": "syllabus_version.duration_in_days", "template": "{syllabus_version.duration_in_days} days ({syllabus_version.duration_in_hours}h)", "label": "Duration", "type": "text" }
-  When using a template, set the type to "text" since the result is a formatted string.
-  Only use template when combining multiple fields or adding formatting. For simple single-field columns, omit template.
-- When a date column uses a template (combining start + end dates), set type to "text" not "date", because the template produces a formatted string.
+- FUNCTION SUPPORT: Every column MUST have a "function" property. This is a JavaScript arrow function string that receives the entire row object and returns the display value.
+  - The function signature is always: (row) => { ... }
+  - For simple field access: (row) => row.field_name
+  - For nested fields: (row) => row.academy?.name || ""
+  - For combining fields: (row) => (row.kickoff_date || "") + " - " + (row.ending_date || "")
+  - For formatting: (row) => row.duration_in_days + " days (" + row.duration_in_hours + "h)"
+  - For computed values: (row) => row.price ? "$" + Number(row.price).toFixed(2) : "-"
+  - For dates: (row) => row.created_at ? new Date(row.created_at).toLocaleDateString() : "-"
+  - For conditionals: (row) => row.status === "active" ? "Active" : "Inactive"
+  - Always handle null/undefined gracefully with optional chaining (?.) or fallback values (|| "").
+  - The function must be a valid JavaScript arrow function as a plain string. Do NOT wrap it in quotes inside the JSON string value.
+- The "key" field should reference the primary data field the column is based on (used for sorting).
 - Return ONLY valid JSON with this exact structure:
 {
   "columns": [
-    { "key": "field.path", "label": "Display Label", "type": "text|number|date|image|link|boolean", "template": "optional {field.path} template" }
+    { "key": "field.path", "label": "Display Label", "type": "text|number|date|image|link|boolean", "function": "(row) => row.field || \\"\\""  }
   ],
   "title": "Optional Table Title"
 }
 Do not include any text outside the JSON object.`;
+
+function encodeColumnsToBase64(config: TableConfig): TableConfig {
+  return {
+    ...config,
+    columns: config.columns.map(col => ({
+      ...col,
+      function: col.function ? Buffer.from(col.function).toString("base64") : undefined,
+    })),
+  };
+}
+
+function decodeColumnsFromBase64(config: TableConfig): TableConfig {
+  return {
+    ...config,
+    columns: config.columns.map(col => ({
+      ...col,
+      function: col.function ? Buffer.from(col.function, "base64").toString("utf-8") : undefined,
+    })),
+  };
+}
 
 function parseTableConfigResponse(content: string): TableConfig {
   let cleaned = content.trim();
@@ -91,18 +115,19 @@ ${samplePreview}
 User's request: "${input.userPrompt}"
 ${langNote}
 
-Generate the table column configuration as JSON based on the user's request. Pay close attention to any formatting instructions the user provides (date formats, combinations, etc).`;
+Generate the table column configuration as JSON based on the user's request. Every column MUST include a "function" property with a JavaScript arrow function string. Pay close attention to any formatting instructions the user provides.`;
 
   const result = await llm.adaptContent(
     SYSTEM_PROMPT,
     userPrompt,
     {
       temperature: 0.3,
-      maxTokens: 1000,
+      maxTokens: 1500,
     }
   );
 
-  return parseTableConfigResponse(result.content);
+  const config = parseTableConfigResponse(result.content);
+  return encodeColumnsToBase64(config);
 }
 
 const REFINE_SYSTEM_PROMPT = `You are a data table configuration assistant. The user has an existing table configuration and wants to make changes to it. Apply their requested changes and return the updated configuration.
@@ -110,13 +135,17 @@ const REFINE_SYSTEM_PROMPT = `You are a data table configuration assistant. The 
 Rules:
 - Start from the current configuration provided and modify it according to the user's feedback.
 - Available keys use dot notation for nested fields (e.g. "academy.name", "syllabus_version.duration_in_days").
-- Only use keys that exist in the available keys list provided.
-- Columns can have an optional "template" property with {dotted.path} placeholders to combine fields or add formatting.
-- When using a template, set the type to "text" since the result is a formatted string.
+- Every column MUST have a "function" property. This is a JavaScript arrow function string that receives the entire row object and returns the display value.
+  - For simple field access: (row) => row.field_name
+  - For nested fields: (row) => row.academy?.name || ""
+  - For combining fields: (row) => (row.kickoff_date || "") + " - " + (row.ending_date || "")
+  - For computed values: (row) => row.price ? "$" + Number(row.price).toFixed(2) : "-"
+  - Always handle null/undefined gracefully.
+- The "key" field references the primary data field (used for sorting).
 - Return ONLY valid JSON with this exact structure:
 {
   "columns": [
-    { "key": "field.path", "label": "Display Label", "type": "text|number|date|image|link|boolean", "template": "optional {field.path} template" }
+    { "key": "field.path", "label": "Display Label", "type": "text|number|date|image|link|boolean", "function": "(row) => row.field || \\"\\""  }
   ],
   "title": "Optional Table Title"
 }
@@ -125,13 +154,15 @@ Do not include any text outside the JSON object.`;
 export async function refineTableConfig(input: RefineTableInput): Promise<TableConfig> {
   const llm = getLLMService();
 
+  const decodedConfig = decodeColumnsFromBase64(input.currentConfig);
+
   const samplePreview = JSON.stringify(input.sampleData.slice(0, 3), null, 2);
   const langNote = input.locale === "es"
     ? "\nIMPORTANT: The page is in Spanish. Use Spanish for all column labels and the title."
     : "\nIMPORTANT: The page is in English. Use English for all column labels and the title.";
 
   const userPrompt = `Current table configuration:
-${JSON.stringify(input.currentConfig, null, 2)}
+${JSON.stringify(decodedConfig, null, 2)}
 
 Available data keys: ${JSON.stringify(input.availableKeys)}
 
@@ -141,16 +172,17 @@ ${samplePreview}
 User's requested changes: "${input.userFeedback}"
 ${langNote}
 
-Apply the user's requested changes to the current configuration and return the updated JSON.`;
+Apply the user's requested changes to the current configuration and return the updated JSON. Every column MUST include a "function" property with a JavaScript arrow function string.`;
 
   const result = await llm.adaptContent(
     REFINE_SYSTEM_PROMPT,
     userPrompt,
     {
       temperature: 0.3,
-      maxTokens: 1000,
+      maxTokens: 1500,
     }
   );
 
-  return parseTableConfigResponse(result.content);
+  const config = parseTableConfigResponse(result.content);
+  return encodeColumnsToBase64(config);
 }

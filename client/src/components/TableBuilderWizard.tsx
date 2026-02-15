@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from "react";
-import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend } from "@tabler/icons-react";
+import { useState, useCallback, useRef, useMemo } from "react";
+import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,7 +12,7 @@ interface TableColumnConfig {
   key: string;
   label: string;
   type: "text" | "number" | "date" | "image" | "link" | "boolean";
-  template?: string;
+  function?: string;
 }
 
 interface TableConfig {
@@ -106,29 +106,131 @@ function formatConfigSummary(config: TableConfig): string {
   return `${config.title ? `"${config.title}" with` : "Table with"} ${config.columns.length} columns: ${cols}`;
 }
 
-function resolvePreviewValue(col: TableColumnConfig, sample: Record<string, unknown>): string {
-  if (col.template) {
-    const val = col.template.replace(/\{([^}]+)\}/g, (_, k: string) => {
-      const parts = k.trim().split(".");
-      let cur: unknown = sample;
-      for (const p of parts) {
-        if (cur && typeof cur === "object") cur = (cur as Record<string, unknown>)[p];
-        else return "";
-      }
-      if (typeof cur === "string" && /^\d{4}-\d{2}-\d{2}(T|\s)/.test(cur)) {
-        try { return new Date(cur).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }); } catch { /* */ }
-      }
-      return cur != null ? String(cur) : "";
-    });
-    return val || "-";
+function executeBase64Function(fnBase64: string, row: Record<string, unknown>): unknown {
+  try {
+    const fnString = atob(fnBase64);
+    const fn = new Function("row", `return (${fnString})(row);`);
+    return fn(row);
+  } catch {
+    return null;
   }
-  const parts = col.key.split(".");
-  let cur: unknown = sample;
-  for (const p of parts) {
-    if (cur && typeof cur === "object") cur = (cur as Record<string, unknown>)[p];
-    else return "-";
+}
+
+function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
+  const parts = path.split(".");
+  let current: unknown = obj;
+  for (const part of parts) {
+    if (current === null || current === undefined || typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[part];
   }
-  return cur != null ? String(cur).slice(0, 40) : "-";
+  return current;
+}
+
+function getCellPreviewValue(col: TableColumnConfig, row: Record<string, unknown>): unknown {
+  if (col.function) {
+    return executeBase64Function(col.function, row);
+  }
+  return getNestedValue(row, col.key);
+}
+
+function formatPreviewDisplay(value: unknown): string {
+  if (value === null || value === undefined) return "-";
+  const str = String(value);
+  return str.length > 50 ? str.slice(0, 50) + "..." : str;
+}
+
+function PreviewTable({ config, sampleData }: { config: TableConfig; sampleData: Record<string, unknown>[] }) {
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const previewRows = useMemo(() => {
+    let rows = sampleData.slice(0, 5);
+    if (sortKey) {
+      rows = [...rows].sort((a, b) => {
+        const aVal = getNestedValue(a, sortKey);
+        const bVal = getNestedValue(b, sortKey);
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+        if (typeof aVal === "number" && typeof bVal === "number") {
+          return sortDir === "asc" ? aVal - bVal : bVal - aVal;
+        }
+        const cmp = String(aVal).localeCompare(String(bVal));
+        return sortDir === "asc" ? cmp : -cmp;
+      });
+    }
+    return rows;
+  }, [sampleData, sortKey, sortDir]);
+
+  const handleSort = (key: string) => {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
+  };
+
+  return (
+    <div className="overflow-x-auto rounded-[0.8rem] border" data-testid="preview-table-container">
+      {config.title && (
+        <div className="px-4 py-2 border-b bg-muted/30">
+          <span className="text-sm font-medium text-foreground">{config.title}</span>
+        </div>
+      )}
+      <table className="w-full text-xs" data-testid="preview-table">
+        <thead>
+          <tr className="bg-muted/50 border-b">
+            {config.columns.map((col) => (
+              <th
+                key={col.key}
+                className="px-3 py-2 text-left font-medium text-foreground cursor-pointer select-none"
+                onClick={() => handleSort(col.key)}
+              >
+                <div className="flex items-center gap-1">
+                  {col.label}
+                  {sortKey === col.key && (
+                    sortDir === "asc" ? (
+                      <IconArrowUp className="w-2.5 h-2.5" />
+                    ) : (
+                      <IconArrowDown className="w-2.5 h-2.5" />
+                    )
+                  )}
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {previewRows.length === 0 ? (
+            <tr>
+              <td colSpan={config.columns.length} className="px-3 py-4 text-center text-muted-foreground">
+                No data available
+              </td>
+            </tr>
+          ) : (
+            previewRows.map((row, idx) => (
+              <tr key={idx} className="border-b last:border-0">
+                {config.columns.map((col) => {
+                  const value = getCellPreviewValue(col, row);
+                  return (
+                    <td key={col.key} className="px-3 py-2 text-foreground max-w-[180px] truncate">
+                      {formatPreviewDisplay(value)}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+      <div className="px-3 py-1.5 border-t bg-muted/20">
+        <span className="text-[10px] text-muted-foreground">
+          Preview: {previewRows.length} of {sampleData.length} rows
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilderWizardProps) {
@@ -329,7 +431,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
   }, [state, onComplete]);
 
   return (
-    <Card className="p-6 max-w-2xl mx-auto">
+    <Card className="p-6 max-w-3xl mx-auto">
       <div className="space-y-6">
         <StepIndicator current={step} />
 
@@ -526,14 +628,16 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-review-title">
-                Review & refine columns
+                Review & refine
               </h3>
               <p className="text-sm text-muted-foreground">
-                Chat with AI to refine your table. When it looks good, click continue.
+                Here's how your table looks. Use the chat below to ask for changes.
               </p>
             </div>
 
-            <div className="border rounded-md flex flex-col" style={{ maxHeight: "340px" }}>
+            <PreviewTable config={state.tableConfig} sampleData={state.dataArray} />
+
+            <div className="border rounded-md flex flex-col" style={{ maxHeight: "240px" }}>
               <div className="flex-1 overflow-y-auto p-3 space-y-3" data-testid="chat-messages">
                 {state.chatMessages.map((msg, i) => (
                   <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -546,21 +650,6 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                       data-testid={`chat-message-${msg.role}-${i}`}
                     >
                       <p>{msg.content}</p>
-                      {msg.config && (
-                        <div className="mt-2 space-y-1">
-                          {msg.config.columns.map((col, ci) => (
-                            <div key={ci} className="flex items-center gap-2 text-xs opacity-90">
-                              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{col.type}</Badge>
-                              <span className="font-medium">{col.label}</span>
-                              {state.dataArray[0] && (
-                                <span className="opacity-70 truncate">
-                                  {resolvePreviewValue(col, state.dataArray[0])}
-                                </span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -700,7 +789,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
             <div className="flex justify-between">
               <Button
                 variant="outline"
-                onClick={() => setStep("columns-prompt")}
+                onClick={() => setStep("review")}
                 data-testid="button-back-action"
               >
                 <IconArrowLeft className="w-4 h-4 mr-1" />

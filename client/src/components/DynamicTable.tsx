@@ -18,7 +18,7 @@ interface DynamicTableSection {
     key: string;
     label: string;
     type: "text" | "number" | "date" | "image" | "link" | "boolean";
-    template?: string;
+    function?: string;
   }>;
   title?: string;
   subtitle?: string;
@@ -56,6 +56,16 @@ function formatValue(val: unknown): string {
   return str;
 }
 
+function executeColumnFunction(fnBase64: string, row: Record<string, unknown>): unknown {
+  try {
+    const fnString = atob(fnBase64);
+    const fn = new Function("row", `return (${fnString})(row);`);
+    return fn(row);
+  } catch {
+    return null;
+  }
+}
+
 function resolveTemplate(template: string, row: Record<string, unknown>): string {
   return template.replace(/\{([^}]+)\}/g, (_, key) => {
     const val = getNestedValue(row, key.trim());
@@ -63,9 +73,9 @@ function resolveTemplate(template: string, row: Record<string, unknown>): string
   });
 }
 
-function getCellValue(row: Record<string, unknown>, col: { key: string; template?: string }): unknown {
-  if (col.template) {
-    return resolveTemplate(col.template, row);
+function getCellValue(row: Record<string, unknown>, col: { key: string; function?: string }): unknown {
+  if (col.function) {
+    return executeColumnFunction(col.function, row);
   }
   return getNestedValue(row, col.key);
 }
