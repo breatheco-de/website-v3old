@@ -118,13 +118,13 @@ function CellValue({ value, type }: { value: unknown; type: string }) {
       );
     case "number":
       return <span className="tabular-nums">{String(value)}</span>;
-    case "date":
-      try {
-        const d = new Date(String(value));
-        return <span>{d.toLocaleDateString()}</span>;
-      } catch {
-        return <span>{String(value)}</span>;
-      }
+    case "date": {
+      const raw = String(value).trim();
+      if (!raw) return <span className="text-muted-foreground">-</span>;
+      const d = new Date(raw);
+      if (isNaN(d.getTime())) return <span className="text-muted-foreground">-</span>;
+      return <span>{d.toLocaleDateString()}</span>;
+    }
     default:
       return <span className="line-clamp-2">{String(value)}</span>;
   }
