@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useMemo, useEffect } from "react";
-import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown } from "@tabler/icons-react";
+import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown, IconCode } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ interface TableColumnConfig {
 interface TableConfig {
   columns: TableColumnConfig[];
   title?: string;
+  description?: string;
 }
 
 export interface DynamicTableConfig {
@@ -37,7 +38,7 @@ interface TableBuilderWizardProps {
   locale?: string;
 }
 
-type WizardStep = "url" | "select-array" | "consistency" | "data-analysis" | "columns-prompt" | "ai-processing" | "review" | "action" | "done";
+type WizardStep = "url" | "select-array" | "consistency" | "columns-prompt" | "ai-processing" | "review" | "action" | "done";
 
 interface ChatMessage {
   role: "user" | "ai";
@@ -109,6 +110,7 @@ function checkConsistency(arr: Record<string, unknown>[]): { consistent: boolean
 }
 
 function formatConfigSummary(config: TableConfig): string {
+  if (config.description) return config.description;
   const cols = config.columns.map((c) => c.label).join(", ");
   return `${config.title ? `"${config.title}" with` : "Table with"} ${config.columns.length} columns: ${cols}`;
 }
@@ -146,9 +148,18 @@ function formatPreviewDisplay(value: unknown): string {
   return str.length > 50 ? str.slice(0, 50) + "..." : str;
 }
 
+function decodeBase64(encoded: string): string {
+  try {
+    return atob(encoded);
+  } catch {
+    return encoded;
+  }
+}
+
 function PreviewTable({ config, sampleData }: { config: TableConfig; sampleData: Record<string, unknown>[] }) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [showFunctions, setShowFunctions] = useState(false);
 
   const previewRows = useMemo(() => {
     let rows = sampleData.slice(0, 5);
@@ -231,11 +242,35 @@ function PreviewTable({ config, sampleData }: { config: TableConfig; sampleData:
           )}
         </tbody>
       </table>
-      <div className="px-3 py-1.5 border-t bg-muted/20">
+      <div className="px-3 py-1.5 border-t bg-muted/20 flex items-center justify-between">
         <span className="text-[10px] text-muted-foreground">
           Preview: {previewRows.length} of {sampleData.length} rows
         </span>
+        {config.columns.some((c) => c.function) && (
+          <button
+            type="button"
+            onClick={() => setShowFunctions((v) => !v)}
+            className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+            data-testid="button-toggle-functions"
+          >
+            <IconCode className="w-3 h-3" />
+            {showFunctions ? "Hide" : "Show"} column functions
+          </button>
+        )}
       </div>
+      {showFunctions && (
+        <div className="border-t px-3 py-2 space-y-1.5 bg-muted/10">
+          {config.columns.map((col) => (
+            <div key={col.key} className="text-[11px]" data-testid={`function-detail-${col.key}`}>
+              <span className="font-medium text-foreground">{col.label}</span>
+              <span className="text-muted-foreground mx-1">:</span>
+              <code className="text-muted-foreground font-mono">
+                {col.function ? decodeBase64(col.function) : `row.${col.key}`}
+              </code>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -300,7 +335,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
         if (!consistency.consistent) {
           setStep("consistency");
         } else {
-          setStep("data-analysis");
+          setStep("columns-prompt");
         }
       } else if (typeof data === "object" && data !== null) {
         const arrayProps = extractArrayProperties(data);
@@ -321,7 +356,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
           if (!consistency.consistent) {
             setStep("consistency");
           } else {
-            setStep("data-analysis");
+            setStep("columns-prompt");
           }
         } else {
           updateState({
@@ -353,7 +388,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
       if (!consistency.consistent) {
         setStep("consistency");
       } else {
-        setStep("data-analysis");
+        setStep("columns-prompt");
       }
     },
     [state.rawData, updateState]
@@ -557,7 +592,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setStep("data-analysis")}
+                onClick={() => setStep("columns-prompt")}
                 data-testid="button-continue-anyway"
               >
                 Continue anyway
@@ -567,78 +602,21 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
           </div>
         )}
 
-        {step === "data-analysis" && (
-          <DataAnalysisStep
+        {step === "columns-prompt" && (
+          <DescribeStep
             state={state}
             error={error}
             sampleExpanded={sampleExpanded}
             onToggleSample={() => setSampleExpanded((v) => !v)}
             onAnalyze={handleAnalyzeData}
-            onNext={() => { setError(null); setStep("columns-prompt"); }}
+            onUpdatePrompt={(p) => updateState({ columnsPrompt: p })}
+            onGenerate={handleGenerateColumns}
             onBack={() => {
+              setError(null);
               if (state.arrayOptions.length > 1) setStep("select-array");
               else setStep("url");
             }}
           />
-        )}
-
-        {step === "columns-prompt" && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-columns-title">
-                Describe your table
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Tell the AI what columns you want to see and how they should look.
-              </p>
-            </div>
-
-            {state.dataAnalysis && state.dataAnalysis.suggestedPrompts.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-xs font-medium text-muted-foreground">Suggestions you can try:</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {state.dataAnalysis.suggestedPrompts.map((prompt, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => updateState({ columnsPrompt: prompt })}
-                      className="text-xs px-3 py-1.5 rounded-full border text-foreground hover-elevate text-left"
-                      data-testid={`button-suggestion-${i}`}
-                    >
-                      {prompt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <Textarea
-              placeholder="Describe the columns you want..."
-              value={state.columnsPrompt}
-              onChange={(e) => updateState({ columnsPrompt: e.target.value })}
-              className="min-h-[80px]"
-              data-testid="input-columns-prompt"
-            />
-            {error && <ErrorMessage message={error} />}
-            <div className="flex justify-between">
-              <Button
-                variant="outline"
-                onClick={() => setStep("data-analysis")}
-                data-testid="button-back-columns"
-              >
-                <IconArrowLeft className="w-4 h-4 mr-1" />
-                Back
-              </Button>
-              <Button
-                onClick={handleGenerateColumns}
-                disabled={!state.columnsPrompt.trim()}
-                data-testid="button-generate-columns"
-              >
-                <IconArrowRight className="w-4 h-4 mr-1" />
-                Generate table
-              </Button>
-            </div>
-          </div>
         )}
 
         {step === "ai-processing" && (
@@ -833,17 +811,18 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
   );
 }
 
-interface DataAnalysisStepProps {
+interface DescribeStepProps {
   state: StepState;
   error: string | null;
   sampleExpanded: boolean;
   onToggleSample: () => void;
   onAnalyze: () => void;
-  onNext: () => void;
+  onUpdatePrompt: (prompt: string) => void;
+  onGenerate: () => void;
   onBack: () => void;
 }
 
-function DataAnalysisStep({ state, error, sampleExpanded, onToggleSample, onAnalyze, onNext, onBack }: DataAnalysisStepProps) {
+function DescribeStep({ state, error, sampleExpanded, onToggleSample, onAnalyze, onUpdatePrompt, onGenerate, onBack }: DescribeStepProps) {
   const hasAnalysis = state.dataAnalysis !== null;
   const analysisTriggered = useRef(false);
 
@@ -862,31 +841,55 @@ function DataAnalysisStep({ state, error, sampleExpanded, onToggleSample, onAnal
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-analysis-title">
-          Understanding your data
+        <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-columns-title">
+          Describe your table
         </h3>
         <p className="text-sm text-muted-foreground">
-          We're analyzing your data to help you build the right table.
+          Tell the AI what columns you want to see and how they should look.
         </p>
       </div>
 
       {state.analysisLoading && (
-        <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-md">
-          <IconLoader2 className="w-5 h-5 text-primary animate-spin flex-shrink-0" />
-          <p className="text-sm text-muted-foreground" data-testid="text-analysis-loading">
-            AI is analyzing your data...
+        <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-md">
+          <IconLoader2 className="w-4 h-4 text-primary animate-spin flex-shrink-0" />
+          <p className="text-xs text-muted-foreground" data-testid="text-analysis-loading">
+            Analyzing your data for suggestions...
           </p>
         </div>
       )}
 
       {hasAnalysis && (
-        <div className="p-4 bg-muted/50 rounded-md space-y-1">
+        <div className="p-3 bg-muted/50 rounded-md space-y-2">
           <p className="text-sm text-foreground" data-testid="text-analysis-description">
             {state.dataAnalysis!.description}
           </p>
           <p className="text-xs text-muted-foreground">
             {state.dataArray.length} items found with {state.availableKeys.length} available fields
           </p>
+          {state.dataAnalysis!.suggestedPrompts.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {state.dataAnalysis!.suggestedPrompts.map((prompt, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => onUpdatePrompt(prompt)}
+                  className="text-xs px-3 py-1.5 rounded-full border text-foreground hover-elevate text-left"
+                  data-testid={`button-suggestion-${i}`}
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {error && state.analysisLoading === false && !hasAnalysis && (
+        <div className="space-y-2">
+          <ErrorMessage message={error} />
+          <Button variant="outline" size="sm" onClick={handleRetry} data-testid="button-retry-analysis">
+            Try again
+          </Button>
         </div>
       )}
 
@@ -912,27 +915,30 @@ function DataAnalysisStep({ state, error, sampleExpanded, onToggleSample, onAnal
         </div>
       )}
 
-      {error && (
-        <div className="space-y-2">
-          <ErrorMessage message={error} />
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleRetry} data-testid="button-retry-analysis">
-              Try again
-            </Button>
-            <Button variant="outline" size="sm" onClick={onNext} data-testid="button-skip-analysis">
-              Continue without analysis
-            </Button>
-          </div>
-        </div>
-      )}
+      <Textarea
+        placeholder="Describe the columns you want..."
+        value={state.columnsPrompt}
+        onChange={(e) => onUpdatePrompt(e.target.value)}
+        className="min-h-[80px]"
+        data-testid="input-columns-prompt"
+      />
+      {error && hasAnalysis && <ErrorMessage message={error} />}
       <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} data-testid="button-back-analysis">
+        <Button
+          variant="outline"
+          onClick={onBack}
+          data-testid="button-back-columns"
+        >
           <IconArrowLeft className="w-4 h-4 mr-1" />
           Back
         </Button>
-        <Button onClick={onNext} disabled={state.analysisLoading} data-testid="button-next-describe">
+        <Button
+          onClick={onGenerate}
+          disabled={!state.columnsPrompt.trim()}
+          data-testid="button-generate-columns"
+        >
           <IconArrowRight className="w-4 h-4 mr-1" />
-          Next
+          Generate table
         </Button>
       </div>
     </div>
@@ -943,7 +949,6 @@ function StepIndicator({ current }: { current: WizardStep }) {
   const steps: { key: WizardStep[]; label: string }[] = [
     { key: ["url"], label: "Data source" },
     { key: ["select-array", "consistency"], label: "Validate" },
-    { key: ["data-analysis"], label: "Analyze" },
     { key: ["columns-prompt", "ai-processing"], label: "Describe" },
     { key: ["review"], label: "Review" },
     { key: ["action", "done"], label: "Actions" },

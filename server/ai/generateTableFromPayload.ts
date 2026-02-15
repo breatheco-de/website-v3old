@@ -10,6 +10,7 @@ export interface TableColumnConfig {
 export interface TableConfig {
   columns: TableColumnConfig[];
   title?: string;
+  description?: string;
 }
 
 export interface GenerateTableInput {
@@ -48,12 +49,14 @@ Rules:
   - Always handle null/undefined gracefully with optional chaining (?.) or fallback values (|| "").
   - The function must be a valid JavaScript arrow function as a plain string. Do NOT wrap it in quotes inside the JSON string value.
 - The "key" field should reference the primary data field the column is based on (used for sorting).
+- Include a "description" field with a brief, conversational summary of what you created. Mention the table purpose, highlight any special formatting or computed columns, and note anything interesting. Keep it to 1-2 sentences. Do NOT just list column names mechanically.
 - Return ONLY valid JSON with this exact structure:
 {
   "columns": [
     { "key": "field.path", "label": "Display Label", "type": "text|number|date|image|link|boolean", "function": "(row) => row.field || \\"\\""  }
   ],
-  "title": "Optional Table Title"
+  "title": "Optional Table Title",
+  "description": "Brief natural summary of the table created"
 }
 Do not include any text outside the JSON object.`;
 
@@ -202,12 +205,14 @@ Rules:
   - For computed values: (row) => row.price ? "$" + Number(row.price).toFixed(2) : "-"
   - Always handle null/undefined gracefully.
 - The "key" field references the primary data field (used for sorting).
+- Include a "description" field with a brief, conversational summary of what changed. Describe the specific modifications you made in response to the user's feedback. Keep it to 1-2 sentences. Do NOT just list column names mechanically.
 - Return ONLY valid JSON with this exact structure:
 {
   "columns": [
     { "key": "field.path", "label": "Display Label", "type": "text|number|date|image|link|boolean", "function": "(row) => row.field || \\"\\""  }
   ],
-  "title": "Optional Table Title"
+  "title": "Optional Table Title",
+  "description": "Brief natural summary of what was changed"
 }
 Do not include any text outside the JSON object.`;
 

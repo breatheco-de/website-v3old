@@ -99,8 +99,9 @@
     },
     "marketing-content/landings/test-example-check/promoted.yml": {
       "sha": "766ba901bc8d2fe8289fc38b6b1509ba67c57cdb473175779703ef5b098ac4d8",
-      "lastModified": 1771183955531.3215,
-      "remoteSha": "766ba901bc8d2fe8289fc38b6b1509ba67c57cdb473175779703ef5b098ac4d8"
+      "lastModified": 1771187652806.7961,
+      "remoteSha": "766ba901bc8d2fe8289fc38b6b1509ba67c57cdb473175779703ef5b098ac4d8",
+      "modifiedAt": "2026-02-15T20:34:12.809Z"
     },
     "marketing-content/locations/atlanta-usa/_common.yml": {
       "sha": "e6f64c1a84fc98d80eea02840af8408a8d28b4e7c761f489bad5f10e55469198",
