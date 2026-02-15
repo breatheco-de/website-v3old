@@ -235,12 +235,21 @@ Rules:
 }
 Do not include any text outside the JSON object.`;
 
+export interface SessionContext {
+  region?: string;
+  country_code?: string;
+  city?: string;
+  language?: string;
+  timezone?: string;
+}
+
 export interface GenerateFilterInput {
   sampleData: Record<string, unknown>[];
   availableKeys: string[];
   userPrompt: string;
   currentFilter?: string;
   locale?: string;
+  sessionContext?: SessionContext;
 }
 
 export interface FilterResult {
@@ -251,23 +260,30 @@ export interface FilterResult {
 const FILTER_SYSTEM_PROMPT = `You are a data filtering assistant. Given sample data items and a user's description, produce a JavaScript arrow function that filters an array of data rows.
 
 Rules:
-- The function receives the FULL array of rows and must return a filtered array.
-- Signature: (rows) => rows.filter(row => ...)
-- Available keys use dot notation for nested fields (e.g. "academy.name", "syllabus_version.status").
+- The function receives TWO arguments: the full array of rows and a session context object.
+- Signature: (rows, ctx) => rows.filter(row => ...)
+- The ctx (session context) object has these fields from the visitor's browser session:
+  - ctx.region: visitor's detected region, one of "usa-canada", "latam", "europe", or "online"
+  - ctx.country_code: visitor's country code in lowercase (e.g. "us", "mx", "es", "co")
+  - ctx.city: visitor's city name (e.g. "Miami", "Madrid", "Mexico City")
+  - ctx.language: page language, "en" or "es"
+  - ctx.timezone: visitor's timezone (e.g. "America/New_York", "Europe/Madrid")
+- When the user asks to filter "by region", "by visitor location", "for their region", etc., use the ctx parameter to create dynamic region-aware filters.
+- Available data keys use dot notation for nested fields (e.g. "academy.name", "syllabus_version.status").
 - Use optional chaining (?.) for nested access to prevent crashes on null/undefined.
-- Always handle null/undefined values gracefully.
+- Always handle null/undefined values gracefully — if ctx fields are undefined, return all rows as fallback.
 - The function should be a single arrow function expression.
 - Common patterns:
-  - Filter by field value: (rows) => rows.filter(row => row.status === "ACTIVE")
-  - Filter by nested field: (rows) => rows.filter(row => row.academy?.country?.code === "US")
-  - Filter by multiple conditions: (rows) => rows.filter(row => row.status === "ACTIVE" && row.academy?.slug !== "test")
-  - Filter by date range: (rows) => rows.filter(row => row.kickoff_date && new Date(row.kickoff_date) > new Date())
-  - Filter out nulls: (rows) => rows.filter(row => row.name != null && row.name !== "")
-  - Exclude specific values: (rows) => rows.filter(row => !["test", "demo"].includes(row.academy?.slug))
+  - Filter by field value: (rows, ctx) => rows.filter(row => row.status === "ACTIVE")
+  - Filter by nested field: (rows, ctx) => rows.filter(row => row.academy?.country?.code === "US")
+  - Filter by visitor region: (rows, ctx) => rows.filter(row => { if (!ctx.region) return true; if (ctx.region === "latam") return row.academy?.slug === "online"; if (ctx.region === "europe") return row.academy?.country?.code === "es"; return row.academy?.slug?.includes("usa") || row.academy?.slug === "online"; })
+  - Filter by visitor country: (rows, ctx) => rows.filter(row => !ctx.country_code || row.academy?.country?.code === ctx.country_code)
+  - Filter by date range: (rows, ctx) => rows.filter(row => row.kickoff_date && new Date(row.kickoff_date) > new Date())
+  - Exclude specific values: (rows, ctx) => rows.filter(row => !["test", "demo"].includes(row.academy?.slug))
 - Include a "description" field with a brief summary of what the filter does, in 1 sentence.
 - Return ONLY valid JSON:
 {
-  "function": "(rows) => rows.filter(row => ...)",
+  "function": "(rows, ctx) => rows.filter(row => ...)",
   "description": "Brief description of the filter"
 }
 Do not include any text outside the JSON object.`;
@@ -284,16 +300,21 @@ export async function generateGlobalFilter(input: GenerateFilterInput): Promise<
     ? `\nCurrent filter function: ${Buffer.from(input.currentFilter, "base64").toString("utf-8")}\nModify or replace this filter based on the user's request.`
     : "";
 
+  const sessionNote = input.sessionContext
+    ? `\nCurrent visitor session context (ctx): ${JSON.stringify(input.sessionContext)}\nThe filter function receives this as the second argument "ctx". Use it when the user asks for region-based, location-based, or visitor-specific filtering.`
+    : "";
+
   const userPrompt = `Available data keys: ${JSON.stringify(input.availableKeys)}
 
 Sample data (first 3 items):
 ${samplePreview}
 ${currentFilterNote}
+${sessionNote}
 
 User's request: "${input.userPrompt}"
 ${langNote}
 
-Generate a JavaScript arrow function that filters the data array according to the user's request.`;
+Generate a JavaScript arrow function that filters the data array according to the user's request. The function signature is (rows, ctx) => ... where ctx contains the visitor's session context.`;
 
   const result = await llm.adaptContent(
     FILTER_SYSTEM_PROMPT,

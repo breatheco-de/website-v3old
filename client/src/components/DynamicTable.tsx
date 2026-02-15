@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { IconExternalLink, IconPhoto, IconCheck, IconX, IconArrowUp, IconArrowDown, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import type { DynamicTableConfig } from "./TableBuilderWizard";
+import { useSession } from "@/contexts/SessionContext";
 
 interface DynamicTableSection {
   type: "dynamic_table";
@@ -60,12 +61,27 @@ function executeColumnFunction(fnBase64: string, row: Record<string, unknown>): 
   }
 }
 
-function executeGlobalFilter(fnBase64: string, rows: Record<string, unknown>[]): Record<string, unknown>[] {
+interface FilterContext {
+  region?: string;
+  country_code?: string;
+  city?: string;
+  language?: string;
+  timezone?: string;
+}
+
+function executeGlobalFilter(fnBase64: string, rows: Record<string, unknown>[], ctx?: FilterContext): Record<string, unknown>[] {
   try {
     const fnString = atob(fnBase64);
-    const fn = new Function("rows", `return (${fnString})(rows);`);
-    const result = fn(rows);
-    return Array.isArray(result) ? result : rows;
+    try {
+      const fn = new Function("rows", "ctx", `return (${fnString})(rows, ctx);`);
+      const result = fn(rows, ctx || {});
+      if (Array.isArray(result)) return result;
+    } catch {
+      const fn = new Function("rows", `return (${fnString})(rows);`);
+      const result = fn(rows);
+      if (Array.isArray(result)) return result;
+    }
+    return rows;
   } catch {
     return rows;
   }
@@ -163,6 +179,15 @@ export function DynamicTable({ data }: DynamicTableProps) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [expanded, setExpanded] = useState(false);
+  const { session } = useSession();
+
+  const filterCtx = useMemo<FilterContext>(() => ({
+    region: session.location?.region || undefined,
+    country_code: (session.geo?.country_code || session.location?.country_code || "").toLowerCase() || undefined,
+    city: session.geo?.city || session.location?.city || undefined,
+    language: session.language,
+    timezone: session.location?.timezone || session.geo?.timezone || undefined,
+  }), [session.location, session.geo, session.language]);
 
   const { data: fetchedData, isLoading, error } = useQuery<unknown>({
     queryKey: ["dynamic-table", data.endpoint],
@@ -192,7 +217,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
     let filtered = arr as Record<string, unknown>[];
 
     if (data.global_filter) {
-      filtered = executeGlobalFilter(data.global_filter, filtered);
+      filtered = executeGlobalFilter(data.global_filter, filtered, filterCtx);
     }
 
     if (sortKey) {
@@ -210,7 +235,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
       });
     }
     return filtered;
-  }, [fetchedData, data.data_path, data.global_filter, sortKey, sortDir]);
+  }, [fetchedData, data.data_path, data.global_filter, sortKey, sortDir, filterCtx]);
 
   const maxRows = data.max_rows && data.max_rows > 0 ? data.max_rows : null;
   const hasMore = maxRows !== null && allRows.length > maxRows;

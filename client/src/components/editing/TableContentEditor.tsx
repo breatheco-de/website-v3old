@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { apiRequest } from "@/lib/queryClient";
+import { useSession } from "@/contexts/SessionContext";
 
 interface TableColumnConfig {
   key: string;
@@ -58,12 +59,27 @@ function executeBase64Function(fnBase64: string, row: Record<string, unknown>): 
   }
 }
 
-function executeGlobalFilterClient(fnBase64: string, rows: Record<string, unknown>[]): Record<string, unknown>[] {
+interface FilterContext {
+  region?: string;
+  country_code?: string;
+  city?: string;
+  language?: string;
+  timezone?: string;
+}
+
+function executeGlobalFilterClient(fnBase64: string, rows: Record<string, unknown>[], ctx?: FilterContext): Record<string, unknown>[] {
   try {
     const fnString = atob(fnBase64);
-    const fn = new Function("rows", `return (${fnString})(rows);`);
-    const result = fn(rows);
-    return Array.isArray(result) ? result : rows;
+    try {
+      const fn = new Function("rows", "ctx", `return (${fnString})(rows, ctx);`);
+      const result = fn(rows, ctx || {});
+      if (Array.isArray(result)) return result;
+    } catch {
+      const fn = new Function("rows", `return (${fnString})(rows);`);
+      const result = fn(rows);
+      if (Array.isArray(result)) return result;
+    }
+    return rows;
   } catch {
     return rows;
   }
@@ -103,9 +119,10 @@ interface PreviewTableProps {
   config: TableConfig;
   sampleData: Record<string, unknown>[];
   filterFunction?: string;
+  filterCtx?: FilterContext;
 }
 
-function PreviewTable({ config, sampleData, filterFunction }: PreviewTableProps) {
+function PreviewTable({ config, sampleData, filterFunction, filterCtx }: PreviewTableProps) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [showFunctions, setShowFunctions] = useState(false);
@@ -114,10 +131,10 @@ function PreviewTable({ config, sampleData, filterFunction }: PreviewTableProps)
 
   const displayData = useMemo(() => {
     if (filterFunction) {
-      return executeGlobalFilterClient(filterFunction, sampleData);
+      return executeGlobalFilterClient(filterFunction, sampleData, filterCtx);
     }
     return sampleData;
-  }, [sampleData, filterFunction]);
+  }, [sampleData, filterFunction, filterCtx]);
 
   const hasMore = displayData.length > PREVIEW_LIMIT;
 
@@ -292,6 +309,15 @@ export function TableContentEditor({
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const { session } = useSession();
+
+  const filterCtx = useMemo<FilterContext>(() => ({
+    region: session.location?.region || undefined,
+    country_code: (session.geo?.country_code || session.location?.country_code || "").toLowerCase() || undefined,
+    city: session.geo?.city || session.location?.city || undefined,
+    language: session.language,
+    timezone: session.location?.timezone || session.geo?.timezone || undefined,
+  }), [session.location, session.geo, session.language]);
 
   const [activeConfig, setActiveConfig] = useState<TableConfig>({
     columns: currentColumns,
@@ -379,6 +405,7 @@ export function TableContentEditor({
           userPrompt: input,
           currentFilter: activeFilter,
           locale: locale || "en",
+          sessionContext: filterCtx,
         });
         const result = await response.json() as { function: string; description: string };
         const aiMsg: ChatMessage = {
@@ -466,7 +493,7 @@ export function TableContentEditor({
       <p className="text-xs text-muted-foreground">
         {isContentMode
           ? "Chat with AI to change which columns appear, rename them, reorder, or adjust how values are displayed. This modifies what the table shows and how it looks."
-          : "Chat with AI to filter which rows appear in the table. This controls which data is visible — not how it looks. For example: \"Show only active cohorts\" or \"Hide rows where status is deleted\"."}
+          : "Chat with AI to filter which rows appear in the table. This controls which data is visible — not how it looks. Supports region-aware filtering using the visitor's session. For example: \"Show only cohorts for the visitor's region\" or \"Filter by country\"."}
       </p>
 
       {isContentMode && (
@@ -495,6 +522,7 @@ export function TableContentEditor({
         config={activeConfig}
         sampleData={dataArray}
         filterFunction={!isContentMode ? activeFilter : undefined}
+        filterCtx={filterCtx}
       />
 
       <div className="border rounded-md flex flex-col" style={{ maxHeight: "200px" }}>

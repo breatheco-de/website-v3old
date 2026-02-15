@@ -4431,7 +4431,7 @@ sections: []
     try {
       const { generateGlobalFilter } = await import("./ai/generateTableFromPayload");
 
-      const { sampleData, availableKeys, userPrompt, currentFilter, locale } = req.body;
+      const { sampleData, availableKeys, userPrompt, currentFilter, locale, sessionContext } = req.body;
 
       if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
         res.status(400).json({ error: "sampleData must be a non-empty array" });
@@ -4448,6 +4448,7 @@ sections: []
         userPrompt,
         currentFilter: currentFilter || undefined,
         locale: locale || "en",
+        sessionContext: sessionContext || undefined,
       });
       res.json(result);
     } catch (error: any) {
