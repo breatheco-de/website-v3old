@@ -1,0 +1,18 @@
+programs:
+  url_pattern:
+    en: /en/career-programs/:slug
+    es: /es/programas-de-carrera/:slug
+
+locations:
+  url_pattern:
+    en: /en/location/:slug
+    es: /es/ubicacion/:slug
+
+landings:
+  url_pattern:
+    default: /landing/:slug
+
+pages:
+  url_pattern:
+    en: /en/:slug
+    es: /es/:slug

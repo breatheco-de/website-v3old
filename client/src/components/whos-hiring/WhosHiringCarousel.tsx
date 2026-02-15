@@ -20,12 +20,7 @@ interface MosaicGroup {
 const heroCardTexts = [
   "Building the future of work together.",
   "Transforming ideas into digital experiences.",
-  "Innovating at the intersection of design and technology.",
-  "Empowering teams to ship faster.",
-  "Creating seamless user experiences.",
   "Scaling solutions for modern businesses.",
-  "Redefining how teams collaborate.",
-  "Shaping the next generation of products.",
 ];
 
 const SMALL_CARD_HEIGHT_MOBILE = 85;

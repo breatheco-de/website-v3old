@@ -1285,7 +1285,7 @@ export function SectionEditorPanel({
                 arrayFieldGroups[arrPath].push({ fieldName, editorType: edType, variant: edVariant, fullPath: fieldPath });
               });
 
-              const supportedGroupedTypes = new Set(["color-picker", "image-picker", "link-picker"]);
+              const supportedGroupedTypes = new Set(["color-picker", "image-picker", "link-picker", "rich-text-editor"]);
               const groupedArrayPaths = new Set(
                 Object.entries(arrayFieldGroups)
                   .filter(([, fields]) => fields.length >= 2 && fields.every(f => supportedGroupedTypes.has(f.editorType)))
@@ -1503,6 +1503,31 @@ export function SectionEditorPanel({
                                   const configuredField = fields.find(f => f.fieldName === fieldKey);
 
                                   if (configuredField) {
+                                    if (configuredField.editorType === "icon-picker") {
+                                      return (
+                                        <div key={fieldKey} className="space-y-1">
+                                          <Label className="text-xs text-muted-foreground">{label}</Label>
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              setIconPickerTarget({
+                                                arrayField: arrPath,
+                                                index,
+                                                field: fieldKey,
+                                                label: itemLabel,
+                                                currentIcon: currentValue,
+                                              });
+                                              setIconPickerOpen(true);
+                                            }}
+                                            className="flex items-center justify-center w-10 h-10 rounded border bg-muted/30 hover:bg-muted transition-colors"
+                                            data-testid={`props-grouped-icon-${fieldKey}-${index}`}
+                                            title={`${itemLabel}: ${currentValue || "no icon"}`}
+                                          >
+                                            {renderIconByName(currentValue)}
+                                          </button>
+                                        </div>
+                                      );
+                                    }
                                     if (configuredField.editorType === "color-picker") {
                                       const colorType = (configuredField.variant as ColorPickerVariant) || "accent";
                                       return (
@@ -1576,6 +1601,22 @@ export function SectionEditorPanel({
                                             placeholder={`https://...`}
                                             className="h-8 text-sm"
                                             data-testid={`props-grouped-link-${fieldKey}-${index}`}
+                                          />
+                                        </div>
+                                      );
+                                    }
+                                    if (configuredField.editorType === "rich-text-editor") {
+                                      return (
+                                        <div key={fieldKey} className="space-y-1">
+                                          <Label className="text-xs text-muted-foreground">{label}</Label>
+                                          <RichTextArea
+                                            key={`${sectionIndex}-${arrPath}-${index}-${fieldKey}`}
+                                            value={currentValue}
+                                            onChange={(html) => updateNestedField(index, fieldKey, html)}
+                                            placeholder={`Edit ${label}…`}
+                                            minHeight="80px"
+                                            locale={locale}
+                                            data-testid={`props-grouped-richtext-${fieldKey}-${index}`}
                                           />
                                         </div>
                                       );
@@ -1890,7 +1931,7 @@ export function SectionEditorPanel({
                 const groupedSkipMatch = fieldPath.match(/^([\w.]+)\[\]\./);
                 if (groupedSkipMatch) {
                   const arrPathCheck = groupedSkipMatch[1];
-                  const supportedTypes = new Set(["color-picker", "image-picker", "link-picker"]);
+                  const supportedTypes = new Set(["color-picker", "image-picker", "link-picker", "rich-text-editor"]);
                   const allForArr = Object.entries(configuredFields).filter(([fp]) => fp.startsWith(`${arrPathCheck}[].`));
                   const allSupported = allForArr.every(([, et]) => supportedTypes.has(parseEditorType(et).type));
                   if (allForArr.length >= 2 && allSupported) return null;
@@ -2786,6 +2827,47 @@ export function SectionEditorPanel({
                         >
                           <IconPlus className="h-5 w-5 text-muted-foreground" />
                         </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (editorType === "rich-text-editor") {
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium capitalize">
+                        {arrayFieldLabel} Text
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => {
+                          const currentValue =
+                            (item[itemField] as string) || "";
+                          const itemLabel =
+                            (item.tab_label as string) ||
+                            (item.title as string) ||
+                            (item.label as string) ||
+                            (item.name as string) ||
+                            `Item ${index + 1}`;
+
+                          return (
+                            <div key={index} className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">
+                                {itemLabel}
+                              </Label>
+                              <RichTextArea
+                                key={`${sectionIndex}-${arrayPath}-${index}-${itemField}`}
+                                value={currentValue}
+                                onChange={(html) =>
+                                  updateArrayItemField(arrayPath, index, itemField, html)
+                                }
+                                placeholder={`Edit ${itemLabel}…`}
+                                minHeight="80px"
+                                locale={locale}
+                                data-testid={`props-richtext-${arrayFieldLabel}-${index}`}
+                              />
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   );

@@ -45,6 +45,9 @@ export const pageSlugMappings: SlugMapping[] = [
   { en: "job-guarantee", es: "trabajo-garantizado", folder: "job-guarantee" },
   { en: "outcomes", es: "resultados", folder: "outcomes" },
   { en: "apply", es: "aplica", folder: "apply" },
+  { en: "financials", es: "financiacion", folder: "financials" },
+  { en: "the-academy", es: "sobre-la-academia", folder: "the-academy" },
+  { en: "partners", es: "alianzas", folder: "partners" },
   { en: "career-programs", es: "programas-de-carrera", folder: "career-programs" },
 ];
 

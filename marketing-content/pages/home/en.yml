@@ -17,11 +17,11 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: The AI Reskilling Platform
+    title: The AI Reskilling Platformm
     subtitle: Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance.
     trust_bar:
-      rating: 4.9/5
-      rating_count: 3,000+
+      rating: {{ global_review_rating | 4.9 }}/5
+      rating_count: {{ global_review_count | 3,000 }}+
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Choose Your Path
@@ -55,7 +55,7 @@ sections:
         linkText: Read reviews
       - id: switchup-detailed
         alt: Clark University Logo
-        logo: /attached_assets/clark-university_1769653206336.png
+        logo: /marketing-content/images/clark-university_1769653206336.png
         logoHeight: 64px
         description: We are certified by the most recognized universities
         link: https://www.switchup.org

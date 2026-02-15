@@ -1,6 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import type { ImageRowSection, ImageRowSlide } from "../../../../marketing-content/component-registry/image_row/v1.0/schema";
+import { hasHtmlTags, getTextLength, sliceHtml } from "@/lib/htmlTypewriter";
+import type {
+  ImageRowSection,
+  ImageRowSlide,
+} from "../../../../marketing-content/component-registry/image_row/v1.0/schema";
 
 interface ImageRowProps {
   data: ImageRowSection;
@@ -29,24 +33,29 @@ interface TypewriterTextProps {
   className?: string;
 }
 
-function TypewriterText({ 
-  text, 
-  startDelayMs, 
-  charDelayMs = 30, 
-  isActive, 
+function TypewriterText({
+  text,
+  startDelayMs,
+  charDelayMs = 30,
+  isActive,
   isEditMode,
-  className = "" 
+  className = "",
 }: TypewriterTextProps) {
   const [visibleChars, setVisibleChars] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isHtml = useMemo(() => hasHtmlTags(text), [text]);
+  const totalChars = useMemo(
+    () => (isHtml ? getTextLength(text) : text.length),
+    [text, isHtml],
+  );
 
   useEffect(() => {
     if (startTimerRef.current) clearTimeout(startTimerRef.current);
     if (timerRef.current) clearInterval(timerRef.current);
 
     if (isEditMode || !isActive) {
-      setVisibleChars(isEditMode ? text.length : 0);
+      setVisibleChars(isEditMode ? totalChars : 0);
       return;
     }
 
@@ -57,7 +66,7 @@ function TypewriterText({
       timerRef.current = setInterval(() => {
         currentChar++;
         setVisibleChars(currentChar);
-        if (currentChar >= text.length) {
+        if (currentChar >= totalChars) {
           if (timerRef.current) clearInterval(timerRef.current);
         }
       }, charDelayMs);
@@ -67,7 +76,30 @@ function TypewriterText({
       if (startTimerRef.current) clearTimeout(startTimerRef.current);
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [text, startDelayMs, charDelayMs, isActive, isEditMode]);
+  }, [text, totalChars, startDelayMs, charDelayMs, isActive, isEditMode]);
+
+  if (isHtml) {
+    if (isEditMode || visibleChars >= totalChars) {
+      return (
+        <span
+          className={className}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+      );
+    }
+    return (
+      <span className={className} style={{ position: "relative" }}>
+        <span
+          style={{ opacity: 0 }}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+        <span
+          style={{ position: "absolute", left: 0, top: 0 }}
+          dangerouslySetInnerHTML={{ __html: sliceHtml(text, visibleChars) }}
+        />
+      </span>
+    );
+  }
 
   if (isEditMode) {
     return <span className={className}>{text}</span>;
@@ -88,21 +120,22 @@ interface HighlightSlideshowProps {
   isEditMode: boolean;
   isVisible: boolean;
   className?: string;
+  reverseTextOrder?: boolean;
   style?: React.CSSProperties;
 }
 
-function HighlightSlideshow({ 
-  slides, 
-  autoplayInterval, 
-  showIndicators, 
+function HighlightSlideshow({
+  slides,
+  autoplayInterval,
+  showIndicators,
   isEditMode,
   isVisible,
   className = "",
+  reverseTextOrder,
   style = {},
 }: HighlightSlideshowProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -110,10 +143,13 @@ function HighlightSlideshow({
     }
   }, []);
 
-  const goToSlide = useCallback((index: number) => {
-    if (index === currentSlide) return;
-    setCurrentSlide(index);
-  }, [currentSlide]);
+  const goToSlide = useCallback(
+    (index: number) => {
+      if (index === currentSlide) return;
+      setCurrentSlide(index);
+    },
+    [currentSlide],
+  );
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -121,15 +157,22 @@ function HighlightSlideshow({
 
   useEffect(() => {
     clearTimer();
-    
+
     if (isEditMode || slides.length <= 1 || !isVisible) {
       return;
     }
 
     timerRef.current = setInterval(nextSlide, autoplayInterval);
-    
+
     return clearTimer;
-  }, [isEditMode, slides.length, autoplayInterval, nextSlide, isVisible, clearTimer]);
+  }, [
+    isEditMode,
+    slides.length,
+    autoplayInterval,
+    nextSlide,
+    isVisible,
+    clearTimer,
+  ]);
 
   const hasMultipleSlides = slides.length > 1;
 
@@ -143,7 +186,7 @@ function HighlightSlideshow({
   };
 
   return (
-    <div 
+    <div
       className={`${className} relative overflow-hidden`}
       style={{ ...style, ...getContainerAnimationStyle() }}
       data-testid="image-row-highlight"
@@ -151,7 +194,7 @@ function HighlightSlideshow({
       <div className="relative flex-1 min-h-0">
         {slides.map((slide, index) => {
           const isActive = index === currentSlide;
-          const slideStyle: React.CSSProperties = isEditMode 
+          const slideStyle: React.CSSProperties = isEditMode
             ? { display: isActive ? "block" : "none" }
             : {
                 position: index === 0 ? "relative" : "absolute",
@@ -163,34 +206,63 @@ function HighlightSlideshow({
                 pointerEvents: isActive ? "auto" : "none",
               };
 
-          const headingDuration = slide.heading.length * 30;
+          const headingTextLen = hasHtmlTags(slide.heading)
+            ? getTextLength(slide.heading)
+            : slide.heading.length;
+          const headingDuration = headingTextLen * 30;
           const textStartDelay = 650 + headingDuration + 400;
 
           return (
             <div
               key={index}
-              className="flex flex-col justify-center"
+              className={`flex flex-col justify-center ${reverseTextOrder ? "flex-col-reverse" : ""}`}
               style={slideStyle}
               data-testid={`slide-content-${index}`}
             >
-              <p className="text-body mb-4 font-light">
-                <TypewriterText
-                  text={slide.heading}
-                  startDelayMs={650}
-                  charDelayMs={30}
-                  isActive={isActive && isVisible}
-                  isEditMode={isEditMode}
-                />
-              </p>
-              <p className="text-h2 leading-tight">
-                <TypewriterText
-                  text={slide.text}
-                  startDelayMs={textStartDelay}
-                  charDelayMs={25}
-                  isActive={isActive && isVisible}
-                  isEditMode={isEditMode}
-                />
-              </p>
+              {!reverseTextOrder ? (
+                <>
+                  <p className="text-body mb-4 font-light">
+                    <TypewriterText
+                      text={slide.heading}
+                      startDelayMs={650}
+                      charDelayMs={30}
+                      isActive={isActive && isVisible}
+                      isEditMode={isEditMode}
+                    />
+                  </p>
+                  <p className="text-h2 leading-tight">
+                    <TypewriterText
+                      text={slide.text}
+                      startDelayMs={textStartDelay}
+                      charDelayMs={25}
+                      isActive={isActive && isVisible}
+                      isEditMode={isEditMode}
+                    />
+                  </p>
+                </>
+              ) : (
+                <>
+
+                  <p className="text-body mb-4 font-light">
+                    <TypewriterText
+                      text={slide.text}
+                      startDelayMs={650}
+                      charDelayMs={30}
+                      isActive={isActive && isVisible}
+                      isEditMode={isEditMode}
+                    />
+                  </p>
+                  <p className="text-h2 leading-tight">
+                    <TypewriterText
+                      text={slide.heading}
+                      startDelayMs={textStartDelay}
+                      charDelayMs={25}
+                      isActive={isActive && isVisible}
+                      isEditMode={isEditMode}
+                    />
+                  </p>
+                </>
+              )}
             </div>
           );
         })}
@@ -203,8 +275,8 @@ function HighlightSlideshow({
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? "bg-current opacity-100 scale-125" 
+                index === currentSlide
+                  ? "bg-current opacity-100 scale-125"
                   : "bg-current opacity-40"
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -252,7 +324,7 @@ export default function ImageRow({ data }: ImageRowProps) {
           setIsVisible(true);
         }
       },
-      { threshold: 0, rootMargin: "100px 0px" }
+      { threshold: 0, rootMargin: "100px 0px" },
     );
 
     if (sectionRef.current) {
@@ -275,7 +347,10 @@ export default function ImageRow({ data }: ImageRowProps) {
         const viewportH = window.innerHeight;
         const center = rect.top + rect.height / 2;
         const raw = (viewportH / 2 - center) * PARALLAX_FACTOR;
-        const clamped = Math.max(-PARALLAX_MAX_PX, Math.min(PARALLAX_MAX_PX, raw));
+        const clamped = Math.max(
+          -PARALLAX_MAX_PX,
+          Math.min(PARALLAX_MAX_PX, raw),
+        );
 
         imageRefsRef.current.forEach((img, i) => {
           if (!img) return;
@@ -297,13 +372,11 @@ export default function ImageRow({ data }: ImageRowProps) {
   const gapClass = GAP_CLASSES[gap] || GAP_CLASSES.md;
   const roundedClass = rounded ? "rounded-lg" : "";
   const highlightWidth = highlight?.width || 2;
-  const highlightBg = highlight?.background 
+  const highlightBg = highlight?.background
     ? BACKGROUND_CLASSES[highlight.background] || BACKGROUND_CLASSES.primary
     : BACKGROUND_CLASSES.primary;
 
-  const sectionBgClass = background 
-    ? BACKGROUND_CLASSES[background] || ""
-    : "";
+  const sectionBgClass = background ? BACKGROUND_CLASSES[background] || "" : "";
 
   const getAnimationStyle = (index: number) => {
     if (isEditMode) return {};
@@ -316,17 +389,22 @@ export default function ImageRow({ data }: ImageRowProps) {
 
   const highlightIndex = images.length;
 
-  const slides: ImageRowSlide[] = highlight?.slides?.length 
-    ? highlight.slides 
-    : highlight?.heading && highlight?.text 
+  const slides: ImageRowSlide[] = highlight?.slides?.length
+    ? highlight.slides
+    : highlight?.heading && highlight?.text
       ? [{ heading: highlight.heading, text: highlight.text }]
       : [];
 
   const autoplayInterval = highlight?.autoplay_interval || 5000;
   const showIndicators = highlight?.show_indicators !== false;
+  const reverseTextOrder = highlight?.reverse_text_order === true;
 
   return (
-    <section ref={sectionRef} className={sectionBgClass} data-testid="section-image-row">
+    <section
+      ref={sectionRef}
+      className={sectionBgClass}
+      data-testid="section-image-row"
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-4 max-w-7xl mx-auto">
           {slides.length > 0 && (
@@ -337,21 +415,21 @@ export default function ImageRow({ data }: ImageRowProps) {
               isEditMode={isEditMode}
               isVisible={isVisible}
               className={`${highlightBg} px-6 py-8 md:px-8 md:py-12 rounded-card md:hidden`}
+              reverseTextOrder={reverseTextOrder}
             />
           )}
 
-          <div 
+          <div
             className={`flex flex-row items-stretch ${gapClass}`}
-            style={{ 
-              "--image-row-height-mobile": mobile_height,
-              "--image-row-height-desktop": height,
-            } as React.CSSProperties}
+            style={
+              {
+                "--image-row-height-mobile": mobile_height,
+                "--image-row-height-desktop": height,
+              } as React.CSSProperties
+            }
             data-testid="image-row-container"
           >
-            <div 
-              className="contents"
-              style={{ display: "contents" }}
-            >
+            <div className="contents" style={{ display: "contents" }}>
               {images.map((image, index) => {
                 const imageHeight = image.height || undefined;
                 return (
@@ -372,13 +450,16 @@ export default function ImageRow({ data }: ImageRowProps) {
                       }
                     `}</style>
                     <img
-                      ref={(el) => { imageRefsRef.current[index] = el; }}
+                      ref={(el) => {
+                        imageRefsRef.current[index] = el;
+                      }}
                       src={image.src}
                       alt={image.alt}
                       className="w-full h-full"
                       style={{
                         objectFit: image.object_fit || "cover",
-                        objectPosition: image.object_position || "center center",
+                        objectPosition:
+                          image.object_position || "center center",
                         transform: "translateY(0px) scale(1.15)",
                         willChange: "transform",
                       }}
@@ -397,7 +478,11 @@ export default function ImageRow({ data }: ImageRowProps) {
                   isEditMode={isEditMode}
                   isVisible={isVisible}
                   className={`hidden md:flex ${highlightBg} px-6 py-8 md:px-8 md:py-12 rounded-card flex-col h-[var(--image-row-height-desktop)]`}
-                  style={{ flex: highlightWidth, ...getAnimationStyle(highlightIndex) }}
+                  reverseTextOrder={reverseTextOrder}
+                  style={{
+                    flex: highlightWidth,
+                    ...getAnimationStyle(highlightIndex),
+                  }}
                 />
               )}
             </div>

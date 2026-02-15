@@ -34,7 +34,7 @@ function parseSpacingValue(value: string): { top: string; bottom: string } {
   if (SPACING_PRESETS[value]) {
     return SPACING_PRESETS[value];
   }
-  
+
   // Parse two-value format (e.g., "lg xl" or "20px 32px")
   const parts = value.trim().split(/\s+/);
   if (parts.length === 1) {
@@ -54,11 +54,11 @@ function parseResponsiveSpacing(value: ResponsiveSpacing | undefined): {
   desktop: { top: string; bottom: string };
 } | null {
   if (!value) return null;
-  
+
   // Handle inheritance: if one is missing, use the other's value
   const mobileValue = value.mobile ?? value.desktop ?? "none";
   const desktopValue = value.desktop ?? value.mobile ?? "none";
-  
+
   return {
     mobile: parseSpacingValue(mobileValue),
     desktop: parseSpacingValue(desktopValue),
@@ -83,12 +83,12 @@ const BACKGROUND_TOKENS: Record<string, string> = {
 // Parse background value - supports semantic tokens or custom CSS
 function parseBackground(value: string | undefined): string | undefined {
   if (!value || value === "inherit" || value === "none") return undefined;
-  
+
   // Check if it's a semantic token
   if (BACKGROUND_TOKENS[value]) {
     return BACKGROUND_TOKENS[value];
   }
-  
+
   // Return as-is for custom values (gradients, colors, etc.)
   return value;
 }
@@ -100,11 +100,11 @@ function parseBackground(value: string | undefined): string | undefined {
 // background: Applied to wrapper (semantic token or custom CSS)
 function getSectionLayoutStyles(section: Section): CSSProperties & Record<string, string> {
   const layoutSection = section as SectionLayout;
-  
+
   const padding = parseResponsiveSpacing(layoutSection.paddingY);
   const margin = parseResponsiveSpacing(layoutSection.marginY);
   const background = parseBackground(layoutSection.background);
-  
+
   // Use CSS custom properties for responsive values
   // Global CSS will handle the media query switching via .section-wrapper class
   const styles: CSSProperties & Record<string, string> = {
@@ -114,7 +114,7 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
     marginTop: 'var(--section-mt)',
     marginBottom: 'var(--section-mb)',
   };
-  
+
   // Set CSS custom properties (index signature for custom properties)
   styles['--section-pt-mobile'] = padding?.mobile.top ?? DEFAULT_SPACING.top;
   styles['--section-pb-mobile'] = padding?.mobile.bottom ?? DEFAULT_SPACING.bottom;
@@ -124,11 +124,11 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
   styles['--section-pb-desktop'] = padding?.desktop.bottom ?? DEFAULT_SPACING.bottom;
   styles['--section-mt-desktop'] = margin?.desktop.top ?? DEFAULT_SPACING.top;
   styles['--section-mb-desktop'] = margin?.desktop.bottom ?? DEFAULT_SPACING.bottom;
-  
+
   if (background) {
     styles.background = background;
   }
-  
+
   return styles;
 }
 
@@ -216,7 +216,7 @@ import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditMode
 function shouldShowSection(showOn: ShowOn | undefined, previewBreakpoint: PreviewBreakpoint | undefined, isEditMode: boolean): boolean {
   // In edit mode, always show all sections (EditableSection will display visibility alerts)
   if (isEditMode) return true;
-  
+
   // In production, always return true - CSS classes handle responsive visibility
   return true;
 }
@@ -255,7 +255,7 @@ function EmptyPageState({
   slug?: string;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   return (
     <div 
       className="min-h-[60vh] flex items-center justify-center"
@@ -331,7 +331,7 @@ function LazySection({ children }: { children: React.ReactNode }) {
 
 export function renderSection(section: Section, index: number, landingLocations?: string[], programSlug?: string): React.ReactNode {
   const sectionType = (section as { type: string }).type;
-  
+
   switch (sectionType) {
     // EAGER components - no Suspense needed
     case "hero":
@@ -387,7 +387,7 @@ export function renderSection(section: Section, index: number, landingLocations?
         />
       );
     }
-    
+
     // LAZY components - wrapped in Suspense
     case "syllabus":
       return <LazySection key={index}><SyllabusSection data={section as Parameters<typeof SyllabusSection>[0]["data"]} /></LazySection>;
@@ -494,17 +494,17 @@ export function renderSection(section: Section, index: number, landingLocations?
 // Mobile Preview using real iframe for proper media query support
 function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  
+
   // Send sections to iframe
   const sendToIframe = useCallback(() => {
     const iframe = iframeRef.current;
     if (!iframe?.contentWindow) return;
-    
+
     const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     iframe.contentWindow.postMessage({ type: 'preview-update', sections }, '*');
     iframe.contentWindow.postMessage({ type: 'theme-update', theme }, '*');
   }, [sections]);
-  
+
   // Listen for iframe ready message and send sections
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -512,21 +512,21 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
         sendToIframe();
       }
     };
-    
+
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, [sendToIframe]);
-  
+
   // Re-send when sections change
   useEffect(() => {
     sendToIframe();
   }, [sections, sendToIframe]);
-  
+
   const handleIframeLoad = useCallback(() => {
     // Send after iframe loads
     setTimeout(sendToIframe, 100);
   }, [sendToIframe]);
-  
+
   return (
     <div className="flex justify-center bg-muted/50 min-h-screen py-8">
       <div 
@@ -552,28 +552,28 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
   const previewBreakpoint = editMode?.previewBreakpoint;
-  
+
   const renderSectionWithContext = useCallback((section: Section, index: number) => {
     const sectionType = (section as { type: string }).type;
-    
+
     if (sectionType === "cta_banner") {
       return <LazySection key={index}><CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} /></LazySection>;
     }
-    
+
     if (sectionType === "lead_form") {
       return <LazySection key={index}><LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} /></LazySection>;
     }
-    
+
     return renderSection(section, index, landingLocations, programSlug);
   }, [programSlug, landingLocations]);
-  
+
   const handleMoveUp = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index <= 0) return;
-    
+
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "reorder_sections", from: index, to: index - 1 }
     ]);
-    
+
     if (result.success) {
       toast({ title: "Section moved up" });
       emitContentUpdated({ contentType, slug, locale });
@@ -581,14 +581,14 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       toast({ title: "Failed to move section", description: result.error, variant: "destructive" });
     }
   }, [contentType, slug, locale, toast]);
-  
+
   const handleMoveDown = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index >= sections.length - 1) return;
-    
+
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "reorder_sections", from: index, to: index + 1 }
     ]);
-    
+
     if (result.success) {
       toast({ title: "Section moved down" });
       emitContentUpdated({ contentType, slug, locale });
@@ -596,18 +596,18 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       toast({ title: "Failed to move section", description: result.error, variant: "destructive" });
     }
   }, [contentType, slug, locale, sections.length, toast]);
-  
+
   const handleDelete = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale) return;
-    
+
     if (!window.confirm("Are you sure you want to delete this section? This cannot be undone.")) {
       return;
     }
-    
+
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "remove_item", path: "sections", index }
     ]);
-    
+
     if (result.success) {
       toast({ title: "Section deleted" });
       emitContentUpdated({ contentType, slug, locale });
@@ -615,21 +615,21 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
     }
   }, [contentType, slug, locale, toast]);
-  
+
   const handleDuplicate = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale) return;
-    
+
     const sectionToDuplicate = sections[index];
     if (!sectionToDuplicate) return;
-    
+
     if (!window.confirm("Duplicate this section?")) {
       return;
     }
-    
+
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "add_item", path: "sections", index: index + 1, item: sectionToDuplicate }
     ]);
-    
+
     if (result.success) {
       toast({ title: "Section duplicated" });
       emitContentUpdated({ contentType, slug, locale });
@@ -639,7 +639,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   }, [contentType, slug, locale, sections, toast]);
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
-  
+
   const content = (
     <>
       <AddSectionButton
@@ -662,14 +662,14 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
         const renderedSection = renderSectionWithContext(section, index);
         const layoutStyles = getSectionLayoutStyles(section);
         const showOn = (section as SectionLayout).showOn;
-        
+
         // In edit mode: previewBreakpoint controls visibility, no CSS classes needed
         // In production: CSS classes handle responsive visibility
         const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
         const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
-        
+
         if (!renderedSection) return null;
-        
+
         // In edit mode, hide section content but keep AddSectionButton for insertion points
         if (!isVisible && isEditMode) {
           return (
@@ -684,7 +684,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
             </div>
           );
         }
-        
+
         const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
@@ -715,12 +715,12 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       })}
     </>
   );
-  
+
   if (isMobilePreview) {
     return (
       <MobilePreviewFrame sections={sections} />
     );
   }
-  
+
   return content;
 }

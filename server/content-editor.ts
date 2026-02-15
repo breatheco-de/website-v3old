@@ -5,12 +5,13 @@ import { z } from "zod";
 import type { EditOperation } from "@shared/schema";
 import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
 import { normalizeLocale } from "@shared/locale";
+import { getFolderFromSlug } from "@shared/slugMappings";
 import { deepMerge } from "./utils/deepMerge";
 import { markFileAsModified } from "./sync-state";
 
 const CONTENT_BASE_PATH = path.join(process.cwd(), "marketing-content");
 
-function getContentFolder(contentType: string, slug: string): string {
+function getContentFolder(contentType: string, slug: string, locale?: string): string {
   switch (contentType) {
     case "program":
       return path.join(CONTENT_BASE_PATH, "programs", slug);
@@ -19,7 +20,7 @@ function getContentFolder(contentType: string, slug: string): string {
     case "location":
       return path.join(CONTENT_BASE_PATH, "locations", slug);
     case "page":
-      return path.join(CONTENT_BASE_PATH, "pages", slug);
+      return path.join(CONTENT_BASE_PATH, "pages", locale ? getFolderFromSlug(slug, locale) : slug);
     default:
       throw new Error(`Unknown content type: ${contentType}`);
   }
@@ -77,7 +78,7 @@ function getContentPath(contentType: string, slug: string, locale: string, varia
       folder = path.join(CONTENT_BASE_PATH, "locations", slug);
       break;
     case "page":
-      folder = path.join(CONTENT_BASE_PATH, "pages", slug);
+      folder = path.join(CONTENT_BASE_PATH, "pages", getFolderFromSlug(slug, locale));
       break;
     default:
       throw new Error(`Unknown content type: ${contentType}`);
@@ -206,7 +207,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     }
     
     // Load _common.yml if it exists
-    const contentFolder = getContentFolder(contentType, slug);
+    const contentFolder = getContentFolder(contentType, slug, locale);
     const commonPath = path.join(contentFolder, "_common.yml");
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {
@@ -392,7 +393,7 @@ export function getContentForEdit(
     }
     
     // Load _common.yml if it exists
-    const contentFolder = getContentFolder(contentType, slug);
+    const contentFolder = getContentFolder(contentType, slug, locale);
     const commonPath = path.join(contentFolder, "_common.yml");
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {

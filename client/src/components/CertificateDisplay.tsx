@@ -43,7 +43,7 @@ export function CertificateDisplay({
   );
 
   const textColumn = (
-    <div className="px-4 md:px-8">
+    <div className="px-4 md:ps-7">
       {description && (
         <p 
           className="text-body mb-8 leading-relaxed text-foreground"
@@ -115,7 +115,7 @@ export function CertificateDisplay({
         }}
       />
       
-      <div className="relative grid lg:grid-cols-2 gap-12 items-center pt-4 lg:pt-0">
+      <div className="relative grid lg:grid-cols-2 gap-8 items-center pt-4 lg:pt-0">
         {isCertificateLeft ? (
           <>
             {certificateColumn}

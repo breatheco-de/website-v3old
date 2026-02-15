@@ -2,6 +2,7 @@ import { IconFlag } from "@tabler/icons-react";
 import Marquee from "react-fast-marquee";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useLocation } from "wouter";
 
 export interface TestimonialsSlideTestimonial {
   name: string;
@@ -139,6 +140,116 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   }
 ];
 
+const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
+  {
+    name: "Loretta Thompson",
+    img: "/attached_assets/ttaLoretta_1764725322100.jpeg",
+    status: "Graduada",
+    country: { iso: "us", name: "Estados Unidos" },
+    contributor: "United Way Miami",
+    description: "Loretta se unió en 2022 y se graduó en 2023. Encontró trabajo en los meses siguientes y completó el círculo de habilidades + empleo que todos queremos lograr.",
+    achievement: "Obtuvo un aumento salarial del 45%"
+  },
+  {
+    name: "Rich Akers",
+    img: "/attached_assets/Akers_1764725327796.jpeg",
+    status: "Graduado",
+    country: { iso: "us", name: "Estados Unidos" },
+    contributor: "Clark University",
+    description: "Richard es un gran desarrollador que hizo la transición desde un campo completamente diferente y ahora trabaja como desarrollador web en el sector tecnológico.",
+    achievement: "Obtuvo un aumento salarial del 30%"
+  },
+  {
+    name: "MaiLinh Tran",
+    img: "/attached_assets/MaiLinh_1764725334980.png",
+    status: "Graduada",
+    country: { iso: "us", name: "Estados Unidos" },
+    contributor: "Clark University",
+    description: "Una emprendedora apasionada por la tecnología que ahora se enfoca en el lado del desarrollo de su proyecto.",
+    achievement: "Lanzó su startup, es capaz de contratar talento técnico y coordina un equipo de desarrollo."
+  },
+  {
+    name: "Jorge Martín Coimbra",
+    img: "/attached_assets/coimbra_1764725341501.png",
+    status: "Graduado",
+    country: { iso: "uy", name: "Uruguay" },
+    contributor: "UTEC-BID",
+    description: "Martín se unió al primer programa que lanzamos junto con UTEC y el BID. Consiguió un trabajo mejor remunerado, una carrera que le apasiona y una nueva vida profesional.",
+    achievement: "Obtuvo un aumento salarial del 100%"
+  },
+  {
+    name: "Jean St. Cloud",
+    img: "/attached_assets/JeanSt.Cloud_1764725356935.jpeg",
+    status: "Graduado",
+    country: { iso: "us", name: "Estados Unidos" },
+    contributor: "Clark",
+    description: "Jean está haciendo la transición desde la industria musical y encontró su camino en la tecnología. Lo logró con el apoyo de Clark University y ya se desempeña como desarrollador y mentor.",
+    achievement: "Obtuvo un aumento salarial del 100%"
+  },
+  {
+    name: "Alexandra Espinoza",
+    img: "/attached_assets/AlexandraEspinoza_1764725386161.jpeg",
+    status: "Graduada",
+    country: { iso: "cr", name: "Costa Rica" },
+    contributor: "CINDE-BID",
+    description: "Alexandra venía de un contexto completamente diferente y ha sido una gran revelación para ella y todos a su alrededor. Ahora es una desarrolladora de software exitosa y talentosa en Costa Rica.",
+    achievement: "Obtuvo un aumento salarial del 100%"
+  },
+  {
+    name: "Gabriel Salazar",
+    img: "/attached_assets/GabrielSalazar_1764725392872.jpeg",
+    status: "Graduado",
+    country: { iso: "cr", name: "Costa Rica" },
+    contributor: "CINDE-BID",
+    description: "Gabriel ya era especialista de soporte en Microsoft y después de completar el programa logró una nueva posición dentro de Microsoft donde ahora trabaja como Ingeniero de Software.",
+    achievement: "Obtuvo un aumento salarial del 50%"
+  },
+  {
+    name: "Laura Magallanes",
+    img: "/attached_assets/Laura_1764725397398.jpeg",
+    status: "Graduada",
+    country: { iso: "uy", name: "Uruguay" },
+    contributor: "UTEC-BID",
+    description: "Laura es simplemente extraordinaria. De un pequeño pueblo en Uruguay sin experiencia en programación, ahora es jefa de hogar, instructora y coordinadora de programa.",
+    achievement: "Obtuvo un aumento salarial del 120%"
+  },
+  {
+    name: "Melanie Galaretto",
+    img: "/attached_assets/MelamnieGalaretto_1764725408397.jpeg",
+    status: "Graduada",
+    country: { iso: "uy", name: "Uruguay" },
+    contributor: "UTEC-BID",
+    description: "Melanie es una joven profesional que soñaba con alcanzar una vida que ahora le pertenece. Es una desarrolladora de software ingeniosa y comprometida que trabaja en una empresa de software en su país.",
+    achievement: "Obtuvo un aumento salarial del +100%"
+  },
+  {
+    name: "Natia Lombardo",
+    img: "/attached_assets/NatiaLombardo_1764725413363.jpeg",
+    status: "Graduada",
+    country: { iso: "uy", name: "Uruguay" },
+    contributor: "UTEC-BID",
+    description: "Natia es filósofa y desarrolladora de software. Actualmente trabaja como Ingeniera QA en una gran empresa internacional exitosa."
+  },
+  {
+    name: "Luis Larraburo",
+    img: "/attached_assets/LuisLarraburo_1764725418057.jpeg",
+    status: "Graduado",
+    country: { iso: "cr", name: "Costa Rica" },
+    contributor: "CINDE-BID",
+    description: "Luis llegó al programa sin experiencia previa. Ahora es desarrollador de software trabajando en una empresa tecnológica en Costa Rica.",
+    achievement: "Obtuvo un aumento salarial del 50%"
+  },
+  {
+    name: "Leandro Matonte",
+    img: "/attached_assets/Leandro_1764725403142.jpeg",
+    status: "Graduado",
+    country: { iso: "uy", name: "Uruguay" },
+    contributor: "UTEC-BID",
+    description: "Leandro entró al programa con la expectativa de obtener una mejor comprensión y habilidades de programación que lo ayudarían con su decisión de graduarse en ciencias de la computación. Ahora es desarrollador de software en una empresa tecnológica en Uruguay.",
+    achievement: "Obtuvo un aumento salarial del 60%"
+  }
+];
+
 const sizeConfig: Record<CardSize, { lineClamp: string; minHeight: string }> = {
   small: { lineClamp: "line-clamp-3 md:line-clamp-2", minHeight: "min-h-[140px]" },
   medium: { lineClamp: "line-clamp-5 md:line-clamp-4", minHeight: "min-h-[180px]" },
@@ -257,6 +368,8 @@ function MasonryColumnComponent({ column }: { column: MasonryColumn }) {
 }
 
 export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
+  const [location] = useLocation();
+  const isSpanish = location.startsWith("/es/") || location === "/es";
   const [isPlaying, setIsPlaying] = useState(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -295,9 +408,10 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
     }, 500);
   }, [prefersReducedMotion]);
 
+  const defaultFallback = isSpanish ? DEFAULT_TESTIMONIALS_ES : DEFAULT_TESTIMONIALS;
   const testimonials = data.testimonials && data.testimonials.length > 0 
     ? data.testimonials 
-    : DEFAULT_TESTIMONIALS;
+    : defaultFallback;
   const masonryColumns = createMasonryColumns(testimonials);
 
   return (

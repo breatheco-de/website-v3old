@@ -496,16 +496,26 @@ function BenefitCardsVariant({ data }: TwoColumnProps) {
             )}
           </div>
           
-          {/* Right Column: Image (centered vertically when stacked) */}
-          {data.right?.image && (
+          {/* Right Column: Video or Image (centered vertically when stacked) */}
+          {(data.right?.video || data.right?.image) && (
             <div className="flex items-center justify-center">
-              <img 
-                src={data.right.image}
-                alt={data.right.image_alt || "Section image"}
-                className="rounded-md w-full h-auto max-w-md"
-                loading="lazy"
-                data-testid="img-benefit-cards"
-              />
+              {data.right?.video ? (
+                <div className="w-full max-w-md">
+                  <UniversalVideo
+                    url={data.right.video}
+                    ratio={data.right.video_ratio || "16:9"}
+                    preview_image_url={data.right.video_preview_image}
+                  />
+                </div>
+              ) : data.right?.image ? (
+                <img 
+                  src={data.right.image}
+                  alt={data.right.image_alt || "Section image"}
+                  className="rounded-md w-full h-auto max-w-md"
+                  loading="lazy"
+                  data-testid="img-benefit-cards"
+                />
+              ) : null}
             </div>
           )}
         </div>

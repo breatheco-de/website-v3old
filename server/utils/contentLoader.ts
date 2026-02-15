@@ -126,7 +126,7 @@ export function loadContent<T>(options: LoadContentOptions<T>): LoadContentResul
  */
 export function listContentSlugs(contentType: ContentType): string[] {
   const contentDir = path.join(MARKETING_CONTENT_PATH, contentType);
-  
+
   if (!fs.existsSync(contentDir)) {
     return [];
   }
@@ -148,7 +148,7 @@ export function listContentSlugs(contentType: ContentType): string[] {
  */
 export function getAvailableLocalesOrVariants(contentType: ContentType, slug: string): string[] {
   const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, slug);
-  
+
   if (!fs.existsSync(contentDir)) {
     return [];
   }
@@ -174,7 +174,7 @@ export function getAvailableLocalesOrVariants(contentType: ContentType, slug: st
  */
 export function loadCommonData(contentType: ContentType, slug: string): Record<string, unknown> | null {
   const commonPath = path.join(MARKETING_CONTENT_PATH, contentType, slug, "_common.yml");
-  
+
   if (!fs.existsSync(commonPath)) {
     return null;
   }
