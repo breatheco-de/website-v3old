@@ -15,13 +15,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { IconArrowLeft, IconArrowRight, IconSearch, IconRoute, IconExternalLink, IconChevronRight, IconShieldCheck, IconTestPipe, IconAlertTriangle, IconCircleCheck, IconPlus, IconX, IconTrash } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconSearch, IconRoute, IconExternalLink, IconChevronRight, IconShieldCheck, IconTestPipe, IconAlertTriangle, IconCircleCheck, IconPlus, IconX, IconTrash, IconTool } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { isDebugModeActive } from "@/hooks/useDebugAuth";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { SitemapSearch } from "@/components/menus/SitemapSearch";
 import { useToast } from "@/hooks/use-toast";
 import { LocaleFlag } from "@/components/DebugBubble/components/LocaleFlag";
+import {
+  RedirectConflictResolverModal,
+  parseRedirectConflict,
+  useRedirectConflictResolver,
+} from "@/components/RedirectConflictResolver";
 
 interface Redirect {
   from: string;
@@ -84,6 +89,7 @@ export default function PrivateRedirects() {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const { toast } = useToast();
+  const { resolveModalOpen, setResolveModalOpen, activeConflict, openResolver } = useRedirectConflictResolver();
 
   useEffect(() => {
     setIsAuthorized(isDebugModeActive());
@@ -416,10 +422,12 @@ export default function PrivateRedirects() {
               </div>
             ) : (
             <div className="space-y-2">
-              {validationResult.errors.map((issue, i) => (
+              {validationResult.errors.map((issue, i) => {
+                const conflict = parseRedirectConflict(issue);
+                return (
                 <div key={`err-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border bg-destructive/5 border-destructive/20" data-testid={`validation-error-${i}`}>
                   <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
                       <Badge variant="destructive" className="text-xs">{issue.code}</Badge>
                       {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
@@ -429,12 +437,27 @@ export default function PrivateRedirects() {
                       <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
                     )}
                   </div>
+                  {conflict && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-shrink-0 gap-1"
+                      onClick={() => openResolver(issue)}
+                      data-testid={`button-resolve-error-${i}`}
+                    >
+                      <IconTool className="h-3.5 w-3.5" />
+                      Resolve
+                    </Button>
+                  )}
                 </div>
-              ))}
-              {validationResult.warnings.map((issue, i) => (
+                );
+              })}
+              {validationResult.warnings.map((issue, i) => {
+                const conflict = parseRedirectConflict(issue);
+                return (
                 <div key={`warn-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }} data-testid={`validation-warning-${i}`}>
                   <IconAlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
                       <Badge variant="secondary" className="text-xs">{issue.code}</Badge>
                       {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
@@ -444,8 +467,21 @@ export default function PrivateRedirects() {
                       <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
                     )}
                   </div>
+                  {conflict && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-shrink-0 gap-1"
+                      onClick={() => openResolver(issue)}
+                      data-testid={`button-resolve-warning-${i}`}
+                    >
+                      <IconTool className="h-3.5 w-3.5" />
+                      Resolve
+                    </Button>
+                  )}
                 </div>
-              ))}
+                );
+              })}
             </div>
             )}
           </div>
@@ -760,6 +796,16 @@ export default function PrivateRedirects() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <RedirectConflictResolverModal
+        open={resolveModalOpen}
+        onOpenChange={setResolveModalOpen}
+        conflict={activeConflict}
+        onResolved={() => {
+          queryClient.invalidateQueries({ queryKey: ['/api/debug/redirects'] });
+          runValidation();
+        }}
+      />
     </div>
   );
 }
