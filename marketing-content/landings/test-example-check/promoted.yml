@@ -34,7 +34,7 @@ sections:
     version: "1.0"
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
-    title: Cohort Schedule Table
+    title: Cohort Schedule
     columns:
       - key: name
         label: Cohort Name
