@@ -570,7 +570,7 @@ export function VariableDetailModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent ref={dialogRef} className={`max-w-lg max-h-[85vh] ${varComboboxOpen ? "overflow-visible" : "overflow-y-auto"}`} data-testid="variable-detail-modal">
+      <DialogContent ref={dialogRef} className="max-w-lg max-h-[85vh] overflow-y-auto" data-testid="variable-detail-modal">
         {currentMode === "create" ? (
           <>
             <DialogHeader>
@@ -605,7 +605,7 @@ export function VariableDetailModal({
                             <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current} onCloseAutoFocus={(e) => e.preventDefault()}>
+                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0 z-[9999]" align="start">
                           <Command>
                             <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
                             <CommandList>
@@ -617,7 +617,7 @@ export function VariableDetailModal({
                                     value={name}
                                     onSelect={(val) => {
                                       setExistingVarName(val);
-                                      requestAnimationFrame(() => setVarComboboxOpen(false));
+                                      setVarComboboxOpen(false);
                                     }}
                                     data-testid={`variable-option-${name}`}
                                   >
