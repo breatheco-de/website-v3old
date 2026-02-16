@@ -579,7 +579,7 @@ export function VariableDetailModal({
                             <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current}>
+                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current} onCloseAutoFocus={(e) => e.preventDefault()}>
                           <Command>
                             <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
                             <CommandList>
@@ -591,7 +591,7 @@ export function VariableDetailModal({
                                     value={name}
                                     onSelect={(val) => {
                                       setExistingVarName(val === existingVarName ? "" : val);
-                                      setVarComboboxOpen(false);
+                                      requestAnimationFrame(() => setVarComboboxOpen(false));
                                     }}
                                     data-testid={`variable-option-${name}`}
                                   >
