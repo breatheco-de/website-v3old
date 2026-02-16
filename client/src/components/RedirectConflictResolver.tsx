@@ -313,6 +313,11 @@ export function RedirectConflictResolverModal({
                       <span className="text-xs font-medium text-muted-foreground whitespace-nowrap mt-px">Result:</span>
                       <span className="text-sm text-foreground">{warning.result}</span>
                     </div>
+                    {pendingAction.keepFile && (
+                      <p className="text-xs text-muted-foreground pt-1 border-t border-chart-5/20">
+                        {conflict.redirectUrl} → {formatFilePath(pendingAction.keepFile)}
+                      </p>
+                    )}
                   </div>
                 );
               })()}
