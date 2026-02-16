@@ -2239,6 +2239,21 @@ export function DebugBubble() {
                     testId="link-redirects-page"
                     rightContent={<span className="text-xs text-muted-foreground">{redirectsList.length || '...'}</span>}
                   />
+                  <MenuItem
+                    icon={IconBook}
+                    label="Blog Cache"
+                    onClick={clearBlogCache}
+                    testId="button-clear-blog-cache"
+                    rightContent={
+                      blogCacheClearStatus === "loading" ? (
+                        <IconRefresh className="h-3.5 w-3.5 animate-spin" />
+                      ) : blogCacheClearStatus === "success" ? (
+                        <IconCheck className="h-3.5 w-3.5 text-chart-3" />
+                      ) : (
+                        <IconRefresh className="h-3.5 w-3.5" />
+                      )
+                    }
+                  />
                 </ExpandableMenuItem>
                 
                 <ExpandableMenuItem
@@ -2290,22 +2305,6 @@ export function DebugBubble() {
                   testId="link-diagnostics"
                 />
 
-                <MenuItem
-                  icon={IconBook}
-                  label="Blog Cache"
-                  onClick={clearBlogCache}
-                  testId="button-clear-blog-cache"
-                  rightContent={
-                    blogCacheClearStatus === "loading" ? (
-                      <IconRefresh className="h-3.5 w-3.5 animate-spin" />
-                    ) : blogCacheClearStatus === "success" ? (
-                      <IconCheck className="h-3.5 w-3.5 text-chart-3" />
-                    ) : (
-                      <IconRefresh className="h-3.5 w-3.5" />
-                    )
-                  }
-                />
-                
                 {contentInfo.type && contentInfo.slug && (
                   <MenuItem
                     icon={IconFlask}
