@@ -97,12 +97,15 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
         data-testid="section-cta-banner"
       >
         <div className="max-w-4xl mx-auto text-center">
-          <h2 
-            className="text-primary-foreground mb-4"
-            data-testid="text-cta-banner-title"
-          >
-            {data.title}
-          </h2>
+          {data.title && 
+            <h2 
+              className="text-primary-foreground mb-4"
+              data-testid="text-cta-banner-title"
+            >
+              {data.title}
+            </h2>
+          }
+
           {data.subtitle && (
             <p 
               className="text-body opacity-90 mb-6 max-w-2xl mx-auto" style={{ fontSize: '16px' }}

@@ -103,7 +103,6 @@
     { "id": "secondary", "label": "Secondary" },
     { "id": "outline", "label": "Outline" },
     { "id": "ghost", "label": "Ghost" },
-    { "id": "link", "label": "Link" },
     { "id": "destructive", "label": "Destructive" }
   ]
 }
