@@ -4,17 +4,13 @@ export const dynamicTableColumnSchema = z.object({
   key: z.string(),
   label: z.string(),
   type: z.enum(["text", "number", "date", "image", "link", "boolean"]),
+  function: z.string().optional(),
   template: z.string().optional(),
 });
 
 export const dynamicTableActionSchema = z.object({
   label: z.string(),
   href: z.string(),
-});
-
-export const dynamicTableRegionFilterSchema = z.object({
-  key: z.string(),
-  mapping: z.record(z.string(), z.array(z.string())),
 });
 
 export const dynamicTableSectionSchema = z.object({
@@ -27,11 +23,10 @@ export const dynamicTableSectionSchema = z.object({
   background: z.string().optional(),
   columns: z.array(dynamicTableColumnSchema),
   action: dynamicTableActionSchema.optional(),
-  region_filter: dynamicTableRegionFilterSchema.optional(),
+  global_filter: z.string().optional(),
   max_rows: z.number().int().positive().optional(),
 });
 
 export type DynamicTableColumn = z.infer<typeof dynamicTableColumnSchema>;
 export type DynamicTableAction = z.infer<typeof dynamicTableActionSchema>;
-export type DynamicTableRegionFilter = z.infer<typeof dynamicTableRegionFilterSchema>;
 export type DynamicTableSection = z.infer<typeof dynamicTableSectionSchema>;

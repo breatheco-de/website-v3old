@@ -1,0 +1,2163 @@
+{
+    "count": 27,
+    "first": null,
+    "next": null,
+    "previous": null,
+    "last": null,
+    "results": [
+        {
+            "id": 1452,
+            "slug": "latam-pt-70",
+            "name": "latam-pt-70",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-02-16T14:09:00Z",
+            "ending_date": "2026-07-03T15:09:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 193,
+                "name": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2341,
+                    "starting_at": "2023-12-12T01:00:00Z",
+                    "ending_at": "2023-12-12T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2342,
+                    "starting_at": "2023-12-14T01:00:00Z",
+                    "ending_at": "2023-12-14T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2343,
+                    "starting_at": "2023-12-16T01:00:00Z",
+                    "ending_at": "2023-12-16T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1455,
+            "slug": "latam-pt-ds-22",
+            "name": "latam-pt-ds-22",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-02-16T14:12:00Z",
+            "ending_date": "2026-06-19T15:12:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 267,
+                "name": "Lun-Mie-Vie 630pm-930pm MX",
+                "schedule_type": "PART-TIME",
+                "description": "Lun-Mie-Vie 630pm-930pm MX",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 2353,
+                    "starting_at": "2025-03-25T00:30:00Z",
+                    "ending_at": "2025-03-25T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                },
+                {
+                    "id": 2354,
+                    "starting_at": "2025-03-27T00:30:00Z",
+                    "ending_at": "2025-03-27T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                },
+                {
+                    "id": 2355,
+                    "starting_at": "2025-03-29T00:30:00Z",
+                    "ending_at": "2025-03-29T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                }
+            ]
+        },
+        {
+            "id": 768,
+            "slug": "spain-fs-pt-general",
+            "name": "Spain FS PT General",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-02-23T12:36:00Z",
+            "ending_date": "2026-07-15T15:27:00Z",
+            "remote_available": false,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 6,
+                "slug": "madrid-spain",
+                "name": "4Geeks Madrid",
+                "country": {
+                    "id": "es",
+                    "code": "es",
+                    "name": "Spain"
+                },
+                "city": {
+                    "id": 1,
+                    "name": "Madrid",
+                    "country": {
+                        "id": "es",
+                        "code": "es",
+                        "name": "Spain"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-madrid-spain",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "EUR",
+                    "name": "Euro"
+                }
+            },
+            "distance": null,
+            "timezone": "Europe/Madrid",
+            "schedule": {
+                "id": 127,
+                "name": "MWF",
+                "schedule_type": "PART-TIME",
+                "description": "Monday, Wednesday, Friday, from 6:30pm to 9:30pm",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 1072,
+                    "starting_at": "2023-01-09T17:30:00Z",
+                    "ending_at": "2023-01-09T20:30:00Z",
+                    "recurrent": false,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 1073,
+                    "starting_at": "2023-01-11T17:30:00Z",
+                    "ending_at": "2023-01-11T20:30:00Z",
+                    "recurrent": false,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 1074,
+                    "starting_at": "2023-01-13T17:30:00Z",
+                    "ending_at": "2023-01-13T20:30:00Z",
+                    "recurrent": false,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1458,
+            "slug": "latam-pt-cs-11",
+            "name": "latam-pt-cs-11",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-03-02T14:15:00Z",
+            "ending_date": "2026-06-19T15:15:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "cyber-security-pt-16-wk",
+                "name": "Cybersecurity PT 16wk",
+                "syllabus": 196,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 9,
+                "github_url": "https://github.com/4GeeksAcademy/cybersecurity-syllabus/tree/main",
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/cybersecurity.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 238,
+                "name": "Lunes Miercoles y Viernes 1830 a 2130 MEX",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes 6:30 a 9:30 MEX",
+                "syllabus": 196
+            },
+            "timeslots": [
+                {
+                    "id": 2362,
+                    "starting_at": "2024-06-25T00:30:00Z",
+                    "ending_at": "2024-06-25T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2363,
+                    "starting_at": "2024-06-27T00:30:00Z",
+                    "ending_at": "2024-06-27T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2364,
+                    "starting_at": "2024-06-29T00:30:00Z",
+                    "ending_at": "2024-06-29T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 767,
+            "slug": "spain-ds-pt-general",
+            "name": "Spain DS PT General",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-03-09T12:34:00Z",
+            "ending_date": "2026-07-15T15:25:00Z",
+            "remote_available": false,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 6,
+                "slug": "madrid-spain",
+                "name": "4Geeks Madrid",
+                "country": {
+                    "id": "es",
+                    "code": "es",
+                    "name": "Spain"
+                },
+                "city": {
+                    "id": 1,
+                    "name": "Madrid",
+                    "country": {
+                        "id": "es",
+                        "code": "es",
+                        "name": "Spain"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-madrid-spain",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "EUR",
+                    "name": "Euro"
+                }
+            },
+            "distance": null,
+            "timezone": "Europe/Madrid",
+            "schedule": {
+                "id": 142,
+                "name": "MWF",
+                "schedule_type": "PART-TIME",
+                "description": "Every monday, wednesday, friday from 18:30 to 21:30",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 1069,
+                    "starting_at": "2023-03-27T16:30:00Z",
+                    "ending_at": "2023-03-27T19:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 1070,
+                    "starting_at": "2023-03-29T16:30:00Z",
+                    "ending_at": "2023-03-29T19:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 1071,
+                    "starting_at": "2023-03-31T16:30:00Z",
+                    "ending_at": "2023-03-31T19:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1442,
+            "slug": "latam-pt-73",
+            "name": "latam-pt-73",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-03-09T13:56:00Z",
+            "ending_date": "2026-07-29T14:56:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Santiago",
+            "schedule": {
+                "id": 251,
+                "name": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2303,
+                    "starting_at": "2024-08-19T22:30:00Z",
+                    "ending_at": "2024-08-20T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2304,
+                    "starting_at": "2024-08-21T22:30:00Z",
+                    "ending_at": "2024-08-22T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2305,
+                    "starting_at": "2024-08-23T22:30:00Z",
+                    "ending_at": "2024-08-24T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1453,
+            "slug": "latam-pt-72",
+            "name": "latam-pt-72",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-03-16T14:11:00Z",
+            "ending_date": "2026-07-31T15:11:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 193,
+                "name": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2344,
+                    "starting_at": "2023-12-12T01:00:00Z",
+                    "ending_at": "2023-12-12T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2345,
+                    "starting_at": "2023-12-14T01:00:00Z",
+                    "ending_at": "2023-12-14T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2346,
+                    "starting_at": "2023-12-16T01:00:00Z",
+                    "ending_at": "2023-12-16T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1456,
+            "slug": "latam-pt-ds-23",
+            "name": "latam-pt-ds-23",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-03-16T14:14:00Z",
+            "ending_date": "2026-07-17T15:14:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 267,
+                "name": "Lun-Mie-Vie 630pm-930pm MX",
+                "schedule_type": "PART-TIME",
+                "description": "Lun-Mie-Vie 630pm-930pm MX",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 2356,
+                    "starting_at": "2025-03-25T00:30:00Z",
+                    "ending_at": "2025-03-25T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                },
+                {
+                    "id": 2357,
+                    "starting_at": "2025-03-27T00:30:00Z",
+                    "ending_at": "2025-03-27T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                },
+                {
+                    "id": 2358,
+                    "starting_at": "2025-03-29T00:30:00Z",
+                    "ending_at": "2025-03-29T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                }
+            ]
+        },
+        {
+            "id": 1538,
+            "slug": "ai-engineering-1",
+            "name": "ai-engineering-1",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-03-16T22:16:00Z",
+            "ending_date": "2026-08-28T22:16:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 2,
+                "status": "PUBLISHED",
+                "slug": "ai-engineer",
+                "name": "AI Engineer",
+                "syllabus": 338,
+                "duration_in_hours": 162,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": null,
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 406,
+                "name": "Monday- Wednesday-Friday-6PM-9PM",
+                "schedule_type": "PART-TIME",
+                "description": "Monday- Wednesday-Friday-6PM-9PM",
+                "syllabus": 338
+            },
+            "timeslots": [
+                {
+                    "id": 2493,
+                    "starting_at": "2026-01-19T23:00:00Z",
+                    "ending_at": "2026-01-20T02:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2494,
+                    "starting_at": "2026-01-21T23:00:00Z",
+                    "ending_at": "2026-01-22T02:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2495,
+                    "starting_at": "2026-01-23T23:00:00Z",
+                    "ending_at": "2026-01-24T02:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1592,
+            "slug": "ft-ai-engineering-1",
+            "name": "ft-ai-engineering-1",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-03-30T13:00:00Z",
+            "ending_date": "2026-07-17T17:00:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 2,
+                "status": "PUBLISHED",
+                "slug": "ai-engineer",
+                "name": "AI Engineer",
+                "syllabus": 338,
+                "duration_in_hours": 162,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": null,
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 408,
+                "name": "ai-fulltime",
+                "schedule_type": "FULL-TIME",
+                "description": "Every day of the week 10AM-1PM",
+                "syllabus": 338
+            },
+            "timeslots": [
+                {
+                    "id": 2550,
+                    "starting_at": "2026-02-16T15:00:00Z",
+                    "ending_at": "2026-02-16T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2551,
+                    "starting_at": "2026-02-10T15:00:00Z",
+                    "ending_at": "2026-02-10T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2552,
+                    "starting_at": "2026-02-18T15:00:00Z",
+                    "ending_at": "2026-02-18T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2553,
+                    "starting_at": "2026-02-19T15:00:00Z",
+                    "ending_at": "2026-02-19T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2554,
+                    "starting_at": "2026-02-20T15:00:00Z",
+                    "ending_at": "2026-02-20T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 939,
+            "slug": "spain-cs-pt-general",
+            "name": "Spain CS PT General",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-03-30T15:19:00Z",
+            "ending_date": "2026-07-22T15:23:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "cyber-security-pt-16-wk",
+                "name": "Cybersecurity PT 16wk",
+                "syllabus": 196,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 9,
+                "github_url": "https://github.com/4GeeksAcademy/cybersecurity-syllabus/tree/main",
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/cybersecurity.png",
+                "private": false
+            },
+            "academy": {
+                "id": 6,
+                "slug": "madrid-spain",
+                "name": "4Geeks Madrid",
+                "country": {
+                    "id": "es",
+                    "code": "es",
+                    "name": "Spain"
+                },
+                "city": {
+                    "id": 1,
+                    "name": "Madrid",
+                    "country": {
+                        "id": "es",
+                        "code": "es",
+                        "name": "Spain"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-madrid-spain",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "EUR",
+                    "name": "Euro"
+                }
+            },
+            "distance": null,
+            "timezone": "Europe/Madrid",
+            "schedule": {
+                "id": 248,
+                "name": "MWF",
+                "schedule_type": "PART-TIME",
+                "description": "Every monday, wednesday & friday from 18:30 to 21:30",
+                "syllabus": 196
+            },
+            "timeslots": []
+        },
+        {
+            "id": 1576,
+            "slug": "miami-cybersecurity-7",
+            "name": "Miami Cybersecurity 7",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-03-30T18:53:00Z",
+            "ending_date": "2026-07-20T19:53:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "cyber-security-pt-16-wk",
+                "name": "Cybersecurity PT 16wk",
+                "syllabus": 196,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 9,
+                "github_url": "https://github.com/4GeeksAcademy/cybersecurity-syllabus/tree/main",
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/cybersecurity.png",
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 249,
+                "name": "cyber security pt-16 weeks",
+                "schedule_type": "PART-TIME",
+                "description": "Mon, Wed, Fri, from 6 to 9 PM EST",
+                "syllabus": 196
+            },
+            "timeslots": []
+        },
+        {
+            "id": 1588,
+            "slug": "ai-engineering-2",
+            "name": "ai-engineering-2",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-03-30T23:08:00Z",
+            "ending_date": "2026-09-11T23:08:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 2,
+                "status": "PUBLISHED",
+                "slug": "ai-engineer",
+                "name": "AI Engineer",
+                "syllabus": 338,
+                "duration_in_hours": 162,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": null,
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 406,
+                "name": "Monday- Wednesday-Friday-6PM-9PM",
+                "schedule_type": "PART-TIME",
+                "description": "Monday- Wednesday-Friday-6PM-9PM",
+                "syllabus": 338
+            },
+            "timeslots": [
+                {
+                    "id": 2544,
+                    "starting_at": "2026-01-19T23:00:00Z",
+                    "ending_at": "2026-01-20T02:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2545,
+                    "starting_at": "2026-01-21T23:00:00Z",
+                    "ending_at": "2026-01-22T02:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2546,
+                    "starting_at": "2026-01-23T23:00:00Z",
+                    "ending_at": "2026-01-24T02:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1575,
+            "slug": "data-science-16",
+            "name": "data-science-16",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-04-13T19:46:00Z",
+            "ending_date": "2026-08-03T19:46:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 35,
+                "name": "Mon-Wed-Fri 6pm-9pm",
+                "schedule_type": "PART-TIME",
+                "description": "Mon-Wed-Fri 6pm-9pm",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 2532,
+                    "starting_at": "2022-05-02T22:00:00Z",
+                    "ending_at": "2022-05-03T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2533,
+                    "starting_at": "2022-05-04T22:00:00Z",
+                    "ending_at": "2022-05-05T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2534,
+                    "starting_at": "2022-05-06T22:00:00Z",
+                    "ending_at": "2022-05-07T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1450,
+            "slug": "latam-pt-75",
+            "name": "latam-pt-75",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-04-20T15:07:00Z",
+            "ending_date": "2026-09-04T15:07:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Santiago",
+            "schedule": {
+                "id": 251,
+                "name": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2335,
+                    "starting_at": "2024-08-19T22:30:00Z",
+                    "ending_at": "2024-08-20T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2336,
+                    "starting_at": "2024-08-21T22:30:00Z",
+                    "ending_at": "2024-08-22T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2337,
+                    "starting_at": "2024-08-23T22:30:00Z",
+                    "ending_at": "2024-08-24T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1454,
+            "slug": "latam-pt-74",
+            "name": "latam-pt-74",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-04-20T15:12:00Z",
+            "ending_date": "2026-09-04T15:12:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 193,
+                "name": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2350,
+                    "starting_at": "2023-12-12T01:00:00Z",
+                    "ending_at": "2023-12-12T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2351,
+                    "starting_at": "2023-12-14T01:00:00Z",
+                    "ending_at": "2023-12-14T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2352,
+                    "starting_at": "2023-12-16T01:00:00Z",
+                    "ending_at": "2023-12-16T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1457,
+            "slug": "latam-pt-ds-24",
+            "name": "latam-pt-ds-24",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-04-20T15:15:00Z",
+            "ending_date": "2026-08-14T15:15:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 267,
+                "name": "Lun-Mie-Vie 630pm-930pm MX",
+                "schedule_type": "PART-TIME",
+                "description": "Lun-Mie-Vie 630pm-930pm MX",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 2359,
+                    "starting_at": "2025-03-25T00:30:00Z",
+                    "ending_at": "2025-03-25T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                },
+                {
+                    "id": 2360,
+                    "starting_at": "2025-03-27T00:30:00Z",
+                    "ending_at": "2025-03-27T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                },
+                {
+                    "id": 2361,
+                    "starting_at": "2025-03-29T00:30:00Z",
+                    "ending_at": "2025-03-29T03:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "DAILY"
+                }
+            ]
+        },
+        {
+            "id": 1451,
+            "slug": "latam-pt-77",
+            "name": "latam-pt-77",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-05-18T15:08:00Z",
+            "ending_date": "2026-10-02T14:08:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Santiago",
+            "schedule": {
+                "id": 251,
+                "name": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2347,
+                    "starting_at": "2024-08-19T22:30:00Z",
+                    "ending_at": "2024-08-20T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2348,
+                    "starting_at": "2024-08-21T22:30:00Z",
+                    "ending_at": "2024-08-22T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2349,
+                    "starting_at": "2024-08-23T22:30:00Z",
+                    "ending_at": "2024-08-24T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1462,
+            "slug": "latam-pt-76",
+            "name": "latam-pt-76",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-05-18T15:21:00Z",
+            "ending_date": "2026-10-02T14:21:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 193,
+                "name": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2374,
+                    "starting_at": "2023-12-12T01:00:00Z",
+                    "ending_at": "2023-12-12T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2375,
+                    "starting_at": "2023-12-14T01:00:00Z",
+                    "ending_at": "2023-12-14T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2376,
+                    "starting_at": "2023-12-16T01:00:00Z",
+                    "ending_at": "2023-12-16T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1460,
+            "slug": "latam-pt-79",
+            "name": "latam-pt-79",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-06-15T15:19:00Z",
+            "ending_date": "2026-10-30T14:19:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Santiago",
+            "schedule": {
+                "id": 251,
+                "name": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2368,
+                    "starting_at": "2024-08-19T22:30:00Z",
+                    "ending_at": "2024-08-20T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2369,
+                    "starting_at": "2024-08-21T22:30:00Z",
+                    "ending_at": "2024-08-22T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2370,
+                    "starting_at": "2024-08-23T22:30:00Z",
+                    "ending_at": "2024-08-24T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1463,
+            "slug": "latam-pt-78",
+            "name": "latam-pt-78",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-06-15T15:22:00Z",
+            "ending_date": "2026-10-30T14:22:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Mexico_City",
+            "schedule": {
+                "id": 193,
+                "name": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes 7 a 10 MEX",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2377,
+                    "starting_at": "2023-12-12T01:00:00Z",
+                    "ending_at": "2023-12-12T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2378,
+                    "starting_at": "2023-12-14T01:00:00Z",
+                    "ending_at": "2023-12-14T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2379,
+                    "starting_at": "2023-12-16T01:00:00Z",
+                    "ending_at": "2023-12-16T04:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1581,
+            "slug": "miami-cybersecurity-8",
+            "name": "Miami Cybersecurity 8",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-06-29T20:21:00Z",
+            "ending_date": "2026-10-19T19:21:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "cyber-security-pt-16-wk",
+                "name": "Cybersecurity PT 16wk",
+                "syllabus": 196,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 9,
+                "github_url": "https://github.com/4GeeksAcademy/cybersecurity-syllabus/tree/main",
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/cybersecurity.png",
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 249,
+                "name": "cyber security pt-16 weeks",
+                "schedule_type": "PART-TIME",
+                "description": "Mon, Wed, Fri, from 6 to 9 PM EST",
+                "syllabus": 196
+            },
+            "timeslots": []
+        },
+        {
+            "id": 1593,
+            "slug": "ft-ai-engineering-2",
+            "name": "ft-ai-engineering-2",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-06-29T21:14:00Z",
+            "ending_date": "2026-10-16T20:14:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 2,
+                "status": "PUBLISHED",
+                "slug": "ai-engineer",
+                "name": "AI Engineer",
+                "syllabus": 338,
+                "duration_in_hours": 162,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": null,
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 408,
+                "name": "ai-fulltime",
+                "schedule_type": "FULL-TIME",
+                "description": "Every day of the week 10AM-1PM",
+                "syllabus": 338
+            },
+            "timeslots": [
+                {
+                    "id": 2555,
+                    "starting_at": "2026-02-16T15:00:00Z",
+                    "ending_at": "2026-02-16T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2556,
+                    "starting_at": "2026-02-10T15:00:00Z",
+                    "ending_at": "2026-02-10T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2557,
+                    "starting_at": "2026-02-18T15:00:00Z",
+                    "ending_at": "2026-02-18T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2558,
+                    "starting_at": "2026-02-19T15:00:00Z",
+                    "ending_at": "2026-02-19T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2559,
+                    "starting_at": "2026-02-20T15:00:00Z",
+                    "ending_at": "2026-02-20T18:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1461,
+            "slug": "latam-pt-81",
+            "name": "latam-pt-81",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "es",
+            "kickoff_date": "2026-07-13T15:20:00Z",
+            "ending_date": "2026-11-27T14:20:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "full-stack-pt-18w",
+                "name": "Full-Stack Software Developer 18w",
+                "syllabus": 152,
+                "duration_in_hours": 360,
+                "duration_in_days": 54,
+                "week_hours": 9,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/full-stack.png",
+                "private": false
+            },
+            "academy": {
+                "id": 7,
+                "slug": "online",
+                "name": "4Geeks Latam",
+                "country": {
+                    "id": "on",
+                    "code": "on",
+                    "name": "Online"
+                },
+                "city": {
+                    "id": 4,
+                    "name": "Remote",
+                    "country": {
+                        "id": "on",
+                        "code": "on",
+                        "name": "Online"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-online",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/Santiago",
+            "schedule": {
+                "id": 251,
+                "name": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "schedule_type": "PART-TIME",
+                "description": "Lunes Miercoles y Viernes de 630pm a 930pm CHILE",
+                "syllabus": 152
+            },
+            "timeslots": [
+                {
+                    "id": 2371,
+                    "starting_at": "2024-08-19T22:30:00Z",
+                    "ending_at": "2024-08-20T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2372,
+                    "starting_at": "2024-08-21T22:30:00Z",
+                    "ending_at": "2024-08-22T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2373,
+                    "starting_at": "2024-08-23T22:30:00Z",
+                    "ending_at": "2024-08-24T01:30:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1579,
+            "slug": "data-science-17",
+            "name": "data-science-17",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-07-13T20:11:00Z",
+            "ending_date": "2026-11-02T19:11:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 35,
+                "name": "Mon-Wed-Fri 6pm-9pm",
+                "schedule_type": "PART-TIME",
+                "description": "Mon-Wed-Fri 6pm-9pm",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 2535,
+                    "starting_at": "2022-05-02T22:00:00Z",
+                    "ending_at": "2022-05-03T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2536,
+                    "starting_at": "2022-05-04T22:00:00Z",
+                    "ending_at": "2022-05-05T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2537,
+                    "starting_at": "2022-05-06T22:00:00Z",
+                    "ending_at": "2022-05-07T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        },
+        {
+            "id": 1582,
+            "slug": "miami-cybersecurity-9",
+            "name": "Miami Cybersecurity 9",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-09-28T19:27:00Z",
+            "ending_date": "2027-02-01T19:27:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 4,
+                "status": "PUBLISHED",
+                "slug": "cyber-security-pt-16-wk",
+                "name": "Cybersecurity PT 16wk",
+                "syllabus": 196,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 9,
+                "github_url": "https://github.com/4GeeksAcademy/cybersecurity-syllabus/tree/main",
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/cybersecurity.png",
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 249,
+                "name": "cyber security pt-16 weeks",
+                "schedule_type": "PART-TIME",
+                "description": "Mon, Wed, Fri, from 6 to 9 PM EST",
+                "syllabus": 196
+            },
+            "timeslots": []
+        },
+        {
+            "id": 1580,
+            "slug": "data-science-18",
+            "name": "data-science-18",
+            "never_ends": false,
+            "private": false,
+            "micro_cohorts": [],
+            "language": "en",
+            "kickoff_date": "2026-10-12T19:15:00Z",
+            "ending_date": "2027-02-15T19:15:00Z",
+            "remote_available": true,
+            "syllabus_version": {
+                "version": 6,
+                "status": "PUBLISHED",
+                "slug": "machine-learning-pt-16w",
+                "name": "Data Science and Machine Learning - 16 wks",
+                "syllabus": 42,
+                "duration_in_hours": 320,
+                "duration_in_days": 48,
+                "week_hours": 20,
+                "github_url": null,
+                "logo": "https://storage.googleapis.com/breathecode/logos-technologias/datascience.jpg",
+                "private": false
+            },
+            "academy": {
+                "id": 4,
+                "slug": "downtown-miami",
+                "name": "4Geeks Miami",
+                "country": {
+                    "id": "us",
+                    "code": "us",
+                    "name": "USA"
+                },
+                "city": {
+                    "id": 3,
+                    "name": "Miami",
+                    "country": {
+                        "id": "us",
+                        "code": "us",
+                        "name": "USA"
+                    }
+                },
+                "logo_url": "https://storage.googleapis.com/admissions-breathecode/location-downtown-miami",
+                "is_hidden_on_prework": true,
+                "main_currency": {
+                    "code": "USD",
+                    "name": "US Dollar"
+                }
+            },
+            "distance": null,
+            "timezone": "America/New_York",
+            "schedule": {
+                "id": 35,
+                "name": "Mon-Wed-Fri 6pm-9pm",
+                "schedule_type": "PART-TIME",
+                "description": "Mon-Wed-Fri 6pm-9pm",
+                "syllabus": 42
+            },
+            "timeslots": [
+                {
+                    "id": 2538,
+                    "starting_at": "2022-05-02T22:00:00Z",
+                    "ending_at": "2022-05-03T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2539,
+                    "starting_at": "2022-05-04T22:00:00Z",
+                    "ending_at": "2022-05-05T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                },
+                {
+                    "id": 2540,
+                    "starting_at": "2022-05-06T22:00:00Z",
+                    "ending_at": "2022-05-07T01:00:00Z",
+                    "recurrent": true,
+                    "recurrency_type": "WEEKLY"
+                }
+            ]
+        }
+    ]
+}

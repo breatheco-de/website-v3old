@@ -34,7 +34,7 @@ interface SitemapSearchProps {
   portalContainer?: HTMLElement | null;
 }
 
-export function SitemapSearch({ value, onChange, placeholder = "/page-url", testId, locale = "en", portalContainer }: SitemapSearchProps) {
+export function SitemapSearch({ value, onChange, placeholder = "/page-url", testId, locale = "", portalContainer }: SitemapSearchProps) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCustomMode, setIsCustomMode] = useState(false);
@@ -48,7 +48,8 @@ export function SitemapSearch({ value, onChange, placeholder = "/page-url", test
   const { data: sitemapUrls = [], isLoading } = useQuery<SitemapEntry[]>({
     queryKey: ["/api/sitemap-urls", locale],
     queryFn: async () => {
-      const response = await fetch(`/api/sitemap-urls?locale=${locale}`);
+      const url = locale ? `/api/sitemap-urls?locale=${locale}` : "/api/sitemap-urls";
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to load sitemap URLs");
       return response.json();
     },
