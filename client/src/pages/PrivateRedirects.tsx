@@ -142,6 +142,14 @@ export default function PrivateRedirects() {
     ? validationResult.errors.length + validationResult.warnings.length
     : 0;
 
+  const originHasUrlOrDomain = (() => {
+    const v = newFrom.trim();
+    if (!v) return false;
+    const stripped = v.startsWith("/") ? v.slice(1) : v;
+    return /https?:\/\//i.test(stripped) || /[a-z0-9][-a-z0-9]*\.[a-z]{2,}/i.test(stripped);
+  })();
+  const isOriginInvalid = newFrom.trim() !== "" && (originHasUrlOrDomain || !newFrom.startsWith("/"));
+
   const isLandingDestination = newTo.startsWith("/landing");
 
   const stripLocalePrefix = (url: string) => url.replace(/^\/(en|es)(\/|$)/, "/");
@@ -625,16 +633,25 @@ export default function PrivateRedirects() {
                 placeholder="/old-page-url"
                 value={newFrom}
                 onChange={(e) => setNewFrom(e.target.value.replace(/\s+/g, "-"))}
+                className={isOriginInvalid ? "border-destructive" : ""}
                 data-testid="input-redirect-from"
               />
-              {newFrom && (
-                <p className="text-xs text-muted-foreground">
-                  Visitors to <code className="bg-muted px-1 rounded">{newFrom.startsWith("/") ? newFrom : `/${newFrom}`}</code> will be redirected
+              {originHasUrlOrDomain ? (
+                <p className="text-xs text-destructive">
+                  Just the path, please — no need for the full website address. Start with <code className="bg-muted px-1 rounded">/</code>
                 </p>
-              )}
+              ) : newFrom.trim() && !newFrom.startsWith("/") ? (
+                <p className="text-xs text-destructive">
+                  The path must start with <code className="bg-muted px-1 rounded">/</code>
+                </p>
+              ) : newFrom ? (
+                <p className="text-xs text-muted-foreground">
+                  Visitors to <code className="bg-muted px-1 rounded">{newFrom}</code> will be redirected
+                </p>
+              ) : null}
             </div>
 
-            {newFrom.trim() && (
+            {newFrom.trim() && !isOriginInvalid && (
               <div className="space-y-2">
                 <Label>Destination</Label>
                 {!newTo ? (
@@ -730,7 +747,7 @@ export default function PrivateRedirects() {
             </Button>
             <Button
               onClick={handleSubmitRedirect}
-              disabled={!newFrom.trim() || !newTo.trim() || isSubmitting}
+              disabled={isOriginInvalid || !newFrom.trim() || !newTo.trim() || isSubmitting}
               data-testid="button-save-redirect"
             >
               {isSubmitting ? "Adding..." : "Add Redirect"}
