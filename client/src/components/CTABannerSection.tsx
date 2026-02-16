@@ -115,8 +115,10 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
           {hasMultipleButtons ? (
             <div className="flex flex-wrap justify-center gap-4 pb-2">
               {filteredButtons!.map((button: CtaButton, index: number) => {
-                const variant = button.variant === "primary" ? "default" : button.variant === "secondary" ? "secondary" : "outline";
-                const outlineStyles = button.variant === "outline" ? "border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10" : "";
+                const resolvedVariant = button.button_variant || button.variant;
+                const variant = resolvedVariant === "primary" ? "default" : resolvedVariant === "secondary" ? "secondary" : resolvedVariant === "ghost" ? "ghost" : resolvedVariant === "link" ? "link" : resolvedVariant === "destructive" ? "destructive" : resolvedVariant === "outline" ? "outline" : "default";
+                const outlineStyles = resolvedVariant === "outline" ? "border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10" : "";
+                const textColorStyle = button.text_color ? { color: button.text_color } : undefined;
                 return (
                   <Button
                     key={index}
@@ -124,6 +126,7 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
                     size="lg"
                     asChild
                     className={outlineStyles}
+                    style={textColorStyle}
                     data-testid={`button-cta-banner-${index}`}
                   >
                     <a href={button.url} onClick={handleLinkClick}>{button.text}</a>

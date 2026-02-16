@@ -11,9 +11,9 @@ export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "imag
 
 export const fieldEditors: Record<string, EditorType> = {
   "images[].src": "image-with-style-picker",
-  "highlight.heading": "rich-text-editor",
-  "highlight.text": "rich-text-editor",
-  "highlight.slides[].heading": "rich-text-editor",
-  "highlight.slides[].text": "rich-text-editor",
+  "highlight.text_1": "rich-text-editor",
+  "highlight.text_2": "rich-text-editor",
+  "highlight.slides[].text_1": "rich-text-editor",
+  "highlight.slides[].text_2": "rich-text-editor",
   "highlight.reverse_text_order": "boolean-toggle"
 };
