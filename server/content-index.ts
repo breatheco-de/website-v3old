@@ -515,6 +515,22 @@ class ContentIndex {
     return [...this.redirectEntries];
   }
 
+  getAllValidUrls(): Set<string> {
+    this.ensureInitialized();
+    const urls = new Set<string>();
+    for (const entry of this.entries) {
+      for (const locale of entry.locales) {
+        if (locale.startsWith("_") || locale.includes(".")) continue;
+        const localeUrls = this.getLocaleUrls(entry.slug, entry.contentType);
+        for (const url of Object.values(localeUrls)) {
+          urls.add(url);
+        }
+        break;
+      }
+    }
+    return urls;
+  }
+
   refresh(): void {
     this.scan();
   }
