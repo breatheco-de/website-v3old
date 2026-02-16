@@ -5,8 +5,40 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
+import { contentIndex } from "./content-index";
 
 const viteLogger = createLogger();
+
+const STATIC_ROUTES = new Set([
+  "/",
+  "/en",
+  "/en/",
+  "/es",
+  "/es/",
+  "/old-home",
+  "/en/apply",
+  "/es/aplica",
+  "/terms-conditions",
+  "/terminos-condiciones",
+  "/privacy-policy",
+  "/politica-privacidad",
+  "/preview-frame",
+]);
+
+const STATIC_PREFIXES = ["/private/", "/api/"];
+
+function isKnownRoute(url: string): boolean {
+  const cleanUrl = url.split("?")[0].split("#")[0];
+  if (STATIC_ROUTES.has(cleanUrl)) return true;
+  for (const prefix of STATIC_PREFIXES) {
+    if (cleanUrl.startsWith(prefix)) return true;
+  }
+  try {
+    const validUrls = contentIndex.getAllValidUrls();
+    if (validUrls.has(cleanUrl)) return true;
+  } catch {}
+  return false;
+}
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -59,7 +91,8 @@ export async function setupVite(app: Express, server: Server) {
         `src="/src/main.tsx?v=${nanoid()}"`,
       );
       const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      const status = isKnownRoute(url) ? 200 : 404;
+      res.status(status).set({ "Content-Type": "text/html" }).end(page);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);
       next(e);
@@ -80,6 +113,7 @@ export function serveStatic(app: Express) {
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    const status = isKnownRoute(_req.originalUrl) ? 200 : 404;
+    res.status(status).sendFile(path.resolve(distPath, "index.html"));
   });
 }
