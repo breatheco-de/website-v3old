@@ -71,7 +71,7 @@ export default function Footer() {
           <a
             href="/"
             onClick={handleLinkClick}
-            className="flex mb-8 items-center h-full"
+            className="flex items-center h-full"
             data-testid="link-footer-home"
           >
             <img src={logo} alt="4Geeks Academy" className="h-8" />
