@@ -335,7 +335,7 @@ function EditableSection({ level, label, entries, defaultValue, onSave, onDelete
         const options = getKeyOptionsForLevel(level, existingKeys);
         return (
           <div className="flex items-center gap-2 py-1">
-            <Select value={newKey} onValueChange={setNewKey} data-testid={`select-new-key-${level}`}>
+            <Select value={newKey} onValueChange={setNewKey}>
               <SelectTrigger className="w-48 flex-shrink-0" data-testid={`select-trigger-new-key-${level}`}>
                 <SelectValue placeholder={
                   level === "by_location" ? "Select location" :
@@ -344,13 +344,14 @@ function EditableSection({ level, label, entries, defaultValue, onSave, onDelete
                 } />
               </SelectTrigger>
               <SelectContent>
-                {options.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value} data-testid={`select-option-${opt.value}`}>
-                    {opt.label}
-                  </SelectItem>
-                ))}
-                {options.length === 0 && (
-                  <div className="px-3 py-2 text-sm text-muted-foreground italic">All options already added</div>
+                {options.length === 0 ? (
+                  <SelectItem value="__empty__" disabled>All options already added</SelectItem>
+                ) : (
+                  options.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value} data-testid={`select-option-${opt.value}`}>
+                      {opt.label}
+                    </SelectItem>
+                  ))
                 )}
               </SelectContent>
             </Select>
