@@ -548,6 +548,7 @@ export function DebugBubble() {
     return "light";
   });
   const [cacheClearStatus, setCacheClearStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [blogCacheClearStatus, setBlogCacheClearStatus] = useState<"idle" | "loading" | "success">("idle");
   const [sitemapUrls, setSitemapUrls] = useState<SitemapUrl[]>([]);
   const [sitemapSearch, setSitemapSearch] = useState("");
   const [sitemapLoading, setSitemapLoading] = useState(false);
@@ -1670,6 +1671,24 @@ export function DebugBubble() {
     }
   };
 
+  const clearBlogCache = async () => {
+    setBlogCacheClearStatus("loading");
+    try {
+      const response = await fetch("/api/debug/clear-blog-cache", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        setBlogCacheClearStatus("success");
+        setTimeout(() => setBlogCacheClearStatus("idle"), 2000);
+      } else {
+        setBlogCacheClearStatus("idle");
+      }
+    } catch {
+      setBlogCacheClearStatus("idle");
+    }
+  };
+
   const handleLocationOverride = () => {
     if (!selectedLocationSlug) return;
     const url = new URL(window.location.href);
@@ -2133,6 +2152,22 @@ export function DebugBubble() {
                   href="/private/diagnostics"
                   indicator="arrow"
                   testId="link-diagnostics"
+                />
+
+                <MenuItem
+                  icon={IconBook}
+                  label="Blog Cache"
+                  onClick={clearBlogCache}
+                  testId="button-clear-blog-cache"
+                  rightContent={
+                    blogCacheClearStatus === "loading" ? (
+                      <IconRefresh className="h-3.5 w-3.5 animate-spin" />
+                    ) : blogCacheClearStatus === "success" ? (
+                      <IconCheck className="h-3.5 w-3.5 text-chart-3" />
+                    ) : (
+                      <IconRefresh className="h-3.5 w-3.5" />
+                    )
+                  }
                 />
                 
                 {contentInfo.type && contentInfo.slug && (

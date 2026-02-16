@@ -70,6 +70,7 @@ import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
 import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItems, buildFaqPageSchema, type FaqSection } from "./ssr-schema";
+import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml } from "./blog";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -938,6 +939,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } else {
       res.json(urls);
     }
+  });
+
+  // ============================================================================
+  // Blog API routes
+  // ============================================================================
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const locale = req.query.locale as string | undefined;
+      const posts = await getBlogPosts();
+      const filtered = locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts;
+      res.json({
+        count: filtered.length,
+        results: filtered,
+      });
+    } catch (error) {
+      console.error("[Blog] Error fetching posts:", error);
+      res.status(500).json({ error: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const posts = await getBlogPosts();
+      const post = findBlogPostBySlug(posts, slug);
+
+      if (!post) {
+        res.status(404).json({ error: "Blog post not found" });
+        return;
+      }
+
+      res.json(post);
+    } catch (error) {
+      console.error("[Blog] Error fetching post:", error);
+      res.status(500).json({ error: "Failed to fetch blog post" });
+    }
+  });
+
+  app.get("/api/blog/cache-status", (_req, res) => {
+    res.json(getBlogCacheStatus());
+  });
+
+  app.post("/api/debug/clear-blog-cache", (_req, res) => {
+    const result = clearBlogCache();
+    res.json(result);
   });
 
   // Clear sitemap cache (requires token validation)
@@ -4869,13 +4915,35 @@ sections: []
     }
   });
 
-  app.use((req, res, next) => {
+  app.use(async (req, res, next) => {
     const url = req.originalUrl || req.url;
     if (url.startsWith("/api/") || url.startsWith("/attached_assets/") || url.startsWith("/marketing-content/") || /\.\w+$/.test(url)) {
       return next();
     }
 
-    const schemaHtml = generateSsrSchemaHtml(url);
+    let schemaHtml = "";
+
+    const blogRoute = parseBlogRoute(url);
+    if (blogRoute) {
+      try {
+        const posts = await getBlogPosts();
+        const post = findBlogPostBySlug(posts, blogRoute.slug);
+        if (post) {
+          schemaHtml = generateBlogSsrHtml(post, blogRoute.locale);
+        }
+      } catch (err) {
+        console.error("[SSR-Blog] Error generating blog schema for", url, err);
+      }
+    } else {
+      const cleanUrl = url.split("?")[0].split("#")[0];
+      const blogListingMatch = cleanUrl.match(/^\/(en|es)\/blog\/?$/);
+      if (blogListingMatch) {
+        schemaHtml = generateBlogListingSsrHtml(blogListingMatch[1]);
+      } else {
+        schemaHtml = generateSsrSchemaHtml(url);
+      }
+    }
+
     if (!schemaHtml) {
       return next();
     }
