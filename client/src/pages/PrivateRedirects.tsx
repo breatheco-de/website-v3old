@@ -69,6 +69,7 @@ export default function PrivateRedirects() {
   const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
   const [isValidating, setIsValidating] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
+  const [validationExpanded, setValidationExpanded] = useState(false);
 
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [newFrom, setNewFrom] = useState("");
@@ -91,6 +92,7 @@ export default function PrivateRedirects() {
 
   const runValidation = useCallback(async () => {
     setIsValidating(true);
+    setValidationExpanded(false);
     try {
       const res = await apiRequest("POST", "/api/validation/run/redirects");
       const data = await res.json();
@@ -404,49 +406,79 @@ export default function PrivateRedirects() {
       {showValidation && validationResult && (
         <div className="border-b" style={{ background: "hsl(var(--muted-foreground) / 0.05)" }}>
           <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center gap-2 mb-3">
+            <button
+              onClick={() => setValidationExpanded(!validationExpanded)}
+              className="flex items-center gap-2 w-full text-left"
+              data-testid="button-toggle-validation-details"
+            >
+              <IconChevronRight className={`h-4 w-4 text-muted-foreground transition-transform ${validationExpanded ? "rotate-90" : ""}`} />
               <IconShieldCheck className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">Validation Results</span>
               <span className="text-xs text-muted-foreground">({validationResult.duration}ms)</span>
-            </div>
-            {totalIssues === 0 ? (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-md border text-sm">
-                <IconCircleCheck className="h-4 w-4 flex-shrink-0" />
-                All redirect checks passed. No conflicts, loops, or self-redirects found.
+              <div className="flex items-center gap-2 ml-auto">
+                {totalIssues === 0 ? (
+                  <Badge variant="secondary" className="text-xs gap-1">
+                    <IconCircleCheck className="h-3 w-3" />
+                    All passed
+                  </Badge>
+                ) : (
+                  <>
+                    {validationResult.errors.length > 0 && (
+                      <Badge variant="destructive" className="text-xs">
+                        {validationResult.errors.length} error{validationResult.errors.length !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                    {validationResult.warnings.length > 0 && (
+                      <Badge variant="secondary" className="text-xs">
+                        {validationResult.warnings.length} warning{validationResult.warnings.length !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                  </>
+                )}
               </div>
-            ) : (
-            <div className="space-y-2">
-              {validationResult.errors.map((issue, i) => (
-                <div key={`err-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border bg-destructive/5 border-destructive/20" data-testid={`validation-error-${i}`}>
-                  <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <Badge variant="destructive" className="text-xs">{issue.code}</Badge>
-                      {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
-                    </div>
-                    <p className="text-sm mt-1">{stripContentPath(issue.message)}</p>
-                    {issue.suggestion && (
-                      <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
-                    )}
+            </button>
+            {validationExpanded && (
+              <div className="mt-3 space-y-2">
+                {totalIssues === 0 ? (
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-md border text-sm">
+                    <IconCircleCheck className="h-4 w-4 flex-shrink-0" />
+                    All redirect checks passed. No conflicts, loops, or self-redirects found.
                   </div>
-                </div>
-              ))}
-              {validationResult.warnings.map((issue, i) => (
-                <div key={`warn-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }} data-testid={`validation-warning-${i}`}>
-                  <IconAlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <Badge variant="secondary" className="text-xs">{issue.code}</Badge>
-                      {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
-                    </div>
-                    <p className="text-sm mt-1">{stripContentPath(issue.message)}</p>
-                    {issue.suggestion && (
-                      <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+                ) : (
+                  <>
+                    {validationResult.errors.map((issue, i) => (
+                      <div key={`err-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border bg-destructive/5 border-destructive/20" data-testid={`validation-error-${i}`}>
+                        <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Badge variant="destructive" className="text-xs">{issue.code}</Badge>
+                            {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
+                          </div>
+                          <p className="text-sm mt-1">{stripContentPath(issue.message)}</p>
+                          {issue.suggestion && (
+                            <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    {validationResult.warnings.map((issue, i) => (
+                      <div key={`warn-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }} data-testid={`validation-warning-${i}`}>
+                        <IconAlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Badge variant="secondary" className="text-xs">{issue.code}</Badge>
+                            {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
+                          </div>
+                          <p className="text-sm mt-1">{stripContentPath(issue.message)}</p>
+                          {issue.suggestion && (
+                            <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
             )}
           </div>
         </div>
