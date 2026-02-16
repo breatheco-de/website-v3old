@@ -92,13 +92,15 @@ function getConflictDescription(info: RedirectConflictInfo): string {
 
   switch (info.code) {
     case "REDIRECT_CONFLICT":
-      return `Two different pages are trying to own the URL "${info.redirectUrl}" as a redirect. Right now, both ${fileNames.length >= 2 ? `"${fileNames[0]}" and "${fileNames[1]}"` : "files"} define this redirect, which creates a conflict. Choose which page should keep it — the redirect will be removed from the other.`;
+      return fileNames.length >= 2
+        ? `"${info.redirectUrl}" is claimed by both "${fileNames[0]}" and "${fileNames[1]}". Choose which one should keep it.`
+        : `"${info.redirectUrl}" is claimed by multiple files. Choose which one should keep it.`;
     case "REDIRECT_OVERLAP":
-      return `The redirect "${info.redirectUrl}" is defined twice: once in the shared file (_common.yml, which applies to all languages) and again in a language-specific file. This duplication can cause unexpected behavior. Choose where it should live.`;
+      return `"${info.redirectUrl}" is defined in both _common.yml and a language file. Pick one to avoid duplication.`;
     case "SELF_REDIRECT":
-      return `The URL "${info.redirectUrl}" has a redirect that points back to itself, creating an infinite loop. Anyone visiting this URL would get stuck in a redirect cycle. This redirect needs to be removed.`;
+      return `"${info.redirectUrl}" redirects to itself, creating a loop. It should be removed.`;
     case "REDIRECT_OVERWRITES_CONTENT":
-      return `There is a redirect defined for "${info.redirectUrl}", but a real page already exists at that same URL. The redirect is hiding the page — visitors who go to ${info.redirectUrl} get sent somewhere else instead of seeing the actual page content. Removing the redirect will make the page visible again.`;
+      return `A page already exists at "${info.redirectUrl}", but a redirect is hiding it. Remove the redirect to make the page visible.`;
     default:
       return `There's an issue with the redirect "${info.redirectUrl}".`;
   }
@@ -108,18 +110,18 @@ function getConfirmationWarning(conflict: RedirectConflictInfo, selectedFile: st
   switch (conflict.code) {
     case "REDIRECT_CONFLICT": {
       const removedFile = conflict.files.find(f => f !== selectedFile);
-      return `The redirect "${conflict.redirectUrl}" will be deleted from "${formatFilePath(removedFile || "")}" and kept in "${formatFilePath(selectedFile)}". Visitors going to ${conflict.redirectUrl} will be redirected according to the rules in "${formatFilePath(selectedFile)}".`;
+      return `"${conflict.redirectUrl}" will be removed from "${formatFilePath(removedFile || "")}" and kept in "${formatFilePath(selectedFile)}".`;
     }
     case "REDIRECT_OVERLAP": {
       const removedFile = selectedFile.includes("_common.yml")
         ? conflict.files.find(f => !f.includes("_common.yml"))
         : conflict.files.find(f => f.includes("_common.yml"));
-      return `The duplicate redirect "${conflict.redirectUrl}" will be removed from "${formatFilePath(removedFile || "")}". It will continue working from "${formatFilePath(selectedFile)}".`;
+      return `The duplicate in "${formatFilePath(removedFile || "")}" will be removed. The redirect will keep working from "${formatFilePath(selectedFile)}".`;
     }
     case "SELF_REDIRECT":
-      return `The self-referencing redirect at "${conflict.redirectUrl}" will be removed from "${formatFilePath(selectedFile)}". After this, the URL will load normally instead of looping.`;
+      return `The self-redirect will be removed from "${formatFilePath(selectedFile)}". The URL will load normally.`;
     case "REDIRECT_OVERWRITES_CONTENT":
-      return `The redirect at "${conflict.redirectUrl}" will be removed from "${formatFilePath(selectedFile)}". After this, visitors going to ${conflict.redirectUrl} will see the actual page content instead of being sent somewhere else.`;
+      return `The redirect will be removed from "${formatFilePath(selectedFile)}". Visitors will see the page content instead of being redirected.`;
     default:
       return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFilePath(selectedFile)}".`;
   }

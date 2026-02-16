@@ -648,6 +648,7 @@ export default function PrivateRedirects() {
                       onChange={handleDestinationChange}
                       placeholder="Search for a page..."
                       testId="input-redirect-to"
+                      locale=""
                       portalContainer={dialogRef.current}
                     />
                   </div>
@@ -704,7 +705,10 @@ export default function PrivateRedirects() {
 
                     {!isLandingDestination && !isCustomDestination && (
                       <div className="flex items-center justify-between gap-4 border-t pt-3">
-                        <Label htmlFor="all-languages" className="text-sm font-medium">All languages</Label>
+                        <div>
+                          <Label htmlFor="all-languages" className="text-sm font-medium">All languages</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">One redirect, auto-detects visitor language</p>
+                        </div>
                         <Switch
                           id="all-languages"
                           checked={allLanguages}
