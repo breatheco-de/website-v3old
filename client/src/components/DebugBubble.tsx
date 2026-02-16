@@ -696,6 +696,17 @@ export function DebugBubble() {
   // Detect current content info from URL
   const contentInfo = useMemo(() => detectContentInfo(pathname), [pathname]);
 
+  useEffect(() => {
+    setSlugEditorExpanded(false);
+    setNewSlugValue("");
+    setSlugCheckStatus("idle");
+    setSlugCheckReason(null);
+    setSlugRenaming(false);
+    setSlugRedirectPrompt(false);
+    setSlugOldUrls({});
+    setSlugNewUrls({});
+  }, [contentInfo.slug]);
+
   // Check if location is currently overridden via query string
   const currentLocationOverride = typeof window !== "undefined" 
     ? new URLSearchParams(window.location.search).get("location") 
