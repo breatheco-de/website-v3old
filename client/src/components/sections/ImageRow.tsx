@@ -206,11 +206,13 @@ function HighlightSlideshow({
                 pointerEvents: isActive ? "auto" : "none",
               };
 
-          const headingTextLen = hasHtmlTags(slide.heading)
-            ? getTextLength(slide.heading)
-            : slide.heading.length;
-          const headingDuration = headingTextLen * 30;
-          const textStartDelay = 650 + headingDuration + 400;
+          const t1 = slide.text_1 || slide.heading || "";
+          const t2 = slide.text_2 || slide.text || "";
+          const first = reverseTextOrder ? t2 : t1;
+          const second = reverseTextOrder ? t1 : t2;
+          const firstLen = hasHtmlTags(first) ? getTextLength(first) : first.length;
+          const firstDuration = firstLen * 30;
+          const secondStartDelay = 650 + firstDuration + 400;
 
           return (
             <div
@@ -219,50 +221,24 @@ function HighlightSlideshow({
               style={slideStyle}
               data-testid={`slide-content-${index}`}
             >
-              {!reverseTextOrder ? (
-                <>
-                  <p className="text-body mb-4 font-light">
-                    <TypewriterText
-                      text={slide.heading}
-                      startDelayMs={650}
-                      charDelayMs={30}
-                      isActive={isActive && isVisible}
-                      isEditMode={isEditMode}
-                    />
-                  </p>
-                  <p className="text-h2 leading-tight">
-                    <TypewriterText
-                      text={slide.text}
-                      startDelayMs={textStartDelay}
-                      charDelayMs={25}
-                      isActive={isActive && isVisible}
-                      isEditMode={isEditMode}
-                    />
-                  </p>
-                </>
-              ) : (
-                <>
-
-                  <p className="text-body mb-4 font-light">
-                    <TypewriterText
-                      text={slide.text}
-                      startDelayMs={650}
-                      charDelayMs={30}
-                      isActive={isActive && isVisible}
-                      isEditMode={isEditMode}
-                    />
-                  </p>
-                  <p className="text-h2 leading-tight">
-                    <TypewriterText
-                      text={slide.heading}
-                      startDelayMs={textStartDelay}
-                      charDelayMs={25}
-                      isActive={isActive && isVisible}
-                      isEditMode={isEditMode}
-                    />
-                  </p>
-                </>
-              )}
+              <div className="mb-4">
+                <TypewriterText
+                  text={first}
+                  startDelayMs={650}
+                  charDelayMs={30}
+                  isActive={isActive && isVisible}
+                  isEditMode={isEditMode}
+                />
+              </div>
+              <div className="leading-tight">
+                <TypewriterText
+                  text={second}
+                  startDelayMs={secondStartDelay}
+                  charDelayMs={25}
+                  isActive={isActive && isVisible}
+                  isEditMode={isEditMode}
+                />
+              </div>
             </div>
           );
         })}
@@ -391,9 +367,11 @@ export default function ImageRow({ data }: ImageRowProps) {
 
   const slides: ImageRowSlide[] = highlight?.slides?.length
     ? highlight.slides
-    : highlight?.heading && highlight?.text
-      ? [{ heading: highlight.heading, text: highlight.text }]
-      : [];
+    : (highlight?.text_1 && highlight?.text_2)
+      ? [{ text_1: highlight.text_1, text_2: highlight.text_2 }]
+      : (highlight?.heading && highlight?.text)
+        ? [{ text_1: highlight.heading, text_2: highlight.text }]
+        : [];
 
   const autoplayInterval = highlight?.autoplay_interval || 5000;
   const showIndicators = highlight?.show_indicators !== false;

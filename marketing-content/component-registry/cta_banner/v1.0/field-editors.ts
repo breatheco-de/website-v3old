@@ -7,12 +7,14 @@
  * Note: The 'variant' field is handled directly in SectionEditorPanel.tsx
  * with a dedicated VariantPicker component for cta_banner sections.
  * 
- * EditorType options: "icon-picker" | "color-picker" | "image-picker" | "link-picker"
+ * EditorType options: "icon-picker" | "color-picker" | "image-picker" | "link-picker" | "variant-picker" | "rich-text-editor"
  */
 
-export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker";
+export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker" | "variant-picker" | "rich-text-editor";
 
 export const fieldEditors: Record<string, EditorType> = {
   "form_background": "color-picker",
-  "terms_color": "color-picker"
+  "terms_color": "color-picker",
+  "buttons[].button_variant": "variant-picker",
+  "buttons[].text_color": "color-picker:text" as EditorType
 };

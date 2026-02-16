@@ -11,12 +11,12 @@ images:
 
 highlight:
   slides:
-    - heading: "The 'average student' doesn't exist."
-      text: "YOU DO—with your unique strengths, weaknesses and learning style."
-    - heading: "Learning shouldn't be one-size-fits-all."
-      text: "Our AI adapts to how YOU learn best."
-    - heading: "Your success is our mission."
-      text: "Join thousands who transformed their careers with 4Geeks."
+    - text_1: "The 'average student' doesn't exist."
+      text_2: "YOU DO—with your unique strengths, weaknesses and learning style."
+    - text_1: "Learning shouldn't be one-size-fits-all."
+      text_2: "Our AI adapts to how YOU learn best."
+    - text_1: "Your success is our mission."
+      text_2: "Join thousands who transformed their careers with 4Geeks."
   background: primary
   width: 2
   autoplay_interval: 5000
