@@ -418,11 +418,11 @@ export function VariableDetailModal({
     : variableName;
 
   const definition = definitions?.[effectiveVarName];
-  const resolution = definition
-    ? resolveVariable(effectiveVarName, definitions!, varContext)
+  const resolution = definition && definitions
+    ? resolveVariable(effectiveVarName, definitions, varContext)
     : null;
 
-  const resolvedValue = resolution?.value || inlineDefault || effectiveVarName;
+  const resolvedValue = resolution?.value || inlineDefault || effectiveVarName || "—";
   const resolvedSource = resolution?.source || (inlineDefault ? "inline" : "unresolved");
 
   const handleCreate = useCallback(async () => {
@@ -616,7 +616,7 @@ export function VariableDetailModal({
                                     key={name}
                                     value={name}
                                     onSelect={(val) => {
-                                      setExistingVarName(val === existingVarName ? "" : val);
+                                      setExistingVarName(val);
                                       requestAnimationFrame(() => setVarComboboxOpen(false));
                                     }}
                                     data-testid={`variable-option-${name}`}
@@ -886,7 +886,7 @@ export function VariableDetailModal({
                   <p className="text-xs font-medium text-muted-foreground">How it resolves across contexts:</p>
                   <div className="rounded-md border divide-y">
                     {contextSamples.map((sample) => {
-                      const res = resolveVariable(effectiveVarName, definitions!, sample.context);
+                      const res = definitions && effectiveVarName ? resolveVariable(effectiveVarName, definitions, sample.context) : null;
                       const value = res?.value || definition.default || inlineDefault || "—";
                       const source = res?.source || "default";
                       return (
