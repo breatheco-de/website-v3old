@@ -1890,6 +1890,9 @@ export function SectionEditorPanel({
                   "media.ratio",
                   "ratio",
                 ]);
+                if (fields.some((f) => f.fieldName === "button_variant")) {
+                  hiddenFields.add("variant");
+                }
 
                 const getNestedValue = (
                   obj: Record<string, unknown>,
