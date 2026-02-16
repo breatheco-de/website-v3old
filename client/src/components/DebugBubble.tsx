@@ -616,6 +616,8 @@ export function DebugBubble() {
   const [createContentSlugEs, setCreateContentSlugEs] = useState("");
   const [createContentSlugEnStatus, setCreateContentSlugEnStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
   const [createContentSlugEsStatus, setCreateContentSlugEsStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+  const [slugEnConflictReason, setSlugEnConflictReason] = useState<string | null>(null);
+  const [slugEsConflictReason, setSlugEsConflictReason] = useState<string | null>(null);
   const [editingSlugEn, setEditingSlugEn] = useState(false);
   const [editingSlugEs, setEditingSlugEs] = useState(false);
   const [isCreatingContent, setIsCreatingContent] = useState(false);
@@ -1504,6 +1506,8 @@ export function DebugBubble() {
       setCreateContentSlugEs("");
       setCreateContentSlugEnStatus('idle');
       setCreateContentSlugEsStatus('idle');
+      setSlugEnConflictReason(null);
+      setSlugEsConflictReason(null);
       setCreateContentModalOpen(true);
     } else {
       toast({ title: "No se puede duplicar", description: "Tipo de contenido no reconocido", variant: "destructive" });
@@ -3480,6 +3484,8 @@ export function DebugBubble() {
           setCreateContentSlugEs("");
           setCreateContentSlugEnStatus('idle');
           setCreateContentSlugEsStatus('idle');
+          setSlugEnConflictReason(null);
+          setSlugEsConflictReason(null);
           setEditingSlugEn(false);
           setEditingSlugEs(false);
           setCreateContentType('page');
@@ -3525,15 +3531,21 @@ export function DebugBubble() {
                         setCreateContentSlugEnStatus('checking');
                         fetch(`/api/content/check-slug?type=${v}&slug=${createContentSlugEn}&locale=en`)
                           .then(res => res.json())
-                          .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                          .catch(() => setCreateContentSlugEnStatus('idle'));
+                          .then(data => {
+                            setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                            setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                          })
+                          .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                       }
                       if (createContentSlugEs) {
                         setCreateContentSlugEsStatus('checking');
                         fetch(`/api/content/check-slug?type=${v}&slug=${createContentSlugEs}&locale=es`)
                           .then(res => res.json())
-                          .then(data => setCreateContentSlugEsStatus(data.available ? 'available' : 'taken'))
-                          .catch(() => setCreateContentSlugEsStatus('idle'));
+                          .then(data => {
+                            setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
+                            setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                          })
+                          .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
                       }
                     } else {
                       // For landings, validate single slug
@@ -3541,8 +3553,11 @@ export function DebugBubble() {
                         setCreateContentSlugEnStatus('checking');
                         fetch(`/api/content/check-slug?type=landing&slug=${createContentSlugEn}`)
                           .then(res => res.json())
-                          .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                          .catch(() => setCreateContentSlugEnStatus('idle'));
+                          .then(data => {
+                            setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                            setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                          })
+                          .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                       }
                     }
                   }}
@@ -3610,24 +3625,35 @@ export function DebugBubble() {
                       setCreateContentSlugEnStatus('checking');
                       fetch(`/api/content/check-slug?type=landing&slug=${slug}`)
                         .then(res => res.json())
-                        .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                        .catch(() => setCreateContentSlugEnStatus('idle'));
+                        .then(data => {
+                          setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                          setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                        })
+                        .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                     } else {
                       // Other types: validate both EN/ES slugs
                       setCreateContentSlugEnStatus('checking');
                       setCreateContentSlugEsStatus('checking');
                       fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=en`)
                         .then(res => res.json())
-                        .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                        .catch(() => setCreateContentSlugEnStatus('idle'));
+                        .then(data => {
+                          setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                          setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                        })
+                        .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                       fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=es`)
                         .then(res => res.json())
-                        .then(data => setCreateContentSlugEsStatus(data.available ? 'available' : 'taken'))
-                        .catch(() => setCreateContentSlugEsStatus('idle'));
+                        .then(data => {
+                          setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
+                          setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                        })
+                        .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
                     }
                   } else {
                     setCreateContentSlugEnStatus('idle');
                     setCreateContentSlugEsStatus('idle');
+                    setSlugEnConflictReason(null);
+                    setSlugEsConflictReason(null);
                   }
                 }}
                 placeholder="e.g., Career Development Guide"
@@ -3659,10 +3685,14 @@ export function DebugBubble() {
                               setCreateContentSlugEnStatus('checking');
                               fetch(`/api/content/check-slug?type=landing&slug=${slug}`)
                                 .then(res => res.json())
-                                .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                                .catch(() => setCreateContentSlugEnStatus('idle'));
+                                .then(data => {
+                                  setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                                  setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                                })
+                                .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                             } else {
                               setCreateContentSlugEnStatus('idle');
+                              setSlugEnConflictReason(null);
                             }
                           }}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -3703,7 +3733,7 @@ export function DebugBubble() {
                     </div>
                   </div>
                   {createContentSlugEnStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">This slug is already taken</p>
+                    <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'This slug is already taken'}</p>
                   )}
                 </div>
                 
@@ -3744,10 +3774,14 @@ export function DebugBubble() {
                               setCreateContentSlugEnStatus('checking');
                               fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=en`)
                                 .then(res => res.json())
-                                .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                                .catch(() => setCreateContentSlugEnStatus('idle'));
+                                .then(data => {
+                                  setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                                  setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                                })
+                                .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                             } else {
                               setCreateContentSlugEnStatus('idle');
+                              setSlugEnConflictReason(null);
                             }
                           }}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -3788,7 +3822,7 @@ export function DebugBubble() {
                     </div>
                   </div>
                   {createContentSlugEnStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">English slug is taken</p>
+                    <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'English slug is taken'}</p>
                   )}
                   
                   {/* Spanish URL Row */}
@@ -3812,10 +3846,14 @@ export function DebugBubble() {
                               setCreateContentSlugEsStatus('checking');
                               fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=es`)
                                 .then(res => res.json())
-                                .then(data => setCreateContentSlugEsStatus(data.available ? 'available' : 'taken'))
-                                .catch(() => setCreateContentSlugEsStatus('idle'));
+                                .then(data => {
+                                  setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
+                                  setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                                })
+                                .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
                             } else {
                               setCreateContentSlugEsStatus('idle');
+                              setSlugEsConflictReason(null);
                             }
                           }}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -3856,7 +3894,7 @@ export function DebugBubble() {
                     </div>
                   </div>
                   {createContentSlugEsStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">Spanish slug is taken</p>
+                    <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || 'Spanish slug is taken'}</p>
                   )}
                 </div>
                 
@@ -3926,6 +3964,8 @@ export function DebugBubble() {
                       setCreateContentSlugEs("");
                       setCreateContentSlugEnStatus('idle');
                       setCreateContentSlugEsStatus('idle');
+                      setSlugEnConflictReason(null);
+                      setSlugEsConflictReason(null);
                       setCreateLandingLocale('en');
                       
                       // Refresh sitemap
@@ -3978,6 +4018,8 @@ export function DebugBubble() {
                       setCreateContentSlugEs("");
                       setCreateContentSlugEnStatus('idle');
                       setCreateContentSlugEsStatus('idle');
+                      setSlugEnConflictReason(null);
+                      setSlugEsConflictReason(null);
                       setDuplicatingPage(null);
                       
                       // Refresh sitemap

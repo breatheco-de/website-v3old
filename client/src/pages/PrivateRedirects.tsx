@@ -83,8 +83,19 @@ export default function PrivateRedirects() {
   const [deletingRedirect, setDeletingRedirect] = useState<Redirect | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const [originCheckStatus, setOriginCheckStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+  const [originCheckReason, setOriginCheckReason] = useState<string | null>(null);
+  const originCheckTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { toast } = useToast();
+
+  const originHasUrlOrDomain = (() => {
+    const v = newFrom.trim();
+    if (!v) return false;
+    const stripped = v.startsWith("/") ? v.slice(1) : v;
+    return /https?:\/\//i.test(stripped) || /[a-z0-9][-a-z0-9]*\.[a-z]{2,}/i.test(stripped);
+  })();
+  const isOriginInvalid = newFrom.trim() !== "" && (originHasUrlOrDomain || !newFrom.startsWith("/") || originCheckStatus === 'taken');
 
   useEffect(() => {
     setIsAuthorized(isDebugModeActive());
@@ -112,6 +123,41 @@ export default function PrivateRedirects() {
       runValidation();
     }
   }, [isAuthorized, runValidation]);
+
+  useEffect(() => {
+    if (originCheckTimer.current) clearTimeout(originCheckTimer.current);
+    const trimmed = newFrom.trim();
+    if (!trimmed || !trimmed.startsWith("/") || originHasUrlOrDomain) {
+      setOriginCheckStatus('idle');
+      setOriginCheckReason(null);
+      return;
+    }
+    setOriginCheckStatus('checking');
+    const controller = new AbortController();
+    originCheckTimer.current = setTimeout(() => {
+      fetch(`/api/content/check-origin?path=${encodeURIComponent(trimmed)}`, { signal: controller.signal })
+        .then(r => r.json())
+        .then(data => {
+          if (data.taken) {
+            setOriginCheckStatus('taken');
+            setOriginCheckReason(data.details || (data.reason === 'existing_redirect' ? 'This path already has a redirect' : 'This path belongs to an existing page'));
+          } else {
+            setOriginCheckStatus('available');
+            setOriginCheckReason(null);
+          }
+        })
+        .catch(() => {
+          if (!controller.signal.aborted) {
+            setOriginCheckStatus('idle');
+            setOriginCheckReason(null);
+          }
+        });
+    }, 500);
+    return () => {
+      if (originCheckTimer.current) clearTimeout(originCheckTimer.current);
+      controller.abort();
+    };
+  }, [newFrom, originHasUrlOrDomain]);
 
   const { data: redirectsData, isLoading } = useQuery<{ redirects: Redirect[] }>({
     queryKey: ['/api/debug/redirects'],
@@ -142,14 +188,6 @@ export default function PrivateRedirects() {
     ? validationResult.errors.length + validationResult.warnings.length
     : 0;
 
-  const originHasUrlOrDomain = (() => {
-    const v = newFrom.trim();
-    if (!v) return false;
-    const stripped = v.startsWith("/") ? v.slice(1) : v;
-    return /https?:\/\//i.test(stripped) || /[a-z0-9][-a-z0-9]*\.[a-z]{2,}/i.test(stripped);
-  })();
-  const isOriginInvalid = newFrom.trim() !== "" && (originHasUrlOrDomain || !newFrom.startsWith("/"));
-
   const isLandingDestination = newTo.startsWith("/landing");
 
   const stripLocalePrefix = (url: string) => url.replace(/^\/(en|es)(\/|$)/, "/");
@@ -174,6 +212,8 @@ export default function PrivateRedirects() {
     setIsCustomDestination(false);
     setRedirectStatus(301);
     setLocaleUrls({});
+    setOriginCheckStatus('idle');
+    setOriginCheckReason(null);
     setShowAddDialog(true);
   };
 
@@ -644,6 +684,18 @@ export default function PrivateRedirects() {
                 <p className="text-xs text-destructive">
                   The path must start with <code className="bg-muted px-1 rounded">/</code>
                 </p>
+              ) : originCheckStatus === 'taken' ? (
+                <p className="text-xs text-destructive">
+                  {originCheckReason || 'This path is already in use'}
+                </p>
+              ) : originCheckStatus === 'checking' ? (
+                <p className="text-xs text-muted-foreground">
+                  Checking availability...
+                </p>
+              ) : originCheckStatus === 'available' ? (
+                <p className="text-xs text-green-600">
+                  Path is available
+                </p>
               ) : newFrom ? (
                 <p className="text-xs text-muted-foreground">
                   Visitors to <code className="bg-muted px-1 rounded">{newFrom}</code> will be redirected
@@ -747,7 +799,7 @@ export default function PrivateRedirects() {
             </Button>
             <Button
               onClick={handleSubmitRedirect}
-              disabled={isOriginInvalid || !newFrom.trim() || !newTo.trim() || isSubmitting}
+              disabled={isOriginInvalid || originCheckStatus === 'checking' || !newFrom.trim() || !newTo.trim() || isSubmitting}
               data-testid="button-save-redirect"
             >
               {isSubmitting ? "Adding..." : "Add Redirect"}

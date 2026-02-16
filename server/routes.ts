@@ -2877,10 +2877,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const hasEn = fs.existsSync(path.join(folderPath, 'en.yml'));
       const hasEs = fs.existsSync(path.join(folderPath, 'es.yml'));
       const isComplete = hasCommon && hasEn && hasEs;
-      res.json({ available: !isComplete, slug, type });
-    } else {
-      res.json({ available: !folderExists, slug, type });
+      if (isComplete) {
+        res.json({ available: false, slug, type, reason: "slug_taken" });
+        return;
+      }
+    } else if (folderExists) {
+      res.json({ available: false, slug, type, reason: "slug_taken" });
+      return;
     }
+
+    const locale = typeof req.query.locale === 'string' ? req.query.locale : undefined;
+    const urlsToCheck: string[] = [];
+    const contentTypeMap: Record<string, string> = {
+      location: 'locations',
+      page: 'pages',
+      program: 'programs',
+      landing: 'landings',
+    };
+    const ctKey = contentTypeMap[type];
+    if (type === 'landing') {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'default', slug));
+    } else if (locale) {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, locale, slug));
+    } else {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'en', slug));
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'es', slug));
+    }
+
+    const redirects = contentIndex.getRedirects();
+    for (const url of urlsToCheck) {
+      const conflict = redirects.find(r => r.from === url);
+      if (conflict) {
+        const redirectTo = typeof conflict.to === 'string' ? conflict.to : Object.values(conflict.to).join(', ');
+        res.json({ available: false, slug, type, reason: "redirect_conflict", conflictUrl: url, redirectTo });
+        return;
+      }
+    }
+
+    res.json({ available: true, slug, type });
+  });
+
+  app.get("/api/content/check-origin", (req, res) => {
+    const { path: originPath } = req.query;
+    if (!originPath || typeof originPath !== 'string') {
+      res.status(400).json({ error: "Missing required query param: path" });
+      return;
+    }
+
+    const normalized = originPath.startsWith("/") ? originPath : `/${originPath}`;
+
+    const redirects = contentIndex.getRedirects();
+    const existingRedirect = redirects.find(r => r.from === normalized);
+    if (existingRedirect) {
+      const redirectTo = typeof existingRedirect.to === 'string' ? existingRedirect.to : Object.values(existingRedirect.to).join(', ');
+      res.json({ taken: true, reason: "existing_redirect", details: `Already redirects to ${redirectTo}` });
+      return;
+    }
+
+    const entries = contentIndex.listAll();
+    const contentTypeMap: Record<string, string> = {
+      locations: 'locations',
+      pages: 'pages',
+      programs: 'programs',
+      landings: 'landings',
+    };
+    for (const entry of entries) {
+      const ctKey = contentTypeMap[entry.contentType] || entry.contentType;
+      for (const locale of entry.locales) {
+        if (locale.startsWith("_") || locale.includes(".")) continue;
+        const url = contentIndex.buildUrl(ctKey, locale, entry.slug);
+        if (url === normalized) {
+          res.json({ taken: true, reason: "existing_page", details: `This is the "${entry.title || entry.slug}" ${entry.contentType} page (${locale})` });
+          return;
+        }
+      }
+    }
+
+    res.json({ taken: false });
   });
 
   // Create new content (location/page/program)
