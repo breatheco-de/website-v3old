@@ -666,6 +666,16 @@ export function DebugBubble() {
   const [seoLocationsExpanded, setSeoLocationsExpanded] = useState(true);
   const [seoLocationSearch, setSeoLocationSearch] = useState("");
   
+  // Slug rename state
+  const [slugEditorExpanded, setSlugEditorExpanded] = useState(false);
+  const [newSlugValue, setNewSlugValue] = useState("");
+  const [slugCheckStatus, setSlugCheckStatus] = useState<"idle" | "checking" | "available" | "taken">("idle");
+  const [slugCheckReason, setSlugCheckReason] = useState<string | null>(null);
+  const [slugRenaming, setSlugRenaming] = useState(false);
+  const [slugRedirectPrompt, setSlugRedirectPrompt] = useState(false);
+  const [slugOldUrls, setSlugOldUrls] = useState<Record<string, string>>({});
+  const [slugNewUrls, setSlugNewUrls] = useState<Record<string, string>>({});
+  
   // Breathecode host state
   const [breathecodeHost, setBreathecodeHost] = useState<{ host: string; isDefault: boolean } | null>(null);
   
@@ -686,6 +696,17 @@ export function DebugBubble() {
 
   // Detect current content info from URL
   const contentInfo = useMemo(() => detectContentInfo(pathname), [pathname]);
+
+  useEffect(() => {
+    setSlugEditorExpanded(false);
+    setNewSlugValue("");
+    setSlugCheckStatus("idle");
+    setSlugCheckReason(null);
+    setSlugRenaming(false);
+    setSlugRedirectPrompt(false);
+    setSlugOldUrls({});
+    setSlugNewUrls({});
+  }, [contentInfo.slug]);
 
   // Check if location is currently overridden via query string
   const currentLocationOverride = typeof window !== "undefined" 
@@ -1002,6 +1023,121 @@ export function DebugBubble() {
       setSeoLoading(false);
     }
   }, [contentInfo.type, contentInfo.slug, pathname, i18n.language, toast]);
+
+  useEffect(() => {
+    if (!newSlugValue || !contentInfo.type || newSlugValue === contentInfo.slug) {
+      setSlugCheckStatus("idle");
+      setSlugCheckReason(null);
+      return;
+    }
+    const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+    if (!slugRegex.test(newSlugValue)) {
+      setSlugCheckStatus("taken");
+      setSlugCheckReason("Use only lowercase letters, numbers, and hyphens");
+      return;
+    }
+    setSlugCheckStatus("checking");
+    const controller = new AbortController();
+    const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
+    const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
+    const timer = setTimeout(() => {
+      fetch(`/api/content/check-slug?type=${apiType}&slug=${newSlugValue}`, { signal: controller.signal })
+        .then(r => r.json())
+        .then(data => {
+          if (data.available) {
+            setSlugCheckStatus("available");
+            setSlugCheckReason(null);
+          } else {
+            setSlugCheckStatus("taken");
+            setSlugCheckReason(data.reason === "slug_taken" ? "This slug is already in use" : data.reason === "redirect_conflict" ? `Conflicts with redirect to ${data.redirectTo}` : data.reason || "Not available");
+          }
+        })
+        .catch(() => {});
+    }, 400);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [newSlugValue, contentInfo.type, contentInfo.slug]);
+
+  const handleSlugRename = async (createRedirect: boolean) => {
+    if (!contentInfo.type || !contentInfo.slug || !newSlugValue || slugCheckStatus !== "available") return;
+    setSlugRenaming(true);
+    setSlugRedirectPrompt(false);
+    try {
+      const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
+      const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      const token = getDebugToken();
+      if (token) headers["X-Debug-Token"] = token;
+      const res = await fetch("/api/content/rename-slug", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          contentType: apiType,
+          currentSlug: contentInfo.slug,
+          newSlug: newSlugValue,
+          createRedirect,
+        }),
+      });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to rename");
+      }
+      const result = await res.json();
+      toast({
+        title: "Slug renamed",
+        description: `${result.oldSlug} → ${result.newSlug}${createRedirect ? " (redirect created)" : ""}`,
+      });
+      setSeoModalOpen(false);
+      setSlugEditorExpanded(false);
+      setNewSlugValue("");
+      const isPreview = pathname.startsWith("/private/preview/");
+      if (isPreview) {
+        const folderMap: Record<string, string> = { program: "programs", page: "pages", location: "locations", landing: "landings" };
+        const folder = folderMap[apiType] || contentInfo.type;
+        const search = window.location.search;
+        window.location.href = `/private/preview/${folder}/${result.newSlug}${search}`;
+      } else {
+        const pathSegments = pathname.split("/").filter(Boolean);
+        const urlLocale = pathSegments[0];
+        const newUrls = result.newUrls || {};
+        const newUrl = newUrls[urlLocale] || newUrls["default"] || newUrls["en"] || Object.values(newUrls)[0];
+        if (newUrl) {
+          window.location.href = newUrl;
+        } else {
+          window.location.reload();
+        }
+      }
+    } catch (error) {
+      toast({
+        title: "Failed to rename slug",
+        description: error instanceof Error ? error.message : "Could not rename content slug.",
+        variant: "destructive",
+      });
+    } finally {
+      setSlugRenaming(false);
+    }
+  };
+
+  const handleSlugRenameClick = () => {
+    if (!contentInfo.type || !contentInfo.slug || slugCheckStatus !== "available") return;
+    const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
+    const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
+    const oldUrls = contentIndex_buildUrls(apiType, contentInfo.slug);
+    const newUrls = contentIndex_buildUrls(apiType, newSlugValue);
+    setSlugOldUrls(oldUrls);
+    setSlugNewUrls(newUrls);
+    setSlugRedirectPrompt(true);
+  };
+
+  const contentIndex_buildUrls = (apiType: string, slug: string): Record<string, string> => {
+    if (apiType === "landing") {
+      return { default: `/landing/${slug}` };
+    }
+    const ct = apiType as ContentType;
+    return {
+      en: buildContentUrl(ct, slug, "en"),
+      es: buildContentUrl(ct, slug, "es"),
+    };
+  };
 
   const handleSeoSave = async () => {
     if (!contentInfo.type || !contentInfo.slug) return;
@@ -4420,6 +4556,124 @@ export function DebugBubble() {
                       <pre className="bg-muted p-3 rounded-md text-xs font-mono max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all" data-testid="text-schema-org-preview">
                         {JSON.stringify(seoData.schemaOrg, null, 2)}
                       </pre>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Slug Editor */}
+              {contentInfo.type && (
+                <div className="space-y-2">
+                  <button
+                    onClick={() => {
+                      setSlugEditorExpanded(!slugEditorExpanded);
+                      if (!slugEditorExpanded) {
+                        setNewSlugValue(contentInfo.slug || "");
+                        setSlugCheckStatus("idle");
+                        setSlugCheckReason(null);
+                        setSlugRedirectPrompt(false);
+                      }
+                    }}
+                    className="flex items-center gap-2 w-full text-left"
+                    data-testid="button-toggle-slug-editor"
+                  >
+                    {slugEditorExpanded ? (
+                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                    )}
+                    <h4 className="text-sm font-semibold">Page Slug</h4>
+                    <code className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-mono">
+                      {contentInfo.slug}
+                    </code>
+                  </button>
+                  {slugEditorExpanded && (
+                    <div className="space-y-3 pl-6">
+                      <p className="text-xs text-muted-foreground">
+                        Change the slug (URL identifier) for this content. This will rename the content folder and update all URLs.
+                      </p>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-foreground" htmlFor="slug-editor-input">
+                          New Slug
+                        </label>
+                        <input
+                          id="slug-editor-input"
+                          type="text"
+                          value={newSlugValue}
+                          onChange={(e) => setNewSlugValue(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""))}
+                          placeholder="e.g. my-new-page-slug"
+                          className={`w-full px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring ${slugCheckStatus === "taken" ? "border-destructive" : slugCheckStatus === "available" ? "border-green-500" : ""}`}
+                          data-testid="input-slug-editor"
+                          disabled={slugRenaming}
+                        />
+                        {slugCheckStatus === "checking" && (
+                          <p className="text-xs text-muted-foreground">Checking availability...</p>
+                        )}
+                        {slugCheckStatus === "available" && (
+                          <p className="text-xs text-green-600">Slug is available</p>
+                        )}
+                        {slugCheckStatus === "taken" && slugCheckReason && (
+                          <p className="text-xs text-destructive">{slugCheckReason}</p>
+                        )}
+                        {newSlugValue === contentInfo.slug && newSlugValue && (
+                          <p className="text-xs text-muted-foreground">Same as current slug</p>
+                        )}
+                      </div>
+
+                      {!slugRedirectPrompt ? (
+                        <Button
+                          size="sm"
+                          onClick={handleSlugRenameClick}
+                          disabled={slugCheckStatus !== "available" || slugRenaming || !newSlugValue || newSlugValue === contentInfo.slug}
+                          data-testid="button-rename-slug"
+                        >
+                          {slugRenaming ? "Renaming..." : "Change Slug"}
+                        </Button>
+                      ) : (
+                        <div className="space-y-3 rounded-md border p-3">
+                          <p className="text-sm font-medium">Create a redirect?</p>
+                          <p className="text-xs text-muted-foreground">
+                            Do you want to create a redirect from the old URLs to the new ones? This ensures existing links and bookmarks still work.
+                          </p>
+                          <div className="space-y-1.5">
+                            {Object.entries(slugOldUrls).map(([locale, oldUrl]) => (
+                              <div key={locale} className="flex items-center gap-2 text-xs font-mono">
+                                <code className="bg-muted px-1.5 py-0.5 rounded truncate">{oldUrl}</code>
+                                <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                                <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugNewUrls[locale]}</code>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => handleSlugRename(true)}
+                              disabled={slugRenaming}
+                              data-testid="button-rename-with-redirect"
+                            >
+                              {slugRenaming ? "Renaming..." : "Yes, create redirect"}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleSlugRename(false)}
+                              disabled={slugRenaming}
+                              data-testid="button-rename-without-redirect"
+                            >
+                              No, just rename
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => setSlugRedirectPrompt(false)}
+                              disabled={slugRenaming}
+                              data-testid="button-cancel-rename"
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
