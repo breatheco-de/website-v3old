@@ -802,6 +802,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               slug={slug}
               locale={locale}
               totalSections={sections.length}
+              allSections={sections}
               onMoveUp={handleMoveUp}
               onMoveDown={handleMoveDown}
               onDelete={handleDelete}

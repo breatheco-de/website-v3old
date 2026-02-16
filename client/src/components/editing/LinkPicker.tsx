@@ -55,7 +55,10 @@ function detectLinkType(value: string, modals: SectionOption[], scrollSections: 
 
 function extractSectionsFromYaml(allSections?: Section[]): { modals: SectionOption[]; scrollSections: SectionOption[] } {
   const modals: SectionOption[] = [];
-  const scrollSections: SectionOption[] = [];
+  const scrollSections: SectionOption[] = [
+    { id: "top", label: "Top of page", type: "built-in" },
+    { id: "bottom", label: "Bottom of page", type: "built-in" },
+  ];
   if (!allSections) return { modals, scrollSections };
 
   allSections.forEach((section, index) => {
