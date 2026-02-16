@@ -908,9 +908,10 @@
       "remoteSha": "f669df218d2c2361074495bc397bb46af0aded3679583d99be09bc9e86e2beaf"
     },
     "marketing-content/programs/ai-engineering/en.yml": {
-      "sha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
-      "lastModified": 1771253430926.427,
-      "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e"
+      "sha": "7de6c7f295cfd8c34c665d609fe3ff7f139fa1b758630f3de6acb2babf6d0c59",
+      "lastModified": 1771271296087.8308,
+      "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
+      "modifiedAt": "2026-02-16T19:48:16.091Z"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725",
