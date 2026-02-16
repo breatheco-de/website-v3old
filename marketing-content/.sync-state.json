@@ -93,14 +93,16 @@
       "remoteSha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
-      "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
-      "lastModified": 1771253381484.4639,
-      "remoteSha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c"
+      "sha": "3b34c6a829651bf72e2df55134d57b41e1cccd542af715b34ddf12ba5af99e88",
+      "lastModified": 1771279270048.6255,
+      "remoteSha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
+      "modifiedAt": "2026-02-16T22:01:10.050Z"
     },
     "marketing-content/landings/test-example-check/promoted.yml": {
-      "sha": "58ffd7a8793c85025863ab9a71c6d120bb5005fd91bfc9c1d54e5ad28112982c",
-      "lastModified": 1771275015658.4812,
-      "remoteSha": "58ffd7a8793c85025863ab9a71c6d120bb5005fd91bfc9c1d54e5ad28112982c"
+      "sha": "5c4b919b1ee3bdf48a8c1c0983675041c1cf87417035e06accdb8289e45fa570",
+      "lastModified": 1771279270057.6252,
+      "remoteSha": "58ffd7a8793c85025863ab9a71c6d120bb5005fd91bfc9c1d54e5ad28112982c",
+      "modifiedAt": "2026-02-16T22:01:10.059Z"
     },
     "marketing-content/locations/atlanta-usa/_common.yml": {
       "sha": "e6f64c1a84fc98d80eea02840af8408a8d28b4e7c761f489bad5f10e55469198",
@@ -1032,6 +1034,16 @@
       "sha": "4a96b8ca237d87c777740117b910a917b661247e10fd9ffc1226cc034c6fc92e",
       "lastModified": 1771278898624.9468,
       "modifiedAt": "2026-02-16T21:54:58.628Z"
+    },
+    "marketing-content/landings/test-example-check-renamed/_common.yml": {
+      "sha": "3b81ffa9122be15e6eb2c6477dc569f18b876fad7919c03196bbe77e2a285958",
+      "lastModified": 1771279263659.6309,
+      "modifiedAt": "2026-02-16T22:01:03.664Z"
+    },
+    "marketing-content/landings/test-example-check-renamed/promoted.yml": {
+      "sha": "bfc030eb51695ab67c3c51c71543276993cec3f7038e10294a8cc28e483b5b22",
+      "lastModified": 1771279263665.6309,
+      "modifiedAt": "2026-02-16T22:01:03.668Z"
     }
   }
 }

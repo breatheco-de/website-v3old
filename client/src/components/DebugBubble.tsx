@@ -1097,7 +1097,8 @@ export function DebugBubble() {
       } else {
         const pathSegments = pathname.split("/").filter(Boolean);
         const urlLocale = pathSegments[0];
-        const newUrl = result.newUrls?.[urlLocale || "en"] || result.newUrls?.["en"];
+        const newUrls = result.newUrls || {};
+        const newUrl = newUrls[urlLocale] || newUrls["default"] || newUrls["en"] || Object.values(newUrls)[0];
         if (newUrl) {
           window.location.href = newUrl;
         } else {
