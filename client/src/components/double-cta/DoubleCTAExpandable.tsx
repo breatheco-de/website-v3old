@@ -69,39 +69,6 @@ function CTABox({
     );
   };
 
-  const renderImage = (mobileFullWidth: boolean) => {
-    if (!hasImage) return null;
-    return (
-      <div
-        className={cn(
-          "relative rounded-lg transition-all duration-100 ease-in-out",
-          mobileFullWidth
-            ? "w-full h-[160px] lg:w-[40%] lg:h-auto lg:flex-shrink-0"
-            : "flex-shrink-0",
-          isActive
-            ? mobileFullWidth
-              ? "opacity-100"
-              : "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
-            : mobileFullWidth
-              ? "hidden lg:block lg:w-0 lg:opacity-0"
-              : "w-0 opacity-0",
-        )}
-        data-testid={`${testId}-image`}
-      >
-        <UniversalImage
-          id={box.image_id!}
-          className="w-full h-full rounded-lg"
-          style={{
-            objectFit:
-              (box.image_object_fit as React.CSSProperties["objectFit"]) ||
-              "cover",
-            objectPosition: box.image_object_position || "center",
-          }}
-        />
-      </div>
-    );
-  };
-
   return (
     <Card
       className={cn(
@@ -152,14 +119,53 @@ function CTABox({
               </p>
             )}
 
-            <div className="flex flex-col lg:flex-row gap-4 mb-4 flex-1">
+            <div className="flex gap-4 mb-4 flex-1">
               {renderBullets(testId || "")}
-              {renderImage(true)}
+
+              {hasImage && (
+                <div
+                  className={cn(
+                    "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out hidden lg:block",
+                    isActive
+                      ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
+                      : "w-0 opacity-0",
+                  )}
+                  data-testid={`${testId}-image`}
+                >
+                  <UniversalImage
+                    id={box.image_id!}
+                    className="w-full h-full rounded-lg"
+                    style={{
+                      objectFit:
+                        (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                        "cover",
+                      objectPosition: box.image_object_position || "center",
+                    }}
+                  />
+                </div>
+              )}
             </div>
+
+            {hasImage && isActive && (
+              <div className="lg:hidden mb-4">
+                <div className="relative rounded-lg w-full h-[160px]">
+                  <UniversalImage
+                    id={box.image_id!}
+                    className="w-full h-full rounded-lg"
+                    style={{
+                      objectFit:
+                        (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                        "cover",
+                      objectPosition: box.image_object_position || "center",
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </>
         ) : (
           <>
-            <div className="flex flex-col lg:flex-row gap-4 mb-5 flex-1">
+            <div className="flex gap-4 mb-5 flex-1">
               <div className="flex flex-col flex-1 gap-4">
                 {box.description && (
                   <p
@@ -175,14 +181,44 @@ function CTABox({
                 {renderBullets(testId || "")}
               </div>
 
-              <div className="hidden lg:block">
-                {renderImage(false)}
-              </div>
+              {hasImage && (
+                <div
+                  className={cn(
+                    "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out hidden lg:block",
+                    isActive
+                      ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
+                      : "w-0 opacity-0",
+                  )}
+                  data-testid={`${testId}-image`}
+                >
+                  <UniversalImage
+                    id={box.image_id!}
+                    className="w-full h-full rounded-lg"
+                    style={{
+                      objectFit:
+                        (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                        "cover",
+                      objectPosition: box.image_object_position || "center",
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             {hasImage && isActive && (
               <div className="lg:hidden mb-4">
-                {renderImage(true)}
+                <div className="relative rounded-lg w-full h-[160px]">
+                  <UniversalImage
+                    id={box.image_id!}
+                    className="w-full h-full rounded-lg"
+                    style={{
+                      objectFit:
+                        (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                        "cover",
+                      objectPosition: box.image_object_position || "center",
+                    }}
+                  />
+                </div>
               </div>
             )}
           </>
