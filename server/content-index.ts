@@ -164,7 +164,7 @@ class ContentIndex {
   }
 
   private contentTypeHasRedirects(contentType: string): boolean {
-    return contentType === "programs" || contentType === "landings";
+    return contentType === "programs" || contentType === "landings" || contentType === "pages" || contentType === "locations";
   }
 
   private addImageRef(ref: string, filePath: string): void {
@@ -253,7 +253,7 @@ class ContentIndex {
     if (!Array.isArray(redirects)) return;
 
     const isCommon = locale === "_common";
-    const singularType = contentType === "programs" ? "program" : contentType === "landings" ? "landing" : contentType;
+    const singularType = contentType === "programs" ? "program" : contentType === "landings" ? "landing" : contentType === "pages" ? "page" : contentType === "locations" ? "location" : contentType;
     const typeLabel = isCommon ? `${singularType}-common` : singularType;
 
     let targetTo: string | Record<string, string>;
