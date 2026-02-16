@@ -77,7 +77,7 @@ export default function Footer() {
             <img src={logo} alt="4Geeks Academy" className="h-8" />
           </a>
           <div>
-            <p className="text-center">Subscribe for more</p>
+            <p className="text-center">{config.subscribe_text || 'Subscribe for more'}</p>
             <div
               className="flex items-center justify-center gap-3"
               data-testid="footer-socials"
