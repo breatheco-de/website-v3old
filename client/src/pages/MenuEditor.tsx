@@ -100,9 +100,10 @@ interface MenuItemData {
 }
 
 interface MenuData {
-  navbar: {
+  navbar?: {
     items: MenuItemData[];
   };
+  [key: string]: unknown;
 }
 
 interface MenuResponse {
@@ -458,22 +459,24 @@ export default function MenuEditor() {
     },
   });
 
+  const isNavbarMenu = !!(menuData?.navbar?.items);
+
   const handleUpdateItem = (index: number, updatedItem: MenuItemData) => {
-    if (!menuData) return;
+    if (!menuData || !menuData.navbar) return;
     const newItems = [...menuData.navbar.items];
     newItems[index] = updatedItem;
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
   };
 
   const handleDeleteItem = (index: number) => {
-    if (!menuData) return;
+    if (!menuData || !menuData.navbar) return;
     const newItems = menuData.navbar.items.filter((_, i) => i !== index);
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
     setConfirmDeleteIndex(null);
   };
 
   const handleAddItem = () => {
-    if (!menuData) return;
+    if (!menuData || !menuData.navbar) return;
     const newItem: MenuItemData = {
       label: "NEW ITEM",
       href: "/new-page",
@@ -513,7 +516,7 @@ export default function MenuEditor() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (!menuData || !over || active.id === over.id) return;
+    if (!menuData || !menuData.navbar || !over || active.id === over.id) return;
 
     const oldIndex = menuData.navbar.items.findIndex((_, i) => `item-${i}` === active.id);
     const newIndex = menuData.navbar.items.findIndex((_, i) => `item-${i}` === over.id);
@@ -636,11 +639,11 @@ export default function MenuEditor() {
             </Card>
           )}
 
-          {menuData && (
+          {menuData && isNavbarMenu && (
             <>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-sm font-medium text-muted-foreground">
-                  Menu Items ({menuData.navbar.items.length})
+                  Menu Items ({menuData.navbar!.items.length})
                 </h2>
                 {isEnglish && (
                   <Button
@@ -662,10 +665,10 @@ export default function MenuEditor() {
                   onDragEnd={handleDragEnd}
                 >
                   <SortableContext
-                    items={menuData.navbar.items.map((_, i) => `item-${i}`)}
+                    items={menuData.navbar!.items.map((_, i) => `item-${i}`)}
                     strategy={verticalListSortingStrategy}
                   >
-                    {menuData.navbar.items.map((item, index) => (
+                    {menuData.navbar!.items.map((item, index) => (
                       <SortableMenuItemEditor
                         key={`item-${index}`}
                         id={`item-${index}`}
@@ -681,7 +684,7 @@ export default function MenuEditor() {
                     ))}
                   </SortableContext>
                 </DndContext>
-                {menuData.navbar.items.length === 0 && isEnglish && (
+                {menuData.navbar!.items.length === 0 && isEnglish && (
                   <div className="text-center py-12">
                     <IconMenu2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <p className="text-muted-foreground mb-4">No menu items yet</p>
@@ -693,6 +696,28 @@ export default function MenuEditor() {
                 )}
               </ScrollArea>
             </>
+          )}
+
+          {menuData && !isNavbarMenu && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-medium text-muted-foreground">
+                  YAML Editor
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  Edit the menu content directly in YAML
+                </p>
+              </div>
+              <div data-testid="codemirror-yaml-editor">
+                <CodeMirror
+                  value={yamlSource}
+                  height="calc(100vh - 250px)"
+                  extensions={[yamlLang()]}
+                  theme={oneDark}
+                  onChange={(value) => handleYamlEdit(value)}
+                />
+              </div>
+            </div>
           )}
         </div>
       </main>
