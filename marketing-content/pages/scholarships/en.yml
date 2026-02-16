@@ -313,11 +313,10 @@ sections:
     marginY:
       desktop: none md
   - type: whos_hiring
-    version: v1.0
     variant: carousel
     pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    title: The Companies Hiring Our Graduates
+    subtitle: Access creates opportunity. Employers turn it into real tech careers.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
