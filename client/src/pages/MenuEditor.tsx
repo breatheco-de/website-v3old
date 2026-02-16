@@ -63,6 +63,7 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
+  horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -355,6 +356,109 @@ function SortableMenuItemEditor({
   );
 }
 
+function SortableFooterColumn({
+  id,
+  column,
+  colIndex,
+  isEnglish,
+  locale,
+  onDeleteColumn,
+  onUpdateColumn,
+  onUpdateColumnItem,
+  onDeleteColumnItem,
+  onAddColumnItem,
+}: {
+  id: string;
+  column: FooterColumn;
+  colIndex: number;
+  isEnglish: boolean;
+  locale: string;
+  onDeleteColumn: (index: number) => void;
+  onUpdateColumn: (index: number, updates: Partial<FooterColumn>) => void;
+  onUpdateColumnItem: (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => void;
+  onDeleteColumnItem: (colIndex: number, itemIndex: number) => void;
+  onAddColumnItem: (colIndex: number) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className="group/col relative" data-testid={`footer-column-${colIndex}`}>
+      <div className="flex items-center gap-1 mb-2">
+        {isEnglish ? (
+          <button
+            className="touch-none cursor-grab active:cursor-grabbing"
+            {...attributes}
+            {...listeners}
+            data-testid={`button-drag-footer-column-${colIndex}`}
+          >
+            <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+          </button>
+        ) : (
+          <IconGripVertical className="h-4 w-4 text-muted-foreground/30" />
+        )}
+        <EditableText
+          value={column.title}
+          onChange={(title) => onUpdateColumn(colIndex, { title })}
+          placeholder="Column title"
+          className="font-semibold text-foreground block flex-1"
+          as="h4"
+          testId={`footer-column-${colIndex}-title`}
+        />
+        {isEnglish && (
+          <button
+            onClick={() => onDeleteColumn(colIndex)}
+            className="p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity"
+            data-testid={`footer-column-${colIndex}-delete`}
+          >
+            <IconTrash className="h-3 w-3" />
+          </button>
+        )}
+      </div>
+      <ul className="space-y-1">
+        {(column.items || []).map((item, itemIndex) => (
+          <li key={itemIndex}>
+            <EditableLinkItem
+              label={item.label || ""}
+              href={item.href || ""}
+              onLabelChange={(label) => onUpdateColumnItem(colIndex, itemIndex, { label })}
+              onHrefChange={(href) => onUpdateColumnItem(colIndex, itemIndex, { href })}
+              onDelete={() => onDeleteColumnItem(colIndex, itemIndex)}
+              testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
+              isReadOnlyStructure={!isEnglish}
+              locale={locale}
+            />
+          </li>
+        ))}
+        {isEnglish && (
+          <li>
+            <button
+              onClick={() => onAddColumnItem(colIndex)}
+              className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
+              data-testid={`footer-column-${colIndex}-add-item`}
+            >
+              <IconPlus className="h-3 w-3" />
+              Add item
+            </button>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
 export default function MenuEditor() {
   const params = useParams<{ menuName: string }>();
   const [, navigate] = useLocation();
@@ -643,6 +747,19 @@ export default function MenuEditor() {
     }
   };
 
+  const handleFooterColumnDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!footerData || !over || active.id === over.id) return;
+
+    const oldIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === active.id);
+    const newIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const newColumns = arrayMove(footerData.columns, oldIndex, newIndex);
+      updateFooter({ columns: newColumns });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -835,58 +952,34 @@ export default function MenuEditor() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 bg-popover border border-border rounded-lg">
-                    {(footerData.columns || []).map((column, colIndex) => (
-                      <div key={colIndex} className="group/col relative" data-testid={`footer-column-${colIndex}`}>
-                        {isEnglish && (
-                          <button
-                            onClick={() => deleteFooterColumn(colIndex)}
-                            className="absolute -top-2 -right-2 p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity z-10"
-                            data-testid={`footer-column-${colIndex}-delete`}
-                          >
-                            <IconTrash className="h-3 w-3" />
-                          </button>
-                        )}
-
-                        <EditableText
-                          value={column.title}
-                          onChange={(title) => updateFooterColumn(colIndex, { title })}
-                          placeholder="Column title"
-                          className="font-semibold text-foreground mb-3 block"
-                          as="h4"
-                          testId={`footer-column-${colIndex}-title`}
-                        />
-                        <ul className="space-y-1">
-                          {(column.items || []).map((item, itemIndex) => (
-                            <li key={itemIndex}>
-                              <EditableLinkItem
-                                label={item.label || ""}
-                                href={item.href || ""}
-                                onLabelChange={(label) => updateFooterColumnItem(colIndex, itemIndex, { label })}
-                                onHrefChange={(href) => updateFooterColumnItem(colIndex, itemIndex, { href })}
-                                onDelete={() => deleteFooterColumnItem(colIndex, itemIndex)}
-                                testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
-                                isReadOnlyStructure={!isEnglish}
-                                locale={locale}
-                              />
-                            </li>
-                          ))}
-                          {isEnglish && (
-                            <li>
-                              <button
-                                onClick={() => addFooterColumnItem(colIndex)}
-                                className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
-                                data-testid={`footer-column-${colIndex}-add-item`}
-                              >
-                                <IconPlus className="h-3 w-3" />
-                                Add item
-                              </button>
-                            </li>
-                          )}
-                        </ul>
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleFooterColumnDragEnd}
+                  >
+                    <SortableContext
+                      items={(footerData.columns || []).map((_, i) => `footer-col-${i}`)}
+                      strategy={horizontalListSortingStrategy}
+                    >
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 bg-popover border border-border rounded-lg">
+                        {(footerData.columns || []).map((column, colIndex) => (
+                          <SortableFooterColumn
+                            key={`footer-col-${colIndex}`}
+                            id={`footer-col-${colIndex}`}
+                            column={column}
+                            colIndex={colIndex}
+                            isEnglish={isEnglish}
+                            locale={locale}
+                            onDeleteColumn={deleteFooterColumn}
+                            onUpdateColumn={updateFooterColumn}
+                            onUpdateColumnItem={updateFooterColumnItem}
+                            onDeleteColumnItem={deleteFooterColumnItem}
+                            onAddColumnItem={addFooterColumnItem}
+                          />
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </SortableContext>
+                  </DndContext>
                 </div>
 
                 <div>
