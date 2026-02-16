@@ -309,11 +309,20 @@ export function RichTextArea({
     editableRef.current.innerHTML = value || "";
   }, [value]);
 
+  const getCleanInnerHTML = useCallback(() => {
+    if (!editableRef.current) return "";
+    const clone = editableRef.current.cloneNode(true) as HTMLDivElement;
+    clone.querySelectorAll("[data-preview-light]").forEach((el) => {
+      el.removeAttribute("data-preview-light");
+    });
+    return clone.innerHTML;
+  }, []);
+
   const handleInput = useCallback(() => {
     if (editableRef.current) {
-      onChange(editableRef.current.innerHTML);
+      onChange(getCleanInnerHTML());
     }
-  }, [onChange]);
+  }, [onChange, getCleanInnerHTML]);
 
   const applyCommand = useCallback(
     (command: string, value?: string) => {

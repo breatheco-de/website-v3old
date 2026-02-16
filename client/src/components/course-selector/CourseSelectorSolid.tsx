@@ -236,12 +236,11 @@ export function CourseSelectorSolid({ data }: CourseSelectorSolidProps) {
               </h2>
             )}
             {data.subheading && (
-              <p
+              <div
                 className="text-lg text-muted-foreground max-w-2xl mx-auto"
                 data-testid="text-subheading"
-              >
-                {data.subheading}
-              </p>
+                dangerouslySetInnerHTML={{ __html: data.subheading }}
+              />
             )}
           </div>
         )}

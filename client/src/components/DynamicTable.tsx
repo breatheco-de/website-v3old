@@ -2,13 +2,8 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IconExternalLink, IconPhoto, IconCheck, IconX, IconArrowUp, IconArrowDown, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { useLocation } from "@/contexts/SessionContext";
 import type { DynamicTableConfig } from "./TableBuilderWizard";
-
-interface RegionFilter {
-  key: string;
-  mapping: Record<string, string[]>;
-}
+import { useSession } from "@/contexts/SessionContext";
 
 interface DynamicTableSection {
   type: "dynamic_table";
@@ -18,7 +13,7 @@ interface DynamicTableSection {
     key: string;
     label: string;
     type: "text" | "number" | "date" | "image" | "link" | "boolean";
-    template?: string;
+    function?: string;
   }>;
   title?: string;
   subtitle?: string;
@@ -27,7 +22,7 @@ interface DynamicTableSection {
     href: string;
   };
   background?: string;
-  region_filter?: RegionFilter;
+  global_filter?: string;
   max_rows?: number;
 }
 
@@ -56,6 +51,42 @@ function formatValue(val: unknown): string {
   return str;
 }
 
+function executeColumnFunction(fnBase64: string, row: Record<string, unknown>): unknown {
+  try {
+    const fnString = atob(fnBase64);
+    const fn = new Function("row", `return (${fnString})(row);`);
+    return fn(row);
+  } catch {
+    return null;
+  }
+}
+
+interface FilterContext {
+  region?: string;
+  country_code?: string;
+  city?: string;
+  language?: string;
+  timezone?: string;
+}
+
+function executeGlobalFilter(fnBase64: string, rows: Record<string, unknown>[], ctx?: FilterContext): Record<string, unknown>[] {
+  try {
+    const fnString = atob(fnBase64);
+    try {
+      const fn = new Function("rows", "ctx", `return (${fnString})(rows, ctx);`);
+      const result = fn(rows, ctx || {});
+      if (Array.isArray(result)) return result;
+    } catch {
+      const fn = new Function("rows", `return (${fnString})(rows);`);
+      const result = fn(rows);
+      if (Array.isArray(result)) return result;
+    }
+    return rows;
+  } catch {
+    return rows;
+  }
+}
+
 function resolveTemplate(template: string, row: Record<string, unknown>): string {
   return template.replace(/\{([^}]+)\}/g, (_, key) => {
     const val = getNestedValue(row, key.trim());
@@ -63,16 +94,40 @@ function resolveTemplate(template: string, row: Record<string, unknown>): string
   });
 }
 
-function getCellValue(row: Record<string, unknown>, col: { key: string; template?: string }): unknown {
-  if (col.template) {
-    return resolveTemplate(col.template, row);
+function getCellValue(row: Record<string, unknown>, col: { key: string; function?: string }): unknown {
+  if (col.function) {
+    return executeColumnFunction(col.function, row);
   }
   return getNestedValue(row, col.key);
 }
 
-function CellValue({ value, type }: { value: unknown; type: string }) {
+function CellValue({ value, type, hasFunction }: { value: unknown; type: string; hasFunction?: boolean }) {
   if (value === null || value === undefined) {
     return <span className="text-muted-foreground">-</span>;
+  }
+
+  if (hasFunction) {
+    const str = String(value).trim();
+    if (!str || str === "-") return <span className="text-muted-foreground">-</span>;
+    if (type === "image") {
+      return (
+        <div className="flex items-center justify-center">
+          <img src={str} alt="" className="w-8 h-8 rounded object-cover" loading="lazy" />
+        </div>
+      );
+    }
+    if (type === "link") {
+      return (
+        <a href={str} target="_blank" rel="noopener noreferrer" className="text-foreground underline inline-flex items-center gap-1 text-sm">
+          Link
+          <IconExternalLink className="w-3 h-3" />
+        </a>
+      );
+    }
+    if (type === "boolean") {
+      return value ? <IconCheck className="w-4 h-4 text-green-600" /> : <IconX className="w-4 h-4 text-muted-foreground" />;
+    }
+    return <span className={type === "number" ? "tabular-nums" : "line-clamp-2"}>{str}</span>;
   }
 
   switch (type) {
@@ -108,13 +163,13 @@ function CellValue({ value, type }: { value: unknown; type: string }) {
       );
     case "number":
       return <span className="tabular-nums">{String(value)}</span>;
-    case "date":
-      try {
-        const d = new Date(String(value));
-        return <span>{d.toLocaleDateString()}</span>;
-      } catch {
-        return <span>{String(value)}</span>;
-      }
+    case "date": {
+      const raw = String(value).trim();
+      if (!raw) return <span className="text-muted-foreground">-</span>;
+      const d = new Date(raw);
+      if (isNaN(d.getTime())) return <span className="text-muted-foreground">-</span>;
+      return <span>{d.toLocaleDateString()}</span>;
+    }
     default:
       return <span className="line-clamp-2">{String(value)}</span>;
   }
@@ -124,9 +179,15 @@ export function DynamicTable({ data }: DynamicTableProps) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [expanded, setExpanded] = useState(false);
-  const location = useLocation();
+  const { session } = useSession();
 
-  const sessionRegion = location?.region || null;
+  const filterCtx = useMemo<FilterContext>(() => ({
+    region: session.location?.region || undefined,
+    country_code: (session.geo?.country_code || session.location?.country_code || "").toLowerCase() || undefined,
+    city: session.geo?.city || session.location?.city || undefined,
+    language: session.language,
+    timezone: session.location?.timezone || session.geo?.timezone || undefined,
+  }), [session.location, session.geo, session.language]);
 
   const { data: fetchedData, isLoading, error } = useQuery<unknown>({
     queryKey: ["dynamic-table", data.endpoint],
@@ -155,17 +216,8 @@ export function DynamicTable({ data }: DynamicTableProps) {
 
     let filtered = arr as Record<string, unknown>[];
 
-    if (data.region_filter && data.region_filter.key && sessionRegion) {
-      const { key, mapping } = data.region_filter;
-      const allowedValues = mapping[sessionRegion];
-      if (allowedValues && allowedValues.length > 0) {
-        const lowerAllowed = allowedValues.map(v => v.toLowerCase());
-        filtered = filtered.filter(row => {
-          const val = getNestedValue(row, key);
-          if (val === null || val === undefined) return false;
-          return lowerAllowed.includes(String(val).toLowerCase());
-        });
-      }
+    if (data.global_filter) {
+      filtered = executeGlobalFilter(data.global_filter, filtered, filterCtx);
     }
 
     if (sortKey) {
@@ -183,7 +235,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
       });
     }
     return filtered;
-  }, [fetchedData, data.data_path, data.region_filter, sessionRegion, sortKey, sortDir]);
+  }, [fetchedData, data.data_path, data.global_filter, sortKey, sortDir, filterCtx]);
 
   const maxRows = data.max_rows && data.max_rows > 0 ? data.max_rows : null;
   const hasMore = maxRows !== null && allRows.length > maxRows;
@@ -297,7 +349,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
                   >
                     {data.columns.map((col) => (
                       <td key={col.key} className="px-4 py-3 text-foreground" data-testid={`cell-${col.key}-${idx}`}>
-                        <CellValue value={getCellValue(row, col)} type={col.type} />
+                        <CellValue value={getCellValue(row, col)} type={col.type} hasFunction={!!col.function} />
                       </td>
                     ))}
                     {data.action && (

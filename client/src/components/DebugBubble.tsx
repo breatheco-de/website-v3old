@@ -82,7 +82,9 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -2762,16 +2764,16 @@ export function DebugBubble() {
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(locationsByRegion).map(([region, locs]) => (
-                    <div key={region}>
-                      <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
+                    <SelectGroup key={region}>
+                      <SelectLabel className="text-xs font-semibold text-muted-foreground">
                         {regionLabels[region] || region}
-                      </div>
+                      </SelectLabel>
                       {locs.map((loc) => (
                         <SelectItem key={loc.slug} value={loc.slug}>
                           {loc.name}, {loc.country}
                         </SelectItem>
                       ))}
-                    </div>
+                    </SelectGroup>
                   ))}
                 </SelectContent>
               </Select>

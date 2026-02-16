@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,14 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import {
   Accordion,
   AccordionItem,
@@ -29,16 +37,17 @@ import {
   IconPlayerPlay,
   IconLink,
   IconArrowRight,
+  IconTool,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
-
-interface ValidatorIssue {
-  type: "error" | "warning";
-  code: string;
-  message: string;
-  file?: string;
-  suggestion?: string;
-}
+import { useToast } from "@/hooks/use-toast";
+import {
+  RedirectConflictResolverModal,
+  parseRedirectConflict,
+  useRedirectConflictResolver,
+  type ValidatorIssue,
+  type RedirectConflictInfo,
+} from "@/components/RedirectConflictResolver";
 
 interface ValidatorResult {
   name: string;
@@ -194,7 +203,10 @@ function StatusBadge({ status }: { status: "passed" | "failed" | "warning" }) {
   );
 }
 
-function IssueRow({ issue }: { issue: ValidatorIssue }) {
+
+function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (issue: ValidatorIssue) => void }) {
+  const conflict = useMemo(() => parseRedirectConflict(issue), [issue]);
+
   return (
     <div className="flex flex-wrap items-start gap-2 py-2 border-b last:border-b-0" data-testid={`issue-${issue.code}`}>
       <div className="flex-shrink-0 mt-0.5">
@@ -214,6 +226,18 @@ function IssueRow({ issue }: { issue: ValidatorIssue }) {
           <p className="text-xs text-muted-foreground mt-1 italic">{issue.suggestion}</p>
         )}
       </div>
+      {conflict && onResolve && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex-shrink-0 gap-1"
+          onClick={() => onResolve(issue)}
+          data-testid={`button-resolve-${issue.code}`}
+        >
+          <IconTool className="h-3.5 w-3.5" />
+          Resolve
+        </Button>
+      )}
     </div>
   );
 }
@@ -241,6 +265,7 @@ function GlobalHealthTab() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
   const [results, setResults] = useState<RunResult | null>(null);
   const [lastRun, setLastRun] = useState<Date | null>(null);
+  const { resolveModalOpen, setResolveModalOpen, activeConflict, openResolver } = useRedirectConflictResolver();
 
   const { data: validators } = useQuery<{ name: string; description: string; category?: string }[]>({
     queryKey: ["/api/validation/validators"],
@@ -480,10 +505,18 @@ function GlobalHealthTab() {
                       <AccordionContent className="text-sm">
                         <div className="max-h-64 overflow-y-auto space-y-0">
                             {v.errors.map((e, i) => (
-                              <IssueRow key={`e-${i}`} issue={e} />
+                              <IssueRow
+                                key={`e-${i}`}
+                                issue={e}
+                                onResolve={v.name === "redirects" ? openResolver : undefined}
+                              />
                             ))}
                             {v.warnings.map((w, i) => (
-                              <IssueRow key={`w-${i}`} issue={w} />
+                              <IssueRow
+                                key={`w-${i}`}
+                                issue={w}
+                                onResolve={v.name === "redirects" ? openResolver : undefined}
+                              />
                             ))}
                         </div>
                       </AccordionContent>
@@ -514,6 +547,15 @@ function GlobalHealthTab() {
           <p className="text-muted-foreground" data-testid="text-no-validators">No validators match your filters</p>
         </div>
       )}
+
+      <RedirectConflictResolverModal
+        open={resolveModalOpen}
+        onOpenChange={setResolveModalOpen}
+        conflict={activeConflict}
+        onResolved={() => {
+          runSingleMutation.mutate("redirects");
+        }}
+      />
     </div>
   );
 }

@@ -50,21 +50,21 @@ sections:
         alt: Forbes Award logo
         logo: /attached_assets/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
-        description: 4Geeks is included by Forbes in "5 Coding bootcamps to consider"
+        description: Consistently listed among top 5 bootcamps by Forbes
         link: https://www.coursereport.com
         linkText: Read reviews
       - id: switchup-detailed
         alt: Clark University Logo
         logo: /attached_assets/clark-university_1769653206336.png
         logoHeight: 64px
-        description: We are certified by the most recognized universities
+        description: Certified by recognized universities
         link: https://www.switchup.org
         linkText: See rankings
       - id: careerkarma-detailed
         alt: Award badges
         logo: /attached_assets/badges-new.avif
         logoHeight: 64px
-        description: Recognized in 2024 and 2025 by SwitchUp, Course Report, and Forbes. Continuing our legacy as one of the top coding bootcamps in the world.
+        description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
         link: https://careerkarma.com
         linkText: Learn more
     marginY:
@@ -80,8 +80,8 @@ sections:
       - src: /attached_assets/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: Tech Careers Aren’t Built on One-Size-Fits-All.
-      text: "Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles."
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
+      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
       background: primary
       width: 2
     height: 31rem
@@ -92,10 +92,88 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        price: $349
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
+        badges:
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/data-science-ml
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    background: hsl(var(--muted))
+    marginY:
+      desktop: lg
+    paddingY:
+      desktop: md lg
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Succeed in Tech with AI-Powered Learning and Lifelong Human Support
+    title: Where AI-Powered Learning Meets Lifelong Mentorship
     description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
     bullets:
       - heading: Personalized Learning at Every Level
@@ -109,158 +187,6 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Program Tuition
-    subheading: See tuition and funding options for each program
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: $14,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        cta_text: Discover program
-        cta_url: /en/ai-engineering
-        course_background: accent
-      - name: Full Stack Development
-        icon: Code
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Full Stack Software Development
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        tags:
-          - icon: Plus
-            text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/full-stack
-        course_background: primary
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
-        badges:
-          - icon: DollarSign
-            text: $10,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
-        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/data-science-ml
-        course_background: primary
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: DollarSign
-            text: $9,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
-        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/cybersecurity
-        course_background: secondary
-    marginY:
-      desktop: lg
-    paddingY:
-      desktop: md lg
-  - type: geeks_vs_others_comparison
-    version: "1.0"
-    title: Launching Successful Tech Careers in the AI Era
-    subtitle: "Helping students build lasting tech careers is our mission. From an industry-aligned, future-proof syllabus to a lifelong support system, here's how we outperform the competition:"
-    columns:
-      - name: Feature
-      - name: 4Geeks Academy
-        highlight: true
-      - name: Industry Average / Competitors
-    rows:
-      - feature: Career Support
-        values:
-          - Personalized support for a lifetime
-          - Limited, ending with 1st job
-      - feature: "Teacher: Student Ratio"
-        values:
-          - "1:7"
-          - 1:10+
-      - feature: AI-Powered Feedback
-        values:
-          - Personalized to your progress
-          - Generic or non-existent
-      - feature: 1-on-1 Mentoring
-        values:
-          - Unlimited and for a lifetime
-          - Limited sessions
-      - feature: Curriculum
-        values:
-          - Continuously updated to match industry needs
-          - Slow to adapt
-      - feature: "% Hiring Rate"
-        values:
-          - ~84% within 6 months
-          - Often Unknown
-      - feature: Community
-        values:
-          - Strong local & global network
-          - Depends on school
-      - feature: Class Format
-        values:
-          - Online, in-person
-          - Usually only one format
-      - feature: Previous Knowledge
-        values:
-          - None
-          - Entry tests or prior coding experience
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: lg
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Progress Like Never Before
-    description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
-    cards:
-      - icon: Rigobot
-        title: Our custom-built AI
-        description: Rigobot, tracks your activity and identifies your strengths, struggles, and gaps—delivering real-time feedback tailored to maximize your learning.
-      - icon: IconUsers
-        title: Unlimited 1:1 sessions with expert mentors
-        description: give you live human support whenever you need it—so you never get stuck or lose momentum.
-      - icon: Clock
-        title: Career coaches work with you individually
-        description: to build your confidence and strategy—helping you stand out on paper, in interviews, and on AI-filtered platforms like ATS systems and LinkedIn.
-      - icon: IconChalkboardTeacher
-        title: 1:7 teacher-student ratio in live classes
-        description: means you get real attention, so your questions get answered, and your learning stays on track.
-    footer_description: Join thousands of graduates who have launched successful tech careers.
-    background: bg-background
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: none
-  - type: testimonials_slide
-    title: What Our Students Say
-    description: See how our graduates transformed their careers with personalized learning and career support.
-    paddingY:
-      desktop: none
-    marginY:
-      desktop: none
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era
@@ -362,7 +288,7 @@ sections:
             contributor_logos:
               - image_id: clark_university
             description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
+            achievement: She launched her startup, is hiring new tech talent, and coordinates an entire dev team!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
@@ -378,17 +304,41 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: 84%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: 55%
+        title: Salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+  - type: testimonials_slide
+    title: Real Graduates, Real Career Results
+    description: See how our graduates transformed their careers with personalized learning and career support.
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - online-platform
-      - job-guarantee
       - certification
-    paddingY:
-      desktop: md none
+      - mentors-and-teachers
     marginY:
       desktop: none md
+    paddingY:
+      desktop: md none
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.

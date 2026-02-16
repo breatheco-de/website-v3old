@@ -18,22 +18,31 @@ import {
 } from "@/components/ui/select";
 import { locations } from "@/lib/locations";
 import { useToast } from "@/hooks/use-toast";
-import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
-import { resolveVariable, type VariableDefinition, type VariableCondition } from "@/lib/variable-resolver";
+import {
+  useVariableDefinitions,
+  useVariableContext,
+} from "@/hooks/useVariables";
+import {
+  resolveVariable,
+  type VariableDefinition,
+} from "@/lib/variable-resolver";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import {
   IconCheck,
   IconX,
+  IconArrowRight,
   IconEdit,
   IconPlus,
   IconTrash,
   IconSelector,
-  IconChevronUp,
-  IconChevronDown,
-  IconFilter,
+  IconSearch,
 } from "@tabler/icons-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -52,273 +61,411 @@ interface VariableDetailModalProps {
   onCreated?: (variableName: string, templateSyntax: string) => void;
 }
 
+type ResolutionLevel = "by_location" | "by_region" | "by_locale" | "default";
+
+const LEVEL_LABELS: Record<ResolutionLevel, string> = {
+  by_location: "Location",
+  by_region: "Region",
+  by_locale: "Locale",
+  default: "Default",
+};
+
+const LEVEL_ORDER: ResolutionLevel[] = [
+  "by_location",
+  "by_region",
+  "by_locale",
+  "default",
+];
+
+function ResolutionChainItem({
+  level,
+  label,
+  contextKey,
+  allEntries,
+  defaultValue,
+  isActive,
+  isChecked,
+}: {
+  level: ResolutionLevel;
+  label: string;
+  contextKey: string | undefined;
+  allEntries: Record<string, string> | undefined;
+  defaultValue?: string;
+  isActive: boolean;
+  isChecked: boolean;
+}) {
+  const isDefault = level === "default";
+  const hasEntries = isDefault
+    ? defaultValue !== undefined
+    : allEntries && Object.keys(allEntries).length > 0;
+
+  return (
+    <div
+      className={`rounded-md overflow-visible ${
+        isActive
+          ? "bg-primary/10 border border-primary/30"
+          : isChecked
+            ? "bg-muted/50"
+            : "opacity-50"
+      }`}
+      data-testid={`resolution-level-${level}`}
+    >
+      <div className="flex items-center gap-3 px-3 py-2">
+        <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
+          {isActive ? (
+            <IconCheck className="w-4 h-4 text-primary" />
+          ) : isChecked ? (
+            <IconX className="w-4 h-4 text-muted-foreground" />
+          ) : (
+            <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm font-medium">{label}</span>
+            {contextKey && (
+              <Badge variant="secondary" className="text-xs">
+                {contextKey}
+              </Badge>
+            )}
+            {!hasEntries && (
+              <span className="text-xs text-muted-foreground/60 italic">
+                No values configured
+              </span>
+            )}
+          </div>
+        </div>
+        {isActive && (
+          <Badge variant="default" className="text-xs flex-shrink-0">
+            Active
+          </Badge>
+        )}
+      </div>
+
+      {hasEntries && (
+        <div className="px-3 pb-2 pl-11 space-y-0.5">
+          {isDefault ? (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-muted-foreground font-mono truncate max-w-[120px]">
+                default
+              </span>
+              <span className="text-muted-foreground/40">=</span>
+              <span
+                className={`truncate ${isActive ? "font-medium text-foreground" : "text-muted-foreground"}`}
+              >
+                "{defaultValue}"
+              </span>
+            </div>
+          ) : (
+            Object.entries(allEntries!).map(([key, val]) => {
+              const isMatch = key === contextKey;
+              return (
+                <div
+                  key={key}
+                  className={`flex items-center gap-2 text-xs ${isMatch && isActive ? "font-medium" : ""}`}
+                >
+                  <span
+                    className={`font-mono truncate max-w-[120px] ${isMatch ? "text-primary" : "text-muted-foreground"}`}
+                  >
+                    {key}
+                  </span>
+                  <span className="text-muted-foreground/40">=</span>
+                  <span
+                    className={`truncate ${isMatch && isActive ? "text-foreground" : "text-muted-foreground"}`}
+                  >
+                    "{val}"
+                  </span>
+                  {isMatch && (
+                    <Badge
+                      variant="outline"
+                      className="text-[10px] px-1 py-0 flex-shrink-0"
+                    >
+                      match
+                    </Badge>
+                  )}
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface EditRowProps {
+  scopeKey: string;
+  value: string;
+  onSave: (key: string, value: string) => void;
+  onDelete: (key: string) => void;
+}
+
+function EditRow({ scopeKey, value, onSave, onDelete }: EditRowProps) {
+  const [editing, setEditing] = useState(false);
+  const [editValue, setEditValue] = useState(value);
+
+  useEffect(() => {
+    setEditValue(value);
+  }, [value]);
+
+  if (!editing) {
+    return (
+      <div className="flex items-center gap-2 py-1">
+        <span className="text-sm text-muted-foreground w-40 truncate flex-shrink-0">
+          {scopeKey}
+        </span>
+        <span className="text-sm flex-1 truncate">"{value}"</span>
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => setEditing(true)}
+          data-testid={`button-edit-${scopeKey}`}
+        >
+          <IconEdit className="w-3.5 h-3.5" />
+        </Button>
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => onDelete(scopeKey)}
+          data-testid={`button-delete-${scopeKey}`}
+        >
+          <IconTrash className="w-3.5 h-3.5 text-destructive" />
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-2 py-1">
+      <span className="text-sm text-muted-foreground w-40 truncate flex-shrink-0">
+        {scopeKey}
+      </span>
+      <Input
+        value={editValue}
+        onChange={(e) => setEditValue(e.target.value)}
+        className="flex-1"
+        autoFocus
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            onSave(scopeKey, editValue);
+            setEditing(false);
+          }
+          if (e.key === "Escape") {
+            setEditValue(value);
+            setEditing(false);
+          }
+        }}
+        data-testid={`input-edit-${scopeKey}`}
+      />
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={() => {
+          onSave(scopeKey, editValue);
+          setEditing(false);
+        }}
+        data-testid={`button-save-${scopeKey}`}
+      >
+        <IconCheck className="w-3.5 h-3.5 text-primary" />
+      </Button>
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={() => {
+          setEditValue(value);
+          setEditing(false);
+        }}
+        data-testid={`button-cancel-${scopeKey}`}
+      >
+        <IconX className="w-3.5 h-3.5" />
+      </Button>
+    </div>
+  );
+}
+
+interface EditableSectionProps {
+  level: ResolutionLevel;
+  label: string;
+  entries: Record<string, string> | undefined;
+  defaultValue?: string;
+  onSave: (level: ResolutionLevel, key: string, value: string) => Promise<void>;
+  onDelete: (level: ResolutionLevel, key: string) => Promise<void>;
+  onAdd: (level: ResolutionLevel, key: string, value: string) => Promise<void>;
+}
+
 const SUPPORTED_LOCALES = [
   { value: "en", label: "English (en)" },
   { value: "es", label: "Spanish (es)" },
 ];
 
-const CRITERIA_KEYS = [
-  { key: "location", label: "Location" },
-  { key: "region", label: "Region" },
-  { key: "locale", label: "Locale" },
-] as const;
+function getKeyOptionsForLevel(
+  level: ResolutionLevel,
+  existingKeys: string[],
+): { value: string; label: string }[] {
+  const existing = new Set(existingKeys);
 
-function getOptionsForCriteriaKey(key: string): { value: string; label: string }[] {
-  if (key === "location") {
+  if (level === "by_location") {
     return locations
-      .filter((loc) => loc.visibility === "listed")
+      .filter((loc) => loc.visibility === "listed" && !existing.has(loc.slug))
       .map((loc) => ({ value: loc.slug, label: `${loc.name} (${loc.slug})` }));
   }
-  if (key === "region") {
+
+  if (level === "by_region") {
     const regionSet = new Set(locations.map((loc) => loc.region));
     return Array.from(regionSet)
+      .filter((r) => !existing.has(r))
       .sort()
       .map((r) => ({ value: r, label: r }));
   }
-  if (key === "locale") {
-    return SUPPORTED_LOCALES;
+
+  if (level === "by_locale") {
+    return SUPPORTED_LOCALES.filter((l) => !existing.has(l.value));
   }
+
   return [];
 }
 
-function querySummary(query: Record<string, string>): string {
-  return Object.entries(query)
-    .map(([k, v]) => `${k} = ${v}`)
-    .join(", ");
-}
-
-function ConditionRow({
-  condition,
-  index,
-  isFirst,
-  isLast,
-  isMatched,
-  onEdit,
-  onDelete,
-  onMoveUp,
-  onMoveDown,
-}: {
-  condition: VariableCondition;
-  index: number;
-  isFirst: boolean;
-  isLast: boolean;
-  isMatched: boolean;
-  onEdit: () => void;
-  onDelete: () => void;
-  onMoveUp: () => void;
-  onMoveDown: () => void;
-}) {
-  return (
-    <div
-      className={`flex items-start gap-2 px-3 py-2 rounded-md ${
-        isMatched ? "bg-primary/10 border border-primary/30" : "bg-muted/50"
-      }`}
-      data-testid={`condition-row-${index}`}
-    >
-      <div className="flex flex-col flex-shrink-0">
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={onMoveUp}
-          disabled={isFirst}
-          data-testid={`button-move-up-${index}`}
-        >
-          <IconChevronUp className="w-3 h-3" />
-        </Button>
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={onMoveDown}
-          disabled={isLast}
-          data-testid={`button-move-down-${index}`}
-        >
-          <IconChevronDown className="w-3 h-3" />
-        </Button>
-      </div>
-
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1 flex-wrap">
-          <span className="text-xs text-muted-foreground mr-1">{index + 1}.</span>
-          {Object.entries(condition.query).map(([key, val]) => (
-            <Badge key={key} variant="secondary" className="text-xs">
-              {key} = {val}
-            </Badge>
-          ))}
-          {isMatched && (
-            <Badge variant="default" className="text-xs ml-1">
-              Matched
-            </Badge>
-          )}
-        </div>
-        <p className="text-sm mt-1 truncate">"{condition.value}"</p>
-      </div>
-
-      <div className="flex gap-0.5 flex-shrink-0">
-        <Button size="icon" variant="ghost" onClick={onEdit} data-testid={`button-edit-condition-${index}`}>
-          <IconEdit className="w-3.5 h-3.5" />
-        </Button>
-        <Button size="icon" variant="ghost" onClick={onDelete} data-testid={`button-delete-condition-${index}`}>
-          <IconTrash className="w-3.5 h-3.5 text-destructive" />
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-function ConditionEditor({
-  initial,
+function EditableSection({
+  level,
+  label,
+  entries,
+  defaultValue,
   onSave,
-  onCancel,
-}: {
-  initial?: VariableCondition;
-  onSave: (condition: VariableCondition) => void;
-  onCancel: () => void;
-}) {
-  const [criteria, setCriteria] = useState<Record<string, string>>(
-    initial?.query ? { ...initial.query } : {},
-  );
-  const [value, setValue] = useState(initial?.value || "");
-  const [addingKey, setAddingKey] = useState<string | null>(null);
+  onDelete,
+  onAdd,
+}: EditableSectionProps) {
+  const [adding, setAdding] = useState(false);
+  const [newKey, setNewKey] = useState("");
+  const [newValue, setNewValue] = useState("");
 
-  const usedKeys = Object.keys(criteria);
-  const availableKeys = CRITERIA_KEYS.filter((ck) => !usedKeys.includes(ck.key));
+  const isDefault = level === "default";
 
-  const handleAddCriteria = (key: string, val: string) => {
-    setCriteria((prev) => ({ ...prev, [key]: val }));
-    setAddingKey(null);
-  };
-
-  const handleRemoveCriteria = (key: string) => {
-    setCriteria((prev) => {
-      const next = { ...prev };
-      delete next[key];
-      return next;
-    });
-  };
-
-  const handleSave = () => {
-    if (Object.keys(criteria).length === 0 || !value.trim()) return;
-    onSave({ query: criteria, value: value.trim() });
-  };
+  const handleAdd = useCallback(() => {
+    if (isDefault) {
+      onAdd(level, "", newValue);
+    } else if (newKey && newValue) {
+      onAdd(level, newKey, newValue);
+    }
+    setNewKey("");
+    setNewValue("");
+    setAdding(false);
+  }, [level, newKey, newValue, isDefault, onAdd]);
 
   return (
-    <div className="space-y-3 p-3 rounded-md border border-dashed border-primary/30 bg-muted/30" data-testid="condition-editor">
-      <div className="space-y-2">
-        <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          When these criteria match:
-        </label>
-        {usedKeys.map((key) => {
-          const opts = getOptionsForCriteriaKey(key);
+    <div className="space-y-1">
+      <div className="flex items-center justify-between gap-2">
+        <h4 className="text-sm font-medium text-foreground">{label}</h4>
+        {!isDefault && (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => setAdding(true)}
+            className="text-xs"
+            data-testid={`button-add-${level}`}
+          >
+            <IconPlus className="w-3 h-3 mr-1" />
+            Add
+          </Button>
+        )}
+      </div>
+
+      {isDefault ? (
+        <EditRow
+          scopeKey="default"
+          value={defaultValue || ""}
+          onSave={(_, val) => onSave(level, "", val)}
+          onDelete={() => onDelete(level, "")}
+        />
+      ) : (
+        <>
+          {entries &&
+            Object.entries(entries).map(([key, val]) => (
+              <EditRow
+                key={key}
+                scopeKey={key}
+                value={val}
+                onSave={(k, v) => onSave(level, k, v)}
+                onDelete={(k) => onDelete(level, k)}
+              />
+            ))}
+          {(!entries || Object.keys(entries).length === 0) && !adding && (
+            <p className="text-xs text-muted-foreground/60 italic py-1">
+              No values defined
+            </p>
+          )}
+        </>
+      )}
+
+      {adding &&
+        !isDefault &&
+        (() => {
+          const existingKeys = entries ? Object.keys(entries) : [];
+          const options = getKeyOptionsForLevel(level, existingKeys);
           return (
-            <div key={key} className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs flex-shrink-0">
-                {key}
-              </Badge>
-              <Select
-                value={criteria[key]}
-                onValueChange={(val) =>
-                  setCriteria((prev) => ({ ...prev, [key]: val }))
-                }
-              >
-                <SelectTrigger className="flex-1" data-testid={`select-criteria-${key}`}>
-                  <SelectValue placeholder={`Select ${key}...`} />
+            <div className="flex items-center gap-2 py-1">
+              <Select value={newKey} onValueChange={setNewKey}>
+                <SelectTrigger
+                  className="w-48 flex-shrink-0"
+                  data-testid={`select-trigger-new-key-${level}`}
+                >
+                  <SelectValue
+                    placeholder={
+                      level === "by_location"
+                        ? "Select location"
+                        : level === "by_region"
+                          ? "Select region"
+                          : "Select locale"
+                    }
+                  />
                 </SelectTrigger>
                 <SelectContent>
-                  {opts.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>
-                      {o.label}
+                  {options.length === 0 ? (
+                    <SelectItem value="__empty__" disabled>
+                      All options already added
                     </SelectItem>
-                  ))}
+                  ) : (
+                    options.map((opt) => (
+                      <SelectItem
+                        key={opt.value}
+                        value={opt.value}
+                        data-testid={`select-option-${opt.value}`}
+                      >
+                        {opt.label}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
+              <Input
+                placeholder="Value"
+                value={newValue}
+                onChange={(e) => setNewValue(e.target.value)}
+                className="flex-1"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleAdd();
+                  if (e.key === "Escape") setAdding(false);
+                }}
+                data-testid={`input-new-value-${level}`}
+              />
               <Button
                 size="icon"
                 variant="ghost"
-                onClick={() => handleRemoveCriteria(key)}
-                data-testid={`button-remove-criteria-${key}`}
+                onClick={handleAdd}
+                data-testid={`button-confirm-add-${level}`}
+              >
+                <IconCheck className="w-3.5 h-3.5 text-primary" />
+              </Button>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => setAdding(false)}
+                data-testid={`button-cancel-add-${level}`}
               >
                 <IconX className="w-3.5 h-3.5" />
               </Button>
             </div>
           );
-        })}
-
-        {addingKey ? (
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="text-xs flex-shrink-0">
-              {addingKey}
-            </Badge>
-            <Select
-              onValueChange={(val) => handleAddCriteria(addingKey, val)}
-            >
-              <SelectTrigger className="flex-1" data-testid={`select-new-criteria-${addingKey}`}>
-                <SelectValue placeholder={`Select ${addingKey}...`} />
-              </SelectTrigger>
-              <SelectContent>
-                {getOptionsForCriteriaKey(addingKey).map((o) => (
-                  <SelectItem key={o.value} value={o.value}>
-                    {o.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => setAddingKey(null)}
-              data-testid="button-cancel-add-criteria"
-            >
-              <IconX className="w-3.5 h-3.5" />
-            </Button>
-          </div>
-        ) : availableKeys.length > 0 ? (
-          <div className="flex gap-1">
-            {availableKeys.map((ck) => (
-              <Button
-                key={ck.key}
-                size="sm"
-                variant="outline"
-                onClick={() => setAddingKey(ck.key)}
-                data-testid={`button-add-criteria-${ck.key}`}
-              >
-                <IconPlus className="w-3 h-3 mr-1" />
-                {ck.label}
-              </Button>
-            ))}
-          </div>
-        ) : null}
-      </div>
-
-      <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Then use this value:
-        </label>
-        <Input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="Enter value..."
-          autoFocus
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSave();
-            if (e.key === "Escape") onCancel();
-          }}
-          data-testid="input-condition-value"
-        />
-      </div>
-
-      <div className="flex justify-end gap-2">
-        <Button size="sm" variant="outline" onClick={onCancel} data-testid="button-cancel-condition">
-          Cancel
-        </Button>
-        <Button
-          size="sm"
-          onClick={handleSave}
-          disabled={Object.keys(criteria).length === 0 || !value.trim()}
-          data-testid="button-save-condition"
-        >
-          {initial ? "Update" : "Add Condition"}
-        </Button>
-      </div>
+        })()}
     </div>
   );
 }
@@ -338,16 +485,14 @@ export function VariableDetailModal({
   const [createName, setCreateName] = useState("");
   const [createSaving, setCreateSaving] = useState(false);
   const [currentMode, setCurrentMode] = useState(mode);
-  const [createSubMode, setCreateSubMode] = useState<"new" | "existing">("existing");
+  const [createSubMode, setCreateSubMode] = useState<"new" | "existing">(
+    "existing",
+  );
   const [nameAvailable, setNameAvailable] = useState<boolean | null>(null);
   const nameCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [existingVarName, setExistingVarName] = useState("");
   const [varComboboxOpen, setVarComboboxOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const [editingConditionIndex, setEditingConditionIndex] = useState<number | null>(null);
-  const [addingCondition, setAddingCondition] = useState(false);
-  const [editingDefault, setEditingDefault] = useState(false);
-  const [editDefaultValue, setEditDefaultValue] = useState("");
 
   useEffect(() => {
     setCurrentMode(mode);
@@ -361,57 +506,55 @@ export function VariableDetailModal({
     }
   }, [mode, open]);
 
-  useEffect(() => {
-    setEditingConditionIndex(null);
-    setAddingCondition(false);
-    setEditingDefault(false);
-  }, [open, activeTab]);
-
-  const effectiveVarName = currentMode === "create"
-    ? (createSubMode === "existing" ? existingVarName : createName)
-    : variableName;
+  const effectiveVarName =
+    currentMode === "create"
+      ? createSubMode === "existing"
+        ? existingVarName
+        : createName
+      : variableName;
 
   const definition = definitions?.[effectiveVarName];
-  const resolution = definition
-    ? resolveVariable(effectiveVarName, definitions!, varContext)
-    : null;
+  const resolution =
+    definition && definitions
+      ? resolveVariable(effectiveVarName, definitions, varContext)
+      : null;
 
-  const resolvedValue = resolution?.value || inlineDefault || effectiveVarName;
-  const resolvedSource = resolution?.source || (inlineDefault ? "inline" : "unresolved");
-
-  const matchedConditionIndex = (() => {
-    if (!definition?.conditions || resolvedSource !== "condition") return -1;
-    for (let i = 0; i < definition.conditions.length; i++) {
-      const cond = definition.conditions[i];
-      const matches = Object.entries(cond.query).every(([key, val]) => {
-        const contextVal = (varContext as Record<string, string | undefined>)[key];
-        return contextVal === val;
-      });
-      if (matches) return i;
-    }
-    return -1;
-  })();
+  const resolvedValue =
+    resolution?.value || inlineDefault || effectiveVarName || "—";
+  const resolvedSource =
+    resolution?.source || (inlineDefault ? "inline" : "unresolved");
 
   const handleCreate = useCallback(async () => {
     const name = createName.trim().replace(/\s+/g, "_").toLowerCase();
     if (!name) {
-      toast({ title: "Name required", description: "Please enter a name for the variable.", variant: "destructive" });
+      toast({
+        title: "Name required",
+        description: "Please enter a name for the variable.",
+        variant: "destructive",
+      });
       return;
     }
     if (definitions?.[name]) {
-      toast({ title: "Already exists", description: `Variable "${name}" already exists. Choose a different name.`, variant: "destructive" });
+      toast({
+        title: "Already exists",
+        description: `Variable "${name}" already exists. Choose a different name.`,
+        variant: "destructive",
+      });
       return;
     }
     setCreateSaving(true);
     try {
       await apiRequest("PUT", `/api/variables/${name}`, {
-        action: "set_default",
+        level: "default",
         value: inlineDefault,
       });
       await refetch();
       queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
       const templateSyntax = `{{ ${name} | ${inlineDefault} }}`;
-      toast({ title: "Variable created", description: `"${name}" is ready to use.` });
+      toast({
+        title: "Variable created",
+        description: `"${name}" is ready to use.`,
+      });
       onCreated?.(name, templateSyntax);
       setCurrentMode("inspect");
     } catch (err) {
@@ -427,49 +570,95 @@ export function VariableDetailModal({
 
   const handleUseExisting = useCallback(() => {
     if (!existingVarName) {
-      toast({ title: "Select a variable", description: "Please choose an existing variable.", variant: "destructive" });
+      toast({
+        title: "Select a variable",
+        description: "Please choose an existing variable.",
+        variant: "destructive",
+      });
       return;
     }
     const templateSyntax = `{{ ${existingVarName} | ${inlineDefault} }}`;
-    toast({ title: "Variable linked", description: `Text will use "{{ ${existingVarName} }}".` });
+    toast({
+      title: "Variable linked",
+      description: `Text will use "{{ ${existingVarName} }}".`,
+    });
     onCreated?.(existingVarName, templateSyntax);
     setCurrentMode("inspect");
   }, [existingVarName, inlineDefault, toast, onCreated]);
 
   const existingVarNames = definitions ? Object.keys(definitions).sort() : [];
 
-  const handleNameChange = useCallback((rawValue: string) => {
-    const sanitized = rawValue.replace(/[^a-zA-Z0-9_]/g, "_");
-    setCreateName(sanitized);
-    setNameAvailable(null);
-    if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
-    const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
-    if (!normalized) {
+  const handleNameChange = useCallback(
+    (rawValue: string) => {
+      const sanitized = rawValue.replace(/[^a-zA-Z0-9_]/g, "_");
+      setCreateName(sanitized);
       setNameAvailable(null);
-      return;
-    }
-    nameCheckTimerRef.current = setTimeout(() => {
-      setNameAvailable(!definitions?.[normalized]);
-    }, 500);
-  }, [definitions]);
+      if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
+      const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
+      if (!normalized) {
+        setNameAvailable(null);
+        return;
+      }
+      nameCheckTimerRef.current = setTimeout(() => {
+        setNameAvailable(!definitions?.[normalized]);
+      }, 500);
+    },
+    [definitions],
+  );
 
   const resolvedCreateValue = (() => {
-    const varName = createSubMode === "existing" ? existingVarName : createName.trim().replace(/\s+/g, "_").toLowerCase();
+    const varName =
+      createSubMode === "existing"
+        ? existingVarName
+        : createName.trim().replace(/\s+/g, "_").toLowerCase();
     if (!varName || !definitions?.[varName]) return inlineDefault;
     const res = resolveVariable(varName, definitions, varContext);
     return res?.value || inlineDefault || varName;
   })();
 
-  const handleSaveDefault = useCallback(
-    async (value: string) => {
+  const getEntriesForLevel = (
+    level: ResolutionLevel,
+  ): Record<string, string> | undefined => {
+    if (!definition) return undefined;
+    if (level === "default") return undefined;
+    return definition[level] as Record<string, string> | undefined;
+  };
+
+  const getContextKeyForLevel = (
+    level: ResolutionLevel,
+  ): string | undefined => {
+    if (level === "default") return undefined;
+    const map: Record<string, string | undefined> = {
+      by_location: varContext.location,
+      by_region: varContext.region,
+      by_locale: varContext.locale,
+    };
+    return map[level];
+  };
+
+  const sourceToLevel: Record<string, ResolutionLevel> = {
+    location: "by_location",
+    region: "by_region",
+    locale: "by_locale",
+    default: "default",
+  };
+
+  const activeLevel = sourceToLevel[resolvedSource] || null;
+
+  const handleSave = useCallback(
+    async (level: ResolutionLevel, key: string, value: string) => {
       try {
         await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "set_default",
+          level,
+          key: key || undefined,
           value,
         });
         await refetch();
         queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-        toast({ title: "Default updated", description: `${effectiveVarName} default saved.` });
+        toast({
+          title: "Variable updated",
+          description: `${effectiveVarName} saved successfully.`,
+        });
       } catch (err) {
         toast({
           title: "Failed to save",
@@ -481,61 +670,19 @@ export function VariableDetailModal({
     [effectiveVarName, refetch, toast],
   );
 
-  const handleAddCondition = useCallback(
-    async (condition: VariableCondition) => {
+  const handleDelete = useCallback(
+    async (level: ResolutionLevel, key: string) => {
       try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "add_condition",
-          condition,
+        await apiRequest("DELETE", `/api/variables/${effectiveVarName}`, {
+          level,
+          key: key || undefined,
         });
         await refetch();
         queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-        setAddingCondition(false);
-        toast({ title: "Condition added", description: `New condition added to ${effectiveVarName}.` });
-      } catch (err) {
         toast({
-          title: "Failed to add condition",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
+          title: "Value removed",
+          description: `Removed from ${effectiveVarName}.`,
         });
-      }
-    },
-    [effectiveVarName, refetch, toast],
-  );
-
-  const handleUpdateCondition = useCallback(
-    async (index: number, condition: VariableCondition) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "update_condition",
-          index,
-          condition,
-        });
-        await refetch();
-        queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-        setEditingConditionIndex(null);
-        toast({ title: "Condition updated", description: `Condition ${index + 1} updated.` });
-      } catch (err) {
-        toast({
-          title: "Failed to update",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
-    },
-    [effectiveVarName, refetch, toast],
-  );
-
-  const handleDeleteCondition = useCallback(
-    async (index: number) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "delete_condition",
-          index,
-        });
-        await refetch();
-        queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-        toast({ title: "Condition removed", description: `Condition ${index + 1} removed.` });
       } catch (err) {
         toast({
           title: "Failed to delete",
@@ -547,30 +694,22 @@ export function VariableDetailModal({
     [effectiveVarName, refetch, toast],
   );
 
-  const handleReorder = useCallback(
-    async (fromIndex: number, toIndex: number) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "reorder_conditions",
-          fromIndex,
-          toIndex,
-        });
-        await refetch();
-        queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-      } catch (err) {
-        toast({
-          title: "Failed to reorder",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
+  const handleAdd = useCallback(
+    async (level: ResolutionLevel, key: string, value: string) => {
+      await handleSave(level, key, value);
     },
-    [effectiveVarName, refetch, toast],
+    [handleSave],
   );
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent ref={dialogRef} className={`max-w-lg max-h-[85vh] ${varComboboxOpen ? "overflow-visible" : "overflow-y-auto"}`} data-testid="variable-detail-modal">
+      <DialogContent
+        ref={dialogRef}
+        className="max-w-lg max-h-[85vh] overflow-y-auto"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        onCloseAutoFocus={(e) => e.preventDefault()}
+        data-testid="variable-detail-modal"
+      >
         {currentMode === "create" ? (
           <>
             <DialogHeader>
@@ -583,12 +722,17 @@ export function VariableDetailModal({
             <div className="space-y-4 mt-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">
-                  {createSubMode === "new" ? "New variable name" : "Select variable"}
+                  {createSubMode === "new"
+                    ? "New variable name"
+                    : "Select variable"}
                 </label>
                 <div className="flex gap-2 items-start">
                   {createSubMode === "existing" ? (
                     <div className="flex-1">
-                      <Popover open={varComboboxOpen} onOpenChange={setVarComboboxOpen}>
+                      <Popover
+                        open={varComboboxOpen}
+                        onOpenChange={setVarComboboxOpen}
+                      >
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
@@ -598,16 +742,27 @@ export function VariableDetailModal({
                             data-testid="select-existing-variable"
                           >
                             {existingVarName ? (
-                              <span className="font-mono text-sm">{existingVarName}</span>
+                              <span className="font-mono text-sm">
+                                {existingVarName}
+                              </span>
                             ) : (
-                              <span className="text-muted-foreground">Choose a variable...</span>
+                              <span className="text-muted-foreground">
+                                Choose a variable...
+                              </span>
                             )}
                             <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current} onCloseAutoFocus={(e) => e.preventDefault()}>
+                        <PopoverContent
+                          className="w-[--radix-popover-trigger-width] p-0 z-[10001]"
+                          align="start"
+                          container={dialogRef.current}
+                        >
                           <Command>
-                            <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
+                            <CommandInput
+                              placeholder="Search variables..."
+                              data-testid="input-search-variable"
+                            />
                             <CommandList>
                               <CommandEmpty>No variables found.</CommandEmpty>
                               <CommandGroup>
@@ -616,15 +771,17 @@ export function VariableDetailModal({
                                     key={name}
                                     value={name}
                                     onSelect={(val) => {
-                                      setExistingVarName(val === existingVarName ? "" : val);
-                                      requestAnimationFrame(() => setVarComboboxOpen(false));
+                                      setExistingVarName(val);
+                                      setVarComboboxOpen(false);
                                     }}
                                     data-testid={`variable-option-${name}`}
                                   >
                                     <IconCheck
                                       className={`mr-2 h-4 w-4 ${existingVarName === name ? "opacity-100" : "opacity-0"}`}
                                     />
-                                    <span className="font-mono text-sm">{name}</span>
+                                    <span className="font-mono text-sm">
+                                      {name}
+                                    </span>
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
@@ -643,7 +800,8 @@ export function VariableDetailModal({
                           onChange={(e) => handleNameChange(e.target.value)}
                           autoFocus
                           onKeyDown={(e) => {
-                            if (e.key === "Enter" && nameAvailable) handleCreate();
+                            if (e.key === "Enter" && nameAvailable)
+                              handleCreate();
                           }}
                           className={`pr-8 font-mono ${nameAvailable === false ? "border-destructive" : nameAvailable === true ? "border-chart-3" : ""}`}
                           data-testid="input-variable-name"
@@ -659,13 +817,17 @@ export function VariableDetailModal({
                         )}
                       </div>
                       {createName.trim() && nameAvailable === false && (
-                        <p className="text-xs text-destructive">This variable name is already taken</p>
+                        <p className="text-xs text-destructive">
+                          This variable name is already taken
+                        </p>
                       )}
                       {createName.trim() && nameAvailable === true && (
                         <p className="text-xs text-chart-3">Name available</p>
                       )}
                       {!createName.trim() && (
-                        <p className="text-xs text-muted-foreground">Use snake_case (letters, numbers, underscores only)</p>
+                        <p className="text-xs text-muted-foreground">
+                          Use snake_case (letters, numbers, underscores only)
+                        </p>
                       )}
                     </div>
                   )}
@@ -694,34 +856,69 @@ export function VariableDetailModal({
 
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground">
-                  Based on your current session in <span className="font-medium text-foreground">{varContext.locale || "en"}</span>,{" "}
-                  <span className="font-medium text-foreground">{varContext.region || "unknown"}</span> and location{" "}
-                  <span className="font-medium text-foreground">{varContext.location || "unknown"}</span>, the value of this variable will be:
+                  Based on your current session in{" "}
+                  <span className="font-medium text-foreground">
+                    {varContext.locale || "en"}
+                  </span>
+                  ,{" "}
+                  <span className="font-medium text-foreground">
+                    {varContext.region || "unknown"}
+                  </span>{" "}
+                  and location{" "}
+                  <span className="font-medium text-foreground">
+                    {varContext.location || "unknown"}
+                  </span>
+                  , the value of this variable will be:
                 </p>
                 <div className="px-3 py-2 rounded-md bg-muted text-sm font-medium">
                   "{resolvedCreateValue}"
                 </div>
               </div>
 
-              {((createSubMode === "new" && createName.trim()) || (createSubMode === "existing" && existingVarName)) && (
+              {((createSubMode === "new" && createName.trim()) ||
+                (createSubMode === "existing" && existingVarName)) && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Preview</label>
+                  <label className="text-sm font-medium text-foreground">
+                    Preview
+                  </label>
                   <div className="px-3 py-2 rounded-md bg-muted font-mono text-sm">
-                    {"{{ "}{createSubMode === "new" ? createName.trim().replace(/\s+/g, "_").toLowerCase() : existingVarName}{" | "}{inlineDefault}{" }}"}
+                    {"{{ "}
+                    {createSubMode === "new"
+                      ? createName.trim().replace(/\s+/g, "_").toLowerCase()
+                      : existingVarName}
+                    {" | "}
+                    {inlineDefault}
+                    {" }}"}
                   </div>
                 </div>
               )}
 
               <div className="flex justify-end gap-2 pt-2">
-                <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-create">
+                <Button
+                  variant="outline"
+                  onClick={() => onOpenChange(false)}
+                  data-testid="button-cancel-create"
+                >
                   Cancel
                 </Button>
                 {createSubMode === "new" ? (
-                  <Button onClick={handleCreate} disabled={createSaving || !createName.trim() || nameAvailable === false} data-testid="button-confirm-create">
+                  <Button
+                    onClick={handleCreate}
+                    disabled={
+                      createSaving ||
+                      !createName.trim() ||
+                      nameAvailable === false
+                    }
+                    data-testid="button-confirm-create"
+                  >
                     {createSaving ? "Creating..." : "Create Variable"}
                   </Button>
                 ) : (
-                  <Button onClick={handleUseExisting} disabled={!existingVarName} data-testid="button-confirm-use-existing">
+                  <Button
+                    onClick={handleUseExisting}
+                    disabled={!existingVarName}
+                    data-testid="button-confirm-use-existing"
+                  >
                     Use Variable
                   </Button>
                 )}
@@ -730,295 +927,289 @@ export function VariableDetailModal({
           </>
         ) : (
           <>
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <span className="font-mono text-sm px-2 py-1 rounded-md bg-muted">
-              {"{{ "}
-              {effectiveVarName}
-              {" }}"}
-            </span>
-          </DialogTitle>
-          <DialogDescription>
-            Currently resolves to: <span className="font-semibold text-foreground">"{resolvedValue}"</span>
-          </DialogDescription>
-        </DialogHeader>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <span className="font-mono text-sm px-2 py-1 rounded-md bg-muted">
+                  {"{{ "}
+                  {effectiveVarName}
+                  {" }}"}
+                </span>
+              </DialogTitle>
+              <DialogDescription>
+                Currently resolves to:{" "}
+                <span className="font-semibold text-foreground">
+                  "{resolvedValue}"
+                </span>
+              </DialogDescription>
+            </DialogHeader>
 
-        <div className="flex gap-1 border-b pb-0 mb-4">
-          <button
-            className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === "explain"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActiveTab("explain")}
-            data-testid="tab-explain"
-          >
-            Why this value?
-          </button>
-          <button
-            className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === "edit"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActiveTab("edit")}
-            data-testid="tab-edit"
-          >
-            Edit values
-          </button>
-        </div>
-
-        {activeTab === "explain" && (
-          <div className="space-y-3" data-testid="explain-tab-content">
-            <div className="p-3 rounded-md bg-muted/50 text-xs text-muted-foreground">
-              <p>
-                <span className="font-medium">Your context:</span>{" "}
-                location = {varContext.location || "none"}, region = {varContext.region || "none"}, locale = {varContext.locale || "none"}
-              </p>
-            </div>
-
-            <p className="text-sm text-muted-foreground">
-              Conditions are checked in order. The first match wins:
-            </p>
-
-            {definition?.conditions && definition.conditions.length > 0 ? (
-              <div className="space-y-1.5">
-                {definition.conditions.map((cond, i) => {
-                  const isMatch = i === matchedConditionIndex;
-                  const isPastMatch = matchedConditionIndex >= 0 && i > matchedConditionIndex;
-                  return (
-                    <div
-                      key={i}
-                      className={`flex items-start gap-3 px-3 py-2 rounded-md ${
-                        isMatch
-                          ? "bg-primary/10 border border-primary/30"
-                          : isPastMatch
-                          ? "opacity-40"
-                          : "bg-muted/50"
-                      }`}
-                      data-testid={`explain-condition-${i}`}
-                    >
-                      <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">
-                        {isMatch ? (
-                          <IconCheck className="w-4 h-4 text-primary" />
-                        ) : isPastMatch ? (
-                          <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
-                        ) : (
-                          <IconX className="w-4 h-4 text-muted-foreground" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1 flex-wrap">
-                          {Object.entries(cond.query).map(([key, val]) => (
-                            <Badge key={key} variant="secondary" className="text-xs">
-                              {key} = {val}
-                            </Badge>
-                          ))}
-                        </div>
-                        <p className="text-sm mt-0.5 truncate">"{cond.value}"</p>
-                      </div>
-                      {isMatch && (
-                        <Badge variant="default" className="text-xs flex-shrink-0 mt-0.5">
-                          Active
-                        </Badge>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <p className="text-xs text-muted-foreground/60 italic">No conditions defined</p>
-            )}
-
-            <div
-              className={`flex items-start gap-3 px-3 py-2 rounded-md ${
-                resolvedSource === "default"
-                  ? "bg-primary/10 border border-primary/30"
-                  : resolvedSource === "inline" && !definition?.default
-                  ? "bg-primary/10 border border-primary/30"
-                  : matchedConditionIndex >= 0
-                  ? "opacity-40"
-                  : "bg-muted/50"
-              }`}
-              data-testid="explain-default"
-            >
-              <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">
-                {resolvedSource === "default" || (resolvedSource === "inline" && !definition?.default) ? (
-                  <IconCheck className="w-4 h-4 text-primary" />
-                ) : (
-                  <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
-                )}
-              </div>
-              <div className="flex-1 min-w-0">
-                <span className="text-sm font-medium">Default</span>
-                {definition?.default ? (
-                  <p className="text-sm text-muted-foreground truncate mt-0.5">"{definition.default}"</p>
-                ) : (
-                  <p className="text-xs text-muted-foreground/60 mt-0.5 italic">No default set</p>
-                )}
-              </div>
-              {resolvedSource === "default" && (
-                <Badge variant="default" className="text-xs flex-shrink-0 mt-0.5">
-                  Active
-                </Badge>
-              )}
-            </div>
-
-            {inlineDefault && (
-              <div
-                className={`flex items-start gap-3 px-3 py-2 rounded-md ${
-                  resolvedSource === "inline"
-                    ? "bg-primary/10 border border-primary/30"
-                    : "opacity-40"
+            <div className="flex gap-1 border-b pb-0 mb-4">
+              <button
+                className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === "explain"
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
-                data-testid="explain-inline"
+                onClick={() => setActiveTab("explain")}
+                data-testid="tab-explain"
               >
-                <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">
-                  {resolvedSource === "inline" ? (
-                    <IconCheck className="w-4 h-4 text-primary" />
-                  ) : (
-                    <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
+                Why this value?
+              </button>
+              <button
+                className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === "edit"
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+                onClick={() => setActiveTab("edit")}
+                data-testid="tab-edit"
+              >
+                Edit values
+              </button>
+            </div>
+
+            {activeTab === "explain" && (
+              <div className="space-y-2" data-testid="explain-tab-content">
+                <p className="text-sm text-muted-foreground mb-3">
+                  The system checks each level in order. The first match wins:
+                </p>
+
+                <div className="space-y-2">
+                  {LEVEL_ORDER.map((level, i) => {
+                    const contextKey = getContextKeyForLevel(level);
+                    const allEntries = getEntriesForLevel(level);
+                    const isActive = activeLevel === level;
+                    const isChecked =
+                      i <= LEVEL_ORDER.indexOf(activeLevel || "default");
+
+                    return (
+                      <div key={level}>
+                        {i > 0 && (
+                          <div className="flex items-center justify-center py-1">
+                            <IconArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
+                          </div>
+                        )}
+                        <ResolutionChainItem
+                          level={level}
+                          label={LEVEL_LABELS[level]}
+                          contextKey={contextKey}
+                          allEntries={allEntries}
+                          defaultValue={
+                            level === "default"
+                              ? definition?.default
+                              : undefined
+                          }
+                          isActive={isActive}
+                          isChecked={isChecked}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  {inlineDefault && (
+                    <>
+                      <div className="flex items-center justify-center py-1">
+                        <IconArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
+                      </div>
+                      <ResolutionChainItem
+                        level={"default" as ResolutionLevel}
+                        label="Inline Default"
+                        contextKey={undefined}
+                        allEntries={undefined}
+                        defaultValue={inlineDefault}
+                        isActive={resolvedSource === "inline"}
+                        isChecked={true}
+                      />
+                    </>
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-sm font-medium">Inline Default</span>
-                  <p className="text-sm text-muted-foreground truncate mt-0.5">"{inlineDefault}"</p>
+
+                <div className="mt-4 p-3 rounded-md bg-muted/50 text-xs text-muted-foreground">
+                  <p>
+                    <span className="font-medium">Your context:</span> Location=
+                    {varContext.location || "none"}, Region=
+                    {varContext.region || "none"}, Locale=
+                    {varContext.locale || "none"}
+                  </p>
                 </div>
-                {resolvedSource === "inline" && (
-                  <Badge variant="default" className="text-xs flex-shrink-0 mt-0.5">
-                    Active
-                  </Badge>
-                )}
+
+                {definition &&
+                  (() => {
+                    const hasOverrides =
+                      definition.by_location ||
+                      definition.by_region ||
+                      definition.by_locale;
+                    if (!hasOverrides) return null;
+
+                    const contextSamples: {
+                      label: string;
+                      context: {
+                        location?: string;
+                        region?: string;
+                        locale?: string;
+                      };
+                    }[] = [];
+
+                    if (definition.by_location) {
+                      for (const locSlug of Object.keys(
+                        definition.by_location,
+                      )) {
+                        const loc = locations.find((l) => l.slug === locSlug);
+                        contextSamples.push({
+                          label: loc
+                            ? `${loc.name} (${loc.default_language})`
+                            : locSlug,
+                          context: {
+                            location: locSlug,
+                            region: loc?.region,
+                            locale: loc?.default_language,
+                          },
+                        });
+                      }
+                    }
+
+                    if (definition.by_region) {
+                      for (const regionKey of Object.keys(
+                        definition.by_region,
+                      )) {
+                        const alreadyCovered = contextSamples.some(
+                          (s) => s.context.region === regionKey,
+                        );
+                        if (!alreadyCovered) {
+                          const sampleLoc = locations.find(
+                            (l) => l.region === regionKey,
+                          );
+                          contextSamples.push({
+                            label: `${regionKey} region`,
+                            context: {
+                              location: undefined,
+                              region: regionKey,
+                              locale: sampleLoc?.default_language,
+                            },
+                          });
+                        }
+                      }
+                    }
+
+                    if (definition.by_locale) {
+                      for (const localeKey of Object.keys(
+                        definition.by_locale,
+                      )) {
+                        const alreadyCovered = contextSamples.some(
+                          (s) => s.context.locale === localeKey,
+                        );
+                        if (!alreadyCovered) {
+                          contextSamples.push({
+                            label:
+                              localeKey === "en"
+                                ? "English (general)"
+                                : localeKey === "es"
+                                  ? "Spanish (general)"
+                                  : localeKey,
+                            context: {
+                              location: undefined,
+                              region: undefined,
+                              locale: localeKey,
+                            },
+                          });
+                        }
+                      }
+                    }
+
+                    if (contextSamples.length === 0) return null;
+
+                    return (
+                      <div
+                        className="mt-3 space-y-1.5"
+                        data-testid="cross-context-summary"
+                      >
+                        <p className="text-xs font-medium text-muted-foreground">
+                          How it resolves across contexts:
+                        </p>
+                        <div className="rounded-md border divide-y">
+                          {contextSamples.map((sample) => {
+                            const res =
+                              definitions && effectiveVarName
+                                ? resolveVariable(
+                                    effectiveVarName,
+                                    definitions,
+                                    sample.context,
+                                  )
+                                : null;
+                            const value =
+                              res?.value ||
+                              definition.default ||
+                              inlineDefault ||
+                              "—";
+                            const source = res?.source || "default";
+                            return (
+                              <div
+                                key={sample.label}
+                                className="flex items-center justify-between gap-2 px-3 py-1.5 text-xs"
+                                data-testid={`context-sample-${sample.label}`}
+                              >
+                                <span className="text-muted-foreground truncate">
+                                  {sample.label}
+                                </span>
+                                <div className="flex items-center gap-1.5 flex-shrink-0">
+                                  <span className="font-medium text-foreground">
+                                    "{value}"
+                                  </span>
+                                  <Badge
+                                    variant="outline"
+                                    className="text-[10px] px-1 py-0"
+                                  >
+                                    {source}
+                                  </Badge>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })()}
               </div>
             )}
-          </div>
-        )}
 
-        {activeTab === "edit" && (
-          <div className="space-y-4" data-testid="edit-tab-content">
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium text-foreground">Default Value</h4>
-              {editingDefault ? (
-                <div className="flex items-center gap-2">
-                  <Input
-                    value={editDefaultValue}
-                    onChange={(e) => setEditDefaultValue(e.target.value)}
-                    className="flex-1"
-                    autoFocus
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleSaveDefault(editDefaultValue);
-                        setEditingDefault(false);
-                      }
-                      if (e.key === "Escape") setEditingDefault(false);
-                    }}
-                    data-testid="input-edit-default"
-                  />
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => {
-                      handleSaveDefault(editDefaultValue);
-                      setEditingDefault(false);
-                    }}
-                    data-testid="button-save-default"
-                  >
-                    <IconCheck className="w-3.5 h-3.5 text-primary" />
-                  </Button>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => setEditingDefault(false)}
-                    data-testid="button-cancel-default"
-                  >
-                    <IconX className="w-3.5 h-3.5" />
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm flex-1 truncate">
-                    {definition?.default ? `"${definition.default}"` : <span className="text-muted-foreground/60 italic">Not set</span>}
-                  </span>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => {
-                      setEditDefaultValue(definition?.default || "");
-                      setEditingDefault(true);
-                    }}
-                    data-testid="button-edit-default"
-                  >
-                    <IconEdit className="w-3.5 h-3.5" />
-                  </Button>
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between gap-2">
-                <h4 className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                  <IconFilter className="w-3.5 h-3.5 text-muted-foreground" />
-                  Conditions
-                </h4>
-                {!addingCondition && editingConditionIndex === null && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => setAddingCondition(true)}
-                    data-testid="button-add-condition"
-                  >
-                    <IconPlus className="w-3 h-3 mr-1" />
-                    Add Condition
-                  </Button>
-                )}
-              </div>
-
-              <p className="text-xs text-muted-foreground">
-                First match wins. Drag to reorder priority.
-              </p>
-
-              {definition?.conditions && definition.conditions.length > 0 ? (
-                <div className="space-y-1.5">
-                  {definition.conditions.map((cond, i) => (
-                    editingConditionIndex === i ? (
-                      <ConditionEditor
-                        key={i}
-                        initial={cond}
-                        onSave={(updated) => handleUpdateCondition(i, updated)}
-                        onCancel={() => setEditingConditionIndex(null)}
-                      />
-                    ) : (
-                      <ConditionRow
-                        key={i}
-                        condition={cond}
-                        index={i}
-                        isFirst={i === 0}
-                        isLast={i === definition.conditions!.length - 1}
-                        isMatched={i === matchedConditionIndex}
-                        onEdit={() => setEditingConditionIndex(i)}
-                        onDelete={() => handleDeleteCondition(i)}
-                        onMoveUp={() => handleReorder(i, i - 1)}
-                        onMoveDown={() => handleReorder(i, i + 1)}
-                      />
-                    )
-                  ))}
-                </div>
-              ) : !addingCondition ? (
-                <p className="text-xs text-muted-foreground/60 italic py-1">
-                  No conditions yet. Add one to vary this value by location, region, or language.
-                </p>
-              ) : null}
-
-              {addingCondition && (
-                <ConditionEditor
-                  onSave={handleAddCondition}
-                  onCancel={() => setAddingCondition(false)}
+            {activeTab === "edit" && (
+              <div className="space-y-4" data-testid="edit-tab-content">
+                <EditableSection
+                  level="default"
+                  label="Default Value"
+                  entries={undefined}
+                  defaultValue={definition?.default}
+                  onSave={handleSave}
+                  onDelete={handleDelete}
+                  onAdd={handleAdd}
                 />
-              )}
-            </div>
-          </div>
-        )}
-        </>
+                <EditableSection
+                  level="by_locale"
+                  label="By Locale"
+                  entries={definition?.by_locale}
+                  onSave={handleSave}
+                  onDelete={handleDelete}
+                  onAdd={handleAdd}
+                />
+                <EditableSection
+                  level="by_region"
+                  label="By Region"
+                  entries={definition?.by_region}
+                  onSave={handleSave}
+                  onDelete={handleDelete}
+                  onAdd={handleAdd}
+                />
+                <EditableSection
+                  level="by_location"
+                  label="By Location"
+                  entries={definition?.by_location}
+                  onSave={handleSave}
+                  onDelete={handleDelete}
+                  onAdd={handleAdd}
+                />
+              </div>
+            )}
+          </>
         )}
       </DialogContent>
     </Dialog>

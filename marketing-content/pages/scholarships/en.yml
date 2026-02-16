@@ -55,7 +55,7 @@ sections:
     version: v1.0
     heading: $20+ Million in Scholarships
     subtitle: Backed by global institutions and industry leaders, we’ve awarded over $20 million in scholarships to expand access to tech careers worldwide.
-    background: bg-primary/5
+    background: hsl(var(--muted))
     slides:
       - image_id: united_way_event
         object_position: 100% 80%
@@ -185,7 +185,7 @@ sections:
           url: "#"
           variant: outline
   - type: testimonials_slide
-    title: Where Opportunity Turns Into Real Careers
+    title: Where Access Turns Into Real Careers
     description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.
     testimonials:
       - name: Loretta Thompson

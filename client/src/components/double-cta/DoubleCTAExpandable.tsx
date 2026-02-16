@@ -74,7 +74,7 @@ function CTABox({
       className={cn(
         "relative flex flex-col overflow-hidden p-6 lg:p-8 transition-all duration-500 ease-in-out lg:h-full",
         side == "right" ? "bg-primary/5" : "",
-        isActive ? "border-primary border-2 lg:border lg:border-border" : "",
+        isActive ? "border-primary md:border-card border-2 lg:border lg:border-border" : "",
       )}
       onMouseEnter={onHover}
       onClick={onClick}
@@ -318,6 +318,18 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
 
   const isEqual = activeSide === null;
 
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkTablet = () => {
+      const w = window.innerWidth;
+      setIsTablet(w >= 768 && w < 1024);
+    };
+    checkTablet();
+    window.addEventListener("resize", checkTablet);
+    return () => window.removeEventListener("resize", checkTablet);
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -354,6 +366,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
             className={cn(
               "transition-all duration-500 ease-in-out",
               "lg:min-w-0",
+              isTablet ? "w-full" : "",
               isEqual
                 ? "lg:flex-1"
                 : activeSide === "left"
@@ -364,10 +377,10 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
           >
             <CTABox
               box={left}
-              isActive={isEqual || activeSide === "left"}
-              isContentExpanded={isEqual || contentExpandedSide === "left"}
-              onHover={handleHoverLeft}
-              onClick={handleHoverLeft}
+              isActive={isTablet ? true : (isEqual || activeSide === "left")}
+              isContentExpanded={isTablet ? true : (isEqual || contentExpandedSide === "left")}
+              onHover={isTablet ? () => {} : handleHoverLeft}
+              onClick={isTablet ? () => {} : handleHoverLeft}
               side="left"
               data-testid="card-double-cta-left"
             />
@@ -379,6 +392,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
             className={cn(
               "transition-all duration-100 ease-in-out",
               "lg:min-w-0",
+              isTablet ? "w-full" : "",
               isEqual
                 ? "lg:flex-1"
                 : activeSide === "right"
@@ -389,10 +403,10 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
           >
             <CTABox
               box={right}
-              isActive={isEqual || activeSide === "right"}
-              isContentExpanded={isEqual || contentExpandedSide === "right"}
-              onHover={handleHoverRight}
-              onClick={handleHoverRight}
+              isActive={isTablet ? true : (isEqual || activeSide === "right")}
+              isContentExpanded={isTablet ? true : (isEqual || contentExpandedSide === "right")}
+              onHover={isTablet ? () => {} : handleHoverRight}
+              onClick={isTablet ? () => {} : handleHoverRight}
               side="right"
               data-testid="card-double-cta-right"
             />

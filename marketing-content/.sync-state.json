@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "53342db70d5fd22e0d746e5d5668fa0e41d2f997",
-  "lastSyncedAt": "2026-02-16T16:39:19.777Z",
+  "lastSyncedCommit": "c97b39100781e5304bcb153b5d55f175716438e9",
+  "lastSyncedAt": "2026-02-16T20:50:28.046Z",
   "files": {
     "marketing-content/brand-context.yml": {
       "sha": "93b786256fece2f4411ebb81bb41cb15800887da71f9bb963662fb223daff620",
@@ -98,9 +98,9 @@
       "remoteSha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c"
     },
     "marketing-content/landings/test-example-check/promoted.yml": {
-      "sha": "766ba901bc8d2fe8289fc38b6b1509ba67c57cdb473175779703ef5b098ac4d8",
-      "lastModified": 1771253381777.4636,
-      "remoteSha": "766ba901bc8d2fe8289fc38b6b1509ba67c57cdb473175779703ef5b098ac4d8"
+      "sha": "58ffd7a8793c85025863ab9a71c6d120bb5005fd91bfc9c1d54e5ad28112982c",
+      "lastModified": 1771275015658.4812,
+      "remoteSha": "58ffd7a8793c85025863ab9a71c6d120bb5005fd91bfc9c1d54e5ad28112982c"
     },
     "marketing-content/locations/atlanta-usa/_common.yml": {
       "sha": "e6f64c1a84fc98d80eea02840af8408a8d28b4e7c761f489bad5f10e55469198",
@@ -658,9 +658,9 @@
       "remoteSha": "0a20ed628666a4f3abd896728ff4b6e1cae06e8fd144d7088b4fb60376c71687"
     },
     "marketing-content/pages/financials/en.yml": {
-      "sha": "1f897c13b5c176c569792271e50274840e49d26aeec8944238f2c52abc61d5ee",
-      "lastModified": 1771253415592.4385,
-      "remoteSha": "1f897c13b5c176c569792271e50274840e49d26aeec8944238f2c52abc61d5ee"
+      "sha": "64026d9b2fbf55b34e1866cdc44801c7bd7581d06fa1b6bc3ef28044e8242609",
+      "lastModified": 1771274883592.584,
+      "remoteSha": "64026d9b2fbf55b34e1866cdc44801c7bd7581d06fa1b6bc3ef28044e8242609"
     },
     "marketing-content/pages/financials/es.yml": {
       "sha": "90e3ed132dcb727e8205aa2ce30a149d4649081f20949a77f892ab81572c5b7f",
@@ -733,9 +733,9 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "1fa867580f2954edb21317d771c7d4807bf985354489244f77474b7f63de3d2d",
-      "lastModified": 1771259959549.6028,
-      "remoteSha": "1fa867580f2954edb21317d771c7d4807bf985354489244f77474b7f63de3d2d"
+      "sha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf",
+      "lastModified": 1771274883592.584,
+      "remoteSha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",
@@ -854,9 +854,9 @@
       "remoteSha": "5677fc83cf087a10ec0eb37590806ea58e28acc63f09f86dfc8fe8d43ca9f7e0"
     },
     "marketing-content/pages/scholarships/en.yml": {
-      "sha": "ca0087936e63498b039ef92742a08bd1103d9c417c076fb48eb7ac9fced2714b",
-      "lastModified": 1771257933125.1035,
-      "remoteSha": "ca0087936e63498b039ef92742a08bd1103d9c417c076fb48eb7ac9fced2714b"
+      "sha": "5d889578654fc64164b3684495e9b9f9a2e18f8dcf50c7f27c12cc36eb0b1c9b",
+      "lastModified": 1771274883592.584,
+      "remoteSha": "5d889578654fc64164b3684495e9b9f9a2e18f8dcf50c7f27c12cc36eb0b1c9b"
     },
     "marketing-content/pages/scholarships/es.yml": {
       "sha": "05df3a720f6864efb4e8e8498bb09a87a34039c643f6152b299118c7d2a20741",

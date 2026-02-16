@@ -4706,6 +4706,31 @@ sections: []
     }
   });
 
+  app.post("/api/ai/analyze-data-payload", async (req, res) => {
+    try {
+      const { analyzeDataPayload } = await import("./ai/generateTableFromPayload");
+
+      const { sampleData, availableKeys } = req.body;
+
+      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+        res.status(400).json({ error: "sampleData must be a non-empty array" });
+        return;
+      }
+      if (!availableKeys || !Array.isArray(availableKeys) || availableKeys.length === 0) {
+        res.status(400).json({ error: "availableKeys must be a non-empty array" });
+        return;
+      }
+
+      const locale = req.body.locale || "en";
+      const analysis = await analyzeDataPayload({ sampleData, availableKeys, locale });
+      res.json(analysis);
+    } catch (error: any) {
+      console.error("Error analyzing data payload:", error?.message || error);
+      const message = error?.message || "Failed to analyze data";
+      res.status(500).json({ error: message });
+    }
+  });
+
   app.post("/api/ai/generate-table-from-payload", async (req, res) => {
     try {
       const { generateTableFromPayload } = await import("./ai/generateTableFromPayload");
@@ -4765,6 +4790,37 @@ sections: []
     } catch (error: any) {
       console.error("Error refining table config:", error?.message || error);
       const message = error?.message || "Failed to refine table configuration";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  app.post("/api/ai/generate-global-filter", async (req, res) => {
+    try {
+      const { generateGlobalFilter } = await import("./ai/generateTableFromPayload");
+
+      const { sampleData, availableKeys, userPrompt, currentFilter, locale, sessionContext } = req.body;
+
+      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+        res.status(400).json({ error: "sampleData must be a non-empty array" });
+        return;
+      }
+      if (!userPrompt || typeof userPrompt !== "string") {
+        res.status(400).json({ error: "userPrompt must be a non-empty string" });
+        return;
+      }
+
+      const result = await generateGlobalFilter({
+        sampleData,
+        availableKeys: availableKeys || [],
+        userPrompt,
+        currentFilter: currentFilter || undefined,
+        locale: locale || "en",
+        sessionContext: sessionContext || undefined,
+      });
+      res.json(result);
+    } catch (error: any) {
+      console.error("Error generating global filter:", error?.message || error);
+      const message = error?.message || "Failed to generate global filter";
       res.status(500).json({ error: message });
     }
   });

@@ -8,7 +8,7 @@ import { ctaButtonSchema, leadFormDataSchema } from "../../_common/schema";
 const ctaBannerBaseSchema = z.object({
   type: z.literal("cta_banner"),
   version: z.string().optional(),
-  title: z.string(),
+  title: z.string().optional(),
   subtitle: z.string().optional(),
   background: z.string().optional(),
 });

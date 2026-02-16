@@ -1,10 +1,9 @@
-import { useState, useCallback, useRef } from "react";
-import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend } from "@tabler/icons-react";
+import { useState, useCallback, useRef, useMemo, useEffect } from "react";
+import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown, IconCode, IconExternalLink } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -12,12 +11,13 @@ interface TableColumnConfig {
   key: string;
   label: string;
   type: "text" | "number" | "date" | "image" | "link" | "boolean";
-  template?: string;
+  function?: string;
 }
 
 interface TableConfig {
   columns: TableColumnConfig[];
   title?: string;
+  description?: string;
 }
 
 export interface DynamicTableConfig {
@@ -45,6 +45,11 @@ interface ChatMessage {
   config?: TableConfig;
 }
 
+interface DataAnalysis {
+  description: string;
+  suggestedPrompts: string[];
+}
+
 interface StepState {
   url: string;
   rawData: unknown;
@@ -52,11 +57,14 @@ interface StepState {
   selectedArrayPath: string;
   dataArray: Record<string, unknown>[];
   availableKeys: string[];
+  dataAnalysis: DataAnalysis | null;
+  analysisLoading: boolean;
   columnsPrompt: string;
   tableConfig: TableConfig | null;
   refinementPrompt: string;
   chatMessages: ChatMessage[];
   addAction: boolean;
+  actionColumnName: string;
   actionLabel: string;
   actionHref: string;
 }
@@ -102,33 +110,206 @@ function checkConsistency(arr: Record<string, unknown>[]): { consistent: boolean
 }
 
 function formatConfigSummary(config: TableConfig): string {
+  if (config.description) return config.description;
   const cols = config.columns.map((c) => c.label).join(", ");
   return `${config.title ? `"${config.title}" with` : "Table with"} ${config.columns.length} columns: ${cols}`;
 }
 
-function resolvePreviewValue(col: TableColumnConfig, sample: Record<string, unknown>): string {
-  if (col.template) {
-    const val = col.template.replace(/\{([^}]+)\}/g, (_, k: string) => {
-      const parts = k.trim().split(".");
-      let cur: unknown = sample;
-      for (const p of parts) {
-        if (cur && typeof cur === "object") cur = (cur as Record<string, unknown>)[p];
-        else return "";
-      }
-      if (typeof cur === "string" && /^\d{4}-\d{2}-\d{2}(T|\s)/.test(cur)) {
-        try { return new Date(cur).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }); } catch { /* */ }
-      }
-      return cur != null ? String(cur) : "";
-    });
-    return val || "-";
+function executeBase64Function(fnBase64: string, row: Record<string, unknown>): unknown {
+  try {
+    const fnString = atob(fnBase64);
+    const fn = new Function("row", `return (${fnString})(row);`);
+    return fn(row);
+  } catch {
+    return null;
   }
-  const parts = col.key.split(".");
-  let cur: unknown = sample;
-  for (const p of parts) {
-    if (cur && typeof cur === "object") cur = (cur as Record<string, unknown>)[p];
-    else return "-";
+}
+
+function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
+  const parts = path.split(".");
+  let current: unknown = obj;
+  for (const part of parts) {
+    if (current === null || current === undefined || typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[part];
   }
-  return cur != null ? String(cur).slice(0, 40) : "-";
+  return current;
+}
+
+function getCellPreviewValue(col: TableColumnConfig, row: Record<string, unknown>): unknown {
+  if (col.function) {
+    return executeBase64Function(col.function, row);
+  }
+  return getNestedValue(row, col.key);
+}
+
+function formatPreviewDisplay(value: unknown): string {
+  if (value === null || value === undefined) return "-";
+  const str = String(value);
+  return str.length > 50 ? str.slice(0, 50) + "..." : str;
+}
+
+function decodeBase64(encoded: string): string {
+  try {
+    return atob(encoded);
+  } catch {
+    return encoded;
+  }
+}
+
+interface PreviewTableProps {
+  config: TableConfig;
+  sampleData: Record<string, unknown>[];
+  action?: { columnName: string; label: string; href: string } | null;
+}
+
+function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [showFunctions, setShowFunctions] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const PREVIEW_LIMIT = 5;
+  const hasMore = sampleData.length > PREVIEW_LIMIT;
+
+  const previewRows = useMemo(() => {
+    let rows = expanded ? [...sampleData] : sampleData.slice(0, PREVIEW_LIMIT);
+    if (sortKey) {
+      rows = [...rows].sort((a, b) => {
+        const aVal = getNestedValue(a, sortKey);
+        const bVal = getNestedValue(b, sortKey);
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+        if (typeof aVal === "number" && typeof bVal === "number") {
+          return sortDir === "asc" ? aVal - bVal : bVal - aVal;
+        }
+        const cmp = String(aVal).localeCompare(String(bVal));
+        return sortDir === "asc" ? cmp : -cmp;
+      });
+    }
+    return rows;
+  }, [sampleData, sortKey, sortDir, expanded]);
+
+  const handleSort = (key: string) => {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
+  };
+
+  return (
+    <div className="overflow-x-auto rounded-[0.8rem] border" data-testid="preview-table-container">
+      {config.title && (
+        <div className="px-4 py-2 border-b bg-muted/30">
+          <span className="text-sm font-medium text-foreground">{config.title}</span>
+        </div>
+      )}
+      <div className={expanded ? "max-h-[400px] overflow-y-auto" : ""}>
+      <table className="w-full text-xs" data-testid="preview-table">
+        <thead className="sticky top-0 z-10">
+          <tr className="bg-muted/50 border-b">
+            {config.columns.map((col) => (
+              <th
+                key={col.key}
+                className="px-3 py-2 text-left font-medium text-foreground cursor-pointer select-none"
+                onClick={() => handleSort(col.key)}
+              >
+                <div className="flex items-center gap-1">
+                  {col.label}
+                  {sortKey === col.key && (
+                    sortDir === "asc" ? (
+                      <IconArrowUp className="w-2.5 h-2.5" />
+                    ) : (
+                      <IconArrowDown className="w-2.5 h-2.5" />
+                    )
+                  )}
+                </div>
+              </th>
+            ))}
+            {action && (
+              <th className="px-3 py-2 text-left font-medium text-foreground">
+                {action.columnName}
+              </th>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {previewRows.length === 0 ? (
+            <tr>
+              <td colSpan={config.columns.length + (action ? 1 : 0)} className="px-3 py-4 text-center text-muted-foreground">
+                No data available
+              </td>
+            </tr>
+          ) : (
+            previewRows.map((row, idx) => (
+              <tr key={idx} className="border-b last:border-0">
+                {config.columns.map((col) => {
+                  const value = getCellPreviewValue(col, row);
+                  return (
+                    <td key={col.key} className="px-3 py-2 text-foreground max-w-[180px] truncate">
+                      {formatPreviewDisplay(value)}
+                    </td>
+                  );
+                })}
+                {action && (
+                  <td className="px-3 py-2">
+                    <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded border text-foreground">
+                      {action.label}
+                      <IconExternalLink className="w-2.5 h-2.5" />
+                    </span>
+                  </td>
+                )}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+      </div>
+      <div className="px-3 py-1.5 border-t bg-muted/20 flex items-center justify-between gap-2">
+        <span className="text-[10px] text-muted-foreground">
+          {expanded ? `Showing all ${sampleData.length} rows` : `Preview: ${previewRows.length} of ${sampleData.length} rows`}
+        </span>
+        <div className="flex items-center gap-3">
+          {hasMore && (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="button-toggle-rows"
+            >
+              <IconChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
+              {expanded ? "Show less" : `Show all ${sampleData.length}`}
+            </button>
+          )}
+          {config.columns.some((c) => c.function) && (
+            <button
+              type="button"
+              onClick={() => setShowFunctions((v) => !v)}
+              className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="button-toggle-functions"
+            >
+              <IconCode className="w-3 h-3" />
+              {showFunctions ? "Hide" : "Show"} column functions
+            </button>
+          )}
+        </div>
+      </div>
+      {showFunctions && (
+        <div className="border-t px-3 py-2 space-y-1.5 bg-muted/10">
+          {config.columns.map((col) => (
+            <div key={col.key} className="text-[11px]" data-testid={`function-detail-${col.key}`}>
+              <span className="font-medium text-foreground">{col.label}</span>
+              <span className="text-muted-foreground mx-1">:</span>
+              <code className="text-muted-foreground font-mono">
+                {col.function ? decodeBase64(col.function) : `row.${col.key}`}
+              </code>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilderWizardProps) {
@@ -145,11 +326,14 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     selectedArrayPath: "",
     dataArray: [],
     availableKeys: [],
+    dataAnalysis: null,
+    analysisLoading: false,
     columnsPrompt: "",
     tableConfig: null,
     refinementPrompt: "",
     chatMessages: [],
     addAction: false,
+    actionColumnName: "Actions",
     actionLabel: "View",
     actionHref: "",
   });
@@ -252,6 +436,24 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }, []);
 
+  const handleAnalyzeData = useCallback(async () => {
+    if (state.dataAnalysis) return;
+    updateState({ analysisLoading: true });
+    setError(null);
+    try {
+      const response = await apiRequest("POST", "/api/ai/analyze-data-payload", {
+        sampleData: state.dataArray.slice(0, 5),
+        availableKeys: state.availableKeys,
+        locale: locale || "en",
+      });
+      const analysis = await response.json();
+      updateState({ dataAnalysis: analysis, analysisLoading: false });
+    } catch (err) {
+      updateState({ analysisLoading: false });
+      setError(err instanceof Error ? err.message : "Failed to analyze data");
+    }
+  }, [state.dataAnalysis, state.dataArray, state.availableKeys, locale, updateState]);
+
   const handleGenerateColumns = useCallback(async () => {
     if (!state.columnsPrompt.trim()) {
       setError("Please describe the columns you want");
@@ -329,7 +531,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
   }, [state, onComplete]);
 
   return (
-    <Card className="p-6 max-w-2xl mx-auto">
+    <Card className="p-6 max-w-3xl mx-auto">
       <div className="space-y-6">
         <StepIndicator current={step} />
 
@@ -439,78 +641,20 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
         )}
 
         {step === "columns-prompt" && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-columns-title">
-                Configure your columns
-              </h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                We detected the following columns in your data:
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {state.availableKeys.map((key) => (
-                  <Badge key={key} variant="secondary" data-testid={`badge-column-${key}`}>
-                    {key}
-                  </Badge>
-                ))}
-              </div>
-
-              {state.dataArray.length > 0 && (
-                <div className="mb-4">
-                  <button
-                    type="button"
-                    onClick={() => setSampleExpanded((v) => !v)}
-                    className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-                    data-testid="button-toggle-sample"
-                  >
-                    {sampleExpanded ? <IconChevronDown className="w-3.5 h-3.5" /> : <IconChevronRight className="w-3.5 h-3.5" />}
-                    Sample item preview
-                  </button>
-                  {sampleExpanded && (
-                    <pre
-                      className="mt-2 p-3 rounded-md bg-muted text-xs text-foreground overflow-auto max-h-[200px] border"
-                      data-testid="text-sample-item"
-                    >
-                      {JSON.stringify(state.dataArray[0], null, 2)}
-                    </pre>
-                  )}
-                </div>
-              )}
-
-              <p className="text-sm text-muted-foreground">
-                Describe which columns you want to display and in what order. For example: "4 columns: first the weekday, then the name, then the email, and finally the age"
-              </p>
-            </div>
-            <Textarea
-              placeholder="Describe the columns you want..."
-              value={state.columnsPrompt}
-              onChange={(e) => updateState({ columnsPrompt: e.target.value })}
-              className="min-h-[80px]"
-              data-testid="input-columns-prompt"
-            />
-            {error && <ErrorMessage message={error} />}
-            <div className="flex justify-between">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  if (state.arrayOptions.length > 1) setStep("select-array");
-                  else setStep("url");
-                }}
-                data-testid="button-back-columns"
-              >
-                <IconArrowLeft className="w-4 h-4 mr-1" />
-                Back
-              </Button>
-              <Button
-                onClick={handleGenerateColumns}
-                disabled={!state.columnsPrompt.trim()}
-                data-testid="button-generate-columns"
-              >
-                <IconArrowRight className="w-4 h-4 mr-1" />
-                Generate table
-              </Button>
-            </div>
-          </div>
+          <DescribeStep
+            state={state}
+            error={error}
+            sampleExpanded={sampleExpanded}
+            onToggleSample={() => setSampleExpanded((v) => !v)}
+            onAnalyze={handleAnalyzeData}
+            onUpdatePrompt={(p) => updateState({ columnsPrompt: p })}
+            onGenerate={handleGenerateColumns}
+            onBack={() => {
+              setError(null);
+              if (state.arrayOptions.length > 1) setStep("select-array");
+              else setStep("url");
+            }}
+          />
         )}
 
         {step === "ai-processing" && (
@@ -526,14 +670,16 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-review-title">
-                Review & refine columns
+                Review & refine
               </h3>
               <p className="text-sm text-muted-foreground">
-                Chat with AI to refine your table. When it looks good, click continue.
+                Here's how your table looks. Use the chat below to ask for changes.
               </p>
             </div>
 
-            <div className="border rounded-md flex flex-col" style={{ maxHeight: "340px" }}>
+            <PreviewTable config={state.tableConfig} sampleData={state.dataArray} />
+
+            <div className="border rounded-md flex flex-col" style={{ maxHeight: "240px" }}>
               <div className="flex-1 overflow-y-auto p-3 space-y-3" data-testid="chat-messages">
                 {state.chatMessages.map((msg, i) => (
                   <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -546,21 +692,6 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                       data-testid={`chat-message-${msg.role}-${i}`}
                     >
                       <p>{msg.content}</p>
-                      {msg.config && (
-                        <div className="mt-2 space-y-1">
-                          {msg.config.columns.map((col, ci) => (
-                            <div key={ci} className="flex items-center gap-2 text-xs opacity-90">
-                              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{col.type}</Badge>
-                              <span className="font-medium">{col.label}</span>
-                              {state.dataArray[0] && (
-                                <span className="opacity-70 truncate">
-                                  {resolvePreviewValue(col, state.dataArray[0])}
-                                </span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -624,27 +755,14 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
 
         {step === "action" && (
           <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-action-title">
-                Add row actions?
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Would you like to add an action button to each row? This can link to a detail page or external URL.
+            <div data-testid="text-action-title">
+              <p className="text-lg font-semibold text-foreground">
+                Add an Action Call?
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Action calls are a new column that will include a button on the table so that users can be redirected to other pages.
               </p>
             </div>
-
-            {state.tableConfig && (
-              <div className="p-3 bg-muted/50 rounded-md">
-                <p className="text-xs text-muted-foreground mb-2 font-medium">Preview of generated columns:</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {state.tableConfig.columns.map((col) => (
-                    <Badge key={col.key} variant="outline" data-testid={`badge-generated-${col.key}`}>
-                      {col.label}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="space-y-3">
               <div className="flex gap-2">
@@ -666,6 +784,16 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
 
               {state.addAction && (
                 <div className="space-y-2 pl-1">
+                  <div className="space-y-1">
+                    <Label htmlFor="action-column-name">Column name</Label>
+                    <Input
+                      id="action-column-name"
+                      placeholder="Actions"
+                      value={state.actionColumnName}
+                      onChange={(e) => updateState({ actionColumnName: e.target.value })}
+                      data-testid="input-action-column-name"
+                    />
+                  </div>
                   <div className="space-y-1">
                     <Label htmlFor="action-label">Button label</Label>
                     <Input
@@ -696,17 +824,35 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
               )}
             </div>
 
+            {state.tableConfig && (
+              <PreviewTable
+                config={state.tableConfig}
+                sampleData={state.dataArray}
+                action={state.addAction ? { columnName: state.actionColumnName || "Actions", label: state.actionLabel || "View", href: state.actionHref } : null}
+              />
+            )}
+
+            {state.addAction && !state.actionHref.trim() && (
+              <p className="text-sm text-destructive" data-testid="text-action-validation">
+                Please fill in all action fields or choose "No, skip" to continue without actions.
+              </p>
+            )}
+
             {error && <ErrorMessage message={error} />}
             <div className="flex justify-between">
               <Button
                 variant="outline"
-                onClick={() => setStep("columns-prompt")}
+                onClick={() => setStep("review")}
                 data-testid="button-back-action"
               >
                 <IconArrowLeft className="w-4 h-4 mr-1" />
                 Back
               </Button>
-              <Button onClick={handleFinish} data-testid="button-finish">
+              <Button
+                onClick={handleFinish}
+                disabled={state.addAction && !state.actionHref.trim()}
+                data-testid="button-finish"
+              >
                 <IconCheck className="w-4 h-4 mr-1" />
                 Create table
               </Button>
@@ -718,11 +864,145 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
   );
 }
 
+interface DescribeStepProps {
+  state: StepState;
+  error: string | null;
+  sampleExpanded: boolean;
+  onToggleSample: () => void;
+  onAnalyze: () => void;
+  onUpdatePrompt: (prompt: string) => void;
+  onGenerate: () => void;
+  onBack: () => void;
+}
+
+function DescribeStep({ state, error, sampleExpanded, onToggleSample, onAnalyze, onUpdatePrompt, onGenerate, onBack }: DescribeStepProps) {
+  const hasAnalysis = state.dataAnalysis !== null;
+  const analysisTriggered = useRef(false);
+
+  useEffect(() => {
+    if (!hasAnalysis && !state.analysisLoading && !analysisTriggered.current && !error) {
+      analysisTriggered.current = true;
+      onAnalyze();
+    }
+  }, [hasAnalysis, state.analysisLoading, onAnalyze, error]);
+
+  const handleRetry = () => {
+    analysisTriggered.current = false;
+    onAnalyze();
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <h3 className="text-lg font-semibold text-foreground mb-1" data-testid="text-columns-title">
+          Describe your table
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          Tell the AI what columns you want to see and how they should look.
+        </p>
+      </div>
+
+      {state.analysisLoading && (
+        <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-md">
+          <IconLoader2 className="w-4 h-4 text-primary animate-spin flex-shrink-0" />
+          <p className="text-xs text-muted-foreground" data-testid="text-analysis-loading">
+            Analyzing your data for suggestions...
+          </p>
+        </div>
+      )}
+
+      {hasAnalysis && (
+        <div className="p-3 bg-muted/50 rounded-md space-y-2">
+          <p className="text-sm text-foreground" data-testid="text-analysis-description">
+            {state.dataAnalysis!.description}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {state.dataArray.length} items found with {state.availableKeys.length} available fields
+          </p>
+          {state.dataAnalysis!.suggestedPrompts.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {state.dataAnalysis!.suggestedPrompts.map((prompt, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => onUpdatePrompt(prompt)}
+                  className="text-xs px-3 py-1.5 rounded-full border text-foreground hover-elevate text-left"
+                  data-testid={`button-suggestion-${i}`}
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {error && state.analysisLoading === false && !hasAnalysis && (
+        <div className="space-y-2">
+          <ErrorMessage message={error} />
+          <Button variant="outline" size="sm" onClick={handleRetry} data-testid="button-retry-analysis">
+            Try again
+          </Button>
+        </div>
+      )}
+
+      {state.dataArray.length > 0 && (
+        <div>
+          <button
+            type="button"
+            onClick={onToggleSample}
+            className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+            data-testid="button-toggle-sample"
+          >
+            {sampleExpanded ? <IconChevronDown className="w-3.5 h-3.5" /> : <IconChevronRight className="w-3.5 h-3.5" />}
+            Sample item preview
+          </button>
+          {sampleExpanded && (
+            <pre
+              className="mt-2 p-3 rounded-md bg-muted text-xs text-foreground overflow-auto max-h-[200px] border"
+              data-testid="text-sample-item"
+            >
+              {JSON.stringify(state.dataArray[0], null, 2)}
+            </pre>
+          )}
+        </div>
+      )}
+
+      <Textarea
+        placeholder="Describe the columns you want..."
+        value={state.columnsPrompt}
+        onChange={(e) => onUpdatePrompt(e.target.value)}
+        className="min-h-[80px]"
+        data-testid="input-columns-prompt"
+      />
+      {error && hasAnalysis && <ErrorMessage message={error} />}
+      <div className="flex justify-between">
+        <Button
+          variant="outline"
+          onClick={onBack}
+          data-testid="button-back-columns"
+        >
+          <IconArrowLeft className="w-4 h-4 mr-1" />
+          Back
+        </Button>
+        <Button
+          onClick={onGenerate}
+          disabled={!state.columnsPrompt.trim()}
+          data-testid="button-generate-columns"
+        >
+          <IconArrowRight className="w-4 h-4 mr-1" />
+          Generate table
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function StepIndicator({ current }: { current: WizardStep }) {
   const steps: { key: WizardStep[]; label: string }[] = [
     { key: ["url"], label: "Data source" },
     { key: ["select-array", "consistency"], label: "Validate" },
-    { key: ["columns-prompt", "ai-processing"], label: "Columns" },
+    { key: ["columns-prompt", "ai-processing"], label: "Describe" },
     { key: ["review"], label: "Review" },
     { key: ["action", "done"], label: "Actions" },
   ];
