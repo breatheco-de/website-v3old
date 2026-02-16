@@ -744,6 +744,8 @@ export { pressMentionsSectionSchema, type PressMentionsSection, type PressMentio
 import { valueProofPanelSectionSchema } from "../marketing-content/component-registry/value_proof_panel/v1.0/schema";
 import { stickyCtaSectionSchema } from "../marketing-content/component-registry/sticky_cta/v1.0/schema";
 export { stickyCtaSectionSchema, type StickyCtaSection } from "../marketing-content/component-registry/sticky_cta/v1.0/schema";
+import { modalSectionSchema } from "../marketing-content/component-registry/modal/v1.0/schema";
+export { modalSectionSchema, type ModalSection } from "../marketing-content/component-registry/modal/v1.0/schema";
 import { bentoCardsSectionSchema } from "../marketing-content/component-registry/bento_cards/v1.0/schema";
 import { bannerSectionSchema, type BannerSection } from "../marketing-content/component-registry/banner/v1.0/schema";
 export { bannerSectionSchema, type BannerSection };
@@ -930,6 +932,7 @@ const baseSectionSchema = z.union([
   profilesCarouselSectionSchema,
   dynamicTableSectionSchema,
   doubleCTASectionSchema,
+  modalSectionSchema,
 ]);
 
 // Combined section schema with layout fields
