@@ -478,16 +478,14 @@ function GlobalHealthTab() {
                         View Issues ({v.errors.length + v.warnings.length})
                       </AccordionTrigger>
                       <AccordionContent className="text-sm">
-                        <ScrollArea className="max-h-64">
-                          <div className="space-y-0">
+                        <div className="max-h-64 overflow-y-auto space-y-0">
                             {v.errors.map((e, i) => (
                               <IssueRow key={`e-${i}`} issue={e} />
                             ))}
                             {v.warnings.map((w, i) => (
                               <IssueRow key={`w-${i}`} issue={w} />
                             ))}
-                          </div>
-                        </ScrollArea>
+                        </div>
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
