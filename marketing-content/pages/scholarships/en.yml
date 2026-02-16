@@ -17,8 +17,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: $20+ Million in Scholarships
-    subtitle: Fueling the Future of Tech Education, Making Coding Accessible to All.
+    title: Scholarships That Open Doors to Tech Careers
+    subtitle: Explore scholarship opportunities designed to support your transition into high-growth tech careers.
     image:
       src: /attached_assets/caracas-graduates_1765387638222.png
       alt: Students collaborating in a tech workspace
@@ -69,7 +69,7 @@ sections:
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: Our Global Partnerships
+    heading: $20+ Million in Scholarships
     subtitle: Collaborating with leading institutions to bring coding education worldwide
     background: bg-primary/5
     slides:
