@@ -648,6 +648,7 @@ export default function PrivateRedirects() {
                       onChange={handleDestinationChange}
                       placeholder="Search for a page..."
                       testId="input-redirect-to"
+                      locale=""
                       portalContainer={dialogRef.current}
                     />
                   </div>
@@ -703,19 +704,26 @@ export default function PrivateRedirects() {
                     </div>
 
                     {!isLandingDestination && !isCustomDestination && (
-                      <div className="flex items-center justify-between gap-4 border-t pt-3">
-                        <Label htmlFor="all-languages" className="text-sm font-medium">All languages</Label>
-                        <Switch
-                          id="all-languages"
-                          checked={allLanguages}
-                          onCheckedChange={(checked) => {
-                            setAllLanguages(checked);
-                            if (originalTo && !originalTo.startsWith("/landing")) {
-                              setNewTo(checked ? stripLocalePrefix(originalTo) : originalTo);
-                            }
-                          }}
-                          data-testid="switch-all-languages"
-                        />
+                      <div className="border-t pt-3 space-y-1.5">
+                        <div className="flex items-center justify-between gap-4">
+                          <Label htmlFor="all-languages" className="text-sm font-medium">All languages</Label>
+                          <Switch
+                            id="all-languages"
+                            checked={allLanguages}
+                            onCheckedChange={(checked) => {
+                              setAllLanguages(checked);
+                              if (originalTo && !originalTo.startsWith("/landing")) {
+                                setNewTo(checked ? stripLocalePrefix(originalTo) : originalTo);
+                              }
+                            }}
+                            data-testid="switch-all-languages"
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          {allLanguages
+                            ? "One redirect for all languages. Visitors are sent to the matching language version automatically."
+                            : "This redirect only applies to the specific language URL selected above."}
+                        </p>
                       </div>
                     )}
                   </div>
