@@ -202,26 +202,20 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
         <div className="flex border-b">
           {typeOptions.map((opt) => {
             const Icon = opt.icon;
-            const isDisabled = (opt.type === "modal" && modals.length === 0) ||
-              (opt.type === "scroll" && scrollSections.length === 0);
             return (
               <button
                 key={opt.type}
                 onClick={() => {
-                  if (!isDisabled) {
-                    setActiveType(opt.type);
-                    setSearchQuery("");
-                    setCustomError("");
-                    setCustomUrl(value || "");
-                  }
+                  setActiveType(opt.type);
+                  setSearchQuery("");
+                  setCustomError("");
+                  setCustomUrl(value || "");
                 }}
-                disabled={isDisabled}
                 className={cn(
                   "flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium transition-colors border-b-2",
                   activeType === opt.type
                     ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground",
-                  isDisabled && "opacity-40 cursor-not-allowed"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
                 )}
                 data-testid={`${testId}-tab-${opt.type}`}
               >
@@ -332,8 +326,11 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
         {activeType === "modal" && (
           <ScrollArea className="h-[200px]">
             {modals.length === 0 ? (
-              <div className="p-4 text-sm text-muted-foreground text-center">
-                No modals found on this page
+              <div className="p-4 space-y-2">
+                <p className="text-sm font-medium text-foreground text-center">No modals on this page</p>
+                <p className="text-xs text-muted-foreground">
+                  Modal links open a popup overlay when clicked. To add a modal, create a section with <code className="bg-muted px-1 py-0.5 rounded text-xs">type: modal</code> in your page YAML. It will then appear here for selection.
+                </p>
               </div>
             ) : (
               <div className="p-1">
@@ -368,8 +365,11 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
         {activeType === "scroll" && (
           <ScrollArea className="h-[200px]">
             {scrollSections.length === 0 ? (
-              <div className="p-4 text-sm text-muted-foreground text-center">
-                No sections found on this page
+              <div className="p-4 space-y-2">
+                <p className="text-sm font-medium text-foreground text-center">No sections available</p>
+                <p className="text-xs text-muted-foreground">
+                  Section links scroll the visitor to a specific part of the page. Sections are listed here automatically. To give a section a custom anchor, add a <code className="bg-muted px-1 py-0.5 rounded text-xs">section_id</code> field in your page YAML. The link will use <code className="bg-muted px-1 py-0.5 rounded text-xs">#your-section-id</code>.
+                </p>
               </div>
             ) : (
               <div className="p-1">
