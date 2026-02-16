@@ -2839,6 +2839,142 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/content/rename-slug", async (req, res) => {
+    try {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const authHeader = req.headers.authorization;
+      const debugToken = req.headers["x-debug-token"] as string | undefined;
+      let token: string | null = null;
+      if (authHeader?.startsWith("Token ")) {
+        token = authHeader.slice(6);
+      } else if (debugToken) {
+        token = debugToken;
+      }
+      if (!isDevelopment) {
+        if (!token) {
+          res.status(401).json({ error: "Authorization required" });
+          return;
+        }
+        const capResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } },
+        );
+        if (capResponse.status === 401) {
+          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          return;
+        }
+        if (capResponse.status !== 200) {
+          res.status(403).json({ error: "You need webmaster capability to rename content" });
+          return;
+        }
+      }
+
+      const { contentType, currentSlug, newSlug, createRedirect } = req.body;
+
+      if (!contentType || !currentSlug || !newSlug) {
+        res.status(400).json({ error: "Missing required fields: contentType, currentSlug, newSlug" });
+        return;
+      }
+
+      const validTypes = ["location", "page", "program"];
+      if (!validTypes.includes(contentType)) {
+        res.status(400).json({ error: `Invalid type. Must be one of: ${validTypes.join(", ")}` });
+        return;
+      }
+
+      const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+      if (!slugRegex.test(newSlug)) {
+        res.status(400).json({ error: "Invalid slug format. Use lowercase letters, numbers, and hyphens only." });
+        return;
+      }
+
+      if (currentSlug === newSlug) {
+        res.status(400).json({ error: "New slug is the same as current slug" });
+        return;
+      }
+
+      const folderMap: Record<string, string> = {
+        location: "locations",
+        page: "pages",
+        program: "programs",
+      };
+      const contentFolder = folderMap[contentType];
+      const baseDir = path.join(process.cwd(), "marketing-content", contentFolder);
+      const currentPath = path.join(baseDir, currentSlug);
+      const newPath = path.join(baseDir, newSlug);
+
+      if (!fs.existsSync(currentPath)) {
+        res.status(404).json({ error: `Content folder not found: ${currentSlug}` });
+        return;
+      }
+
+      if (fs.existsSync(newPath)) {
+        res.status(409).json({ error: `A ${contentType} with slug "${newSlug}" already exists` });
+        return;
+      }
+
+      const oldLocaleUrls = contentIndex.getLocaleUrls(currentSlug, contentFolder);
+
+      fs.renameSync(currentPath, newPath);
+
+      const ymlFiles = fs.readdirSync(newPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
+      for (const file of ymlFiles) {
+        const filePath = path.join(newPath, file);
+        try {
+          const raw = fs.readFileSync(filePath, "utf-8");
+          const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
+          if (parsed && parsed.slug === currentSlug) {
+            parsed.slug = newSlug;
+            const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+            fs.writeFileSync(filePath, updated, "utf-8");
+          }
+          markFileAsModified(`marketing-content/${contentFolder}/${newSlug}/${file}`);
+        } catch {}
+      }
+
+      if (createRedirect && Object.keys(oldLocaleUrls).length > 0) {
+        for (const [locale, oldUrl] of Object.entries(oldLocaleUrls)) {
+          const localeFile = `${locale}.yml`;
+          const localeFilePath = path.join(newPath, localeFile);
+          if (!fs.existsSync(localeFilePath)) continue;
+          try {
+            const raw = fs.readFileSync(localeFilePath, "utf-8");
+            const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
+            if (!parsed) continue;
+            const meta = (parsed.meta || {}) as Record<string, unknown>;
+            const redirects = Array.isArray(meta.redirects) ? [...meta.redirects] : [];
+            if (!redirects.includes(oldUrl)) {
+              redirects.push(oldUrl);
+            }
+            meta.redirects = redirects;
+            parsed.meta = meta;
+            const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+            fs.writeFileSync(localeFilePath, updated, "utf-8");
+            markFileAsModified(`marketing-content/${contentFolder}/${newSlug}/${localeFile}`);
+          } catch {}
+        }
+      }
+
+      contentIndex.refresh();
+      clearSitemapCache();
+      clearRedirectCache();
+
+      const newLocaleUrls = contentIndex.getLocaleUrls(newSlug, contentFolder);
+
+      res.json({
+        success: true,
+        oldSlug: currentSlug,
+        newSlug,
+        oldUrls: oldLocaleUrls,
+        newUrls: newLocaleUrls,
+        redirectsCreated: !!createRedirect,
+      });
+    } catch (error) {
+      console.error("[Content] Rename slug error:", error);
+      res.status(500).json({ error: "Failed to rename slug" });
+    }
+  });
+
   // Check if a slug is available for a given content type
   app.get("/api/content/check-slug", (req, res) => {
     const { type, slug } = req.query;

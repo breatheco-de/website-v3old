@@ -843,9 +843,10 @@
       "remoteSha": "9ca8eb10aed3e448ff200c95cc835ca77fc554c057ef0772a638902545ed036d"
     },
     "marketing-content/pages/sample-page/en.yml": {
-      "sha": "a852d919c37fa3d47d155e546e3465bd75fb40df88ec5b8afeaa2b3296ccd14a",
-      "lastModified": 1771253426866.4302,
-      "remoteSha": "a852d919c37fa3d47d155e546e3465bd75fb40df88ec5b8afeaa2b3296ccd14a"
+      "sha": "a343805584a04698c258d34702e77471e81015349d61a25883cb142d333a4447",
+      "lastModified": 1771278138499.6035,
+      "remoteSha": "a852d919c37fa3d47d155e546e3465bd75fb40df88ec5b8afeaa2b3296ccd14a",
+      "modifiedAt": "2026-02-16T21:42:18.501Z"
     },
     "marketing-content/pages/scholarships/_common.yml": {
       "sha": "5677fc83cf087a10ec0eb37590806ea58e28acc63f09f86dfc8fe8d43ca9f7e0",
@@ -1011,6 +1012,16 @@
       "sha": "5858eb07aa4103a22b940b37557a6b5f8f01de0d75dfeac35892eaab24ed6c18",
       "lastModified": 1771253438407.4214,
       "remoteSha": "5858eb07aa4103a22b940b37557a6b5f8f01de0d75dfeac35892eaab24ed6c18"
+    },
+    "marketing-content/pages/sample-page-test-rename/en.yml": {
+      "sha": "e8bec042fde3c7fec98d0c9aae1429bc375a709853b9785b0ae942146da565a5",
+      "lastModified": 1771277980725.739,
+      "modifiedAt": "2026-02-16T21:39:40.728Z"
+    },
+    "marketing-content/pages/sample-page-test2/en.yml": {
+      "sha": "3843a9ef901b9bb001882f32751b290fa652de553131c3c8c71238666710e608",
+      "lastModified": 1771278133559.6077,
+      "modifiedAt": "2026-02-16T21:42:13.560Z"
     }
   }
 }
