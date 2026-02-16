@@ -37,22 +37,18 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Scholarship & Funding Opportunities
-    description: We offer a range of scholarship options across select programs and regions, designed to help dedicated learners move confidently into high-growth tech careers.
+    heading: Available Funding Opportunities
+    description: We offer scholarships across select programs and regions to help make tech education more accessible. Opportunities vary by location and program, and can include institutional partnerships, sponsored awards, or merit-based support.
     image: /attached_assets/comunity-support_1765908983485.png
     image_alt: Students supported through scholarship opportunities
     background: bg-primary/5
     cards:
       - icon: Globe
-        text: Institutional and government-funded scholarships may provide full or partial tuition support in select regions.
+        text: Institutional and government partnerships help expand access to tech education in select regions.
       - icon: Handshake
-        text: Partner-sponsored opportunities are designed to expand access and invest in future tech talent.
+        text: Corporate and community partners sponsor scholarships to support emerging tech talent.
       - icon: Award
-        text: Merit-based and partial tuition awards are available to qualified applicants based on commitment, potential, and program fit.
-        cta:
-          text: Learn More
-          url: "#"
-          variant: outline
+        text: A limited number of merit-based partial scholarships are awarded to qualified applicants based on commitment, potential, and program fit.
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
@@ -188,68 +184,9 @@ sections:
           text: Learn More
           url: "#"
           variant: outline
-  - type: whos_hiring
-    version: v1.0
-    variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
-    logos:
-      - src: /attached_assets/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
-        alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
-        alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
-        alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
-        alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
-        alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
-        alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
-        alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
-        alt: Jooble
-  - type: horizontal_bars
-    version: "1.0"
-    title: Average Salary Increase by Region
-    subtitle: Percentage increase after graduation
-    items:
-      - label: LATAM
-        value: 233
-      - label: U.S.
-        value: 55
-      - label: Spain
-        value: 30
-    marginY:
-      desktop: none md
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text
-    title: Impact by the Numbers
-    subtitle: $20M+ in scholarships and grants awarded
-    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    background: hsl(var(--secondary))
-    items:
-      - value: 84%
-        title: hiring rate within 6 months of graduation
-      - value: 5K+
-        title: hiring partners
-      - value: 6K+
-        title: students supported worldwide
   - type: testimonials_slide
-    version: "1.0"
-    title: Real Careers Start Here — Just Ask Our Students
-    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    title: Where Opportunity Turns Into Real Careers
+    description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.
     testimonials:
       - name: Loretta Thompson
         img: /attached_assets/ttaLoretta_1764725322100.jpeg
@@ -358,12 +295,49 @@ sections:
         contributor: UTEC-BID
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Our mission is to make high-quality coding education affordable.
-    subtitle: Software Development as You Know It Will Cease to Exist
-    description: Scholarships may include full or partial tuition support and are awarded based on merit, financial need, and cohort availability. We concentrated our efforts on lowering the financial barriers by finding partners and sponsors who shared our vision. Today, thanks to our joint efforts, 80% of our students receive some form of financial support, making top-quality coding education accessible to a wider audience.
-    background: hsl(var(--muted))
+  - type: horizontal_bars
+    version: "1.0"
+    title: The Return on Opportunity
+    subtitle: See how our graduates increase their earning power across regions.
+    items:
+      - label: LATAM
+        value: 233
+      - label: U.S.
+        value: 55
+      - label: Spain
+        value: 30
+    marginY:
+      desktop: none md
+  - type: whos_hiring
+    variant: carousel
+    pretitle: Customer Stories
+    title: The Companies Hiring Our Graduates
+    subtitle: Access creates opportunity. Employers turn it into real tech careers.
+    logos:
+      - src: /attached_assets/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: /attached_assets/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: /attached_assets/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: /attached_assets/meta-logo_1764719959855.png
+        alt: Meta
+      - src: /attached_assets/ebay_1764719967118.png
+        alt: eBay
+      - src: /attached_assets/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: /attached_assets/evernote_1764719981901.png
+        alt: Evernote
+      - src: /attached_assets/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: /attached_assets/twilio_1764719992371.png
+        alt: Twilio
+      - src: /attached_assets/uber_1764719999685.png
+        alt: Uber
+      - src: /attached_assets/Neo9_1764720006347.png
+        alt: Neo9
+      - src: /attached_assets/jooble_1764720010702.png
+        alt: Jooble
   - type: faq
     version: v1.0
     title: Frequently Asked Questions
