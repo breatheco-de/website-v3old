@@ -315,23 +315,22 @@ sections:
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
   - type: testimonials_slide
-    title: What Our Students Say
+    title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
-    paddingY:
-      desktop: none
     marginY:
       desktop: none
+    paddingY:
+      desktop: none
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - online-platform
-      - job-guarantee
       - certification
-    paddingY:
-      desktop: md none
+      - mentors-and-teachers
     marginY:
       desktop: none md
+    paddingY:
+      desktop: md none
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.
