@@ -247,8 +247,11 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activeSideRef = useRef<ActiveSide | null>(null);
 
   const switchToSide = useCallback((side: ActiveSide) => {
+    if (side === activeSideRef.current) return;
+    activeSideRef.current = side;
     setActiveSide(side);
     if (contentTimerRef.current) clearTimeout(contentTimerRef.current);
     setContentExpandedSide(null);
