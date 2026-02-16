@@ -1622,25 +1622,37 @@ export function SectionEditorPanel({
                   </p>
                 </div>
 
-                <div className="flex gap-2 border-t pt-3 mt-3">
-                  <Button
-                    variant={tableEditorMode === "content" ? "default" : "outline"}
-                    size="sm"
+                <div className="space-y-3 border-t pt-3 mt-3">
+                  <div
+                    className={`p-3 rounded-lg border cursor-pointer transition-colors ${tableEditorMode === "content" ? "border-primary bg-primary/5" : "hover-elevate"}`}
                     onClick={() => setTableEditorMode(tableEditorMode === "content" ? null : "content")}
                     data-testid="button-table-content-filter"
                   >
-                    <IconSettings className="h-3.5 w-3.5 mr-1" />
-                    Content Filter
-                  </Button>
-                  <Button
-                    variant={tableEditorMode === "filter" ? "default" : "outline"}
-                    size="sm"
+                    <div className="flex items-center gap-2 mb-1">
+                      <IconSettings className="h-4 w-4 text-foreground flex-shrink-0" />
+                      <span className="text-sm font-medium text-foreground">Content Filter</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground pl-6">
+                      {locale === "es"
+                        ? "Usa IA para elegir qué columnas mostrar, renombrarlas, reordenarlas o cambiar cómo se muestran los valores. Controla la apariencia de la tabla."
+                        : "Use AI to choose which columns to display, rename them, reorder, or change how values are shown. Controls the table's appearance."}
+                    </p>
+                  </div>
+                  <div
+                    className={`p-3 rounded-lg border cursor-pointer transition-colors ${tableEditorMode === "filter" ? "border-primary bg-primary/5" : "hover-elevate"}`}
                     onClick={() => setTableEditorMode(tableEditorMode === "filter" ? null : "filter")}
                     data-testid="button-table-global-filter"
                   >
-                    <IconCode className="h-3.5 w-3.5 mr-1" />
-                    Global Filter
-                  </Button>
+                    <div className="flex items-center gap-2 mb-1">
+                      <IconCode className="h-4 w-4 text-foreground flex-shrink-0" />
+                      <span className="text-sm font-medium text-foreground">Global Filter</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground pl-6">
+                      {locale === "es"
+                        ? "Usa IA para filtrar qué filas se muestran en la tabla. Soporta filtrado por región del visitante (país, idioma, zona horaria). Controla qué datos son visibles, no cómo se ven."
+                        : "Use AI to filter which rows appear in the table. Supports visitor-aware filtering (country, language, timezone). Controls which data is visible — not how it looks."}
+                    </p>
+                  </div>
                 </div>
 
                 {tableEditorMode === "content" && (
