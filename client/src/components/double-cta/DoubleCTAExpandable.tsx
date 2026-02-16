@@ -65,12 +65,12 @@ function CTABox({
             : "opacity-50 max-h-[1000px] mt-3",
         )}
       >
-        {(box.description || hasImage) && (
-          <div className="flex gap-4 mb-4">
+        {box.image_beside_bullets ? (
+          <>
             {box.description && (
               <p
                 className={cn(
-                  "text-sm md:text-base text-muted-foreground leading-relaxed flex-1",
+                  "text-sm md:text-base text-muted-foreground leading-relaxed mb-4",
                   isActive ? "" : "line-clamp-3",
                 )}
                 data-testid={`${testId}-description`}
@@ -78,6 +78,107 @@ function CTABox({
                 {box.description}
               </p>
             )}
+
+            {(hasBullets || hasImage) && (
+              <div className="flex gap-4 mb-4 flex-1">
+                {hasBullets && (
+                  <div
+                    className="flex flex-col gap-3 flex-1"
+                    data-testid={`${testId}-bullets`}
+                  >
+                    {box.bullets!.map((bullet, i) => {
+                      const IconComp = bullet.icon
+                        ? getTablerIcon(bullet.icon)
+                        : TablerIcons.IconCircleCheck;
+                      return (
+                        <div
+                          key={i}
+                          className="flex items-start gap-2.5"
+                          data-testid={`${testId}-bullet-${i}`}
+                        >
+                          <Card className="flex-shrink-0 p-1 !rounded-lg">
+                            <IconComp className="w-4 h-4 text-primary" />
+                          </Card>
+                          {bullet.text && (
+                            <span className={cn("text-sm text-muted-foreground leading-snug", isActive ? "" : "line-clamp-1")}>
+                              {bullet.text}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {hasImage && (
+                  <div
+                    className={cn(
+                      "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
+                      isActive
+                        ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
+                        : "w-0 opacity-0",
+                    )}
+                    data-testid={`${testId}-image`}
+                  >
+                    <UniversalImage
+                      id={box.image_id!}
+                      className="w-full h-full"
+                      style={{
+                        objectFit:
+                          (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                          "cover",
+                        objectPosition: box.image_object_position || "center",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex gap-4 mb-4 flex-1">
+            <div className="flex flex-col flex-1 gap-4">
+              {box.description && (
+                <p
+                  className={cn(
+                    "text-sm md:text-base text-muted-foreground leading-relaxed",
+                    isActive ? "" : "line-clamp-3",
+                  )}
+                  data-testid={`${testId}-description`}
+                >
+                  {box.description}
+                </p>
+              )}
+
+              {hasBullets && (
+                <div
+                  className="flex flex-col gap-3"
+                  data-testid={`${testId}-bullets`}
+                >
+                  {box.bullets!.map((bullet, i) => {
+                    const IconComp = bullet.icon
+                      ? getTablerIcon(bullet.icon)
+                      : TablerIcons.IconCircleCheck;
+                    return (
+                      <div
+                        key={i}
+                        className="flex items-start gap-2.5"
+                        data-testid={`${testId}-bullet-${i}`}
+                      >
+                        <Card className="flex-shrink-0 p-1 !rounded-lg">
+                          <IconComp className="w-4 h-4 text-primary" />
+                        </Card>
+                        {bullet.text && (
+                          <span className={cn("text-sm text-muted-foreground leading-snug", isActive ? "" : "line-clamp-1")}>
+                            {bullet.text}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
             {hasImage && (
               <div
@@ -101,35 +202,6 @@ function CTABox({
                 />
               </div>
             )}
-          </div>
-        )}
-
-        {hasBullets && (
-          <div
-            className="flex flex-col gap-3 mb-4 flex-1"
-            data-testid={`${testId}-bullets`}
-          >
-            {box.bullets!.map((bullet, i) => {
-              const IconComp = bullet.icon
-                ? getTablerIcon(bullet.icon)
-                : TablerIcons.IconCircleCheck;
-              return (
-                <div
-                  key={i}
-                  className="flex items-start gap-2.5"
-                  data-testid={`${testId}-bullet-${i}`}
-                >
-                  <Card className="flex-shrink-0 p-1 !rounded-lg">
-                    <IconComp className="w-4 h-4 text-primary" />
-                  </Card>
-                  {bullet.text && (
-                    <span className={cn("text-sm text-muted-foreground leading-snug", isActive ? "" : "line-clamp-1")}>
-                      {bullet.text}
-                    </span>
-                  )}
-                </div>
-              );
-            })}
           </div>
         )}
 

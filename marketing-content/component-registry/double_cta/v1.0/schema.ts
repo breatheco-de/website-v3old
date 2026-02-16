@@ -12,6 +12,7 @@ export const doubleCTABoxSchema = z.object({
   image_id: z.string().optional(),
   image_object_fit: z.enum(["cover", "contain", "fill", "none"]).optional(),
   image_object_position: z.string().optional(),
+  image_beside_bullets: z.boolean().optional(),
   cta_text: z.string().optional(),
   cta_url: z.string().optional(),
   cta_variant: z.enum(["primary", "secondary", "outline"]).optional(),

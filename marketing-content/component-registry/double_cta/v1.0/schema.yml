@@ -60,7 +60,7 @@ props:
       image_id:
         type: string
         required: false
-        description: Image registry ID for optional image displayed to the right of bullets
+        description: Image registry ID for optional image displayed beside the content
       image_object_fit:
         type: string
         required: false
@@ -72,6 +72,11 @@ props:
       image_object_position:
         type: string
         required: false
+      image_beside_bullets:
+        type: boolean
+        required: false
+        default: false
+        description: When true, the image is placed beside only the bullets. When false (default), the image is placed beside both the description and bullets.
       cta_text:
         type: string
         required: false
@@ -119,7 +124,7 @@ props:
       image_id:
         type: string
         required: false
-        description: Image registry ID for optional image displayed to the right of bullets
+        description: Image registry ID for optional image displayed beside the content
       image_object_fit:
         type: string
         required: false
@@ -131,6 +136,11 @@ props:
       image_object_position:
         type: string
         required: false
+      image_beside_bullets:
+        type: boolean
+        required: false
+        default: false
+        description: When true, the image is placed beside only the bullets. When false (default), the image is placed beside both the description and bullets.
       cta_text:
         type: string
         required: false
