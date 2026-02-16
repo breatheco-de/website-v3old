@@ -35,7 +35,7 @@ sections:
       loop: true
     form: {}
     trust_bar:
-      rating: "4.5"
+      rating: 4.5"
       review_count: Based on 5149+ reviews
       review_logos:
         - name: Google
