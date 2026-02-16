@@ -116,7 +116,7 @@ function CTABox({
                 {hasImage && (
                   <div
                     className={cn(
-                      "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out min-h-[200px]",
+                      "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
                       isActive
                         ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
                         : "w-0 opacity-0",
@@ -247,8 +247,11 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activeSideRef = useRef<ActiveSide | null>(null);
 
   const switchToSide = useCallback((side: ActiveSide) => {
+    if (side === activeSideRef.current) return;
+    activeSideRef.current = side;
     setActiveSide(side);
     if (contentTimerRef.current) clearTimeout(contentTimerRef.current);
     setContentExpandedSide(null);
