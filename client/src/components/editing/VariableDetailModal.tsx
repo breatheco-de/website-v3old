@@ -57,20 +57,25 @@ function ResolutionChainItem({
   level,
   label,
   contextKey,
-  value,
+  allEntries,
+  defaultValue,
   isActive,
   isChecked,
 }: {
   level: ResolutionLevel;
   label: string;
   contextKey: string | undefined;
-  value: string | undefined;
+  allEntries: Record<string, string> | undefined;
+  defaultValue?: string;
   isActive: boolean;
   isChecked: boolean;
 }) {
+  const isDefault = level === "default";
+  const hasEntries = isDefault ? defaultValue !== undefined : (allEntries && Object.keys(allEntries).length > 0);
+
   return (
     <div
-      className={`flex items-center gap-3 px-3 py-2 rounded-md ${
+      className={`rounded-md overflow-visible ${
         isActive
           ? "bg-primary/10 border border-primary/30"
           : isChecked
@@ -79,34 +84,62 @@ function ResolutionChainItem({
       }`}
       data-testid={`resolution-level-${level}`}
     >
-      <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
-        {isActive ? (
-          <IconCheck className="w-4 h-4 text-primary" />
-        ) : isChecked ? (
-          <IconX className="w-4 h-4 text-muted-foreground" />
-        ) : (
-          <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
-        )}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">{label}</span>
-          {contextKey && (
-            <Badge variant="secondary" className="text-xs">
-              {contextKey}
-            </Badge>
+      <div className="flex items-center gap-3 px-3 py-2">
+        <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
+          {isActive ? (
+            <IconCheck className="w-4 h-4 text-primary" />
+          ) : isChecked ? (
+            <IconX className="w-4 h-4 text-muted-foreground" />
+          ) : (
+            <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
           )}
         </div>
-        {value ? (
-          <p className="text-sm text-muted-foreground truncate mt-0.5">"{value}"</p>
-        ) : (
-          <p className="text-xs text-muted-foreground/60 mt-0.5 italic">No value defined</p>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm font-medium">{label}</span>
+            {contextKey && (
+              <Badge variant="secondary" className="text-xs">
+                {contextKey}
+              </Badge>
+            )}
+            {!hasEntries && (
+              <span className="text-xs text-muted-foreground/60 italic">No values configured</span>
+            )}
+          </div>
+        </div>
+        {isActive && (
+          <Badge variant="default" className="text-xs flex-shrink-0">
+            Active
+          </Badge>
         )}
       </div>
-      {isActive && (
-        <Badge variant="default" className="text-xs flex-shrink-0">
-          Active
-        </Badge>
+
+      {hasEntries && (
+        <div className="px-3 pb-2 pl-11 space-y-0.5">
+          {isDefault ? (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-muted-foreground font-mono truncate max-w-[120px]">default</span>
+              <span className="text-muted-foreground/40">=</span>
+              <span className={`truncate ${isActive ? "font-medium text-foreground" : "text-muted-foreground"}`}>"{defaultValue}"</span>
+            </div>
+          ) : (
+            Object.entries(allEntries!).map(([key, val]) => {
+              const isMatch = key === contextKey;
+              return (
+                <div key={key} className={`flex items-center gap-2 text-xs ${isMatch && isActive ? "font-medium" : ""}`}>
+                  <span className={`font-mono truncate max-w-[120px] ${isMatch ? "text-primary" : "text-muted-foreground"}`}>{key}</span>
+                  <span className="text-muted-foreground/40">=</span>
+                  <span className={`truncate ${isMatch && isActive ? "text-foreground" : "text-muted-foreground"}`}>"{val}"</span>
+                  {isMatch && (
+                    <Badge variant="outline" className="text-[10px] px-1 py-0 flex-shrink-0">
+                      match
+                    </Badge>
+                  )}
+                </div>
+              );
+            })
+          )}
+        </div>
       )}
     </div>
   );
@@ -459,18 +492,10 @@ export function VariableDetailModal({
     return res?.value || inlineDefault || varName;
   })();
 
-  const getValueForLevel = (level: ResolutionLevel): string | undefined => {
+  const getEntriesForLevel = (level: ResolutionLevel): Record<string, string> | undefined => {
     if (!definition) return undefined;
-    if (level === "default") return definition.default;
-    const contextKeyMap: Record<string, string | undefined> = {
-      by_location: varContext.location,
-      by_region: varContext.region,
-      by_locale: varContext.locale,
-    };
-    const key = contextKeyMap[level];
-    if (!key) return undefined;
-    const bucket = definition[level] as Record<string, string> | undefined;
-    return bucket?.[key];
+    if (level === "default") return undefined;
+    return definition[level] as Record<string, string> | undefined;
   };
 
   const getContextKeyForLevel = (level: ResolutionLevel): string | undefined => {
@@ -750,8 +775,8 @@ export function VariableDetailModal({
 
             <div className="space-y-2">
               {LEVEL_ORDER.map((level, i) => {
-                const value = getValueForLevel(level);
                 const contextKey = getContextKeyForLevel(level);
+                const allEntries = getEntriesForLevel(level);
                 const isActive = activeLevel === level;
                 const isChecked = i <= LEVEL_ORDER.indexOf(activeLevel || "default");
 
@@ -766,7 +791,8 @@ export function VariableDetailModal({
                       level={level}
                       label={LEVEL_LABELS[level]}
                       contextKey={contextKey}
-                      value={value}
+                      allEntries={allEntries}
+                      defaultValue={level === "default" ? definition?.default : undefined}
                       isActive={isActive}
                       isChecked={isChecked}
                     />
@@ -783,7 +809,8 @@ export function VariableDetailModal({
                     level={"default" as ResolutionLevel}
                     label="Inline Default"
                     contextKey={undefined}
-                    value={inlineDefault}
+                    allEntries={undefined}
+                    defaultValue={inlineDefault}
                     isActive={resolvedSource === "inline"}
                     isChecked={true}
                   />
@@ -797,6 +824,86 @@ export function VariableDetailModal({
                 Location={varContext.location || "none"}, Region={varContext.region || "none"}, Locale={varContext.locale || "none"}
               </p>
             </div>
+
+            {definition && (() => {
+              const hasOverrides = definition.by_location || definition.by_region || definition.by_locale;
+              if (!hasOverrides) return null;
+
+              const contextSamples: { label: string; context: { location?: string; region?: string; locale?: string } }[] = [];
+
+              if (definition.by_location) {
+                for (const locSlug of Object.keys(definition.by_location)) {
+                  const loc = locations.find((l) => l.slug === locSlug);
+                  contextSamples.push({
+                    label: loc ? `${loc.name} (${loc.default_language})` : locSlug,
+                    context: {
+                      location: locSlug,
+                      region: loc?.region,
+                      locale: loc?.default_language,
+                    },
+                  });
+                }
+              }
+
+              if (definition.by_region) {
+                for (const regionKey of Object.keys(definition.by_region)) {
+                  const alreadyCovered = contextSamples.some((s) => s.context.region === regionKey);
+                  if (!alreadyCovered) {
+                    const sampleLoc = locations.find((l) => l.region === regionKey);
+                    contextSamples.push({
+                      label: `${regionKey} region`,
+                      context: {
+                        location: undefined,
+                        region: regionKey,
+                        locale: sampleLoc?.default_language,
+                      },
+                    });
+                  }
+                }
+              }
+
+              if (definition.by_locale) {
+                for (const localeKey of Object.keys(definition.by_locale)) {
+                  const alreadyCovered = contextSamples.some((s) => s.context.locale === localeKey);
+                  if (!alreadyCovered) {
+                    contextSamples.push({
+                      label: localeKey === "en" ? "English (general)" : localeKey === "es" ? "Spanish (general)" : localeKey,
+                      context: {
+                        location: undefined,
+                        region: undefined,
+                        locale: localeKey,
+                      },
+                    });
+                  }
+                }
+              }
+
+              if (contextSamples.length === 0) return null;
+
+              return (
+                <div className="mt-3 space-y-1.5" data-testid="cross-context-summary">
+                  <p className="text-xs font-medium text-muted-foreground">How it resolves across contexts:</p>
+                  <div className="rounded-md border divide-y">
+                    {contextSamples.map((sample) => {
+                      const res = resolveVariable(effectiveVarName, definitions!, sample.context);
+                      const value = res?.value || definition.default || inlineDefault || "—";
+                      const source = res?.source || "default";
+                      return (
+                        <div key={sample.label} className="flex items-center justify-between gap-2 px-3 py-1.5 text-xs" data-testid={`context-sample-${sample.label}`}>
+                          <span className="text-muted-foreground truncate">{sample.label}</span>
+                          <div className="flex items-center gap-1.5 flex-shrink-0">
+                            <span className="font-medium text-foreground">"{value}"</span>
+                            <Badge variant="outline" className="text-[10px] px-1 py-0">
+                              {source}
+                            </Badge>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 
