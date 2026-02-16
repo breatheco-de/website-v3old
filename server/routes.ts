@@ -1608,8 +1608,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       filePath = path.join(menusDir, `${fileBaseName}.yml`);
     }
     
-    // Translations endpoint is for TEXT-ONLY changes in ANY locale (including English)
-    // For structure changes (href, icon, add/delete), use the /structure endpoint instead
+    // Translations endpoint is for text and link changes in ANY locale (including English)
+    // For structure changes (icon, add/delete), use the /structure endpoint instead
     const masterFilePath = path.join(menusDir, `${name}.yml`);
     if (!fs.existsSync(masterFilePath)) {
       res.status(400).json({ error: "English master file not found. Cannot update translations." });
@@ -1653,10 +1653,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // STRICT text-only merge: Deep-clone master, overlay ONLY text fields from translation
-  // Text fields: label, title, description, cta, text, linkText
+  // STRICT text-only merge: Deep-clone master, overlay ONLY translatable fields from translation
+  // Translatable fields: label, title, description, cta, text, linkText, href
   // ALL other fields preserved from master (including unknown/extra keys)
-  const TEXT_FIELDS = new Set(['label', 'title', 'description', 'cta', 'text', 'linkText']);
+  const TEXT_FIELDS = new Set(['label', 'title', 'description', 'cta', 'text', 'linkText', 'href']);
   
   function mergeTextOnlyFromTranslation(master: any, translation: any): any {
     if (!master?.navbar?.items) {

@@ -17,14 +17,14 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: Next-Generation Tech Careers. Powered by AI.
-    subtitle: Career-focused programs in AI Engineering, Software Development, Data Science, and Cybersecurity. Built to launch high-growth careers in today’s AI-powered tech.
+    title: The AI Reskilling Platformm
+    subtitle: Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance.
     trust_bar:
-      rating: 4.9/5
-      rating_count: 3,000+
+      rating: {{ global_review_rating | 4.9 }}/5
+      rating_count: {{ global_review_count | 3,000 }}+
       trusted_text: Trusted by students worldwide
     cta_button:
-      text: Get Started
+      text: Choose Your Path
       url: /programs
       variant: primary
       icon: ""
@@ -55,7 +55,7 @@ sections:
         linkText: Read reviews
       - id: switchup-detailed
         alt: Clark University Logo
-        logo: /attached_assets/clark-university_1769653206336.png
+        logo: /marketing-content/images/clark-university_1769653206336.png
         logoHeight: 64px
         description: We are certified by the most recognized universities
         link: https://www.switchup.org
@@ -80,35 +80,58 @@ sections:
       - src: /attached_assets/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: Tech Careers Aren’t Built on One-Size-Fits-All.
-      text: "Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles."
+      heading: The 'average student' doesn't exist.
+      text: YOU DO—with your unique strengths, weaknesses and learning style.
       background: primary
       width: 2
     height: 31rem
     mobile_height: 24rem
     gap: md
     rounded: true
-    marginY:
-      desktop: none lg
     paddingY:
       desktop: md none
+    marginY:
+      desktop: none lg
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Succeed in Tech with AI-Powered Learning and Lifelong Human Support
-    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
+    title: Succeed in tech with AI-powered learning and lifelong human support
+    description: 4Geeks combines AI-powered learning with real human mentorship to support you at every stage of your tech career. From personalized learning paths to lifelong access to expert mentors and career coaches, you’re never navigating your growth alone. Whether you’re learning your first skill or advancing years later, the platform adapts with you.
     bullets:
       - heading: Personalized Learning at Every Level
-        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
+        text: Benefit from an unmatched student-to-teacher ratio, unlimited access to human mentors, plus AI-powered coaching tailored to your learning journey.
       - heading: Lifelong Mentorship & Career Support
-        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
-      - heading: AI-Integrated Curriculum and Learning Tools
-        text: Master the latest AI tools and workflows that employers are actively hiring for.
+        text: Get 1:1 guidance from expert human mentors and career coaches whenever you need it, for life.
+      - heading: AI-integrated Curriculum and Learning Tools
+        text: Master the latest AI tools and stay ahead of job market trends.
+    footer: Over 10,000 graduates have launched new careers with us.
     image: /attached_assets/community_1764717588840.png
     image_alt: Student learning with mentor support
     reverse: true
     marginY:
       desktop: none lg
+  - type: two_column
+    variant: benefitCards
+    stacked_header: true
+    background: hsl(var(--muted))
+    right:
+      image: /images/hyperpersonalized-learning-video.jpg
+      image_alt: Video thumbnail explaining hyperpersonalized learning at 4Geeks
+    title: Welcome to Hyperpersonalized Learning
+    subtitle: "Progress like never before. Education has been one-size-fits-all for too long. At 4Geeks, we built a better way to learn: one that adapts to you."
+    benefit_items:
+      - icon: Sparkles
+        title: AI Tutor that adapts to you
+        description: Our custom-built AI Tutor, Rigobot, tracks your activity and identifies your strengths, struggles, and gaps to deliver real-time feedback that helps you learn faster.
+      - icon: Users
+        title: Unlimited 1:1 mentor support
+        description: Get live human help whenever you need it so you never get stuck or lose momentum.
+      - icon: Briefcase
+        title: 1:1 career coaching
+        description: Work individually with career coaches to build your confidence and strategy, and stand out in interviews and on AI-filtered platforms like ATS and LinkedIn.
+      - icon: AcademicCap
+        title: 1:7 teacher-student ratio
+        description: In live classes, small groups mean real attention, faster answers, and learning that stays on track.
   - type: course_selector
     version: "1.0"
     variant: default
@@ -246,7 +269,7 @@ sections:
       desktop: none
   - type: career_support_explain
     version: v1.0
-    heading: Get Hired. With Career Support Built for the AI Era
+    heading: Finance your future
     description: Our career support program is designed to help you land your first job in tech
     background: hsl(var(--muted))
     tabs:
@@ -255,7 +278,7 @@ sections:
         col1_subtitle: Build a recruiter-ready profile, smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal  impact.
+          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
