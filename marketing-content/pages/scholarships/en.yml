@@ -49,6 +49,19 @@ sections:
         text: Corporate and community partners sponsor scholarships to support emerging tech talent.
       - icon: Award
         text: A limited number of merit-based partial scholarships are awarded to qualified applicants based on commitment, potential, and program fit.
+  - type: cta_banner
+    version: "1.0"
+    title: Ready to Start Your Tech Career?
+    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
+    background: hsl(var(--primary))
+    variant: default
+    buttons:
+      - text: Start Learning Now
+        url: /apply
+        variant: secondary
+      - text: Talk to an Advisor
+        url: /contact
+        variant: outline
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
