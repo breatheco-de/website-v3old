@@ -49,12 +49,16 @@ sections:
         text: Partner-sponsored opportunities are designed to expand access and invest in future tech talent.
       - icon: Award
         text: Merit-based and partial tuition awards are available to qualified applicants based on commitment, potential, and program fit.
+        cta:
+          text: Learn More
+          url: "#"
+          variant: outline
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
     version: v1.0
     heading: $20+ Million in Scholarships
-    subtitle: Fueling Access to High-Growth Tech Careers Worldwide.
+    subtitle: Backed by global institutions and industry leaders, we’ve awarded over $20 million in scholarships to expand access to tech careers worldwide.
     background: bg-primary/5
     slides:
       - image_id: united_way_event
