@@ -20,12 +20,14 @@ interface DoubleCTAExpandableProps {
 function CTABox({
   box,
   isActive,
+  isContentExpanded,
   onHover,
   side,
   "data-testid": testId,
 }: {
   box: DoubleCTABox;
   isActive: boolean;
+  isContentExpanded: boolean;
   onHover: () => void;
   side: ActiveSide;
   "data-testid"?: string;
@@ -71,7 +73,7 @@ function CTABox({
               <p
                 className={cn(
                   "text-sm md:text-base text-muted-foreground leading-relaxed mb-4",
-                  isActive ? "" : "line-clamp-3",
+                  isContentExpanded ? "" : "line-clamp-3",
                 )}
                 data-testid={`${testId}-description`}
               >
@@ -100,7 +102,7 @@ function CTABox({
                             <IconComp className="w-4 h-4 text-primary" />
                           </Card>
                           {bullet.text && (
-                            <span className={cn("text-sm text-muted-foreground leading-snug", isActive ? "" : "line-clamp-1")}>
+                            <span className={cn("text-sm text-muted-foreground leading-snug", isContentExpanded ? "" : "line-clamp-1")}>
                               {bullet.text}
                             </span>
                           )}
@@ -142,7 +144,7 @@ function CTABox({
                 <p
                   className={cn(
                     "text-sm md:text-base text-muted-foreground leading-relaxed",
-                    isActive ? "" : "line-clamp-3",
+                    isContentExpanded ? "" : "line-clamp-3",
                   )}
                   data-testid={`${testId}-description`}
                 >
@@ -169,7 +171,7 @@ function CTABox({
                           <IconComp className="w-4 h-4 text-primary" />
                         </Card>
                         {bullet.text && (
-                          <span className={cn("text-sm text-muted-foreground leading-snug", isActive ? "" : "line-clamp-1")}>
+                          <span className={cn("text-sm text-muted-foreground leading-snug", isContentExpanded ? "" : "line-clamp-1")}>
                             {bullet.text}
                           </span>
                         )}
@@ -240,8 +242,25 @@ function CTABox({
 export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
   const { title, subtitle, left, right } = data;
   const [activeSide, setActiveSide] = useState<ActiveSide | null>(null);
+  const [contentExpandedSide, setContentExpandedSide] = useState<ActiveSide | null>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const contentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const switchToSide = useCallback((side: ActiveSide) => {
+    setActiveSide(side);
+    if (contentTimerRef.current) clearTimeout(contentTimerRef.current);
+    setContentExpandedSide(null);
+    contentTimerRef.current = setTimeout(() => {
+      setContentExpandedSide(side);
+    }, 400);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (contentTimerRef.current) clearTimeout(contentTimerRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (hasAnimated) return;
@@ -252,7 +271,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
       (entries) => {
         if (entries[0].isIntersecting) {
           setTimeout(() => {
-            setActiveSide("left");
+            switchToSide("left");
             setHasAnimated(true);
           }, 600);
           observer.disconnect();
@@ -263,15 +282,15 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [hasAnimated]);
+  }, [hasAnimated, switchToSide]);
 
   const handleHoverLeft = useCallback(() => {
-    setActiveSide("left");
-  }, []);
+    switchToSide("left");
+  }, [switchToSide]);
 
   const handleHoverRight = useCallback(() => {
-    setActiveSide("right");
-  }, []);
+    switchToSide("right");
+  }, [switchToSide]);
 
   const isEqual = activeSide === null;
 
@@ -322,6 +341,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
             <CTABox
               box={left}
               isActive={isEqual || activeSide === "left"}
+              isContentExpanded={isEqual || contentExpandedSide === "left"}
               onHover={handleHoverLeft}
               side="left"
               data-testid="card-double-cta-left"
@@ -345,6 +365,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
             <CTABox
               box={right}
               isActive={isEqual || activeSide === "right"}
+              isContentExpanded={isEqual || contentExpandedSide === "right"}
               onHover={handleHoverRight}
               side="right"
               data-testid="card-double-cta-right"
