@@ -37,8 +37,8 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Scholarship & Funding Opportunities
-    description: We offer a range of scholarship options across select programs and regions, designed to help dedicated learners move confidently into high-growth tech careers.
+    heading: Availabe Funding Opportunities
+    description: We provide a range of scholarships across select programs and regions to help make your transition into tech more accessible. Support may include full or partial tuition assistance, depending on merit, financial need, cohort availability, and location.
     image: /attached_assets/comunity-support_1765908983485.png
     image_alt: Students supported through scholarship opportunities
     background: bg-primary/5
@@ -49,10 +49,6 @@ sections:
         text: Partner-sponsored opportunities are designed to expand access and invest in future tech talent.
       - icon: Award
         text: Merit-based and partial tuition awards are available to qualified applicants based on commitment, potential, and program fit.
-        cta:
-          text: Learn More
-          url: "#"
-          variant: outline
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
