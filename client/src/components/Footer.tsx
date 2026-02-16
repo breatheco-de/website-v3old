@@ -30,6 +30,7 @@ interface FooterConfig {
   socials: FooterSocial[];
   legal_links: FooterLegalLink[];
   copyright_text: string;
+  subscribe_text: string
 }
 
 const socialIconMap: Record<string, typeof IconBrandLinkedin> = {
@@ -67,17 +68,17 @@ export default function Footer() {
   return (
     <footer className="text-foreground" data-testid="section-global-footer">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="lg:shrink-0 flex justify-between items-center h-full mb-6">
+        <div className="lg:shrink-0 flex justify-between items-center h-full mb-8">
           <a
             href="/"
             onClick={handleLinkClick}
             className="flex items-center h-full"
             data-testid="link-footer-home"
           >
-            <img src={logo} alt="4Geeks Academy" className="h-8" />
+            <img src={logo} alt="4Geeks Academy" className="h-9" />
           </a>
           <div>
-            <p className="text-center">{config.subscribe_text || 'Subscribe for more'}</p>
+            <p className="text-center mb-1">{config.subscribe_text || 'Subscribe for more'}</p>
             <div
               className="flex items-center justify-center gap-3"
               data-testid="footer-socials"

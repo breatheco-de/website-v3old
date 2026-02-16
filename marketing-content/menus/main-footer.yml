@@ -2,84 +2,86 @@ footer:
   columns:
     - title: Company
       items:
-        - label: About Us
+        - label: Why 4Geeks
+          href: /en/why-4geeks
+        - label: Academy
           href: /en/the-academy
-        - label: Press
-          href: /en/press
-        - label: Awards
-          href: /en/awards
         - label: Partners
           href: /en/partners
-        - label: Work with Us
-          href: /en/work-with-us
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
+        - label: Pricing
+          href: /en/financials
+        - label: Events
+          href: /en/next-dates
+        - label: Upcoming Dates
+          href: /en/next-dates
+        - label: Programs & Courses
+          href: /en/programs
+        - label: Blog
+          href: /en/blog
+        - label: FAQ
+          href: /en/faq
+        - label: Contact Us
+          href: /en/contact
     - title: Programs
       items:
-        - label: Full Stack Developer
-          href: /en/career-programs/full-stack
         - label: AI Engineering
           href: /en/career-programs/ai-engineering
-        - label: Data Science & ML
+        - label: Data Science and Machine Learning with AI
           href: /en/career-programs/data-science-ml
         - label: Cybersecurity
           href: /en/career-programs/cybersecurity
+        - label: Full Stack with AI
+          href: /en/career-programs/full-stack
     - title: Locations
       items:
-        - label: Miami
-          href: /en/location/miami-usa
-        - label: Madrid
-          href: /campus/madrid
-        - label: Santiago
-          href: /campus/santiago
-        - label: Bogota
-          href: /campus/bogota
-        - label: Caracas
-          href: /campus/caracas
         - label: Online
-          href: /campus/remote
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
-        - label: New Item
-          href: /new-page
+          href: /en/coding-campus/online-coding-bootcamp
+        - label: Miami
+          href: /en/coding-campus/coding-bootcamp-miami
+        - label: Orlando
+          href: /en/coding-campus/coding-bootcamp-orlando
+        - label: Toronto
+          href: /en/coding-campus/coding-bootcamp-toronto-canada
+        - label: Madrid
+          href: /en/coding-campus/coding-bootcamp-madrid
+        - label: Barcelona
+          href: /en/coding-campus/coding-bootcamp-barcelona-spain
+        - label: Valencia
+          href: /en/coding-campus/coding-bootcamp-valencia-spain
+        - label: "M\xE1laga"
+          href: /en/coding-campus/coding-bootcamp-malaga-spain
+        - label: Chile
+          href: /en/coding-campus/coding-bootcamp-santiago
+        - label: Colombia
+          href: /en/coding-campus/coding-bootcamp-colombia
+        - label: Mexico
+          href: /en/coding-campus/coding-bootcamp-mexico
+        - label: Europe
+          href: /en/coding-campus/europe-online-coding-bootcamp
+        - label: Costa Rica
+          href: /en/coding-campus/coding-bootcamp-costa-rica
+        - label: Venezuela
+          href: /en/coding-campus/coding-bootcamp-caracas
+        - label: Argentina
+          href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
+        - label: Ecuador
+          href: /en/coding-campus/coding-bootcamp-ecuador
+        - label: Uruguay
+          href: /en/coding-campus/coding-bootcamp-uruguay
+        - label: Panama
+          href: /en/coding-campus/coding-bootcamp-panama
+        - label: Bolivia
+          href: /en/coding-campus/coding-bootcamp-bolivia
+        - label: Portugal
+          href: /en/coding-campus/coding-bootcamp-lisbon-portugal
+        - label: Berlin
+          href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
       items:
-        - label: Hire Our Alumni
-          href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
-        - label: Partner with 4Geeks
+        - label: 4Geeks for Companies
           href: /en/partners
-        - label: Corporate Training
-          href: /en/the-academy
+        - label: Talent
+          href: https://www.notion.so/4geeksacademy/Talent-Pipeline-4Geeks-Academy-ef91aba17f9c4964bf7972396d190bdf
   socials:
     - name: Linkedin
       icon: linkedin

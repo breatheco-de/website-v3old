@@ -2,48 +2,86 @@ footer:
   columns:
     - title: Empresa
       items:
-        - label: Sobre Nosotros
+        - label: "Por qu\xE9 4Geeks"
+          href: /es/por-que-4geeks
+        - label: Academia
           href: /es/la-academia
-        - label: Prensa
-          href: /es/prensa
-        - label: Premios
-          href: /es/premios
         - label: Socios
           href: /es/socios
-        - label: Trabaja con Nosotros
-          href: /es/trabaja-con-nosotros
+        - label: Precios
+          href: /es/financiamiento
+        - label: Eventos
+          href: /es/proximas-fechas
+        - label: "Pr\xF3ximas Fechas"
+          href: /es/proximas-fechas
+        - label: Programas y Cursos
+          href: /es/programas
+        - label: Blog
+          href: /es/blog
+        - label: Preguntas Frecuentes
+          href: /es/faq
+        - label: "Cont\xE1ctanos"
+          href: /es/contacto
     - title: Programas
       items:
-        - label: Desarrollador Full Stack
-          href: /es/programas/full-stack
-        - label: Ingenieria en IA
+        - label: "Ingenier\xEDa en IA"
           href: /es/programas/ai-engineering
-        - label: Ciencia de Datos y ML
+        - label: Ciencia de Datos y Machine Learning con IA
           href: /es/programas/data-science-ml
         - label: Ciberseguridad
           href: /es/programas/cybersecurity
+        - label: Full Stack con IA
+          href: /es/programas/full-stack
     - title: Ubicaciones
       items:
-        - label: Miami
-          href: /es/ubicacion/miami-usa
-        - label: Madrid
-          href: /campus/madrid
-        - label: Santiago
-          href: /campus/santiago
-        - label: Bogota
-          href: /campus/bogota
-        - label: Caracas
-          href: /campus/caracas
         - label: Online
-          href: /campus/remote
+          href: /es/campus/bootcamp-online
+        - label: Miami
+          href: /es/campus/bootcamp-miami
+        - label: Orlando
+          href: /es/campus/bootcamp-orlando
+        - label: Toronto
+          href: /es/campus/bootcamp-toronto-canada
+        - label: Madrid
+          href: /es/campus/bootcamp-madrid
+        - label: Barcelona
+          href: /es/campus/bootcamp-barcelona-espana
+        - label: Valencia
+          href: /es/campus/bootcamp-valencia-espana
+        - label: "M\xE1laga"
+          href: /es/campus/bootcamp-malaga-espana
+        - label: Chile
+          href: /es/campus/bootcamp-santiago
+        - label: Colombia
+          href: /es/campus/bootcamp-colombia
+        - label: "M\xE9xico"
+          href: /es/campus/bootcamp-mexico
+        - label: Europa
+          href: /es/campus/bootcamp-online-europa
+        - label: Costa Rica
+          href: /es/campus/bootcamp-costa-rica
+        - label: Venezuela
+          href: /es/campus/bootcamp-caracas
+        - label: Argentina
+          href: /es/campus/bootcamp-argentina-buenos-aires
+        - label: Ecuador
+          href: /es/campus/bootcamp-ecuador
+        - label: Uruguay
+          href: /es/campus/bootcamp-uruguay
+        - label: "Panam\xE1"
+          href: /es/campus/bootcamp-panama
+        - label: Bolivia
+          href: /es/campus/bootcamp-bolivia
+        - label: Portugal
+          href: /es/campus/bootcamp-lisbon-portugal
+        - label: "Berl\xEDn"
+          href: /es/campus/bootcamp-berlin-alemania
     - title: Para Empresas
       items:
-        - label: Contrata Nuestros Egresados
-          href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
-        - label: Asóciate con 4Geeks
+        - label: 4Geeks para Empresas
           href: /es/socios
-        - label: Capacitación Corporativa
-          href: /es/la-academia
+        - label: Talento
+          href: https://www.notion.so/4geeksacademy/Talent-Pipeline-4Geeks-Academy-ef91aba17f9c4964bf7972396d190bdf
   socials:
     - name: Linkedin
       icon: linkedin
@@ -58,11 +96,11 @@ footer:
       icon: instagram
       link: https://www.instagram.com/4geeksacademylatam/
   legal_links:
-    - label: Política de Privacidad
+    - label: "Pol\xEDtica de Privacidad"
       href: /es/politica-de-privacidad
     - label: Cookies
       href: /es/cookies
-    - label: Términos y Condiciones
+    - label: "T\xE9rminos y Condiciones"
       href: /es/terminos-y-condiciones
-  subscribe_text: Suscríbete para más
+  subscribe_text: "Suscr\xEDbete para m\xE1s"
   copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
