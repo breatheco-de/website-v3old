@@ -84,7 +84,7 @@ export function CourseContent({
           <span
             style={{
               backgroundColor: hslColor(resolved, 0.8),
-              border: "1px solid " + hslColor(resolved, 0.5)
+              border: "1px solid " + hslColor(resolved, 0.5),
             }}
             className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full bg-background "
             data-testid="badge-label"
@@ -173,8 +173,13 @@ export function CourseContent({
             >
               {course.price}
             </span>
-            <span className="text-base text-muted-foreground">/mo</span>
+            {course.price && (
+              <span className="text-base text-muted-foreground">
+                {course.price_period || "/mo"}
+              </span>
+            )}
           </div>
+
           {course.price_info && (
             <p
               className="text-base text-muted-foreground"

@@ -410,6 +410,23 @@ export function RichTextArea({
     [onChange],
   );
 
+  const handlePaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
+    const html = e.clipboardData.getData("text/html");
+    if (!html) return;
+    e.preventDefault();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    doc.body.querySelectorAll("*").forEach((el) => {
+      const s = (el as HTMLElement).style;
+      if (s.color) s.color = "";
+      if (s.backgroundColor) s.backgroundColor = "";
+      if (s.background) s.background = "";
+      if (!s.cssText.trim()) el.removeAttribute("style");
+    });
+    const clean = doc.body.innerHTML;
+    document.execCommand("insertHTML", false, clean);
+    handleInput();
+  }, [handleInput]);
+
   const handleColorTriggerMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
   }, []);
@@ -705,6 +722,7 @@ export function RichTextArea({
           )}
           style={{ minHeight }}
           onInput={handleInput}
+          onPaste={handlePaste}
           data-testid={testId}
         />
         {linkHoverPopover && (

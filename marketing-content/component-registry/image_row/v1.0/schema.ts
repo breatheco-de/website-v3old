@@ -23,6 +23,7 @@ export const imageRowHighlightSchema = z.object({
   // Support both single heading/text (backward compat) and slides array
   heading: z.string().optional().describe("Small heading text (for single slide mode)"),
   text: z.string().optional().describe("Main message text (for single slide mode)"),
+  reverse_text_order: z.boolean().optional().describe("Show text above the heading"),
   slides: z.array(imageRowSlideSchema).optional().describe("Array of slides for multi-slide mode"),
   background: z.enum(["primary", "accent", "muted", "card"]).optional().describe("Background color theme"),
   width: z.number().optional().describe("Relative width compared to images (default: 2)"),

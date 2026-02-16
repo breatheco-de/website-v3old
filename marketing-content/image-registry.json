@@ -4631,6 +4631,13 @@
       "focal_point": "center",
       "tags": [],
       "usage_count": 0
+    },
+    "dashboard_capture": {
+      "src": "/attached_assets/dashboard_capture.webp",
+      "alt": "4Geeks.com Dashboard Capture",
+      "focal_point": "center",
+      "tags": ["photo", "dashboard", "screenshot"],
+      "usage_count": 0
     }
   }
 }

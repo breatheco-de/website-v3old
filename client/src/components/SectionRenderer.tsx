@@ -205,6 +205,7 @@ const ArticleSection = lazy(() => import("@/components/Article").then(m => ({ de
 const PartnershipCarousel = lazy(() => import("@/components/partnership-carousel/PartnershipCarousel").then(m => ({ default: m.PartnershipCarousel })));
 const CareerSupportExplain = lazy(() => import("@/components/career-support-explain/CareerSupportExplain"));
 const ProfilesCarousel = lazy(() => import("@/components/profiles-carousel/ProfilesCarousel"));
+const DoubleCTA = lazy(() => import("@/components/double-cta/DoubleCTA"));
 
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
@@ -508,6 +509,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <LazySection key={index}><CareerSupportExplain data={section as Parameters<typeof CareerSupportExplain>[0]["data"]} /></LazySection>;
     case "profiles_carousel":
       return <LazySection key={index}><ProfilesCarousel data={section as Parameters<typeof ProfilesCarousel>[0]["data"]} /></LazySection>;
+    case "double_cta":
+      return <LazySection key={index}><DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} /></LazySection>;
     default: {
       if (process.env.NODE_ENV === "development") {
         console.warn(`Unknown section type: ${sectionType}`);
