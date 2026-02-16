@@ -8,6 +8,7 @@ import {
   getDeviceInfo
 } from '../lib/sessionBootstrap';
 import { locations, getLocationBySlug } from '../lib/locations';
+import { setSessionHeaders } from '../lib/sessionHeaders';
 
 function parseExperimentCookies(): ExperimentData | undefined {
   if (typeof document === 'undefined') return undefined;
@@ -183,6 +184,14 @@ export function SessionProvider({ children }: SessionProviderProps) {
   const getLocationsByRegion = useCallback((region: Location['region']) => {
     return locations.filter(loc => loc.region === region && loc.visibility === 'listed');
   }, []);
+
+  useEffect(() => {
+    setSessionHeaders(
+      session.location?.slug,
+      session.location?.region,
+      session.language
+    );
+  }, [session.location?.slug, session.location?.region, session.language]);
 
   const value: SessionContextValue = {
     session,

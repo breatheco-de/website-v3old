@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
 import { IconLoader2, IconAlertTriangle, IconArrowLeft } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -44,7 +45,7 @@ export default function PrivatePreview() {
       let url = `/api/${config.apiPath}/${slug}?locale=${locale}`;
       if (variant) url += `&force_variant=${variant}`;
       if (version) url += `&force_version=${version}`;
-      const response = await fetch(url);
+      const response = await apiFetch(url);
       if (!response.ok) {
         throw new Error("Content not found");
       }

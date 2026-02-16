@@ -33,3 +33,13 @@ global_job_placement_rate:
   default: "84"
 global_salary_increase:
   default: "55"
+global_review_rating:
+  default: "4.9"
+global_review_count:
+  default: "3,000"
+  by_locale:
+    es: "3.000"
+global_teacher_student_ratio:
+  default: "1:7"
+  by_location:
+    madrid-spain: "1:8"

@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Work smarter, not harder, apply AI at Work
+    title: "{{ sample_greeting | Welcome to 4Geeks Academy }}"
     subtitle: Boost your career, harness the power of Applied AI.
     students_enrolled:
       avatars:
@@ -27,14 +27,14 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +48 students enrolled
     bullet_points:
-      - Learn prompt engineering techniques to control AI outputs precisely
+      - Learn "{{ workflowlele | prompt engineering }}" techniques to control AI outputs precisely
       - Create professional images, videos, and documents using AI tools
       - Build automated workflows that save hours of repetitive work
       - Develop websites and chatbots without writing code
       - Apply AI to enhance your learning and personal development
     tutors:
       - name: Charly Chacón
-        role: Main Instructor
+        role: "{{ sample_greeting | Main Instructor }}"
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
@@ -43,14 +43,14 @@ sections:
     description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
     media:
       type: video
-      thumbnail: https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop
       src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      thumbnail: https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop
       alt: Course introduction video
     signup_card:
       title: Sign up to 4Geeks Plus
       description: Subscribe and get access to hundreds of challenges, projects and courses
       cta_button:
-        text: Join now from $39/mo.
+        text: "{{ call_to_action_text | Apply now }}"
         url: /signup
         variant: primary
       login_link:
@@ -72,6 +72,35 @@ sections:
           text: Workshops every week
         - icon: users
           text: Community Gatherings.
+  - type: certificate
+    title: Certificate & Career Network
+    description: Graduate with a recognized certificate and join our global alumni network of over 5,000 developers working at top companies.
+    benefits:
+      - text: Internationally recognized certificate
+      - text: Access to exclusive job board with 300+ partner companies
+      - text: Lifetime membership in our alumni community
+    card:
+      title: Full Stack Developer
+      subtitle: 4Geeks Academy Certificate
+    showOn: mobile
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - munich-germany
+      - madrid-spain
+  - type: image_row
+    images:
+      - src: /attached_assets/image_1765318600261.png
+        alt: Feature illustration
+        id: image-feature-5
+      - src: /attached_assets/student-2-latin.png
+        alt: Latino student working on a project
+      - src: /attached_assets/student-3-african.png
+        alt: African student collaborating with team
+    height: 20rem
+    gap: lg
+    rounded: true
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.

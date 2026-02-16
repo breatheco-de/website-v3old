@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import { renderSection } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import { ApplyFormSection } from "@/components/ApplyFormSection";
 import { FooterSection } from "@/components/FooterSection";
 
@@ -24,7 +25,7 @@ export default function ApplyPage() {
   const { data: page, isLoading, error, refetch } = useQuery<ApplyPageData>({
     queryKey: ["/api/pages/apply", locale],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/apply?locale=${locale}`);
+      const response = await apiFetch(`/api/pages/apply?locale=${locale}`);
       if (!response.ok) {
         throw new Error("Apply page not found");
       }

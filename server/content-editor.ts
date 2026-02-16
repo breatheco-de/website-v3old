@@ -1,7 +1,22 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { z } from "zod";
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const serialized = JSON.stringify(obj);
+  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
+  const escapedObj = JSON.parse(escapedJson);
+  const dumped = yaml.dump(escapedObj, opts);
+  return unescapeYamlDump(dumped, map);
+}
 import type { EditOperation } from "@shared/schema";
 import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
 import { normalizeLocale } from "@shared/locale";
@@ -212,12 +227,12 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {
       const commonContent = fs.readFileSync(commonPath, "utf-8");
-      commonData = yaml.load(commonContent) as Record<string, unknown>;
+      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
     }
     
     // Read current content from locale file
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    const localeData = yaml.load(fileContent) as Record<string, unknown>;
+    const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
     
     // Merge _common.yml with locale file (locale data overrides common)
     const content = deepMerge(commonData, localeData);
@@ -344,7 +359,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     }
     
     // Write back to file
-    const updatedYaml = yaml.dump(content, {
+    const updatedYaml = safeYamlDump(content, {
       lineWidth: -1, // Don't wrap lines
       noRefs: true,
       quotingType: '"',
@@ -398,12 +413,12 @@ export function getContentForEdit(
     let commonData: Record<string, unknown> = {};
     if (fs.existsSync(commonPath)) {
       const commonContent = fs.readFileSync(commonPath, "utf-8");
-      commonData = yaml.load(commonContent) as Record<string, unknown>;
+      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
     }
     
     // Read locale file content
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    const localeData = yaml.load(fileContent) as Record<string, unknown>;
+    const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
     
     // Merge _common.yml with locale file (locale data overrides common)
     const content = deepMerge(commonData, localeData);

@@ -46,6 +46,7 @@ import {
   loadAllFieldEditors,
 } from "./component-registry";
 import { editContent, getContentForEdit } from "./content-editor";
+import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import {
   getExperimentManager,
   getOrCreateSessionId,
@@ -53,15 +54,18 @@ import {
   setExperimentCookie,
   buildVisitorContext,
 } from "./experiments";
-import { loadImageRegistry, clearImageRegistryCache } from "./image-registry";
-import { scanImageRegistry, applyRegistryChanges } from "./image-registry-scanner";
+import { mediaGallery } from "./media-gallery";
+import { media } from "./media";
+import multer from "multer";
 import {
   loadContent,
   listContentSlugs,
   loadCommonData,
+  type ContentType,
 } from "./utils/contentLoader";
 import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
+import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
@@ -69,6 +73,21 @@ import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItem
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
+
+function safeYamlLoad(yamlStr: string): unknown {
+  const { escaped, map } = escapeTemplateVars(yamlStr);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const serialized = JSON.stringify(obj);
+  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
+  const escapedObj = JSON.parse(escapedJson);
+  const dumped = yaml.dump(escapedObj, opts);
+  return unescapeYamlDump(dumped, map);
+}
+
 
 // Schema for career-programs listing page (custom page type)
 const careerProgramsListingSchema = z.object({
@@ -288,6 +307,9 @@ function detectLanguageFromRequest(req: Request): "en" | "es" {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  media.initFromEnv();
+  mediaGallery.setContentIndex(contentIndex);
+
   app.get("/apply", (req, res) => {
     const lang = detectLanguageFromRequest(req);
     const target = lang === "es" ? "/es/aplica" : "/en/apply";
@@ -523,6 +545,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/variables", (_req, res) => {
+    res.json(variableManager.getDefinitions());
+  });
+
+  app.put("/api/variables/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { level, key, value } = req.body as {
+        level: string;
+        key?: string;
+        value: string;
+      };
+
+      const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
+      if (!level || value === undefined) {
+        return res.status(400).json({ error: "level and value are required" });
+      }
+      if (!VALID_LEVELS.includes(level)) {
+        return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
+      }
+      if (level !== "default" && !key) {
+        return res.status(400).json({ error: "key is required for non-default levels" });
+      }
+
+      variableManager.updateVariable(name, level, key, value);
+      res.json({ success: true, definitions: variableManager.getDefinitions() });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to update variable" });
+    }
+  });
+
+  app.delete("/api/variables/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { level, key } = req.body as { level: string; key?: string };
+
+      const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
+      if (!level) {
+        return res.status(400).json({ error: "level is required" });
+      }
+      if (!VALID_LEVELS.includes(level)) {
+        return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
+      }
+      if (level !== "default" && !key) {
+        return res.status(400).json({ error: "key is required for non-default levels" });
+      }
+
+      const result = variableManager.deleteVariableEntry(name, level, key);
+      if (!result) {
+        return res.status(404).json({ error: "Variable not found" });
+      }
+      res.json({ success: true, definitions: variableManager.getDefinitions() });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to delete variable entry" });
+    }
+  });
+
   app.get("/api/career-programs", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
     const _location = req.query.location as string | undefined;
@@ -621,7 +700,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    // Include experiment info in response for analytics
     res.json({
       ...program,
       _experiment: experimentInfo,
@@ -978,7 +1056,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         let parsed: { redirects: Array<{ from: string; to: string; status?: number }> } = { redirects: [] };
         if (fs.existsSync(customFilePath)) {
           const raw = fs.readFileSync(customFilePath, "utf-8");
-          const loaded = yaml.load(raw) as { redirects?: unknown[] } | null;
+          const loaded = safeYamlLoad(raw) as { redirects?: unknown[] } | null;
           if (loaded && Array.isArray(loaded.redirects)) {
             parsed.redirects = loaded.redirects as Array<{ from: string; to: string; status?: number }>;
           }
@@ -995,7 +1073,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         parsed.redirects.push(newEntry);
 
-        const yamlContent = yaml.dump(parsed, { lineWidth: -1, noRefs: true });
+        const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
         contentIndex.scan();
@@ -1105,7 +1183,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let parsed: Record<string, unknown> = {};
       if (fs.existsSync(filePath)) {
         const raw = fs.readFileSync(filePath, "utf-8");
-        parsed = (yaml.load(raw) as Record<string, unknown>) || {};
+        parsed = (safeYamlLoad(raw) as Record<string, unknown>) || {};
       }
 
       if (!parsed.meta || typeof parsed.meta !== "object") {
@@ -1134,7 +1212,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         redirects.push(normalizedFrom);
       }
 
-      const yamlContent = yaml.dump(parsed, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -1189,7 +1267,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         const raw = fs.readFileSync(customFilePath, "utf-8");
-        const loaded = yaml.load(raw) as { redirects?: Array<{ from: string; to: string; status?: number }> } | null;
+        const loaded = safeYamlLoad(raw) as { redirects?: Array<{ from: string; to: string; status?: number }> } | null;
 
         if (!loaded || !Array.isArray(loaded.redirects)) {
           res.status(404).json({ error: "No redirects found in custom redirects file" });
@@ -1209,7 +1287,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return;
         }
 
-        const yamlContent = yaml.dump(loaded, { lineWidth: -1, noRefs: true });
+        const yamlContent = safeYamlDump(loaded, { lineWidth: -1, noRefs: true });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
         contentIndex.scan();
@@ -1230,7 +1308,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const raw = fs.readFileSync(filePath, "utf-8");
-      const parsed = (yaml.load(raw) as Record<string, unknown>) || {};
+      const parsed = (safeYamlLoad(raw) as Record<string, unknown>) || {};
 
       const meta = parsed.meta as Record<string, unknown> | undefined;
       if (!meta || !Array.isArray(meta.redirects)) {
@@ -1265,7 +1343,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const yamlContent = yaml.dump(parsed, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -1325,7 +1403,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     try {
       const content = fs.readFileSync(filePath, "utf-8");
-      const data = yaml.load(content);
+      const data = safeYamlLoad(content);
       res.json({ name, locale: locale || "en", data });
     } catch (error) {
       console.error(`Error loading menu ${name}:`, error);
@@ -1524,7 +1602,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
-      const yamlContent = yaml.dump(data, {
+      const yamlContent = safeYamlDump(data, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -1543,12 +1621,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (fs.existsSync(translationFilePath)) {
           try {
             const translationContent = fs.readFileSync(translationFilePath, "utf-8");
-            const translationData = yaml.load(translationContent) as any;
+            const translationData = safeYamlLoad(translationContent) as any;
             
             // Sync structure from English to translation, preserving existing translations
             const syncedData = syncMenuStructure(data, translationData);
             
-            const syncedYaml = yaml.dump(syncedData, {
+            const syncedYaml = safeYamlDump(syncedData, {
               indent: 2,
               lineWidth: -1,
               noRefs: true,
@@ -1620,7 +1698,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     try {
       const masterContent = fs.readFileSync(masterFilePath, "utf-8");
-      const masterData = yaml.load(masterContent) as any;
+      const masterData = safeYamlLoad(masterContent) as any;
       
       // ENFORCE: Strict text-only merge for ALL locales (including English)
       // Structure is ALWAYS from master - only text fields come from submitted data
@@ -1632,7 +1710,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
-      const yamlContent = yaml.dump(dataToSave, {
+      const yamlContent = safeYamlDump(dataToSave, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -1872,7 +1950,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const commonContent = fs.readFileSync(commonPath, "utf-8");
-      const commonData = yaml.load(commonContent) as Record<string, unknown>;
+      const commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
 
       if (locations.length === 0) {
         delete commonData.locations;
@@ -1880,7 +1958,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         commonData.locations = locations;
       }
 
-      const updatedYaml = yaml.dump(commonData, {
+      const updatedYaml = safeYamlDump(commonData, {
         lineWidth: -1,
         noRefs: true,
         quotingType: '"',
@@ -1899,10 +1977,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const variantPath = path.join(landingDir, variantFile);
         try {
           const variantContent = fs.readFileSync(variantPath, "utf-8");
-          const variantData = yaml.load(variantContent) as Record<string, unknown>;
+          const variantData = safeYamlLoad(variantContent) as Record<string, unknown>;
           if (variantData && "locations" in variantData) {
             delete variantData.locations;
-            const variantYaml = yaml.dump(variantData, {
+            const variantYaml = safeYamlDump(variantData, {
               lineWidth: -1,
               noRefs: true,
               quotingType: '"',
@@ -2799,10 +2877,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const hasEn = fs.existsSync(path.join(folderPath, 'en.yml'));
       const hasEs = fs.existsSync(path.join(folderPath, 'es.yml'));
       const isComplete = hasCommon && hasEn && hasEs;
-      res.json({ available: !isComplete, slug, type });
-    } else {
-      res.json({ available: !folderExists, slug, type });
+      if (isComplete) {
+        res.json({ available: false, slug, type, reason: "slug_taken" });
+        return;
+      }
+    } else if (folderExists) {
+      res.json({ available: false, slug, type, reason: "slug_taken" });
+      return;
     }
+
+    const locale = typeof req.query.locale === 'string' ? req.query.locale : undefined;
+    const urlsToCheck: string[] = [];
+    const contentTypeMap: Record<string, string> = {
+      location: 'locations',
+      page: 'pages',
+      program: 'programs',
+      landing: 'landings',
+    };
+    const ctKey = contentTypeMap[type];
+    if (type === 'landing') {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'default', slug));
+    } else if (locale) {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, locale, slug));
+    } else {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'en', slug));
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'es', slug));
+    }
+
+    const redirects = contentIndex.getRedirects();
+    for (const url of urlsToCheck) {
+      const conflict = redirects.find(r => r.from === url);
+      if (conflict) {
+        const redirectTo = typeof conflict.to === 'string' ? conflict.to : Object.values(conflict.to).join(', ');
+        res.json({ available: false, slug, type, reason: "redirect_conflict", conflictUrl: url, redirectTo });
+        return;
+      }
+    }
+
+    res.json({ available: true, slug, type });
+  });
+
+  app.get("/api/content/check-origin", (req, res) => {
+    const { path: originPath } = req.query;
+    if (!originPath || typeof originPath !== 'string') {
+      res.status(400).json({ error: "Missing required query param: path" });
+      return;
+    }
+
+    const normalized = originPath.startsWith("/") ? originPath : `/${originPath}`;
+
+    const redirects = contentIndex.getRedirects();
+    const existingRedirect = redirects.find(r => r.from === normalized);
+    if (existingRedirect) {
+      const redirectTo = typeof existingRedirect.to === 'string' ? existingRedirect.to : Object.values(existingRedirect.to).join(', ');
+      res.json({ taken: true, reason: "existing_redirect", details: `Already redirects to ${redirectTo}` });
+      return;
+    }
+
+    const entries = contentIndex.listAll();
+    const contentTypeMap: Record<string, string> = {
+      locations: 'locations',
+      pages: 'pages',
+      programs: 'programs',
+      landings: 'landings',
+    };
+    for (const entry of entries) {
+      const ctKey = contentTypeMap[entry.contentType] || entry.contentType;
+      for (const locale of entry.locales) {
+        if (locale.startsWith("_") || locale.includes(".")) continue;
+        const url = contentIndex.buildUrl(ctKey, locale, entry.slug);
+        if (url === normalized) {
+          res.json({ taken: true, reason: "existing_page", details: `This is the "${entry.title || entry.slug}" ${entry.contentType} page (${locale})` });
+          return;
+        }
+      }
+    }
+
+    res.json({ taken: false });
   });
 
   // Create new content (location/page/program)
@@ -3479,7 +3630,7 @@ sections: []
         for (const dir of dirs) {
           const commonPath = path.join(locationsPath, dir, "_common.yml");
           if (fs.existsSync(commonPath)) {
-            const campusData = yaml.load(
+            const campusData = safeYamlLoad(
               fs.readFileSync(commonPath, "utf8"),
             ) as {
               slug: string;
@@ -3620,9 +3771,9 @@ sections: []
     }
   });
 
-  // Image Registry API endpoint
-  app.get("/api/image-registry", (req, res) => {
-    const registry = loadImageRegistry();
+  // Image Registry API endpoints (delegated to MediaGallery singleton)
+  app.get("/api/image-registry", (_req, res) => {
+    const registry = mediaGallery.getRegistry();
     if (!registry) {
       res.status(500).json({ error: "Failed to load image registry" });
       return;
@@ -3632,35 +3783,17 @@ sections: []
 
   app.delete("/api/image-registry/:id", (req, res) => {
     try {
-      const imageId = req.params.id;
-      const registry = loadImageRegistry();
-      if (!registry) {
-        res.status(500).json({ error: "Failed to load image registry" });
-        return;
-      }
-
-      const imageEntry = registry.images[imageId];
-      if (!imageEntry) {
-        res.status(404).json({ error: `Image "${imageId}" not found in registry` });
-        return;
-      }
-
-      const usedIn = contentIndex.getImageUsage(imageId, imageEntry.src);
-      if (usedIn.length > 0) {
-        res.status(409).json({
-          error: "Image is in use",
-          message: `Cannot delete "${imageId}" because it is referenced in ${usedIn.length} file(s)`,
-          usedIn,
+      const result = mediaGallery.unregister(req.params.id);
+      if (!result.success) {
+        const status = result.usedIn ? 409 : 404;
+        res.status(status).json({
+          error: result.usedIn ? "Image is in use" : result.error,
+          message: result.error,
+          ...(result.usedIn ? { usedIn: result.usedIn } : {}),
         });
         return;
       }
-
-      delete registry.images[imageId];
-      const registryPath = path.join(process.cwd(), "marketing-content", "image-registry.json");
-      fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2) + "\n", "utf8");
-      clearImageRegistryCache();
-
-      res.json({ success: true, message: `Deleted "${imageId}" from registry` });
+      res.json({ success: true, message: `Deleted "${req.params.id}" from registry` });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Delete failed" });
     }
@@ -3673,80 +3806,45 @@ sections: []
         res.status(400).json({ error: "Missing or empty 'ids' array" });
         return;
       }
-
-      const registry = loadImageRegistry();
-      if (!registry) {
-        res.status(500).json({ error: "Failed to load image registry" });
-        return;
-      }
-
-      const results: Array<{ id: string; success: boolean; message: string }> = [];
-      let deletedCount = 0;
-
-      for (const imageId of ids) {
-        const imageEntry = registry.images[imageId];
-        if (!imageEntry) {
-          results.push({ id: imageId, success: false, message: "Not found in registry" });
-          continue;
-        }
-
-        const usedIn = contentIndex.getImageUsage(imageId, imageEntry.src);
-        if (usedIn.length > 0) {
-          results.push({
-            id: imageId,
-            success: false,
-            message: `Referenced in ${usedIn.length} file(s): ${usedIn.join(", ")}`,
-          });
-          continue;
-        }
-
-        delete registry.images[imageId];
-        deletedCount++;
-        results.push({ id: imageId, success: true, message: "Deleted" });
-      }
-
-      if (deletedCount > 0) {
-        const registryPath = path.join(process.cwd(), "marketing-content", "image-registry.json");
-        fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2) + "\n", "utf8");
-        clearImageRegistryCache();
-      }
-
+      const { results, deletedCount } = mediaGallery.bulkUnregister(ids);
       res.json({ results, deletedCount, totalRequested: ids.length });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Bulk delete failed" });
     }
   });
 
-  // ============================================
-  // Image Registry Scanner Endpoints
-  // ============================================
-
-  app.post("/api/image-registry/scan", (_req, res) => {
+  app.get("/api/media/status", (_req, res) => {
     try {
-      const result = scanImageRegistry();
+      res.json(media.getStatus());
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Image Registry Scanner Endpoints (delegated to MediaGallery singleton)
+  app.post("/api/image-registry/scan", async (_req, res) => {
+    try {
+      const result = await mediaGallery.scan();
       res.json(result);
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Scan failed" });
     }
   });
 
-  app.post("/api/image-registry/apply", (req, res) => {
+  app.post("/api/image-registry/apply", async (req, res) => {
     try {
       const action = req.query.action as string | undefined;
-      const scanResult = scanImageRegistry();
-
+      const scanResult = await mediaGallery.scan();
       const filtered = {
         ...scanResult,
         newImages: action === "update" ? [] : scanResult.newImages,
         updatedImages: action === "add" ? [] : scanResult.updatedImages,
       };
-
       if (filtered.newImages.length === 0 && filtered.updatedImages.length === 0) {
         res.json({ message: "Nothing to apply", added: 0, updated: 0 });
         return;
       }
-      const applied = applyRegistryChanges(filtered);
-      clearImageRegistryCache();
+      const applied = mediaGallery.applyChanges(filtered);
       const yamlMsg = applied.yamlFilesUpdated.length > 0
         ? `. Updated paths in ${applied.yamlFilesUpdated.length} YAML file(s)`
         : "";
@@ -3756,6 +3854,85 @@ sections: []
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Apply failed" });
+    }
+  });
+
+  app.post("/api/image-registry/deduplicate", async (req, res) => {
+    try {
+      const scanResult = await mediaGallery.scan();
+      if (scanResult.duplicates.length === 0) {
+        res.json({ message: "No duplicates found", removedCount: 0, results: [] });
+        return;
+      }
+      const result = mediaGallery.removeDuplicates(scanResult.duplicates);
+      const yamlMsg = result.yamlFilesUpdated.length > 0
+        ? `. Updated references in ${result.yamlFilesUpdated.length} YAML file(s)`
+        : "";
+      res.json({
+        message: `Removed ${result.removedCount} duplicate(s)${yamlMsg}`,
+        ...result,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Deduplication failed" });
+    }
+  });
+
+  app.post("/api/image-registry/migrate", async (req, res) => {
+    try {
+      const { from, to, dryRun, prefix } = req.body as {
+        from?: string; to?: string; dryRun?: boolean; prefix?: string;
+      };
+      if (!from || !to) {
+        res.status(400).json({ error: "Missing 'from' and/or 'to' provider name" });
+        return;
+      }
+      const results = await mediaGallery.migrate(from, to, { dryRun, prefix });
+      const migrated = results.filter(r => r.status === "migrated").length;
+      res.json({
+        message: dryRun
+          ? `Dry run: ${results.length} image(s) would be migrated from ${from} to ${to}`
+          : `Migrated ${migrated} of ${results.length} image(s) from ${from} to ${to}`,
+        results,
+        totalProcessed: results.length,
+        migratedCount: migrated,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Migration failed" });
+    }
+  });
+
+  const imageUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+      const allowed = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (allowed.includes(ext)) {
+        cb(null, true);
+      } else {
+        cb(new Error(`Unsupported file type: ${ext}`));
+      }
+    },
+  });
+
+  app.post("/api/image-registry/upload", imageUpload.single("file"), async (req, res) => {
+    try {
+      const file = (req as any).file;
+      if (!file) {
+        res.status(400).json({ error: "No file provided" });
+        return;
+      }
+      const alt = (req.body?.alt as string) || undefined;
+      const tags = req.body?.tags ? JSON.parse(req.body.tags) : undefined;
+      const result = await mediaGallery.uploadAndRegister(
+        file.originalname,
+        file.buffer,
+        file.mimetype,
+        { alt, tags }
+      );
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Upload failed" });
     }
   });
 
@@ -3918,9 +4095,14 @@ sections: []
         context = await service.buildContext();
       }
 
-      const file = context.contentFiles.find(
+      const matchingFiles = context.contentFiles.filter(
         (f: any) => getCanonicalUrl(f) === url
       );
+      const urlLocale = url.startsWith("/es/") ? "es" : url.startsWith("/en/") ? "en" : null;
+      const file = (urlLocale && matchingFiles.find((f: any) => f.locale === urlLocale))
+        || matchingFiles.find((f: any) => f.locale !== "_common")
+        || matchingFiles[0]
+        || null;
 
       if (!file) {
         res.status(404).json({ error: `No content found for URL: ${url}` });
@@ -3930,9 +4112,80 @@ sections: []
       let rawData: Record<string, unknown> = {};
       try {
         if (fs.existsSync(file.filePath)) {
-          rawData = yaml.load(fs.readFileSync(file.filePath, "utf-8")) || {};
+          rawData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
         }
       } catch {}
+
+      const schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> } = { valid: true, errors: [] };
+      try {
+        const typeToContentType: Record<string, ContentType> = {
+          program: "programs",
+          landing: "landings",
+          location: "locations",
+          page: "pages",
+        };
+        const typeToSchema: Record<string, any> = {
+          program: careerProgramSchema,
+          landing: landingPageSchema,
+          location: locationPageSchema,
+          page: templatePageSchema,
+        };
+        const ct = typeToContentType[file.type];
+        const zodSchema = typeToSchema[file.type];
+        if (ct && zodSchema) {
+          let inferredLocale = file.locale;
+          if (!inferredLocale || inferredLocale === "_common") {
+            inferredLocale = urlLocale || (url.startsWith("/es/") ? "es" : "en");
+          }
+          const localeOrVariant = file.type === "landing" ? "promoted" : inferredLocale;
+          const folderSlug = path.basename(path.dirname(file.filePath));
+          const result = loadContent({
+            contentType: ct,
+            slug: folderSlug,
+            schema: zodSchema,
+            localeOrVariant,
+          });
+          if (!result.success) {
+            schemaValidation.valid = false;
+            const zodErrorMatch = result.error.match(/Invalid YAML structure[^:]*:\s*([\s\S]*)/);
+            if (zodErrorMatch) {
+              try {
+                const parsed = JSON.parse(zodErrorMatch[1]);
+                if (Array.isArray(parsed)) {
+                  for (const issue of parsed) {
+                    schemaValidation.errors.push({
+                      path: Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || ""),
+                      code: issue.code || "unknown",
+                      message: issue.message || "Validation failed",
+                      expected: issue.expected ? String(issue.expected) : undefined,
+                      received: issue.received ? String(issue.received) : undefined,
+                    });
+                  }
+                }
+              } catch {
+                schemaValidation.errors.push({
+                  path: "",
+                  code: "SCHEMA_VALIDATION_FAILED",
+                  message: zodErrorMatch[1] || result.error,
+                });
+              }
+            } else {
+              schemaValidation.errors.push({
+                path: "",
+                code: "CONTENT_LOAD_FAILED",
+                message: result.error,
+              });
+            }
+          }
+        }
+      } catch (e) {
+        schemaValidation.valid = false;
+        schemaValidation.errors.push({
+          path: "",
+          code: "SCHEMA_CHECK_ERROR",
+          message: String(e),
+        });
+      }
 
       const sections = (rawData.sections as any[]) || [];
       const sectionTypes = sections
@@ -3977,13 +4230,8 @@ sections: []
 
       let registryImages: Record<string, any> = {};
       try {
-        const registryPath = path.join(
-          process.cwd(),
-          "marketing-content",
-          "image-registry.json"
-        );
-        if (fs.existsSync(registryPath)) {
-          const reg = JSON.parse(fs.readFileSync(registryPath, "utf-8"));
+        const reg = mediaGallery.getRegistry();
+        if (reg) {
           registryImages = reg.images || {};
         }
       } catch {}
@@ -4022,6 +4270,23 @@ sections: []
       }
 
       const issues: any[] = [];
+
+      if (!schemaValidation.valid) {
+        for (const err of schemaValidation.errors) {
+          issues.push({
+            type: "error",
+            code: err.code,
+            message: err.path ? `${err.path}: ${err.message}` : err.message,
+            category: "schema-validation",
+            details: {
+              path: err.path,
+              expected: err.expected,
+              received: err.received,
+            },
+          });
+        }
+      }
+
       const meta = file.meta || {};
       let seoScore = 0;
       let seoMax = 0;
@@ -4190,6 +4455,8 @@ sections: []
         filePath: file.filePath,
         title: file.title,
 
+        schemaValidation,
+
         meta: {
           page_title: meta.page_title || null,
           titleLength: meta.page_title ? meta.page_title.length : 0,
@@ -4234,6 +4501,8 @@ sections: []
         },
 
         emptyFields,
+
+        issues,
 
         score: {
           total: totalScore,
@@ -4481,7 +4750,7 @@ sections: []
 
     try {
       const content = fs.readFileSync(testimonialsPath, "utf8");
-      const data = yaml.load(content) as unknown[];
+      const data = safeYamlLoad(content) as unknown[];
       res.json({ testimonials: data || [] });
     } catch (error) {
       console.error("Error loading testimonials:", error);
@@ -4507,7 +4776,7 @@ sections: []
     
     try {
       const content = fs.readFileSync(faqsPath, "utf8");
-      const data = yaml.load(content) as { faqs: unknown[] };
+      const data = safeYamlLoad(content) as { faqs: unknown[] };
       res.json(data);
     } catch (error) {
       console.error("Error loading FAQs:", error);
@@ -4581,7 +4850,7 @@ sections: []
 # No HTML tags - plain text only
 
 `;
-      const yamlContent = header + yaml.dump({ faqs }, { 
+      const yamlContent = header + safeYamlDump({ faqs }, { 
         lineWidth: -1, 
         quotingType: '"',
         forceQuotes: false,

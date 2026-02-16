@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import type { LandingPage } from "@shared/schema";
 import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -29,7 +30,7 @@ export default function LandingDetail() {
   const { data: landing, isLoading, error, refetch } = useQuery<LandingPage>({
     queryKey: ["/api/landings", slug, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/landings/${slug}?locale=${locale}`);
+      const response = await apiFetch(`/api/landings/${slug}?locale=${locale}`);
       if (!response.ok) {
         throw new Error("Landing page not found");
       }

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconRefresh, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link } from "wouter";
@@ -23,13 +24,21 @@ import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 
+interface DuplicateGroup {
+  hash: string;
+  ids: string[];
+  canonical: string;
+}
+
 interface ScanResult {
   newImages: Array<{ id: string; src: string; filename: string }>;
   updatedImages: Array<{ id: string; oldSrc: string; newSrc: string }>;
   brokenReferences: Array<{ yamlFile: string; field: string; missingSrc: string }>;
+  duplicates: DuplicateGroup[];
+  hashesComputed: number;
   registeredCount: number;
   scannedImagesCount: number;
-  summary: { new: number; updated: number; broken: number };
+  summary: { new: number; updated: number; broken: number; duplicates: number };
 }
 
 interface BulkDeleteResult {
@@ -40,6 +49,8 @@ interface BulkDeleteResult {
 
 export default function MediaGallery() {
   const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const [scanning, setScanning] = useState(false);
@@ -48,8 +59,24 @@ export default function MediaGallery() {
   const [selectedImages, setSelectedImages] = useState<Set<string>>(new Set());
   const [bulkDeleting, setBulkDeleting] = useState(false);
   const [bulkDeleteResults, setBulkDeleteResults] = useState<BulkDeleteResult[] | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsProviderView, setSettingsProviderView] = useState<string | null>(null);
+  const [deduplicating, setDeduplicating] = useState(false);
+  const [migrating, setMigrating] = useState(false);
+  const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
+  const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  interface MediaStatus {
+    defaultProvider: string;
+    providers: string[];
+    gcs?: { bucket: string; basePath: string; projectId?: string };
+  }
+
+  const { data: mediaStatus } = useQuery<MediaStatus>({
+    queryKey: ["/api/media/status"],
+  });
 
   const { data: registry, isLoading, error } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
@@ -114,7 +141,7 @@ export default function MediaGallery() {
       queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
       const refreshed = await apiRequest("POST", "/api/image-registry/scan");
       const freshScan: ScanResult = await refreshed.json();
-      if (freshScan.summary.new === 0 && freshScan.summary.updated === 0 && freshScan.summary.broken === 0) {
+      if (freshScan.summary.new === 0 && freshScan.summary.updated === 0 && freshScan.summary.broken === 0 && freshScan.summary.duplicates === 0) {
         setScanResult(null);
       } else {
         setScanResult(freshScan);
@@ -123,6 +150,27 @@ export default function MediaGallery() {
       toast({ title: "Apply failed", description: "Could not apply changes", variant: "destructive" });
     } finally {
       setApplying(false);
+    }
+  };
+
+  const handleDeduplicate = async () => {
+    setDeduplicating(true);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/deduplicate");
+      const data = await res.json();
+      toast({ title: "Duplicates removed", description: data.message });
+      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      const refreshed = await apiRequest("POST", "/api/image-registry/scan");
+      const freshScan: ScanResult = await refreshed.json();
+      if (freshScan.summary.new === 0 && freshScan.summary.updated === 0 && freshScan.summary.broken === 0 && freshScan.summary.duplicates === 0) {
+        setScanResult(null);
+      } else {
+        setScanResult(freshScan);
+      }
+    } catch {
+      toast({ title: "Deduplication failed", description: "Could not remove duplicates", variant: "destructive" });
+    } finally {
+      setDeduplicating(false);
     }
   };
 
@@ -136,6 +184,39 @@ export default function MediaGallery() {
       }
       return next;
     });
+  };
+
+  const localImageCount = registry?.images
+    ? Object.values(registry.images).filter(img => !img.src.startsWith("http")).length
+    : 0;
+
+  const cloudProvider = mediaStatus?.providers.find(p => p !== "local") ?? null;
+  const cloudProviderLabel = cloudProvider === "gcs" ? "Google Bucket" : cloudProvider ?? "";
+
+  const handleMigrate = async () => {
+    setMigrateConfirmOpen(false);
+    setMigrating(true);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/migrate", {
+        from: "local",
+        to: cloudProvider,
+      });
+      const data = await res.json();
+      setMigrateResults(data);
+      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      toast({
+        title: "Migration complete",
+        description: data.message,
+      });
+    } catch (err: any) {
+      toast({
+        title: "Migration failed",
+        description: err.message,
+        variant: "destructive",
+      });
+    } finally {
+      setMigrating(false);
+    }
   };
 
   const PAGE_SIZE = 50;
@@ -231,26 +312,64 @@ export default function MediaGallery() {
             </div>
             <div className="flex flex-col items-end gap-2">
               <div className="flex items-center gap-2">
+                {searchOpen ? (
+                  <div className="relative w-64 flex items-center gap-1">
+                    <div className="relative flex-1">
+                      <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        ref={searchInputRef}
+                        placeholder="Search..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="pl-10 h-9"
+                        data-testid="input-search"
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") {
+                            setSearch("");
+                            setSearchOpen(false);
+                          }
+                        }}
+                      />
+                    </div>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => { setSearch(""); setSearchOpen(false); }}
+                      data-testid="button-close-search"
+                    >
+                      <IconX className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => {
+                      setSearchOpen(true);
+                      setTimeout(() => searchInputRef.current?.focus(), 0);
+                    }}
+                    data-testid="button-open-search"
+                  >
+                    <IconSearch className="h-4 w-4" />
+                  </Button>
+                )}
                 <Button
-                  variant="outline"
-                  size="sm"
+                  size="icon"
+                  variant="ghost"
                   onClick={handleScan}
                   disabled={scanning}
                   data-testid="button-scan-registry"
                 >
-                  <IconRefresh className={`h-4 w-4 mr-1.5 ${scanning ? 'animate-spin' : ''}`} />
-                  {scanning ? "Scanning..." : "Scan Registry"}
+                  {scanning ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconStethoscope className="h-4 w-4" />}
                 </Button>
-                <div className="relative w-64">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="pl-10 h-9"
-                    data-testid="input-search"
-                  />
-                </div>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setSettingsOpen(true)}
+                  data-testid="button-media-settings"
+                >
+                  <IconSettings className="h-4 w-4" />
+                </Button>
               </div>
               {registry && (
                 <div className="flex flex-wrap gap-1.5 justify-end">
@@ -259,7 +378,7 @@ export default function MediaGallery() {
                       key={name}
                       variant="outline"
                       className="cursor-pointer text-xs"
-                      onClick={() => setSearch(name)}
+                      onClick={() => { setSearch(name); setSearchOpen(true); }}
                       data-testid={`badge-preset-${name}`}
                     >
                       {name}
@@ -279,6 +398,17 @@ export default function MediaGallery() {
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-sm">Scan Results</h3>
               <div className="flex items-center gap-2">
+                {scanResult.summary.duplicates > 0 && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={handleDeduplicate}
+                    disabled={deduplicating}
+                    data-testid="button-remove-duplicates"
+                  >
+                    {deduplicating ? "Removing..." : `Remove ${scanResult.duplicates.reduce((sum, g) => sum + g.ids.length - 1, 0)} duplicate(s)`}
+                  </Button>
+                )}
                 {scanResult.summary.updated > 0 && (
                   <Button
                     size="sm"
@@ -370,7 +500,35 @@ export default function MediaGallery() {
               </div>
             )}
 
-            {scanResult.summary.new === 0 && scanResult.summary.updated === 0 && scanResult.summary.broken === 0 && (
+            {scanResult.duplicates.length > 0 && (
+              <div className="space-y-1.5">
+                <div className="text-sm font-medium text-amber-600 dark:text-amber-400">
+                  {scanResult.duplicates.length} duplicate group(s) ({scanResult.duplicates.reduce((sum, g) => sum + g.ids.length - 1, 0)} extra image(s))
+                </div>
+                <div className="max-h-32 overflow-y-auto space-y-1 pl-6">
+                  {scanResult.duplicates.map((group, i) => (
+                    <div key={i} className="text-xs text-muted-foreground">
+                      <span className="font-medium text-foreground">{group.ids.length} copies:</span>{" "}
+                      {group.ids.map((id, j) => (
+                        <span key={id}>
+                          {j > 0 && ", "}
+                          <code className={id === group.canonical ? "text-foreground font-semibold" : ""}>{id}</code>
+                          {id === group.canonical && <span className="text-xs text-muted-foreground ml-0.5">(keep)</span>}
+                        </span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {scanResult.hashesComputed > 0 && (
+              <div className="text-xs text-muted-foreground">
+                Computed {scanResult.hashesComputed} new hash(es) during this scan
+              </div>
+            )}
+
+            {scanResult.summary.new === 0 && scanResult.summary.updated === 0 && scanResult.summary.broken === 0 && scanResult.summary.duplicates === 0 && (
               <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
                 <IconCheck className="h-4 w-4" />
                 All image references are valid
@@ -469,6 +627,18 @@ export default function MediaGallery() {
                               Copy ID
                             </DropdownMenuItem>
                             <DropdownMenuItem
+                              onClick={() => {
+                                const url = img.src.startsWith("http") ? img.src : `${window.location.origin}${img.src}`;
+                                navigator.clipboard.writeText(url);
+                                setCopiedId(id);
+                                setTimeout(() => setCopiedId(null), 2000);
+                              }}
+                              data-testid={`button-copy-url-${id}`}
+                            >
+                              <IconLink className="h-4 w-4 mr-2" />
+                              Copy URL
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
                               className="text-destructive focus:text-destructive"
                               onClick={() => handleDelete(id)}
                               data-testid={`button-delete-${id}`}
@@ -478,6 +648,15 @@ export default function MediaGallery() {
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
+                      </div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Badge variant="secondary" className="text-xs px-1.5 py-0 no-default-active-elevate" data-testid={`badge-storage-${id}`}>
+                          {img.src.startsWith("http") ? (
+                            <><IconCloud className="h-3 w-3 mr-1" />Google Bucket</>
+                          ) : (
+                            <><IconFolder className="h-3 w-3 mr-1" />Local</>
+                          )}
+                        </Badge>
                       </div>
                       <p className="text-xs text-muted-foreground line-clamp-2 mb-2" data-testid={`text-image-alt-${id}`}>
                         {img.alt}
@@ -489,7 +668,7 @@ export default function MediaGallery() {
                               key={tag} 
                               variant="secondary" 
                               className="text-xs px-1.5 py-0 cursor-pointer"
-                              onClick={() => setSearch(tag)}
+                              onClick={() => { setSearch(tag); setSearchOpen(true); }}
                             >
                               {tag}
                             </Badge>
@@ -575,6 +754,150 @@ export default function MediaGallery() {
         </div>
       )}
 
+      <Dialog open={settingsOpen} onOpenChange={(open) => { setSettingsOpen(open); if (!open) setSettingsProviderView(null); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Media Storage Settings</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                {mediaStatus?.defaultProvider === "gcs" ? (
+                  <IconCloud className="h-5 w-5 text-primary" />
+                ) : (
+                  <IconFolder className="h-5 w-5 text-primary" />
+                )}
+                <div>
+                  <p className="text-sm font-medium" data-testid="text-default-provider">
+                    Default Provider: <span className="font-semibold">{mediaStatus?.defaultProvider === "gcs" ? "Google Cloud Storage" : "Local"}</span>
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    New uploads will use this provider
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-md border p-3 space-y-2">
+                <p className="text-sm font-medium">Active Providers</p>
+                <div className="flex flex-wrap gap-2">
+                  {mediaStatus?.providers.map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => setSettingsProviderView(settingsProviderView === p ? null : p)}
+                      data-testid={`badge-provider-${p}`}
+                    >
+                      <Badge variant={settingsProviderView === p ? "default" : "outline"} className="cursor-pointer">
+                        {p === "gcs" ? "Google Cloud Storage" : p === "local" ? "Local Filesystem" : p}
+                        {p === mediaStatus.defaultProvider && " (default)"}
+                      </Badge>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {settingsProviderView === "local" && (
+                <div className="rounded-md border p-3 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <IconFolder className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-sm font-medium">Local Filesystem</p>
+                  </div>
+                  <div className="text-xs text-muted-foreground space-y-2">
+                    <p>Images stored locally are served from the <code className="bg-muted px-1 rounded text-foreground">marketing-content/images/</code> folder.</p>
+                    <div className="space-y-1.5">
+                      <p className="font-medium text-foreground text-xs">How to add images:</p>
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>Place image files (PNG, JPG, WebP, SVG, AVIF, GIF) into <code className="bg-muted px-1 rounded text-foreground">marketing-content/images/</code></li>
+                        <li>Click the scan button in the gallery toolbar to detect new files</li>
+                        <li>Review the scan results and click Apply to register them</li>
+                      </ol>
+                    </div>
+                    <div className="space-y-1.5">
+                      <p className="font-medium text-foreground text-xs">How they appear in the gallery:</p>
+                      <p>Each registered image gets a unique ID derived from its filename. The ID, alt text, tags, and focal point are stored in <code className="bg-muted px-1 rounded text-foreground">image-registry.json</code>. Images can then be selected by ID or URL in any content editor.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 p-2 rounded bg-muted/50 border border-dashed">
+                    <IconAlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-muted-foreground">
+                      Always delete images through the gallery (not manually from the filesystem). Manual deletion can leave broken references in YAML content files and the image registry.
+                    </p>
+                  </div>
+                  {cloudProvider && localImageCount > 0 && (
+                    <div className="border-t pt-3 space-y-2">
+                      <p className="text-xs font-medium text-foreground">Migrate to {cloudProviderLabel}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Upload all <span className="font-semibold text-foreground">{localImageCount}</span> local image{localImageCount !== 1 ? "s" : ""} to <span className="font-semibold text-foreground">{cloudProviderLabel}</span>. All YAML content references will be updated automatically.
+                      </p>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setMigrateConfirmOpen(true)}
+                        disabled={migrating}
+                        data-testid="button-migrate-to-cloud"
+                      >
+                        <IconCloud className="h-4 w-4 mr-2" />
+                        {migrating ? "Migrating..." : `Migrate ${localImageCount} image${localImageCount !== 1 ? "s" : ""} to ${cloudProviderLabel}`}
+                      </Button>
+                    </div>
+                  )}
+                  {cloudProvider && localImageCount === 0 && (
+                    <div className="border-t pt-3">
+                      <p className="text-xs text-muted-foreground">All images are already stored in {cloudProviderLabel}.</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {settingsProviderView === "gcs" && mediaStatus?.gcs && (
+                <div className="rounded-md border p-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <IconCloud className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-sm font-medium">Google Cloud Storage</p>
+                  </div>
+                  <div className="space-y-1.5 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground">Bucket</span>
+                      <code className="text-xs bg-muted px-2 py-0.5 rounded" data-testid="text-gcs-bucket">{mediaStatus.gcs.bucket}</code>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground">Base Path</span>
+                      <code className="text-xs bg-muted px-2 py-0.5 rounded" data-testid="text-gcs-base-path">{mediaStatus.gcs.basePath}/</code>
+                    </div>
+                    {mediaStatus.gcs.projectId && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Project ID</span>
+                        <code className="text-xs bg-muted px-2 py-0.5 rounded" data-testid="text-gcs-project">{mediaStatus.gcs.projectId}</code>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {settingsProviderView === "gcs" && (
+                <div className="rounded-md border p-3 space-y-2">
+                  <p className="text-sm font-medium">Setup Guide</p>
+                  <div className="text-xs text-muted-foreground space-y-1.5">
+                    <p>Configure these environment variables to set up cloud storage:</p>
+                    <div className="space-y-1 font-mono bg-muted p-2 rounded">
+                      <p><span className="text-foreground">GCS_BUCKET_NAME</span> - Bucket name</p>
+                      <p><span className="text-foreground">GCS_PROJECT_ID</span> - GCP project ID</p>
+                      <p><span className="text-foreground">GCS_CREDENTIALS_JSON</span> - Service account key JSON</p>
+                      <p><span className="text-foreground">GCS_BASE_PATH</span> - Folder prefix (default: media)</p>
+                      <p><span className="text-foreground">MEDIA_DEFAULT_PROVIDER</span> - Set to "gcs" for cloud default</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => { setSettingsOpen(false); setSettingsProviderView(null); }} data-testid="button-close-settings">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <Dialog open={bulkDeleteResults !== null} onOpenChange={(open) => { if (!open) setBulkDeleteResults(null); }}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
@@ -626,6 +949,98 @@ export default function MediaGallery() {
           )}
           <DialogFooter>
             <Button onClick={() => setBulkDeleteResults(null)} data-testid="button-close-results">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={migrateConfirmOpen} onOpenChange={setMigrateConfirmOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Migrate Local Images to {cloudProviderLabel}</DialogTitle>
+            <DialogDescription>
+              This will upload {localImageCount} local image{localImageCount !== 1 ? "s" : ""} to {cloudProviderLabel}.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div className="flex items-start gap-2 p-3 rounded bg-destructive/10 border border-destructive/20">
+              <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+              <div className="text-xs space-y-1.5">
+                <p className="font-medium text-destructive">This action is not reversible</p>
+                <p className="text-muted-foreground">
+                  All {localImageCount} local image{localImageCount !== 1 ? "s" : ""} will be uploaded to {cloudProviderLabel}. Image references in YAML content files and the image registry will be permanently updated to point to the cloud URLs.
+                </p>
+                <p className="text-muted-foreground">
+                  The updated YAML files will <span className="font-medium text-foreground">not</span> be automatically committed to GitHub. You will need to commit and push the changes manually after migration.
+                </p>
+              </div>
+            </div>
+          </div>
+          <DialogFooter className="flex-row gap-2 sm:justify-end">
+            <Button variant="outline" onClick={() => setMigrateConfirmOpen(false)} data-testid="button-cancel-migrate">
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleMigrate} data-testid="button-confirm-migrate">
+              <IconCloud className="h-4 w-4 mr-2" />
+              Migrate {localImageCount} image{localImageCount !== 1 ? "s" : ""} to {cloudProviderLabel}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={migrateResults !== null} onOpenChange={(open) => { if (!open) setMigrateResults(null); }}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Migration Results</DialogTitle>
+          </DialogHeader>
+          {migrateResults && (
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">{migrateResults.message}</p>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="text-green-600 dark:text-green-400">
+                  {migrateResults.migratedCount} migrated
+                </span>
+                {migrateResults.totalProcessed - migrateResults.migratedCount > 0 && (
+                  <span className="text-muted-foreground">
+                    {migrateResults.totalProcessed - migrateResults.migratedCount} skipped/failed
+                  </span>
+                )}
+              </div>
+              <ScrollArea className="max-h-[300px]">
+                <div className="border rounded-md">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        <th className="text-left px-3 py-2 font-medium">Image ID</th>
+                        <th className="text-left px-3 py-2 font-medium">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {migrateResults.results.map((result) => (
+                        <tr
+                          key={result.id}
+                          className={result.status === "migrated"
+                            ? "bg-green-50 dark:bg-green-950/30"
+                            : "bg-muted/30"
+                          }
+                        >
+                          <td className="px-3 py-2 font-mono text-xs truncate max-w-[200px]" data-testid={`text-migrate-id-${result.id}`}>
+                            {result.id}
+                          </td>
+                          <td className={`px-3 py-2 text-xs ${result.status === "migrated" ? "text-green-700 dark:text-green-400" : "text-muted-foreground"}`} data-testid={`text-migrate-status-${result.id}`}>
+                            {result.status}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </ScrollArea>
+            </div>
+          )}
+          <DialogFooter>
+            <Button onClick={() => setMigrateResults(null)} data-testid="button-close-migrate-results">
               Close
             </Button>
           </DialogFooter>

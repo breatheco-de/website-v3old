@@ -9,6 +9,15 @@ const app = express();
 
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  if (req.path.startsWith('/us/')) {
+    const newPath = '/en/' + req.path.slice(4);
+    const qs = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+    return res.redirect(301, newPath + qs);
+  }
+  next();
+});
+
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 

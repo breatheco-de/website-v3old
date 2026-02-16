@@ -616,6 +616,8 @@ export function DebugBubble() {
   const [createContentSlugEs, setCreateContentSlugEs] = useState("");
   const [createContentSlugEnStatus, setCreateContentSlugEnStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
   const [createContentSlugEsStatus, setCreateContentSlugEsStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+  const [slugEnConflictReason, setSlugEnConflictReason] = useState<string | null>(null);
+  const [slugEsConflictReason, setSlugEsConflictReason] = useState<string | null>(null);
   const [editingSlugEn, setEditingSlugEn] = useState(false);
   const [editingSlugEs, setEditingSlugEs] = useState(false);
   const [isCreatingContent, setIsCreatingContent] = useState(false);
@@ -664,6 +666,21 @@ export function DebugBubble() {
   // Breathecode host state
   const [breathecodeHost, setBreathecodeHost] = useState<{ host: string; isDefault: boolean } | null>(null);
   
+  // Page diagnostics state
+  const [pageErrorsModalOpen, setPageErrorsModalOpen] = useState(false);
+  const [pageDiagnostics, setPageDiagnostics] = useState<{
+    url: string;
+    contentType: string;
+    slug: string;
+    locale: string;
+    filePath: string;
+    title: string;
+    schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> };
+    issues: Array<{ type: "error" | "warning" | "info"; code: string; message: string; category?: string; details?: { path?: string; expected?: string; received?: string } }>;
+    score: { total: number; seo: number; schema: number; content: number };
+  } | null>(null);
+  const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
+
   // Detect current content info from URL
   const contentInfo = useMemo(() => detectContentInfo(pathname), [pathname]);
 
@@ -694,6 +711,36 @@ export function DebugBubble() {
       setMenuViewState("experiments");
     }
   }, [pathname, contentInfo.type, contentInfo.slug]);
+
+  // Auto-fetch page diagnostics when debug mode is active (on every page)
+  useEffect(() => {
+    if (!isDebugMode || pathname.startsWith('/private/')) {
+      setPageDiagnostics(null);
+      return;
+    }
+    setPageDiagnosticsLoading(true);
+    setPageDiagnostics(null);
+    fetch(`/api/diagnostics/page?url=${encodeURIComponent(pathname)}`)
+      .then((res) => {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then((data) => {
+        if (data) setPageDiagnostics(data);
+      })
+      .catch(() => {})
+      .finally(() => setPageDiagnosticsLoading(false));
+  }, [pathname, isDebugMode]);
+
+  const pageErrorCount = useMemo(() => {
+    if (!pageDiagnostics) return 0;
+    return pageDiagnostics.issues?.filter(i => i.type === "error").length || 0;
+  }, [pageDiagnostics]);
+
+  const pageWarningCount = useMemo(() => {
+    if (!pageDiagnostics) return 0;
+    return pageDiagnostics.issues?.filter(i => i.type === "warning").length || 0;
+  }, [pageDiagnostics]);
 
   // Auto-enable edit mode after successful token validation
   useEffect(() => {
@@ -1459,6 +1506,8 @@ export function DebugBubble() {
       setCreateContentSlugEs("");
       setCreateContentSlugEnStatus('idle');
       setCreateContentSlugEsStatus('idle');
+      setSlugEnConflictReason(null);
+      setSlugEsConflictReason(null);
       setCreateContentModalOpen(true);
     } else {
       toast({ title: "No se puede duplicar", description: "Tipo de contenido no reconocido", variant: "destructive" });
@@ -1681,6 +1730,26 @@ export function DebugBubble() {
               >
                 <IconArrowUp className="h-3 w-3" />
                 <span>Commit</span>
+              </button>
+            )}
+            {/* Show "Page errors" indicator when diagnostics found issues */}
+            {(pageErrorCount > 0 || pageWarningCount > 0) && (
+              <button
+                onClick={() => setPageErrorsModalOpen(true)}
+                className="absolute left-full ml-1 flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium cursor-pointer hover:opacity-90 transition-opacity"
+                style={{
+                  top: githubSyncStatus?.syncEnabled && pendingChanges.some(c => c.source === 'local' || c.source === 'conflict') && !noTokenDetected && !tokenWithoutCapabilities ? '1.5rem' : '-0.25rem',
+                  backgroundColor: pageErrorCount > 0 ? '#ef4444' : '#f59e0b',
+                  color: '#fff',
+                  boxShadow: pageErrorCount > 0
+                    ? '0 0 12px 2px rgba(239, 68, 68, 0.6), 0 0 20px 4px rgba(239, 68, 68, 0.3)'
+                    : '0 0 12px 2px rgba(245, 158, 11, 0.6), 0 0 20px 4px rgba(245, 158, 11, 0.3)',
+                }}
+                data-testid="indicator-page-errors"
+                title={`${pageErrorCount} error${pageErrorCount !== 1 ? 's' : ''}, ${pageWarningCount} warning${pageWarningCount !== 1 ? 's' : ''} - click to view`}
+              >
+                <IconAlertTriangle className="h-3 w-3" />
+                <span>Page errors</span>
               </button>
             )}
           </div>
@@ -2451,67 +2520,77 @@ export function DebugBubble() {
           ) : (
             <>
               <div className="px-3 py-2 border-b">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => setMenuView("main")}
-                      className="p-1 rounded-md hover-elevate"
-                      data-testid="button-back-to-main-sitemap"
-                    >
-                      <IconArrowLeft className="h-4 w-4" />
-                    </button>
-                    <div>
-                      <h3 className="font-semibold text-sm">Sitemap URLs</h3>
-                      <p className="text-xs text-muted-foreground">{sitemapUrls.length} URLs indexed</p>
+                <div className="flex items-center justify-between gap-2">
+                  {showSitemapSearch ? (
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <div className="relative flex-1 min-w-0">
+                        <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <input
+                          type="text"
+                          placeholder="Search URLs..."
+                          value={sitemapSearch}
+                          onChange={(e) => setSitemapSearch(e.target.value)}
+                          className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                          data-testid="input-sitemap-search"
+                          autoFocus
+                        />
+                      </div>
+                      <button
+                        onClick={() => { setShowSitemapSearch(false); setSitemapSearch(""); }}
+                        className="p-1.5 rounded hover-elevate flex-shrink-0"
+                        title="Cancel search"
+                        data-testid="button-cancel-sitemap-search"
+                      >
+                        <IconX className="h-4 w-4 text-muted-foreground" />
+                      </button>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() => setCreateContentModalOpen(true)}
-                      className="p-1.5 rounded hover-elevate"
-                      title="Create new content"
-                      data-testid="button-create-content"
-                    >
-                      <IconPlus className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                    <button
-                      onClick={() => setShowSitemapSearch(!showSitemapSearch)}
-                      className={`p-1.5 rounded hover-elevate ${showSitemapSearch ? 'bg-muted' : ''}`}
-                      title="Toggle search"
-                      data-testid="button-toggle-sitemap-search"
-                    >
-                      <IconSearch className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                    <a
-                      href="/sitemap.xml"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded hover-elevate"
-                      title="Open sitemap.xml"
-                      data-testid="link-sitemap-xml"
-                    >
-                      <IconExternalLink className="h-4 w-4 text-muted-foreground" />
-                    </a>
-                  </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => setMenuView("main")}
+                          className="p-1 rounded-md hover-elevate"
+                          data-testid="button-back-to-main-sitemap"
+                        >
+                          <IconArrowLeft className="h-4 w-4" />
+                        </button>
+                        <div>
+                          <h3 className="font-semibold text-sm">Sitemap URLs</h3>
+                          <p className="text-xs text-muted-foreground">{sitemapUrls.length} URLs indexed</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => setCreateContentModalOpen(true)}
+                          className="p-1.5 rounded hover-elevate"
+                          title="Create new content"
+                          data-testid="button-create-content"
+                        >
+                          <IconPlus className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                        <button
+                          onClick={() => setShowSitemapSearch(true)}
+                          className="p-1.5 rounded hover-elevate"
+                          title="Search"
+                          data-testid="button-toggle-sitemap-search"
+                        >
+                          <IconSearch className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                        <a
+                          href="/sitemap.xml"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded hover-elevate"
+                          title="Open sitemap.xml"
+                          data-testid="link-sitemap-xml"
+                        >
+                          <IconExternalLink className="h-4 w-4 text-muted-foreground" />
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-              
-              {showSitemapSearch && (
-                <div className="p-2 border-b">
-                  <div className="relative">
-                    <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <input
-                      type="text"
-                      placeholder="Search URLs..."
-                      value={sitemapSearch}
-                      onChange={(e) => setSitemapSearch(e.target.value)}
-                      className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-sitemap-search"
-                      autoFocus
-                    />
-                  </div>
-                </div>
-              )}
               
               <ScrollArea className="h-[240px]">
                 <div className="p-2 space-y-1">
@@ -3405,6 +3484,8 @@ export function DebugBubble() {
           setCreateContentSlugEs("");
           setCreateContentSlugEnStatus('idle');
           setCreateContentSlugEsStatus('idle');
+          setSlugEnConflictReason(null);
+          setSlugEsConflictReason(null);
           setEditingSlugEn(false);
           setEditingSlugEs(false);
           setCreateContentType('page');
@@ -3450,15 +3531,21 @@ export function DebugBubble() {
                         setCreateContentSlugEnStatus('checking');
                         fetch(`/api/content/check-slug?type=${v}&slug=${createContentSlugEn}&locale=en`)
                           .then(res => res.json())
-                          .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                          .catch(() => setCreateContentSlugEnStatus('idle'));
+                          .then(data => {
+                            setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                            setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                          })
+                          .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                       }
                       if (createContentSlugEs) {
                         setCreateContentSlugEsStatus('checking');
                         fetch(`/api/content/check-slug?type=${v}&slug=${createContentSlugEs}&locale=es`)
                           .then(res => res.json())
-                          .then(data => setCreateContentSlugEsStatus(data.available ? 'available' : 'taken'))
-                          .catch(() => setCreateContentSlugEsStatus('idle'));
+                          .then(data => {
+                            setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
+                            setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                          })
+                          .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
                       }
                     } else {
                       // For landings, validate single slug
@@ -3466,8 +3553,11 @@ export function DebugBubble() {
                         setCreateContentSlugEnStatus('checking');
                         fetch(`/api/content/check-slug?type=landing&slug=${createContentSlugEn}`)
                           .then(res => res.json())
-                          .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                          .catch(() => setCreateContentSlugEnStatus('idle'));
+                          .then(data => {
+                            setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                            setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                          })
+                          .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                       }
                     }
                   }}
@@ -3535,24 +3625,35 @@ export function DebugBubble() {
                       setCreateContentSlugEnStatus('checking');
                       fetch(`/api/content/check-slug?type=landing&slug=${slug}`)
                         .then(res => res.json())
-                        .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                        .catch(() => setCreateContentSlugEnStatus('idle'));
+                        .then(data => {
+                          setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                          setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                        })
+                        .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                     } else {
                       // Other types: validate both EN/ES slugs
                       setCreateContentSlugEnStatus('checking');
                       setCreateContentSlugEsStatus('checking');
                       fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=en`)
                         .then(res => res.json())
-                        .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                        .catch(() => setCreateContentSlugEnStatus('idle'));
+                        .then(data => {
+                          setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                          setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                        })
+                        .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                       fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=es`)
                         .then(res => res.json())
-                        .then(data => setCreateContentSlugEsStatus(data.available ? 'available' : 'taken'))
-                        .catch(() => setCreateContentSlugEsStatus('idle'));
+                        .then(data => {
+                          setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
+                          setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                        })
+                        .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
                     }
                   } else {
                     setCreateContentSlugEnStatus('idle');
                     setCreateContentSlugEsStatus('idle');
+                    setSlugEnConflictReason(null);
+                    setSlugEsConflictReason(null);
                   }
                 }}
                 placeholder="e.g., Career Development Guide"
@@ -3584,10 +3685,14 @@ export function DebugBubble() {
                               setCreateContentSlugEnStatus('checking');
                               fetch(`/api/content/check-slug?type=landing&slug=${slug}`)
                                 .then(res => res.json())
-                                .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                                .catch(() => setCreateContentSlugEnStatus('idle'));
+                                .then(data => {
+                                  setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                                  setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                                })
+                                .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                             } else {
                               setCreateContentSlugEnStatus('idle');
+                              setSlugEnConflictReason(null);
                             }
                           }}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -3628,7 +3733,7 @@ export function DebugBubble() {
                     </div>
                   </div>
                   {createContentSlugEnStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">This slug is already taken</p>
+                    <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'This slug is already taken'}</p>
                   )}
                 </div>
                 
@@ -3669,10 +3774,14 @@ export function DebugBubble() {
                               setCreateContentSlugEnStatus('checking');
                               fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=en`)
                                 .then(res => res.json())
-                                .then(data => setCreateContentSlugEnStatus(data.available ? 'available' : 'taken'))
-                                .catch(() => setCreateContentSlugEnStatus('idle'));
+                                .then(data => {
+                                  setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
+                                  setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                                })
+                                .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
                             } else {
                               setCreateContentSlugEnStatus('idle');
+                              setSlugEnConflictReason(null);
                             }
                           }}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -3713,7 +3822,7 @@ export function DebugBubble() {
                     </div>
                   </div>
                   {createContentSlugEnStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">English slug is taken</p>
+                    <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'English slug is taken'}</p>
                   )}
                   
                   {/* Spanish URL Row */}
@@ -3737,10 +3846,14 @@ export function DebugBubble() {
                               setCreateContentSlugEsStatus('checking');
                               fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=es`)
                                 .then(res => res.json())
-                                .then(data => setCreateContentSlugEsStatus(data.available ? 'available' : 'taken'))
-                                .catch(() => setCreateContentSlugEsStatus('idle'));
+                                .then(data => {
+                                  setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
+                                  setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
+                                })
+                                .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
                             } else {
                               setCreateContentSlugEsStatus('idle');
+                              setSlugEsConflictReason(null);
                             }
                           }}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -3781,7 +3894,7 @@ export function DebugBubble() {
                     </div>
                   </div>
                   {createContentSlugEsStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">Spanish slug is taken</p>
+                    <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || 'Spanish slug is taken'}</p>
                   )}
                 </div>
                 
@@ -3851,6 +3964,8 @@ export function DebugBubble() {
                       setCreateContentSlugEs("");
                       setCreateContentSlugEnStatus('idle');
                       setCreateContentSlugEsStatus('idle');
+                      setSlugEnConflictReason(null);
+                      setSlugEsConflictReason(null);
                       setCreateLandingLocale('en');
                       
                       // Refresh sitemap
@@ -3903,6 +4018,8 @@ export function DebugBubble() {
                       setCreateContentSlugEs("");
                       setCreateContentSlugEnStatus('idle');
                       setCreateContentSlugEsStatus('idle');
+                      setSlugEnConflictReason(null);
+                      setSlugEsConflictReason(null);
                       setDuplicatingPage(null);
                       
                       // Refresh sitemap
@@ -3957,6 +4074,109 @@ export function DebugBubble() {
                   Create {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
                 </>
               )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* Page Errors Modal */}
+      <Dialog open={pageErrorsModalOpen} onOpenChange={setPageErrorsModalOpen}>
+        <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Page Diagnostics
+            </DialogTitle>
+            <DialogDescription>
+              {pageDiagnostics ? `Issues found on ${pageDiagnostics.url}` : 'Loading diagnostics...'}
+            </DialogDescription>
+          </DialogHeader>
+          {pageDiagnostics && (
+            <div className="space-y-4">
+              <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
+                <div className="grid grid-cols-2 gap-1 text-muted-foreground">
+                  <span>Content Type:</span>
+                  <span className="font-mono text-foreground" data-testid="text-modal-content-type">{pageDiagnostics.contentType}</span>
+                  <span>Slug:</span>
+                  <span className="font-mono text-foreground" data-testid="text-modal-slug">{pageDiagnostics.slug}</span>
+                  <span>Locale:</span>
+                  <span className="font-mono text-foreground" data-testid="text-modal-locale">{pageDiagnostics.locale}</span>
+                  <span>Schema Valid:</span>
+                  <span className={`font-mono ${pageDiagnostics.schemaValidation?.valid ? "text-green-600 dark:text-green-400" : "text-destructive"}`} data-testid="text-modal-schema-valid">
+                    {pageDiagnostics.schemaValidation?.valid ? "Yes" : "No"}
+                  </span>
+                </div>
+              </div>
+
+              {(() => {
+                const errors = pageDiagnostics.issues?.filter(i => i.type === "error") || [];
+                const warnings = pageDiagnostics.issues?.filter(i => i.type === "warning") || [];
+                const infos = pageDiagnostics.issues?.filter(i => i.type === "info") || [];
+                return (
+                  <>
+                    {errors.length > 0 && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-destructive">Errors</h3>
+                        {errors.map((issue, i) => (
+                          <div key={i} className="p-3 rounded-md bg-destructive/10 border border-destructive/30 text-sm" data-testid={`modal-error-${i}`}>
+                            <div className="font-mono font-medium text-destructive text-xs">{issue.code}</div>
+                            <div className="mt-1 text-foreground">{issue.message}</div>
+                            {issue.details?.expected && (
+                              <div className="mt-1 text-xs text-muted-foreground">
+                                Expected: <span className="font-mono">{issue.details.expected}</span>
+                                {issue.details.received && (
+                                  <> | Received: <span className="font-mono">{issue.details.received}</span></>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {warnings.length > 0 && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-amber-600 dark:text-amber-400">Warnings</h3>
+                        {warnings.map((issue, i) => (
+                          <div key={i} className="p-3 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm" data-testid={`modal-warning-${i}`}>
+                            <div className="font-mono font-medium text-amber-700 dark:text-amber-300 text-xs">{issue.code}</div>
+                            <div className="mt-1 text-foreground">{issue.message}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {infos.length > 0 && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-muted-foreground">Info</h3>
+                        {infos.map((issue, i) => (
+                          <div key={i} className="p-3 rounded-md bg-muted/50 border border-border text-sm" data-testid={`modal-info-${i}`}>
+                            <div className="font-mono font-medium text-muted-foreground text-xs">{issue.code}</div>
+                            <div className="mt-1 text-foreground">{issue.message}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {errors.length === 0 && warnings.length === 0 && infos.length === 0 && (
+                      <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="modal-no-issues">
+                        No issues found. The content loads and validates correctly.
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+
+              <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
+                <div className="text-muted-foreground mb-1">Health Score</div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span data-testid="text-modal-score-total">Total: <strong>{pageDiagnostics.score?.total}%</strong></span>
+                  <span data-testid="text-modal-score-seo">SEO: {pageDiagnostics.score?.seo}%</span>
+                  <span data-testid="text-modal-score-schema">Schema: {pageDiagnostics.score?.schema}%</span>
+                  <span data-testid="text-modal-score-content">Content: {pageDiagnostics.score?.content}%</span>
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPageErrorsModalOpen(false)} data-testid="button-close-page-errors">
+              Close
             </Button>
           </DialogFooter>
         </DialogContent>

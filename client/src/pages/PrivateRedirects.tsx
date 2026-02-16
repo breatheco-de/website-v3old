@@ -1,6 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -14,8 +20,27 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { IconArrowLeft, IconArrowRight, IconSearch, IconRoute, IconExternalLink, IconChevronRight, IconShieldCheck, IconTestPipe, IconAlertTriangle, IconCircleCheck, IconPlus, IconX, IconTrash, IconTool } from "@tabler/icons-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  IconArrowLeft,
+  IconArrowRight,
+  IconSearch,
+  IconRoute,
+  IconExternalLink,
+  IconChevronRight,
+  IconShieldCheck,
+  IconTestPipe,
+  IconAlertTriangle,
+  IconCircleCheck,
+  IconPlus,
+  IconX,
+  IconTrash,
+  IconTool,
+} from "@tabler/icons-react";
 import { Link } from "wouter";
 import { isDebugModeActive } from "@/hooks/useDebugAuth";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -41,7 +66,9 @@ function formatRedirectTo(to: string | Record<string, string>): string {
   return Object.values(to).join(", ");
 }
 
-function isLocaleMap(to: string | Record<string, string>): to is Record<string, string> {
+function isLocaleMap(
+  to: string | Record<string, string>,
+): to is Record<string, string> {
   return typeof to === "object";
 }
 
@@ -63,7 +90,10 @@ interface ValidationResult {
 }
 
 function stripContentPath(text: string): string {
-  return text.replace(/(?:\/home\/runner\/workspace\/)?marketing-content\//g, "");
+  return text.replace(
+    /(?:\/home\/runner\/workspace\/)?marketing-content\//g,
+    "",
+  );
 }
 
 export default function PrivateRedirects() {
@@ -71,9 +101,11 @@ export default function PrivateRedirects() {
   const [showSearch, setShowSearch] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [expandedType, setExpandedType] = useState<string | null>(null);
-  const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
+  const [validationResult, setValidationResult] =
+    useState<ValidationResult | null>(null);
   const [isValidating, setIsValidating] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
+  const [validationExpanded, setValidationExpanded] = useState(false);
 
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [newFrom, setNewFrom] = useState("");
@@ -84,12 +116,41 @@ export default function PrivateRedirects() {
   const [redirectStatus, setRedirectStatus] = useState<number>(301);
   const [localeUrls, setLocaleUrls] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [deletingRedirect, setDeletingRedirect] = useState<Redirect | null>(null);
+  const [deletingRedirect, setDeletingRedirect] = useState<Redirect | null>(
+    null,
+  );
   const [isDeleting, setIsDeleting] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const [originCheckStatus, setOriginCheckStatus] = useState<
+    "idle" | "checking" | "available" | "taken"
+  >("idle");
+  const [originCheckReason, setOriginCheckReason] = useState<string | null>(
+    null,
+  );
+  const originCheckTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { toast } = useToast();
-  const { resolveModalOpen, setResolveModalOpen, activeConflict, openResolver } = useRedirectConflictResolver();
+  const {
+    resolveModalOpen,
+    setResolveModalOpen,
+    activeConflict,
+    openResolver,
+  } = useRedirectConflictResolver();
+
+  const originHasUrlOrDomain = (() => {
+    const v = newFrom.trim();
+    if (!v) return false;
+    const stripped = v.startsWith("/") ? v.slice(1) : v;
+    return (
+      /https?:\/\//i.test(stripped) ||
+      /[a-z0-9][-a-z0-9]*\.[a-z]{2,}/i.test(stripped)
+    );
+  })();
+  const isOriginInvalid =
+    newFrom.trim() !== "" &&
+    (originHasUrlOrDomain ||
+      !newFrom.startsWith("/") ||
+      originCheckStatus === "taken");
 
   useEffect(() => {
     setIsAuthorized(isDebugModeActive());
@@ -97,6 +158,7 @@ export default function PrivateRedirects() {
 
   const runValidation = useCallback(async () => {
     setIsValidating(true);
+    setValidationExpanded(false);
     try {
       const res = await apiRequest("POST", "/api/validation/run/redirects");
       const data = await res.json();
@@ -117,8 +179,52 @@ export default function PrivateRedirects() {
     }
   }, [isAuthorized, runValidation]);
 
-  const { data: redirectsData, isLoading } = useQuery<{ redirects: Redirect[] }>({
-    queryKey: ['/api/debug/redirects'],
+  useEffect(() => {
+    if (originCheckTimer.current) clearTimeout(originCheckTimer.current);
+    const trimmed = newFrom.trim();
+    if (!trimmed || !trimmed.startsWith("/") || originHasUrlOrDomain) {
+      setOriginCheckStatus("idle");
+      setOriginCheckReason(null);
+      return;
+    }
+    setOriginCheckStatus("checking");
+    const controller = new AbortController();
+    originCheckTimer.current = setTimeout(() => {
+      fetch(`/api/content/check-origin?path=${encodeURIComponent(trimmed)}`, {
+        signal: controller.signal,
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.taken) {
+            setOriginCheckStatus("taken");
+            setOriginCheckReason(
+              data.details ||
+                (data.reason === "existing_redirect"
+                  ? "This path already has a redirect"
+                  : "This path belongs to an existing page"),
+            );
+          } else {
+            setOriginCheckStatus("available");
+            setOriginCheckReason(null);
+          }
+        })
+        .catch(() => {
+          if (!controller.signal.aborted) {
+            setOriginCheckStatus("idle");
+            setOriginCheckReason(null);
+          }
+        });
+    }, 500);
+    return () => {
+      if (originCheckTimer.current) clearTimeout(originCheckTimer.current);
+      controller.abort();
+    };
+  }, [newFrom, originHasUrlOrDomain]);
+
+  const { data: redirectsData, isLoading } = useQuery<{
+    redirects: Redirect[];
+  }>({
+    queryKey: ["/api/debug/redirects"],
     enabled: isAuthorized,
   });
 
@@ -127,20 +233,25 @@ export default function PrivateRedirects() {
   const filteredRedirects = redirects.filter((r) => {
     const q = search.toLowerCase();
     const toStr = formatRedirectTo(r.to).toLowerCase();
-    return r.from.toLowerCase().includes(q) ||
+    return (
+      r.from.toLowerCase().includes(q) ||
       toStr.includes(q) ||
       r.type.toLowerCase().includes(q) ||
-      String(r.status).includes(q);
+      String(r.status).includes(q)
+    );
   });
 
-  const groupedByType = filteredRedirects.reduce((acc, redirect) => {
-    const normalizedType = redirect.type.replace(/-common$/, "");
-    if (!acc[normalizedType]) {
-      acc[normalizedType] = [];
-    }
-    acc[normalizedType].push(redirect);
-    return acc;
-  }, {} as Record<string, Redirect[]>);
+  const groupedByType = filteredRedirects.reduce(
+    (acc, redirect) => {
+      const normalizedType = redirect.type.replace(/-common$/, "");
+      if (!acc[normalizedType]) {
+        acc[normalizedType] = [];
+      }
+      acc[normalizedType].push(redirect);
+      return acc;
+    },
+    {} as Record<string, Redirect[]>,
+  );
 
   const totalIssues = validationResult
     ? validationResult.errors.length + validationResult.warnings.length
@@ -148,11 +259,14 @@ export default function PrivateRedirects() {
 
   const isLandingDestination = newTo.startsWith("/landing");
 
-  const stripLocalePrefix = (url: string) => url.replace(/^\/(en|es)(\/|$)/, "/");
+  const stripLocalePrefix = (url: string) =>
+    url.replace(/^\/(en|es)(\/|$)/, "/");
 
   const fetchLocaleUrls = useCallback(async (url: string) => {
     try {
-      const res = await fetch(`/api/debug/redirects/locale-urls?url=${encodeURIComponent(url)}`);
+      const res = await fetch(
+        `/api/debug/redirects/locale-urls?url=${encodeURIComponent(url)}`,
+      );
       if (res.ok) {
         const data = await res.json();
         setLocaleUrls(data.urls || {});
@@ -170,6 +284,8 @@ export default function PrivateRedirects() {
     setIsCustomDestination(false);
     setRedirectStatus(301);
     setLocaleUrls({});
+    setOriginCheckStatus("idle");
+    setOriginCheckReason(null);
     setShowAddDialog(true);
   };
 
@@ -221,7 +337,7 @@ export default function PrivateRedirects() {
       });
 
       setShowAddDialog(false);
-      queryClient.invalidateQueries({ queryKey: ['/api/debug/redirects'] });
+      queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
       runValidation();
     } catch {
       toast({
@@ -260,7 +376,7 @@ export default function PrivateRedirects() {
       });
 
       setDeletingRedirect(null);
-      queryClient.invalidateQueries({ queryKey: ['/api/debug/redirects'] });
+      queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
       runValidation();
     } catch {
       toast({
@@ -280,7 +396,9 @@ export default function PrivateRedirects() {
           <CardHeader>
             <CardTitle>Access Denied</CardTitle>
             <CardDescription>
-              This page requires debug mode. Add <code className="bg-muted px-1 rounded">?debug=true</code> to the URL.
+              This page requires debug mode. Add{" "}
+              <code className="bg-muted px-1 rounded">?debug=true</code> to the
+              URL.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -303,7 +421,11 @@ export default function PrivateRedirects() {
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <Link href="/">
-                <Button variant="ghost" size="icon" data-testid="link-back-home">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  data-testid="link-back-home"
+                >
                   <IconArrowLeft className="w-4 h-4" />
                 </Button>
               </Link>
@@ -313,7 +435,8 @@ export default function PrivateRedirects() {
                   URL Redirects
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  {redirects.length} redirect{redirects.length !== 1 ? 's' : ''} configured
+                  {redirects.length} redirect{redirects.length !== 1 ? "s" : ""}{" "}
+                  configured
                 </p>
               </div>
             </div>
@@ -328,27 +451,38 @@ export default function PrivateRedirects() {
                   {validationResult.status === "passed" ? (
                     <Popover>
                       <PopoverTrigger asChild>
-                        <Badge variant="secondary" className="gap-1 cursor-pointer bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                        <Badge
+                          variant="secondary"
+                          className="gap-1 cursor-pointer bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                        >
                           <IconCircleCheck className="h-3.5 w-3.5" />
                           Passed
                         </Badge>
                       </PopoverTrigger>
-                      <PopoverContent className="w-64 text-sm" side="bottom" align="start">
+                      <PopoverContent
+                        className="w-64 text-sm"
+                        side="bottom"
+                        align="start"
+                      >
                         <div className="space-y-2">
                           <p className="font-medium">All tests passed</p>
-                          <p className="text-muted-foreground text-xs">No redirect conflicts, loops, or self-redirects were found. All redirects are properly configured and pointing to valid destinations.</p>
+                          <p className="text-muted-foreground text-xs">
+                            No redirect conflicts, loops, or self-redirects were
+                            found. All redirects are properly configured and
+                            pointing to valid destinations.
+                          </p>
                         </div>
                       </PopoverContent>
                     </Popover>
                   ) : validationResult.status === "warning" ? (
                     <Badge variant="outline" className="gap-1">
                       <IconAlertTriangle className="h-3.5 w-3.5" />
-                      {totalIssues} warning{totalIssues !== 1 ? 's' : ''}
+                      {totalIssues} warning{totalIssues !== 1 ? "s" : ""}
                     </Badge>
                   ) : (
                     <Badge variant="destructive" className="gap-1">
                       <IconAlertTriangle className="h-3.5 w-3.5" />
-                      {totalIssues} issue{totalIssues !== 1 ? 's' : ''}
+                      {totalIssues} issue{totalIssues !== 1 ? "s" : ""}
                     </Badge>
                   )}
                 </Button>
@@ -370,7 +504,12 @@ export default function PrivateRedirects() {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setShowSearch(prev => { if (prev) setSearch(""); return !prev; })}
+                onClick={() =>
+                  setShowSearch((prev) => {
+                    if (prev) setSearch("");
+                    return !prev;
+                  })
+                }
                 data-testid="button-toggle-search"
               >
                 <IconSearch className="h-4 w-4" />
@@ -390,7 +529,10 @@ export default function PrivateRedirects() {
       </div>
 
       {showSearch && (
-        <div className="border-b" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}>
+        <div
+          className="border-b"
+          style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}
+        >
           <div className="container mx-auto px-4 py-2">
             <div className="relative">
               <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -408,81 +550,122 @@ export default function PrivateRedirects() {
       )}
 
       {showValidation && validationResult && (
-        <div className="border-b" style={{ background: "hsl(var(--muted-foreground) / 0.05)" }}>
+        <div
+          className="border-b"
+          style={{ background: "hsl(var(--muted-foreground) / 0.05)" }}
+        >
           <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center gap-2 mb-3">
+            <button
+              onClick={() => setValidationExpanded(!validationExpanded)}
+              className="flex items-center gap-2 w-full text-left"
+              data-testid="button-toggle-validation-details"
+            >
+              <IconChevronRight
+                className={`h-4 w-4 text-muted-foreground transition-transform ${validationExpanded ? "rotate-90" : ""}`}
+              />
               <IconShieldCheck className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">Validation Results</span>
-              <span className="text-xs text-muted-foreground">({validationResult.duration}ms)</span>
-            </div>
-            {totalIssues === 0 ? (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-md border text-sm">
-                <IconCircleCheck className="h-4 w-4 flex-shrink-0" />
-                All redirect checks passed. No conflicts, loops, or self-redirects found.
+              <span className="text-xs text-muted-foreground">
+                ({validationResult.duration}ms)
+              </span>
+              <div className="flex items-center gap-2 ml-auto">
+                {totalIssues === 0 ? (
+                  <Badge variant="secondary" className="text-xs gap-1">
+                    <IconCircleCheck className="h-3 w-3" />
+                    All passed
+                  </Badge>
+                ) : (
+                  <>
+                    {validationResult.errors.length > 0 && (
+                      <Badge variant="destructive" className="text-xs">
+                        {validationResult.errors.length} error
+                        {validationResult.errors.length !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                    {validationResult.warnings.length > 0 && (
+                      <Badge variant="secondary" className="text-xs">
+                        {validationResult.warnings.length} warning
+                        {validationResult.warnings.length !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                  </>
+                )}
               </div>
-            ) : (
-            <div className="space-y-2">
-              {validationResult.errors.map((issue, i) => {
-                const conflict = parseRedirectConflict(issue);
-                return (
-                <div key={`err-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border bg-destructive/5 border-destructive/20" data-testid={`validation-error-${i}`}>
-                  <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <Badge variant="destructive" className="text-xs">{issue.code}</Badge>
-                      {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
-                    </div>
-                    <p className="text-sm mt-1">{stripContentPath(issue.message)}</p>
-                    {issue.suggestion && (
-                      <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
-                    )}
+            </button>
+            {validationExpanded && (
+              <div className="mt-3 space-y-2">
+                {totalIssues === 0 ? (
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-md border text-sm">
+                    <IconCircleCheck className="h-4 w-4 flex-shrink-0" />
+                    All redirect checks passed. No conflicts, loops, or
+                    self-redirects found.
                   </div>
-                  {conflict && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-shrink-0 gap-1"
-                      onClick={() => openResolver(issue)}
-                      data-testid={`button-resolve-error-${i}`}
-                    >
-                      <IconTool className="h-3.5 w-3.5" />
-                      Resolve
-                    </Button>
-                  )}
-                </div>
-                );
-              })}
-              {validationResult.warnings.map((issue, i) => {
-                const conflict = parseRedirectConflict(issue);
-                return (
-                <div key={`warn-${i}`} className="flex items-start gap-3 px-3 py-2 rounded-md border" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }} data-testid={`validation-warning-${i}`}>
-                  <IconAlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <Badge variant="secondary" className="text-xs">{issue.code}</Badge>
-                      {issue.file && <span className="text-xs text-muted-foreground truncate">{stripContentPath(issue.file)}</span>}
-                    </div>
-                    <p className="text-sm mt-1">{stripContentPath(issue.message)}</p>
-                    {issue.suggestion && (
-                      <p className="text-xs text-muted-foreground mt-1">{stripContentPath(issue.suggestion)}</p>
-                    )}
-                  </div>
-                  {conflict && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-shrink-0 gap-1"
-                      onClick={() => openResolver(issue)}
-                      data-testid={`button-resolve-warning-${i}`}
-                    >
-                      <IconTool className="h-3.5 w-3.5" />
-                      Resolve
-                    </Button>
-                  )}
-                </div>
-                );
-              })}
-            </div>
+                ) : (
+                  <>
+                    {validationResult.errors.map((issue, i) => (
+                      <div
+                        key={`err-${i}`}
+                        className="flex items-start gap-3 px-3 py-2 rounded-md border bg-destructive/5 border-destructive/20"
+                        data-testid={`validation-error-${i}`}
+                      >
+                        <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Badge variant="destructive" className="text-xs">
+                              {issue.code}
+                            </Badge>
+                            {issue.file && (
+                              <span className="text-xs text-muted-foreground truncate">
+                                {stripContentPath(issue.file)}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm mt-1">
+                            {stripContentPath(issue.message)}
+                          </p>
+                          {issue.suggestion && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {stripContentPath(issue.suggestion)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    {validationResult.warnings.map((issue, i) => (
+                      <div
+                        key={`warn-${i}`}
+                        className="flex items-start gap-3 px-3 py-2 rounded-md border"
+                        style={{
+                          background: "hsl(var(--muted-foreground) / 0.03)",
+                        }}
+                        data-testid={`validation-warning-${i}`}
+                      >
+                        <IconAlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Badge variant="secondary" className="text-xs">
+                              {issue.code}
+                            </Badge>
+                            {issue.file && (
+                              <span className="text-xs text-muted-foreground truncate">
+                                {stripContentPath(issue.file)}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm mt-1">
+                            {stripContentPath(issue.message)}
+                          </p>
+                          {issue.suggestion && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {stripContentPath(issue.suggestion)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
             )}
           </div>
         </div>
@@ -496,7 +679,9 @@ export default function PrivateRedirects() {
         ) : filteredRedirects.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center text-muted-foreground">
-              {search ? "No redirects match your search" : "No redirects configured"}
+              {search
+                ? "No redirects match your search"
+                : "No redirects configured"}
             </CardContent>
           </Card>
         ) : (
@@ -510,10 +695,13 @@ export default function PrivateRedirects() {
                     className="flex items-center gap-3 w-full px-4 py-3 rounded-md text-sm hover-elevate"
                     data-testid={`button-toggle-${type}`}
                   >
-                    <IconChevronRight className={`h-4 w-4 text-muted-foreground transition-transform ${isExpanded ? "rotate-90" : ""}`} />
+                    <IconChevronRight
+                      className={`h-4 w-4 text-muted-foreground transition-transform ${isExpanded ? "rotate-90" : ""}`}
+                    />
                     <Badge variant="secondary">{type}</Badge>
                     <span className="text-muted-foreground font-normal text-sm">
-                      {typeRedirects.length} redirect{typeRedirects.length !== 1 ? 's' : ''}
+                      {typeRedirects.length} redirect
+                      {typeRedirects.length !== 1 ? "s" : ""}
                     </span>
                   </button>
                   {isExpanded && (
@@ -529,22 +717,42 @@ export default function PrivateRedirects() {
                               {redirect.from}
                             </code>
                           </div>
-                          <Badge variant={redirect.status === 301 || redirect.status === 308 ? "secondary" : "outline"} className="text-xs flex-shrink-0 font-mono">
+                          <Badge
+                            variant={
+                              redirect.status === 301 || redirect.status === 308
+                                ? "secondary"
+                                : "outline"
+                            }
+                            className="text-xs flex-shrink-0 font-mono"
+                          >
                             {redirect.status}
                           </Badge>
                           <IconArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                           <div className="flex-1 min-w-0 flex items-center gap-2">
                             {isLocaleMap(redirect.to) ? (
                               <div className="flex-1 min-w-0 space-y-1">
-                                {Object.entries(redirect.to).map(([locale, url]) => (
-                                  <div key={locale} className="flex items-center gap-1.5">
-                                    <LocaleFlag locale={locale} />
-                                    <code className="text-xs bg-muted px-2 py-0.5 rounded truncate flex-1">{url}</code>
-                                    <a href={url} target="_blank" rel="noopener noreferrer" className="p-0.5 rounded hover:bg-muted flex-shrink-0" data-testid={`link-redirect-target-${type}-${index}-${locale}`}>
-                                      <IconExternalLink className="h-3 w-3 text-muted-foreground" />
-                                    </a>
-                                  </div>
-                                ))}
+                                {Object.entries(redirect.to).map(
+                                  ([locale, url]) => (
+                                    <div
+                                      key={locale}
+                                      className="flex items-center gap-1.5"
+                                    >
+                                      <LocaleFlag locale={locale} />
+                                      <code className="text-xs bg-muted px-2 py-0.5 rounded truncate flex-1">
+                                        {url}
+                                      </code>
+                                      <a
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-0.5 rounded hover:bg-muted flex-shrink-0"
+                                        data-testid={`link-redirect-target-${type}-${index}-${locale}`}
+                                      >
+                                        <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                                      </a>
+                                    </div>
+                                  ),
+                                )}
                               </div>
                             ) : (
                               <>
@@ -586,11 +794,17 @@ export default function PrivateRedirects() {
       </div>
 
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent ref={dialogRef} className="sm:max-w-md" onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
+        <DialogContent
+          ref={dialogRef}
+          className="sm:max-w-md"
+          onPointerDownOutside={(e) => e.preventDefault()}
+          onInteractOutside={(e) => e.preventDefault()}
+        >
           <DialogHeader>
             <DialogTitle>Add Redirect</DialogTitle>
             <DialogDescription>
-              Create a new URL redirect. The origin URL will be redirected to the destination page.
+              Create a new URL redirect. The origin URL will be redirected to
+              the destination page.
             </DialogDescription>
           </DialogHeader>
 
@@ -599,8 +813,16 @@ export default function PrivateRedirects() {
               <Label>Status Code</Label>
               <div className="flex border rounded-md overflow-hidden">
                 {[
-                  { code: 301, label: "301 — Permanent", desc: "The page has moved forever. Search engines transfer ranking to the new URL." },
-                  { code: 302, label: "302 — Temporary", desc: "The page is temporarily at a different URL. Search engines keep the original URL indexed." },
+                  {
+                    code: 301,
+                    label: "301 — Permanent",
+                    desc: "The page has moved forever. Search engines transfer ranking to the new URL.",
+                  },
+                  {
+                    code: 302,
+                    label: "302 — Temporary",
+                    desc: "The page is temporarily at a different URL. Search engines keep the original URL indexed.",
+                  },
                 ].map((option, i) => (
                   <button
                     key={option.code}
@@ -616,7 +838,9 @@ export default function PrivateRedirects() {
                     data-testid={`button-status-${option.code}`}
                   >
                     <span className="text-sm font-medium">{option.label}</span>
-                    <p className="text-xs text-muted-foreground mt-0.5">{option.desc}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {option.desc}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -628,17 +852,42 @@ export default function PrivateRedirects() {
                 id="redirect-from"
                 placeholder="/old-page-url"
                 value={newFrom}
-                onChange={(e) => setNewFrom(e.target.value.replace(/\s+/g, "-"))}
+                onChange={(e) =>
+                  setNewFrom(e.target.value.replace(/\s+/g, "-"))
+                }
+                className={isOriginInvalid ? "border-destructive" : ""}
                 data-testid="input-redirect-from"
               />
-              {newFrom && (
-                <p className="text-xs text-muted-foreground">
-                  Visitors to <code className="bg-muted px-1 rounded">{newFrom.startsWith("/") ? newFrom : `/${newFrom}`}</code> will be redirected
+              {originHasUrlOrDomain ? (
+                <p className="text-xs text-destructive">
+                  Just the path, please — no need for the full website address.
+                  Start with <code className="bg-muted px-1 rounded">/</code>
                 </p>
-              )}
+              ) : newFrom.trim() && !newFrom.startsWith("/") ? (
+                <p className="text-xs text-destructive">
+                  The path must start with{" "}
+                  <code className="bg-muted px-1 rounded">/</code>
+                </p>
+              ) : originCheckStatus === "taken" ? (
+                <p className="text-xs text-destructive">
+                  {originCheckReason || "This path is already in use"}
+                </p>
+              ) : originCheckStatus === "checking" ? (
+                <p className="text-xs text-muted-foreground">
+                  Checking availability...
+                </p>
+              ) : originCheckStatus === "available" ? (
+                <p className="text-xs text-green-600">Path is available</p>
+              ) : newFrom ? (
+                <p className="text-xs text-muted-foreground">
+                  Visitors to{" "}
+                  <code className="bg-muted px-1 rounded">{newFrom}</code> will
+                  be redirected
+                </p>
+              ) : null}
             </div>
 
-            {newFrom.trim() && (
+            {newFrom.trim() && !isOriginInvalid && (
               <div className="space-y-2">
                 <Label>Destination</Label>
                 {!newTo ? (
@@ -658,37 +907,81 @@ export default function PrivateRedirects() {
                       <div className="min-w-0 flex-1 space-y-1.5">
                         {isLandingDestination ? (
                           <>
-                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">{newTo}</code>
+                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                              {newTo}
+                            </code>
                             <p className="text-xs text-muted-foreground">
-                              Visitors to <code className="bg-muted px-1 rounded">{newFrom.startsWith("/") ? newFrom : `/${newFrom}`}</code> will land on this exact landing page.
+                              Visitors to{" "}
+                              <code className="bg-muted px-1 rounded">
+                                {newFrom.startsWith("/")
+                                  ? newFrom
+                                  : `/${newFrom}`}
+                              </code>{" "}
+                              will land on this exact landing page.
                             </p>
                           </>
                         ) : isCustomDestination ? (
                           <>
-                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">{newTo}</code>
+                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                              {newTo}
+                            </code>
                             <p className="text-xs text-muted-foreground">
-                              Visitors to <code className="bg-muted px-1 rounded">{newFrom.startsWith("/") ? newFrom : `/${newFrom}`}</code> will be redirected to this exact URL.
+                              Visitors to{" "}
+                              <code className="bg-muted px-1 rounded">
+                                {newFrom.startsWith("/")
+                                  ? newFrom
+                                  : `/${newFrom}`}
+                              </code>{" "}
+                              will be redirected to this exact URL.
                             </p>
                           </>
                         ) : allLanguages ? (
                           <>
                             <div className="space-y-1">
-                              {Object.entries(localeUrls).map(([locale, url]) => (
-                                <div key={locale} className="flex items-center gap-2 min-w-0">
-                                  <LocaleFlag locale={locale} />
-                                  <code className="text-xs bg-muted px-2 py-1 rounded truncate min-w-0">{url}</code>
-                                </div>
-                              ))}
+                              {Object.entries(localeUrls).map(
+                                ([locale, url]) => (
+                                  <div
+                                    key={locale}
+                                    className="flex items-center gap-2 min-w-0"
+                                  >
+                                    <LocaleFlag locale={locale} />
+                                    <code className="text-xs bg-muted px-2 py-1 rounded truncate min-w-0">
+                                      {url}
+                                    </code>
+                                  </div>
+                                ),
+                              )}
                             </div>
                             <p className="text-xs text-muted-foreground">
-                              Visitors to <code className="bg-muted px-1 rounded">{newFrom.startsWith("/") ? newFrom : `/${newFrom}`}</code> will be redirected to the matching language version of this content.
+                              Visitors to{" "}
+                              <code className="bg-muted px-1 rounded">
+                                {newFrom.startsWith("/")
+                                  ? newFrom
+                                  : `/${newFrom}`}
+                              </code>{" "}
+                              will be redirected to the matching language
+                              version of this content.
                             </p>
                           </>
                         ) : (
                           <>
-                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">{originalTo || newTo}</code>
+                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                              {originalTo || newTo}
+                            </code>
                             <p className="text-xs text-muted-foreground">
-                              Visitors to <code className="bg-muted px-1 rounded">{newFrom.startsWith("/") ? newFrom : `/${newFrom}`}</code> will be sent to the <strong>{(originalTo || newTo).match(/^\/(en|es)/)?.[1] || "en"}</strong> version of this page only.
+                              Visitors to{" "}
+                              <code className="bg-muted px-1 rounded">
+                                {newFrom.startsWith("/")
+                                  ? newFrom
+                                  : `/${newFrom}`}
+                              </code>{" "}
+                              will be sent to the{" "}
+                              <strong>
+                                {(originalTo || newTo).match(
+                                  /^\/(en|es)/,
+                                )?.[1] || "en"}
+                              </strong>{" "}
+                              version of this page only.
                             </p>
                           </>
                         )}
@@ -696,7 +989,13 @@ export default function PrivateRedirects() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => { setNewTo(""); setOriginalTo(""); setLocaleUrls({}); setIsCustomDestination(false); setAllLanguages(true); }}
+                        onClick={() => {
+                          setNewTo("");
+                          setOriginalTo("");
+                          setLocaleUrls({});
+                          setIsCustomDestination(false);
+                          setAllLanguages(true);
+                        }}
                         data-testid="button-clear-destination"
                       >
                         <IconX className="h-4 w-4" />
@@ -706,14 +1005,26 @@ export default function PrivateRedirects() {
                     {!isLandingDestination && !isCustomDestination && (
                       <div className="border-t pt-3 space-y-1.5">
                         <div className="flex items-center justify-between gap-4">
-                          <Label htmlFor="all-languages" className="text-sm font-medium">All languages</Label>
+                          <Label
+                            htmlFor="all-languages"
+                            className="text-sm font-medium"
+                          >
+                            All languages
+                          </Label>
                           <Switch
                             id="all-languages"
                             checked={allLanguages}
                             onCheckedChange={(checked) => {
                               setAllLanguages(checked);
-                              if (originalTo && !originalTo.startsWith("/landing")) {
-                                setNewTo(checked ? stripLocalePrefix(originalTo) : originalTo);
+                              if (
+                                originalTo &&
+                                !originalTo.startsWith("/landing")
+                              ) {
+                                setNewTo(
+                                  checked
+                                    ? stripLocalePrefix(originalTo)
+                                    : originalTo,
+                                );
                               }
                             }}
                             data-testid="switch-all-languages"
@@ -742,7 +1053,13 @@ export default function PrivateRedirects() {
             </Button>
             <Button
               onClick={handleSubmitRedirect}
-              disabled={!newFrom.trim() || !newTo.trim() || isSubmitting}
+              disabled={
+                isOriginInvalid ||
+                originCheckStatus === "checking" ||
+                !newFrom.trim() ||
+                !newTo.trim() ||
+                isSubmitting
+              }
               data-testid="button-save-redirect"
             >
               {isSubmitting ? "Adding..." : "Add Redirect"}
@@ -751,12 +1068,18 @@ export default function PrivateRedirects() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={!!deletingRedirect} onOpenChange={(open) => { if (!open) setDeletingRedirect(null); }}>
+      <Dialog
+        open={!!deletingRedirect}
+        onOpenChange={(open) => {
+          if (!open) setDeletingRedirect(null);
+        }}
+      >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>Delete Redirect</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this redirect? This action cannot be undone.
+              Are you sure you want to delete this redirect? This action cannot
+              be undone.
             </DialogDescription>
           </DialogHeader>
           {deletingRedirect && (
@@ -764,21 +1087,32 @@ export default function PrivateRedirects() {
               <div className="rounded-md border p-3 space-y-2">
                 <div className="min-w-0">
                   <p className="text-xs text-muted-foreground mb-1">From</p>
-                  <code className="text-xs bg-muted px-2 py-1 rounded block truncate">{deletingRedirect.from}</code>
+                  <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                    {deletingRedirect.from}
+                  </code>
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-muted-foreground mb-1">To</p>
                   {isLocaleMap(deletingRedirect.to) ? (
                     <div className="space-y-1">
-                      {Object.entries(deletingRedirect.to).map(([locale, url]) => (
-                        <div key={locale} className="flex items-center gap-1.5">
-                          <LocaleFlag locale={locale} />
-                          <code className="text-xs bg-muted px-2 py-0.5 rounded truncate">{url}</code>
-                        </div>
-                      ))}
+                      {Object.entries(deletingRedirect.to).map(
+                        ([locale, url]) => (
+                          <div
+                            key={locale}
+                            className="flex items-center gap-1.5"
+                          >
+                            <LocaleFlag locale={locale} />
+                            <code className="text-xs bg-muted px-2 py-0.5 rounded truncate">
+                              {url}
+                            </code>
+                          </div>
+                        ),
+                      )}
                     </div>
                   ) : (
-                    <code className="text-xs bg-muted px-2 py-1 rounded block truncate">{deletingRedirect.to}</code>
+                    <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                      {deletingRedirect.to}
+                    </code>
                   )}
                 </div>
               </div>
@@ -810,7 +1144,7 @@ export default function PrivateRedirects() {
         onOpenChange={setResolveModalOpen}
         conflict={activeConflict}
         onResolved={() => {
-          queryClient.invalidateQueries({ queryKey: ['/api/debug/redirects'] });
+          queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
           runValidation();
         }}
       />

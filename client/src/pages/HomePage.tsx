@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { apiFetch } from "@/lib/queryClient";
 import type { TemplatePage } from "@shared/schema";
 import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -29,7 +30,7 @@ export default function HomePage() {
   const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
     queryKey: ["/api/pages", slug, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/pages/${slug}?locale=${locale}`);
+      const response = await apiFetch(`/api/pages/${slug}?locale=${locale}`);
       if (!response.ok) {
         throw new Error("Page not found");
       }

@@ -400,6 +400,7 @@ export const imageEntrySchema = z.object({
   focal_point: z.enum(["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]).optional(),
   tags: z.array(z.string()).optional(),
   usage_count: z.number().optional(),
+  hash: z.string().optional(),
 });
 
 export const imageRegistrySchema = z.object({
@@ -763,6 +764,9 @@ export { profilesCarouselSectionSchema, type ProfilesCarouselSection, type Profi
 import { dynamicTableSectionSchema, type DynamicTableSection, type DynamicTableColumn, type DynamicTableAction } from "../marketing-content/component-registry/dynamic_table/v1.0/schema";
 export { dynamicTableSectionSchema, type DynamicTableSection, type DynamicTableColumn, type DynamicTableAction };
 
+import { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type DoubleCTABullet } from "../marketing-content/component-registry/double_cta/v1.0/schema";
+export { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type DoubleCTABullet };
+
 // Responsive spacing schema - separate values for mobile and desktop
 // When only one breakpoint is specified, the other inherits its value
 export const responsiveSpacingSchema = z.object({
@@ -784,12 +788,16 @@ export type ShowOn = z.infer<typeof showOnSchema>;
 // Each value supports presets (none, sm, md, lg, xl) or custom CSS values (e.g., "20px 32px")
 // background: semantic token (muted, card, etc.) or custom CSS value
 // showOn: controls breakpoint visibility (mobile, desktop, or all)
+// showOnLocations: array of location slugs - section only visible when user's location matches one
+// showOnRegions: array of region slugs - section only visible when user's region matches one
 export const sectionLayoutSchema = z.object({
   section_id: z.string().optional(), // Stable anchor ID that overrides position-based ID (e.g., "reviews" instead of "reviews-5")
   marginY: responsiveSpacingSchema.optional(),
   paddingY: responsiveSpacingSchema.optional(),
   background: z.string().optional(),
   showOn: showOnSchema.optional(),
+  showOnLocations: z.array(z.string()).optional(),
+  showOnRegions: z.array(z.string()).optional(),
 });
 
 export type SectionLayout = z.infer<typeof sectionLayoutSchema>;
@@ -921,6 +929,7 @@ const baseSectionSchema = z.union([
   careerSupportExplainSectionSchema,
   profilesCarouselSectionSchema,
   dynamicTableSectionSchema,
+  doubleCTASectionSchema,
 ]);
 
 // Combined section schema with layout fields

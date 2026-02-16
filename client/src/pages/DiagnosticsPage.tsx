@@ -116,6 +116,27 @@ interface PageDiagnostics {
   };
   redirects: { incomingRedirects: string[] };
   emptyFields: string[];
+  schemaValidation?: {
+    valid: boolean;
+    errors: Array<{
+      path: string;
+      code: string;
+      message: string;
+      expected?: string;
+      received?: string;
+    }>;
+  };
+  issues?: Array<{
+    type: "error" | "warning" | "info";
+    code: string;
+    message: string;
+    category?: string;
+    details?: {
+      path?: string;
+      expected?: string;
+      received?: string;
+    };
+  }>;
   score: { total: number; seo: number; schema: number; content: number };
 }
 
@@ -685,6 +706,59 @@ function PageAnalysisTab() {
                     <Badge key={f} variant="outline" className="text-xs font-mono">{f}</Badge>
                   ))}
                 </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {pageDiag.schemaValidation && !pageDiag.schemaValidation.valid && (
+            <Card style={{ borderRadius: "0.8rem" }} data-testid="card-schema-validation">
+              <CardHeader className="flex flex-row items-center gap-2 pb-2">
+                <IconAlertTriangle className="h-4 w-4 text-destructive" />
+                <CardTitle className="text-sm text-destructive">Schema Validation Errors</CardTitle>
+                <Badge variant="destructive" className="ml-auto text-xs">
+                  {pageDiag.schemaValidation.errors.length} {pageDiag.schemaValidation.errors.length === 1 ? "error" : "errors"}
+                </Badge>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-xs text-muted-foreground mb-2">These errors prevent the page from rendering. The YAML content does not match the expected schema.</p>
+                {pageDiag.schemaValidation.errors.map((err, i) => (
+                  <div key={i} className="p-3 rounded-md bg-destructive/10 border border-destructive/30 text-sm" data-testid={`schema-error-${i}`}>
+                    <div className="font-mono font-medium text-destructive text-xs">{err.code}</div>
+                    <div className="mt-1 text-foreground">
+                      {err.path && <span className="font-mono text-muted-foreground">{err.path}: </span>}
+                      {err.message}
+                    </div>
+                    {err.expected && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        Expected: <span className="font-mono">{err.expected}</span>
+                        {err.received && (<> | Received: <span className="font-mono">{err.received}</span></>)}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
+          {pageDiag.issues && pageDiag.issues.length > 0 && (
+            <Card style={{ borderRadius: "0.8rem" }} data-testid="card-issues">
+              <CardHeader className="flex flex-row items-center gap-2 pb-2">
+                <IconAlertTriangle className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm">Issues</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {pageDiag.issues.filter(i => i.type === "error").map((issue, i) => (
+                  <div key={`e-${i}`} className="p-2 rounded-md bg-destructive/10 border border-destructive/30 text-sm" data-testid={`issue-error-${i}`}>
+                    <span className="font-mono text-xs text-destructive">{issue.code}</span>
+                    <span className="ml-2 text-foreground">{issue.message}</span>
+                  </div>
+                ))}
+                {pageDiag.issues.filter(i => i.type === "warning").map((issue, i) => (
+                  <div key={`w-${i}`} className="p-2 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm" data-testid={`issue-warning-${i}`}>
+                    <span className="font-mono text-xs text-amber-700 dark:text-amber-300">{issue.code}</span>
+                    <span className="ml-2 text-foreground">{issue.message}</span>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}

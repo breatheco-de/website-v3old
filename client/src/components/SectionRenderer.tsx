@@ -1,6 +1,10 @@
 import type { CSSProperties } from "react";
 import { useState, useCallback, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn } from "@shared/schema";
+import { useSession } from "@/contexts/SessionContext";
+import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
+import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
+import { resolveDeep } from "@/lib/variable-resolver";
 
 // ============================================
 // Component Load Strategy Registry
@@ -201,6 +205,7 @@ const ArticleSection = lazy(() => import("@/components/Article").then(m => ({ de
 const PartnershipCarousel = lazy(() => import("@/components/partnership-carousel/PartnershipCarousel").then(m => ({ default: m.PartnershipCarousel })));
 const CareerSupportExplain = lazy(() => import("@/components/career-support-explain/CareerSupportExplain"));
 const ProfilesCarousel = lazy(() => import("@/components/profiles-carousel/ProfilesCarousel"));
+const DoubleCTA = lazy(() => import("@/components/double-cta/DoubleCTA"));
 
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
@@ -214,11 +219,33 @@ import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditMode
 // In edit mode: always show all sections (visibility alert is shown instead of hiding)
 // In production: CSS handles visibility
 function shouldShowSection(showOn: ShowOn | undefined, previewBreakpoint: PreviewBreakpoint | undefined, isEditMode: boolean): boolean {
-  // In edit mode, always show all sections (EditableSection will display visibility alerts)
+  if (isEditMode) return true;
+  return true;
+}
+
+function shouldShowSectionForLocation(
+  section: Section,
+  locationSlug: string | undefined,
+  locationRegion: string | undefined,
+  isEditMode: boolean
+): boolean {
   if (isEditMode) return true;
 
-  // In production, always return true - CSS classes handle responsive visibility
-  return true;
+  const layout = section as SectionLayout;
+  const { showOnLocations, showOnRegions } = layout;
+
+  const hasLocationFilter = showOnLocations && showOnLocations.length > 0;
+  const hasRegionFilter = showOnRegions && showOnRegions.length > 0;
+
+  if (!hasLocationFilter && !hasRegionFilter) return true;
+
+  if (hasLocationFilter && locationSlug && showOnLocations.includes(locationSlug)) return true;
+  if (hasRegionFilter && locationRegion && showOnRegions.includes(locationRegion)) return true;
+
+  if (hasLocationFilter && !hasRegionFilter) return false;
+  if (hasRegionFilter && !hasLocationFilter) return false;
+
+  return false;
 }
 
 // Loading fallback for lazy sections
@@ -482,6 +509,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <LazySection key={index}><CareerSupportExplain data={section as Parameters<typeof CareerSupportExplain>[0]["data"]} /></LazySection>;
     case "profiles_carousel":
       return <LazySection key={index}><ProfilesCarousel data={section as Parameters<typeof ProfilesCarousel>[0]["data"]} /></LazySection>;
+    case "double_cta":
+      return <LazySection key={index}><DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} /></LazySection>;
     default: {
       if (process.env.NODE_ENV === "development") {
         console.warn(`Unknown section type: ${sectionType}`);
@@ -552,6 +581,78 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
   const previewBreakpoint = editMode?.previewBreakpoint;
+  const { session } = useSession();
+  const sessionLocationSlug = session.location?.slug;
+  const sessionLocationRegion = session.location?.region;
+
+  const { data: varDefinitions } = useVariableDefinitions();
+  const varContext = useVariableContext();
+
+  useEffect(() => {
+    if (!contentType || !slug || !locale) return;
+
+    const handler = async (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      await new Promise((r) => setTimeout(r, 0));
+      if (detail._handled) return;
+      const { sectionIndex, originalText, templateSyntax } = detail;
+      if (sectionIndex < 0 || sectionIndex >= sections.length) return;
+
+      const section = sections[sectionIndex];
+      if (!section) return;
+
+      let foundMatch = false;
+      const replaceInObj = (obj: unknown): unknown => {
+        if (typeof obj === "string") {
+          if (obj.includes(originalText)) {
+            foundMatch = true;
+            return obj.replace(originalText, templateSyntax);
+          }
+          return obj;
+        }
+        if (Array.isArray(obj)) {
+          return obj.map(replaceInObj);
+        }
+        if (obj && typeof obj === "object") {
+          const result: Record<string, unknown> = {};
+          for (const [k, v] of Object.entries(obj)) {
+            result[k] = replaceInObj(v);
+          }
+          return result;
+        }
+        return obj;
+      };
+
+      const updatedSection = replaceInObj(section);
+
+      if (!foundMatch) {
+        toast({ title: "Text not found", description: "The selected text was not found in the section content.", variant: "destructive" });
+        return;
+      }
+
+      const result = await sendEditOperation(contentType, slug, locale, [
+        { action: "update_section", index: sectionIndex, section: updatedSection }
+      ]);
+
+      if (result.success) {
+        toast({ title: "Variable inserted", description: "Text replaced with variable template." });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to insert variable", description: result.error, variant: "destructive" });
+      }
+    };
+
+    window.addEventListener("variable-created-replace", handler);
+    return () => window.removeEventListener("variable-created-replace", handler);
+  }, [contentType, slug, locale, sections, toast]);
+
+  const resolvedSections = useMemo(() => {
+    if (isEditMode || !varDefinitions || Object.keys(varDefinitions).length === 0) {
+      return sections;
+    }
+    const { data } = resolveDeep(sections, varDefinitions, varContext);
+    return data as Section[];
+  }, [sections, isEditMode, varDefinitions, varContext]);
 
   const renderSectionWithContext = useCallback((section: Section, index: number) => {
     const sectionType = (section as { type: string }).type;
@@ -657,20 +758,21 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           slug={slug}
         />
       )}
-      {sections.map((section, index) => {
+      {resolvedSections.map((section, index) => {
+        const rawSection = sections[index];
         const sectionType = (section as { type: string }).type;
         const renderedSection = renderSectionWithContext(section, index);
         const layoutStyles = getSectionLayoutStyles(section);
-        const showOn = (section as SectionLayout).showOn;
+        const showOn = (rawSection as SectionLayout).showOn;
 
-        // In edit mode: previewBreakpoint controls visibility, no CSS classes needed
-        // In production: CSS classes handle responsive visibility
         const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
+        const isLocationVisible = shouldShowSectionForLocation(rawSection, sessionLocationSlug, sessionLocationRegion, isEditMode);
         const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
 
         if (!renderedSection) return null;
 
-        // In edit mode, hide section content but keep AddSectionButton for insertion points
+        if (!isLocationVisible) return null;
+
         if (!isVisible && isEditMode) {
           return (
             <div key={index}>
@@ -685,11 +787,12 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
           );
         }
 
-        const sectionId = (section as SectionLayout).section_id || `${sectionType}-${index}`;
+
+        const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
             <EditableSection
-              section={section}
+              section={rawSection}
               index={index}
               sectionType={sectionType}
               contentType={contentType}
@@ -701,7 +804,9 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}
             >
-              {renderedSection}
+              <VariableHighlightProvider sectionIndex={index}>
+                {renderedSection}
+              </VariableHighlightProvider>
             </EditableSection>
             <AddSectionButton
               insertIndex={index + 1}

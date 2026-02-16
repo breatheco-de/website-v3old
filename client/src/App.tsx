@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense } from "react";
 import NotFound from "@/pages/not-found";
 import { DebugBubble } from "@/components/DebugBubble";
+import { VariableModalHost } from "@/components/editing/VariableHighlight";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
 import { usePageTracking } from "@/hooks/usePageTracking";
@@ -96,6 +97,7 @@ function App() {
             <PageTracker />
             <Router />
             <DebugBubble />
+            <VariableModalHost />
           </EditModeWrapper>
         </TooltipProvider>
       </SessionProvider>
