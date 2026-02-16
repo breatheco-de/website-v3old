@@ -53,7 +53,7 @@ sections:
       description: Access the full 10-milestone roadmap and Company Case methodology.
       cta_button:
         text: Send me the Curriculum
-        url: /en/apply
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
