@@ -358,33 +358,6 @@ sections:
         contributor: UTEC-BID
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
-  - type: two_column
-    proportions:
-      - 5
-      - 7
-    background: bg-muted/30
-    alignment: center
-    left:
-      image: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
-      image_alt: Team collaborating on a project
-      justify: center
-    right:
-      heading: Become a partner
-      description: Collaborate with our mission and leverage yours!
-      bullets:
-        - text: Elevate your brand's visibility and exposure.
-        - text: Establish your brand as a leading force in the tech industry.
-        - text: Foster a spirit of community and collaboration.
-        - text: Strengthen job retention through our impactful reskilling programs.
-        - text: Bridge the technology divide within your community.
-        - text: Fill vital tech roles within your organization with our highly skilled bootcamp graduates.
-        - text: Enhance brand recognition and add value by sponsoring significant events.
-      bullet_icon: Check
-      font_size: base
-    reverse_on_mobile: true
-    gap: "12"
-    marginY:
-      desktop: none xl
   - type: why_learn_ai
     variant: laptop-edge
     title: Our mission is to make high-quality coding education affordable.
