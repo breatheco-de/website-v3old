@@ -25,7 +25,7 @@ sections:
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Get Started
-      url: /programs
+      url: "#bottom"
       variant: primary
       icon: ""
     left_images:
