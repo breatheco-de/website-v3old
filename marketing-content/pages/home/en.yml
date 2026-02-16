@@ -112,8 +112,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Program Tuition
-    subheading: See tuition and funding options for each program
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
         icon: Brain
@@ -121,18 +121,18 @@ sections:
         label: Updated in 2026
         title: AI Engineering
         badges:
-          - icon: DollarSign
-            text: $14,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        cta_text: Discover program
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.
+        cta_text: View Program Details
         cta_url: /en/ai-engineering
-        course_background: accent
-      - name: Full Stack Development
+        course_background: hsl(var(--destructive))
+      - name: Full Stack Development with AI
         icon: Code
         duration: 9 months part-time
-        label: Updated in 2025
+        label: Updated in 2026
         title: Full Stack Software Development
         badges:
           - icon: Code
@@ -140,9 +140,10 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
+          - icon: ""
+            text: ""
+        description: Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.
+        cta_text: View Program Details
         cta_url: /en/full-stack
         course_background: primary
       - name: Data Science & ML
@@ -151,14 +152,12 @@ sections:
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
-          - icon: DollarSign
-            text: $10,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
-        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: Discover program
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
+        cta_text: View Program Details
         cta_url: /en/data-science-ml
         course_background: primary
       - name: Cybersecurity
@@ -167,16 +166,14 @@ sections:
         label: Updated in 2026
         title: Cybersecurity
         badges:
-          - icon: DollarSign
-            text: $9,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
-        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: Discover program
+          - icon: Lock
+            text: Ethical Hacking & Threat Detection
+          - icon: Server
+            text: Network & Cloud Security
+        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
+        cta_text: View Program Details
         cta_url: /en/cybersecurity
-        course_background: secondary
+        course_background: hsl(var(--destructive))
     marginY:
       desktop: lg
     paddingY:
