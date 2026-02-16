@@ -444,7 +444,7 @@ function GlobalHealthTab() {
       )}
 
       {results && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {filteredValidators.map((v) => (
             <Card key={v.name} style={{ borderRadius: "0.8rem" }} data-testid={`card-validator-${v.name}`}>
               <CardHeader className="flex flex-row items-start justify-between gap-2 pb-2">
