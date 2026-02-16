@@ -108,13 +108,15 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        price: $349
+        price_info: or less depending on financing plan
         cta_text: View Program Details
         cta_url: /en/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
-        duration: 9 months part-time
+        duration: 20 weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -125,7 +127,9 @@ sections:
             text: API Development
           - icon: ""
             text: ""
-        description: Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: $299
+        price_info: or less depending on financing plan
         cta_text: View Program Details
         cta_url: /en/full-stack
         course_background: hsl(var(--destructive))
@@ -139,7 +143,9 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        price: $299
+        price_info: or less depending on financing plan
         cta_text: View Program Details
         cta_url: /en/data-science-ml
         course_background: hsl(var(--primary))
@@ -150,10 +156,12 @@ sections:
         title: Cybersecurity
         badges:
           - icon: Lock
-            text: Ethical Hacking & Threat Detection
+            text: Threat Detection & Network Security
           - icon: Server
-            text: Network & Cloud Security
-        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        price: $299
+        price_info: or less depending on financing plan
         cta_text: View Program Details
         cta_url: /en/cybersecurity
         course_background: hsl(var(--secondary-foreground))
