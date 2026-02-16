@@ -17,6 +17,7 @@ export interface RedirectConflictInfo {
   redirectUrl: string;
   files: string[];
   code: string;
+  originalMessage: string;
 }
 
 export interface ValidatorIssue {
@@ -69,7 +70,7 @@ export function parseRedirectConflict(issue: ValidatorIssue): RedirectConflictIn
   }
 
   if (!redirectUrl) return null;
-  return { redirectUrl, files, code: issue.code };
+  return { redirectUrl, files, code: issue.code, originalMessage: issue.message };
 }
 
 function getConflictTitle(code: string): string {
@@ -82,41 +83,45 @@ function getConflictTitle(code: string): string {
   }
 }
 
+function formatFilePath(f: string): string {
+  return f.replace("marketing-content/", "").split("/").join(" / ");
+}
+
 function getConflictDescription(info: RedirectConflictInfo): string {
+  const fileNames = info.files.map(formatFilePath);
+
   switch (info.code) {
     case "REDIRECT_CONFLICT":
-      return `The redirect "${info.redirectUrl}" is claimed by multiple pages. Choose which page should own this redirect — the other will have it removed.`;
+      return `Two different pages are trying to own the URL "${info.redirectUrl}" as a redirect. Right now, both ${fileNames.length >= 2 ? `"${fileNames[0]}" and "${fileNames[1]}"` : "files"} define this redirect, which creates a conflict. Choose which page should keep it — the redirect will be removed from the other.`;
     case "REDIRECT_OVERLAP":
-      return `The redirect "${info.redirectUrl}" is defined in both a shared file (_common.yml) and a language-specific file. Keep it in only one place.`;
+      return `The redirect "${info.redirectUrl}" is defined twice: once in the shared file (_common.yml, which applies to all languages) and again in a language-specific file. This duplication can cause unexpected behavior. Choose where it should live.`;
     case "SELF_REDIRECT":
-      return `The redirect "${info.redirectUrl}" points to itself. This redirect should be removed.`;
+      return `The URL "${info.redirectUrl}" has a redirect that points back to itself, creating an infinite loop. Anyone visiting this URL would get stuck in a redirect cycle. This redirect needs to be removed.`;
     case "REDIRECT_OVERWRITES_CONTENT":
-      return `The redirect "${info.redirectUrl}" conflicts with an existing page URL. This redirect should be removed to avoid hiding the page.`;
+      return `There is a redirect defined for "${info.redirectUrl}", but a real page already exists at that same URL. The redirect is hiding the page — visitors who go to ${info.redirectUrl} get sent somewhere else instead of seeing the actual page content. Removing the redirect will make the page visible again.`;
     default:
       return `There's an issue with the redirect "${info.redirectUrl}".`;
   }
 }
 
 function getConfirmationWarning(conflict: RedirectConflictInfo, selectedFile: string): string {
-  const formatFile = (f: string) => f.replace("marketing-content/", "").split("/").join(" / ");
-
   switch (conflict.code) {
     case "REDIRECT_CONFLICT": {
       const removedFile = conflict.files.find(f => f !== selectedFile);
-      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(removedFile || "")}" and kept only in "${formatFile(selectedFile)}". Users visiting ${conflict.redirectUrl} will be redirected based on the definition in "${formatFile(selectedFile)}".`;
+      return `The redirect "${conflict.redirectUrl}" will be deleted from "${formatFilePath(removedFile || "")}" and kept in "${formatFilePath(selectedFile)}". Visitors going to ${conflict.redirectUrl} will be redirected according to the rules in "${formatFilePath(selectedFile)}".`;
     }
     case "REDIRECT_OVERLAP": {
       const removedFile = selectedFile.includes("_common.yml")
         ? conflict.files.find(f => !f.includes("_common.yml"))
         : conflict.files.find(f => f.includes("_common.yml"));
-      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(removedFile || "")}" to eliminate the duplicate definition.`;
+      return `The duplicate redirect "${conflict.redirectUrl}" will be removed from "${formatFilePath(removedFile || "")}". It will continue working from "${formatFilePath(selectedFile)}".`;
     }
     case "SELF_REDIRECT":
-      return `The self-redirect "${conflict.redirectUrl}" will be removed from "${formatFile(selectedFile)}". This redirect was pointing to itself and causing a loop.`;
+      return `The self-referencing redirect at "${conflict.redirectUrl}" will be removed from "${formatFilePath(selectedFile)}". After this, the URL will load normally instead of looping.`;
     case "REDIRECT_OVERWRITES_CONTENT":
-      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(selectedFile)}". The page at this URL will become accessible again instead of being redirected.`;
+      return `The redirect at "${conflict.redirectUrl}" will be removed from "${formatFilePath(selectedFile)}". After this, visitors going to ${conflict.redirectUrl} will see the actual page content instead of being sent somewhere else.`;
     default:
-      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(selectedFile)}".`;
+      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFilePath(selectedFile)}".`;
   }
 }
 
@@ -170,10 +175,7 @@ export function RedirectConflictResolverModal({
   const isConflict = conflict.code === "REDIRECT_CONFLICT";
   const isOverlap = conflict.code === "REDIRECT_OVERLAP";
 
-  const formatFileName = (f: string) => {
-    const parts = f.replace("marketing-content/", "").split("/");
-    return parts.join(" / ");
-  };
+  const formatFileName = formatFilePath;
 
   const commonFile = conflict.files.find(f => f.includes("_common.yml"));
   const localeFiles = conflict.files.filter(f => !f.includes("_common.yml"));
