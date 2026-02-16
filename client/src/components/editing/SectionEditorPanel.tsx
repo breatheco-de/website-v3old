@@ -19,6 +19,7 @@ import {
   IconTrash,
   IconPencil,
   IconMapPin,
+  IconWand,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { getIcon } from "@/lib/icons";
@@ -442,7 +443,7 @@ export function SectionEditorPanel({
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
-  const [tableEditorMode, setTableEditorMode] = useState<"content" | "filter" | null>(null);
+  const [tableEditorMode, setTableEditorMode] = useState<"ai" | "content" | "filter" | null>(null);
   const [imagePickerMode, setImagePickerMode] = useState<"browse" | "upload">(
     "browse",
   );
@@ -1594,61 +1595,21 @@ export function SectionEditorPanel({
               </>
             )}
             {sectionType === "dynamic_table" && parsedSection?.endpoint && (
-              <DynamicTableChat
-                endpoint={parsedSection.endpoint as string}
-                dataPath={parsedSection.data_path as string | undefined}
-                currentColumns={
-                  (parsedSection.columns as Array<{
-                    key: string;
-                    label: string;
-                    type:
-                      | "text"
-                      | "number"
-                      | "date"
-                      | "image"
-                      | "link"
-                      | "boolean";
-                    template?: string;
-                  }>) || []
-                }
-                currentTitle={parsedSection.title as string | undefined}
-                locale={locale}
-                onApplyConfig={(config) => {
-                  try {
-                    const parsed = safeYamlLoad(yamlContent) as Record<
-                      string,
-                      unknown
-                    >;
-                    if (!parsed || typeof parsed !== "object") return;
-                    pushUndoState(yamlContent);
-                    parsed.columns = config.columns;
-                    if (config.title) {
-                      parsed.title = config.title;
-                    } else {
-                      delete parsed.title;
-                    }
-                    const newYaml = safeYamlDump(parsed, {
-                      lineWidth: -1,
-                      noRefs: true,
-                      quotingType: '"',
-                    });
-                    setYamlContent(newYaml);
-                    setHasChanges(true);
-                    setParseError(null);
-                    if (onPreviewChange) onPreviewChange(parsed as Section);
-                  } catch (err) {
-                    console.error("Error applying table config:", err);
-                  }
-                }}
-              />
-            )}
-            {sectionType === "dynamic_table" && parsedSection?.endpoint && (
               <>
-                <div className="flex gap-2 border-t pt-3 mt-3">
+                <div className="flex gap-1 flex-wrap">
+                  <Button
+                    variant={tableEditorMode === "ai" || tableEditorMode === null ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setTableEditorMode("ai")}
+                    data-testid="button-table-ai-assistant"
+                  >
+                    <IconWand className="h-3.5 w-3.5 mr-1" />
+                    AI Columns
+                  </Button>
                   <Button
                     variant={tableEditorMode === "content" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTableEditorMode(tableEditorMode === "content" ? null : "content")}
+                    onClick={() => setTableEditorMode("content")}
                     data-testid="button-table-content-filter"
                   >
                     <IconSettings className="h-3.5 w-3.5 mr-1" />
@@ -1657,78 +1618,145 @@ export function SectionEditorPanel({
                   <Button
                     variant={tableEditorMode === "filter" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTableEditorMode(tableEditorMode === "filter" ? null : "filter")}
+                    onClick={() => setTableEditorMode("filter")}
                     data-testid="button-table-global-filter"
                   >
                     <IconCode className="h-3.5 w-3.5 mr-1" />
                     Global Filter
                   </Button>
                 </div>
-                {tableEditorMode && (
-                  <div className="border-t pt-3 mt-3">
-                    <TableContentEditor
-                      key={`${tableEditorMode}-${parsedSection.endpoint}`}
-                      mode={tableEditorMode}
-                      endpoint={parsedSection.endpoint as string}
-                      dataPath={parsedSection.data_path as string | undefined}
-                      currentColumns={(parsedSection.columns as Array<{ key: string; label: string; type: "text" | "number" | "date" | "image" | "link" | "boolean" }>) || []}
-                      currentTitle={parsedSection.title as string | undefined}
-                      currentFilter={parsedSection.global_filter as string | undefined}
-                      locale={locale}
-                      onApplyContent={(config) => {
-                        try {
-                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
-                          if (!parsed || typeof parsed !== "object") return;
-                          pushUndoState(yamlContent);
-                          parsed.columns = config.columns;
-                          if (config.title) {
-                            parsed.title = config.title;
-                          } else {
-                            delete parsed.title;
-                          }
-                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
-                          setYamlContent(newYaml);
-                          setHasChanges(true);
-                          setParseError(null);
-                          if (onPreviewChange) onPreviewChange(parsed as Section);
-                        } catch (err) {
-                          console.error("Error applying table config:", err);
+
+                {(tableEditorMode === "ai" || tableEditorMode === null) && (
+                  <DynamicTableChat
+                    endpoint={parsedSection.endpoint as string}
+                    dataPath={parsedSection.data_path as string | undefined}
+                    currentColumns={
+                      (parsedSection.columns as Array<{
+                        key: string;
+                        label: string;
+                        type:
+                          | "text"
+                          | "number"
+                          | "date"
+                          | "image"
+                          | "link"
+                          | "boolean";
+                        template?: string;
+                      }>) || []
+                    }
+                    currentTitle={parsedSection.title as string | undefined}
+                    locale={locale}
+                    onApplyConfig={(config) => {
+                      try {
+                        const parsed = safeYamlLoad(yamlContent) as Record<
+                          string,
+                          unknown
+                        >;
+                        if (!parsed || typeof parsed !== "object") return;
+                        pushUndoState(yamlContent);
+                        parsed.columns = config.columns;
+                        if (config.title) {
+                          parsed.title = config.title;
+                        } else {
+                          delete parsed.title;
                         }
-                      }}
-                      onApplyFilter={(filterBase64) => {
-                        try {
-                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
-                          if (!parsed || typeof parsed !== "object") return;
-                          pushUndoState(yamlContent);
-                          parsed.global_filter = filterBase64;
-                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
-                          setYamlContent(newYaml);
-                          setHasChanges(true);
-                          setParseError(null);
-                          if (onPreviewChange) onPreviewChange(parsed as Section);
-                        } catch (err) {
-                          console.error("Error applying global filter:", err);
-                        }
-                      }}
-                      onRemoveFilter={() => {
-                        try {
-                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
-                          if (!parsed || typeof parsed !== "object") return;
-                          pushUndoState(yamlContent);
-                          delete parsed.global_filter;
-                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
-                          setYamlContent(newYaml);
-                          setHasChanges(true);
-                          setParseError(null);
-                          if (onPreviewChange) onPreviewChange(parsed as Section);
-                        } catch (err) {
-                          console.error("Error removing global filter:", err);
-                        }
-                      }}
-                      onClose={() => setTableEditorMode(null)}
-                    />
-                  </div>
+                        const newYaml = safeYamlDump(parsed, {
+                          lineWidth: -1,
+                          noRefs: true,
+                          quotingType: '"',
+                        });
+                        setYamlContent(newYaml);
+                        setHasChanges(true);
+                        setParseError(null);
+                        if (onPreviewChange) onPreviewChange(parsed as Section);
+                      } catch (err) {
+                        console.error("Error applying table config:", err);
+                      }
+                    }}
+                  />
                 )}
+
+                {tableEditorMode === "content" && (
+                  <TableContentEditor
+                    key={`content-${parsedSection.endpoint}`}
+                    mode="content"
+                    endpoint={parsedSection.endpoint as string}
+                    dataPath={parsedSection.data_path as string | undefined}
+                    currentColumns={(parsedSection.columns as Array<{ key: string; label: string; type: "text" | "number" | "date" | "image" | "link" | "boolean" }>) || []}
+                    currentTitle={parsedSection.title as string | undefined}
+                    currentFilter={parsedSection.global_filter as string | undefined}
+                    locale={locale}
+                    onApplyContent={(config) => {
+                      try {
+                        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                        if (!parsed || typeof parsed !== "object") return;
+                        pushUndoState(yamlContent);
+                        parsed.columns = config.columns;
+                        if (config.title) {
+                          parsed.title = config.title;
+                        } else {
+                          delete parsed.title;
+                        }
+                        const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                        setYamlContent(newYaml);
+                        setHasChanges(true);
+                        setParseError(null);
+                        if (onPreviewChange) onPreviewChange(parsed as Section);
+                      } catch (err) {
+                        console.error("Error applying table config:", err);
+                      }
+                    }}
+                    onApplyFilter={() => {}}
+                    onRemoveFilter={() => {}}
+                    onClose={() => setTableEditorMode("ai")}
+                  />
+                )}
+
+                {tableEditorMode === "filter" && (
+                  <TableContentEditor
+                    key={`filter-${parsedSection.endpoint}`}
+                    mode="filter"
+                    endpoint={parsedSection.endpoint as string}
+                    dataPath={parsedSection.data_path as string | undefined}
+                    currentColumns={(parsedSection.columns as Array<{ key: string; label: string; type: "text" | "number" | "date" | "image" | "link" | "boolean" }>) || []}
+                    currentTitle={parsedSection.title as string | undefined}
+                    currentFilter={parsedSection.global_filter as string | undefined}
+                    locale={locale}
+                    onApplyContent={() => {}}
+                    onApplyFilter={(filterBase64) => {
+                      try {
+                        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                        if (!parsed || typeof parsed !== "object") return;
+                        pushUndoState(yamlContent);
+                        parsed.global_filter = filterBase64;
+                        const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                        setYamlContent(newYaml);
+                        setHasChanges(true);
+                        setParseError(null);
+                        if (onPreviewChange) onPreviewChange(parsed as Section);
+                      } catch (err) {
+                        console.error("Error applying global filter:", err);
+                      }
+                    }}
+                    onRemoveFilter={() => {
+                      try {
+                        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                        if (!parsed || typeof parsed !== "object") return;
+                        pushUndoState(yamlContent);
+                        delete parsed.global_filter;
+                        const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                        setYamlContent(newYaml);
+                        setHasChanges(true);
+                        setParseError(null);
+                        if (onPreviewChange) onPreviewChange(parsed as Section);
+                      } catch (err) {
+                        console.error("Error removing global filter:", err);
+                      }
+                    }}
+                    onClose={() => setTableEditorMode("ai")}
+                  />
+                )}
+
                 <div className="space-y-2 border-t pt-3 mt-3">
                   <Label className="text-xs font-medium">Max Rows</Label>
                   <Input
