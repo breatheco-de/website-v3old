@@ -1,0 +1,9 @@
+slug: test-english-en
+template: default
+title: test-english
+meta:
+  page_title: test-english | 4Geeks Academy
+  description: test-english - Learn more about this topic at 4Geeks Academy.
+  redirects:
+    - /test-english
+sections: []
