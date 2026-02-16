@@ -146,6 +146,21 @@ sections:
       cta_url: /en/ai-engineering
       cta_variant: secondary
       sub_text: Scholarships available - Apply to learn more
+  - type: cta_banner
+    version: "1.0"
+    title: Ready to Start Your Tech Career?
+    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
+    background: bg-primary
+    variant: default
+    buttons:
+      - text: Start Learning Now
+        url: /apply
+        variant: secondary
+        button_variant: ghost
+        text_color: hsl(var(--muted-foreground))
+      - text: Talk to an Advisor
+        url: /contact
+        variant: outline
   - type: two_column
     variant: benefitCards
     stacked_header: true
@@ -237,6 +252,19 @@ sections:
         role: Career Coach
         image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
+  - type: cta_banner
+    version: "1.0"
+    variant: default
+    background: bg-primary
+    title: Ready to Start Your Tech Career?
+    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
+    buttons:
+      - text: Start Learning Now
+        url: /apply
+        variant: secondary
+      - text: Talk to an Advisor
+        url: /contact
+        variant: outline
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say

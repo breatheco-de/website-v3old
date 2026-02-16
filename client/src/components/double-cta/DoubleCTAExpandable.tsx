@@ -74,7 +74,7 @@ function CTABox({
       className={cn(
         "relative flex flex-col overflow-hidden p-6 lg:p-8 transition-all duration-500 ease-in-out lg:h-full",
         side == "right" ? "bg-primary/5" : "",
-        isActive ? "border-primary border-2 lg:border lg:border-border" : "",
+        isActive ? "border-primary md:border-card border-2 lg:border lg:border-border" : "",
       )}
       onMouseEnter={onHover}
       onClick={onClick}

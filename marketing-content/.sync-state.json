@@ -88,9 +88,11 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2",
-      "lastModified": 1771253381151.464,
-      "remoteSha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2"
+      "sha": "972efcc9c465d8073bba70f7fd8c5e83ea1b2ae300d234529e6c494d49e543b3",
+      "lastModified": 1771272353457.932,
+      "remoteSha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-16T20:05:53.459Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -733,9 +735,11 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "aa47e3321dc522fea4ecea816daf981533bf3d6dfb5d485313f17595e6190f05",
-      "lastModified": 1771269264863.7224,
-      "remoteSha": "aa47e3321dc522fea4ecea816daf981533bf3d6dfb5d485313f17595e6190f05"
+      "sha": "f9b1562fa3636c46dc3e4a2a11a7578166b355b9e250bd371adac1c90ca45bc5",
+      "lastModified": 1771271862712.4858,
+      "remoteSha": "aa47e3321dc522fea4ecea816daf981533bf3d6dfb5d485313f17595e6190f05",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-16T19:57:42.715Z"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",

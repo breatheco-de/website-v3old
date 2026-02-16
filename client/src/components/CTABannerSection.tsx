@@ -113,7 +113,7 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
           )}
           
           {hasMultipleButtons ? (
-            <div className="flex flex-wrap justify-center gap-4 pb-2">
+            <div className="flex flex-wrap justify-center gap-4">
               {filteredButtons!.map((button: CtaButton, index: number) => {
                 const resolvedVariant = button.button_variant || button.variant;
                 const variant = resolvedVariant === "primary" ? "default" : resolvedVariant === "secondary" ? "secondary" : resolvedVariant === "ghost" ? "ghost" : resolvedVariant === "link" ? "link" : resolvedVariant === "destructive" ? "destructive" : resolvedVariant === "outline" ? "outline" : "default";
