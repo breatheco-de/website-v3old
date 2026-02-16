@@ -50,21 +50,21 @@ sections:
         alt: Forbes Award logo
         logo: /attached_assets/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
-        description: 4Geeks is included by Forbes in "5 Coding bootcamps to consider"
+        description: Consistently listed among top 5 bootcamps by Forbes
         link: https://www.coursereport.com
         linkText: Read reviews
       - id: switchup-detailed
         alt: Clark University Logo
         logo: /attached_assets/clark-university_1769653206336.png
         logoHeight: 64px
-        description: We are certified by the most recognized universities
+        description: Certified by recognized universities
         link: https://www.switchup.org
         linkText: See rankings
       - id: careerkarma-detailed
         alt: Award badges
         logo: /attached_assets/badges-new.avif
         logoHeight: 64px
-        description: Recognized in 2024 and 2025 by SwitchUp, Course Report, and Forbes. Continuing our legacy as one of the top coding bootcamps in the world.
+        description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
         link: https://careerkarma.com
         linkText: Learn more
     marginY:
@@ -80,7 +80,7 @@ sections:
       - src: /attached_assets/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span>"
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
       text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
       background: primary
       width: 2
@@ -95,7 +95,7 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Succeed in Tech with AI-Powered Learning and Lifelong Human Support
+    title: Where AI-Powered Learning Meets Lifelong Mentorship
     description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
     bullets:
       - heading: Personalized Learning at Every Level
@@ -181,30 +181,6 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Progress Like Never Before
-    description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
-    cards:
-      - icon: Rigobot
-        title: Our custom-built AI
-        description: Rigobot, tracks your activity and identifies your strengths, struggles, and gaps—delivering real-time feedback tailored to maximize your learning.
-      - icon: IconUsers
-        title: Unlimited 1:1 sessions with expert mentors
-        description: give you live human support whenever you need it—so you never get stuck or lose momentum.
-      - icon: Clock
-        title: Career coaches work with you individually
-        description: to build your confidence and strategy—helping you stand out on paper, in interviews, and on AI-filtered platforms like ATS systems and LinkedIn.
-      - icon: IconChalkboardTeacher
-        title: 1:7 teacher-student ratio in live classes
-        description: means you get real attention, so your questions get answered, and your learning stays on track.
-    footer_description: Join thousands of graduates who have launched successful tech careers.
-    background: bg-background
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: none
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era
