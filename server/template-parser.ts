@@ -28,7 +28,7 @@ export function parseTemplateTokens(text: string): TemplateToken[] {
 
 export interface ResolvedToken extends TemplateToken {
   resolvedValue: string;
-  source: "location" | "region" | "locale" | "default" | "inline";
+  source: "condition" | "location" | "region" | "locale" | "default" | "inline";
 }
 
 export function resolveTokens(

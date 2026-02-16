@@ -1,7 +1,13 @@
 const TEMPLATE_REGEX = /\{\{\s*([^|}]+?)\s*(?:\|\s*([\s\S]*?))?\s*\}\}/g;
 
+export interface VariableCondition {
+  query: Record<string, string>;
+  value: string;
+}
+
 export interface VariableDefinition {
   default?: string;
+  conditions?: VariableCondition[];
   by_locale?: Record<string, string>;
   by_region?: Record<string, string>;
   by_location?: Record<string, string>;
@@ -17,7 +23,7 @@ export interface ResolvedVariable {
   original: string;
   variableName: string;
   resolvedValue: string;
-  source: "location" | "region" | "locale" | "default" | "inline";
+  source: "condition" | "location" | "region" | "locale" | "default" | "inline";
   defaultValue: string;
 }
 
@@ -28,6 +34,18 @@ export function resolveVariable(
 ): { value: string; source: ResolvedVariable["source"] } | null {
   const def = definitions[name];
   if (!def) return null;
+
+  if (def.conditions && def.conditions.length > 0) {
+    for (const condition of def.conditions) {
+      const matches = Object.entries(condition.query).every(([key, val]) => {
+        const contextVal = (context as Record<string, string | undefined>)[key];
+        return contextVal === val;
+      });
+      if (matches) {
+        return { value: condition.value, source: "condition" };
+      }
+    }
+  }
 
   if (context.location && def.by_location?.[context.location]) {
     return { value: def.by_location[context.location], source: "location" };
