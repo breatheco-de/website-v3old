@@ -60,6 +60,7 @@ import { IconPickerModal } from "./IconPickerModal";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { DynamicTableChat } from "./DynamicTableChat";
+import { TableContentEditor } from "./TableContentEditor";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
@@ -441,6 +442,7 @@ export function SectionEditorPanel({
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
+  const [tableEditorMode, setTableEditorMode] = useState<"content" | "filter" | null>(null);
   const [imagePickerMode, setImagePickerMode] = useState<"browse" | "upload">(
     "browse",
   );
@@ -1417,7 +1419,7 @@ export function SectionEditorPanel({
       );
       if (!confirmed) return;
     }
-    // Clear live preview when closing
+    setTableEditorMode(null);
     if (onPreviewChange) {
       onPreviewChange(null);
     }
@@ -1640,8 +1642,93 @@ export function SectionEditorPanel({
                 }}
               />
             )}
-            {sectionType === "dynamic_table" && (
+            {sectionType === "dynamic_table" && parsedSection?.endpoint && (
               <>
+                <div className="flex gap-2 border-t pt-3 mt-3">
+                  <Button
+                    variant={tableEditorMode === "content" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setTableEditorMode(tableEditorMode === "content" ? null : "content")}
+                    data-testid="button-table-content-filter"
+                  >
+                    <IconSettings className="h-3.5 w-3.5 mr-1" />
+                    Content Filter
+                  </Button>
+                  <Button
+                    variant={tableEditorMode === "filter" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setTableEditorMode(tableEditorMode === "filter" ? null : "filter")}
+                    data-testid="button-table-global-filter"
+                  >
+                    <IconCode className="h-3.5 w-3.5 mr-1" />
+                    Global Filter
+                  </Button>
+                </div>
+                {tableEditorMode && (
+                  <div className="border-t pt-3 mt-3">
+                    <TableContentEditor
+                      key={`${tableEditorMode}-${parsedSection.endpoint}`}
+                      mode={tableEditorMode}
+                      endpoint={parsedSection.endpoint as string}
+                      dataPath={parsedSection.data_path as string | undefined}
+                      currentColumns={(parsedSection.columns as Array<{ key: string; label: string; type: "text" | "number" | "date" | "image" | "link" | "boolean" }>) || []}
+                      currentTitle={parsedSection.title as string | undefined}
+                      currentFilter={parsedSection.global_filter as string | undefined}
+                      locale={locale}
+                      onApplyContent={(config) => {
+                        try {
+                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                          if (!parsed || typeof parsed !== "object") return;
+                          pushUndoState(yamlContent);
+                          parsed.columns = config.columns;
+                          if (config.title) {
+                            parsed.title = config.title;
+                          } else {
+                            delete parsed.title;
+                          }
+                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                          setYamlContent(newYaml);
+                          setHasChanges(true);
+                          setParseError(null);
+                          if (onPreviewChange) onPreviewChange(parsed as Section);
+                        } catch (err) {
+                          console.error("Error applying table config:", err);
+                        }
+                      }}
+                      onApplyFilter={(filterBase64) => {
+                        try {
+                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                          if (!parsed || typeof parsed !== "object") return;
+                          pushUndoState(yamlContent);
+                          parsed.global_filter = filterBase64;
+                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                          setYamlContent(newYaml);
+                          setHasChanges(true);
+                          setParseError(null);
+                          if (onPreviewChange) onPreviewChange(parsed as Section);
+                        } catch (err) {
+                          console.error("Error applying global filter:", err);
+                        }
+                      }}
+                      onRemoveFilter={() => {
+                        try {
+                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                          if (!parsed || typeof parsed !== "object") return;
+                          pushUndoState(yamlContent);
+                          delete parsed.global_filter;
+                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                          setYamlContent(newYaml);
+                          setHasChanges(true);
+                          setParseError(null);
+                          if (onPreviewChange) onPreviewChange(parsed as Section);
+                        } catch (err) {
+                          console.error("Error removing global filter:", err);
+                        }
+                      }}
+                      onClose={() => setTableEditorMode(null)}
+                    />
+                  </div>
+                )}
                 <div className="space-y-2 border-t pt-3 mt-3">
                   <Label className="text-xs font-medium">Max Rows</Label>
                   <Input
