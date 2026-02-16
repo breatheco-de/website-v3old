@@ -2876,7 +2876,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const validTypes = ["location", "page", "program"];
+      const validTypes = ["location", "page", "program", "landing"];
       if (!validTypes.includes(contentType)) {
         res.status(400).json({ error: `Invalid type. Must be one of: ${validTypes.join(", ")}` });
         return;
@@ -2897,6 +2897,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         location: "locations",
         page: "pages",
         program: "programs",
+        landing: "landings",
       };
       const contentFolder = folderMap[contentType];
       const baseDir = path.join(process.cwd(), "marketing-content", contentFolder);

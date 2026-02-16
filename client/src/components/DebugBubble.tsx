@@ -4507,7 +4507,7 @@ export function DebugBubble() {
               )}
 
               {/* Slug Editor */}
-              {contentInfo.type && contentInfo.type !== "landings" && (
+              {contentInfo.type && (
                 <div className="space-y-2">
                   <button
                     onClick={() => {
