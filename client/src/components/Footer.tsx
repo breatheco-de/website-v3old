@@ -62,8 +62,8 @@ export default function Footer() {
   return (
     <footer className="bg-foreground text-background" data-testid="section-global-footer">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          <div className="lg:col-span-1">
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row gap-8 lg:gap-12">
+          <div className="lg:shrink-0">
             <a
               href="/"
               onClick={handleLinkClick}
@@ -97,32 +97,43 @@ export default function Footer() {
             </div>
           </div>
 
-          {config.columns?.map((column) => (
-            <div key={column.title} data-testid={`footer-column-${column.title.toLowerCase().replace(/\s+/g, '-')}`}>
-              <h3 className="text-sm font-semibold text-background uppercase tracking-wider mb-4">
-                {column.title}
-              </h3>
-              <ul className="space-y-2.5">
-                {column.items?.map((item) => {
-                  const isExternal = item.href.startsWith('http');
-                  return (
-                    <li key={item.label}>
-                      <a
-                        href={item.href}
-                        onClick={isExternal ? undefined : handleLinkClick}
-                        target={isExternal ? "_blank" : undefined}
-                        rel={isExternal ? "noopener noreferrer" : undefined}
-                        className="text-sm text-background/70 hover:text-background transition-colors"
-                        data-testid={`link-footer-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
+          {config.columns?.map((column) => {
+            const itemCount = column.items?.length || 0;
+            const subCols = Math.ceil(itemCount / 5);
+
+            return (
+              <div key={column.title} data-testid={`footer-column-${column.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                <h3 className="text-sm font-semibold text-background uppercase tracking-wider mb-4">
+                  {column.title}
+                </h3>
+                <ul
+                  className="gap-x-8"
+                  style={{
+                    columnCount: subCols,
+                    columnGap: '2rem',
+                  }}
+                >
+                  {column.items?.map((item, itemIdx) => {
+                    const isExternal = item.href.startsWith('http');
+                    return (
+                      <li key={`${item.label}-${itemIdx}`} className="mb-2.5 break-inside-avoid">
+                        <a
+                          href={item.href}
+                          onClick={isExternal ? undefined : handleLinkClick}
+                          target={isExternal ? "_blank" : undefined}
+                          rel={isExternal ? "noopener noreferrer" : undefined}
+                          className="text-sm text-background/70 hover:text-background transition-colors"
+                          data-testid={`link-footer-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                        >
+                          {item.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-12 pt-8 border-t border-background/20">
