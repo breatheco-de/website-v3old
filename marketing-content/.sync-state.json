@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "eaa04c314503a9a76317111ec204b605592d15be",
-  "lastSyncedAt": "2026-02-16T20:33:10.245Z",
+  "lastSyncedCommit": "2dd6ce7a996a3e2bd8c9e08f8c56af93e641ff44",
+  "lastSyncedAt": "2026-02-16T20:42:53.142Z",
   "files": {
     "marketing-content/brand-context.yml": {
       "sha": "93b786256fece2f4411ebb81bb41cb15800887da71f9bb963662fb223daff620",
@@ -734,7 +734,7 @@
     },
     "marketing-content/pages/home/en.yml": {
       "sha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf",
-      "lastModified": 1771273890346.2087,
+      "lastModified": 1771274572844.4521,
       "remoteSha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf"
     },
     "marketing-content/pages/home/es.yml": {
