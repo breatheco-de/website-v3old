@@ -818,9 +818,10 @@
       "remoteSha": "71146055f552a0ec6146f489370c57af1a204e0a8198e3dd8265b35ef6fa2f2e"
     },
     "marketing-content/pages/press/en.yml": {
-      "sha": "1b4e6a469b29d9dc5cdcba8e9a14e4e49c46393e00eaff12c7b0830743b05f93",
-      "lastModified": 1771253425514.4312,
-      "remoteSha": "1b4e6a469b29d9dc5cdcba8e9a14e4e49c46393e00eaff12c7b0830743b05f93"
+      "sha": "95acfaf0ac32e439c406b7941c8873282ab8bfff6fd314f3789c0b1753a67f97",
+      "lastModified": 1771276486659.2341,
+      "remoteSha": "1b4e6a469b29d9dc5cdcba8e9a14e4e49c46393e00eaff12c7b0830743b05f93",
+      "modifiedAt": "2026-02-16T21:14:46.661Z"
     },
     "marketing-content/pages/press/es.yml": {
       "sha": "1ae64d761c6b22ab622492a78646b950462fbf6eeac0b2dc0f9f1439c2e91e29",
