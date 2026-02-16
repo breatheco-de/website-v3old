@@ -2241,7 +2241,7 @@ export function DebugBubble() {
                   />
                   <MenuItem
                     icon={IconBook}
-                    label="Blog Cache"
+                    label="Blog"
                     onClick={clearBlogCache}
                     testId="button-clear-blog-cache"
                     rightContent={
