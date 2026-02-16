@@ -52,6 +52,7 @@ import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { DynamicTableChat } from "./DynamicTableChat";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
+import { SitemapSearch } from "@/components/menus/SitemapSearch";
 import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
 import { locations as allLocations, getLocationBySlug } from "@/lib/locations";
 import type { Location } from "@shared/session";
@@ -1901,12 +1902,12 @@ export function SectionEditorPanel({
                                       return (
                                         <div key={fieldKey} className="space-y-1">
                                           <Label className="text-xs text-muted-foreground">{label}</Label>
-                                          <Input
+                                          <SitemapSearch
                                             value={currentValue}
-                                            onChange={(e) => updateNestedField(index, fieldKey, e.target.value)}
-                                            placeholder={`https://...`}
-                                            className="h-8 text-sm"
-                                            data-testid={`props-grouped-link-${fieldKey}-${index}`}
+                                            onChange={(url) => updateNestedField(index, fieldKey, url)}
+                                            placeholder={`/page-url or https://...`}
+                                            testId={`props-grouped-link-${fieldKey}-${index}`}
+                                            locale={locale}
                                           />
                                         </div>
                                       );
