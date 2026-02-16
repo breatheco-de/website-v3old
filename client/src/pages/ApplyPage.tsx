@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { renderSection } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
 import { ApplyFormSection } from "@/components/ApplyFormSection";
@@ -80,6 +81,7 @@ export default function ApplyPage() {
         }
         return renderSection(section as Parameters<typeof renderSection>[0], index);
       })}
+      <Footer />
     </div>
   );
 }
