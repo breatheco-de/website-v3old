@@ -247,9 +247,8 @@ sections:
       - value: 6K+
         title: students supported worldwide
   - type: testimonials_slide
-    version: "1.0"
-    title: Real Careers Start Here — Just Ask Our Students
-    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    title: Where Opportunity Turns Into Real Careers
+    description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.
     testimonials:
       - name: Loretta Thompson
         img: /attached_assets/ttaLoretta_1764725322100.jpeg
