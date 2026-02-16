@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "7111619d15e66a065326d40cd8b873047fd0f6e0",
-  "lastSyncedAt": "2026-02-16T14:50:38.605Z",
+  "lastSyncedCommit": "b10d2c69ef9e73ee070b23910ec78501ad04815a",
+  "lastSyncedAt": "2026-02-16T16:05:55.736Z",
   "files": {
     "marketing-content/brand-context.yml": {
       "sha": "93b786256fece2f4411ebb81bb41cb15800887da71f9bb963662fb223daff620",
@@ -733,9 +733,9 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "14d3a5853d0ea14a7da200f20f67ae62ffc9ddb887bf31eed716e711d2c5b75d",
-      "lastModified": 1771253420379.4348,
-      "remoteSha": "14d3a5853d0ea14a7da200f20f67ae62ffc9ddb887bf31eed716e711d2c5b75d"
+      "sha": "dc8f00af7fdc11ea4028cb95a3a67076461ec1f64837878ff05c5c023fa33d9e",
+      "lastModified": 1771257673166.296,
+      "remoteSha": "dc8f00af7fdc11ea4028cb95a3a67076461ec1f64837878ff05c5c023fa33d9e"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",
@@ -853,9 +853,9 @@
       "remoteSha": "5677fc83cf087a10ec0eb37590806ea58e28acc63f09f86dfc8fe8d43ca9f7e0"
     },
     "marketing-content/pages/scholarships/en.yml": {
-      "sha": "48ed02d40aea1f4cb990c9aebbeb11acc8f5ad87c980b9684f861e6131518983",
-      "lastModified": 1771253427407.4297,
-      "remoteSha": "48ed02d40aea1f4cb990c9aebbeb11acc8f5ad87c980b9684f861e6131518983"
+      "sha": "ca0087936e63498b039ef92742a08bd1103d9c417c076fb48eb7ac9fced2714b",
+      "lastModified": 1771257933125.1035,
+      "remoteSha": "ca0087936e63498b039ef92742a08bd1103d9c417c076fb48eb7ac9fced2714b"
     },
     "marketing-content/pages/scholarships/es.yml": {
       "sha": "05df3a720f6864efb4e8e8498bb09a87a34039c643f6152b299118c7d2a20741",
