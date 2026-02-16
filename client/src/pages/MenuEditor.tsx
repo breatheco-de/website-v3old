@@ -395,7 +395,7 @@ function SortableFooterColumn({
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="group/col relative" data-testid={`footer-column-${colIndex}`}>
+    <div ref={setNodeRef} style={style} className="group/col relative border rounded-lg p-2" data-testid={`footer-column-${colIndex}`}>
       <div className="flex items-center gap-1 mb-2">
         {isEnglish ? (
           <button
