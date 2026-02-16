@@ -97,6 +97,29 @@ function getConflictDescription(info: RedirectConflictInfo): string {
   }
 }
 
+function getConfirmationWarning(conflict: RedirectConflictInfo, selectedFile: string): string {
+  const formatFile = (f: string) => f.replace("marketing-content/", "").split("/").join(" / ");
+
+  switch (conflict.code) {
+    case "REDIRECT_CONFLICT": {
+      const removedFile = conflict.files.find(f => f !== selectedFile);
+      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(removedFile || "")}" and kept only in "${formatFile(selectedFile)}". Users visiting ${conflict.redirectUrl} will be redirected based on the definition in "${formatFile(selectedFile)}".`;
+    }
+    case "REDIRECT_OVERLAP": {
+      const removedFile = selectedFile.includes("_common.yml")
+        ? conflict.files.find(f => !f.includes("_common.yml"))
+        : conflict.files.find(f => f.includes("_common.yml"));
+      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(removedFile || "")}" to eliminate the duplicate definition.`;
+    }
+    case "SELF_REDIRECT":
+      return `The self-redirect "${conflict.redirectUrl}" will be removed from "${formatFile(selectedFile)}". This redirect was pointing to itself and causing a loop.`;
+    case "REDIRECT_OVERWRITES_CONTENT":
+      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(selectedFile)}". The page at this URL will become accessible again instead of being redirected.`;
+    default:
+      return `The redirect "${conflict.redirectUrl}" will be removed from "${formatFile(selectedFile)}".`;
+  }
+}
+
 export function RedirectConflictResolverModal({
   open,
   onOpenChange,
@@ -110,6 +133,7 @@ export function RedirectConflictResolverModal({
 }) {
   const { toast } = useToast();
   const [resolving, setResolving] = useState(false);
+  const [pendingAction, setPendingAction] = useState<{ fileToRemove: string; keepFile: string } | null>(null);
 
   const handleResolve = useCallback(async (fileToRemoveFrom: string) => {
     if (!conflict) return;
@@ -122,6 +146,7 @@ export function RedirectConflictResolverModal({
       const result = await res.json();
       if (result.success) {
         toast({ title: "Resolved", description: result.message });
+        setPendingAction(null);
         onOpenChange(false);
         onResolved();
       } else {
@@ -133,6 +158,11 @@ export function RedirectConflictResolverModal({
       setResolving(false);
     }
   }, [conflict, onOpenChange, onResolved, toast]);
+
+  const handleClose = useCallback((isOpen: boolean) => {
+    if (!isOpen) setPendingAction(null);
+    onOpenChange(isOpen);
+  }, [onOpenChange]);
 
   if (!conflict) return null;
 
@@ -149,7 +179,7 @@ export function RedirectConflictResolverModal({
   const localeFiles = conflict.files.filter(f => !f.includes("_common.yml"));
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md" style={{ borderRadius: "0.8rem" }}>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
@@ -167,89 +197,126 @@ export function RedirectConflictResolverModal({
             <p className="text-sm font-mono text-foreground break-all">{conflict.redirectUrl}</p>
           </div>
 
-          {isSimpleRemoval && conflict.files.length > 0 && (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">
-                {conflict.code === "SELF_REDIRECT"
-                  ? "Remove this self-redirect:"
-                  : "Remove this redirect so the page remains accessible:"}
-              </p>
-              <Button
-                className="w-full justify-start gap-2"
-                variant="outline"
-                onClick={() => handleResolve(conflict.files[0])}
-                disabled={resolving}
-                data-testid="button-resolve-remove"
-              >
-                <IconX className="h-4 w-4 text-destructive flex-shrink-0" />
-                <span className="truncate text-left">Remove from {formatFileName(conflict.files[0])}</span>
-              </Button>
-            </div>
-          )}
-
-          {isConflict && conflict.files.length >= 2 && (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">Choose which file should keep this redirect:</p>
-              {conflict.files.map((file) => (
-                <Button
-                  key={file}
-                  className="w-full justify-start gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    const otherFile = conflict.files.find(f => f !== file);
-                    if (otherFile) handleResolve(otherFile);
-                  }}
-                  disabled={resolving}
-                  data-testid={`button-keep-${file}`}
-                >
-                  <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
-                  <span className="truncate text-left">Keep in {formatFileName(file)}</span>
-                </Button>
-              ))}
-            </div>
-          )}
-
-          {isOverlap && (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">Where should this redirect live?</p>
-              {commonFile && (
-                <Button
-                  className="w-full justify-start gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    if (localeFiles.length > 0) handleResolve(localeFiles[0]);
-                  }}
-                  disabled={resolving || localeFiles.length === 0}
-                  data-testid="button-keep-common"
-                >
-                  <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
-                  <span className="truncate text-left">Keep in _common.yml (all languages)</span>
-                </Button>
+          {!pendingAction && (
+            <>
+              {isSimpleRemoval && conflict.files.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    {conflict.code === "SELF_REDIRECT"
+                      ? "Remove this self-redirect:"
+                      : "Remove this redirect so the page remains accessible:"}
+                  </p>
+                  <Button
+                    className="w-full justify-start gap-2"
+                    variant="outline"
+                    onClick={() => setPendingAction({ fileToRemove: conflict.files[0], keepFile: "" })}
+                    disabled={resolving}
+                    data-testid="button-resolve-remove"
+                  >
+                    <IconX className="h-4 w-4 text-destructive flex-shrink-0" />
+                    <span className="truncate text-left">Remove from {formatFileName(conflict.files[0])}</span>
+                  </Button>
+                </div>
               )}
-              {localeFiles.map((file) => (
+
+              {isConflict && conflict.files.length >= 2 && (
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground">Choose which file should keep this redirect:</p>
+                  {conflict.files.map((file) => {
+                    const otherFile = conflict.files.find(f => f !== file);
+                    return (
+                      <Button
+                        key={file}
+                        className="w-full justify-start gap-2"
+                        variant="outline"
+                        onClick={() => {
+                          if (otherFile) setPendingAction({ fileToRemove: otherFile, keepFile: file });
+                        }}
+                        disabled={resolving}
+                        data-testid={`button-keep-${file}`}
+                      >
+                        <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
+                        <span className="truncate text-left">Keep in {formatFileName(file)}</span>
+                      </Button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {isOverlap && (
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground">Where should this redirect live?</p>
+                  {commonFile && (
+                    <Button
+                      className="w-full justify-start gap-2"
+                      variant="outline"
+                      onClick={() => {
+                        if (localeFiles.length > 0) setPendingAction({ fileToRemove: localeFiles[0], keepFile: commonFile });
+                      }}
+                      disabled={resolving || localeFiles.length === 0}
+                      data-testid="button-keep-common"
+                    >
+                      <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
+                      <span className="truncate text-left">Keep in _common.yml (all languages)</span>
+                    </Button>
+                  )}
+                  {localeFiles.map((file) => (
+                    <Button
+                      key={file}
+                      className="w-full justify-start gap-2"
+                      variant="outline"
+                      onClick={() => {
+                        if (commonFile) setPendingAction({ fileToRemove: commonFile, keepFile: file });
+                      }}
+                      disabled={resolving || !commonFile}
+                      data-testid={`button-keep-locale-${file}`}
+                    >
+                      <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
+                      <span className="truncate text-left">Keep in {formatFileName(file)} only</span>
+                    </Button>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {pendingAction && (
+            <div className="space-y-3">
+              <div className="rounded-md border border-chart-5/30 bg-chart-5/10 p-3">
+                <p className="text-sm text-foreground">
+                  {getConfirmationWarning(conflict, pendingAction.keepFile || pendingAction.fileToRemove)}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
                 <Button
-                  key={file}
-                  className="w-full justify-start gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    if (commonFile) handleResolve(commonFile);
-                  }}
-                  disabled={resolving || !commonFile}
-                  data-testid={`button-keep-locale-${file}`}
+                  variant="ghost"
+                  onClick={() => setPendingAction(null)}
+                  disabled={resolving}
+                  data-testid="button-back-options"
                 >
-                  <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
-                  <span className="truncate text-left">Keep in {formatFileName(file)} only</span>
+                  Back
                 </Button>
-              ))}
+                <Button
+                  variant="default"
+                  onClick={() => handleResolve(pendingAction.fileToRemove)}
+                  disabled={resolving}
+                  data-testid="button-apply-resolve"
+                  className="flex-1"
+                >
+                  {resolving ? "Applying..." : "Apply"}
+                </Button>
+              </div>
             </div>
           )}
         </div>
 
-        <DialogFooter>
-          <Button variant="ghost" onClick={() => onOpenChange(false)} disabled={resolving} data-testid="button-cancel-resolve">
-            Cancel
-          </Button>
-        </DialogFooter>
+        {!pendingAction && (
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => handleClose(false)} disabled={resolving} data-testid="button-cancel-resolve">
+              Cancel
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );
