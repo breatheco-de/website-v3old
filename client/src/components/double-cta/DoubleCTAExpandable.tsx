@@ -139,7 +139,7 @@ function CTABox({
             )}
           </>
         ) : (
-          <div className="flex gap-4 mb-4 flex-1">
+          <div className="flex gap-4 mb-5 flex-1">
             <div className="flex flex-col flex-1 gap-4">
               {box.description && (
                 <p
@@ -186,7 +186,7 @@ function CTABox({
             {hasImage && (
               <div
                 className={cn(
-                  "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out minh-[250px]",
+                  "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
                   isActive
                     ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
                     : "w-0 opacity-0",
@@ -257,7 +257,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
     setContentExpandedSide(null);
     contentTimerRef.current = setTimeout(() => {
       setContentExpandedSide(side);
-    }, 400);
+    }, 350);
   }, []);
 
   useEffect(() => {
@@ -332,7 +332,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-4 h-[400px]">
+      <div className="flex flex-col lg:flex-row gap-4 h-[420px]">
         {left && (
           <div
             className={cn(
