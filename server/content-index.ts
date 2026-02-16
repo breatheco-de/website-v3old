@@ -531,6 +531,31 @@ class ContentIndex {
     return urls;
   }
 
+  isKnownUrl(url: string): boolean {
+    this.ensureInitialized();
+    const cleanUrl = url.split("?")[0].split("#")[0];
+
+    for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
+      if (!config?.url_pattern) continue;
+      for (const [, pattern] of Object.entries(config.url_pattern)) {
+        const regexStr = "^" + pattern.replace(":slug", "([^/]+)") + "$";
+        const match = cleanUrl.match(new RegExp(regexStr));
+        if (match) {
+          const slug = match[1];
+          const found = this.findBySlug(slug, { contentType });
+          if (found.length > 0) return true;
+          const resolvedSlug = this.resolveBaseSlug(slug, contentType);
+          if (resolvedSlug !== slug) {
+            const foundResolved = this.findBySlug(resolvedSlug, { contentType });
+            if (foundResolved.length > 0) return true;
+          }
+          return false;
+        }
+      }
+    }
+    return false;
+  }
+
   refresh(): void {
     this.scan();
   }
