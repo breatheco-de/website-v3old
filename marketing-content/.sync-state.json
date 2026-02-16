@@ -733,9 +733,10 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf",
-      "lastModified": 1771274572844.4521,
-      "remoteSha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf"
+      "sha": "52d22cc67b9044eaef5c24ce26cd67313227b6cb1c1b51a1182899fbe92de8d9",
+      "lastModified": 1771280946170.2307,
+      "remoteSha": "f89d161063e060ba4530af094b4fb30640177750fb60ab07cbfc17fbde906abf",
+      "modifiedAt": "2026-02-16T22:29:06.175Z"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",

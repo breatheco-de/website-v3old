@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import {
@@ -42,9 +42,12 @@ const socialIconMap: Record<string, typeof IconBrandLinkedin> = {
 export default function Footer() {
   const handleLinkClick = useInternalNav();
   const { i18n } = useTranslation();
-  const locale = i18n.language || 'en';
+  const locale = i18n.language || "en";
 
-  const { data: menuResponse } = useQuery<{ name: string; data: { footer: FooterConfig } }>({
+  const { data: menuResponse } = useQuery<{
+    name: string;
+    data: { footer: FooterConfig };
+  }>({
     queryKey: ["/api/menus", "main-footer", locale],
     queryFn: async () => {
       const response = await fetch(`/api/menus/main-footer?locale=${locale}`);
@@ -57,26 +60,28 @@ export default function Footer() {
   if (!config) return null;
 
   const currentYear = new Date().getFullYear();
-  const copyrightText = config.copyright_text?.replace(/\d{4}/, String(currentYear)) || `${currentYear} 4Geeks Academy`;
+  const copyrightText =
+    config.copyright_text?.replace(/\d{4}/, String(currentYear)) ||
+    `${currentYear} 4Geeks Academy`;
 
   return (
-    <footer className="bg-foreground text-background" data-testid="section-global-footer">
+    <footer className="text-foreground" data-testid="section-global-footer">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row gap-8 lg:gap-12">
-          <div className="lg:shrink-0">
-            <a
-              href="/"
-              onClick={handleLinkClick}
-              className="inline-block mb-6"
-              data-testid="link-footer-home"
+        <div className="lg:shrink-0 flex justify-between items-center h-full mb-6">
+          <a
+            href="/"
+            onClick={handleLinkClick}
+            className="flex mb-8 items-center h-full"
+            data-testid="link-footer-home"
+          >
+            <img src={logo} alt="4Geeks Academy" className="h-8" />
+          </a>
+          <div>
+            <p className="text-center">Subscribe for more</p>
+            <div
+              className="flex items-center justify-center gap-3"
+              data-testid="footer-socials"
             >
-              <img
-                src={logo}
-                alt="4Geeks Academy"
-                className="h-8 brightness-0 invert"
-              />
-            </a>
-            <div className="flex items-center gap-3" data-testid="footer-socials">
               {config.socials?.map((social) => {
                 const Icon = socialIconMap[social.icon];
                 if (!Icon) return null;
@@ -86,44 +91,51 @@ export default function Footer() {
                     href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-background/70 hover:text-background transition-colors"
+                    className="text-foreground/70 hover:text-foreground transition-colors"
                     data-testid={`link-social-${social.icon}`}
                     aria-label={social.name}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-6 w-6" />
                   </a>
                 );
               })}
             </div>
           </div>
-
+        </div>
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row lg:justify-between gap-8 lg:gap-4">
           {config.columns?.map((column) => {
             const itemCount = column.items?.length || 0;
             const subCols = Math.ceil(itemCount / 5);
 
             return (
-              <div key={column.title} data-testid={`footer-column-${column.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                <h3 className="text-sm font-semibold text-background uppercase tracking-wider mb-4">
+              <div
+                key={column.title}
+                data-testid={`footer-column-${column.title.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
                   {column.title}
                 </h3>
                 <ul
                   className="gap-x-8"
                   style={{
                     columnCount: subCols,
-                    columnGap: '2rem',
+                    columnGap: "2rem",
                   }}
                 >
                   {column.items?.map((item, itemIdx) => {
-                    const isExternal = item.href.startsWith('http');
+                    const isExternal = item.href.startsWith("http");
                     return (
-                      <li key={`${item.label}-${itemIdx}`} className="mb-2.5 break-inside-avoid">
+                      <li
+                        key={`${item.label}-${itemIdx}`}
+                        className="mb-2.5 break-inside-avoid"
+                      >
                         <a
                           href={item.href}
                           onClick={isExternal ? undefined : handleLinkClick}
                           target={isExternal ? "_blank" : undefined}
                           rel={isExternal ? "noopener noreferrer" : undefined}
-                          className="text-sm text-background/70 hover:text-background transition-colors"
-                          data-testid={`link-footer-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                          className="text-sm text-foreground/70 hover:text-foreground transition-colors"
+                          data-testid={`link-footer-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           {item.label}
                         </a>
@@ -138,12 +150,18 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-background/20">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-background/60" data-testid="text-copyright">
+            <p
+              className="text-sm text-foreground/60"
+              data-testid="text-copyright"
+            >
               {copyrightText}
             </p>
-            <div className="flex items-center gap-6 flex-wrap" data-testid="footer-legal-links">
+            <div
+              className="flex items-center gap-6 flex-wrap"
+              data-testid="footer-legal-links"
+            >
               {config.legal_links?.map((link) => {
-                const isExternal = link.href.startsWith('http');
+                const isExternal = link.href.startsWith("http");
                 return (
                   <a
                     key={link.label}
@@ -151,8 +169,8 @@ export default function Footer() {
                     onClick={isExternal ? undefined : handleLinkClick}
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noopener noreferrer" : undefined}
-                    className="text-sm text-background/60 hover:text-background transition-colors"
-                    data-testid={`link-legal-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="text-sm text-foreground/60 hover:text-foreground transition-colors"
+                    data-testid={`link-legal-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {link.label}
                   </a>
