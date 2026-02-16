@@ -105,3 +105,25 @@ sections:
     action:
       label: View
       href: google.com
+  - type: dynamic_table
+    version: "1.0"
+    endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
+    data_path: results
+    title: Cohort Information Table
+    columns:
+      - key: name
+        label: Cohort Name
+        type: text
+        function: KHJvdykgPT4gcm93Lm5hbWUgfHwgIiI=
+      - key: kickoff_date
+        label: Kickoff Date
+        type: date
+        function: KHJvdykgPT4gcm93LmtpY2tvZmZfZGF0ZSA/IG5ldyBEYXRlKHJvdy5raWNrb2ZmX2RhdGUpLnRvTG9jYWxlRGF0ZVN0cmluZygpIDogIiI=
+      - key: ending_date
+        label: Ending Date
+        type: date
+        function: KHJvdykgPT4gcm93LmVuZGluZ19kYXRlID8gbmV3IERhdGUocm93LmVuZGluZ19kYXRlKS50b0xvY2FsZURhdGVTdHJpbmcoKSA6ICIi
+      - key: academy.city.name
+        label: Location
+        type: text
+        function: KHJvdykgPT4gcm93LmFjYWRlbXk/LmNpdHk/Lm5hbWUgfHwgIiI=
