@@ -63,7 +63,6 @@ import {
   loadCommonData,
   type ContentType,
 } from "./utils/contentLoader";
-import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
@@ -880,10 +879,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
-    // Resolve translated slug to folder name
-    const folder = getFolderFromSlug(slug, locale);
-
-    const page = loadTemplatePage(folder, locale);
+    const page = loadTemplatePage(slug, locale);
 
     if (!page) {
       res.status(404).json({ error: "Template page not found" });
@@ -1034,6 +1030,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
       count: redirects.length,
       redirects,
     });
+  });
+
+  app.get("/api/locale-urls", (req, res) => {
+    try {
+      const url = req.query.url as string;
+      if (!url) {
+        res.status(400).json({ error: "Missing 'url' query parameter" });
+        return;
+      }
+
+      let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
+      let slug: string | null = null;
+
+      const programEn = url.match(/^\/en\/career-programs\/([^/]+)/);
+      const programEs = url.match(/^\/es\/programas-de-carrera\/([^/]+)/);
+      const locationEn = url.match(/^\/en\/location\/([^/]+)/);
+      const locationEs = url.match(/^\/es\/ubicacion\/([^/]+)/);
+      const landingMatch = url.match(/^\/(?:en\/|es\/)?landing\/([^/]+)/);
+      const pageEn = url.match(/^\/en\/([^/]+)$/);
+      const pageEs = url.match(/^\/es\/([^/]+)$/);
+
+      if (programEn) { contentType = "programs"; slug = programEn[1]; }
+      else if (programEs) { contentType = "programs"; slug = programEs[1]; }
+      else if (locationEn) { contentType = "locations"; slug = locationEn[1]; }
+      else if (locationEs) { contentType = "locations"; slug = locationEs[1]; }
+      else if (landingMatch) { contentType = "landings"; slug = landingMatch[1]; }
+      else if (pageEn) { contentType = "pages"; slug = pageEn[1]; }
+      else if (pageEs) { contentType = "pages"; slug = pageEs[1]; }
+
+      if (!contentType || !slug) {
+        res.status(400).json({ error: "Could not determine content type from URL" });
+        return;
+      }
+
+      const baseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const urls = contentIndex.getLocaleUrls(baseSlug, contentType);
+      res.json({ urls, contentType, slug: baseSlug });
+    } catch (err) {
+      console.error("[API] Failed to resolve locale URLs:", err);
+      res.status(500).json({ error: "Failed to resolve locale URLs" });
+    }
   });
 
   app.get("/api/debug/redirects/locale-urls", (req, res) => {
@@ -3543,7 +3580,8 @@ sections: []
         return;
       }
 
-      const resolvedSlug = type === 'page' ? getFolderFromSlug(slug, 'en') : slug;
+      const typeFolder = { program: 'programs', page: 'pages', location: 'locations', landing: 'landings' }[type] || type;
+      const resolvedSlug = contentIndex.resolveBaseSlug(slug, typeFolder);
 
       const folderPath = path.join(process.cwd(), 'marketing-content', folderMap[type], resolvedSlug);
 

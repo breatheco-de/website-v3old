@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import { getMergedSchemas } from "./schema-org";
-import { getFolderFromSlug } from "../shared/slugMappings";
+import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 
@@ -70,25 +70,28 @@ function parseRoute(url: string): ParsedRoute | null {
   match = cleanUrl.match(/^\/(en|es)\/career-programs\/(.+?)$/);
   if (!match) match = cleanUrl.match(/^\/(es)\/programas-de-carrera\/(.+?)$/);
   if (match) {
-    return { contentType: "programs", slug: match[2], locale: match[1] };
+    const folder = contentIndex.resolveBaseSlug(match[2], "programs");
+    return { contentType: "programs", slug: folder, locale: match[1] };
   }
 
   match = cleanUrl.match(/^\/(en|es)\/location\/(.+?)$/);
   if (!match) match = cleanUrl.match(/^\/(es)\/ubicacion\/(.+?)$/);
   if (match) {
-    return { contentType: "locations", slug: match[2], locale: match[1] };
+    const folder = contentIndex.resolveBaseSlug(match[2], "locations");
+    return { contentType: "locations", slug: folder, locale: match[1] };
   }
 
   match = cleanUrl.match(/^\/(en|es)\/landing\/(.+?)$/);
   if (match) {
-    return { contentType: "landings", slug: match[2], locale: match[1] };
+    const folder = contentIndex.resolveBaseSlug(match[2], "landings");
+    return { contentType: "landings", slug: folder, locale: match[1] };
   }
 
   match = cleanUrl.match(/^\/(en|es)\/(.+?)$/);
   if (match) {
     const locale = match[1];
     const slug = match[2];
-    const folder = getFolderFromSlug(slug, locale);
+    const folder = contentIndex.resolveBaseSlug(slug, "pages");
     return { contentType: "pages", slug: folder, locale };
   }
 
@@ -100,7 +103,8 @@ function parseRoute(url: string): ParsedRoute | null {
 }
 
 export function loadRawYaml(contentType: string, slug: string, locale: string): Record<string, unknown> | null {
-  const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, slug);
+  const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+  const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, resolvedSlug);
   const commonPath = path.join(contentDir, "_common.yml");
 
   const localeOrVariant = contentType === "landings" ? "promoted" : locale;
