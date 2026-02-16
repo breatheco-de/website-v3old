@@ -92,23 +92,6 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
-    title: Where AI-Powered Learning Meets Lifelong Mentorship
-    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
-    bullets:
-      - heading: Personalized Learning at Every Level
-        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
-      - heading: Lifelong Mentorship & Career Support
-        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
-      - heading: AI-Integrated Curriculum and Learning Tools
-        text: Master the latest AI tools and workflows that employers are actively hiring for.
-    image: /attached_assets/community_1764717588840.png
-    image_alt: Student learning with mentor support
-    reverse: true
-    marginY:
-      desktop: none lg
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -179,6 +162,23 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: Where AI-Powered Learning Meets Lifelong Mentorship
+    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
+    bullets:
+      - heading: Personalized Learning at Every Level
+        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
+      - heading: Lifelong Mentorship & Career Support
+        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
+      - heading: AI-Integrated Curriculum and Learning Tools
+        text: Master the latest AI tools and workflows that employers are actively hiring for.
+    image: /attached_assets/community_1764717588840.png
+    image_alt: Student learning with mentor support
+    reverse: true
+    marginY:
+      desktop: none lg
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era
@@ -296,24 +296,41 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: 84%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: 55%
+        title: Salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
   - type: testimonials_slide
-    title: What Our Students Say
+    title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
-    paddingY:
-      desktop: none
     marginY:
       desktop: none
+    paddingY:
+      desktop: none
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - online-platform
-      - job-guarantee
       - certification
-    paddingY:
-      desktop: md none
+      - mentors-and-teachers
     marginY:
       desktop: none md
+    paddingY:
+      desktop: md none
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.
