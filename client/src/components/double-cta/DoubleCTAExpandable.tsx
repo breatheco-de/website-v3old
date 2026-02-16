@@ -36,7 +36,7 @@ function CTABox({
   return (
     <Card
       className={cn(
-        "relative flex flex-col p-6 lg:p-8 transition-all duration-500 ease-in-out h-full",
+        "relative flex flex-col overflow-hidden p-6 lg:p-8 transition-all duration-500 ease-in-out h-full",
         side == "right" ? "bg-primary/5" : "",
       )}
       onMouseEnter={onHover}

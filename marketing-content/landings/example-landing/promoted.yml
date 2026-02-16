@@ -128,6 +128,7 @@ sections:
       cta_text: Explore Full-Stack
       cta_url: /en/full-stack
       sub_text: Next cohort starts soon - Limited spots available
+      image_beside_bullets: false
     right:
       heading: AI & Machine Learning
       description: Dive into the future of tech with our AI engineering program. Learn to build intelligent systems from day one.
