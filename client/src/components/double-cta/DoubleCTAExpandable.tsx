@@ -112,9 +112,10 @@ function CTABox({
         <h3
           className={cn(
             "font-bold text-foreground transition-all duration-500 ease-in-out",
+            "text-lg md:text-2xl",
             isContentExpanded
-              ? "text-lg md:text-2xl lg:text-3xl"
-              : "text-base lg:text-3xl line-clamp-1",
+              ? "lg:text-3xl"
+              : "lg:text-3xl lg:line-clamp-1",
             side == "right" ? "text-primary" : "",
             isActive ? "" : "opacity-50"
           )}
