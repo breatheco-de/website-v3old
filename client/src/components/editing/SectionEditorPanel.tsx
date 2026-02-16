@@ -19,7 +19,6 @@ import {
   IconTrash,
   IconPencil,
   IconMapPin,
-  IconWand,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { getIcon } from "@/lib/icons";
@@ -60,7 +59,6 @@ import {
 import { IconPickerModal } from "./IconPickerModal";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
-import { DynamicTableChat } from "./DynamicTableChat";
 import { TableContentEditor } from "./TableContentEditor";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
@@ -443,7 +441,7 @@ export function SectionEditorPanel({
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
-  const [tableEditorMode, setTableEditorMode] = useState<"ai" | "content" | "filter" | null>(null);
+  const [tableEditorMode, setTableEditorMode] = useState<"content" | "filter" | null>(null);
   const [imagePickerMode, setImagePickerMode] = useState<"browse" | "upload">(
     "browse",
   );
@@ -1596,20 +1594,39 @@ export function SectionEditorPanel({
             )}
             {sectionType === "dynamic_table" && parsedSection?.endpoint && (
               <>
-                <div className="flex gap-1 flex-wrap">
-                  <Button
-                    variant={tableEditorMode === "ai" || tableEditorMode === null ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setTableEditorMode("ai")}
-                    data-testid="button-table-ai-assistant"
-                  >
-                    <IconWand className="h-3.5 w-3.5 mr-1" />
-                    AI Columns
-                  </Button>
+                <div className="space-y-2">
+                  <Label className="text-xs font-medium">Max Rows</Label>
+                  <Input
+                    type="number"
+                    min={1}
+                    placeholder="Show all rows"
+                    value={
+                      parsedSection?.max_rows != null
+                        ? String(parsedSection.max_rows)
+                        : ""
+                    }
+                    onChange={(e) => {
+                      const val = e.target.value.trim();
+                      if (val === "") {
+                        updatePropertyWithValue("max_rows", undefined);
+                      } else {
+                        const n = parseInt(val, 10);
+                        if (!isNaN(n) && n > 0)
+                          updatePropertyWithValue("max_rows", n);
+                      }
+                    }}
+                    data-testid="input-max-rows"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Limit visible rows. Users can expand to see all.
+                  </p>
+                </div>
+
+                <div className="flex gap-2 border-t pt-3 mt-3">
                   <Button
                     variant={tableEditorMode === "content" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTableEditorMode("content")}
+                    onClick={() => setTableEditorMode(tableEditorMode === "content" ? null : "content")}
                     data-testid="button-table-content-filter"
                   >
                     <IconSettings className="h-3.5 w-3.5 mr-1" />
@@ -1618,63 +1635,13 @@ export function SectionEditorPanel({
                   <Button
                     variant={tableEditorMode === "filter" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTableEditorMode("filter")}
+                    onClick={() => setTableEditorMode(tableEditorMode === "filter" ? null : "filter")}
                     data-testid="button-table-global-filter"
                   >
                     <IconCode className="h-3.5 w-3.5 mr-1" />
                     Global Filter
                   </Button>
                 </div>
-
-                {(tableEditorMode === "ai" || tableEditorMode === null) && (
-                  <DynamicTableChat
-                    endpoint={parsedSection.endpoint as string}
-                    dataPath={parsedSection.data_path as string | undefined}
-                    currentColumns={
-                      (parsedSection.columns as Array<{
-                        key: string;
-                        label: string;
-                        type:
-                          | "text"
-                          | "number"
-                          | "date"
-                          | "image"
-                          | "link"
-                          | "boolean";
-                        template?: string;
-                      }>) || []
-                    }
-                    currentTitle={parsedSection.title as string | undefined}
-                    locale={locale}
-                    onApplyConfig={(config) => {
-                      try {
-                        const parsed = safeYamlLoad(yamlContent) as Record<
-                          string,
-                          unknown
-                        >;
-                        if (!parsed || typeof parsed !== "object") return;
-                        pushUndoState(yamlContent);
-                        parsed.columns = config.columns;
-                        if (config.title) {
-                          parsed.title = config.title;
-                        } else {
-                          delete parsed.title;
-                        }
-                        const newYaml = safeYamlDump(parsed, {
-                          lineWidth: -1,
-                          noRefs: true,
-                          quotingType: '"',
-                        });
-                        setYamlContent(newYaml);
-                        setHasChanges(true);
-                        setParseError(null);
-                        if (onPreviewChange) onPreviewChange(parsed as Section);
-                      } catch (err) {
-                        console.error("Error applying table config:", err);
-                      }
-                    }}
-                  />
-                )}
 
                 {tableEditorMode === "content" && (
                   <TableContentEditor
@@ -1708,7 +1675,7 @@ export function SectionEditorPanel({
                     }}
                     onApplyFilter={() => {}}
                     onRemoveFilter={() => {}}
-                    onClose={() => setTableEditorMode("ai")}
+                    onClose={() => setTableEditorMode(null)}
                   />
                 )}
 
@@ -1753,122 +1720,9 @@ export function SectionEditorPanel({
                         console.error("Error removing global filter:", err);
                       }
                     }}
-                    onClose={() => setTableEditorMode("ai")}
+                    onClose={() => setTableEditorMode(null)}
                   />
                 )}
-
-                <div className="space-y-2 border-t pt-3 mt-3">
-                  <Label className="text-xs font-medium">Max Rows</Label>
-                  <Input
-                    type="number"
-                    min={1}
-                    placeholder="Show all rows"
-                    value={
-                      parsedSection?.max_rows != null
-                        ? String(parsedSection.max_rows)
-                        : ""
-                    }
-                    onChange={(e) => {
-                      const val = e.target.value.trim();
-                      if (val === "") {
-                        updatePropertyWithValue("max_rows", undefined);
-                      } else {
-                        const n = parseInt(val, 10);
-                        if (!isNaN(n) && n > 0)
-                          updatePropertyWithValue("max_rows", n);
-                      }
-                    }}
-                    data-testid="input-max-rows"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Limit visible rows. Users can expand to see all.
-                  </p>
-                </div>
-                <div className="space-y-3 border-t pt-3 mt-3">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-xs font-medium">Region Filter</Label>
-                    <Switch
-                      checked={!!parsedSection?.region_filter}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
-                          updatePropertyWithValue("region_filter", {
-                            key: "",
-                            mapping: {
-                              "usa-canada": [],
-                              latam: [],
-                              europe: [],
-                            },
-                          });
-                        } else {
-                          updatePropertyWithValue("region_filter", undefined);
-                        }
-                      }}
-                      data-testid="switch-region-filter"
-                    />
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Filter rows based on the visitor's detected region.
-                  </p>
-                  {!!parsedSection?.region_filter &&
-                    (() => {
-                      const rf = parsedSection.region_filter as {
-                        key: string;
-                        mapping: Record<string, string[]>;
-                      };
-                      const regionFields = (
-                        <div className="space-y-3 pl-1">
-                          <div className="space-y-1">
-                            <Label className="text-xs">
-                              Data Field (key path)
-                            </Label>
-                            <Input
-                              value={rf.key || ""}
-                              placeholder="e.g. academy.country_code"
-                              onChange={(e) => {
-                                updatePropertyWithValue("region_filter", {
-                                  ...rf,
-                                  key: e.target.value,
-                                });
-                              }}
-                              data-testid="input-region-filter-key"
-                            />
-                            <p className="text-xs text-muted-foreground">
-                              Dot-notation path to the field in each row to
-                              match against.
-                            </p>
-                          </div>
-                          {(["usa-canada", "latam", "europe"] as const).map(
-                            (region) => (
-                              <div key={region} className="space-y-1">
-                                <Label className="text-xs capitalize">
-                                  {region}
-                                </Label>
-                                <Input
-                                  value={(rf.mapping[region] || []).join(", ")}
-                                  placeholder="e.g. US, CA"
-                                  onChange={(e) => {
-                                    const vals = e.target.value
-                                      .split(",")
-                                      .map((s) => s.trim())
-                                      .filter(Boolean);
-                                    updatePropertyWithValue("region_filter", {
-                                      ...rf,
-                                      mapping: {
-                                        ...rf.mapping,
-                                        [region]: vals,
-                                      },
-                                    });
-                                  }}
-                                  data-testid={`input-region-mapping-${region}`}
-                                />
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      );
-                      return regionFields;
-                    })()}
-                </div>
               </>
             )}
 
