@@ -763,6 +763,9 @@ export { profilesCarouselSectionSchema, type ProfilesCarouselSection, type Profi
 import { dynamicTableSectionSchema, type DynamicTableSection, type DynamicTableColumn, type DynamicTableAction } from "../marketing-content/component-registry/dynamic_table/v1.0/schema";
 export { dynamicTableSectionSchema, type DynamicTableSection, type DynamicTableColumn, type DynamicTableAction };
 
+import { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type DoubleCTABullet } from "../marketing-content/component-registry/double_cta/v1.0/schema";
+export { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type DoubleCTABullet };
+
 // Responsive spacing schema - separate values for mobile and desktop
 // When only one breakpoint is specified, the other inherits its value
 export const responsiveSpacingSchema = z.object({
@@ -921,6 +924,7 @@ const baseSectionSchema = z.union([
   careerSupportExplainSectionSchema,
   profilesCarouselSectionSchema,
   dynamicTableSectionSchema,
+  doubleCTASectionSchema,
 ]);
 
 // Combined section schema with layout fields
