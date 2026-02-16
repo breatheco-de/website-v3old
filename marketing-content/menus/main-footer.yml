@@ -1,0 +1,67 @@
+footer:
+  columns:
+    - title: Company
+      items:
+        - label: About Us
+          href: /en/the-academy
+        - label: Press
+          href: /en/press
+        - label: Awards
+          href: /en/awards
+        - label: Partners
+          href: /en/partners
+        - label: Work with Us
+          href: /en/work-with-us
+    - title: Programs
+      items:
+        - label: Full Stack Developer
+          href: /en/career-programs/full-stack
+        - label: AI Engineering
+          href: /en/career-programs/ai-engineering
+        - label: Data Science & ML
+          href: /en/career-programs/data-science-ml
+        - label: Cybersecurity
+          href: /en/career-programs/cybersecurity
+    - title: Locations
+      items:
+        - label: Miami
+          href: /en/location/miami-usa
+        - label: Madrid
+          href: /campus/madrid
+        - label: Santiago
+          href: /campus/santiago
+        - label: Bogota
+          href: /campus/bogota
+        - label: Caracas
+          href: /campus/caracas
+        - label: Online
+          href: /campus/remote
+    - title: For Companies
+      items:
+        - label: Hire Our Alumni
+          href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
+        - label: Partner with 4Geeks
+          href: /en/partners
+        - label: Corporate Training
+          href: /en/the-academy
+  socials:
+    - name: Linkedin
+      icon: linkedin
+      link: https://www.linkedin.com/school/4geeksacademy/
+    - name: Facebook
+      icon: facebook
+      link: https://www.facebook.com/4GeeksAcademy
+    - name: Twitter
+      icon: x-logo
+      link: https://twitter.com/4GeeksAcademy
+    - name: Instagram
+      icon: instagram
+      link: https://www.instagram.com/4GeeksAcademy
+  legal_links:
+    - label: Privacy Policy
+      href: /en/privacy-policy
+    - label: Cookies
+      href: /en/cookies
+    - label: Terms and Conditions
+      href: /en/terms-and-conditions
+  copyright_text: "2024 4Geeks Academy. All rights reserved."

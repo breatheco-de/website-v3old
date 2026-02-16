@@ -1,0 +1,67 @@
+footer:
+  columns:
+    - title: Empresa
+      items:
+        - label: Sobre Nosotros
+          href: /es/la-academia
+        - label: Prensa
+          href: /es/prensa
+        - label: Premios
+          href: /es/premios
+        - label: Socios
+          href: /es/socios
+        - label: Trabaja con Nosotros
+          href: /es/trabaja-con-nosotros
+    - title: Programas
+      items:
+        - label: Desarrollador Full Stack
+          href: /es/programas/full-stack
+        - label: Ingenieria en IA
+          href: /es/programas/ai-engineering
+        - label: Ciencia de Datos y ML
+          href: /es/programas/data-science-ml
+        - label: Ciberseguridad
+          href: /es/programas/cybersecurity
+    - title: Ubicaciones
+      items:
+        - label: Miami
+          href: /es/ubicacion/miami-usa
+        - label: Madrid
+          href: /campus/madrid
+        - label: Santiago
+          href: /campus/santiago
+        - label: Bogota
+          href: /campus/bogota
+        - label: Caracas
+          href: /campus/caracas
+        - label: Online
+          href: /campus/remote
+    - title: Para Empresas
+      items:
+        - label: Contrata Nuestros Egresados
+          href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
+        - label: Asóciate con 4Geeks
+          href: /es/socios
+        - label: Capacitación Corporativa
+          href: /es/la-academia
+  socials:
+    - name: Linkedin
+      icon: linkedin
+      link: https://www.linkedin.com/company/79678753/admin/feed/posts/
+    - name: Facebook
+      icon: facebook
+      link: https://www.facebook.com/4geeksacademyve
+    - name: Twitter
+      icon: x-logo
+      link: https://twitter.com/4geeksacademyES
+    - name: Instagram
+      icon: instagram
+      link: https://www.instagram.com/4geeksacademylatam/
+  legal_links:
+    - label: Política de Privacidad
+      href: /es/politica-de-privacidad
+    - label: Cookies
+      href: /es/cookies
+    - label: Términos y Condiciones
+      href: /es/terminos-y-condiciones
+  copyright_text: "2024 4Geeks Academy. Todos los derechos reservados."
