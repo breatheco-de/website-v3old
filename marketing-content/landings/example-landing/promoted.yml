@@ -77,6 +77,74 @@ sections:
       desktop: none lg
     marginY:
       desktop: none md
+  - type: double_cta
+    title: Take the Next Step in Your Tech Career
+    subtitle: Join thousands of students who have transformed their careers with 4Geeks Academy.
+    background: hsl(var(--muted))
+    left:
+      heading: Book a Free 15-Minute Consultation
+      description: Get personalized gui adsdsadas ads ads dsa  adsd asdance from our admissions team. Discover the tech program that fits your goals and explore flexible financing options.
+      bullets:
+        - icon: IconMap
+          text: Personalized career r saddsa d asdsa ads ads ads dsa dasdas d asads asd ds ads das ads ads das oadmap
+        - icon: IconSchool
+          text: Program recommendations
+        - icon: IconChartBar
+          text: Industry insights & salary expectations
+      cta_text: Schedule now!
+      cta_url: /en/apply
+      sub_text: Free 15-minute session - No commitment required
+    right:
+      heading: Start Your Journey Today
+      description: Fill out the form to get full program details and connect with our admissions team.
+      bullets:
+        - icon: IconTrendingUp
+          text: Industry trends & job market insights
+        - icon: IconStar
+          text: Student success stories
+        - icon: IconDiscount
+          text: Exclusive course discounts & early access
+      cta_text: Apply now
+      cta_url: /en/apply
+      cta_variant: secondary
+      sub_text: Weekly updates - Unsubscribe anytime - No spam, ever
+  - type: double_cta
+    title: Choose Your Path Into Tech
+    subtitle: Whether you're starting from scratch or leveling up, we have the right program for you.
+    background: muted
+    left:
+      heading: Full-Stack Development
+      description: Master front-end and back-end technologies in our most popular program. Build real-world projects and graduate job-ready.
+      bullets:
+        - icon: IconCode
+          text: JavaScript, dsa das dsadasasd asddas dsa dsad asds asad da  React, Python, Flask
+        - icon: IconClock
+          text: 16 weeks full-time or 36 adssda asdds aadsasd asd adsdas  sdaasd  dsadsa  weeks part-time
+        - icon: IconCertificate
+          text: Industry-recognized cedsa asd as dasd adsdas dsa das dsa   as dd asrtification
+      image_id: placeholder_mentorship
+      image_object_fit: cover
+      image_object_position: center
+      cta_text: Explore Full-Stack
+      cta_url: /en/full-stack
+      sub_text: Next cohort starts soon - Limited spots available
+    right:
+      heading: AI & Machine Learning
+      description: Dive into the future of tech with our AI engineering program. Learn to build intelligent systems from day one.
+      bullets:
+        - icon: IconBrain
+          text: Python, TensorFlow, LLMs, Prompt Engineering
+        - icon: IconClock
+          text: 16 weeks full-time or 36 weeks part-time
+        - icon: IconRocket
+          text: Fastest-growing career track in tech
+      image_id: student_laptop
+      image_object_fit: cover
+      image_object_position: center
+      cta_text: Explore AI Engineering
+      cta_url: /en/ai-engineering
+      cta_variant: secondary
+      sub_text: Scholarships available - Apply to learn more
   - type: two_column
     variant: benefitCards
     stacked_header: true

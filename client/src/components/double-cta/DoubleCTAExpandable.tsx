@@ -36,8 +36,8 @@ function CTABox({
   return (
     <Card
       className={cn(
-        "relative flex flex-col p-6 lg:p-8 overflow-hidden transition-all duration-500 ease-in-out",
-        isActive ? "cursor-default" : "cursor-pointer",
+        "relative flex flex-col p-6 lg:p-8 transition-all duration-500 ease-in-out h-full",
+        side == "right" ? "bg-primary/5" : "",
       )}
       onMouseEnter={onHover}
       data-testid={testId}
@@ -48,7 +48,8 @@ function CTABox({
             "font-bold text-foreground transition-all duration-500 ease-in-out",
             isActive
               ? "text-xl md:text-2xl lg:text-3xl"
-              : "text-base lg:text-lg truncate",
+              : "opacity-50 text-base lg:text-3xl line-clamp-1",
+            side == "right" ? "text-primary" : "",
           )}
           data-testid={`${testId}-heading`}
         >
@@ -61,12 +62,15 @@ function CTABox({
           "flex flex-col flex-1 transition-all duration-500 ease-in-out",
           isActive
             ? "opacity-100 max-h-[1000px] mt-3"
-            : "lg:opacity-0 lg:max-h-0 lg:mt-0 opacity-100 max-h-[1000px] mt-3",
+            : "opacity-50 max-h-[1000px] mt-3",
         )}
       >
         {box.description && (
           <p
-            className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4"
+            className={cn(
+              "text-sm md:text-base text-muted-foreground leading-relaxed mb-4",
+              isActive ? "" : "line-clamp-3",
+            )}
             data-testid={`${testId}-description`}
           >
             {box.description}
@@ -76,7 +80,10 @@ function CTABox({
         {(hasBullets || hasImage) && (
           <div className="flex gap-4 mb-4 flex-1">
             {hasBullets && (
-              <div className="flex flex-col gap-3 flex-1" data-testid={`${testId}-bullets`}>
+              <div
+                className="flex flex-col gap-3 flex-1"
+                data-testid={`${testId}-bullets`}
+              >
                 {box.bullets!.map((bullet, i) => {
                   const IconComp = bullet.icon
                     ? getTablerIcon(bullet.icon)
@@ -91,7 +98,7 @@ function CTABox({
                         <IconComp className="w-4 h-4 text-primary" />
                       </Card>
                       {bullet.text && (
-                        <span className="text-sm text-muted-foreground leading-snug">
+                        <span className={cn("text-sm text-muted-foreground leading-snug", isActive ? "" : "line-clamp-1")}>
                           {bullet.text}
                         </span>
                       )}
@@ -104,9 +111,9 @@ function CTABox({
             {hasImage && (
               <div
                 className={cn(
-                  "relative rounded-lg overflow-hidden flex-shrink-0 transition-all duration-500 ease-in-out",
+                  "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
                   isActive
-                    ? "w-[120px] md:w-[160px] lg:w-[200px] opacity-100"
+                    ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
                     : "w-0 opacity-0",
                 )}
                 data-testid={`${testId}-image`}
@@ -127,31 +134,31 @@ function CTABox({
         )}
 
         {box.cta_text && box.cta_url && (
-          <div className="mt-auto">
-            <a href={box.cta_url} data-testid={`${testId}-cta-link`}>
-              <Button
-                className="w-full"
-                variant={
-                  box.cta_variant === "secondary"
-                    ? "secondary"
-                    : box.cta_variant === "outline"
-                      ? "outline"
-                      : "default"
-                }
-                data-testid={`${testId}-cta`}
-              >
-                {box.cta_text}
-              </Button>
-            </a>
-            {box.sub_text && (
-              <p
-                className="text-xs text-muted-foreground text-center mt-2"
-                data-testid={`${testId}-subtext`}
-              >
-                {box.sub_text}
-              </p>
-            )}
-          </div>
+        <div className="mt-auto">
+          <a href={box.cta_url} data-testid={`${testId}-cta-link`}>
+            <Button
+              className="w-full"
+              variant={
+                box.cta_variant === "secondary"
+                  ? "secondary"
+                  : box.cta_variant === "outline"
+                    ? "outline"
+                    : "default"
+              }
+              data-testid={`${testId}-cta`}
+            >
+              {box.cta_text}
+            </Button>
+          </a>
+          {box.sub_text && (
+            <p
+              className="text-xs text-muted-foreground text-center mt-2"
+              data-testid={`${testId}-subtext`}
+            >
+              {box.sub_text}
+            </p>
+          )}
+        </div>
         )}
       </div>
     </Card>
@@ -203,7 +210,10 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
       data-testid="section-double-cta"
     >
       {(title || subtitle) && (
-        <div className="text-center mb-8 md:mb-12" data-testid="double-cta-header">
+        <div
+          className="text-center mb-8 md:mb-12"
+          data-testid="double-cta-header"
+        >
           {title && (
             <h2
               className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground"
@@ -223,7 +233,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 h-[400px]">
         {left && (
           <div
             className={cn(
@@ -250,7 +260,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
         {right && (
           <div
             className={cn(
-              "transition-all duration-500 ease-in-out",
+              "transition-all duration-100 ease-in-out",
               "lg:min-w-0",
               isEqual
                 ? "lg:flex-1"
