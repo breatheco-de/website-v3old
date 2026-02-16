@@ -128,7 +128,7 @@ sections:
         description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.
         cta_text: View Program Details
         cta_url: /en/ai-engineering
-        course_background: hsl(var(--destructive))
+        course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
         duration: 9 months part-time
@@ -145,7 +145,7 @@ sections:
         description: Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.
         cta_text: View Program Details
         cta_url: /en/full-stack
-        course_background: primary
+        course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
         duration: 16 weeks
@@ -159,7 +159,7 @@ sections:
         description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
         cta_text: View Program Details
         cta_url: /en/data-science-ml
-        course_background: primary
+        course_background: hsl(var(--primary))
       - name: Cybersecurity
         icon: Shield
         duration: 16 weeks
@@ -173,7 +173,8 @@ sections:
         description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
         cta_text: View Program Details
         cta_url: /en/cybersecurity
-        course_background: hsl(var(--destructive))
+        course_background: hsl(var(--secondary-foreground))
+    background: hsl(var(--muted))
     marginY:
       desktop: lg
     paddingY:
@@ -279,7 +280,7 @@ sections:
             contributor_logos:
               - image_id: clark_university
             description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
+            achievement: She launched her startup, is hiring new tech talent, and coordinates an entire dev team!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
