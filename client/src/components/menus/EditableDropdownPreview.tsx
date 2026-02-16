@@ -62,7 +62,7 @@ interface EditableTextProps {
   testId?: string;
 }
 
-function EditableText({ value, onChange, placeholder, className, as: Tag = "span", testId }: EditableTextProps) {
+export function EditableText({ value, onChange, placeholder, className, as: Tag = "span", testId }: EditableTextProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
 
@@ -120,7 +120,7 @@ interface EditableLinkItemProps {
   locale?: string;
 }
 
-function EditableLinkItem({ label, href, onLabelChange, onHrefChange, onDelete, testIdPrefix, isReadOnlyStructure = false, locale = "en" }: EditableLinkItemProps) {
+export function EditableLinkItem({ label, href, onLabelChange, onHrefChange, onDelete, testIdPrefix, isReadOnlyStructure = false, locale = "en" }: EditableLinkItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempLabel, setTempLabel] = useState(label);
   const [tempHref, setTempHref] = useState(href);

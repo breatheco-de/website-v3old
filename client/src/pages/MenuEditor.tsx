@@ -47,7 +47,7 @@ import {
 } from "@tabler/icons-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { EditableDropdownPreview } from "@/components/menus";
+import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
 import {
   DndContext,
   closestCenter,
@@ -99,10 +99,39 @@ interface MenuItemData {
   };
 }
 
+interface FooterColumnItem {
+  label: string;
+  href: string;
+}
+
+interface FooterColumn {
+  title: string;
+  items: FooterColumnItem[];
+}
+
+interface FooterSocial {
+  name: string;
+  icon: string;
+  link: string;
+}
+
+interface FooterLegalLink {
+  label: string;
+  href: string;
+}
+
+interface FooterData {
+  columns: FooterColumn[];
+  socials: FooterSocial[];
+  legal_links: FooterLegalLink[];
+  copyright_text: string;
+}
+
 interface MenuData {
   navbar?: {
     items: MenuItemData[];
   };
+  footer?: FooterData;
   [key: string]: unknown;
 }
 
@@ -460,6 +489,93 @@ export default function MenuEditor() {
   });
 
   const isNavbarMenu = !!(menuData?.navbar?.items);
+  const isFooterMenu = !!(menuData?.footer);
+  const footerData = menuData?.footer;
+
+  const updateFooter = (updates: Partial<FooterData>) => {
+    if (!menuData || !footerData) return;
+    updateYamlFromData({ ...menuData, footer: { ...footerData, ...updates } });
+  };
+
+  const updateFooterColumn = (colIndex: number, updates: Partial<FooterColumn>) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    newColumns[colIndex] = { ...newColumns[colIndex], ...updates };
+    updateFooter({ columns: newColumns });
+  };
+
+  const updateFooterColumnItem = (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    const newItems = [...(newColumns[colIndex].items || [])];
+    newItems[itemIndex] = { ...newItems[itemIndex], ...updates };
+    newColumns[colIndex] = { ...newColumns[colIndex], items: newItems };
+    updateFooter({ columns: newColumns });
+  };
+
+  const addFooterColumnItem = (colIndex: number) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    newColumns[colIndex] = {
+      ...newColumns[colIndex],
+      items: [...(newColumns[colIndex].items || []), { label: "New Item", href: "/new-page" }],
+    };
+    updateFooter({ columns: newColumns });
+  };
+
+  const deleteFooterColumnItem = (colIndex: number, itemIndex: number) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    newColumns[colIndex] = {
+      ...newColumns[colIndex],
+      items: (newColumns[colIndex].items || []).filter((_, i) => i !== itemIndex),
+    };
+    updateFooter({ columns: newColumns });
+  };
+
+  const addFooterColumn = () => {
+    if (!footerData) return;
+    updateFooter({ columns: [...footerData.columns, { title: "New Column", items: [] }] });
+  };
+
+  const deleteFooterColumn = (colIndex: number) => {
+    if (!footerData) return;
+    updateFooter({ columns: footerData.columns.filter((_, i) => i !== colIndex) });
+  };
+
+  const updateFooterSocial = (index: number, updates: Partial<FooterSocial>) => {
+    if (!footerData) return;
+    const newSocials = [...(footerData.socials || [])];
+    newSocials[index] = { ...newSocials[index], ...updates };
+    updateFooter({ socials: newSocials });
+  };
+
+  const addFooterSocial = () => {
+    if (!footerData) return;
+    updateFooter({ socials: [...(footerData.socials || []), { name: "New Social", icon: "linkedin", link: "https://" }] });
+  };
+
+  const deleteFooterSocial = (index: number) => {
+    if (!footerData) return;
+    updateFooter({ socials: (footerData.socials || []).filter((_, i) => i !== index) });
+  };
+
+  const updateFooterLegalLink = (index: number, updates: Partial<FooterLegalLink>) => {
+    if (!footerData) return;
+    const newLinks = [...(footerData.legal_links || [])];
+    newLinks[index] = { ...newLinks[index], ...updates };
+    updateFooter({ legal_links: newLinks });
+  };
+
+  const addFooterLegalLink = () => {
+    if (!footerData) return;
+    updateFooter({ legal_links: [...(footerData.legal_links || []), { label: "New Link", href: "/new-page" }] });
+  };
+
+  const deleteFooterLegalLink = (index: number) => {
+    if (!footerData) return;
+    updateFooter({ legal_links: (footerData.legal_links || []).filter((_, i) => i !== index) });
+  };
 
   const handleUpdateItem = (index: number, updatedItem: MenuItemData) => {
     if (!menuData || !menuData.navbar) return;
@@ -698,7 +814,218 @@ export default function MenuEditor() {
             </>
           )}
 
-          {menuData && !isNavbarMenu && (
+          {menuData && isFooterMenu && footerData && (
+            <ScrollArea className="h-[calc(100vh-200px)]">
+              <div className="space-y-8">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">
+                      Footer Columns ({footerData.columns?.length || 0})
+                    </h2>
+                    {isEnglish && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={addFooterColumn}
+                        data-testid="button-add-footer-column"
+                      >
+                        <IconPlus className="h-4 w-4 mr-2" />
+                        Add Column
+                      </Button>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 bg-popover border border-border rounded-lg">
+                    {(footerData.columns || []).map((column, colIndex) => (
+                      <div key={colIndex} className="group/col relative" data-testid={`footer-column-${colIndex}`}>
+                        {isEnglish && (
+                          <button
+                            onClick={() => deleteFooterColumn(colIndex)}
+                            className="absolute -top-2 -right-2 p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity z-10"
+                            data-testid={`footer-column-${colIndex}-delete`}
+                          >
+                            <IconTrash className="h-3 w-3" />
+                          </button>
+                        )}
+
+                        <EditableText
+                          value={column.title}
+                          onChange={(title) => updateFooterColumn(colIndex, { title })}
+                          placeholder="Column title"
+                          className="font-semibold text-foreground mb-3 block"
+                          as="h4"
+                          testId={`footer-column-${colIndex}-title`}
+                        />
+                        <ul className="space-y-1">
+                          {(column.items || []).map((item, itemIndex) => (
+                            <li key={itemIndex}>
+                              <EditableLinkItem
+                                label={item.label || ""}
+                                href={item.href || ""}
+                                onLabelChange={(label) => updateFooterColumnItem(colIndex, itemIndex, { label })}
+                                onHrefChange={(href) => updateFooterColumnItem(colIndex, itemIndex, { href })}
+                                onDelete={() => deleteFooterColumnItem(colIndex, itemIndex)}
+                                testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
+                                isReadOnlyStructure={!isEnglish}
+                                locale={locale}
+                              />
+                            </li>
+                          ))}
+                          {isEnglish && (
+                            <li>
+                              <button
+                                onClick={() => addFooterColumnItem(colIndex)}
+                                className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
+                                data-testid={`footer-column-${colIndex}-add-item`}
+                              >
+                                <IconPlus className="h-3 w-3" />
+                                Add item
+                              </button>
+                            </li>
+                          )}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">
+                      Social Links ({footerData.socials?.length || 0})
+                    </h2>
+                    {isEnglish && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={addFooterSocial}
+                        data-testid="button-add-footer-social"
+                      >
+                        <IconPlus className="h-4 w-4 mr-2" />
+                        Add Social
+                      </Button>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    {(footerData.socials || []).map((social, index) => (
+                      <Card key={index} className="p-3" data-testid={`footer-social-${index}`}>
+                        <div className="flex items-center gap-3">
+                          <div className="flex-1 grid grid-cols-3 gap-3">
+                            <div className="space-y-1">
+                              <Label className="text-xs">Name</Label>
+                              <Input
+                                value={social.name}
+                                onChange={(e) => updateFooterSocial(index, { name: e.target.value })}
+                                placeholder="Social name"
+                                className="h-8 text-sm"
+                                data-testid={`footer-social-${index}-name`}
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">Icon</Label>
+                              <Select
+                                value={social.icon}
+                                onValueChange={(icon) => updateFooterSocial(index, { icon })}
+                              >
+                                <SelectTrigger className="h-8 text-sm" data-testid={`footer-social-${index}-icon`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="linkedin">Linkedin</SelectItem>
+                                  <SelectItem value="facebook">Facebook</SelectItem>
+                                  <SelectItem value="x-logo">X (Twitter)</SelectItem>
+                                  <SelectItem value="instagram">Instagram</SelectItem>
+                                  <SelectItem value="youtube">YouTube</SelectItem>
+                                  <SelectItem value="tiktok">TikTok</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">URL</Label>
+                              <div className="relative">
+                                <IconLink className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
+                                <Input
+                                  value={social.link}
+                                  onChange={(e) => updateFooterSocial(index, { link: e.target.value })}
+                                  placeholder="https://..."
+                                  className="h-8 text-sm pl-7"
+                                  data-testid={`footer-social-${index}-link`}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          {isEnglish && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => deleteFooterSocial(index)}
+                              className="text-destructive hover:text-destructive flex-shrink-0"
+                              data-testid={`footer-social-${index}-delete`}
+                            >
+                              <IconTrash className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">
+                      Legal Links ({footerData.legal_links?.length || 0})
+                    </h2>
+                    {isEnglish && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={addFooterLegalLink}
+                        data-testid="button-add-footer-legal"
+                      >
+                        <IconPlus className="h-4 w-4 mr-2" />
+                        Add Link
+                      </Button>
+                    )}
+                  </div>
+
+                  <div className="p-4 bg-popover border border-border rounded-lg">
+                    <ul className="space-y-1">
+                      {(footerData.legal_links || []).map((link, index) => (
+                        <li key={index}>
+                          <EditableLinkItem
+                            label={link.label || ""}
+                            href={link.href || ""}
+                            onLabelChange={(label) => updateFooterLegalLink(index, { label })}
+                            onHrefChange={(href) => updateFooterLegalLink(index, { href })}
+                            onDelete={() => deleteFooterLegalLink(index)}
+                            testIdPrefix={`footer-legal-${index}`}
+                            isReadOnlyStructure={!isEnglish}
+                            locale={locale}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-sm font-medium text-muted-foreground mb-4">
+                    Copyright Text
+                  </h2>
+                  <Input
+                    value={footerData.copyright_text || ""}
+                    onChange={(e) => updateFooter({ copyright_text: e.target.value })}
+                    placeholder="2024 4Geeks Academy. All rights reserved."
+                    data-testid="footer-copyright-input"
+                  />
+                </div>
+              </div>
+            </ScrollArea>
+          )}
+
+          {menuData && !isNavbarMenu && !isFooterMenu && (
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-sm font-medium text-muted-foreground">

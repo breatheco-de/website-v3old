@@ -1,6 +1,6 @@
 export { SimpleLink, type SimpleLinkProps } from "./SimpleLink";
 export { Dropdown, type DropdownProps } from "./Dropdown";
-export { EditableDropdownPreview } from "./EditableDropdownPreview";
+export { EditableDropdownPreview, EditableLinkItem, EditableText } from "./EditableDropdownPreview";
 export { MobileNav } from "./MobileNav";
 
 import { useState, useCallback } from "react";
