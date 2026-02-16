@@ -928,9 +928,10 @@
       "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
-      "sha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725",
-      "lastModified": 1771253431220.4268,
-      "remoteSha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725"
+      "sha": "db836f16e8cc3deaac44a66fd755cc9c958486153fee596fd52aa422c48190f3",
+      "lastModified": 1771282662719.6848,
+      "remoteSha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725",
+      "modifiedAt": "2026-02-16T22:57:42.722Z"
     },
     "marketing-content/programs/ai-for-professionals/_common.yml": {
       "sha": "cd6ef75b6e0719ae5bc0fa822a1c0a11edd73fb259fe6b8869143a37773448c2",
@@ -1026,6 +1027,16 @@
       "sha": "5858eb07aa4103a22b940b37557a6b5f8f01de0d75dfeac35892eaab24ed6c18",
       "lastModified": 1771278622714.7773,
       "remoteSha": "5858eb07aa4103a22b940b37557a6b5f8f01de0d75dfeac35892eaab24ed6c18"
+    },
+    "marketing-content/programs/ingenieria-de-inteligencia-artificial/en.yml": {
+      "sha": "a94d90ab9a0cbfbf6013cc78d2b4fff4bca6e49be587354e028da0c6f441f635",
+      "lastModified": 1771281902509.3428,
+      "modifiedAt": "2026-02-16T22:45:02.511Z"
+    },
+    "marketing-content/programs/ingenieria-de-inteligencia-artificial/es.yml": {
+      "sha": "f3704383882473902ede57712e12e3335fdf1c14dcb743081be5f8d4069da3b3",
+      "lastModified": 1771281902555.3425,
+      "modifiedAt": "2026-02-16T22:45:02.557Z"
     }
   }
 }
