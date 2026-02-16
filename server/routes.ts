@@ -962,8 +962,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blog/posts/:slug", async (req, res) => {
     try {
       const { slug } = req.params;
+      const locale = req.query.locale as string | undefined;
       const posts = await getBlogPosts();
-      const post = findBlogPostBySlug(posts, slug);
+      const post = findBlogPostBySlug(posts, slug, locale ? normalizeLocale(locale) : undefined);
 
       if (!post) {
         res.status(404).json({ error: "Blog post not found" });
@@ -5064,7 +5065,7 @@ sections: []
     if (blogRoute) {
       try {
         const posts = await getBlogPosts();
-        const post = findBlogPostBySlug(posts, blogRoute.slug);
+        const post = findBlogPostBySlug(posts, blogRoute.slug, blogRoute.locale);
         if (post) {
           schemaHtml = generateBlogSsrHtml(post, blogRoute.locale);
         }
