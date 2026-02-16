@@ -712,15 +712,37 @@ export function DebugBubble() {
     }
   }, [pathname, contentInfo.type, contentInfo.slug]);
 
-  // Auto-fetch page diagnostics when debug mode is active (on every page)
+  // Auto-fetch page diagnostics when debug mode is active (on every page, including preview routes)
   useEffect(() => {
-    if (!isDebugMode || pathname.startsWith('/private/')) {
+    if (!isDebugMode) {
       setPageDiagnostics(null);
       return;
     }
+
+    let diagnosticsUrl: string | null = null;
+
+    if (pathname.startsWith('/private/preview/') && contentInfo.type && contentInfo.slug) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const locale = normalizeLocale(searchParams.get('locale') || 'en');
+      const urlMap: Record<string, Record<string, string>> = {
+        programs: { en: `/en/career-programs/${contentInfo.slug}`, es: `/es/programas-de-carrera/${contentInfo.slug}` },
+        pages: { en: `/en/${contentInfo.slug}`, es: `/es/${contentInfo.slug}` },
+        locations: { en: `/en/location/${contentInfo.slug}`, es: `/es/ubicacion/${contentInfo.slug}` },
+        landings: { en: `/landing/${contentInfo.slug}`, es: `/landing/${contentInfo.slug}` },
+      };
+      diagnosticsUrl = urlMap[contentInfo.type]?.[locale] || urlMap[contentInfo.type]?.en || null;
+    } else if (!pathname.startsWith('/private/')) {
+      diagnosticsUrl = pathname;
+    }
+
+    if (!diagnosticsUrl) {
+      setPageDiagnostics(null);
+      return;
+    }
+
     setPageDiagnosticsLoading(true);
     setPageDiagnostics(null);
-    fetch(`/api/diagnostics/page?url=${encodeURIComponent(pathname)}`)
+    fetch(`/api/diagnostics/page?url=${encodeURIComponent(diagnosticsUrl)}`)
       .then((res) => {
         if (!res.ok) return null;
         return res.json();
@@ -730,7 +752,7 @@ export function DebugBubble() {
       })
       .catch(() => {})
       .finally(() => setPageDiagnosticsLoading(false));
-  }, [pathname, isDebugMode]);
+  }, [pathname, isDebugMode, contentInfo.type, contentInfo.slug]);
 
   const pageErrorCount = useMemo(() => {
     if (!pageDiagnostics) return 0;

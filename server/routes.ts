@@ -4111,8 +4111,14 @@ sections: []
 
       let rawData: Record<string, unknown> = {};
       try {
+        const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
+        if (fs.existsSync(commonPath)) {
+          const commonData = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown> || {};
+          rawData = { ...commonData };
+        }
         if (fs.existsSync(file.filePath)) {
-          rawData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
+          const localeData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
+          rawData = { ...rawData, ...localeData };
         }
       } catch {}
 
@@ -4284,6 +4290,34 @@ sections: []
               received: err.received,
             },
           });
+        }
+      }
+
+      const schemaData = rawData.schema as { include?: string[]; overrides?: Record<string, unknown> } | undefined;
+      if (schemaData?.include) {
+        const availableKeys = getAvailableSchemaKeys();
+        const availableSet = new Set(availableKeys);
+        for (const ref of schemaData.include) {
+          if (!availableSet.has(ref)) {
+            issues.push({
+              type: "error",
+              code: "INVALID_SCHEMA_REF",
+              message: `Invalid schema reference: "${ref}"`,
+              category: "schema-org",
+            });
+          }
+        }
+        if (schemaData.overrides) {
+          for (const key of Object.keys(schemaData.overrides)) {
+            if (!availableSet.has(key)) {
+              issues.push({
+                type: "error",
+                code: "INVALID_SCHEMA_OVERRIDE",
+                message: `Invalid schema override key: "${key}"`,
+                category: "schema-org",
+              });
+            }
+          }
         }
       }
 
