@@ -18,6 +18,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import type { Section } from "@shared/schema";
+import addSectionImg from "@assets/add-section-explanation_1771275660234.png";
 
 type LinkType = "internal" | "external" | "modal" | "scroll";
 
@@ -329,11 +330,12 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
         {activeType === "modal" && (
           <ScrollArea className="h-[200px]">
             {modals.length === 0 ? (
-              <div className="p-4 space-y-2">
+              <div className="p-4 space-y-3">
                 <p className="text-sm font-medium text-foreground text-center">No modals on this page</p>
                 <p className="text-xs text-muted-foreground">
-                  Modal links open a popup overlay when clicked. To add a modal, create a section with <code className="bg-muted px-1 py-0.5 rounded text-xs">type: modal</code> in your page YAML. It will then appear here for selection.
+                  Modal links open a popup overlay when clicked. To add a modal, add a section with <code className="bg-muted px-1 py-0.5 rounded text-xs">type: modal</code> in your page YAML or using the manual editor with "Edit Mode". It will then appear here for selection.
                 </p>
+                <img src={addSectionImg} alt="Use the Add button between sections to insert a new modal section" className="w-full rounded border" />
               </div>
             ) : (
               <div className="p-1">
