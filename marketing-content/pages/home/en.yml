@@ -80,8 +80,8 @@ sections:
       - src: /attached_assets/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: Tech Careers Aren’t Built on One-Size-Fits-All.
-      text: "Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles."
+      heading: "<span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span>"
+      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
       background: primary
       width: 2
     height: 31rem
@@ -181,55 +181,6 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
-  - type: geeks_vs_others_comparison
-    version: "1.0"
-    title: Launching Successful Tech Careers in the AI Era
-    subtitle: "Helping students build lasting tech careers is our mission. From an industry-aligned, future-proof syllabus to a lifelong support system, here's how we outperform the competition:"
-    columns:
-      - name: Feature
-      - name: 4Geeks Academy
-        highlight: true
-      - name: Industry Average / Competitors
-    rows:
-      - feature: Career Support
-        values:
-          - Personalized support for a lifetime
-          - Limited, ending with 1st job
-      - feature: "Teacher: Student Ratio"
-        values:
-          - "1:7"
-          - 1:10+
-      - feature: AI-Powered Feedback
-        values:
-          - Personalized to your progress
-          - Generic or non-existent
-      - feature: 1-on-1 Mentoring
-        values:
-          - Unlimited and for a lifetime
-          - Limited sessions
-      - feature: Curriculum
-        values:
-          - Continuously updated to match industry needs
-          - Slow to adapt
-      - feature: "% Hiring Rate"
-        values:
-          - ~84% within 6 months
-          - Often Unknown
-      - feature: Community
-        values:
-          - Strong local & global network
-          - Depends on school
-      - feature: Class Format
-        values:
-          - Online, in-person
-          - Usually only one format
-      - feature: Previous Knowledge
-        values:
-          - None
-          - Entry tests or prior coding experience
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: lg
   - type: features_quad
     version: "1.0"
     variant: default
@@ -253,13 +204,6 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: none
-  - type: testimonials_slide
-    title: What Our Students Say
-    description: See how our graduates transformed their careers with personalized learning and career support.
-    paddingY:
-      desktop: none
-    marginY:
       desktop: none
   - type: career_support_explain
     version: v1.0
@@ -378,6 +322,13 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+  - type: testimonials_slide
+    title: What Our Students Say
+    description: See how our graduates transformed their careers with personalized learning and career support.
+    paddingY:
+      desktop: none
+    marginY:
+      desktop: none
   - type: faq
     version: v1.0
     title: Frequently Asked Questions
