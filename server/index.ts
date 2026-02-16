@@ -4,7 +4,6 @@ import { setupVite, serveStatic, log } from "./vite";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import path from "path";
-import { contentIndex } from "./content-index";
 
 const app = express();
 
