@@ -83,7 +83,7 @@ sections:
     background: hsl(var(--muted))
     left:
       heading: Book a Free 15-Minute Consultation
-      description: Get personalized gui adsdsadas ads ads dsa  adsd asdance from our admissions team. Discover the tech program that fits your goals and explore flexible financing options.
+      description: Get personal sda dsadasasd sad asd ds a dsaads  dasdsaads ads ads ds aads ized gui adsdsadas ads ads dsa  adsd asdance from our admissions team. Discover the tech program that fits your goals and explore flexible financing options.
       bullets:
         - icon: IconMap
           text: Personalized career r saddsa d asdsa ads ads ads dsa dasdas d asads asd ds ads das ads ads das oadmap
@@ -96,7 +96,7 @@ sections:
       sub_text: Free 15-minute session - No commitment required
     right:
       heading: Start Your Journey Today
-      description: Fill out the form to get full program details and connect with our admissions team.
+      description: Fill out thes addsa dsadsadsa ds  sadd sad as form to get full program details and connect with our admissions team.
       bullets:
         - icon: IconTrendingUp
           text: Industry trends & job market insights
@@ -122,13 +122,13 @@ sections:
           text: 16 weeks full-time or 36 adssda asdds aadsasd asd adsdas  sdaasd  dsadsa  weeks part-time
         - icon: IconCertificate
           text: Industry-recognized cedsa asd as dasd adsdas dsa das dsa   as dd asrtification
-      image_id: placeholder_mentorship
+      image_id: group_original
       image_object_fit: cover
-      image_object_position: center
+      image_beside_bullets: false
       cta_text: Explore Full-Stack
       cta_url: /en/full-stack
       sub_text: Next cohort starts soon - Limited spots available
-      image_beside_bullets: false
+      image_object_position: 50% 10%
     right:
       heading: AI & Machine Learning
       description: Dive into the future of tech with our AI engineering program. Learn to build intelligent systems from day one.
@@ -139,7 +139,7 @@ sections:
           text: 16 weeks full-time or 36 weeks part-time
         - icon: IconRocket
           text: Fastest-growing career track in tech
-      image_id: student_laptop
+      image_id: placeholder_strategies
       image_object_fit: cover
       image_object_position: center
       cta_text: Explore AI Engineering

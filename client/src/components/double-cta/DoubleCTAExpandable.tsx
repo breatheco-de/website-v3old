@@ -48,10 +48,11 @@ function CTABox({
         <h3
           className={cn(
             "font-bold text-foreground transition-all duration-500 ease-in-out",
-            isActive
+            isContentExpanded
               ? "text-xl md:text-2xl lg:text-3xl"
-              : "opacity-50 text-base lg:text-3xl line-clamp-1",
+              : "text-base lg:text-3xl line-clamp-1",
             side == "right" ? "text-primary" : "",
+            isActive ? "" : "opacity-50"
           )}
           data-testid={`${testId}-heading`}
         >
@@ -124,7 +125,7 @@ function CTABox({
                   >
                     <UniversalImage
                       id={box.image_id!}
-                      className="w-full h-full"
+                      className="w-full h-full rounded-lg"
                       style={{
                         objectFit:
                           (box.image_object_fit as React.CSSProperties["objectFit"]) ||
@@ -185,7 +186,7 @@ function CTABox({
             {hasImage && (
               <div
                 className={cn(
-                  "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
+                  "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out minh-[250px]",
                   isActive
                     ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
                     : "w-0 opacity-0",
@@ -194,7 +195,7 @@ function CTABox({
               >
                 <UniversalImage
                   id={box.image_id!}
-                  className="w-full h-full"
+                  className="w-full h-full rounded-lg"
                   style={{
                     objectFit:
                       (box.image_object_fit as React.CSSProperties["objectFit"]) ||
@@ -285,11 +286,15 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
   }, [hasAnimated, switchToSide]);
 
   const handleHoverLeft = useCallback(() => {
-    switchToSide("left");
+    if (activeSide !== "left") {
+      switchToSide("left");
+    }
   }, [switchToSide]);
 
   const handleHoverRight = useCallback(() => {
-    switchToSide("right");
+    if (activeSide !== "right") {
+      switchToSide("right");
+    }
   }, [switchToSide]);
 
   const isEqual = activeSide === null;
