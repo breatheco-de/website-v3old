@@ -1022,6 +1022,16 @@
       "sha": "3843a9ef901b9bb001882f32751b290fa652de553131c3c8c71238666710e608",
       "lastModified": 1771278133559.6077,
       "modifiedAt": "2026-02-16T21:42:13.560Z"
+    },
+    "marketing-content/landings/test-example-check-cambiado/_common.yml": {
+      "sha": "c8c18525bf49321d40beeeb0e170e19fea79c2f66cdc218969755bf4632d7d64",
+      "lastModified": 1771278898618.9468,
+      "modifiedAt": "2026-02-16T21:54:58.621Z"
+    },
+    "marketing-content/landings/test-example-check-cambiado/promoted.yml": {
+      "sha": "4a96b8ca237d87c777740117b910a917b661247e10fd9ffc1226cc034c6fc92e",
+      "lastModified": 1771278898624.9468,
+      "modifiedAt": "2026-02-16T21:54:58.628Z"
     }
   }
 }

@@ -1088,13 +1088,21 @@ export function DebugBubble() {
       setSeoModalOpen(false);
       setSlugEditorExpanded(false);
       setNewSlugValue("");
-      const pathSegments = pathname.split("/").filter(Boolean);
-      const urlLocale = pathSegments[0];
-      const newUrl = result.newUrls?.[urlLocale || "en"] || result.newUrls?.["en"];
-      if (newUrl) {
-        window.location.href = newUrl;
+      const isPreview = pathname.startsWith("/private/preview/");
+      if (isPreview) {
+        const folderMap: Record<string, string> = { program: "programs", page: "pages", location: "locations", landing: "landings" };
+        const folder = folderMap[apiType] || contentInfo.type;
+        const search = window.location.search;
+        window.location.href = `/private/preview/${folder}/${result.newSlug}${search}`;
       } else {
-        window.location.reload();
+        const pathSegments = pathname.split("/").filter(Boolean);
+        const urlLocale = pathSegments[0];
+        const newUrl = result.newUrls?.[urlLocale || "en"] || result.newUrls?.["en"];
+        if (newUrl) {
+          window.location.href = newUrl;
+        } else {
+          window.location.reload();
+        }
       }
     } catch (error) {
       toast({
