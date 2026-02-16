@@ -88,11 +88,11 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "493503c9c9b0aa88c1731d717c1c392c7d78f5e60f2abb4eabf354172db2c6f4",
-      "lastModified": 1771272936312.2805,
+      "sha": "6c5746dca4ca842b3f3bdf66d2a60cba440144993be2fd59ab47e663ee2e6089",
+      "lastModified": 1771273254766.9233,
       "remoteSha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2",
       "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-16T20:15:36.314Z"
+      "modifiedAt": "2026-02-16T20:20:54.768Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -912,9 +912,11 @@
       "remoteSha": "f669df218d2c2361074495bc397bb46af0aded3679583d99be09bc9e86e2beaf"
     },
     "marketing-content/programs/ai-engineering/en.yml": {
-      "sha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
-      "lastModified": 1771253430926.427,
-      "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e"
+      "sha": "59c6dc10f04fd70844b22c2a626297833f083b7a72dd590e1dc9faac4afa5502",
+      "lastModified": 1771273217594.965,
+      "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-16T20:20:17.596Z"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "36aa51e579da33be9b7d3f7ec0fe972a891f5da89248a6b357b92cdd7c8ca725",
