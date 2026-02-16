@@ -25,6 +25,8 @@ export const ctaButtonSchema = z.object({
   text: z.string(),
   url: z.string(),
   variant: z.enum(["primary", "secondary", "outline"]),
+  button_variant: z.string().optional(),
+  text_color: z.string().optional(),
   icon: z.string().optional(),
   us_only: z.boolean().optional(),
 });

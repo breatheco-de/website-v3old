@@ -94,6 +94,16 @@
     { "id": "sm", "label": "Small", "value": "0.875rem", "tailwind": "text-sm" },
     { "id": "base", "label": "Normal", "value": "1rem", "tailwind": "text-base" },
     { "id": "lg", "label": "Large", "value": "1.125rem", "tailwind": "text-lg" },
-    { "id": "xl", "label": "Extra Large", "value": "1.25rem", "tailwind": "text-xl" }
+    { "id": "xl", "label": "Extra Large", "value": "1.25rem", "tailwind": "text-xl" },
+    { "id": "2xl", "label": "2XL", "value": "1.5rem", "tailwind": "text-2xl" },
+    { "id": "3xl", "label": "3XL", "value": "1.875rem", "tailwind": "text-3xl" }
+  ],
+  "button_variants": [
+    { "id": "primary", "label": "Primary" },
+    { "id": "secondary", "label": "Secondary" },
+    { "id": "outline", "label": "Outline" },
+    { "id": "ghost", "label": "Ghost" },
+    { "id": "link", "label": "Link" },
+    { "id": "destructive", "label": "Destructive" }
   ]
 }
