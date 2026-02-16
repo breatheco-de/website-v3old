@@ -21,91 +21,27 @@ function CTABox({
   box,
   isActive,
   isContentExpanded,
-  onInteract,
+  onHover,
   side,
   "data-testid": testId,
 }: {
   box: DoubleCTABox;
   isActive: boolean;
   isContentExpanded: boolean;
-  onInteract: () => void;
+  onHover: () => void;
   side: ActiveSide;
   "data-testid"?: string;
 }) {
   const hasBullets = box.bullets && box.bullets.length > 0;
   const hasImage = !!box.image_id;
 
-  const renderBullets = () => {
-    if (!hasBullets) return null;
-    return (
-      <div
-        className="flex flex-col gap-2 lg:gap-3"
-        data-testid={`${testId}-bullets`}
-      >
-        {box.bullets!.map((bullet, i) => {
-          const IconComp = bullet.icon
-            ? getTablerIcon(bullet.icon)
-            : TablerIcons.IconCircleCheck;
-          return (
-            <div
-              key={i}
-              className="flex items-start gap-2 lg:gap-2.5"
-              data-testid={`${testId}-bullet-${i}`}
-            >
-              <Card className="flex-shrink-0 p-1 !rounded-lg">
-                <IconComp className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary" />
-              </Card>
-              {bullet.text && (
-                <span className={cn("text-xs lg:text-sm text-muted-foreground leading-snug", isContentExpanded ? "" : "line-clamp-1")}>
-                  {bullet.text}
-                </span>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  const renderImage = () => {
-    if (!hasImage) return null;
-    return (
-      <div
-        className={cn(
-          "relative rounded-lg transition-all duration-100 ease-in-out overflow-hidden",
-          isActive
-            ? "opacity-100"
-            : "lg:w-0 lg:opacity-0",
-          isActive
-            ? "w-full h-32 lg:h-auto lg:w-[40%] lg:flex-shrink-0"
-            : "h-0 lg:h-auto",
-        )}
-        data-testid={`${testId}-image`}
-      >
-        <UniversalImage
-          id={box.image_id!}
-          className="w-full h-full rounded-lg"
-          style={{
-            objectFit:
-              (box.image_object_fit as React.CSSProperties["objectFit"]) ||
-              "cover",
-            objectPosition: box.image_object_position || "center",
-          }}
-        />
-      </div>
-    );
-  };
-
   return (
     <Card
       className={cn(
-        "relative flex flex-col overflow-hidden p-4 lg:p-8 transition-all duration-500 ease-in-out",
-        "lg:h-full",
+        "relative flex flex-col overflow-hidden p-6 lg:p-8 transition-all duration-500 ease-in-out h-full",
         side == "right" ? "bg-primary/5" : "",
-        isActive ? "border-primary border-2" : "",
       )}
-      onMouseEnter={onInteract}
-      onClick={onInteract}
+      onMouseEnter={onHover}
       data-testid={testId}
     >
       {box.heading && (
@@ -113,7 +49,7 @@ function CTABox({
           className={cn(
             "font-bold text-foreground transition-all duration-500 ease-in-out",
             isContentExpanded
-              ? "text-lg md:text-2xl lg:text-3xl"
+              ? "text-xl md:text-2xl lg:text-3xl"
               : "text-base lg:text-3xl line-clamp-1",
             side == "right" ? "text-primary" : "",
             isActive ? "" : "opacity-50"
@@ -126,44 +62,151 @@ function CTABox({
 
       <div
         className={cn(
-          "flex flex-col flex-1 transition-all duration-500 ease-in-out mt-2 lg:mt-3",
-          isActive ? "opacity-100" : "opacity-50",
+          "flex flex-col flex-1 transition-all duration-500 ease-in-out",
+          isActive
+            ? "opacity-100 max-h-[1000px] mt-3"
+            : "opacity-50 max-h-[1000px] mt-3",
         )}
       >
-        {box.description && (
-          <p
-            className={cn(
-              "text-xs lg:text-base text-muted-foreground leading-relaxed mb-3 lg:mb-4",
-              isContentExpanded ? "" : "line-clamp-2 lg:line-clamp-3",
+        {box.image_beside_bullets ? (
+          <>
+            {box.description && (
+              <p
+                className={cn(
+                  "text-sm md:text-base text-muted-foreground leading-relaxed mb-4",
+                  isContentExpanded ? "" : "line-clamp-3",
+                )}
+                data-testid={`${testId}-description`}
+              >
+                {box.description}
+              </p>
             )}
-            data-testid={`${testId}-description`}
-          >
-            {box.description}
-          </p>
+
+            {(hasBullets || hasImage) && (
+              <div className="flex gap-4 mb-4 flex-1">
+                {hasBullets && (
+                  <div
+                    className="flex flex-col gap-3 flex-1"
+                    data-testid={`${testId}-bullets`}
+                  >
+                    {box.bullets!.map((bullet, i) => {
+                      const IconComp = bullet.icon
+                        ? getTablerIcon(bullet.icon)
+                        : TablerIcons.IconCircleCheck;
+                      return (
+                        <div
+                          key={i}
+                          className="flex items-start gap-2.5"
+                          data-testid={`${testId}-bullet-${i}`}
+                        >
+                          <Card className="flex-shrink-0 p-1 !rounded-lg">
+                            <IconComp className="w-4 h-4 text-primary" />
+                          </Card>
+                          {bullet.text && (
+                            <span className={cn("text-sm text-muted-foreground leading-snug", isContentExpanded ? "" : "line-clamp-1")}>
+                              {bullet.text}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {hasImage && (
+                  <div
+                    className={cn(
+                      "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
+                      isActive
+                        ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
+                        : "w-0 opacity-0",
+                    )}
+                    data-testid={`${testId}-image`}
+                  >
+                    <UniversalImage
+                      id={box.image_id!}
+                      className="w-full h-full rounded-lg"
+                      style={{
+                        objectFit:
+                          (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                          "cover",
+                        objectPosition: box.image_object_position || "center",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex gap-4 mb-5 flex-1">
+            <div className="flex flex-col flex-1 gap-4">
+              {box.description && (
+                <p
+                  className={cn(
+                    "text-sm md:text-base text-muted-foreground leading-relaxed",
+                    isContentExpanded ? "" : "line-clamp-3",
+                  )}
+                  data-testid={`${testId}-description`}
+                >
+                  {box.description}
+                </p>
+              )}
+
+              {hasBullets && (
+                <div
+                  className="flex flex-col gap-3"
+                  data-testid={`${testId}-bullets`}
+                >
+                  {box.bullets!.map((bullet, i) => {
+                    const IconComp = bullet.icon
+                      ? getTablerIcon(bullet.icon)
+                      : TablerIcons.IconCircleCheck;
+                    return (
+                      <div
+                        key={i}
+                        className="flex items-start gap-2.5"
+                        data-testid={`${testId}-bullet-${i}`}
+                      >
+                        <Card className="flex-shrink-0 p-1 !rounded-lg">
+                          <IconComp className="w-4 h-4 text-primary" />
+                        </Card>
+                        {bullet.text && (
+                          <span className={cn("text-sm text-muted-foreground leading-snug", isContentExpanded ? "" : "line-clamp-1")}>
+                            {bullet.text}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {hasImage && (
+              <div
+                className={cn(
+                  "relative rounded-lg flex-shrink-0 transition-all duration-100 ease-in-out",
+                  isActive
+                    ? "w-[120px] md:w-[160px] lg:w-[40%] opacity-100"
+                    : "w-0 opacity-0",
+                )}
+                data-testid={`${testId}-image`}
+              >
+                <UniversalImage
+                  id={box.image_id!}
+                  className="w-full h-full rounded-lg"
+                  style={{
+                    objectFit:
+                      (box.image_object_fit as React.CSSProperties["objectFit"]) ||
+                      "cover",
+                    objectPosition: box.image_object_position || "center",
+                  }}
+                />
+              </div>
+            )}
+          </div>
         )}
-
-        <div className="hidden lg:flex gap-4 mb-5 flex-1">
-          {box.image_beside_bullets ? (
-            <>
-              <div className="flex flex-col flex-1">
-                {renderBullets()}
-              </div>
-              {renderImage()}
-            </>
-          ) : (
-            <>
-              <div className="flex flex-col flex-1 gap-4">
-                {renderBullets()}
-              </div>
-              {renderImage()}
-            </>
-          )}
-        </div>
-
-        <div className="flex lg:hidden flex-col gap-3 mb-3">
-          {renderBullets()}
-          {renderImage()}
-        </div>
 
         {box.cta_text && box.cta_url && (
         <div className="mt-auto">
@@ -289,7 +332,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 lg:h-[420px]">
+      <div className="flex flex-col lg:flex-row gap-4 h-[420px]">
         {left && (
           <div
             className={cn(
@@ -307,7 +350,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
               box={left}
               isActive={isEqual || activeSide === "left"}
               isContentExpanded={isEqual || contentExpandedSide === "left"}
-              onInteract={handleHoverLeft}
+              onHover={handleHoverLeft}
               side="left"
               data-testid="card-double-cta-left"
             />
@@ -331,7 +374,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
               box={right}
               isActive={isEqual || activeSide === "right"}
               isContentExpanded={isEqual || contentExpandedSide === "right"}
-              onInteract={handleHoverRight}
+              onHover={handleHoverRight}
               side="right"
               data-testid="card-double-cta-right"
             />
