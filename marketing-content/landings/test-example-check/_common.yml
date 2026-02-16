@@ -1,14 +1,16 @@
-slug: test-example-check
-locale: en
-title: Test Example Check
+slug: "test-example-check"
+locale: "en"
+title: "Test Example Check"
+
 meta:
-  page_title: Test Example Check | 4Geeks Academy
-  description: Test Example Check - Learn more at 4Geeks Academy.
-  robots: index, follow
-  og_image: /images/landing-og.jpg
+  page_title: "Test Example Check | 4Geeks Academy"
+  description: "Test Example Check - Learn more at 4Geeks Academy."
+  robots: "index, follow"
+  og_image: "/images/landing-og.jpg"
   priority: 0.9
-  change_frequency: weekly
+  change_frequency: "weekly"
+
 schema:
   include:
-    - organization
-    - website
+    - "organization"
+    - "website"

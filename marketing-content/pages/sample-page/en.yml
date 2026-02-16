@@ -15,9 +15,9 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
-    title: {{ sample_greeting | Welcome to 4Geeks Academy }}
+    title: "{{ sample_greeting | Welcome to 4Geeks Academy }}"
     subtitle: Boost your career, harness the power of Applied AI.
     students_enrolled:
       avatars:
@@ -27,19 +27,19 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +48 students enrolled
     bullet_points:
-      - Learn {{ workflowlele | prompt engineering }} techniques to control AI outputs precisely
+      - Learn "{{ workflowlele | prompt engineering }}" techniques to control AI outputs precisely
       - Create professional images, videos, and documents using AI tools
       - Build automated workflows that save hours of repetitive work
       - Develop websites and chatbots without writing code
       - Apply AI to enhance your learning and personal development
     tutors:
       - name: Charly Chacón
-        role: {{ sample_greeting | Main Instructor }}
+        role: "{{ sample_greeting | Main Instructor }}"
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
         image: https://randomuser.me/api/portraits/lego/1.jpg
-    tutors_label: 'Your tutors:'
+    tutors_label: "Your tutors:"
     description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
     media:
       type: video
@@ -50,7 +50,7 @@ sections:
       title: Sign up to 4Geeks Plus
       description: Subscribe and get access to hundreds of challenges, projects and courses
       cta_button:
-        text: {{ call_to_action_text | Apply now }}
+        text: "{{ call_to_action_text | Apply now }}"
         url: /signup
         variant: primary
       login_link:
@@ -59,13 +59,13 @@ sections:
       features:
         - icon: book
           text: Readings and videos
-          count: '31'
+          count: "31"
         - icon: code
           text: Interactive Exercises
-          count: '2'
+          count: "2"
         - icon: briefcase
           text: Interactive Projects
-          count: '8'
+          count: "8"
         - icon: robot
           text: Real Time AI Feedback
         - icon: calendar
