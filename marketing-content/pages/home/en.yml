@@ -111,11 +111,26 @@ sections:
       desktop: none lg
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    variant: solid
+    heading: Program Tuition
+    subheading: See tuition and funding options for each program
     courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: $14,999 full tuition
+          - icon: CheckCircle
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+        cta_text: Discover program
+        cta_url: /en/ai-engineering
+        course_background: accent
       - name: Full Stack Development
+        icon: Code
         duration: 9 months part-time
         label: Updated in 2025
         title: Full Stack Software Development
@@ -126,44 +141,46 @@ sections:
           - icon: Plus
             text: API Development
         description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: $439
-        original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Discover program
         cta_url: /en/full-stack
         course_background: primary
-      - name: AI and Machine Learning
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Data Science and Machine Learning
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
         badges:
-          - icon: Brain
-            text: LLMs & Generative AI training
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
+          - icon: DollarSign
+            text: $10,999 full tuition
+          - icon: CheckCircle
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
+        price: $299
+        price_info: or less depending on your plan
         cta_text: Discover program
-        cta_url: /en/ai-machine-learning
-        course_background: accent
+        cta_url: /en/data-science-ml
+        course_background: primary
       - name: Cybersecurity
-        duration: 9 months part-time
-        label: Updated in 2025
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
         title: Cybersecurity
         badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
+          - icon: DollarSign
+            text: $9,999 full tuition
+          - icon: CheckCircle
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
+        price: $299
+        price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/cybersecurity
-        course_background: hsl(var(--color-pink))
+        course_background: secondary
     marginY:
-      desktop: none md
+      desktop: lg
     paddingY:
-      desktop: none sm
+      desktop: md lg
   - type: geeks_vs_others_comparison
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
