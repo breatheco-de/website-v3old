@@ -1234,6 +1234,12 @@ export function SectionEditorPanel({
     queryKey: ["/api/component-registry/field-editors"],
   });
 
+  const { data: themeConfig } = useQuery<{
+    button_variants?: { id: string; label: string }[];
+  }>({
+    queryKey: ["/api/theme"],
+  });
+
   // Get configured fields for current section type, filtering by variant
   const configuredFields = useMemo(() => {
     const rawFields = allFieldEditors?.[sectionType] || {};
@@ -1820,6 +1826,7 @@ export function SectionEditorPanel({
                 "image-picker",
                 "link-picker",
                 "rich-text-editor",
+                "variant-picker",
               ]);
               const groupedArrayPaths = new Set(
                 Object.entries(arrayFieldGroups)
@@ -1883,6 +1890,9 @@ export function SectionEditorPanel({
                   "media.ratio",
                   "ratio",
                 ]);
+                if (fields.some((f) => f.fieldName === "button_variant")) {
+                  hiddenFields.add("variant");
+                }
 
                 const getNestedValue = (
                   obj: Record<string, unknown>,
@@ -2323,6 +2333,35 @@ export function SectionEditorPanel({
                                             minHeight="80px"
                                             locale={locale}
                                             data-testid={`props-grouped-richtext-${fieldKey}-${index}`}
+                                          />
+                                        </div>
+                                      );
+                                    }
+                                    if (
+                                      configuredField.editorType ===
+                                      "variant-picker"
+                                    ) {
+                                      const variantOptions =
+                                        themeConfig?.button_variants ?? [];
+                                      return (
+                                        <div
+                                          key={fieldKey}
+                                          className="space-y-1"
+                                        >
+                                          <Label className="text-xs text-muted-foreground">
+                                            {label}
+                                          </Label>
+                                          <VariantPicker
+                                            value={currentValue || ""}
+                                            onChange={(v) =>
+                                              updateNestedField(
+                                                index,
+                                                fieldKey,
+                                                v,
+                                              )
+                                            }
+                                            options={variantOptions}
+                                            label=""
                                           />
                                         </div>
                                       );
@@ -2833,6 +2872,7 @@ export function SectionEditorPanel({
                     "image-picker",
                     "link-picker",
                     "rich-text-editor",
+                    "variant-picker",
                   ]);
                   const allForArr = Object.entries(configuredFields).filter(
                     ([fp]) => fp.startsWith(`${arrPathCheck}[].`),

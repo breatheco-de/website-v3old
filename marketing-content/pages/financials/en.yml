@@ -147,13 +147,36 @@ sections:
           - icon: DollarSign
             text: $14,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
         price: $349
         price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/ai-engineering
         course_background: accent
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: DollarSign
+            text: $10,999 full tuition
+          - icon: CheckCircle
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/full-stack
+        course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
         duration: 16 weeks
@@ -163,7 +186,7 @@ sections:
           - icon: DollarSign
             text: $10,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
         price: $299
         price_info: or less depending on your plan
@@ -179,7 +202,7 @@ sections:
           - icon: DollarSign
             text: $9,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
         price: $299
         price_info: or less depending on your plan

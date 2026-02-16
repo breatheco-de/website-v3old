@@ -1,6 +1,7 @@
-export type EditorType = "icon-picker" | "color-picker:courses" | "color-picker:accent" | "image-picker" | "link-picker";
+export type EditorType = "icon-picker" | "color-picker:courses" | "color-picker:accent" | "image-picker" | "link-picker" | "rich-text-editor";
 
 export const fieldEditors: Record<string, EditorType> = {
+  "subheading": "rich-text-editor",
   "courses[].icon": "icon-picker",
   "courses[].badges[].icon": "icon-picker",
   "courses[].tags[].icon": "icon-picker",

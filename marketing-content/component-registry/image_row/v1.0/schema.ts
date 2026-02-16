@@ -15,14 +15,18 @@ export const imageRowImageSchema = z.object({
 });
 
 export const imageRowSlideSchema = z.object({
-  heading: z.string().describe("Small heading text above main message"),
-  text: z.string().describe("Main message text"),
+  text_1: z.string().describe("First text block (styled via rich text editor)"),
+  text_2: z.string().describe("Second text block (styled via rich text editor)"),
+  heading: z.string().optional().describe("Deprecated: use text_1 instead"),
+  text: z.string().optional().describe("Deprecated: use text_2 instead"),
 });
 
 export const imageRowHighlightSchema = z.object({
   // Support both single heading/text (backward compat) and slides array
-  heading: z.string().optional().describe("Small heading text (for single slide mode)"),
-  text: z.string().optional().describe("Main message text (for single slide mode)"),
+  text_1: z.string().optional().describe("First text block (for single slide mode)"),
+  text_2: z.string().optional().describe("Second text block (for single slide mode)"),
+  heading: z.string().optional().describe("Deprecated: use text_1 instead"),
+  text: z.string().optional().describe("Deprecated: use text_2 instead"),
   reverse_text_order: z.boolean().optional().describe("Show text above the heading"),
   slides: z.array(imageRowSlideSchema).optional().describe("Array of slides for multi-slide mode"),
   background: z.enum(["primary", "accent", "muted", "card"]).optional().describe("Background color theme"),
