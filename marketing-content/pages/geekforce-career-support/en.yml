@@ -236,30 +236,6 @@ sections:
     background: bg-background
     paddingY:
       desktop: md none
-  - type: two_column
-    proportions:
-      - 5
-      - 7
-    alignment: center
-    left:
-      image: /attached_assets/community_1764717588840.png
-      image_alt: 4Geeks Academy community members collaborating on a project
-      justify: start
-    right:
-      heading: Accelerate Your Results with Hyperpersonalized Career Support
-      description: "Combine unlimited 1:1 human mentorship with AI-powered tools to launch your career faster and smarter:"
-      bullets:
-        - text: Rigobot, our custom AI, gives instant feedback on your resume, portfolio, and projects.
-        - text: Practice technical interviews and behavioral questions with AI-guided exercises.
-        - text: Get expert coaching from our mentors, tailored to your unique profile and goals.
-      bullets_visible: 2
-      font_size: base
-    reverse_on_mobile: true
-    padding_right: "6"
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none sm
   - type: why_learn_ai
     variant: default
     title: Optional Job Guarantee* for Extra Confidence
