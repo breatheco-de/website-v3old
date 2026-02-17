@@ -16,7 +16,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: Scholarships That Open Doors to Tech Careers
     subtitle: Explore scholarship opportunities designed to support your transition into high-growth tech careers.
@@ -25,18 +25,18 @@ sections:
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Apply now
-        url: '#apply'
+        url: "#apply"
         variant: primary
         icon: Rocket
       - text: I want to contribute
-        url: '#syllabus'
+        url: "#syllabus"
         variant: outline
         icon: Download
     background: bg-gradient-to-b from-primary/5 to-background
     marginY:
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: cardHeader
     heading: Available Funding Opportunities
     description: We offer scholarships across select programs and regions to help make tech education more accessible. Opportunities vary by location and program, and can include institutional partnerships, sponsored awards, or merit-based support.
@@ -66,27 +66,27 @@ sections:
         stats:
           - value: $1mm
             label: Total cost
-          - value: '100'
+          - value: "100"
             label: Geeks benefited
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
         press_references:
           - text: Miami Herald
-            url: '#'
+            url: "#"
             source: Miami Herald
           - text: Refresh Miami
-            url: '#'
+            url: "#"
             source: Refresh Miami
           - text: Social Finance
-            url: '#'
+            url: "#"
             source: Social Finance
           - text: See full project (PDF)
-            url: '#'
+            url: "#"
             source: PDF
         cta:
           text: Learn More
-          url: '#'
+          url: "#"
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
@@ -96,7 +96,7 @@ sections:
         stats:
           - value: $50,000
             label: Total cost
-          - value: '35'
+          - value: "35"
             label: Geeks benefited
         institution_logos:
           - image_id: bid_logo
@@ -107,17 +107,17 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Periodico Mensaje
-            url: '#'
+            url: "#"
             source: Periodico Mensaje
           - text: La Republica
-            url: '#'
+            url: "#"
             source: La Republica
           - text: See full project (PDF)
-            url: '#'
+            url: "#"
             source: PDF
         cta:
           text: Learn More
-          url: '#'
+          url: "#"
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
@@ -127,7 +127,7 @@ sections:
         stats:
           - value: $1.5mm
             label: Total cost
-          - value: '212'
+          - value: "212"
             label: Geeks benefited
         institution_logos:
           - image_id: logo_crusa
@@ -136,20 +136,20 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Revista Summa
-            url: '#'
+            url: "#"
             source: Revista Summa
           - text: IDB Press
-            url: '#'
+            url: "#"
             source: IDB Press
           - text: Cultura Costa Rica
-            url: '#'
+            url: "#"
             source: Cultura Costa Rica
           - text: See full project (PDF)
-            url: '#'
+            url: "#"
             source: PDF
         cta:
           text: Learn More
-          url: '#'
+          url: "#"
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
@@ -159,7 +159,7 @@ sections:
         stats:
           - value: 175k
             label: Total cost
-          - value: '60'
+          - value: "60"
             label: Geeks benefited
         institution_logos:
           - image_id: bid_logo
@@ -170,20 +170,20 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: El País
-            url: '#'
+            url: "#"
             source: El País
           - text: San José Ahora
-            url: '#'
+            url: "#"
             source: San José Ahora
           - text: Marca País
-            url: '#'
+            url: "#"
             source: Marca País
           - text: See full project (PDF)
-            url: '#'
+            url: "#"
             source: PDF
         cta:
           text: Learn More
-          url: '#'
+          url: "#"
           variant: outline
   - type: testimonials_slide
     title: Where Access Turns Into Real Careers
@@ -297,7 +297,7 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
   - type: horizontal_bars
-    version: '1.0'
+    version: "1.0"
     title: The Return on Opportunity
     subtitle: See how our graduates increase their earning power across regions.
     items:
@@ -348,6 +348,3 @@ sections:
       - online-platform
     paddingY:
       desktop: lg md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
