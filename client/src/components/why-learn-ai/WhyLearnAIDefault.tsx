@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import type { WhyLearnAISection as WhyLearnAISectionType } from "@shared/schema";
 import manWithLaptop from "@assets/man-with-laptop_1764772912948.webp";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 interface WhyLearnAIDefaultProps {
   data: WhyLearnAISectionType;
@@ -30,13 +31,12 @@ export function WhyLearnAIDefault({ data }: WhyLearnAIDefaultProps) {
             >
               {data.subtitle}
             </h3>
-            
-            <p 
-              className="text-body text-muted-foreground mb-8 leading-relaxed"
-              data-testid="text-why-learn-description"
-            >
-              {data.description}
-            </p>
+
+            <RichTextContent
+                html={data.description}
+                className="text-body text-muted-foreground mb-8 leading-relaxed"
+                data-testid="text-why-learn-description"
+              />
             
             {data.cta && (
               <Button
@@ -44,7 +44,7 @@ export function WhyLearnAIDefault({ data }: WhyLearnAIDefaultProps) {
                 asChild
                 data-testid="button-why-learn-cta"
               >
-                <a href={data.cta.url} onClick={handleLinkClick}>{data.cta.text}</a>
+                <a href={slide.cta.url} onClick={handleLinkClick}>{data.cta.text}</a>
               </Button>
             )}
           </div>
