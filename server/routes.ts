@@ -1469,16 +1469,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }));
 
     if (mf.columns) {
-      const prevColumnTitles = new Set((pf.columns || []).map((c: any) => c.title));
-      const prevItemsByCol = new Map<string, Set<string>>();
-      for (const col of (pf.columns || [])) {
-        prevItemsByCol.set(col.title, new Set((col.items || []).map((i: any) => i.label)));
+      const prevColumns = pf.columns || [];
+      const prevColTitleToIndex = new Map<string, number>();
+      const prevItemsByIndex = new Map<number, Set<string>>();
+      for (let i = 0; i < prevColumns.length; i++) {
+        prevColTitleToIndex.set(prevColumns[i].title, i);
+        prevItemsByIndex.set(i, new Set((prevColumns[i].items || []).map((it: any) => it.label)));
       }
 
       for (const masterCol of mf.columns) {
-        const isNewColumn = !prevColumnTitles.has(masterCol.title);
+        const prevIndex = prevColTitleToIndex.get(masterCol.title);
 
-        if (isNewColumn) {
+        if (prevIndex === undefined) {
           result.columns.push({
             title: `[TRANSLATE] ${masterCol.title}`,
             items: (masterCol.items || []).map((item: any) => ({
@@ -1487,20 +1489,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
             })),
           });
         } else {
-          const prevItems = prevItemsByCol.get(masterCol.title) || new Set();
+          const prevItems = prevItemsByIndex.get(prevIndex) || new Set();
           const newItems = (masterCol.items || []).filter((item: any) => !prevItems.has(item.label));
 
-          if (newItems.length > 0) {
-            const transCol = result.columns.find((tc: any) =>
-              tc.title === masterCol.title || tc.title === `[TRANSLATE] ${masterCol.title}`
-            );
-            if (transCol) {
-              for (const newItem of newItems) {
-                transCol.items.push({
-                  label: `[TRANSLATE] ${newItem.label}`,
-                  href: newItem.href,
-                });
-              }
+          if (newItems.length > 0 && result.columns[prevIndex]) {
+            for (const newItem of newItems) {
+              result.columns[prevIndex].items.push({
+                label: `[TRANSLATE] ${newItem.label}`,
+                href: newItem.href,
+              });
             }
           }
         }
