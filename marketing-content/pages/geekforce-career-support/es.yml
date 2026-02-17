@@ -22,7 +22,7 @@ sections:
     brand_mark:
       prefix: Geek
       highlight: FORCE
-      suffix: ":"
+      suffix: ':'
       color: chart-5
     description: Obtén soporte ilimitado 1:1 en carrera adaptado a tus metas, experiencia y background de por vida. Desde resumes e entrevistas hasta navegar procesos de contratación impulsados por IA, te ayudamos a triunfar en el mercado laboral tech actual.
     marquee:
@@ -64,11 +64,11 @@ sections:
       gradientWidth: 60
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
-      ratio: "2:2"
+      ratio: '2:2'
     paddingY:
       desktop: none
   - type: bullet_tabs_showcase
-    version: "1.0"
+    version: '1.0'
     heading: Soporte ilimitado en carrera. Diseñado para un mercado laboral impulsado por IA
     subheading: GeekForce está integrado en todos los programas de 4Geeks para asegurarnos de que no solo aprendas tecnología, sino que lances una carrera exitosa.
     tabs:
@@ -85,7 +85,7 @@ sections:
     marginY:
       desktop: xl none
   - type: numbered_steps
-    version: "1.0"
+    version: '1.0'
     variant: bubbleText
     title: Consigue Empleo con Nuestro Proceso de Desarrollo de Carrera en 3 Pasos
     description: Nuestro proceso estructurado está diseñado para que consigas empleo — rápido.
@@ -122,7 +122,7 @@ sections:
       justify: start
     right:
       heading: Acelera Tus Resultados con Soporte de Carrera Hiperpersonalizado
-      description: "Combina mentoría humana ilimitada 1:1 con herramientas impulsadas por IA para lanzar tu carrera más rápido e inteligentemente:"
+      description: 'Combina mentoría humana ilimitada 1:1 con herramientas impulsadas por IA para lanzar tu carrera más rápido e inteligentemente:'
       bullets:
         - text: Rigobot, nuestra IA personalizada, da feedback instantáneo en tu resume, portafolio y proyectos.
         - text: Practica entrevistas técnicas y preguntas conductuales con ejercicios guiados por IA.
@@ -130,7 +130,7 @@ sections:
       bullets_visible: 2
       font_size: base
     reverse_on_mobile: true
-    padding_right: "6"
+    padding_right: '6'
     paddingY:
       desktop: md lg
   - type: whos_hiring
