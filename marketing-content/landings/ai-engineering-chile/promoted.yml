@@ -15,18 +15,6 @@ schema:
     - organization
     - website
     - courses:ai-engineering
-locations:
-  - caracas-venezuela
-  - buenosaires-argentina
-  - costa-rica
-  - lapaz-bolivia
-  - lima-peru
-  - mexicocity-mexico
-  - montevideo-uruguay
-  - panamacity-panama
-  - quito-ecuador
-  - santiago-chile
-  - bogota-colombia
 sections:
   - type: hero
     version: "1.0"
@@ -204,7 +192,7 @@ sections:
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: CPL $21.6M-$36.0M
+      - value: CLP $21.6M-$36.0M
         title: Salario anual promedio para ingenieros de IA
         value_size: text-4xl
     marginY:
