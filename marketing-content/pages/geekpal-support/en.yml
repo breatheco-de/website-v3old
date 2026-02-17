@@ -151,7 +151,7 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to Change Your Life?
+    title: Ready to get started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
