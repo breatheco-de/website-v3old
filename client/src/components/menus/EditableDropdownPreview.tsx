@@ -630,6 +630,7 @@ function EditableSimpleListPreview({
               href={item.href || ""}
               onLabelChange={(label) => updateItem(index, { label })}
               onHrefChange={(href) => updateItem(index, { href })}
+              onSave={(label, href) => updateItem(index, { label, href })}
               onDelete={() => deleteItem(index)}
               testIdPrefix={`editable-simple-list-item-${index}`}
               isReadOnlyStructure={isReadOnlyStructure}
@@ -769,6 +770,7 @@ function EditableColumnsPreview({
                     href={item.href || ""}
                     onLabelChange={(label) => updateColumnItem(colIndex, itemIndex, { label })}
                     onHrefChange={(href) => updateColumnItem(colIndex, itemIndex, { href })}
+                    onSave={(label, href) => updateColumnItem(colIndex, itemIndex, { label, href })}
                     onDelete={() => deleteColumnItem(colIndex, itemIndex)}
                     testIdPrefix={`editable-column-${colIndex}-item-${itemIndex}`}
                     isReadOnlyStructure={isReadOnlyStructure}
@@ -949,6 +951,7 @@ function EditableGroupedListPreview({
                   href={item.href || ""}
                   onLabelChange={(label) => updateGroupItem(activeGroup, index, { label })}
                   onHrefChange={(href) => updateGroupItem(activeGroup, index, { href })}
+                  onSave={(label, href) => updateGroupItem(activeGroup, index, { label, href })}
                   onDelete={() => deleteGroupItem(activeGroup, index)}
                   testIdPrefix={`editable-group-${activeGroup}-item-${index}`}
                   isReadOnlyStructure={isReadOnlyStructure}

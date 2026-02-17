@@ -435,6 +435,7 @@ function SortableFooterColumn({
               href={item.href || ""}
               onLabelChange={(label) => onUpdateColumnItem(colIndex, itemIndex, { label })}
               onHrefChange={(href) => onUpdateColumnItem(colIndex, itemIndex, { href })}
+              onSave={(label, href) => onUpdateColumnItem(colIndex, itemIndex, { label, href })}
               onDelete={() => onDeleteColumnItem(colIndex, itemIndex)}
               testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
               isReadOnlyStructure={!isEnglish}
@@ -1092,6 +1093,7 @@ export default function MenuEditor() {
                             href={link.href || ""}
                             onLabelChange={(label) => updateFooterLegalLink(index, { label })}
                             onHrefChange={(href) => updateFooterLegalLink(index, { href })}
+                            onSave={(label, href) => updateFooterLegalLink(index, { label, href })}
                             onDelete={() => deleteFooterLegalLink(index)}
                             testIdPrefix={`footer-legal-${index}`}
                             isReadOnlyStructure={!isEnglish}
