@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -545,7 +546,8 @@ export default function MenuEditor() {
   const parsedResult = useMemo<{ data: MenuData | null; error: string | null }>(() => {
     if (!yamlSource) return { data: null, error: null };
     try {
-      const parsed = yaml.load(yamlSource) as MenuData;
+      const { escaped, map } = escapeTemplateVars(yamlSource);
+      const parsed = unescapeObjectVars(yaml.load(escaped), map) as MenuData;
       return { data: parsed, error: null };
     } catch (e) {
       return { data: null, error: e instanceof Error ? e.message : "Invalid YAML" };
@@ -617,7 +619,8 @@ export default function MenuEditor() {
 
   const saveMutation = useMutation({
     mutationFn: async (yamlContent: string) => {
-      const parsedData = yaml.load(yamlContent) as MenuData;
+      const { escaped, map } = escapeTemplateVars(yamlContent);
+      const parsedData = unescapeObjectVars(yaml.load(escaped), map) as MenuData;
       
       // Use different endpoints based on locale:
       // - English: structure endpoint (propagates to all translations)
