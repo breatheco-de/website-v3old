@@ -77,11 +77,10 @@ footer:
   socials:
     - name: Linkedin
       icon: linkedin
-      link:
-        '[object Object]': null
+      link: sss
     - name: Facebook
       icon: facebook
-      link: https://www.facebook.com/4GeeksAcademy
+      link: +1 (786) 416-6640
     - name: Twitter
       icon: x-logo
       link: https://twitter.com/4GeeksAcademy
@@ -89,11 +88,11 @@ footer:
       icon: instagram
       link: https://www.instagram.com/4GeeksAcademy
   legal_links:
-    - label: Privacy Policy
+    - label: +1 (786) 416-6640
       href: /en/privacy-policy
-    - label: Cookies
+    - label: '4.9'
       href: /en/cookies
-    - label: Terms and Conditions
+    - label: {{ test_link | Terms and Conditions }}
       href: /en/terms-and-conditions
   subscribe_text: Subscribe for more
   copyright_text: 2024 4Geeks Academy. All rights reserved.

@@ -66,5 +66,19 @@ footer:
       href: /es/cookies
     - label: Términos y Condiciones
       href: /es/terminos-y-condiciones
+    - label: '[TRANSLATE] {{ workflowlele | Privacy Policy }}'
+      href: /en/privacy-policy
+    - label: '[TRANSLATE] workflows'
+      href: /en/privacy-policy
+    - label: '[TRANSLATE] {{ campus_phone | workflows }}'
+      href: /en/privacy-policy
+    - label: '[TRANSLATE] +1 (786) 416-6640'
+      href: /en/privacy-policy
+    - label: '[TRANSLATE] {{ global_review_rating | Cookies }}'
+      href: /en/cookies
+    - label: '[TRANSLATE] 4.9'
+      href: /en/cookies
+    - label: '[TRANSLATE] {{ test_link | Terms and Conditions }}'
+      href: /en/terms-and-conditions
   subscribe_text: Suscríbete para más
   copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.

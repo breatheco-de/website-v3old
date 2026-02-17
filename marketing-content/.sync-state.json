@@ -748,9 +748,11 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "b535ba32c06296760497e3ce418d2b477be1131f6b81be23970b155961212861",
-      "lastModified": 1771341815928.3616,
-      "remoteSha": "b535ba32c06296760497e3ce418d2b477be1131f6b81be23970b155961212861"
+      "sha": "85aa7abeb2790f5d730e4115b76831fc124b3d941118c920f7b8e5abc90ae930",
+      "lastModified": 1771365635723.533,
+      "remoteSha": "b535ba32c06296760497e3ce418d2b477be1131f6b81be23970b155961212861",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-17T22:00:35.725Z"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",
@@ -868,9 +870,11 @@
       "remoteSha": "5677fc83cf087a10ec0eb37590806ea58e28acc63f09f86dfc8fe8d43ca9f7e0"
     },
     "marketing-content/pages/scholarships/en.yml": {
-      "sha": "6c75875d5c66540e6613b28ac3857519bbda058d377b09182db10f6534bedf83",
-      "lastModified": 1771336796434.1956,
-      "remoteSha": "6c75875d5c66540e6613b28ac3857519bbda058d377b09182db10f6534bedf83"
+      "sha": "23794187fa6f80c80382809d6d830a9f9fb8a6b6d0c2ca61db4e3d0d214c7df9",
+      "lastModified": 1771364977892.0996,
+      "remoteSha": "6c75875d5c66540e6613b28ac3857519bbda058d377b09182db10f6534bedf83",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-17T21:49:37.894Z"
     },
     "marketing-content/pages/scholarships/es.yml": {
       "sha": "f15c1378daadc692a65882294cc23936fb37c624e88e96979945bf78014bd57b",

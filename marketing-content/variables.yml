@@ -85,3 +85,5 @@ test_condition_var:
     - query:
         location: "madrid-spain"
       value: "4.8"
+test_link:
+  default: "https://twitter.com/4GeeksAcademy"
