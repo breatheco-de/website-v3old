@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "1cfc842df9a6c8580be701fd30b19ed35a1c31a8",
-  "lastSyncedAt": "2026-02-17T00:06:12.721Z",
+  "lastSyncedCommit": "4b98c8f99134162347e236f3dde031cd0db44c1a",
+  "lastSyncedAt": "2026-02-17T01:51:08.345Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -603,9 +603,9 @@
       "remoteSha": "3593c000c1eb0c13ae773ad1773099ea0f9bd57f5ffbde8f85d9444a07870bbf"
     },
     "marketing-content/menus/main-navbar.es.yml": {
-      "sha": "9fe58639dd9798d4248c70363e7bd5eef8f12884245c14ab66a0b8b31916293f",
-      "lastModified": 1771279451405.4688,
-      "remoteSha": "9fe58639dd9798d4248c70363e7bd5eef8f12884245c14ab66a0b8b31916293f"
+      "sha": "4bbba311e49d54ac2a89d6d443c5b0d4e16c08b2be6b9ad7637ba2c562828eee",
+      "lastModified": 1771292066355.592,
+      "remoteSha": "4bbba311e49d54ac2a89d6d443c5b0d4e16c08b2be6b9ad7637ba2c562828eee"
     },
     "marketing-content/menus/main-navbar.yml": {
       "sha": "9e837b068e53bf928611e0ba24aec1aa7210cd9f222fea9488aa78d7029248bd",
@@ -728,9 +728,9 @@
       "remoteSha": "1e5dbf0c2eb71860ab0e3fcbbff48fbb85be494103a4ed0cead167add93625ae"
     },
     "marketing-content/pages/graduates-and-projects/es.yml": {
-      "sha": "14804649b74bf67500288557d6ec2538287e567cfcdf5e8e5d72d393f45d4c09",
-      "lastModified": 1770991116250.3813,
-      "remoteSha": "14804649b74bf67500288557d6ec2538287e567cfcdf5e8e5d72d393f45d4c09"
+      "sha": "d989251a64a77421d08cb581d346273733c95b0b3a02304e5bc33163c671d997",
+      "lastModified": 1771292066810.5916,
+      "remoteSha": "d989251a64a77421d08cb581d346273733c95b0b3a02304e5bc33163c671d997"
     },
     "marketing-content/pages/home/_common.yml": {
       "sha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a",
@@ -788,9 +788,9 @@
       "remoteSha": "9f30bb28fb752b3d1a12d78e1f457994afa46f78a82f4f98e99be33d47851147"
     },
     "marketing-content/pages/online-platform/es.yml": {
-      "sha": "c2783c0dc2c35fe30c9b09fe2d9b79d790f23ca00376be0fb9cfd9d49f584c17",
-      "lastModified": 1770823365329.9524,
-      "remoteSha": "c2783c0dc2c35fe30c9b09fe2d9b79d790f23ca00376be0fb9cfd9d49f584c17"
+      "sha": "01913a3d723b1b0a7607207705879c5dc850fa6cf393953c96d73e2d32bab3fe",
+      "lastModified": 1771292067264.5913,
+      "remoteSha": "01913a3d723b1b0a7607207705879c5dc850fa6cf393953c96d73e2d32bab3fe"
     },
     "marketing-content/pages/outcomes/en.yml": {
       "sha": "64fdba6e478d1f62b3cc384400e72644d4b4fb179ffd7fb1182788a9ad2a8300",
@@ -828,9 +828,9 @@
       "remoteSha": "1b4e6a469b29d9dc5cdcba8e9a14e4e49c46393e00eaff12c7b0830743b05f93"
     },
     "marketing-content/pages/press/es.yml": {
-      "sha": "1ae64d761c6b22ab622492a78646b950462fbf6eeac0b2dc0f9f1439c2e91e29",
-      "lastModified": 1770835192442.8162,
-      "remoteSha": "1ae64d761c6b22ab622492a78646b950462fbf6eeac0b2dc0f9f1439c2e91e29"
+      "sha": "899bcfd64e03fe079fffc5c651cca94733651d18418bfd0658107f12205fee18",
+      "lastModified": 1771292067722.5908,
+      "remoteSha": "899bcfd64e03fe079fffc5c651cca94733651d18418bfd0658107f12205fee18"
     },
     "marketing-content/pages/rigobot-ai-coding-mentor/_common.yml": {
       "sha": "d107d4e95f03ba1deac5411b072c619870ddf0f36016c5e2a78c80fea21970d2",
@@ -843,9 +843,9 @@
       "remoteSha": "540077e6da87f3b3cee737b4e0df1b510ae5e7da6ddb677591046d7b953e7774"
     },
     "marketing-content/pages/rigobot-ai-coding-mentor/es.yml": {
-      "sha": "9ca8eb10aed3e448ff200c95cc835ca77fc554c057ef0772a638902545ed036d",
-      "lastModified": 1770653024002.788,
-      "remoteSha": "9ca8eb10aed3e448ff200c95cc835ca77fc554c057ef0772a638902545ed036d"
+      "sha": "097f6a32bd5319145ada4cf4872e748443638d568d264f2ef418d7faac3495f4",
+      "lastModified": 1771292068174.5903,
+      "remoteSha": "097f6a32bd5319145ada4cf4872e748443638d568d264f2ef418d7faac3495f4"
     },
     "marketing-content/pages/sample-page/en.yml": {
       "sha": "a852d919c37fa3d47d155e546e3465bd75fb40df88ec5b8afeaa2b3296ccd14a",
@@ -863,9 +863,9 @@
       "remoteSha": "5d889578654fc64164b3684495e9b9f9a2e18f8dcf50c7f27c12cc36eb0b1c9b"
     },
     "marketing-content/pages/scholarships/es.yml": {
-      "sha": "05df3a720f6864efb4e8e8498bb09a87a34039c643f6152b299118c7d2a20741",
-      "lastModified": 1770304080691.7515,
-      "remoteSha": "05df3a720f6864efb4e8e8498bb09a87a34039c643f6152b299118c7d2a20741"
+      "sha": "85121464f75061fea67a3d3a20630360bfb27789100e9ce4c31219cf41935509",
+      "lastModified": 1771292068644.59,
+      "remoteSha": "85121464f75061fea67a3d3a20630360bfb27789100e9ce4c31219cf41935509"
     },
     "marketing-content/pages/testimonials/_common.yml": {
       "sha": "8359875361cf6e06e58fba1b0363f10348e68d053460f1f73ce8e93b67867e4c",
@@ -878,9 +878,9 @@
       "remoteSha": "ecabe66d307f10ab65aedc3980cba8395f8e17ec35da27752468e694a31cc70c"
     },
     "marketing-content/pages/testimonials/es.yml": {
-      "sha": "721bc5fdbdf3f7f6b5cad1e2a487bf32c56f538260e03a5880b750a14a092a05",
-      "lastModified": 1770823370968.947,
-      "remoteSha": "721bc5fdbdf3f7f6b5cad1e2a487bf32c56f538260e03a5880b750a14a092a05"
+      "sha": "a37e3f428740bb09bde1b18bf4ed5f9ca1884eea9d954efc5dac83be0ee9e40b",
+      "lastModified": 1771292069091.5896,
+      "remoteSha": "a37e3f428740bb09bde1b18bf4ed5f9ca1884eea9d954efc5dac83be0ee9e40b"
     },
     "marketing-content/pages/the-academy/_common.yml": {
       "sha": "cb22fcf85d0d135cb31512702d1a584236c2c4c28a2e300328fc89175af69456",
@@ -923,9 +923,9 @@
       "remoteSha": "a9d7d9cd9986c64d8ca79cb384ad0b314c46f0662ea748b50979efcc884f7703"
     },
     "marketing-content/pages/work-with-us/es.yml": {
-      "sha": "f669df218d2c2361074495bc397bb46af0aded3679583d99be09bc9e86e2beaf",
-      "lastModified": 1770670889889.5217,
-      "remoteSha": "f669df218d2c2361074495bc397bb46af0aded3679583d99be09bc9e86e2beaf"
+      "sha": "2b9c20d0f527041b3210d8e505639513812114f17bd45a1790f484e39e16ac60",
+      "lastModified": 1771292069516.5894,
+      "remoteSha": "2b9c20d0f527041b3210d8e505639513812114f17bd45a1790f484e39e16ac60"
     },
     "marketing-content/programs/ai-engineering/en.yml": {
       "sha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e",
@@ -934,7 +934,7 @@
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "db836f16e8cc3deaac44a66fd755cc9c958486153fee596fd52aa422c48190f3",
-      "lastModified": 1771284118859.4238,
+      "lastModified": 1771293067992.7378,
       "remoteSha": "db836f16e8cc3deaac44a66fd755cc9c958486153fee596fd52aa422c48190f3"
     },
     "marketing-content/programs/ai-for-professionals/_common.yml": {
@@ -978,9 +978,9 @@
       "remoteSha": "0991d0ba4663ec0a9ccc7a6f49ea31857a3138e29f300798a4cd87dd748e0cae"
     },
     "marketing-content/programs/data-science-ml/es.yml": {
-      "sha": "7e7a0fd8cbf8394f877cd1b5fbd30c5d7d321bff1af93b538c100869b6cb71d2",
-      "lastModified": 1770991125146.3745,
-      "remoteSha": "7e7a0fd8cbf8394f877cd1b5fbd30c5d7d321bff1af93b538c100869b6cb71d2"
+      "sha": "342adb6af58b05c135be7e36c375cd84fd2afc1a02a7c0b08ca0999b410d4d32",
+      "lastModified": 1771292070037.5889,
+      "remoteSha": "342adb6af58b05c135be7e36c375cd84fd2afc1a02a7c0b08ca0999b410d4d32"
     },
     "marketing-content/programs/full-stack/_common.yml": {
       "sha": "e452dff5af02b1b193448d8c4744da2ca6a31a4a0d32371dd16e464b3d14475c",
@@ -998,9 +998,9 @@
       "remoteSha": "1704770780fb71616b5fa530a2af0ffb4f2ec8a33748c8cd8675e4bc74a97495"
     },
     "marketing-content/programs/full-stack/es.yml": {
-      "sha": "04564fab28a0216b06191f28d48a507169bf688786832d1c89e1a14dac6c506c",
-      "lastModified": 1770991126393.3735,
-      "remoteSha": "04564fab28a0216b06191f28d48a507169bf688786832d1c89e1a14dac6c506c"
+      "sha": "587cba17ed8521adf60e44754024634d001e40b2f980165943ab4f14c4dd0f12",
+      "lastModified": 1771292070490.5884,
+      "remoteSha": "587cba17ed8521adf60e44754024634d001e40b2f980165943ab4f14c4dd0f12"
     },
     "marketing-content/programs/full-stack/experiments.yml": {
       "sha": "d006cdc4b1a0e8c6af88f37b21b1efb897635cb0a1af131bb883e9985ab70990",
