@@ -1247,7 +1247,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const entries = contentIndex.findBySlug(slug, { contentType });
+      const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const entries = contentIndex.findBySlug(resolvedSlug, { contentType });
       if (entries.length === 0) {
         res.status(404).json({ error: `No content found for slug "${slug}" in ${contentType}` });
         return;
