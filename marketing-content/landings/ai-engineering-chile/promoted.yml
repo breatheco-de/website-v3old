@@ -88,7 +88,7 @@ sections:
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Enviar solicitud
+      submit_label: Postular ahora
       tags: website-lead
       automations: strong
       fields:
