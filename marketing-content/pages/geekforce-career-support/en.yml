@@ -91,7 +91,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Professional Placement & Coaching
+        col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -105,7 +105,7 @@ sections:
       - tab_label: Real Hiring Access
         layout: two_column_cards
         title: Access the hidden job market.
-        left_text: We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -237,11 +237,20 @@ sections:
       desktop: md lg
     marginY:
       desktop: none sm
+  - type: why_learn_ai
+    version: "1.0"
+    variant: default
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
   - type: whos_hiring
     variant: carousel
-    title: Trusted by Leading Companies
-    subtitle: Our graduates are hired by top companies worldwide.
-    description: Our graduates are shaping the future of technology, with career support that never expires. These companies and many others trust 4Geeks alumni to deliver real-world results.
+    title: Top Tech Companies Hiring 4Geeks Graduates
+    subtitle: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
       - src: /attached_assets/twilio_1764719992371.png
         alt: Twilio
