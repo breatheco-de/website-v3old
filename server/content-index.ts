@@ -522,6 +522,46 @@ class ContentIndex {
     return urls;
   }
 
+  parseContentUrl(url: string): { contentType: string; slug: string; locale: string } | null {
+    this.ensureInitialized();
+    const cleanUrl = url.split("?")[0].split("#")[0];
+
+    const previewMatch = cleanUrl.match(/^\/private\/preview\/(programs|pages|landings|locations)\/([^/?]+)/);
+    if (previewMatch) {
+      return { contentType: previewMatch[1], slug: previewMatch[2], locale: "en" };
+    }
+
+    for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
+      if (!config?.url_pattern) continue;
+      for (const [locale, pattern] of Object.entries(config.url_pattern)) {
+        const regexStr = "^" + pattern.replace(":slug", "([^/]+)") + "$";
+        const match = cleanUrl.match(new RegExp(regexStr));
+        if (match) {
+          const effectiveLocale = locale === "default" ? "en" : locale;
+          return { contentType, slug: match[1], locale: effectiveLocale };
+        }
+
+        if (locale !== "default") {
+          const strippedPattern = pattern.replace(/^\/(en|es)\//, "/");
+          if (strippedPattern !== pattern) {
+            const strippedRegex = "^" + strippedPattern.replace(":slug", "([^/]+)") + "$";
+            const strippedMatch = cleanUrl.match(new RegExp(strippedRegex));
+            if (strippedMatch) {
+              return { contentType, slug: strippedMatch[1], locale };
+            }
+          }
+        }
+      }
+    }
+
+    const bareMatch = cleanUrl.match(/^\/([^/]+)$/);
+    if (bareMatch) {
+      return { contentType: "pages", slug: bareMatch[1], locale: "en" };
+    }
+
+    return null;
+  }
+
   isKnownUrl(url: string): boolean {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
