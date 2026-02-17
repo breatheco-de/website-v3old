@@ -1960,6 +1960,148 @@ export function SectionEditorPanel({
                   </div>
                 );
               })}
+            {/* Render top-level (non-array) image-picker field editors */}
+            {Object.entries(configuredFields)
+              .filter(([fieldPath, editorTypeRaw]) => {
+                if (fieldPath.includes("[]")) return false;
+                const { type: edType } = parseEditorType(editorTypeRaw);
+                return edType === "image-picker";
+              })
+              .map(([fieldPath, editorTypeRaw]) => {
+                const { variant } = parseEditorType(editorTypeRaw);
+                const getFieldValue = () => {
+                  if (!parsedSection) return "";
+                  const pathParts = fieldPath.split(".");
+                  let current: unknown = parsedSection;
+                  for (const part of pathParts) {
+                    if (!current || typeof current !== "object") return "";
+                    current = (current as Record<string, unknown>)[part];
+                  }
+                  return (current as string) || "";
+                };
+                const currentValue = getFieldValue();
+                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                const isIdField = fieldPath.endsWith("_id");
+                const displaySrc = isIdField
+                  ? imageRegistry?.images?.[currentValue]?.src || currentValue
+                  : currentValue;
+                const displayLabel = isIdField
+                  ? currentValue
+                  : currentValue.split("/").pop() || currentValue;
+
+                return (
+                  <div key={fieldPath} className="space-y-2 mt-3">
+                    <Label className="text-sm font-medium capitalize">
+                      {fieldLabel.replace(/_/g, " ")}
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImagePickerTarget({
+                            fieldPath,
+                            label: fieldLabel,
+                            currentSrc: currentValue,
+                            currentAlt: "",
+                            tagFilter: variant,
+                          });
+                          setImagePickerOpen(true);
+                        }}
+                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                        data-testid={`props-image-${fieldLabel}`}
+                        title={`Change ${fieldLabel}`}
+                      >
+                        {currentValue ? (
+                          <>
+                            <img
+                              src={displaySrc}
+                              alt={fieldLabel}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <IconPhoto className="h-5 w-5 text-white" />
+                            </div>
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <IconPhoto className="h-6 w-6 text-muted-foreground" />
+                          </div>
+                        )}
+                      </button>
+                      {currentValue && (
+                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                          {displayLabel}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            {/* Render top-level (non-array) video-picker field editors */}
+            {Object.entries(configuredFields)
+              .filter(([fieldPath, editorTypeRaw]) => {
+                if (fieldPath.includes("[]")) return false;
+                const { type: edType } = parseEditorType(editorTypeRaw);
+                return edType === "video-picker";
+              })
+              .map(([fieldPath]) => {
+                const getFieldValue = () => {
+                  if (!parsedSection) return "";
+                  const pathParts = fieldPath.split(".");
+                  let current: unknown = parsedSection;
+                  for (const part of pathParts) {
+                    if (!current || typeof current !== "object") return "";
+                    current = (current as Record<string, unknown>)[part];
+                  }
+                  return (current as string) || "";
+                };
+                const currentValue = getFieldValue();
+                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+
+                return (
+                  <div key={fieldPath} className="space-y-2 mt-3">
+                    <Label className="text-sm font-medium capitalize">
+                      {fieldLabel.replace(/_/g, " ")}
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVideoPickerTarget({
+                            fieldPath,
+                            label: fieldLabel,
+                            currentUrl: currentValue,
+                          });
+                          setVideoPickerOpen(true);
+                        }}
+                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                        data-testid={`props-video-${fieldLabel}`}
+                        title={`Change ${fieldLabel}`}
+                      >
+                        {currentValue ? (
+                          <>
+                            <div className="w-full h-full flex items-center justify-center bg-muted">
+                              <IconVideo className="h-6 w-6 text-primary" />
+                            </div>
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <IconVideo className="h-5 w-5 text-white" />
+                            </div>
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <IconVideo className="h-6 w-6 text-muted-foreground" />
+                          </div>
+                        )}
+                      </button>
+                      {currentValue && (
+                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                          {currentValue.split("/").pop() || currentValue}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             {/* Render grouped array item editors (when multiple field-editors exist for the same array) */}
             {(() => {
               const arrayFieldGroups: Record<
