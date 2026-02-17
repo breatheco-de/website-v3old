@@ -204,7 +204,7 @@ sections:
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: $40M-$110M CLP
+      - value: CLP $1.8M-$3.0M
         title: Salario anual promedio para ingenieros de IA
     marginY:
       mobile: md none
@@ -433,14 +433,13 @@ sections:
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: "Ingeniero de software IA: $40M-$100M CLP"
-      - text: "Ingeniero full-stack (IA): $45M-$110M CLP"
-      - text: "Ingeniero de agentes: $40M-$100M CLP"
-      - text: "Ingeniero de automatización de flujos: $36.000.000–$90.000.000 CLP"
+      - text: "Ingeniero de software IA: CLP $1.3M-$2.5M "
+      - text: "Ingeniero full-stack (IA): CLP $1.5M-$2.8M"
+      - text: "Ingeniero de agentes: CLP $1.8M-$3.0M"
+      - text: "Ingeniero de automatización de flujos: CLP $2.0M-$3.5M"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
-      program_name: Ingeniería de IA
     stats:
       - value: 84%
         label: Tasa de contratación
@@ -461,10 +460,10 @@ sections:
         label: Aumento salarial promedio
         description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: "Ingeniero de software IA: : $40M-$100M CLP"
-          - text: "Ingeniero full-stack (IA): $45M-$110M CLP"
-          - text: "Ingeniero de IA: $40M-$100M CLP"
-          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $36M-$90M CLP"
+          - text: "Ingeniero de software IA: CLP $1.3M-$2.5M"
+          - text: "Ingeniero full-stack (IA): CLP $1.5M-$2.8M"
+          - text: "Ingeniero de IA: CLP $1.8M-$3.0M"
+          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): CLP $2.0M-$3.5M"
       - value: 5,000+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
