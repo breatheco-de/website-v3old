@@ -29,4 +29,8 @@ export const fieldEditors: Record<string, EditorType> = {
   "simpleTwoColumn:subtitle": "rich-text-editor",
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
+
+  "cta_button.url": "link-picker",
+  "cta_buttons[].url": "link-picker",
+  "panels[].cta_button.url": "link-picker",
 };
