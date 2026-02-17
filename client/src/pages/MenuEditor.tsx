@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import yaml from "js-yaml";
-import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
+import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -70,6 +70,14 @@ import {
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const serialized = JSON.stringify(obj);
+  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
+  const escapedObj = JSON.parse(escapedJson);
+  const dumped = yaml.dump(escapedObj, opts);
+  return unescapeYamlDump(dumped, map);
+}
 
 interface MenuItemData {
   label: string;
@@ -562,7 +570,7 @@ export default function MenuEditor() {
 
   const updateYamlFromData = useCallback((newData: MenuData) => {
     try {
-      const newYaml = yaml.dump(newData, {
+      const newYaml = safeYamlDump(newData, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -587,7 +595,7 @@ export default function MenuEditor() {
 
   useEffect(() => {
     if (data?.data) {
-      const initialYaml = yaml.dump(data.data, {
+      const initialYaml = safeYamlDump(data.data, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
