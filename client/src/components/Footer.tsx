@@ -68,7 +68,7 @@ export default function Footer() {
 
   return (
     <footer className="text-foreground" data-testid="section-global-footer">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-8 border-t">
         <div className="lg:shrink-0 flex justify-between items-center h-full mb-8">
           <a
             href="/"
@@ -104,10 +104,10 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row lg:justify-between gap-8 lg:gap-4">
+        <div className="flex flex-col md:flex md:flex-row md:justify-between gap-8 md:gap-4">
           {config.columns?.map((column) => {
             const itemCount = column.items?.length || 0;
-            const subCols = Math.ceil(itemCount / 5);
+            const subCols = Math.ceil(itemCount / 4);
 
             return (
               <div
@@ -118,7 +118,7 @@ export default function Footer() {
                   {column.title}
                 </h3>
                 <ul
-                  className="gap-x-8"
+                  className="gap-x-3 md:columns-"
                   style={{
                     columnCount: subCols,
                     columnGap: "2rem",
@@ -150,7 +150,7 @@ export default function Footer() {
           })}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-background/20">
+        <div className="pt-8 border-t border-background/20">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p
               className="text-sm text-foreground/60"
