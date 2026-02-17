@@ -2,6 +2,8 @@ footer:
   columns:
     - title: Company
       items:
+        - label: Events
+          href: /en/next-dates
         - label: Why 4Geeks
           href: /en/why-4geeks
         - label: Academy
@@ -10,8 +12,6 @@ footer:
           href: /en/career-programs/data-science-ml
         - label: Pricing
           href: /en/financials
-        - label: Events
-          href: /en/next-dates
         - label: Upcoming Dates
           href: /en/next-dates
         - label: FAQ
@@ -64,11 +64,9 @@ footer:
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
       items:
-        - label: New Item 2
-          href: /new-page
-        - label: New Item 3
-          href: /new-page
         - label: New Item 1
+          href: /new-page
+        - label: New Item 7
           href: /new-page
   socials:
     - name: Linkedin

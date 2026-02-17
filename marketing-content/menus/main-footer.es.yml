@@ -3,15 +3,15 @@ footer:
     - title: Empresa
       items:
         - label: Por qué 4Geeks
-          href: /en/why-4geeks
-        - label: Academia
-          href: /en/the-academy
-        - label: Alianzas
-          href: /en/career-programs/data-science-ml
-        - label: Precios
-          href: /en/financials
-        - label: Eventos
           href: /en/next-dates
+        - label: Academia
+          href: /en/why-4geeks
+        - label: Alianzas
+          href: /en/the-academy
+        - label: Precios
+          href: /en/career-programs/data-science-ml
+        - label: Eventos
+          href: /en/financials
         - label: Próximas Fechas
           href: /en/next-dates
         - label: Preguntas Frecuentes
@@ -66,9 +66,7 @@ footer:
       items:
         - label: '[TRANSLATE] New Item 1'
           href: /new-page
-        - label: '[TRANSLATE] New Item 2'
-          href: /new-page
-        - label: '[TRANSLATE] New Item 3'
+        - label: '[TRANSLATE] New Item 4'
           href: /new-page
   socials:
     - name: Linkedin
