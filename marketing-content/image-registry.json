@@ -4636,8 +4636,20 @@
       "src": "/attached_assets/dashboard_capture.webp",
       "alt": "4Geeks.com Dashboard Capture",
       "focal_point": "center",
-      "tags": ["photo", "dashboard", "screenshot"],
+      "tags": [
+        "photo",
+        "dashboard",
+        "screenshot"
+      ],
       "usage_count": 0
+    },
+    "loop-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4",
+      "alt": "Image: loop-1",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "7c0c85f4ff80201219437de5b326871c2cb382604026feb5d32494234169349f"
     }
   }
 }
