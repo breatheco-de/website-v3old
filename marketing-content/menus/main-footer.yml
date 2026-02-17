@@ -2,8 +2,6 @@ footer:
   columns:
     - title: Company
       items:
-        - label: Events
-          href: /en/next-dates
         - label: Why 4Geeks
           href: /en/why-4geeks
         - label: Academy
@@ -12,6 +10,8 @@ footer:
           href: /en/career-programs/data-science-ml
         - label: Pricing
           href: /en/financials
+        - label: Events
+          href: /en/next-dates
         - label: Upcoming Dates
           href: /en/next-dates
         - label: FAQ
@@ -28,6 +28,10 @@ footer:
           href: /en/career-programs/full-stack
     - title: Locations
       items:
+        - label: Miami
+          href: /en/location/miami-usa
+        - label: Orlando
+          href: /new-page
         - label: Toronto
           href: /en/coding-campus/coding-bootcamp-toronto-canada
         - label: Miami
@@ -52,6 +56,8 @@ footer:
           href: /en/coding-campus/coding-bootcamp-caracas
         - label: Argentina
           href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
+        - label: Ecuador
+          href: /new-page
         - label: Uruguay
           href: /en/coding-campus/coding-bootcamp-uruguay
         - label: Panama
@@ -64,10 +70,10 @@ footer:
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
       items:
-        - label: New Item 1
-          href: /new-page
-        - label: New Item 7
-          href: /new-page
+        - label: 4Geeks For Companies
+          href: /en/partners
+        - label: Talent
+          href: https://www.notion.so/4geeksacademy/Talent-Pipeline-4Geeks-Academy-ef91aba17f9c4964bf7972396d190bdf
   socials:
     - name: Linkedin
       icon: linkedin
