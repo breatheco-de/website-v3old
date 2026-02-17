@@ -289,7 +289,7 @@ sections:
     paddingY:
       desktop: md
   - type: certificate
-    title: Certificaciones e Inserción Laboral Comprobada
+    title: Inserción Laboral Comprobada
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
