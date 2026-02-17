@@ -63,7 +63,6 @@ import {
   loadCommonData,
   type ContentType,
 } from "./utils/contentLoader";
-import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
@@ -880,10 +879,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
-    // Resolve translated slug to folder name
-    const folder = getFolderFromSlug(slug, locale);
-
-    const page = loadTemplatePage(folder, locale);
+    const page = loadTemplatePage(slug, locale);
 
     if (!page) {
       res.status(404).json({ error: "Template page not found" });
@@ -1035,6 +1031,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
       count: redirects.length,
       redirects,
     });
+  });
+
+  app.get("/api/locale-urls", (req, res) => {
+    try {
+      const url = req.query.url as string;
+      if (!url) {
+        res.status(400).json({ error: "Missing 'url' query parameter" });
+        return;
+      }
+
+      let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
+      let slug: string | null = null;
+
+      const programEn = url.match(/^\/en\/career-programs\/([^/]+)/);
+      const programEs = url.match(/^\/es\/programas-de-carrera\/([^/]+)/);
+      const locationEn = url.match(/^\/en\/location\/([^/]+)/);
+      const locationEs = url.match(/^\/es\/ubicacion\/([^/]+)/);
+      const landingMatch = url.match(/^\/(?:en\/|es\/)?landing\/([^/]+)/);
+      const pageEn = url.match(/^\/en\/([^/]+)$/);
+      const pageEs = url.match(/^\/es\/([^/]+)$/);
+
+      if (programEn) { contentType = "programs"; slug = programEn[1]; }
+      else if (programEs) { contentType = "programs"; slug = programEs[1]; }
+      else if (locationEn) { contentType = "locations"; slug = locationEn[1]; }
+      else if (locationEs) { contentType = "locations"; slug = locationEs[1]; }
+      else if (landingMatch) { contentType = "landings"; slug = landingMatch[1]; }
+      else if (pageEn) { contentType = "pages"; slug = pageEn[1]; }
+      else if (pageEs) { contentType = "pages"; slug = pageEs[1]; }
+
+      if (!contentType || !slug) {
+        res.status(400).json({ error: "Could not determine content type from URL" });
+        return;
+      }
+
+      const baseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const urls = contentIndex.getLocaleUrls(baseSlug, contentType);
+      res.json({ urls, contentType, slug: baseSlug });
+    } catch (err) {
+      console.error("[API] Failed to resolve locale URLs:", err);
+      res.status(500).json({ error: "Failed to resolve locale URLs" });
+    }
   });
 
   app.get("/api/debug/redirects/locale-urls", (req, res) => {
@@ -1928,6 +1965,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         schemaInclude,
         schemaOverrides,
         title: pageData.title || "",
+        slug: pageData.slug || slug,
       };
 
       if (contentType === "landings") {
@@ -2916,10 +2954,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      const { contentType, currentSlug, newSlug, createRedirect } = req.body;
+      const { contentType, folderSlug, locale, newSlug, createRedirect } = req.body;
 
-      if (!contentType || !currentSlug || !newSlug) {
-        res.status(400).json({ error: "Missing required fields: contentType, currentSlug, newSlug" });
+      if (!contentType || !folderSlug || !locale || !newSlug) {
+        res.status(400).json({ error: "Missing required fields: contentType, folderSlug, locale, newSlug" });
         return;
       }
 
@@ -2935,11 +2973,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      if (currentSlug === newSlug) {
-        res.status(400).json({ error: "New slug is the same as current slug" });
-        return;
-      }
-
       const folderMap: Record<string, string> = {
         location: "locations",
         page: "pages",
@@ -2947,75 +2980,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
         landing: "landings",
       };
       const contentFolder = folderMap[contentType];
-      const baseDir = path.join(process.cwd(), "marketing-content", contentFolder);
-      const currentPath = path.join(baseDir, currentSlug);
-      const newPath = path.join(baseDir, newSlug);
+      const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, folderSlug);
 
-      if (!fs.existsSync(currentPath)) {
-        res.status(404).json({ error: `Content folder not found: ${currentSlug}` });
+      if (!fs.existsSync(folderPath)) {
+        res.status(404).json({ error: `Content folder not found: ${folderSlug}` });
         return;
       }
 
-      if (fs.existsSync(newPath)) {
-        res.status(409).json({ error: `A ${contentType} with slug "${newSlug}" already exists` });
+      const effectiveLocale = contentType === "landing" ? "promoted" : locale;
+      const localeFile = [`${effectiveLocale}.yml`, `${effectiveLocale}.yaml`].find(f => 
+        fs.existsSync(path.join(folderPath, f))
+      );
+      if (!localeFile) {
+        res.status(404).json({ error: `Locale file not found: ${effectiveLocale}` });
         return;
       }
 
-      const oldLocaleUrls = contentIndex.getLocaleUrls(currentSlug, contentFolder);
-
-      fs.renameSync(currentPath, newPath);
-
-      const ymlFiles = fs.readdirSync(newPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
-      for (const file of ymlFiles) {
-        const filePath = path.join(newPath, file);
-        try {
-          const raw = fs.readFileSync(filePath, "utf-8");
-          const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
-          if (parsed && parsed.slug === currentSlug) {
-            parsed.slug = newSlug;
-            const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
-            fs.writeFileSync(filePath, updated, "utf-8");
-          }
-          markFileAsModified(`marketing-content/${contentFolder}/${newSlug}/${file}`);
-        } catch {}
+      const localeFilePath = path.join(folderPath, localeFile);
+      const raw = fs.readFileSync(localeFilePath, "utf-8");
+      const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
+      if (!parsed) {
+        res.status(500).json({ error: "Failed to parse locale file" });
+        return;
       }
 
-      if (createRedirect && Object.keys(oldLocaleUrls).length > 0) {
-        for (const [locale, oldUrl] of Object.entries(oldLocaleUrls)) {
-          const localeFile = `${locale}.yml`;
-          const localeFilePath = path.join(newPath, localeFile);
-          if (!fs.existsSync(localeFilePath)) continue;
-          try {
-            const raw = fs.readFileSync(localeFilePath, "utf-8");
-            const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
-            if (!parsed) continue;
-            const meta = (parsed.meta || {}) as Record<string, unknown>;
-            const redirects = Array.isArray(meta.redirects) ? [...meta.redirects] : [];
-            if (!redirects.includes(oldUrl)) {
-              redirects.push(oldUrl);
-            }
-            meta.redirects = redirects;
-            parsed.meta = meta;
-            const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
-            fs.writeFileSync(localeFilePath, updated, "utf-8");
-            markFileAsModified(`marketing-content/${contentFolder}/${newSlug}/${localeFile}`);
-          } catch {}
+      const currentSlug = (parsed.slug as string) || folderSlug;
+      if (currentSlug === newSlug) {
+        res.status(400).json({ error: "New slug is the same as current slug" });
+        return;
+      }
+
+      const oldUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, currentSlug);
+      const newUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, newSlug);
+
+      parsed.slug = newSlug;
+
+      if (createRedirect) {
+        const meta = (parsed.meta || {}) as Record<string, unknown>;
+        const redirects = Array.isArray(meta.redirects) ? [...meta.redirects] : [];
+        if (!redirects.includes(oldUrl)) {
+          redirects.push(oldUrl);
         }
+        meta.redirects = redirects;
+        parsed.meta = meta;
       }
+
+      const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+      fs.writeFileSync(localeFilePath, updated, "utf-8");
+      markFileAsModified(`marketing-content/${contentFolder}/${folderSlug}/${localeFile}`);
 
       contentIndex.refresh();
       clearSitemapCache();
       clearRedirectCache();
 
-      const newLocaleUrls = contentIndex.getLocaleUrls(newSlug, contentFolder);
-
       res.json({
         success: true,
+        folderSlug,
         oldSlug: currentSlug,
         newSlug,
-        oldUrls: oldLocaleUrls,
-        newUrls: newLocaleUrls,
-        redirectsCreated: !!createRedirect,
+        oldUrl,
+        newUrl,
+        locale: effectiveLocale,
+        redirectCreated: !!createRedirect,
       });
     } catch (error) {
       console.error("[Content] Rename slug error:", error);
@@ -3555,7 +3581,8 @@ sections: []
         return;
       }
 
-      const resolvedSlug = type === 'page' ? getFolderFromSlug(slug, 'en') : slug;
+      const typeFolder = { program: 'programs', page: 'pages', location: 'locations', landing: 'landings' }[type] || type;
+      const resolvedSlug = contentIndex.resolveBaseSlug(slug, typeFolder);
 
       const folderPath = path.join(process.cwd(), 'marketing-content', folderMap[type], resolvedSlug);
 

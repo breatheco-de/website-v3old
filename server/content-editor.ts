@@ -20,25 +20,18 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
 import type { EditOperation } from "@shared/schema";
 import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
 import { normalizeLocale } from "@shared/locale";
-import { getFolderFromSlug } from "@shared/slugMappings";
+import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { markFileAsModified } from "./sync-state";
 
 const CONTENT_BASE_PATH = path.join(process.cwd(), "marketing-content");
 
 function getContentFolder(contentType: string, slug: string, locale?: string): string {
-  switch (contentType) {
-    case "program":
-      return path.join(CONTENT_BASE_PATH, "programs", slug);
-    case "landing":
-      return path.join(CONTENT_BASE_PATH, "landings", slug);
-    case "location":
-      return path.join(CONTENT_BASE_PATH, "locations", slug);
-    case "page":
-      return path.join(CONTENT_BASE_PATH, "pages", locale ? getFolderFromSlug(slug, locale) : slug);
-    default:
-      throw new Error(`Unknown content type: ${contentType}`);
-  }
+  const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
+  const folder = typeMap[contentType];
+  if (!folder) throw new Error(`Unknown content type: ${contentType}`);
+  const resolved = contentIndex.resolveBaseSlug(slug, folder);
+  return path.join(CONTENT_BASE_PATH, folder, resolved);
 }
 
 /**
@@ -81,23 +74,11 @@ interface ContentEditRequest {
 }
 
 function getContentPath(contentType: string, slug: string, locale: string, variant?: string, version?: number): string {
-  let folder: string;
-  switch (contentType) {
-    case "program":
-      folder = path.join(CONTENT_BASE_PATH, "programs", slug);
-      break;
-    case "landing":
-      folder = path.join(CONTENT_BASE_PATH, "landings", slug);
-      break;
-    case "location":
-      folder = path.join(CONTENT_BASE_PATH, "locations", slug);
-      break;
-    case "page":
-      folder = path.join(CONTENT_BASE_PATH, "pages", getFolderFromSlug(slug, locale));
-      break;
-    default:
-      throw new Error(`Unknown content type: ${contentType}`);
-  }
+  const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
+  const typeFolder = typeMap[contentType];
+  if (!typeFolder) throw new Error(`Unknown content type: ${contentType}`);
+  const resolved = contentIndex.resolveBaseSlug(slug, typeFolder);
+  const folder = path.join(CONTENT_BASE_PATH, typeFolder, resolved);
   
   // If variant and version are specified, use variant file path
   // "default" variant means base content, not a variant file

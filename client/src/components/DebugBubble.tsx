@@ -673,8 +673,8 @@ export function DebugBubble() {
   const [slugCheckReason, setSlugCheckReason] = useState<string | null>(null);
   const [slugRenaming, setSlugRenaming] = useState(false);
   const [slugRedirectPrompt, setSlugRedirectPrompt] = useState(false);
-  const [slugOldUrls, setSlugOldUrls] = useState<Record<string, string>>({});
-  const [slugNewUrls, setSlugNewUrls] = useState<Record<string, string>>({});
+  const [slugOldUrl, setSlugOldUrl] = useState("");
+  const [slugNewUrl, setSlugNewUrl] = useState("");
   
   // Breathecode host state
   const [breathecodeHost, setBreathecodeHost] = useState<{ host: string; isDefault: boolean } | null>(null);
@@ -704,8 +704,8 @@ export function DebugBubble() {
     setSlugCheckReason(null);
     setSlugRenaming(false);
     setSlugRedirectPrompt(false);
-    setSlugOldUrls({});
-    setSlugNewUrls({});
+    setSlugOldUrl("");
+    setSlugNewUrl("");
   }, [contentInfo.slug]);
 
   // Check if location is currently overridden via query string
@@ -1024,8 +1024,10 @@ export function DebugBubble() {
     }
   }, [contentInfo.type, contentInfo.slug, pathname, i18n.language, toast]);
 
+  const currentLocaleSlug = (seoData?.slug as string) || contentInfo.slug || "";
+
   useEffect(() => {
-    if (!newSlugValue || !contentInfo.type || newSlugValue === contentInfo.slug) {
+    if (!newSlugValue || !contentInfo.type || newSlugValue === currentLocaleSlug) {
       setSlugCheckStatus("idle");
       setSlugCheckReason(null);
       return;
@@ -1036,26 +1038,9 @@ export function DebugBubble() {
       setSlugCheckReason("Use only lowercase letters, numbers, and hyphens");
       return;
     }
-    setSlugCheckStatus("checking");
-    const controller = new AbortController();
-    const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
-    const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
-    const timer = setTimeout(() => {
-      fetch(`/api/content/check-slug?type=${apiType}&slug=${newSlugValue}`, { signal: controller.signal })
-        .then(r => r.json())
-        .then(data => {
-          if (data.available) {
-            setSlugCheckStatus("available");
-            setSlugCheckReason(null);
-          } else {
-            setSlugCheckStatus("taken");
-            setSlugCheckReason(data.reason === "slug_taken" ? "This slug is already in use" : data.reason === "redirect_conflict" ? `Conflicts with redirect to ${data.redirectTo}` : data.reason || "Not available");
-          }
-        })
-        .catch(() => {});
-    }, 400);
-    return () => { clearTimeout(timer); controller.abort(); };
-  }, [newSlugValue, contentInfo.type, contentInfo.slug]);
+    setSlugCheckStatus("available");
+    setSlugCheckReason(null);
+  }, [newSlugValue, contentInfo.type, currentLocaleSlug]);
 
   const handleSlugRename = async (createRedirect: boolean) => {
     if (!contentInfo.type || !contentInfo.slug || !newSlugValue || slugCheckStatus !== "available") return;
@@ -1067,12 +1052,15 @@ export function DebugBubble() {
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       const token = getDebugToken();
       if (token) headers["X-Debug-Token"] = token;
+      const pathSegments = pathname.split("/").filter(Boolean);
+      const urlLocale = pathSegments[0] || "en";
       const res = await fetch("/api/content/rename-slug", {
         method: "POST",
         headers,
         body: JSON.stringify({
           contentType: apiType,
-          currentSlug: contentInfo.slug,
+          folderSlug: contentInfo.slug,
+          locale: urlLocale,
           newSlug: newSlugValue,
           createRedirect,
         }),
@@ -1091,20 +1079,12 @@ export function DebugBubble() {
       setNewSlugValue("");
       const isPreview = pathname.startsWith("/private/preview/");
       if (isPreview) {
-        const folderMap: Record<string, string> = { program: "programs", page: "pages", location: "locations", landing: "landings" };
-        const folder = folderMap[apiType] || contentInfo.type;
         const search = window.location.search;
-        window.location.href = `/private/preview/${folder}/${result.newSlug}${search}`;
+        window.location.href = `/private/preview/${contentInfo.type}/${contentInfo.slug}${search}`;
+      } else if (result.newUrl) {
+        window.location.href = result.newUrl;
       } else {
-        const pathSegments = pathname.split("/").filter(Boolean);
-        const urlLocale = pathSegments[0];
-        const newUrls = result.newUrls || {};
-        const newUrl = newUrls[urlLocale] || newUrls["default"] || newUrls["en"] || Object.values(newUrls)[0];
-        if (newUrl) {
-          window.location.href = newUrl;
-        } else {
-          window.location.reload();
-        }
+        window.location.reload();
       }
     } catch (error) {
       toast({
@@ -1121,22 +1101,17 @@ export function DebugBubble() {
     if (!contentInfo.type || !contentInfo.slug || slugCheckStatus !== "available") return;
     const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
     const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
-    const oldUrls = contentIndex_buildUrls(apiType, contentInfo.slug);
-    const newUrls = contentIndex_buildUrls(apiType, newSlugValue);
-    setSlugOldUrls(oldUrls);
-    setSlugNewUrls(newUrls);
-    setSlugRedirectPrompt(true);
-  };
-
-  const contentIndex_buildUrls = (apiType: string, slug: string): Record<string, string> => {
+    const pathSegments = pathname.split("/").filter(Boolean);
+    const urlLocale = pathSegments[0] || "en";
     if (apiType === "landing") {
-      return { default: `/landing/${slug}` };
+      setSlugOldUrl(`/landing/${currentLocaleSlug}`);
+      setSlugNewUrl(`/landing/${newSlugValue}`);
+    } else {
+      const ct = apiType as ContentType;
+      setSlugOldUrl(buildContentUrl(ct, currentLocaleSlug, urlLocale));
+      setSlugNewUrl(buildContentUrl(ct, newSlugValue, urlLocale));
     }
-    const ct = apiType as ContentType;
-    return {
-      en: buildContentUrl(ct, slug, "en"),
-      es: buildContentUrl(ct, slug, "es"),
-    };
+    setSlugRedirectPrompt(true);
   };
 
   const handleSeoSave = async () => {
@@ -4583,13 +4558,13 @@ export function DebugBubble() {
                     )}
                     <h4 className="text-sm font-semibold">Page Slug</h4>
                     <code className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-mono">
-                      {contentInfo.slug}
+                      {currentLocaleSlug}
                     </code>
                   </button>
                   {slugEditorExpanded && (
                     <div className="space-y-3 pl-6">
                       <p className="text-xs text-muted-foreground">
-                        Change the slug (URL identifier) for this content. This will rename the content folder and update all URLs.
+                        Change the slug (URL identifier) for this locale. The folder name stays the same; only this locale's URL changes.
                       </p>
                       <div className="space-y-1.5">
                         <label className="text-xs font-medium text-foreground" htmlFor="slug-editor-input">
@@ -4614,7 +4589,7 @@ export function DebugBubble() {
                         {slugCheckStatus === "taken" && slugCheckReason && (
                           <p className="text-xs text-destructive">{slugCheckReason}</p>
                         )}
-                        {newSlugValue === contentInfo.slug && newSlugValue && (
+                        {newSlugValue === currentLocaleSlug && newSlugValue && (
                           <p className="text-xs text-muted-foreground">Same as current slug</p>
                         )}
                       </div>
@@ -4623,7 +4598,7 @@ export function DebugBubble() {
                         <Button
                           size="sm"
                           onClick={handleSlugRenameClick}
-                          disabled={slugCheckStatus !== "available" || slugRenaming || !newSlugValue || newSlugValue === contentInfo.slug}
+                          disabled={slugCheckStatus !== "available" || slugRenaming || !newSlugValue || newSlugValue === currentLocaleSlug}
                           data-testid="button-rename-slug"
                         >
                           {slugRenaming ? "Renaming..." : "Change Slug"}
@@ -4635,13 +4610,11 @@ export function DebugBubble() {
                             Do you want to create a redirect from the old URLs to the new ones? This ensures existing links and bookmarks still work.
                           </p>
                           <div className="space-y-1.5">
-                            {Object.entries(slugOldUrls).map(([locale, oldUrl]) => (
-                              <div key={locale} className="flex items-center gap-2 text-xs font-mono">
-                                <code className="bg-muted px-1.5 py-0.5 rounded truncate">{oldUrl}</code>
-                                <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                                <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugNewUrls[locale]}</code>
-                              </div>
-                            ))}
+                            <div className="flex items-center gap-2 text-xs font-mono">
+                              <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugOldUrl}</code>
+                              <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                              <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugNewUrl}</code>
+                            </div>
                           </div>
                           <div className="flex gap-2">
                             <Button
