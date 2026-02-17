@@ -18,10 +18,10 @@ footer:
           href: /en/faq
     - title: Programs
       items:
-        - label: AI Engineering
-          href: /en/career-programs/ai-engineering
         - label: Data Science and Machine Learning with AI
           href: /en/career-programs/data-science-ml
+        - label: AI Engineering
+          href: /en/career-programs/ai-engineering
         - label: Cybersecurity
           href: /en/career-programs/cybersecurity
         - label: Full Stack with AI
@@ -63,7 +63,13 @@ footer:
         - label: Berlin
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
-      items: []
+      items:
+        - label: New Item 2
+          href: /new-page
+        - label: New Item 3
+          href: /new-page
+        - label: New Item 1
+          href: /new-page
   socials:
     - name: Linkedin
       icon: linkedin

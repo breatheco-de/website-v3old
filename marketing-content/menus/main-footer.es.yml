@@ -19,9 +19,9 @@ footer:
     - title: Programas
       items:
         - label: Ingeniería en IA
-          href: /en/career-programs/ai-engineering
-        - label: Ciencia de Datos y Machine Learning con IA
           href: /en/career-programs/data-science-ml
+        - label: Ciencia de Datos y Machine Learning con IA
+          href: /en/career-programs/ai-engineering
         - label: Ciberseguridad
           href: /en/career-programs/cybersecurity
         - label: Full Stack con IA
@@ -63,7 +63,13 @@ footer:
         - label: '[TRANSLATE] Berlin'
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: Para Empresas
-      items: []
+      items:
+        - label: '[TRANSLATE] New Item 1'
+          href: /new-page
+        - label: '[TRANSLATE] New Item 2'
+          href: /new-page
+        - label: '[TRANSLATE] New Item 3'
+          href: /new-page
   socials:
     - name: Linkedin
       icon: linkedin
