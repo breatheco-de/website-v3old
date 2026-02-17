@@ -25,7 +25,7 @@ sections:
       rating_count: 3,000+
       trusted_text: Trusted by students worldwide
     cta_button:
-      text: Get Started
+      text: Explore our Programs
       url: "#course_selector-3"
       variant: primary
       icon: ""
@@ -93,84 +93,6 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Explore Our Programs
-    subheading: Industry-aligned training designed to launch your career in tech
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: Cpu
-            text: LLMs, AI Agents & Automation
-          - icon: Database
-            text: Production AI Systems
-        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
-        price: $349
-        price_info: or less depending on financing plan
-        cta_text: View Program Details
-        cta_url: /en/ai-engineering
-        course_background: hsl(var(--accent))
-      - name: Full Stack Development with AI
-        icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        tags:
-          - icon: Plus
-            text: API Development
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        price: $299
-        price_info: or less depending on financing plan
-        cta_text: View Program Details
-        cta_url: /en/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
-        badges:
-          - icon: BrainCircuit
-            text: Machine Learning & AI Models
-          - icon: BarChart
-            text: Data Analysis & Visualization
-        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
-        price: $299
-        price_info: or less depending on financing plan
-        cta_text: View Program Details
-        cta_url: /en/data-science-ml
-        course_background: hsl(var(--primary))
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Lock
-            text: Threat Detection & Network Security
-          - icon: Server
-            text: Cloud Security
-        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
-        price: $299
-        price_info: or less depending on financing plan
-        cta_text: View Program Details
-        cta_url: /en/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    background: hsl(var(--muted))
-    marginY:
-      desktop: lg
-    paddingY:
-      desktop: md lg
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -188,26 +110,6 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
-    items:
-      - icon: Briefcase
-        value: 84%
-        title: Job placement rate
-      - icon: Graduation
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: GrowthChart
-        value: 55%
-        title: Salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    marginY:
-      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era
@@ -325,6 +227,104 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        price: $349
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
+        badges:
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/data-science-ml
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        price: $299
+        price_info: or less depending on financing plan
+        cta_text: View Program Details
+        cta_url: /en/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    background: hsl(var(--muted))
+    marginY:
+      desktop: lg
+    paddingY:
+      desktop: md lg
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: 84%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: 55%
+        title: Salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
