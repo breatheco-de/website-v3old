@@ -289,18 +289,31 @@ function DataSourceDialog({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="source-type">Source Type</Label>
-              <Select value={sourceType} onValueChange={setSourceType}>
-                <SelectTrigger id="source-type" data-testid="select-source-type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="api">REST API</SelectItem>
-                  <SelectItem value="rss" disabled>RSS Feed (coming soon)</SelectItem>
-                  <SelectItem value="csv" disabled>CSV File (coming soon)</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="source-type">Source Type</Label>
+                <Select value={sourceType} onValueChange={setSourceType}>
+                  <SelectTrigger id="source-type" data-testid="select-source-type">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="api">REST API</SelectItem>
+                    <SelectItem value="rss" disabled>RSS Feed (coming soon)</SelectItem>
+                    <SelectItem value="csv" disabled>CSV File (coming soon)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cache-ttl">Cache TTL (hours)</Label>
+                <Input
+                  id="cache-ttl"
+                  type="number"
+                  value={ttlHours}
+                  onChange={(e) => setTtlHours(e.target.value)}
+                  placeholder="24"
+                  data-testid="input-cache-ttl"
+                />
+              </div>
             </div>
 
             {sourceType === "api" && (
@@ -481,23 +494,6 @@ function DataSourceDialog({
               </>
             )}
 
-            <div className="border-t pt-4">
-              <div className="space-y-2">
-                <Label htmlFor="cache-ttl">Cache TTL (hours)</Label>
-                <Input
-                  id="cache-ttl"
-                  type="number"
-                  value={ttlHours}
-                  onChange={(e) => setTtlHours(e.target.value)}
-                  placeholder="24"
-                  className="w-32"
-                  data-testid="input-cache-ttl"
-                />
-                <p className="text-xs text-muted-foreground">
-                  How long to keep cached responses before re-fetching from the source
-                </p>
-              </div>
-            </div>
           </div>
         )}
 
