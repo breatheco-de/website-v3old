@@ -217,7 +217,7 @@ sections:
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund. *The Job Guarantee is not available in all regions. Terms and conditions apply.
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. Terms and conditions apply.</span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
       url: en/job-guarantee
@@ -226,6 +226,7 @@ sections:
       desktop: md
     paddingY:
       desktop: none sm
+    background: hsl(var(--secondary))
   - type: testimonials
     version: v1.0
     title: What Our Students Say
