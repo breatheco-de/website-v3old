@@ -47,11 +47,7 @@ import {
   IconFileCode,
   IconVariable,
 } from "@tabler/icons-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
@@ -538,17 +534,12 @@ export default function MenuEditor() {
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState<number | null>(null);
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
   const [originalYaml, setOriginalYaml] = useState<string>("");
-  const [varPopoverOpen, setVarPopoverOpen] = useState(false);
-  const [varFilter, setVarFilter] = useState("");
+  const [varModalOpen, setVarModalOpen] = useState(false);
   const cmRef = useRef<ReactCodeMirrorRef>(null);
   const cmSidebarRef = useRef<ReactCodeMirrorRef>(null);
   const activeEditorRef = useRef<"main" | "sidebar">("main");
   
   const isEnglish = locale === "en";
-
-  const { data: variableDefs } = useQuery<Record<string, { default?: string }>>({
-    queryKey: ["/api/variables"],
-  });
 
   const parsedResult = useMemo<{ data: MenuData | null; error: string | null }>(() => {
     if (!yamlSource) return { data: null, error: null };
@@ -799,36 +790,22 @@ export default function MenuEditor() {
     setHasChanges(newYaml !== originalYaml);
   };
 
-  const insertVariable = useCallback((varName: string, defaultVal?: string) => {
+  const handleVariableCreated = useCallback((_varName: string, templateSyntax: string) => {
     const ref = activeEditorRef.current === "sidebar" ? cmSidebarRef : cmRef;
     const view = ref.current?.view;
     if (!view) return;
 
-    const fallback = defaultVal || "";
-    const template = `{{ ${varName}${fallback ? ` | ${fallback}` : ""} }}`;
     const { from, to } = view.state.selection.main;
     view.dispatch({
-      changes: { from, to, insert: template },
-      selection: { anchor: from + template.length },
+      changes: { from, to, insert: templateSyntax },
+      selection: { anchor: from + templateSyntax.length },
     });
     view.focus();
-    setVarPopoverOpen(false);
-    setVarFilter("");
+    setVarModalOpen(false);
 
     const newVal = view.state.doc.toString();
     handleYamlEdit(newVal);
   }, [handleYamlEdit]);
-
-  const variableNames = useMemo(() => {
-    if (!variableDefs) return [];
-    return Object.keys(variableDefs).sort();
-  }, [variableDefs]);
-
-  const filteredVars = useMemo(() => {
-    if (!varFilter) return variableNames;
-    const lower = varFilter.toLowerCase();
-    return variableNames.filter((n) => n.toLowerCase().includes(lower));
-  }, [variableNames, varFilter]);
 
   const toggleExpand = (index: number) => {
     const newExpanded = new Set(expandedItems);
@@ -1250,44 +1227,15 @@ export default function MenuEditor() {
                   YAML Editor
                 </h2>
                 <div className="flex items-center gap-2">
-                  <Popover open={varPopoverOpen && activeEditorRef.current === "main"} onOpenChange={(open) => { activeEditorRef.current = "main"; setVarPopoverOpen(open); if (!open) setVarFilter(""); }}>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" size="sm" data-testid="button-insert-variable-main">
-                        <IconVariable className="h-4 w-4 mr-1" />
-                        Insert Variable
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-72 p-2" align="end">
-                      <Input
-                        placeholder="Filter variables..."
-                        value={varFilter}
-                        onChange={(e) => setVarFilter(e.target.value)}
-                        className="mb-2"
-                        data-testid="input-variable-filter"
-                        autoFocus
-                      />
-                      <ScrollArea className="max-h-60">
-                        {filteredVars.length === 0 && (
-                          <p className="text-xs text-muted-foreground p-2">No variables found</p>
-                        )}
-                        {filteredVars.map((name) => (
-                          <button
-                            key={name}
-                            className="w-full text-left px-2 py-1.5 text-sm rounded-md hover-elevate cursor-pointer flex items-center justify-between gap-2"
-                            onClick={() => insertVariable(name, variableDefs?.[name]?.default)}
-                            data-testid={`variable-option-${name}`}
-                          >
-                            <span className="font-mono text-xs truncate">{name}</span>
-                            {variableDefs?.[name]?.default && (
-                              <span className="text-xs text-muted-foreground truncate max-w-[100px]">
-                                {variableDefs[name].default}
-                              </span>
-                            )}
-                          </button>
-                        ))}
-                      </ScrollArea>
-                    </PopoverContent>
-                  </Popover>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => { activeEditorRef.current = "main"; setVarModalOpen(true); }}
+                    data-testid="button-insert-variable-main"
+                  >
+                    <IconVariable className="h-4 w-4 mr-1" />
+                    Insert Variable
+                  </Button>
                   <p className="text-xs text-muted-foreground">
                     Edit the menu content directly in YAML
                   </p>
@@ -1316,44 +1264,15 @@ export default function MenuEditor() {
               <span className="font-semibold">YAML Source</span>
             </div>
             <div className="flex items-center gap-2">
-              <Popover open={varPopoverOpen && activeEditorRef.current === "sidebar"} onOpenChange={(open) => { activeEditorRef.current = "sidebar"; setVarPopoverOpen(open); if (!open) setVarFilter(""); }}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" size="sm" data-testid="button-insert-variable-sidebar">
-                    <IconVariable className="h-4 w-4 mr-1" />
-                    Insert Variable
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-72 p-2 z-[10222001]" align="end">
-                  <Input
-                    placeholder="Filter variables..."
-                    value={varFilter}
-                    onChange={(e) => setVarFilter(e.target.value)}
-                    className="mb-2"
-                    data-testid="input-variable-filter-sidebar"
-                    autoFocus
-                  />
-                  <ScrollArea className="max-h-60">
-                    {filteredVars.length === 0 && (
-                      <p className="text-xs text-muted-foreground p-2">No variables found</p>
-                    )}
-                    {filteredVars.map((name) => (
-                      <button
-                        key={name}
-                        className="w-full text-left px-2 py-1.5 text-sm rounded-md hover-elevate cursor-pointer flex items-center justify-between gap-2"
-                        onClick={() => insertVariable(name, variableDefs?.[name]?.default)}
-                        data-testid={`variable-option-sidebar-${name}`}
-                      >
-                        <span className="font-mono text-xs truncate">{name}</span>
-                        {variableDefs?.[name]?.default && (
-                          <span className="text-xs text-muted-foreground truncate max-w-[100px]">
-                            {variableDefs[name].default}
-                          </span>
-                        )}
-                      </button>
-                    ))}
-                  </ScrollArea>
-                </PopoverContent>
-              </Popover>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => { activeEditorRef.current = "sidebar"; setVarModalOpen(true); }}
+                data-testid="button-insert-variable-sidebar"
+              >
+                <IconVariable className="h-4 w-4 mr-1" />
+                Insert Variable
+              </Button>
               {yamlError && (
                 <span className="text-xs text-destructive">Invalid YAML</span>
               )}
@@ -1371,6 +1290,15 @@ export default function MenuEditor() {
           </div>
         </SheetContent>
       </Sheet>
+
+      <VariableDetailModal
+        open={varModalOpen}
+        onOpenChange={setVarModalOpen}
+        variableName=""
+        inlineDefault=""
+        mode="create"
+        onCreated={handleVariableCreated}
+      />
 
       <Dialog open={confirmDeleteIndex !== null} onOpenChange={() => setConfirmDeleteIndex(null)}>
         <DialogContent>
