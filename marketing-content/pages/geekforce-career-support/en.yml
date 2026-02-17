@@ -291,10 +291,3 @@ sections:
       - career-support
     marginY:
       desktop: none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
-    paddingY:
-      desktop: md none
-    marginY:
-      desktop: none
