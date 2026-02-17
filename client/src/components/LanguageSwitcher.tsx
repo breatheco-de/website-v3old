@@ -8,76 +8,49 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { pageSlugMappings, getTranslatedSlug } from "@shared/slugMappings";
+import { useQuery } from "@tanstack/react-query";
 
 const languages = [
   { code: "en", name: "English" },
   { code: "es", name: "Español" },
 ];
 
-function getLocalizedPath(currentPath: string, targetLang: string): string {
-  // Handle root path and language root paths
-  if (
-    currentPath === "/" ||
-    currentPath === "/en/" ||
-    currentPath === "/es/" ||
-    currentPath === "/en" ||
-    currentPath === "/es"
-  ) {
-    return `/${targetLang}/`;
-  }
-
-  // Handle /en/:slug or /es/:slug pattern
-  const enMatch = currentPath.match(/^\/en\/(.+)$/);
-  const esMatch = currentPath.match(/^\/es\/(.+)$/);
-
-  // Handle legacy /landing/:slug pattern (no locale prefix)
-  const legacyLandingMatch = currentPath.match(/^\/landing\/(.+)$/);
-  if (legacyLandingMatch) {
-    const slug = legacyLandingMatch[1];
-    return `/${targetLang}/landing/${slug}`;
-  }
-
-  if (enMatch && targetLang === "es") {
-    const slug = enMatch[1];
-    const parts = slug.split("/");
-    if (parts.length > 1) {
-      const baseSlug = parts[0];
-      const detailSlug = parts.slice(1).join("/");
-      const translatedBase = getTranslatedSlug(baseSlug, "en", "es");
-      return `/es/${translatedBase}/${detailSlug}`;
-    }
-    const translatedSlug = getTranslatedSlug(slug, "en", "es");
-    return `/es/${translatedSlug}`;
-  }
-
-  if (esMatch && targetLang === "en") {
-    const slug = esMatch[1];
-    const parts = slug.split("/");
-    if (parts.length > 1) {
-      const baseSlug = parts[0];
-      const detailSlug = parts.slice(1).join("/");
-      const translatedBase = getTranslatedSlug(baseSlug, "es", "en");
-      return `/en/${translatedBase}/${detailSlug}`;
-    }
-    const translatedSlug = getTranslatedSlug(slug, "es", "en");
-    return `/en/${translatedSlug}`;
-  }
-
-  // Fallback: just add language prefix
-  return `/${targetLang}/`;
-}
-
 export default function LanguageSwitcher() {
   const { t, i18n } = useTranslation();
   const [location, setLocation] = useLocation();
+
+  const { data: localeUrls } = useQuery<{ urls: Record<string, string>; contentType: string; slug: string }>({
+    queryKey: ["/api/locale-urls", location],
+    queryFn: async () => {
+      const res = await fetch(`/api/locale-urls?url=${encodeURIComponent(location)}`);
+      if (!res.ok) return null;
+      return res.json();
+    },
+    enabled: location !== "/" && location !== "/en" && location !== "/es" && location !== "/en/" && location !== "/es/",
+    staleTime: 60000,
+  });
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     document.documentElement.lang = lng;
 
-    const localizedPath = getLocalizedPath(location, lng);
-    setLocation(localizedPath);
+    if (
+      location === "/" ||
+      location === "/en/" ||
+      location === "/es/" ||
+      location === "/en" ||
+      location === "/es"
+    ) {
+      setLocation(`/${lng}/`);
+      return;
+    }
+
+    if (localeUrls?.urls?.[lng]) {
+      setLocation(localeUrls.urls[lng]);
+      return;
+    }
+
+    setLocation(`/${lng}/`);
   };
 
   const currentLanguage =

@@ -418,11 +418,11 @@ export function VariableDetailModal({
     : variableName;
 
   const definition = definitions?.[effectiveVarName];
-  const resolution = definition
-    ? resolveVariable(effectiveVarName, definitions!, varContext)
+  const resolution = definition && definitions
+    ? resolveVariable(effectiveVarName, definitions, varContext)
     : null;
 
-  const resolvedValue = resolution?.value || inlineDefault || effectiveVarName;
+  const resolvedValue = resolution?.value || inlineDefault || effectiveVarName || "—";
   const resolvedSource = resolution?.source || (inlineDefault ? "inline" : "unresolved");
 
   const handleCreate = useCallback(async () => {
@@ -570,7 +570,13 @@ export function VariableDetailModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent ref={dialogRef} className={`max-w-lg max-h-[85vh] ${varComboboxOpen ? "overflow-visible" : "overflow-y-auto"}`} data-testid="variable-detail-modal">
+      <DialogContent
+        ref={dialogRef}
+        className="max-w-lg max-h-[85vh] overflow-y-auto"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        onCloseAutoFocus={(e) => e.preventDefault()}
+        data-testid="variable-detail-modal"
+      >
         {currentMode === "create" ? (
           <>
             <DialogHeader>
@@ -605,7 +611,7 @@ export function VariableDetailModal({
                             <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start" container={dialogRef.current} onCloseAutoFocus={(e) => e.preventDefault()}>
+                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0 z-[10001]" align="start" container={dialogRef.current}>
                           <Command>
                             <CommandInput placeholder="Search variables..." data-testid="input-search-variable" />
                             <CommandList>
@@ -616,8 +622,8 @@ export function VariableDetailModal({
                                     key={name}
                                     value={name}
                                     onSelect={(val) => {
-                                      setExistingVarName(val === existingVarName ? "" : val);
-                                      requestAnimationFrame(() => setVarComboboxOpen(false));
+                                      setExistingVarName(val);
+                                      setVarComboboxOpen(false);
                                     }}
                                     data-testid={`variable-option-${name}`}
                                   >
@@ -886,7 +892,7 @@ export function VariableDetailModal({
                   <p className="text-xs font-medium text-muted-foreground">How it resolves across contexts:</p>
                   <div className="rounded-md border divide-y">
                     {contextSamples.map((sample) => {
-                      const res = resolveVariable(effectiveVarName, definitions!, sample.context);
+                      const res = definitions && effectiveVarName ? resolveVariable(effectiveVarName, definitions, sample.context) : null;
                       const value = res?.value || definition.default || inlineDefault || "—";
                       const source = res?.source || "default";
                       return (

@@ -429,6 +429,65 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     });
   }
 
+  // Blog listing pages
+  entries.push({
+    loc: `${getBaseUrl()}/en/blog`,
+    lastmod: today,
+    changefreq: "daily",
+    priority: 0.7,
+    label: "Blog (EN)",
+    type: "static",
+    locale: "en",
+  });
+  entries.push({
+    loc: `${getBaseUrl()}/es/blog`,
+    lastmod: today,
+    changefreq: "daily",
+    priority: 0.7,
+    label: "Blog (ES)",
+    type: "static",
+    locale: "es",
+  });
+
+  // Blog posts from cache file (read synchronously)
+  try {
+    const blogConfigPath = path.join(BASE_CONTENT_PATH, "blog.yml");
+    if (fs.existsSync(blogConfigPath)) {
+      const blogConfig = yaml.load(fs.readFileSync(blogConfigPath, "utf-8")) as {
+        cache: { file_path: string };
+        url_pattern: Record<string, string>;
+        categories: Record<string, string>;
+      };
+      const cachePath = path.join(process.cwd(), blogConfig.cache.file_path);
+      if (fs.existsSync(cachePath)) {
+        const cached = JSON.parse(fs.readFileSync(cachePath, "utf-8")) as {
+          results: Array<{
+            slug: string;
+            title: string;
+            category?: { slug: string };
+            updated_at?: string;
+          }>;
+        };
+        for (const post of cached.results) {
+          const locale = post.category?.slug === blogConfig.categories["es"] ? "es" : "en";
+          const urlPattern = blogConfig.url_pattern[locale] || blogConfig.url_pattern["en"];
+          const postUrl = `${getBaseUrl()}${urlPattern.replace(":slug", post.slug)}`;
+          entries.push({
+            loc: postUrl,
+            lastmod: post.updated_at ? post.updated_at.split("T")[0] : today,
+            changefreq: "monthly",
+            priority: 0.6,
+            label: `Blog: ${post.title} (${formatLocaleLabel(locale)})`,
+            type: "static",
+            locale,
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("[Sitemap] Could not load blog posts for sitemap:", err);
+  }
+
   return entries;
 }
 
