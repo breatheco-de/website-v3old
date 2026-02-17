@@ -453,7 +453,10 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
   try {
     const blogConfigPath = path.join(BASE_CONTENT_PATH, "blog.yml");
     if (fs.existsSync(blogConfigPath)) {
-      const blogConfig = yaml.load(fs.readFileSync(blogConfigPath, "utf-8")) as {
+      const rawBlogConfig = yaml.load(fs.readFileSync(blogConfigPath, "utf-8")) as Record<string, unknown>;
+      const blogConfig = rawBlogConfig as {
+        data_source?: { type: string; api?: unknown };
+        api?: unknown;
         cache: { file_path: string };
         url_pattern: Record<string, string>;
         categories: Record<string, string>;

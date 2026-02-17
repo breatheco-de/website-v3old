@@ -1,13 +1,42 @@
-api:
-  endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
-  params:
-    limit: 500
-    offset: 0
-    category: blog-es,blog-us
-    status: published
-    visibility: public
-  token_env_var: BREATHECODE_TOKEN
-  academy_header: "4"
+# Blog Data Source Configuration
+#
+# This file controls where blog posts are fetched from.
+# The data_source.type field selects the active provider.
+#
+# ─── Supported data_source types ───────────────────────────────
+#
+# type: api
+#   api:
+#     endpoint: <URL>            # REST endpoint returning JSON array/object of posts
+#     params: <key: value>       # Query string parameters appended to the URL
+#     token_env_var: <name>      # Env var holding the Bearer token (optional)
+#     academy_header: <value>    # Custom "Academy" HTTP header value (optional)
+#
+# type: rss  (planned)
+#   rss:
+#     feed_url: <URL>            # RSS or Atom feed URL
+#
+# type: csv  (planned)
+#   csv:
+#     file_path: <path>          # Path to a local CSV file with blog posts
+#     delimiter: ","             # Column separator (default: comma)
+#
+# Each provider normalizes posts to a common shape:
+#   { title, slug, status, visibility, lang, author, published_at, updated_at, preview }
+# ───────────────────────────────────────────────────────────────
+
+data_source:
+  type: api
+  api:
+    endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
+    params:
+      limit: 500
+      offset: 0
+      category: blog-es,blog-us
+      status: published
+      visibility: public
+    token_env_var: BREATHECODE_TOKEN
+    academy_header: "4"
 
 cache:
   ttl_hours: 24

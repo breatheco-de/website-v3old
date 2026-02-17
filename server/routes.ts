@@ -69,7 +69,7 @@ import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
 import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItems, buildFaqPageSchema, type FaqSection } from "./ssr-schema";
-import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml } from "./blog";
+import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, getBlogConfig, saveBlogConfig, clearConfigCache, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml } from "./blog";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -1084,7 +1084,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/debug/clear-blog-cache", (_req, res) => {
     const result = clearBlogCache();
+    clearConfigCache();
     res.json(result);
+  });
+
+  app.get("/api/blog/config", (_req, res) => {
+    try {
+      const config = getBlogConfig();
+      res.json(config);
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/blog/config", (req, res) => {
+    try {
+      const body = req.body;
+      if (!body || typeof body !== "object") {
+        res.status(400).json({ error: "Request body must be a JSON object" });
+        return;
+      }
+      if (body.data_source) {
+        const ds = body.data_source;
+        if (!ds.type || typeof ds.type !== "string") {
+          res.status(400).json({ error: "data_source.type is required" });
+          return;
+        }
+        if (ds.type === "api" && (!ds.api || !ds.api.endpoint)) {
+          res.status(400).json({ error: "data_source.api.endpoint is required for API sources" });
+          return;
+        }
+      }
+      saveBlogConfig(body);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
   });
 
   // Clear sitemap cache (requires token validation)

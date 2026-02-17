@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -13,6 +14,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import {
   IconArrowLeft,
   IconSearch,
@@ -24,6 +32,7 @@ import {
   IconExternalLink,
   IconRefresh,
   IconWorld,
+  IconDatabase,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -57,6 +66,26 @@ interface CacheStatus {
   post_count: number | null;
 }
 
+interface ApiSourceConfig {
+  endpoint: string;
+  params: Record<string, string | number>;
+  token_env_var: string;
+  academy_header: string;
+}
+
+interface BlogConfig {
+  data_source: {
+    type: string;
+    api?: ApiSourceConfig;
+  };
+  cache: {
+    ttl_hours: number;
+    file_path: string;
+  };
+  url_pattern: Record<string, string>;
+  categories: Record<string, string>;
+}
+
 function formatDate(dateStr: string | null | undefined): string {
   if (!dateStr) return "—";
   try {
@@ -88,12 +117,250 @@ function VisibilityIcon({ visibility }: { visibility: string }) {
   return <IconEyeOff className="h-4 w-4 text-muted-foreground" />;
 }
 
+function DataSourceDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+
+  const { data: config, isLoading } = useQuery<BlogConfig>({
+    queryKey: ["/api/blog/config"],
+    enabled: open,
+  });
+
+  const [sourceType, setSourceType] = useState("api");
+  const [endpoint, setEndpoint] = useState("");
+  const [paramsCategory, setParamsCategory] = useState("");
+  const [paramsStatus, setParamsStatus] = useState("");
+  const [paramsVisibility, setParamsVisibility] = useState("");
+  const [paramsLimit, setParamsLimit] = useState("500");
+  const [tokenEnvVar, setTokenEnvVar] = useState("");
+  const [academyHeader, setAcademyHeader] = useState("");
+  const [ttlHours, setTtlHours] = useState("24");
+
+  useEffect(() => {
+    if (config) {
+      setSourceType(config.data_source?.type || "api");
+      if (config.data_source?.api) {
+        const api = config.data_source.api;
+        setEndpoint(api.endpoint || "");
+        setParamsCategory(String(api.params?.category || ""));
+        setParamsStatus(String(api.params?.status || ""));
+        setParamsVisibility(String(api.params?.visibility || ""));
+        setParamsLimit(String(api.params?.limit || "500"));
+        setTokenEnvVar(api.token_env_var || "");
+        setAcademyHeader(api.academy_header || "");
+      }
+      setTtlHours(String(config.cache?.ttl_hours || 24));
+    }
+  }, [config]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const payload: BlogConfig = {
+        data_source: {
+          type: sourceType,
+          ...(sourceType === "api" && {
+            api: {
+              endpoint,
+              params: {
+                limit: Number(paramsLimit) || 500,
+                offset: 0,
+                category: paramsCategory,
+                status: paramsStatus,
+                visibility: paramsVisibility,
+              },
+              token_env_var: tokenEnvVar,
+              academy_header: academyHeader,
+            },
+          }),
+        },
+        cache: {
+          ttl_hours: Number(ttlHours) || 24,
+          file_path: config?.cache?.file_path || ".cache/blog-posts.json",
+        },
+        url_pattern: config?.url_pattern || { en: "/en/blog/:slug", es: "/es/blog/:slug" },
+        categories: config?.categories || { en: "blog-us", es: "blog-es" },
+      };
+
+      await apiRequest("PUT", "/api/blog/config", payload);
+      queryClient.invalidateQueries({ queryKey: ["/api/blog/config"] });
+      toast({ title: "Data source saved" });
+      onOpenChange(false);
+    } catch {
+      toast({ title: "Failed to save data source", variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[520px] max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Blog Data Source</DialogTitle>
+        </DialogHeader>
+
+        {isLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
+            <span className="ml-2 text-sm text-muted-foreground">Loading configuration...</span>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="source-type">Source Type</Label>
+              <Select value={sourceType} onValueChange={setSourceType}>
+                <SelectTrigger id="source-type" data-testid="select-source-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="api">REST API</SelectItem>
+                  <SelectItem value="rss" disabled>RSS Feed (coming soon)</SelectItem>
+                  <SelectItem value="csv" disabled>CSV File (coming soon)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {sourceType === "api" && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="api-endpoint">API Endpoint</Label>
+                  <Input
+                    id="api-endpoint"
+                    value={endpoint}
+                    onChange={(e) => setEndpoint(e.target.value)}
+                    placeholder="https://api.example.com/posts"
+                    data-testid="input-api-endpoint"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    REST endpoint that returns a JSON array or object with a results array
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="params-category">Categories</Label>
+                    <Input
+                      id="params-category"
+                      value={paramsCategory}
+                      onChange={(e) => setParamsCategory(e.target.value)}
+                      placeholder="blog-es,blog-us"
+                      data-testid="input-params-category"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="params-limit">Limit</Label>
+                    <Input
+                      id="params-limit"
+                      type="number"
+                      value={paramsLimit}
+                      onChange={(e) => setParamsLimit(e.target.value)}
+                      placeholder="500"
+                      data-testid="input-params-limit"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="params-status">Status Filter</Label>
+                    <Input
+                      id="params-status"
+                      value={paramsStatus}
+                      onChange={(e) => setParamsStatus(e.target.value)}
+                      placeholder="published"
+                      data-testid="input-params-status"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="params-visibility">Visibility Filter</Label>
+                    <Input
+                      id="params-visibility"
+                      value={paramsVisibility}
+                      onChange={(e) => setParamsVisibility(e.target.value)}
+                      placeholder="public"
+                      data-testid="input-params-visibility"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="token-env-var">Auth Token Env Var</Label>
+                    <Input
+                      id="token-env-var"
+                      value={tokenEnvVar}
+                      onChange={(e) => setTokenEnvVar(e.target.value)}
+                      placeholder="BREATHECODE_TOKEN"
+                      data-testid="input-token-env-var"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Name of the environment variable holding the Bearer token
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="academy-header">Academy Header</Label>
+                    <Input
+                      id="academy-header"
+                      value={academyHeader}
+                      onChange={(e) => setAcademyHeader(e.target.value)}
+                      placeholder="4"
+                      data-testid="input-academy-header"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Value for the custom Academy HTTP header
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+
+            <div className="border-t pt-4">
+              <div className="space-y-2">
+                <Label htmlFor="cache-ttl">Cache TTL (hours)</Label>
+                <Input
+                  id="cache-ttl"
+                  type="number"
+                  value={ttlHours}
+                  onChange={(e) => setTtlHours(e.target.value)}
+                  placeholder="24"
+                  className="w-32"
+                  data-testid="input-cache-ttl"
+                />
+                <p className="text-xs text-muted-foreground">
+                  How long to keep cached responses before re-fetching from the source
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-datasource">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} disabled={saving || isLoading} data-testid="button-save-datasource">
+            {saving ? "Saving..." : "Save"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function BlogManagePage() {
   const { toast } = useToast();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [localeFilter, setLocaleFilter] = useState<string>("all");
   const [clearing, setClearing] = useState(false);
+  const [dsDialogOpen, setDsDialogOpen] = useState(false);
 
   const { data: allPostsData, isLoading: allLoading } = useQuery<BlogResponse>({
     queryKey: ["/api/blog/posts"],
@@ -198,6 +465,15 @@ export default function BlogManagePage() {
             >
               <IconRefresh className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
               Refresh Cache
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setDsDialogOpen(true)}
+              data-testid="button-data-source"
+            >
+              <IconDatabase className="h-4 w-4 mr-1" />
+              Data Source
             </Button>
           </div>
         </div>
@@ -380,6 +656,8 @@ export default function BlogManagePage() {
           </CardContent>
         </Card>
       </div>
+
+      <DataSourceDialog open={dsDialogOpen} onOpenChange={setDsDialogOpen} />
     </div>
   );
 }

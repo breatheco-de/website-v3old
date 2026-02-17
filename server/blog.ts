@@ -3,13 +3,20 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
+const BLOG_CONFIG_PATH = path.join(MARKETING_CONTENT_PATH, "blog.yml");
 
-interface BlogConfig {
-  api: {
-    endpoint: string;
-    params: Record<string, string | number>;
-    token_env_var: string;
-    academy_header: string;
+export interface ApiSourceConfig {
+  endpoint: string;
+  params: Record<string, string | number>;
+  token_env_var: string;
+  academy_header: string;
+}
+
+export interface BlogConfig {
+  data_source: {
+    type: string;
+    api?: ApiSourceConfig;
+    [key: string]: unknown;
   };
   cache: {
     ttl_hours: number;
@@ -51,18 +58,43 @@ let configCache: BlogConfig | null = null;
 function loadConfig(): BlogConfig {
   if (configCache) return configCache;
 
-  const configPath = path.join(MARKETING_CONTENT_PATH, "blog.yml");
-  if (!fs.existsSync(configPath)) {
+  if (!fs.existsSync(BLOG_CONFIG_PATH)) {
     throw new Error("[Blog] blog.yml not found in marketing-content/");
   }
 
-  const raw = fs.readFileSync(configPath, "utf-8");
-  configCache = yaml.load(raw) as BlogConfig;
+  const raw = fs.readFileSync(BLOG_CONFIG_PATH, "utf-8");
+  const parsed = yaml.load(raw) as Record<string, unknown>;
+
+  if (parsed.data_source) {
+    configCache = parsed as unknown as BlogConfig;
+  } else if (parsed.api) {
+    configCache = {
+      data_source: {
+        type: "api",
+        api: parsed.api as ApiSourceConfig,
+      },
+      cache: parsed.cache as BlogConfig["cache"],
+      url_pattern: parsed.url_pattern as Record<string, string>,
+      categories: parsed.categories as Record<string, string>,
+    };
+    console.log("[Blog] Migrated legacy blog.yml format (flat api) to data_source wrapper in-memory");
+  } else {
+    throw new Error("[Blog] blog.yml has no data_source or api configuration");
+  }
+
   return configCache;
 }
 
 export function clearConfigCache(): void {
   configCache = null;
+}
+
+function getApiConfig(): ApiSourceConfig {
+  const config = loadConfig();
+  if (config.data_source.type !== "api" || !config.data_source.api) {
+    throw new Error(`[Blog] data_source.type is "${config.data_source.type}" but no api config found`);
+  }
+  return config.data_source.api;
 }
 
 function getCachePath(): string {
@@ -114,26 +146,26 @@ function writeCache(results: BlogPost[]): void {
 }
 
 async function fetchFromApi(): Promise<BlogPost[]> {
-  const config = loadConfig();
-  const token = process.env[config.api.token_env_var];
+  const apiConfig = getApiConfig();
+  const token = process.env[apiConfig.token_env_var];
 
   if (!token) {
-    console.warn(`[Blog] Environment variable ${config.api.token_env_var} not set, cannot fetch blog posts`);
+    console.warn(`[Blog] Environment variable ${apiConfig.token_env_var} not set, cannot fetch blog posts`);
     return [];
   }
 
   const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(config.api.params)) {
+  for (const [key, value] of Object.entries(apiConfig.params)) {
     params.set(key, String(value));
   }
 
-  const url = `${config.api.endpoint}?${params.toString()}`;
+  const url = `${apiConfig.endpoint}?${params.toString()}`;
   console.log(`[Blog] Fetching blog posts from API: ${url}`);
 
   const response = await fetch(url, {
     headers: {
       Authorization: `Token ${token}`,
-      Academy: config.api.academy_header,
+      Academy: apiConfig.academy_header,
     },
   });
 
@@ -164,6 +196,14 @@ export async function getBlogPosts(forceRefresh = false): Promise<BlogPost[]> {
       console.log(`[Blog] Serving ${cached.length} posts from cache`);
       return cached;
     }
+  }
+
+  const config = loadConfig();
+
+  if (config.data_source.type !== "api") {
+    console.warn(`[Blog] Unsupported data source type: ${config.data_source.type}`);
+    const cached = readCache();
+    return cached || [];
   }
 
   try {
@@ -231,6 +271,34 @@ export function getBlogCacheStatus(): { exists: boolean; age_hours: number | nul
 
 export function getBlogConfig(): BlogConfig {
   return loadConfig();
+}
+
+export function saveBlogConfig(update: Partial<BlogConfig>): void {
+  const current = loadConfig();
+  const merged = { ...current, ...update };
+
+  if (update.data_source) {
+    merged.data_source = { ...current.data_source, ...update.data_source };
+  }
+
+  const raw = fs.readFileSync(BLOG_CONFIG_PATH, "utf-8");
+  const commentLines: string[] = [];
+  for (const line of raw.split("\n")) {
+    if (line.startsWith("#") || line.trim() === "") {
+      commentLines.push(line);
+    } else {
+      break;
+    }
+  }
+
+  const yamlBody = yaml.dump(merged, { lineWidth: 120, noRefs: true, sortKeys: false });
+  const output = commentLines.length > 0
+    ? commentLines.join("\n") + "\n\n" + yamlBody
+    : yamlBody;
+
+  fs.writeFileSync(BLOG_CONFIG_PATH, output, "utf-8");
+  clearConfigCache();
+  console.log("[Blog] Saved blog.yml configuration");
 }
 
 function getBaseUrl(): string {
