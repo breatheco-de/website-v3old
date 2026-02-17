@@ -85,3 +85,21 @@ test_condition_var:
     - query:
         location: "madrid-spain"
       value: "4.8"
+price_datascience_usa:
+  default: "$299"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$299"
+    - query:
+        region: "europe"
+      value: "200€"
+    - query:
+        region: "latam"
+      value: "$299"
+price_full_datascience:
+  default: "$10,999"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$10,999"
