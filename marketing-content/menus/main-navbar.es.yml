@@ -16,17 +16,17 @@ navbar:
           - title: Ciencia de Datos y Machine Learning con IA
             description: Domina el análisis de datos potenciado por IA con Python. Construye modelos inteligentes usando técnicas de vanguardia en Machine Learning e IA para resolver problemas reales.
             cta: Ver programa
-            href: /es/programas-de-carrera/data-science-ml
+            href: /es/programas-de-carrera/ciencia-de-datos-ml
             icon: chart
           - title: Ciberseguridad
             description: Conviértete en especialista en ciberseguridad, preparado para identificar y mitigar vulnerabilidades de sistemas, alineado con ISO y otros estándares.
             cta: Ver programa
-            href: /es/programas-de-carrera/cybersecurity
+            href: /es/programas-de-carrera/ciberseguridad
             icon: shield
           - title: Full Stack con IA
             description: Conviértete en desarrollador Full Stack usando herramientas de IA como Cursor y Vercel v0. Domina las habilidades de IA más demandadas y consigue trabajo como desarrollador.
             cta: Ver programa
-            href: /es/programas-de-carrera/full-stack
+            href: /es/programas-de-carrera/desarrollo-full-stack
             icon: code
         footer:
           text: ¿No sabes qué programa te conviene más? Mira nuestra comparación de programas
