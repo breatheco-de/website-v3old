@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "4b98c8f99134162347e236f3dde031cd0db44c1a",
-  "lastSyncedAt": "2026-02-17T01:51:08.345Z",
+  "lastSyncedCommit": "e21503c84fe002ccbbf4754dcacf09156398d975",
+  "lastSyncedAt": "2026-02-17T04:09:14.359Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -863,9 +863,9 @@
       "remoteSha": "5d889578654fc64164b3684495e9b9f9a2e18f8dcf50c7f27c12cc36eb0b1c9b"
     },
     "marketing-content/pages/scholarships/es.yml": {
-      "sha": "85121464f75061fea67a3d3a20630360bfb27789100e9ce4c31219cf41935509",
-      "lastModified": 1771292068644.59,
-      "remoteSha": "85121464f75061fea67a3d3a20630360bfb27789100e9ce4c31219cf41935509"
+      "sha": "f15c1378daadc692a65882294cc23936fb37c624e88e96979945bf78014bd57b",
+      "lastModified": 1771299678773.04,
+      "remoteSha": "f15c1378daadc692a65882294cc23936fb37c624e88e96979945bf78014bd57b"
     },
     "marketing-content/pages/testimonials/_common.yml": {
       "sha": "8359875361cf6e06e58fba1b0363f10348e68d053460f1f73ce8e93b67867e4c",
