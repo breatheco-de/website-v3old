@@ -128,7 +128,7 @@ navbar:
               - label: Los Ángeles, EE.UU.
                 href: /es/ubicacion/losangeles-usa
               - label: Remoto, EE.UU.
-                href: /campus/remote
+                href: /es/ubicacion/remote
           - title: EUROPA
             items:
               - label: Madrid, España
