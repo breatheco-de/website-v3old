@@ -77,37 +77,6 @@ sections:
       desktop: none lg
     marginY:
       desktop: none md
-  - type: whos_hiring
-    variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
-    description: hola
-    logos:
-      - src: /attached_assets/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
-        alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
-        alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
-        alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
-        alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
-        alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
-        alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
-        alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
-        alt: Jooble
   - type: double_cta
     title: Take the Next Step in Your Tech Career
     subtitle: Join thousands of students who have transformed their careers with 4Geeks Academy.
@@ -237,28 +206,6 @@ sections:
         image_id: anahi_lacava
         description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
-  - type: why_learn_ai
-    variant: default
-    title: Why Should I Learn to Build and Code with AI?
-    subtitle: Software Development as You Know It Will Cease to Exist
-    description: <b>Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.</b>
-    cta:
-      text: Join now!
-      url: /signup
-      variant: primary
-  - type: cta_banner
-    version: "1.0"
-    variant: default
-    background: bg-primary
-    title: Ready to Start Your Tech Career?
-    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
-    buttons:
-      - text: Start Learning Now
-        url: /apply
-        variant: secondary
-      - text: Talk to an Advisor
-        url: /contact
-        variant: outline
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
