@@ -3046,12 +3046,17 @@ export function SectionEditorPanel({
                   };
 
                   const currentValue = getSimpleLinkValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const acronyms = new Set(["url", "cta", "id", "api", "seo"]);
+                  const fieldLabel = fieldPath
+                    .replace(/[._]/g, " ")
+                    .split(" ")
+                    .map((w) => acronyms.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))
+                    .join(" ");
 
                   return (
                     <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium capitalize">
-                        {fieldLabel.replace(/_/g, " ")}
+                      <Label className="text-sm font-medium">
+                        {fieldLabel}
                       </Label>
                       <LinkPicker
                         value={currentValue}
