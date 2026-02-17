@@ -123,7 +123,7 @@ sections:
     variant: stats-text
     title: La Demanda por Especialistas en Ciberseguridad Está en Auge
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
-    description: Con una brecha global significativa de talento e inversiones récord en defensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles bien remunerados.
+    description: Con una brecha global significativa de talento e inversiones récord en defensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.
     background: bg-muted/30
     items:
       - id: "1"
@@ -289,7 +289,7 @@ sections:
     paddingY:
       desktop: md
   - type: certificate
-    title: Certificaciones de la Industria y Resultados Profesionales
+    title: Certificaciones e Inserción Laboral Comprobada
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
@@ -302,7 +302,7 @@ sections:
       program_name: Especialista en Ciberseguridad
     stats:
       - value: 84%
-        label: Tasa de Contratación
+        label: Tasa promedio de contratación
         description: Gradúate con las habilidades y certificaciones globales que las principales empresas buscan activamente en 2026.
         benefits:
           - text: Preparación para el Examen CompTIA Security+
@@ -310,7 +310,7 @@ sections:
           - text: Ruta hacia CEH (Certified Ethical Hacker)
           - text: Laboratorios reales con Nmap & Metasploit
       - value: 3-6 meses
-        label: Tiempo para ser contratado
+        label: Tiempo promedio para ser contratado
         description: Consigue tu primer empleo en 3-6 meses tras graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
         benefits:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
@@ -325,7 +325,7 @@ sections:
           - text: "Ingeniero de Seguridad: $100K–$165K"
           - text: "Especialista en Respuesta a Incidentes: $85K–$140K"
       - value: 5,000+
-        label: Socios Contratantes
+        label: Empleadores asociados
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
         benefits:
           - text: Referidos directos a empresas socias
@@ -361,7 +361,7 @@ sections:
       - icon: IconCheck
         text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
       - icon: IconCheck
-        text: 2-3 becas basadas en mérito disponibles por cohorte para candidatos altamente cualificados.
+        text: Ofrecemos 2-3 becas por cohorte para candidatos altamente cualificados.
       - icon: IconCheck
         text: Inscríbete con Garantía de Empleo para mayor confianza. Consigue empleo en 9 meses tras la graduación o te devolvemos tu dinero.
     cta:
@@ -373,14 +373,13 @@ sections:
     paddingY:
       desktop: lg md
   - type: whos_hiring
-    version: "1.0"
     variant: carousel
-    title: ¿Quién Contrata a Nuestros Graduados?
-    subtitle: Nuestros exalumnos trabajan en las mejores empresas del mundo
-    description: Las mejores empresas contratan graduados de 4Geeks, con un 84% consiguiendo empleo dentro de los 6 meses tras la graduación gracias a sus habilidades y nuestro soporte de carrera personalizado.
+    title: ¿Quién Contrata a Nuestros Alumnos?
+    subtitle: Nuestros graduados trabajan en importantes empresas a nivel mundial
+    description: Las mejores empresas contratan graduados de 4Geeks. 84% consiguen empleo dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
-        alt: Microsoft
+        alt: Microsoftmeses de graduarse.
       - src: /attached_assets/google-developers_1764719904190.png
         alt: Google Developers
       - src: /attached_assets/meta-logo_1764719959855.png
