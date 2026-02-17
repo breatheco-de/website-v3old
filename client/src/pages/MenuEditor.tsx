@@ -535,6 +535,7 @@ export default function MenuEditor() {
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
   const [originalYaml, setOriginalYaml] = useState<string>("");
   const [varModalOpen, setVarModalOpen] = useState(false);
+  const [selectedText, setSelectedText] = useState("");
   const cmRef = useRef<ReactCodeMirrorRef>(null);
   const cmSidebarRef = useRef<ReactCodeMirrorRef>(null);
   const activeEditorRef = useRef<"main" | "sidebar">("main");
@@ -790,6 +791,12 @@ export default function MenuEditor() {
     setHasChanges(newYaml !== originalYaml);
   };
 
+  const handleCmUpdate = useCallback((update: import("@codemirror/view").ViewUpdate) => {
+    const sel = update.state.selection.main;
+    const text = sel.empty ? "" : update.state.sliceDoc(sel.from, sel.to);
+    setSelectedText(text);
+  }, []);
+
   const handleVariableCreated = useCallback((_varName: string, templateSyntax: string) => {
     const ref = activeEditorRef.current === "sidebar" ? cmSidebarRef : cmRef;
     const view = ref.current?.view;
@@ -800,8 +807,6 @@ export default function MenuEditor() {
       changes: { from, to, insert: templateSyntax },
       selection: { anchor: from + templateSyntax.length },
     });
-    view.focus();
-    setVarModalOpen(false);
 
     const newVal = view.state.doc.toString();
     handleYamlEdit(newVal);
@@ -1230,11 +1235,12 @@ export default function MenuEditor() {
                   <Button
                     variant="outline"
                     size="sm"
+                    disabled={!selectedText}
                     onClick={() => { activeEditorRef.current = "main"; setVarModalOpen(true); }}
                     data-testid="button-insert-variable-main"
                   >
                     <IconVariable className="h-4 w-4 mr-1" />
-                    Insert Variable
+                    Convert to Variable
                   </Button>
                   <p className="text-xs text-muted-foreground">
                     Edit the menu content directly in YAML
@@ -1249,6 +1255,7 @@ export default function MenuEditor() {
                   extensions={[yamlLang()]}
                   theme={oneDark}
                   onChange={(value) => handleYamlEdit(value)}
+                  onUpdate={handleCmUpdate}
                 />
               </div>
             </div>
@@ -1267,11 +1274,12 @@ export default function MenuEditor() {
               <Button
                 variant="outline"
                 size="sm"
+                disabled={!selectedText}
                 onClick={() => { activeEditorRef.current = "sidebar"; setVarModalOpen(true); }}
                 data-testid="button-insert-variable-sidebar"
               >
                 <IconVariable className="h-4 w-4 mr-1" />
-                Insert Variable
+                Convert to Variable
               </Button>
               {yamlError && (
                 <span className="text-xs text-destructive">Invalid YAML</span>
@@ -1286,6 +1294,7 @@ export default function MenuEditor() {
               extensions={[yamlLang()]}
               theme={oneDark}
               onChange={(value) => handleYamlEdit(value)}
+              onUpdate={handleCmUpdate}
             />
           </div>
         </SheetContent>
@@ -1295,7 +1304,7 @@ export default function MenuEditor() {
         open={varModalOpen}
         onOpenChange={setVarModalOpen}
         variableName=""
-        inlineDefault=""
+        inlineDefault={selectedText}
         mode="create"
         onCreated={handleVariableCreated}
       />
