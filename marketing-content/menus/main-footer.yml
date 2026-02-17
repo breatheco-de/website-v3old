@@ -8,15 +8,13 @@ footer:
           href: /en/the-academy
         - label: Partners
           href: /en/career-programs/data-science-ml
-        - label: Pricingdd
+        - label: Pricing
           href: /en/financials
         - label: Events
           href: /en/next-dates
         - label: Upcoming Dates
           href: /en/next-dates
-        - label: Blog
-          href: /en/blog
-        - label: New Itemm
+        - label: FAQ
           href: /en/faq
     - title: Programs
       items:
@@ -30,12 +28,6 @@ footer:
           href: /en/career-programs/full-stack
     - title: Locations
       items:
-        - label: Online
-          href: /en/coding-campus/online-coding-bootcamp
-        - label: Miami
-          href: /en/coding-campus/coding-bootcamp-miami
-        - label: Orlando
-          href: /en/coding-campus/coding-bootcamp-orlando
         - label: Toronto
           href: /en/coding-campus/coding-bootcamp-toronto-canada
         - label: Madrid
