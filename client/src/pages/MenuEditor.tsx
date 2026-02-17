@@ -568,7 +568,7 @@ export default function MenuEditor() {
   const { data, isLoading, error, refetch } = useQuery<MenuResponse>({
     queryKey: ["/api/menus", menuName, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/menus/${menuName}?locale=${locale}`);
+      const response = await fetch(`/api/menus/${menuName}?locale=${locale}&raw=true`);
       if (!response.ok) throw new Error("Failed to load menu");
       return response.json();
     },
