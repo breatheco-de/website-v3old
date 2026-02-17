@@ -1,6 +1,6 @@
 {
   "lastSyncedCommit": "0d1b6645f7ed66b2745648d67cffd38afe079596",
-  "lastSyncedAt": "2026-02-17T15:26:46.239Z",
+  "lastSyncedAt": "2026-02-17T15:31:05.010Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -628,9 +628,9 @@
       "remoteSha": "d8a47ce1eb05054953608c0f860e7b692b52e9a4368f90fed0a35f57a93cf7f3"
     },
     "marketing-content/pages/apply/en.yml": {
-      "sha": "980158a6773a62ab387a903e7997bc4a75b8457f08386fed6d95e891b69bd4d2",
-      "lastModified": 1771270874059.12,
-      "remoteSha": "980158a6773a62ab387a903e7997bc4a75b8457f08386fed6d95e891b69bd4d2"
+      "sha": "7830e8daf05de4d3354c36c5981622c4f7d7833f23748cf94dc5a95c3b39695b",
+      "lastModified": 1771342264621.9397,
+      "remoteSha": "7830e8daf05de4d3354c36c5981622c4f7d7833f23748cf94dc5a95c3b39695b"
     },
     "marketing-content/pages/apply/es.yml": {
       "sha": "7903c43087460a2b0b6175f48c8e7b5522ef1511261379c4e9c3611b48aa871d",
@@ -674,8 +674,10 @@
     },
     "marketing-content/pages/financials/en.yml": {
       "sha": "4fd243a8b3330ef27a02ae88c0763437ddc192a742f6dba0cfe94430ffb6146d",
-      "lastModified": 1771341815926.3616,
-      "remoteSha": "4fd243a8b3330ef27a02ae88c0763437ddc192a742f6dba0cfe94430ffb6146d"
+      "lastModified": 1771343845989.4539,
+      "remoteSha": "4fd243a8b3330ef27a02ae88c0763437ddc192a742f6dba0cfe94430ffb6146d",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-17T15:57:25.991Z"
     },
     "marketing-content/pages/financials/es.yml": {
       "sha": "2c66a837f8298b1a2f1455ea4353bfa69aac3d70c8d9541ce53da06398ff6012",
