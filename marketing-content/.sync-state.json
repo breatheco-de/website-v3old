@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "c6715d24d492c6a44cae2a1c4f69582257f03e11",
-  "lastSyncedAt": "2026-02-16T23:21:59.776Z",
+  "lastSyncedCommit": "1cfc842df9a6c8580be701fd30b19ed35a1c31a8",
+  "lastSyncedAt": "2026-02-17T00:06:12.721Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -963,9 +963,9 @@
       "remoteSha": "32dffb3954a49447685d78689af0c73985abf6544a6e17c1f2e7af691b2e2098"
     },
     "marketing-content/programs/cybersecurity/es.yml": {
-      "sha": "128fb070e792ad59a59f82cadd716299549956a19aa418b8d1a772ac43093441",
-      "lastModified": 1770991124569.3748,
-      "remoteSha": "128fb070e792ad59a59f82cadd716299549956a19aa418b8d1a772ac43093441"
+      "sha": "77b9ffe4aeee1ce03125a59ca401a1dfc398377cc0d53f2d22d6e6a0ac14e646",
+      "lastModified": 1771286771073.1335,
+      "remoteSha": "77b9ffe4aeee1ce03125a59ca401a1dfc398377cc0d53f2d22d6e6a0ac14e646"
     },
     "marketing-content/programs/data-science-ml/_common.yml": {
       "sha": "7bb3754facaea593d5aa30618791a4b3d69e36d46e1b22654255f3e29e3aa56e",
@@ -1031,36 +1031,6 @@
       "sha": "5858eb07aa4103a22b940b37557a6b5f8f01de0d75dfeac35892eaab24ed6c18",
       "lastModified": 1771260290581.9763,
       "remoteSha": "5858eb07aa4103a22b940b37557a6b5f8f01de0d75dfeac35892eaab24ed6c18"
-    },
-    "marketing-content/pages/test-english/_common.yml": {
-      "sha": "f948bc7727a9705c97d536f350704ce9c5e822fbea0ffc0583d17ecc8943fe7b",
-      "lastModified": 1771284447032.14,
-      "modifiedAt": "2026-02-16T23:27:27.034Z"
-    },
-    "marketing-content/pages/test-english/en.yml": {
-      "sha": "86bfab69d507f08d0dd5f0c8166f638a2291e5ab5f862272281985968cbddae0",
-      "lastModified": 1771284484351.1077,
-      "modifiedAt": "2026-02-16T23:28:04.353Z"
-    },
-    "marketing-content/pages/test-english/es.yml": {
-      "sha": "fb6d60116830433dc5134df50a77043979e94143c1eed67e638e776dc172d083",
-      "lastModified": 1771284535929.063,
-      "modifiedAt": "2026-02-16T23:28:55.931Z"
-    },
-    "marketing-content/programs/test-english/_common.yml": {
-      "sha": "9d26eb16c1c4a1ec5ee279ad81e23ff20dafd500a14928594f0b7cdcf047adea",
-      "lastModified": 1771284781813.8503,
-      "modifiedAt": "2026-02-16T23:33:01.815Z"
-    },
-    "marketing-content/programs/test-english/en.yml": {
-      "sha": "4bb3e7d137342e48ca2cb96f50813994732bece7f9835d2a9a9d692fdb88c3ac",
-      "lastModified": 1771284807719.828,
-      "modifiedAt": "2026-02-16T23:33:27.722Z"
-    },
-    "marketing-content/programs/test-english/es.yml": {
-      "sha": "10e18fea9d355978a7d82724c18da7f9fc92f41b53fb3b7d5c95659c49c51d5f",
-      "lastModified": 1771284781825.8503,
-      "modifiedAt": "2026-02-16T23:33:01.828Z"
     }
   }
 }
