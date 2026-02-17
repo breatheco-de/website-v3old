@@ -112,45 +112,45 @@ navbar:
               - label: Miami, USA
                 href: /en/location/miami-usa
               - label: New York, USA
-                href: /campus/nyc
+                href: /en/location/newyork-usa
               - label: Dallas, USA
                 href: /en/location/dallas-usa
               - label: Toronto, Canada
-                href: /campus/toronto
+                href: /en/location/toronto-canada
               - label: Atlanta, USA
-                href: /campus/atlanta
+                href: /en/location/atlanta-usa
               - label: Austin, USA
-                href: /campus/austin
+                href: /en/location/austin-usa
               - label: Chicago, USA
-                href: /campus/chicago
+                href: /en/location/chicago-usa
               - label: Houston, USA
-                href: /campus/houston
+                href: /en/location/houston-usa
               - label: Los Angeles, USA
-                href: /campus/los-angeles
+                href: /en/location/losangeles-usa
               - label: Remote, USA
-                href: /campus/remote
+                href: /en/location/remote
           - title: EUROPE
             items:
               - label: Madrid, Spain
-                href: /campus/madrid
+                href: /en/location/madrid-spain
               - label: Barcelona, Spain
-                href: /campus/barcelona
+                href: /en/location/barcelona-spain
               - label: Valencia, Spain
-                href: /campus/valencia
+                href: /en/location/valencia-spain
               - label: Malaga, Spain
-                href: /campus/malaga
+                href: /en/location/malaga-spain
               - label: Berlin, Germany
-                href: /campus/berlin
+                href: /en/location/berlin-germany
           - title: LATAM
             items:
               - label: Santiago, Chile
-                href: /campus/santiago
+                href: /en/location/santiago-chile
               - label: Bogota, Colombia
-                href: /campus/bogota
+                href: /en/location/bogota-colombia
               - label: Mexico City, Mexico
-                href: /campus/mexico-city
+                href: /en/location/mexicocity-mexico
               - label: Caracas, Venezuela
-                href: /campus/caracas
+                href: /en/location/caracas-venezuela
     - label: UPCOMING DATES
       href: /upcoming-dates
       component: SimpleLink

@@ -1,6 +1,6 @@
 {
   "lastSyncedCommit": "9a7b3c9c0d2dae6eb85fbd90c347bec01646e8d2",
-  "lastSyncedAt": "2026-02-17T23:03:39.435Z",
+  "lastSyncedAt": "2026-02-17T23:08:03.650Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -613,14 +613,14 @@
       "remoteSha": "c0ead7518bbc0f6480eb104e5cafd148c5d210e597a2a6c03c52ac67758369c7"
     },
     "marketing-content/menus/main-navbar.es.yml": {
-      "sha": "148dc8b0e5afcc40a6ee1264c4a7d7dcd2577544c7f00a678f91eab97f3ca67b",
-      "lastModified": 1771368524728.9548,
-      "remoteSha": "148dc8b0e5afcc40a6ee1264c4a7d7dcd2577544c7f00a678f91eab97f3ca67b"
+      "sha": "f0d36fe35c379718a241ad3e603e35bce1c1e03bcd6e4e8fea88ed05b623d096",
+      "lastModified": 1771369607852.1255,
+      "remoteSha": "f0d36fe35c379718a241ad3e603e35bce1c1e03bcd6e4e8fea88ed05b623d096"
     },
     "marketing-content/menus/main-navbar.yml": {
-      "sha": "6061af79ef0bbd8a42591b7b63045c62441047063813aae3fe2ca1fd6565a8d7",
-      "lastModified": 1771368525077.899,
-      "remoteSha": "6061af79ef0bbd8a42591b7b63045c62441047063813aae3fe2ca1fd6565a8d7"
+      "sha": "9ba135e100a98f64edefe99a3a274c5725a9dff0540eed1618a70d553f18d43f",
+      "lastModified": 1771369607852.1255,
+      "remoteSha": "9ba135e100a98f64edefe99a3a274c5725a9dff0540eed1618a70d553f18d43f"
     },
     "marketing-content/pages/apply/_common.yml": {
       "sha": "d8a47ce1eb05054953608c0f860e7b692b52e9a4368f90fed0a35f57a93cf7f3",
@@ -989,7 +989,7 @@
     },
     "marketing-content/programs/cybersecurity/es.yml": {
       "sha": "ad5f932ce6f9b51c28dba2a5edda46a9fdf66cbd6e73b6236164c42cfa7b90c5",
-      "lastModified": 1771368532654.786,
+      "lastModified": 1771369683400.163,
       "remoteSha": "ad5f932ce6f9b51c28dba2a5edda46a9fdf66cbd6e73b6236164c42cfa7b90c5"
     },
     "marketing-content/programs/data-science-ml/_common.yml": {
