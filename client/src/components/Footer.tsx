@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -44,6 +45,17 @@ export default function Footer() {
   const handleLinkClick = useInternalNav();
   const { i18n } = useTranslation();
   const locale = i18n.language || "en";
+
+  const [colDivisor, setColDivisor] = useState(4);
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setColDivisor(w >= 1024 ? 5 : w >= 768 ? 10 : 4);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const { data: menuResponse } = useQuery<{
     name: string;
@@ -107,7 +119,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex md:flex-row md:justify-between gap-8 md:gap-4">
           {config.columns?.map((column) => {
             const itemCount = column.items?.length || 0;
-            const subCols = Math.ceil(itemCount / 4);
+            const subCols = Math.ceil(itemCount / colDivisor);
 
             return (
               <div
