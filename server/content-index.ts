@@ -143,7 +143,8 @@ class ContentIndex {
             this.extractImageReferences(parsed, relFilePath);
             const locale = file.replace(/\.(yml|yaml)$/, "");
             if (parsed && this.contentTypeHasRedirects(contentType)) {
-              this.extractRedirects(parsed, slug, locale, contentType, relFilePath);
+              const localeSlugForRedirect = (parsed.slug && typeof parsed.slug === "string") ? parsed.slug : slug;
+              this.extractRedirects(parsed, slug, locale, contentType, relFilePath, localeSlugForRedirect);
             }
             if (parsed?.slug && typeof parsed.slug === "string") {
               const localeSlug = parsed.slug;
@@ -247,6 +248,7 @@ class ContentIndex {
     locale: string,
     contentType: string,
     filePath: string,
+    localeSlug?: string,
   ): void {
     const meta = parsed.meta as Record<string, unknown> | undefined;
     const redirects = meta?.redirects as unknown[] | undefined;
@@ -263,7 +265,8 @@ class ContentIndex {
         targetTo = this.getCanonicalUrl(contentType, slug, "en");
       }
     } else {
-      targetTo = this.getCanonicalUrl(contentType, slug, locale);
+      const effectiveSlug = localeSlug || slug;
+      targetTo = this.getCanonicalUrl(contentType, effectiveSlug, locale);
     }
 
     for (const redirect of redirects) {
