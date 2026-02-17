@@ -1425,9 +1425,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Helper function to sync menu structure from English (master) to translation
-  function syncMenuStructure(master: any, translation: any): any {
+  function syncMenuStructure(master: any, translation: any, previousMaster?: any): any {
     if (master?.footer) {
-      return syncFooterStructure(master, translation || {});
+      return syncFooterStructure(master, translation || {}, previousMaster);
     }
     
     if (!master?.navbar?.items || !translation?.navbar?.items) {
@@ -1454,35 +1454,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     return { navbar: { items: syncedItems } };
   }
   
-  function syncFooterStructure(master: any, translation: any): any {
+  function syncFooterStructure(master: any, translation: any, previousMaster?: any): any {
     const mf = master.footer;
     const tf = translation.footer || {};
+    const pf = previousMaster?.footer || {};
     const result: any = {};
 
+    result.columns = (tf.columns || []).map((transCol: any) => ({
+      title: transCol.title,
+      items: (transCol.items || []).map((transItem: any) => ({
+        label: transItem.label,
+        href: transItem.href,
+      })),
+    }));
+
     if (mf.columns) {
-      result.columns = (tf.columns || []).map((transCol: any) => ({
-        title: transCol.title,
-        items: (transCol.items || []).map((transItem: any) => ({
-          label: transItem.label,
-          href: transItem.href,
-        })),
-      }));
+      const prevColumnTitles = new Set((pf.columns || []).map((c: any) => c.title));
+      const prevItemsByCol = new Map<string, Set<string>>();
+      for (const col of (pf.columns || [])) {
+        prevItemsByCol.set(col.title, new Set((col.items || []).map((i: any) => i.label)));
+      }
 
       for (const masterCol of mf.columns) {
-        const existingCol = result.columns.find((tc: any) => tc.title === masterCol.title || tc.title === `[TRANSLATE] ${masterCol.title}`);
-        if (existingCol) {
-          for (const masterItem of (masterCol.items || [])) {
-            const existingItem = existingCol.items.find((ti: any) =>
-              ti.label === masterItem.label || ti.label === `[TRANSLATE] ${masterItem.label}`
-            );
-            if (!existingItem) {
-              existingCol.items.push({
-                label: `[TRANSLATE] ${masterItem.label}`,
-                href: masterItem.href,
-              });
-            }
-          }
-        } else {
+        const isNewColumn = !prevColumnTitles.has(masterCol.title);
+
+        if (isNewColumn) {
           result.columns.push({
             title: `[TRANSLATE] ${masterCol.title}`,
             items: (masterCol.items || []).map((item: any) => ({
@@ -1490,20 +1486,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
               href: item.href,
             })),
           });
+        } else {
+          const prevItems = prevItemsByCol.get(masterCol.title) || new Set();
+          const newItems = (masterCol.items || []).filter((item: any) => !prevItems.has(item.label));
+
+          if (newItems.length > 0) {
+            const transCol = result.columns.find((tc: any) =>
+              tc.title === masterCol.title || tc.title === `[TRANSLATE] ${masterCol.title}`
+            );
+            if (transCol) {
+              for (const newItem of newItems) {
+                transCol.items.push({
+                  label: `[TRANSLATE] ${newItem.label}`,
+                  href: newItem.href,
+                });
+              }
+            }
+          }
         }
       }
     }
 
-    if (mf.socials) {
-      result.socials = (tf.socials || []).map((transSocial: any) => ({
-        name: transSocial.name,
-        icon: transSocial.icon,
-        link: transSocial.link,
-      }));
+    result.socials = (tf.socials || []).map((transSocial: any) => ({
+      name: transSocial.name,
+      icon: transSocial.icon,
+      link: transSocial.link,
+    }));
 
+    if (mf.socials) {
+      const prevSocialIcons = new Set((pf.socials || []).map((s: any) => s.icon));
       for (const masterSocial of mf.socials) {
-        const existing = result.socials.find((ts: any) => ts.icon === masterSocial.icon);
-        if (!existing) {
+        if (!prevSocialIcons.has(masterSocial.icon)) {
           result.socials.push({
             name: masterSocial.name,
             icon: masterSocial.icon,
@@ -1513,17 +1526,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }
 
-    if (mf.legal_links) {
-      result.legal_links = (tf.legal_links || []).map((transLink: any) => ({
-        label: transLink.label,
-        href: transLink.href,
-      }));
+    result.legal_links = (tf.legal_links || []).map((transLink: any) => ({
+      label: transLink.label,
+      href: transLink.href,
+    }));
 
+    if (mf.legal_links) {
+      const prevLegalLabels = new Set((pf.legal_links || []).map((l: any) => l.label));
       for (const masterLink of mf.legal_links) {
-        const existing = result.legal_links.find((tl: any) =>
-          tl.label === masterLink.label || tl.label === `[TRANSLATE] ${masterLink.label}`
-        );
-        if (!existing) {
+        if (!prevLegalLabels.has(masterLink.label)) {
           result.legal_links.push({
             label: `[TRANSLATE] ${masterLink.label}`,
             href: masterLink.href,
@@ -1692,6 +1703,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
+      let previousData: any = null;
+      if (fs.existsSync(filePath)) {
+        try {
+          const previousContent = fs.readFileSync(filePath, "utf-8");
+          previousData = safeYamlLoad(previousContent) as any;
+        } catch (e) {}
+      }
+
       const yamlContent = safeYamlDump(data, {
         indent: 2,
         lineWidth: -1,
@@ -1700,9 +1719,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
       
-      // Always sync structural changes to ALL translation files
       const syncResults: Record<string, string> = {};
-      const translationLocales = ["es", "fr", "de", "pt", "it"]; // All supported locales
+      const translationLocales = ["es", "fr", "de", "pt", "it"];
       
       for (const targetLocale of translationLocales) {
         const translationFileName = `${name}.${targetLocale}.yml`;
@@ -1713,8 +1731,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const translationContent = fs.readFileSync(translationFilePath, "utf-8");
             const translationData = safeYamlLoad(translationContent) as any;
             
-            // Sync structure from English to translation, preserving existing translations
-            const syncedData = syncMenuStructure(data, translationData);
+            const syncedData = syncMenuStructure(data, translationData, previousData);
             
             const syncedYaml = safeYamlDump(syncedData, {
               indent: 2,
