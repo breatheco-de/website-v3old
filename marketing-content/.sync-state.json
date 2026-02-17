@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "0d1b6645f7ed66b2745648d67cffd38afe079596",
-  "lastSyncedAt": "2026-02-17T15:31:05.010Z",
+  "lastSyncedCommit": "c0392a1fd2912cf329de651d64735f89e3f098f3",
+  "lastSyncedAt": "2026-02-17T21:24:30.447Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -604,12 +604,12 @@
     },
     "marketing-content/menus/main-footer.es.yml": {
       "sha": "bb25c86c68e418303762949ec065852d65879fa36a1e74923413656f6b9a4fa3",
-      "lastModified": 1771295961665.4053,
+      "lastModified": 1771363469612.4502,
       "remoteSha": "bb25c86c68e418303762949ec065852d65879fa36a1e74923413656f6b9a4fa3"
     },
     "marketing-content/menus/main-footer.yml": {
       "sha": "c0ead7518bbc0f6480eb104e5cafd148c5d210e597a2a6c03c52ac67758369c7",
-      "lastModified": 1771295965074.4014,
+      "lastModified": 1771363470053.45,
       "remoteSha": "c0ead7518bbc0f6480eb104e5cafd148c5d210e597a2a6c03c52ac67758369c7"
     },
     "marketing-content/menus/main-navbar.es.yml": {
@@ -675,9 +675,7 @@
     "marketing-content/pages/financials/en.yml": {
       "sha": "4fd243a8b3330ef27a02ae88c0763437ddc192a742f6dba0cfe94430ffb6146d",
       "lastModified": 1771343845989.4539,
-      "remoteSha": "4fd243a8b3330ef27a02ae88c0763437ddc192a742f6dba0cfe94430ffb6146d",
-      "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-17T15:57:25.991Z"
+      "remoteSha": "4fd243a8b3330ef27a02ae88c0763437ddc192a742f6dba0cfe94430ffb6146d"
     },
     "marketing-content/pages/financials/es.yml": {
       "sha": "2c66a837f8298b1a2f1455ea4353bfa69aac3d70c8d9541ce53da06398ff6012",
