@@ -397,8 +397,8 @@ sections:
     paddingY:
       desktop: md
   - type: testimonials
-    title: Estudiantes Reales. Carreras Reales.
-    subtitle: Más de 4,000 graduados y 1,200 reseñas verificadas demuestran que nuestros programas generan resultados que cambian vidas.
+    title: Historias Reales. Carreras Transformadoras.
+    subtitle: Más de 4,000 graduados y 1,200 reseñas verificadas demuestran que nuestros programas generan resultados.
     rating_summary:
       average: "4.5"
       count: 1,294
