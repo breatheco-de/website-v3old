@@ -1043,6 +1043,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
       let slug: string | null = null;
 
+      const previewMatch = url.match(/^\/private\/preview\/(programs|pages|landings|locations)\/([^/?]+)/);
       const programEn = url.match(/^\/en\/career-programs\/([^/]+)/);
       const programEs = url.match(/^\/es\/programas-de-carrera\/([^/]+)/);
       const locationEn = url.match(/^\/en\/location\/([^/]+)/);
@@ -1051,7 +1052,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const pageEn = url.match(/^\/en\/([^/]+)$/);
       const pageEs = url.match(/^\/es\/([^/]+)$/);
 
-      if (programEn) { contentType = "programs"; slug = programEn[1]; }
+      if (previewMatch) { contentType = previewMatch[1] as typeof contentType; slug = previewMatch[2]; }
+      else if (programEn) { contentType = "programs"; slug = programEn[1]; }
       else if (programEs) { contentType = "programs"; slug = programEs[1]; }
       else if (locationEn) { contentType = "locations"; slug = locationEn[1]; }
       else if (locationEs) { contentType = "locations"; slug = locationEs[1]; }
@@ -2979,10 +2981,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         landing: "landings",
       };
       const contentFolder = folderMap[contentType];
-      const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, folderSlug);
+      const resolvedFolderSlug = contentIndex.resolveBaseSlug(folderSlug, contentFolder);
+      const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, resolvedFolderSlug);
 
       if (!fs.existsSync(folderPath)) {
-        res.status(404).json({ error: `Content folder not found: ${folderSlug}` });
+        res.status(404).json({ error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})` });
         return;
       }
 
@@ -3026,7 +3029,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(localeFilePath, updated, "utf-8");
-      markFileAsModified(`marketing-content/${contentFolder}/${folderSlug}/${localeFile}`);
+      markFileAsModified(`marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`);
 
       contentIndex.refresh();
       clearSitemapCache();
@@ -3034,7 +3037,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json({
         success: true,
-        folderSlug,
+        folderSlug: resolvedFolderSlug,
         oldSlug: currentSlug,
         newSlug,
         oldUrl,
