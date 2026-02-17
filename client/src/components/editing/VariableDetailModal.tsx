@@ -29,6 +29,7 @@ import {
 } from "@/lib/variable-resolver";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
+import { checkEditorHasUnsavedChanges, emitContentUpdated } from "@/lib/contentEvents";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   IconCheck,
@@ -577,6 +578,26 @@ export function VariableDetailModal({
     },
     onSuccess: (data: { newName: string; updatedFiles: string[] }) => {
       invalidateAndRefetch();
+
+      const typeMap: Record<string, "program" | "landing" | "location" | "page"> = {
+        programs: "program",
+        landings: "landing",
+        locations: "location",
+        pages: "page",
+      };
+      for (const filePath of data.updatedFiles) {
+        const match = filePath.match(
+          /^marketing-content\/([^/]+)\/([^/]+)\/([^/]+)\.\w+$/,
+        );
+        if (match && typeMap[match[1]]) {
+          emitContentUpdated({
+            contentType: typeMap[match[1]],
+            slug: match[2],
+            locale: match[3],
+          });
+        }
+      }
+
       toast({
         title: "Variable renamed",
         description: `Renamed to "${data.newName}". Updated ${data.updatedFiles.length} file(s).`,
@@ -595,6 +616,14 @@ export function VariableDetailModal({
   const handleRename = useCallback(() => {
     const normalized = renameTo.trim().replace(/\s+/g, "_").toLowerCase();
     if (!normalized || !renameAvailable) return;
+
+    if (checkEditorHasUnsavedChanges()) {
+      const confirmed = window.confirm(
+        "The YAML editor has unsaved changes. Renaming this variable will refresh the page content and your unsaved edits will be lost.\n\nPlease save your changes first, or click OK to proceed anyway.",
+      );
+      if (!confirmed) return;
+    }
+
     renameMutation.mutate(normalized);
   }, [renameTo, renameAvailable, renameMutation]);
 

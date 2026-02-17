@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { editContent } from "@/lib/contentApi";
-import { emitContentUpdated } from "@/lib/contentEvents";
+import { emitContentUpdated, registerEditorDirtyCheck } from "@/lib/contentEvents";
 import {
   parseEditorType,
   type ColorPickerVariant,
@@ -409,6 +409,13 @@ export function SectionEditorPanel({
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("code");
+
+  const hasChangesRef = useRef(hasChanges);
+  hasChangesRef.current = hasChanges;
+  useEffect(() => {
+    registerEditorDirtyCheck(() => hasChangesRef.current);
+    return () => registerEditorDirtyCheck(null);
+  }, []);
 
   // Icon picker state
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
