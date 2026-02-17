@@ -74,7 +74,8 @@ interface ApiSourceConfig {
   params: Record<string, string | number>;
   token_env_var: string;
   auth_prefix: string;
-  academy_header: string;
+  headers: Record<string, string>;
+  academy_header?: string;
 }
 
 interface BlogConfig {
@@ -142,7 +143,8 @@ function DataSourceDialog({
   const [editingParams, setEditingParams] = useState(false);
   const [tokenEnvVar, setTokenEnvVar] = useState("");
   const [authPrefix, setAuthPrefix] = useState("Token");
-  const [academyHeader, setAcademyHeader] = useState("");
+  const [customHeaders, setCustomHeaders] = useState<Array<{ key: string; value: string }>>([]);
+  const [editingHeaders, setEditingHeaders] = useState(false);
   const [ttlHours, setTtlHours] = useState("24");
 
   useEffect(() => {
@@ -159,7 +161,15 @@ function DataSourceDialog({
         setEditingParams(false);
         setTokenEnvVar(api.token_env_var || "");
         setAuthPrefix(api.auth_prefix ?? "Token");
-        setAcademyHeader(api.academy_header || "");
+        const headerPairs = Object.entries(api.headers || {}).map(([key, value]) => ({
+          key,
+          value: String(value),
+        }));
+        if (headerPairs.length === 0 && api.academy_header) {
+          headerPairs.push({ key: "Academy", value: api.academy_header });
+        }
+        setCustomHeaders(headerPairs.length > 0 ? headerPairs : [{ key: "", value: "" }]);
+        setEditingHeaders(false);
       }
       setTtlHours(String(config.cache?.ttl_hours || 24));
     }
@@ -198,6 +208,38 @@ function DataSourceDialog({
     setQueryParams((prev) => [...prev, { key: "", value: "" }]);
   };
 
+  const headersPreview = useMemo(() => {
+    return customHeaders
+      .filter((h) => h.key.trim())
+      .map((h) => `${h.key}: ${h.value}`)
+      .join("\n");
+  }, [customHeaders]);
+
+  const headersRecord = useMemo(() => {
+    const record: Record<string, string> = {};
+    for (const h of customHeaders) {
+      if (h.key.trim()) {
+        record[h.key.trim()] = h.value;
+      }
+    }
+    return record;
+  }, [customHeaders]);
+
+  const updateHeader = (index: number, field: "key" | "value", val: string) => {
+    setCustomHeaders((prev) => prev.map((h, i) => (i === index ? { ...h, [field]: val } : h)));
+  };
+
+  const removeHeader = (index: number) => {
+    setCustomHeaders((prev) => {
+      const next = prev.filter((_, i) => i !== index);
+      return next.length === 0 ? [{ key: "", value: "" }] : next;
+    });
+  };
+
+  const addHeader = () => {
+    setCustomHeaders((prev) => [...prev, { key: "", value: "" }]);
+  };
+
   const handleSave = async () => {
     setSaving(true);
     try {
@@ -210,7 +252,7 @@ function DataSourceDialog({
               params: paramsRecord,
               token_env_var: tokenEnvVar,
               auth_prefix: authPrefix,
-              academy_header: academyHeader,
+              headers: headersRecord,
             },
           }),
         },
@@ -376,17 +418,65 @@ function DataSourceDialog({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="academy-header">Academy Header</Label>
-                  <Input
-                    id="academy-header"
-                    value={academyHeader}
-                    onChange={(e) => setAcademyHeader(e.target.value)}
-                    placeholder="4"
-                    data-testid="input-academy-header"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Value for the custom Academy HTTP header
-                  </p>
+                  <div className="flex items-center justify-between gap-2">
+                    <Label>Custom Headers</Label>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setEditingHeaders(!editingHeaders)}
+                      data-testid="button-toggle-headers"
+                    >
+                      <IconPencil className="h-3.5 w-3.5 mr-1" />
+                      {editingHeaders ? "Done" : "Edit"}
+                    </Button>
+                  </div>
+
+                  {!editingHeaders ? (
+                    <div className="rounded-md bg-muted px-3 py-2" data-testid="text-headers-preview">
+                      <p className="text-xs font-mono text-muted-foreground whitespace-pre-wrap break-all">
+                        {headersPreview || "(no custom headers)"}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {customHeaders.map((header, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <Input
+                            value={header.key}
+                            onChange={(e) => updateHeader(i, "key", e.target.value)}
+                            placeholder="Header-Name"
+                            className="flex-1 font-mono text-xs"
+                            data-testid={`input-header-key-${i}`}
+                          />
+                          <span className="text-muted-foreground text-xs">:</span>
+                          <Input
+                            value={header.value}
+                            onChange={(e) => updateHeader(i, "value", e.target.value)}
+                            placeholder="value"
+                            className="flex-1 font-mono text-xs"
+                            data-testid={`input-header-value-${i}`}
+                          />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeHeader(i)}
+                            data-testid={`button-remove-header-${i}`}
+                          >
+                            <IconTrash className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={addHeader}
+                        data-testid="button-add-header"
+                      >
+                        <IconPlus className="h-3.5 w-3.5 mr-1" />
+                        Add Header
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </>
             )}

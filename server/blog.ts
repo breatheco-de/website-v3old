@@ -10,7 +10,8 @@ export interface ApiSourceConfig {
   params: Record<string, string | number>;
   token_env_var: string;
   auth_prefix: string;
-  academy_header: string;
+  headers: Record<string, string>;
+  academy_header?: string;
 }
 
 export interface BlogConfig {
@@ -99,6 +100,12 @@ function getApiConfig(): ApiSourceConfig {
   if (api.auth_prefix === undefined) {
     api.auth_prefix = "Token";
   }
+  if (!api.headers) {
+    api.headers = {};
+    if (api.academy_header) {
+      api.headers["Academy"] = api.academy_header;
+    }
+  }
   return api;
 }
 
@@ -167,11 +174,15 @@ async function fetchFromApi(): Promise<BlogPost[]> {
   const url = `${apiConfig.endpoint}?${params.toString()}`;
   console.log(`[Blog] Fetching blog posts from API: ${url}`);
 
+  const fetchHeaders: Record<string, string> = {
+    ...(apiConfig.headers || {}),
+  };
+  if (token) {
+    fetchHeaders["Authorization"] = apiConfig.auth_prefix ? `${apiConfig.auth_prefix} ${token}` : token;
+  }
+
   const response = await fetch(url, {
-    headers: {
-      Authorization: apiConfig.auth_prefix ? `${apiConfig.auth_prefix} ${token}` : token,
-      Academy: apiConfig.academy_header,
-    },
+    headers: fetchHeaders,
   });
 
   if (!response.ok) {

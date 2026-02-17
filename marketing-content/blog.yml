@@ -11,7 +11,8 @@
 #     params: <key: value>       # Query string parameters appended to the URL
 #     token_env_var: <name>      # Env var holding the auth token (optional)
 #     auth_prefix: <word>        # Prefix before token in Authorization header (e.g. "Token", "Bearer", or "" for none)
-#     academy_header: <value>    # Custom "Academy" HTTP header value (optional)
+#     headers:                   # Custom HTTP headers sent with every request (key: value pairs)
+#       X-Custom: value
 #
 # type: rss  (planned)
 #   rss:
@@ -38,7 +39,8 @@ data_source:
       visibility: public
     token_env_var: BREATHECODE_TOKEN
     auth_prefix: Token
-    academy_header: "4"
+    headers:
+      Academy: "4"
 
 cache:
   ttl_hours: 24
