@@ -44,7 +44,7 @@ export function WhyLearnAIDefault({ data }: WhyLearnAIDefaultProps) {
                 asChild
                 data-testid="button-why-learn-cta"
               >
-                <a href={slide.cta.url} onClick={handleLinkClick}>{data.cta.text}</a>
+                <a href={data.cta.url} onClick={handleLinkClick}>{data.cta.text}</a>
               </Button>
             )}
           </div>
