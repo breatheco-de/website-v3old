@@ -9,7 +9,8 @@
 #   api:
 #     endpoint: <URL>            # REST endpoint returning JSON array/object of posts
 #     params: <key: value>       # Query string parameters appended to the URL
-#     token_env_var: <name>      # Env var holding the Bearer token (optional)
+#     token_env_var: <name>      # Env var holding the auth token (optional)
+#     auth_prefix: <word>        # Prefix before token in Authorization header (e.g. "Token", "Bearer", or "" for none)
 #     academy_header: <value>    # Custom "Academy" HTTP header value (optional)
 #
 # type: rss  (planned)
@@ -36,6 +37,7 @@ data_source:
       status: published
       visibility: public
     token_env_var: BREATHECODE_TOKEN
+    auth_prefix: Token
     academy_header: "4"
 
 cache:

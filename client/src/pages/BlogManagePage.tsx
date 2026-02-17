@@ -70,6 +70,7 @@ interface ApiSourceConfig {
   endpoint: string;
   params: Record<string, string | number>;
   token_env_var: string;
+  auth_prefix: string;
   academy_header: string;
 }
 
@@ -139,6 +140,7 @@ function DataSourceDialog({
   const [paramsVisibility, setParamsVisibility] = useState("");
   const [paramsLimit, setParamsLimit] = useState("500");
   const [tokenEnvVar, setTokenEnvVar] = useState("");
+  const [authPrefix, setAuthPrefix] = useState("Token");
   const [academyHeader, setAcademyHeader] = useState("");
   const [ttlHours, setTtlHours] = useState("24");
 
@@ -153,6 +155,7 @@ function DataSourceDialog({
         setParamsVisibility(String(api.params?.visibility || ""));
         setParamsLimit(String(api.params?.limit || "500"));
         setTokenEnvVar(api.token_env_var || "");
+        setAuthPrefix(api.auth_prefix ?? "Token");
         setAcademyHeader(api.academy_header || "");
       }
       setTtlHours(String(config.cache?.ttl_hours || 24));
@@ -176,6 +179,7 @@ function DataSourceDialog({
                 visibility: paramsVisibility,
               },
               token_env_var: tokenEnvVar,
+              auth_prefix: authPrefix,
               academy_header: academyHeader,
             },
           }),
@@ -290,33 +294,54 @@ function DataSourceDialog({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="token-env-var">Auth Token Env Var</Label>
-                    <Input
-                      id="token-env-var"
-                      value={tokenEnvVar}
-                      onChange={(e) => setTokenEnvVar(e.target.value)}
-                      placeholder="BREATHECODE_TOKEN"
-                      data-testid="input-token-env-var"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Name of the environment variable holding the Bearer token
-                    </p>
+                <div className="space-y-3">
+                  <Label>Authentication</Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-2">
+                      <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
+                      <Input
+                        id="token-env-var"
+                        value={tokenEnvVar}
+                        onChange={(e) => setTokenEnvVar(e.target.value)}
+                        placeholder="BREATHECODE_TOKEN"
+                        data-testid="input-token-env-var"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="auth-prefix" className="text-xs text-muted-foreground">Authorization Prefix</Label>
+                      <Select value={authPrefix || "_none"} onValueChange={(v) => setAuthPrefix(v === "_none" ? "" : v)}>
+                        <SelectTrigger id="auth-prefix" data-testid="select-auth-prefix">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Bearer">Bearer</SelectItem>
+                          <SelectItem value="Token">Token</SelectItem>
+                          <SelectItem value="_none">None (raw token)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="academy-header">Academy Header</Label>
-                    <Input
-                      id="academy-header"
-                      value={academyHeader}
-                      onChange={(e) => setAcademyHeader(e.target.value)}
-                      placeholder="4"
-                      data-testid="input-academy-header"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Value for the custom Academy HTTP header
-                    </p>
-                  </div>
+                  {tokenEnvVar && (
+                    <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
+                      <p className="text-xs font-mono text-muted-foreground">
+                        Authorization: {authPrefix ? `${authPrefix} ` : ""}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span>
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="academy-header">Academy Header</Label>
+                  <Input
+                    id="academy-header"
+                    value={academyHeader}
+                    onChange={(e) => setAcademyHeader(e.target.value)}
+                    placeholder="4"
+                    data-testid="input-academy-header"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Value for the custom Academy HTTP header
+                  </p>
                 </div>
               </>
             )}

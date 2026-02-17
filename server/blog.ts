@@ -9,6 +9,7 @@ export interface ApiSourceConfig {
   endpoint: string;
   params: Record<string, string | number>;
   token_env_var: string;
+  auth_prefix: string;
   academy_header: string;
 }
 
@@ -94,7 +95,11 @@ function getApiConfig(): ApiSourceConfig {
   if (config.data_source.type !== "api" || !config.data_source.api) {
     throw new Error(`[Blog] data_source.type is "${config.data_source.type}" but no api config found`);
   }
-  return config.data_source.api;
+  const api = config.data_source.api;
+  if (api.auth_prefix === undefined) {
+    api.auth_prefix = "Token";
+  }
+  return api;
 }
 
 function getCachePath(): string {
@@ -164,7 +169,7 @@ async function fetchFromApi(): Promise<BlogPost[]> {
 
   const response = await fetch(url, {
     headers: {
-      Authorization: `Token ${token}`,
+      Authorization: apiConfig.auth_prefix ? `${apiConfig.auth_prefix} ${token}` : token,
       Academy: apiConfig.academy_header,
     },
   });
