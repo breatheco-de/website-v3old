@@ -93,9 +93,11 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2",
-      "lastModified": 1771260290579.1084,
-      "remoteSha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2"
+      "sha": "31b79cc0836d2aee6dfd66a07c57cf88fae870a6cbfd8235f09aa35bd15f270b",
+      "lastModified": 1771338049325.976,
+      "remoteSha": "1e400da1d9df3e1dd20e1fbe4fc77ded425bb36a2dc4690c057f8dd8ff6955f2",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-17T14:20:49.327Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
