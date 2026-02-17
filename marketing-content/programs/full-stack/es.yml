@@ -58,10 +58,10 @@ sections:
       thumbnail: https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=450&fit=crop
       alt: Introducción al programa Full Stack Developer con IA en 4Geeks Academy
     signup_card:
-      title: Descarga el Plan de Estudios Completo
+      title: Explora el Plan de Estudios
       description: Solicita el syllabus completo, la descripción del programa, horarios y toda la información que necesitas para comenzar.
       cta_button:
-        text: Ver el Programa
+        text: Ver Programa
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -133,7 +133,7 @@ sections:
     subtitle: Respaldamos tu resultado profesional con un compromiso real
     description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"* No aplica para todos los mercados, países o estados donde opera 4Geeks. Conidiciones aplican\">Condiciones aplican</a></span></div>"
     cta:
-      text: Más información
+      text: Conocer más
       url: /job-guarantee
       variant: primary
     marginY:
