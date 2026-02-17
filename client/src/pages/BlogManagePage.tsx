@@ -34,6 +34,7 @@ import {
   IconWorld,
   IconDatabase,
   IconPencil,
+  IconPlayerPlay,
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
@@ -147,6 +148,9 @@ function DataSourceDialog({
   const [customHeaders, setCustomHeaders] = useState<Array<{ key: string; value: string }>>([]);
   const [editingHeaders, setEditingHeaders] = useState(false);
   const [ttlHours, setTtlHours] = useState("24");
+  const [testing, setTesting] = useState(false);
+  const [testResult, setTestResult] = useState<{ status: number; status_text: string; content_type: string; body: unknown } | null>(null);
+  const [testError, setTestError] = useState<string | null>(null);
 
   useEffect(() => {
     if (config) {
@@ -239,6 +243,27 @@ function DataSourceDialog({
 
   const addHeader = () => {
     setCustomHeaders((prev) => [...prev, { key: "", value: "" }]);
+  };
+
+  const handleTest = async () => {
+    setTesting(true);
+    setTestResult(null);
+    setTestError(null);
+    try {
+      const res = await apiRequest("POST", "/api/blog/test-endpoint", {
+        endpoint,
+        params: paramsRecord,
+        token_env_var: tokenEnvVar,
+        auth_prefix: authPrefix,
+        headers: headersRecord,
+      });
+      const data = await res.json();
+      setTestResult(data);
+    } catch (err) {
+      setTestError(String(err));
+    } finally {
+      setTesting(false);
+    }
   };
 
   const handleSave = async () => {
@@ -513,7 +538,46 @@ function DataSourceDialog({
           </div>
         )}
 
+        {testResult && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <Label className="text-xs">
+                Response
+                <Badge variant={testResult.status < 400 ? "default" : "destructive"} className="ml-2">
+                  {testResult.status} {testResult.status_text}
+                </Badge>
+              </Label>
+              <Button variant="ghost" size="sm" onClick={() => setTestResult(null)} data-testid="button-dismiss-test">
+                <IconTrash className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+            <pre
+              className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground overflow-auto max-h-[200px] whitespace-pre-wrap break-all"
+              data-testid="text-test-response"
+            >
+              {typeof testResult.body === "string" ? testResult.body : JSON.stringify(testResult.body, null, 2)}
+            </pre>
+          </div>
+        )}
+        {testError && (
+          <div className="rounded-md bg-destructive/10 px-3 py-2" data-testid="text-test-error">
+            <p className="text-xs text-destructive">{testError}</p>
+          </div>
+        )}
+
         <DialogFooter>
+          {sourceType === "api" && endpoint && (
+            <Button
+              variant="outline"
+              onClick={handleTest}
+              disabled={testing || !endpoint}
+              className="mr-auto"
+              data-testid="button-test-endpoint"
+            >
+              <IconPlayerPlay className={`h-4 w-4 mr-1 ${testing ? "animate-spin" : ""}`} />
+              {testing ? "Testing..." : "Test"}
+            </Button>
+          )}
           <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-datasource">
             Cancel
           </Button>

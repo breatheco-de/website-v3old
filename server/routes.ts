@@ -1122,6 +1122,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/blog/test-endpoint", async (req, res) => {
+    try {
+      const { endpoint, params, token_env_var, auth_prefix, headers } = req.body || {};
+      if (!endpoint) {
+        res.status(400).json({ error: "endpoint is required" });
+        return;
+      }
+
+      const qs = new URLSearchParams();
+      if (params && typeof params === "object") {
+        for (const [k, v] of Object.entries(params)) {
+          qs.set(k, String(v));
+        }
+      }
+      const url = qs.toString() ? `${endpoint}?${qs.toString()}` : endpoint;
+
+      const fetchHeaders: Record<string, string> = {};
+      if (headers && typeof headers === "object") {
+        Object.assign(fetchHeaders, headers);
+      }
+      if (token_env_var) {
+        const token = process.env[token_env_var];
+        if (token) {
+          fetchHeaders["Authorization"] = auth_prefix ? `${auth_prefix} ${token}` : token;
+        }
+      }
+
+      const response = await fetch(url, { headers: fetchHeaders });
+      const contentType = response.headers.get("content-type") || "";
+      let body: unknown;
+      if (contentType.includes("json")) {
+        body = await response.json();
+      } else {
+        body = await response.text();
+      }
+
+      res.json({
+        status: response.status,
+        status_text: response.statusText,
+        content_type: contentType,
+        body,
+      });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   // Clear sitemap cache (requires token validation)
   app.post("/api/debug/clear-sitemap-cache", async (req, res) => {
     try {
