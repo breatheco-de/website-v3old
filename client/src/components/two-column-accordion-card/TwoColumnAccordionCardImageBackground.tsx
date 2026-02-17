@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Accordion,
@@ -49,13 +49,52 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
   const isAutoplayLocal = hasVideo && isDirectVideoUrl(video.url!) && (video.autoplay ?? true);
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const rafId = useRef<number>(0);
 
   const handleVideoCanPlay = useCallback(() => {
     setVideoReady(true);
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    const media = mediaRef.current;
+    if (!section || !media) return;
+
+    const MAX_OFFSET = 15;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        const rect = section.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const tx = -dx * MAX_OFFSET;
+        const ty = -dy * MAX_OFFSET;
+        media.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      });
+    };
+
+    const handleMouseLeave = () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      media.style.transform = "translate3d(0, 0, 0)";
+    };
+
+    section.addEventListener("mousemove", handleMouseMove);
+    section.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      section.removeEventListener("mousemove", handleMouseMove);
+      section.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
   return (
-    <section className="" data-testid="section-two-column-accordion-card">
+    <section ref={sectionRef} className="" data-testid="section-two-column-accordion-card">
       <div className="max-w-6xl mx-auto px-4">
         <Card className="overflow-hidden shadow-sm">
           <CardContent className="!p-0 md:p-card">
@@ -110,7 +149,7 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
                     className={`relative bg-none md:bg-primary/30 rounded-2xl pt-0 md:py-14 ${reverse ? "md:pr-4 pl-0" : "pl-0 md:pl-4 pr-0"} flex items-center ${reverse ? "justify-start" : "justify-end"} min-h-[200px] md:min-h-[400px] w-full`}
                     data-testid="img-two-column-accordion-background"
                   >
-                    <div className="w-full md:w-[90%] flex items-center justify-end relative">
+                    <div ref={mediaRef} className="w-full md:w-[90%] flex items-center justify-end relative will-change-transform" style={{ transition: "transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
                       {isAutoplayLocal ? (
                         <div className="relative w-full rounded-lg shadow-lg overflow-hidden" data-testid="video-two-column-accordion">
                           <video
