@@ -28,8 +28,6 @@ footer:
           href: /en/career-programs/full-stack
     - title: Locations
       items:
-        - label: Miami
-          href: /en/location/miami-usa
         - label: Toronto
           href: /en/coding-campus/coding-bootcamp-toronto-canada
         - label: Madrid

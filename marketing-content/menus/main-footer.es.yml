@@ -29,38 +29,36 @@ footer:
     - title: Ubicaciones
       items:
         - label: '[TRANSLATE] Toronto'
-          href: /en/location/miami-usa
-        - label: '[TRANSLATE] Madrid'
           href: /en/coding-campus/coding-bootcamp-toronto-canada
-        - label: '[TRANSLATE] Barcelona'
+        - label: '[TRANSLATE] Madrid'
           href: /en/coding-campus/coding-bootcamp-madrid
-        - label: '[TRANSLATE] Valencia'
+        - label: '[TRANSLATE] Barcelona'
           href: /en/coding-campus/coding-bootcamp-barcelona-spain
-        - label: '[TRANSLATE] Málaga'
+        - label: '[TRANSLATE] Valencia'
           href: /en/coding-campus/coding-bootcamp-valencia-spain
-        - label: '[TRANSLATE] Chile'
+        - label: '[TRANSLATE] Málaga'
           href: /en/coding-campus/coding-bootcamp-malaga-spain
-        - label: '[TRANSLATE] Colombia'
+        - label: '[TRANSLATE] Chile'
           href: /en/coding-campus/coding-bootcamp-santiago
-        - label: '[TRANSLATE] Mexico'
+        - label: '[TRANSLATE] Colombia'
           href: /en/coding-campus/coding-bootcamp-colombia
-        - label: '[TRANSLATE] Costa Rica'
+        - label: '[TRANSLATE] Mexico'
           href: /en/coding-campus/coding-bootcamp-mexico
-        - label: '[TRANSLATE] Venezuela'
+        - label: '[TRANSLATE] Costa Rica'
           href: /en/coding-campus/coding-bootcamp-costa-rica
-        - label: '[TRANSLATE] Argentina'
+        - label: '[TRANSLATE] Venezuela'
           href: /en/coding-campus/coding-bootcamp-caracas
-        - label: '[TRANSLATE] Uruguay'
+        - label: '[TRANSLATE] Argentina'
           href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
-        - label: '[TRANSLATE] Panama'
+        - label: '[TRANSLATE] Uruguay'
           href: /en/coding-campus/coding-bootcamp-uruguay
-        - label: '[TRANSLATE] Bolivia'
+        - label: '[TRANSLATE] Panama'
           href: /en/coding-campus/coding-bootcamp-panama
-        - label: '[TRANSLATE] Portugal'
+        - label: '[TRANSLATE] Bolivia'
           href: /en/coding-campus/coding-bootcamp-bolivia
-        - label: '[TRANSLATE] Berlin'
+        - label: '[TRANSLATE] Portugal'
           href: /en/coding-campus/coding-bootcamp-lisbon-portugal
-        - label: '[TRANSLATE] Miami'
+        - label: '[TRANSLATE] Berlin'
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: Para Empresas
       items:
