@@ -3033,6 +3033,37 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (isSimpleField && editorType === "link-picker") {
+                  const getSimpleLinkValue = () => {
+                    if (!parsedSection) return "";
+                    const pathParts = fieldPath.split(".");
+                    let current: unknown = parsedSection;
+                    for (const part of pathParts) {
+                      if (!current || typeof current !== "object") return "";
+                      current = (current as Record<string, unknown>)[part];
+                    }
+                    return (current as string) || "";
+                  };
+
+                  const currentValue = getSimpleLinkValue();
+                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+
+                  return (
+                    <div key={fieldPath} className="space-y-2">
+                      <Label className="text-sm font-medium capitalize">
+                        {fieldLabel.replace(/_/g, " ")}
+                      </Label>
+                      <LinkPicker
+                        value={currentValue}
+                        onChange={(url) => updateProperty(fieldPath, url)}
+                        locale={locale}
+                        allSections={allSections}
+                        testId={`props-link-${fieldPath.replace(/\./g, "-")}`}
+                      />
+                    </div>
+                  );
+                }
+
                 // Handle simple field paths with image-with-style-picker (e.g., "left.image" or just "image")
                 if (isSimpleField && editorType === "image-with-style-picker") {
                   const getNestedValue = (
