@@ -9,6 +9,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
 type ContentType = "programs" | "landings" | "locations" | "pages";
@@ -129,6 +130,7 @@ export default function PrivatePreview() {
         slug={slug}
         locale={locale}
       />
+      {showHeader && <Footer />}
     </div>
   );
 }
