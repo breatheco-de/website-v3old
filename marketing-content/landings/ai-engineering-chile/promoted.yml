@@ -83,7 +83,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: Postular ahora
     show_dismiss: false
     form:
       variant: inline
