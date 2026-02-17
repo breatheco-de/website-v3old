@@ -75,3 +75,9 @@ global_teacher_student_ratio:
     - query:
         location: "madrid-spain"
       value: "1:8"
+test_condition_var:
+  default: "default_val"
+  conditions:
+    - query:
+        location: "madrid-spain"
+      value: "4.8"
