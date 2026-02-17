@@ -46,66 +46,45 @@ sections:
       desktop: none md
     paddingY:
       desktop: lg
-  - type: course_selector
+  - type: cta_banner
     version: "1.0"
-    variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
-    courses:
-      - name: Full Stack Development
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Full Stack Software Development
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        tags:
-          - icon: Plus
-            text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/full-stack
-        course_background: primary
-      - name: AI and Machine Learning
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Data Science and Machine Learning
-        badges:
-          - icon: Brain
-            text: LLMs & Generative AI training
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/ai-machine-learning
-        course_background: accent
-      - name: Cybersecurity
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Cybersecurity
-        badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: $439
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/cybersecurity
-        course_background: hsl(var(--color-pink))
+    title: Contact Us
+    subtitle: Fill out the form to find out about our open positions.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Get Started
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+      success:
+        message: Thank you! We'll be in touch soon.
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    paddingY:
+      desktop: none lg
     marginY:
-      desktop: none sm
+      desktop: md
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
-      - outcomes
+      - mentors-and-teachers
     marginY:
       desktop: none md
+    paddingY:
+      desktop: lg none
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.

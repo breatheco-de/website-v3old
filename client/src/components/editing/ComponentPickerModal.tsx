@@ -141,6 +141,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   community_support: IconUsers,
   article: IconBook,
   dynamic_table: IconTable,
+  modal: IconHandClick,
 };
 
 const variantLabels: Record<string, string> = {

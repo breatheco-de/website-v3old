@@ -59,13 +59,14 @@ interface EditableSectionProps {
   variant?: string;
   version?: number;
   totalSections?: number;
+  allSections?: Section[];
   onMoveUp?: (index: number) => void;
   onMoveDown?: (index: number) => void;
   onDelete?: (index: number) => void;
   onDuplicate?: (index: number) => void;
 }
 
-export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
+export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, allSections, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
   const editMode = useEditModeOptional();
   const pageHistory = usePageHistoryOptional();
   const { toast } = useToast();
@@ -796,6 +797,7 @@ export function EditableSection({ children, section, index, sectionType, content
             version={version}
             onUpdate={handleUpdate}
             onClose={handleCloseEditor}
+            allSections={allSections}
           />
         </Suspense>
       )}

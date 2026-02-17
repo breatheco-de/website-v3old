@@ -552,53 +552,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put("/api/variables/:name", (req, res) => {
     try {
       const { name } = req.params;
-      const { level, key, value } = req.body as {
-        level: string;
-        key?: string;
-        value: string;
-      };
+      const body = req.body;
 
-      const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
-      if (!level || value === undefined) {
-        return res.status(400).json({ error: "level and value are required" });
-      }
-      if (!VALID_LEVELS.includes(level)) {
-        return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
-      }
-      if (level !== "default" && !key) {
-        return res.status(400).json({ error: "key is required for non-default levels" });
+      const { action } = body as { action: string };
+      if (!action) {
+        return res.status(400).json({ error: "action is required" });
       }
 
-      variableManager.updateVariable(name, level, key, value);
+      switch (action) {
+        case "set_default": {
+          const { value } = body as { value: string };
+          if (value === undefined) {
+            return res.status(400).json({ error: "value is required" });
+          }
+          variableManager.updateDefault(name, value);
+          break;
+        }
+        case "add_condition": {
+          const { condition } = body as { condition: { query: Record<string, string>; value: string } };
+          if (!condition || !condition.query || condition.value === undefined) {
+            return res.status(400).json({ error: "condition with query and value is required" });
+          }
+          variableManager.addCondition(name, condition);
+          break;
+        }
+        case "update_condition": {
+          const { index, condition } = body as { index: number; condition: { query: Record<string, string>; value: string } };
+          if (index === undefined || !condition || !condition.query || condition.value === undefined) {
+            return res.status(400).json({ error: "index and condition with query and value are required" });
+          }
+          variableManager.updateCondition(name, index, condition);
+          break;
+        }
+        case "delete_condition": {
+          const { index } = body as { index: number };
+          if (index === undefined) {
+            return res.status(400).json({ error: "index is required" });
+          }
+          variableManager.deleteCondition(name, index);
+          break;
+        }
+        case "reorder_conditions": {
+          const { fromIndex, toIndex } = body as { fromIndex: number; toIndex: number };
+          if (fromIndex === undefined || toIndex === undefined) {
+            return res.status(400).json({ error: "fromIndex and toIndex are required" });
+          }
+          variableManager.reorderConditions(name, fromIndex, toIndex);
+          break;
+        }
+        default:
+          return res.status(400).json({ error: `Unknown action: ${action}` });
+      }
+
       res.json({ success: true, definitions: variableManager.getDefinitions() });
-    } catch (err) {
-      res.status(500).json({ error: "Failed to update variable" });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to update variable" });
     }
   });
 
   app.delete("/api/variables/:name", (req, res) => {
     try {
       const { name } = req.params;
-      const { level, key } = req.body as { level: string; key?: string };
+      const body = req.body;
 
-      const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
-      if (!level) {
-        return res.status(400).json({ error: "level is required" });
-      }
-      if (!VALID_LEVELS.includes(level)) {
-        return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
-      }
-      if (level !== "default" && !key) {
-        return res.status(400).json({ error: "key is required for non-default levels" });
+      if (body.level) {
+        const { level, key } = body as { level: string; key?: string };
+        const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
+        if (!level) {
+          return res.status(400).json({ error: "level is required" });
+        }
+        if (!VALID_LEVELS.includes(level)) {
+          return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
+        }
+        if (level !== "default" && !key) {
+          return res.status(400).json({ error: "key is required for non-default levels" });
+        }
+        const result = variableManager.deleteVariableEntry(name, level, key);
+        if (!result) {
+          return res.status(404).json({ error: "Variable not found" });
+        }
+        return res.json({ success: true, definitions: variableManager.getDefinitions() });
       }
 
-      const result = variableManager.deleteVariableEntry(name, level, key);
-      if (!result) {
-        return res.status(404).json({ error: "Variable not found" });
+      const { action, index } = body as { action?: string; index?: number };
+      if (action === "delete_condition" && index !== undefined) {
+        variableManager.deleteCondition(name, index);
+        return res.json({ success: true, definitions: variableManager.getDefinitions() });
       }
-      res.json({ success: true, definitions: variableManager.getDefinitions() });
-    } catch (err) {
-      res.status(500).json({ error: "Failed to delete variable entry" });
+
+      return res.status(400).json({ error: "level or action with index is required" });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to delete variable entry" });
     }
   });
 
@@ -958,8 +1002,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blog/posts/:slug", async (req, res) => {
     try {
       const { slug } = req.params;
+      const locale = req.query.locale as string | undefined;
       const posts = await getBlogPosts();
-      const post = findBlogPostBySlug(posts, slug);
+      const post = findBlogPostBySlug(posts, slug, locale ? normalizeLocale(locale) : undefined);
 
       if (!post) {
         res.status(404).json({ error: "Blog post not found" });
@@ -4333,8 +4378,14 @@ sections: []
 
       let rawData: Record<string, unknown> = {};
       try {
+        const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
+        if (fs.existsSync(commonPath)) {
+          const commonData = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown> || {};
+          rawData = { ...commonData };
+        }
         if (fs.existsSync(file.filePath)) {
-          rawData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
+          const localeData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
+          rawData = { ...rawData, ...localeData };
         }
       } catch {}
 
@@ -4506,6 +4557,34 @@ sections: []
               received: err.received,
             },
           });
+        }
+      }
+
+      const schemaData = rawData.schema as { include?: string[]; overrides?: Record<string, unknown> } | undefined;
+      if (schemaData?.include) {
+        const availableKeys = getAvailableSchemaKeys();
+        const availableSet = new Set(availableKeys);
+        for (const ref of schemaData.include) {
+          if (!availableSet.has(ref)) {
+            issues.push({
+              type: "error",
+              code: "INVALID_SCHEMA_REF",
+              message: `Invalid schema reference: "${ref}"`,
+              category: "schema-org",
+            });
+          }
+        }
+        if (schemaData.overrides) {
+          for (const key of Object.keys(schemaData.overrides)) {
+            if (!availableSet.has(key)) {
+              issues.push({
+                type: "error",
+                code: "INVALID_SCHEMA_OVERRIDE",
+                message: `Invalid schema override key: "${key}"`,
+                category: "schema-org",
+              });
+            }
+          }
         }
       }
 
@@ -5103,7 +5182,7 @@ sections: []
     if (blogRoute) {
       try {
         const posts = await getBlogPosts();
-        const post = findBlogPostBySlug(posts, blogRoute.slug);
+        const post = findBlogPostBySlug(posts, blogRoute.slug, blogRoute.locale);
         if (post) {
           schemaHtml = generateBlogSsrHtml(post, blogRoute.locale);
         }

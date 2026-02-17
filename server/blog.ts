@@ -191,7 +191,15 @@ export function getBlogPostsByLocale(posts: BlogPost[], locale: string): BlogPos
   return posts.filter((p) => p.category?.slug === category);
 }
 
-export function findBlogPostBySlug(posts: BlogPost[], slug: string): BlogPost | undefined {
+export function findBlogPostBySlug(posts: BlogPost[], slug: string, locale?: string): BlogPost | undefined {
+  if (locale) {
+    const config = loadConfig();
+    const category = config.categories[locale];
+    if (category) {
+      const localeMatch = posts.find((p) => p.slug === slug && p.category?.slug === category);
+      if (localeMatch) return localeMatch;
+    }
+  }
   return posts.find((p) => p.slug === slug);
 }
 

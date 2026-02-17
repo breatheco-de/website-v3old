@@ -206,6 +206,7 @@ const PartnershipCarousel = lazy(() => import("@/components/partnership-carousel
 const CareerSupportExplain = lazy(() => import("@/components/career-support-explain/CareerSupportExplain"));
 const ProfilesCarousel = lazy(() => import("@/components/profiles-carousel/ProfilesCarousel"));
 const DoubleCTA = lazy(() => import("@/components/double-cta/DoubleCTA"));
+const Modal = lazy(() => import("@/components/Modal").then(m => ({ default: m.Modal })));
 
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
@@ -511,6 +512,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <LazySection key={index}><ProfilesCarousel data={section as Parameters<typeof ProfilesCarousel>[0]["data"]} /></LazySection>;
     case "double_cta":
       return <LazySection key={index}><DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} /></LazySection>;
+    case "modal":
+      return <LazySection key={index}><Modal data={section as unknown as Parameters<typeof Modal>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
     default: {
       if (process.env.NODE_ENV === "development") {
         console.warn(`Unknown section type: ${sectionType}`);
@@ -799,6 +802,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
               slug={slug}
               locale={locale}
               totalSections={sections.length}
+              allSections={sections}
               onMoveUp={handleMoveUp}
               onMoveDown={handleMoveDown}
               onDelete={handleDelete}

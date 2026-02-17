@@ -13,8 +13,14 @@ const VARIABLES_PATH = path.join(
   "variables.yml",
 );
 
+export interface VariableCondition {
+  query: Record<string, string>;
+  value: string;
+}
+
 export interface VariableDefinition {
   default?: string;
+  conditions?: VariableCondition[];
   by_locale?: Record<string, string>;
   by_region?: Record<string, string>;
   by_location?: Record<string, string>;
@@ -78,11 +84,58 @@ class VariableManager {
 
       const count = Object.keys(this.variables).length;
       console.log(`[VariableManager] Loaded ${count} variable definitions`);
+
+      this.autoMigrate();
     } catch (err) {
       console.error("[VariableManager] Failed to load variables.yml:", err);
       this.variables = {};
       this.initialized = true;
     }
+  }
+
+  private autoMigrate(): void {
+    const needsMigration = Object.values(this.variables).some(
+      (def) => def.by_location || def.by_region || def.by_locale,
+    );
+    if (needsMigration) {
+      console.log("[VariableManager] Legacy by_* fields detected, auto-migrating to conditions...");
+      this.migrateToConditions();
+    }
+  }
+
+  migrateToConditions(): void {
+    for (const [name, def] of Object.entries(this.variables)) {
+      if (!def.by_location && !def.by_region && !def.by_locale) continue;
+
+      const conditions: VariableCondition[] = def.conditions || [];
+
+      if (def.by_location) {
+        for (const [loc, val] of Object.entries(def.by_location)) {
+          conditions.push({ query: { location: loc }, value: val });
+        }
+        delete def.by_location;
+      }
+
+      if (def.by_region) {
+        for (const [reg, val] of Object.entries(def.by_region)) {
+          conditions.push({ query: { region: reg }, value: val });
+        }
+        delete def.by_region;
+      }
+
+      if (def.by_locale) {
+        for (const [loc, val] of Object.entries(def.by_locale)) {
+          conditions.push({ query: { locale: loc }, value: val });
+        }
+        delete def.by_locale;
+      }
+
+      def.conditions = conditions;
+      this.variables[name] = def;
+    }
+
+    this.save();
+    console.log("[VariableManager] Migration to conditions format complete");
   }
 
   private reloadIfChanged(): void {
@@ -106,6 +159,18 @@ class VariableManager {
 
     const def = this.variables[name];
     if (!def) return null;
+
+    if (def.conditions && def.conditions.length > 0) {
+      for (const condition of def.conditions) {
+        const matches = Object.entries(condition.query).every(([key, val]) => {
+          const contextVal = (context as Record<string, string | undefined>)[key];
+          return contextVal === val;
+        });
+        if (matches) {
+          return { value: condition.value, source: "condition" };
+        }
+      }
+    }
 
     if (context.location && def.by_location?.[context.location]) {
       return { value: def.by_location[context.location], source: "location" };
@@ -198,6 +263,64 @@ class VariableManager {
     return this.variables[name] || null;
   }
 
+  updateDefault(name: string, value: string): void {
+    this.ensureInitialized();
+    if (!this.variables[name]) {
+      this.variables[name] = {};
+    }
+    this.variables[name].default = value;
+    this.save();
+  }
+
+  addCondition(name: string, condition: VariableCondition): void {
+    this.ensureInitialized();
+    if (!this.variables[name]) {
+      this.variables[name] = {};
+    }
+    if (!this.variables[name].conditions) {
+      this.variables[name].conditions = [];
+    }
+    this.variables[name].conditions!.push(condition);
+    this.save();
+  }
+
+  updateCondition(name: string, index: number, condition: VariableCondition): void {
+    this.ensureInitialized();
+    const def = this.variables[name];
+    if (!def || !def.conditions || index < 0 || index >= def.conditions.length) {
+      throw new Error(`Invalid condition index ${index} for variable ${name}`);
+    }
+    def.conditions[index] = condition;
+    this.save();
+  }
+
+  deleteCondition(name: string, index: number): void {
+    this.ensureInitialized();
+    const def = this.variables[name];
+    if (!def || !def.conditions || index < 0 || index >= def.conditions.length) {
+      throw new Error(`Invalid condition index ${index} for variable ${name}`);
+    }
+    def.conditions.splice(index, 1);
+    if (def.conditions.length === 0) {
+      delete def.conditions;
+    }
+    this.save();
+  }
+
+  reorderConditions(name: string, fromIndex: number, toIndex: number): void {
+    this.ensureInitialized();
+    const def = this.variables[name];
+    if (!def || !def.conditions) {
+      throw new Error(`Variable ${name} has no conditions`);
+    }
+    if (fromIndex < 0 || fromIndex >= def.conditions.length || toIndex < 0 || toIndex >= def.conditions.length) {
+      throw new Error(`Invalid indices for reorder: from=${fromIndex}, to=${toIndex}`);
+    }
+    const [item] = def.conditions.splice(fromIndex, 1);
+    def.conditions.splice(toIndex, 0, item);
+    this.save();
+  }
+
   updateVariable(
     name: string,
     level: string,
@@ -215,12 +338,19 @@ class VariableManager {
     if (level === "default") {
       def.default = value;
     } else {
-      const bucket = level as "by_locale" | "by_region" | "by_location";
-      if (!def[bucket]) {
-        def[bucket] = {};
-      }
+      const queryKey = level === "by_location" ? "location" : level === "by_region" ? "region" : "locale";
       if (key) {
-        def[bucket]![key] = value;
+        if (!def.conditions) {
+          def.conditions = [];
+        }
+        const existingIdx = def.conditions.findIndex(
+          (c) => Object.keys(c.query).length === 1 && c.query[queryKey] === key,
+        );
+        if (existingIdx >= 0) {
+          def.conditions[existingIdx].value = value;
+        } else {
+          def.conditions.push({ query: { [queryKey]: key }, value });
+        }
       }
     }
 
@@ -240,11 +370,16 @@ class VariableManager {
     if (level === "default") {
       delete def.default;
     } else {
-      const bucket = level as "by_locale" | "by_region" | "by_location";
-      if (key && def[bucket]) {
-        delete def[bucket]![key];
-        if (Object.keys(def[bucket]!).length === 0) {
-          delete def[bucket];
+      const queryKey = level === "by_location" ? "location" : level === "by_region" ? "region" : "locale";
+      if (key && def.conditions) {
+        const idx = def.conditions.findIndex(
+          (c) => Object.keys(c.query).length === 1 && c.query[queryKey] === key,
+        );
+        if (idx >= 0) {
+          def.conditions.splice(idx, 1);
+          if (def.conditions.length === 0) {
+            delete def.conditions;
+          }
         }
       }
     }

@@ -44,7 +44,7 @@ navbar:
           - title: Apoyo
             items:
               - label: Mentores y profesores
-                href: /en/geekpal-support
+                href: /es/soporte-geekpal
               - label: Apoyo Profesional
                 href: /es/geekforce
               - label: Plataforma Online
