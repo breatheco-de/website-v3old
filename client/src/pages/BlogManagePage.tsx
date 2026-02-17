@@ -143,6 +143,7 @@ function DataSourceDialog({
   const [editingParams, setEditingParams] = useState(false);
   const [tokenEnvVar, setTokenEnvVar] = useState("");
   const [authPrefix, setAuthPrefix] = useState("Token");
+  const [editingAuth, setEditingAuth] = useState(false);
   const [customHeaders, setCustomHeaders] = useState<Array<{ key: string; value: string }>>([]);
   const [editingHeaders, setEditingHeaders] = useState(false);
   const [ttlHours, setTtlHours] = useState("24");
@@ -394,38 +395,53 @@ function DataSourceDialog({
                   )}
                 </div>
 
-                <div className="space-y-3">
-                  <Label>Authentication</Label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="space-y-2">
-                      <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
-                      <Input
-                        id="token-env-var"
-                        value={tokenEnvVar}
-                        onChange={(e) => setTokenEnvVar(e.target.value)}
-                        placeholder="BREATHECODE_TOKEN"
-                        data-testid="input-token-env-var"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="auth-prefix" className="text-xs text-muted-foreground">Authorization Prefix</Label>
-                      <Select value={authPrefix || "_none"} onValueChange={(v) => setAuthPrefix(v === "_none" ? "" : v)}>
-                        <SelectTrigger id="auth-prefix" data-testid="select-auth-prefix">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Bearer">Bearer</SelectItem>
-                          <SelectItem value="Token">Token</SelectItem>
-                          <SelectItem value="_none">None (raw token)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <Label>Authentication</Label>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setEditingAuth(!editingAuth)}
+                      data-testid="button-toggle-auth"
+                    >
+                      <IconPencil className="h-3.5 w-3.5 mr-1" />
+                      {editingAuth ? "Done" : "Edit"}
+                    </Button>
                   </div>
-                  {tokenEnvVar && (
+
+                  {!editingAuth ? (
                     <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
                       <p className="text-xs font-mono text-muted-foreground">
-                        Authorization: {authPrefix ? `${authPrefix} ` : ""}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span>
+                        {tokenEnvVar
+                          ? <>Authorization: {authPrefix ? `${authPrefix} ` : ""}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span></>
+                          : "(no authentication)"}
                       </p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-2">
+                        <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
+                        <Input
+                          id="token-env-var"
+                          value={tokenEnvVar}
+                          onChange={(e) => setTokenEnvVar(e.target.value)}
+                          placeholder="BREATHECODE_TOKEN"
+                          data-testid="input-token-env-var"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="auth-prefix" className="text-xs text-muted-foreground">Authorization Prefix</Label>
+                        <Select value={authPrefix || "_none"} onValueChange={(v) => setAuthPrefix(v === "_none" ? "" : v)}>
+                          <SelectTrigger id="auth-prefix" data-testid="select-auth-prefix">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Bearer">Bearer</SelectItem>
+                            <SelectItem value="Token">Token</SelectItem>
+                            <SelectItem value="_none">None (raw token)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                   )}
                 </div>
