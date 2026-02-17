@@ -26,7 +26,7 @@ sections:
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Explore our Programs
-      url: "#course_selector-3"
+      url: "#course_selector-5"
       variant: primary
       icon: ""
     left_images:
@@ -244,10 +244,8 @@ sections:
           - icon: Database
             text: Production AI Systems
         description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
-        price: $349
-        price_info: or less depending on financing plan
         cta_text: View Program Details
-        cta_url: /en/ai-engineering
+        cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
@@ -263,10 +261,8 @@ sections:
           - icon: ""
             text: ""
         description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        price: $299
-        price_info: or less depending on financing plan
         cta_text: View Program Details
-        cta_url: /en/full-stack
+        cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
@@ -279,10 +275,8 @@ sections:
           - icon: BarChart
             text: Data Analysis & Visualization
         description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
-        price: $299
-        price_info: or less depending on financing plan
         cta_text: View Program Details
-        cta_url: /en/data-science-ml
+        cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
       - name: Cybersecurity
         icon: Shield
@@ -295,10 +289,8 @@ sections:
           - icon: Server
             text: Cloud Security
         description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
-        price: $299
-        price_info: or less depending on financing plan
         cta_text: View Program Details
-        cta_url: /en/cybersecurity
+        cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     background: hsl(var(--muted))
     marginY:
