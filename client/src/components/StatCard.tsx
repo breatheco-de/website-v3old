@@ -9,6 +9,7 @@ export interface StatCardProps {
   className?: string;
   layout?: "vertical" | "horizontal-mobile";
   size?: "default" | "small";
+  value_size?: string;
   animate?: boolean;
   animationDelay?: number;
 }
@@ -143,15 +144,18 @@ export function StatCard({
   className = "",
   layout = "vertical",
   size = "default",
+  value_size,
   animate = false,
   animationDelay = 0
 }: StatCardProps) {
   const isHorizontalMobile = layout === "horizontal-mobile";
   const isSmall = size === "small";
   
-  const valueSizeClass = isSmall 
-    ? (isHorizontalMobile ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl" : "text-4xl md:text-5xl")
-    : (isHorizontalMobile ? "text-4xl sm:text-5xl" : "text-5xl");
+  const valueSizeClass = value_size 
+    ? value_size
+    : isSmall 
+      ? (isHorizontalMobile ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl" : "text-4xl md:text-5xl")
+      : (isHorizontalMobile ? "text-4xl sm:text-5xl" : "text-5xl");
   
   const content = (
     <div className={`font-inter ${isHorizontalMobile ? "flex items-center gap-4 sm:block" : ""}`}>

@@ -33,7 +33,10 @@ sections:
       ratio: "3:4"
       muted: true
       loop: true
-    form: {}
+    cta_button:
+      text: Get more info
+      url: "#bottom"
+      variant: primary
     trust_bar:
       rating: 4.5"
       review_count: Based on 5149+ reviews

@@ -57,6 +57,7 @@ export function FeaturesGridStatsTextCard({
                     use_card={false}
                     card_color="bg-transparent"
                     size="small"
+                    value_size={item.value_size}
                     className="text-center"
                     animate={isVisible}
                     animationDelay={index * 200}
@@ -77,6 +78,7 @@ export function FeaturesGridStatsTextCard({
                       use_card={false}
                       card_color="bg-transparent"
                       size="small"
+                      value_size={item.value_size}
                       className="text-center"
                       animate={isVisible}
                       animationDelay={400}

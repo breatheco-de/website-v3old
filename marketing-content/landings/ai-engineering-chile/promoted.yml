@@ -206,6 +206,7 @@ sections:
         title: Crecimiento interanual en ofertas de trabajo en IA
       - value: CPL $21.6M-$36.0M
         title: Salario anual promedio para ingenieros de IA
+        value_size: text-4xl
     marginY:
       mobile: md none
       desktop: none

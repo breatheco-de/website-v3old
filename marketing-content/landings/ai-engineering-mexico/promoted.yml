@@ -206,6 +206,7 @@ sections:
         title: Crecimiento interanual en ofertas de trabajo en IA
       - value: $720k-$1.44M MXN
         title: Salario anual promedio para ingenieros de IA
+        value_size: text-4xl
     marginY:
       mobile: md none
       desktop: none
