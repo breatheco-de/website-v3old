@@ -356,28 +356,24 @@ function SortableMenuItemEditor({
   );
 }
 
-function SortableFooterColumn({
+function SortableFooterItem({
   id,
-  column,
+  item,
   colIndex,
+  itemIndex,
   isEnglish,
   locale,
-  onDeleteColumn,
-  onUpdateColumn,
   onUpdateColumnItem,
   onDeleteColumnItem,
-  onAddColumnItem,
 }: {
   id: string;
-  column: FooterColumn;
+  item: FooterColumnItem;
   colIndex: number;
+  itemIndex: number;
   isEnglish: boolean;
   locale: string;
-  onDeleteColumn: (index: number) => void;
-  onUpdateColumn: (index: number, updates: Partial<FooterColumn>) => void;
   onUpdateColumnItem: (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => void;
   onDeleteColumnItem: (colIndex: number, itemIndex: number) => void;
-  onAddColumnItem: (colIndex: number) => void;
 }) {
   const {
     attributes,
@@ -392,6 +388,93 @@ function SortableFooterColumn({
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <li ref={setNodeRef} style={style} className="flex items-center gap-0.5" data-testid={`footer-column-${colIndex}-item-${itemIndex}-sortable`}>
+      {isEnglish && (
+        <button
+          className="touch-none cursor-grab active:cursor-grabbing p-0.5 shrink-0"
+          {...attributes}
+          {...listeners}
+          data-testid={`button-drag-footer-item-${colIndex}-${itemIndex}`}
+        >
+          <IconGripVertical className="h-3 w-3 text-muted-foreground/50" />
+        </button>
+      )}
+      <div className="flex-1 min-w-0">
+        <EditableLinkItem
+          label={item.label || ""}
+          href={item.href || ""}
+          onLabelChange={(label) => onUpdateColumnItem(colIndex, itemIndex, { label })}
+          onHrefChange={(href) => onUpdateColumnItem(colIndex, itemIndex, { href })}
+          onSave={(label, href) => onUpdateColumnItem(colIndex, itemIndex, { label, href })}
+          onDelete={() => onDeleteColumnItem(colIndex, itemIndex)}
+          testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
+          isReadOnlyStructure={!isEnglish}
+          locale={locale}
+        />
+      </div>
+    </li>
+  );
+}
+
+function SortableFooterColumn({
+  id,
+  column,
+  colIndex,
+  isEnglish,
+  locale,
+  onDeleteColumn,
+  onUpdateColumn,
+  onUpdateColumnItem,
+  onDeleteColumnItem,
+  onAddColumnItem,
+  onReorderColumnItems,
+}: {
+  id: string;
+  column: FooterColumn;
+  colIndex: number;
+  isEnglish: boolean;
+  locale: string;
+  onDeleteColumn: (index: number) => void;
+  onUpdateColumn: (index: number, updates: Partial<FooterColumn>) => void;
+  onUpdateColumnItem: (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => void;
+  onDeleteColumnItem: (colIndex: number, itemIndex: number) => void;
+  onAddColumnItem: (colIndex: number) => void;
+  onReorderColumnItems: (colIndex: number, oldIndex: number, newIndex: number) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const itemSensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  const handleItemDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const items = column.items || [];
+    const oldIndex = items.findIndex((_, i) => `footer-col-${colIndex}-item-${i}` === active.id);
+    const newIndex = items.findIndex((_, i) => `footer-col-${colIndex}-item-${i}` === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      onReorderColumnItems(colIndex, oldIndex, newIndex);
+    }
   };
 
   return (
@@ -427,35 +510,44 @@ function SortableFooterColumn({
           </button>
         )}
       </div>
-      <ul className="space-y-1">
-        {(column.items || []).map((item, itemIndex) => (
-          <li key={itemIndex}>
-            <EditableLinkItem
-              label={item.label || ""}
-              href={item.href || ""}
-              onLabelChange={(label) => onUpdateColumnItem(colIndex, itemIndex, { label })}
-              onHrefChange={(href) => onUpdateColumnItem(colIndex, itemIndex, { href })}
-              onSave={(label, href) => onUpdateColumnItem(colIndex, itemIndex, { label, href })}
-              onDelete={() => onDeleteColumnItem(colIndex, itemIndex)}
-              testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
-              isReadOnlyStructure={!isEnglish}
-              locale={locale}
-            />
-          </li>
-        ))}
-        {isEnglish && (
-          <li>
-            <button
-              onClick={() => onAddColumnItem(colIndex)}
-              className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
-              data-testid={`footer-column-${colIndex}-add-item`}
-            >
-              <IconPlus className="h-3 w-3" />
-              Add item
-            </button>
-          </li>
-        )}
-      </ul>
+      <DndContext
+        sensors={itemSensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleItemDragEnd}
+      >
+        <SortableContext
+          items={(column.items || []).map((_, i) => `footer-col-${colIndex}-item-${i}`)}
+          strategy={verticalListSortingStrategy}
+        >
+          <ul className="space-y-1">
+            {(column.items || []).map((item, itemIndex) => (
+              <SortableFooterItem
+                key={`footer-col-${colIndex}-item-${itemIndex}`}
+                id={`footer-col-${colIndex}-item-${itemIndex}`}
+                item={item}
+                colIndex={colIndex}
+                itemIndex={itemIndex}
+                isEnglish={isEnglish}
+                locale={locale}
+                onUpdateColumnItem={onUpdateColumnItem}
+                onDeleteColumnItem={onDeleteColumnItem}
+              />
+            ))}
+            {isEnglish && (
+              <li>
+                <button
+                  onClick={() => onAddColumnItem(colIndex)}
+                  className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
+                  data-testid={`footer-column-${colIndex}-add-item`}
+                >
+                  <IconPlus className="h-3 w-3" />
+                  Add item
+                </button>
+              </li>
+            )}
+          </ul>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }
@@ -635,6 +727,14 @@ export default function MenuEditor() {
       ...newColumns[colIndex],
       items: (newColumns[colIndex].items || []).filter((_, i) => i !== itemIndex),
     };
+    updateFooter({ columns: newColumns });
+  };
+
+  const reorderFooterColumnItems = (colIndex: number, oldIndex: number, newIndex: number) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    const items = [...(newColumns[colIndex].items || [])];
+    newColumns[colIndex] = { ...newColumns[colIndex], items: arrayMove(items, oldIndex, newIndex) };
     updateFooter({ columns: newColumns });
   };
 
@@ -976,6 +1076,7 @@ export default function MenuEditor() {
                             onUpdateColumnItem={updateFooterColumnItem}
                             onDeleteColumnItem={deleteFooterColumnItem}
                             onAddColumnItem={addFooterColumnItem}
+                            onReorderColumnItems={reorderFooterColumnItems}
                           />
                         ))}
                       </div>
