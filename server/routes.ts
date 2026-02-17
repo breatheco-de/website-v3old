@@ -666,6 +666,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/variables/:name/usage", (req, res) => {
+    try {
+      const { name } = req.params;
+      const files = contentIndex.getVariableUsage(name);
+      res.json({ variable: name, files });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to get variable usage" });
+    }
+  });
+
+  app.post("/api/variables/:name/rename", (req, res) => {
+    try {
+      const { name: oldName } = req.params;
+      const { newName } = req.body as { newName: string };
+
+      if (!newName || typeof newName !== "string") {
+        return res.status(400).json({ error: "newName is required" });
+      }
+
+      const sanitized = newName.trim().replace(/\s+/g, "_").toLowerCase();
+      if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(sanitized)) {
+        return res.status(400).json({ error: "Invalid variable name. Use letters, numbers, and underscores only." });
+      }
+
+      const affectedFiles = contentIndex.getVariableUsage(oldName);
+
+      const pattern = new RegExp(
+        `\\{\\{\\s*${oldName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\s*(?:\\|[^}]*)?)\\}\\}`,
+        "g",
+      );
+
+      const updatedFiles: string[] = [];
+      for (const relPath of affectedFiles) {
+        const absPath = path.join(process.cwd(), relPath);
+        if (!fs.existsSync(absPath)) continue;
+
+        const content = fs.readFileSync(absPath, "utf-8");
+        const newContent = content.replace(pattern, `{{ ${sanitized}$1}}`);
+        if (newContent !== content) {
+          fs.writeFileSync(absPath, newContent, "utf-8");
+          updatedFiles.push(relPath);
+        }
+      }
+
+      variableManager.renameVariable(oldName, sanitized);
+
+      contentIndex.refresh();
+
+      res.json({
+        success: true,
+        oldName,
+        newName: sanitized,
+        updatedFiles,
+        definitions: variableManager.getDefinitions(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to rename variable" });
+    }
+  });
+
   app.get("/api/career-programs", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
     const _location = req.query.location as string | undefined;

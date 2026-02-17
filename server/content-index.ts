@@ -33,6 +33,7 @@ class ContentIndex {
   private bySlug: Map<string, ContentEntry[]> = new Map();
   private byPath: Map<string, ContentEntry> = new Map();
   private imageUsage: Map<string, Set<string>> = new Map();
+  private variableUsage: Map<string, Set<string>> = new Map();
   private redirectEntries: RedirectEntry[] = [];
   private localeSlugMap: Map<string, string> = new Map();
   private contentTypeConfigs: Record<string, ContentTypeConfig> = {};
@@ -94,6 +95,7 @@ class ContentIndex {
     this.bySlug = new Map();
     this.byPath = new Map();
     this.imageUsage = new Map();
+    this.variableUsage = new Map();
     this.redirectEntries = [];
     this.localeSlugMap = new Map();
 
@@ -139,6 +141,7 @@ class ContentIndex {
           const relFilePath = `${relFolder}/${file}`;
           try {
             const raw = fs.readFileSync(filePath, "utf-8");
+            this.extractVariableReferences(raw, relFilePath);
             const parsed = yaml.load(raw) as Record<string, unknown> | null;
             this.extractImageReferences(parsed, relFilePath);
             const locale = file.replace(/\.(yml|yaml)$/, "");
@@ -161,7 +164,8 @@ class ContentIndex {
 
     this.initialized = true;
     const imageRefCount = this.imageUsage.size;
-    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${this.redirectEntries.length} redirects`);
+    const variableRefCount = this.variableUsage.size;
+    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${this.redirectEntries.length} redirects`);
   }
 
   private contentTypeHasRedirects(contentType: string): boolean {
@@ -175,6 +179,24 @@ class ContentIndex {
       existing.add(filePath);
     } else {
       this.imageUsage.set(ref, new Set([filePath]));
+    }
+  }
+
+  private addVariableRef(varName: string, filePath: string): void {
+    if (!varName || typeof varName !== "string") return;
+    const existing = this.variableUsage.get(varName);
+    if (existing) {
+      existing.add(filePath);
+    } else {
+      this.variableUsage.set(varName, new Set([filePath]));
+    }
+  }
+
+  private extractVariableReferences(rawContent: string, filePath: string): void {
+    const regex = /\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*(?:\|[^}]*)?\}\}/g;
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(rawContent)) !== null) {
+      this.addVariableRef(match[1], filePath);
     }
   }
 
@@ -499,6 +521,12 @@ class ContentIndex {
       }
     }
     return Array.from(files);
+  }
+
+  getVariableUsage(variableName: string): string[] {
+    this.ensureInitialized();
+    const refs = this.variableUsage.get(variableName);
+    return refs ? Array.from(refs) : [];
   }
 
   getRedirects(): RedirectEntry[] {
