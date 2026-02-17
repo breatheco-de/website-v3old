@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "d1cf5fd9a721a11f9a30afef9a671ce843c653a9",
-  "lastSyncedAt": "2026-02-17T22:49:46.312Z",
+  "lastSyncedCommit": "9a7b3c9c0d2dae6eb85fbd90c347bec01646e8d2",
+  "lastSyncedAt": "2026-02-17T23:03:39.435Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -834,7 +834,7 @@
     },
     "marketing-content/pages/partners/en.yml": {
       "sha": "4bb7454ead7952157f506ce15ad6d9be4ba52cb3ca5c43117f91f9ef88ad37c5",
-      "lastModified": 1771368529269.5352,
+      "lastModified": 1771369419254.4373,
       "remoteSha": "4bb7454ead7952157f506ce15ad6d9be4ba52cb3ca5c43117f91f9ef88ad37c5"
     },
     "marketing-content/pages/partners/es.yml": {
