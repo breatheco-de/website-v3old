@@ -18,11 +18,11 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: Conviértete en Ingeniero de IA
     title_highlight: Ingeniero de IA
-    subtitle: Prospera en la tecnología de hoy y da forma al mañana. Inicia tu carrera impulsada por IA en 20 semanas.
+    subtitle: Prospera en la tecnología de hoy y ayuda a crear el futuro. Inicia tu carrera impulsada por IA en 24 semanas.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -42,7 +42,7 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Tus tutores:'
+    tutors_label: "Tus tutores:"
     description: Conviértete en el profesional de IA que las empresas no pueden esperar a contratar. Nuestro programa intensivo de 20 semanas combina proyectos prácticos con mentoría personalizada para prepararte para roles con salarios iniciales de $95K-$135K.
     media:
       type: video
@@ -68,7 +68,7 @@ sections:
           count: 100+
         - icon: briefcase
           text: Proyectos Reales
-          count: '12'
+          count: "12"
         - icon: robot
           text: Retroalimentación con IA
         - icon: calendar
@@ -122,24 +122,24 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: ¿La Garantía de Empleo entrega resultados en los que puedes confiar?
     subtitle: Sí, y tenemos los números para respaldarlo
     description: Estas estadísticas reflejan nuestra comunidad completa de graduados y demuestran el impacto comprobado de nuestros programas en general. Nuestro compromiso con tu éxito está respaldado por resultados reales, no solo promesas.
     background: bg-muted/30
     items:
-      - id: '1'
+      - id: "1"
         value: 3.5M
         title: Roles relacionados con IA esperados para 2026
-      - id: '2'
+      - id: "2"
         value: 47%
         title: Crecimiento año tras año en ofertas de trabajo de IA
-      - id: '3'
+      - id: "3"
         value: $95K-$135K
         title: Salario inicial promedio para Ingenieros de IA
   - type: syllabus
-    version: '1.0'
+    version: "1.0"
     variant: program-modules
     program_title: Lo Que Construirás en 20 Semanas
     program_description: Desde el primer día, elegirás una empresa. La tuya, una que quieras construir, o una que quieras reimaginar. Durante 20 semanas, la transformarás en un negocio completamente operativo, impulsado por IA.
@@ -223,7 +223,7 @@ sections:
     marginY:
       desktop: md none
   - type: ai_learning
-    version: '1.0'
+    version: "1.0"
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: ¿Por qué Aprender con 4Geeks?
@@ -231,7 +231,7 @@ sections:
     features:
       - icon: Robot
         title: Progresa más rápido con herramientas de IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación instantánea de Rigobot, nuestro tutor de IA personalizado
@@ -245,7 +245,7 @@ sections:
           variant: primary
       - icon: TrendingUp
         title: Triunfa en tech con apoyo profesional para la era de IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -259,7 +259,7 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Agenda sesiones 1:1 con mentores expertos a tu ritmo
@@ -277,12 +277,12 @@ sections:
       desktop: md none
   - type: certificate
     title: Certificado y Red de Carreras
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
-      - text: 'Ingeniero de Software IA: $95K–$135K'
-      - text: 'Ingeniero Full-Stack (Fluente en IA): $100K–$145K'
-      - text: 'Ingeniero de Agentes: $105K–$155K'
-      - text: 'Ingeniero de Automatización: $85K–$120K'
+      - text: "Ingeniero de Software IA: $95K–$135K"
+      - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
+      - text: "Ingeniero de Agentes: $105K–$155K"
+      - text: "Ingeniero de Automatización: $85K–$120K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -308,10 +308,10 @@ sections:
         label: Aumento salarial promedio
         description: Nuestros graduados ven un aumento salarial promedio del 55% al transicionar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: 'Ingeniero de Software IA: $95K–$135K'
-          - text: 'Ingeniero Full-Stack (Fluente en IA): $100K–$145K'
-          - text: 'Ingeniero de Agentes: $105K–$155K'
-          - text: 'Ingeniero de Automatización: $85K–$120K'
+          - text: "Ingeniero de Software IA: $95K–$135K"
+          - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
+          - text: "Ingeniero de Agentes: $105K–$155K"
+          - text: "Ingeniero de Automatización: $85K–$120K"
       - value: 5,000+
         label: Socios de contratación
         description: Accede a nuestra red de más de 5,000 socios de contratación buscando talento en IA. Obtén oportunidades exclusivas y referencias prioritarias.
@@ -327,12 +327,12 @@ sections:
       mobile: lg
       desktop: lg
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Financia Tu Inversión
     subtitle: Ofrecemos múltiples formas de financiar tu inscripción. Elige la opción que mejor funcione para ti.
-    discount_text: 'Descuento por Pago Completo: Ahorra 10% con pago por adelantado.'
-    financing_text: 'Financiamiento Basado en Crédito: desde'
+    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago por adelantado."
+    financing_text: "Financiamiento Basado en Crédito: desde"
     financing_amount: $299
     tech_icons:
       - openai
@@ -396,7 +396,7 @@ sections:
     title: Tu Nueva Carrera Comienza Aquí
     subtitle: Mira lo que nuestros graduados tienen que decir sobre su experiencia
     rating_summary:
-      average: '4.5'
+      average: "4.5"
       count: 1,294
     items:
       - name: Sara García
@@ -438,7 +438,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    version: '1.0'
+    version: "1.0"
     title: Preguntas Frecuentes
     related_features:
       - ai-engineering
@@ -452,7 +452,7 @@ sections:
     marginY:
       desktop: none
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Convertirte en Ingeniero de IA?
     subtitle: Únete a miles de graduados que han transformado sus carreras con 4Geeks.
     buttons:
@@ -463,5 +463,5 @@ sections:
         url: /contacto
         variant: outline
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
