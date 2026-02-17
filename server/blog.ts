@@ -109,6 +109,50 @@ function getApiConfig(): ApiSourceConfig {
   return api;
 }
 
+const markdownCache = new Map<string, { content: string; fetched_at: number }>();
+
+export async function fetchMarkdownContent(readmeUrl: string): Promise<string> {
+  const config = loadConfig();
+  const ttlMs = config.cache.ttl_hours * 60 * 60 * 1000;
+
+  const cached = markdownCache.get(readmeUrl);
+  if (cached && Date.now() - cached.fetched_at < ttlMs) {
+    return cached.content;
+  }
+
+  try {
+    const response = await fetch(readmeUrl);
+    if (!response.ok) return "";
+    const text = await response.text();
+    const frontmatterRegex = /^---[\s\S]*?---\s*/;
+    const content = text.replace(frontmatterRegex, "").trim();
+    markdownCache.set(readmeUrl, { content, fetched_at: Date.now() });
+    return content;
+  } catch (err) {
+    console.error(`[Blog] Failed to fetch markdown from ${readmeUrl}:`, err);
+    return cached?.content || "";
+  }
+}
+
+export function clearMarkdownCache(slug?: string): void {
+  if (!slug) {
+    markdownCache.clear();
+    console.log("[Blog] Cleared all markdown cache entries");
+    return;
+  }
+  const keys = Array.from(markdownCache.keys());
+  for (const url of keys) {
+    if (url.includes(slug)) {
+      markdownCache.delete(url);
+      console.log(`[Blog] Cleared markdown cache for slug containing: ${slug}`);
+    }
+  }
+}
+
+export function clearMarkdownCacheByUrl(readmeUrl: string): boolean {
+  return markdownCache.delete(readmeUrl);
+}
+
 function getCachePath(): string {
   const config = loadConfig();
   return path.join(process.cwd(), config.cache.file_path);
@@ -261,9 +305,10 @@ export function findBlogPostBySlug(posts: BlogPost[], slug: string, locale?: str
 
 export function clearBlogCache(): { success: boolean; message: string } {
   const cachePath = getCachePath();
+  clearMarkdownCache();
   if (fs.existsSync(cachePath)) {
     fs.unlinkSync(cachePath);
-    return { success: true, message: "Blog cache cleared" };
+    return { success: true, message: "Blog cache cleared (including markdown)" };
   }
   return { success: true, message: "No blog cache to clear" };
 }

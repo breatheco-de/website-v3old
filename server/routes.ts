@@ -69,7 +69,7 @@ import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
 import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItems, buildFaqPageSchema, type FaqSection } from "./ssr-schema";
-import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, getBlogConfig, saveBlogConfig, clearConfigCache, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml } from "./blog";
+import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, getBlogConfig, saveBlogConfig, clearConfigCache, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml, fetchMarkdownContent, clearMarkdownCache, clearMarkdownCacheByUrl } from "./blog";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -1071,7 +1071,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      res.json(post);
+      let content = "";
+      if (post.readme_url) {
+        content = await fetchMarkdownContent(post.readme_url);
+      }
+
+      res.json({ ...post, content });
     } catch (error) {
       console.error("[Blog] Error fetching post:", error);
       res.status(500).json({ error: "Failed to fetch blog post" });
@@ -1080,6 +1085,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/blog/cache-status", (_req, res) => {
     res.json(getBlogCacheStatus());
+  });
+
+  app.delete("/api/blog/cache/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const posts = await getBlogPosts();
+      const post = posts.find((p) => p.slug === slug);
+      if (post?.readme_url) {
+        clearMarkdownCacheByUrl(post.readme_url);
+      }
+      clearMarkdownCache(slug);
+      res.json({ success: true, message: `Cache cleared for "${slug}"` });
+    } catch (error) {
+      console.error("[Blog] Error clearing post cache:", error);
+      res.status(500).json({ error: "Failed to clear post cache" });
+    }
   });
 
   app.post("/api/debug/clear-blog-cache", (_req, res) => {

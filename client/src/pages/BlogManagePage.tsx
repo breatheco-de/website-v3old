@@ -25,6 +25,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -44,6 +45,7 @@ import {
   IconPlayerPlay,
   IconPlus,
   IconTrash,
+  IconTrashX,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -896,6 +898,21 @@ export default function BlogManagePage() {
                                     <IconArrowLeft className="h-4 w-4 mr-2 rotate-180" />
                                     Open in this tab
                                   </a>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                  onClick={async () => {
+                                    try {
+                                      await apiRequest("DELETE", `/api/blog/cache/${post.slug}`);
+                                      toast({ title: `Cache cleared for "${post.title || post.slug}"` });
+                                    } catch {
+                                      toast({ title: "Failed to clear cache", variant: "destructive" });
+                                    }
+                                  }}
+                                  data-testid={`button-clear-cache-${post.id}`}
+                                >
+                                  <IconTrashX className="h-4 w-4 mr-2" />
+                                  Clear cache
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>

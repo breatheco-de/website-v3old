@@ -24,6 +24,7 @@ interface BlogPost {
   description: string;
   preview: string;
   readme_url: string;
+  content: string;
   author: BlogAuthor | null;
   published_at: string;
   created_at: string;
@@ -68,18 +69,7 @@ export default function BlogPostPage() {
     enabled: !!slug,
   });
 
-  const { data: markdownContent } = useQuery<string>({
-    queryKey: ["blog-markdown", post?.readme_url],
-    queryFn: async () => {
-      if (!post?.readme_url) return "";
-      const response = await fetch(post.readme_url);
-      if (!response.ok) return "";
-      const text = await response.text();
-      const frontmatterRegex = /^---[\s\S]*?---\s*/;
-      return text.replace(frontmatterRegex, "").trim();
-    },
-    enabled: !!post?.readme_url,
-  });
+  const markdownContent = post?.content || "";
 
   usePageMeta(
     post
@@ -207,9 +197,9 @@ export default function BlogPostPage() {
               {markdownContent}
             </ReactMarkdown>
           ) : (
-            <div className="flex items-center justify-center py-12">
-              <IconLoader2 className="w-6 h-6 animate-spin text-muted-foreground" />
-            </div>
+            <p className="text-muted-foreground text-center py-12" data-testid="text-no-content">
+              {locale === "es" ? "El contenido de este artículo no está disponible." : "This article's content is not available."}
+            </p>
           )}
         </div>
 
