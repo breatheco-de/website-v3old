@@ -96,7 +96,7 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
   return (
     <section ref={sectionRef} className="" data-testid="section-two-column-accordion-card">
       <div className="max-w-6xl mx-auto px-4">
-        <Card className="overflow-hidden shadow-sm">
+        <Card className="overflow-hidden shadow-sm border-0">
           <CardContent className="!p-0 md:p-card">
             <div className={`grid grid-cols-1 md:grid-cols-12 md:min-h-[580px] ${reverse ? "md:flex-row-reverse" : ""}`}>
               <div className={`col-span-1 md:col-span-7 p-6 md:p-10 flex flex-col justify-center ${reverse ? "md:order-2" : "md:order-1"}`}>
