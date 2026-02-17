@@ -22,7 +22,7 @@ sections:
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
-    subtitle: Defiende sistemas, responde a amenazas y lanza una carrera bien remunerada en ciberseguridad en 16 semanas.
+    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en 16 semanas.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -33,7 +33,7 @@ sections:
     bullet_points:
       - Trabaja con amenazas cibernéticas reales y defensas de seguridad
       - Domina los fundamentos de seguridad de redes y detección de amenazas
-      - Aprende pruebas de penetración con herramientas estándar de la industria
+      - Aprende pentesting con herramientas estándar de la industria
       - Prepárate para las certificaciones EJPT y CEH
     tutors:
       - name: Daniela Maisi
@@ -43,7 +43,7 @@ sections:
         role: Tutor de IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
-    description: Nuestro programa intensivo a tiempo parcial combina laboratorios prácticos y mentoría personalizada para prepararte para roles de seguridad de alto impacto en cualquier industria.
+    description: Nuestro programa intensivo combina laboratorios prácticos y mentoría personalizada para prepararte para roles de seguridad de alto impacto en cualquier industria.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -67,7 +67,7 @@ sections:
         - icon: IconRobot
           text: Aprendizaje y Feedback con IA
         - icon: IconUsers
-          text: Ratio de 7:1 Estudiante-Instructor
+          text: Relación 7:1 de estudiantes a instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 Ilimitada
         - icon: book
