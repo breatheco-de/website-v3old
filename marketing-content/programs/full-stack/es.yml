@@ -26,61 +26,60 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
-    title: Conviértete en Desarrollador Full Stack
-    title_highlight: Full Stack Developer
-    subtitle: Lanza tu carrera en desarrollo web en 16 semanas con salarios iniciales de $65K+.
+    title: Programa de Desarrollo Full Stack con IA
+    title_highlight: Full Stack Developer con IA
+    subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +1,000 estudiantes inscritos
+      count: Más de 1.000 estudiantes en LATAM y EE. UU.
     bullet_points:
-      - Domina HTML, CSS, JavaScript y React para frontends modernos
-      - Construye APIs backend escalables con Python y Flask
-      - Aprende diseño de bases de datos, autenticación y despliegue
-      - Trabaja en proyectos reales con las mejores prácticas de la industria
+      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
+      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
+      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
+      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
     tutors:
-      - name: Expert Instructor
+      - name: Instructor Experto
         role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
-        role: Tutor de IA
+        role: Asistente de Aprendizaje con IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Tus tutores:'
-    description: Conviértete en el desarrollador full-stack que las empresas no pueden esperar a contratar. Nuestro programa intensivo de 16 semanas combina proyectos prácticos con mentoría personalizada para prepararte para roles con salarios iniciales de $65K+.
+    tutors_label: "Tus instructores:"
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
       thumbnail: https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=450&fit=crop
-      alt: Introducción al programa Desarrollador Full Stack
+      alt: Introducción al programa Full Stack Developer con IA en 4Geeks Academy
     signup_card:
-      title: Aplica al Programa Full Stack
-      description: Comienza tu camino para convertirte en Desarrollador Full Stack
+      title: Descarga el Plan de Estudios Completo
+      description: Solicita el syllabus completo, la descripción del programa, horarios y toda la información que necesitas para comenzar.
       cta_button:
-        text: Aplica Ahora
-        url: /es/apply
+        text: Ver el Programa
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: /login
       features:
         - icon: IconCalendar
-          text: Modalidad de 20 Semanas
+          text: Programa de 20 semanas
         - icon: IconCalendarBolt
-          text: Modalidad de 12 Semanas
+          text: Modalidad intensiva de 12 semanas (mañanas)
         - icon: code
-          text: Ejercicios Interactivos
-          count: 100+
+          text: +100 ejercicios interactivos de programación
         - icon: robot
-          text: Retroalimentación con IA
+          text: Feedback con IA en tiempo real
         - icon: calendar
-          text: Sesiones en Vivo Semanales
+          text: Ratio 1:7 estudiante–profesor
         - icon: users
-          text: Mentoría 1:1
+          text: Mentoría personalizada 1:1
     paddingY:
       desktop: md lg
     marginY:
@@ -129,20 +128,20 @@ sections:
     marginY:
       desktop: none md
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: ¿La Garantía de Empleo ofrece resultados en los que puedes confiar?
     subtitle: Sí, y tenemos los números para respaldarlo
     description: Estas estadísticas reflejan nuestra comunidad completa de graduados y demuestran el impacto comprobado de nuestros programas en general. Nuestro compromiso con tu éxito está respaldado por resultados reales, no solo promesas.
     background: hsl(var(--secondary))
     items:
-      - id: '1'
+      - id: "1"
         value: 84%
         title: Tasa de colocación laboral en 6 meses
-      - id: '2'
+      - id: "2"
         value: 150%
         title: Aumento salarial promedio después de graduarse
-      - id: '3'
+      - id: "3"
         value: $65K+
         title: Salario inicial promedio para graduados
     marginY:
@@ -150,7 +149,7 @@ sections:
     paddingY:
       desktop: none
   - type: syllabus
-    version: '1.0'
+    version: "1.0"
     variant: program-modules
     program_title: Lo Que Aprenderás en el Programa Full Stack
     program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
@@ -226,7 +225,7 @@ sections:
       desktop: md
   - type: projects
     title: Aprende Construyendo Proyectos Reales
-    subtitle: 'Las tareas que abordarás se asemejan a las que encontrarás en un puesto tecnológico real. Aquí tienes un vistazo de lo que trabajarás:'
+    subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en un puesto tecnológico real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
       - title: Construye una API REST de StarWars
         description: La API del Blog de StarWars te permitirá practicar la construcción de una API REST usando frameworks ligeros como Express (para node) o Flask (para python) con SQLAlchemy ORM y el lenguaje Python, mientras construyes un blog divertido. Ideal para juniors que buscan practicar desarrollo de APIs en Python.
@@ -264,7 +263,7 @@ sections:
     features:
       - icon: Robot
         title: Progresa más rápido con herramientas impulsadas por IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Retroalimentación instantánea de Rigobot, nuestro tutor de IA personalizado
@@ -278,7 +277,7 @@ sections:
           variant: primary
       - icon: TrendingUp
         title: Triunfa en tech con apoyo profesional para la era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -292,7 +291,7 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -310,12 +309,12 @@ sections:
       desktop: md
   - type: certificate
     title: Resultados Profesionales
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
-      - text: 'AI Software Engineer: $95K–$135K'
-      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-      - text: 'Agent Engineer: $105K–$155K'
-      - text: 'Workflow Automation Engineer: $85K–$120K'
+      - text: "AI Software Engineer: $95K–$135K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$155K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: Certificado 4Geeks Academy
@@ -340,10 +339,10 @@ sections:
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: 'AI Software Engineer: $115K–$165K'
-          - text: 'Full-Stack AI Engineer: $125K–$185K'
-          - text: 'Agentic Systems Engineer: $140K–$210K'
-          - text: 'Workflow Automation Engineer: $95K–$145K'
+          - text: "AI Software Engineer: $115K–$165K"
+          - text: "Full-Stack AI Engineer: $125K–$185K"
+          - text: "Agentic Systems Engineer: $140K–$210K"
+          - text: "Workflow Automation Engineer: $95K–$145K"
       - value: 5,000+
         label: Socios de contratación
         description: Accede a nuestra red de más de 5,000 socios de contratación que buscan activamente talento en IA. Obtén oportunidades laborales exclusivas y referencias prioritarias.
@@ -362,12 +361,12 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: 'Descuento por Pago Completo: Ahorra 10% con pago por adelantado.'
-    financing_text: 'Financiamiento Basado en Crédito: desde'
+    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago por adelantado."
+    financing_text: "Financiamiento Basado en Crédito: desde"
     financing_amount: $349
     tech_icons:
       - openai
@@ -432,7 +431,7 @@ sections:
     title: Estudiantes Reales. Carreras Reales.
     subtitle: Más de 4,000 graduados y más de 1,000 reseñas verificadas demuestran que nuestros programas generan resultados que cambian vidas.
     rating_summary:
-      average: '4.8'
+      average: "4.8"
       count: 1,294
     items:
       - name: Sarah Johnson
@@ -474,7 +473,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    version: '1.0'
+    version: "1.0"
     title: Preguntas Frecuentes
     related_features:
       - full-stack
@@ -488,7 +487,7 @@ sections:
     marginY:
       desktop: none
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Convertirte en Desarrollador Full Stack?
     subtitle: Únete a miles de graduados que han transformado sus carreras con 4Geeks.
     buttons:
@@ -502,5 +501,5 @@ sections:
     paddingY:
       desktop: md
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
