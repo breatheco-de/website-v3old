@@ -64,10 +64,10 @@ footer:
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
       items:
-        - label: 4Geeks for Companies
-          href: /en/partners
-        - label: Talent
-          href: https://www.notion.so/4geeksacademy/Talent-Pipeline-4Geeks-Academy-ef91aba17f9c4964bf7972396d190bdf
+        - label: New Item
+          href: /new-page
+        - label: New Item 2
+          href: /new-page
   socials:
     - name: Linkedin
       icon: linkedin
