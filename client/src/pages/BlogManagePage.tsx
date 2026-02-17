@@ -152,8 +152,7 @@ function DataSourceDialog({
   const [queryParams, setQueryParams] = useState<Array<{ key: string; value: string }>>([]);
   const [editingParams, setEditingParams] = useState(false);
   const [tokenEnvVar, setTokenEnvVar] = useState("");
-  const [authPrefix, setAuthPrefix] = useState("Token");
-  const [editingAuth, setEditingAuth] = useState(false);
+  const [authType, setAuthType] = useState<"none" | "Token" | "Bearer" | "raw">("Token");
   const [customHeaders, setCustomHeaders] = useState<Array<{ key: string; value: string }>>([]);
   const [editingHeaders, setEditingHeaders] = useState(false);
   const [ttlHours, setTtlHours] = useState("24");
@@ -174,7 +173,15 @@ function DataSourceDialog({
         setQueryParams(pairs.length > 0 ? pairs : [{ key: "", value: "" }]);
         setEditingParams(false);
         setTokenEnvVar(api.token_env_var || "");
-        setAuthPrefix(api.auth_prefix ?? "Token");
+        if (!api.token_env_var) {
+          setAuthType("none");
+        } else if (api.auth_prefix === "Bearer") {
+          setAuthType("Bearer");
+        } else if (api.auth_prefix === "" || api.auth_prefix === undefined) {
+          setAuthType("raw");
+        } else {
+          setAuthType("Token");
+        }
         const headerPairs = Object.entries(api.headers || {}).map(([key, value]) => ({
           key,
           value: String(value),
@@ -262,8 +269,8 @@ function DataSourceDialog({
       const res = await apiRequest("POST", "/api/blog/test-endpoint", {
         endpoint,
         params: paramsRecord,
-        token_env_var: tokenEnvVar,
-        auth_prefix: authPrefix,
+        token_env_var: authType === "none" ? "" : tokenEnvVar,
+        auth_prefix: authType === "none" || authType === "raw" ? "" : authType,
         headers: headersRecord,
       });
       const data = await res.json();
@@ -285,8 +292,8 @@ function DataSourceDialog({
             api: {
               endpoint,
               params: paramsRecord,
-              token_env_var: tokenEnvVar,
-              auth_prefix: authPrefix,
+              token_env_var: authType === "none" ? "" : tokenEnvVar,
+              auth_prefix: authType === "none" || authType === "raw" ? "" : authType,
               headers: headersRecord,
             },
           }),
@@ -430,51 +437,35 @@ function DataSourceDialog({
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <Label>Authentication</Label>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setEditingAuth(!editingAuth)}
-                      data-testid="button-toggle-auth"
-                    >
-                      <IconPencil className="h-3.5 w-3.5 mr-1" />
-                      {editingAuth ? "Done" : "Edit"}
-                    </Button>
-                  </div>
+                  <Label>Authentication</Label>
+                  <Select value={authType} onValueChange={(v) => setAuthType(v as "none" | "Token" | "Bearer" | "raw")}>
+                    <SelectTrigger data-testid="select-auth-type">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">No Authentication</SelectItem>
+                      <SelectItem value="Token">Token</SelectItem>
+                      <SelectItem value="Bearer">Bearer</SelectItem>
+                      <SelectItem value="raw">Raw Token (no prefix)</SelectItem>
+                    </SelectContent>
+                  </Select>
 
-                  {!editingAuth ? (
-                    <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
-                      <p className="text-xs font-mono text-muted-foreground">
-                        {tokenEnvVar
-                          ? <>Authorization: {authPrefix ? `${authPrefix} ` : ""}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span></>
-                          : "(no authentication)"}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="space-y-2">
-                        <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
-                        <Input
-                          id="token-env-var"
-                          value={tokenEnvVar}
-                          onChange={(e) => setTokenEnvVar(e.target.value)}
-                          placeholder="BREATHECODE_TOKEN"
-                          data-testid="input-token-env-var"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="auth-prefix" className="text-xs text-muted-foreground">Authorization Prefix</Label>
-                        <Select value={authPrefix || "_none"} onValueChange={(v) => setAuthPrefix(v === "_none" ? "" : v)}>
-                          <SelectTrigger id="auth-prefix" data-testid="select-auth-prefix">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Bearer">Bearer</SelectItem>
-                            <SelectItem value="Token">Token</SelectItem>
-                            <SelectItem value="_none">None (raw token)</SelectItem>
-                          </SelectContent>
-                        </Select>
+                  {authType !== "none" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
+                      <Input
+                        id="token-env-var"
+                        value={tokenEnvVar}
+                        onChange={(e) => setTokenEnvVar(e.target.value)}
+                        placeholder="BREATHECODE_TOKEN"
+                        data-testid="input-token-env-var"
+                      />
+                      <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
+                        <p className="text-xs font-mono text-muted-foreground">
+                          {tokenEnvVar
+                            ? <>Authorization: {authType === "raw" ? "" : `${authType} `}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span></>
+                            : <span className="italic">Enter a token env var name above</span>}
+                        </p>
                       </div>
                     </div>
                   )}
