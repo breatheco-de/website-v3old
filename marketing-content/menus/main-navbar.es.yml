@@ -11,22 +11,22 @@ navbar:
           - title: Ingeniería en Inteligencia Artificial
             description: Explora en detalle la inteligencia artificial y cómo aplicarla en diferentes industrias, roles y tu trabajo. ¡Maximiza tu productividad en solo 6 semanas!
             cta: Ver programa
-            href: /en/career-programs/ai-engineering
+            href: /es/programas-de-carrera/ingenieria-ia
             icon: brain
           - title: Ciencia de Datos y Machine Learning con IA
             description: Domina el análisis de datos potenciado por IA con Python. Construye modelos inteligentes usando técnicas de vanguardia en Machine Learning e IA para resolver problemas reales.
             cta: Ver programa
-            href: /en/career-programs/data-science-ml
+            href: /es/programas-de-carrera/ciencia-de-datos-ml
             icon: chart
           - title: Ciberseguridad
             description: Conviértete en especialista en ciberseguridad, preparado para identificar y mitigar vulnerabilidades de sistemas, alineado con ISO y otros estándares.
             cta: Ver programa
-            href: /en/career-programs/cybersecurity
+            href: /es/programas-de-carrera/ciberseguridad
             icon: shield
           - title: Full Stack con IA
             description: Conviértete en desarrollador Full Stack usando herramientas de IA como Cursor y Vercel v0. Domina las habilidades de IA más demandadas y consigue trabajo como desarrollador.
             cta: Ver programa
-            href: /en/career-programs/full-stack
+            href: /es/programas-de-carrera/desarrollo-full-stack
             icon: code
         footer:
           text: ¿No sabes qué programa te conviene más? Mira nuestra comparación de programas
@@ -44,37 +44,37 @@ navbar:
           - title: Apoyo
             items:
               - label: Mentores y profesores
-                href: /en/geekpal-support
+                href: /es/soporte-geekpal
               - label: Apoyo Profesional
-                href: /en/geekforce-career-support
+                href: /es/geekforce
               - label: Plataforma Online
-                href: /en/online-platform
+                href: /es/plataforma-online
               - label: Rigobot
-                href: /en/rigobot-ai-coding-mentor
+                href: /es/rigobot
               - label: LearnPack
-                href: /en/learnpack
+                href: /es/learnpack
           - title: Validación
             items:
               - label: Premios
-                href: /en/awards
+                href: /es/premios
               - label: Resultados
-                href: /en/outcomes
+                href: /es/resultados
               - label: 4Geeks Vs Otros
-                href: /en/geeks-vs-others
+                href: /es/geeks-vs-otros
           - title: Precios
             items:
               - label: Financiamiento
-                href: /en/financials
+                href: /es/financiaciones
               - label: Becas
-                href: /en/scholarships
+                href: /es/becas
               - label: Garantía de Empleo
-                href: /en/job-guarantee
+                href: /es/trabajo-garantizado
           - title: Nuestros Estudiantes
             items:
               - label: Egresados y Proyectos
-                href: /en/graduates-and-projects
+                href: /es/egresados-y-proyectos
               - label: Testimonios
-                href: /en/testimonials
+                href: /es/testimonios
               - label: Talento
                 href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
     - label: LA ACADEMIA
@@ -89,13 +89,13 @@ navbar:
           - label: Contrata a nuestros egresados
             href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
           - label: Asóciate con 4Geeks
-            href: /en/partners
+            href: /es/alianzas
           - label: Trabaja con nosotros
-            href: /en/work-with-us
+            href: /es/trabaja-con-nosotros
           - label: Quiénes somos
-            href: /en/the-academy
+            href: /es/sobre-la-academia
           - label: Prensa
-            href: /en/press
+            href: /es/prensa
           - label: Blog
             href: /blog
     - label: CAMPUS
@@ -110,47 +110,47 @@ navbar:
           - title: EE.UU. Y CANADÁ
             items:
               - label: Miami, EE.UU.
-                href: /en/location/miami-usa
+                href: /es/ubicacion/miami-usa
               - label: Nueva York, EE.UU.
-                href: /campus/nyc
+                href: /es/ubicacion/newyork-usa
               - label: Dallas, EE.UU.
-                href: /en/location/dallas-usa
+                href: /es/ubicacion/dallas-usa
               - label: Toronto, Canadá
-                href: /campus/toronto
+                href: /es/ubicacion/toronto-canada
               - label: Atlanta, EE.UU.
-                href: /campus/atlanta
+                href: /es/ubicacion/atlanta-usa
               - label: Austin, EE.UU.
-                href: /campus/austin
+                href: /es/ubicacion/austin-usa
               - label: Chicago, EE.UU.
-                href: /campus/chicago
+                href: /es/ubicacion/chicago-usa
               - label: Houston, EE.UU.
-                href: /campus/houston
+                href: /es/ubicacion/houston-usa
               - label: Los Ángeles, EE.UU.
-                href: /campus/los-angeles
+                href: /es/ubicacion/losangeles-usa
               - label: Remoto, EE.UU.
                 href: /es/ubicacion/remote
           - title: EUROPA
             items:
               - label: Madrid, España
-                href: /campus/madrid
+                href: /es/ubicacion/madrid-spain
               - label: Barcelona, España
-                href: /campus/barcelona
+                href: /es/ubicacion/barcelona-spain
               - label: Valencia, España
-                href: /campus/valencia
+                href: /es/ubicacion/valencia-spain
               - label: Málaga, España
-                href: /campus/malaga
+                href: /es/ubicacion/malaga-spain
               - label: Berlín, Alemania
-                href: /campus/berlin
+                href: /es/ubicacion/berlin-germany
           - title: LATAM
             items:
               - label: Santiago, Chile
-                href: /campus/santiago
+                href: /es/ubicacion/santiago-chile
               - label: Bogotá, Colombia
-                href: /campus/bogota
+                href: /es/ubicacion/bogota-colombia
               - label: Ciudad de México, México
-                href: /campus/mexico-city
+                href: /es/ubicacion/mexicocity-mexico
               - label: Caracas, Venezuela
-                href: /campus/caracas
+                href: /es/ubicacion/caracas-venezuela
     - label: PRÓXIMAS FECHAS
       href: /upcoming-dates
       component: SimpleLink
