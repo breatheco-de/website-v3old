@@ -61,7 +61,6 @@ import {
   IconDotsVertical,
   IconDownload,
   IconPhoto,
-  IconBrowserPlus,
 } from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { useSyncOptional } from "@/contexts/SyncContext";
@@ -2286,13 +2285,6 @@ export function DebugBubble() {
                     onClick={() => setMenuView("menus")}
                     indicator="chevron"
                     testId="button-menus-menu"
-                  />
-                  <MenuItem
-                    icon={IconBrowserPlus}
-                    label="Modals"
-                    disabled
-                    testId="placeholder-modals-menu"
-                    rightContent={<span className="text-xs text-muted-foreground">Soon</span>}
                   />
                 </ExpandableMenuItem>
                 
