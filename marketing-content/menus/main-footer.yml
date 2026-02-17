@@ -28,10 +28,10 @@ footer:
           href: /en/career-programs/full-stack
     - title: Locations
       items:
-        - label: Miami
-          href: /en/location/miami-usa
         - label: Toronto
           href: /en/coding-campus/coding-bootcamp-toronto-canada
+        - label: Miami
+          href: /en/location/miami-usa
         - label: Madrid
           href: /en/coding-campus/coding-bootcamp-madrid
         - label: Barcelona
@@ -63,11 +63,7 @@ footer:
         - label: Berlin
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
-      items:
-        - label: New Item
-          href: /new-page
-        - label: New Item 2
-          href: /new-page
+      items: []
   socials:
     - name: Linkedin
       icon: linkedin

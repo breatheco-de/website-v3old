@@ -29,9 +29,9 @@ footer:
     - title: Ubicaciones
       items:
         - label: '[TRANSLATE] Toronto'
-          href: /en/location/miami-usa
-        - label: '[TRANSLATE] Madrid'
           href: /en/coding-campus/coding-bootcamp-toronto-canada
+        - label: '[TRANSLATE] Madrid'
+          href: /en/location/miami-usa
         - label: '[TRANSLATE] Barcelona'
           href: /en/coding-campus/coding-bootcamp-madrid
         - label: '[TRANSLATE] Valencia'
@@ -63,11 +63,7 @@ footer:
         - label: '[TRANSLATE] Berlin'
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: Para Empresas
-      items:
-        - label: '[TRANSLATE] New Itemd 1'
-          href: /new-page
-        - label: '[TRANSLATE] New Item 2'
-          href: /new-page
+      items: []
   socials:
     - name: Linkedin
       icon: linkedin
