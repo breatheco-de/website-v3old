@@ -278,6 +278,7 @@ export function VariableDetailModal({
   const [nameAvailable, setNameAvailable] = useState<boolean | null>(null);
   const nameCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [existingVarName, setExistingVarName] = useState("");
+  const [inspectVarName, setInspectVarName] = useState("");
   const [varComboboxOpen, setVarComboboxOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -293,6 +294,7 @@ export function VariableDetailModal({
       setCreateSaving(false);
       setCreateSubMode("existing");
       setExistingVarName("");
+      setInspectVarName("");
       setNameAvailable(null);
       if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
     }
@@ -306,7 +308,7 @@ export function VariableDetailModal({
       ? createSubMode === "existing"
         ? existingVarName
         : createName
-      : variableName;
+      : inspectVarName || variableName;
 
   const definition = definitions?.[effectiveVarName];
   const resolution =
@@ -473,6 +475,7 @@ export function VariableDetailModal({
         description: `"${name}" is ready to use.`,
       });
       onCreated?.(name, templateSyntax);
+      setInspectVarName(name);
       setCurrentMode("inspect");
     } catch (err) {
       toast({
@@ -500,6 +503,7 @@ export function VariableDetailModal({
       description: `Text will use "{{ ${existingVarName} }}".`,
     });
     onCreated?.(existingVarName, templateSyntax);
+    setInspectVarName(existingVarName);
     setCurrentMode("inspect");
   }, [existingVarName, inlineDefault, toast, onCreated]);
 
