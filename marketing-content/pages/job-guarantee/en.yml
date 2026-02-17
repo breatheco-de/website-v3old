@@ -31,12 +31,9 @@ sections:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
-      - text: Apply now
+      - text: Get more info
         url: /apply
         variant: primary
-      - text: Download Details
-        url: "#syllabus"
-        variant: outline
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
