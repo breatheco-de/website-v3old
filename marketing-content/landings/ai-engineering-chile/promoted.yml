@@ -204,7 +204,7 @@ sections:
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: $20K-$60K
+      - value: $40M-$110M CLP
         title: Salario anual promedio para ingenieros de IA
     marginY:
       mobile: md none
@@ -433,10 +433,10 @@ sections:
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: "Ingeniero de software IA: $25K–$45K"
-      - text: "Ingeniero full-stack (IA): $20K–$40K"
-      - text: "Ingeniero de agentes: $25K–$50K"
-      - text: "Ingeniero de automatización de flujos: $18K–$40K"
+      - text: "Ingeniero de software IA: $40.000.000-$100.000.000 CLP"
+      - text: "Ingeniero full-stack (IA): $45.000.000-$110.000.000 CLP"
+      - text: "Ingeniero de agentes: $40.000.000-$100.000.000 CLP"
+      - text: "Ingeniero de automatización de flujos: $36.000.000–$90.000.000 CLP"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -461,10 +461,10 @@ sections:
         label: Aumento salarial promedio
         description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: "Ingeniero de software IA: $20K–30K"
-          - text: "Ingeniero full-stack (IA): $25K–$40K"
-          - text: "Ingeniero de  de IA: $25K–$50K"
-          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $25K–$60K"
+          - text: "Ingeniero de software IA: : $40.000.000-$100.000.000 CLP"
+          - text: "Ingeniero full-stack (IA): $45.000.000-$110.000.000 CLP"
+          - text: "Ingeniero de IA: $40.000.000-$100.000.000 CLP"
+          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $36.000.000–$90.000.000 CLP"
       - value: 5,000+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
