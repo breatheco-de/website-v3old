@@ -33,6 +33,9 @@ import {
   IconRefresh,
   IconWorld,
   IconDatabase,
+  IconPencil,
+  IconPlus,
+  IconTrash,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -135,10 +138,8 @@ function DataSourceDialog({
 
   const [sourceType, setSourceType] = useState("api");
   const [endpoint, setEndpoint] = useState("");
-  const [paramsCategory, setParamsCategory] = useState("");
-  const [paramsStatus, setParamsStatus] = useState("");
-  const [paramsVisibility, setParamsVisibility] = useState("");
-  const [paramsLimit, setParamsLimit] = useState("500");
+  const [queryParams, setQueryParams] = useState<Array<{ key: string; value: string }>>([]);
+  const [editingParams, setEditingParams] = useState(false);
   const [tokenEnvVar, setTokenEnvVar] = useState("");
   const [authPrefix, setAuthPrefix] = useState("Token");
   const [academyHeader, setAcademyHeader] = useState("");
@@ -150,10 +151,12 @@ function DataSourceDialog({
       if (config.data_source?.api) {
         const api = config.data_source.api;
         setEndpoint(api.endpoint || "");
-        setParamsCategory(String(api.params?.category || ""));
-        setParamsStatus(String(api.params?.status || ""));
-        setParamsVisibility(String(api.params?.visibility || ""));
-        setParamsLimit(String(api.params?.limit || "500"));
+        const pairs = Object.entries(api.params || {}).map(([key, value]) => ({
+          key,
+          value: String(value),
+        }));
+        setQueryParams(pairs.length > 0 ? pairs : [{ key: "", value: "" }]);
+        setEditingParams(false);
         setTokenEnvVar(api.token_env_var || "");
         setAuthPrefix(api.auth_prefix ?? "Token");
         setAcademyHeader(api.academy_header || "");
@@ -161,6 +164,39 @@ function DataSourceDialog({
       setTtlHours(String(config.cache?.ttl_hours || 24));
     }
   }, [config]);
+
+  const queryString = useMemo(() => {
+    const parts = queryParams
+      .filter((p) => p.key.trim())
+      .map((p) => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`);
+    return parts.length > 0 ? `?${parts.join("&")}` : "";
+  }, [queryParams]);
+
+  const paramsRecord = useMemo(() => {
+    const record: Record<string, string | number> = {};
+    for (const p of queryParams) {
+      if (p.key.trim()) {
+        const num = Number(p.value);
+        record[p.key.trim()] = !isNaN(num) && p.value.trim() !== "" && /^\d+$/.test(p.value.trim()) ? num : p.value;
+      }
+    }
+    return record;
+  }, [queryParams]);
+
+  const updateParam = (index: number, field: "key" | "value", val: string) => {
+    setQueryParams((prev) => prev.map((p, i) => (i === index ? { ...p, [field]: val } : p)));
+  };
+
+  const removeParam = (index: number) => {
+    setQueryParams((prev) => {
+      const next = prev.filter((_, i) => i !== index);
+      return next.length === 0 ? [{ key: "", value: "" }] : next;
+    });
+  };
+
+  const addParam = () => {
+    setQueryParams((prev) => [...prev, { key: "", value: "" }]);
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -171,13 +207,7 @@ function DataSourceDialog({
           ...(sourceType === "api" && {
             api: {
               endpoint,
-              params: {
-                limit: Number(paramsLimit) || 500,
-                offset: 0,
-                category: paramsCategory,
-                status: paramsStatus,
-                visibility: paramsVisibility,
-              },
+              params: paramsRecord,
               token_env_var: tokenEnvVar,
               auth_prefix: authPrefix,
               academy_header: academyHeader,
@@ -247,51 +277,66 @@ function DataSourceDialog({
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="params-category">Categories</Label>
-                    <Input
-                      id="params-category"
-                      value={paramsCategory}
-                      onChange={(e) => setParamsCategory(e.target.value)}
-                      placeholder="blog-es,blog-us"
-                      data-testid="input-params-category"
-                    />
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <Label>Query Parameters</Label>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setEditingParams(!editingParams)}
+                      data-testid="button-toggle-params"
+                    >
+                      <IconPencil className="h-3.5 w-3.5 mr-1" />
+                      {editingParams ? "Done" : "Edit"}
+                    </Button>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="params-limit">Limit</Label>
-                    <Input
-                      id="params-limit"
-                      type="number"
-                      value={paramsLimit}
-                      onChange={(e) => setParamsLimit(e.target.value)}
-                      placeholder="500"
-                      data-testid="input-params-limit"
-                    />
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="params-status">Status Filter</Label>
-                    <Input
-                      id="params-status"
-                      value={paramsStatus}
-                      onChange={(e) => setParamsStatus(e.target.value)}
-                      placeholder="published"
-                      data-testid="input-params-status"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="params-visibility">Visibility Filter</Label>
-                    <Input
-                      id="params-visibility"
-                      value={paramsVisibility}
-                      onChange={(e) => setParamsVisibility(e.target.value)}
-                      placeholder="public"
-                      data-testid="input-params-visibility"
-                    />
-                  </div>
+                  {!editingParams ? (
+                    <div className="rounded-md bg-muted px-3 py-2" data-testid="text-querystring-preview">
+                      <p className="text-xs font-mono text-muted-foreground break-all">
+                        {queryString || "(no parameters)"}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {queryParams.map((param, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <Input
+                            value={param.key}
+                            onChange={(e) => updateParam(i, "key", e.target.value)}
+                            placeholder="key"
+                            className="flex-1 font-mono text-xs"
+                            data-testid={`input-param-key-${i}`}
+                          />
+                          <span className="text-muted-foreground text-xs">=</span>
+                          <Input
+                            value={param.value}
+                            onChange={(e) => updateParam(i, "value", e.target.value)}
+                            placeholder="value"
+                            className="flex-1 font-mono text-xs"
+                            data-testid={`input-param-value-${i}`}
+                          />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeParam(i)}
+                            data-testid={`button-remove-param-${i}`}
+                          >
+                            <IconTrash className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={addParam}
+                        data-testid="button-add-param"
+                      >
+                        <IconPlus className="h-3.5 w-3.5 mr-1" />
+                        Add Parameter
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-3">
