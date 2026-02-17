@@ -64,11 +64,11 @@ footer:
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: For Companies
       items:
-        - label: New Item 2
-          href: /new-page
         - label: New Item 3
           href: /new-page
-        - label: New Item 1
+        - label: New Item 1 3
+          href: /new-page
+        - label: New Item
           href: /new-page
   socials:
     - name: Linkedin
