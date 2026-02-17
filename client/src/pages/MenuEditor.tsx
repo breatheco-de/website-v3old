@@ -1323,7 +1323,7 @@ export default function MenuEditor() {
                     Insert Variable
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-72 p-2" align="end">
+                <PopoverContent className="w-72 p-2 z-[10222001]" align="end">
                   <Input
                     placeholder="Filter variables..."
                     value={varFilter}
