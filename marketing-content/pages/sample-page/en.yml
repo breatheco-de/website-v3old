@@ -50,7 +50,7 @@ sections:
       title: Sign up to 4Geeks Plus
       description: Subscribe and get access to hundreds of challenges, projects and courses
       cta_button:
-        text: "{{ call_to_action_apply_label | Apply now }}"
+        text: "{{ call_to_action_apply | Apply now }}"
         url: /signup
         variant: primary
       login_link:
