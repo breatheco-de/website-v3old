@@ -10,6 +10,7 @@ const MoleculesShowcase = lazy(() => import("@/pages/MoleculesShowcase"));
 const PrivatePreview = lazy(() => import("@/pages/PrivatePreview"));
 const DiagnosticsPage = lazy(() => import("@/pages/DiagnosticsPage"));
 const PrivateRedirects = lazy(() => import("@/pages/PrivateRedirects"));
+const BlogManagePage = lazy(() => import("@/pages/BlogManagePage"));
 
 function LoadingFallback() {
   return (
@@ -35,6 +36,7 @@ export default function PrivateRouter() {
         <Route path="/private/component-showcase" component={ComponentShowcase} />
         <Route path="/private/component-showcase/:componentType" component={ComponentShowcase} />
         <Route path="/private/component-showcase/:componentType/preview" component={ComponentPreview} />
+        <Route path="/private/blog" component={BlogManagePage} />
         <Route path="/private/diagnostics" component={DiagnosticsPage} />
         <Route path="/private/redirects" component={PrivateRedirects} />
         <Route path="/private/media-gallery" component={MediaGallery} />
