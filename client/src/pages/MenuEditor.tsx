@@ -519,7 +519,7 @@ function SortableFooterColumn({
           items={(column.items || []).map((_, i) => `footer-col-${colIndex}-item-${i}`)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className="space-y-1">
+          <ul className="space-y-1 text-base">
             {(column.items || []).map((item, itemIndex) => (
               <SortableFooterItem
                 key={`footer-col-${colIndex}-item-${itemIndex}`}
