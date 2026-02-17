@@ -345,7 +345,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
+    financing_amount: {{ price_ai_engineering | $349 }}
     tech_icons:
       - openai
       - python
@@ -358,7 +358,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is $14,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ price_full_ai_engineering | $14,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back. *Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.
       - icon: IconCheck
@@ -370,9 +370,9 @@ sections:
       text: Get more info
       url: /signup
       variant: primary
-    paddingY:
-      desktop: none md
     marginY:
+      desktop: none md
+    paddingY:
       desktop: none md
   - type: whos_hiring
     variant: carousel
