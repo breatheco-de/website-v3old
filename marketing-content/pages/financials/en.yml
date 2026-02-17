@@ -164,16 +164,12 @@ sections:
             text: $10,999 full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-          - icon: Code
-            text: React, Node.js & Python
         tags:
-          - icon: Plus
-            text: API Development
           - icon: ""
             text: ""
         description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         price: $299
-        price_info: or less depending on financing plan
+        price_info: or less depending on your plan
         cta_text: View Program Details
         cta_url: /en/full-stack
         course_background: hsl(var(--destructive))
@@ -208,7 +204,7 @@ sections:
         price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/cybersecurity
-        course_background: secondary
+        course_background: hsl(var(--secondary-foreground))
     marginY:
       desktop: lg
     paddingY:

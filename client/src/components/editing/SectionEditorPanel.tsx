@@ -62,6 +62,7 @@ import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { TableContentEditor } from "./TableContentEditor";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
+import { LinkPicker } from "./LinkPicker";
 import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
 import { locations as allLocations, getLocationBySlug } from "@/lib/locations";
 import type { Location } from "@shared/session";
@@ -441,7 +442,9 @@ export function SectionEditorPanel({
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
-  const [tableEditorMode, setTableEditorMode] = useState<"content" | "filter" | null>(null);
+  const [tableEditorMode, setTableEditorMode] = useState<
+    "content" | "filter" | null
+  >(null);
   const [imagePickerMode, setImagePickerMode] = useState<"browse" | "upload">(
     "browse",
   );
@@ -1631,12 +1634,18 @@ export function SectionEditorPanel({
                 <div className="space-y-3 border-t pt-3 mt-3">
                   <div
                     className={`p-3 rounded-lg border cursor-pointer transition-colors ${tableEditorMode === "content" ? "border-primary bg-primary/5" : "hover-elevate"}`}
-                    onClick={() => setTableEditorMode(tableEditorMode === "content" ? null : "content")}
+                    onClick={() =>
+                      setTableEditorMode(
+                        tableEditorMode === "content" ? null : "content",
+                      )
+                    }
                     data-testid="button-table-content-filter"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <IconSettings className="h-4 w-4 text-foreground flex-shrink-0" />
-                      <span className="text-sm font-medium text-foreground">Content Filter</span>
+                      <span className="text-sm font-medium text-foreground">
+                        Content Filter
+                      </span>
                     </div>
                     <p className="text-xs text-muted-foreground pl-6">
                       {locale === "es"
@@ -1646,12 +1655,18 @@ export function SectionEditorPanel({
                   </div>
                   <div
                     className={`p-3 rounded-lg border cursor-pointer transition-colors ${tableEditorMode === "filter" ? "border-primary bg-primary/5" : "hover-elevate"}`}
-                    onClick={() => setTableEditorMode(tableEditorMode === "filter" ? null : "filter")}
+                    onClick={() =>
+                      setTableEditorMode(
+                        tableEditorMode === "filter" ? null : "filter",
+                      )
+                    }
                     data-testid="button-table-global-filter"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <IconCode className="h-4 w-4 text-foreground flex-shrink-0" />
-                      <span className="text-sm font-medium text-foreground">Global Filter</span>
+                      <span className="text-sm font-medium text-foreground">
+                        Global Filter
+                      </span>
                     </div>
                     <p className="text-xs text-muted-foreground pl-6">
                       {locale === "es"
@@ -1667,13 +1682,30 @@ export function SectionEditorPanel({
                     mode="content"
                     endpoint={parsedSection.endpoint as string}
                     dataPath={parsedSection.data_path as string | undefined}
-                    currentColumns={(parsedSection.columns as Array<{ key: string; label: string; type: "text" | "number" | "date" | "image" | "link" | "boolean" }>) || []}
+                    currentColumns={
+                      (parsedSection.columns as Array<{
+                        key: string;
+                        label: string;
+                        type:
+                          | "text"
+                          | "number"
+                          | "date"
+                          | "image"
+                          | "link"
+                          | "boolean";
+                      }>) || []
+                    }
                     currentTitle={parsedSection.title as string | undefined}
-                    currentFilter={parsedSection.global_filter as string | undefined}
+                    currentFilter={
+                      parsedSection.global_filter as string | undefined
+                    }
                     locale={locale}
                     onApplyContent={(config) => {
                       try {
-                        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                        const parsed = safeYamlLoad(yamlContent) as Record<
+                          string,
+                          unknown
+                        >;
                         if (!parsed || typeof parsed !== "object") return;
                         pushUndoState(yamlContent);
                         parsed.columns = config.columns;
@@ -1682,7 +1714,11 @@ export function SectionEditorPanel({
                         } else {
                           delete parsed.title;
                         }
-                        const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                        const newYaml = safeYamlDump(parsed, {
+                          lineWidth: -1,
+                          noRefs: true,
+                          quotingType: '"',
+                        });
                         setYamlContent(newYaml);
                         setHasChanges(true);
                         setParseError(null);
@@ -1703,18 +1739,39 @@ export function SectionEditorPanel({
                     mode="filter"
                     endpoint={parsedSection.endpoint as string}
                     dataPath={parsedSection.data_path as string | undefined}
-                    currentColumns={(parsedSection.columns as Array<{ key: string; label: string; type: "text" | "number" | "date" | "image" | "link" | "boolean" }>) || []}
+                    currentColumns={
+                      (parsedSection.columns as Array<{
+                        key: string;
+                        label: string;
+                        type:
+                          | "text"
+                          | "number"
+                          | "date"
+                          | "image"
+                          | "link"
+                          | "boolean";
+                      }>) || []
+                    }
                     currentTitle={parsedSection.title as string | undefined}
-                    currentFilter={parsedSection.global_filter as string | undefined}
+                    currentFilter={
+                      parsedSection.global_filter as string | undefined
+                    }
                     locale={locale}
                     onApplyContent={() => {}}
                     onApplyFilter={(filterBase64) => {
                       try {
-                        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                        const parsed = safeYamlLoad(yamlContent) as Record<
+                          string,
+                          unknown
+                        >;
                         if (!parsed || typeof parsed !== "object") return;
                         pushUndoState(yamlContent);
                         parsed.global_filter = filterBase64;
-                        const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                        const newYaml = safeYamlDump(parsed, {
+                          lineWidth: -1,
+                          noRefs: true,
+                          quotingType: '"',
+                        });
                         setYamlContent(newYaml);
                         setHasChanges(true);
                         setParseError(null);
@@ -1725,11 +1782,18 @@ export function SectionEditorPanel({
                     }}
                     onRemoveFilter={() => {
                       try {
-                        const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                        const parsed = safeYamlLoad(yamlContent) as Record<
+                          string,
+                          unknown
+                        >;
                         if (!parsed || typeof parsed !== "object") return;
                         pushUndoState(yamlContent);
                         delete parsed.global_filter;
-                        const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                        const newYaml = safeYamlDump(parsed, {
+                          lineWidth: -1,
+                          noRefs: true,
+                          quotingType: '"',
+                        });
                         setYamlContent(newYaml);
                         setHasChanges(true);
                         setParseError(null);
@@ -2291,18 +2355,18 @@ export function SectionEditorPanel({
                                           <Label className="text-xs text-muted-foreground">
                                             {label}
                                           </Label>
-                                          <Input
+                                          <LinkPicker
                                             value={currentValue}
-                                            onChange={(e) =>
+                                            onChange={(url) =>
                                               updateNestedField(
                                                 index,
                                                 fieldKey,
-                                                e.target.value,
+                                                url,
                                               )
                                             }
-                                            placeholder={`https://...`}
-                                            className="h-8 text-sm"
-                                            data-testid={`props-grouped-link-${fieldKey}-${index}`}
+                                            locale={locale}
+                                            allSections={allSections}
+                                            testId={`props-grouped-link-${fieldKey}-${index}`}
                                           />
                                         </div>
                                       );

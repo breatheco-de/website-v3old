@@ -123,12 +123,16 @@ export default function ComponentPreview() {
 
   useEffect(() => {
     if (sections.length > 0) {
+      const modalSection = sections.find(s => s.type === "modal" && s.section_id);
+      if (modalSection) {
+        window.location.hash = modalSection.section_id!;
+      }
       const timeouts = [50, 200, 500, 1000].map(delay => 
         setTimeout(reportHeight, delay)
       );
       return () => timeouts.forEach(clearTimeout);
     }
-  }, [sections, reportHeight]);
+  }, [sections, reportHeight, componentType]);
 
   useEffect(() => {
     if (!containerRef.current) return;

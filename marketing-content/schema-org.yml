@@ -225,6 +225,28 @@ courses:
         name: "Ingeniería de IA"
         description: "Domina la ingeniería de IA con proyectos prácticos construyendo aplicaciones de IA listas para producción. Aprende sistemas RAG, orquestación multi-agente, ingeniería de prompts y despliegue de IA en tiempo real usando Python, LangChain y frameworks modernos de IA."
 
+  ai-for-professionals:
+    type: "Course"
+    name: "AI for Professionals"
+    description: "Master practical AI tools in just 6 weeks. Learn to leverage generative AI for content creation, workflow automation, and professional productivity using ChatGPT, Claude, Gemini, and no-code platforms."
+    provider: "@organization"
+    educational_level: "Beginner"
+    time_required: "PT90H"
+    teaches:
+      - "Generative AI"
+      - "Prompt Engineering"
+      - "ChatGPT"
+      - "Claude"
+      - "Gemini"
+      - "AI Content Creation"
+      - "Workflow Automation"
+      - "No-Code AI Tools"
+      - "AI Chatbots"
+    locales:
+      es:
+        name: "IA para Profesionales"
+        description: "Domina herramientas prácticas de IA en solo 6 semanas. Aprende a aprovechar la IA generativa para creación de contenido, automatización de flujos de trabajo y productividad profesional usando ChatGPT, Claude, Gemini y plataformas sin código."
+
 # ItemList schema for course catalogs
 item_lists:
   career-programs:

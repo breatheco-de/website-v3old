@@ -59,9 +59,9 @@ export default function BlogPostPage() {
   const handleLinkClick = useInternalNav();
 
   const { data: post, isLoading, error } = useQuery<BlogPost>({
-    queryKey: ["/api/blog/posts", slug],
+    queryKey: ["/api/blog/posts", slug, locale],
     queryFn: async () => {
-      const response = await apiFetch(`/api/blog/posts/${slug}`);
+      const response = await apiFetch(`/api/blog/posts/${slug}?locale=${locale}`);
       if (!response.ok) throw new Error("Blog post not found");
       return response.json();
     },

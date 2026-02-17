@@ -61,7 +61,6 @@ import {
   IconDotsVertical,
   IconDownload,
   IconPhoto,
-  IconBrowserPlus,
 } from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { useSyncOptional } from "@/contexts/SyncContext";
@@ -746,15 +745,37 @@ export function DebugBubble() {
     }
   }, [pathname, contentInfo.type, contentInfo.slug]);
 
-  // Auto-fetch page diagnostics when debug mode is active (on every page)
+  // Auto-fetch page diagnostics when debug mode is active (on every page, including preview routes)
   useEffect(() => {
-    if (!isDebugMode || pathname.startsWith('/private/')) {
+    if (!isDebugMode) {
       setPageDiagnostics(null);
       return;
     }
+
+    let diagnosticsUrl: string | null = null;
+
+    if (pathname.startsWith('/private/preview/') && contentInfo.type && contentInfo.slug) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const locale = normalizeLocale(searchParams.get('locale') || 'en');
+      const urlMap: Record<string, Record<string, string>> = {
+        programs: { en: `/en/career-programs/${contentInfo.slug}`, es: `/es/programas-de-carrera/${contentInfo.slug}` },
+        pages: { en: `/en/${contentInfo.slug}`, es: `/es/${contentInfo.slug}` },
+        locations: { en: `/en/location/${contentInfo.slug}`, es: `/es/ubicacion/${contentInfo.slug}` },
+        landings: { en: `/landing/${contentInfo.slug}`, es: `/landing/${contentInfo.slug}` },
+      };
+      diagnosticsUrl = urlMap[contentInfo.type]?.[locale] || urlMap[contentInfo.type]?.en || null;
+    } else if (!pathname.startsWith('/private/')) {
+      diagnosticsUrl = pathname;
+    }
+
+    if (!diagnosticsUrl) {
+      setPageDiagnostics(null);
+      return;
+    }
+
     setPageDiagnosticsLoading(true);
     setPageDiagnostics(null);
-    fetch(`/api/diagnostics/page?url=${encodeURIComponent(pathname)}`)
+    fetch(`/api/diagnostics/page?url=${encodeURIComponent(diagnosticsUrl)}`)
       .then((res) => {
         if (!res.ok) return null;
         return res.json();
@@ -764,7 +785,7 @@ export function DebugBubble() {
       })
       .catch(() => {})
       .finally(() => setPageDiagnosticsLoading(false));
-  }, [pathname, isDebugMode]);
+  }, [pathname, isDebugMode, contentInfo.type, contentInfo.slug]);
 
   const pageErrorCount = useMemo(() => {
     if (!pageDiagnostics) return 0;
@@ -2224,6 +2245,21 @@ export function DebugBubble() {
                     testId="link-redirects-page"
                     rightContent={<span className="text-xs text-muted-foreground">{redirectsList.length || '...'}</span>}
                   />
+                  <MenuItem
+                    icon={IconBook}
+                    label="Blog"
+                    onClick={clearBlogCache}
+                    testId="button-clear-blog-cache"
+                    rightContent={
+                      blogCacheClearStatus === "loading" ? (
+                        <IconRefresh className="h-3.5 w-3.5 animate-spin" />
+                      ) : blogCacheClearStatus === "success" ? (
+                        <IconCheck className="h-3.5 w-3.5 text-chart-3" />
+                      ) : (
+                        <IconRefresh className="h-3.5 w-3.5" />
+                      )
+                    }
+                  />
                 </ExpandableMenuItem>
                 
                 <ExpandableMenuItem
@@ -2250,13 +2286,6 @@ export function DebugBubble() {
                     indicator="chevron"
                     testId="button-menus-menu"
                   />
-                  <MenuItem
-                    icon={IconBrowserPlus}
-                    label="Modals"
-                    disabled
-                    testId="placeholder-modals-menu"
-                    rightContent={<span className="text-xs text-muted-foreground">Soon</span>}
-                  />
                 </ExpandableMenuItem>
                 
                 <MenuItem
@@ -2275,22 +2304,6 @@ export function DebugBubble() {
                   testId="link-diagnostics"
                 />
 
-                <MenuItem
-                  icon={IconBook}
-                  label="Blog Cache"
-                  onClick={clearBlogCache}
-                  testId="button-clear-blog-cache"
-                  rightContent={
-                    blogCacheClearStatus === "loading" ? (
-                      <IconRefresh className="h-3.5 w-3.5 animate-spin" />
-                    ) : blogCacheClearStatus === "success" ? (
-                      <IconCheck className="h-3.5 w-3.5 text-chart-3" />
-                    ) : (
-                      <IconRefresh className="h-3.5 w-3.5" />
-                    )
-                  }
-                />
-                
                 {contentInfo.type && contentInfo.slug && (
                   <MenuItem
                     icon={IconFlask}

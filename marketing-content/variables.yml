@@ -1,32 +1,60 @@
 call_to_action_text:
   default: "Apply now"
-  by_locale:
-    es: "Aplica ahora"
-  by_region:
-    latam: "Aplica ahora"
-    europe: "Apply now"
-  by_location:
-    santiago-de-chile: "Solicita tu plaza"
-    caracas: "Aplica ya"
-    madrid-spain: "Solicita tu plaza"
-    buenos-aires-argentina: "Aplica ahora"
+  conditions:
+    - query:
+        location: "santiago-de-chile"
+      value: "Solicita tu plaza"
+    - query:
+        location: "caracas"
+      value: "Aplica ya"
+    - query:
+        location: "madrid-spain"
+      value: "Solicita tu plaza"
+    - query:
+        location: "buenos-aires-argentina"
+      value: "Aplica ahora"
+    - query:
+        region: "latam"
+      value: "Aplica ahora"
+    - query:
+        region: "europe"
+      value: "Apply now"
+    - query:
+        locale: "es"
+      value: "Aplica ahora"
 campus_phone:
   default: "+1 (786) 416-6640"
-  by_location:
-    santiago-de-chile: "+56 9 5765 3466"
-    madrid-spain: "+34 910 86 69 83"
-    caracas: "+58 212-555-0100"
+  conditions:
+    - query:
+        location: "santiago-de-chile"
+      value: "+56 9 5765 3466"
+    - query:
+        location: "madrid-spain"
+      value: "+34 910 86 69 83"
+    - query:
+        location: "caracas"
+      value: "+58 212-555-0100"
 sample_greeting:
   default: "Welcome to 4Geeks Academy"
-  by_locale:
-    es: "Bienvenido a 4Geeks Academy"
-  by_region:
-    latam: "Bienvenido a 4Geeks Academy"
-    europe: "Welcome to 4Geeks Academy"
-  by_location:
-    downtown-miami: "Welcome to 4Geeks Miami"
-    santiago-de-chile: "Bienvenido a 4Geeks Santiago"
-    madrid-spain: "Bienvenido a 4Geeks Madrid"
+  conditions:
+    - query:
+        location: "downtown-miami"
+      value: "Welcome to 4Geeks Miami"
+    - query:
+        location: "santiago-de-chile"
+      value: "Bienvenido a 4Geeks Santiago"
+    - query:
+        location: "madrid-spain"
+      value: "Bienvenido a 4Geeks Madrid"
+    - query:
+        region: "latam"
+      value: "Bienvenido a 4Geeks Academy"
+    - query:
+        region: "europe"
+      value: "Welcome to 4Geeks Academy"
+    - query:
+        locale: "es"
+      value: "Bienvenido a 4Geeks Academy"
 workflowlele:
   default: "workflows"
 global_job_placement_rate:
@@ -35,11 +63,25 @@ global_salary_increase:
   default: "55"
 global_review_rating:
   default: "4.9"
+  conditions:
+    - query:
+        location: "madrid-spain"
+      value: "4.8"
 global_review_count:
   default: "3,000"
-  by_locale:
-    es: "3.000"
+  conditions:
+    - query:
+        locale: "es"
+      value: "3.000"
 global_teacher_student_ratio:
   default: "1:7"
-  by_location:
-    madrid-spain: "1:8"
+  conditions:
+    - query:
+        location: "madrid-spain"
+      value: "1:8"
+test_condition_var:
+  default: "default_val"
+  conditions:
+    - query:
+        location: "madrid-spain"
+      value: "4.8"

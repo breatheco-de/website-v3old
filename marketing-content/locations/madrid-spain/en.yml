@@ -1,6 +1,49 @@
+slug: madrid-spain
+name: Madrid
+city: Madrid
+country: Spain
+country_code: ES
+latitude: 40.4168
+longitude: -3.7038
+region: europe
+default_language: es
+timezone: Europe/Madrid
+visibility: listed
+phone: +34 910 86 69 83
+address: Calle de Alcalá 54, 28014 Madrid
+available_programs:
+  - full-stack
+context:
+  when_to_use: For Madrid-area visitors or those interested in tech opportunities in Spain's largest and fastest-growing tech ecosystem.
+  target_audience: Local Madrid residents, professionals seeking career transitions into tech, Latin American expats in Spain, and EU citizens attracted by Spain's digital nomad visa and startup-friendly policies.
+  goals:
+    - Position Madrid as Europe's #1 emerging startup ecosystem and Spain's leading tech hub
+    - Emphasize bilingual (Spanish/English) support and international community
+    - Highlight the 25,000+ unfilled developer positions and strong hiring demand across fintech, AI, and cybersecurity
+    - Showcase Madrid's role as a gateway between European and Latin American tech markets
+catalog:
+  admission_advisors:
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
+      languages:
+        - en
+        - es
+schema:
+  include:
+    - organization
+    - website
+  overrides:
+    organization:
+      address:
+        "@type": PostalAddress
+        streetAddress: Calle de Alcalá 54
+        addressLocality: Madrid
+        postalCode: "28014"
+        addressCountry: ES
 meta:
   page_title: 4Geeks Academy Madrid | Coding Bootcamp in Spain
-  description: Join 4Geeks Madrid coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and job guarantee.
+  description: Join 4Geeks Madrid coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and career support in Europe's top emerging tech ecosystem.
   robots: index, follow
   og_image: /images/locations/madrid-og.jpg
   priority: 0.8
@@ -11,11 +54,11 @@ meta:
     - /es/madrid
 sections:
   - type: hero
-    variant: singleColumn
     version: "1.0"
+    variant: singleColumn
+    title: Launch an AI-Ready Tech Career in Madrid
+    subtitle: Train for today's most in-demand tech roles in Europe's #1 emerging startup ecosystem. Madrid holds 47% of Spain's tech jobs, with 25,000+ developer positions unfilled. Learn online or in person with live instruction, hands-on projects, and personalized career support built for real hiring.
     badge: Madrid Campus
-    title: 4Geeks Academy Madrid
-    subtitle: Spain's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
     cta_buttons:
       - text: Apply Now
         url: /apply?location=madrid-spain
@@ -23,33 +66,264 @@ sections:
       - text: Download Syllabus
         url: /syllabus
         variant: outline
-  - type: features_grid
-    version: "1.0"
-    title: Why Choose Madrid?
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
     items:
-      - icon: Building
-        title: Capital City
-        description: Spain's capital and largest tech market.
-      - icon: Users
-        title: Major Tech Hub
-        description: Home to major tech companies and growing startup scene.
-      - icon: TrendingUp
-        title: Investment Growth
-        description: Increasing VC investment and tech company expansions.
-      - icon: Briefcase
-        title: Career Network
-        description: Strong connections with Spain's largest employers.
-  - type: programs_list
+      - id: switchup-2025
+        logo: /attached_assets/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: /attached_assets/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: /attached_assets/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: /attached_assets/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+    marginY:
+      desktop: lg none
+  - type: banner
     version: "1.0"
-    title: Programs Available in Madrid
-    filter_by_location: madrid-spain
+    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    avatars:
+      - https://randomuser.me/api/portraits/women/1.jpg
+      - https://randomuser.me/api/portraits/men/2.jpg
+      - https://randomuser.me/api/portraits/women/3.jpg
+      - https://randomuser.me/api/portraits/men/4.jpg
+    title: At the Heart of Spain's Tech Revolution
+    description: Madrid has surpassed Barcelona to become Spain's #1 tech hub, home to 2,100+ startups and a tech ecosystem valued at over 44 billion euros. From our Madrid campus, we connect students with local employers, alumni, and builders shaping Spain's booming tech scene through hands-on events, tech talks, and hiring-focused meetups.
+    background: gradient
+    marginY:
+      desktop: lg none
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/4n-ZAUPIxJI
+    right:
+      heading: Why Spain's Tech Boom Creates Opportunity for New Developers
+      sub_heading: Madrid leads Spain's digital transformation with 47% of all tech jobs and a rapidly growing startup ecosystem
+      description: Spain's tech sector grew 5.8% in 2024, generating over 120 billion euros in turnover. Madrid attracts 85% of all foreign tech investment in the country and ranks #3 in Europe for engineering talent density, making it one of the best places to launch a tech career.
+      button:
+        text: Learn more about our programs
+        url: /en/full-stack
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: none md
+  - type: course_selector
+    version: "1.0"
+    variant: default
+    heading: Programs Covered by the Job Guarantee
+    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    courses:
+      - name: Full Stack Development
+        duration: 9 months part-time
+        label: Updated in 2025
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
+        price: $439
+        original_price: $588
+        price_info: with 4Geeks Installments
+        cta_text: Discover program
+        cta_url: /en/full-stack
+        course_background: hsl(var(--primary) / 0.4)
+      - name: AI and Machine Learning
+        duration: 9 months part-time
+        label: Updated in 2025
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Brain
+            text: LLMs & Generative AI training
+        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
+        price: $439
+        original_price: $588
+        price_info: with 4Geeks Installments
+        cta_text: Discover program
+        cta_url: /en/ai-machine-learning
+        course_background: accent
+      - name: Cybersecurity
+        duration: 9 months part-time
+        label: Updated in 2025
+        title: Cybersecurity
+        badges:
+          - icon: Code
+            text: Threat detection & system protection
+        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
+        price: $439
+        original_price: $588
+        price_info: with 4Geeks Installments
+        cta_text: Discover program
+        cta_url: /en/cybersecurity
+        course_background: hsl(var(--color-pink))
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: Everything You Need to Succeed in an AI-Driven Industry
+    description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
+    bullets:
+      - heading: 1:1 Mentorship, Unlimited and for Life
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
+      - heading: AI-Powered Learning Support
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
+      - heading: Career Support, Unlimited and for Life
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
+      - heading: An Active Global Tech Community
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
+    image: /attached_assets/caracas-graduates_1765387638222.png
+    image_alt: Student working on AI project
+    image_object_fit: cover
+    paddingY:
+      desktop: md none
+  - type: testimonials_slide
+    title: Proven Paths to Tech Careers
+    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    background: bg-sidebar
+  - type: split_cards
+    variant: primary-left
+    primary:
+      heading: The Confidence of a Job Guarantee
+      description: |
+        The strongest proof that our approach works? We're willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
+      badge: Results-Backed Promise
+    secondary:
+      benefits:
+        - text: 84% hiring rate among graduates
+        - text: 3–6 months average time to get hired
+        - text: 55% average salary increase in tech roles
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none xl
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Why Madrid Is the Place to Launch Your Tech Career
+    subtitle: Europe's #1 emerging startup ecosystem with massive hiring demand
+    description: "Madrid has emerged as Spain's undisputed tech capital, surpassing Barcelona for the first time in total tech companies, startups, and scaleups. With over 2,100 tech startups and an ecosystem valued at 44 billion euros, the city offers unmatched opportunity for developers entering the market.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid holds 47% of all tech jobs in Spain, with 25,000+ developer positions currently unfilled nationwide&nbsp;&nbsp;</span></li><li>Ranked #1 globally as an emerging startup ecosystem by Startup Genome, and #3 in Europe for engineering talent density&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, cybersecurity, travel tech, and enterprise software sectors&nbsp;&nbsp;</li></ul></div><div>Located in the heart of the city, our Madrid campus connects you with local employers, hiring partners, and tech events through South Summit, Google Campus Madrid, and a thriving network of accelerators and VCs.</div></div>"
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
     version: "1.0"
     title: Madrid Graduate Success Stories
     filter_by_location: madrid-spain
+    marginY:
+      desktop: none lg
+  - type: testimonials
+    version: v1.0
+    title: What Our Students Say
+    subtitle: Hear directly from graduates who transformed their careers
+    rating_summary:
+      average: "4.9"
+      count: 2,847
+    items:
+      - name: Maria Rodriguez
+        role: Software Engineer
+        company: Google
+        rating: 5
+        comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
+        outcome: Hired in 4 months
+      - name: James Chen
+        role: Full Stack Developer
+        company: Spotify
+        rating: 5
+        comment: The mentorship was incredible. Having unlimited access to senior developers made all the difference.
+        outcome: 3x salary increase
+      - name: Sarah Williams
+        role: Frontend Developer
+        company: Meta
+        rating: 5
+        comment: The AI-powered learning tools helped me understand complex concepts faster than any other course I've tried.
+        outcome: Career change at 35
+      - name: Carlos Mendez
+        role: Backend Engineer
+        company: Amazon
+        rating: 4
+        comment: Practical projects and real-world scenarios prepared me better than my computer science degree.
+        outcome: Remote work achieved
+      - name: Emily Thompson
+        role: DevOps Engineer
+        company: Netflix
+        rating: 5
+        comment: The career support team helped me negotiate a 50% higher salary than I expected.
+        outcome: 50% salary boost
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
+        outcome: Promoted in 1 year
+  - type: faq
+    title: Frequently Asked Questions
+    related_features:
+      - certification
+      - job-guarantee
+    marginY:
+      desktop: lg none
+    background: hsl(var(--muted))
+    paddingY:
+      desktop: md lg
   - type: cta_banner
     version: "1.0"
     title: Ready to Start Your Tech Career in Madrid?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now
     cta_url: /apply?location=madrid-spain
+    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+  - type: footer
+    version: v1.0
+    copyright_text: 2024 4Geeks Academy. All rights reserved.
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
