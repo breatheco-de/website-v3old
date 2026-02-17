@@ -9,6 +9,7 @@ meta:
   description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
   redirects:
     - /home
+    - /us/index
 schema:
   include:
     - organization
@@ -27,7 +28,7 @@ sections:
       text: Get Started
       url: /programs
       variant: primary
-      icon: ""
+      icon: ''
     left_images:
       - src: /attached_assets/community_1764717588840.png
         alt: Community illustration
@@ -80,8 +81,8 @@ sections:
       - src: /attached_assets/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
-      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
+      heading: '<span style="font-size: 1.25rem;"><span style="font-size: 1.25rem;">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>'
+      text: '<span style="font-size: 1.125rem;"><span><span><span style="font-size: 1.25rem;">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>'
       background: primary
       width: 2
     height: 31rem
@@ -93,7 +94,7 @@ sections:
     paddingY:
       desktop: md none
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -108,7 +109,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        description: 'Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  '
         price: $349
         price_info: or less depending on financing plan
         cta_text: View Program Details
@@ -125,9 +126,9 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+          - icon: ''
+            text: ''
+        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
         price: $299
         price_info: or less depending on financing plan
         cta_text: View Program Details
@@ -143,7 +144,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        description: 'Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  '
         price: $299
         price_info: or less depending on financing plan
         cta_text: View Program Details
@@ -159,7 +160,7 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        description: 'Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  '
         price: $299
         price_info: or less depending on financing plan
         cta_text: View Program Details
@@ -172,7 +173,7 @@ sections:
       desktop: md lg
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Where AI-Powered Learning Meets Lifelong Mentorship
     description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
     bullets:
@@ -305,7 +306,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: highlight
     title: Real Outcomes for Our Graduates
     subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
@@ -320,7 +321,7 @@ sections:
         value: 55%
         title: Salary increase after graduation
     columns: 3
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     background: hsl(var(--secondary))
   - type: testimonials_slide
     title: Real Graduates, Real Career Results
