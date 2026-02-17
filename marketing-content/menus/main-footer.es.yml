@@ -10,7 +10,7 @@ footer:
           href: /en/career-programs/data-science-ml
         - label: Precios
           href: /en/financials
-        - label: Eventos
+        - label: Próximas Fechas
           href: /en/next-dates
         - label: Próximas Fechas
           href: /en/next-dates
@@ -64,9 +64,9 @@ footer:
           href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: Para Empresas
       items:
-        - label: '[TRANSLATE] New Item 1'
+        - label: '[TRANSLATE] New Item 3'
           href: /new-page
-        - label: '[TRANSLATE] New Item 2'
+        - label: '[TRANSLATE] New Item 3'
           href: /new-page
         - label: '[TRANSLATE] New Item 3'
           href: /new-page
@@ -84,11 +84,11 @@ footer:
       icon: instagram
       link: https://www.instagram.com/4geeksacademylatam/
   legal_links:
-    - label: Política de Privacidad
-      href: /es/politica-de-privacidad
-    - label: Cookies
-      href: /es/cookies
-    - label: Términos y Condiciones
-      href: /es/terminos-y-condiciones
+    - label: '[TRANSLATE] Privacy Policy'
+      href: /en/privacy-policy
+    - label: '[TRANSLATE] Cookies'
+      href: /en/cookies
+    - label: '[TRANSLATE] Terms and Conditions'
+      href: /en/terms-and-conditions
   subscribe_text: Suscríbete para más
   copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
