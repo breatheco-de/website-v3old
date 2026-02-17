@@ -114,20 +114,25 @@ interface EditableLinkItemProps {
   href: string;
   onLabelChange: (label: string) => void;
   onHrefChange: (href: string) => void;
+  onSave?: (label: string, href: string) => void;
   onDelete: () => void;
   testIdPrefix: string;
   isReadOnlyStructure?: boolean;
   locale?: string;
 }
 
-export function EditableLinkItem({ label, href, onLabelChange, onHrefChange, onDelete, testIdPrefix, isReadOnlyStructure = false, locale = "en" }: EditableLinkItemProps) {
+export function EditableLinkItem({ label, href, onLabelChange, onHrefChange, onSave, onDelete, testIdPrefix, isReadOnlyStructure = false, locale = "en" }: EditableLinkItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempLabel, setTempLabel] = useState(label);
   const [tempHref, setTempHref] = useState(href);
 
   const handleSave = () => {
-    onLabelChange(tempLabel);
-    onHrefChange(tempHref);
+    if (onSave) {
+      onSave(tempLabel, tempHref);
+    } else {
+      onLabelChange(tempLabel);
+      onHrefChange(tempHref);
+    }
     setIsEditing(false);
   };
 
