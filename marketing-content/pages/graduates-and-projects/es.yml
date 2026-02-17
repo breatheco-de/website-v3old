@@ -9,6 +9,7 @@ meta:
   description: 'Explora proyectos finales de graduados de 4Geeks Academy: apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.'
   redirects:
     - /es/alumnos-y-proyectos
+    - /es/graduados
 schema:
   include:
     - organization
