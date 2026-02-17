@@ -4228,13 +4228,14 @@ sections: []
     }
   });
 
-  const imageUpload = multer({
+  const mediaUpload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 10 * 1024 * 1024 },
+    limits: { fileSize: 100 * 1024 * 1024 },
     fileFilter: (_req, file, cb) => {
-      const allowed = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const allowedImages = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const allowedVideos = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
       const ext = path.extname(file.originalname).toLowerCase();
-      if (allowed.includes(ext)) {
+      if ([...allowedImages, ...allowedVideos].includes(ext)) {
         cb(null, true);
       } else {
         cb(new Error(`Unsupported file type: ${ext}`));
@@ -4242,7 +4243,7 @@ sections: []
     },
   });
 
-  app.post("/api/image-registry/upload", imageUpload.single("file"), async (req, res) => {
+  app.post("/api/image-registry/upload", mediaUpload.single("file"), async (req, res) => {
     try {
       const file = (req as any).file;
       if (!file) {

@@ -1,3 +1,4 @@
+import { useState, useRef, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Accordion,
@@ -5,10 +6,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { UniversalImage } from "@/components/UniversalImage";
+import { UniversalVideo } from "@/components/UniversalVideo";
 
 interface AccordionBullet {
   heading: string;
   text: string;
+}
+
+interface VideoConfig {
+  url?: string;
+  ratio?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
 }
 
 interface TwoColumnAccordionCardImageBackgroundData {
@@ -21,14 +32,27 @@ interface TwoColumnAccordionCardImageBackgroundData {
   image_object_fit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   image_object_position?: string;
   reverse?: boolean;
+  video?: VideoConfig;
 }
 
 interface TwoColumnAccordionCardImageBackgroundProps {
   data: TwoColumnAccordionCardImageBackgroundData;
 }
 
+const isDirectVideoUrl = (url: string): boolean => {
+  return /\.(mp4|webm|mov|ogg|m4v)(\?.*)?$/i.test(url);
+};
+
 export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordionCardImageBackgroundProps) {
-  const { title, description, bullets, footer, image, image_alt, image_object_fit, image_object_position, reverse } = data;
+  const { title, description, bullets, footer, image, image_alt, image_object_fit, image_object_position, reverse, video } = data;
+  const hasVideo = video?.url && video.url.trim().length > 0;
+  const isAutoplayLocal = hasVideo && isDirectVideoUrl(video.url!) && (video.autoplay ?? true);
+  const [videoReady, setVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleVideoCanPlay = useCallback(() => {
+    setVideoReady(true);
+  }, []);
 
   return (
     <section className="" data-testid="section-two-column-accordion-card">
@@ -80,23 +104,69 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
                 )}
               </div>
 
-              {image && (
+              {(image || hasVideo) && (
                 <div className={`col-span-1 md:col-span-5 flex items-center ${reverse ? "md:order-1 justify-start" : "md:order-2 justify-end"}`}>
                   <div 
                     className={`relative bg-none md:bg-primary/30 rounded-2xl pt-0 md:py-14 ${reverse ? "md:pr-4 pl-0" : "pl-0 md:pl-4 pr-0"} flex items-center ${reverse ? "justify-start" : "justify-end"} min-h-[200px] md:min-h-[400px] w-full`}
                     data-testid="img-two-column-accordion-background"
                   >
-                    <div className="w-full md:w-[90%] flex items-center justify-end">
-                      <img
-                        src={image}
-                        alt={image_alt || ""}
-                        className={`w-full h-auto rounded-lg shadow-lg`}
-                        style={{
-                          objectFit: image_object_fit || "contain",
-                          objectPosition: image_object_position || "center center",
-                        }}
-                        data-testid="img-two-column-accordion"
-                      />
+                    <div className="w-full md:w-[90%] flex items-center justify-end relative">
+                      {isAutoplayLocal ? (
+                        <div className="relative w-full rounded-lg shadow-lg overflow-hidden" data-testid="video-two-column-accordion">
+                          <video
+                            ref={videoRef}
+                            src={video!.url!}
+                            autoPlay
+                            loop={video!.loop ?? true}
+                            muted={video!.muted ?? true}
+                            playsInline
+                            onCanPlay={handleVideoCanPlay}
+                            className="w-full h-auto rounded-lg"
+                            style={{
+                              objectFit: image_object_fit || "contain",
+                              objectPosition: image_object_position || "center center",
+                            }}
+                          />
+                          {image && (
+                            <div
+                              className="absolute inset-0 transition-opacity duration-700 ease-in-out pointer-events-none"
+                              style={{ opacity: videoReady ? 0 : 1 }}
+                              data-testid="img-video-overlay"
+                            >
+                              <UniversalImage
+                                id={image}
+                                alt={image_alt || ""}
+                                className="w-full h-full object-cover rounded-lg"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ) : hasVideo ? (
+                        <div
+                          className="w-full rounded-lg overflow-hidden shadow-lg"
+                          data-testid="video-two-column-accordion"
+                        >
+                          <UniversalVideo
+                            url={video!.url!}
+                            ratio={video!.ratio || "16:9"}
+                            autoplay={video!.autoplay ?? true}
+                            loop={video!.loop ?? true}
+                            muted={video!.muted ?? true}
+                            preview_image_url={image}
+                            className="w-full"
+                          />
+                        </div>
+                      ) : image ? (
+                        <UniversalImage
+                          id={image}
+                          alt={image_alt || ""}
+                          className="w-full h-auto rounded-lg shadow-lg"
+                          style={{
+                            objectFit: image_object_fit || "contain",
+                            objectPosition: image_object_position || "center center",
+                          }}
+                        />
+                      ) : null}
                     </div>
                   </div>
                 </div>
