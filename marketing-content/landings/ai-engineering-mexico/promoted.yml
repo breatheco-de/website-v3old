@@ -204,7 +204,7 @@ sections:
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: $300K – $1,800,000 MXN
+      - value: $300K-$1.8M MXN
         title: Salario anual promedio para ingenieros de IA
     marginY:
       mobile: md none
@@ -433,10 +433,10 @@ sections:
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: "Ingeniero de software IA: $650,000-$990,000 MXN"
-      - text: "Ingeniero full-stack (IA): $700,000-$1,000,000 MXN"
-      - text: "Ingeniero de agentes: $700,000-$1,200,000 MXN"
-      - text: "Ingeniero de automatización de flujos: $600,000-$900,000"
+      - text: "Ingeniero de software IA: $650K – $990K MXN"
+      - text: "Ingeniero full-stack (IA): $700K – $1.1M MXN"
+      - text: "Ingeniero de agentes: $800K – $1.2M MXN"
+      - text: "Ingeniero de automatización de flujos: $600K – $950K MXN"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -461,10 +461,10 @@ sections:
         label: Aumento salarial promedio
         description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: "Ingeniero de software IA: $650,000-$990,000 MXN"
-          - text: "Ingeniero full-stack (IA): $700,000-$1,000,000 MXN"
-          - text: "Ingeniero de IA: $800,000-$1,200,000 MXN"
-          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $600,000-$900,000"
+          - text: "Ingeniero de software IA:  $650K – $990K MXN"
+          - text: "Ingeniero full-stack (IA):  $700K – $1.1M MXN"
+          - text: "Ingeniero de IA: $800K – $1.2M MXN"
+          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $600K – $950K MXN"
       - value: 5,000+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
