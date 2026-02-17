@@ -633,8 +633,8 @@ export default function MenuEditor() {
       }
     },
     onSuccess: (response: any) => {
-      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName], exact: false });
-      queryClient.invalidateQueries({ queryKey: ["/api/menus"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName] });
+      queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
       refetch();
       setOriginalYaml(yamlSource);
       setHasChanges(false);

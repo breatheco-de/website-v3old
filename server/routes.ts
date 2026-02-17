@@ -1460,23 +1460,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const result: any = {};
     
     if (mf.columns) {
-      const transColsByTitle: Record<string, any> = {};
-      for (const tc of (tf.columns || [])) {
-        if (tc.title) transColsByTitle[tc.title] = tc;
-      }
-      
       result.columns = mf.columns.map((masterCol: any, idx: number) => {
-        const transCol = transColsByTitle[masterCol.title] || tf.columns?.[idx] || {};
-        
-        const transItemsByHref: Record<string, any> = {};
-        for (const ti of (transCol.items || [])) {
-          if (ti.href) transItemsByHref[ti.href] = ti;
-        }
-        
+        const transCol = tf.columns?.[idx] || {};
         return {
           title: transCol.title || `[TRANSLATE] ${masterCol.title}`,
-          items: (masterCol.items || []).map((masterItem: any) => {
-            const transItem = transItemsByHref[masterItem.href] || {};
+          items: (masterCol.items || []).map((masterItem: any, itemIdx: number) => {
+            const transItem = transCol.items?.[itemIdx] || {};
             return {
               label: transItem.label || `[TRANSLATE] ${masterItem.label}`,
               href: masterItem.href,
@@ -1487,13 +1476,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     if (mf.socials) {
-      const transSocialsByIcon: Record<string, any> = {};
-      for (const ts of (tf.socials || [])) {
-        if (ts.icon) transSocialsByIcon[ts.icon] = ts;
-      }
-      
-      result.socials = mf.socials.map((masterSocial: any) => {
-        const transSocial = transSocialsByIcon[masterSocial.icon] || {};
+      result.socials = mf.socials.map((masterSocial: any, idx: number) => {
+        const transSocial = tf.socials?.[idx] || {};
         return {
           name: transSocial.name || masterSocial.name,
           icon: masterSocial.icon,
@@ -1503,13 +1487,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     if (mf.legal_links) {
-      const transLinksByHref: Record<string, any> = {};
-      for (const tl of (tf.legal_links || [])) {
-        if (tl.href) transLinksByHref[tl.href] = tl;
-      }
-      
-      result.legal_links = mf.legal_links.map((masterLink: any) => {
-        const transLink = transLinksByHref[masterLink.href] || {};
+      result.legal_links = mf.legal_links.map((masterLink: any, idx: number) => {
+        const transLink = tf.legal_links?.[idx] || {};
         return {
           label: transLink.label || `[TRANSLATE] ${masterLink.label}`,
           href: transLink.href || masterLink.href,
