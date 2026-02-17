@@ -23,4 +23,4 @@ vite.config.ts.*
 
 # Cursor IDE settings (optional - uncomment if not sharing rules)
 # Note: .cursor/rules/ should be committed if sharing team rules
-# .cursor/
+# .cursor/.cache/

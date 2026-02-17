@@ -6,16 +6,18 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Graduate Projects & Alumni | 4Geeks Academy
-  description: "Explore final projects from 4Geeks Academy graduates: real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni."
+  description: 'Explore final projects from 4Geeks Academy graduates: real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.'
   redirects:
     - /graduates-and-projects
+    - /us/graduates
+    - /us/students-and-projects
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: See What Our Students Build
     subtitle: Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.
@@ -36,11 +38,11 @@ sections:
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Top Tech School
         source: Course Report
   - type: projects_showcase
-    version: "1.0"
+    version: '1.0'
     items:
       - project_title: Raspberry Sky
         project_url: https://sattelite-beta.vercel.app/
@@ -60,7 +62,7 @@ sections:
             alt: Raspberry Sky - Satellite access for everyone
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Inventory Tracking"
+      - project_title: 'IMS: Inventory Tracking'
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS is a Pharmacy Inventory and logistics tracking system built using Python, Javascript, React, and integration with Barcode Readers, SMS, the Twillio API, and GPS Tracking Systems. IMS holds stock quantities of all products stored and sold by the Drug Store and then tracks the vehicles that deliver those sells.
         creators:
@@ -115,7 +117,7 @@ sections:
             src: cKcZD0_1IKk
     background: hsl(210 100% 50% / 0.05)
   - type: about
-    version: "1.0"
+    version: '1.0'
     height: 420px
     title: More About 4Geeks Academy
     description: 4Geeks Academy was founded in 2015. What started as an internal project to train more developers has now become our full-time passion. 4Geeks is today a USA based Coding Bootcamp pursuing to build a new framework for Coding Education, because coding is becoming an essentials part of our society. 4Geeks Academy has now Locations in 12 cities, 13 on-going campus, and more than 600 graduates.

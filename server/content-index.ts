@@ -143,7 +143,8 @@ class ContentIndex {
             this.extractImageReferences(parsed, relFilePath);
             const locale = file.replace(/\.(yml|yaml)$/, "");
             if (parsed && this.contentTypeHasRedirects(contentType)) {
-              this.extractRedirects(parsed, slug, locale, contentType, relFilePath);
+              const localeSlugForRedirect = (parsed.slug && typeof parsed.slug === "string") ? parsed.slug : slug;
+              this.extractRedirects(parsed, slug, locale, contentType, relFilePath, localeSlugForRedirect);
             }
             if (parsed?.slug && typeof parsed.slug === "string") {
               const localeSlug = parsed.slug;
@@ -164,7 +165,7 @@ class ContentIndex {
   }
 
   private contentTypeHasRedirects(contentType: string): boolean {
-    return contentType === "programs" || contentType === "landings";
+    return contentType === "programs" || contentType === "landings" || contentType === "pages" || contentType === "locations";
   }
 
   private addImageRef(ref: string, filePath: string): void {
@@ -247,13 +248,14 @@ class ContentIndex {
     locale: string,
     contentType: string,
     filePath: string,
+    localeSlug?: string,
   ): void {
     const meta = parsed.meta as Record<string, unknown> | undefined;
     const redirects = meta?.redirects as unknown[] | undefined;
     if (!Array.isArray(redirects)) return;
 
     const isCommon = locale === "_common";
-    const singularType = contentType === "programs" ? "program" : contentType === "landings" ? "landing" : contentType;
+    const singularType = contentType === "programs" ? "program" : contentType === "landings" ? "landing" : contentType === "pages" ? "page" : contentType === "locations" ? "location" : contentType;
     const typeLabel = isCommon ? `${singularType}-common` : singularType;
 
     let targetTo: string | Record<string, string>;
@@ -263,7 +265,8 @@ class ContentIndex {
         targetTo = this.getCanonicalUrl(contentType, slug, "en");
       }
     } else {
-      targetTo = this.getCanonicalUrl(contentType, slug, locale);
+      const effectiveSlug = localeSlug || slug;
+      targetTo = this.getCanonicalUrl(contentType, effectiveSlug, locale);
     }
 
     for (const redirect of redirects) {
@@ -331,19 +334,7 @@ class ContentIndex {
     }
   }
 
-  private extractSlug(folderPath: string, folderName: string, files: string[]): string {
-    const candidates = ["en.yml", "en.yaml", "_common.yml", "_common.yaml"];
-    for (const candidate of candidates) {
-      if (files.includes(candidate)) {
-        try {
-          const content = fs.readFileSync(path.join(folderPath, candidate), "utf-8");
-          const parsed = yaml.load(content) as Record<string, unknown>;
-          if (parsed?.slug && typeof parsed.slug === "string") {
-            return parsed.slug;
-          }
-        } catch {}
-      }
-    }
+  private extractSlug(_folderPath: string, folderName: string, _files: string[]): string {
     return folderName;
   }
 

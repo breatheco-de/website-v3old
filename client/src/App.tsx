@@ -22,6 +22,8 @@ const OldHome = lazy(() => import("@/pages/old-home"));
 const ApplyPage = lazy(() => import("@/pages/ApplyPage"));
 const TermsPage = lazy(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
+const BlogListingPage = lazy(() => import("@/pages/BlogListingPage"));
+const BlogPostPage = lazy(() => import("@/pages/BlogPostPage"));
 
 function LoadingFallback() {
   return (
@@ -63,6 +65,11 @@ function Router() {
         <Route path="/es/ubicacion/:slug">
           {(params) => <ContentTypeDetail type="location" slug={params.slug} locale="es" />}
         </Route>
+        {/* Blog pages */}
+        <Route path="/en/blog" component={BlogListingPage} />
+        <Route path="/es/blog" component={BlogListingPage} />
+        <Route path="/en/blog/:slug" component={BlogPostPage} />
+        <Route path="/es/blog/:slug" component={BlogPostPage} />
         <Route path="/preview-frame" component={PreviewFrame} />
         <Route path="/private/*" component={PrivateRouter} />
         {/* Apply page - dedicated routes */}

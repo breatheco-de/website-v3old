@@ -1,4 +1,4 @@
-slug: scholarships
+slug: becas
 template: default
 title: scholarships
 meta:
@@ -6,4 +6,5 @@ meta:
   description: scholarships - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
     - /scholarships
+    - /es/20-millones
 sections: []

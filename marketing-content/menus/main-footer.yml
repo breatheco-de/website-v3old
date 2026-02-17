@@ -1,0 +1,98 @@
+footer:
+  columns:
+    - title: Company
+      items:
+        - label: Why 4Geeks
+          href: /en/why-4geeks
+        - label: Academy
+          href: /en/the-academy
+        - label: Partners
+          href: /en/career-programs/data-science-ml
+        - label: Pricing
+          href: /en/financials
+        - label: Events
+          href: /en/next-dates
+        - label: Upcoming Dates
+          href: /en/next-dates
+        - label: FAQ
+          href: /en/faq
+    - title: Programs
+      items:
+        - label: Data Science and Machine Learning with AI
+          href: /en/career-programs/data-science-ml
+        - label: AI Engineering
+          href: /en/career-programs/ai-engineering
+        - label: Cybersecurity
+          href: /en/career-programs/cybersecurity
+        - label: Full Stack with AI
+          href: /en/career-programs/full-stack
+    - title: Locations
+      items:
+        - label: Miami
+          href: /en/location/miami-usa
+        - label: Orlando
+          href: /new-page
+        - label: Toronto
+          href: /en/coding-campus/coding-bootcamp-toronto-canada
+        - label: Miami
+          href: /en/location/miami-usa
+        - label: Madrid
+          href: /en/coding-campus/coding-bootcamp-madrid
+        - label: Barcelona
+          href: /en/coding-campus/coding-bootcamp-barcelona-spain
+        - label: Valencia
+          href: /en/coding-campus/coding-bootcamp-valencia-spain
+        - label: Málaga
+          href: /en/coding-campus/coding-bootcamp-malaga-spain
+        - label: Chile
+          href: /en/coding-campus/coding-bootcamp-santiago
+        - label: Colombia
+          href: /en/coding-campus/coding-bootcamp-colombia
+        - label: Mexico
+          href: /en/coding-campus/coding-bootcamp-mexico
+        - label: Costa Rica
+          href: /en/coding-campus/coding-bootcamp-costa-rica
+        - label: Venezuela
+          href: /en/coding-campus/coding-bootcamp-caracas
+        - label: Argentina
+          href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
+        - label: Ecuador
+          href: /new-page
+        - label: Uruguay
+          href: /en/coding-campus/coding-bootcamp-uruguay
+        - label: Panama
+          href: /en/coding-campus/coding-bootcamp-panama
+        - label: Bolivia
+          href: /en/coding-campus/coding-bootcamp-bolivia
+        - label: Portugal
+          href: /en/coding-campus/coding-bootcamp-lisbon-portugal
+        - label: Berlin
+          href: /en/coding-campus/coding-bootcamp-berlin-germany
+    - title: For Companies
+      items:
+        - label: 4Geeks For Companies
+          href: /en/partners
+        - label: Talent
+          href: https://www.notion.so/4geeksacademy/Talent-Pipeline-4Geeks-Academy-ef91aba17f9c4964bf7972396d190bdf
+  socials:
+    - name: Linkedin
+      icon: linkedin
+      link: https://www.linkedin.com/school/4geeksacademy/
+    - name: Facebook
+      icon: facebook
+      link: https://www.facebook.com/4GeeksAcademy
+    - name: Twitter
+      icon: x-logo
+      link: https://twitter.com/4GeeksAcademy
+    - name: Instagram
+      icon: instagram
+      link: https://www.instagram.com/4GeeksAcademy
+  legal_links:
+    - label: Privacy Policy
+      href: /en/privacy-policy
+    - label: Cookies
+      href: /en/cookies
+    - label: Terms and Conditions
+      href: /en/terms-and-conditions
+  subscribe_text: Subscribe for more
+  copyright_text: 2024 4Geeks Academy. All rights reserved.

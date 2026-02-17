@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
@@ -9,9 +9,10 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Page() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const locale = location.startsWith("/es/") ? "es" : "en";
   const params = useParams<{ slug: string }>();
   const slug = params.slug || "";
@@ -27,6 +28,13 @@ export default function Page() {
     },
     enabled: !!slug,
   });
+
+  useEffect(() => {
+    if (page?.slug && page.slug !== slug) {
+      const correctUrl = `/${locale}/${page.slug}`;
+      setLocation(correctUrl, { replace: true });
+    }
+  }, [page?.slug, slug, locale, setLocation]);
 
   usePageMeta(page?.meta);
   useSchemaOrg(page?.schema);
@@ -77,6 +85,7 @@ export default function Page() {
         slug={slug}
         locale={locale}
       />
+      <Footer />
     </div>
   );
 }

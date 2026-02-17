@@ -63,13 +63,13 @@ import {
   loadCommonData,
   type ContentType,
 } from "./utils/contentLoader";
-import { getFolderFromSlug } from "@shared/slugMappings";
 import { normalizeLocale } from "@shared/locale";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
 import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItems, buildFaqPageSchema, type FaqSection } from "./ssr-schema";
+import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml } from "./blog";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -943,10 +943,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
-    // Resolve translated slug to folder name
-    const folder = getFolderFromSlug(slug, locale);
-
-    const page = loadTemplatePage(folder, locale);
+    const page = loadTemplatePage(slug, locale);
 
     if (!page) {
       res.status(404).json({ error: "Template page not found" });
@@ -1004,6 +1001,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================================================
+  // Blog API routes
+  // ============================================================================
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const locale = req.query.locale as string | undefined;
+      const posts = await getBlogPosts();
+      const filtered = locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts;
+      res.json({
+        count: filtered.length,
+        results: filtered,
+      });
+    } catch (error) {
+      console.error("[Blog] Error fetching posts:", error);
+      res.status(500).json({ error: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const locale = req.query.locale as string | undefined;
+      const posts = await getBlogPosts();
+      const post = findBlogPostBySlug(posts, slug, locale ? normalizeLocale(locale) : undefined);
+
+      if (!post) {
+        res.status(404).json({ error: "Blog post not found" });
+        return;
+      }
+
+      res.json(post);
+    } catch (error) {
+      console.error("[Blog] Error fetching post:", error);
+      res.status(500).json({ error: "Failed to fetch blog post" });
+    }
+  });
+
+  app.get("/api/blog/cache-status", (_req, res) => {
+    res.json(getBlogCacheStatus());
+  });
+
+  app.post("/api/debug/clear-blog-cache", (_req, res) => {
+    const result = clearBlogCache();
+    res.json(result);
+  });
+
   // Clear sitemap cache (requires token validation)
   app.post("/api/debug/clear-sitemap-cache", async (req, res) => {
     try {
@@ -1052,6 +1095,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
       count: redirects.length,
       redirects,
     });
+  });
+
+  app.get("/api/locale-urls", (req, res) => {
+    try {
+      const url = req.query.url as string;
+      if (!url) {
+        res.status(400).json({ error: "Missing 'url' query parameter" });
+        return;
+      }
+
+      let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
+      let slug: string | null = null;
+
+      const previewMatch = url.match(/^\/private\/preview\/(programs|pages|landings|locations)\/([^/?]+)/);
+      const programEn = url.match(/^\/en\/career-programs\/([^/]+)/);
+      const programEs = url.match(/^\/es\/programas-de-carrera\/([^/]+)/);
+      const locationEn = url.match(/^\/en\/location\/([^/]+)/);
+      const locationEs = url.match(/^\/es\/ubicacion\/([^/]+)/);
+      const landingMatch = url.match(/^\/(?:en\/|es\/)?landing\/([^/]+)/);
+      const pageEn = url.match(/^\/en\/([^/]+)$/);
+      const pageEs = url.match(/^\/es\/([^/]+)$/);
+
+      if (previewMatch) { contentType = previewMatch[1] as typeof contentType; slug = previewMatch[2]; }
+      else if (programEn) { contentType = "programs"; slug = programEn[1]; }
+      else if (programEs) { contentType = "programs"; slug = programEs[1]; }
+      else if (locationEn) { contentType = "locations"; slug = locationEn[1]; }
+      else if (locationEs) { contentType = "locations"; slug = locationEs[1]; }
+      else if (landingMatch) { contentType = "landings"; slug = landingMatch[1]; }
+      else if (pageEn) { contentType = "pages"; slug = pageEn[1]; }
+      else if (pageEs) { contentType = "pages"; slug = pageEs[1]; }
+
+      if (!contentType || !slug) {
+        res.status(400).json({ error: "Could not determine content type from URL" });
+        return;
+      }
+
+      const baseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const urls = contentIndex.getLocaleUrls(baseSlug, contentType);
+      res.json({ urls, contentType, slug: baseSlug });
+    } catch (err) {
+      console.error("[API] Failed to resolve locale URLs:", err);
+      res.status(500).json({ error: "Failed to resolve locale URLs" });
+    }
   });
 
   app.get("/api/debug/redirects/locale-urls", (req, res) => {
@@ -1226,7 +1312,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const entries = contentIndex.findBySlug(slug, { contentType });
+      const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const entries = contentIndex.findBySlug(resolvedSlug, { contentType });
       if (entries.length === 0) {
         res.status(404).json({ error: `No content found for slug "${slug}" in ${contentType}` });
         return;
@@ -1489,7 +1576,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Helper function to sync menu structure from English (master) to translation
-  function syncMenuStructure(master: any, translation: any): any {
+  function syncMenuStructure(master: any, translation: any, previousMaster?: any): any {
+    if (master?.footer) {
+      return syncFooterStructure(master, translation || {}, previousMaster);
+    }
+    
     if (!master?.navbar?.items || !translation?.navbar?.items) {
       return translation;
     }
@@ -1503,17 +1594,111 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const existingTranslation = translationItems[i];
       
       if (existingTranslation) {
-        // Keep translation text, sync structure
         const syncedItem = syncMenuItem(masterItem, existingTranslation);
         syncedItems.push(syncedItem);
       } else {
-        // New item - add with [TRANSLATE] placeholders
         const newItem = createTranslationPlaceholder(masterItem);
         syncedItems.push(newItem);
       }
     }
     
     return { navbar: { items: syncedItems } };
+  }
+  
+  function syncFooterStructure(master: any, translation: any, previousMaster?: any): any {
+    const mf = master.footer;
+    const tf = translation.footer || {};
+    const pf = previousMaster?.footer || {};
+    const result: any = {};
+
+    result.columns = (tf.columns || []).map((transCol: any) => ({
+      title: transCol.title,
+      items: (transCol.items || []).map((transItem: any) => ({
+        label: transItem.label,
+        href: transItem.href,
+      })),
+    }));
+
+    if (mf.columns) {
+      const prevColumns = pf.columns || [];
+      const prevColTitleToIndex = new Map<string, number>();
+      const prevItemsByIndex = new Map<number, Set<string>>();
+      for (let i = 0; i < prevColumns.length; i++) {
+        prevColTitleToIndex.set(prevColumns[i].title, i);
+        prevItemsByIndex.set(i, new Set((prevColumns[i].items || []).map((it: any) => it.label)));
+      }
+
+      for (const masterCol of mf.columns) {
+        const prevIndex = prevColTitleToIndex.get(masterCol.title);
+
+        if (prevIndex === undefined) {
+          result.columns.push({
+            title: `[TRANSLATE] ${masterCol.title}`,
+            items: (masterCol.items || []).map((item: any) => ({
+              label: `[TRANSLATE] ${item.label}`,
+              href: item.href,
+            })),
+          });
+        } else {
+          const prevItems = prevItemsByIndex.get(prevIndex) || new Set();
+          const newItems = (masterCol.items || []).filter((item: any) => !prevItems.has(item.label));
+
+          if (newItems.length > 0 && result.columns[prevIndex]) {
+            for (const newItem of newItems) {
+              result.columns[prevIndex].items.push({
+                label: `[TRANSLATE] ${newItem.label}`,
+                href: newItem.href,
+              });
+            }
+          }
+        }
+      }
+    }
+
+    result.socials = (tf.socials || []).map((transSocial: any) => ({
+      name: transSocial.name,
+      icon: transSocial.icon,
+      link: transSocial.link,
+    }));
+
+    if (mf.socials) {
+      const prevSocialIcons = new Set((pf.socials || []).map((s: any) => s.icon));
+      for (const masterSocial of mf.socials) {
+        if (!prevSocialIcons.has(masterSocial.icon)) {
+          result.socials.push({
+            name: masterSocial.name,
+            icon: masterSocial.icon,
+            link: masterSocial.link,
+          });
+        }
+      }
+    }
+
+    result.legal_links = (tf.legal_links || []).map((transLink: any) => ({
+      label: transLink.label,
+      href: transLink.href,
+    }));
+
+    if (mf.legal_links) {
+      const prevLegalLabels = new Set((pf.legal_links || []).map((l: any) => l.label));
+      for (const masterLink of mf.legal_links) {
+        if (!prevLegalLabels.has(masterLink.label)) {
+          result.legal_links.push({
+            label: `[TRANSLATE] ${masterLink.label}`,
+            href: masterLink.href,
+          });
+        }
+      }
+    }
+
+    if (mf.subscribe_text !== undefined) {
+      result.subscribe_text = tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
+    }
+    if (mf.copyright_text !== undefined) {
+      result.copyright_text = tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
+    }
+
+    return { footer: result };
   }
   
   function syncMenuItem(master: any, translation: any): any {
@@ -1666,6 +1851,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
+      let previousData: any = null;
+      if (fs.existsSync(filePath)) {
+        try {
+          const previousContent = fs.readFileSync(filePath, "utf-8");
+          previousData = safeYamlLoad(previousContent) as any;
+        } catch (e) {}
+      }
+
       const yamlContent = safeYamlDump(data, {
         indent: 2,
         lineWidth: -1,
@@ -1674,9 +1867,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
       
-      // Always sync structural changes to ALL translation files
       const syncResults: Record<string, string> = {};
-      const translationLocales = ["es", "fr", "de", "pt", "it"]; // All supported locales
+      const translationLocales = ["es", "fr", "de", "pt", "it"];
       
       for (const targetLocale of translationLocales) {
         const translationFileName = `${name}.${targetLocale}.yml`;
@@ -1687,8 +1879,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const translationContent = fs.readFileSync(translationFilePath, "utf-8");
             const translationData = safeYamlLoad(translationContent) as any;
             
-            // Sync structure from English to translation, preserving existing translations
-            const syncedData = syncMenuStructure(data, translationData);
+            const syncedData = syncMenuStructure(data, translationData, previousData);
             
             const syncedYaml = safeYamlDump(syncedData, {
               indent: 2,
@@ -1760,17 +1951,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let dataToSave = data;
     
-    try {
-      const masterContent = fs.readFileSync(masterFilePath, "utf-8");
-      const masterData = safeYamlLoad(masterContent) as any;
-      
-      // ENFORCE: Strict text-only merge for ALL locales (including English)
-      // Structure is ALWAYS from master - only text fields come from submitted data
-      dataToSave = mergeTextOnlyFromTranslation(masterData, data);
-    } catch (e) {
-      console.error("Error syncing translation to master structure:", e);
-      res.status(500).json({ error: "Failed to sync translation with master structure" });
-      return;
+    const isFooterMenu = data?.footer && !data?.navbar;
+    
+    if (isFooterMenu && !isEnglish) {
+      dataToSave = data;
+    } else {
+      try {
+        const masterContent = fs.readFileSync(masterFilePath, "utf-8");
+        const masterData = safeYamlLoad(masterContent) as any;
+        
+        dataToSave = mergeTextOnlyFromTranslation(masterData, data);
+      } catch (e) {
+        console.error("Error syncing translation to master structure:", e);
+        res.status(500).json({ error: "Failed to sync translation with master structure" });
+        return;
+      }
     }
     
     try {
@@ -1801,8 +1996,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const TEXT_FIELDS = new Set(['label', 'title', 'description', 'cta', 'text', 'linkText', 'href']);
   
   function mergeTextOnlyFromTranslation(master: any, translation: any): any {
-    if (!master?.navbar?.items) {
-      throw new Error("Master file is missing navbar.items structure");
+    if (!master?.navbar?.items && !master?.footer) {
+      throw new Error("Master file is missing navbar.items or footer structure");
+    }
+    
+    // For footer files, use the footer-aware structure sync which preserves translations
+    if (master?.footer && !master?.navbar) {
+      return syncFooterStructure(master, translation || {});
     }
     
     // Deep clone master to preserve ALL structure
@@ -1945,6 +2145,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         schemaInclude,
         schemaOverrides,
         title: pageData.title || "",
+        slug: pageData.slug || slug,
       };
 
       if (contentType === "landings") {
@@ -2903,6 +3104,132 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/content/rename-slug", async (req, res) => {
+    try {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const authHeader = req.headers.authorization;
+      const debugToken = req.headers["x-debug-token"] as string | undefined;
+      let token: string | null = null;
+      if (authHeader?.startsWith("Token ")) {
+        token = authHeader.slice(6);
+      } else if (debugToken) {
+        token = debugToken;
+      }
+      if (!isDevelopment) {
+        if (!token) {
+          res.status(401).json({ error: "Authorization required" });
+          return;
+        }
+        const capResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } },
+        );
+        if (capResponse.status === 401) {
+          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          return;
+        }
+        if (capResponse.status !== 200) {
+          res.status(403).json({ error: "You need webmaster capability to rename content" });
+          return;
+        }
+      }
+
+      const { contentType, folderSlug, locale, newSlug, createRedirect } = req.body;
+
+      if (!contentType || !folderSlug || !locale || !newSlug) {
+        res.status(400).json({ error: "Missing required fields: contentType, folderSlug, locale, newSlug" });
+        return;
+      }
+
+      const validTypes = ["location", "page", "program", "landing"];
+      if (!validTypes.includes(contentType)) {
+        res.status(400).json({ error: `Invalid type. Must be one of: ${validTypes.join(", ")}` });
+        return;
+      }
+
+      const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+      if (!slugRegex.test(newSlug)) {
+        res.status(400).json({ error: "Invalid slug format. Use lowercase letters, numbers, and hyphens only." });
+        return;
+      }
+
+      const folderMap: Record<string, string> = {
+        location: "locations",
+        page: "pages",
+        program: "programs",
+        landing: "landings",
+      };
+      const contentFolder = folderMap[contentType];
+      const resolvedFolderSlug = contentIndex.resolveBaseSlug(folderSlug, contentFolder);
+      const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, resolvedFolderSlug);
+
+      if (!fs.existsSync(folderPath)) {
+        res.status(404).json({ error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})` });
+        return;
+      }
+
+      const effectiveLocale = contentType === "landing" ? "promoted" : locale;
+      const localeFile = [`${effectiveLocale}.yml`, `${effectiveLocale}.yaml`].find(f => 
+        fs.existsSync(path.join(folderPath, f))
+      );
+      if (!localeFile) {
+        res.status(404).json({ error: `Locale file not found: ${effectiveLocale}` });
+        return;
+      }
+
+      const localeFilePath = path.join(folderPath, localeFile);
+      const raw = fs.readFileSync(localeFilePath, "utf-8");
+      const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
+      if (!parsed) {
+        res.status(500).json({ error: "Failed to parse locale file" });
+        return;
+      }
+
+      const currentSlug = (parsed.slug as string) || folderSlug;
+      if (currentSlug === newSlug) {
+        res.status(400).json({ error: "New slug is the same as current slug" });
+        return;
+      }
+
+      const oldUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, currentSlug);
+      const newUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, newSlug);
+
+      parsed.slug = newSlug;
+
+      if (createRedirect) {
+        const meta = (parsed.meta || {}) as Record<string, unknown>;
+        const redirects = Array.isArray(meta.redirects) ? [...meta.redirects] : [];
+        if (!redirects.includes(oldUrl)) {
+          redirects.push(oldUrl);
+        }
+        meta.redirects = redirects;
+        parsed.meta = meta;
+      }
+
+      const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+      fs.writeFileSync(localeFilePath, updated, "utf-8");
+      markFileAsModified(`marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`);
+
+      contentIndex.refresh();
+      clearSitemapCache();
+      clearRedirectCache();
+
+      res.json({
+        success: true,
+        folderSlug: resolvedFolderSlug,
+        oldSlug: currentSlug,
+        newSlug,
+        oldUrl,
+        newUrl,
+        locale: effectiveLocale,
+        redirectCreated: !!createRedirect,
+      });
+    } catch (error) {
+      console.error("[Content] Rename slug error:", error);
+      res.status(500).json({ error: "Failed to rename slug" });
+    }
+  });
+
   // Check if a slug is available for a given content type
   app.get("/api/content/check-slug", (req, res) => {
     const { type, slug } = req.query;
@@ -3435,7 +3762,8 @@ sections: []
         return;
       }
 
-      const resolvedSlug = type === 'page' ? getFolderFromSlug(slug, 'en') : slug;
+      const typeFolder = { program: 'programs', page: 'pages', location: 'locations', landing: 'landings' }[type] || type;
+      const resolvedSlug = contentIndex.resolveBaseSlug(slug, typeFolder);
 
       const folderPath = path.join(process.cwd(), 'marketing-content', folderMap[type], resolvedSlug);
 
@@ -4967,13 +5295,35 @@ sections: []
     }
   });
 
-  app.use((req, res, next) => {
+  app.use(async (req, res, next) => {
     const url = req.originalUrl || req.url;
     if (url.startsWith("/api/") || url.startsWith("/attached_assets/") || url.startsWith("/marketing-content/") || /\.\w+$/.test(url)) {
       return next();
     }
 
-    const schemaHtml = generateSsrSchemaHtml(url);
+    let schemaHtml = "";
+
+    const blogRoute = parseBlogRoute(url);
+    if (blogRoute) {
+      try {
+        const posts = await getBlogPosts();
+        const post = findBlogPostBySlug(posts, blogRoute.slug, blogRoute.locale);
+        if (post) {
+          schemaHtml = generateBlogSsrHtml(post, blogRoute.locale);
+        }
+      } catch (err) {
+        console.error("[SSR-Blog] Error generating blog schema for", url, err);
+      }
+    } else {
+      const cleanUrl = url.split("?")[0].split("#")[0];
+      const blogListingMatch = cleanUrl.match(/^\/(en|es)\/blog\/?$/);
+      if (blogListingMatch) {
+        schemaHtml = generateBlogListingSsrHtml(blogListingMatch[1]);
+      } else {
+        schemaHtml = generateSsrSchemaHtml(url);
+      }
+    }
+
     if (!schemaHtml) {
       return next();
     }

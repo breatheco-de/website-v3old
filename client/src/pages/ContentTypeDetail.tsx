@@ -1,6 +1,7 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import type { CareerProgram, LocationPage } from "@shared/schema";
 import { IconLoader2 } from "@tabler/icons-react";
@@ -8,6 +9,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export type ContentType = "program" | "location";
 
@@ -16,6 +18,7 @@ interface ContentTypeConfig {
   notFoundTitle: { en: string; es: string };
   notFoundMessage: { en: string; es: string };
   testIdPrefix: string;
+  urlPattern: { en: string; es: string };
 }
 
 const contentTypeConfigs: Record<ContentType, ContentTypeConfig> = {
@@ -30,6 +33,10 @@ const contentTypeConfigs: Record<ContentType, ContentTypeConfig> = {
       es: "El programa que buscas no existe.",
     },
     testIdPrefix: "program",
+    urlPattern: {
+      en: "/en/career-programs/:slug",
+      es: "/es/programas-de-carrera/:slug",
+    },
   },
   location: {
     apiPath: "/api/locations",
@@ -42,6 +49,10 @@ const contentTypeConfigs: Record<ContentType, ContentTypeConfig> = {
       es: "La ubicación que buscas no existe.",
     },
     testIdPrefix: "location",
+    urlPattern: {
+      en: "/en/location/:slug",
+      es: "/es/ubicacion/:slug",
+    },
   },
 };
 
@@ -55,6 +66,7 @@ type ContentData = CareerProgram | LocationPage;
 
 export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
+  const [, setLocation] = useLocation();
   const config = contentTypeConfigs[type];
   const effectiveLocale = locale || (i18n.language as "en" | "es");
 
@@ -69,6 +81,13 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
     },
     enabled: !!slug,
   });
+
+  useEffect(() => {
+    if (data?.slug && data.slug !== slug) {
+      const correctUrl = config.urlPattern[effectiveLocale].replace(":slug", data.slug);
+      setLocation(correctUrl, { replace: true });
+    }
+  }, [data?.slug, slug, effectiveLocale, config.urlPattern, setLocation]);
 
   usePageMeta(data?.meta);
   useSchemaOrg(data?.schema);
@@ -118,6 +137,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
         locale={effectiveLocale}
         programSlug={type === "program" ? slug : undefined}
       />
+      <Footer />
     </div>
   );
 }
