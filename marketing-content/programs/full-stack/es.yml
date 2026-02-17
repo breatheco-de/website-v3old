@@ -131,7 +131,7 @@ sections:
     variant: laptop-edge
     title: Tu Futuro Profesional, con Garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.
+    description: Nuestra Garantía de Empleabilidad opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.
     cta:
       text: Más información
       url: /job-guarantee
@@ -218,7 +218,7 @@ sections:
       desktop: md
   - type: projects
     title: Aprende Construyendo Proyectos Reales
-    subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en un puesto tecnológico real. Aquí tienes un vistazo de lo que trabajarás:"
+    subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
       - title: Construye una API REST de StarWars
         description: La API del Blog de StarWars te permitirá practicar la construcción de una API REST usando frameworks ligeros como Express (para node) o Flask (para python) con SQLAlchemy ORM y el lenguaje Python, mientras construyes un blog divertido. Ideal para juniors que buscan practicar desarrollo de APIs en Python.
@@ -226,8 +226,8 @@ sections:
         tags:
           - REST
         duration: 8 HORAS
-        date: 15/11/2022
         difficulty: easy
+        date: 15/11/2022
       - title: Sistema de Autenticación con JWT
         description: Crea un sistema de autenticación completo con tokens JWT, frontend en React y backend en Python. Aprende mejores prácticas de seguridad y patrones de gestión de sesiones utilizados en aplicaciones de producción.
         image: authentication
@@ -235,8 +235,8 @@ sections:
           - Security
           - JWT
         duration: 6 HORAS
-        date: 20/01/2023
         difficulty: medium
+        date: 20/01/2023
       - title: Proyecto Final Full-Stack
         description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
         image: final-project
@@ -244,14 +244,14 @@ sections:
           - Full-Stack
           - Capstone
         duration: 40 HORAS
-        date: 01/03/2023
         difficulty: hard
+        date: 01/03/2023
     paddingY:
       desktop: md sm
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: Cómo Aprenderás en 4Geeks
+    title: Todo lo que Necesitas para Lanzar tu Carrera en Tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas impulsadas por IA y nuestro método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
