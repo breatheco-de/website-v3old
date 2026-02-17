@@ -107,7 +107,7 @@ sections:
         phone:
           visible: true
           required: false
-          default_country: VE
+          default_country: CL
         program:
           visible: false
           default: ai-engineering
