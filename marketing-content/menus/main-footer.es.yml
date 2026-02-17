@@ -3,83 +3,79 @@ footer:
     - title: Empresa
       items:
         - label: Por qué 4Geeks
-          href: /es/por-que-4geeks
+          href: /en/why-4geeks
         - label: Academia
-          href: /es/la-academia
+          href: /en/the-academy
         - label: Socios
-          href: /es/socios
+          href: /en/partners
         - label: Precios
-          href: /es/financiamiento
+          href: /en/financials
         - label: Eventos
-          href: /es/proximas-fechas
+          href: /en/next-dates
         - label: Próximas Fechas
-          href: /es/proximas-fechas
+          href: /en/next-dates
         - label: Programas y Cursos
-          href: /es/programas
+          href: /en/blog
         - label: Blog
-          href: /es/blog
+          href: /en/faq
         - label: Preguntas Frecuentes
-          href: /es/faq
+          href: /en/contact
         - label: Contáctanos
-          href: /es/contacto
+          href: /new-page
     - title: Programas
       items:
         - label: Ingeniería en IA
-          href: /es/programas/ai-engineering
+          href: /en/career-programs/ai-engineering
         - label: Ciencia de Datos y Machine Learning con IA
-          href: /es/programas/data-science-ml
+          href: /en/career-programs/data-science-ml
         - label: Ciberseguridad
-          href: /es/programas/cybersecurity
+          href: /en/career-programs/cybersecurity
         - label: Full Stack con IA
-          href: /es/programas/full-stack
+          href: /en/career-programs/full-stack
     - title: Ubicaciones
       items:
         - label: Online
-          href: /es/campus/bootcamp-online
+          href: /en/coding-campus/online-coding-bootcamp
         - label: Miami
-          href: /es/campus/bootcamp-miami
+          href: /en/coding-campus/coding-bootcamp-miami
         - label: Orlando
-          href: /es/campus/bootcamp-orlando
+          href: /en/coding-campus/coding-bootcamp-orlando
         - label: Toronto
-          href: /es/campus/bootcamp-toronto-canada
+          href: /en/coding-campus/coding-bootcamp-toronto-canada
         - label: Madrid
-          href: /es/campus/bootcamp-madrid
+          href: /en/coding-campus/coding-bootcamp-madrid
         - label: Barcelona
-          href: /es/campus/bootcamp-barcelona-espana
+          href: /en/coding-campus/coding-bootcamp-barcelona-spain
         - label: Valencia
-          href: /es/campus/bootcamp-valencia-espana
+          href: /en/coding-campus/coding-bootcamp-valencia-spain
         - label: Málaga
-          href: /es/campus/bootcamp-malaga-espana
+          href: /en/coding-campus/coding-bootcamp-malaga-spain
         - label: Chile
-          href: /es/campus/bootcamp-santiago
+          href: /en/coding-campus/coding-bootcamp-santiago
         - label: Colombia
-          href: /es/campus/bootcamp-colombia
+          href: /en/coding-campus/coding-bootcamp-colombia
         - label: México
-          href: /es/campus/bootcamp-mexico
+          href: /en/coding-campus/coding-bootcamp-mexico
         - label: Europa
-          href: /es/campus/bootcamp-online-europa
+          href: /en/coding-campus/coding-bootcamp-costa-rica
         - label: Costa Rica
-          href: /es/campus/bootcamp-costa-rica
+          href: /en/coding-campus/coding-bootcamp-caracas
         - label: Venezuela
-          href: /es/campus/bootcamp-caracas
+          href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
         - label: Argentina
-          href: /es/campus/bootcamp-argentina-buenos-aires
+          href: /en/coding-campus/coding-bootcamp-uruguay
         - label: Ecuador
-          href: /es/campus/bootcamp-ecuador
+          href: /en/coding-campus/coding-bootcamp-panama
         - label: Uruguay
-          href: /es/campus/bootcamp-uruguay
+          href: /en/coding-campus/coding-bootcamp-bolivia
         - label: Panamá
-          href: /es/campus/bootcamp-panama
+          href: /en/coding-campus/coding-bootcamp-lisbon-portugal
         - label: Bolivia
-          href: /es/campus/bootcamp-bolivia
-        - label: Portugal
-          href: /es/campus/bootcamp-lisbon-portugal
-        - label: Berlín
-          href: /es/campus/bootcamp-berlin-alemania
+          href: /en/coding-campus/coding-bootcamp-berlin-germany
     - title: Para Empresas
       items:
         - label: 4Geeks para Empresas
-          href: /es/socios
+          href: /en/partners
         - label: Talento
           href: https://www.notion.so/4geeksacademy/Talent-Pipeline-4Geeks-Academy-ef91aba17f9c4964bf7972396d190bdf
   socials:

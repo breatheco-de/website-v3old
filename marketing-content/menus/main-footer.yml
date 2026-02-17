@@ -20,6 +20,8 @@ footer:
           href: /en/faq
         - label: Contact Us
           href: /en/contact
+        - label: New Item
+          href: /new-page
     - title: Programs
       items:
         - label: AI Engineering
