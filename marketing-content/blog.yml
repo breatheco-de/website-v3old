@@ -27,6 +27,7 @@
 #   { title, slug, status, visibility, lang, author, published_at, updated_at, preview }
 # ───────────────────────────────────────────────────────────────
 
+
 data_source:
   type: api
   api:
@@ -40,16 +41,13 @@ data_source:
     token_env_var: BREATHECODE_TOKEN
     auth_prefix: Token
     headers:
-      Academy: "4"
-
+      Academy: '7'
 cache:
   ttl_hours: 24
   file_path: .cache/blog-posts.json
-
 url_pattern:
   en: /en/blog/:slug
   es: /es/blog/:slug
-
 categories:
   en: blog-us
   es: blog-es

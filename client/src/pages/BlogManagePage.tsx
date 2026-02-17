@@ -22,6 +22,12 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   IconArrowLeft,
   IconSearch,
   IconArticle,
@@ -33,6 +39,7 @@ import {
   IconRefresh,
   IconWorld,
   IconDatabase,
+  IconDotsVertical,
   IconPencil,
   IconPlayerPlay,
   IconPlus,
@@ -871,11 +878,27 @@ export default function BlogManagePage() {
                             {formatDate(post.updated_at)}
                           </td>
                           <td className="px-4 py-3 text-right">
-                            <a href={blogUrl} target="_blank" rel="noopener noreferrer" data-testid={`link-view-${post.id}`}>
-                              <Button variant="ghost" size="icon">
-                                <IconExternalLink className="h-4 w-4" />
-                              </Button>
-                            </a>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" data-testid={`button-actions-${post.id}`}>
+                                  <IconDotsVertical className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem asChild>
+                                  <a href={blogUrl} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${post.id}`}>
+                                    <IconExternalLink className="h-4 w-4 mr-2" />
+                                    Open in new tab
+                                  </a>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                  <a href={blogUrl} data-testid={`link-same-tab-${post.id}`}>
+                                    <IconArrowLeft className="h-4 w-4 mr-2 rotate-180" />
+                                    Open in this tab
+                                  </a>
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </td>
                         </tr>
                       );
