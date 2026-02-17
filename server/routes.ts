@@ -1426,6 +1426,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Helper function to sync menu structure from English (master) to translation
   function syncMenuStructure(master: any, translation: any): any {
+    if (master?.footer) {
+      return syncFooterStructure(master, translation || {});
+    }
+    
     if (!master?.navbar?.items || !translation?.navbar?.items) {
       return translation;
     }
@@ -1439,17 +1443,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const existingTranslation = translationItems[i];
       
       if (existingTranslation) {
-        // Keep translation text, sync structure
         const syncedItem = syncMenuItem(masterItem, existingTranslation);
         syncedItems.push(syncedItem);
       } else {
-        // New item - add with [TRANSLATE] placeholders
         const newItem = createTranslationPlaceholder(masterItem);
         syncedItems.push(newItem);
       }
     }
     
     return { navbar: { items: syncedItems } };
+  }
+  
+  function syncFooterStructure(master: any, translation: any): any {
+    const mf = master.footer;
+    const tf = translation.footer || {};
+    const result: any = {};
+    
+    if (mf.columns) {
+      result.columns = mf.columns.map((masterCol: any, idx: number) => {
+        const transCol = tf.columns?.[idx] || {};
+        return {
+          title: transCol.title || `[TRANSLATE] ${masterCol.title}`,
+          items: (masterCol.items || []).map((masterItem: any, itemIdx: number) => {
+            const transItem = transCol.items?.[itemIdx] || {};
+            return {
+              label: transItem.label || `[TRANSLATE] ${masterItem.label}`,
+              href: masterItem.href,
+            };
+          }),
+        };
+      });
+    }
+    
+    if (mf.socials) {
+      result.socials = mf.socials.map((masterSocial: any, idx: number) => {
+        const transSocial = tf.socials?.[idx] || {};
+        return {
+          name: transSocial.name || masterSocial.name,
+          icon: masterSocial.icon,
+          link: transSocial.link || masterSocial.link,
+        };
+      });
+    }
+    
+    if (mf.legal_links) {
+      result.legal_links = mf.legal_links.map((masterLink: any, idx: number) => {
+        const transLink = tf.legal_links?.[idx] || {};
+        return {
+          label: transLink.label || `[TRANSLATE] ${masterLink.label}`,
+          href: transLink.href || masterLink.href,
+        };
+      });
+    }
+    
+    if (mf.subscribe_text !== undefined) {
+      result.subscribe_text = tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
+    }
+    if (mf.copyright_text !== undefined) {
+      result.copyright_text = tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
+    }
+    
+    return { footer: result };
   }
   
   function syncMenuItem(master: any, translation: any): any {
@@ -1737,8 +1791,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const TEXT_FIELDS = new Set(['label', 'title', 'description', 'cta', 'text', 'linkText', 'href']);
   
   function mergeTextOnlyFromTranslation(master: any, translation: any): any {
-    if (!master?.navbar?.items) {
-      throw new Error("Master file is missing navbar.items structure");
+    if (!master?.navbar?.items && !master?.footer) {
+      throw new Error("Master file is missing navbar.items or footer structure");
+    }
+    
+    // For footer files, use the footer-aware structure sync which preserves translations
+    if (master?.footer && !master?.navbar) {
+      return syncFooterStructure(master, translation || {});
     }
     
     // Deep clone master to preserve ALL structure

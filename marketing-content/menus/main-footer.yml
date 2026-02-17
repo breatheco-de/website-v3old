@@ -14,8 +14,6 @@ footer:
           href: /en/next-dates
         - label: Upcoming Dates
           href: /en/next-dates
-        - label: Programs & Courses
-          href: /en/programs
         - label: Blog
           href: /en/blog
         - label: FAQ
@@ -48,7 +46,7 @@ footer:
           href: /en/coding-campus/coding-bootcamp-barcelona-spain
         - label: Valencia
           href: /en/coding-campus/coding-bootcamp-valencia-spain
-        - label: "M\xE1laga"
+        - label: Málaga
           href: /en/coding-campus/coding-bootcamp-malaga-spain
         - label: Chile
           href: /en/coding-campus/coding-bootcamp-santiago
@@ -56,16 +54,12 @@ footer:
           href: /en/coding-campus/coding-bootcamp-colombia
         - label: Mexico
           href: /en/coding-campus/coding-bootcamp-mexico
-        - label: Europe
-          href: /en/coding-campus/europe-online-coding-bootcamp
         - label: Costa Rica
           href: /en/coding-campus/coding-bootcamp-costa-rica
         - label: Venezuela
           href: /en/coding-campus/coding-bootcamp-caracas
         - label: Argentina
           href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
-        - label: Ecuador
-          href: /en/coding-campus/coding-bootcamp-ecuador
         - label: Uruguay
           href: /en/coding-campus/coding-bootcamp-uruguay
         - label: Panama

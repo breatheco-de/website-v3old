@@ -2,7 +2,7 @@ footer:
   columns:
     - title: Empresa
       items:
-        - label: "Por qu\xE9 4Geeks"
+        - label: Por qué 4Geeks
           href: /es/por-que-4geeks
         - label: Academia
           href: /es/la-academia
@@ -12,7 +12,7 @@ footer:
           href: /es/financiamiento
         - label: Eventos
           href: /es/proximas-fechas
-        - label: "Pr\xF3ximas Fechas"
+        - label: Próximas Fechas
           href: /es/proximas-fechas
         - label: Programas y Cursos
           href: /es/programas
@@ -20,11 +20,11 @@ footer:
           href: /es/blog
         - label: Preguntas Frecuentes
           href: /es/faq
-        - label: "Cont\xE1ctanos"
+        - label: Contáctanos
           href: /es/contacto
     - title: Programas
       items:
-        - label: "Ingenier\xEDa en IA"
+        - label: Ingeniería en IA
           href: /es/programas/ai-engineering
         - label: Ciencia de Datos y Machine Learning con IA
           href: /es/programas/data-science-ml
@@ -48,13 +48,13 @@ footer:
           href: /es/campus/bootcamp-barcelona-espana
         - label: Valencia
           href: /es/campus/bootcamp-valencia-espana
-        - label: "M\xE1laga"
+        - label: Málaga
           href: /es/campus/bootcamp-malaga-espana
         - label: Chile
           href: /es/campus/bootcamp-santiago
         - label: Colombia
           href: /es/campus/bootcamp-colombia
-        - label: "M\xE9xico"
+        - label: México
           href: /es/campus/bootcamp-mexico
         - label: Europa
           href: /es/campus/bootcamp-online-europa
@@ -68,13 +68,13 @@ footer:
           href: /es/campus/bootcamp-ecuador
         - label: Uruguay
           href: /es/campus/bootcamp-uruguay
-        - label: "Panam\xE1"
+        - label: Panamá
           href: /es/campus/bootcamp-panama
         - label: Bolivia
           href: /es/campus/bootcamp-bolivia
         - label: Portugal
           href: /es/campus/bootcamp-lisbon-portugal
-        - label: "Berl\xEDn"
+        - label: Berlín
           href: /es/campus/bootcamp-berlin-alemania
     - title: Para Empresas
       items:
@@ -96,11 +96,11 @@ footer:
       icon: instagram
       link: https://www.instagram.com/4geeksacademylatam/
   legal_links:
-    - label: "Pol\xEDtica de Privacidad"
+    - label: Política de Privacidad
       href: /es/politica-de-privacidad
     - label: Cookies
       href: /es/cookies
-    - label: "T\xE9rminos y Condiciones"
+    - label: Términos y Condiciones
       href: /es/terminos-y-condiciones
-  subscribe_text: "Suscr\xEDbete para m\xE1s"
+  subscribe_text: Suscríbete para más
   copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
