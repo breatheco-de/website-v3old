@@ -1535,7 +1535,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const content = fs.readFileSync(filePath, "utf-8");
       const data = safeYamlLoad(content);
-      res.json({ name, locale: locale || "en", data });
       const raw = req.query.raw === "true";
       if (raw) {
         res.json({ name, locale: locale || "en", data });
