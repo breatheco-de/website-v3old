@@ -1,6 +1,6 @@
 {
   "lastSyncedCommit": "4b98c8f99134162347e236f3dde031cd0db44c1a",
-  "lastSyncedAt": "2026-02-17T01:34:30.836Z",
+  "lastSyncedAt": "2026-02-17T01:51:08.345Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -933,10 +933,9 @@
       "remoteSha": "87b8b5dc3160fd788a48712c934d234a3f3ed57dbb23029302eaf86c4185b22e"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
-      "sha": "c9d329578c77a41d13bd9ab6bf9d4cb4b63e106ef4d6417ed9c0c16ecae55f13",
-      "lastModified": 1771292860902.9048,
-      "remoteSha": "db836f16e8cc3deaac44a66fd755cc9c958486153fee596fd52aa422c48190f3",
-      "modifiedAt": "2026-02-17T01:47:40.905Z"
+      "sha": "db836f16e8cc3deaac44a66fd755cc9c958486153fee596fd52aa422c48190f3",
+      "lastModified": 1771293067992.7378,
+      "remoteSha": "db836f16e8cc3deaac44a66fd755cc9c958486153fee596fd52aa422c48190f3"
     },
     "marketing-content/programs/ai-for-professionals/_common.yml": {
       "sha": "cd6ef75b6e0719ae5bc0fa822a1c0a11edd73fb259fe6b8869143a37773448c2",
