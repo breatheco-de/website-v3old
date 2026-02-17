@@ -404,6 +404,16 @@ function MenusView() {
                   <span className="text-xs opacity-60">{item.component}</span>
                 </a>
               ))}
+              {menuData?.footer?.columns?.map((column: { title: string; items?: { label: string; href: string }[] }, index: number) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between px-3 py-1.5 rounded-md text-xs text-muted-foreground"
+                  data-testid={`debug-footer-column-${index}`}
+                >
+                  <span>{column.title}</span>
+                  <span className="text-xs opacity-60">{column.items?.length || 0} links</span>
+                </div>
+              ))}
             </div>
           )}
         </div>

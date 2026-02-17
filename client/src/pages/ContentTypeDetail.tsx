@@ -9,6 +9,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export type ContentType = "program" | "location";
 
@@ -136,6 +137,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
         locale={effectiveLocale}
         programSlug={type === "program" ? slug : undefined}
       />
+      <Footer />
     </div>
   );
 }

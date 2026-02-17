@@ -9,20 +9,21 @@ meta:
   description: Get unlimited 1:1 coding mentorship and AI-powered guidance from Rigobot 24/7. Never code alone, get instant feedback, and join a global developer community.
   redirects:
     - /geekpal-support
+    - /es/geekpal
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: Lifetime Mentorship & AI-Powered Coding Support
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
       highlight: PAL
-      suffix: ":"
+      suffix: ':'
       color: destructive
     description: Never code alone, get instant feedback, and join a global developer community — all designed to help you learn faster, stay motivated, and thrive in tech for life.
     bullets:
@@ -32,7 +33,7 @@ sections:
       - text: Real community support
     video:
       url: https://youtu.be/D5nUZNL52-Q
-      ratio: "3:4"
+      ratio: '3:4'
       muted: true
       autoplay: false
       loop: true
@@ -40,7 +41,7 @@ sections:
       mobile: none lg
       desktop: md lg
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -48,20 +49,20 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Advance Faster, Never Lose Momentum
-    description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
+    description: 'The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it.'
   - type: human_and_ai_duo
-    version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
+    version: '1.0'
+    heading: 'Human + AI: The Perfect Support Duo'
     description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
-      - title: "Our Team of Expert Mentors:"
+      - title: 'Our Team of Expert Mentors:'
         image: /attached_assets/profile-pic6_1764775742734.webp
         bullets:
           - text: Personalized guidance
           - text: Live troubleshooting
           - text: Expert bug fixing assistance
           - text: Industry insights and career advice
-      - title: "Rigobot + Learnpack:"
+      - title: 'Rigobot + Learnpack:'
         bullets:
           - text: Instant feedback and tutoring 24/7
           - text: Adjusts advice to your skills and progress
@@ -95,7 +96,7 @@ sections:
       mobile: sm none
       desktop: md none
   - type: community_support
-    version: "1.0"
+    version: '1.0'
     heading: A Global Tech Community to Support Your Growth
     description: 4Geeks is more than a program — it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
@@ -128,7 +129,7 @@ sections:
       text_align: center
       font_size: lg
     heading_above_on_md: false
-    gap: "8"
+    gap: '8'
     paddingY:
       desktop: lg md
   - type: testimonials_slide

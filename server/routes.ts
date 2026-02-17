@@ -1511,7 +1511,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Helper function to sync menu structure from English (master) to translation
-  function syncMenuStructure(master: any, translation: any): any {
+  function syncMenuStructure(master: any, translation: any, previousMaster?: any): any {
+    if (master?.footer) {
+      return syncFooterStructure(master, translation || {}, previousMaster);
+    }
+    
     if (!master?.navbar?.items || !translation?.navbar?.items) {
       return translation;
     }
@@ -1525,17 +1529,111 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const existingTranslation = translationItems[i];
       
       if (existingTranslation) {
-        // Keep translation text, sync structure
         const syncedItem = syncMenuItem(masterItem, existingTranslation);
         syncedItems.push(syncedItem);
       } else {
-        // New item - add with [TRANSLATE] placeholders
         const newItem = createTranslationPlaceholder(masterItem);
         syncedItems.push(newItem);
       }
     }
     
     return { navbar: { items: syncedItems } };
+  }
+  
+  function syncFooterStructure(master: any, translation: any, previousMaster?: any): any {
+    const mf = master.footer;
+    const tf = translation.footer || {};
+    const pf = previousMaster?.footer || {};
+    const result: any = {};
+
+    result.columns = (tf.columns || []).map((transCol: any) => ({
+      title: transCol.title,
+      items: (transCol.items || []).map((transItem: any) => ({
+        label: transItem.label,
+        href: transItem.href,
+      })),
+    }));
+
+    if (mf.columns) {
+      const prevColumns = pf.columns || [];
+      const prevColTitleToIndex = new Map<string, number>();
+      const prevItemsByIndex = new Map<number, Set<string>>();
+      for (let i = 0; i < prevColumns.length; i++) {
+        prevColTitleToIndex.set(prevColumns[i].title, i);
+        prevItemsByIndex.set(i, new Set((prevColumns[i].items || []).map((it: any) => it.label)));
+      }
+
+      for (const masterCol of mf.columns) {
+        const prevIndex = prevColTitleToIndex.get(masterCol.title);
+
+        if (prevIndex === undefined) {
+          result.columns.push({
+            title: `[TRANSLATE] ${masterCol.title}`,
+            items: (masterCol.items || []).map((item: any) => ({
+              label: `[TRANSLATE] ${item.label}`,
+              href: item.href,
+            })),
+          });
+        } else {
+          const prevItems = prevItemsByIndex.get(prevIndex) || new Set();
+          const newItems = (masterCol.items || []).filter((item: any) => !prevItems.has(item.label));
+
+          if (newItems.length > 0 && result.columns[prevIndex]) {
+            for (const newItem of newItems) {
+              result.columns[prevIndex].items.push({
+                label: `[TRANSLATE] ${newItem.label}`,
+                href: newItem.href,
+              });
+            }
+          }
+        }
+      }
+    }
+
+    result.socials = (tf.socials || []).map((transSocial: any) => ({
+      name: transSocial.name,
+      icon: transSocial.icon,
+      link: transSocial.link,
+    }));
+
+    if (mf.socials) {
+      const prevSocialIcons = new Set((pf.socials || []).map((s: any) => s.icon));
+      for (const masterSocial of mf.socials) {
+        if (!prevSocialIcons.has(masterSocial.icon)) {
+          result.socials.push({
+            name: masterSocial.name,
+            icon: masterSocial.icon,
+            link: masterSocial.link,
+          });
+        }
+      }
+    }
+
+    result.legal_links = (tf.legal_links || []).map((transLink: any) => ({
+      label: transLink.label,
+      href: transLink.href,
+    }));
+
+    if (mf.legal_links) {
+      const prevLegalLabels = new Set((pf.legal_links || []).map((l: any) => l.label));
+      for (const masterLink of mf.legal_links) {
+        if (!prevLegalLabels.has(masterLink.label)) {
+          result.legal_links.push({
+            label: `[TRANSLATE] ${masterLink.label}`,
+            href: masterLink.href,
+          });
+        }
+      }
+    }
+
+    if (mf.subscribe_text !== undefined) {
+      result.subscribe_text = tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
+    }
+    if (mf.copyright_text !== undefined) {
+      result.copyright_text = tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
+    }
+
+    return { footer: result };
   }
   
   function syncMenuItem(master: any, translation: any): any {
@@ -1688,6 +1786,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
+      let previousData: any = null;
+      if (fs.existsSync(filePath)) {
+        try {
+          const previousContent = fs.readFileSync(filePath, "utf-8");
+          previousData = safeYamlLoad(previousContent) as any;
+        } catch (e) {}
+      }
+
       const yamlContent = safeYamlDump(data, {
         indent: 2,
         lineWidth: -1,
@@ -1696,9 +1802,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
       
-      // Always sync structural changes to ALL translation files
       const syncResults: Record<string, string> = {};
-      const translationLocales = ["es", "fr", "de", "pt", "it"]; // All supported locales
+      const translationLocales = ["es", "fr", "de", "pt", "it"];
       
       for (const targetLocale of translationLocales) {
         const translationFileName = `${name}.${targetLocale}.yml`;
@@ -1709,8 +1814,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const translationContent = fs.readFileSync(translationFilePath, "utf-8");
             const translationData = safeYamlLoad(translationContent) as any;
             
-            // Sync structure from English to translation, preserving existing translations
-            const syncedData = syncMenuStructure(data, translationData);
+            const syncedData = syncMenuStructure(data, translationData, previousData);
             
             const syncedYaml = safeYamlDump(syncedData, {
               indent: 2,
@@ -1782,17 +1886,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let dataToSave = data;
     
-    try {
-      const masterContent = fs.readFileSync(masterFilePath, "utf-8");
-      const masterData = safeYamlLoad(masterContent) as any;
-      
-      // ENFORCE: Strict text-only merge for ALL locales (including English)
-      // Structure is ALWAYS from master - only text fields come from submitted data
-      dataToSave = mergeTextOnlyFromTranslation(masterData, data);
-    } catch (e) {
-      console.error("Error syncing translation to master structure:", e);
-      res.status(500).json({ error: "Failed to sync translation with master structure" });
-      return;
+    const isFooterMenu = data?.footer && !data?.navbar;
+    
+    if (isFooterMenu && !isEnglish) {
+      dataToSave = data;
+    } else {
+      try {
+        const masterContent = fs.readFileSync(masterFilePath, "utf-8");
+        const masterData = safeYamlLoad(masterContent) as any;
+        
+        dataToSave = mergeTextOnlyFromTranslation(masterData, data);
+      } catch (e) {
+        console.error("Error syncing translation to master structure:", e);
+        res.status(500).json({ error: "Failed to sync translation with master structure" });
+        return;
+      }
     }
     
     try {
@@ -1823,8 +1931,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const TEXT_FIELDS = new Set(['label', 'title', 'description', 'cta', 'text', 'linkText', 'href']);
   
   function mergeTextOnlyFromTranslation(master: any, translation: any): any {
-    if (!master?.navbar?.items) {
-      throw new Error("Master file is missing navbar.items structure");
+    if (!master?.navbar?.items && !master?.footer) {
+      throw new Error("Master file is missing navbar.items or footer structure");
+    }
+    
+    // For footer files, use the footer-aware structure sync which preserves translations
+    if (master?.footer && !master?.navbar) {
+      return syncFooterStructure(master, translation || {});
     }
     
     // Deep clone master to preserve ALL structure

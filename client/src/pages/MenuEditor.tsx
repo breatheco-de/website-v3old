@@ -47,7 +47,7 @@ import {
 } from "@tabler/icons-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { EditableDropdownPreview } from "@/components/menus";
+import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
 import {
   DndContext,
   closestCenter,
@@ -63,6 +63,7 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
+  horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -99,10 +100,40 @@ interface MenuItemData {
   };
 }
 
+interface FooterColumnItem {
+  label: string;
+  href: string;
+}
+
+interface FooterColumn {
+  title: string;
+  items: FooterColumnItem[];
+}
+
+interface FooterSocial {
+  name: string;
+  icon: string;
+  link: string;
+}
+
+interface FooterLegalLink {
+  label: string;
+  href: string;
+}
+
+interface FooterData {
+  columns: FooterColumn[];
+  socials: FooterSocial[];
+  legal_links: FooterLegalLink[];
+  copyright_text: string;
+}
+
 interface MenuData {
-  navbar: {
+  navbar?: {
     items: MenuItemData[];
   };
+  footer?: FooterData;
+  [key: string]: unknown;
 }
 
 interface MenuResponse {
@@ -325,6 +356,166 @@ function SortableMenuItemEditor({
   );
 }
 
+function SortableFooterItem({
+  id,
+  item,
+  colIndex,
+  itemIndex,
+  isEnglish,
+  locale,
+  onUpdateColumnItem,
+  onDeleteColumnItem,
+}: {
+  id: string;
+  item: FooterColumnItem;
+  colIndex: number;
+  itemIndex: number;
+  isEnglish: boolean;
+  locale: string;
+  onUpdateColumnItem: (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => void;
+  onDeleteColumnItem: (colIndex: number, itemIndex: number) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <li ref={setNodeRef} style={style} className="flex items-center gap-0.5">
+      <button
+        className="touch-none cursor-grab active:cursor-grabbing shrink-0"
+        {...attributes}
+        {...listeners}
+        data-testid={`button-drag-footer-column-${colIndex}-item-${itemIndex}`}
+      >
+        <IconGripVertical className="h-3 w-3 text-muted-foreground" />
+      </button>
+      <div className="flex-1 min-w-0">
+        <EditableLinkItem
+          label={item.label || ""}
+          href={item.href || ""}
+          onLabelChange={(label) => onUpdateColumnItem(colIndex, itemIndex, { label })}
+          onHrefChange={(href) => onUpdateColumnItem(colIndex, itemIndex, { href })}
+          onSave={(label, href) => onUpdateColumnItem(colIndex, itemIndex, { label, href })}
+          onDelete={() => onDeleteColumnItem(colIndex, itemIndex)}
+          testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
+          isReadOnlyStructure={false}
+          locale={locale}
+        />
+      </div>
+    </li>
+  );
+}
+
+function SortableFooterColumn({
+  id,
+  column,
+  colIndex,
+  isEnglish,
+  locale,
+  onDeleteColumn,
+  onUpdateColumn,
+  onUpdateColumnItem,
+  onDeleteColumnItem,
+  onAddColumnItem,
+}: {
+  id: string;
+  column: FooterColumn;
+  colIndex: number;
+  isEnglish: boolean;
+  locale: string;
+  onDeleteColumn: (index: number) => void;
+  onUpdateColumn: (index: number, updates: Partial<FooterColumn>) => void;
+  onUpdateColumnItem: (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => void;
+  onDeleteColumnItem: (colIndex: number, itemIndex: number) => void;
+  onAddColumnItem: (colIndex: number) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className="group/col relative border rounded-lg p-2" data-testid={`footer-column-${colIndex}`}>
+      <div className="flex items-center gap-1 mb-2">
+        <button
+          className="touch-none cursor-grab active:cursor-grabbing"
+          {...attributes}
+          {...listeners}
+          data-testid={`button-drag-footer-column-${colIndex}`}
+        >
+          <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+        </button>
+        <EditableText
+          value={column.title}
+          onChange={(title) => onUpdateColumn(colIndex, { title })}
+          placeholder="Column title"
+          className="font-semibold text-foreground block flex-1"
+          as="h4"
+          testId={`footer-column-${colIndex}-title`}
+        />
+        <button
+          onClick={() => onDeleteColumn(colIndex)}
+          className="p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity"
+          data-testid={`footer-column-${colIndex}-delete`}
+        >
+          <IconTrash className="h-3 w-3" />
+        </button>
+      </div>
+      <SortableContext
+        items={(column.items || []).map((_, i) => `footer-col-${colIndex}-item-${i}`)}
+        strategy={verticalListSortingStrategy}
+      >
+        <ul className="space-y-1">
+          {(column.items || []).map((item, itemIndex) => (
+            <SortableFooterItem
+              key={`footer-col-${colIndex}-item-${itemIndex}`}
+              id={`footer-col-${colIndex}-item-${itemIndex}`}
+              item={item}
+              colIndex={colIndex}
+              itemIndex={itemIndex}
+              isEnglish={isEnglish}
+              locale={locale}
+              onUpdateColumnItem={onUpdateColumnItem}
+              onDeleteColumnItem={onDeleteColumnItem}
+            />
+          ))}
+          <li>
+            <button
+              onClick={() => onAddColumnItem(colIndex)}
+              className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
+              data-testid={`footer-column-${colIndex}-add-item`}
+            >
+              <IconPlus className="h-3 w-3" />
+              Add item
+            </button>
+          </li>
+        </ul>
+      </SortableContext>
+    </div>
+  );
+}
+
 export default function MenuEditor() {
   const params = useParams<{ menuName: string }>();
   const [, navigate] = useLocation();
@@ -430,7 +621,8 @@ export default function MenuEditor() {
       }
     },
     onSuccess: (response: any) => {
-      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName] });
+      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName, "en"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName, "es"] });
       queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
       refetch();
       setOriginalYaml(yamlSource);
@@ -458,22 +650,119 @@ export default function MenuEditor() {
     },
   });
 
+  const isNavbarMenu = !!(menuData?.navbar?.items);
+  const isFooterMenu = !!(menuData?.footer);
+  const footerData = menuData?.footer;
+
+  const updateFooter = (updates: Partial<FooterData>) => {
+    if (!menuData || !footerData) return;
+    updateYamlFromData({ ...menuData, footer: { ...footerData, ...updates } });
+  };
+
+  const updateFooterColumn = (colIndex: number, updates: Partial<FooterColumn>) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    newColumns[colIndex] = { ...newColumns[colIndex], ...updates };
+    updateFooter({ columns: newColumns });
+  };
+
+  const updateFooterColumnItem = (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    const newItems = [...(newColumns[colIndex].items || [])];
+    newItems[itemIndex] = { ...newItems[itemIndex], ...updates };
+    newColumns[colIndex] = { ...newColumns[colIndex], items: newItems };
+    updateFooter({ columns: newColumns });
+  };
+
+  const addFooterColumnItem = (colIndex: number) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    newColumns[colIndex] = {
+      ...newColumns[colIndex],
+      items: [...(newColumns[colIndex].items || []), { label: "New Item", href: "/new-page" }],
+    };
+    updateFooter({ columns: newColumns });
+  };
+
+  const deleteFooterColumnItem = (colIndex: number, itemIndex: number) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    newColumns[colIndex] = {
+      ...newColumns[colIndex],
+      items: (newColumns[colIndex].items || []).filter((_, i) => i !== itemIndex),
+    };
+    updateFooter({ columns: newColumns });
+  };
+
+  const reorderFooterColumnItems = (colIndex: number, oldIndex: number, newIndex: number) => {
+    if (!footerData) return;
+    const newColumns = [...footerData.columns];
+    const items = [...(newColumns[colIndex].items || [])];
+    newColumns[colIndex] = { ...newColumns[colIndex], items: arrayMove(items, oldIndex, newIndex) };
+    updateFooter({ columns: newColumns });
+  };
+
+  const addFooterColumn = () => {
+    if (!footerData) return;
+    updateFooter({ columns: [...footerData.columns, { title: "New Column", items: [] }] });
+  };
+
+  const deleteFooterColumn = (colIndex: number) => {
+    if (!footerData) return;
+    updateFooter({ columns: footerData.columns.filter((_, i) => i !== colIndex) });
+  };
+
+  const updateFooterSocial = (index: number, updates: Partial<FooterSocial>) => {
+    if (!footerData) return;
+    const newSocials = [...(footerData.socials || [])];
+    newSocials[index] = { ...newSocials[index], ...updates };
+    updateFooter({ socials: newSocials });
+  };
+
+  const addFooterSocial = () => {
+    if (!footerData) return;
+    updateFooter({ socials: [...(footerData.socials || []), { name: "New Social", icon: "linkedin", link: "https://" }] });
+  };
+
+  const deleteFooterSocial = (index: number) => {
+    if (!footerData) return;
+    updateFooter({ socials: (footerData.socials || []).filter((_, i) => i !== index) });
+  };
+
+  const updateFooterLegalLink = (index: number, updates: Partial<FooterLegalLink>) => {
+    if (!footerData) return;
+    const newLinks = [...(footerData.legal_links || [])];
+    newLinks[index] = { ...newLinks[index], ...updates };
+    updateFooter({ legal_links: newLinks });
+  };
+
+  const addFooterLegalLink = () => {
+    if (!footerData) return;
+    updateFooter({ legal_links: [...(footerData.legal_links || []), { label: "New Link", href: "/new-page" }] });
+  };
+
+  const deleteFooterLegalLink = (index: number) => {
+    if (!footerData) return;
+    updateFooter({ legal_links: (footerData.legal_links || []).filter((_, i) => i !== index) });
+  };
+
   const handleUpdateItem = (index: number, updatedItem: MenuItemData) => {
-    if (!menuData) return;
+    if (!menuData || !menuData.navbar) return;
     const newItems = [...menuData.navbar.items];
     newItems[index] = updatedItem;
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
   };
 
   const handleDeleteItem = (index: number) => {
-    if (!menuData) return;
+    if (!menuData || !menuData.navbar) return;
     const newItems = menuData.navbar.items.filter((_, i) => i !== index);
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
     setConfirmDeleteIndex(null);
   };
 
   const handleAddItem = () => {
-    if (!menuData) return;
+    if (!menuData || !menuData.navbar) return;
     const newItem: MenuItemData = {
       label: "NEW ITEM",
       href: "/new-page",
@@ -513,7 +802,7 @@ export default function MenuEditor() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (!menuData || !over || active.id === over.id) return;
+    if (!menuData || !menuData.navbar || !over || active.id === over.id) return;
 
     const oldIndex = menuData.navbar.items.findIndex((_, i) => `item-${i}` === active.id);
     const newIndex = menuData.navbar.items.findIndex((_, i) => `item-${i}` === over.id);
@@ -521,6 +810,34 @@ export default function MenuEditor() {
     if (oldIndex !== -1 && newIndex !== -1) {
       const newItems = arrayMove(menuData.navbar.items, oldIndex, newIndex);
       updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
+    }
+  };
+
+  const handleFooterDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!footerData || !over || active.id === over.id) return;
+
+    const activeId = String(active.id);
+    const overId = String(over.id);
+
+    const itemMatch = activeId.match(/^footer-col-(\d+)-item-(\d+)$/);
+    if (itemMatch) {
+      const colIndex = parseInt(itemMatch[1], 10);
+      const overItemMatch = overId.match(/^footer-col-(\d+)-item-(\d+)$/);
+      if (overItemMatch && parseInt(overItemMatch[1], 10) === colIndex) {
+        const oldIndex = parseInt(itemMatch[2], 10);
+        const newIndex = parseInt(overItemMatch[2], 10);
+        reorderFooterColumnItems(colIndex, oldIndex, newIndex);
+      }
+      return;
+    }
+
+    const oldIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === activeId);
+    const newIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === overId);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const newColumns = arrayMove(footerData.columns, oldIndex, newIndex);
+      updateFooter({ columns: newColumns });
     }
   };
 
@@ -636,11 +953,11 @@ export default function MenuEditor() {
             </Card>
           )}
 
-          {menuData && (
+          {menuData && isNavbarMenu && (
             <>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-sm font-medium text-muted-foreground">
-                  Menu Items ({menuData.navbar.items.length})
+                  Menu Items ({menuData.navbar!.items.length})
                 </h2>
                 {isEnglish && (
                   <Button
@@ -662,10 +979,10 @@ export default function MenuEditor() {
                   onDragEnd={handleDragEnd}
                 >
                   <SortableContext
-                    items={menuData.navbar.items.map((_, i) => `item-${i}`)}
+                    items={menuData.navbar!.items.map((_, i) => `item-${i}`)}
                     strategy={verticalListSortingStrategy}
                   >
-                    {menuData.navbar.items.map((item, index) => (
+                    {menuData.navbar!.items.map((item, index) => (
                       <SortableMenuItemEditor
                         key={`item-${index}`}
                         id={`item-${index}`}
@@ -681,7 +998,7 @@ export default function MenuEditor() {
                     ))}
                   </SortableContext>
                 </DndContext>
-                {menuData.navbar.items.length === 0 && isEnglish && (
+                {menuData.navbar!.items.length === 0 && isEnglish && (
                   <div className="text-center py-12">
                     <IconMenu2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <p className="text-muted-foreground mb-4">No menu items yet</p>
@@ -693,6 +1010,212 @@ export default function MenuEditor() {
                 )}
               </ScrollArea>
             </>
+          )}
+
+          {menuData && isFooterMenu && footerData && (
+            <ScrollArea className="h-[calc(100vh-200px)]">
+              <div className="space-y-8">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">
+                      Footer Columns ({footerData.columns?.length || 0})
+                    </h2>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={addFooterColumn}
+                      data-testid="button-add-footer-column"
+                    >
+                      <IconPlus className="h-4 w-4 mr-2" />
+                      Add Column
+                    </Button>
+                  </div>
+
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleFooterDragEnd}
+                  >
+                    <SortableContext
+                      items={(footerData.columns || []).map((_, i) => `footer-col-${i}`)}
+                      strategy={horizontalListSortingStrategy}
+                    >
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 bg-popover border border-border rounded-lg">
+                        {(footerData.columns || []).map((column, colIndex) => (
+                          <SortableFooterColumn
+                            key={`footer-col-${colIndex}`}
+                            id={`footer-col-${colIndex}`}
+                            column={column}
+                            colIndex={colIndex}
+                            isEnglish={isEnglish}
+                            locale={locale}
+                            onDeleteColumn={deleteFooterColumn}
+                            onUpdateColumn={updateFooterColumn}
+                            onUpdateColumnItem={updateFooterColumnItem}
+                            onDeleteColumnItem={deleteFooterColumnItem}
+                            onAddColumnItem={addFooterColumnItem}
+                          />
+                        ))}
+                      </div>
+                    </SortableContext>
+                  </DndContext>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">
+                      Social Links ({footerData.socials?.length || 0})
+                    </h2>
+                    {isEnglish && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={addFooterSocial}
+                        data-testid="button-add-footer-social"
+                      >
+                        <IconPlus className="h-4 w-4 mr-2" />
+                        Add Social
+                      </Button>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    {(footerData.socials || []).map((social, index) => (
+                      <Card key={index} className="p-3" data-testid={`footer-social-${index}`}>
+                        <div className="flex items-center gap-3">
+                          <div className="flex-1 grid grid-cols-3 gap-3">
+                            <div className="space-y-1">
+                              <Label className="text-xs">Name</Label>
+                              <Input
+                                value={social.name}
+                                onChange={(e) => updateFooterSocial(index, { name: e.target.value })}
+                                placeholder="Social name"
+                                className="h-8 text-sm"
+                                data-testid={`footer-social-${index}-name`}
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">Icon</Label>
+                              <Select
+                                value={social.icon}
+                                onValueChange={(icon) => updateFooterSocial(index, { icon })}
+                              >
+                                <SelectTrigger className="h-8 text-sm" data-testid={`footer-social-${index}-icon`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="linkedin">Linkedin</SelectItem>
+                                  <SelectItem value="facebook">Facebook</SelectItem>
+                                  <SelectItem value="x-logo">X (Twitter)</SelectItem>
+                                  <SelectItem value="instagram">Instagram</SelectItem>
+                                  <SelectItem value="youtube">YouTube</SelectItem>
+                                  <SelectItem value="tiktok">TikTok</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">URL</Label>
+                              <div className="relative">
+                                <IconLink className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
+                                <Input
+                                  value={social.link}
+                                  onChange={(e) => updateFooterSocial(index, { link: e.target.value })}
+                                  placeholder="https://..."
+                                  className="h-8 text-sm pl-7"
+                                  data-testid={`footer-social-${index}-link`}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          {isEnglish && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => deleteFooterSocial(index)}
+                              className="text-destructive hover:text-destructive flex-shrink-0"
+                              data-testid={`footer-social-${index}-delete`}
+                            >
+                              <IconTrash className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">
+                      Legal Links ({footerData.legal_links?.length || 0})
+                    </h2>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={addFooterLegalLink}
+                      data-testid="button-add-footer-legal"
+                    >
+                      <IconPlus className="h-4 w-4 mr-2" />
+                      Add Link
+                    </Button>
+                  </div>
+
+                  <div className="p-4 bg-popover border border-border rounded-lg">
+                    <ul className="space-y-1">
+                      {(footerData.legal_links || []).map((link, index) => (
+                        <li key={index}>
+                          <EditableLinkItem
+                            label={link.label || ""}
+                            href={link.href || ""}
+                            onLabelChange={(label) => updateFooterLegalLink(index, { label })}
+                            onHrefChange={(href) => updateFooterLegalLink(index, { href })}
+                            onSave={(label, href) => updateFooterLegalLink(index, { label, href })}
+                            onDelete={() => deleteFooterLegalLink(index)}
+                            testIdPrefix={`footer-legal-${index}`}
+                            isReadOnlyStructure={false}
+                            locale={locale}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-sm font-medium text-muted-foreground mb-4">
+                    Copyright Text
+                  </h2>
+                  <Input
+                    value={footerData.copyright_text || ""}
+                    onChange={(e) => updateFooter({ copyright_text: e.target.value })}
+                    placeholder="2024 4Geeks Academy. All rights reserved."
+                    data-testid="footer-copyright-input"
+                  />
+                </div>
+              </div>
+            </ScrollArea>
+          )}
+
+          {menuData && !isNavbarMenu && !isFooterMenu && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-medium text-muted-foreground">
+                  YAML Editor
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  Edit the menu content directly in YAML
+                </p>
+              </div>
+              <div data-testid="codemirror-yaml-editor">
+                <CodeMirror
+                  value={yamlSource}
+                  height="calc(100vh - 250px)"
+                  extensions={[yamlLang()]}
+                  theme={oneDark}
+                  onChange={(value) => handleYamlEdit(value)}
+                />
+              </div>
+            </div>
           )}
         </div>
       </main>

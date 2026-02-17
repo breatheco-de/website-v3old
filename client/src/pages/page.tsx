@@ -9,6 +9,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Page() {
   const [location, setLocation] = useLocation();
@@ -84,6 +85,7 @@ export default function Page() {
         slug={slug}
         locale={locale}
       />
+      <Footer />
     </div>
   );
 }

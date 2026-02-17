@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { FooterSection } from "@/components/FooterSection";
 
 export default function PrivacyPage() {
@@ -13,6 +14,7 @@ export default function PrivacyPage() {
         {locale === "es" ? <PrivacyContentES /> : <PrivacyContentEN />}
       </main>
       <FooterSection data={{ type: "footer", copyright_text: "2024 4Geeks. All rights reserved." }} />
+      <Footer />
     </div>
   );
 }
