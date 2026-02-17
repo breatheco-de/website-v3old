@@ -432,7 +432,6 @@ function SortableFooterColumn({
   onUpdateColumnItem,
   onDeleteColumnItem,
   onAddColumnItem,
-  onReorderColumnItems,
 }: {
   id: string;
   column: FooterColumn;
@@ -444,7 +443,6 @@ function SortableFooterColumn({
   onUpdateColumnItem: (colIndex: number, itemIndex: number, updates: Partial<FooterColumnItem>) => void;
   onDeleteColumnItem: (colIndex: number, itemIndex: number) => void;
   onAddColumnItem: (colIndex: number) => void;
-  onReorderColumnItems: (colIndex: number, oldIndex: number, newIndex: number) => void;
 }) {
   const {
     attributes,
@@ -454,22 +452,6 @@ function SortableFooterColumn({
     transition,
     isDragging,
   } = useSortable({ id });
-
-  const itemSensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
-  );
-
-  const handleItemDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-    const items = column.items || [];
-    const oldIndex = items.findIndex((_, i) => `footer-col-${colIndex}-item-${i}` === active.id);
-    const newIndex = items.findIndex((_, i) => `footer-col-${colIndex}-item-${i}` === over.id);
-    if (oldIndex !== -1 && newIndex !== -1) {
-      onReorderColumnItems(colIndex, oldIndex, newIndex);
-    }
-  };
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -510,44 +492,38 @@ function SortableFooterColumn({
           </button>
         )}
       </div>
-      <DndContext
-        sensors={itemSensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleItemDragEnd}
+      <SortableContext
+        items={(column.items || []).map((_, i) => `footer-col-${colIndex}-item-${i}`)}
+        strategy={verticalListSortingStrategy}
       >
-        <SortableContext
-          items={(column.items || []).map((_, i) => `footer-col-${colIndex}-item-${i}`)}
-          strategy={verticalListSortingStrategy}
-        >
-          <ul className="space-y-1">
-            {(column.items || []).map((item, itemIndex) => (
-              <SortableFooterItem
-                key={`footer-col-${colIndex}-item-${itemIndex}`}
-                id={`footer-col-${colIndex}-item-${itemIndex}`}
-                item={item}
-                colIndex={colIndex}
-                itemIndex={itemIndex}
-                isEnglish={isEnglish}
-                locale={locale}
-                onUpdateColumnItem={onUpdateColumnItem}
-                onDeleteColumnItem={onDeleteColumnItem}
-              />
-            ))}
-            {isEnglish && (
-              <li>
-                <button
-                  onClick={() => onAddColumnItem(colIndex)}
-                  className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
-                  data-testid={`footer-column-${colIndex}-add-item`}
-                >
-                  <IconPlus className="h-3 w-3" />
-                  Add item
-                </button>
-              </li>
-            )}
-          </ul>
-        </SortableContext>
-      </DndContext>
+        <ul className="space-y-1">
+          {(column.items || []).map((item, itemIndex) => (
+            <SortableFooterItem
+              key={`footer-col-${colIndex}-item-${itemIndex}`}
+              id={`footer-col-${colIndex}-item-${itemIndex}`}
+              item={item}
+              colIndex={colIndex}
+              itemIndex={itemIndex}
+              isEnglish={isEnglish}
+              locale={locale}
+              onUpdateColumnItem={onUpdateColumnItem}
+              onDeleteColumnItem={onDeleteColumnItem}
+            />
+          ))}
+          {isEnglish && (
+            <li>
+              <button
+                onClick={() => onAddColumnItem(colIndex)}
+                className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
+                data-testid={`footer-column-${colIndex}-add-item`}
+              >
+                <IconPlus className="h-3 w-3" />
+                Add item
+              </button>
+            </li>
+          )}
+        </ul>
+      </SortableContext>
     </div>
   );
 }
@@ -848,12 +824,27 @@ export default function MenuEditor() {
     }
   };
 
-  const handleFooterColumnDragEnd = (event: DragEndEvent) => {
+  const handleFooterDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!footerData || !over || active.id === over.id) return;
 
-    const oldIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === active.id);
-    const newIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === over.id);
+    const activeId = String(active.id);
+    const overId = String(over.id);
+
+    const itemMatch = activeId.match(/^footer-col-(\d+)-item-(\d+)$/);
+    if (itemMatch) {
+      const colIndex = parseInt(itemMatch[1], 10);
+      const overItemMatch = overId.match(/^footer-col-(\d+)-item-(\d+)$/);
+      if (overItemMatch && parseInt(overItemMatch[1], 10) === colIndex) {
+        const oldIndex = parseInt(itemMatch[2], 10);
+        const newIndex = parseInt(overItemMatch[2], 10);
+        reorderFooterColumnItems(colIndex, oldIndex, newIndex);
+      }
+      return;
+    }
+
+    const oldIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === activeId);
+    const newIndex = footerData.columns.findIndex((_, i) => `footer-col-${i}` === overId);
 
     if (oldIndex !== -1 && newIndex !== -1) {
       const newColumns = arrayMove(footerData.columns, oldIndex, newIndex);
@@ -1056,7 +1047,7 @@ export default function MenuEditor() {
                   <DndContext
                     sensors={sensors}
                     collisionDetection={closestCenter}
-                    onDragEnd={handleFooterColumnDragEnd}
+                    onDragEnd={handleFooterDragEnd}
                   >
                     <SortableContext
                       items={(footerData.columns || []).map((_, i) => `footer-col-${i}`)}
@@ -1076,7 +1067,6 @@ export default function MenuEditor() {
                             onUpdateColumnItem={updateFooterColumnItem}
                             onDeleteColumnItem={deleteFooterColumnItem}
                             onAddColumnItem={addFooterColumnItem}
-                            onReorderColumnItems={reorderFooterColumnItems}
                           />
                         ))}
                       </div>
