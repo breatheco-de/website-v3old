@@ -18,7 +18,7 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
@@ -42,7 +42,7 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Tus tutores:'
+    tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo a tiempo parcial combina laboratorios prácticos y mentoría personalizada para prepararte para roles de seguridad de alto impacto en cualquier industria.
     media:
       type: video
@@ -119,20 +119,20 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: La Demanda de Especialistas en Ciberseguridad Está en Auge
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
     description: Con una brecha global significativa de talento e inversiones récord en defensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles bien remunerados.
     background: bg-muted/30
     items:
-      - id: '1'
+      - id: "1"
         value: 4.8M
         title: Puestos de ciberseguridad sin cubrir a nivel mundial
-      - id: '2'
+      - id: "2"
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
-      - id: '3'
+      - id: "3"
         value: $520B
         title: Gasto global en ciberseguridad este año
   - type: syllabus
@@ -245,32 +245,32 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: Cómo aprenderás en 4Geeks
-    description: Avanza más rápido y mantente motivado con nuestras herramientas impulsadas por IA y método de enseñanza hiperpersonalizado.
+    title: Todo Lo que Necesitas Para Lanzar Tu Carrera en Tecnología
+    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
-        title: Progresa más rápido con herramientas potenciadas por IA
-        description: ''
+        title: Progresa más rápido con herramientas de IA
+        description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Obtén retroalimentación instantánea de Rigobot, nuestro tutor de IA personalizado
+          - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
           - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
           - text: Ayuda con depuración y tareas de resolución de problemas
-          - text: Accede a cientos de ejercicios interactivos de seguridad en Learnpack
+          - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
-          text: ¡Empieza a aprender ahora!
+          text: Quiero más información
           url: /es/apply
           variant: primary
       - icon: TrendingUp
-        title: Prospera en tecnología con soporte de carrera para la Era de la IA
-        description: ''
+        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
-          - text: Currículums y portafolios preparados para la IA
+          - text: Currículums optimizados para procesos de contratación con IA
           - text: Preparación de entrevistas y negociación salarial
-          - text: Acceso de por vida para apoyar tu crecimiento
+          - text: Acceso de por vida para apoyar tu crecimiento profesional
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: ¡Empieza a aprender ahora!
@@ -278,23 +278,19 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio de 7:1 estudiante-profesor para orientación personalizada
+          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
           - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
-        cta:
-          text: ¡Empieza a aprender ahora!
-          url: /apply
-          variant: primary
     paddingY:
       desktop: md
   - type: certificate
     title: Certificaciones de la Industria y Resultados Profesionales
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
       - text: Ruta hacia CEH (Certified Ethical Hacker)
@@ -324,10 +320,10 @@ sections:
         label: Salario inicial promedio
         description: Una carrera en ciberseguridad no es solo un nuevo empleo, es una nueva trayectoria de vida. Con un aumento salarial promedio del 55%, nuestros graduados alcanzan un nivel de estabilidad y crecimiento que pocas industrias pueden ofrecer.
         benefits:
-          - text: 'Analista de Ciberseguridad: $75K–$120K'
-          - text: 'Penetration Tester: $90K–$150K'
-          - text: 'Ingeniero de Seguridad: $100K–$165K'
-          - text: 'Especialista en Respuesta a Incidentes: $85K–$140K'
+          - text: "Analista de Ciberseguridad: $75K–$120K"
+          - text: "Penetration Tester: $90K–$150K"
+          - text: "Ingeniero de Seguridad: $100K–$165K"
+          - text: "Especialista en Respuesta a Incidentes: $85K–$140K"
       - value: 5,000+
         label: Socios Contratantes
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
@@ -341,12 +337,12 @@ sections:
     paddingY:
       desktop: md
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Matrícula y Opciones de Financiación
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: 'Descuento por Pago Completo: Ahorra un 10% con el pago anticipado.'
-    financing_text: 'Financiación Basada en Crédito: desde'
+    discount_text: "Descuento por Pago Completo: Ahorra un 10% con el pago anticipado."
+    financing_text: "Financiación Basada en Crédito: desde"
     financing_amount: $299
     tech_icons:
       - python
@@ -377,7 +373,7 @@ sections:
     paddingY:
       desktop: lg md
   - type: whos_hiring
-    version: '1.0'
+    version: "1.0"
     variant: carousel
     title: ¿Quién Contrata a Nuestros Graduados?
     subtitle: Nuestros exalumnos trabajan en las mejores empresas del mundo
@@ -405,7 +401,7 @@ sections:
     title: Estudiantes Reales. Carreras Reales.
     subtitle: Más de 4,000 graduados y 1,200 reseñas verificadas demuestran que nuestros programas generan resultados que cambian vidas.
     rating_summary:
-      average: '4.5'
+      average: "4.5"
       count: 1,294
     items:
       - name: Sarah Johnson
@@ -447,7 +443,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    version: '1.0'
+    version: "1.0"
     background: muted
     title: Preguntas Frecuentes
     related_features:
@@ -459,7 +455,7 @@ sections:
     paddingY:
       desktop: md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Lanzar tu Carrera en Ciberseguridad?
     subtitle: Únete a miles de graduados que cambiaron al mundo tech con 4Geeks.
     background: primary
@@ -473,7 +469,7 @@ sections:
     paddingY:
       desktop: md
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       desktop: none 10px
