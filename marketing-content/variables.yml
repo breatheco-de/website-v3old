@@ -88,6 +88,9 @@ price_full_datascience:
     - query:
         region: "europe"
       value: "7.800 €"
+    - query:
+        region: "latam"
+      value: "$10,999"
 price_ai_engineering:
   default: "$349"
   conditions:
@@ -109,6 +112,9 @@ price_full_ai_engineering:
     - query:
         region: "europe"
       value: "9.800 €"
+    - query:
+        region: "latam"
+      value: "$14,999"
 price_cybersecurity:
   default: "$299"
   conditions:
@@ -118,6 +124,9 @@ price_cybersecurity:
     - query:
         region: "europe"
       value: "299 €"
+    - query:
+        region: "latam"
+      value: "$299"
 price_full_cybersecurity:
   default: "$9,999"
   conditions:
@@ -127,3 +136,30 @@ price_full_cybersecurity:
     - query:
         region: "europe"
       value: "7.800 €"
+    - query:
+        region: "latam"
+      value: "$9,999"
+price_fullstack:
+  default: "$299"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$299"
+    - query:
+        region: "europe"
+      value: "299€"
+    - query:
+        region: "latam"
+      value: "$299"
+price_full_fullstack:
+  default: "$10,999"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$10,999"
+    - query:
+        region: "latam"
+      value: "$10,999"
+    - query:
+        region: "europe"
+      value: "6.800 €"
