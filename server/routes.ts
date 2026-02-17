@@ -1458,51 +1458,87 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const mf = master.footer;
     const tf = translation.footer || {};
     const result: any = {};
-    
+
     if (mf.columns) {
-      result.columns = mf.columns.map((masterCol: any, idx: number) => {
-        const transCol = tf.columns?.[idx] || {};
-        return {
-          title: transCol.title || `[TRANSLATE] ${masterCol.title}`,
-          items: (masterCol.items || []).map((masterItem: any, itemIdx: number) => {
-            const transItem = transCol.items?.[itemIdx] || {};
-            return {
-              label: transItem.label || `[TRANSLATE] ${masterItem.label}`,
-              href: masterItem.href,
-            };
-          }),
-        };
-      });
+      result.columns = (tf.columns || []).map((transCol: any) => ({
+        title: transCol.title,
+        items: (transCol.items || []).map((transItem: any) => ({
+          label: transItem.label,
+          href: transItem.href,
+        })),
+      }));
+
+      for (const masterCol of mf.columns) {
+        const existingCol = result.columns.find((tc: any) => tc.title === masterCol.title || tc.title === `[TRANSLATE] ${masterCol.title}`);
+        if (existingCol) {
+          for (const masterItem of (masterCol.items || [])) {
+            const existingItem = existingCol.items.find((ti: any) =>
+              ti.label === masterItem.label || ti.label === `[TRANSLATE] ${masterItem.label}`
+            );
+            if (!existingItem) {
+              existingCol.items.push({
+                label: `[TRANSLATE] ${masterItem.label}`,
+                href: masterItem.href,
+              });
+            }
+          }
+        } else {
+          result.columns.push({
+            title: `[TRANSLATE] ${masterCol.title}`,
+            items: (masterCol.items || []).map((item: any) => ({
+              label: `[TRANSLATE] ${item.label}`,
+              href: item.href,
+            })),
+          });
+        }
+      }
     }
-    
+
     if (mf.socials) {
-      result.socials = mf.socials.map((masterSocial: any, idx: number) => {
-        const transSocial = tf.socials?.[idx] || {};
-        return {
-          name: transSocial.name || masterSocial.name,
-          icon: masterSocial.icon,
-          link: transSocial.link || masterSocial.link,
-        };
-      });
+      result.socials = (tf.socials || []).map((transSocial: any) => ({
+        name: transSocial.name,
+        icon: transSocial.icon,
+        link: transSocial.link,
+      }));
+
+      for (const masterSocial of mf.socials) {
+        const existing = result.socials.find((ts: any) => ts.icon === masterSocial.icon);
+        if (!existing) {
+          result.socials.push({
+            name: masterSocial.name,
+            icon: masterSocial.icon,
+            link: masterSocial.link,
+          });
+        }
+      }
     }
-    
+
     if (mf.legal_links) {
-      result.legal_links = mf.legal_links.map((masterLink: any, idx: number) => {
-        const transLink = tf.legal_links?.[idx] || {};
-        return {
-          label: transLink.label || `[TRANSLATE] ${masterLink.label}`,
-          href: transLink.href || masterLink.href,
-        };
-      });
+      result.legal_links = (tf.legal_links || []).map((transLink: any) => ({
+        label: transLink.label,
+        href: transLink.href,
+      }));
+
+      for (const masterLink of mf.legal_links) {
+        const existing = result.legal_links.find((tl: any) =>
+          tl.label === masterLink.label || tl.label === `[TRANSLATE] ${masterLink.label}`
+        );
+        if (!existing) {
+          result.legal_links.push({
+            label: `[TRANSLATE] ${masterLink.label}`,
+            href: masterLink.href,
+          });
+        }
+      }
     }
-    
+
     if (mf.subscribe_text !== undefined) {
       result.subscribe_text = tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
     }
     if (mf.copyright_text !== undefined) {
       result.copyright_text = tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
     }
-    
+
     return { footer: result };
   }
   
@@ -1750,17 +1786,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let dataToSave = data;
     
-    try {
-      const masterContent = fs.readFileSync(masterFilePath, "utf-8");
-      const masterData = safeYamlLoad(masterContent) as any;
-      
-      // ENFORCE: Strict text-only merge for ALL locales (including English)
-      // Structure is ALWAYS from master - only text fields come from submitted data
-      dataToSave = mergeTextOnlyFromTranslation(masterData, data);
-    } catch (e) {
-      console.error("Error syncing translation to master structure:", e);
-      res.status(500).json({ error: "Failed to sync translation with master structure" });
-      return;
+    const isFooterMenu = data?.footer && !data?.navbar;
+    
+    if (isFooterMenu && !isEnglish) {
+      dataToSave = data;
+    } else {
+      try {
+        const masterContent = fs.readFileSync(masterFilePath, "utf-8");
+        const masterData = safeYamlLoad(masterContent) as any;
+        
+        dataToSave = mergeTextOnlyFromTranslation(masterData, data);
+      } catch (e) {
+        console.error("Error syncing translation to master structure:", e);
+        res.status(500).json({ error: "Failed to sync translation with master structure" });
+        return;
+      }
     }
     
     try {

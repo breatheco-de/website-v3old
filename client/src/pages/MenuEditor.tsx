@@ -392,18 +392,14 @@ function SortableFooterItem({
 
   return (
     <li ref={setNodeRef} style={style} className="flex items-center gap-0.5">
-      {isEnglish ? (
-        <button
-          className="touch-none cursor-grab active:cursor-grabbing shrink-0"
-          {...attributes}
-          {...listeners}
-          data-testid={`button-drag-footer-column-${colIndex}-item-${itemIndex}`}
-        >
-          <IconGripVertical className="h-3 w-3 text-muted-foreground" />
-        </button>
-      ) : (
-        <IconGripVertical className="h-3 w-3 text-muted-foreground/30 shrink-0" />
-      )}
+      <button
+        className="touch-none cursor-grab active:cursor-grabbing shrink-0"
+        {...attributes}
+        {...listeners}
+        data-testid={`button-drag-footer-column-${colIndex}-item-${itemIndex}`}
+      >
+        <IconGripVertical className="h-3 w-3 text-muted-foreground" />
+      </button>
       <div className="flex-1 min-w-0">
         <EditableLinkItem
           label={item.label || ""}
@@ -413,7 +409,7 @@ function SortableFooterItem({
           onSave={(label, href) => onUpdateColumnItem(colIndex, itemIndex, { label, href })}
           onDelete={() => onDeleteColumnItem(colIndex, itemIndex)}
           testIdPrefix={`footer-column-${colIndex}-item-${itemIndex}`}
-          isReadOnlyStructure={!isEnglish}
+          isReadOnlyStructure={false}
           locale={locale}
         />
       </div>
@@ -462,18 +458,14 @@ function SortableFooterColumn({
   return (
     <div ref={setNodeRef} style={style} className="group/col relative border rounded-lg p-2" data-testid={`footer-column-${colIndex}`}>
       <div className="flex items-center gap-1 mb-2">
-        {isEnglish ? (
-          <button
-            className="touch-none cursor-grab active:cursor-grabbing"
-            {...attributes}
-            {...listeners}
-            data-testid={`button-drag-footer-column-${colIndex}`}
-          >
-            <IconGripVertical className="h-4 w-4 text-muted-foreground" />
-          </button>
-        ) : (
-          <IconGripVertical className="h-4 w-4 text-muted-foreground/30" />
-        )}
+        <button
+          className="touch-none cursor-grab active:cursor-grabbing"
+          {...attributes}
+          {...listeners}
+          data-testid={`button-drag-footer-column-${colIndex}`}
+        >
+          <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+        </button>
         <EditableText
           value={column.title}
           onChange={(title) => onUpdateColumn(colIndex, { title })}
@@ -482,15 +474,13 @@ function SortableFooterColumn({
           as="h4"
           testId={`footer-column-${colIndex}-title`}
         />
-        {isEnglish && (
-          <button
-            onClick={() => onDeleteColumn(colIndex)}
-            className="p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity"
-            data-testid={`footer-column-${colIndex}-delete`}
-          >
-            <IconTrash className="h-3 w-3" />
-          </button>
-        )}
+        <button
+          onClick={() => onDeleteColumn(colIndex)}
+          className="p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity"
+          data-testid={`footer-column-${colIndex}-delete`}
+        >
+          <IconTrash className="h-3 w-3" />
+        </button>
       </div>
       <SortableContext
         items={(column.items || []).map((_, i) => `footer-col-${colIndex}-item-${i}`)}
@@ -510,18 +500,16 @@ function SortableFooterColumn({
               onDeleteColumnItem={onDeleteColumnItem}
             />
           ))}
-          {isEnglish && (
-            <li>
-              <button
-                onClick={() => onAddColumnItem(colIndex)}
-                className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
-                data-testid={`footer-column-${colIndex}-add-item`}
-              >
-                <IconPlus className="h-3 w-3" />
-                Add item
-              </button>
-            </li>
-          )}
+          <li>
+            <button
+              onClick={() => onAddColumnItem(colIndex)}
+              className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
+              data-testid={`footer-column-${colIndex}-add-item`}
+            >
+              <IconPlus className="h-3 w-3" />
+              Add item
+            </button>
+          </li>
         </ul>
       </SortableContext>
     </div>
@@ -633,7 +621,8 @@ export default function MenuEditor() {
       }
     },
     onSuccess: (response: any) => {
-      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName] });
+      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName, "en"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/menus", menuName, "es"] });
       queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
       refetch();
       setOriginalYaml(yamlSource);
@@ -1031,17 +1020,15 @@ export default function MenuEditor() {
                     <h2 className="text-sm font-medium text-muted-foreground">
                       Footer Columns ({footerData.columns?.length || 0})
                     </h2>
-                    {isEnglish && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={addFooterColumn}
-                        data-testid="button-add-footer-column"
-                      >
-                        <IconPlus className="h-4 w-4 mr-2" />
-                        Add Column
-                      </Button>
-                    )}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={addFooterColumn}
+                      data-testid="button-add-footer-column"
+                    >
+                      <IconPlus className="h-4 w-4 mr-2" />
+                      Add Column
+                    </Button>
                   </div>
 
                   <DndContext
@@ -1162,17 +1149,15 @@ export default function MenuEditor() {
                     <h2 className="text-sm font-medium text-muted-foreground">
                       Legal Links ({footerData.legal_links?.length || 0})
                     </h2>
-                    {isEnglish && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={addFooterLegalLink}
-                        data-testid="button-add-footer-legal"
-                      >
-                        <IconPlus className="h-4 w-4 mr-2" />
-                        Add Link
-                      </Button>
-                    )}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={addFooterLegalLink}
+                      data-testid="button-add-footer-legal"
+                    >
+                      <IconPlus className="h-4 w-4 mr-2" />
+                      Add Link
+                    </Button>
                   </div>
 
                   <div className="p-4 bg-popover border border-border rounded-lg">
@@ -1187,7 +1172,7 @@ export default function MenuEditor() {
                             onSave={(label, href) => updateFooterLegalLink(index, { label, href })}
                             onDelete={() => deleteFooterLegalLink(index)}
                             testIdPrefix={`footer-legal-${index}`}
-                            isReadOnlyStructure={!isEnglish}
+                            isReadOnlyStructure={false}
                             locale={locale}
                           />
                         </li>
