@@ -9,6 +9,7 @@ meta:
   description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
   redirects:
     - /home
+    - /us/index
 schema:
   include:
     - organization
@@ -20,7 +21,7 @@ sections:
     title: Next-Generation Tech Careers. Powered by AI.
     subtitle: Career-focused programs in AI Engineering, Software Development, Data Science, and Cybersecurity. Built to launch high-growth careers in today’s AI-powered tech.
     trust_bar:
-      rating: 4.9/5
+      rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 3,000+
       trusted_text: Trusted by students worldwide
     cta_button:
@@ -187,11 +188,31 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: 84%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: 55%
+        title: Salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era
     description: Our career support program is designed to help you land your first job in tech
-    background: hsl(var(--muted))
+    background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
@@ -209,7 +230,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Professional Placement & Coaching
+        col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -223,7 +244,7 @@ sections:
       - tab_label: Real Hiring Access
         layout: two_column_cards
         title: Access the hidden job market.
-        left_text: We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -304,27 +325,24 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
-    items:
-      - icon: Briefcase
-        value: 84%
-        title: Job placement rate
-      - icon: Graduation
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: GrowthChart
-        value: 55%
-        title: Salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Optional Job Guarantee* for Extra Confidence
+    subtitle: Back your career outcome with a stronger commitment
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for additional peace of mind. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    cta:
+      text: Get More Info
+      url: en/job-guarantee
+      variant: primary
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none sm
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials_slide
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
+    background: hsl(var(--card))
     marginY:
       desktop: none
     paddingY:

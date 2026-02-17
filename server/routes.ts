@@ -554,29 +554,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { name } = req.params;
       const body = req.body;
 
-      if (body.level) {
-        const { level, key, value } = body as {
-          level: string;
-          key?: string;
-          value: string;
-        };
-        const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
-        if (!level || value === undefined) {
-          return res.status(400).json({ error: "level and value are required" });
-        }
-        if (!VALID_LEVELS.includes(level)) {
-          return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
-        }
-        if (level !== "default" && !key) {
-          return res.status(400).json({ error: "key is required for non-default levels" });
-        }
-        variableManager.updateVariable(name, level, key, value);
-        return res.json({ success: true, definitions: variableManager.getDefinitions() });
-      }
-
       const { action } = body as { action: string };
       if (!action) {
-        return res.status(400).json({ error: "action or level is required" });
+        return res.status(400).json({ error: "action is required" });
       }
 
       switch (action) {

@@ -136,7 +136,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Program Tuition
-    subheading: See tuition and funding options for each program
+    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
@@ -164,16 +164,12 @@ sections:
             text: $10,999 full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-          - icon: Code
-            text: React, Node.js & Python
         tags:
-          - icon: Plus
-            text: API Development
           - icon: ""
             text: ""
         description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         price: $299
-        price_info: or less depending on financing plan
+        price_info: or less depending on your plan
         cta_text: View Program Details
         cta_url: /en/full-stack
         course_background: hsl(var(--destructive))
@@ -208,7 +204,7 @@ sections:
         price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/cybersecurity
-        course_background: secondary
+        course_background: hsl(var(--secondary-foreground))
     marginY:
       desktop: lg
     paddingY:
@@ -217,7 +213,7 @@ sections:
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund. *The Job Guarantee is not available in all regions. Terms and conditions apply.
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
       url: en/job-guarantee
@@ -226,6 +222,7 @@ sections:
       desktop: md
     paddingY:
       desktop: none sm
+    background: hsl(var(--secondary))
   - type: testimonials
     version: v1.0
     title: What Our Students Say
