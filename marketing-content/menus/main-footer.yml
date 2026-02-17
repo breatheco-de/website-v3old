@@ -7,8 +7,8 @@ footer:
         - label: Academy
           href: /en/the-academy
         - label: Partners
-          href: /en/partners
-        - label: Pricing
+          href: /en/career-programs/data-science-ml
+        - label: Pricingdd
           href: /en/financials
         - label: Events
           href: /en/next-dates
@@ -16,12 +16,8 @@ footer:
           href: /en/next-dates
         - label: Blog
           href: /en/blog
-        - label: FAQ
-          href: /en/faq
-        - label: Contact Us
-          href: /en/contact
         - label: New Item
-          href: /new-page
+          href: /en/faq
     - title: Programs
       items:
         - label: AI Engineering
