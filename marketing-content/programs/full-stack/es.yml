@@ -58,11 +58,11 @@ sections:
       thumbnail: https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=450&fit=crop
       alt: Introducción al programa Full Stack Developer con IA en 4Geeks Academy
     signup_card:
-      title: Explora el Plan de Estudios
-      description: Solicita el syllabus completo, la descripción del programa, horarios y toda la información que necesitas para comenzar.
+      title: Obtén el Programa Completo
+      description: Accede al currículo completo, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Ver Programa
-        url: "#apply-modal"
+        text: Envíame el Currículo
+        url: /es/apply
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
