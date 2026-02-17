@@ -186,6 +186,29 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+  - type: graduates_stats
+    heading: Career Placement
+    subheading: We turn your education into employment. See the real-world impact of our coaching.
+    stats:
+      - value: 84%
+        label: Job placement rate
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: 3-6 months
+        label: Average time to get hired
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -238,15 +261,19 @@ sections:
     marginY:
       desktop: none sm
   - type: why_learn_ai
-    version: "1.0"
     variant: default
-    title: Why Should I Learn to Build and Code with AI?
-    subtitle: Software Development as You Know It Will Cease to Exist
-    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    title: Optional Job Guarantee* for Extra Confidence
+    subtitle: Back your career outcome with a stronger commitment
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for additional peace of mind. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
-      text: Join now!
-      url: /signup
+      text: Get More Info
+      url: en/job-guarantee
       variant: primary
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none sm
+    background: hsl(210 100% 50% / 0.05)
   - type: whos_hiring
     variant: carousel
     title: Top Tech Companies Hiring 4Geeks Graduates
@@ -278,29 +305,6 @@ sections:
         alt: Google Developers
     paddingY:
       desktop: sm none
-  - type: graduates_stats
-    heading: Career Placement
-    subheading: We turn your education into employment. See the real-world impact of our coaching.
-    stats:
-      - value: 84%
-        label: Job placement rate
-      - value: $15K
-        label: Average salary increase after graduation
-      - value: 3-6 months
-        label: Average time to get hired
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends
-        col_span: 6
-        row_span: 2
   - type: testimonials_slide
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
