@@ -1084,27 +1084,82 @@ export default function PrivateRedirects() {
                     </PopoverTrigger>
                     <PopoverContent className="w-80" align="end" side="bottom" container={dialogRef.current}>
                       {(() => {
-                        let testResult: { matches: boolean; destination?: string; error?: string } = { matches: false };
+                        const groupColors = [
+                          { bg: "bg-blue-100 dark:bg-blue-900/40", text: "text-blue-700 dark:text-blue-300" },
+                          { bg: "bg-amber-100 dark:bg-amber-900/40", text: "text-amber-700 dark:text-amber-300" },
+                          { bg: "bg-emerald-100 dark:bg-emerald-900/40", text: "text-emerald-700 dark:text-emerald-300" },
+                          { bg: "bg-purple-100 dark:bg-purple-900/40", text: "text-purple-700 dark:text-purple-300" },
+                          { bg: "bg-rose-100 dark:bg-rose-900/40", text: "text-rose-700 dark:text-rose-300" },
+                        ];
+                        let testResult: { matches: boolean; groups?: string[]; destination?: string; error?: string } = { matches: false };
                         if (testUrl.trim()) {
                           try {
                             const regex = new RegExp(`^${newFrom.trim()}$`, "i");
                             const match = testUrl.trim().match(regex);
                             if (match) {
+                              const groups = Array.from(match).slice(1);
                               let dest = newTo.trim();
                               if (dest) {
-                                for (let g = 1; g < match.length; g++) {
-                                  dest = dest.replace(new RegExp(`\\$${g}`, "g"), match[g] || "");
+                                for (let g = 0; g < groups.length; g++) {
+                                  dest = dest.replace(new RegExp(`\\$${g + 1}`, "g"), groups[g] || "");
                                 }
                               }
-                              testResult = { matches: true, destination: dest || undefined };
+                              testResult = { matches: true, groups, destination: dest || undefined };
                             }
                           } catch (e: any) {
                             testResult = { matches: false, error: e.message };
                           }
                         }
+
+                        const renderColoredUrl = (url: string, groups: string[]) => {
+                          const parts: Array<{ text: string; groupIndex: number | null }> = [];
+                          let remaining = url;
+                          for (let g = 0; g < groups.length; g++) {
+                            const val = groups[g];
+                            if (!val) continue;
+                            const idx = remaining.indexOf(val);
+                            if (idx === -1) continue;
+                            if (idx > 0) parts.push({ text: remaining.slice(0, idx), groupIndex: null });
+                            parts.push({ text: val, groupIndex: g });
+                            remaining = remaining.slice(idx + val.length);
+                          }
+                          if (remaining) parts.push({ text: remaining, groupIndex: null });
+                          return parts.map((p, i) =>
+                            p.groupIndex !== null ? (
+                              <span key={i} className={`${groupColors[p.groupIndex % groupColors.length].bg} ${groupColors[p.groupIndex % groupColors.length].text} px-0.5 rounded font-medium`}>{p.text}</span>
+                            ) : (
+                              <span key={i}>{p.text}</span>
+                            )
+                          );
+                        };
+
+                        const renderColoredDest = (dest: string, groups: string[]) => {
+                          const parts: Array<{ text: string; groupIndex: number | null }> = [];
+                          let remaining = dest;
+                          for (let g = 0; g < groups.length; g++) {
+                            const val = groups[g];
+                            if (!val) continue;
+                            let idx = remaining.indexOf(val);
+                            while (idx !== -1) {
+                              if (idx > 0) parts.push({ text: remaining.slice(0, idx), groupIndex: null });
+                              parts.push({ text: val, groupIndex: g });
+                              remaining = remaining.slice(idx + val.length);
+                              idx = remaining.indexOf(val);
+                            }
+                          }
+                          if (remaining) parts.push({ text: remaining, groupIndex: null });
+                          return parts.map((p, i) =>
+                            p.groupIndex !== null ? (
+                              <span key={i} className={`${groupColors[p.groupIndex % groupColors.length].bg} ${groupColors[p.groupIndex % groupColors.length].text} px-0.5 rounded font-medium`}>{p.text}</span>
+                            ) : (
+                              <span key={i}>{p.text}</span>
+                            )
+                          );
+                        };
+
                         return (
                           <div className="space-y-2">
-                            <p className="text-sm font-medium">Test this pattern with a real URL</p>
+                            <p className="text-sm font-medium">Test this pattern</p>
                             <Input
                               id="test-url"
                               placeholder="/us/some-page"
@@ -1115,14 +1170,33 @@ export default function PrivateRedirects() {
                             {testUrl.trim() && (
                               testResult.error ? (
                                 <p className="text-xs text-destructive" data-testid="status-test-url-error">Invalid pattern: {testResult.error}</p>
-                              ) : testResult.matches ? (
-                                <div className="text-xs space-y-1" data-testid="status-test-url-match">
+                              ) : testResult.matches && testResult.groups ? (
+                                <div className="text-xs space-y-2" data-testid="status-test-url-match">
                                   <p className="text-green-600 font-medium">Match found</p>
+                                  {testResult.groups.length > 0 && (
+                                    <div className="space-y-1.5">
+                                      <p className="text-muted-foreground font-medium">Captured groups:</p>
+                                      <code className="text-xs bg-muted px-2 py-1 rounded block" data-testid="text-test-url-colored">
+                                        {renderColoredUrl(testUrl.trim(), testResult.groups)}
+                                      </code>
+                                      <div className="flex flex-wrap gap-1.5">
+                                        {testResult.groups.map((g, i) => (
+                                          <span key={i} className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs ${groupColors[i % groupColors.length].bg} ${groupColors[i % groupColors.length].text}`}>
+                                            <span className="font-medium">${i + 1}</span>
+                                            <span className="opacity-70">=</span>
+                                            <span>{g}</span>
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
                                   {testResult.destination && (
-                                    <p className="text-muted-foreground">
-                                      Redirects to{" "}
-                                      <code className="bg-muted px-1 rounded" data-testid="text-test-url-destination">{testResult.destination}</code>
-                                    </p>
+                                    <div className="space-y-1">
+                                      <p className="text-muted-foreground font-medium">Destination:</p>
+                                      <code className="text-xs bg-muted px-2 py-1 rounded block" data-testid="text-test-url-destination">
+                                        {renderColoredDest(testResult.destination, testResult.groups)}
+                                      </code>
+                                    </div>
                                   )}
                                 </div>
                               ) : (
