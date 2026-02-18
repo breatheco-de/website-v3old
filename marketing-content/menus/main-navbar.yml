@@ -97,7 +97,7 @@ navbar:
           - label: Press
             href: /en/press
           - label: Blog
-            href: /blog
+            href: /en/blog
     - label: CAMPUS
       href: /campus
       component: Dropdown

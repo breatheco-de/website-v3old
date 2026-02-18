@@ -1356,8 +1356,8 @@ export default function BlogManagePage() {
     const published = posts.filter((p) => p.status?.toLowerCase() === "published").length;
     const draft = posts.filter((p) => p.status?.toLowerCase() === "draft").length;
     const other = total - published - draft;
-    const enPosts = posts.filter((p) => p.lang === "us" || p.category?.slug === "blog-en");
-    const esPosts = posts.filter((p) => p.lang === "es" || p.category?.slug === "blog-es");
+    const enPosts = posts.filter((p) => p.lang === "en" || p.lang === "us");
+    const esPosts = posts.filter((p) => p.lang === "es");
     const publicPosts = posts.filter((p) => p.visibility?.toLowerCase() === "public").length;
     const privatePosts = total - publicPosts;
 
@@ -1373,9 +1373,9 @@ export default function BlogManagePage() {
 
     if (localeFilter !== "all") {
       if (localeFilter === "en") {
-        result = result.filter((p) => p.lang === "us" || p.category?.slug === "blog-en");
+        result = result.filter((p) => p.lang === "en" || p.lang === "us");
       } else if (localeFilter === "es") {
-        result = result.filter((p) => p.lang === "es" || p.category?.slug === "blog-es");
+        result = result.filter((p) => p.lang === "es");
       }
     }
 
@@ -1575,7 +1575,7 @@ export default function BlogManagePage() {
                   </thead>
                   <tbody>
                     {filtered.map((post) => {
-                      const locale = (post.lang === "es" || post.category?.slug === "blog-es") ? "es" : "en";
+                      const locale = post.lang === "es" ? "es" : "en";
                       const pattern = locale === "es" ? urlPatterns.es : urlPatterns.en;
                       const blogUrl = buildBlogUrl(pattern, post, locale);
                       return (
