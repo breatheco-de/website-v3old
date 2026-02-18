@@ -120,6 +120,7 @@ export default function PrivateRedirects() {
   const [allLanguages, setAllLanguages] = useState(true);
   const [isCustomDestination, setIsCustomDestination] = useState(false);
   const [isRegexDestination, setIsRegexDestination] = useState(false);
+  const [testUrl, setTestUrl] = useState("");
   const [redirectStatus, setRedirectStatus] = useState<number>(301);
   const [localeUrls, setLocaleUrls] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -293,6 +294,7 @@ export default function PrivateRedirects() {
     setAllLanguages(true);
     setIsCustomDestination(false);
     setIsRegexDestination(false);
+    setTestUrl("");
     setRedirectStatus(301);
     setLocaleUrls({});
     setOriginCheckStatus("idle");
@@ -1086,8 +1088,9 @@ export default function PrivateRedirects() {
                 </p>
               ) : newFrom.trim() && !newFrom.startsWith("/") ? (
                 <p className="text-xs text-destructive">
-                  The path must start with{" "}
-                  <code className="bg-muted px-1 rounded">/</code>
+                  {isOriginRegex
+                    ? <>Patterns must start with <code className="bg-muted px-1 rounded">/</code> because all URL paths begin with it — e.g. <code className="bg-muted px-1 rounded">/{newFrom.trim()}</code></>
+                    : <>The path must start with{" "}<code className="bg-muted px-1 rounded">/</code></>}
                 </p>
               ) : !isOriginRegex && originCheckStatus === "taken" ? (
                 <p className="text-xs text-destructive">
@@ -1309,6 +1312,52 @@ export default function PrivateRedirects() {
                 )}
               </div>
             )}
+
+            {isOriginRegex && newFrom.trim() && newTo.trim() && !isOriginInvalid && (() => {
+              let testResult: { matches: boolean; destination?: string; error?: string } = { matches: false };
+              if (testUrl.trim()) {
+                try {
+                  const regex = new RegExp(`^${newFrom.trim()}$`, "i");
+                  const match = testUrl.trim().match(regex);
+                  if (match) {
+                    let dest = newTo.trim();
+                    for (let g = 1; g < match.length; g++) {
+                      dest = dest.replace(new RegExp(`\\$${g}`, "g"), match[g] || "");
+                    }
+                    testResult = { matches: true, destination: dest };
+                  }
+                } catch (e: any) {
+                  testResult = { matches: false, error: e.message };
+                }
+              }
+              return (
+                <div className="space-y-2 rounded-md border p-3">
+                  <Label htmlFor="test-url" className="text-sm font-medium">Test a URL</Label>
+                  <Input
+                    id="test-url"
+                    placeholder="/us/some-page"
+                    value={testUrl}
+                    onChange={(e) => setTestUrl(e.target.value)}
+                    data-testid="input-test-url"
+                  />
+                  {testUrl.trim() && (
+                    testResult.error ? (
+                      <p className="text-xs text-destructive" data-testid="status-test-url-error">Invalid pattern: {testResult.error}</p>
+                    ) : testResult.matches ? (
+                      <div className="text-xs space-y-1" data-testid="status-test-url-match">
+                        <p className="text-green-600 font-medium">Match found</p>
+                        <p className="text-muted-foreground">
+                          Redirects to{" "}
+                          <code className="bg-muted px-1 rounded" data-testid="text-test-url-destination">{testResult.destination}</code>
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-muted-foreground" data-testid="status-test-url-no-match">No match — this URL would not trigger the redirect.</p>
+                    )
+                  )}
+                </div>
+              );
+            })()}
           </div>
 
           <DialogFooter>
