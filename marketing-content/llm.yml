@@ -1,0 +1,35 @@
+# LLM Provider Configuration
+#
+# Controls which AI provider is used for content analysis features
+# (blog data source wizard, content adaptation, etc.)
+#
+# Switching providers:
+#   Any OpenAI-compatible API works. Just change the env var names
+#   and model. Examples:
+#
+#   Groq:
+#     api_key_env: GROQ_API_KEY
+#     base_url_env: GROQ_BASE_URL   # https://api.groq.com/openai/v1
+#     model: llama-3.1-70b-versatile
+#
+#   Together AI:
+#     api_key_env: TOGETHER_API_KEY
+#     base_url_env: TOGETHER_BASE_URL  # https://api.together.xyz/v1
+#     model: meta-llama/Llama-3-70b-chat-hf
+#
+#   Azure OpenAI:
+#     api_key_env: AZURE_OPENAI_KEY
+#     base_url_env: AZURE_OPENAI_BASE_URL
+#     model: gpt-4o
+#
+# If no YAML config is found, the system falls back to:
+#   1. OPENAI_API_KEY env var (direct OpenAI)
+#   2. Replit AI Integrations (AI_INTEGRATIONS_OPENAI_*)
+
+provider:
+  api_key_env: AI_INTEGRATIONS_OPENAI_API_KEY
+  base_url_env: AI_INTEGRATIONS_OPENAI_BASE_URL
+
+model: gpt-4o-mini
+temperature: 0.3
+max_tokens: 4000

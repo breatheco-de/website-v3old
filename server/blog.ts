@@ -27,6 +27,17 @@ export interface BlogConfig {
   };
   url_pattern: Record<string, string>;
   categories: Record<string, string>;
+  transform?: {
+    results_path: string;
+    pagination?: {
+      type: string;
+      has_more_field?: string | null;
+      total_field?: string | null;
+      next_field?: string | null;
+      strategy_description?: string;
+    };
+  };
+  field_mapping?: Record<string, string | null>;
 }
 
 interface CachedData {
@@ -202,7 +213,69 @@ function writeCache(results: BlogPost[]): void {
   fs.writeFileSync(cachePath, JSON.stringify(data, null, 2), "utf-8");
 }
 
+function extractByDotPath(obj: unknown, dotPath: string): unknown {
+  if (!dotPath) return obj;
+  let current = obj;
+  for (const key of dotPath.split(".")) {
+    if (current && typeof current === "object" && key in (current as Record<string, unknown>)) {
+      current = (current as Record<string, unknown>)[key];
+    } else {
+      return undefined;
+    }
+  }
+  return current;
+}
+
+function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string | null>): BlogPost[] {
+  return rawItems.map((item, idx) => {
+    if (!item || typeof item !== "object") return item as BlogPost;
+    const src = item as Record<string, unknown>;
+
+    const getValue = (dotPath: string | null): unknown => {
+      if (!dotPath) return undefined;
+      return extractByDotPath(src, dotPath);
+    };
+
+    const mapped: Record<string, unknown> = { ...src };
+
+    if (mapping.title) mapped.title = getValue(mapping.title) ?? mapped.title;
+    if (mapping.slug) mapped.slug = getValue(mapping.slug) ?? mapped.slug;
+    if (mapping.description) mapped.description = getValue(mapping.description) ?? mapped.description;
+    if (mapping.published_at) mapped.published_at = getValue(mapping.published_at) ?? mapped.published_at;
+    if (mapping.updated_at) mapped.updated_at = getValue(mapping.updated_at) ?? mapped.updated_at;
+    if (mapping.status) mapped.status = getValue(mapping.status) ?? mapped.status;
+    if (mapping.lang) mapped.lang = getValue(mapping.lang) ?? mapped.lang;
+    if (mapping.image) mapped.preview = getValue(mapping.image) ?? mapped.preview;
+    if (mapping.content_url) mapped.readme_url = getValue(mapping.content_url) ?? mapped.readme_url;
+    if (mapping.tags) {
+      const tagsVal = getValue(mapping.tags);
+      mapped.tags = Array.isArray(tagsVal) ? tagsVal : mapped.tags;
+    }
+    if (mapping.author) {
+      const authorVal = getValue(mapping.author);
+      if (authorVal && typeof authorVal === "object") {
+        mapped.author = authorVal;
+      } else if (typeof authorVal === "string") {
+        mapped.author = { id: 0, first_name: authorVal, last_name: "" };
+      }
+    }
+    if (mapping.category) {
+      const catVal = getValue(mapping.category);
+      if (catVal && typeof catVal === "object") {
+        mapped.category = catVal;
+      } else if (typeof catVal === "string") {
+        mapped.category = { slug: catVal };
+      }
+    }
+
+    if (!mapped.id) mapped.id = idx;
+
+    return mapped as unknown as BlogPost;
+  });
+}
+
 async function fetchFromApi(): Promise<BlogPost[]> {
+  const config = loadConfig();
   const apiConfig = getApiConfig();
   const token = process.env[apiConfig.token_env_var];
 
@@ -237,37 +310,36 @@ async function fetchFromApi(): Promise<BlogPost[]> {
 
   const data = await response.json() as unknown;
 
-  let results: BlogPost[];
-  const resultsPath = apiConfig.results_path;
+  const resultsPath = config.transform?.results_path ?? apiConfig.results_path ?? "";
+
+  let rawItems: unknown[];
 
   if (resultsPath) {
-    let extracted: unknown = data;
-    for (const key of resultsPath.split(".")) {
-      if (extracted && typeof extracted === "object" && key in extracted) {
-        extracted = (extracted as Record<string, unknown>)[key];
-      } else {
-        extracted = undefined;
-        break;
-      }
-    }
+    const extracted = extractByDotPath(data, resultsPath);
     if (Array.isArray(extracted)) {
-      results = extracted as BlogPost[];
-      console.log(`[Blog] Extracted ${results.length} posts via results_path "${resultsPath}"`);
+      rawItems = extracted;
+      console.log(`[Blog] Extracted ${rawItems.length} posts via results_path "${resultsPath}"`);
     } else {
       console.warn(`[Blog] results_path "${resultsPath}" did not resolve to an array, got ${typeof extracted}`);
-      results = [];
+      rawItems = [];
     }
   } else if (Array.isArray(data)) {
-    results = data as BlogPost[];
+    rawItems = data;
   } else if (data && typeof data === "object" && "results" in data) {
-    const obj = data as { results?: BlogPost[]; count?: number };
-    results = obj.results || [];
-    console.log(`[Blog] API returned ${obj.count ?? results.length} total posts, fetched ${results.length}`);
+    const obj = data as { results?: unknown[]; count?: number };
+    rawItems = obj.results || [];
+    console.log(`[Blog] API returned ${obj.count ?? rawItems.length} total posts, fetched ${rawItems.length}`);
   } else {
-    results = [];
+    rawItems = [];
   }
 
-  return results;
+  if (config.field_mapping && Object.keys(config.field_mapping).length > 0) {
+    const mapped = applyFieldMapping(rawItems, config.field_mapping);
+    console.log(`[Blog] Applied field mapping to ${mapped.length} posts`);
+    return mapped;
+  }
+
+  return rawItems as BlogPost[];
 }
 
 export async function getBlogPosts(forceRefresh = false): Promise<BlogPost[]> {

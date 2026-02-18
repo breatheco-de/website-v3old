@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   IconArrowLeft,
+  IconArrowRight,
   IconSearch,
   IconArticle,
   IconCheck,
@@ -47,6 +48,12 @@ import {
   IconPlus,
   IconTrash,
   IconTrashX,
+  IconWand,
+  IconLoader2,
+  IconSettings,
+  IconTestPipe,
+  IconTransform,
+  IconLayoutList,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -91,6 +98,21 @@ interface ApiSourceConfig {
   results_path?: string;
 }
 
+interface FieldMapping {
+  [standardField: string]: string | null;
+}
+
+interface TransformConfig {
+  results_path: string;
+  pagination?: {
+    type: string;
+    has_more_field?: string | null;
+    total_field?: string | null;
+    next_field?: string | null;
+    strategy_description?: string;
+  };
+}
+
 interface BlogConfig {
   data_source: {
     type: string;
@@ -102,6 +124,8 @@ interface BlogConfig {
   };
   url_pattern: Record<string, string>;
   categories: Record<string, string>;
+  field_mapping?: FieldMapping;
+  transform?: TransformConfig;
 }
 
 function formatDate(dateStr: string | null | undefined): string {
@@ -135,6 +159,84 @@ function VisibilityIcon({ visibility }: { visibility: string }) {
   return <IconEyeOff className="h-4 w-4 text-muted-foreground" />;
 }
 
+const WIZARD_STEPS = [
+  { id: "configure", label: "Configure", icon: IconSettings },
+  { id: "test", label: "Test", icon: IconTestPipe },
+  { id: "transform", label: "Transform", icon: IconTransform },
+  { id: "fields", label: "Field Mapping", icon: IconLayoutList },
+] as const;
+
+type WizardStep = typeof WIZARD_STEPS[number]["id"];
+
+function extractByPath(obj: unknown, dotPath: string): unknown {
+  if (!dotPath) return obj;
+  let current = obj;
+  for (const key of dotPath.split(".")) {
+    if (current && typeof current === "object" && key in (current as Record<string, unknown>)) {
+      current = (current as Record<string, unknown>)[key];
+    } else {
+      return undefined;
+    }
+  }
+  return current;
+}
+
+function StepIndicator({ steps, currentStep, completedSteps }: {
+  steps: typeof WIZARD_STEPS;
+  currentStep: WizardStep;
+  completedSteps: Set<WizardStep>;
+}) {
+  const currentIndex = steps.findIndex((s) => s.id === currentStep);
+
+  return (
+    <div className="flex items-center gap-1 px-1" data-testid="wizard-step-indicator">
+      {steps.map((step, i) => {
+        const isActive = step.id === currentStep;
+        const isCompleted = completedSteps.has(step.id);
+        const isPast = i < currentIndex;
+        const StepIcon = step.icon;
+
+        return (
+          <div key={step.id} className="flex items-center gap-1 flex-1">
+            <div className="flex items-center gap-1.5 flex-1 min-w-0">
+              <div
+                className={`flex items-center justify-center w-6 h-6 rounded-full flex-shrink-0 text-xs font-medium transition-colors ${
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : isCompleted || isPast
+                      ? "bg-primary/20 text-primary"
+                      : "bg-muted text-muted-foreground"
+                }`}
+                data-testid={`step-indicator-${step.id}`}
+              >
+                {isCompleted || isPast ? (
+                  <IconCheck className="h-3.5 w-3.5" />
+                ) : (
+                  <StepIcon className="h-3.5 w-3.5" />
+                )}
+              </div>
+              <span
+                className={`text-xs truncate ${
+                  isActive ? "text-foreground font-medium" : "text-muted-foreground"
+                }`}
+              >
+                {step.label}
+              </span>
+            </div>
+            {i < steps.length - 1 && (
+              <div
+                className={`h-px flex-shrink-0 w-4 ${
+                  isPast || isCompleted ? "bg-primary/40" : "bg-border"
+                }`}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function DataSourceDialog({
   open,
   onOpenChange,
@@ -144,6 +246,8 @@ function DataSourceDialog({
 }) {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
+  const [step, setStep] = useState<WizardStep>("configure");
+  const [completedSteps, setCompletedSteps] = useState<Set<WizardStep>>(new Set());
 
   const { data: config, isLoading } = useQuery<BlogConfig>({
     queryKey: ["/api/blog/config"],
@@ -159,13 +263,30 @@ function DataSourceDialog({
   const [customHeaders, setCustomHeaders] = useState<Array<{ key: string; value: string }>>([]);
   const [editingHeaders, setEditingHeaders] = useState(false);
   const [ttlHours, setTtlHours] = useState("24");
+
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<{ status: number; status_text: string; content_type: string; body: unknown } | null>(null);
   const [testError, setTestError] = useState<string | null>(null);
-  const [testPassed, setTestPassed] = useState(false);
-  const [mappingMode, setMappingMode] = useState<"direct" | "nested">("direct");
-  const [resultsPath, setResultsPath] = useState("");
-  const [mappingConfirmed, setMappingConfirmed] = useState(false);
+
+  const [aiAnalyzing, setAiAnalyzing] = useState(false);
+  const [transformConfig, setTransformConfig] = useState<TransformConfig | null>(null);
+  const [transformError, setTransformError] = useState<string | null>(null);
+  const [transformConfirmed, setTransformConfirmed] = useState(false);
+
+  const [aiMappingFields, setAiMappingFields] = useState(false);
+  const [fieldMapping, setFieldMapping] = useState<FieldMapping>({});
+  const [availableFields, setAvailableFields] = useState<string[]>([]);
+  const [fieldMappingNotes, setFieldMappingNotes] = useState("");
+  const [fieldMappingError, setFieldMappingError] = useState<string | null>(null);
+  const [fieldMappingConfirmed, setFieldMappingConfirmed] = useState(false);
+
+  const markComplete = (s: WizardStep) => {
+    setCompletedSteps((prev) => {
+      const next = new Set(Array.from(prev));
+      next.add(s);
+      return next;
+    });
+  };
 
   useEffect(() => {
     if (config) {
@@ -198,17 +319,21 @@ function DataSourceDialog({
         }
         setCustomHeaders(headerPairs.length > 0 ? headerPairs : [{ key: "", value: "" }]);
         setEditingHeaders(false);
-        if (api.results_path) {
-          setMappingMode("nested");
-          setResultsPath(api.results_path);
-        } else {
-          setMappingMode("direct");
-          setResultsPath("");
-        }
-        setMappingConfirmed(true);
-        setTestPassed(true);
       }
       setTtlHours(String(config.cache?.ttl_hours || 24));
+
+      if (config.transform) {
+        setTransformConfig(config.transform);
+        setTransformConfirmed(true);
+      }
+      if (config.field_mapping) {
+        setFieldMapping(config.field_mapping);
+        setFieldMappingConfirmed(true);
+      }
+
+      if (config.data_source?.api?.endpoint) {
+        setCompletedSteps(new Set<WizardStep>(["configure"]));
+      }
     }
   }, [config]);
 
@@ -281,8 +406,6 @@ function DataSourceDialog({
     setTesting(true);
     setTestResult(null);
     setTestError(null);
-    setTestPassed(false);
-    setMappingConfirmed(false);
     try {
       const res = await apiRequest("POST", "/api/blog/test-endpoint", {
         endpoint,
@@ -294,19 +417,67 @@ function DataSourceDialog({
       const data = await res.json();
       setTestResult(data);
       if (data.status < 400) {
-        setTestPassed(true);
-        if (Array.isArray(data.body)) {
-          setMappingMode("direct");
-          setResultsPath("");
-        } else {
-          setMappingMode("nested");
-          setResultsPath(resultsPath || "results");
-        }
+        markComplete("test");
       }
     } catch (err) {
       setTestError(String(err));
     } finally {
       setTesting(false);
+    }
+  };
+
+  const handleAnalyzeTransform = async () => {
+    if (!testResult?.body) return;
+    setAiAnalyzing(true);
+    setTransformError(null);
+    setTransformConfirmed(false);
+    try {
+      const res = await apiRequest("POST", "/api/blog/ai/analyze-response", {
+        sample_payload: testResult.body,
+      });
+      const data = await res.json();
+      if (data.error) {
+        setTransformError(data.error);
+      } else {
+        setTransformConfig({
+          results_path: data.results_path || "",
+          pagination: data.pagination || { type: "none", strategy_description: "No pagination detected" },
+        });
+      }
+    } catch (err) {
+      setTransformError(String(err));
+    } finally {
+      setAiAnalyzing(false);
+    }
+  };
+
+  const extractedPosts = useMemo(() => {
+    if (!testResult?.body || !transformConfig) return [];
+    const extracted = extractByPath(testResult.body, transformConfig.results_path);
+    return Array.isArray(extracted) ? extracted : [];
+  }, [testResult, transformConfig]);
+
+  const handleAnalyzeFields = async () => {
+    if (extractedPosts.length === 0) return;
+    setAiMappingFields(true);
+    setFieldMappingError(null);
+    setFieldMappingConfirmed(false);
+    try {
+      const res = await apiRequest("POST", "/api/blog/ai/analyze-fields", {
+        sample_posts: extractedPosts.slice(0, 3),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setFieldMappingError(data.error);
+      } else {
+        setFieldMapping(data.field_mapping || {});
+        setAvailableFields(data.available_fields || []);
+        setFieldMappingNotes(data.notes || "");
+      }
+    } catch (err) {
+      setFieldMappingError(String(err));
+    } finally {
+      setAiMappingFields(false);
     }
   };
 
@@ -322,7 +493,7 @@ function DataSourceDialog({
               params: paramsRecord,
               token_env_var: authType === "none" ? "" : tokenEnvVar,
               auth_prefix: authType === "none" || authType === "raw" ? "" : authType,
-              results_path: mappingMode === "nested" ? resultsPath : "",
+              results_path: transformConfig?.results_path || "",
               headers: headersRecord,
             },
           }),
@@ -333,6 +504,8 @@ function DataSourceDialog({
         },
         url_pattern: config?.url_pattern || { en: "/en/blog/:slug", es: "/es/blog/:slug" },
         categories: config?.categories || { en: "blog-us", es: "blog-es" },
+        transform: transformConfig || undefined,
+        field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
       };
 
       await apiRequest("PUT", "/api/blog/config", payload);
@@ -346,373 +519,510 @@ function DataSourceDialog({
     }
   };
 
+  const canGoNext = (s: WizardStep): boolean => {
+    switch (s) {
+      case "configure": return sourceType === "api" && !!endpoint;
+      case "test": return !!testResult && testResult.status < 400;
+      case "transform": return transformConfirmed && !!transformConfig;
+      case "fields": return fieldMappingConfirmed;
+      default: return false;
+    }
+  };
+
+  const goNext = () => {
+    const idx = WIZARD_STEPS.findIndex((s) => s.id === step);
+    if (idx < WIZARD_STEPS.length - 1) {
+      markComplete(step);
+      setStep(WIZARD_STEPS[idx + 1].id);
+    }
+  };
+
+  const goBack = () => {
+    const idx = WIZARD_STEPS.findIndex((s) => s.id === step);
+    if (idx > 0) {
+      setStep(WIZARD_STEPS[idx - 1].id);
+    }
+  };
+
+  const stepIndex = WIZARD_STEPS.findIndex((s) => s.id === step);
+  const isLastStep = stepIndex === WIZARD_STEPS.length - 1;
+
+  const samplePost = extractedPosts[0] as Record<string, unknown> | undefined;
+
+  const getFieldValue = (post: Record<string, unknown>, dotPath: string | null): unknown => {
+    if (!dotPath) return null;
+    return extractByPath(post, dotPath);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[520px] max-h-[85vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[580px] max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Blog Data Source</DialogTitle>
         </DialogHeader>
 
+        <StepIndicator steps={WIZARD_STEPS} currentStep={step} completedSteps={completedSteps} />
+
         {isLoading ? (
           <div className="flex items-center justify-center py-8">
-            <div className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
+            <IconLoader2 className="h-5 w-5 animate-spin" />
             <span className="ml-2 text-sm text-muted-foreground">Loading configuration...</span>
           </div>
         ) : (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label htmlFor="source-type">Source Type</Label>
-                <Select value={sourceType} onValueChange={setSourceType}>
-                  <SelectTrigger id="source-type" data-testid="select-source-type">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="api">REST API</SelectItem>
-                    <SelectItem value="rss" disabled>RSS Feed (coming soon)</SelectItem>
-                    <SelectItem value="csv" disabled>CSV File (coming soon)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cache-ttl">Cache TTL (hours)</Label>
-                <Input
-                  id="cache-ttl"
-                  type="number"
-                  value={ttlHours}
-                  onChange={(e) => setTtlHours(e.target.value)}
-                  placeholder="24"
-                  data-testid="input-cache-ttl"
-                />
-              </div>
-            </div>
+          <div className="space-y-4 min-h-[250px]">
 
-            {sourceType === "api" && (
-              <>
-                <div className="space-y-2">
-                  <Label htmlFor="api-endpoint">API Endpoint</Label>
-                  <Input
-                    id="api-endpoint"
-                    value={endpoint}
-                    onChange={(e) => { setEndpoint(e.target.value); setTestPassed(false); setMappingConfirmed(false); }}
-                    placeholder="https://api.example.com/posts"
-                    data-testid="input-api-endpoint"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    REST endpoint that returns blog posts as JSON. Test to configure response mapping.
+            {step === "configure" && (
+              <div className="space-y-4" data-testid="step-configure">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="source-type">Source Type</Label>
+                    <Select value={sourceType} onValueChange={setSourceType}>
+                      <SelectTrigger id="source-type" data-testid="select-source-type">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="api">REST API</SelectItem>
+                        <SelectItem value="rss" disabled>RSS Feed (coming soon)</SelectItem>
+                        <SelectItem value="csv" disabled>CSV File (coming soon)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cache-ttl">Cache TTL (hours)</Label>
+                    <Input
+                      id="cache-ttl"
+                      type="number"
+                      value={ttlHours}
+                      onChange={(e) => setTtlHours(e.target.value)}
+                      placeholder="24"
+                      data-testid="input-cache-ttl"
+                    />
+                  </div>
+                </div>
+
+                {sourceType === "api" && (
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="api-endpoint">API Endpoint</Label>
+                      <Input
+                        id="api-endpoint"
+                        value={endpoint}
+                        onChange={(e) => setEndpoint(e.target.value)}
+                        placeholder="https://api.example.com/posts"
+                        data-testid="input-api-endpoint"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <Label>Query Parameters</Label>
+                        <Button variant="ghost" size="sm" onClick={() => setEditingParams(!editingParams)} data-testid="button-toggle-params">
+                          <IconPencil className="h-3.5 w-3.5 mr-1" />
+                          {editingParams ? "Done" : "Edit"}
+                        </Button>
+                      </div>
+                      {!editingParams ? (
+                        <div className="rounded-md bg-muted px-3 py-2" data-testid="text-querystring-preview">
+                          <p className="text-xs font-mono text-muted-foreground break-all">
+                            {queryString || "(no parameters)"}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          {queryParams.map((param, i) => (
+                            <div key={i} className="flex items-center gap-2">
+                              <Input value={param.key} onChange={(e) => updateParam(i, "key", e.target.value)} placeholder="key" className="flex-1 font-mono text-xs" data-testid={`input-param-key-${i}`} />
+                              <span className="text-muted-foreground text-xs">=</span>
+                              <Input value={param.value} onChange={(e) => updateParam(i, "value", e.target.value)} placeholder="value" className="flex-1 font-mono text-xs" data-testid={`input-param-value-${i}`} />
+                              <Button variant="ghost" size="icon" onClick={() => removeParam(i)} data-testid={`button-remove-param-${i}`}>
+                                <IconTrash className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button variant="outline" size="sm" onClick={addParam} data-testid="button-add-param">
+                            <IconPlus className="h-3.5 w-3.5 mr-1" />
+                            Add Parameter
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Authentication</Label>
+                      <Select value={authType} onValueChange={(v) => setAuthType(v as "none" | "Token" | "Bearer" | "raw")}>
+                        <SelectTrigger data-testid="select-auth-type">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">No Authentication</SelectItem>
+                          <SelectItem value="Token">Token</SelectItem>
+                          <SelectItem value="Bearer">Bearer</SelectItem>
+                          <SelectItem value="raw">Raw Token (no prefix)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {authType !== "none" && (
+                        <div className="space-y-2">
+                          <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
+                          <Input id="token-env-var" value={tokenEnvVar} onChange={(e) => setTokenEnvVar(e.target.value)} placeholder="BREATHECODE_TOKEN" data-testid="input-token-env-var" />
+                          <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
+                            <p className="text-xs font-mono text-muted-foreground">
+                              {tokenEnvVar
+                                ? <>Authorization: {authType === "raw" ? "" : `${authType} `}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span></>
+                                : <span className="italic">Enter a token env var name above</span>}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <Label>Custom Headers</Label>
+                        <Button variant="ghost" size="sm" onClick={() => setEditingHeaders(!editingHeaders)} data-testid="button-toggle-headers">
+                          <IconPencil className="h-3.5 w-3.5 mr-1" />
+                          {editingHeaders ? "Done" : "Edit"}
+                        </Button>
+                      </div>
+                      {!editingHeaders ? (
+                        <div className="rounded-md bg-muted px-3 py-2" data-testid="text-headers-preview">
+                          <p className="text-xs font-mono text-muted-foreground whitespace-pre-wrap break-all">
+                            {headersPreview || "(no custom headers)"}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          {customHeaders.map((header, i) => (
+                            <div key={i} className="flex items-center gap-2">
+                              <Input value={header.key} onChange={(e) => updateHeader(i, "key", e.target.value)} placeholder="Header-Name" className="flex-1 font-mono text-xs" data-testid={`input-header-key-${i}`} />
+                              <span className="text-muted-foreground text-xs">:</span>
+                              <Input value={header.value} onChange={(e) => updateHeader(i, "value", e.target.value)} placeholder="value" className="flex-1 font-mono text-xs" data-testid={`input-header-value-${i}`} />
+                              <Button variant="ghost" size="icon" onClick={() => removeHeader(i)} data-testid={`button-remove-header-${i}`}>
+                                <IconTrash className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button variant="outline" size="sm" onClick={addHeader} data-testid="button-add-header">
+                            <IconPlus className="h-3.5 w-3.5 mr-1" />
+                            Add Header
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {step === "test" && (
+              <div className="space-y-4" data-testid="step-test">
+                <div className="rounded-md bg-muted px-3 py-2">
+                  <p className="text-xs text-muted-foreground font-mono break-all">
+                    {endpoint}{queryString}
                   </p>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <Label>Query Parameters</Label>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setEditingParams(!editingParams)}
-                      data-testid="button-toggle-params"
-                    >
-                      <IconPencil className="h-3.5 w-3.5 mr-1" />
-                      {editingParams ? "Done" : "Edit"}
-                    </Button>
-                  </div>
-
-                  {!editingParams ? (
-                    <div className="rounded-md bg-muted px-3 py-2" data-testid="text-querystring-preview">
-                      <p className="text-xs font-mono text-muted-foreground break-all">
-                        {queryString || "(no parameters)"}
-                      </p>
-                    </div>
+                <Button
+                  onClick={handleTest}
+                  disabled={testing || !endpoint}
+                  className="w-full"
+                  data-testid="button-test-endpoint"
+                >
+                  {testing ? (
+                    <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Testing endpoint...</>
                   ) : (
-                    <div className="space-y-2">
-                      {queryParams.map((param, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <Input
-                            value={param.key}
-                            onChange={(e) => updateParam(i, "key", e.target.value)}
-                            placeholder="key"
-                            className="flex-1 font-mono text-xs"
-                            data-testid={`input-param-key-${i}`}
-                          />
-                          <span className="text-muted-foreground text-xs">=</span>
-                          <Input
-                            value={param.value}
-                            onChange={(e) => updateParam(i, "value", e.target.value)}
-                            placeholder="value"
-                            className="flex-1 font-mono text-xs"
-                            data-testid={`input-param-value-${i}`}
-                          />
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => removeParam(i)}
-                            data-testid={`button-remove-param-${i}`}
-                          >
-                            <IconTrash className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      ))}
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={addParam}
-                        data-testid="button-add-param"
-                      >
-                        <IconPlus className="h-3.5 w-3.5 mr-1" />
-                        Add Parameter
-                      </Button>
-                    </div>
+                    <><IconPlayerPlay className="h-4 w-4 mr-2" />Test Endpoint</>
                   )}
-                </div>
+                </Button>
 
-                <div className="space-y-2">
-                  <Label>Authentication</Label>
-                  <Select value={authType} onValueChange={(v) => setAuthType(v as "none" | "Token" | "Bearer" | "raw")}>
-                    <SelectTrigger data-testid="select-auth-type">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">No Authentication</SelectItem>
-                      <SelectItem value="Token">Token</SelectItem>
-                      <SelectItem value="Bearer">Bearer</SelectItem>
-                      <SelectItem value="raw">Raw Token (no prefix)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                {testResult && (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Label className="text-xs">Response</Label>
+                      <Badge variant={testResult.status < 400 ? "default" : "destructive"}>
+                        {testResult.status} {testResult.status_text}
+                      </Badge>
+                    </div>
+                    <pre
+                      className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground overflow-auto max-h-[200px] whitespace-pre-wrap break-all"
+                      data-testid="text-test-response"
+                    >
+                      {typeof testResult.body === "string" ? testResult.body : JSON.stringify(testResult.body, null, 2)}
+                    </pre>
+                    {testResult.status < 400 && (
+                      <p className="text-xs text-muted-foreground">
+                        Test passed. Proceed to the next step for AI-powered response analysis.
+                      </p>
+                    )}
+                  </div>
+                )}
+                {testError && (
+                  <div className="rounded-md bg-destructive/10 px-3 py-2" data-testid="text-test-error">
+                    <p className="text-xs text-destructive">{testError}</p>
+                  </div>
+                )}
+              </div>
+            )}
 
-                  {authType !== "none" && (
+            {step === "transform" && (
+              <div className="space-y-4" data-testid="step-transform">
+                <p className="text-sm text-muted-foreground">
+                  AI will analyze the API response to determine how to extract blog posts and handle pagination.
+                </p>
+
+                <Button
+                  onClick={handleAnalyzeTransform}
+                  disabled={aiAnalyzing}
+                  className="w-full"
+                  data-testid="button-ai-analyze"
+                >
+                  {aiAnalyzing ? (
+                    <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing response...</>
+                  ) : (
+                    <><IconWand className="h-4 w-4 mr-2" />Analyze with AI</>
+                  )}
+                </Button>
+
+                {transformError && (
+                  <div className="rounded-md bg-destructive/10 px-3 py-2">
+                    <p className="text-xs text-destructive">{transformError}</p>
+                  </div>
+                )}
+
+                {transformConfig && (
+                  <div className="space-y-3 rounded-md border p-3" data-testid="section-transform-result">
+                    <Label className="text-sm font-medium">Extraction Path</Label>
                     <div className="space-y-2">
-                      <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
                       <Input
-                        id="token-env-var"
-                        value={tokenEnvVar}
-                        onChange={(e) => setTokenEnvVar(e.target.value)}
-                        placeholder="BREATHECODE_TOKEN"
-                        data-testid="input-token-env-var"
+                        value={transformConfig.results_path}
+                        onChange={(e) => {
+                          setTransformConfig({ ...transformConfig, results_path: e.target.value });
+                          setTransformConfirmed(false);
+                        }}
+                        placeholder="(direct array)"
+                        className="font-mono text-sm"
+                        data-testid="input-results-path"
                       />
-                      <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
-                        <p className="text-xs font-mono text-muted-foreground">
-                          {tokenEnvVar
-                            ? <>Authorization: {authType === "raw" ? "" : `${authType} `}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span></>
-                            : <span className="italic">Enter a token env var name above</span>}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <Label>Custom Headers</Label>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setEditingHeaders(!editingHeaders)}
-                      data-testid="button-toggle-headers"
-                    >
-                      <IconPencil className="h-3.5 w-3.5 mr-1" />
-                      {editingHeaders ? "Done" : "Edit"}
-                    </Button>
-                  </div>
-
-                  {!editingHeaders ? (
-                    <div className="rounded-md bg-muted px-3 py-2" data-testid="text-headers-preview">
-                      <p className="text-xs font-mono text-muted-foreground whitespace-pre-wrap break-all">
-                        {headersPreview || "(no custom headers)"}
+                      <p className="text-xs text-muted-foreground">
+                        {transformConfig.results_path
+                          ? `Posts are at "${transformConfig.results_path}" in the response`
+                          : "Response is treated as a direct array"}
                       </p>
                     </div>
+
+                    {(() => {
+                      const posts = extractedPosts;
+                      return (
+                        <div className="rounded-md bg-muted px-3 py-2" data-testid="text-extract-preview">
+                          {posts.length > 0 ? (
+                            <p className="text-xs text-muted-foreground">
+                              Found <span className="text-foreground font-medium">{posts.length}</span> posts
+                            </p>
+                          ) : (
+                            <p className="text-xs text-destructive">
+                              No array found at this path. Try editing the extraction path.
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })()}
+
+                    {transformConfig.pagination && transformConfig.pagination.type !== "none" && (
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Pagination</Label>
+                        <div className="rounded-md bg-muted px-3 py-2">
+                          <p className="text-xs text-muted-foreground">
+                            <Badge variant="outline" className="mr-2">{transformConfig.pagination.type}</Badge>
+                            {transformConfig.pagination.strategy_description}
+                          </p>
+                          {transformConfig.pagination.total_field && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Total count field: <code className="text-foreground">{transformConfig.pagination.total_field}</code>
+                            </p>
+                          )}
+                          {transformConfig.pagination.next_field && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Next page field: <code className="text-foreground">{transformConfig.pagination.next_field}</code>
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    <Button
+                      size="sm"
+                      disabled={extractedPosts.length === 0 || transformConfirmed}
+                      onClick={() => { setTransformConfirmed(true); markComplete("transform"); }}
+                      data-testid="button-confirm-transform"
+                    >
+                      {transformConfirmed ? (
+                        <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
+                      ) : (
+                        "Confirm Transform"
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {step === "fields" && (
+              <div className="space-y-4" data-testid="step-fields">
+                <p className="text-sm text-muted-foreground">
+                  AI will analyze sample posts and suggest which fields map to standard blog properties.
+                </p>
+
+                <Button
+                  onClick={handleAnalyzeFields}
+                  disabled={aiMappingFields || extractedPosts.length === 0}
+                  className="w-full"
+                  data-testid="button-ai-fields"
+                >
+                  {aiMappingFields ? (
+                    <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
                   ) : (
+                    <><IconWand className="h-4 w-4 mr-2" />Analyze Fields with AI</>
+                  )}
+                </Button>
+
+                {fieldMappingError && (
+                  <div className="rounded-md bg-destructive/10 px-3 py-2">
+                    <p className="text-xs text-destructive">{fieldMappingError}</p>
+                  </div>
+                )}
+
+                {Object.keys(fieldMapping).length > 0 && (
+                  <div className="space-y-3" data-testid="section-field-mapping">
+                    <Label className="text-sm font-medium">Field Mapping</Label>
+                    {fieldMappingNotes && (
+                      <p className="text-xs text-muted-foreground">{fieldMappingNotes}</p>
+                    )}
+
                     <div className="space-y-2">
-                      {customHeaders.map((header, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <Input
-                            value={header.key}
-                            onChange={(e) => updateHeader(i, "key", e.target.value)}
-                            placeholder="Header-Name"
-                            className="flex-1 font-mono text-xs"
-                            data-testid={`input-header-key-${i}`}
-                          />
-                          <span className="text-muted-foreground text-xs">:</span>
-                          <Input
-                            value={header.value}
-                            onChange={(e) => updateHeader(i, "value", e.target.value)}
-                            placeholder="value"
-                            className="flex-1 font-mono text-xs"
-                            data-testid={`input-header-value-${i}`}
-                          />
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => removeHeader(i)}
-                            data-testid={`button-remove-header-${i}`}
+                      {Object.entries(fieldMapping).map(([standardField, sourceField]) => (
+                        <div key={standardField} className="flex items-center gap-2">
+                          <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">{standardField}</span>
+                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <Select
+                            value={sourceField || "__none__"}
+                            onValueChange={(v) => {
+                              setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
+                              setFieldMappingConfirmed(false);
+                            }}
                           >
-                            <IconTrash className="h-3.5 w-3.5" />
-                          </Button>
+                            <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="__none__">(not mapped)</SelectItem>
+                              {availableFields.map((f) => (
+                                <SelectItem key={f} value={f}>{f}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
                       ))}
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={addHeader}
-                        data-testid="button-add-header"
-                      >
-                        <IconPlus className="h-3.5 w-3.5 mr-1" />
-                        Add Header
-                      </Button>
                     </div>
-                  )}
-                </div>
-              </>
+
+                    {samplePost && (
+                      <div className="rounded-md border p-3 space-y-2" data-testid="section-sample-preview">
+                        <Label className="text-xs font-medium text-muted-foreground">Sample Post Preview</Label>
+                        <div className="space-y-1">
+                          {fieldMapping.title && (
+                            <p className="text-sm font-medium truncate" data-testid="preview-title">
+                              {String(getFieldValue(samplePost, fieldMapping.title) || "—")}
+                            </p>
+                          )}
+                          {fieldMapping.slug && (
+                            <p className="text-xs font-mono text-muted-foreground truncate" data-testid="preview-slug">
+                              /{String(getFieldValue(samplePost, fieldMapping.slug) || "")}
+                            </p>
+                          )}
+                          {fieldMapping.description && (
+                            <p className="text-xs text-muted-foreground line-clamp-2" data-testid="preview-description">
+                              {String(getFieldValue(samplePost, fieldMapping.description) || "")}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-3 flex-wrap text-xs text-muted-foreground pt-1">
+                            {fieldMapping.author && (
+                              <span data-testid="preview-author">
+                                {(() => {
+                                  const v = getFieldValue(samplePost, fieldMapping.author);
+                                  if (typeof v === "object" && v && "first_name" in (v as Record<string, unknown>)) {
+                                    const a = v as Record<string, unknown>;
+                                    return `${a.first_name || ""} ${a.last_name || ""}`.trim();
+                                  }
+                                  return String(v || "");
+                                })()}
+                              </span>
+                            )}
+                            {fieldMapping.published_at && (
+                              <span data-testid="preview-date">
+                                {formatDate(String(getFieldValue(samplePost, fieldMapping.published_at) || ""))}
+                              </span>
+                            )}
+                            {fieldMapping.status && (
+                              <Badge variant="outline" data-testid="preview-status">
+                                {String(getFieldValue(samplePost, fieldMapping.status) || "")}
+                              </Badge>
+                            )}
+                            {fieldMapping.lang && (
+                              <Badge variant="outline" data-testid="preview-lang">
+                                {String(getFieldValue(samplePost, fieldMapping.lang) || "").toUpperCase()}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <Button
+                      size="sm"
+                      disabled={fieldMappingConfirmed}
+                      onClick={() => { setFieldMappingConfirmed(true); markComplete("fields"); }}
+                      data-testid="button-confirm-fields"
+                    >
+                      {fieldMappingConfirmed ? (
+                        <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
+                      ) : (
+                        "Confirm Field Mapping"
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
             )}
 
           </div>
         )}
 
-        {testResult && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <Label className="text-xs">
-                Response
-                <Badge variant={testResult.status < 400 ? "default" : "destructive"} className="ml-2">
-                  {testResult.status} {testResult.status_text}
-                </Badge>
-              </Label>
-              <Button variant="ghost" size="sm" onClick={() => { setTestResult(null); setTestPassed(false); setMappingConfirmed(false); }} data-testid="button-dismiss-test">
-                <IconTrash className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-            <pre
-              className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground overflow-auto max-h-[200px] whitespace-pre-wrap break-all"
-              data-testid="text-test-response"
-            >
-              {typeof testResult.body === "string" ? testResult.body : JSON.stringify(testResult.body, null, 2)}
-            </pre>
-          </div>
-        )}
-        {testError && (
-          <div className="rounded-md bg-destructive/10 px-3 py-2" data-testid="text-test-error">
-            <p className="text-xs text-destructive">{testError}</p>
-          </div>
-        )}
-
-        {testPassed && testResult && testResult.status < 400 && (() => {
-          const body = testResult.body;
-          const extractByPath = (obj: unknown, dotPath: string): unknown => {
-            let current = obj;
-            for (const key of dotPath.split(".")) {
-              if (current && typeof current === "object" && key in (current as Record<string, unknown>)) {
-                current = (current as Record<string, unknown>)[key];
-              } else {
-                return undefined;
-              }
-            }
-            return current;
-          };
-
-          const extracted = mappingMode === "direct" ? body : extractByPath(body, resultsPath);
-          const isArr = Array.isArray(extracted);
-          const count = isArr ? extracted.length : null;
-
-          return (
-            <div className="space-y-3 rounded-md border p-3" data-testid="section-response-mapping">
-              <Label className="text-sm font-medium">Response Mapping</Label>
-              <p className="text-xs text-muted-foreground">
-                How should the posts be extracted from this response?
-              </p>
-
-              <div className="space-y-2">
-                <label className="flex items-center gap-2 cursor-pointer" data-testid="radio-direct-array">
-                  <input
-                    type="radio"
-                    name="mapping-mode"
-                    checked={mappingMode === "direct"}
-                    onChange={() => { setMappingMode("direct"); setResultsPath(""); setMappingConfirmed(false); }}
-                    className="accent-primary"
-                  />
-                  <span className="text-sm">The response is a direct array of posts</span>
-                </label>
-
-                <label className="flex items-center gap-2 cursor-pointer" data-testid="radio-nested-property">
-                  <input
-                    type="radio"
-                    name="mapping-mode"
-                    checked={mappingMode === "nested"}
-                    onChange={() => { setMappingMode("nested"); setResultsPath(resultsPath || "results"); setMappingConfirmed(false); }}
-                    className="accent-primary"
-                  />
-                  <span className="text-sm">The array is nested in a property</span>
-                </label>
-
-                {mappingMode === "nested" && (
-                  <div className="pl-6 space-y-2">
-                    <Input
-                      value={resultsPath}
-                      onChange={(e) => { setResultsPath(e.target.value); setMappingConfirmed(false); }}
-                      placeholder="results"
-                      className="font-mono text-sm"
-                      data-testid="input-results-path"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Dot-notation path to the array (e.g. <code className="text-foreground">results</code>, <code className="text-foreground">data.posts</code>)
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              <div className="rounded-md bg-muted px-3 py-2" data-testid="text-mapping-preview">
-                {isArr ? (
-                  <p className="text-xs text-muted-foreground">
-                    Found <span className="text-foreground font-medium">{count}</span> posts
-                  </p>
-                ) : (
-                  <p className="text-xs text-destructive">
-                    {mappingMode === "direct"
-                      ? "The response is not an array. Try selecting 'nested in a property' instead."
-                      : resultsPath
-                        ? `Path "${resultsPath}" did not resolve to an array.`
-                        : "Enter a property path above."}
-                  </p>
-                )}
-              </div>
-
-              <Button
-                size="sm"
-                disabled={!isArr || mappingConfirmed}
-                onClick={() => setMappingConfirmed(true)}
-                data-testid="button-confirm-mapping"
-              >
-                {mappingConfirmed ? (
-                  <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
-                ) : (
-                  "Confirm Mapping"
-                )}
-              </Button>
-            </div>
-          );
-        })()}
-
         <DialogFooter>
-          {sourceType === "api" && endpoint && (
-            <Button
-              variant="outline"
-              onClick={handleTest}
-              disabled={testing || !endpoint}
-              className="mr-auto"
-              data-testid="button-test-endpoint"
-            >
-              <IconPlayerPlay className={`h-4 w-4 mr-1 ${testing ? "animate-spin" : ""}`} />
-              {testing ? "Testing..." : "Test"}
+          {stepIndex > 0 && (
+            <Button variant="outline" onClick={goBack} className="mr-auto" data-testid="button-wizard-back">
+              <IconArrowLeft className="h-4 w-4 mr-1" />
+              Back
             </Button>
           )}
           <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-datasource">
             Cancel
           </Button>
-          <Button
-            onClick={handleSave}
-            disabled={saving || isLoading || (sourceType === "api" && (!testPassed || !mappingConfirmed))}
-            data-testid="button-save-datasource"
-          >
-            {saving ? "Saving..." : "Save"}
-          </Button>
+          {isLastStep ? (
+            <Button
+              onClick={handleSave}
+              disabled={saving || isLoading || !fieldMappingConfirmed}
+              data-testid="button-save-datasource"
+            >
+              {saving ? "Saving..." : "Save"}
+            </Button>
+          ) : (
+            <Button
+              onClick={goNext}
+              disabled={!canGoNext(step)}
+              data-testid="button-wizard-next"
+            >
+              Next
+              <IconArrowRight className="h-4 w-4 ml-1" />
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

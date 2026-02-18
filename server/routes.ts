@@ -1190,6 +1190,179 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/blog/ai/analyze-response", async (req, res) => {
+    try {
+      const { sample_payload } = req.body || {};
+      if (!sample_payload) {
+        res.status(400).json({ error: "sample_payload is required" });
+        return;
+      }
+
+      const { getLLMService } = await import("./ai/LLMService");
+      const llm = getLLMService();
+
+      const truncated = JSON.stringify(sample_payload).slice(0, 8000);
+
+      const systemPrompt = `You are an API response analyst. Given a JSON API response, determine:
+1. The dot-notation path to the array of items (posts/articles). If the response IS a direct array, use empty string "".
+2. Whether pagination is present, and if so what type (offset-based, cursor-based, page-based, or none).
+3. The pagination metadata fields and how to use them.
+
+Respond with valid JSON only, no markdown.`;
+
+      const userPrompt = `Analyze this API response and determine the data extraction path and pagination strategy:
+
+${truncated}
+
+Return JSON with this exact structure:
+{
+  "results_path": "<dot.path to array or empty string if direct array>",
+  "array_length": <number of items found>,
+  "pagination": {
+    "type": "none" | "offset" | "cursor" | "page",
+    "has_more_field": "<field name or null>",
+    "total_field": "<field name indicating total count or null>",
+    "next_field": "<field with next page URL or cursor or null>",
+    "strategy_description": "<human-readable description of how to paginate>"
+  },
+  "sample_item_keys": ["<list of top-level keys from first item>"]
+}`;
+
+      const result = await llm.complete(userPrompt, {
+        systemPrompt,
+        temperature: 0.1,
+        maxTokens: 1000,
+      });
+
+      let parsed;
+      try {
+        const cleaned = result.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+        parsed = JSON.parse(cleaned);
+      } catch {
+        parsed = { raw: result, error: "Failed to parse AI response" };
+      }
+
+      res.json(parsed);
+    } catch (err) {
+      console.error("AI analyze-response error:", err);
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/blog/ai/analyze-fields", async (req, res) => {
+    try {
+      const { sample_posts } = req.body || {};
+      if (!sample_posts || !Array.isArray(sample_posts) || sample_posts.length === 0) {
+        res.status(400).json({ error: "sample_posts array is required" });
+        return;
+      }
+
+      const { getLLMService } = await import("./ai/LLMService");
+      const llm = getLLMService();
+
+      const samples = sample_posts.slice(0, 3);
+      const truncated = JSON.stringify(samples, null, 2).slice(0, 8000);
+
+      const systemPrompt = `You are a blog post data analyst. Given sample blog post objects from an API, identify which fields map to standard blog post properties. Only map fields that actually exist in the data.
+
+Respond with valid JSON only, no markdown.`;
+
+      const userPrompt = `Analyze these sample blog post objects and map their fields to standard properties:
+
+${truncated}
+
+Return JSON with this exact structure:
+{
+  "field_mapping": {
+    "title": "<source field name or dot.path>",
+    "slug": "<source field name or dot.path>",
+    "description": "<source field name or dot.path or null>",
+    "image": "<source field name or dot.path or null>",
+    "author": "<source field name or dot.path or null>",
+    "published_at": "<source field name or dot.path or null>",
+    "updated_at": "<source field name or dot.path or null>",
+    "status": "<source field name or dot.path or null>",
+    "category": "<source field name or dot.path or null>",
+    "tags": "<source field name or dot.path or null>",
+    "lang": "<source field name or dot.path or null>",
+    "content_url": "<source field name or dot.path to markdown/content URL or null>"
+  },
+  "available_fields": ["<all top-level and notable nested fields found>"],
+  "notes": "<any observations about the data structure>"
+}
+
+Important: Only include mappings where you are confident the field exists. Use dot notation for nested fields (e.g. "author.name", "category.slug").`;
+
+      const result = await llm.complete(userPrompt, {
+        systemPrompt,
+        temperature: 0.1,
+        maxTokens: 1500,
+      });
+
+      let parsed;
+      try {
+        const cleaned = result.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+        parsed = JSON.parse(cleaned);
+      } catch {
+        parsed = { raw: result, error: "Failed to parse AI response" };
+      }
+
+      res.json(parsed);
+    } catch (err) {
+      console.error("AI analyze-fields error:", err);
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/blog/llm-config", async (_req, res) => {
+    try {
+      const { getLLMConfig } = await import("./ai/LLMService");
+      const config = getLLMConfig();
+      res.json({
+        model: config.model,
+        temperature: config.temperature,
+        max_tokens: config.max_tokens,
+        provider: {
+          api_key_env: config.provider?.api_key_env || "",
+          base_url_env: config.provider?.base_url_env || "",
+        },
+      });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/blog/llm-config", async (req, res) => {
+    try {
+      const body = req.body;
+      if (!body) {
+        res.status(400).json({ error: "Body is required" });
+        return;
+      }
+
+      const configPath = path.resolve("marketing-content/llm.yml");
+      const newConfig: Record<string, unknown> = {
+        provider: {
+          api_key_env: body.provider?.api_key_env || "AI_INTEGRATIONS_OPENAI_API_KEY",
+          base_url_env: body.provider?.base_url_env || "AI_INTEGRATIONS_OPENAI_BASE_URL",
+        },
+        model: body.model || "gpt-4o-mini",
+        temperature: body.temperature ?? 0.3,
+        max_tokens: body.max_tokens || 4000,
+      };
+
+      const yamlStr = yaml.dump(newConfig, { lineWidth: -1 });
+      fs.writeFileSync(configPath, yamlStr, "utf-8");
+
+      const { reloadLLMConfig } = await import("./ai/LLMService");
+      reloadLLMConfig();
+
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   // Clear sitemap cache (requires token validation)
   app.post("/api/debug/clear-sitemap-cache", async (req, res) => {
     try {
