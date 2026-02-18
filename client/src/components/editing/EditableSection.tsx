@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
 import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import * as CountryFlags from "country-flag-icons/react/3x2";
 
 function deslugify(str: string): string {
@@ -226,9 +227,10 @@ export function EditableSection({ children, section, index, sectionType, content
       return;
     }
     
-    // Parse YAML content locally
+    // Parse YAML content locally (escape template vars like {{ }} before parsing)
     try {
-      const parsed = yaml.load(currentExample.yaml);
+      const { escaped, map } = escapeTemplateVars(currentExample.yaml);
+      const parsed = unescapeObjectVars(yaml.load(escaped), map);
       // Handle both array format (sections list) and object format (single section)
       let sectionData: Record<string, unknown>;
       if (Array.isArray(parsed) && parsed.length > 0) {
@@ -308,13 +310,14 @@ export function EditableSection({ children, section, index, sectionType, content
       
       const data = await res.json();
       
-      // Parse the adapted YAML
+      // Parse the adapted YAML (escape template vars like {{ }} before parsing)
       const adaptedYaml = data.adaptedYaml || data.yaml;
       if (!adaptedYaml) {
         throw new Error('No adapted content returned');
       }
       
-      const parsed = yaml.load(adaptedYaml);
+      const { escaped: escapedAdapted, map: adaptedMap } = escapeTemplateVars(adaptedYaml);
+      const parsed = unescapeObjectVars(yaml.load(escapedAdapted), adaptedMap);
       let sectionData: Record<string, unknown>;
       if (Array.isArray(parsed) && parsed.length > 0) {
         sectionData = parsed[0] as Record<string, unknown>;
@@ -400,8 +403,9 @@ export function EditableSection({ children, section, index, sectionType, content
     }
     
     try {
-      // Parse the edited YAML
-      const parsed = yaml.load(reviewCodeYaml);
+      // Parse the edited YAML (escape template vars like {{ }} before parsing)
+      const { escaped: escapedReview, map: reviewMap } = escapeTemplateVars(reviewCodeYaml);
+      const parsed = unescapeObjectVars(yaml.load(escapedReview), reviewMap);
       let sectionData: Record<string, unknown>;
       if (Array.isArray(parsed) && parsed.length > 0) {
         sectionData = parsed[0] as Record<string, unknown>;

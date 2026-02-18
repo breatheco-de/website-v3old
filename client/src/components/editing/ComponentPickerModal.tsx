@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import jsYaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import { 
   IconX, 
   IconRefresh,
@@ -168,7 +169,8 @@ function slugify(text: string): string {
 
 function parseYamlContent(yamlStr: string): Record<string, unknown> | null {
   try {
-    const parsed = jsYaml.load(yamlStr);
+    const { escaped, map } = escapeTemplateVars(yamlStr);
+    const parsed = unescapeObjectVars(jsYaml.load(escaped), map);
     if (Array.isArray(parsed) && parsed.length > 0) {
       const section = parsed[0];
       const { type, ...rest } = section as Record<string, unknown>;
@@ -427,7 +429,8 @@ export default function ComponentPickerModal({
           if (adaptResponse.ok) {
             const adaptResult = await adaptResponse.json();
             // Parse the adapted YAML back to an object
-            const adaptedContent = jsYaml.load(adaptResult.adaptedYaml) as Record<string, unknown>;
+            const { escaped: escapedAdapt, map: adaptMap } = escapeTemplateVars(adaptResult.adaptedYaml);
+            const adaptedContent = unescapeObjectVars(jsYaml.load(escapedAdapt), adaptMap) as Record<string, unknown>;
             finalContent = adaptedContent;
             toast({
               title: "Content adapted with AI",
