@@ -2,8 +2,141 @@ slug: testimonios
 template: default
 title: testimonials
 meta:
+  robots: index, follow
+  priority: 0.8
+  change_frequency: weekly
   page_title: testimonials | 4Geeks Academy
   description: testimonials - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
     - /testimonials
-sections: []
+schema:
+  include:
+    - organization
+    - website
+sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    title: Reseñas reales de graduados de 4Geeks Academy
+    subtitle: Nuestros graduados comparten cómo desarrollaron habilidades demandadas, ganaron confianza y lanzaron nuevas carreras en tecnología con el apoyo de la comunidad de 4Geeks.
+    badge: Testimonios de estudiantes y resultados profesionales
+    trust_bar:
+      rating: "4.9/5"
+      rating_count: "2,500+"
+      trusted_text: Con la confianza de más de 10,000 estudiantes
+    award_badges:
+      - name: Best Coding Bootcamp
+        source: Forbes
+        year: "2024"
+      - name: Top Tech School
+        source: Course Report
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
+    marginY:
+      desktop: none md
+
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: /attached_assets/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: /attached_assets/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: /attached_assets/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: /attached_assets/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+    marginY:
+      desktop: md none
+
+  - type: testimonials_grid
+    version: v1.0
+    title: Lo que dicen nuestros estudiantes
+    subtitle: Alumni de 4Geeks comparten sus experiencias, logros profesionales y cómo el programa les ayudó a entrar en la industria tecnológica.
+    title_color: hsl(var(--foreground))
+    subtitle_color: hsl(var(--muted-foreground))
+    default_box_color: hsl(var(--muted))
+    default_name_color: hsl(var(--foreground))
+    default_role_color: hsl(var(--muted-foreground))
+    default_comment_color: hsl(var(--muted-foreground))
+    default_star_color: hsl(45 93% 47%)
+    columns: 3
+    background: hsl(var(--background))
+
+  - type: faq
+    version: v1.0
+    title: Preguntas frecuentes
+    related_features:
+      - outcomes
+    marginY:
+      desktop: none md
+
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para comenzar?
+    subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplica ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
