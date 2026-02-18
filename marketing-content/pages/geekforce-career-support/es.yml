@@ -8,7 +8,7 @@ meta:
   page_title: Soporte de Carrera GeekForce | 4Geeks Academy
   description: Obtén soporte de carrera 1:1 ilimitado diseñado para tu perfil y objetivos únicos, de por vida. Desde la creación de currículum y portafolio hasta entrevistas y plataformas de contratación con IA.
   redirects:
-    - es/soporte-profesional-geekforce
+    - /es/soporte-profesional-geekforce
 schema:
   include:
     - organization
