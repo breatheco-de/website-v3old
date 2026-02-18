@@ -8,9 +8,9 @@ const BLOG_CONFIG_PATH = path.join(MARKETING_CONTENT_PATH, "blog.yml");
 export interface ApiSourceConfig {
   endpoint: string;
   params: Record<string, string | number>;
-  token_env_var: string;
-  auth_prefix: string;
-  headers: Record<string, string>;
+  token_env_var?: string;
+  auth_prefix?: string;
+  headers?: Record<string, string>;
   academy_header?: string;
   results_path?: string;
 }
@@ -109,6 +109,9 @@ function getApiConfig(): ApiSourceConfig {
     throw new Error(`[Blog] data_source.type is "${config.data_source.type}" but no api config found`);
   }
   const api = config.data_source.api;
+  if (!api.token_env_var) {
+    api.token_env_var = "BLOG_API_TOKEN";
+  }
   if (api.auth_prefix === undefined) {
     api.auth_prefix = "Token";
   }
@@ -117,6 +120,9 @@ function getApiConfig(): ApiSourceConfig {
     if (api.academy_header) {
       api.headers["Academy"] = api.academy_header;
     }
+  }
+  if (!api.params) {
+    api.params = {};
   }
   return api;
 }
@@ -298,15 +304,16 @@ function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string |
 async function fetchFromApi(): Promise<BlogPost[]> {
   const config = loadConfig();
   const apiConfig = getApiConfig();
-  const token = process.env[apiConfig.token_env_var];
+  const tokenEnvVar = apiConfig.token_env_var || "BLOG_API_TOKEN";
+  const token = process.env[tokenEnvVar];
 
   if (!token) {
-    console.warn(`[Blog] Environment variable ${apiConfig.token_env_var} not set, cannot fetch blog posts`);
+    console.warn(`[Blog] Environment variable ${tokenEnvVar} not set, cannot fetch blog posts`);
     return [];
   }
 
   const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(apiConfig.params)) {
+  for (const [key, value] of Object.entries(apiConfig.params || {})) {
     params.set(key, String(value));
   }
 

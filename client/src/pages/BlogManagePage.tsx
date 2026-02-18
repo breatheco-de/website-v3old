@@ -708,7 +708,7 @@ function DataSourceDialog({
                       {authType !== "none" && (
                         <div className="space-y-2">
                           <Label htmlFor="token-env-var">Token Env Var</Label>
-                          <Input id="token-env-var" value={tokenEnvVar} onChange={(e) => setTokenEnvVar(e.target.value)} placeholder="BREATHECODE_TOKEN" data-testid="input-token-env-var" />
+                          <Input id="token-env-var" value={tokenEnvVar} onChange={(e) => setTokenEnvVar(e.target.value)} placeholder="BLOG_API_TOKEN" data-testid="input-token-env-var" />
                         </div>
                       )}
                     </div>

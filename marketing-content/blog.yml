@@ -43,11 +43,9 @@ data_source:
       visibility: public
       academy: 4
       big: 'true'
-    token_env_var: BREATHECODE_TOKEN
+    token_env_var: BLOG_API_TOKEN
     auth_prefix: Token
     results_path: results
-    headers:
-      Authorization: Bearer ${BREATHECODE_TOKEN}
 cache:
   ttl_hours: 24
   file_path: .cache/blog-posts.json
