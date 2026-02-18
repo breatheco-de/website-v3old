@@ -9,6 +9,7 @@ meta:
   description: cookies - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /cookies
+    - /us/cookies
 schema:
   include:
     - organization
