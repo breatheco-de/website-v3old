@@ -698,9 +698,11 @@
       "remoteSha": "7100a133c6ca2b191501877169a9f62965bb12beca0640798b530cbabf64023e"
     },
     "marketing-content/pages/financials/es.yml": {
-      "sha": "25b1677a017b40f75e824c6623f820dd76bc5100f413824e44732bb19a647d4a",
-      "lastModified": 1771425824056.897,
-      "remoteSha": "25b1677a017b40f75e824c6623f820dd76bc5100f413824e44732bb19a647d4a"
+      "sha": "4227ba8760f3adf9ac63993f1961432f96ad5bf057afb9d0be88f2fbd651cbf1",
+      "lastModified": 1771428833978.6558,
+      "remoteSha": "25b1677a017b40f75e824c6623f820dd76bc5100f413824e44732bb19a647d4a",
+      "author": "Alejandro Sanchez",
+      "modifiedAt": "2026-02-18T15:33:53.980Z"
     },
     "marketing-content/pages/geekforce-career-support/_common.yml": {
       "sha": "f83717a3761082e14bc2fa7336df1d5341ddfcf85b859175d43d4aa681bfd5f1",
