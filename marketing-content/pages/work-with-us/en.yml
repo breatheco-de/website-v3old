@@ -63,8 +63,8 @@ sections:
     form:
       variant: stacked
       submit_label: Get Started
+      tags: contact-us
       automations: soft
-      tags: contact_us
       fields:
         email:
           visible: true
@@ -78,6 +78,10 @@ sections:
           visible: true
           required: true
           placeholder: Last name
+        comment:
+          visible: true
+          required: true
+          placeholder: Comments
       success:
         message: Thank you! We'll be in touch soon.
       show_terms: true
