@@ -5,7 +5,8 @@ meta:
   og_image: /images/locations/valencia-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects: []
+  redirects:
+    - /us/coding-campus/coding-bootcamp-valencia-spain
 sections:
   - type: hero
     variant: singleColumn
