@@ -181,6 +181,35 @@ function extractByPath(obj: unknown, dotPath: string): unknown {
   return current;
 }
 
+const PAYLOAD_SIZE_LIMIT = 80_000;
+
+function truncateForAI(payload: unknown, maxItems = 3): unknown {
+  if (Array.isArray(payload)) {
+    return payload.slice(0, maxItems).map((item) => truncateForAI(item, maxItems));
+  }
+  if (payload && typeof payload === "object") {
+    const obj = payload as Record<string, unknown>;
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (Array.isArray(value)) {
+        result[key] = value.slice(0, maxItems).map((item) => truncateForAI(item, maxItems));
+      } else {
+        result[key] = value;
+      }
+    }
+    return result;
+  }
+  return payload;
+}
+
+function estimatePayloadSize(payload: unknown): number {
+  try {
+    return JSON.stringify(payload).length;
+  } catch {
+    return 0;
+  }
+}
+
 function StepIndicator({ steps, currentStep, completedSteps }: {
   steps: typeof WIZARD_STEPS;
   currentStep: WizardStep;
@@ -432,8 +461,9 @@ function DataSourceDialog({
     setTransformError(null);
     setTransformConfirmed(false);
     try {
+      const trimmed = truncateForAI(testResult.body);
       const res = await apiRequest("POST", "/api/blog/ai/analyze-response", {
-        sample_payload: testResult.body,
+        sample_payload: trimmed,
       });
       const data = await res.json();
       if (data.error) {
@@ -749,9 +779,20 @@ function DataSourceDialog({
                       {typeof testResult.body === "string" ? testResult.body : JSON.stringify(testResult.body, null, 2)}
                     </pre>
                     {testResult.status < 400 && (
-                      <p className="text-xs text-muted-foreground">
-                        Test passed. Proceed to the next step for AI-powered response analysis.
-                      </p>
+                      <>
+                        {estimatePayloadSize(testResult.body) > PAYLOAD_SIZE_LIMIT ? (
+                          <div className="rounded-md bg-muted px-3 py-2" data-testid="text-payload-size-warning">
+                            <p className="text-xs text-muted-foreground">
+                              Large response detected ({Math.round(estimatePayloadSize(testResult.body) / 1024)} KB).
+                              The payload will be automatically trimmed before sending to AI analysis — only a few sample items are needed.
+                            </p>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-muted-foreground">
+                            Test passed. Proceed to the next step for AI-powered response analysis.
+                          </p>
+                        )}
+                      </>
                     )}
                   </div>
                 )}
