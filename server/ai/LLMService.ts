@@ -44,7 +44,9 @@ function getConfigMtime(): number | null {
     if (fs.existsSync(configPath)) {
       return fs.statSync(configPath).mtimeMs;
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   return null;
 }
 
@@ -75,43 +77,28 @@ export class LLMService implements ILLMClient {
   private defaultMaxTokens: number;
 
   private constructor() {
-    const cfg = loadYamlConfig();
+    const apiKey = process.env.OPENAI_API_KEY;
+    const baseURL = process.env.OPENAI_BASE_URL;
 
-    const apiKeyEnv = cfg?.provider?.api_key_env;
-    const baseUrlEnv = cfg?.provider?.base_url_env;
-
-    this.defaultModel = resolveModel(cfg);
-    this.defaultTemperature = cfg?.temperature ?? 0.7;
-    this.defaultMaxTokens = cfg?.max_tokens || 2000;
-    console.log(`[LLM] Initialized with model="${this.defaultModel}", apiKeyEnv="${apiKeyEnv || "OPENAI_API_KEY"}"`);
-
-    const apiKey = apiKeyEnv ? process.env[apiKeyEnv] : undefined;
-    const baseUrl = baseUrlEnv ? process.env[baseUrlEnv] : undefined;
-
-    if (apiKey && baseUrl) {
-      this.client = new OpenAI({ baseURL: baseUrl, apiKey });
-    } else if (apiKey) {
-      this.client = new OpenAI({ apiKey });
-    } else {
-      const customApiKey = process.env.OPENAI_API_KEY;
-      const replitBaseURL = process.env.AI_INTEGRATIONS_OPENAI_BASE_URL;
-      const replitApiKey = process.env.AI_INTEGRATIONS_OPENAI_API_KEY;
-
-      if (customApiKey) {
-        this.client = new OpenAI({ apiKey: customApiKey });
-      } else if (replitBaseURL && replitApiKey) {
-        this.client = new OpenAI({ baseURL: replitBaseURL, apiKey: replitApiKey });
-      } else {
-        throw new Error(
-          "OpenAI not configured. Set provider env vars in marketing-content/llm.yml, OPENAI_API_KEY in Secrets, or set up Replit AI Integrations."
-        );
-      }
+    if (!apiKey) {
+      throw new Error(
+        "OpenAI not configured. Please set OPENAI_API_KEY in Secrets.",
+      );
     }
+
+    this.client = new OpenAI({
+      apiKey,
+      ...(baseURL ? { baseURL } : {}),
+    });
   }
 
   static getInstance(): LLMService {
     const currentMtime = getConfigMtime();
-    if (instance && cachedConfigMtime !== null && currentMtime !== cachedConfigMtime) {
+    if (
+      instance &&
+      cachedConfigMtime !== null &&
+      currentMtime !== cachedConfigMtime
+    ) {
       console.log("[LLM] Config file changed, reinitializing...");
       instance = null;
     }
@@ -168,7 +155,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("ECONNRESET")
         ) {
           console.warn(
-            `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`
+            `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);
           backoffMs *= 2;
@@ -185,10 +172,14 @@ export class LLMService implements ILLMClient {
   async adaptContent(
     systemPrompt: string,
     userPrompt: string,
-    options?: Omit<LLMOptions, "systemPrompt">
+    options?: Omit<LLMOptions, "systemPrompt">,
   ): Promise<{
     content: string;
-    usage?: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
+    usage?: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+    };
   }> {
     const model = options?.model || this.defaultModel;
     const temperature = options?.temperature ?? 0.5;
@@ -235,7 +226,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("network")
         ) {
           console.warn(
-            `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`
+            `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);
           backoffMs *= 2;
@@ -252,10 +243,14 @@ export class LLMService implements ILLMClient {
   async adaptContentStructured(
     systemPrompt: string,
     userPrompt: string,
-    options: StructuredOutputOptions
+    options: StructuredOutputOptions,
   ): Promise<{
     content: Record<string, unknown>;
-    usage?: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
+    usage?: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+    };
   }> {
     const model = options?.model || this.defaultModel;
     const temperature = options?.temperature ?? 0.5;
@@ -312,7 +307,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("network")
         ) {
           console.warn(
-            `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`
+            `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);
           backoffMs *= 2;

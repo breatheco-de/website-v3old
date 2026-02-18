@@ -211,7 +211,7 @@ export const heroCourseSchema = z.object({
     src: z.string(),
     thumbnail: z.string().optional(),
     alt: z.string().optional(),
-  }),
+  }).optional(),
   signup_card: z.object({
     title: z.string(),
     description: z.string().optional(),
