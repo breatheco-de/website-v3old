@@ -29,19 +29,22 @@
 
 
 
+
 data_source:
   type: api
   api:
-    endpoint: https://breathecode.herokuapp.com/v1/registry/asset
+    endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
     params:
       limit: 500
       offset: 0
       category: blog-es,blog-us
       status: published
       visibility: public
-    token_env_var: ''
-    auth_prefix: ''
-    headers: {}
+      academy: 7
+    token_env_var: BREATHECODE_TOKEN
+    auth_prefix: Token
+    headers:
+      Authorization: Bearer ${BREATHECODE_TOKEN}
 cache:
   ttl_hours: 24
   file_path: .cache/blog-posts.json
