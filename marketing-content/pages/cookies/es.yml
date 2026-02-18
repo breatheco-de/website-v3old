@@ -28,5 +28,5 @@ sections:
       Las cookies y otras tecnologías similares, tales como *local shared objects*, *flash cookies* o píxeles, son herramientas empleadas por los servidores web para almacenar y recuperar información acerca de sus visitantes, así como para garantizar el correcto funcionamiento del sitio.
 
       Mediante el uso de estos dispositivos, el servidor web puede recordar determinados datos del usuario, como sus preferencias de visualización, nombre y contraseña, productos de interés u otra información relevante para mejorar su experiencia de navegación.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
