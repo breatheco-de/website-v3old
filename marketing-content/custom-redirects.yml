@@ -3,3 +3,5 @@ redirects:
     to: /en/blog/ai-powered-learning/$1
   - from: /us/(.*)
     to: /en/$1
+  - from: /us/career-growth/(.*)
+    to: /en/blog/career-growth/$1

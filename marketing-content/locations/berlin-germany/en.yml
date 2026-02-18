@@ -5,9 +5,7 @@ meta:
   og_image: /images/locations/berlin-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /campus/berlin
-    - /de/berlin
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn

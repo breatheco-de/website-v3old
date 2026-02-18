@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /chicago
-    - /campus/chicago
-    - /en/chicago
     - /es/coding-campus/bootcamp-programacion-chicago
 sections:
   - type: hero

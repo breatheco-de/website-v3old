@@ -6,10 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /buenos-aires
-    - /buenosaires
-    - /campus/buenos-aires
-    - /ar/buenos-aires
     - /es/coding-campus/bootcamp-programacion-argentina-buenos-aires
 sections:
   - type: hero

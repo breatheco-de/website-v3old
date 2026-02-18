@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /dublin
-    - /campus/dublin
-    - /ie/dublin
     - /es/coding-campus/bootcamp-programacion-dublin-irlanda
 sections:
   - type: hero

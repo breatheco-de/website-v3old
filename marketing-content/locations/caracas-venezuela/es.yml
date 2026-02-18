@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /caracas
-    - /campus/caracas
-    - /ve/caracas
     - /es/coding-campus/curso-informatica-caracas-venezuela
 sections:
   - type: hero

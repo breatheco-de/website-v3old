@@ -5,15 +5,11 @@ meta:
   og_image: /images/locations/costarica-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /costa-rica
-    - /costarica
-    - /san-jose
-    - /campus/costa-rica
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Costa Rica Campus
     title: 4Geeks Academy Costa Rica
     subtitle: Central America's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -25,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Costa Rica?
     items:
       - icon: Building
@@ -41,15 +37,15 @@ sections:
         title: Career Growth
         description: High demand from US companies seeking nearshore talent.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Costa Rica
     filter_by_location: costa-rica
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Costa Rica Graduate Success Stories
     filter_by_location: costa-rica
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Costa Rica?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

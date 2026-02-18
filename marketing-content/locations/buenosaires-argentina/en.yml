@@ -5,15 +5,11 @@ meta:
   og_image: /images/locations/buenosaires-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /buenos-aires
-    - /buenosaires
-    - /campus/buenos-aires
-    - /ar/buenos-aires
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Buenos Aires Campus
     title: 4Geeks Academy Buenos Aires
     subtitle: Argentina's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -25,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Buenos Aires?
     items:
       - icon: Building
@@ -41,15 +37,15 @@ sections:
         title: Global Reach
         description: Strong connections to US and European tech markets.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Buenos Aires
     filter_by_location: buenosaires-argentina
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Buenos Aires Graduate Success Stories
     filter_by_location: buenosaires-argentina
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Buenos Aires?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /bogota
-    - /campus/bogota
-    - /co/bogota
     - /es/coding-campus/bootcamp-programacion-colombia
 sections:
   - type: hero

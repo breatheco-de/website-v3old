@@ -6,8 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /campus/berlin
-    - /de/berlin
     - /es/coding-campus/bootcamp-programacion-berlin-alemania
 sections:
   - type: hero
