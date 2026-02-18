@@ -31,17 +31,18 @@
 
 
 
+
 data_source:
   type: api
   api:
-    endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
+    endpoint: https://breathecode-test.herokuapp.com/v1/registry/academy/asset
     params:
-      limit: 500
+      limit: 50
       offset: 0
-      category: blog-es,blog-us
       status: published
       visibility: public
-      academy: 7
+      academy: 4
+      big: 'true'
     token_env_var: BREATHECODE_TOKEN
     auth_prefix: Token
     results_path: results
@@ -56,3 +57,28 @@ url_pattern:
 categories:
   en: blog-us
   es: blog-es
+transform:
+  results_path: results
+  pagination:
+    type: offset
+    has_more_field: next
+    total_field: count
+    next_field: next
+    strategy_description: >-
+      The API uses offset‑based pagination. The response includes a total count (count) and navigation URLs (first,
+      previous, next, last) that contain limit and offset query parameters. To get the next page, follow the URL in the
+      'next' field; to go back, use 'previous'. Continue until 'next' is null.
+field_mapping:
+  title: title
+  slug: slug
+  description: description
+  image: null
+  author: null
+  published_at: published_at
+  updated_at: updated_at
+  status: status
+  category: category.title
+  tags: technologies
+  lang: lang
+  content: readme.decoded
+  content_url: readme_url

@@ -1326,21 +1326,23 @@ export default function BlogManagePage() {
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            {cacheStatus?.exists && (
-              <span className="text-xs text-muted-foreground" data-testid="text-cache-age">
-                Cache: {cacheStatus.age_hours != null ? `${cacheStatus.age_hours}h old` : "—"}
-              </span>
-            )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleClearCache}
-              disabled={clearing}
-              data-testid="button-clear-cache"
-            >
-              <IconRefresh className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
-              Refresh Cache
-            </Button>
+            <div className="flex flex-col items-center">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleClearCache}
+                disabled={clearing}
+                data-testid="button-clear-cache"
+              >
+                <IconRefresh className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
+                Refresh Cache
+              </Button>
+              {cacheStatus?.exists && (
+                <span className="text-xs text-muted-foreground mt-1" data-testid="text-cache-age">
+                  {cacheStatus.age_hours != null ? `${cacheStatus.age_hours}h old` : "—"}
+                </span>
+              )}
+            </div>
             <Button
               variant="outline"
               size="sm"
