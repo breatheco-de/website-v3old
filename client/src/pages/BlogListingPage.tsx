@@ -41,9 +41,9 @@ function formatDate(dateStr: string, locale: string): string {
   }
 }
 
-function getAuthorName(author: Record<string, any> | null): string {
-  if (!author) return "4Geeks Academy";
-  return `${author.first_name || ""} ${author.last_name || ""}`.trim() || "4Geeks Academy";
+function getAuthorName(author: Record<string, any> | null, siteName: string): string {
+  if (!author) return siteName;
+  return `${author.first_name || ""} ${author.last_name || ""}`.trim() || siteName;
 }
 
 function formatCategoryLabel(slug: string): string {
@@ -74,10 +74,16 @@ export default function BlogListingPage() {
   const activeCategory = params.get("category") || "";
   const [searchQuery, setSearchQuery] = useState("");
 
+  const { data: org } = useQuery<Record<string, any>>({
+    queryKey: ["/api/schema/organization"],
+    staleTime: 300000,
+  });
+  const siteName = org?.name || "";
+
   usePageMeta({
     page_title: locale === "es"
-      ? `Blog${currentPage > 1 ? ` - Página ${currentPage}` : ""} | 4Geeks Academy`
-      : `Blog${currentPage > 1 ? ` - Page ${currentPage}` : ""} | 4Geeks Academy`,
+      ? `Blog${currentPage > 1 ? ` - Página ${currentPage}` : ""}${siteName ? ` | ${siteName}` : ""}`
+      : `Blog${currentPage > 1 ? ` - Page ${currentPage}` : ""}${siteName ? ` | ${siteName}` : ""}`,
     description: locale === "es"
       ? "Lee las últimas noticias, tutoriales y artículos sobre programación, tecnología y educación en 4Geeks Academy."
       : "Read the latest news, tutorials and articles about coding, technology and education at 4Geeks Academy.",
@@ -287,7 +293,7 @@ export default function BlogListingPage() {
                         <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
                           <span className="flex items-center gap-1">
                             <IconUser className="w-3 h-3" />
-                            {getAuthorName(post.author)}
+                            {getAuthorName(post.author, siteName)}
                           </span>
                           <span className="flex items-center gap-1">
                             <IconCalendar className="w-3 h-3" />

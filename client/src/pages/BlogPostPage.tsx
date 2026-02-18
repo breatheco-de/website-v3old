@@ -22,9 +22,9 @@ function formatDate(dateStr: string, locale: string): string {
   }
 }
 
-function getAuthorName(author: Record<string, any> | null): string {
-  if (!author) return "4Geeks Academy";
-  return `${author.first_name || ""} ${author.last_name || ""}`.trim() || "4Geeks Academy";
+function getAuthorName(author: Record<string, any> | null, siteName: string): string {
+  if (!author) return siteName;
+  return `${author.first_name || ""} ${author.last_name || ""}`.trim() || siteName;
 }
 
 export default function BlogPostPage() {
@@ -35,6 +35,12 @@ export default function BlogPostPage() {
   const segments = wildcard.split("/").filter(Boolean);
   const slug = segments[segments.length - 1] || "";
   const handleLinkClick = useInternalNav();
+
+  const { data: org } = useQuery<Record<string, any>>({
+    queryKey: ["/api/schema/organization"],
+    staleTime: 300000,
+  });
+  const siteName = org?.name || "";
 
   const { data: post, isLoading, error } = useQuery<Record<string, any>>({
     queryKey: ["/api/blog/posts", slug, locale],
@@ -51,7 +57,7 @@ export default function BlogPostPage() {
   usePageMeta(
     post
       ? {
-          page_title: `${post.title} | 4Geeks Academy`,
+          page_title: `${post.title}${siteName ? ` | ${siteName}` : ""}`,
           description: post.description || "",
           og_image: post.preview || undefined,
         }
@@ -131,7 +137,7 @@ export default function BlogPostPage() {
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 flex-wrap">
           <span className="flex items-center gap-1" data-testid="text-blog-author">
             <IconUser className="w-4 h-4" />
-            {getAuthorName(post.author)}
+            {getAuthorName(post.author, siteName)}
           </span>
           <span className="flex items-center gap-1" data-testid="text-blog-date">
             <IconCalendar className="w-4 h-4" />
