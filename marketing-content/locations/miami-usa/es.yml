@@ -36,11 +36,11 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: 1395 Brickell Ave
         addressLocality: Miami
         addressRegion: FL
-        postalCode: '33131'
+        postalCode: "33131"
         addressCountry: US
 meta:
   page_title: 4Geeks Academy Miami | Bootcamp de Programación en Florida
@@ -56,14 +56,14 @@ meta:
     - /es/coding-campus/bootcamp-programacion-miami
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Miami
     subtitle: Capacítate para los roles tech más demandados de hoy, incluyendo Ingeniería de IA, en uno de los hubs tech de más rápido crecimiento del país y sede global de 4Geeks. Aprende online o presencial con instrucción en vivo, proyectos prácticos y soporte profesional personalizado diseñado para contrataciones reales.
     badge: Campus Miami
     cta_buttons:
       - text: Aplicar Ahora
-        url: /apply?location=miami-usa
+        url: /es/aplica?location=miami-usa
         variant: primary
       - text: Descargar Programa
         url: /syllabus
@@ -114,7 +114,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -142,13 +142,13 @@ sections:
         url: https://youtu.be/4n-ZAUPIxJI
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: default
     heading: Programas Cubiertos por la Garantía de Empleo
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
@@ -200,7 +200,7 @@ sections:
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -240,7 +240,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Miami es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech de rápido crecimiento con momentum real de contratación
-    description: 'Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., con empresas contratando activamente en software, IA y roles de datos. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Miami ocupa el puesto 4 en EE.UU. en crecimiento de empleos tech, señalando una demanda fuerte y sostenida&nbsp;&nbsp;</span></li><li>Reconocido entre los top 30 ecosistemas de startups globales, con rápido crecimiento en capital de riesgo y relocalización de empresas&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, healthcare, logística y tech emergente&nbsp;&nbsp;</li></ul></div><div>Ubicado en Brickell, nuestro campus en Miami te conecta con empleadores locales, socios de contratación y eventos tech, para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>'
+    description: "Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., con empresas contratando activamente en software, IA y roles de datos. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ocupa el puesto 4 en EE.UU. en crecimiento de empleos tech, señalando una demanda fuerte y sostenida&nbsp;&nbsp;</span></li><li>Reconocido entre los top 30 ecosistemas de startups globales, con rápido crecimiento en capital de riesgo y relocalización de empresas&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, healthcare, logística y tech emergente&nbsp;&nbsp;</li></ul></div><div>Ubicado en Brickell, nuestro campus en Miami te conecta con empleadores locales, socios de contratación y eventos tech, para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -270,7 +270,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Historias de Éxito de Graduados de Miami
     filter_by_location: miami-usa
     marginY:
@@ -280,7 +280,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -330,16 +330,16 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech en Miami?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
-    cta_text: Aplicar Ahora
-    cta_url: /apply?location=miami-usa
     background: hsl(var(--primary))
-    paddingY:
-      desktop: md
+    cta_text: Aplicar Ahora
+    cta_url: /es/apply?location=miami-usa
     marginY:
       desktop: none
+    paddingY:
+      desktop: md
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
