@@ -1,3 +1,5 @@
 redirects:
   - from: /us/(.*)
     to: /en/$1
+  - from: /us/([a-z\-_]+)/([a-z\-_\d]+)
+    to: /en/blog/$1/$2
