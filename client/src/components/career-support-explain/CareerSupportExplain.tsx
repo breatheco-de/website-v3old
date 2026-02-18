@@ -84,68 +84,70 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
         </div>
       </Card>
 
-      <Card
-        className="bg-primary/5 p-6 flex-1 flex-col text-muted-foreground rounded-lg"
-        data-testid="col-2-bullets"
-      >
-        {tab.col2_heading && (
-          <p
-            className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mb-2 leading-snug text-foreground"
-            data-testid="text-col2-heading"
-          >
-            {tab.col2_heading}
-          </p>
-        )}
+      <div className="flex flex-col sm:flex-row gap-4 flex-1 lg:flex-[2.55] lg:contents">
+        <Card
+          className="bg-primary/5 p-6 flex-1 flex-col text-muted-foreground rounded-lg"
+          data-testid="col-2-bullets"
+        >
+          {tab.col2_heading && (
+            <p
+              className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mb-2 leading-snug text-foreground"
+              data-testid="text-col2-heading"
+            >
+              {tab.col2_heading}
+            </p>
+          )}
 
-        {tab.col2_description && (
-          <p
-            className="text-sm text-muted-foreground leading-relaxed mb-4"
-            data-testid="text-col2-description"
-          >
-            {tab.col2_description}
-          </p>
-        )}
+          {tab.col2_description && (
+            <p
+              className="text-sm text-muted-foreground leading-relaxed mb-4"
+              data-testid="text-col2-description"
+            >
+              {tab.col2_description}
+            </p>
+          )}
 
-        {tab.col2_bullets && tab.col2_bullets.length > 0 && (
-          <div className="flex flex-col gap-4" data-testid="bullets-col2">
-            {tab.col2_bullets.map((bullet, i) => {
-              const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
-              return (
-                <div
-                  key={i}
-                  className="flex items-start gap-3"
-                  data-testid={`bullet-item-${i}`}
-                >
-                  {IconComp && (
-                    <Card className="flex-shrink-0 p-1.5 !rounded-lg">
-                      <IconComp className="w-4 h-4 text-primary" />
-                    </Card>
-                  )}
-                  <span className="text-sm lg:text-base">{bullet.text}</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </Card>
+          {tab.col2_bullets && tab.col2_bullets.length > 0 && (
+            <div className="flex flex-col gap-4" data-testid="bullets-col2">
+              {tab.col2_bullets.map((bullet, i) => {
+                const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3"
+                    data-testid={`bullet-item-${i}`}
+                  >
+                    {IconComp && (
+                      <Card className="flex-shrink-0 p-1.5 !rounded-lg">
+                        <IconComp className="w-4 h-4 text-primary" />
+                      </Card>
+                    )}
+                    <span className="text-sm lg:text-base">{bullet.text}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </Card>
 
-      <div
-        className="relative overflow-hidden rounded-lg md:flex-[1] lg:flex-[1.55] min-h-[200px] md:min-h-0 h-[110px] md:h-auto"
-        data-testid="col-3-image"
-      >
-        {tab.col3_image_id && (
-          <UniversalImage
-            id={tab.col3_image_id}
-            className="w-full h-full absolute inset-0"
-            style={{
-              objectFit:
-                (tab.col3_object_fit as React.CSSProperties["objectFit"]) ||
-                "cover",
-              objectPosition: tab.col3_object_position || "center",
-            }}
-            data-testid="img-tab-content"
-          />
-        )}
+        <div
+          className="relative overflow-hidden rounded-lg sm:flex-1 lg:flex-[1.55] min-h-[200px] sm:min-h-0 h-[110px] sm:h-auto"
+          data-testid="col-3-image"
+        >
+          {tab.col3_image_id && (
+            <UniversalImage
+              id={tab.col3_image_id}
+              className="w-full h-full absolute inset-0"
+              style={{
+                objectFit:
+                  (tab.col3_object_fit as React.CSSProperties["objectFit"]) ||
+                  "cover",
+                objectPosition: tab.col3_object_position || "center",
+              }}
+              data-testid="img-tab-content"
+            />
+          )}
+        </div>
       </div>
     </div>
   );
