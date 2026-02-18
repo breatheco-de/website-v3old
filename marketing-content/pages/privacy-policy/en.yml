@@ -89,5 +89,5 @@ sections:
       We may update this Privacy Policy from time to time. The revised version will be posted with an updated effective date. Continued use of the website after changes indicates acceptance of the revised policy.
 
       2025-07-23
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
