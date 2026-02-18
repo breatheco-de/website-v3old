@@ -18,7 +18,7 @@ sections:
     version: '1.0'
     variant: productShowcase
     title: En Tech, A Tu Manera
-    subtitle: Opciones de pago flexibles diseñadas para un crecimiento profesional real.
+    subtitle: Opciones de pago flexibles para facilitar el salto a tech.
     brand_mark:
       prefix: Financia Tu
       highlight: Futuro
@@ -51,17 +51,17 @@ sections:
   - type: features_grid
     version: '1.0'
     variant: stats-text
-    title: Proven Carrera Outcomees
-    subtitle: Strong hiring results. Real salary growth.
-    description: Recognized by Forbes as a Best Online Bootcamp, including recognition for students on a budget, 4Geeks combines accessible tuition with proven career outcomes that help you launch your tech career with confidence.
+    title: Resultados Profesionales Comprobados
+    subtitle: Alta empleabilidad. Crecimiento salarial real.
+    description: "Reconocido por Forbes, 4Geeks ofrece formación accesible con resultados medibles: alta empleabilidad y crecimiento salarial real para impulsar tu carrera en tecnología."
     background: hsl(var(--sidebar-background))
     items:
       - value: {{ global_job_placement_rate | 84 }}%
-        title: Job placement rate
+        title: Tasa promedio de colocación laboral
       - value: {{ global_salary_increase | 55 }}%
-        title: Salary increase after graduation
+        title: Incremento salarial promedio tras la graduación
       - value: 3-6 Months
-        title: Average time to get hired
+        title: Tiempo promedio para conseguir empleo
     marginY:
       desktop: none lg
     paddingY:

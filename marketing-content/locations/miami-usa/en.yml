@@ -60,10 +60,10 @@ sections:
     badge: Miami Campus
     cta_buttons:
       - text: Apply Now
-        url: /apply?location=miami-usa
+        url: "#bottom"
         variant: primary
       - text: Download Syllabus
-        url: /syllabus
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -80,6 +80,8 @@ sections:
     form:
       variant: stacked
       submit_label: Submit Application
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
@@ -187,7 +189,7 @@ sections:
           - icon: Plus
             text: API Development
         description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: $439
+        price: {{ price_fullstack | $299 }}
         original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Discover program
@@ -201,7 +203,7 @@ sections:
           - icon: Brain
             text: LLMs & Generative AI training
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: $439
+        price: {{ price_datascience | 299$ }}
         original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Discover program
@@ -215,7 +217,7 @@ sections:
           - icon: Code
             text: Threat detection & system protection
         description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: $439
+        price: {{ price_cybersecurity | 299$ }}
         original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Discover program
@@ -253,9 +255,9 @@ sections:
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: 84% hiring rate among graduates
+        - text: {{ global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
-        - text: 55% average salary increase in tech roles
+        - text: {{ global_salary_increase | 55 }}% average salary increase in tech roles
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
@@ -303,8 +305,8 @@ sections:
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
-      average: '4.9'
-      count: 2,847
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -359,14 +361,39 @@ sections:
     cta_text: Apply Now
     cta_url: /apply?location=miami-usa
     background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
     paddingY:
       desktop: md
-    marginY:
-      desktop: none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
