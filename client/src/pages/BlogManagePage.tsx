@@ -615,15 +615,19 @@ function SeoSettingsDialog({
     enabled: open,
   });
 
-  const [enPattern, setEnPattern] = useState("/en/blog/:slug");
-  const [esPattern, setEsPattern] = useState("/es/blog/:slug");
+  const [pattern, setPattern] = useState("/en/blog/:slug");
 
   useEffect(() => {
     if (config) {
-      setEnPattern(config.url_pattern?.en || "/en/blog/:slug");
-      setEsPattern(config.url_pattern?.es || "/es/blog/:slug");
+      setPattern(config.url_pattern?.en || "/en/blog/:slug");
     }
   }, [config]);
+
+  const deriveLocalePattern = (basePattern: string, locale: string): string => {
+    return basePattern.replace(/^\/en\//, `/${locale}/`).replace(/^\/en$/, `/${locale}`);
+  };
+
+  const esPreview = deriveLocalePattern(pattern, "es");
 
   const handleSave = async () => {
     setSaving(true);
@@ -631,16 +635,16 @@ function SeoSettingsDialog({
       const payload: BlogConfig = {
         ...config!,
         url_pattern: {
-          en: enPattern,
-          es: esPattern,
+          en: pattern,
+          es: deriveLocalePattern(pattern, "es"),
         },
       };
       await apiRequest("PUT", "/api/blog/config", payload);
       queryClient.invalidateQueries({ queryKey: ["/api/blog/config"] });
-      toast({ title: "URL patterns saved" });
+      toast({ title: "URL pattern saved" });
       onOpenChange(false);
     } catch {
-      toast({ title: "Failed to save URL patterns", variant: "destructive" });
+      toast({ title: "Failed to save URL pattern", variant: "destructive" });
     } finally {
       setSaving(false);
     }
@@ -664,37 +668,31 @@ function SeoSettingsDialog({
           <div className="space-y-4">
             <div className="rounded-md bg-muted px-3 py-2" data-testid="text-seo-variables-help">
               <p className="text-xs text-muted-foreground">
-                Available variables: <code className="text-foreground">:slug</code> <code className="text-foreground">:cluster</code> (first cluster)
+                Available variables: <code className="text-foreground">:slug</code> <code className="text-foreground">:cluster</code> (first cluster). The pattern must start with <code className="text-foreground">/en/</code>.
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="en-pattern" className="text-sm">English URL Pattern</Label>
+              <Label htmlFor="en-pattern" className="text-sm">URL Pattern</Label>
               <Input
                 id="en-pattern"
-                value={enPattern}
-                onChange={(e) => setEnPattern(e.target.value)}
+                value={pattern}
+                onChange={(e) => setPattern(e.target.value)}
                 placeholder="/en/blog/:slug"
                 className="font-mono text-sm"
                 data-testid="input-en-pattern"
               />
               <p className="text-xs text-muted-foreground font-mono" data-testid="text-en-preview">
-                {buildBlogUrl(enPattern, samplePost, "en")}
+                Preview: {buildBlogUrl(pattern, samplePost, "en")}
               </p>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="es-pattern" className="text-sm">Spanish URL Pattern</Label>
-              <Input
-                id="es-pattern"
-                value={esPattern}
-                onChange={(e) => setEsPattern(e.target.value)}
-                placeholder="/es/blog/:slug"
-                className="font-mono text-sm"
-                data-testid="input-es-pattern"
-              />
+            <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="text-locale-note">
+              <p className="text-xs text-muted-foreground">
+                Other languages follow the same structure. The <code className="text-foreground">/en/</code> prefix is replaced automatically.
+              </p>
               <p className="text-xs text-muted-foreground font-mono" data-testid="text-es-preview">
-                {buildBlogUrl(esPattern, samplePost, "es")}
+                Spanish: {buildBlogUrl(esPreview, samplePost, "es")}
               </p>
             </div>
           </div>
