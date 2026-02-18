@@ -677,33 +677,35 @@ function DataSourceDialog({
                       )}
                     </div>
 
-                    <div className="space-y-2">
-                      <Label>Authentication</Label>
-                      <Select value={authType} onValueChange={(v) => setAuthType(v as "none" | "Token" | "Bearer" | "raw")}>
-                        <SelectTrigger data-testid="select-auth-type">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="none">No Authentication</SelectItem>
-                          <SelectItem value="Token">Token</SelectItem>
-                          <SelectItem value="Bearer">Bearer</SelectItem>
-                          <SelectItem value="raw">Raw Token (no prefix)</SelectItem>
-                        </SelectContent>
-                      </Select>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-2">
+                        <Label>Authentication</Label>
+                        <Select value={authType} onValueChange={(v) => setAuthType(v as "none" | "Token" | "Bearer" | "raw")}>
+                          <SelectTrigger data-testid="select-auth-type">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">No Authentication</SelectItem>
+                            <SelectItem value="Token">Token</SelectItem>
+                            <SelectItem value="Bearer">Bearer</SelectItem>
+                            <SelectItem value="raw">Raw Token (no prefix)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                       {authType !== "none" && (
                         <div className="space-y-2">
-                          <Label htmlFor="token-env-var" className="text-xs text-muted-foreground">Token Env Var</Label>
+                          <Label htmlFor="token-env-var">Token Env Var</Label>
                           <Input id="token-env-var" value={tokenEnvVar} onChange={(e) => setTokenEnvVar(e.target.value)} placeholder="BREATHECODE_TOKEN" data-testid="input-token-env-var" />
-                          <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
-                            <p className="text-xs font-mono text-muted-foreground">
-                              {tokenEnvVar
-                                ? <>Authorization: {authType === "raw" ? "" : `${authType} `}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span></>
-                                : <span className="italic">Enter a token env var name above</span>}
-                            </p>
-                          </div>
                         </div>
                       )}
                     </div>
+                    {authType !== "none" && tokenEnvVar && (
+                      <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
+                        <p className="text-xs font-mono text-muted-foreground">
+                          Authorization: {authType === "raw" ? "" : `${authType} `}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span>
+                        </p>
+                      </div>
+                    )}
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between gap-2">
