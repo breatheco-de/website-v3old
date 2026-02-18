@@ -4,29 +4,10 @@ import { setupVite, serveStatic, log } from "./vite";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import path from "path";
-import { lookupRedirect, isRegexPattern } from "./redirects";
 
 const app = express();
 
 app.use(cookieParser());
-
-app.use((req, res, next) => {
-  if (req.path.startsWith('/us/')) {
-    const entry = lookupRedirect(req.path);
-    if (entry && !isRegexPattern(entry.from)) {
-      const target = typeof entry.to === "string" ? entry.to : (entry.to["en"] || Object.values(entry.to)[0] || "/en/");
-      const qs = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
-      console.log(`[US Redirect] ${entry.status || 301}: ${req.path} -> ${target} (specific)`);
-      return res.redirect(entry.status || 301, target + qs);
-    }
-    if (!entry) {
-      const newPath = '/en/' + req.path.slice(4);
-      const qs = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
-      return res.redirect(301, newPath + qs);
-    }
-  }
-  next();
-});
 
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));

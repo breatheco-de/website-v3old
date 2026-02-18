@@ -1,3 +1,5 @@
 redirects:
   - from: /us/ai-powered-learning/(.*)
     to: /en/blog/ai-powered-learning/$1
+  - from: /us/(.*)
+    to: /en/$1

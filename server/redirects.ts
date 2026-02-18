@@ -79,6 +79,12 @@ function resolveRedirectTarget(entry: RedirectEntry, req: Request, captureGroups
   return target;
 }
 
+function getQueryString(req: Request): string {
+  const url = req.originalUrl;
+  const qIndex = url.indexOf('?');
+  return qIndex >= 0 ? url.slice(qIndex) : '';
+}
+
 export function redirectMiddleware(req: Request, res: Response, next: NextFunction): void {
   const map = getRedirectMap();
   const normalizedPath = normalizePath(req.path);
@@ -87,8 +93,9 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
   if (entry) {
     const status = entry.status || 301;
     const target = resolveRedirectTarget(entry, req);
-    console.log(`[Redirects] ${status}: ${req.path} -> ${target}`);
-    res.redirect(status, target);
+    const qs = getQueryString(req);
+    console.log(`[Redirects] ${status}: ${req.path} -> ${target}${qs}`);
+    res.redirect(status, target + qs);
     return;
   }
 
@@ -99,8 +106,9 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
         const captureGroups = match.slice(1);
         const status = regexEntry.status || 301;
         const target = resolveRedirectTarget(regexEntry, req, captureGroups);
-        console.log(`[Redirects] ${status} (regex): ${req.path} -> ${target}`);
-        res.redirect(status, target);
+        const qs = getQueryString(req);
+        console.log(`[Redirects] ${status} (regex): ${req.path} -> ${target}${qs}`);
+        res.redirect(status, target + qs);
         return;
       }
     }
