@@ -1,16 +1,18 @@
-import { useCallback } from "react";
+import { useCallback, useState, lazy, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
-import { IconLoader2, IconAlertTriangle, IconArrowLeft } from "@tabler/icons-react";
+import { IconLoader2, IconAlertTriangle, IconArrowLeft, IconCode } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+
+const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
 type ContentType = "programs" | "landings" | "locations" | "pages";
 type ContentData = CareerProgram | LandingPage | LocationPage | TemplatePage;
@@ -40,6 +42,8 @@ export default function PrivatePreview() {
   const config = contentTypeConfig[contentType];
   const isValidContentType = !!config;
 
+  const [showRawEditor, setShowRawEditor] = useState(false);
+
   const { data: content, isLoading, error, refetch } = useQuery<ContentData>({
     queryKey: ["/api/preview", contentType, slug, variant, version, locale],
     queryFn: async () => {
@@ -53,6 +57,17 @@ export default function PrivatePreview() {
       return response.json();
     },
     enabled: !!slug && isValidContentType,
+  });
+
+  const { data: rawFileCheck } = useQuery<{ exists: boolean }>({
+    queryKey: ["/api/content/raw-file", contentType, slug, locale],
+    queryFn: async () => {
+      const res = await fetch(`/api/content/raw-file?contentType=${contentType}&slug=${slug}&locale=${locale}`);
+      if (!res.ok) return { exists: false };
+      const data = await res.json();
+      return { exists: !!data.exists };
+    },
+    enabled: !!slug && isValidContentType && (!!error || !content),
   });
 
   usePageMeta(content?.meta);
@@ -101,21 +116,45 @@ export default function PrivatePreview() {
 
   if (error || !content) {
     return (
-      <div className="min-h-screen flex items-center justify-center" data-testid="error-preview">
-        <div className="text-center">
-          <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-foreground mb-2">
-            {config.label} not found
-          </h1>
-          <p className="text-muted-foreground mb-4">
-            Could not load the requested content variant.
-          </p>
-          <Button variant="outline" onClick={() => window.history.back()}>
-            <IconArrowLeft className="w-4 h-4 mr-2" />
-            Go Back
-          </Button>
+      <>
+        <div className="min-h-screen flex items-center justify-center" data-testid="error-preview">
+          <div className="text-center">
+            <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-foreground mb-2">
+              {config.label} not found
+            </h1>
+            <p className="text-muted-foreground mb-4">
+              Could not load the requested content variant.
+            </p>
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <Button variant="outline" onClick={() => window.history.back()} data-testid="button-go-back">
+                <IconArrowLeft className="w-4 h-4 mr-2" />
+                Go Back
+              </Button>
+              {rawFileCheck?.exists && (
+                <Button variant="outline" onClick={() => setShowRawEditor(true)} data-testid="button-edit-yaml">
+                  <IconCode className="w-4 h-4 mr-2" />
+                  Edit YAML
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+        {showRawEditor && (
+          <Suspense fallback={null}>
+            <RawFileEditorPanel
+              contentType={contentType}
+              slug={slug}
+              locale={locale}
+              onClose={() => setShowRawEditor(false)}
+              onSaved={() => {
+                setShowRawEditor(false);
+                refetch();
+              }}
+            />
+          </Suspense>
+        )}
+      </>
     );
   }
 

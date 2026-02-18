@@ -3221,6 +3221,124 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.get("/api/content/raw-file", (req, res) => {
+    try {
+      const contentType = req.query.contentType as string;
+      const slug = req.query.slug as string;
+      const locale = req.query.locale as string || "en";
+
+      if (!contentType || !slug) {
+        res.status(400).json({ error: "contentType and slug are required" });
+        return;
+      }
+
+      const typeMap: Record<string, string> = { programs: "programs", landings: "landings", locations: "locations", pages: "pages" };
+      const folder = typeMap[contentType];
+      if (!folder) {
+        res.status(400).json({ error: `Unknown content type: ${contentType}` });
+        return;
+      }
+
+      let resolvedSlug = slug;
+      try {
+        resolvedSlug = contentIndex.resolveBaseSlug(slug, folder);
+      } catch {
+        // keep original slug if resolution fails
+      }
+
+      const contentDir = path.join(process.cwd(), "marketing-content", folder, resolvedSlug);
+      const localePath = path.join(contentDir, `${locale}.yml`);
+      const commonPath = path.join(contentDir, "_common.yml");
+
+      const files: { locale?: { path: string; content: string }; common?: { path: string; content: string } } = {};
+
+      if (fs.existsSync(localePath)) {
+        files.locale = {
+          path: `marketing-content/${folder}/${resolvedSlug}/${locale}.yml`,
+          content: fs.readFileSync(localePath, "utf-8"),
+        };
+      }
+      if (fs.existsSync(commonPath)) {
+        files.common = {
+          path: `marketing-content/${folder}/${resolvedSlug}/_common.yml`,
+          content: fs.readFileSync(commonPath, "utf-8"),
+        };
+      }
+
+      if (!files.locale && !files.common) {
+        res.status(404).json({ exists: false });
+        return;
+      }
+
+      res.json({ exists: true, files, resolvedSlug });
+    } catch (error) {
+      console.error("Error reading raw content file:", error);
+      res.status(500).json({ error: "Failed to read content file" });
+    }
+  });
+
+  app.put("/api/content/raw-file", async (req, res) => {
+    try {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const authHeader = req.headers.authorization;
+      const debugToken = req.headers["x-debug-token"] as string | undefined;
+      let token: string | null = null;
+      if (authHeader?.startsWith("Token ")) {
+        token = authHeader.slice(6);
+      } else if (debugToken) {
+        token = debugToken;
+      }
+      if (!isDevelopment) {
+        if (!token) {
+          res.status(401).json({ error: "Authorization required" });
+          return;
+        }
+        const capResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } },
+        );
+        if (capResponse.status === 401) {
+          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          return;
+        }
+        if (capResponse.status !== 200) {
+          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          return;
+        }
+      }
+
+      const { filePath, content } = req.body as { filePath: string; content: string };
+
+      if (!filePath || typeof content !== "string") {
+        res.status(400).json({ error: "filePath and content are required" });
+        return;
+      }
+
+      const normalizedPath = path.normalize(filePath);
+      if (!normalizedPath.startsWith("marketing-content/") || normalizedPath.includes("..")) {
+        res.status(403).json({ error: "Access denied: Only marketing-content files allowed" });
+        return;
+      }
+
+      const fullPath = path.join(process.cwd(), normalizedPath);
+      if (!fs.existsSync(fullPath)) {
+        res.status(404).json({ error: "File not found" });
+        return;
+      }
+
+      fs.writeFileSync(fullPath, content, "utf-8");
+      markFileAsModified(normalizedPath);
+      clearSitemapCache();
+      clearRedirectCache();
+      contentIndex.refresh();
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving raw content file:", error);
+      res.status(500).json({ error: "Failed to save content file" });
+    }
+  });
+
   // Content editing API
   app.post("/api/content/edit", async (req, res) => {
     try {
