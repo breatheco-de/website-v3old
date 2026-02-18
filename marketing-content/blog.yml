@@ -11,6 +11,7 @@
 #     params: <key: value>       # Query string parameters appended to the URL
 #     token_env_var: <name>      # Env var holding the auth token (optional)
 #     auth_prefix: <word>        # Prefix before token in Authorization header (e.g. "Token", "Bearer", or "" for none)
+#     results_path: <dotpath>    # Dot-notation path to the array of posts in the response (e.g. "results", "data.posts"). If empty, the response is treated as a direct array.
 #     headers:                   # Custom HTTP headers sent with every request (key: value pairs)
 #       X-Custom: value
 #
@@ -43,6 +44,7 @@ data_source:
       academy: 7
     token_env_var: BREATHECODE_TOKEN
     auth_prefix: Token
+    results_path: results
     headers:
       Authorization: Bearer ${BREATHECODE_TOKEN}
 cache:

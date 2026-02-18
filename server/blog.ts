@@ -12,6 +12,7 @@ export interface ApiSourceConfig {
   auth_prefix: string;
   headers: Record<string, string>;
   academy_header?: string;
+  results_path?: string;
 }
 
 export interface BlogConfig {
@@ -234,14 +235,34 @@ async function fetchFromApi(): Promise<BlogPost[]> {
     throw new Error(`[Blog] API returned ${response.status}: ${errorText}`);
   }
 
-  const data = await response.json() as { results?: BlogPost[]; count?: number } | BlogPost[];
+  const data = await response.json() as unknown;
 
   let results: BlogPost[];
-  if (Array.isArray(data)) {
-    results = data;
-  } else if (data.results) {
-    results = data.results;
-    console.log(`[Blog] API returned ${data.count ?? results.length} total posts, fetched ${results.length}`);
+  const resultsPath = apiConfig.results_path;
+
+  if (resultsPath) {
+    let extracted: unknown = data;
+    for (const key of resultsPath.split(".")) {
+      if (extracted && typeof extracted === "object" && key in extracted) {
+        extracted = (extracted as Record<string, unknown>)[key];
+      } else {
+        extracted = undefined;
+        break;
+      }
+    }
+    if (Array.isArray(extracted)) {
+      results = extracted as BlogPost[];
+      console.log(`[Blog] Extracted ${results.length} posts via results_path "${resultsPath}"`);
+    } else {
+      console.warn(`[Blog] results_path "${resultsPath}" did not resolve to an array, got ${typeof extracted}`);
+      results = [];
+    }
+  } else if (Array.isArray(data)) {
+    results = data as BlogPost[];
+  } else if (data && typeof data === "object" && "results" in data) {
+    const obj = data as { results?: BlogPost[]; count?: number };
+    results = obj.results || [];
+    console.log(`[Blog] API returned ${obj.count ?? results.length} total posts, fetched ${results.length}`);
   } else {
     results = [];
   }

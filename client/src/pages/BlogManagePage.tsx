@@ -88,6 +88,7 @@ interface ApiSourceConfig {
   auth_prefix: string;
   headers: Record<string, string>;
   academy_header?: string;
+  results_path?: string;
 }
 
 interface BlogConfig {
@@ -161,6 +162,10 @@ function DataSourceDialog({
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<{ status: number; status_text: string; content_type: string; body: unknown } | null>(null);
   const [testError, setTestError] = useState<string | null>(null);
+  const [testPassed, setTestPassed] = useState(false);
+  const [mappingMode, setMappingMode] = useState<"direct" | "nested">("direct");
+  const [resultsPath, setResultsPath] = useState("");
+  const [mappingConfirmed, setMappingConfirmed] = useState(false);
 
   useEffect(() => {
     if (config) {
@@ -193,6 +198,15 @@ function DataSourceDialog({
         }
         setCustomHeaders(headerPairs.length > 0 ? headerPairs : [{ key: "", value: "" }]);
         setEditingHeaders(false);
+        if (api.results_path) {
+          setMappingMode("nested");
+          setResultsPath(api.results_path);
+        } else {
+          setMappingMode("direct");
+          setResultsPath("");
+        }
+        setMappingConfirmed(true);
+        setTestPassed(true);
       }
       setTtlHours(String(config.cache?.ttl_hours || 24));
     }
@@ -267,6 +281,8 @@ function DataSourceDialog({
     setTesting(true);
     setTestResult(null);
     setTestError(null);
+    setTestPassed(false);
+    setMappingConfirmed(false);
     try {
       const res = await apiRequest("POST", "/api/blog/test-endpoint", {
         endpoint,
@@ -277,6 +293,16 @@ function DataSourceDialog({
       });
       const data = await res.json();
       setTestResult(data);
+      if (data.status < 400) {
+        setTestPassed(true);
+        if (Array.isArray(data.body)) {
+          setMappingMode("direct");
+          setResultsPath("");
+        } else {
+          setMappingMode("nested");
+          setResultsPath(resultsPath || "results");
+        }
+      }
     } catch (err) {
       setTestError(String(err));
     } finally {
@@ -296,6 +322,7 @@ function DataSourceDialog({
               params: paramsRecord,
               token_env_var: authType === "none" ? "" : tokenEnvVar,
               auth_prefix: authType === "none" || authType === "raw" ? "" : authType,
+              results_path: mappingMode === "nested" ? resultsPath : "",
               headers: headersRecord,
             },
           }),
@@ -367,12 +394,12 @@ function DataSourceDialog({
                   <Input
                     id="api-endpoint"
                     value={endpoint}
-                    onChange={(e) => setEndpoint(e.target.value)}
+                    onChange={(e) => { setEndpoint(e.target.value); setTestPassed(false); setMappingConfirmed(false); }}
                     placeholder="https://api.example.com/posts"
                     data-testid="input-api-endpoint"
                   />
                   <p className="text-xs text-muted-foreground">
-                    REST endpoint that returns a JSON array or object with a results array
+                    REST endpoint that returns blog posts as JSON. Test to configure response mapping.
                   </p>
                 </div>
 
@@ -549,7 +576,7 @@ function DataSourceDialog({
                   {testResult.status} {testResult.status_text}
                 </Badge>
               </Label>
-              <Button variant="ghost" size="sm" onClick={() => setTestResult(null)} data-testid="button-dismiss-test">
+              <Button variant="ghost" size="sm" onClick={() => { setTestResult(null); setTestPassed(false); setMappingConfirmed(false); }} data-testid="button-dismiss-test">
                 <IconTrash className="h-3.5 w-3.5" />
               </Button>
             </div>
@@ -567,6 +594,102 @@ function DataSourceDialog({
           </div>
         )}
 
+        {testPassed && testResult && testResult.status < 400 && (() => {
+          const body = testResult.body;
+          const extractByPath = (obj: unknown, dotPath: string): unknown => {
+            let current = obj;
+            for (const key of dotPath.split(".")) {
+              if (current && typeof current === "object" && key in (current as Record<string, unknown>)) {
+                current = (current as Record<string, unknown>)[key];
+              } else {
+                return undefined;
+              }
+            }
+            return current;
+          };
+
+          const extracted = mappingMode === "direct" ? body : extractByPath(body, resultsPath);
+          const isArr = Array.isArray(extracted);
+          const count = isArr ? extracted.length : null;
+
+          return (
+            <div className="space-y-3 rounded-md border p-3" data-testid="section-response-mapping">
+              <Label className="text-sm font-medium">Response Mapping</Label>
+              <p className="text-xs text-muted-foreground">
+                How should the posts be extracted from this response?
+              </p>
+
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 cursor-pointer" data-testid="radio-direct-array">
+                  <input
+                    type="radio"
+                    name="mapping-mode"
+                    checked={mappingMode === "direct"}
+                    onChange={() => { setMappingMode("direct"); setResultsPath(""); setMappingConfirmed(false); }}
+                    className="accent-primary"
+                  />
+                  <span className="text-sm">The response is a direct array of posts</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer" data-testid="radio-nested-property">
+                  <input
+                    type="radio"
+                    name="mapping-mode"
+                    checked={mappingMode === "nested"}
+                    onChange={() => { setMappingMode("nested"); setResultsPath(resultsPath || "results"); setMappingConfirmed(false); }}
+                    className="accent-primary"
+                  />
+                  <span className="text-sm">The array is nested in a property</span>
+                </label>
+
+                {mappingMode === "nested" && (
+                  <div className="pl-6 space-y-2">
+                    <Input
+                      value={resultsPath}
+                      onChange={(e) => { setResultsPath(e.target.value); setMappingConfirmed(false); }}
+                      placeholder="results"
+                      className="font-mono text-sm"
+                      data-testid="input-results-path"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Dot-notation path to the array (e.g. <code className="text-foreground">results</code>, <code className="text-foreground">data.posts</code>)
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="rounded-md bg-muted px-3 py-2" data-testid="text-mapping-preview">
+                {isArr ? (
+                  <p className="text-xs text-muted-foreground">
+                    Found <span className="text-foreground font-medium">{count}</span> posts
+                  </p>
+                ) : (
+                  <p className="text-xs text-destructive">
+                    {mappingMode === "direct"
+                      ? "The response is not an array. Try selecting 'nested in a property' instead."
+                      : resultsPath
+                        ? `Path "${resultsPath}" did not resolve to an array.`
+                        : "Enter a property path above."}
+                  </p>
+                )}
+              </div>
+
+              <Button
+                size="sm"
+                disabled={!isArr || mappingConfirmed}
+                onClick={() => setMappingConfirmed(true)}
+                data-testid="button-confirm-mapping"
+              >
+                {mappingConfirmed ? (
+                  <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
+                ) : (
+                  "Confirm Mapping"
+                )}
+              </Button>
+            </div>
+          );
+        })()}
+
         <DialogFooter>
           {sourceType === "api" && endpoint && (
             <Button
@@ -583,7 +706,11 @@ function DataSourceDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-datasource">
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={saving || isLoading} data-testid="button-save-datasource">
+          <Button
+            onClick={handleSave}
+            disabled={saving || isLoading || (sourceType === "api" && (!testPassed || !mappingConfirmed))}
+            data-testid="button-save-datasource"
+          >
             {saving ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
