@@ -3246,7 +3246,31 @@ Important: Only include mappings where you are confident the field exists. Use d
         // keep original slug if resolution fails
       }
 
-      const contentDir = path.join(process.cwd(), "marketing-content", folder, resolvedSlug);
+      const baseDir = path.join(process.cwd(), "marketing-content", folder);
+      let contentDir = path.join(baseDir, resolvedSlug);
+
+      if (!fs.existsSync(contentDir)) {
+        const subdirs = fs.existsSync(baseDir)
+          ? fs.readdirSync(baseDir, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name)
+          : [];
+        for (const dir of subdirs) {
+          const candidateDir = path.join(baseDir, dir);
+          const ymlFiles = fs.readdirSync(candidateDir).filter(f => f.endsWith(".yml") && f !== "_common.yml");
+          for (const yf of ymlFiles) {
+            try {
+              const raw = fs.readFileSync(path.join(candidateDir, yf), "utf-8");
+              const slugMatch = raw.match(/^slug:\s*(.+)$/m);
+              if (slugMatch && slugMatch[1].trim() === slug) {
+                resolvedSlug = dir;
+                contentDir = candidateDir;
+                break;
+              }
+            } catch { /* skip unreadable files */ }
+          }
+          if (contentDir === candidateDir) break;
+        }
+      }
+
       const localePath = path.join(contentDir, `${locale}.yml`);
       const commonPath = path.join(contentDir, "_common.yml");
 
