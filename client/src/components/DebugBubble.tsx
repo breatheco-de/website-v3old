@@ -1904,7 +1904,7 @@ export function DebugBubble() {
             {(pageErrorCount > 0 || pageWarningCount > 0) && (
               <button
                 onClick={() => setPageErrorsModalOpen(true)}
-                className="absolute left-full ml-1 flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium cursor-pointer hover:opacity-90 transition-opacity"
+                className="absolute left-full ml-1 flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium cursor-pointer hover:opacity-90 transition-opacity whitespace-nowrap"
                 style={{
                   top: githubSyncStatus?.syncEnabled && pendingChanges.some(c => c.source === 'local' || c.source === 'conflict') && !noTokenDetected && !tokenWithoutCapabilities ? '1.5rem' : '-0.25rem',
                   backgroundColor: pageErrorCount > 0 ? '#ef4444' : '#f59e0b',

@@ -16,17 +16,7 @@ schema:
     - website
     - courses:ai-engineering
 locations:
-  - caracas-venezuela
-  - buenosaires-argentina
-  - costa-rica
-  - lapaz-bolivia
-  - lima-peru
-  - mexicocity-mexico
-  - montevideo-uruguay
-  - panamacity-panama
-  - quito-ecuador
   - santiago-chile
-  - bogota-colombia
 sections:
   - type: hero
     version: "1.0"
@@ -40,7 +30,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Postular ahora
       tags: website-lead
       automations: strong
       fields:
@@ -68,11 +58,9 @@ sections:
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
-        sms: true
+        sms: false
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
       show_terms: true
     cta_button:
       text: Descargar programa
@@ -93,12 +81,12 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: Postular ahora
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Enviar solicitud
+      submit_label: Postular ahora
       tags: website-lead
       automations: strong
       fields:
@@ -117,12 +105,17 @@ sections:
         phone:
           visible: true
           required: false
-          default_country: VE
+          default_country: CL
         program:
           visible: false
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
     showOn: mobile
   - type: awards_marquee
     version: "1.0"
@@ -200,11 +193,11 @@ sections:
     description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: 800,000
+      - value: "800.000"
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: CPL $21.6M-$36.0M
+      - value: CLP $21.6M-$36.0M
         title: Salario anual promedio para ingenieros de IA
         value_size: text-4xl
     marginY:
@@ -216,7 +209,7 @@ sections:
   - type: syllabus
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día eliges una empresa, ya sea la que quieres construir o una que quieras transformar. A lo largo de 10 hitos, la conviertes en un negocio totalmente operativo impulsado por IA.
+    program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -602,7 +595,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Postular ahora
       tags: website-lead
       automations: strong
       fields:
@@ -631,7 +624,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))

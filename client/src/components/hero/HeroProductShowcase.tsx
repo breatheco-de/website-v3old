@@ -178,7 +178,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
 
               {subtitle && (
                 <p
-                  className="text-4xl text-muted-foreground mb-8 max-w-xl leading-relaxed"
+                  className="text-4xl text-muted-foreground mb-8 max-w-xl leading-[42px] mt-3"
                   data-testid="text-hero-subtitle"
                 >
                   {subtitle}

@@ -16,17 +16,7 @@ schema:
     - website
     - courses:ai-engineering
 locations:
-  - caracas-venezuela
-  - buenosaires-argentina
-  - costa-rica
-  - lapaz-bolivia
-  - lima-peru
   - mexicocity-mexico
-  - montevideo-uruguay
-  - panamacity-panama
-  - quito-ecuador
-  - santiago-chile
-  - bogota-colombia
 sections:
   - type: hero
     version: "1.0"
@@ -98,7 +88,7 @@ sections:
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Enviar solicitud
+      submit_label: Aplicar ahora
       tags: website-lead
       automations: strong
       fields:
@@ -117,7 +107,7 @@ sections:
         phone:
           visible: true
           required: false
-          default_country: VE
+          default_country: MX
         program:
           visible: false
           default: ai-engineering

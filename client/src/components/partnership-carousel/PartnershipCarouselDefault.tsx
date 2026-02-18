@@ -132,7 +132,7 @@ function SlideContent({ slide }: { slide: PartnershipSlide }) {
                     : "default"
               }
             >
-              {slide.cta.text}
+              <a href={slide.cta.url} onClick={handleLinkClick}>{slide.cta.text}</a>
             </Button>
           </a>
         </div>
