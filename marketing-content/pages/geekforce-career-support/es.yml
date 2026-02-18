@@ -15,7 +15,7 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Desarrollo de Carrera
+    title: Desarrollo Profesional
     subtitle: para la Era de la IA
     welcome_text: Bienvenido a
     brand_mark:
@@ -23,7 +23,7 @@ sections:
       highlight: FORCE
       suffix: ":"
       color: chart-5
-    description: Obtén soporte de carrera 1:1 ilimitado adaptado a tus metas, experiencia y trayectoria de por vida. Desde currículums e entrevistas hasta navegar procesos de contratación con IA, te ayudamos a triunfar en el mercado laboral tecnológico actual.
+    description: Mentoría profesional ilimitada 1:1 adaptada a tu perfil. Desde tu CV y portafolio hasta entrevistas y plataformas de contratación con IA, te acompañamos para conseguir tu primer empleo en tecnología y seguir creciendo en tu carrera.
     marquee:
       items:
         - id: logo-google-developers

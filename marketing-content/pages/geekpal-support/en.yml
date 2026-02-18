@@ -25,7 +25,7 @@ sections:
       highlight: PAL
       suffix: ":"
       color: destructive
-    description: Never code alone, get instant feedback, and join a global developer community — all designed to help you learn faster, stay motivated, and thrive in tech for life.
+    description: Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to accelerate your learning and advance your tech career.
     bullets:
       - text: Unlimited 1:1 coding mentorship
       - text: AI-powered guidance from Rigobot 24/7
@@ -151,8 +151,8 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Apply now to secure your spot and get full program details.
     background: hsl(var(--primary))
     variant: form
     form:
