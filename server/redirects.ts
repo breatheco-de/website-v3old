@@ -2,18 +2,38 @@ import type { Request, Response, NextFunction } from "express";
 import { contentIndex, type RedirectEntry } from "./content-index";
 
 let redirectMap: Map<string, RedirectEntry> | null = null;
+let regexRedirects: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
+
+export function isRegexPattern(path: string): boolean {
+  return /\(.*\)|\[.*\]|\.\*|\.\+|\\d|\\w|\\s|\{\d+[,}]/.test(path);
+}
 
 function buildRedirectMap(): Map<string, RedirectEntry> {
   const entries = contentIndex.getRedirects();
   const map = new Map<string, RedirectEntry>();
+  const regexList: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
 
   for (const entry of entries) {
-    if (!map.has(entry.from)) {
-      map.set(entry.from, entry);
+    if (isRegexPattern(entry.from)) {
+      if (entry.from.length > 500) {
+        console.warn(`[Redirects] Regex pattern too long, skipping: ${entry.from.substring(0, 50)}...`);
+        continue;
+      }
+      try {
+        const regex = new RegExp(`^${entry.from}$`, "i");
+        regexList.push({ regex, entry });
+      } catch {
+        console.warn(`[Redirects] Invalid regex pattern: ${entry.from}`);
+      }
+    } else {
+      if (!map.has(entry.from)) {
+        map.set(entry.from, entry);
+      }
     }
   }
 
-  console.log(`[Redirects] Loaded ${map.size} redirects`);
+  regexRedirects = regexList;
+  console.log(`[Redirects] Loaded ${map.size} exact redirects, ${regexList.length} regex redirects`);
   return map;
 }
 
@@ -41,17 +61,22 @@ function detectLocale(req: Request): string {
   return "en";
 }
 
-function resolveRedirectTarget(entry: RedirectEntry, req: Request): string {
+function resolveRedirectTarget(entry: RedirectEntry, req: Request, captureGroups?: string[]): string {
+  let target: string;
   if (typeof entry.to === "string") {
-    return entry.to;
+    target = entry.to;
+  } else {
+    const locale = detectLocale(req);
+    target = entry.to[locale] || entry.to["en"] || Object.values(entry.to)[0] || "/";
   }
 
-  const locale = detectLocale(req);
-  if (entry.to[locale]) {
-    return entry.to[locale];
+  if (captureGroups && captureGroups.length > 0) {
+    for (let i = 0; i < captureGroups.length; i++) {
+      target = target.replace(new RegExp(`\\$${i + 1}`, "g"), captureGroups[i]);
+    }
   }
 
-  return entry.to["en"] || Object.values(entry.to)[0] || "/";
+  return target;
 }
 
 export function redirectMiddleware(req: Request, res: Response, next: NextFunction): void {
@@ -65,6 +90,20 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
     console.log(`[Redirects] ${status}: ${req.path} -> ${target}`);
     res.redirect(status, target);
     return;
+  }
+
+  if (regexRedirects) {
+    for (const { regex, entry: regexEntry } of regexRedirects) {
+      const match = req.path.match(regex);
+      if (match) {
+        const captureGroups = match.slice(1);
+        const status = regexEntry.status || 301;
+        const target = resolveRedirectTarget(regexEntry, req, captureGroups);
+        console.log(`[Redirects] ${status} (regex): ${req.path} -> ${target}`);
+        res.redirect(status, target);
+        return;
+      }
+    }
   }
 
   next();
@@ -84,15 +123,39 @@ export function getRedirects(): Array<{ from: string; to: string | Record<string
     });
   }
 
+  if (regexRedirects) {
+    for (const { entry } of regexRedirects) {
+      result.push({
+        from: entry.from,
+        to: entry.to,
+        type: entry.type,
+        status: entry.status || 301,
+        source: entry.source,
+      });
+    }
+  }
+
   return result;
 }
 
 export function lookupRedirect(urlPath: string): RedirectEntry | undefined {
   const map = getRedirectMap();
-  return map.get(normalizePath(urlPath));
+  const exact = map.get(normalizePath(urlPath));
+  if (exact) return exact;
+
+  if (regexRedirects) {
+    for (const { regex, entry } of regexRedirects) {
+      if (regex.test(urlPath)) {
+        return entry;
+      }
+    }
+  }
+
+  return undefined;
 }
 
 export function clearRedirectCache(): void {
   redirectMap = null;
+  regexRedirects = null;
   console.log("[Redirects] Cache cleared");
 }

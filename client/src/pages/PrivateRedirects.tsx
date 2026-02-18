@@ -72,6 +72,10 @@ function isLocaleMap(
   return typeof to === "object";
 }
 
+function hasRegexChars(path: string): boolean {
+  return /\(.*\)|\[.*\]|\.\*|\.\+|\\d|\\w|\\s|\{\d+[,}]/.test(path);
+}
+
 interface ValidationIssue {
   type: "error" | "warning";
   code: string;
@@ -113,6 +117,7 @@ export default function PrivateRedirects() {
   const [originalTo, setOriginalTo] = useState("");
   const [allLanguages, setAllLanguages] = useState(true);
   const [isCustomDestination, setIsCustomDestination] = useState(false);
+  const [isRegexDestination, setIsRegexDestination] = useState(false);
   const [redirectStatus, setRedirectStatus] = useState<number>(301);
   const [localeUrls, setLocaleUrls] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -137,7 +142,10 @@ export default function PrivateRedirects() {
     openResolver,
   } = useRedirectConflictResolver();
 
+  const isOriginRegex = hasRegexChars(newFrom);
+
   const originHasUrlOrDomain = (() => {
+    if (isOriginRegex) return false;
     const v = newFrom.trim();
     if (!v) return false;
     const stripped = v.startsWith("/") ? v.slice(1) : v;
@@ -150,7 +158,7 @@ export default function PrivateRedirects() {
     newFrom.trim() !== "" &&
     (originHasUrlOrDomain ||
       !newFrom.startsWith("/") ||
-      originCheckStatus === "taken");
+      (!isOriginRegex && originCheckStatus === "taken"));
 
   useEffect(() => {
     setIsAuthorized(isDebugModeActive());
@@ -182,7 +190,7 @@ export default function PrivateRedirects() {
   useEffect(() => {
     if (originCheckTimer.current) clearTimeout(originCheckTimer.current);
     const trimmed = newFrom.trim();
-    if (!trimmed || !trimmed.startsWith("/") || originHasUrlOrDomain) {
+    if (!trimmed || !trimmed.startsWith("/") || originHasUrlOrDomain || isOriginRegex) {
       setOriginCheckStatus("idle");
       setOriginCheckReason(null);
       return;
@@ -219,7 +227,7 @@ export default function PrivateRedirects() {
       if (originCheckTimer.current) clearTimeout(originCheckTimer.current);
       controller.abort();
     };
-  }, [newFrom, originHasUrlOrDomain]);
+  }, [newFrom, originHasUrlOrDomain, isOriginRegex]);
 
   const { data: redirectsData, isLoading } = useQuery<{
     redirects: Redirect[];
@@ -282,6 +290,7 @@ export default function PrivateRedirects() {
     setOriginalTo("");
     setAllLanguages(true);
     setIsCustomDestination(false);
+    setIsRegexDestination(false);
     setRedirectStatus(301);
     setLocaleUrls({});
     setOriginCheckStatus("idle");
@@ -318,7 +327,7 @@ export default function PrivateRedirects() {
         to: newTo.trim(),
         allLanguages,
         status: redirectStatus,
-        isCustomDestination,
+        isCustomDestination: isCustomDestination || isRegexDestination,
       });
       const data = await res.json();
 
@@ -712,10 +721,15 @@ export default function PrivateRedirects() {
                           className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-muted/50 transition-colors"
                           data-testid={`redirect-row-${type}-${index}`}
                         >
-                          <div className="flex-1 min-w-0">
+                          <div className="flex-1 min-w-0 flex items-center gap-1.5">
                             <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
                               {redirect.from}
                             </code>
+                            {hasRegexChars(redirect.from) && (
+                              <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 font-mono">
+                                regex
+                              </Badge>
+                            )}
                           </div>
                           <Badge
                             variant={
@@ -850,11 +864,12 @@ export default function PrivateRedirects() {
               <Label htmlFor="redirect-from">Origin URL</Label>
               <Input
                 id="redirect-from"
-                placeholder="/old-page-url"
+                placeholder="/old-page-url or /path/(.*)"
                 value={newFrom}
-                onChange={(e) =>
-                  setNewFrom(e.target.value.replace(/\s+/g, "-"))
-                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setNewFrom(hasRegexChars(val) ? val : val.replace(/\s+/g, "-"));
+                }}
                 className={isOriginInvalid ? "border-destructive" : ""}
                 data-testid="input-redirect-from"
               />
@@ -868,16 +883,26 @@ export default function PrivateRedirects() {
                   The path must start with{" "}
                   <code className="bg-muted px-1 rounded">/</code>
                 </p>
-              ) : originCheckStatus === "taken" ? (
+              ) : !isOriginRegex && originCheckStatus === "taken" ? (
                 <p className="text-xs text-destructive">
                   {originCheckReason || "This path is already in use"}
                 </p>
-              ) : originCheckStatus === "checking" ? (
+              ) : !isOriginRegex && originCheckStatus === "checking" ? (
                 <p className="text-xs text-muted-foreground">
                   Checking availability...
                 </p>
-              ) : originCheckStatus === "available" ? (
+              ) : !isOriginRegex && originCheckStatus === "available" ? (
                 <p className="text-xs text-green-600">Path is available</p>
+              ) : isOriginRegex && newFrom ? (
+                <p className="text-xs text-muted-foreground">
+                  Regex pattern detected — URLs matching{" "}
+                  <code className="bg-muted px-1 rounded">{newFrom}</code> will
+                  be redirected. Use capture groups like{" "}
+                  <code className="bg-muted px-1 rounded">(.*)</code> and reference
+                  them in the destination with{" "}
+                  <code className="bg-muted px-1 rounded">$1</code>,{" "}
+                  <code className="bg-muted px-1 rounded">$2</code>, etc.
+                </p>
               ) : newFrom ? (
                 <p className="text-xs text-muted-foreground">
                   Visitors to{" "}
@@ -889,8 +914,45 @@ export default function PrivateRedirects() {
 
             {newFrom.trim() && !isOriginInvalid && (
               <div className="space-y-2">
-                <Label>Destination</Label>
-                {!newTo ? (
+                <div className="flex items-center justify-between gap-2">
+                  <Label>Destination</Label>
+                  {!newTo && (
+                    <div className="flex border rounded-md overflow-hidden text-xs">
+                      <button
+                        type="button"
+                        onClick={() => setIsRegexDestination(false)}
+                        className={`px-2.5 py-1 transition-colors ${!isRegexDestination ? "bg-primary/10 font-medium" : "hover-elevate"}`}
+                        data-testid="button-dest-page"
+                      >
+                        Pick a page
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsRegexDestination(true)}
+                        className={`px-2.5 py-1 border-l transition-colors ${isRegexDestination ? "bg-primary/10 font-medium" : "hover-elevate"}`}
+                        data-testid="button-dest-pattern"
+                      >
+                        Type a pattern
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {isRegexDestination ? (
+                  <div className="space-y-2">
+                    <Input
+                      placeholder="/new-path/$1"
+                      value={newTo}
+                      onChange={(e) => setNewTo(e.target.value)}
+                      data-testid="input-redirect-to-pattern"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Type a destination path. Use{" "}
+                      <code className="bg-muted px-1 rounded">$1</code>,{" "}
+                      <code className="bg-muted px-1 rounded">$2</code>, etc. to
+                      reference capture groups from the origin pattern.
+                    </p>
+                  </div>
+                ) : !newTo ? (
                   <div className="flex items-center">
                     <SitemapSearch
                       value={newTo}
