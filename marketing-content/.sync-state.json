@@ -1005,9 +1005,11 @@
       "remoteSha": "7bb3754facaea593d5aa30618791a4b3d69e36d46e1b22654255f3e29e3aa56e"
     },
     "marketing-content/programs/data-science-ml/en.yml": {
-      "sha": "0cd1c9a944b2c1e4455864e90baf1effbb6c4d19daf67abb98b8b0aaecee38c5",
-      "lastModified": 1771368549887.1614,
-      "remoteSha": "0cd1c9a944b2c1e4455864e90baf1effbb6c4d19daf67abb98b8b0aaecee38c5"
+      "sha": "86a5c08746f25f604104b37692839b2d43fa0ac89e933b5892d27edf07ecce0a",
+      "lastModified": 1771425553929.098,
+      "remoteSha": "0cd1c9a944b2c1e4455864e90baf1effbb6c4d19daf67abb98b8b0aaecee38c5",
+      "author": "Alejandro Sanchez",
+      "modifiedAt": "2026-02-18T14:39:13.931Z"
     },
     "marketing-content/programs/data-science-ml/es.yml": {
       "sha": "342adb6af58b05c135be7e36c375cd84fd2afc1a02a7c0b08ca0999b410d4d32",

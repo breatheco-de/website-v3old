@@ -122,8 +122,8 @@ sections:
       Explore the 4Geeks Academy platform, start learning with LearnPack, code alongside Rigobot, and take the first step toward your new tech career.
 
       👉 [Explore programs now](https://4geeksacademy.com/) or book a mentor session today.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
   - type: faq
     version: v1.0
     title: Frequently Asked Questions

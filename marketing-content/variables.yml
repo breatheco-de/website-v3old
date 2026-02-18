@@ -49,6 +49,9 @@ global_review_count:
     - query:
         locale: "es"
       value: "3.000"
+    - query:
+        locale: "en"
+      value: "3,000"
 global_teacher_student_ratio:
   default: "1:7"
   conditions:
@@ -163,3 +166,5 @@ price_datascience:
     - query:
         region: "latam"
       value: "$299"
+global_total_alumni:
+  default: "4,000"

@@ -84,8 +84,8 @@ sections:
       Rigobot is free inside every 4Geeks course, from Full Stack to Data Science. Jump into a [**LearnPack demo**](https://4geeksacademy.com/us/learnpack), or apply to our [**Full Stack Bootcamp**](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer).
 
       Let Rigobot turn late-night bugs into light-bulb moments and your effort into a tech career.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
   - type: faq
     version: v1.0
     title: Frequently Asked Questions
