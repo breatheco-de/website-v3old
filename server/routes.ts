@@ -1055,14 +1055,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       if (category) {
         filtered = filtered.filter((p: any) => {
-          const catSlug = p.category?.slug || (typeof p.cluster === "object" ? p.cluster?.slug : p.cluster) || "";
-          return catSlug === category;
+          return (p.category?.slug || "") === category;
         });
       }
 
       const categories = Array.from(new Set(
         (locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts)
-          .map((p: any) => p.category?.slug || (typeof p.cluster === "object" ? p.cluster?.slug : p.cluster) || "")
+          .map((p: any) => p.category?.slug || "")
           .filter(Boolean)
       )).sort();
 

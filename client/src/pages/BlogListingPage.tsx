@@ -11,28 +11,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
-interface BlogAuthor {
-  id: number;
-  first_name: string;
-  last_name: string;
-  profile?: { avatar_url?: string };
-}
-
-interface BlogPost {
-  id: number;
-  slug: string;
-  title: string;
-  lang: string;
-  category: { slug: string } | null;
-  description: string;
-  preview: string;
-  author: BlogAuthor | null;
-  published_at: string;
-  created_at: string;
-  cluster: string | { id: number; slug: string } | null;
-  tags: string[];
-}
-
 interface BlogResponse {
   count: number;
   total: number;
@@ -41,7 +19,7 @@ interface BlogResponse {
   hasNext?: boolean;
   hasPrev?: boolean;
   categories?: string[];
-  results: BlogPost[];
+  results: Record<string, any>[];
 }
 
 interface BlogConfig {
@@ -63,16 +41,9 @@ function formatDate(dateStr: string, locale: string): string {
   }
 }
 
-function getAuthorName(author: BlogAuthor | null): string {
+function getAuthorName(author: Record<string, any> | null): string {
   if (!author) return "4Geeks Academy";
   return `${author.first_name || ""} ${author.last_name || ""}`.trim() || "4Geeks Academy";
-}
-
-function getCategorySlug(post: BlogPost): string {
-  if (post.category?.slug) return post.category.slug;
-  if (typeof post.cluster === "object" && post.cluster) return post.cluster.slug;
-  if (typeof post.cluster === "string") return post.cluster;
-  return "";
 }
 
 function formatCategoryLabel(slug: string): string {
@@ -82,12 +53,12 @@ function formatCategoryLabel(slug: string): string {
     .join(" ");
 }
 
-function buildPostUrl(pattern: string, post: BlogPost, locale: string): string {
+function buildPostUrl(pattern: string, post: Record<string, any>, locale: string): string {
   let result = pattern.replaceAll(":locale", locale);
   result = result.replaceAll(":slug", post.slug || "");
-  result = result.replaceAll(":category", getCategorySlug(post));
+  result = result.replaceAll(":category", post.category?.slug || "");
   result = result.replaceAll(":lang", post.lang || "");
-  result = result.replaceAll(":status", (post as any).status || "");
+  result = result.replaceAll(":status", post.status || "");
   result = result.replaceAll(":tags", (post.tags || []).join(","));
   return result;
 }
@@ -142,7 +113,7 @@ export default function BlogListingPage() {
       (post) =>
         post.title?.toLowerCase().includes(query) ||
         post.description?.toLowerCase().includes(query) ||
-        getCategorySlug(post).toLowerCase().includes(query)
+        (post.category?.slug || "").toLowerCase().includes(query)
     );
   }, [data?.results, searchQuery]);
 
@@ -274,6 +245,7 @@ export default function BlogListingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="grid-blog-posts">
               {filteredPosts.map((post) => {
                 const postUrl = buildPostUrl(urlPattern, post, locale);
+                const catSlug = post.category?.slug || "";
                 return (
                   <a
                     key={post.id}
@@ -295,9 +267,9 @@ export default function BlogListingPage() {
                         </div>
                       )}
                       <div className="p-5">
-                        {getCategorySlug(post) && (
-                          <Badge variant="secondary" className="mb-3" data-testid={`badge-cluster-${post.slug}`}>
-                            {formatCategoryLabel(getCategorySlug(post))}
+                        {catSlug && (
+                          <Badge variant="secondary" className="mb-3" data-testid={`badge-category-${post.slug}`}>
+                            {formatCategoryLabel(catSlug)}
                           </Badge>
                         )}
                         <h2

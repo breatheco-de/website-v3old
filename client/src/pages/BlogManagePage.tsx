@@ -60,28 +60,9 @@ import {
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
-interface BlogPost {
-  id: number;
-  slug: string;
-  title: string;
-  lang: string;
-  category: { slug: string };
-  status: string;
-  visibility: string;
-  description: string;
-  preview: string;
-  author: { id: number; first_name: string; last_name: string; profile?: { avatar_url?: string } } | null;
-  published_at: string;
-  created_at: string;
-  updated_at: string;
-  cluster: string | null;
-  clusters: string[];
-  tags: string[];
-}
-
 interface BlogResponse {
   count: number;
-  results: BlogPost[];
+  results: Record<string, any>[];
 }
 
 interface CacheStatus {
@@ -1149,10 +1130,10 @@ function DataSourceDialog({
   );
 }
 
-function resolvePostField(post: BlogPost, field: string): string {
+function resolvePostField(post: Record<string, any>, field: string): string {
   switch (field) {
     case "slug": return post.slug || "";
-    case "category": return post.category?.slug || (post.clusters && post.clusters.length > 0 ? post.clusters[0] : post.cluster) || "";
+    case "category": return post.category?.slug || "";
     case "lang": return post.lang || "";
     case "status": return post.status || "";
     case "tags": return (post.tags || []).join(",");
@@ -1160,7 +1141,7 @@ function resolvePostField(post: BlogPost, field: string): string {
   }
 }
 
-function buildBlogUrl(pattern: string, post: BlogPost, locale: string, fieldMappingKeys?: string[]): string {
+function buildBlogUrl(pattern: string, post: Record<string, any>, locale: string, fieldMappingKeys?: string[]): string {
   let result = pattern.replaceAll(":locale", locale);
   const keys = fieldMappingKeys || ["slug", "category", "lang", "status", "tags"];
   for (const key of keys) {
@@ -1259,7 +1240,7 @@ function SeoSettingsDialog({
     }
   };
 
-  const samplePost = { slug: "intro-to-python", cluster: "coding-bootcamp", clusters: ["coding-bootcamp"], category: { slug: "coding-bootcamp" } } as BlogPost;
+  const samplePost = { slug: "intro-to-python", category: { slug: "coding-bootcamp" } };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

@@ -8,31 +8,6 @@ import { useInternalNav } from "@/hooks/useInternalNav";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-interface BlogAuthor {
-  id: number;
-  first_name: string;
-  last_name: string;
-  profile?: { avatar_url?: string };
-}
-
-interface BlogPost {
-  id: number;
-  slug: string;
-  title: string;
-  lang: string;
-  category: { slug: string };
-  description: string;
-  preview: string;
-  readme_url: string;
-  content: string;
-  author: BlogAuthor | null;
-  published_at: string;
-  created_at: string;
-  updated_at: string;
-  cluster: string | { id: number; slug: string } | null;
-  tags: string[];
-  duration: number;
-}
 
 function formatDate(dateStr: string, locale: string): string {
   try {
@@ -47,7 +22,7 @@ function formatDate(dateStr: string, locale: string): string {
   }
 }
 
-function getAuthorName(author: BlogAuthor | null): string {
+function getAuthorName(author: Record<string, any> | null): string {
   if (!author) return "4Geeks Academy";
   return `${author.first_name || ""} ${author.last_name || ""}`.trim() || "4Geeks Academy";
 }
@@ -61,7 +36,7 @@ export default function BlogPostPage() {
   const slug = segments[segments.length - 1] || "";
   const handleLinkClick = useInternalNav();
 
-  const { data: post, isLoading, error } = useQuery<BlogPost>({
+  const { data: post, isLoading, error } = useQuery<Record<string, any>>({
     queryKey: ["/api/blog/posts", slug, locale],
     queryFn: async () => {
       const response = await apiFetch(`/api/blog/posts/${slug}?locale=${locale}`);
@@ -134,9 +109,9 @@ export default function BlogPostPage() {
           {locale === "es" ? "Volver al blog" : "Back to blog"}
         </a>
 
-        {post.cluster && (
-          <span className="inline-block text-xs font-medium text-primary uppercase tracking-wider mb-3" data-testid="text-blog-cluster">
-            {typeof post.cluster === "object" ? post.cluster.slug : post.cluster}
+        {post.category?.slug && (
+          <span className="inline-block text-xs font-medium text-primary uppercase tracking-wider mb-3" data-testid="text-blog-category">
+            {post.category.slug}
           </span>
         )}
 
@@ -211,7 +186,7 @@ export default function BlogPostPage() {
               <span className="text-sm text-muted-foreground font-medium">
                 {locale === "es" ? "Etiquetas:" : "Tags:"}
               </span>
-              {post.tags.map((tag) => (
+              {post.tags.map((tag: string) => (
                 <span
                   key={tag}
                   className="text-xs px-2 py-1 rounded-md bg-muted text-muted-foreground"
