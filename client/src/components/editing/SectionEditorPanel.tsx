@@ -1076,7 +1076,7 @@ export function SectionEditorPanel({
       arrayPath: string,
       index: number,
       field: string,
-      value: string | number,
+      value: string | number | boolean,
     ) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
@@ -3533,7 +3533,7 @@ export function SectionEditorPanel({
 
                   const updateNestedField = (
                     nestedItem: NestedItem,
-                    value: string,
+                    value: string | number | boolean,
                   ) => {
                     try {
                       const parsed = safeYamlLoad(yamlContent) as Record<
@@ -3636,45 +3636,6 @@ export function SectionEditorPanel({
                     );
                   }
 
-                  if (editorType === "color-picker") {
-                    const colorType =
-                      (variant as ColorPickerVariant) || "accent";
-                    return (
-                      <div key={fieldPath} className="space-y-3">
-                        <Label className="text-sm font-medium capitalize">
-                          {lastSegmentLabel} Colors
-                        </Label>
-                        <div className="space-y-2">
-                          {leafItems.map((leaf, idx) => {
-                            const currentValue =
-                              (leaf.item[itemField] as string) || "";
-                            return (
-                              <div
-                                key={idx}
-                                className="flex items-center gap-2"
-                              >
-                                <span className="text-sm text-muted-foreground min-w-[80px] truncate">
-                                  {leaf.parentLabel}
-                                </span>
-                                <ColorPicker
-                                  value={currentValue}
-                                  onChange={(value) =>
-                                    updateNestedField(leaf, value)
-                                  }
-                                  type={colorType}
-                                  label=" "
-                                  allowNone={true}
-                                  allowCustom={true}
-                                  testIdPrefix={`props-color-nested-${idx}`}
-                                />
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    );
-                  }
-
                   if (editorType === "image-picker") {
                     const groupedByParent: Record<string, NestedItem[]> = {};
                     leafItems.forEach((leaf) => {
@@ -3750,7 +3711,97 @@ export function SectionEditorPanel({
                     );
                   }
 
-                  return null;
+                  {
+                    const renderNestedItemEditor = (
+                      leaf: { parentPath: string[]; parentIndices: number[]; parentLabel: string; item: Record<string, unknown> },
+                      idx: number,
+                    ) => {
+                      const currentValue = (leaf.item[itemField] as string) || "";
+                      const leafLabel = leaf.parentLabel || `Item ${idx + 1}`;
+                      const handleNestedChange = (val: string | number | boolean) => updateNestedField(leaf, val);
+
+                      switch (editorType) {
+                        case "color-picker": {
+                          const colorType = (variant as ColorPickerVariant) || "accent";
+                          return (
+                            <div key={idx} className="flex items-center gap-2">
+                              <span className="text-sm text-muted-foreground min-w-[80px] truncate">{leafLabel}</span>
+                              <ColorPicker
+                                value={currentValue}
+                                onChange={(v) => handleNestedChange(v)}
+                                type={colorType}
+                                label=" "
+                                allowNone={true}
+                                allowCustom={true}
+                                testIdPrefix={`props-color-nested-${idx}`}
+                              />
+                            </div>
+                          );
+                        }
+                        case "link-picker":
+                          return (
+                            <div key={idx} className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">{leafLabel}</Label>
+                              <LinkPicker
+                                value={currentValue}
+                                onChange={(url) => handleNestedChange(url)}
+                                locale={locale}
+                                allSections={allSections}
+                                testId={`props-link-nested-${idx}`}
+                              />
+                            </div>
+                          );
+                        case "rich-text-editor":
+                          return (
+                            <div key={idx} className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">{leafLabel}</Label>
+                              <RichTextArea
+                                value={currentValue}
+                                onChange={(html) => handleNestedChange(html)}
+                                placeholder={`Edit ${leafLabel}…`}
+                                minHeight="80px"
+                                locale={locale}
+                              />
+                            </div>
+                          );
+                        case "boolean-toggle": {
+                          const boolValue = leaf.item[itemField] === true || leaf.item[itemField] === "true";
+                          return (
+                            <div key={idx} className="flex items-center gap-3">
+                              <Label className="text-sm text-muted-foreground">{leafLabel}</Label>
+                              <Switch
+                                checked={boolValue}
+                                onCheckedChange={(checked) => handleNestedChange(checked)}
+                              />
+                            </div>
+                          );
+                        }
+                        default:
+                          return (
+                            <div key={idx} className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">{leafLabel}</Label>
+                              <Input
+                                value={currentValue}
+                                onChange={(e) => handleNestedChange(e.target.value)}
+                                className="h-8 text-sm"
+                                data-testid={`props-${editorType}-nested-${idx}`}
+                              />
+                            </div>
+                          );
+                      }
+                    };
+
+                    return (
+                      <div key={fieldPath} className="space-y-3">
+                        <Label className="text-sm font-medium capitalize">
+                          {lastSegmentLabel.replace(/_/g, " ")}
+                        </Label>
+                        <div className="space-y-2">
+                          {leafItems.map((leaf, idx) => renderNestedItemEditor(leaf, idx))}
+                        </div>
+                      </div>
+                    );
+                  }
                 }
 
                 // Handle simple field paths with rich-text (e.g., "subtitle", "description")
@@ -3919,57 +3970,6 @@ export function SectionEditorPanel({
                             >
                               {renderIconByName(currentValue)}
                             </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                }
-
-                if (editorType === "color-picker") {
-                  const colorType = (variant as ColorPickerVariant) || "accent";
-
-                  return (
-                    <div key={fieldPath} className="space-y-3">
-                      <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel} Colors
-                      </Label>
-                      <div className="space-y-2">
-                        {safeArrayData.map((item, index) => {
-                          const currentValue =
-                            (item[itemField] as string) || "";
-                          const itemLabel =
-                            (item.tab_label as string) ||
-                            (item.title as string) ||
-                            (item.label as string) ||
-                            (item.name as string) ||
-                            `Item ${index + 1}`;
-
-                          return (
-                            <div
-                              key={index}
-                              className="flex items-center gap-2"
-                            >
-                              <span className="text-sm text-muted-foreground min-w-[80px] truncate">
-                                {itemLabel}
-                              </span>
-                              <ColorPicker
-                                value={currentValue}
-                                onChange={(value) =>
-                                  updateArrayItemField(
-                                    arrayPath,
-                                    index,
-                                    itemField,
-                                    value,
-                                  )
-                                }
-                                type={colorType}
-                                label=" "
-                                allowNone={true}
-                                allowCustom={true}
-                                testIdPrefix={`props-color-${arrayFieldLabel}-${index}`}
-                              />
-                            </div>
                           );
                         })}
                       </div>
@@ -4218,97 +4218,6 @@ export function SectionEditorPanel({
                         >
                           <IconPlus className="h-5 w-5 text-muted-foreground" />
                         </button>
-                      </div>
-                    </div>
-                  );
-                }
-
-                if (editorType === "rich-text-editor") {
-                  return (
-                    <div key={fieldPath} className="space-y-3">
-                      <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel} Text
-                      </Label>
-                      <div className="space-y-2">
-                        {safeArrayData.map((item, index) => {
-                          const currentValue =
-                            (item[itemField] as string) || "";
-                          const itemLabel =
-                            (item.tab_label as string) ||
-                            (item.title as string) ||
-                            (item.label as string) ||
-                            (item.name as string) ||
-                            `Item ${index + 1}`;
-
-                          return (
-                            <div key={index} className="space-y-1">
-                              <Label className="text-xs text-muted-foreground">
-                                {itemLabel}
-                              </Label>
-                              <RichTextArea
-                                key={`${sectionIndex}-${arrayPath}-${index}-${itemField}`}
-                                value={currentValue}
-                                onChange={(html) =>
-                                  updateArrayItemField(
-                                    arrayPath,
-                                    index,
-                                    itemField,
-                                    html,
-                                  )
-                                }
-                                placeholder={`Edit ${itemLabel}…`}
-                                minHeight="80px"
-                                locale={locale}
-                                data-testid={`props-richtext-${arrayFieldLabel}-${index}`}
-                              />
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                }
-
-                if (editorType === "link-picker") {
-                  return (
-                    <div key={fieldPath} className="space-y-3">
-                      <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel.replace(/_/g, " ")} Links
-                      </Label>
-                      <div className="space-y-2">
-                        {safeArrayData.map((item, index) => {
-                          const currentValue =
-                            (item[itemField] as string) || "";
-                          const itemLabel =
-                            (item.tab_label as string) ||
-                            (item.title as string) ||
-                            (item.label as string) ||
-                            (item.name as string) ||
-                            (item.text as string) ||
-                            `Item ${index + 1}`;
-
-                          return (
-                            <div key={index} className="space-y-1">
-                              <Label className="text-xs text-muted-foreground">
-                                {itemLabel}
-                              </Label>
-                              <LinkPicker
-                                value={currentValue}
-                                onChange={(url) =>
-                                  updateArrayItemField(
-                                    arrayPath,
-                                    index,
-                                    itemField,
-                                    url,
-                                  )
-                                }
-                                locale={locale}
-                                allSections={allSections}
-                                testId={`props-link-${arrayFieldLabel}-${index}`}
-                              />
-                            </div>
-                          );
-                        })}
                       </div>
                     </div>
                   );
@@ -4712,7 +4621,123 @@ export function SectionEditorPanel({
                   );
                 }
 
-                return null;
+                {
+                  const getItemLabel = (item: Record<string, unknown>, idx: number) =>
+                    (item.tab_label as string) ||
+                    (item.title as string) ||
+                    (item.label as string) ||
+                    (item.name as string) ||
+                    (item.text as string) ||
+                    `Item ${idx + 1}`;
+
+                  const renderItemEditor = (
+                    item: Record<string, unknown>,
+                    index: number,
+                  ) => {
+                    const currentValue = (item[itemField] as string) || "";
+                    const itemLabel = getItemLabel(item, index);
+                    const handleChange = (val: string | number | boolean) =>
+                      updateArrayItemField(arrayPath, index, itemField, val);
+
+                    switch (editorType) {
+                      case "color-picker": {
+                        const colorType = (variant as ColorPickerVariant) || "accent";
+                        return (
+                          <div key={index} className="flex items-center gap-2">
+                            <span className="text-sm text-muted-foreground min-w-[80px] truncate">
+                              {itemLabel}
+                            </span>
+                            <ColorPicker
+                              value={currentValue}
+                              onChange={(v) => handleChange(v)}
+                              type={colorType}
+                              label=" "
+                              allowNone={true}
+                              allowCustom={true}
+                              testIdPrefix={`props-color-${arrayFieldLabel}-${index}`}
+                            />
+                          </div>
+                        );
+                      }
+                      case "link-picker":
+                        return (
+                          <div key={index} className="space-y-1">
+                            <Label className="text-xs text-muted-foreground">{itemLabel}</Label>
+                            <LinkPicker
+                              value={currentValue}
+                              onChange={(url) => handleChange(url)}
+                              locale={locale}
+                              allSections={allSections}
+                              testId={`props-link-${arrayFieldLabel}-${index}`}
+                            />
+                          </div>
+                        );
+                      case "rich-text-editor":
+                        return (
+                          <div key={index} className="space-y-1">
+                            <Label className="text-xs text-muted-foreground">{itemLabel}</Label>
+                            <RichTextArea
+                              key={`${sectionIndex}-${arrayPath}-${index}-${itemField}`}
+                              value={currentValue}
+                              onChange={(html) => handleChange(html)}
+                              placeholder={`Edit ${itemLabel}…`}
+                              minHeight="80px"
+                              locale={locale}
+                              data-testid={`props-richtext-${arrayFieldLabel}-${index}`}
+                            />
+                          </div>
+                        );
+                      case "markdown":
+                        return (
+                          <div key={index} className="space-y-1">
+                            <MarkdownEditorField
+                              key={`${sectionIndex}-${arrayPath}-${index}-${itemField}`}
+                              value={currentValue}
+                              onChange={(md) => handleChange(md)}
+                              label={itemLabel}
+                              data-testid={`props-markdown-${arrayFieldLabel}-${index}`}
+                            />
+                          </div>
+                        );
+                      case "boolean-toggle": {
+                        const boolValue = item[itemField] === true || item[itemField] === "true";
+                        return (
+                          <div key={index} className="flex items-center gap-3">
+                            <Label className="text-sm text-muted-foreground">{itemLabel}</Label>
+                            <Switch
+                              checked={boolValue}
+                              onCheckedChange={(checked) => handleChange(checked)}
+                              data-testid={`props-toggle-${arrayFieldLabel}-${index}`}
+                            />
+                          </div>
+                        );
+                      }
+                      default:
+                        return (
+                          <div key={index} className="space-y-1">
+                            <Label className="text-xs text-muted-foreground">{itemLabel}</Label>
+                            <Input
+                              value={currentValue}
+                              onChange={(e) => handleChange(e.target.value)}
+                              className="h-8 text-sm"
+                              data-testid={`props-${editorType}-${arrayFieldLabel}-${index}`}
+                            />
+                          </div>
+                        );
+                    }
+                  };
+
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium capitalize">
+                        {arrayFieldLabel.replace(/_/g, " ")}
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => renderItemEditor(item, index))}
+                      </div>
+                    </div>
+                  );
+                }
               },
             )}
           </div>
