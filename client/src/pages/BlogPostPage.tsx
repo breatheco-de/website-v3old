@@ -105,21 +105,23 @@ export default function BlogPostPage() {
     <div data-testid={`page-blog-post-${post.slug}`}>
       <Header />
       <article className="max-w-3xl mx-auto px-6 py-12">
-        <a
-          href={`/${locale}/blog`}
-          onClick={handleLinkClick}
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          data-testid="link-back-to-blog"
-        >
-          <IconArrowLeft className="w-4 h-4" />
-          {locale === "es" ? "Volver al blog" : "Back to blog"}
-        </a>
+        <div className="flex items-center justify-between gap-4 mb-8">
+          <a
+            href={`/${locale}/blog`}
+            onClick={handleLinkClick}
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            data-testid="link-back-to-blog"
+          >
+            <IconArrowLeft className="w-4 h-4" />
+            {locale === "es" ? "Volver al blog" : "Back to blog"}
+          </a>
 
-        {post.category?.slug && (
-          <span className="inline-block text-xs font-medium text-primary uppercase tracking-wider mb-3" data-testid="text-blog-category">
-            {post.category.slug}
-          </span>
-        )}
+          {post.category?.slug && (
+            <span className="text-xs font-medium text-primary uppercase tracking-wider" data-testid="text-blog-category">
+              {post.category.slug}
+            </span>
+          )}
+        </div>
 
         <h1
           className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight"
