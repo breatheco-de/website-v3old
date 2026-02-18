@@ -89,5 +89,5 @@ sections:
       Podemos actualizar esta Política de Privacidad periódicamente. Publicaremos la versión revisada con la fecha de actualización correspondiente. El uso continuado del sitio después de cualquier cambio implica la aceptación de la política revisada.
 
       2025-07-23
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
