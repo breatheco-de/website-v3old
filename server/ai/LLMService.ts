@@ -23,18 +23,14 @@ const MAX_RETRIES = 3;
 const INITIAL_BACKOFF_MS = 1000;
 
 let instance: LLMService | null = null;
-let yamlConfig: LLMYamlConfig | null = null;
-let yamlConfigLoaded = false;
+let cachedConfigMtime: number | null = null;
 
 function loadYamlConfig(): LLMYamlConfig | null {
-  if (yamlConfigLoaded) return yamlConfig;
-  yamlConfigLoaded = true;
   try {
     const configPath = path.resolve("marketing-content/llm.yml");
     if (fs.existsSync(configPath)) {
       const raw = fs.readFileSync(configPath, "utf-8");
-      yamlConfig = yaml.load(raw) as LLMYamlConfig;
-      return yamlConfig;
+      return yaml.load(raw) as LLMYamlConfig;
     }
   } catch (err) {
     console.warn("Failed to load llm.yml config, using env var fallback:", err);
@@ -42,19 +38,33 @@ function loadYamlConfig(): LLMYamlConfig | null {
   return null;
 }
 
+function getConfigMtime(): number | null {
+  try {
+    const configPath = path.resolve("marketing-content/llm.yml");
+    if (fs.existsSync(configPath)) {
+      return fs.statSync(configPath).mtimeMs;
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
+function resolveModel(cfg: LLMYamlConfig | null): string {
+  if (process.env.LLM_MODEL) return process.env.LLM_MODEL;
+  return cfg?.model || "gpt-4o";
+}
+
 export function getLLMConfig(): LLMYamlConfig {
   const cfg = loadYamlConfig();
   return {
     provider: cfg?.provider || {},
-    model: cfg?.model || "gpt-4o",
+    model: resolveModel(cfg),
     temperature: cfg?.temperature ?? 0.7,
     max_tokens: cfg?.max_tokens || 2000,
   };
 }
 
 export function reloadLLMConfig(): void {
-  yamlConfigLoaded = false;
-  yamlConfig = null;
+  cachedConfigMtime = null;
   instance = null;
 }
 
@@ -70,9 +80,10 @@ export class LLMService implements ILLMClient {
     const apiKeyEnv = cfg?.provider?.api_key_env;
     const baseUrlEnv = cfg?.provider?.base_url_env;
 
-    this.defaultModel = cfg?.model || "gpt-4o";
+    this.defaultModel = resolveModel(cfg);
     this.defaultTemperature = cfg?.temperature ?? 0.7;
     this.defaultMaxTokens = cfg?.max_tokens || 2000;
+    console.log(`[LLM] Initialized with model="${this.defaultModel}", apiKeyEnv="${apiKeyEnv || "OPENAI_API_KEY"}"`);
 
     const apiKey = apiKeyEnv ? process.env[apiKeyEnv] : undefined;
     const baseUrl = baseUrlEnv ? process.env[baseUrlEnv] : undefined;
@@ -99,8 +110,14 @@ export class LLMService implements ILLMClient {
   }
 
   static getInstance(): LLMService {
+    const currentMtime = getConfigMtime();
+    if (instance && cachedConfigMtime !== null && currentMtime !== cachedConfigMtime) {
+      console.log("[LLM] Config file changed, reinitializing...");
+      instance = null;
+    }
     if (!instance) {
       instance = new LLMService();
+      cachedConfigMtime = currentMtime;
     }
     return instance;
   }

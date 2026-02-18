@@ -22,14 +22,19 @@
 #     base_url_env: AZURE_OPENAI_BASE_URL
 #     model: gpt-4o
 #
+# Model override:
+#   Set the LLM_MODEL environment variable to override the model
+#   field below without editing this file.
+#   Example: LLM_MODEL=llama-3.1-70b-versatile
+#
 # If no YAML config is found, the system falls back to:
 #   1. OPENAI_API_KEY env var (direct OpenAI)
 #   2. Replit AI Integrations (AI_INTEGRATIONS_OPENAI_*)
 
 provider:
-  api_key_env: AI_INTEGRATIONS_OPENAI_API_KEY
-  base_url_env: AI_INTEGRATIONS_OPENAI_BASE_URL
+  api_key_env: OPENAI_API_KEY
+  base_url_env: OPENAI_BASE_URL
 
-model: gpt-4o-mini
+model: openai/gpt-oss-120b
 temperature: 0.3
 max_tokens: 4000
