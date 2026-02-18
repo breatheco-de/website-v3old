@@ -9,10 +9,11 @@ meta:
     - /quito
     - /campus/quito
     - /ec/quito
+    - /es/coding-campus/bootcamp-programacion-ecuador
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Quito
     title: 4Geeks Academy Quito
     subtitle: El bootcamp de programación líder de Ecuador con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Quito?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Crecimiento Profesional
         description: Acceso a mercados laborales locales y globales.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Quito
     filter_by_location: quito-ecuador
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Quito
     filter_by_location: quito-ecuador
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Quito?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

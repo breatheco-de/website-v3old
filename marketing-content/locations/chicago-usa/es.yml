@@ -9,10 +9,11 @@ meta:
     - /chicago
     - /campus/chicago
     - /en/chicago
+    - /es/coding-campus/bootcamp-programacion-chicago
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Chicago
     title: 4Geeks Academy Chicago
     subtitle: El principal bootcamp de programación de Illinois con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Chicago?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Red Profesional
         description: Acceso a una vasta red de profesionales tech y empleadores.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Chicago
     filter_by_location: chicago-usa
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Chicago
     filter_by_location: chicago-usa
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Chicago?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

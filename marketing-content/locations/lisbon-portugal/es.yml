@@ -10,10 +10,11 @@ meta:
     - /lisboa
     - /campus/lisbon
     - /pt/lisbon
+    - /es/coding-campus/bootcamp-programacion-lisboa-portugal
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Lisboa
     title: 4Geeks Academy Lisboa
     subtitle: El bootcamp de programación líder de Portugal con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -25,7 +26,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Lisboa?
     items:
       - icon: Building
@@ -41,15 +42,15 @@ sections:
         title: Crecimiento Profesional
         description: Creciente demanda de startups y empresas internacionales.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Lisboa
     filter_by_location: lisbon-portugal
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Lisboa
     filter_by_location: lisbon-portugal
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Lisboa?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

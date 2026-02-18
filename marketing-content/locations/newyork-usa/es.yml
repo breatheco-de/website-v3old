@@ -11,10 +11,11 @@ meta:
     - /nyc
     - /campus/new-york
     - /en/new-york
+    - /es/coding-campus/bootcamp-programacion-nyc
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Nueva York
     title: 4Geeks Academy Nueva York
     subtitle: El principal bootcamp de programación de NYC con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -26,7 +27,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Nueva York?
     items:
       - icon: Building
@@ -42,15 +43,15 @@ sections:
         title: Red Profesional
         description: Acceso a empresas Fortune 500 y startups innovadoras.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Nueva York
     filter_by_location: newyork-usa
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Nueva York
     filter_by_location: newyork-usa
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Nueva York?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

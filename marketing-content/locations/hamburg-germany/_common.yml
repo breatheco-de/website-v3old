@@ -12,16 +12,15 @@ visibility: listed
 phone: +49 40 555 0100
 address: Jungfernstieg 1, 20095 Hamburg
 available_programs:
-  - "full-stack"
+  - full-stack
 catalog:
   admission_advisors:
-    - name: "Admissions Team"
-      email: "admissions@4geeks.com"
-      calendar_url: "https://calendly.com/4geeks-admissions"
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
       languages:
-        - "en"
-        - "es"
-
+        - en
+        - es
 schema:
   include:
     - organization
@@ -29,8 +28,10 @@ schema:
   overrides:
     organization:
       address:
-        "@type": PostalAddress
+        '@type': PostalAddress
         streetAddress: Jungfernstieg 1
         addressLocality: Hamburg
-        postalCode: "20095"
+        postalCode: '20095'
         addressCountry: DE
+meta:
+  redirects: []

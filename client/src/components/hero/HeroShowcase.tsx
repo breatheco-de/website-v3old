@@ -18,7 +18,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
   const handleLinkClick = useInternalNav();
 
   return (
-    <section className="relative container mx-auto px-4 overflow-hidden">
+    <section className="container mx-auto px-4">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-8 items-start max-w-7xl mx-auto">
         {/* Left Images Column */}
         <div className="relative h-[300px] lg:h-[500px] hidden lg:block">
@@ -45,7 +45,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
         {/* Content Column (Center) */}
         <div className="z-10 text-center md:px-4">
           <h1 
-            className="text-5xl md:text-h1 mb-6 md:whitespace-nowrap"
+            className="text-5xl md:text-h1 mb-6 lg:-mx-32 min-[1280px]:-mx-0 min-[1280px]:whitespace-nowrap"
             data-testid="text-hero-title"
           >
             {data.title}
@@ -150,8 +150,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
         </div>
       </div>
 
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5 pointer-events-none -z-10"></div>
+
     </section>
   );
 }

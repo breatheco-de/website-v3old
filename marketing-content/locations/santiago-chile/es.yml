@@ -9,10 +9,11 @@ meta:
     - /santiago
     - /campus/santiago
     - /cl/santiago
+    - /es/coding-campus/bootcamp-programacion-santiago
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Santiago
     title: 4Geeks Academy Santiago
     subtitle: El bootcamp de programación líder de Chile con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Santiago?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Oportunidades Laborales
         description: Alta demanda de empresas tech y sector financiero.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Santiago
     filter_by_location: santiago-chile
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Santiago
     filter_by_location: santiago-chile
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Santiago?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

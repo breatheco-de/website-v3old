@@ -9,10 +9,11 @@ meta:
     - /berlin
     - /campus/berlin
     - /de/berlin
+    - /es/coding-campus/bootcamp-programacion-berlin-alemania
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Berlín
     title: 4Geeks Academy Berlín
     subtitle: El bootcamp de programación líder de Alemania con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Berlín?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Crecimiento Profesional
         description: Alta demanda de startups y empresas tecnológicas establecidas.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Berlín
     filter_by_location: berlin-germany
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Berlín
     filter_by_location: berlin-germany
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Berlín?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora
