@@ -11,7 +11,7 @@ navbar:
           - title: Ingeniería en Inteligencia Artificial
             description: Explora en detalle la inteligencia artificial y cómo aplicarla en diferentes industrias, roles y tu trabajo. ¡Maximiza tu productividad en solo 6 semanas!
             cta: Ver programa
-            href: /es/programas-de-carrera/ai-engineering
+            href: /es/programas-de-carrera/ingenieria-ia
             icon: brain
           - title: Ciencia de Datos y Machine Learning con IA
             description: Domina el análisis de datos potenciado por IA con Python. Construye modelos inteligentes usando técnicas de vanguardia en Machine Learning e IA para resolver problemas reales.
@@ -93,7 +93,7 @@ navbar:
           - label: Trabaja con nosotros
             href: /es/trabaja-con-nosotros
           - label: Quiénes somos
-            href: /en/the-academy
+            href: /es/sobre-la-academia
           - label: Prensa
             href: /es/prensa
           - label: Blog
@@ -128,7 +128,7 @@ navbar:
               - label: Los Ángeles, EE.UU.
                 href: /es/ubicacion/losangeles-usa
               - label: Remoto, EE.UU.
-                href: /campus/remote
+                href: /es/ubicacion/remote
           - title: EUROPA
             items:
               - label: Madrid, España

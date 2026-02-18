@@ -1,27 +1,3 @@
-call_to_action_text:
-  default: "Apply now"
-  conditions:
-    - query:
-        location: "santiago-de-chile"
-      value: "Solicita tu plaza"
-    - query:
-        location: "caracas"
-      value: "Aplica ya"
-    - query:
-        location: "madrid-spain"
-      value: "Solicita tu plaza"
-    - query:
-        location: "buenos-aires-argentina"
-      value: "Aplica ahora"
-    - query:
-        region: "latam"
-      value: "Aplica ahora"
-    - query:
-        region: "europe"
-      value: "Apply now"
-    - query:
-        locale: "es"
-      value: "Aplica ahora"
 campus_phone:
   default: "+1 (786) 416-6640"
   conditions:
@@ -79,11 +55,111 @@ global_teacher_student_ratio:
     - query:
         location: "madrid-spain"
       value: "1:8"
-test_condition_var:
-  default: "default_val"
+call_to_action_apply:
+  default: "Apply now"
   conditions:
+    - query:
+        location: "santiago-de-chile"
+      value: "Solicita tu plaza"
+    - query:
+        location: "caracas"
+      value: "Aplica ya"
     - query:
         location: "madrid-spain"
       value: "4.8"
-test_link:
-  default: "https://twitter.com/4GeeksAcademy"
+price_full_datascience:
+  default: "$10,999"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$10,999"
+    - query:
+        region: "europe"
+      value: "7.800 €"
+    - query:
+        region: "latam"
+      value: "$10,999"
+price_ai_engineering:
+  default: "$349"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$349"
+    - query:
+        region: "latam"
+      value: "$349"
+    - query:
+        region: "europe"
+      value: "349€"
+price_full_ai_engineering:
+  default: "$14,999"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$14,999"
+    - query:
+        region: "europe"
+      value: "9.800 €"
+    - query:
+        region: "latam"
+      value: "$14,999"
+price_cybersecurity:
+  default: "$299"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$299"
+    - query:
+        region: "europe"
+      value: "299 €"
+    - query:
+        region: "latam"
+      value: "$299"
+price_full_cybersecurity:
+  default: "$9,999"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$9,999"
+    - query:
+        region: "europe"
+      value: "7.800 €"
+    - query:
+        region: "latam"
+      value: "$9,999"
+price_fullstack:
+  default: "$299"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$299"
+    - query:
+        region: "europe"
+      value: "299€"
+    - query:
+        region: "latam"
+      value: "$299"
+price_full_fullstack:
+  default: "$10,999"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$10,999"
+    - query:
+        region: "latam"
+      value: "$10,999"
+    - query:
+        region: "europe"
+      value: "6.800 €"
+price_datascience:
+  default: "$299"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$299"
+    - query:
+        region: "europe"
+      value: "200€"
+    - query:
+        region: "latam"
+      value: "$299"
