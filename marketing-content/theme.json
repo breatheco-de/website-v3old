@@ -57,7 +57,8 @@
     { "id": "secondary", "label": "Secondary", "cssVar": "--secondary" },
     { "id": "sidebar", "label": "Sidebar", "cssVar": "--sidebar-background" },
     { "id": "light-blue-5", "label": "Light Blue 5%", "value": "hsl(210 100% 50% / 0.05)" },
-    { "id": "light-blue-5-gradient", "label": "Light Blue 5% Gradient", "value": "linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)" }
+    { "id": "light-blue-5-gradient", "label": "Light Blue 5% Gradient", "value": "linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)" },
+    { "id": "light-blue-diagonal-gradient", "label": "Light Blue Diagonal Gradient", "value": "linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))" }
   ],
   "accents": [
     { "id": "primary", "label": "Primary", "cssVar": "--primary" },

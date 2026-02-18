@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "9818468e7354a68a8be6609adabf069d5673e508",
-  "lastSyncedAt": "2026-02-17T23:25:48.302Z",
+  "lastSyncedCommit": "ca571ab946028517bbd96dabe85bbda63df795f2",
+  "lastSyncedAt": "2026-02-18T02:25:48.500Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "b8a180b570f604ce26295a321c9660ad547fa17f3a1b69f44c1eeb85465cfccd",
@@ -764,7 +764,7 @@
     },
     "marketing-content/pages/home/en.yml": {
       "sha": "4f120fce9a8921342fc52c309fe3eb76eade960fc6c414444358dbd1c9956cff",
-      "lastModified": 1771368527498.9673,
+      "lastModified": 1771381548308.4993,
       "remoteSha": "4f120fce9a8921342fc52c309fe3eb76eade960fc6c414444358dbd1c9956cff"
     },
     "marketing-content/pages/home/es.yml": {
@@ -959,7 +959,7 @@
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "1a1a8d97ceca27d3c78fb11bf214a96d1ae76c6d064ad1101813239eba3ff0a4",
-      "lastModified": 1771370652784.1028,
+      "lastModified": 1771371365483.0522,
       "remoteSha": "1a1a8d97ceca27d3c78fb11bf214a96d1ae76c6d064ad1101813239eba3ff0a4"
     },
     "marketing-content/programs/ai-for-professionals/_common.yml": {
