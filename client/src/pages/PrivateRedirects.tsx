@@ -400,6 +400,18 @@ export default function PrivateRedirects() {
 
   const [removingFrom, setRemovingFrom] = useState<string | null>(null);
 
+  const removeIssueFromValidation = useCallback((redirectUrl: string) => {
+    setValidationResult((prev) => {
+      if (!prev) return prev;
+      const matchesUrl = (issue: ValidationIssue) => issue.message.includes(`"${redirectUrl}"`);
+      return {
+        ...prev,
+        errors: prev.errors.filter((e) => !matchesUrl(e)),
+        warnings: prev.warnings.filter((w) => !matchesUrl(w)),
+      };
+    });
+  }, []);
+
   const handleRemoveFromFile = async (redirectUrl: string, source: string) => {
     const key = `${redirectUrl}::${source}`;
     setRemovingFrom(key);
@@ -414,8 +426,8 @@ export default function PrivateRedirects() {
         return;
       }
       toast({ title: "Removed", description: data.message || `Removed from ${source}` });
+      removeIssueFromValidation(redirectUrl);
       queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
-      runValidation();
     } catch {
       toast({ title: "Failed to remove", description: "An unexpected error occurred", variant: "destructive" });
     } finally {
@@ -439,8 +451,8 @@ export default function PrivateRedirects() {
         }
       }
       toast({ title: "Removed from both", description: `Removed "${redirectUrl}" from all sources` });
+      removeIssueFromValidation(redirectUrl);
       queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
-      runValidation();
     } catch {
       toast({ title: "Failed to remove", description: "An unexpected error occurred", variant: "destructive" });
     } finally {

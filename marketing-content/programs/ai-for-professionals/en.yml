@@ -2,12 +2,11 @@ meta:
   page_title: AI for Professionals | 4Geeks Academy
   description: Gain the AI skills to stay competitive and advance your career in just 6 weeks. Learn to apply AI at work for greater efficiency, creativity, and impact.
   redirects:
-    - /bootcamp/applied-ai
     - /programs/ai-for-professionals
     - /coding-bootcamp/applied-ai-course
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: course
     title: AI for Professionals
     title_highlight: AI for Professionals
@@ -31,7 +30,7 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: "Your tutors:"
+    tutors_label: 'Your tutors:'
     description: Gain the AI skills to stay competitive and advance your career. Learn to apply AI at work for greater efficiency, creativity, and impact. Workers with AI skills earn 56% more on average.
     media:
       type: video
@@ -57,7 +56,7 @@ sections:
           count: 50+
         - icon: briefcase
           text: Real Projects
-          count: "6"
+          count: '6'
         - icon: robot
           text: AI-Powered Feedback
         - icon: calendar
@@ -109,24 +108,24 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: AI Skills That Drive Real Career Results
     subtitle: Join professionals transforming their careers with AI
     description: Workers with AI skills are commanding premium salaries and advancing faster. Our 6-week program delivers the practical skills you need to lead with AI in any industry.
     background: bg-muted/30
     items:
-      - id: "1"
+      - id: '1'
         value: 56%
         title: Average wage premium for AI-skilled workers
-      - id: "2"
+      - id: '2'
         value: 6 weeks
         title: Intensive program to master AI tools
-      - id: "3"
+      - id: '3'
         value: 40%
         title: Of US workers now use AI at work
   - type: syllabus
-    version: "1.0"
+    version: '1.0'
     variant: program-modules
     program_title: What You'll Learn in the AI for Professionals Program
     program_description: Master the AI tools transforming every industry. In just 6 weeks, learn to leverage generative AI for content creation, workflow automation, and professional productivity.
@@ -198,7 +197,7 @@ sections:
       desktop: md
   - type: projects
     title: Learn by Building Real-Life Projects
-    subtitle: "The tasks you'll tackle will closely resemble those encountered in a real-world professional setting. Here's a glimpse of what you'll be working on:"
+    subtitle: 'The tasks you''ll tackle will closely resemble those encountered in a real-world professional setting. Here''s a glimpse of what you''ll be working on:'
     items:
       - title: Clone Your Personality in a Chatbot
         description: Learn to create a chatbot that mimics your personality and responds like you using artificial intelligence tools. Perfect for customer service, personal branding, or creative projects.
@@ -234,7 +233,7 @@ sections:
     paddingY:
       desktop: md
   - type: ai_learning
-    version: "1.0"
+    version: '1.0'
     variant: feature-tabs
     badge: Why 4Geeks?
     title: Why Learn with 4Geeks?
@@ -242,7 +241,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -256,7 +255,7 @@ sections:
           variant: primary
       - icon: TrendingUp
         title: Thrive in your career with AI skills
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -270,7 +269,7 @@ sections:
           variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Book 1-on-1 sessions with expert mentors at your pace
@@ -286,12 +285,12 @@ sections:
       desktop: md
   - type: certificate
     title: Certificate & Career Network
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Apply AI skills in any role:"
+    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Apply AI skills in any role:'
     benefits:
-      - text: "Marketing & Content Creation: 3x productivity"
-      - text: "Sales & Business Development: 50% time savings"
-      - text: "Operations & Admin: Automated workflows"
-      - text: "Any Professional Role: Lead with AI"
+      - text: 'Marketing & Content Creation: 3x productivity'
+      - text: 'Sales & Business Development: 50% time savings'
+      - text: 'Operations & Admin: Automated workflows'
+      - text: 'Any Professional Role: Lead with AI'
     card:
       title: AI for Professionals
       subtitle: 4Geeks Academy Certificate
@@ -339,14 +338,14 @@ sections:
     variant: product
     monthly:
       discount_badge: 35% OFF
-      price: "38.99"
+      price: '38.99'
       period: mo
-      original_price: "59.99"
+      original_price: '59.99'
     yearly:
       discount_badge: 35% OFF
-      price: "311.99"
+      price: '311.99'
       period: yr
-      original_price: "479.99"
+      original_price: '479.99'
       savings_badge: Save 3 months
     tech_icons:
       - openai
@@ -401,7 +400,7 @@ sections:
     title: Your New Career Starts Here
     subtitle: See what our graduates have to say about their experience
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 1,294
     items:
       - name: Carlos Mendez
@@ -443,10 +442,11 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    version: "1.0"
-    background: "muted"
+    version: '1.0'
+    background: muted
     title: Frequently Asked Questions
-    related_features: ["applied-ai"]
+    related_features:
+      - applied-ai
     cta:
       text: Still have questions?
       button:
@@ -455,7 +455,7 @@ sections:
     paddingY:
       desktop: md
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Lead with AI?
     subtitle: Join thousands of professionals who have transformed their careers with 4Geeks.
     buttons:
@@ -468,5 +468,5 @@ sections:
     paddingY:
       desktop: md
   - type: footer
-    version: "1.0"
+    version: '1.0'
     copyright_text: 2024 4Geeks. All rights reserved.
