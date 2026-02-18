@@ -1,12 +1,12 @@
 slug: soporte-geekpal
 template: default
-title: GeekPAL Support
+title: Soporte GeekPAL
 meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: GeekPAL Support | 4Geeks Academy
-  description: Get unlimited 1:1 coding mentorship and AI-powered guidance from Rigobot 24/7. Never code alone, get instant feedback, and join a global developer community.
+  page_title: Soporte GeekPAL | 4Geeks Academy
+  description: Obtén mentoría ilimitada 1:1 en programación y acompañamiento con IA de Rigobot 24/7. Nunca programes solo, recibe retroalimentación instantánea y únete a una comunidad global de desarrolladores.
   redirects:
     - /geekpal-support
     - /es/geekpal
@@ -18,19 +18,19 @@ sections:
   - type: hero
     version: '1.0'
     variant: productShowcase
-    title: Lifetime Mentorship & AI-Powered Coding Support
-    welcome_text: Welcome to
+    title: Mentoría de por Vida y Soporte de Programación con IA
+    welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
       highlight: PAL
       suffix: ':'
       color: destructive
-    description: Never code alone, get instant feedback, and join a global developer community — all designed to help you learn faster, stay motivated, and thrive in tech for life.
+    description: Nunca programes solo, recibe retroalimentación instantánea y forma parte de una comunidad global de desarrolladores — todo diseñado para que aprendas más rápido, te mantengas motivado y crezcas en tecnología para toda la vida.
     bullets:
-      - text: Unlimited 1:1 coding mentorship
-      - text: AI-powered guidance from Rigobot 24/7
-      - text: Lifelong access
-      - text: Real community support
+      - text: Mentoría ilimitada 1:1 en programación
+      - text: Acompañamiento con IA de Rigobot 24/7
+      - text: Acceso de por vida
+      - text: Soporte real de comunidad
     video:
       url: https://youtu.be/D5nUZNL52-Q
       ratio: '3:4'
@@ -40,6 +40,7 @@ sections:
     paddingY:
       mobile: none lg
       desktop: md lg
+
   - type: banner
     version: '1.0'
     logo: /attached_assets/rigobot-logo_1764707022198.webp
@@ -48,72 +49,75 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Advance Faster, Never Lose Momentum
-    description: 'The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it.'
+    title: Avanza Más Rápido, Nunca Pierdas el Impulso
+    description: 'La razón #1 por la que las personas abandonan cuando aprenden a programar es quedarse atascadas. GeekPAL te mantiene avanzando con soporte que aparece exactamente cuando lo necesitas.'
+
   - type: human_and_ai_duo
     version: '1.0'
-    heading: 'Human + AI: The Perfect Support Duo'
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
+    heading: 'Humano + IA: El Dúo Perfecto de Soporte'
+    description: El aprendizaje funciona mejor cuando la experiencia humana y el soporte de IA trabajan juntos. En 4Geeks, avanzarás más rápido e inteligentemente gracias a mentoría ilimitada 1:1 y el acompañamiento con IA de Rigobot.
     bullet_groups:
-      - title: 'Our Team of Expert Mentors:'
+      - title: 'Nuestro Equipo de Mentores Expertos:'
         image: /attached_assets/profile-pic6_1764775742734.webp
         bullets:
-          - text: Personalized guidance
-          - text: Live troubleshooting
-          - text: Expert bug fixing assistance
-          - text: Industry insights and career advice
+          - text: Orientación personalizada
+          - text: Resolución de problemas en vivo
+          - text: Asistencia experta para corregir errores
+          - text: Perspectiva de la industria y asesoría profesional
       - title: 'Rigobot + Learnpack:'
         bullets:
-          - text: Instant feedback and tutoring 24/7
-          - text: Adjusts advice to your skills and progress
-          - text: Debugging and problem-solving support
-          - text: Hundreds of hands-on coding exercises and tests
+          - text: Retroalimentación y tutoría instantánea 24/7
+          - text: Ajusta sus recomendaciones a tus habilidades y progreso
+          - text: Soporte para debugging y resolución de problemas
+          - text: Cientos de ejercicios prácticos y pruebas de programación
     images:
       - src: /attached_assets/student-1-asian.png
-        alt: Asian student learning to code
+        alt: Estudiante asiático aprendiendo a programar
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
       - src: /attached_assets/student-2-latin.png
-        alt: Latino student working on a project
+        alt: Estudiante latino trabajando en un proyecto
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
       - src: /attached_assets/student-3-african.png
-        alt: African student collaborating with team
+        alt: Estudiante africano colaborando con su equipo
         object_fit: cover
         object_position: 50%15%
         border_radius: 0.5rem
       - src: /attached_assets/student-4-lady-latin.png
-        alt: Latina student celebrating success
+        alt: Estudiante latina celebrando su éxito
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
     image: /attached_assets/Group_6685_(1)_1765300162049.png
-    image_alt: Woman working on laptop in cafe
+    image_alt: Mujer trabajando en laptop en un café
     background: bg-background
     paddingY:
       mobile: sm none
       desktop: md none
+
   - type: community_support
     version: '1.0'
-    heading: A Global Tech Community to Support Your Growth
-    description: 4Geeks is more than a program — it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
+    heading: Una Comunidad Global de Tecnología que Impulsa tu Crecimiento
+    description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
-      - title: Slack Community
-        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels — from coding support, to job boards and career advice (and yes, there's coding humor too!).
+      - title: Comunidad en Slack
+        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos — desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
         icon: BrandSlack
-        badge: 6,000+ Members
+        badge: 6,000+ Miembros
         accent_color: primary
       - title: 4Geeks.com
-        description: Keep advancing your skills with further training resources, live events, and collaborative projects. Connect with people who've been where you are — and know how to help you get where you want to go.
+        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás — y saben cómo ayudarte a llegar a donde quieres ir.
         icon: Rigobot
         accent_color: primary
     image: /attached_assets/Group-6606.webp
-    image_alt: 4Geeks global developer community
+    image_alt: Comunidad global de desarrolladores 4Geeks
     background: bg-primary/5
     paddingY:
       desktop: none md
+
   - type: two_column
     proportions:
       - 12
@@ -123,8 +127,8 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: Hear From Our Graduates
-      description: Listen to Joao talk about his experience during and after our bootcamp and how unlimited access to coding mentorship made a huge difference to his career.
+      heading: Escucha a Nuestros Graduados
+      description: Escucha a Joao hablar sobre su experiencia durante y después de nuestro bootcamp y cómo el acceso ilimitado a mentoría en programación marcó una gran diferencia en su carrera.
       justify: center
       text_align: center
       font_size: lg
@@ -132,16 +136,18 @@ sections:
     gap: '8'
     paddingY:
       desktop: lg md
+
   - type: testimonials_slide
-    title: Real Careers Start Here
-    description: See how our alumni achieved their goals
+    title: Las Carreras Reales Comienzan Aquí
+    description: Descubre cómo nuestros alumni alcanzaron sus metas
     paddingY:
       desktop: md none
     marginY:
       desktop: none
+
   - type: faq
     version: v1.0
-    title: Frequently Asked Questions
+    title: Preguntas Frecuentes
     related_features:
       - mentors-and-teachers
       - career-support
@@ -149,9 +155,10 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+
   - type: footer
     version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
+    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
     marginY:
       desktop: none
     paddingY:
