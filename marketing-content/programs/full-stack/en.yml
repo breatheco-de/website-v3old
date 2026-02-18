@@ -153,9 +153,9 @@ sections:
       desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
-    title: Enroll with a Job Guarantee for Extra Confidence
+    title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.
+    description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
       text: Get More Info
       url: /job-guarantee
@@ -386,12 +386,12 @@ sections:
       - icon: IconCheck
         text: Standard tuition is {{ price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
       - icon: IconCheck
-        text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
+        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
       url: /signup
@@ -399,7 +399,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: md
+      desktop: none md
   - type: whos_hiring
     variant: carousel
     title: Trusted by Leading Innovators
