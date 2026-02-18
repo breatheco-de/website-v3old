@@ -149,8 +149,9 @@ sections:
     version: "1.0"
     variant: stats-text
     title: Why Data Science now?
-    subtitle: Data is the fuel for the AI revolution.
-    description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher.Data Science and Machine Learning are not just about analyzing the past—they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry. Master the skills that stay in demand, no matter how the tech landscape shifts.
+    subtitle: Data fuels the AI revolution.
+    description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past—they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
+    background: hsl(var(--background))
     items:
       - id: "1"
         value: 36%
@@ -158,7 +159,6 @@ sections:
       - id: "3"
         value: $90K+
         title: Average starting salary for data scientists
-    background: hsl(var(--background))
   - type: syllabus
     variant: program-modules
     program_title: Data Science and Machine Learning Program Overview
@@ -360,19 +360,20 @@ sections:
       - icon: IconCheck
         text: Standard tuition is {{ price_full_datascience | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        use_rigobot_icon: true
       - icon: IconCheck
-        text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
+        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: /en/apply
+      url: /signup
       variant: primary
     marginY:
       desktop: none md
     paddingY:
-      desktop: lg md
+      desktop: none md
   - type: whos_hiring
     variant: carousel
     title: Trusted by Leading Innovators
