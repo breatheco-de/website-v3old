@@ -35,7 +35,7 @@
 data_source:
   type: api
   api:
-    endpoint: https://breathecode-test.herokuapp.com/v1/registry/academy/asset
+    endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
     params:
       limit: 50
       offset: 0
