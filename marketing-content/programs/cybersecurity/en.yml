@@ -44,11 +44,6 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
-    media:
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=450&fit=crop
-      alt: Cybersecurity program introduction
     signup_card:
       title: Get the Full Syllabus
       description: Access the full curriculum, schedule and everything else you need to know about the program.
@@ -423,10 +418,10 @@ sections:
       desktop: md
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: 4,000+ graduates and 1,200+ verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_review_count | 1,200 }}+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: "4.5"
-      count: 1,294
+      average: {{ global_review_rating | 4.5 }}
+      count: {{ global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: Software Engineer
