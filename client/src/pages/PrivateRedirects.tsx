@@ -152,10 +152,7 @@ export default function PrivateRedirects() {
     const v = newFrom.trim();
     if (!v) return false;
     const stripped = v.startsWith("/") ? v.slice(1) : v;
-    return (
-      /https?:\/\//i.test(stripped) ||
-      /[a-z0-9][-a-z0-9]*\.[a-z]{2,}/i.test(stripped)
-    );
+    return (/https?:\/\//i.test(stripped) || /[a-z0-9][-a-z0-9]*\.[a-z]{2,}/i.test(stripped));
   })();
   const isOriginInvalid =
     newFrom.trim() !== "" &&
@@ -615,7 +612,6 @@ export default function PrivateRedirects() {
           </div>
         </div>
       </div>
-
       {showSearch && (
         <div
           className="border-b"
@@ -636,7 +632,6 @@ export default function PrivateRedirects() {
           </div>
         </div>
       )}
-
       {showValidation && validationResult && (
         <div
           className="border-b"
@@ -852,7 +847,6 @@ export default function PrivateRedirects() {
           </div>
         </div>
       )}
-
       <div className="container mx-auto px-4 py-6">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
@@ -900,109 +894,109 @@ export default function PrivateRedirects() {
                         const isFirstCustom = globalCustomIndex === 0;
                         const isLastCustom = globalCustomIndex === allCustomRedirects.length - 1;
                         return (
-                        <div
-                          key={`${redirect.from}-${index}`}
-                          className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-muted/50 transition-colors"
-                          data-testid={`redirect-row-${type}-${index}`}
-                        >
-                          {isCustom && (
-                            <div className="flex flex-col flex-shrink-0" style={{ gap: 0 }}>
-                              <button
-                                className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isFirstCustom ? " opacity-30 pointer-events-none" : ""}`}
-                                onClick={() => handleReorderCustomRedirect(globalCustomIndex, globalCustomIndex - 1)}
-                                disabled={isFirstCustom}
-                                data-testid={`button-move-up-${index}`}
-                              >
-                                <IconChevronUp className="h-3.5 w-3.5" />
-                              </button>
-                              <button
-                                className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isLastCustom ? " opacity-30 pointer-events-none" : ""}`}
-                                onClick={() => handleReorderCustomRedirect(globalCustomIndex, globalCustomIndex + 1)}
-                                disabled={isLastCustom}
-                                data-testid={`button-move-down-${index}`}
-                              >
-                                <IconChevronDown className="h-3.5 w-3.5" />
-                              </button>
-                            </div>
-                          )}
-                          <div className="flex-1 min-w-0 flex items-center gap-1.5">
-                            <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
-                              {redirect.from}
-                            </code>
-                            {hasRegexChars(redirect.from) && (
-                              <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 font-mono">
-                                regex
-                              </Badge>
-                            )}
-                          </div>
-                          <Badge
-                            variant={
-                              redirect.status === 301 || redirect.status === 308
-                                ? "secondary"
-                                : "outline"
-                            }
-                            className="text-xs flex-shrink-0 font-mono"
+                          <div
+                            key={`${redirect.from}-${index}`}
+                            className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-muted/50 transition-colors"
+                            data-testid={`redirect-row-${type}-${index}`}
                           >
-                            {redirect.status}
-                          </Badge>
-                          <IconArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                          <div className="flex-1 min-w-0 flex items-center gap-2">
-                            {isLocaleMap(redirect.to) ? (
-                              <div className="flex-1 min-w-0 space-y-1">
-                                {Object.entries(redirect.to).map(
-                                  ([locale, url]) => (
-                                    <div
-                                      key={locale}
-                                      className="flex items-center gap-1.5"
-                                    >
-                                      <LocaleFlag locale={locale} />
-                                      <code className="text-xs bg-muted px-2 py-0.5 rounded truncate flex-1">
-                                        {url}
-                                      </code>
-                                      <a
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-0.5 rounded hover:bg-muted flex-shrink-0"
-                                        data-testid={`link-redirect-target-${type}-${index}-${locale}`}
-                                      >
-                                        <IconExternalLink className="h-3 w-3 text-muted-foreground" />
-                                      </a>
-                                    </div>
-                                  ),
-                                )}
+                            {isCustom && (
+                              <div className="flex flex-col flex-shrink-0" style={{ gap: 0 }}>
+                                <button
+                                  className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isFirstCustom ? " opacity-30 pointer-events-none" : ""}`}
+                                  onClick={() => handleReorderCustomRedirect(globalCustomIndex, globalCustomIndex - 1)}
+                                  disabled={isFirstCustom}
+                                  data-testid={`button-move-up-${index}`}
+                                >
+                                  <IconChevronUp className="h-3.5 w-3.5" />
+                                </button>
+                                <button
+                                  className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isLastCustom ? " opacity-30 pointer-events-none" : ""}`}
+                                  onClick={() => handleReorderCustomRedirect(globalCustomIndex, globalCustomIndex + 1)}
+                                  disabled={isLastCustom}
+                                  data-testid={`button-move-down-${index}`}
+                                >
+                                  <IconChevronDown className="h-3.5 w-3.5" />
+                                </button>
                               </div>
-                            ) : (
-                              <>
-                                <code className="text-xs bg-muted px-2 py-1 rounded block truncate flex-1">
-                                  {redirect.to}
-                                </code>
-                                {!/\$\d/.test(redirect.to as string) && !hasRegexChars(redirect.to as string) && (
-                                  <a
-                                    href={redirect.to as string}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-1 rounded hover:bg-muted flex-shrink-0"
-                                    title="Open target URL"
-                                    data-testid={`link-redirect-target-${type}-${index}`}
-                                  >
-                                    <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-                                  </a>
-                                )}
-                              </>
                             )}
+                            <div className="flex-1 min-w-0 flex items-center gap-1.5">
+                              <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
+                                {redirect.from}
+                              </code>
+                              {hasRegexChars(redirect.from) && (
+                                <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 font-mono">
+                                  regex
+                                </Badge>
+                              )}
+                            </div>
+                            <Badge
+                              variant={
+                                redirect.status === 301 || redirect.status === 308
+                                  ? "secondary"
+                                  : "outline"
+                              }
+                              className="text-xs flex-shrink-0 font-mono"
+                            >
+                              {redirect.status}
+                            </Badge>
+                            <IconArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                            <div className="flex-1 min-w-0 flex items-center gap-2">
+                              {isLocaleMap(redirect.to) ? (
+                                <div className="flex-1 min-w-0 space-y-1">
+                                  {Object.entries(redirect.to).map(
+                                    ([locale, url]) => (
+                                      <div
+                                        key={locale}
+                                        className="flex items-center gap-1.5"
+                                      >
+                                        <LocaleFlag locale={locale} />
+                                        <code className="text-xs bg-muted px-2 py-0.5 rounded truncate flex-1">
+                                          {url}
+                                        </code>
+                                        <a
+                                          href={url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="p-0.5 rounded hover:bg-muted flex-shrink-0"
+                                          data-testid={`link-redirect-target-${type}-${index}-${locale}`}
+                                        >
+                                          <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                                        </a>
+                                      </div>
+                                    ),
+                                  )}
+                                </div>
+                              ) : (
+                                <>
+                                  <code className="text-xs bg-muted px-2 py-1 rounded block truncate flex-1">
+                                    {redirect.to}
+                                  </code>
+                                  {!/\$\d/.test(redirect.to as string) && !hasRegexChars(redirect.to as string) && (
+                                    <a
+                                      href={redirect.to as string}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="p-1 rounded hover:bg-muted flex-shrink-0"
+                                      title="Open target URL"
+                                      data-testid={`link-redirect-target-${type}-${index}`}
+                                    >
+                                      <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                                    </a>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="flex-shrink-0 text-muted-foreground hover:text-destructive"
+                              onClick={() => setDeletingRedirect(redirect)}
+                              title="Delete redirect"
+                              data-testid={`button-delete-redirect-${type}-${index}`}
+                            >
+                              <IconTrash className="h-3.5 w-3.5" />
+                            </Button>
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="flex-shrink-0 text-muted-foreground hover:text-destructive"
-                            onClick={() => setDeletingRedirect(redirect)}
-                            title="Delete redirect"
-                            data-testid={`button-delete-redirect-${type}-${index}`}
-                          >
-                            <IconTrash className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
                         );
                       });
                       })()}
@@ -1014,7 +1008,6 @@ export default function PrivateRedirects() {
           </div>
         )}
       </div>
-
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <DialogContent
           ref={dialogRef}
@@ -1111,7 +1104,7 @@ export default function PrivateRedirects() {
                         }
                         return (
                           <div className="space-y-2">
-                            <p className="text-sm font-medium">Test this pattern</p>
+                            <p className="text-sm font-medium">Test this pattern with a real URL</p>
                             <Input
                               id="test-url"
                               placeholder="/us/some-page"
@@ -1401,7 +1394,6 @@ export default function PrivateRedirects() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
       <Dialog
         open={!!deletingRedirect}
         onOpenChange={(open) => {
@@ -1472,7 +1464,6 @@ export default function PrivateRedirects() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
       <RedirectConflictResolverModal
         open={resolveModalOpen}
         onOpenChange={setResolveModalOpen}
