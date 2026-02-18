@@ -151,8 +151,8 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Apply now to secure your spot and get full program details.
     background: hsl(var(--primary))
     variant: form
     form:
