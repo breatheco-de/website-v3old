@@ -8,7 +8,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { IconMessageCircle } from "@tabler/icons-react";
 import type { FAQSection as FAQSectionType } from "@shared/schema";
-import { useLocation as useSessionLocation } from "@/contexts/SessionContext";
 import { useLocation as useWouterLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
@@ -20,11 +19,8 @@ interface FAQSectionProps {
   programSlug?: string;
 }
 
-const CALENDLY_URL = "https://calendly.com/epilowsky-4geeksacademy/30min?month=2025-12";
-
 export function FAQSection({ data, programSlug }: FAQSectionProps) {
   const handleLinkClick = useInternalNav();
-  const sessionLocation = useSessionLocation();
   const [pathname] = useWouterLocation();
   const { i18n } = useTranslation();
   const locale = i18n.language?.startsWith("es") ? "es" : "en";
@@ -32,8 +28,6 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
   // Detect if we're on a location page and extract location slug
   const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
   const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
-  
-  const isUsOrCanada = sessionLocation?.country_code === 'US' || sessionLocation?.country_code === 'CA';
   
   const hasInlineItems = data.items && data.items.length > 0;
   const hasRelatedFeatures = data.related_features && data.related_features.length > 0;
@@ -120,7 +114,7 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
           </Accordion>
         </div>
 
-        {data.cta && isUsOrCanada && (
+        {data.cta && (data.cta.text || data.cta.button) && (
           <div 
             className="mt-12 text-center p-8 rounded-lg bg-muted/30 border"
             data-testid="faq-cta"
@@ -130,12 +124,16 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
                 <IconMessageCircle size={24} className="text-primary" />
               </div>
             </div>
-            <p className="text-lg text-foreground mb-4">{data.cta.text}</p>
-            <Button asChild data-testid="button-faq-cta">
-              <a href={CALENDLY_URL} onClick={handleLinkClick} target="_blank" rel="noopener noreferrer">
-                {data.cta.button_text}
-              </a>
-            </Button>
+            {data.cta.text && (
+              <p className="text-lg text-foreground mb-4">{data.cta.text}</p>
+            )}
+            {data.cta.button && (
+              <Button asChild data-testid="button-faq-cta">
+                <a href={data.cta.button.url} onClick={handleLinkClick} target="_blank" rel="noopener noreferrer">
+                  {data.cta.button.label}
+                </a>
+              </Button>
+            )}
           </div>
         )}
       </div>

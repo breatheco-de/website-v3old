@@ -52,13 +52,21 @@ props:
   cta:
     type: object
     required: false
+    description: Optional call-to-action section below the FAQ accordion. Only shown if at least text or button is provided.
     properties:
       text:
         type: string
-        required: true
-      button_text:
-        type: string
-        required: true
-      button_url:
-        type: string
-        required: true
+        required: false
+        example: Still have questions?
+      button:
+        type: object
+        required: false
+        properties:
+          label:
+            type: string
+            required: true
+            example: Talk to an Advisor
+          url:
+            type: string
+            required: true
+            example: /contact
