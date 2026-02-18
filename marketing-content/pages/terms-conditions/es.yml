@@ -48,5 +48,5 @@ sections:
       Los Usuarios interesados en consultar los términos específicos, requisitos y criterios de elegibilidad de la Garantía de Empleo deberán revisar el documento correspondiente disponible en este Sitio Web.
 
       Para mayor información, puede visitar directamente la página de Términos y Condiciones.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
