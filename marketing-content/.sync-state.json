@@ -698,11 +698,10 @@
       "remoteSha": "7100a133c6ca2b191501877169a9f62965bb12beca0640798b530cbabf64023e"
     },
     "marketing-content/pages/financials/es.yml": {
-      "sha": "06812de5268fd090fca65b2f186ada255d1ab19bbf1aeeab836541adf0b65c70",
-      "lastModified": 1771430378818.4863,
-      "remoteSha": "25b1677a017b40f75e824c6623f820dd76bc5100f413824e44732bb19a647d4a",
-      "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-18T15:59:38.823Z"
+      "sha": "27c033d4cd19246c27fc8e4d20e87234b84f550a3de7661a8d93589fae1d4078",
+      "lastModified": 1771430411374.462,
+      "remoteSha": "27c033d4cd19246c27fc8e4d20e87234b84f550a3de7661a8d93589fae1d4078",
+      "pulledFromCommit": "083d907765f500d2d947c4fed5a0e24d215d5875"
     },
     "marketing-content/pages/geekforce-career-support/_common.yml": {
       "sha": "f83717a3761082e14bc2fa7336df1d5341ddfcf85b859175d43d4aa681bfd5f1",
@@ -950,11 +949,10 @@
       "remoteSha": "18a3d79d3b9d7788fb4293f531507cf1b22e0365609c2e9a96726b3c80f18a9d"
     },
     "marketing-content/pages/work-with-us/en.yml": {
-      "sha": "c59d88317052f141e701aec260f193915a5641ee116200481118e500c333a5d4",
-      "lastModified": 1771428055751.2341,
-      "remoteSha": "091a93ae09d5b75340738f34ea6f380030fc0c9bc1a4a9b8fd0585d36ca386d3",
-      "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-18T15:20:55.772Z"
+      "sha": "f806d7054334c9e643e1a7d8ae9f0191ec086ca25cf20c0ec2b9554826b56de4",
+      "lastModified": 1771430415512.459,
+      "remoteSha": "f806d7054334c9e643e1a7d8ae9f0191ec086ca25cf20c0ec2b9554826b56de4",
+      "pulledFromCommit": "083d907765f500d2d947c4fed5a0e24d215d5875"
     },
     "marketing-content/pages/work-with-us/es.yml": {
       "sha": "2b9c20d0f527041b3210d8e505639513812114f17bd45a1790f484e39e16ac60",
