@@ -9,10 +9,11 @@ meta:
     - /valencia
     - /campus/valencia
     - /es/valencia
+    - /es/coding-campus/bootcamp-programacion-valencia-espana
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Valencia
     title: 4Geeks Academy Valencia
     subtitle: El bootcamp de programación líder de Valencia con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Valencia?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Equilibrio Profesional
         description: Excelente balance vida-trabajo con oportunidades competitivas.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Valencia
     filter_by_location: valencia-spain
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Valencia
     filter_by_location: valencia-spain
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Valencia?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora
