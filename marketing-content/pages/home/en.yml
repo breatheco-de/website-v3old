@@ -54,9 +54,9 @@ sections:
         description: Consistently listed among top 5 bootcamps by Forbes
         link: https://www.coursereport.com
         linkText: Read reviews
-      - id: switchup-detailed
+      - id: clark-university
         alt: Clark University Logo
-        logo: /attached_assets/clark-university_1769653206336.png
+        logo: /marketing-content/images/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certified by recognized universities
         link: https://www.switchup.org
