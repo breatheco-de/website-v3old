@@ -43,6 +43,11 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
+    media:
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop
+      alt: Data Science program introduction
     signup_card:
       title: Get the Full Syllabus
       description: Access the full curriculum, schedule and everything else you need to know.
@@ -401,10 +406,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. 1,200+ verified reviews prove it
+    subtitle: Our programs deliver life-changing results. {{ global_review_count | 1,200 }}+ verified reviews prove it
     rating_summary:
-      average: "4.8"
-      count: 1,294
+      average: {{ global_review_rating | 4.8 }}
+      count: {{ global_review_count | 1,294 }}
     items:
       - name: Gabriel Salazar
         role: Software Engineer
