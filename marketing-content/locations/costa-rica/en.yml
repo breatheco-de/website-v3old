@@ -5,7 +5,8 @@ meta:
   og_image: /images/locations/costarica-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects: []
+  redirects:
+    - /us/coding-campus/coding-bootcamp-costa-rica
 sections:
   - type: hero
     variant: singleColumn
