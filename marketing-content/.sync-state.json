@@ -418,9 +418,11 @@
       "remoteSha": "e4bbf1b8d009bc0bbb759e32d32cca196da3f26de296e55bc2e64f94017fc5f8"
     },
     "marketing-content/locations/miami-usa/en.yml": {
-      "sha": "5d5b2f6b62b7417cf7145a08ecb2c6fb79dc7de6888e73605dd723113b970154",
-      "lastModified": 1770991109556.3867,
-      "remoteSha": "5d5b2f6b62b7417cf7145a08ecb2c6fb79dc7de6888e73605dd723113b970154"
+      "sha": "8a9af0f8213218eaa3d328a2a9cc06f6130af3fbe08802264d1a84ee91d61bea",
+      "lastModified": 1771424973874.922,
+      "remoteSha": "5d5b2f6b62b7417cf7145a08ecb2c6fb79dc7de6888e73605dd723113b970154",
+      "author": "Luis Miguel Del Valle",
+      "modifiedAt": "2026-02-18T14:29:33.877Z"
     },
     "marketing-content/locations/miami-usa/es.yml": {
       "sha": "1a2a4b5fa8602be20a420b3c61e8f015606bb0734a9b0ac9f9f098ace4531c56",
