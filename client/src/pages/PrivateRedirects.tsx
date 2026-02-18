@@ -917,16 +917,18 @@ export default function PrivateRedirects() {
                                 <code className="text-xs bg-muted px-2 py-1 rounded block truncate flex-1">
                                   {redirect.to}
                                 </code>
-                                <a
-                                  href={redirect.to}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="p-1 rounded hover:bg-muted flex-shrink-0"
-                                  title="Open target URL"
-                                  data-testid={`link-redirect-target-${type}-${index}`}
-                                >
-                                  <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-                                </a>
+                                {!/\$\d/.test(redirect.to as string) && !hasRegexChars(redirect.to as string) && (
+                                  <a
+                                    href={redirect.to as string}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-1 rounded hover:bg-muted flex-shrink-0"
+                                    title="Open target URL"
+                                    data-testid={`link-redirect-target-${type}-${index}`}
+                                  >
+                                    <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                                  </a>
+                                )}
                               </>
                             )}
                           </div>
