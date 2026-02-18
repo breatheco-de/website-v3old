@@ -16,14 +16,14 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     title: Mentoría de por Vida y Soporte de Programación con IA
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
       highlight: PAL
-      suffix: ':'
+      suffix: ":"
       color: destructive
     description: Nunca programes solo, recibe retroalimentación instantánea y forma parte de una comunidad global de desarrolladores — todo diseñado para que aprendas más rápido, te mantengas motivado y crezcas en tecnología para toda la vida.
     bullets:
@@ -33,16 +33,15 @@ sections:
       - text: Soporte real de comunidad
     video:
       url: https://youtu.be/D5nUZNL52-Q
-      ratio: '3:4'
+      ratio: "3:4"
       muted: true
       autoplay: false
       loop: true
     paddingY:
       mobile: none lg
       desktop: md lg
-
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -50,21 +49,20 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Avanza Más Rápido, Nunca Pierdas el Impulso
-    description: 'La razón #1 por la que las personas abandonan cuando aprenden a programar es quedarse atascadas. GeekPAL te mantiene avanzando con soporte que aparece exactamente cuando lo necesitas.'
-
+    description: "La razón #1 por la que las personas abandonan cuando aprenden a programar es quedarse atascadas. GeekPAL te mantiene avanzando con soporte que aparece exactamente cuando lo necesitas."
   - type: human_and_ai_duo
-    version: '1.0'
-    heading: 'Humano + IA: El Dúo Perfecto de Soporte'
-    description: El aprendizaje funciona mejor cuando la experiencia humana y el soporte de IA trabajan juntos. En 4Geeks, avanzarás más rápido e inteligentemente gracias a mentoría ilimitada 1:1 y el acompañamiento con IA de Rigobot.
+    version: "1.0"
+    heading: "Humanos + IA: La Ayuda Perfecta"
+    description: El aprendizaje funciona mejor cuando la experiencia humana y la IA trabajan juntos. En 4Geeks, avanzarás más rápido gracias a mentoría 1:1 ilimitada  y el acompañamiento inteligente de Rigobot.
     bullet_groups:
-      - title: 'Nuestro Equipo de Mentores Expertos:'
+      - title: "Nuestro Equipo de Mentores Expertos:"
         image: /attached_assets/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada
           - text: Resolución de problemas en vivo
           - text: Asistencia experta para corregir errores
           - text: Perspectiva de la industria y asesoría profesional
-      - title: 'Rigobot + Learnpack:'
+      - title: "Rigobot + Learnpack:"
         bullets:
           - text: Retroalimentación y tutoría instantánea 24/7
           - text: Ajusta sus recomendaciones a tus habilidades y progreso
@@ -97,10 +95,9 @@ sections:
     paddingY:
       mobile: sm none
       desktop: md none
-
   - type: community_support
-    version: '1.0'
-    heading: Una Comunidad Global de Tecnología que Impulsa tu Crecimiento
+    version: "1.0"
+    heading: Una Comunidad Global para Impulsar tu Crecimiento en Tech
     description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
@@ -117,7 +114,6 @@ sections:
     background: bg-primary/5
     paddingY:
       desktop: none md
-
   - type: two_column
     proportions:
       - 12
@@ -133,18 +129,16 @@ sections:
       text_align: center
       font_size: lg
     heading_above_on_md: false
-    gap: '8'
+    gap: "8"
     paddingY:
       desktop: lg md
-
   - type: testimonials_slide
-    title: Las Carreras Reales Comienzan Aquí
-    description: Descubre cómo nuestros alumni alcanzaron sus metas
-    paddingY:
-      desktop: md none
+    title: Carreras Reales que Comenzaron Aquí
+    description: Descubre cómo nuestros estudiantes alcanzaron sus metas
     marginY:
       desktop: none
-
+    paddingY:
+      desktop: md none
   - type: faq
     version: v1.0
     title: Preguntas Frecuentes
@@ -155,7 +149,6 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
-
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
