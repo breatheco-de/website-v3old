@@ -36,12 +36,13 @@
 
 
 
+
 data_source:
   type: api
   api:
     endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
     params:
-      limit: 50
+      limit: 500
       offset: 0
       status: published
       visibility: public
