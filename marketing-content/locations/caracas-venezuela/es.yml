@@ -9,10 +9,11 @@ meta:
     - /caracas
     - /campus/caracas
     - /ve/caracas
+    - /es/coding-campus/curso-informatica-caracas-venezuela
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Caracas
     title: 4Geeks Academy Caracas
     subtitle: El bootcamp de programación líder de Venezuela con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Caracas?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Carreras Globales
         description: Acceso a oportunidades de trabajo remoto en todo el mundo.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Caracas
     filter_by_location: caracas-venezuela
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Caracas
     filter_by_location: caracas-venezuela
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Caracas?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

@@ -9,10 +9,11 @@ meta:
     - /hamburg
     - /campus/hamburg
     - /de/hamburg
+    - /es/coding-campus/bootcamp-programacion-hamburgo-alemania
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Hamburgo
     title: 4Geeks Academy Hamburgo
     subtitle: El bootcamp de programación líder del norte de Alemania con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Hamburgo?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Trayectorias Profesionales
         description: Oportunidades en sectores de medios, logística y fintech.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Hamburgo
     filter_by_location: hamburg-germany
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Hamburgo
     filter_by_location: hamburg-germany
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Hamburgo?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

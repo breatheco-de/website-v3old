@@ -1,7 +1,9 @@
 import { useParams, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -44,7 +46,9 @@ import {
   IconLink,
   IconCode,
   IconFileCode,
+  IconVariable,
 } from "@tabler/icons-react";
+import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
@@ -66,6 +70,14 @@ import {
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const serialized = JSON.stringify(obj);
+  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
+  const escapedObj = JSON.parse(escapedJson);
+  const dumped = yaml.dump(escapedObj, opts);
+  return unescapeYamlDump(dumped, map);
+}
 
 interface MenuItemData {
   label: string;
@@ -531,13 +543,19 @@ export default function MenuEditor() {
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState<number | null>(null);
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
   const [originalYaml, setOriginalYaml] = useState<string>("");
+  const [varModalOpen, setVarModalOpen] = useState(false);
+  const [selectedText, setSelectedText] = useState("");
+  const cmRef = useRef<ReactCodeMirrorRef>(null);
+  const cmSidebarRef = useRef<ReactCodeMirrorRef>(null);
+  const activeEditorRef = useRef<"main" | "sidebar">("main");
   
   const isEnglish = locale === "en";
 
   const parsedResult = useMemo<{ data: MenuData | null; error: string | null }>(() => {
     if (!yamlSource) return { data: null, error: null };
     try {
-      const parsed = yaml.load(yamlSource) as MenuData;
+      const { escaped, map } = escapeTemplateVars(yamlSource);
+      const parsed = unescapeObjectVars(yaml.load(escaped), map) as MenuData;
       return { data: parsed, error: null };
     } catch (e) {
       return { data: null, error: e instanceof Error ? e.message : "Invalid YAML" };
@@ -552,7 +570,7 @@ export default function MenuEditor() {
 
   const updateYamlFromData = useCallback((newData: MenuData) => {
     try {
-      const newYaml = yaml.dump(newData, {
+      const newYaml = safeYamlDump(newData, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -568,7 +586,7 @@ export default function MenuEditor() {
   const { data, isLoading, error, refetch } = useQuery<MenuResponse>({
     queryKey: ["/api/menus", menuName, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/menus/${menuName}?locale=${locale}`);
+      const response = await fetch(`/api/menus/${menuName}?locale=${locale}&raw=true`);
       if (!response.ok) throw new Error("Failed to load menu");
       return response.json();
     },
@@ -577,7 +595,7 @@ export default function MenuEditor() {
 
   useEffect(() => {
     if (data?.data) {
-      const initialYaml = yaml.dump(data.data, {
+      const initialYaml = safeYamlDump(data.data, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
@@ -609,7 +627,8 @@ export default function MenuEditor() {
 
   const saveMutation = useMutation({
     mutationFn: async (yamlContent: string) => {
-      const parsedData = yaml.load(yamlContent) as MenuData;
+      const { escaped, map } = escapeTemplateVars(yamlContent);
+      const parsedData = unescapeObjectVars(yaml.load(escaped), map) as MenuData;
       
       // Use different endpoints based on locale:
       // - English: structure endpoint (propagates to all translations)
@@ -782,6 +801,27 @@ export default function MenuEditor() {
     setYamlSource(newYaml);
     setHasChanges(newYaml !== originalYaml);
   };
+
+  const handleCmUpdate = useCallback((update: import("@codemirror/view").ViewUpdate) => {
+    const sel = update.state.selection.main;
+    const text = sel.empty ? "" : update.state.sliceDoc(sel.from, sel.to);
+    setSelectedText(text);
+  }, []);
+
+  const handleVariableCreated = useCallback((_varName: string, templateSyntax: string) => {
+    const ref = activeEditorRef.current === "sidebar" ? cmSidebarRef : cmRef;
+    const view = ref.current?.view;
+    if (!view) return;
+
+    const { from, to } = view.state.selection.main;
+    view.dispatch({
+      changes: { from, to, insert: templateSyntax },
+      selection: { anchor: from + templateSyntax.length },
+    });
+
+    const newVal = view.state.doc.toString();
+    handleYamlEdit(newVal);
+  }, [handleYamlEdit]);
 
   const toggleExpand = (index: number) => {
     const newExpanded = new Set(expandedItems);
@@ -1202,17 +1242,31 @@ export default function MenuEditor() {
                 <h2 className="text-sm font-medium text-muted-foreground">
                   YAML Editor
                 </h2>
-                <p className="text-xs text-muted-foreground">
-                  Edit the menu content directly in YAML
-                </p>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={!selectedText}
+                    onClick={() => { activeEditorRef.current = "main"; setVarModalOpen(true); }}
+                    data-testid="button-insert-variable-main"
+                  >
+                    <IconVariable className="h-4 w-4 mr-1" />
+                    Convert to Variable
+                  </Button>
+                  <p className="text-xs text-muted-foreground">
+                    Edit the menu content directly in YAML
+                  </p>
+                </div>
               </div>
               <div data-testid="codemirror-yaml-editor">
                 <CodeMirror
+                  ref={cmRef}
                   value={yamlSource}
                   height="calc(100vh - 250px)"
                   extensions={[yamlLang()]}
                   theme={oneDark}
                   onChange={(value) => handleYamlEdit(value)}
+                  onUpdate={handleCmUpdate}
                 />
               </div>
             </div>
@@ -1228,9 +1282,16 @@ export default function MenuEditor() {
               <span className="font-semibold">YAML Source</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">
-                Edit YAML directly
-              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={!selectedText}
+                onClick={() => { activeEditorRef.current = "sidebar"; setVarModalOpen(true); }}
+                data-testid="button-insert-variable-sidebar"
+              >
+                <IconVariable className="h-4 w-4 mr-1" />
+                Convert to Variable
+              </Button>
               {yamlError && (
                 <span className="text-xs text-destructive">Invalid YAML</span>
               )}
@@ -1238,15 +1299,26 @@ export default function MenuEditor() {
           </div>
           <div className="flex-1 overflow-hidden" data-testid="codemirror-yaml-source">
             <CodeMirror
+              ref={cmSidebarRef}
               value={yamlSource}
               height="calc(100vh - 80px)"
               extensions={[yamlLang()]}
               theme={oneDark}
               onChange={(value) => handleYamlEdit(value)}
+              onUpdate={handleCmUpdate}
             />
           </div>
         </SheetContent>
       </Sheet>
+
+      <VariableDetailModal
+        open={varModalOpen}
+        onOpenChange={setVarModalOpen}
+        variableName=""
+        inlineDefault={selectedText}
+        mode="create"
+        onCreated={handleVariableCreated}
+      />
 
       <Dialog open={confirmDeleteIndex !== null} onOpenChange={() => setConfirmDeleteIndex(null)}>
         <DialogContent>

@@ -9,10 +9,11 @@ meta:
     - /atlanta
     - /campus/atlanta
     - /en/atlanta
+    - /es/coding-campus/bootcamp-programacion-atlanta
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Atlanta
     title: 4Geeks Academy Atlanta
     subtitle: El principal bootcamp de programación de Georgia con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Atlanta?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Apoyo Profesional
         description: Fuertes conexiones con empleadores locales y startups.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Atlanta
     filter_by_location: atlanta-usa
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Atlanta
     filter_by_location: atlanta-usa
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Atlanta?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

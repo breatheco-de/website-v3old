@@ -1490,7 +1490,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const content = fs.readFileSync(filePath, "utf-8");
       const data = safeYamlLoad(content);
-      res.json({ name, locale: locale || "en", data });
+      const raw = req.query.raw === "true";
+      if (raw) {
+        res.json({ name, locale: locale || "en", data });
+        return;
+      }
+
+      const context = {
+        locale: locale || "en",
+        location: req.query.location as string | undefined,
+        region: req.query.region as string | undefined,
+      };
+      const { data: resolved } = variableManager.resolveDeep(data, context);
+      res.json({ name, locale: locale || "en", data: resolved });
     } catch (error) {
       console.error(`Error loading menu ${name}:`, error);
       res.status(500).json({ error: "Failed to parse menu file" });

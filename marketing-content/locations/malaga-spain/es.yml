@@ -9,10 +9,11 @@ meta:
     - /malaga
     - /campus/malaga
     - /es/malaga
+    - /es/coding-campus/bootcamp-programacion-malaga-espana
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Málaga
     title: 4Geeks Academy Málaga
     subtitle: El bootcamp de programación líder de Andalucía con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -24,7 +25,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Málaga?
     items:
       - icon: Building
@@ -40,15 +41,15 @@ sections:
         title: Trabajo Remoto
         description: Destino popular para nómadas digitales y trabajadores remotos.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Málaga
     filter_by_location: malaga-spain
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Málaga
     filter_by_location: malaga-spain
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Málaga?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora

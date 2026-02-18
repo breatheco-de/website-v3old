@@ -10,10 +10,11 @@ meta:
     - /panamacity
     - /panama
     - /campus/panama
+    - /es/coding-campus/bootcamp-programacion-panama
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Ciudad de Panamá
     title: 4Geeks Academy Ciudad de Panamá
     subtitle: El bootcamp de programación líder de Panamá con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -25,7 +26,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Ciudad de Panamá?
     items:
       - icon: Building
@@ -41,15 +42,15 @@ sections:
         title: Acceso Global
         description: Fácil acceso a mercados de EE.UU. y Latinoamérica.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Ciudad de Panamá
     filter_by_location: panamacity-panama
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Ciudad de Panamá
     filter_by_location: panamacity-panama
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Ciudad de Panamá?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora
