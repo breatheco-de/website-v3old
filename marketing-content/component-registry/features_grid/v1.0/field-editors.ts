@@ -13,5 +13,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "items[].icon": "icon-picker",
   "stats-text:description": "rich-text-editor",
   "stats-cards:description": "rich-text-editor",
+  "highlight:subtitle": "rich-text-editor",
   "cta.url": "link-picker",
 };

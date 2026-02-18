@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import * as TablerIcons from "@tabler/icons-react";
 import { getCustomIcon } from "@/components/custom-icons";
 import type { ComponentType } from "react";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 function getIcon(iconName: string, className?: string, color?: string) {
   const CustomIcon = getCustomIcon(iconName);
@@ -120,9 +121,11 @@ export function FeaturesGridHighlight({ data }: FeaturesGridHighlightProps) {
               </h2>
             )}
             {data.subtitle && (
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {data.subtitle}
-              </p>
+              <RichTextContent
+                html={data.subtitle}
+                className="text-lg text-muted-foreground max-w-3xl mx-auto [&_p]:mb-0"
+                data-testid="text-features-grid-subtitle"
+              />
             )}
           </div>
         )}
