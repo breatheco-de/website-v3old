@@ -47,5 +47,5 @@ sections:
       Users interested in reviewing the specific terms, requirements and eligibility criteria of the Job Guarantee program must consult the dedicated document available on this Website.
 
       For further reference, you may visit the Terms and Conditions page directly.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
