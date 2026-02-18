@@ -55,8 +55,10 @@ function getAuthorName(author: BlogAuthor | null): string {
 export default function BlogPostPage() {
   const [location] = useLocation();
   const locale = location.startsWith("/es") ? "es" : "en";
-  const params = useParams<{ slug: string }>();
-  const slug = params.slug || "";
+  const params = useParams();
+  const wildcard = (params as Record<string, string>)["*"] || params.slug || "";
+  const segments = wildcard.split("/").filter(Boolean);
+  const slug = segments[segments.length - 1] || "";
   const handleLinkClick = useInternalNav();
 
   const { data: post, isLoading, error } = useQuery<BlogPost>({
