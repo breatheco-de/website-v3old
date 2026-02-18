@@ -373,7 +373,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: none md
+      desktop: lg md
   - type: whos_hiring
     variant: carousel
     title: Trusted by Leading Innovators
