@@ -939,9 +939,13 @@ function DataSourceDialog({
                     )}
 
                     <div className="space-y-2">
-                      {Object.entries(fieldMapping).map(([standardField, sourceField]) => (
+                      {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
+                        const isRequired = standardField === "title" || standardField === "content";
+                        return (
                         <div key={standardField} className="flex items-center gap-2">
-                          <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">{standardField}</span>
+                          <span className={`text-xs font-medium w-24 flex-shrink-0 text-right ${isRequired && !sourceField ? "text-destructive" : "text-muted-foreground"}`}>
+                            {standardField}{isRequired ? <span className="text-destructive ml-0.5">*</span> : null}
+                          </span>
                           <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           <Select
                             value={sourceField || "__none__"}
@@ -961,7 +965,8 @@ function DataSourceDialog({
                             </SelectContent>
                           </Select>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
 
                     {samplePost && (
@@ -1025,9 +1030,18 @@ function DataSourceDialog({
                       </div>
                     )}
 
+                    {(() => {
+                      const missing = (["title", "content"] as const).filter((f) => !fieldMapping[f]);
+                      return missing.length > 0 ? (
+                        <p className="text-xs text-destructive" data-testid="text-required-fields-warning">
+                          Required: {missing.join(", ")} must be mapped
+                        </p>
+                      ) : null;
+                    })()}
+
                     <Button
                       size="sm"
-                      disabled={fieldMappingConfirmed}
+                      disabled={fieldMappingConfirmed || !fieldMapping.title || !fieldMapping.content}
                       onClick={() => { setFieldMappingConfirmed(true); markComplete("fields"); }}
                       data-testid="button-confirm-fields"
                     >

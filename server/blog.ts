@@ -226,6 +226,15 @@ function extractByDotPath(obj: unknown, dotPath: string): unknown {
   return current;
 }
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 200);
+}
+
 function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string | null>): BlogPost[] {
   return rawItems.map((item, idx) => {
     if (!item || typeof item !== "object") return item as BlogPost;
@@ -240,6 +249,9 @@ function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string |
 
     if (mapping.title) mapped.title = getValue(mapping.title) ?? mapped.title;
     if (mapping.slug) mapped.slug = getValue(mapping.slug) ?? mapped.slug;
+    if (!mapped.slug && mapped.title && typeof mapped.title === "string") {
+      mapped.slug = slugify(mapped.title);
+    }
     if (mapping.description) mapped.description = getValue(mapping.description) ?? mapped.description;
     if (mapping.published_at) mapped.published_at = getValue(mapping.published_at) ?? mapped.published_at;
     if (mapping.updated_at) mapped.updated_at = getValue(mapping.updated_at) ?? mapped.updated_at;
