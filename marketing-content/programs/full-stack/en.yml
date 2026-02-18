@@ -52,11 +52,6 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your instructors:"
     description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
-    media:
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=450&fit=crop
-      alt: Full Stack Developer with AI program introduction at 4Geeks Academy
     signup_card:
       title: Get the Full Syllabus
       description: Request the full syllabus, program description, class schedule and everything else you need to know.
