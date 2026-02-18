@@ -3206,6 +3206,20 @@ export function SectionEditorPanel({
                   return null;
                 }
 
+                // For dotted simple fields like "cta_button.url", skip if the parent object doesn't exist in the YAML
+                if (isSimpleField && fieldPath.includes(".")) {
+                  const parentParts = fieldPath.split(".");
+                  let parentExists: unknown = parsedSection;
+                  for (let i = 0; i < parentParts.length - 1; i++) {
+                    if (!parentExists || typeof parentExists !== "object") {
+                      parentExists = undefined;
+                      break;
+                    }
+                    parentExists = (parentExists as Record<string, unknown>)[parentParts[i]];
+                  }
+                  if (parentExists === undefined || parentExists === null) return null;
+                }
+
                 if (isSimpleField && editorType === "link-picker") {
                   const getSimpleLinkValue = () => {
                     if (!parsedSection) return "";
