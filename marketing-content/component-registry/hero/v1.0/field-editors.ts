@@ -38,7 +38,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
 
-  "cta_buttons[].url": "link-picker",
+  "singleColumn:cta_buttons[].url": "link-picker",
   "cta_button.url": "link-picker",
   "panels[].cta_button.url": "link-picker",
 };

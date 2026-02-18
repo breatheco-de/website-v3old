@@ -4269,6 +4269,51 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (editorType === "link-picker") {
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium capitalize">
+                        {arrayFieldLabel.replace(/_/g, " ")} Links
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => {
+                          const currentValue =
+                            (item[itemField] as string) || "";
+                          const itemLabel =
+                            (item.tab_label as string) ||
+                            (item.title as string) ||
+                            (item.label as string) ||
+                            (item.name as string) ||
+                            (item.text as string) ||
+                            `Item ${index + 1}`;
+
+                          return (
+                            <div key={index} className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">
+                                {itemLabel}
+                              </Label>
+                              <LinkPicker
+                                value={currentValue}
+                                onChange={(url) =>
+                                  updateArrayItemField(
+                                    arrayPath,
+                                    index,
+                                    itemField,
+                                    url,
+                                  )
+                                }
+                                locale={locale}
+                                allSections={allSections}
+                                testId={`props-link-${arrayFieldLabel}-${index}`}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
                 if (editorType === "image-with-style-picker") {
                   const MAX_IMAGES = 4;
                   const hasImages = safeArrayData.length > 0;
