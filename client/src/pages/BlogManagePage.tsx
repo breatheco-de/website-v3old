@@ -983,6 +983,15 @@ function DataSourceDialog({
                               {String(getFieldValue(samplePost, fieldMapping.description) || "")}
                             </p>
                           )}
+                          {fieldMapping.content && (() => {
+                            const raw = getFieldValue(samplePost, fieldMapping.content);
+                            const text = typeof raw === "string" ? raw.replace(/<[^>]*>/g, "").replace(/[#*_~`>\-\[\]()!]/g, "").replace(/\s+/g, " ").trim() : "";
+                            return text ? (
+                              <div className="rounded bg-muted px-2 py-1.5 mt-1" data-testid="preview-content">
+                                <p className="text-xs text-muted-foreground line-clamp-3">{text.slice(0, 280)}{text.length > 280 ? "..." : ""}</p>
+                              </div>
+                            ) : null;
+                          })()}
                           <div className="flex items-center gap-3 flex-wrap text-xs text-muted-foreground pt-1">
                             {fieldMapping.author && (
                               <span data-testid="preview-author">

@@ -1285,6 +1285,7 @@ Return JSON with this exact structure:
     "category": "<source field name or dot.path or null>",
     "tags": "<source field name or dot.path or null>",
     "lang": "<source field name or dot.path or null>",
+    "content": "<source field name or dot.path to body/markdown/html content or null>",
     "content_url": "<source field name or dot.path to markdown/content URL or null>"
   },
   "available_fields": ["<all top-level and notable nested fields found>"],
