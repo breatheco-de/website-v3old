@@ -73,7 +73,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { IconSearch, IconUpload, IconCloudUpload } from "@tabler/icons-react";
+import { IconSearch, IconUpload, IconCloudUpload, IconVideo } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
 import { yaml } from "@codemirror/lang-yaml";
@@ -458,6 +458,19 @@ export function SectionEditorPanel({
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [videoPickerOpen, setVideoPickerOpen] = useState(false);
+  const [videoPickerTarget, setVideoPickerTarget] = useState<{
+    fieldPath?: string;
+    label?: string;
+    currentUrl: string;
+  } | null>(null);
+  const [videoPickerMode, setVideoPickerMode] = useState<"browse" | "upload" | "url">("url");
+  const [videoUploading, setVideoUploading] = useState(false);
+  const [videoDragOver, setVideoDragOver] = useState(false);
+  const videoFileInputRef = useRef<HTMLInputElement>(null);
+  const [videoGallerySearch, setVideoGallerySearch] = useState("");
+  const [visibleVideoCount, setVisibleVideoCount] = useState(48);
   const editorViewRef = useRef<EditorView | null>(null);
 
   const handleUndoRedoRestore = useCallback(
@@ -689,6 +702,91 @@ export function SectionEditorPanel({
     },
     [imagePickerTarget, refetchRegistry, toast],
   );
+
+  const handleVideoUpload = useCallback(
+    async (files: FileList | File[]) => {
+      if (!files.length || !videoPickerTarget) return;
+      const file = files[0];
+      const allowed = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
+      const ext = `.${file.name.split(".").pop()?.toLowerCase()}`;
+      if (!allowed.includes(ext)) {
+        toast({
+          title: "Unsupported file type",
+          description: `${ext} files are not supported. Use MP4, WebM, MOV, or OGG.`,
+          variant: "destructive",
+        });
+        return;
+      }
+      setVideoUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        const resp = await fetch("/api/image-registry/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.error || "Upload failed");
+        }
+        const result = (await resp.json()) as {
+          id: string;
+          src: string;
+          alt: string;
+          duplicate?: boolean;
+          existingId?: string;
+        };
+        await refetchRegistry();
+        setVideoPickerTarget({
+          ...videoPickerTarget,
+          currentUrl: result.src,
+        });
+        setVideoPickerMode("url");
+        if (result.duplicate) {
+          toast({
+            title: "Video already exists",
+            description: `This video is already registered as "${result.existingId}". Using the existing one.`,
+          });
+        } else {
+          toast({
+            title: "Video uploaded",
+            description: `Registered as "${result.id}"`,
+          });
+        }
+      } catch (err: any) {
+        toast({
+          title: "Upload failed",
+          description: err.message,
+          variant: "destructive",
+        });
+      } finally {
+        setVideoUploading(false);
+      }
+    },
+    [videoPickerTarget, refetchRegistry, toast],
+  );
+
+  const filteredGalleryVideos = useMemo(() => {
+    if (!imageRegistry?.images) return [];
+    const videoExts = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
+    const searchLower = videoGallerySearch.toLowerCase();
+    return Object.entries(imageRegistry.images)
+      .filter(([id, img]) => {
+        const isVideo = videoExts.some((ext) => img.src.toLowerCase().endsWith(ext));
+        if (!isVideo) return false;
+        if (!searchLower) return true;
+        return (
+          id.toLowerCase().includes(searchLower) ||
+          img.alt.toLowerCase().includes(searchLower) ||
+          img.tags?.some((tag) => tag.toLowerCase().includes(searchLower))
+        );
+      })
+      .sort((a, b) => (b[1].usage_count ?? 0) - (a[1].usage_count ?? 0));
+  }, [imageRegistry, videoGallerySearch]);
+
+  useEffect(() => {
+    setVisibleVideoCount(48);
+  }, [videoGallerySearch, videoPickerOpen]);
 
   // Filter and sort gallery images by usage count (most used first)
   const filteredGalleryImages = useMemo(() => {
@@ -1862,6 +1960,148 @@ export function SectionEditorPanel({
                   </div>
                 );
               })}
+            {/* Render top-level (non-array) image-picker field editors */}
+            {Object.entries(configuredFields)
+              .filter(([fieldPath, editorTypeRaw]) => {
+                if (fieldPath.includes("[]")) return false;
+                const { type: edType } = parseEditorType(editorTypeRaw);
+                return edType === "image-picker";
+              })
+              .map(([fieldPath, editorTypeRaw]) => {
+                const { variant } = parseEditorType(editorTypeRaw);
+                const getFieldValue = () => {
+                  if (!parsedSection) return "";
+                  const pathParts = fieldPath.split(".");
+                  let current: unknown = parsedSection;
+                  for (const part of pathParts) {
+                    if (!current || typeof current !== "object") return "";
+                    current = (current as Record<string, unknown>)[part];
+                  }
+                  return (current as string) || "";
+                };
+                const currentValue = getFieldValue();
+                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                const isIdField = fieldPath.endsWith("_id");
+                const displaySrc = isIdField
+                  ? imageRegistry?.images?.[currentValue]?.src || currentValue
+                  : currentValue;
+                const displayLabel = isIdField
+                  ? currentValue
+                  : currentValue.split("/").pop() || currentValue;
+
+                return (
+                  <div key={fieldPath} className="space-y-2 mt-3">
+                    <Label className="text-sm font-medium capitalize">
+                      {fieldLabel.replace(/_/g, " ")}
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImagePickerTarget({
+                            fieldPath,
+                            label: fieldLabel,
+                            currentSrc: currentValue,
+                            currentAlt: "",
+                            tagFilter: variant,
+                          });
+                          setImagePickerOpen(true);
+                        }}
+                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                        data-testid={`props-image-${fieldLabel}`}
+                        title={`Change ${fieldLabel}`}
+                      >
+                        {currentValue ? (
+                          <>
+                            <img
+                              src={displaySrc}
+                              alt={fieldLabel}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <IconPhoto className="h-5 w-5 text-white" />
+                            </div>
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <IconPhoto className="h-6 w-6 text-muted-foreground" />
+                          </div>
+                        )}
+                      </button>
+                      {currentValue && (
+                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                          {displayLabel}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            {/* Render top-level (non-array) video-picker field editors */}
+            {Object.entries(configuredFields)
+              .filter(([fieldPath, editorTypeRaw]) => {
+                if (fieldPath.includes("[]")) return false;
+                const { type: edType } = parseEditorType(editorTypeRaw);
+                return edType === "video-picker";
+              })
+              .map(([fieldPath]) => {
+                const getFieldValue = () => {
+                  if (!parsedSection) return "";
+                  const pathParts = fieldPath.split(".");
+                  let current: unknown = parsedSection;
+                  for (const part of pathParts) {
+                    if (!current || typeof current !== "object") return "";
+                    current = (current as Record<string, unknown>)[part];
+                  }
+                  return (current as string) || "";
+                };
+                const currentValue = getFieldValue();
+                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+
+                return (
+                  <div key={fieldPath} className="space-y-2 mt-3">
+                    <Label className="text-sm font-medium capitalize">
+                      {fieldLabel.replace(/_/g, " ")}
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVideoPickerTarget({
+                            fieldPath,
+                            label: fieldLabel,
+                            currentUrl: currentValue,
+                          });
+                          setVideoPickerOpen(true);
+                        }}
+                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                        data-testid={`props-video-${fieldLabel}`}
+                        title={`Change ${fieldLabel}`}
+                      >
+                        {currentValue ? (
+                          <>
+                            <div className="w-full h-full flex items-center justify-center bg-muted">
+                              <IconVideo className="h-6 w-6 text-primary" />
+                            </div>
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <IconVideo className="h-5 w-5 text-white" />
+                            </div>
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <IconVideo className="h-6 w-6 text-muted-foreground" />
+                          </div>
+                        )}
+                      </button>
+                      {currentValue && (
+                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                          {currentValue.split("/").pop() || currentValue}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             {/* Render grouped array item editors (when multiple field-editors exist for the same array) */}
             {(() => {
               const arrayFieldGroups: Record<
@@ -2941,6 +3181,7 @@ export function SectionEditorPanel({
                   const supportedTypes = new Set([
                     "color-picker",
                     "image-picker",
+                    "video-picker",
                     "link-picker",
                     "rich-text-editor",
                     "variant-picker",
@@ -2960,77 +3201,9 @@ export function SectionEditorPanel({
 
                 // Handle simple field paths (e.g., "image" or "nested.image")
                 const isSimpleField = !fieldPath.includes("[]");
-                if (isSimpleField && editorType === "image-picker") {
-                  // Get the current value by traversing the path
-                  const getSimpleFieldValue = () => {
-                    if (!parsedSection) return "";
-                    const pathParts = fieldPath.split(".");
-                    let current: unknown = parsedSection;
-                    for (const part of pathParts) {
-                      if (!current || typeof current !== "object") return "";
-                      current = (current as Record<string, unknown>)[part];
-                    }
-                    return (current as string) || "";
-                  };
-
-                  const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
-                  // For fields ending in _id, look up the actual image URL from the registry
-                  const isIdField = fieldPath.endsWith("_id");
-                  const displaySrc = isIdField
-                    ? imageRegistry?.images?.[currentValue]?.src || currentValue
-                    : currentValue;
-                  const displayLabel = isIdField
-                    ? currentValue // Show the ID as the label for ID fields
-                    : currentValue.split("/").pop() || currentValue;
-
-                  return (
-                    <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium capitalize">
-                        {fieldLabel.replace(/_/g, " ")}
-                      </Label>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setImagePickerTarget({
-                              fieldPath,
-                              label: fieldLabel,
-                              currentSrc: currentValue,
-                              currentAlt: "",
-                              tagFilter: variant, // e.g., "logo" from "image-picker:logo"
-                            });
-                            setImagePickerOpen(true);
-                          }}
-                          className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
-                          data-testid={`props-image-${fieldLabel}`}
-                          title={`Change ${fieldLabel}`}
-                        >
-                          {currentValue ? (
-                            <>
-                              <img
-                                src={displaySrc}
-                                alt={fieldLabel}
-                                className="w-full h-full object-cover"
-                              />
-                              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <IconPhoto className="h-5 w-5 text-white" />
-                              </div>
-                            </>
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <IconPhoto className="h-6 w-6 text-muted-foreground" />
-                            </div>
-                          )}
-                        </button>
-                        {currentValue && (
-                          <span className="text-xs text-muted-foreground truncate max-w-[150px]">
-                            {displayLabel}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  );
+                // Simple image-picker and video-picker are already rendered by the dedicated top-level loops above
+                if (isSimpleField && (editorType === "image-picker" || editorType === "video-picker")) {
+                  return null;
                 }
 
                 if (isSimpleField && editorType === "link-picker") {
@@ -4554,6 +4727,302 @@ export function SectionEditorPanel({
         itemLabel={iconPickerTarget?.label}
         onSelect={handleIconSelect}
       />
+
+      {/* Video Picker Modal */}
+      <Dialog
+        open={videoPickerOpen}
+        onOpenChange={(open) => {
+          setVideoPickerOpen(open);
+          if (!open) {
+            setVideoGallerySearch("");
+            setVideoPickerMode("url");
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Select Video</DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 overflow-hidden flex flex-col gap-4 py-2">
+            <div className="flex rounded-md border overflow-visible">
+              <Button
+                type="button"
+                size="sm"
+                variant="ghost"
+                className={`flex-1 rounded-none toggle-elevate ${videoPickerMode === "url" ? "toggle-elevated bg-muted" : ""}`}
+                onClick={() => setVideoPickerMode("url")}
+                data-testid="button-video-picker-url"
+              >
+                <IconVideo className="h-4 w-4 mr-1.5" />
+                URL
+              </Button>
+              <div className="w-px bg-border" />
+              <Button
+                type="button"
+                size="sm"
+                variant="ghost"
+                className={`flex-1 rounded-none toggle-elevate ${videoPickerMode === "browse" ? "toggle-elevated bg-muted" : ""}`}
+                onClick={() => setVideoPickerMode("browse")}
+                data-testid="button-video-picker-browse"
+              >
+                <IconSearch className="h-4 w-4 mr-1.5" />
+                Browse
+              </Button>
+              <div className="w-px bg-border" />
+              <Button
+                type="button"
+                size="sm"
+                variant="ghost"
+                className={`flex-1 rounded-none toggle-elevate ${videoPickerMode === "upload" ? "toggle-elevated bg-muted" : ""}`}
+                onClick={() => setVideoPickerMode("upload")}
+                data-testid="button-video-picker-upload"
+              >
+                <IconUpload className="h-4 w-4 mr-1.5" />
+                Upload
+              </Button>
+            </div>
+
+            {videoPickerMode === "url" && (
+              <div className="space-y-3">
+                <Input
+                  value={videoPickerTarget?.currentUrl || ""}
+                  onChange={(e) => {
+                    if (videoPickerTarget) {
+                      setVideoPickerTarget({
+                        ...videoPickerTarget,
+                        currentUrl: e.target.value,
+                      });
+                    }
+                  }}
+                  placeholder="Paste a YouTube, Vimeo, or direct video URL..."
+                  className="text-sm"
+                  data-testid="input-video-url"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Supports YouTube, Vimeo, and direct video file URLs (.mp4, .webm, .mov)
+                </p>
+              </div>
+            )}
+
+            {videoPickerMode === "browse" && (
+              <>
+                <div className="relative">
+                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search videos..."
+                    value={videoGallerySearch}
+                    onChange={(e) => setVideoGallerySearch(e.target.value)}
+                    className="pl-10"
+                    data-testid="input-video-gallery-search"
+                  />
+                </div>
+                <div className="flex-1 overflow-y-auto min-h-0">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {filteredGalleryVideos
+                      .slice(0, visibleVideoCount)
+                      .map(([id, vid]) => (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => {
+                            if (videoPickerTarget) {
+                              setVideoPickerTarget({
+                                ...videoPickerTarget,
+                                currentUrl: vid.src,
+                              });
+                            }
+                          }}
+                          className={`rounded-md bg-muted border-2 transition-colors p-3 text-left ${
+                            videoPickerTarget?.currentUrl === vid.src
+                              ? "border-primary"
+                              : "border-transparent hover:border-muted-foreground/50"
+                          }`}
+                          title={vid.alt}
+                          data-testid={`gallery-video-${id}`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <IconVideo className="h-5 w-5 text-primary flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-xs font-medium truncate">{id}</p>
+                              <p className="text-xs text-muted-foreground truncate">
+                                {vid.src.split("/").pop()}
+                              </p>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                  </div>
+                  {visibleVideoCount < filteredGalleryVideos.length && (
+                    <div className="py-3 flex justify-center">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          setVisibleVideoCount((prev) =>
+                            Math.min(prev + 24, filteredGalleryVideos.length),
+                          )
+                        }
+                        data-testid="button-load-more-videos"
+                      >
+                        Load more ({filteredGalleryVideos.length - visibleVideoCount} remaining)
+                      </Button>
+                    </div>
+                  )}
+                  {filteredGalleryVideos.length === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      No videos found in the media gallery
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
+            {videoPickerMode === "upload" && (
+              <div className="flex-1 flex flex-col items-center justify-center min-h-[200px]">
+                {hasCloudProvider || mediaStatus?.defaultProvider === "local" ? (
+                  <>
+                    <input
+                      ref={videoFileInputRef}
+                      type="file"
+                      accept=".mp4,.webm,.mov,.ogg,.m4v"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files?.length)
+                          handleVideoUpload(e.target.files);
+                        e.target.value = "";
+                      }}
+                      data-testid="input-video-file-upload"
+                    />
+                    <div
+                      className={`w-full rounded-md border-2 border-dashed p-8 text-center transition-colors cursor-pointer ${
+                        videoDragOver
+                          ? "border-primary bg-primary/5"
+                          : "border-muted-foreground/30 hover:border-muted-foreground/50"
+                      }`}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setVideoDragOver(true);
+                      }}
+                      onDragLeave={() => setVideoDragOver(false)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setVideoDragOver(false);
+                        if (e.dataTransfer.files.length)
+                          handleVideoUpload(e.dataTransfer.files);
+                      }}
+                      onClick={() => videoFileInputRef.current?.click()}
+                      data-testid="dropzone-video-upload"
+                    >
+                      {videoUploading ? (
+                        <div className="flex flex-col items-center gap-2">
+                          <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                          <p className="text-sm text-muted-foreground">Uploading video...</p>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center gap-2">
+                          <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                          <p className="text-sm font-medium">Drop a video here or click to browse</p>
+                          <p className="text-xs text-muted-foreground">
+                            MP4, WebM, MOV, OGG, M4V (max 100 MB)
+                          </p>
+                          {hasCloudProvider && mediaStatus?.gcs && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Uploading to {mediaStatus.gcs.bucket}/{mediaStatus.gcs.basePath}
+                            </p>
+                          )}
+                          {!hasCloudProvider && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Saving to marketing-content/images/
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center space-y-3 p-4">
+                    <IconUpload className="h-8 w-8 text-muted-foreground mx-auto" />
+                    <p className="text-sm font-medium">No storage provider configured</p>
+                    <p className="text-sm text-muted-foreground">
+                      Configure a cloud provider in the Media Gallery settings, or place video files directly in the{" "}
+                      <code className="bg-muted px-1 rounded text-xs">marketing-content/images/</code> folder.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="border-t pt-4 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-16 h-16 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
+                  {videoPickerTarget?.currentUrl ? (
+                    <IconVideo className="h-6 w-6 text-primary" />
+                  ) : (
+                    <div className="text-muted-foreground text-xs">None</div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">
+                    {videoPickerTarget?.currentUrl
+                      ? videoPickerTarget.currentUrl.split("/").pop() || videoPickerTarget.currentUrl
+                      : "No video selected"}
+                  </p>
+                  {videoPickerTarget?.currentUrl && (
+                    <p className="text-xs text-muted-foreground truncate">
+                      {videoPickerTarget.currentUrl}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+          <DialogFooter className="flex-row gap-2 sm:justify-between">
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={() => {
+                if (videoPickerTarget?.fieldPath) {
+                  updateProperty(videoPickerTarget.fieldPath, "");
+                }
+                setVideoPickerOpen(false);
+                setVideoPickerTarget(null);
+              }}
+              data-testid="button-video-remove"
+            >
+              <IconX className="h-4 w-4 mr-2" />
+              Remove
+            </Button>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setVideoPickerOpen(false);
+                  setVideoPickerTarget(null);
+                }}
+                data-testid="button-video-cancel"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  if (videoPickerTarget?.fieldPath) {
+                    updateProperty(videoPickerTarget.fieldPath, videoPickerTarget.currentUrl);
+                  }
+                  setVideoPickerOpen(false);
+                  setVideoPickerTarget(null);
+                }}
+                data-testid="button-video-save"
+              >
+                <IconCheck className="h-4 w-4 mr-2" />
+                Save
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Image Picker Modal */}
       <Dialog

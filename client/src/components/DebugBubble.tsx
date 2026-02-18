@@ -1007,8 +1007,7 @@ export function DebugBubble() {
     setSeoLoading(true);
     setSeoData(null);
     try {
-      const pathSegments = pathname.split('/').filter(Boolean);
-      const urlLocale = pathSegments[0];
+      const urlLocale = getEffectiveLocale();
       const locale = normalizeLocale(urlLocale || i18n.language);
       const contentTypeMap: Record<string, string> = {
         programs: "programs",
@@ -1054,6 +1053,15 @@ export function DebugBubble() {
     }
   }, [contentInfo.type, contentInfo.slug, pathname, i18n.language, toast]);
 
+  const getEffectiveLocale = (): string => {
+    if (pathname.startsWith("/private/preview/")) {
+      const qLocale = new URLSearchParams(window.location.search).get("locale");
+      if (qLocale) return qLocale;
+    }
+    const seg = pathname.split("/").filter(Boolean)[0];
+    return seg || "en";
+  };
+
   const currentLocaleSlug = (seoData?.slug as string) || contentInfo.slug || "";
 
   useEffect(() => {
@@ -1082,8 +1090,7 @@ export function DebugBubble() {
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       const token = getDebugToken();
       if (token) headers["X-Debug-Token"] = token;
-      const pathSegments = pathname.split("/").filter(Boolean);
-      const urlLocale = pathSegments[0] || "en";
+      const urlLocale = getEffectiveLocale();
       const res = await fetch("/api/content/rename-slug", {
         method: "POST",
         headers,
@@ -1131,8 +1138,7 @@ export function DebugBubble() {
     if (!contentInfo.type || !contentInfo.slug || slugCheckStatus !== "available") return;
     const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
     const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
-    const pathSegments = pathname.split("/").filter(Boolean);
-    const urlLocale = pathSegments[0] || "en";
+    const urlLocale = getEffectiveLocale() as "en" | "es";
     if (apiType === "landing") {
       setSlugOldUrl(`/landing/${currentLocaleSlug}`);
       setSlugNewUrl(`/landing/${newSlugValue}`);
@@ -1148,8 +1154,7 @@ export function DebugBubble() {
     if (!contentInfo.type || !contentInfo.slug) return;
     setSeoSaving(true);
     try {
-      const pathSegments = pathname.split('/').filter(Boolean);
-      const urlLocale = pathSegments[0];
+      const urlLocale = getEffectiveLocale();
       const locale = normalizeLocale(urlLocale || i18n.language);
       const contentTypeMap: Record<string, string> = {
         programs: "program",

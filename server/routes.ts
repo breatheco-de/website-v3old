@@ -1421,35 +1421,15 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
-      let slug: string | null = null;
-
-      const previewMatch = url.match(/^\/private\/preview\/(programs|pages|landings|locations)\/([^/?]+)/);
-      const programEn = url.match(/^\/en\/career-programs\/([^/]+)/);
-      const programEs = url.match(/^\/es\/programas-de-carrera\/([^/]+)/);
-      const locationEn = url.match(/^\/en\/location\/([^/]+)/);
-      const locationEs = url.match(/^\/es\/ubicacion\/([^/]+)/);
-      const landingMatch = url.match(/^\/(?:en\/|es\/)?landing\/([^/]+)/);
-      const pageEn = url.match(/^\/en\/([^/]+)$/);
-      const pageEs = url.match(/^\/es\/([^/]+)$/);
-
-      if (previewMatch) { contentType = previewMatch[1] as typeof contentType; slug = previewMatch[2]; }
-      else if (programEn) { contentType = "programs"; slug = programEn[1]; }
-      else if (programEs) { contentType = "programs"; slug = programEs[1]; }
-      else if (locationEn) { contentType = "locations"; slug = locationEn[1]; }
-      else if (locationEs) { contentType = "locations"; slug = locationEs[1]; }
-      else if (landingMatch) { contentType = "landings"; slug = landingMatch[1]; }
-      else if (pageEn) { contentType = "pages"; slug = pageEn[1]; }
-      else if (pageEs) { contentType = "pages"; slug = pageEs[1]; }
-
-      if (!contentType || !slug) {
+      const parsed = contentIndex.parseContentUrl(url);
+      if (!parsed) {
         res.status(400).json({ error: "Could not determine content type from URL" });
         return;
       }
 
-      const baseSlug = contentIndex.resolveBaseSlug(slug, contentType);
-      const urls = contentIndex.getLocaleUrls(baseSlug, contentType);
-      res.json({ urls, contentType, slug: baseSlug });
+      const baseSlug = contentIndex.resolveBaseSlug(parsed.slug, parsed.contentType);
+      const urls = contentIndex.getLocaleUrls(baseSlug, parsed.contentType);
+      res.json({ urls, contentType: parsed.contentType, slug: baseSlug });
     } catch (err) {
       console.error("[API] Failed to resolve locale URLs:", err);
       res.status(500).json({ error: "Failed to resolve locale URLs" });
@@ -1464,33 +1444,15 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
-      let slug: string | null = null;
-
-      const programEn = url.match(/^\/(?:en\/)?career-programs\/([^/]+)/);
-      const programEs = url.match(/^\/(?:es\/)?programas-de-carrera\/([^/]+)/);
-      const locationEn = url.match(/^\/(?:en\/)?locations\/([^/]+)/);
-      const locationEs = url.match(/^\/(?:es\/)?ubicaciones\/([^/]+)/);
-      const landingMatch = url.match(/^\/landing\/([^/]+)/);
-      const pageEn = url.match(/^\/en\/([^/]+)/);
-      const pageEs = url.match(/^\/es\/([^/]+)/);
-
-      if (programEn) { contentType = "programs"; slug = programEn[1]; }
-      else if (programEs) { contentType = "programs"; slug = programEs[1]; }
-      else if (locationEn) { contentType = "locations"; slug = locationEn[1]; }
-      else if (locationEs) { contentType = "locations"; slug = locationEs[1]; }
-      else if (landingMatch) { contentType = "landings"; slug = landingMatch[1]; }
-      else if (pageEn) { contentType = "pages"; slug = pageEn[1]; }
-      else if (pageEs) { contentType = "pages"; slug = pageEs[1]; }
-
-      if (!contentType || !slug) {
+      const parsed = contentIndex.parseContentUrl(url);
+      if (!parsed) {
         res.status(400).json({ error: "Could not determine content type from URL" });
         return;
       }
 
-      const baseSlug = contentIndex.resolveBaseSlug(slug, contentType);
-      const urls = contentIndex.getLocaleUrls(baseSlug, contentType);
-      res.json({ urls, contentType, slug: baseSlug });
+      const baseSlug = contentIndex.resolveBaseSlug(parsed.slug, parsed.contentType);
+      const urls = contentIndex.getLocaleUrls(baseSlug, parsed.contentType);
+      res.json({ urls, contentType: parsed.contentType, slug: baseSlug });
     } catch (err) {
       console.error("[Debug] Failed to resolve locale URLs:", err);
       res.status(500).json({ error: "Failed to resolve locale URLs" });
@@ -1554,84 +1516,17 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       // Parse destination URL to find the content entry
-      let contentType: "programs" | "landings" | "pages" | "locations" | null = null;
-      let slug: string | null = null;
-      let locale: string = "en";
-
-      const programEnMatch = destUrl.match(/^\/en\/career-programs\/([^/]+)/);
-      const programEsMatch = destUrl.match(/^\/es\/programas-de-carrera\/([^/]+)/);
-      const programStrippedMatch = destUrl.match(/^\/career-programs\/([^/]+)/);
-      const programStrippedEsMatch = destUrl.match(/^\/programas-de-carrera\/([^/]+)/);
-      const landingMatch = destUrl.match(/^\/landing\/([^/]+)/);
-      const pageEnMatch = destUrl.match(/^\/en\/([^/]+)/);
-      const pageEsMatch = destUrl.match(/^\/es\/([^/]+)/);
-      const locationEnMatch = destUrl.match(/^\/en\/locations\/([^/]+)/);
-      const locationEsMatch = destUrl.match(/^\/es\/ubicaciones\/([^/]+)/);
-      const locationStrippedMatch = destUrl.match(/^\/locations\/([^/]+)/);
-      const locationStrippedEsMatch = destUrl.match(/^\/ubicaciones\/([^/]+)/);
-
-      if (programEnMatch) {
-        contentType = "programs";
-        slug = programEnMatch[1];
-        locale = "en";
-      } else if (programEsMatch) {
-        contentType = "programs";
-        slug = programEsMatch[1];
-        locale = "es";
-      } else if (programStrippedMatch) {
-        contentType = "programs";
-        slug = programStrippedMatch[1];
-        locale = "en";
-      } else if (programStrippedEsMatch) {
-        contentType = "programs";
-        slug = programStrippedEsMatch[1];
-        locale = "es";
-      } else if (landingMatch) {
-        contentType = "landings";
-        slug = landingMatch[1];
-        locale = "en";
-      } else if (locationEnMatch) {
-        contentType = "locations";
-        slug = locationEnMatch[1];
-        locale = "en";
-      } else if (locationEsMatch) {
-        contentType = "locations";
-        slug = locationEsMatch[1];
-        locale = "es";
-      } else if (locationStrippedMatch) {
-        contentType = "locations";
-        slug = locationStrippedMatch[1];
-        locale = "en";
-      } else if (locationStrippedEsMatch) {
-        contentType = "locations";
-        slug = locationStrippedEsMatch[1];
-        locale = "es";
-      } else if (pageEnMatch) {
-        contentType = "pages";
-        slug = pageEnMatch[1];
-        locale = "en";
-      } else if (pageEsMatch) {
-        contentType = "pages";
-        slug = pageEsMatch[1];
-        locale = "es";
-      } else if (!destUrl.startsWith("/en/") && !destUrl.startsWith("/es/") && !destUrl.startsWith("/landing/")) {
-        const pageStrippedMatch = destUrl.match(/^\/([^/]+)/);
-        if (pageStrippedMatch) {
-          contentType = "pages";
-          slug = pageStrippedMatch[1];
-          locale = "en";
-        }
-      }
-
-      if (!contentType || !slug) {
+      const parsed = contentIndex.parseContentUrl(destUrl);
+      if (!parsed) {
         res.status(400).json({ error: "Could not determine content type from destination URL" });
         return;
       }
 
-      const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const { contentType, locale } = parsed;
+      const resolvedSlug = contentIndex.resolveBaseSlug(parsed.slug, contentType);
       const entries = contentIndex.findBySlug(resolvedSlug, { contentType });
       if (entries.length === 0) {
-        res.status(404).json({ error: `No content found for slug "${slug}" in ${contentType}` });
+        res.status(404).json({ error: `No content found for slug "${parsed.slug}" in ${contentType}` });
         return;
       }
 
@@ -1647,16 +1542,16 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const filePath = path.join(basePath, targetFile);
 
-      let parsed: Record<string, unknown> = {};
+      let yamlData: Record<string, unknown> = {};
       if (fs.existsSync(filePath)) {
         const raw = fs.readFileSync(filePath, "utf-8");
-        parsed = (safeYamlLoad(raw) as Record<string, unknown>) || {};
+        yamlData = (safeYamlLoad(raw) as Record<string, unknown>) || {};
       }
 
-      if (!parsed.meta || typeof parsed.meta !== "object") {
-        parsed.meta = {};
+      if (!yamlData.meta || typeof yamlData.meta !== "object") {
+        yamlData.meta = {};
       }
-      const meta = parsed.meta as Record<string, unknown>;
+      const meta = yamlData.meta as Record<string, unknown>;
       if (!Array.isArray(meta.redirects)) {
         meta.redirects = [];
       }
@@ -1679,7 +1574,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         redirects.push(normalizedFrom);
       }
 
-      const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(yamlData, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -4609,13 +4504,14 @@ sections: []
     }
   });
 
-  const imageUpload = multer({
+  const mediaUpload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 10 * 1024 * 1024 },
+    limits: { fileSize: 100 * 1024 * 1024 },
     fileFilter: (_req, file, cb) => {
-      const allowed = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const allowedImages = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const allowedVideos = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
       const ext = path.extname(file.originalname).toLowerCase();
-      if (allowed.includes(ext)) {
+      if ([...allowedImages, ...allowedVideos].includes(ext)) {
         cb(null, true);
       } else {
         cb(new Error(`Unsupported file type: ${ext}`));
@@ -4623,7 +4519,7 @@ sections: []
     },
   });
 
-  app.post("/api/image-registry/upload", imageUpload.single("file"), async (req, res) => {
+  app.post("/api/image-registry/upload", mediaUpload.single("file"), async (req, res) => {
     try {
       const file = (req as any).file;
       if (!file) {

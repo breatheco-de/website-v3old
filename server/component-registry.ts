@@ -244,7 +244,7 @@ export function getExampleFilePath(componentType: string, version: string): stri
   return path.join("marketing-content", "component-registry", componentType, version, "examples");
 }
 
-export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker";
+export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker" | "video-picker";
 
 export interface AllFieldEditors {
   [componentType: string]: Record<string, EditorType>;
@@ -297,7 +297,7 @@ export function loadAllFieldEditors(): AllFieldEditors {
               const [, fieldPath, editorType] = entryMatch;
               // Parse base type (e.g., "color-picker:background" -> "color-picker")
               const baseType = editorType.split(":")[0];
-              if (["icon-picker", "color-picker", "image-picker", "image-with-style-picker", "link-picker", "rich-text-editor", "markdown", "boolean-toggle", "variant-picker"].includes(baseType)) {
+              if (["icon-picker", "color-picker", "image-picker", "image-with-style-picker", "link-picker", "rich-text-editor", "markdown", "boolean-toggle", "variant-picker", "video-picker"].includes(baseType)) {
                 entries[fieldPath] = editorType as EditorType;
               }
             }

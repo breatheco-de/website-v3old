@@ -1,0 +1,31 @@
+slug: cookies
+template: default
+title: cookies
+meta:
+  robots: index, follow
+  priority: 0.8
+  change_frequency: weekly
+  page_title: cookies | 4Geeks Academy
+  description: cookies - Learn more about this topic at 4Geeks Academy.
+  redirects:
+    - /cookies
+schema:
+  include:
+    - organization
+    - website
+sections:
+  - type: article
+    content: |
+      # Cookies Policy. 4Geeks Academy
+
+      ## Information About Cookies
+
+      Following the amendment to the Spanish "Law on Information Society Services and Electronic Commerce" (LSSICE), established by Royal Decree 13/2012, websites that use non-essential cookies are required to obtain the user's explicit consent before allowing them to browse.
+
+      ## What Are Cookies?
+
+      Cookies and similar technologies, such as local shared objects, flash cookies, or pixels, are tools used by web servers to store and retrieve information about visitors, as well as to ensure the proper functioning of the website.
+
+      Through the use of these technologies, the web server may remember certain user data, such as display preferences, username and password, products of interest, and other relevant information that helps improve the browsing experience.
+    show_toc: false
+    max_width: md

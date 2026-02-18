@@ -9,6 +9,8 @@ const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
 const REGISTRY_PATH = path.join(MARKETING_CONTENT_DIR, "image-registry.json");
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"]);
+const VIDEO_EXTENSIONS = new Set([".mp4", ".webm", ".mov", ".ogg", ".m4v"]);
+const MEDIA_EXTENSIONS = new Set([...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS]);
 const SCREENSHOT_PATTERNS = [/^Screenshot_/i, /^Captura_/i, /^Capture_/i, /^Screen[\s_]?Shot/i];
 const EXISTENCE_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
@@ -659,7 +661,7 @@ class MediaGallery {
     if (!registry) throw new Error("Failed to load registry");
 
     const ext = path.extname(filename).toLowerCase();
-    if (!IMAGE_EXTENSIONS.has(ext)) {
+    if (!MEDIA_EXTENSIONS.has(ext)) {
       throw new Error(`Unsupported file type: ${ext}`);
     }
 

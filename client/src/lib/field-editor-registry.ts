@@ -16,6 +16,7 @@
  * - "color-picker:accent" - Color picker with accent colors
  * - "color-picker:text" - Color picker with text colors
  * - "image-picker" - Image picker
+ * - "video-picker" - Video picker (browse media gallery, upload, or paste URL)
  * - "link-picker" - Link picker
  */
 

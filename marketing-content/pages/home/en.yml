@@ -188,6 +188,8 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
+    video:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
   - type: features_grid
     version: "1.0"
     variant: highlight

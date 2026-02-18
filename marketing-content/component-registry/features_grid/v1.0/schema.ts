@@ -91,6 +91,7 @@ export const featuresGridStatsCardsItemSchema = z.object({
   id: z.string().optional(),
   value: z.string(),
   title: z.string(),
+  value_size: z.string().optional(),
 });
 
 export const featuresGridStatsCardsSectionSchema = z.object({
