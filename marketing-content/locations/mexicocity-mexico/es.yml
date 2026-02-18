@@ -11,10 +11,11 @@ meta:
     - /cdmx
     - /campus/mexico-city
     - /mx/mexico-city
+    - /es/coding-campus/bootcamp-programacion-mexico
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Campus Ciudad de México
     title: 4Geeks Academy Ciudad de México
     subtitle: El bootcamp de programación líder de Latinoamérica con mentoría ilimitada, apoyo profesional y una comunidad global de desarrolladores.
@@ -26,7 +27,7 @@ sections:
         url: /es/syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: ¿Por qué elegir Ciudad de México?
     items:
       - icon: Building
@@ -42,15 +43,15 @@ sections:
         title: Empresas Globales
         description: Presencia de grandes empresas tech y startups en crecimiento.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programas Disponibles en Ciudad de México
     filter_by_location: mexicocity-mexico
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Ciudad de México
     filter_by_location: mexicocity-mexico
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Ciudad de México?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora
