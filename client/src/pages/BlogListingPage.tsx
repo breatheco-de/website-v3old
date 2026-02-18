@@ -194,20 +194,22 @@ export default function BlogListingPage() {
           <h1 className="text-4xl font-bold text-foreground mb-3" data-testid="text-blog-title">
             Blog
           </h1>
-          <p className="text-lg text-muted-foreground mb-6" data-testid="text-blog-subtitle">
-            {locale === "es"
-              ? "Artículos, tutoriales y noticias sobre programación y tecnología"
-              : "Articles, tutorials and news about coding and technology"}
-          </p>
-          <div className="relative max-w-md mb-4">
-            <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder={locale === "es" ? "Buscar artículos..." : "Search articles..."}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-              data-testid="input-blog-search"
-            />
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <p className="text-lg text-muted-foreground" data-testid="text-blog-subtitle">
+              {locale === "es"
+                ? "Artículos, tutoriales y noticias sobre programación y tecnología"
+                : "Articles, tutorials and news about coding and technology"}
+            </p>
+            <div className="relative max-w-md md:w-72 shrink-0">
+              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder={locale === "es" ? "Buscar artículos..." : "Search articles..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+                data-testid="input-blog-search"
+              />
+            </div>
           </div>
           {categories.length > 0 && (
             <div className="flex items-center gap-2 flex-wrap" data-testid="section-category-cloud">
