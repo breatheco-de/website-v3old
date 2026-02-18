@@ -166,3 +166,5 @@ price_datascience:
     - query:
         region: "latam"
       value: "$299"
+global_total_alumni:
+  default: "4,000"
