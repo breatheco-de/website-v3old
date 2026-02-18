@@ -181,12 +181,11 @@ export function CourseContent({
           </div>
 
           {course.price_info && (
-            <p
+            <div
               className="text-base text-muted-foreground"
               data-testid="text-price-info"
-            >
-              {course.price_info}
-            </p>
+              dangerouslySetInnerHTML={{ __html: course.price_info }}
+            />
           )}
         </div>
         <a

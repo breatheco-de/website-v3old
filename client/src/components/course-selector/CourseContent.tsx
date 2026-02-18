@@ -165,12 +165,11 @@ export function CourseContent({
             <span className="text-base text-muted-foreground">{course.price_period || "/mo"}</span>
           </div>
           {course.price_info && (
-            <p
+            <div
               className="text-base text-muted-foreground"
               data-testid="text-price-info"
-            >
-              {course.price_info}
-            </p>
+              dangerouslySetInnerHTML={{ __html: course.price_info }}
+            />
           )}
         </div>
         <a href={course.cta_url} onClick={handleLinkClick} className="w-full md:w-auto" data-testid="link-cta">

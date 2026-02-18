@@ -28,7 +28,7 @@ export const courseItemSchema = z.object({
   price: z.string().optional().describe("Monthly price (e.g., '$328')"),
   price_period: z.string().optional().describe("Price period label shown after the price (e.g., '/mo', '/year'). Defaults to '/mo' when price is provided"),
   original_price: z.string().optional().describe("Original price shown crossed out (e.g., '$442')"),
-  price_info: z.string().optional().describe("Additional pricing info (e.g., 'with TripleTen Installments')"),
+  price_info: z.string().optional().describe("Additional pricing info, supports HTML (e.g., 'with <strong>TripleTen</strong> Installments')"),
   cta_text: z.string().describe("CTA button text"),
   cta_url: z.string().describe("CTA button URL"),
   course_background: z.string().optional().describe("Background color for course cards and badges (uses courses color picker)"),
