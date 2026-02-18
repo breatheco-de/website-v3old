@@ -110,73 +110,73 @@ navbar:
           - title: EE.UU. Y CANADÁ
             items:
               - label: Miami, EE.UU.
-                href: /en/location/miami-usa
+                href: /es/ubicacion/miami-usa
               - label: Nueva York, EE.UU.
-                href: /en/location/newyork-usa
+                href: /es/ubicacion/nueva-york-usa
               - label: Dallas, EE.UU.
-                href: /en/location/dallas-usa
+                href: /es/ubicacion/dallas-usa
               - label: Toronto, Canadá
-                href: /en/location/toronto-canada
+                href: /es/ubicacion/toronto-canada
               - label: Atlanta, EE.UU.
-                href: /en/location/atlanta-usa
+                href: /es/ubicacion/atlanta-usa
               - label: Austin, EE.UU.
-                href: /en/location/austin-usa
+                href: /es/ubicacion/austin-usa
               - label: Chicago, EE.UU.
-                href: /en/location/chicago-usa
+                href: /es/ubicacion/chicago-usa
               - label: Houston, EE.UU.
-                href: /en/location/houston-usa
+                href: /es/ubicacion/houston-usa
               - label: Los Ángeles, EE.UU.
-                href: /en/location/losangeles-usa
+                href: /es/ubicacion/losangeles-usa
               - label: Remoto, EE.UU.
                 href: /en/location/remote
           - title: EUROPA
             items:
               - label: Madrid, España
-                href: /en/location/madrid-spain
+                href: /es/ubicacion/madrid-espana
               - label: Barcelona, España
-                href: /en/location/barcelona-spain
+                href: /es/ubicacion/barcelona-espana
               - label: Valencia, España
-                href: /en/location/valencia-spain
+                href: /es/ubicacion/valencia-espana
               - label: Málaga, España
-                href: /en/location/malaga-spain
+                href: /es/ubicacion/malaga-espana
               - label: Berlín, Alemania
-                href: /en/location/berlin-germany
-              - label: '[TRANSLATE] Lisbon, Portugal'
-                href: /en/location/lisbon-portugal
-              - label: '[TRANSLATE] Hamburg, Germany'
-                href: /en/location/hamburg-germany
-              - label: '[TRANSLATE] Munich, Germany'
-                href: /en/location/munich-germany
-              - label: '[TRANSLATE] Dublin, Ireland'
-                href: /en/location/dublin-ireland
-              - label: '[TRANSLATE] Milan, Italy'
-                href: /en/location/milan-italy
-              - label: '[TRANSLATE] Rome, Italy'
-                href: /en/location/rome-italy
+                href: /es/ubicacion/berlin-alemania
+              - label: Lisboa, Portugal
+                href: /es/ubicacion/lisboa-portugal
+              - label: Hamburgo, Alemania
+                href: /es/ubicacion/hamburgo-alemania
+              - label: Munich, Alemania
+                href: /es/ubicacion/munich-alemania
+              - label: Dublin, Irlanda
+                href: /es/ubicacion/dublin-irlanda
+              - label: Milan, Italia
+                href: /es/ubicacion/milan-italia
+              - label: Roma, Italia
+                href: /es/ubicacion/roma-italia
           - title: LATAM
             items:
               - label: Santiago, Chile
-                href: /en/location/santiago-chile
+                href: /es/ubicacion/santiago-chile
               - label: Bogotá, Colombia
-                href: /en/location/bogota-colombia
+                href: /es/ubicacion/bogota-colombia
               - label: Ciudad de México, México
-                href: /en/location/mexicocity-mexico
+                href: /es/ubicacion/cuidad-de-mexico
               - label: Caracas, Venezuela
-                href: /en/location/caracas-venezuela
-              - label: '[TRANSLATE] Buenos Aires, Argentina'
-                href: /en/location/buenosaires-argentina
-              - label: '[TRANSLATE] La Paz, Bolivia'
-                href: /en/location/lapaz-bolivia
-              - label: '[TRANSLATE] Costa Rica '
-                href: /en/location/costa-rica
-              - label: '[TRANSLATE] Quito, Ecuador'
-                href: /en/location/quito-ecuador
-              - label: '[TRANSLATE] Panama City, Panama'
-                href: /en/location/panamacity-panama
-              - label: '[TRANSLATE] Montevideo, Uruguay'
-                href: /en/location/montevideo-uruguay
-              - label: '[TRANSLATE] Lima, Peru'
-                href: /en/location/lima-peru
+                href: /es/ubicacion/caracas-venezuela
+              - label: Buenos Aires, Argentina
+                href: /es/ubicacion/buenosaires-argentina
+              - label: La Paz, Bolivia
+                href: /es/ubicacion/lapaz-bolivia
+              - label: ' Costa Rica '
+                href: /es/ubicacion/costa-rica
+              - label: Quito, Ecuador
+                href: /es/ubicacion/quito-ecuador
+              - label: Ciudad de Panamá, Panamá
+                href: /es/ubicacion/ciudad-de-panama
+              - label: Montevideo, Uruguay
+                href: /es/ubicacion/montevideo-uruguay
+              - label: Lima, Perú
+                href: /es/ubicacion/lima-peru
     - label: PRÓXIMAS FECHAS
       href: /upcoming-dates
       component: SimpleLink
