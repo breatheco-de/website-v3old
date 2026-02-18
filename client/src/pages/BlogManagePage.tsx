@@ -41,6 +41,7 @@ import {
   IconWorld,
   IconDatabase,
   IconDotsVertical,
+  IconLink,
   IconPencil,
   IconPlayerPlay,
   IconPlus,
@@ -65,6 +66,7 @@ interface BlogPost {
   created_at: string;
   updated_at: string;
   cluster: string | null;
+  clusters: string[];
   tags: string[];
 }
 
@@ -590,6 +592,127 @@ function DataSourceDialog({
   );
 }
 
+function buildBlogUrl(pattern: string, post: BlogPost, locale: string): string {
+  const cluster = (post.clusters && post.clusters.length > 0 ? post.clusters[0] : post.cluster) || "";
+  return pattern
+    .replace(":locale", locale)
+    .replace(":cluster", cluster)
+    .replace(":slug", post.slug);
+}
+
+function SeoSettingsDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+
+  const { data: config, isLoading } = useQuery<BlogConfig>({
+    queryKey: ["/api/blog/config"],
+    enabled: open,
+  });
+
+  const [enPattern, setEnPattern] = useState("/en/blog/:slug");
+  const [esPattern, setEsPattern] = useState("/es/blog/:slug");
+
+  useEffect(() => {
+    if (config) {
+      setEnPattern(config.url_pattern?.en || "/en/blog/:slug");
+      setEsPattern(config.url_pattern?.es || "/es/blog/:slug");
+    }
+  }, [config]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const payload: BlogConfig = {
+        ...config!,
+        url_pattern: {
+          en: enPattern,
+          es: esPattern,
+        },
+      };
+      await apiRequest("PUT", "/api/blog/config", payload);
+      queryClient.invalidateQueries({ queryKey: ["/api/blog/config"] });
+      toast({ title: "URL patterns saved" });
+      onOpenChange(false);
+    } catch {
+      toast({ title: "Failed to save URL patterns", variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const samplePost = { slug: "intro-to-python", cluster: "coding-bootcamp", clusters: ["coding-bootcamp"] } as BlogPost;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[480px]">
+        <DialogHeader>
+          <DialogTitle>SEO URL Settings</DialogTitle>
+        </DialogHeader>
+
+        {isLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
+            <span className="ml-2 text-sm text-muted-foreground">Loading...</span>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="rounded-md bg-muted px-3 py-2" data-testid="text-seo-variables-help">
+              <p className="text-xs text-muted-foreground">
+                Available variables: <code className="text-foreground">:slug</code> <code className="text-foreground">:cluster</code> (first cluster)
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="en-pattern" className="text-sm">English URL Pattern</Label>
+              <Input
+                id="en-pattern"
+                value={enPattern}
+                onChange={(e) => setEnPattern(e.target.value)}
+                placeholder="/en/blog/:slug"
+                className="font-mono text-sm"
+                data-testid="input-en-pattern"
+              />
+              <p className="text-xs text-muted-foreground font-mono" data-testid="text-en-preview">
+                {buildBlogUrl(enPattern, samplePost, "en")}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="es-pattern" className="text-sm">Spanish URL Pattern</Label>
+              <Input
+                id="es-pattern"
+                value={esPattern}
+                onChange={(e) => setEsPattern(e.target.value)}
+                placeholder="/es/blog/:slug"
+                className="font-mono text-sm"
+                data-testid="input-es-pattern"
+              />
+              <p className="text-xs text-muted-foreground font-mono" data-testid="text-es-preview">
+                {buildBlogUrl(esPattern, samplePost, "es")}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-seo">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} disabled={saving || isLoading} data-testid="button-save-seo">
+            {saving ? "Saving..." : "Save"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function BlogManagePage() {
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -597,6 +720,7 @@ export default function BlogManagePage() {
   const [localeFilter, setLocaleFilter] = useState<string>("all");
   const [clearing, setClearing] = useState(false);
   const [dsDialogOpen, setDsDialogOpen] = useState(false);
+  const [seoDialogOpen, setSeoDialogOpen] = useState(false);
 
   const { data: allPostsData, isLoading: allLoading } = useQuery<BlogResponse>({
     queryKey: ["/api/blog/posts"],
@@ -607,6 +731,13 @@ export default function BlogManagePage() {
     queryKey: ["/api/blog/cache-status"],
     staleTime: 30000,
   });
+
+  const { data: blogConfig } = useQuery<BlogConfig>({
+    queryKey: ["/api/blog/config"],
+    staleTime: 60000,
+  });
+
+  const urlPatterns = blogConfig?.url_pattern || { en: "/en/blog/:slug", es: "/es/blog/:slug" };
 
   const posts = allPostsData?.results || [];
 
@@ -710,6 +841,15 @@ export default function BlogManagePage() {
             >
               <IconDatabase className="h-4 w-4 mr-1" />
               Data Source
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSeoDialogOpen(true)}
+              data-testid="button-seo-settings"
+            >
+              <IconLink className="h-4 w-4 mr-1" />
+              SEO Settings
             </Button>
           </div>
         </div>
@@ -826,7 +966,8 @@ export default function BlogManagePage() {
                   <tbody>
                     {filtered.map((post) => {
                       const locale = (post.lang === "es" || post.category?.slug === "blog-es") ? "es" : "en";
-                      const blogUrl = `/${locale}/blog/${post.slug}`;
+                      const pattern = locale === "es" ? urlPatterns.es : urlPatterns.en;
+                      const blogUrl = buildBlogUrl(pattern, post, locale);
                       return (
                         <tr
                           key={post.id}
@@ -925,6 +1066,7 @@ export default function BlogManagePage() {
       </div>
 
       <DataSourceDialog open={dsDialogOpen} onOpenChange={setDsDialogOpen} />
+      <SeoSettingsDialog open={seoDialogOpen} onOpenChange={setSeoDialogOpen} />
     </div>
   );
 }
