@@ -54,6 +54,7 @@ import {
   IconTestPipe,
   IconTransform,
   IconLayoutList,
+  IconLock,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -711,11 +712,24 @@ function DataSourceDialog({
                       {!editingHeaders ? (
                         <div className="rounded-md bg-muted px-3 py-2" data-testid="text-headers-preview">
                           <p className="text-xs font-mono text-muted-foreground whitespace-pre-wrap break-all">
-                            {headersPreview || "(no custom headers)"}
+                            {[
+                              authType !== "none" && tokenEnvVar ? `Authorization: ${authType === "raw" ? "" : `${authType} `}\${${tokenEnvVar}}` : "",
+                              headersPreview,
+                            ].filter(Boolean).join("\n") || "(no custom headers)"}
                           </p>
                         </div>
                       ) : (
                         <div className="space-y-2">
+                          {authType !== "none" && tokenEnvVar && (
+                            <div className="flex items-center gap-2 opacity-60">
+                              <Input value="Authorization" disabled className="flex-1 font-mono text-xs" />
+                              <span className="text-muted-foreground text-xs">:</span>
+                              <Input value={`${authType === "raw" ? "" : `${authType} `}\${${tokenEnvVar}}`} disabled className="flex-1 font-mono text-xs" />
+                              <Button variant="ghost" size="icon" disabled>
+                                <IconLock className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
+                          )}
                           {customHeaders.map((header, i) => (
                             <div key={i} className="flex items-center gap-2">
                               <Input value={header.key} onChange={(e) => updateHeader(i, "key", e.target.value)} placeholder="Header-Name" className="flex-1 font-mono text-xs" data-testid={`input-header-key-${i}`} />
