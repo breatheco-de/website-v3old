@@ -77,12 +77,17 @@ export class LLMService implements ILLMClient {
   private defaultMaxTokens: number;
 
   private constructor() {
-    const apiKey = process.env.OPENAI_API_KEY;
-    const baseURL = process.env.OPENAI_BASE_URL;
+    const cfg = loadYamlConfig();
+
+    const apiKeyEnv = cfg?.provider?.api_key_env || "OPENAI_API_KEY";
+    const baseUrlEnv = cfg?.provider?.base_url_env || "OPENAI_BASE_URL";
+
+    const apiKey = process.env[apiKeyEnv] || process.env.OPENAI_API_KEY;
+    const baseURL = process.env[baseUrlEnv] || process.env.OPENAI_BASE_URL;
 
     if (!apiKey) {
       throw new Error(
-        "OpenAI not configured. Please set OPENAI_API_KEY in Secrets.",
+        `OpenAI not configured. Please set ${apiKeyEnv} in Secrets.`,
       );
     }
 
@@ -90,6 +95,10 @@ export class LLMService implements ILLMClient {
       apiKey,
       ...(baseURL ? { baseURL } : {}),
     });
+
+    this.defaultModel = resolveModel(cfg);
+    this.defaultTemperature = cfg?.temperature ?? 0.7;
+    this.defaultMaxTokens = cfg?.max_tokens || 2000;
   }
 
   static getInstance(): LLMService {
