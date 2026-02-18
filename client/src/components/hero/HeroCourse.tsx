@@ -163,24 +163,25 @@ export function HeroCourse({ data }: HeroCourseProps) {
           
           {/* Media + signup column (right by default, left when reversed) */}
           <div className={cn("space-y-4", data.layout_reversed && "lg:order-1")}>
-            {/* Media */}
-            <div className="relative rounded-lg overflow-hidden aspect-video">
-              {data.media.type === "video" ? (
-                <UniversalVideo
-                  url={data.media.src}
-                  ratio="16:9"
-                  autoplay={true}
-                  muted={true}
-                  loop={true}
-                />
-              ) : (
-                <img 
-                  src={data.media.src} 
-                  alt={data.media.alt || "Hero image"}
-                  className="w-full h-full object-cover"
-                />
-              )}
-            </div>
+            {data.media && (
+              <div className="relative rounded-lg overflow-hidden aspect-video">
+                {data.media.type === "video" ? (
+                  <UniversalVideo
+                    url={data.media.src}
+                    ratio="16:9"
+                    autoplay={true}
+                    muted={true}
+                    loop={true}
+                  />
+                ) : (
+                  <img 
+                    src={data.media.src} 
+                    alt={data.media.alt || "Hero image"}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+            )}
             
             {/* Signup Card */}
             <Card className="p-6">
