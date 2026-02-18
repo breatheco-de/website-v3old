@@ -55,6 +55,7 @@ import {
   IconTransform,
   IconLayoutList,
   IconLock,
+  IconX,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -965,49 +966,60 @@ function DataSourceDialog({
                         const isCustom = sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
                         const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
                         return (
-                        <div key={standardField} className="space-y-1">
-                          <div className="flex items-center gap-2">
+                        <div key={standardField} className="flex items-center gap-2">
                             <span className={`text-xs font-medium w-24 flex-shrink-0 text-right ${isRequired && !sourceField ? "text-destructive" : "text-muted-foreground"}`}>
                               {standardField}{isRequired ? <span className="text-destructive ml-0.5">*</span> : null}
                             </span>
                             <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                            <Select
-                              value={selectValue}
-                              onValueChange={(v) => {
-                                if (v === "__custom__") {
-                                  setFieldMapping((prev) => ({ ...prev, [standardField]: "" }));
-                                } else {
-                                  setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
-                                }
-                                setFieldMappingConfirmed(false);
-                              }}
-                            >
-                              <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="__none__">(not mapped)</SelectItem>
-                                {availableFields.map((f) => (
-                                  <SelectItem key={f} value={f}>{f}</SelectItem>
-                                ))}
-                                <SelectItem value="__custom__">Custom path...</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          {isCustom && (
-                            <div className="flex items-center gap-2 ml-[calc(6rem+1.25rem)]">
-                              <Input
-                                value={sourceField}
-                                onChange={(e) => {
-                                  setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
+                            {isCustom ? (
+                              <>
+                                <Input
+                                  value={sourceField}
+                                  onChange={(e) => {
+                                    setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
+                                    setFieldMappingConfirmed(false);
+                                  }}
+                                  placeholder="e.g. author.details.name or items[0].body"
+                                  className="h-8 text-xs font-mono flex-1"
+                                  data-testid={`input-custom-path-${standardField}`}
+                                />
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="flex-shrink-0"
+                                  onClick={() => {
+                                    setFieldMapping((prev) => ({ ...prev, [standardField]: null }));
+                                    setFieldMappingConfirmed(false);
+                                  }}
+                                  data-testid={`button-clear-custom-${standardField}`}
+                                >
+                                  <IconX className="h-3.5 w-3.5" />
+                                </Button>
+                              </>
+                            ) : (
+                              <Select
+                                value={selectValue}
+                                onValueChange={(v) => {
+                                  if (v === "__custom__") {
+                                    setFieldMapping((prev) => ({ ...prev, [standardField]: "" }));
+                                  } else {
+                                    setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
+                                  }
                                   setFieldMappingConfirmed(false);
                                 }}
-                                placeholder="e.g. author.details.name or items[0].body"
-                                className="h-7 text-xs font-mono"
-                                data-testid={`input-custom-path-${standardField}`}
-                              />
-                            </div>
-                          )}
+                              >
+                                <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="__none__">(not mapped)</SelectItem>
+                                  {availableFields.map((f) => (
+                                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                                  ))}
+                                  <SelectItem value="__custom__">Custom path...</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            )}
                         </div>
                         );
                       })}
