@@ -1,16 +1,24 @@
 /**
  * Field Editor Configuration for Hero Component
- * 
+ *
  * Defines which fields in this component should use special editors
  * in the Props tab of the section editor panel.
- * 
+ *
  * EditorType options: "icon-picker" | "color-picker" | "image-picker" | "link-picker"
- * 
+ *
  * Variant-specific fields use the format: "variantName:fieldPath"
  * Example: "productShowcase:left_images[].src" only applies to productShowcase variant
  */
 
-export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "image-picker:logo" | "link-picker" | "text-input" | "rich-text-editor" | "boolean-toggle";
+export type EditorType =
+  | "icon-picker"
+  | "color-picker"
+  | "image-picker"
+  | "image-picker:logo"
+  | "link-picker"
+  | "text-input"
+  | "rich-text-editor"
+  | "boolean-toggle";
 
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
@@ -30,7 +38,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
 
-  "cta_button.url": "link-picker",
   "cta_buttons[].url": "link-picker",
+  "cta_button.url": "link-picker",
   "panels[].cta_button.url": "link-picker",
 };
