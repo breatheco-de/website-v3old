@@ -303,6 +303,8 @@ function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string |
         mapped.category = catVal;
       } else if (typeof catVal === "string") {
         mapped.category = { slug: catVal };
+      } else {
+        mapped.category = { slug: "uncategorized" };
       }
     }
 
