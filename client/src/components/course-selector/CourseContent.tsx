@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import type { ResolvedColor } from "./shared";
 import { hslColor } from "./shared";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 function CourseBadgeItem({
   icon,
@@ -165,10 +166,10 @@ export function CourseContent({
             <span className="text-base text-muted-foreground">{course.price_period || "/mo"}</span>
           </div>
           {course.price_info && (
-            <div
-              className="text-base text-muted-foreground"
+            <RichTextContent
+              html={course.price_info}
+              className="text-base text-muted-foreground [&_p]:mb-0"
               data-testid="text-price-info"
-              dangerouslySetInnerHTML={{ __html: course.price_info }}
             />
           )}
         </div>

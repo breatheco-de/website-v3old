@@ -5,6 +5,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "courses[].icon": "icon-picker",
   "courses[].badges[].icon": "icon-picker",
   "courses[].tags[].icon": "icon-picker",
+  "courses[].price_info": "rich-text-editor",
   "courses[].cta_url": "link-picker",
 
   "default:courses[].course_background":  "color-picker:courses",

@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import type { ResolvedColor } from "./shared";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 interface CourseSelectorSolidProps {
   data: CourseSelectorSection;
 }
@@ -180,10 +181,10 @@ export function CourseContent({
             )}
           </div>
           {course.price_info && (
-            <div
-              className="text-base text-muted-foreground"
+            <RichTextContent
+              html={course.price_info}
+              className="text-base text-muted-foreground [&_p]:mb-0"
               data-testid="text-price-info"
-              dangerouslySetInnerHTML={{ __html: course.price_info }}
             />
           )}
         </div>
