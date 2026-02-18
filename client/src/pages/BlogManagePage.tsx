@@ -1334,7 +1334,7 @@ export default function BlogManagePage() {
               data-testid="button-clear-cache"
             >
               <IconRefresh className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
-              Refresh Cache
+              Cache
               {cacheStatus?.exists && cacheStatus.age_hours != null && (
                 <span className="text-[10px] text-muted-foreground ml-1" data-testid="text-cache-age">
                   ({cacheStatus.age_hours}h)
@@ -1348,7 +1348,7 @@ export default function BlogManagePage() {
               data-testid="button-data-source"
             >
               <IconDatabase className="h-4 w-4 mr-1" />
-              Data Source
+              Source
             </Button>
             <Button
               variant="outline"
@@ -1357,7 +1357,7 @@ export default function BlogManagePage() {
               data-testid="button-seo-settings"
             >
               <IconLink className="h-4 w-4 mr-1" />
-              SEO Settings
+              SEO
             </Button>
           </div>
         </div>
