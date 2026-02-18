@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /austin
-    - /campus/austin
-    - /en/austin
     - /es/coding-campus/bootcamp-programacion-austin
 sections:
   - type: hero

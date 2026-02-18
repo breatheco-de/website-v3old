@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /atlanta
-    - /campus/atlanta
-    - /en/atlanta
     - /es/coding-campus/bootcamp-programacion-atlanta
 sections:
   - type: hero
