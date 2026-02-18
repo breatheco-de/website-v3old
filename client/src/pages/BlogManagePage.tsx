@@ -699,13 +699,6 @@ function DataSourceDialog({
                         </div>
                       )}
                     </div>
-                    {authType !== "none" && tokenEnvVar && (
-                      <div className="rounded-md bg-muted px-3 py-2" data-testid="text-auth-preview">
-                        <p className="text-xs font-mono text-muted-foreground">
-                          Authorization: {authType === "raw" ? "" : `${authType} `}<span className="text-foreground">{`$\{${tokenEnvVar}}`}</span>
-                        </p>
-                      </div>
-                    )}
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between gap-2">
