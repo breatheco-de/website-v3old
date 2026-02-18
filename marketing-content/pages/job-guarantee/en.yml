@@ -31,12 +31,9 @@ sections:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
-      - text: Apply now
-        url: /apply
+      - text: Get more info
+        url: "#bottom"
         variant: primary
-      - text: Download Details
-        url: "#syllabus"
-        variant: outline
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
@@ -48,13 +45,13 @@ sections:
     heading: Results That Back Our Job Guarantee
     subheading: "These numbers reflect real graduates and real hires. Our Job Guarantee is built around one outcome: succesfully launching your tech career."
     stats:
-      - value: "84"
+      - value: {{ global_job_placement_rate | 84 }}
         unit: "%"
         label: Job placement rate
       - value: 3-6
         unit: months
         label: Average time to get hired
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Salary increase after graduation
     collage_images:
       - image_id: graduates_team_1
@@ -107,10 +104,10 @@ sections:
           - icon: DollarSign
             text: APIS, automation, telemetry
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: $349
+        price: {{ price_ai_engineering | $349 }}
         price_info: or less depending on your plan
         cta_text: Program details
-        cta_url: /en/ai-engineering
+        cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Full Stack Development with AI
         duration: 20 weeks
@@ -123,11 +120,11 @@ sections:
           - icon: Plus
             text: API Development
         description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: $439
+        price: {{ price_fullstack | $299 }}
         original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Program details
-        cta_url: /en/full-stack
+        cta_url: /en/career-programs/full-stack
         course_background: primary
       - name: Data Science and Machine Learning
         duration: 16 weeks
@@ -137,11 +134,11 @@ sections:
           - icon: Brain
             text: Python, TensorFlow, SQL
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: $439
+        price: {{ price_datascience | 299$ }}
         original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Program details
-        cta_url: /en/ai-machine-learning
+        cta_url: /en/career-programs/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
         duration: 16 weeks
@@ -151,11 +148,11 @@ sections:
           - icon: Code
             text: Threat detection & system protection
         description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: $439
+        price: {{ price_cybersecurity | 299$ }}
         original_price: $588
         price_info: with 4Geeks Installments
         cta_text: Program details
-        cta_url: /en/cybersecurity
+        cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: features_quad
     version: "1.0"
@@ -218,10 +215,44 @@ sections:
       desktop: none
     marginY:
       desktop: lg none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
-    paddingY:
-      desktop: md 10px
+  - type: cta_banner
+    version: "1.0"
+    title: Ready to get started?
+    subtitle: Limited spots available. Start your transformation today.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
     marginY:
-      desktop: none
+      desktop: lg none
+    paddingY:
+      desktop: md

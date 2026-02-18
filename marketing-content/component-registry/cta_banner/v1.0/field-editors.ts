@@ -16,5 +16,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "form_background": "color-picker",
   "terms_color": "color-picker",
   "buttons[].button_variant": "variant-picker",
-  "buttons[].text_color": "color-picker:text" as EditorType
+  "buttons[].text_color": "color-picker:text" as EditorType,
+  "buttons[].url": "link-picker",
+  "cta_url": "link-picker",
 };

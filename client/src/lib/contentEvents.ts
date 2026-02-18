@@ -26,3 +26,14 @@ export function subscribeToContentUpdates(listener: ContentEventListener): () =>
     listeners.delete(listener);
   };
 }
+
+type EditorDirtyChecker = () => boolean;
+let editorDirtyChecker: EditorDirtyChecker | null = null;
+
+export function registerEditorDirtyCheck(checker: EditorDirtyChecker | null): void {
+  editorDirtyChecker = checker;
+}
+
+export function checkEditorHasUnsavedChanges(): boolean {
+  return editorDirtyChecker ? editorDirtyChecker() : false;
+}

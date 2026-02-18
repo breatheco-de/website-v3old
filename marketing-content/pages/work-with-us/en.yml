@@ -46,6 +46,14 @@ sections:
       desktop: none md
     paddingY:
       desktop: lg
+  - type: faq
+    title: Frequently Asked Questions
+    related_features:
+      - mentors-and-teachers
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: lg none
   - type: cta_banner
     version: "1.0"
     title: Contact Us
@@ -55,6 +63,8 @@ sections:
     form:
       variant: stacked
       submit_label: Get Started
+      automations: soft
+      tags: contact_us
       fields:
         email:
           visible: true
@@ -73,18 +83,7 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    paddingY:
-      desktop: none lg
     marginY:
       desktop: md
-  - type: faq
-    title: Frequently Asked Questions
-    related_features:
-      - mentors-and-teachers
-    marginY:
-      desktop: none md
     paddingY:
-      desktop: lg none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
+      desktop: lg

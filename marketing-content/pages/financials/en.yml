@@ -33,7 +33,10 @@ sections:
       ratio: "3:4"
       muted: true
       loop: true
-    form: {}
+    cta_button:
+      text: Get more info
+      url: "#bottom"
+      variant: primary
     trust_bar:
       rating: 4.5"
       review_count: Based on 5149+ reviews
@@ -145,14 +148,14 @@ sections:
         title: AI Engineering
         badges:
           - icon: DollarSign
-            text: $14,999 full tuition
+            text: {{ price_full_ai_engineering | $14,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: $349
+        price: {{ price_ai_engineering | $349 }}
         price_info: or less depending on your plan
         cta_text: Discover program
-        cta_url: /en/ai-engineering
+        cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Full Stack Development with AI
         icon: Code
@@ -161,17 +164,17 @@ sections:
         title: Full Stack Software Development
         badges:
           - icon: DollarSign
-            text: $10,999 full tuition
+            text: {{ price_full_fullstack | $10,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
           - icon: ""
             text: ""
         description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        price: $299
+        price: {{ price_fullstack | $299 }}
         price_info: or less depending on your plan
         cta_text: View Program Details
-        cta_url: /en/full-stack
+        cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
@@ -180,14 +183,14 @@ sections:
         title: Data Science & Machine Learning with AI
         badges:
           - icon: DollarSign
-            text: $10,999 full tuition
+            text: {{ price_full_datascience | $14,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: $299
+        price: {{ price_datascience | 299$ }}
         price_info: or less depending on your plan
         cta_text: Discover program
-        cta_url: /en/data-science-ml
+        cta_url: /en/career-programs/data-science-ml
         course_background: primary
       - name: Cybersecurity
         icon: Shield
@@ -196,14 +199,14 @@ sections:
         title: Cybersecurity
         badges:
           - icon: DollarSign
-            text: $9,999 full tuition
+            text: {{ price_full_cybersecurity | $14,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: $299
+        price: {{ price_cybersecurity | 299$ }}
         price_info: or less depending on your plan
         cta_text: Discover program
-        cta_url: /en/cybersecurity
+        cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
       desktop: lg
@@ -216,7 +219,7 @@ sections:
     description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
-      url: en/job-guarantee
+      url: /en/job-guarantee
       variant: primary
     marginY:
       desktop: md
@@ -277,8 +280,44 @@ sections:
       desktop: lg none
     paddingY:
       desktop: none md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
+  - type: cta_banner
+    version: "1.0"
+    title: Ready to get started?
+    subtitle: Limited spots available. Start your transformation today.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
     paddingY:
-      desktop: none md
+      desktop: md

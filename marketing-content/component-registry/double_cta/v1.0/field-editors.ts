@@ -5,4 +5,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "right.image_id": "image-with-style-picker",
   "left.image_beside_bullets": "boolean-toggle",
   "right.image_beside_bullets": "boolean-toggle",
+  "left.cta_url": "link-picker",
+  "right.cta_url": "link-picker",
 };

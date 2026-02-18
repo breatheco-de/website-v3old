@@ -24,7 +24,7 @@ sections:
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Join our partnership network
-        url: "#apply"
+        url: "#apply-modal"
         variant: primary
         icon: Rocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -32,6 +32,30 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Start Your Application
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Submit Application
+      automations: soft
+      tags: contact_us
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: features_quad
     version: "1.0"
     variant: default
@@ -76,20 +100,17 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Miami Herald
-            url: "#"
+            url: https://www.miamiherald.com/news/business/article263937731.html
             source: Miami Herald
           - text: Refresh Miami
-            url: "#"
+            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
             source: Refresh Miami
-          - text: Social Finance
-            url: "#"
-            source: Social Finance
           - text: See full project (PDF)
-            url: "#"
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
             source: PDF
         cta:
-          text: Learn More
-          url: "#"
+          text: Become a partner
+          url: "#bottom"
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
@@ -110,17 +131,17 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Periodico Mensaje
-            url: "#"
+            url: https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
             source: Periodico Mensaje
           - text: La Republica
-            url: "#"
+            url: https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
             source: La Republica
           - text: See full project (PDF)
-            url: "#"
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/FORTE%20Report.pdf
             source: PDF
         cta:
-          text: Learn More
-          url: "#"
+          text: Become a partner
+          url: "#bottom"
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
@@ -139,20 +160,20 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Revista Summa
-            url: "#"
+            url: https://revistasumma.com/costa-rica-y-bid-lanzan-becas-para-aprender-programacion/
             source: Revista Summa
           - text: IDB Press
-            url: "#"
+            url: https://www.iadb.org/es/idb-blog
             source: IDB Press
           - text: Cultura Costa Rica
-            url: "#"
+            url: https://culturacr.net/4geeks-academy-ofrecera-becas-del-100-para-aprender-programacion/
             source: Cultura Costa Rica
           - text: See full project (PDF)
-            url: "#"
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
             source: PDF
         cta:
-          text: Learn More
-          url: "#"
+          text: Become a partner
+          url: "#bottom"
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
@@ -173,20 +194,20 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: El País
-            url: "#"
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
             source: El País
           - text: San José Ahora
-            url: "#"
+            url: https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
             source: San José Ahora
           - text: Marca País
-            url: "#"
+            url: https://www.uruguayxxi.gub.uy/es/marca-pais/
             source: Marca País
           - text: See full project (PDF)
-            url: "#"
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Uruguay%20Projects.pdf
             source: PDF
         cta:
-          text: Learn More
-          url: "#"
+          text: Become a partner
+          url: "#bottom"
           variant: outline
   - type: two_column
     proportions:
@@ -258,6 +279,40 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
+  - type: cta_banner
+    version: "1.0"
+    title: Ready to be a Partner?
+    subtitle: Limited spots available. Start your transformation today.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      tags: contact_us
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md

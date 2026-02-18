@@ -54,7 +54,7 @@ sections:
       description: Access the full curriculum, schedule and everything else you need to know about the program.
       cta_button:
         text: Send me the Curriculum
-        url: /en/apply
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -76,6 +76,34 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Request Program Information
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Request syllabus
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: true
+          default: cybersecurity
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -258,10 +286,6 @@ sections:
           - text: Helps with debugging and problem-solving tasks
           - text: Access hundreds of interactive security exercises on Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Start learning now!
-          url: /en/apply
-          variant: primary
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
         description: ""
@@ -272,10 +296,6 @@ sections:
           - text: Interview prep and salary negotiation
           - text: Lifelong access to support your growth
         video_url: https://youtu.be/-2ZvlgDnltc
-        cta:
-          text: Start learning now!
-          url: /en/apply
-          variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
         description: ""
@@ -347,7 +367,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $299
+    financing_amount: {{ price_cybersecurity | $299 }}
     tech_icons:
       - python
       - tensorflow
@@ -361,7 +381,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is $9,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
       - icon: IconCheck
@@ -460,20 +480,42 @@ sections:
       desktop: md
   - type: cta_banner
     version: "1.0"
-    title: Ready to Launch Your Cybersecurity Career?
-    subtitle: Join thousands of graduates who switched into tech with 4Geeks.
-    background: primary
-    buttons:
-      - text: Apply Now
-        url: /en/apply
-        variant: secondary
-      - text: Talk to an Advisor
-        url: /contact
-        variant: outline
+    title: Ready to start your cybersecurity career?
+    subtitle: Limited spots available. Start your transformation today.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      automations: hard
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: false
+          required: true
+          default: cybersecurity
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
     paddingY:
       desktop: md
-  - type: footer
-    version: "1.0"
-    copyright_text: 2024 4Geeks. All rights reserved.
-    paddingY:
-      desktop: none 10px

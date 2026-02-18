@@ -4,6 +4,7 @@ import { setupVite, serveStatic, log } from "./vite";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import path from "path";
+import { lookupRedirect } from "./redirects";
 
 const app = express();
 
@@ -11,6 +12,13 @@ app.use(cookieParser());
 
 app.use((req, res, next) => {
   if (req.path.startsWith('/us/')) {
+    const entry = lookupRedirect(req.path);
+    if (entry) {
+      const target = typeof entry.to === "string" ? entry.to : (entry.to["en"] || Object.values(entry.to)[0] || "/en/");
+      const qs = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+      console.log(`[US Redirect] ${entry.status || 301}: ${req.path} -> ${target} (specific)`);
+      return res.redirect(entry.status || 301, target + qs);
+    }
     const newPath = '/en/' + req.path.slice(4);
     const qs = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
     return res.redirect(301, newPath + qs);

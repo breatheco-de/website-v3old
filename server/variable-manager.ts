@@ -388,6 +388,19 @@ class VariableManager {
     return true;
   }
 
+  renameVariable(oldName: string, newName: string): void {
+    this.ensureInitialized();
+    if (!this.variables[oldName]) {
+      throw new Error(`Variable "${oldName}" does not exist`);
+    }
+    if (this.variables[newName]) {
+      throw new Error(`Variable "${newName}" already exists`);
+    }
+    this.variables[newName] = this.variables[oldName];
+    delete this.variables[oldName];
+    this.save();
+  }
+
   private save(): void {
     try {
       const content = yaml.dump(this.variables, {

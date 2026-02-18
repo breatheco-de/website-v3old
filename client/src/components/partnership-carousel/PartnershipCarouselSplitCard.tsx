@@ -12,6 +12,7 @@ import type {
   PartnershipSlide,
 } from "@shared/schema";
 import { Card } from "@/components/ui/card";
+import { useInternalNav } from "@/hooks/useInternalNav";
 
 interface PartnershipCarouselProps {
   data: PartnershipCarouselSection;
@@ -70,6 +71,7 @@ function SlideLeftCard({
   slide: PartnershipSlide;
   verticalCards?: boolean;
 }) {
+  const handleLinkClick = useInternalNav();
   return (
     <Card
       className={cn(
@@ -153,7 +155,7 @@ function SlideLeftCard({
                       : "default"
                 }
               >
-                {slide.cta.text}
+                <a href={slide.cta.url} onClick={handleLinkClick}>{slide.cta.text}</a>
               </Button>
             </a>
           )}

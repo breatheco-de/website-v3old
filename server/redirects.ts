@@ -87,6 +87,11 @@ export function getRedirects(): Array<{ from: string; to: string | Record<string
   return result;
 }
 
+export function lookupRedirect(urlPath: string): RedirectEntry | undefined {
+  const map = getRedirectMap();
+  return map.get(normalizePath(urlPath));
+}
+
 export function clearRedirectCache(): void {
   redirectMap = null;
   console.log("[Redirects] Cache cleared");

@@ -62,7 +62,7 @@ sections:
       description: Request the full syllabus, program description, class schedule and everything else you need to know.
       cta_button:
         text: Get the Curriculum
-        url: /en/apply
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -85,6 +85,34 @@ sections:
       desktop: md lg
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Download the curriculum
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Download
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: true
+          default: full-stack
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -264,10 +292,6 @@ sections:
           - text: 24/7 help with debugging and problem-solving
           - text: Hundreds of interactive coding exercises and tests
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Start learning now!
-          url: /apply
-          variant: primary
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
         description: ""
@@ -278,10 +302,6 @@ sections:
           - text: Interview prep and salary negotiation
           - text: Lifelong access to support your growth
         video_url: https://youtu.be/-2ZvlgDnltc
-        cta:
-          text: Start learning now!
-          url: /apply
-          variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
         description: ""
@@ -292,10 +312,6 @@ sections:
           - text: Peer collaboration through Slack channels and weekly check-ins
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call
-        cta:
-          text: Start learning now!
-          url: /apply
-          variant: primary
     marginY:
       desktop: md none
     paddingY:
@@ -360,7 +376,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $299
+    financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -373,7 +389,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is $10,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
       - icon: IconCheck
@@ -482,17 +498,41 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become a Full Stack Developer?
-    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks.
-    buttons:
-      - text: Start Learning Now
-        url: /signup
-        variant: secondary
-      - text: Talk to an Advisor
-        url: /contact
-        variant: outline
+    subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      automations: hard
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: false
+          required: true
+          default: full-stack
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
     paddingY:
       desktop: md
-  - type: footer
-    version: "1.0"
-    copyright_text: 2024 4Geeks. All rights reserved.

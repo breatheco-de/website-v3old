@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { editContent } from "@/lib/contentApi";
-import { emitContentUpdated } from "@/lib/contentEvents";
+import { emitContentUpdated, registerEditorDirtyCheck } from "@/lib/contentEvents";
 import {
   parseEditorType,
   type ColorPickerVariant,
@@ -409,6 +409,13 @@ export function SectionEditorPanel({
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("code");
+
+  const hasChangesRef = useRef(hasChanges);
+  hasChangesRef.current = hasChanges;
+  useEffect(() => {
+    registerEditorDirtyCheck(() => hasChangesRef.current);
+    return () => registerEditorDirtyCheck(null);
+  }, []);
 
   // Icon picker state
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
@@ -3022,6 +3029,42 @@ export function SectionEditorPanel({
                           </span>
                         )}
                       </div>
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "link-picker") {
+                  const getSimpleLinkValue = () => {
+                    if (!parsedSection) return "";
+                    const pathParts = fieldPath.split(".");
+                    let current: unknown = parsedSection;
+                    for (const part of pathParts) {
+                      if (!current || typeof current !== "object") return "";
+                      current = (current as Record<string, unknown>)[part];
+                    }
+                    return (current as string) || "";
+                  };
+
+                  const currentValue = getSimpleLinkValue();
+                  const acronyms = new Set(["url", "cta", "id", "api", "seo"]);
+                  const fieldLabel = fieldPath
+                    .replace(/[._]/g, " ")
+                    .split(" ")
+                    .map((w) => acronyms.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))
+                    .join(" ");
+
+                  return (
+                    <div key={fieldPath} className="space-y-2">
+                      <Label className="text-sm font-medium">
+                        {fieldLabel}
+                      </Label>
+                      <LinkPicker
+                        value={currentValue}
+                        onChange={(url) => updateProperty(fieldPath, url)}
+                        locale={locale}
+                        allSections={allSections}
+                        testId={`props-link-${fieldPath.replace(/\./g, "-")}`}
+                      />
                     </div>
                   );
                 }

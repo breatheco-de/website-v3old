@@ -120,13 +120,15 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Start Your Application
+    heading: Download the curriculum
     description: Fill out the form below and we'll get back to you within 24 hours.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Submit Application
+      submit_label: Download
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
@@ -138,9 +140,9 @@ sections:
           visible: true
           required: false
         program:
-          visible: true
+          visible: false
           required: true
-          default: auto
+          default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: features_grid
@@ -343,7 +345,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
+    financing_amount: {{ price_ai_engineering | $349 }}
     tech_icons:
       - openai
       - python
@@ -356,7 +358,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is $14,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ price_full_ai_engineering | $14,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back. *Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.
       - icon: IconCheck
@@ -368,9 +370,9 @@ sections:
       text: Get more info
       url: /signup
       variant: primary
-    paddingY:
-      desktop: none md
     marginY:
+      desktop: none md
+    paddingY:
       desktop: none md
   - type: whos_hiring
     variant: carousel
@@ -495,6 +497,8 @@ sections:
     form:
       variant: stacked
       submit_label: Apply Now
+      automations: hard
+      tags: website-lead
       fields:
         email:
           visible: true
@@ -508,6 +512,10 @@ sections:
           visible: true
           required: false
           placeholder: Phone number
+        program:
+          visible: false
+          required: true
+          default: ai-engineering
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -521,10 +529,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: footer
-    version: "1.0"
-    copyright_text: 2024 4Geeks. All rights reserved.
-    paddingY:
-      desktop: none 10px
-    marginY:
-      desktop: none

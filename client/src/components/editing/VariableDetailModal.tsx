@@ -29,6 +29,8 @@ import {
 } from "@/lib/variable-resolver";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
+import { checkEditorHasUnsavedChanges, emitContentUpdated } from "@/lib/contentEvents";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   IconCheck,
   IconX,
@@ -40,6 +42,8 @@ import {
   IconChevronUp,
   IconChevronDown,
   IconFilter,
+  IconPencil,
+  IconAlertTriangle,
 } from "@tabler/icons-react";
 import {
   Popover,
@@ -268,7 +272,7 @@ export function VariableDetailModal({
   const { toast } = useToast();
   const { data: definitions, refetch } = useVariableDefinitions();
   const varContext = useVariableContext();
-  const [activeTab, setActiveTab] = useState<"explain" | "edit">("explain");
+  const [activeTab, setActiveTab] = useState<"explain" | "edit" | "rename">("explain");
   const [createName, setCreateName] = useState("");
   const [createSaving, setCreateSaving] = useState(false);
   const [currentMode, setCurrentMode] = useState(mode);
@@ -287,6 +291,10 @@ export function VariableDetailModal({
   const [editingDefault, setEditingDefault] = useState(false);
   const [editDefaultValue, setEditDefaultValue] = useState("");
 
+  const [renameTo, setRenameTo] = useState("");
+  const [renameAvailable, setRenameAvailable] = useState<boolean | null>(null);
+  const renameCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     setCurrentMode(mode);
     if (mode === "create") {
@@ -301,6 +309,8 @@ export function VariableDetailModal({
     setAddingCondition(false);
     setEditingConditionIndex(null);
     setEditingDefault(false);
+    setRenameTo("");
+    setRenameAvailable(null);
   }, [mode, open]);
 
   const effectiveVarName =
@@ -536,6 +546,90 @@ export function VariableDetailModal({
     const res = resolveVariable(varName, definitions, varContext);
     return res?.value || inlineDefault || varName;
   })();
+
+  const { data: usageData, isLoading: usageLoading } = useQuery<{ variable: string; files: string[] }>({
+    queryKey: ["/api/variables", effectiveVarName, "usage"],
+    queryFn: async () => {
+      const res = await fetch(`/api/variables/${effectiveVarName}/usage`);
+      if (!res.ok) throw new Error("Failed to fetch usage");
+      return res.json();
+    },
+    enabled: currentMode === "inspect" && activeTab === "rename" && !!effectiveVarName,
+  });
+
+  const handleRenameNameChange = useCallback(
+    (rawValue: string) => {
+      const sanitized = rawValue.replace(/[^a-zA-Z0-9_]/g, "_");
+      setRenameTo(sanitized);
+      setRenameAvailable(null);
+      if (renameCheckTimerRef.current) clearTimeout(renameCheckTimerRef.current);
+      const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
+      if (!normalized || normalized === effectiveVarName) {
+        setRenameAvailable(null);
+        return;
+      }
+      renameCheckTimerRef.current = setTimeout(() => {
+        setRenameAvailable(!definitions?.[normalized]);
+      }, 400);
+    },
+    [definitions, effectiveVarName],
+  );
+
+  const renameMutation = useMutation({
+    mutationFn: async (newName: string) => {
+      const res = await apiRequest("POST", `/api/variables/${effectiveVarName}/rename`, { newName });
+      return res.json();
+    },
+    onSuccess: (data: { newName: string; updatedFiles: string[] }) => {
+      invalidateAndRefetch();
+
+      const typeMap: Record<string, "program" | "landing" | "location" | "page"> = {
+        programs: "program",
+        landings: "landing",
+        locations: "location",
+        pages: "page",
+      };
+      for (const filePath of data.updatedFiles) {
+        const match = filePath.match(
+          /^marketing-content\/([^/]+)\/([^/]+)\/([^/]+)\.\w+$/,
+        );
+        if (match && typeMap[match[1]]) {
+          emitContentUpdated({
+            contentType: typeMap[match[1]],
+            slug: match[2],
+            locale: match[3],
+          });
+        }
+      }
+
+      toast({
+        title: "Variable renamed",
+        description: `Renamed to "${data.newName}". Updated ${data.updatedFiles.length} file(s).`,
+      });
+      onOpenChange(false);
+    },
+    onError: (err: Error) => {
+      toast({
+        title: "Failed to rename",
+        description: err.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRename = useCallback(() => {
+    const normalized = renameTo.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!normalized || !renameAvailable) return;
+
+    if (checkEditorHasUnsavedChanges()) {
+      const confirmed = window.confirm(
+        "The YAML editor has unsaved changes. Renaming this variable will refresh the page content and your unsaved edits will be lost.\n\nPlease save your changes first, or click OK to proceed anyway.",
+      );
+      if (!confirmed) return;
+    }
+
+    renameMutation.mutate(normalized);
+  }, [renameTo, renameAvailable, renameMutation]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -801,6 +895,17 @@ export function VariableDetailModal({
                 data-testid="tab-edit"
               >
                 Edit values
+              </button>
+              <button
+                className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === "rename"
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground"
+                }`}
+                onClick={() => setActiveTab("rename")}
+                data-testid="tab-rename"
+              >
+                Rename
               </button>
             </div>
 
@@ -1122,6 +1227,107 @@ export function VariableDetailModal({
                       saveLabel="Add"
                     />
                   )}
+                </div>
+              </div>
+            )}
+
+            {activeTab === "rename" && (
+              <div className="space-y-4" data-testid="rename-tab-content">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">
+                    New variable name
+                  </label>
+                  <div className="relative">
+                    <Input
+                      placeholder="e.g., hero_title, cta_text"
+                      value={renameTo}
+                      onChange={(e) => handleRenameNameChange(e.target.value)}
+                      autoFocus
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && renameAvailable) handleRename();
+                      }}
+                      className={`pr-8 font-mono ${renameAvailable === false ? "border-destructive" : renameAvailable === true ? "border-chart-3" : ""}`}
+                      data-testid="input-rename-variable"
+                    />
+                    {renameTo.trim() && renameAvailable !== null && (
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2">
+                        {renameAvailable ? (
+                          <IconCheck className="h-4 w-4 text-chart-3" />
+                        ) : (
+                          <IconX className="h-4 w-4 text-destructive" />
+                        )}
+                      </span>
+                    )}
+                  </div>
+                  {renameTo.trim() && renameAvailable === false && (
+                    <p className="text-xs text-destructive">
+                      This variable name is already taken
+                    </p>
+                  )}
+                  {renameTo.trim() && renameAvailable === true && (
+                    <p className="text-xs text-chart-3">Name available</p>
+                  )}
+                  {!renameTo.trim() && (
+                    <p className="text-xs text-muted-foreground">
+                      Use snake_case (letters, numbers, underscores only)
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-foreground">
+                    Files that will be updated
+                  </h4>
+                  {usageLoading ? (
+                    <p className="text-sm text-muted-foreground">Loading...</p>
+                  ) : usageData?.files && usageData.files.length > 0 ? (
+                    <div className="rounded-md border bg-muted/30 p-2 space-y-1 max-h-40 overflow-y-auto">
+                      {usageData.files.map((file) => (
+                        <div
+                          key={file}
+                          className="text-xs font-mono text-muted-foreground truncate"
+                          data-testid={`usage-file-${file}`}
+                        >
+                          {file}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground/60 italic">
+                      No YAML files reference this variable.
+                    </p>
+                  )}
+                  {usageData?.files && usageData.files.length > 0 && (
+                    <div className="flex items-start gap-2 p-2 rounded-md bg-muted/50 text-xs text-muted-foreground">
+                      <IconAlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                      <span>
+                        All {"{{"} {effectiveVarName} {"}} "}
+                        references in {usageData.files.length} file(s) will be renamed to{" "}
+                        {"{{"} {renameTo.trim().replace(/\s+/g, "_").toLowerCase() || "..."} {"}}"}.
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-end gap-2 pt-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setActiveTab("explain")}
+                    data-testid="button-cancel-rename"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleRename}
+                    disabled={
+                      !renameTo.trim() ||
+                      renameAvailable !== true ||
+                      renameMutation.isPending
+                    }
+                    data-testid="button-confirm-rename"
+                  >
+                    {renameMutation.isPending ? "Renaming..." : "Rename Variable"}
+                  </Button>
                 </div>
               </div>
             )}

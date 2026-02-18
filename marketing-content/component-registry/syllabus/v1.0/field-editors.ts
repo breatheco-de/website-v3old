@@ -11,4 +11,5 @@ export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "imag
 
 export const fieldEditors: Record<string, EditorType> = {
   "tech_logos[]": "icon-picker",
+  "cta_button.url": "link-picker",
 };
