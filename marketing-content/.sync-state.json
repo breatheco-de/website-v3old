@@ -1,11 +1,11 @@
 {
-  "lastSyncedCommit": "380c8b65abb14ee4f85bf225a36b7ae568eeb338",
-  "lastSyncedAt": "2026-02-18T05:20:56.885Z",
+  "lastSyncedCommit": "d6b7857f415bf96f0500b5ebfe13038b3791aaee",
+  "lastSyncedAt": "2026-02-18T07:06:45.594Z",
   "files": {
     "marketing-content/blog.yml": {
-      "sha": "1554ab58fd040dce58cb5dadc4278dc38d7070d896fe9313c66f688bcc5b3f84",
-      "lastModified": 1771392054495.77,
-      "remoteSha": "1554ab58fd040dce58cb5dadc4278dc38d7070d896fe9313c66f688bcc5b3f84"
+      "sha": "8470dae5a338d03218564eb97a127905964c54a0604aba540956609769331ca1",
+      "lastModified": 1771398404338.11,
+      "remoteSha": "8470dae5a338d03218564eb97a127905964c54a0604aba540956609769331ca1"
     },
     "marketing-content/brand-context.yml": {
       "sha": "93b786256fece2f4411ebb81bb41cb15800887da71f9bb963662fb223daff620",
@@ -618,14 +618,14 @@
       "remoteSha": "c0ead7518bbc0f6480eb104e5cafd148c5d210e597a2a6c03c52ac67758369c7"
     },
     "marketing-content/menus/main-navbar.es.yml": {
-      "sha": "f0d36fe35c379718a241ad3e603e35bce1c1e03bcd6e4e8fea88ed05b623d096",
-      "lastModified": 1771388612926.255,
-      "remoteSha": "f0d36fe35c379718a241ad3e603e35bce1c1e03bcd6e4e8fea88ed05b623d096"
+      "sha": "f970c264c235bd353c1eedd286a9885d1a5813e340de157975d3b611351f7670",
+      "lastModified": 1771398404644.1099,
+      "remoteSha": "f970c264c235bd353c1eedd286a9885d1a5813e340de157975d3b611351f7670"
     },
     "marketing-content/menus/main-navbar.yml": {
-      "sha": "9ba135e100a98f64edefe99a3a274c5725a9dff0540eed1618a70d553f18d43f",
-      "lastModified": 1771388612927.255,
-      "remoteSha": "9ba135e100a98f64edefe99a3a274c5725a9dff0540eed1618a70d553f18d43f"
+      "sha": "1282a5bd4e29f5d9fc2dd3f93102a45d9beb7200702a7074f557609fa74cb55b",
+      "lastModified": 1771398404979.1096,
+      "remoteSha": "1282a5bd4e29f5d9fc2dd3f93102a45d9beb7200702a7074f557609fa74cb55b"
     },
     "marketing-content/pages/apply/_common.yml": {
       "sha": "d8a47ce1eb05054953608c0f860e7b692b52e9a4368f90fed0a35f57a93cf7f3",
@@ -768,9 +768,9 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "d620dca59083ac4ec803d9fcae45ca7ac1818b59007b89a3fc1bd758c4ec9765",
-      "lastModified": 1771392055385.7693,
-      "remoteSha": "d620dca59083ac4ec803d9fcae45ca7ac1818b59007b89a3fc1bd758c4ec9765"
+      "sha": "a54396974179bda0727924794c044271f58269d42d7bd64345b727c12872919e",
+      "lastModified": 1771398405349.1094,
+      "remoteSha": "a54396974179bda0727924794c044271f58269d42d7bd64345b727c12872919e"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",
