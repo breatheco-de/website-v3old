@@ -1,14 +1,14 @@
 slug: geekforce
 template: default
-title: Apoyo Profesional de GeekForce
+title: Soporte Profesional GeekForce
 meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: Apoyo Profesional de GeekForce | 4Geeks Academy
-  description: Obtén soporte ilimitado 1:1 en carrera diseñado para tu perfil y metas únicas, de por vida. Desde construcción de resume y portafolio hasta entrevistas y plataformas de contratación impulsadas por IA.
+  page_title: Soporte de Carrera GeekForce | 4Geeks Academy
+  description: Obtén soporte de carrera 1:1 ilimitado diseñado para tu perfil y objetivos únicos, de por vida. Desde la creación de currículum y portafolio hasta entrevistas y plataformas de contratación con IA.
   redirects:
-    - /es/geekforce
+    - /geekforce
 schema:
   include:
     - organization
@@ -22,9 +22,9 @@ sections:
     brand_mark:
       prefix: Geek
       highlight: FORCE
-      suffix: ':'
+      suffix: ":"
       color: chart-5
-    description: Obtén soporte ilimitado 1:1 en carrera adaptado a tus metas, experiencia y background de por vida. Desde resumes e entrevistas hasta navegar procesos de contratación impulsados por IA, te ayudamos a triunfar en el mercado laboral tech actual.
+    description: Obtén soporte de carrera 1:1 ilimitado adaptado a tus metas, experiencia y trayectoria de por vida. Desde currículums e entrevistas hasta navegar procesos de contratación con IA, te ayudamos a triunfar en el mercado laboral tecnológico actual.
     marquee:
       items:
         - id: logo-google-developers
@@ -36,7 +36,7 @@ sections:
           logo: /attached_assets/uber_1764719999685.png
           logoHeight: 48px
         - id: logo-telefonica
-          alt: Logo de Telefonica
+          alt: Logo de Telefónica
           logo: /attached_assets/telefonica_1764719987250.png
           logoHeight: 48px
         - id: logo-twilio
@@ -64,28 +64,153 @@ sections:
       gradientWidth: 60
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
-      ratio: '2:2'
+      ratio: "2:2"
     paddingY:
       desktop: none
-  - type: bullet_tabs_showcase
-    version: '1.0'
-    heading: Soporte ilimitado en carrera. Diseñado para un mercado laboral impulsado por IA
-    subheading: GeekForce está integrado en todos los programas de 4Geeks para asegurarnos de que no solo aprendas tecnología, sino que lances una carrera exitosa.
-    tabs:
-      - label: Guía Personalizada
-        description: Orientación profesional personalizada alineada con tus metas, background y roles objetivo
-        image_id: geekforce_rigobot_ai
-      - label: Mentoría Ilimitada
-        description: Soporte experto para navegar procesos de contratación con IA y un mercado laboral en constante cambio
-        image_id: placeholder_career_guidance
-      - label: Estrategias Comprobadas
-        description: Mentoría continua para mantenerte relevante a medida que evoluciona tu carrera y los roles en tech
-        image_id: geekforce_linkedin_profile
-    image_position: right
     marginY:
-      desktop: xl none
+      desktop: none sm
+  - type: career_support_explain
+    version: v1.0
+    heading: Soporte de Carrera GeekForce
+    description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
+    background: hsl(var(--secondary))
+    tabs:
+      - tab_label: Listo para trabajar, más rápido
+        layout: three_columns
+        col1_subtitle: Construye un perfil atractivo para reclutadores, de forma inteligente.
+        col1_description: |-
+          Prepárate para procesos reales de contratación combinando herramientas de IA y coaching 1 a 1.
+          Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
+        col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo personalizados
+        col1_boxes:
+          - icon: IconBrandLinkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Currículum
+          - icon: IconBriefcase
+            text: Portafolio
+          - icon: IconMail
+            text: Carta de presentación
+        col2_heading: Estrategia de Carrera, Construida para Ti
+        col2_bullets:
+          - icon: IconRobot
+            text: Retroalimentación 24/7 de RigoBot para auditar tu LinkedIn y currículum
+          - icon: IconUsers
+            text: Sesiones de coaching y estrategia de carrera 1 a 1
+          - icon: IconMicrophone
+            text: Entrevistas simuladas y preparación para entrevistas técnicas
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Acceso a Contratación Real
+        layout: two_column_cards
+        title: Accede al mercado laboral oculto.
+        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: 250+
+          label: empresas en la red de empleadores de 4Geeks
+        right_bullets:
+          - icon: IconUserPlus
+            text: Referidos directos a socios de contratación
+          - icon: IconTargetArrow
+            text: Ofertas laborales curadas según tu perfil
+          - icon: IconMessageChatbot
+            text: Coaching en networking y conversaciones con reclutadores
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Pruebas que Convierten
+        layout: text_and_image
+        title: Proyectos que demuestran habilidad real.
+        left_description: |-
+          La visibilidad atrae atención. Las pruebas cierran la brecha.
+          Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Proyectos alineados con la industria y el mundo real
+          - icon: IconPresentation
+            text: Un proyecto final listo para mostrar
+          - icon: IconBrandGithub
+            text: Optimización de GitHub y revisión profesional de código
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: El Rol Ideal para Ti
+        layout: text_with_testimonials_carousel
+        title: Convierte tu trayectoria en una ventaja.
+        left_description: |-
+          Cuando las ofertas lleguen, te ayudamos a elegir y negociar con confianza.
+          Tu experiencia previa importa. Mapeamos habilidades transferibles, enfocamos tu búsqueda en los roles correctos y te apoyamos en la negociación salarial y el crecimiento a largo plazo.
+        left_bullets:
+          - icon: IconTransfer
+            text: Mapeo de habilidades transferibles
+          - icon: IconMap
+            text: Hoja de ruta profesional personalizada
+          - icon: IconCoin
+            text: Coaching en negociación salarial
+          - icon: IconUsers
+            text: Soporte de carrera continuo para egresados
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de su proyecto.
+            achievement: ¡Lanzó su startup, puede contratar talento técnico nuevo y coordina un equipo de desarrollo!
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y toda una nueva vida profesional.
+            achievement: Logró un aumento salarial del 100%.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
+            achievement: Logró un aumento salarial del 100%.
+  - type: graduates_stats
+    heading: Colocación Laboral
+    subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
+    stats:
+      - value: {{ global_job_placement_rate | 84 }}%
+        label: Tasa de colocación laboral
+      - value: {{ global_salary_increase | 55 }}%
+        label: Aumento salarial promedio después de graduarte
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
     title: Consigue Empleo con Nuestro Proceso de Desarrollo de Carrera en 3 Pasos
     description: Nuestro proceso estructurado está diseñado para que consigas empleo — rápido.
@@ -93,51 +218,42 @@ sections:
       - icon: Optimization
         title: Optimización de Perfil
         bullets:
-          - Pulir tu LinkedIn, GitHub y portafolio para atraer reclutadores y pasar filtros basados en IA.
-          - Crear un resume que supere sistemas de seguimiento de candidatos (ATS) y destaque tus fortalezas.
-          - Mostrar tus habilidades con un portafolio listo para reclutadores.
+          - Perfecciona LinkedIn, GitHub y portafolio para atraer reclutadores y pasar filtros basados en IA.
+          - Crea un currículum que supere los sistemas de seguimiento de candidatos (ATS) y destaque tus fortalezas.
+          - Muestra tus habilidades con un portafolio listo para reclutadores.
       - icon: Interview
         title: Preparación para Entrevistas
         bullets:
-          - Ganar confianza con entrevistas técnicas y conductuales simuladas.
-          - Practicar programación y resolución de problemas con ejercicios auto-calificados.
-          - Desarrollar estrategias personalizadas para entrevistas próximas.
+          - Gana confianza con entrevistas técnicas y conductuales simuladas.
+          - Practica código y resolución de problemas con ejercicios auto-calificados.
+          - Desarrolla estrategias personalizadas para tus entrevistas próximas.
       - icon: JobSearch
         title: Búsqueda Estratégica de Empleo
         bullets:
-          - Crear un plan personalizado de búsqueda de empleo alineado con tus metas.
-          - Navegar plataformas de contratación impulsadas por IA, desde escáneres de resumes hasta entrevistas automatizadas.
-          - Conectarte con nuestra extensa red global de socios contratantes.
+          - Crea un plan de búsqueda de empleo personalizado alineado con tus metas.
+          - Navega plataformas de contratación con IA, desde escáneres de currículum hasta entrevistas automatizadas.
+          - Conéctate con nuestra extensa red global de socios de contratación.
     background: bg-background
     paddingY:
       desktop: md none
-  - type: two_column
-    proportions:
-      - 5
-      - 7
-    alignment: center
-    left:
-      image: /attached_assets/community_1764717588840.png
-      image_alt: Miembros de la comunidad 4Geeks Academy colaborando en un proyecto
-      justify: start
-    right:
-      heading: Acelera Tus Resultados con Soporte de Carrera Hiperpersonalizado
-      description: 'Combina mentoría humana ilimitada 1:1 con herramientas impulsadas por IA para lanzar tu carrera más rápido e inteligentemente:'
-      bullets:
-        - text: Rigobot, nuestra IA personalizada, da feedback instantáneo en tu resume, portafolio y proyectos.
-        - text: Practica entrevistas técnicas y preguntas conductuales con ejercicios guiados por IA.
-        - text: Recibe coaching experto de nuestros mentores, adaptado a tu perfil y metas únicas.
-      bullets_visible: 2
-      font_size: base
-    reverse_on_mobile: true
-    padding_right: '6'
+  - type: why_learn_ai
+    variant: default
+    title: Garantía de Empleo* Opcional para Mayor Confianza
+    subtitle: Respaldamos tu resultado profesional con un compromiso más fuerte
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    cta:
+      text: Más Información
+      url: /en/job-guarantee
+      variant: primary
+    marginY:
+      desktop: md
     paddingY:
-      desktop: md lg
+      desktop: none sm
+    background: hsl(210 100% 50% / 0.05)
   - type: whos_hiring
     variant: carousel
-    title: Confiado por Empresas Líderes
-    subtitle: Nuestros graduados son contratados por las mejores compañías del mundo.
-    description: Nuestros graduados están moldeando el futuro de la tecnología, con soporte de carrera que nunca expira. Estas compañías y muchas más confían en los alumni de 4Geeks para entregar resultados reales.
+    title: Principales Empresas Tecnológicas que Contratan Egresados de 4Geeks
+    description: Los egresados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
     logos:
       - src: /attached_assets/twilio_1764719992371.png
         alt: Twilio
@@ -154,7 +270,7 @@ sections:
       - src: /attached_assets/evernote_1764719981901.png
         alt: Evernote
       - src: /attached_assets/telefonica_1764719987250.png
-        alt: Telefonica
+        alt: Telefónica
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
       - src: /attached_assets/uber_1764719999685.png
@@ -164,33 +280,10 @@ sections:
       - src: /attached_assets/google-developers_1764719904190.png
         alt: Google Developers
     paddingY:
-      desktop: md none
-  - type: graduates_stats
-    heading: Colocación Laboral
-    subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro coaching en el mundo laboral.
-    stats:
-      - value: 84%
-        label: Tasa de colocación laboral
-      - value: $15K
-        label: Aumento promedio de salario después de graduarte
-      - value: 3-6 meses
-        label: Tiempo promedio para conseguir empleo
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends
-        col_span: 6
-        row_span: 2
+      desktop: sm none
   - type: testimonials_slide
     title: Las Historias Detrás de las Estadísticas
-    description: Descubre cómo nuestros graduados transformaron sus carreras
+    description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
     version: v1.0
     title: Preguntas Frecuentes
@@ -198,10 +291,44 @@ sections:
       - career-support
     marginY:
       desktop: none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
-    paddingY:
-      desktop: md none
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para comenzar?
+    subtitle: Cupos limitados. Inicia tu transformación hoy mismo.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Postular Ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Pronto nos pondremos en contacto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
     marginY:
-      desktop: none
+      desktop: lg none
+    paddingY:
+      desktop: md
