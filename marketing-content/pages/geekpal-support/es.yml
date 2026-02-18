@@ -48,8 +48,9 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Avanza Más Rápido, Nunca Pierdas el Impulso
-    description: "La razón #1 por la que las personas abandonan cuando aprenden a programar es quedarse atascadas. GeekPAL te mantiene avanzando con soporte que aparece exactamente cuando lo necesitas."
+    title: Avanza sin Bloqueos. Aprende con Confianza.
+    description: El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave. GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances de forma constante y segura.
+    background: gradient
   - type: human_and_ai_duo
     version: "1.0"
     heading: "Humanos + IA: La Ayuda Perfecta"
@@ -64,7 +65,7 @@ sections:
           - text: Perspectiva de la industria y asesoría profesional
       - title: "Rigobot + Learnpack:"
         bullets:
-          - text: Retroalimentación y tutoría instantánea 24/7
+          - text: Feedback y tutoría instantánea 24/7
           - text: Ajusta sus recomendaciones a tus habilidades y progreso
           - text: Soporte para debugging y resolución de problemas
           - text: Cientos de ejercicios prácticos y pruebas de programación
