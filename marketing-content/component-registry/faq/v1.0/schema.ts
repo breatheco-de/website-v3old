@@ -49,9 +49,13 @@ export const faqSectionSchema = z
     related_features: z.array(relatedFeaturesEnum).optional(),
     cta: z
       .object({
-        text: z.string(),
-        button_text: z.string(),
-        button_url: z.string(),
+        text: z.string().optional(),
+        button: z
+          .object({
+            label: z.string(),
+            url: z.string(),
+          })
+          .optional(),
       })
       .optional(),
   })

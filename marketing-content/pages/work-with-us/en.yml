@@ -63,7 +63,7 @@ sections:
     form:
       variant: stacked
       submit_label: Get Started
-      tags: contact_us
+      tags: contact-us
       automations: soft
       fields:
         email:

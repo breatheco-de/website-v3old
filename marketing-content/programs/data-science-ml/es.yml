@@ -443,8 +443,9 @@ sections:
       - data-science
     cta:
       text: ¿Todavía tienes preguntas?
-      button_text: Habla con un Asesor
-      button_url: /contact
+      button:
+        label: Habla con un Asesor
+        url: /contact
     paddingY:
       desktop: sm md
     marginY:

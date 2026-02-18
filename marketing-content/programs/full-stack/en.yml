@@ -483,8 +483,9 @@ sections:
       - full-stack
     cta:
       text: Still have questions?
-      button_text: Talk to an Advisor
-      button_url: /contact
+      button:
+        label: Talk to an Advisor
+        url: /contact
     paddingY:
       desktop: md
     background: hsl(var(--muted))

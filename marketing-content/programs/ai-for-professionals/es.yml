@@ -449,8 +449,9 @@ sections:
     related_features: ["applied-ai"]
     cta:
       text: ¿Aún tienes preguntas?
-      button_text: Habla con un Asesor
-      button_url: /contacto
+      button:
+        label: Habla con un Asesor
+        url: /contacto
     paddingY:
       desktop: md
     marginY:
