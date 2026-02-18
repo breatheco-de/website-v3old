@@ -5,7 +5,8 @@ meta:
   og_image: /images/locations/chicago-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects: []
+  redirects:
+    - /us/coding-campus/coding-bootcamp-chicago
 sections:
   - type: hero
     variant: singleColumn
