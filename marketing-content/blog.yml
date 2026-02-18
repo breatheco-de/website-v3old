@@ -32,6 +32,8 @@
 
 
 
+
+
 data_source:
   type: api
   api:
@@ -41,17 +43,19 @@ data_source:
       offset: 0
       status: published
       visibility: public
-      academy: 4
+      academy: 7
       big: 'true'
-    token_env_var: BLOG_API_TOKEN
+      expand: cluster
+    token_env_var: BREATHECODE_ACADEMY_TOKEN
     auth_prefix: Token
     results_path: results
+    headers: {}
 cache:
   ttl_hours: 24
   file_path: .cache/blog-posts.json
 url_pattern:
-  en: /en/blog/:slug
-  es: /es/blog/:slug
+  en: /en/blog/:category/:slug
+  es: /es/blog/:category/:slug
 categories:
   en: blog-us
   es: blog-es
@@ -70,12 +74,12 @@ field_mapping:
   title: title
   slug: slug
   description: description
-  image: null
+  image: preview
   author: null
   published_at: published_at
   updated_at: updated_at
   status: status
-  category: category.title
+  category: cluster.slug
   tags: technologies
   lang: lang
   content: readme.decoded
