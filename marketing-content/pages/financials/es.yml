@@ -149,7 +149,7 @@ sections:
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
         price: {{ price_ai_engineering | $349 }}
-        price_info: o menos según tu plan de pago
+        price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
