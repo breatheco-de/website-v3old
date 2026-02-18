@@ -2725,7 +2725,7 @@ export function SectionEditorPanel({
                                   }
 
                                   if (
-                                    fieldKey === "comment" ||
+                                    fieldKey === "client_comments" ||
                                     (typeof rawValue === "string" &&
                                       rawValue.length > 80)
                                   ) {

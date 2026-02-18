@@ -87,6 +87,8 @@ export const leadFormFieldConfigSchema = z.object({
   default_country: z.string().optional(), // ISO 3166-1 alpha-2 e.g. "ES", "US" – passed to PhoneInput defaultCountry
   helper_text: z.string().optional(),
   placeholder: z.string().optional(),
+  show_label: z.boolean().optional(),
+  label: z.string().optional(),
 });
 
 // Lead Form data schema
@@ -107,7 +109,7 @@ export const leadFormDataSchema = z.object({
     region: leadFormFieldConfigSchema.optional(),
     location: leadFormFieldConfigSchema.optional(),
     coupon: leadFormFieldConfigSchema.optional(),
-    comment: leadFormFieldConfigSchema.optional(),
+    client_comments: leadFormFieldConfigSchema.optional(),
   }).optional(),
   success: z.object({
     url: z.string().optional(),

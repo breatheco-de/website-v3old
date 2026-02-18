@@ -30,7 +30,7 @@ yaml: |
         visible: true
         required: false
         default: "auto"
-      comment:
+      client_comments:
         visible: true
         required: false
     success:

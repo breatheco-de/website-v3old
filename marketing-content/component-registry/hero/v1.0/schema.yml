@@ -451,7 +451,7 @@ variant_props:
                 placeholder:
                   type: string
                   required: false
-            comment:
+            client_comments:
               type: object
               required: false
               properties:
@@ -470,6 +470,14 @@ variant_props:
                 placeholder:
                   type: string
                   required: false
+                show_label:
+                  type: boolean
+                  required: false
+                  description: Whether to show the field label above the input (default false)
+                label:
+                  type: string
+                  required: false
+                  description: Custom label text (used when show_label is true)
           description: Configure which fields to show and their settings
         success:
           type: object

@@ -39,6 +39,8 @@ interface FieldConfig {
   default_country?: string; // e.g. "ES", "US" – passed to PhoneInput defaultCountry
   helper_text?: string;
   placeholder?: string;
+  show_label?: boolean;
+  label?: string;
 }
 
 export interface LeadFormData {
@@ -58,7 +60,7 @@ export interface LeadFormData {
     region?: FieldConfig;
     location?: FieldConfig;
     coupon?: FieldConfig;
-    comment?: FieldConfig;
+    client_comments?: FieldConfig;
   };
   success?: {
     url?: string;
@@ -108,7 +110,7 @@ interface FormValues {
   region: string;
   location: string;
   coupon: string;
-  comment: string;
+  client_comments: string;
   consent_email: boolean;
   consent_sms: boolean;
   consent_whatsapp: boolean;
@@ -332,7 +334,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
       region: { visible: false, required: false, default: "auto" },
       location: { visible: false, required: false, default: "auto" },
       coupon: { visible: false, required: false, default: "auto" },
-      comment: { visible: false, required: false },
+      client_comments: { visible: false, required: false },
     };
     const baseConfig = { ...defaults[fieldName], ...fields[fieldName] };
 
@@ -387,7 +389,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
       region: resolveDefault("region", getFieldConfig("region").default),
       location: resolveDefault("location", getFieldConfig("location").default),
       coupon: resolveDefault("coupon", getFieldConfig("coupon").default),
-      comment: "",
+      client_comments: "",
       consent_email: false,
       consent_sms: false,
       consent_whatsapp: false,
@@ -604,8 +606,8 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
     if (getFieldConfig("location").visible && getFieldConfig("location").required) {
       requiredFields.push("location");
     }
-    if (getFieldConfig("comment").visible && getFieldConfig("comment").required) {
-      requiredFields.push("comment");
+    if (getFieldConfig("client_comments").visible && getFieldConfig("client_comments").required) {
+      requiredFields.push("client_comments");
     }
     
     // Check if all required fields have values
@@ -661,7 +663,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
     getFieldConfig("region").visible ||
     getFieldConfig("location").visible ||
     getFieldConfig("coupon").visible ||
-    getFieldConfig("comment").visible;
+    getFieldConfig("client_comments").visible;
 
   const firstNameConfig = getFieldConfig("first_name");
 
@@ -818,6 +820,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     rules={{ required: getFieldConfig("first_name").required ? (locale === "es" ? "Nombre requerido" : "First name is required") : false }}
                     render={({ field }) => (
                       <FormItem className="space-y-2 mt-[2px] mb-[2px]">
+                        {getFieldConfig("first_name").show_label && (
+                          <FormLabel>{getFieldConfig("first_name").label || (locale === "es" ? "Nombre" : "First name")}</FormLabel>
+                        )}
                         <FormControl>
                           <Input 
                             placeholder={getFieldConfig("first_name").placeholder || (locale === "es" ? "Nombre" : "First name")}
@@ -837,6 +842,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     rules={{ required: getFieldConfig("last_name").required ? (locale === "es" ? "Apellido requerido" : "Last name is required") : false }}
                     render={({ field }) => (
                       <FormItem className="space-y-2 mt-[2px] mb-[2px]">
+                        {getFieldConfig("last_name").show_label && (
+                          <FormLabel>{getFieldConfig("last_name").label || (locale === "es" ? "Apellido" : "Last name")}</FormLabel>
+                        )}
                         <FormControl>
                           <Input 
                             placeholder={getFieldConfig("last_name").placeholder || (locale === "es" ? "Apellido" : "Last name")}
@@ -860,6 +868,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                 rules={{ required: getFieldConfig("phone").required ? (locale === "es" ? "Teléfono requerido" : "Phone is required") : false }}
                 render={({ field }) => (
                   <FormItem className="space-y-2 mt-[2px] mb-[2px]">
+                    {getFieldConfig("phone").show_label && (
+                      <FormLabel>{getFieldConfig("phone").label || (locale === "es" ? "Teléfono" : "Phone")}</FormLabel>
+                    )}
                     <FormControl>
                       <PhoneInput
                         value={field.value}
@@ -896,6 +907,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                 }}
                 render={({ field }) => (
                   <FormItem className="space-y-2 mt-[2px] mb-[2px]">
+                    {getFieldConfig("email").show_label && (
+                      <FormLabel>{getFieldConfig("email").label || (locale === "es" ? "Correo electrónico" : "Email")}</FormLabel>
+                    )}
                     <FormControl>
                       <Input 
                         type="email" 
@@ -919,6 +933,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     rules={{ required: getFieldConfig("region").required ? (locale === "es" ? "Región requerida" : "Region is required") : false }}
                     render={({ field }) => (
                       <FormItem>
+                        {getFieldConfig("region").show_label && (
+                          <FormLabel>{getFieldConfig("region").label || (locale === "es" ? "Región" : "Region")}</FormLabel>
+                        )}
                         <Select onValueChange={field.onChange} value={field.value} disabled={!!singleLandingRegion}>
                           <FormControl>
                             <SelectTrigger data-testid="select-region">
@@ -954,6 +971,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     rules={{ required: getFieldConfig("location").required ? (locale === "es" ? "Campus requerido" : "Campus is required") : false }}
                     render={({ field }) => (
                       <FormItem>
+                        {getFieldConfig("location").show_label && (
+                          <FormLabel>{getFieldConfig("location").label || (locale === "es" ? "Campus" : "Campus")}</FormLabel>
+                        )}
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-location">
@@ -995,6 +1015,9 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                 rules={{ required: getFieldConfig("program").required ? (locale === "es" ? "Programa requerido" : "Program is required") : false }}
                 render={({ field }) => (
                   <FormItem>
+                    {getFieldConfig("program").show_label && (
+                      <FormLabel>{getFieldConfig("program").label || (locale === "es" ? "Programa" : "Program")}</FormLabel>
+                    )}
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger data-testid="select-program">
@@ -1024,10 +1047,12 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                 name="coupon"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{locale === "es" ? "Código de cupón" : "Coupon Code"}</FormLabel>
+                    {getFieldConfig("coupon").show_label && (
+                      <FormLabel>{getFieldConfig("coupon").label || (locale === "es" ? "Código de cupón" : "Coupon Code")}</FormLabel>
+                    )}
                     <FormControl>
                       <Input 
-                        placeholder={getFieldConfig("coupon").placeholder}
+                        placeholder={getFieldConfig("coupon").placeholder || (locale === "es" ? "Código de cupón" : "Coupon Code")}
                         {...field} 
                         data-testid="input-coupon" 
                       />
@@ -1042,23 +1067,25 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
             )}
           </div>
 
-          {getFieldConfig("comment").visible && (
+          {getFieldConfig("client_comments").visible && (
             <FormField
               control={form.control}
-              name="comment"
+              name="client_comments"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{locale === "es" ? "Comentarios" : "Comments"}</FormLabel>
+                  {getFieldConfig("client_comments").show_label && (
+                    <FormLabel>{getFieldConfig("client_comments").label || (locale === "es" ? "Comentarios" : "Comments")}</FormLabel>
+                  )}
                   <FormControl>
                     <Textarea 
                       className="min-h-[100px]" 
-                      placeholder={getFieldConfig("comment").placeholder}
+                      placeholder={getFieldConfig("client_comments").placeholder || (locale === "es" ? "Comentarios" : "Comments")}
                       {...field} 
-                      data-testid="textarea-comment"
+                      data-testid="textarea-client-comments"
                     />
                   </FormControl>
-                  {getFieldConfig("comment").helper_text && (
-                    <p className="text-sm text-muted-foreground">{getFieldConfig("comment").helper_text}</p>
+                  {getFieldConfig("client_comments").helper_text && (
+                    <p className="text-sm text-muted-foreground">{getFieldConfig("client_comments").helper_text}</p>
                   )}
                   <FormMessage />
                 </FormItem>

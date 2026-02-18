@@ -211,7 +211,7 @@ props:
             type: string
             required: false
         description: Coupon code field (can be pre-filled from URL)
-      comment:
+      client_comments:
         type: object
         required: false
         properties:
@@ -230,7 +230,15 @@ props:
           placeholder:
             type: string
             required: false
-        description: Free-form comment textarea
+          show_label:
+            type: boolean
+            required: false
+            description: Whether to show the field label above the input (default false)
+          label:
+            type: string
+            required: false
+            description: Custom label text (used when show_label is true)
+        description: Free-form comments textarea
     description: Configuration for each form field. Each field can have visible, required, and default properties.
   success:
     type: object

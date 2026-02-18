@@ -948,9 +948,11 @@
       "remoteSha": "18a3d79d3b9d7788fb4293f531507cf1b22e0365609c2e9a96726b3c80f18a9d"
     },
     "marketing-content/pages/work-with-us/en.yml": {
-      "sha": "091a93ae09d5b75340738f34ea6f380030fc0c9bc1a4a9b8fd0585d36ca386d3",
-      "lastModified": 1771388612929.255,
-      "remoteSha": "091a93ae09d5b75340738f34ea6f380030fc0c9bc1a4a9b8fd0585d36ca386d3"
+      "sha": "c59d88317052f141e701aec260f193915a5641ee116200481118e500c333a5d4",
+      "lastModified": 1771428055751.2341,
+      "remoteSha": "091a93ae09d5b75340738f34ea6f380030fc0c9bc1a4a9b8fd0585d36ca386d3",
+      "author": "Alejandro Sanchez",
+      "modifiedAt": "2026-02-18T15:20:55.772Z"
     },
     "marketing-content/pages/work-with-us/es.yml": {
       "sha": "2b9c20d0f527041b3210d8e505639513812114f17bd45a1790f484e39e16ac60",

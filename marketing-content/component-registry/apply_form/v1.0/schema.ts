@@ -16,6 +16,8 @@ const fieldConfigSchema = z.object({
   default: z.string().optional(),
   placeholder: z.string().optional(),
   helper_text: z.string().optional(),
+  show_label: z.boolean().optional(),
+  label: z.string().optional(),
 }).optional();
 
 const consentSchema = z.object({
@@ -51,7 +53,7 @@ export const applyFormLeadFormSchema = z.object({
     region: fieldConfigSchema,
     location: fieldConfigSchema,
     coupon: fieldConfigSchema,
-    comment: fieldConfigSchema,
+    client_comments: fieldConfigSchema,
   }).optional(),
   success: z.object({
     url: z.string().optional(),
