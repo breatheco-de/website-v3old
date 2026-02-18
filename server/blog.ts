@@ -283,6 +283,7 @@ function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string |
     if (mapping.status) mapped.status = getValue(mapping.status) ?? mapped.status;
     if (mapping.lang) mapped.lang = getValue(mapping.lang) ?? mapped.lang;
     if (mapping.image) mapped.preview = getValue(mapping.image) ?? mapped.preview;
+    if (mapping.content) mapped.content = getValue(mapping.content) ?? mapped.content;
     if (mapping.content_url) mapped.readme_url = getValue(mapping.content_url) ?? mapped.readme_url;
     if (mapping.tags) {
       const tagsVal = getValue(mapping.tags);

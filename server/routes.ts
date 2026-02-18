@@ -1071,8 +1071,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      let content = "";
-      if (post.readme_url) {
+      let content = (post as any).content || "";
+      if (!content && post.readme_url) {
         content = await fetchMarkdownContent(post.readme_url);
       }
 
