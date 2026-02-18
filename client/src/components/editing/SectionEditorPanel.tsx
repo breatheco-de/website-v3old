@@ -1546,7 +1546,7 @@ export function SectionEditorPanel({
         <div>
           <h2 className="font-semibold">Editar Sección</h2>
           <p className="text-sm text-muted-foreground">
-            {sectionType} (Sección {sectionIndex + 1})
+            {sectionType}{parsedSection?.variant ? ` — ${parsedSection.variant}` : ""} (Sección {sectionIndex + 1})
           </p>
         </div>
         <div className="flex items-center gap-1">
