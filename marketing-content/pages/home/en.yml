@@ -41,7 +41,10 @@ sections:
         alt: Happy professional with laptop
     show_arrow: true
     marginY:
-      desktop: md none
+      desktop: sm none
+    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
+    paddingY:
+      desktop: sm none
   - type: award_badges
     version: v1.0
     variant: detailed
