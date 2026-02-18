@@ -1184,12 +1184,15 @@ function SeoSettingsDialog({
     enabled: open,
   });
 
-  const [pattern, setPattern] = useState("/en/blog/:slug");
+  const PREFIX = "/en/blog/";
+  const [suffix, setSuffix] = useState(":slug");
   const inputRef = useRef<HTMLInputElement>(null);
+  const pattern = PREFIX + suffix;
 
   useEffect(() => {
     if (config) {
-      setPattern(config.url_pattern?.en || "/en/blog/:slug");
+      const full = config.url_pattern?.en || "/en/blog/:slug";
+      setSuffix(full.startsWith(PREFIX) ? full.slice(PREFIX.length) : full.replace(/^\/(en|es)\/blog\/?/, ""));
     }
   }, [config]);
 
@@ -1220,14 +1223,14 @@ function SeoSettingsDialog({
   const insertVariable = (varName: string) => {
     const el = inputRef.current;
     if (!el) {
-      setPattern((prev) => prev + `:${varName}`);
+      setSuffix((prev) => prev + `:${varName}`);
       return;
     }
-    const start = el.selectionStart ?? pattern.length;
-    const end = el.selectionEnd ?? pattern.length;
+    const start = el.selectionStart ?? suffix.length;
+    const end = el.selectionEnd ?? suffix.length;
     const token = `:${varName}`;
-    const next = pattern.slice(0, start) + token + pattern.slice(end);
-    setPattern(next);
+    const next = suffix.slice(0, start) + token + suffix.slice(end);
+    setSuffix(next);
     requestAnimationFrame(() => {
       el.focus();
       const pos = start + token.length;
@@ -1274,15 +1277,20 @@ function SeoSettingsDialog({
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="en-pattern" className="text-sm">URL Pattern</Label>
-              <Input
-                ref={inputRef}
-                id="en-pattern"
-                value={pattern}
-                onChange={(e) => setPattern(e.target.value)}
-                placeholder="/en/blog/:slug"
-                className="font-mono text-sm"
-                data-testid="input-en-pattern"
-              />
+              <div className="flex items-center">
+                <span className="inline-flex items-center px-3 h-9 rounded-l-md border border-r-0 bg-muted text-sm font-mono text-muted-foreground select-none" data-testid="text-url-prefix">
+                  {PREFIX}
+                </span>
+                <Input
+                  ref={inputRef}
+                  id="en-pattern"
+                  value={suffix}
+                  onChange={(e) => setSuffix(e.target.value)}
+                  placeholder=":slug"
+                  className="font-mono text-sm rounded-l-none"
+                  data-testid="input-en-pattern"
+                />
+              </div>
               <p className="text-xs text-muted-foreground font-mono" data-testid="text-en-preview">
                 Preview: {buildBlogUrl(pattern, samplePost, "en", mappedKeys)}
               </p>
@@ -1312,7 +1320,7 @@ function SeoSettingsDialog({
 
             <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="text-locale-note">
               <p className="text-xs text-muted-foreground">
-                The pattern must start with <code className="text-foreground">/en/</code>. Other languages follow the same structure — the prefix is replaced automatically.
+                The <code className="text-foreground">/en/blog/</code> prefix is locked. Other languages use the same structure — <code className="text-foreground">/es/blog/</code> is applied automatically.
               </p>
               <p className="text-xs text-muted-foreground font-mono" data-testid="text-es-preview">
                 Spanish: {buildBlogUrl(esPreview, samplePost, "es", mappedKeys)}
