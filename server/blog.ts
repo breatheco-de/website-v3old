@@ -281,7 +281,11 @@ function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string |
     if (mapping.published_at) mapped.published_at = getValue(mapping.published_at) ?? mapped.published_at;
     if (mapping.updated_at) mapped.updated_at = getValue(mapping.updated_at) ?? mapped.updated_at;
     if (mapping.status) mapped.status = getValue(mapping.status) ?? mapped.status;
-    if (mapping.lang) mapped.lang = getValue(mapping.lang) ?? mapped.lang;
+    if (mapping.lang) {
+      let langVal = getValue(mapping.lang) ?? mapped.lang;
+      if (langVal === "us") langVal = "en";
+      mapped.lang = langVal;
+    }
     if (mapping.image) mapped.preview = getValue(mapping.image) ?? mapped.preview;
     if (mapping.content) mapped.content = getValue(mapping.content) ?? mapped.content;
     if (mapping.content_url) mapped.readme_url = getValue(mapping.content_url) ?? mapped.readme_url;
@@ -419,20 +423,13 @@ export async function getBlogPosts(forceRefresh = false): Promise<BlogPost[]> {
 }
 
 export function getBlogPostsByLocale(posts: BlogPost[], locale: string): BlogPost[] {
-  const config = loadConfig();
-  const category = config.categories[locale];
-  if (!category) return posts;
-  return posts.filter((p) => p.category?.slug === category);
+  return posts.filter((p) => (p as any).lang === locale);
 }
 
 export function findBlogPostBySlug(posts: BlogPost[], slug: string, locale?: string): BlogPost | undefined {
   if (locale) {
-    const config = loadConfig();
-    const category = config.categories[locale];
-    if (category) {
-      const localeMatch = posts.find((p) => p.slug === slug && p.category?.slug === category);
-      if (localeMatch) return localeMatch;
-    }
+    const localeMatch = posts.find((p) => p.slug === slug && (p as any).lang === locale);
+    if (localeMatch) return localeMatch;
   }
   return posts.find((p) => p.slug === slug);
 }
