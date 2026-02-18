@@ -26,7 +26,7 @@ sections:
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Explore our Programs
-      url: "#course_selector-5"
+      url: "#course_selector-6"
       variant: primary
       icon: ""
     left_images:
