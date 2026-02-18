@@ -28,5 +28,5 @@ sections:
       Cookies and similar technologies, such as local shared objects, flash cookies, or pixels, are tools used by web servers to store and retrieve information about visitors, as well as to ensure the proper functioning of the website.
 
       Through the use of these technologies, the web server may remember certain user data, such as display preferences, username and password, products of interest, and other relevant information that helps improve the browsing experience.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
