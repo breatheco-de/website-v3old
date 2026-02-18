@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 
 const ATTACHED_ASSETS_DIR = path.join(process.cwd(), "attached_assets");
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
@@ -149,7 +150,9 @@ function scanYamlFiles(): Array<{ yamlFile: string; field: string; src: string }
       } else if (entry.name.endsWith(".yml") || entry.name.endsWith(".yaml")) {
         try {
           const content = fs.readFileSync(fullPath, "utf8");
-          const parsed = yaml.load(content);
+          const { escaped, map } = escapeTemplateVars(content);
+          const rawParsed = yaml.load(escaped);
+          const parsed = rawParsed ? unescapeObjectVars(rawParsed, map) : rawParsed;
           if (parsed && typeof parsed === "object") {
             const fileRefs: Array<{ field: string; src: string }> = [];
             findImageRefsInValue(parsed, "", fileRefs);

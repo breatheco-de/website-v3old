@@ -7,6 +7,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "../../../shared/templateVars";
 import type { ContentFile, ContentMeta, SchemaRef } from "./types";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
@@ -31,7 +32,10 @@ interface RawContentData {
 function parseYamlFile(filePath: string): RawContentData | null {
   try {
     const content = fs.readFileSync(filePath, "utf-8");
-    return yaml.load(content) as RawContentData;
+    const { escaped, map } = escapeTemplateVars(content);
+    const parsed = yaml.load(escaped) as RawContentData;
+    if (!parsed) return null;
+    return unescapeObjectVars(parsed, map) as RawContentData;
   } catch (err) {
     console.error(`Failed to parse ${filePath}:`, err);
     return null;

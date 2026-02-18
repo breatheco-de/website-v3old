@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "../../shared/templateVars";
 import type {
   ExperimentConfig,
   ExperimentsFile,
@@ -108,7 +109,9 @@ export class ExperimentManager {
 
     try {
       const content = fs.readFileSync(configPath, "utf-8");
-      const parsed = yaml.load(content);
+      const { escaped, map } = escapeTemplateVars(content);
+      const rawParsed = yaml.load(escaped);
+      const parsed = rawParsed ? unescapeObjectVars(rawParsed, map) : rawParsed;
       const validated = experimentsFileSchema.parse(parsed);
       this.configCache.set(cacheKey, validated);
       return validated;
@@ -148,12 +151,15 @@ export class ExperimentManager {
       let commonData: Record<string, unknown> = {};
       if (fs.existsSync(commonPath)) {
         const commonContent = fs.readFileSync(commonPath, "utf-8");
-        commonData = yaml.load(commonContent) as Record<string, unknown>;
+        const { escaped: cEsc, map: cMap } = escapeTemplateVars(commonContent);
+        const cParsed = yaml.load(cEsc) as Record<string, unknown>;
+        commonData = (cParsed ? unescapeObjectVars(cParsed, cMap) : {}) as Record<string, unknown>;
       }
 
-      // Load variant content
       const content = fs.readFileSync(filePath, "utf-8");
-      const variantData = yaml.load(content) as Record<string, unknown>;
+      const { escaped: vEsc, map: vMap } = escapeTemplateVars(content);
+      const vParsed = yaml.load(vEsc) as Record<string, unknown>;
+      const variantData = (vParsed ? unescapeObjectVars(vParsed, vMap) : {}) as Record<string, unknown>;
 
       // Deep merge common data with variant data (variant takes precedence)
       const merged = deepMerge(commonData, variantData);
@@ -515,7 +521,9 @@ export class ExperimentManager {
 
     try {
       const content = fs.readFileSync(configPath, "utf-8");
-      const parsed = yaml.load(content);
+      const { escaped, map } = escapeTemplateVars(content);
+      const rawParsed = yaml.load(escaped);
+      const parsed = rawParsed ? unescapeObjectVars(rawParsed, map) : rawParsed;
       const validated = experimentsFileSchema.parse(parsed);
       return validated;
     } catch (error) {

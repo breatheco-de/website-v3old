@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 
 export interface ContentTypeConfig {
   url_pattern: Record<string, string>;
@@ -58,7 +59,7 @@ class ContentIndex {
     }
     try {
       const raw = fs.readFileSync(configPath, "utf-8");
-      const parsed = yaml.load(raw) as Record<string, ContentTypeConfig> | null;
+      const parsed = this.safeYamlLoad(raw) as Record<string, ContentTypeConfig> | null;
       return parsed || {};
     } catch (err) {
       console.error("[ContentIndex] Failed to read content-types.yml:", err);
@@ -142,7 +143,7 @@ class ContentIndex {
           try {
             const raw = fs.readFileSync(filePath, "utf-8");
             this.extractVariableReferences(raw, relFilePath);
-            const parsed = yaml.load(raw) as Record<string, unknown> | null;
+            const parsed = this.safeYamlLoad(raw);
             this.extractImageReferences(parsed, relFilePath);
             const locale = file.replace(/\.(yml|yaml)$/, "");
             if (parsed && this.contentTypeHasRedirects(contentType)) {
@@ -166,6 +167,13 @@ class ContentIndex {
     const imageRefCount = this.imageUsage.size;
     const variableRefCount = this.variableUsage.size;
     console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${this.redirectEntries.length} redirects`);
+  }
+
+  private safeYamlLoad(raw: string): Record<string, unknown> | null {
+    const { escaped, map } = escapeTemplateVars(raw);
+    const parsed = yaml.load(escaped) as Record<string, unknown> | null;
+    if (!parsed) return null;
+    return unescapeObjectVars(parsed, map) as Record<string, unknown>;
   }
 
   private contentTypeHasRedirects(contentType: string): boolean {
@@ -245,7 +253,7 @@ class ContentIndex {
         if (fs.existsSync(filePath)) {
           try {
             const raw = fs.readFileSync(filePath, "utf-8");
-            const parsed = yaml.load(raw) as Record<string, unknown>;
+            const parsed = this.safeYamlLoad(raw);
             if (parsed?.slug && typeof parsed.slug === "string") {
               localeSlug = parsed.slug;
             }
@@ -328,7 +336,7 @@ class ContentIndex {
 
     try {
       const raw = fs.readFileSync(customFile, "utf-8");
-      const parsed = yaml.load(raw) as { redirects?: unknown[] } | null;
+      const parsed = this.safeYamlLoad(raw) as { redirects?: unknown[] } | null;
       if (!parsed || !Array.isArray(parsed.redirects)) return;
 
       for (const entry of parsed.redirects) {
@@ -368,7 +376,7 @@ class ContentIndex {
       if (files.includes(candidate)) {
         try {
           const content = fs.readFileSync(path.join(folderPath, candidate), "utf-8");
-          const parsed = yaml.load(content) as Record<string, unknown>;
+          const parsed = this.safeYamlLoad(content);
           if (parsed?.title && typeof parsed.title === "string") {
             return parsed.title;
           }
@@ -492,7 +500,7 @@ class ContentIndex {
         if (fs.existsSync(filePath)) {
           try {
             const raw = fs.readFileSync(filePath, "utf-8");
-            const parsed = yaml.load(raw) as Record<string, unknown>;
+            const parsed = this.safeYamlLoad(raw);
             if (parsed?.slug && typeof parsed.slug === "string") {
               localeSlug = parsed.slug;
             }
