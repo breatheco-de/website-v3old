@@ -170,10 +170,19 @@ const WIZARD_STEPS = [
 type WizardStep = typeof WIZARD_STEPS[number]["id"];
 
 function extractByPath(obj: unknown, dotPath: string): unknown {
-  if (!dotPath) return obj;
+  if (!dotPath || !dotPath.trim()) return undefined;
   let current = obj;
-  for (const key of dotPath.split(".")) {
-    if (current && typeof current === "object" && key in (current as Record<string, unknown>)) {
+  const segments = dotPath.replace(/\[(\d+)\]/g, ".$1").split(".").filter(Boolean);
+  for (const key of segments) {
+    if (current == null) return undefined;
+    if (Array.isArray(current)) {
+      const idx = Number(key);
+      if (Number.isInteger(idx) && idx >= 0 && idx < current.length) {
+        current = current[idx];
+      } else {
+        return undefined;
+      }
+    } else if (typeof current === "object" && key in (current as Record<string, unknown>)) {
       current = (current as Record<string, unknown>)[key];
     } else {
       return undefined;
@@ -484,6 +493,9 @@ function DataSourceDialog({
 
   const extractedPosts = useMemo(() => {
     if (!testResult?.body || !transformConfig) return [];
+    if (!transformConfig.results_path || !transformConfig.results_path.trim()) {
+      return Array.isArray(testResult.body) ? testResult.body : [];
+    }
     const extracted = extractByPath(testResult.body, transformConfig.results_path);
     return Array.isArray(extracted) ? extracted : [];
   }, [testResult, transformConfig]);
@@ -950,29 +962,52 @@ function DataSourceDialog({
                     <div className="space-y-2">
                       {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
                         const isRequired = standardField === "title" || standardField === "content";
+                        const isCustom = sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
+                        const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
                         return (
-                        <div key={standardField} className="flex items-center gap-2">
-                          <span className={`text-xs font-medium w-24 flex-shrink-0 text-right ${isRequired && !sourceField ? "text-destructive" : "text-muted-foreground"}`}>
-                            {standardField}{isRequired ? <span className="text-destructive ml-0.5">*</span> : null}
-                          </span>
-                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                          <Select
-                            value={sourceField || "__none__"}
-                            onValueChange={(v) => {
-                              setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
-                              setFieldMappingConfirmed(false);
-                            }}
-                          >
-                            <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="__none__">(not mapped)</SelectItem>
-                              {availableFields.map((f) => (
-                                <SelectItem key={f} value={f}>{f}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                        <div key={standardField} className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs font-medium w-24 flex-shrink-0 text-right ${isRequired && !sourceField ? "text-destructive" : "text-muted-foreground"}`}>
+                              {standardField}{isRequired ? <span className="text-destructive ml-0.5">*</span> : null}
+                            </span>
+                            <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                            <Select
+                              value={selectValue}
+                              onValueChange={(v) => {
+                                if (v === "__custom__") {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: "" }));
+                                } else {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
+                                }
+                                setFieldMappingConfirmed(false);
+                              }}
+                            >
+                              <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="__none__">(not mapped)</SelectItem>
+                                {availableFields.map((f) => (
+                                  <SelectItem key={f} value={f}>{f}</SelectItem>
+                                ))}
+                                <SelectItem value="__custom__">Custom path...</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          {isCustom && (
+                            <div className="flex items-center gap-2 ml-[calc(6rem+1.25rem)]">
+                              <Input
+                                value={sourceField}
+                                onChange={(e) => {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
+                                  setFieldMappingConfirmed(false);
+                                }}
+                                placeholder="e.g. author.details.name or items[0].body"
+                                className="h-7 text-xs font-mono"
+                                data-testid={`input-custom-path-${standardField}`}
+                              />
+                            </div>
+                          )}
                         </div>
                         );
                       })}

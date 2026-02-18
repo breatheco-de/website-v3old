@@ -214,10 +214,19 @@ function writeCache(results: BlogPost[]): void {
 }
 
 function extractByDotPath(obj: unknown, dotPath: string): unknown {
-  if (!dotPath) return obj;
+  if (!dotPath || !dotPath.trim()) return undefined;
   let current = obj;
-  for (const key of dotPath.split(".")) {
-    if (current && typeof current === "object" && key in (current as Record<string, unknown>)) {
+  const segments = dotPath.replace(/\[(\d+)\]/g, ".$1").split(".").filter(Boolean);
+  for (const key of segments) {
+    if (current == null) return undefined;
+    if (Array.isArray(current)) {
+      const idx = Number(key);
+      if (Number.isInteger(idx) && idx >= 0 && idx < current.length) {
+        current = current[idx];
+      } else {
+        return undefined;
+      }
+    } else if (typeof current === "object" && key in (current as Record<string, unknown>)) {
       current = (current as Record<string, unknown>)[key];
     } else {
       return undefined;
