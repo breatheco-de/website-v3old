@@ -1070,17 +1070,79 @@ export default function PrivateRedirects() {
 
             <div className="space-y-2">
               <Label htmlFor="redirect-from">Origin URL</Label>
-              <Input
-                id="redirect-from"
-                placeholder="/old-page-url or /path/(.*)"
-                value={newFrom}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setNewFrom(hasRegexChars(val) ? val : val.replace(/\s+/g, "-"));
-                }}
-                className={isOriginInvalid ? "border-destructive" : ""}
-                data-testid="input-redirect-from"
-              />
+              <div className="flex items-center flex-wrap gap-2">
+                <Input
+                  id="redirect-from"
+                  placeholder="/old-page-url or /path/(.*)"
+                  value={newFrom}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setNewFrom(hasRegexChars(val) ? val : val.replace(/\s+/g, "-"));
+                  }}
+                  className={`flex-1 min-w-0 ${isOriginInvalid ? "border-destructive" : ""}`}
+                  data-testid="input-redirect-from"
+                />
+                {isOriginRegex && newFrom.trim() && !isOriginInvalid && (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" size="icon" title="Test this pattern" data-testid="button-test-pattern">
+                        <IconTestPipe className="h-4 w-4" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80" align="end" side="bottom" container={dialogRef.current}>
+                      {(() => {
+                        let testResult: { matches: boolean; destination?: string; error?: string } = { matches: false };
+                        if (testUrl.trim()) {
+                          try {
+                            const regex = new RegExp(`^${newFrom.trim()}$`, "i");
+                            const match = testUrl.trim().match(regex);
+                            if (match) {
+                              let dest = newTo.trim();
+                              if (dest) {
+                                for (let g = 1; g < match.length; g++) {
+                                  dest = dest.replace(new RegExp(`\\$${g}`, "g"), match[g] || "");
+                                }
+                              }
+                              testResult = { matches: true, destination: dest || undefined };
+                            }
+                          } catch (e: any) {
+                            testResult = { matches: false, error: e.message };
+                          }
+                        }
+                        return (
+                          <div className="space-y-2">
+                            <p className="text-sm font-medium">Test this pattern</p>
+                            <Input
+                              id="test-url"
+                              placeholder="/us/some-page"
+                              value={testUrl}
+                              onChange={(e) => setTestUrl(e.target.value)}
+                              data-testid="input-test-url"
+                            />
+                            {testUrl.trim() && (
+                              testResult.error ? (
+                                <p className="text-xs text-destructive" data-testid="status-test-url-error">Invalid pattern: {testResult.error}</p>
+                              ) : testResult.matches ? (
+                                <div className="text-xs space-y-1" data-testid="status-test-url-match">
+                                  <p className="text-green-600 font-medium">Match found</p>
+                                  {testResult.destination && (
+                                    <p className="text-muted-foreground">
+                                      Redirects to{" "}
+                                      <code className="bg-muted px-1 rounded" data-testid="text-test-url-destination">{testResult.destination}</code>
+                                    </p>
+                                  )}
+                                </div>
+                              ) : (
+                                <p className="text-xs text-muted-foreground" data-testid="status-test-url-no-match">No match — this URL would not be redirected.</p>
+                              )
+                            )}
+                          </div>
+                        );
+                      })()}
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </div>
               {originHasUrlOrDomain ? (
                 <p className="text-xs text-destructive">
                   Just the path, please — no need for the full website address.
@@ -1313,51 +1375,6 @@ export default function PrivateRedirects() {
               </div>
             )}
 
-            {isOriginRegex && newFrom.trim() && newTo.trim() && !isOriginInvalid && (() => {
-              let testResult: { matches: boolean; destination?: string; error?: string } = { matches: false };
-              if (testUrl.trim()) {
-                try {
-                  const regex = new RegExp(`^${newFrom.trim()}$`, "i");
-                  const match = testUrl.trim().match(regex);
-                  if (match) {
-                    let dest = newTo.trim();
-                    for (let g = 1; g < match.length; g++) {
-                      dest = dest.replace(new RegExp(`\\$${g}`, "g"), match[g] || "");
-                    }
-                    testResult = { matches: true, destination: dest };
-                  }
-                } catch (e: any) {
-                  testResult = { matches: false, error: e.message };
-                }
-              }
-              return (
-                <div className="space-y-2 rounded-md border p-3">
-                  <Label htmlFor="test-url" className="text-sm font-medium">Test a URL</Label>
-                  <Input
-                    id="test-url"
-                    placeholder="/us/some-page"
-                    value={testUrl}
-                    onChange={(e) => setTestUrl(e.target.value)}
-                    data-testid="input-test-url"
-                  />
-                  {testUrl.trim() && (
-                    testResult.error ? (
-                      <p className="text-xs text-destructive" data-testid="status-test-url-error">Invalid pattern: {testResult.error}</p>
-                    ) : testResult.matches ? (
-                      <div className="text-xs space-y-1" data-testid="status-test-url-match">
-                        <p className="text-green-600 font-medium">Match found</p>
-                        <p className="text-muted-foreground">
-                          Redirects to{" "}
-                          <code className="bg-muted px-1 rounded" data-testid="text-test-url-destination">{testResult.destination}</code>
-                        </p>
-                      </div>
-                    ) : (
-                      <p className="text-xs text-muted-foreground" data-testid="status-test-url-no-match">No match — this URL would not trigger the redirect.</p>
-                    )
-                  )}
-                </div>
-              );
-            })()}
           </div>
 
           <DialogFooter>
