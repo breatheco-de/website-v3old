@@ -2,8 +2,37 @@ slug: upcoming-dates
 template: default
 title: upcoming-dates
 meta:
+  robots: index, follow
+  priority: 0.8
+  change_frequency: weekly
   page_title: upcoming-dates | 4Geeks Academy
   description: upcoming-dates - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /upcoming-dates
-sections: []
+schema:
+  include:
+    - organization
+    - website
+sections:
+  - type: dynamic_table
+    version: "1.0"
+    endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
+    data_path: results
+    title: Cohort Overview
+    columns:
+      - key: kickoff_date
+        label: Date
+        type: text
+        function: KHJvdykgPT4geyBjb25zdCBrZCA9IHJvdy5raWNrb2ZmX2RhdGUgPyBuZXcgRGF0ZShyb3cua2lja29mZl9kYXRlKSA6IG51bGw7IGNvbnN0IGVkID0gcm93LmVuZGluZ19kYXRlID8gbmV3IERhdGUocm93LmVuZGluZ19kYXRlKSA6IG51bGw7IGlmICgha2QgJiYgIWVkKSByZXR1cm4gIiI7IGNvbnN0IG1vbnRoID0ga2QgPyBrZC50b0xvY2FsZVN0cmluZygnZW4tVVMnLCB7IG1vbnRoOiAnbG9uZycgfSkgOiAiIjsgY29uc3Qgc3RhcnQgPSBrZCA/IGAke1N0cmluZyhrZC5nZXRNb250aCgpKzEpLnBhZFN0YXJ0KDIsJzAnKX0vJHtTdHJpbmcoa2QuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCcwJyl9YCA6ICIiOyBjb25zdCBlbmQgPSBlZCA/IGAke1N0cmluZyhlZC5nZXRNb250aCgpKzEpLnBhZFN0YXJ0KDIsJzAnKX0vJHtTdHJpbmcoZWQuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCcwJyl9YCA6ICIiOyByZXR1cm4gbW9udGggPyBgJHttb250aH1cbiR7c3RhcnR9IHRvICR7ZW5kfWAgOiBgJHtzdGFydH0gdG8gJHtlbmR9YDsgfQ==
+      - key: syllabus_version.name
+        label: Program
+        type: text
+        function: KHJvdykgPT4geyBjb25zdCBuYW1lID0gcm93LnN5bGxhYnVzX3ZlcnNpb24/Lm5hbWUgfHwgJyc7IGNvbnN0IGNsZWFuZWQgPSBuYW1lLnJlcGxhY2UoL1xkK1xzKncoa3xrcyk/XGIvZ2ksICcnKS5yZXBsYWNlKC9cYlxkK3dcYi9naSwgJycpLnRyaW0oKTsgcmV0dXJuIGNsZWFuZWQucmVwbGFjZSgvLSskLywnJykudHJpbSgpOyB9
+      - key: academy.name
+        label: Location
+        type: text
+        function: KHJvdykgPT4gYCR7cm93LmFjYWRlbXk/Lm5hbWUgfHwgJyd9IC0gJHtyb3cuYWNhZGVteT8uY291bnRyeT8ubmFtZSB8fCAnJ31gLnRyaW0oKQ==
+      - key: syllabus_version.duration_in_days
+        label: Duration
+        type: text
+        function: KHJvdykgPT4gcm93LnN5bGxhYnVzX3ZlcnNpb24/LmR1cmF0aW9uX2luX2RheXMgPyBNYXRoLnJvdW5kKHJvdy5zeWxsYWJ1c192ZXJzaW9uLmR1cmF0aW9uX2luX2RheXMgLyA3KSArICIgd2Vla3MiIDogJyc=
