@@ -1,6 +1,7 @@
 import type { HeroSimpleTwoColumn as HeroSimpleTwoColumnType } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { RichTextContent } from "@/components/ui/rich-text-content";
+import { UniversalVideo } from "@/components/UniversalVideo";
 import * as TablerIcons from "@tabler/icons-react";
 import type { ComponentType } from "react";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -15,7 +16,6 @@ const getIcon = (iconName: string) => {
   return IconComponent ? <IconComponent className="w-5 h-5" /> : null;
 };
 
-// Default placeholder image when none is provided
 const DEFAULT_IMAGE = {
   src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop",
   alt: "Students learning together"
@@ -23,6 +23,8 @@ const DEFAULT_IMAGE = {
 
 export function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) {
   const handleLinkClick = useInternalNav();
+  const fullData = data as HeroSimpleTwoColumnType & { video?: { url: string; ratio?: string; mobile_ratio?: string; muted?: boolean; autoplay?: boolean; loop?: boolean; preview_image_url?: string; with_shadow_border?: boolean } };
+  const video = fullData.video ?? null;
   const image = data.image || DEFAULT_IMAGE;
   
   return (
@@ -34,12 +36,27 @@ export function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) {
         
         <div className="grid md:grid-cols-12 gap-4 lg:gap-12 items-start flex items-center">
           <div className="hidden md:block md:col-span-4 lg:col-span-5">
-            <img 
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-auto rounded-card shadow-card"
-              data-testid="img-hero"
-            />
+            {video ? (
+              <UniversalVideo
+                url={video.url}
+                ratio={video.ratio || "16:9"}
+                mobileRatio={video.mobile_ratio || "16:11"}
+                muted={video.muted}
+                autoplay={video.autoplay}
+                loop={video.loop}
+                preview_image_url={video.preview_image_url}
+                withShadowBorder={video.with_shadow_border}
+                className="w-full"
+                data-testid="video-hero"
+              />
+            ) : (
+              <img 
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-auto rounded-card shadow-card"
+                data-testid="img-hero"
+              />
+            )}
           </div>
 
           <div className="md:col-span-7 lg:col-span-7 text-center md:text-left">
@@ -84,12 +101,27 @@ export function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) {
               </div>
             )}
             <div className="md:hidden lg:col-span-5 mt-5">
-              <img 
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-auto rounded-card shadow-card"
-                data-testid="img-hero"
-              />
+              {video ? (
+                <UniversalVideo
+                  url={video.url}
+                  ratio={video.ratio || "16:9"}
+                  mobileRatio={video.mobile_ratio || "16:11"}
+                  muted={video.muted}
+                  autoplay={video.autoplay}
+                  loop={video.loop}
+                  preview_image_url={video.preview_image_url}
+                  withShadowBorder={video.with_shadow_border}
+                  className="w-full"
+                  data-testid="video-hero-mobile"
+                />
+              ) : (
+                <img 
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-auto rounded-card shadow-card"
+                  data-testid="img-hero"
+                />
+              )}
             </div>
           </div>
         </div>

@@ -153,7 +153,8 @@ export const heroSimpleTwoColumnSchema = z.object({
   image: z.object({
     src: z.string(),
     alt: z.string(),
-  }),
+  }).optional(),
+  video: videoConfigSchema.optional(),
   cta_buttons: z.array(ctaButtonSchema).optional(),
   background: z.string().optional(),
 }).passthrough();
