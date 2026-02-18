@@ -505,9 +505,11 @@ function getBaseUrl(): string {
 
 export function parseBlogRoute(url: string): { slug: string; locale: string } | null {
   const cleanUrl = url.split("?")[0].split("#")[0];
-  const match = cleanUrl.match(/^\/(en|es)\/blog\/([^/]+)$/);
+  const match = cleanUrl.match(/^\/(en|es)\/blog\/(.+)$/);
   if (match) {
-    return { locale: match[1], slug: match[2] };
+    const segments = match[2].split("/").filter(Boolean);
+    const slug = segments[segments.length - 1];
+    return { locale: match[1], slug };
   }
   return null;
 }

@@ -5549,7 +5549,8 @@ sections: []
       }
     }
 
-    if (!schemaHtml) {
+    const isBlogRoute = blogRoute !== null || /^\/(en|es)\/blog\/?/.test((url).split("?")[0]);
+    if (!schemaHtml && !isBlogRoute) {
       return next();
     }
 
@@ -5559,7 +5560,7 @@ sections: []
       const indexPath = path.resolve(distPath, "index.html");
       try {
         let html = fs.readFileSync(indexPath, "utf-8");
-        if (html.includes("</head>")) {
+        if (schemaHtml && html.includes("</head>")) {
           html = html.replace("</head>", `${schemaHtml}\n</head>`);
         }
         res.status(200).set({ "Content-Type": "text/html" }).send(html);
@@ -5573,8 +5574,11 @@ sections: []
     res.end = function (chunk?: any, ...args: any[]) {
       const contentType = res.getHeader("content-type");
       if (contentType && typeof contentType === "string" && contentType.includes("text/html") && chunk) {
+        if (isBlogRoute && res.statusCode === 404) {
+          res.statusCode = 200;
+        }
         let html = typeof chunk === "string" ? chunk : Buffer.isBuffer(chunk) ? chunk.toString("utf-8") : chunk;
-        if (typeof html === "string" && html.includes("</head>")) {
+        if (typeof html === "string" && html.includes("</head>") && schemaHtml) {
           html = html.replace("</head>", `${schemaHtml}\n</head>`);
           return originalEnd(html, ...args);
         }

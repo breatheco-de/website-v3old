@@ -29,7 +29,7 @@ interface BlogPost {
   published_at: string;
   created_at: string;
   updated_at: string;
-  cluster: string | null;
+  cluster: string | { id: number; slug: string } | null;
   tags: string[];
   duration: number;
 }
@@ -134,7 +134,7 @@ export default function BlogPostPage() {
 
         {post.cluster && (
           <span className="inline-block text-xs font-medium text-primary uppercase tracking-wider mb-3" data-testid="text-blog-cluster">
-            {post.cluster}
+            {typeof post.cluster === "object" ? post.cluster.slug : post.cluster}
           </span>
         )}
 

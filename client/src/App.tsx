@@ -70,6 +70,8 @@ function Router() {
         <Route path="/es/blog" component={BlogListingPage} />
         <Route path="/en/blog/:slug" component={BlogPostPage} />
         <Route path="/es/blog/:slug" component={BlogPostPage} />
+        <Route path="/en/blog/:category/:slug" component={BlogPostPage} />
+        <Route path="/es/blog/:category/:slug" component={BlogPostPage} />
         <Route path="/preview-frame" component={PreviewFrame} />
         <Route path="/private/*" component={PrivateRouter} />
         {/* Apply page - dedicated routes */}
