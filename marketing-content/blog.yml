@@ -28,15 +28,6 @@
 #   { title, slug, status, visibility, lang, author, published_at, updated_at, preview }
 # ───────────────────────────────────────────────────────────────
 
-
-
-
-
-
-
-
-
-
 data_source:
   type: api
   api:
