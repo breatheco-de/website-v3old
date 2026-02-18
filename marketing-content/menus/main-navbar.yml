@@ -141,6 +141,18 @@ navbar:
                 href: /en/location/malaga-spain
               - label: Berlin, Germany
                 href: /en/location/berlin-germany
+              - label: Lisbon, Portugal
+                href: /en/location/lisbon-portugal
+              - label: Hamburg, Germany
+                href: /en/location/hamburg-germany
+              - label: Munich, Germany
+                href: /en/location/munich-germany
+              - label: Dublin, Ireland
+                href: /en/location/dublin-ireland
+              - label: Milan, Italy
+                href: /en/location/milan-italy
+              - label: Rome, Italy
+                href: /en/location/rome-italy
           - title: LATAM
             items:
               - label: Santiago, Chile
@@ -151,6 +163,20 @@ navbar:
                 href: /en/location/mexicocity-mexico
               - label: Caracas, Venezuela
                 href: /en/location/caracas-venezuela
+              - label: Buenos Aires, Argentina
+                href: /en/location/buenosaires-argentina
+              - label: La Paz, Bolivia
+                href: /en/location/lapaz-bolivia
+              - label: 'Costa Rica '
+                href: /en/location/costa-rica
+              - label: Quito, Ecuador
+                href: /en/location/quito-ecuador
+              - label: Panama City, Panama
+                href: /en/location/panamacity-panama
+              - label: Montevideo, Uruguay
+                href: /en/location/montevideo-uruguay
+              - label: Lima, Peru
+                href: /en/location/lima-peru
     - label: UPCOMING DATES
       href: /upcoming-dates
       component: SimpleLink
