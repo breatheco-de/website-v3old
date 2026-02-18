@@ -106,8 +106,8 @@ sections:
       - 🔗 Want a career jump-start? Apply to the [Full Stack Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) and get LearnPack and Rigobot from day one.
 
       Questions? Email **info@4geeksacademy.com** or chat with an advisor.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
   - type: faq
     version: v1.0
     title: Frequently Asked Questions
