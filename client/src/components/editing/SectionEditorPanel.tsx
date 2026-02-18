@@ -2058,48 +2058,167 @@ export function SectionEditorPanel({
                 const currentValue = getFieldValue();
                 const fieldLabel = fieldPath.split(".").pop() || fieldPath;
 
+                const pathParts = fieldPath.split(".");
+                const parentPrefix = pathParts.length > 1
+                  ? pathParts.slice(0, -1).join(".") + "."
+                  : "";
+
+                const getVideoSiblingValue = (prop: string): unknown => {
+                  if (!parsedSection) return undefined;
+                  const siblingPath = parentPrefix + prop;
+                  const parts = siblingPath.split(".");
+                  let current: unknown = parsedSection;
+                  for (const part of parts) {
+                    if (!current || typeof current !== "object") return undefined;
+                    current = (current as Record<string, unknown>)[part];
+                  }
+                  return current;
+                };
+
+                const currentRatio = (getVideoSiblingValue("ratio") as string) || "";
+                const currentMuted = getVideoSiblingValue("muted");
+                const currentAutoplay = getVideoSiblingValue("autoplay");
+                const currentLoop = getVideoSiblingValue("loop");
+
+                const parentLabel = parentPrefix
+                  ? parentPrefix.replace(/\.$/, "").split(".").pop() || "Video"
+                  : "Video";
+
                 return (
-                  <div key={fieldPath} className="space-y-2 mt-3">
-                    <Label className="text-sm font-medium capitalize">
-                      {fieldLabel.replace(/_/g, " ")}
-                    </Label>
-                    <div className="flex items-center gap-2">
+                  <Collapsible key={fieldPath} className="border rounded-md">
+                    <CollapsibleTrigger asChild>
                       <button
                         type="button"
-                        onClick={() => {
-                          setVideoPickerTarget({
-                            fieldPath,
-                            label: fieldLabel,
-                            currentUrl: currentValue,
-                          });
-                          setVideoPickerOpen(true);
-                        }}
-                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
-                        data-testid={`props-video-${fieldLabel}`}
-                        title={`Change ${fieldLabel}`}
+                        className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
+                        data-testid={`props-video-${fieldLabel}-trigger`}
                       >
-                        {currentValue ? (
-                          <>
-                            <div className="w-full h-full flex items-center justify-center bg-muted">
-                              <IconVideo className="h-6 w-6 text-primary" />
-                            </div>
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                              <IconVideo className="h-5 w-5 text-white" />
-                            </div>
-                          </>
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <IconVideo className="h-6 w-6 text-muted-foreground" />
-                          </div>
-                        )}
+                        <div className="w-10 h-10 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
+                          <IconVideo className={`h-5 w-5 ${currentValue ? "text-primary" : "text-muted-foreground"}`} />
+                        </div>
+                        <div className="flex-1 text-left min-w-0">
+                          <span className="text-sm font-medium capitalize block">
+                            {parentLabel.replace(/_/g, " ")}
+                          </span>
+                          {currentValue && (
+                            <span className="text-xs text-muted-foreground truncate block">
+                              {currentValue.split("/").pop() || currentValue}
+                            </span>
+                          )}
+                        </div>
+                        <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                       </button>
-                      {currentValue && (
-                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
-                          {currentValue.split("/").pop() || currentValue}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="p-3 pt-0 space-y-3 border-t">
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setVideoPickerTarget({
+                                fieldPath,
+                                label: fieldLabel,
+                                currentUrl: currentValue,
+                              });
+                              setVideoPickerOpen(true);
+                            }}
+                            className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                            data-testid={`props-video-${fieldLabel}-picker`}
+                            title="Change video"
+                          >
+                            {currentValue ? (
+                              <>
+                                <div className="w-full h-full flex items-center justify-center bg-muted">
+                                  <IconVideo className="h-6 w-6 text-primary" />
+                                </div>
+                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                  <IconVideo className="h-5 w-5 text-white" />
+                                </div>
+                              </>
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <IconVideo className="h-6 w-6 text-muted-foreground" />
+                              </div>
+                            )}
+                          </button>
+                          <div className="flex-1 min-w-0">
+                            {currentValue ? (
+                              <span className="text-xs text-muted-foreground break-all line-clamp-3">
+                                {currentValue}
+                              </span>
+                            ) : (
+                              <span className="text-xs text-muted-foreground italic">
+                                No video selected
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <Label className="text-xs text-muted-foreground">
+                            Aspect Ratio
+                          </Label>
+                          <Select
+                            value={currentRatio || "16:9"}
+                            onValueChange={(value) =>
+                              updateProperty(parentPrefix + "ratio", value)
+                            }
+                          >
+                            <SelectTrigger
+                              className="h-8 text-sm"
+                              data-testid={`props-video-${fieldLabel}-ratio`}
+                            >
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="16:9">16:9 (Landscape)</SelectItem>
+                              <SelectItem value="9:16">9:16 (Portrait)</SelectItem>
+                              <SelectItem value="4:3">4:3 (Classic)</SelectItem>
+                              <SelectItem value="1:1">1:1 (Square)</SelectItem>
+                              <SelectItem value="21:9">21:9 (Ultra-wide)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-xs text-muted-foreground">
+                            Playback Options
+                          </Label>
+                          <div className="grid grid-cols-1 gap-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <Label className="text-sm">Muted</Label>
+                              <Switch
+                                checked={currentMuted !== false}
+                                onCheckedChange={(checked) =>
+                                  updatePropertyWithValue(parentPrefix + "muted", checked)
+                                }
+                                data-testid={`props-video-${fieldLabel}-muted`}
+                              />
+                            </div>
+                            <div className="flex items-center justify-between gap-2">
+                              <Label className="text-sm">Autoplay</Label>
+                              <Switch
+                                checked={currentAutoplay === true}
+                                onCheckedChange={(checked) =>
+                                  updatePropertyWithValue(parentPrefix + "autoplay", checked)
+                                }
+                                data-testid={`props-video-${fieldLabel}-autoplay`}
+                              />
+                            </div>
+                            <div className="flex items-center justify-between gap-2">
+                              <Label className="text-sm">Loop</Label>
+                              <Switch
+                                checked={currentLoop !== false}
+                                onCheckedChange={(checked) =>
+                                  updatePropertyWithValue(parentPrefix + "loop", checked)
+                                }
+                                data-testid={`props-video-${fieldLabel}-loop`}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
                 );
               })}
             {/* Render grouped array item editors (when multiple field-editors exist for the same array) */}
