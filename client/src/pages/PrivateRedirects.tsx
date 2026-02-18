@@ -40,6 +40,8 @@ import {
   IconX,
   IconTrash,
   IconTool,
+  IconChevronUp,
+  IconChevronDown,
 } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { isDebugModeActive } from "@/hooks/useDebugAuth";
@@ -460,6 +462,19 @@ export default function PrivateRedirects() {
     }
   };
 
+  const handleReorderCustomRedirect = async (fromIndex: number, toIndex: number) => {
+    const allCustomRedirects = redirects.filter(
+      (r) => r.source === "marketing-content/custom-redirects.yml",
+    );
+    const reordered = [...allCustomRedirects];
+    const [moved] = reordered.splice(fromIndex, 1);
+    reordered.splice(toIndex, 0, moved);
+    await apiRequest("PATCH", "/api/debug/redirects/reorder", {
+      redirects: reordered.map((r) => ({ from: r.from, to: r.to, status: r.status })),
+    });
+    queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
+  };
+
   if (!isAuthorized) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -871,12 +886,43 @@ export default function PrivateRedirects() {
                   </button>
                   {isExpanded && (
                     <div className="ml-4 mt-1 border rounded-lg divide-y overflow-hidden">
-                      {typeRedirects.map((redirect, index) => (
+                      {(() => {
+                        const allCustomRedirects = redirects.filter(
+                          (r) => r.source === "marketing-content/custom-redirects.yml",
+                        );
+                        return typeRedirects.map((redirect, index) => {
+                        const isCustom = redirect.source === "marketing-content/custom-redirects.yml";
+                        const globalCustomIndex = isCustom
+                          ? allCustomRedirects.findIndex((r) => r.from === redirect.from && r.to === redirect.to)
+                          : -1;
+                        const isFirstCustom = globalCustomIndex === 0;
+                        const isLastCustom = globalCustomIndex === allCustomRedirects.length - 1;
+                        return (
                         <div
                           key={`${redirect.from}-${index}`}
                           className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-muted/50 transition-colors"
                           data-testid={`redirect-row-${type}-${index}`}
                         >
+                          {isCustom && (
+                            <div className="flex flex-col flex-shrink-0" style={{ gap: 0 }}>
+                              <button
+                                className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isFirstCustom ? " opacity-30 pointer-events-none" : ""}`}
+                                onClick={() => handleReorderCustomRedirect(globalCustomIndex, globalCustomIndex - 1)}
+                                disabled={isFirstCustom}
+                                data-testid={`button-move-up-${index}`}
+                              >
+                                <IconChevronUp className="h-3.5 w-3.5" />
+                              </button>
+                              <button
+                                className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isLastCustom ? " opacity-30 pointer-events-none" : ""}`}
+                                onClick={() => handleReorderCustomRedirect(globalCustomIndex, globalCustomIndex + 1)}
+                                disabled={isLastCustom}
+                                data-testid={`button-move-down-${index}`}
+                              >
+                                <IconChevronDown className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
+                          )}
                           <div className="flex-1 min-w-0 flex items-center gap-1.5">
                             <code className="text-xs bg-muted px-2 py-1 rounded block truncate">
                               {redirect.from}
@@ -955,7 +1001,9 @@ export default function PrivateRedirects() {
                             <IconTrash className="h-3.5 w-3.5" />
                           </Button>
                         </div>
-                      ))}
+                        );
+                      });
+                      })()}
                     </div>
                   )}
                 </div>

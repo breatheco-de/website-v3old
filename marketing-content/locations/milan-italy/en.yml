@@ -5,15 +5,11 @@ meta:
   og_image: /images/locations/milan-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /milan
-    - /milano
-    - /campus/milan
-    - /it/milan
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Milan Campus
     title: 4Geeks Academy Milan
     subtitle: Italy's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -25,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Milan?
     items:
       - icon: Building
@@ -41,15 +37,15 @@ sections:
         title: Career Opportunities
         description: Strong demand from fashion, finance, and manufacturing sectors.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Milan
     filter_by_location: milan-italy
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Milan Graduate Success Stories
     filter_by_location: milan-italy
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Milan?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

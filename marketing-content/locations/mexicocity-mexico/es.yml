@@ -6,11 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /mexico-city
-    - /mexicocity
-    - /cdmx
-    - /campus/mexico-city
-    - /mx/mexico-city
     - /es/coding-campus/bootcamp-programacion-mexico
 sections:
   - type: hero

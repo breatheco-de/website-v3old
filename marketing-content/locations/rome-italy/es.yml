@@ -6,10 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /rome
-    - /roma
-    - /campus/rome
-    - /it/rome
     - /es/coding-campus/bootcamp-programacion-roma-italia
 sections:
   - type: hero

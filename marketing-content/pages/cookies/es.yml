@@ -8,7 +8,6 @@ meta:
   page_title: cookies | 4Geeks Academy
   description: cookies - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
-    - /cookies
     - /es/cookie
 schema:
   include:

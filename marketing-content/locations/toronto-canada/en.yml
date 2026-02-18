@@ -5,14 +5,11 @@ meta:
   og_image: /images/locations/toronto-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /toronto
-    - /campus/toronto
-    - /ca/toronto
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Toronto Campus
     title: 4Geeks Academy Toronto
     subtitle: Canada's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -24,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Toronto?
     items:
       - icon: Building
@@ -40,15 +37,15 @@ sections:
         title: Global Talent
         description: Multicultural workforce with international opportunities.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Toronto
     filter_by_location: toronto-canada
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Toronto Graduate Success Stories
     filter_by_location: toronto-canada
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Toronto?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

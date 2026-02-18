@@ -5,15 +5,11 @@ meta:
   og_image: /images/locations/lisbon-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /lisbon
-    - /lisboa
-    - /campus/lisbon
-    - /pt/lisbon
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Lisbon Campus
     title: 4Geeks Academy Lisbon
     subtitle: Portugal's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -25,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Lisbon?
     items:
       - icon: Building
@@ -41,15 +37,15 @@ sections:
         title: Career Growth
         description: Growing demand from startups and international companies.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Lisbon
     filter_by_location: lisbon-portugal
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Lisbon Graduate Success Stories
     filter_by_location: lisbon-portugal
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Lisbon?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

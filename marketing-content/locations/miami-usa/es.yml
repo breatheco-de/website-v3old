@@ -50,8 +50,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /miami
-    - /campus/miami
     - /es/miami
     - /es/coding-campus/bootcamp-programacion-miami
 sections:

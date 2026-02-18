@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /lima
-    - /campus/lima
-    - /pe/lima
     - /es/coding-campus/bootcamp-programacion-lima-peru
 sections:
   - type: hero

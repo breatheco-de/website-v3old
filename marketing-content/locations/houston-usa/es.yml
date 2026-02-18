@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /houston
-    - /campus/houston
-    - /en/houston
     - /es/coding-campus/bootcamp-programacion-houston
 sections:
   - type: hero

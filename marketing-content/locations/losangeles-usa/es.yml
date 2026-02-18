@@ -6,10 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /los-angeles
-    - /losangeles
-    - /campus/los-angeles
-    - /en/los-angeles
     - /es/coding-campus/bootcamp-programacion-losangeles
 sections:
   - type: hero

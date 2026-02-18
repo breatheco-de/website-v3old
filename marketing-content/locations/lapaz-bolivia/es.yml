@@ -6,10 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /la-paz
-    - /lapaz
-    - /campus/la-paz
-    - /bo/la-paz
     - /es/coding-campus/bootcamp-programacion-bolivia
 sections:
   - type: hero

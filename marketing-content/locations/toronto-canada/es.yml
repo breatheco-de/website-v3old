@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /toronto
-    - /campus/toronto
-    - /ca/toronto
     - /es/coding-campus/bootcamp-programacion-toronto-canada
 sections:
   - type: hero

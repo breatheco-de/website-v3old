@@ -1762,6 +1762,46 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.patch("/api/debug/redirects/reorder", (req, res) => {
+    try {
+      const { redirects } = req.body;
+
+      if (!Array.isArray(redirects)) {
+        res.status(400).json({ error: "'redirects' must be an array of {from, to, status?} entries" });
+        return;
+      }
+
+      for (const entry of redirects) {
+        if (!entry || typeof entry !== "object" || !entry.from || !entry.to) {
+          res.status(400).json({ error: "Each redirect must have 'from' and 'to' fields" });
+          return;
+        }
+      }
+
+      const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
+
+      const newEntries = redirects.map((r: { from: string; to: string; status?: number }) => {
+        const entry: { from: string; to: string; status?: number } = { from: r.from, to: r.to };
+        if (r.status && r.status !== 301) entry.status = r.status;
+        return entry;
+      });
+
+      const yamlContent = safeYamlDump({ redirects: newEntries }, { lineWidth: -1, noRefs: true });
+      fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+
+      contentIndex.scan();
+      clearRedirectCache();
+
+      res.json({
+        success: true,
+        message: `Custom redirects reordered (${newEntries.length} entries)`,
+      });
+    } catch (err) {
+      console.error("[Debug] Failed to reorder redirects:", err);
+      res.status(500).json({ error: "Failed to reorder redirects" });
+    }
+  });
+
   // Menus API - list all menu files (excludes translation files like .es.yml)
   app.get("/api/menus", (_req, res) => {
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");

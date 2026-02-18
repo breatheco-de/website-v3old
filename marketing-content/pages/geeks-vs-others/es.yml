@@ -7,15 +7,14 @@ meta:
   change_frequency: weekly
   page_title: 4Geeks vs Otros Bootcamps | 4Geeks Academy
   description: Compara 4Geeks Academy con otros coding bootcamps. Descubre por qué nuestra mentoría ilimitada, apoyo profesional y resultados probados nos distinguen.
-  redirects:
-    - /es/geeks-vs-otros
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: 4Geeks Academy vs Otros Programas
     subtitle: Descubre por qué nuestros graduados triunfan en tech. Desde aprendizaje impulsado por IA y proyectos prácticos hasta mentoría personalizada y soporte profesional de por vida, todo está diseñado para ayudarte a lanzar una carrera exitosa y duradera.
@@ -29,9 +28,9 @@ sections:
     marginY:
       desktop: none md
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: Lanzando Carreras Tech Exitosas en la Era de la IA
-    subtitle: "Estamos construidos para prepararte para el éxito. Desde un currículo alineado con la industria y preparado para el futuro hasta mentoría de por vida y soporte profesional, así es como 4Geeks se diferencia:"
+    subtitle: 'Estamos construidos para prepararte para el éxito. Desde un currículo alineado con la industria y preparado para el futuro hasta mentoría de por vida y soporte profesional, así es como 4Geeks se diferencia:'
     columns:
       - name: Característica
       - name: 4Geeks Academy
@@ -44,7 +43,7 @@ sections:
           - Limitado o de corto plazo
       - feature: Ratio Profesor-Estudiante
         values:
-          - "1:7"
+          - '1:7'
           - Usualmente 1:10 o más
       - feature: Feedback Impulsado por IA
         values:
@@ -80,7 +79,7 @@ sections:
       desktop: md lg
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Aprendizaje Hiperpersonalizado y Soporte que Dura Toda la Vida
     description: En 4Geeks construimos un sistema completo de soporte alrededor de la personalización. Y, a diferencia de la mayoría de programas, no termina con tu primer empleo.
     bullets:
@@ -93,7 +92,7 @@ sections:
     footer: Más de 10,000 graduados han lanzado carreras tech exitosas con 4Geeks.
     image: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-cards
     title: Éxito de Graduados en Números
     subtitle: Nuestros alumnos están consiguiendo empleos, aumentando salarios y lanzando carreras tech en todo el mundo.
@@ -127,14 +126,14 @@ sections:
       type: image
       src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
       alt: Estudiantes colaborando en el aula
-      aspect_ratio: "4:3"
+      aspect_ratio: '4:3'
       style: rounded
     background: bg-muted/30
     stacked_header: true
     marginY:
       desktop: none lg
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: Haciendo las Carreras Tech Accesibles
     description: Las carreras tech pueden transformar vidas y las finanzas nunca deberían ser un obstáculo. Por eso ofrecemos algunas de las opciones de pago y becas más flexibles y amigables para estudiantes en la industria.
@@ -158,7 +157,7 @@ sections:
     variant: primary-left
     primary:
       heading: Tu Carrera – Garantizada
-      description: "La prueba más fuerte de que creemos en nuestro modelo? Lo respaldamos con una Garantía de Empleo opcional. La mayoría de escuelas prometen \"apoyo profesional\". En 4Geeks prometemos resultados: consigue empleo en 9 meses o te devolvemos el 100% de tu matrícula. Condiciones aplican."
+      description: 'La prueba más fuerte de que creemos en nuestro modelo? Lo respaldamos con una Garantía de Empleo opcional. La mayoría de escuelas prometen "apoyo profesional". En 4Geeks prometemos resultados: consigue empleo en 9 meses o te devolvemos el 100% de tu matrícula. Condiciones aplican.'
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:

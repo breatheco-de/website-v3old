@@ -5,14 +5,11 @@ meta:
   og_image: /images/locations/houston-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /houston
-    - /campus/houston
-    - /en/houston
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Houston Campus
     title: 4Geeks Academy Houston
     subtitle: Texas's largest city coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -24,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Houston?
     items:
       - icon: Building
@@ -40,15 +37,15 @@ sections:
         title: Career Growth
         description: Strong demand for developers across multiple industries.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Houston
     filter_by_location: houston-usa
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Houston Graduate Success Stories
     filter_by_location: houston-usa
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Houston?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

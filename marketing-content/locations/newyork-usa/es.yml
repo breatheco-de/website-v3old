@@ -6,11 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /new-york
-    - /newyork
-    - /nyc
-    - /campus/new-york
-    - /en/new-york
     - /es/coding-campus/bootcamp-programacion-nyc
 sections:
   - type: hero

@@ -5,14 +5,11 @@ meta:
   og_image: /images/locations/malaga-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /malaga
-    - /campus/malaga
-    - /es/malaga
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Malaga Campus
     title: 4Geeks Academy Malaga
     subtitle: Andalusia's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -24,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Malaga?
     items:
       - icon: Building
@@ -40,15 +37,15 @@ sections:
         title: Remote Work
         description: Popular destination for digital nomads and remote workers.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Malaga
     filter_by_location: malaga-spain
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Malaga Graduate Success Stories
     filter_by_location: malaga-spain
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Malaga?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /malaga
-    - /campus/malaga
-    - /es/malaga
     - /es/coding-campus/bootcamp-programacion-malaga-espana
 sections:
   - type: hero

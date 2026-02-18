@@ -5,16 +5,11 @@ meta:
   og_image: /images/locations/mexicocity-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /mexico-city
-    - /mexicocity
-    - /cdmx
-    - /campus/mexico-city
-    - /mx/mexico-city
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Mexico City Campus
     title: 4Geeks Academy Mexico City
     subtitle: Latin America's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -26,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Mexico City?
     items:
       - icon: Building
@@ -42,15 +37,15 @@ sections:
         title: Global Companies
         description: Presence of major tech companies and growing startups.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Mexico City
     filter_by_location: mexicocity-mexico
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Mexico City Graduate Success Stories
     filter_by_location: mexicocity-mexico
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Mexico City?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

@@ -7,27 +7,26 @@ meta:
   change_frequency: weekly
   page_title: testimonials | 4Geeks Academy
   description: testimonials - Aprende más sobre este tema en 4Geeks Academy.
-  redirects:
-    - /testimonials
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Reseñas reales de graduados de 4Geeks Academy
     subtitle: Nuestros graduados comparten cómo desarrollaron habilidades demandadas, ganaron confianza y lanzaron nuevas carreras en tecnología con el apoyo de la comunidad de 4Geeks.
     badge: Testimonios de estudiantes y resultados profesionales
     trust_bar:
-      rating: "4.9/5"
-      rating_count: "2,500+"
+      rating: 4.9/5
+      rating_count: 2,500+
       trusted_text: Con la confianza de más de 10,000 estudiantes
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Top Tech School
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -35,7 +34,6 @@ sections:
       desktop: md none
     marginY:
       desktop: none md
-
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -76,7 +74,6 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: md none
-
   - type: testimonials_grid
     version: v1.0
     title: Lo que dicen nuestros estudiantes
@@ -90,7 +87,6 @@ sections:
     default_star_color: hsl(45 93% 47%)
     columns: 3
     background: hsl(var(--background))
-
   - type: faq
     version: v1.0
     title: Preguntas frecuentes
@@ -98,9 +94,8 @@ sections:
       - outcomes
     marginY:
       desktop: none md
-
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
     background: hsl(var(--primary))

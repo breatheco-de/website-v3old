@@ -6,10 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /lisbon
-    - /lisboa
-    - /campus/lisbon
-    - /pt/lisbon
     - /es/coding-campus/bootcamp-programacion-lisboa-portugal
 sections:
   - type: hero

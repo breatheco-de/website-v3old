@@ -5,14 +5,11 @@ meta:
   og_image: /images/locations/santiago-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /santiago
-    - /campus/santiago
-    - /cl/santiago
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Santiago Campus
     title: 4Geeks Academy Santiago
     subtitle: Chile's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -24,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Santiago?
     items:
       - icon: Building
@@ -40,15 +37,15 @@ sections:
         title: Career Opportunities
         description: High demand from tech companies and financial sector.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Santiago
     filter_by_location: santiago-chile
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Santiago Graduate Success Stories
     filter_by_location: santiago-chile
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Santiago?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

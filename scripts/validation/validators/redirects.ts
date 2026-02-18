@@ -21,6 +21,20 @@ interface CustomRedirectEntry {
   status?: number;
 }
 
+function isRegexPattern(p: string): boolean {
+  return /\(.*\)|\[.*\]|\.\*|\.\+|\\d|\\w|\\s|\{\d+[,}]/.test(p);
+}
+
+function getStaticPrefix(pattern: string): string {
+  let prefix = "";
+  for (let i = 0; i < pattern.length; i++) {
+    const ch = pattern[i];
+    if (ch === "(" || ch === "[" || ch === "." || ch === "\\" || ch === "{" || ch === "*" || ch === "+" || ch === "?") break;
+    prefix += ch;
+  }
+  return prefix;
+}
+
 function loadCustomRedirects(): CustomRedirectEntry[] {
   const filePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
   if (!fs.existsSync(filePath)) return [];
@@ -207,6 +221,35 @@ export const redirectValidator: Validator = {
         for (const next of nextTargets) {
           queue.push({ url: next, path: nextPath });
         }
+      }
+    }
+
+    const regexCustom = customRedirects
+      .map((entry, index) => ({ entry, index }))
+      .filter(({ entry }) => isRegexPattern(entry.from));
+
+    for (let i = 0; i < regexCustom.length; i++) {
+      const broader = regexCustom[i];
+      const broaderPrefix = getStaticPrefix(broader.entry.from);
+      try {
+        const broaderRegex = new RegExp(`^${broader.entry.from}$`, "i");
+        for (let j = i + 1; j < regexCustom.length; j++) {
+          const specific = regexCustom[j];
+          const specificPrefix = getStaticPrefix(specific.entry.from);
+          if (specificPrefix.startsWith(broaderPrefix) && specificPrefix.length > broaderPrefix.length) {
+            const samplePath = specific.entry.from.replace(/\(.*?\)/g, "test-value").replace(/\[.*?\]/g, "x").replace(/\.\*/g, "sample").replace(/\.\+/g, "sample");
+            if (broaderRegex.test(samplePath)) {
+              warnings.push({
+                type: "warning",
+                code: "REGEX_SHADOWED",
+                message: `Pattern "${specific.entry.from}" (position ${specific.index + 1}) is shadowed by broader pattern "${broader.entry.from}" (position ${broader.index + 1}) — the specific rule will never match`,
+                file: customFile,
+                suggestion: `Move "${specific.entry.from}" above "${broader.entry.from}" in custom-redirects.yml, or use the reorder arrows in the Redirects editor`,
+              });
+            }
+          }
+        }
+      } catch {
       }
     }
 

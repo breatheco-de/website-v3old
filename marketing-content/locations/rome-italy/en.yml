@@ -5,15 +5,11 @@ meta:
   og_image: /images/locations/rome-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /rome
-    - /roma
-    - /campus/rome
-    - /it/rome
+  redirects: []
 sections:
   - type: hero
     variant: singleColumn
-    version: "1.0"
+    version: '1.0'
     badge: Rome Campus
     title: 4Geeks Academy Rome
     subtitle: Italy's capital city coding bootcamp with unlimited mentorship, career support, and a global community of developers.
@@ -25,7 +21,7 @@ sections:
         url: /syllabus
         variant: outline
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Rome?
     items:
       - icon: Building
@@ -41,15 +37,15 @@ sections:
         title: Career Diversity
         description: Opportunities in government, tourism tech, and startups.
   - type: programs_list
-    version: "1.0"
+    version: '1.0'
     title: Programs Available in Rome
     filter_by_location: rome-italy
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Rome Graduate Success Stories
     filter_by_location: rome-italy
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career in Rome?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now

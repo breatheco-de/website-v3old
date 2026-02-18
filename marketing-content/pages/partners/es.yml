@@ -7,15 +7,14 @@ meta:
   change_frequency: weekly
   page_title: Aliados de 4Geeks Academy | 4Geeks Academy
   description: socios - Aprende más sobre este tema en 4Geeks Academy.
-  redirects:
-    - /partners
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Construyendo el Futuro de la Tecnología, Juntos
     subtitle: 4Geeks Academy se asocia con universidades, organizaciones sin fines de lucro, iniciativas laborales y organizaciones globales para ampliar el acceso a la educación tecnológica, colocar talento diverso y cerrar la brecha de habilidades digitales, creando caminos profesionales más fuertes y una fuerza laboral lista para la era de la IA.
@@ -24,7 +23,7 @@ sections:
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
       - text: Únete a nuestra red de alianzas
-        url: "#apply"
+        url: '#apply'
         variant: primary
         icon: Rocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -33,7 +32,7 @@ sections:
     paddingY:
       desktop: md none
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: ¿Por qué asociarse con 4Geeks?
     description: Cada colaboración está diseñada para generar resultados medibles para organizaciones y comunidades, creando oportunidades, expandiendo el acceso a la educación tecnológica y fortaleciendo la fuerza laboral tecnológica del futuro.
@@ -88,7 +87,7 @@ sections:
         description: Desde 2021 hemos estado trabajando en programas de desarrollo de software full-stack y en el lanzamiento del primer programa de Inteligencia Artificial y Aprendizaje Automático en toda América Latina.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: Impacto en Números
     subtitle: Más de $20M en becas y subvenciones otorgadas
@@ -129,7 +128,7 @@ sections:
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: "12"
+    gap: '12'
     marginY:
       desktop: none md
   - type: partnership_carousel
@@ -148,27 +147,27 @@ sections:
         stats:
           - value: $1mm
             label: Costo total
-          - value: "100"
+          - value: '100'
             label: Beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Miami Herald
-            url: "#"
+            url: '#'
             source: Miami Herald
           - text: Refresh Miami
-            url: "#"
+            url: '#'
             source: Refresh Miami
           - text: Social Finance
-            url: "#"
+            url: '#'
             source: Social Finance
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
@@ -178,7 +177,7 @@ sections:
         stats:
           - value: $50,000
             label: Costo total
-          - value: "35"
+          - value: '35'
             label: Beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -189,17 +188,17 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Periódico Mensaje
-            url: "#"
+            url: '#'
             source: Periódico Mensaje
           - text: La República
-            url: "#"
+            url: '#'
             source: La República
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
@@ -209,7 +208,7 @@ sections:
         stats:
           - value: $1.5mm
             label: Costo total
-          - value: "212"
+          - value: '212'
             label: Beneficiados
         institution_logos:
           - image_id: logo_crusa
@@ -218,20 +217,20 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Revista Summa
-            url: "#"
+            url: '#'
             source: Revista Summa
           - text: IDB Press
-            url: "#"
+            url: '#'
             source: IDB Press
           - text: Cultura Costa Rica
-            url: "#"
+            url: '#'
             source: Cultura Costa Rica
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
@@ -241,7 +240,7 @@ sections:
         stats:
           - value: 175k
             label: Costo total
-          - value: "60"
+          - value: '60'
             label: Beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -252,20 +251,20 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: El País
-            url: "#"
+            url: '#'
             source: El País
           - text: San José Ahora
-            url: "#"
+            url: '#'
             source: San José Ahora
           - text: Marca País
-            url: "#"
+            url: '#'
             source: Marca País
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: outline
   - type: faq
     version: v1.0

@@ -8,7 +8,6 @@ meta:
   page_title: Becas | 4Geeks Academy
   description: scholarships - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
-    - /scholarships
     - /es/20-millones
 schema:
   include:
@@ -16,7 +15,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Becas que abren puertas a carreras en tecnología
     subtitle: Explora oportunidades de becas diseñadas para apoyar tu transición hacia carreras tech de alto crecimiento.
@@ -25,15 +24,14 @@ sections:
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
       - text: Aplica ahora
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
         icon: Rocket
     background: bg-gradient-to-b from-primary/5 to-background
     marginY:
       desktop: none lg
-
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: cardHeader
     heading: Oportunidades de financiamiento disponibles
     description: Ofrecemos becas en programas y regiones seleccionadas para hacer que la educación en tecnología sea más accesible. Las oportunidades varían según la ubicación y el programa, e incluyen alianzas institucionales, becas patrocinadas o apoyo basado en mérito.
@@ -47,12 +45,11 @@ sections:
         text: Socios corporativos y comunitarios que patrocinan becas para apoyar al talento emergente en tecnología.
       - icon: Award
         text: Un número limitado de becas parciales basadas en mérito se otorgan a candidatos calificados según su compromiso, potencial y afinidad con el programa.
-
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: "$20+ Million en becas"
+    heading: $20+ Million en becas
     subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "$20 million" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
     background: hsl(var(--muted))
     slides:
@@ -62,9 +59,9 @@ sections:
         subtitle: Lanzando el Miami Workforce Project
         description: United Way Miami se asoció con 4Geeks Academy para lanzar el Miami Workforce Project. Este programa transformador fue creado para ofrecer educación y formación de alta calidad a los residentes del condado de Miami-Dade y es posible gracias a una donación multimillonaria de la filántropa Mackenzie Scott. Los estudiantes admitidos reciben formación en programación sin costos iniciales.
         stats:
-          - value: "$1mm"
+          - value: $1mm
             label: Costo total
-          - value: "100"
+          - value: '100'
             label: Geeks beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
@@ -83,16 +80,15 @@ sections:
           text: Conviértete en partner
           url: /en/partners
           variant: primary
-
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks Academy
         subtitle: Impulsando el desarrollo de talento en Costa Rica
         description: En colaboración con Forte y Crusa, 4Geeks Academy se unió al modelo FORTE para impulsar el desarrollo de talento en Costa Rica. Este programa ha formado a más de 35 estudiantes en tecnologías digitales de alta demanda, enfocándose en mujeres de zonas con alto desempleo. A través del programa, las participantes reciben formación gratuita que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
         stats:
-          - value: "$50,000"
+          - value: $50,000
             label: Costo total
-          - value: "35"
+          - value: '35'
             label: Geeks beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -115,16 +111,15 @@ sections:
           text: Conviértete en partner
           url: /en
           variant: primary
-
       - image_id: costa_rica_city
         object_position: 10% 80%
         title: Proyecto Costa Rica-CINDE y 4Geeks
         subtitle: Invirtiendo en el talento tecnológico de Costa Rica
         description: En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el IDB lanzó un programa para invertir en el talento del país. Juntos estamos ayudando a aproximadamente 250 estudiantes a convertirse en desarrolladores de software calificados, abriendo puertas a mejores oportunidades laborales tras graduarse.
         stats:
-          - value: "$1.5mm"
+          - value: $1.5mm
             label: Costo total
-          - value: "212"
+          - value: '212'
             label: Geeks beneficiados
         institution_logos:
           - image_id: logo_crusa
@@ -148,16 +143,15 @@ sections:
           text: Conviértete en partner
           url: /en
           variant: outline
-
       - image_id: uruguay_city
         object_position: 10% 80%
         title: UTEC y 4Geeks
         subtitle: Formando uruguayos en programación
         description: Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, IDB y 4Geeks. El objetivo fue formar uruguayos en programación y potenciar el crecimiento impulsado por la tecnología en el país.
         stats:
-          - value: "175k"
+          - value: 175k
             label: Costo total
-          - value: "60"
+          - value: '60'
             label: Geeks beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -183,12 +177,11 @@ sections:
           text: Conviértete en partner
           url: /en
           variant: outline
-
   - type: testimonials_slide
     title: Donde el acceso se convierte en carreras reales
     description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del 84% contratados en los primeros seis meses.
   - type: horizontal_bars
-    version: "1.0"
+    version: '1.0'
     title: El retorno de la oportunidad
     subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo en distintas regiones.
     items:
@@ -200,7 +193,6 @@ sections:
         value: 30
     marginY:
       desktop: none md
-
   - type: whos_hiring
     variant: carousel
     pretitle: Historias de éxito
@@ -231,7 +223,6 @@ sections:
         alt: Neo9
       - src: /attached_assets/jooble_1764720010702.png
         alt: Jooble
-
   - type: faq
     version: v1.0
     title: Preguntas frecuentes
@@ -241,9 +232,8 @@ sections:
       - online-platform
     paddingY:
       desktop: lg md
-
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
     background: hsl(var(--primary))

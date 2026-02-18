@@ -7,15 +7,14 @@ meta:
   change_frequency: weekly
   page_title: online-platform | 4Geeks Academy
   description: online-platform - Aprende más sobre este tema en 4Geeks Academy.
-  redirects:
-    - /online-platform
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Dentro de la Plataforma de 4Geeks
     subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentoría humana. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.

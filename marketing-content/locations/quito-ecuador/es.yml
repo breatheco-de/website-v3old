@@ -6,9 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /quito
-    - /campus/quito
-    - /ec/quito
     - /es/coding-campus/bootcamp-programacion-ecuador
 sections:
   - type: hero

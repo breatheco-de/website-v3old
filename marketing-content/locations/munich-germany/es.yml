@@ -6,10 +6,6 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /munich
-    - /munchen
-    - /campus/munich
-    - /de/munich
     - /es/coding-campus/bootcamp-programacion-munich-alemania
 sections:
   - type: hero

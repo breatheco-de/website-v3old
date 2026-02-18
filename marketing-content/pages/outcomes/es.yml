@@ -5,15 +5,14 @@ meta:
   page_title: Informe de Resultados de 4Geeks Academy | Datos de Éxito Profesional
   description: Descubre los resultados profesionales de graduados de 4Geeks Academy. Ve tasas de empleo, aumentos salariales e historias de éxito de nuestros alumni.
   robots: index, follow
-  redirects:
-    - /es/resultados
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Resultados Profesionales Reales, Respaldados por Datos
     subtitle: Medimos el éxito por resultados reales. Nuestros graduados son contratados en ingeniería de IA, ciencia de datos y ciberseguridad, los outcomes están verificados con datos.
@@ -27,7 +26,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: vertical_bars_cards
-    version: "1.0"
+    version: '1.0'
     title: Resultados de Contratación Año tras Año
     subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en outcomes verificados de cohortes recientes.
     metrics:
@@ -35,10 +34,10 @@ sections:
         unit: Graduados contratados en 6 meses
         description: Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación para mantener los datos precisos y comparables entre cohortes.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 86
             displayValue: 86%
-          - year: "2024"
+          - year: '2024'
             value: 84
             displayValue: 84%
           - year: Mid 2025
@@ -48,10 +47,10 @@ sections:
         unit: Comparado con salario pre-bootcamp
         description: Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el bootcamp.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 12500
             displayValue: $12.5k
-          - year: "2024"
+          - year: '2024'
             value: 14200
             displayValue: $14.2k
           - year: Mid 2025
@@ -61,10 +60,10 @@ sections:
         unit: Tiempo promedio desde graduación hasta oferta
         description: Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 52
             displayValue: 52 días
-          - year: "2024"
+          - year: '2024'
             value: 48
             displayValue: 48 días
           - year: Mid 2025
@@ -75,7 +74,7 @@ sections:
     paddingY:
       desktop: none md
   - type: stats
-    version: "1.0"
+    version: '1.0'
     title: Resultados de Contratación por Regiones
     subtitle: Nuestros graduados consiguen empleo y aumentan sus salarios en múltiples mercados laborales.
     background: hsl(210 100% 50% / 0.05)
@@ -95,7 +94,7 @@ sections:
     paddingY:
       desktop: lg
   - type: pie_charts
-    version: "1.0"
+    version: '1.0'
     title: Nuestra Comunidad Estudiantil de un Vistazo
     subtitle: Un snapshot de quiénes son nuestros estudiantes por edad, género y región.
     background: hsl(var(--background))
@@ -151,7 +150,7 @@ sections:
       type: image
       src: /attached_assets/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en el aula
-      aspect_ratio: "4:3"
+      aspect_ratio: '4:3'
       style: rounded
     stacked_header: true
   - type: awards_marquee
@@ -198,7 +197,7 @@ sections:
       desktop: none sm
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Por Qué Nuestros Graduados Siempre Consiguen Empleo
     description: Los excelentes resultados provienen de cómo enseñamos, apoyamos y colocamos a los estudiantes en roles tech.
     bullets:
@@ -221,7 +220,7 @@ sections:
     title: Resultados Profesionales Reales
     subtitle: Nuestros alumni comparten cómo consiguieron roles, avanzaron en sus carreras y aumentaron su poder adquisitivo.
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez

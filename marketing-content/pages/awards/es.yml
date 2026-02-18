@@ -7,15 +7,14 @@ meta:
   change_frequency: monthly
   page_title: Premios y Reconocimientos | 4Geeks Academy
   description: Descubre por qué 4Geeks Academy es uno de los mejores bootcamps de programación. Conoce nuestros premios de Forbes, Newsweek, Course Report, SwitchUp y más.
-  redirects:
-    - /es/premios
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Mejores Bootcamps de Programación
     subtitle: 4Geeks Academy recibe los más altos reconocimientos de Forbes, SwitchUp y líderes de la industria por nuestros programas prácticos y enfocados en la carrera profesional.
@@ -37,7 +36,7 @@ sections:
         excerpt: Nuestro bootcamp fue elegido como la mejor opción por su formato práctico para principiantes, resultados verificados y garantía de empleo.
         link_text: Ver artículo
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/#4geeks_academy_data_science_and_machine_learning_course_section
-        box_color: ""
+        box_color: ''
       - logo: /attached_assets/arp-logo-certification_1765548854924.png
         title: Calidad Institucional en Educación Online
         excerpt: 4Geeks Academy ha obtenido la certificación ARP, distinguiéndose como líder en educación online de programación.
@@ -68,7 +67,7 @@ sections:
         excerpt: No solo en Florida, sino en cada uno de nuestros campus, 4Geeks mantiene una calificación cercana a 5 estrellas que nos posiciona entre los mejores bootcamps del mundo.
         link_text: Ver artículo
         link_url: https://www.switchup.org/bootcamps/4geeks-academy
-        box_color: ""
+        box_color: ''
       - logo: /attached_assets/switchup-best-bootcamps-2025_1770392145139.png
         title: Top 5 Coding Bootcamps en SwitchUp 2025
         excerpt: SwitchUp ha reconocido a 4Geeks Academy incluyéndola en su prestigiosa lista de mejores coding bootcamps para 2025.
@@ -79,7 +78,7 @@ sections:
         excerpt: Hemos sido seleccionados como uno de los mejores bootcamps online de programación por Forbes.
         link_text: Ver artículo
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/#4geeks_academy_full_stack_developer_bootcamp_section
-        box_color: ""
+        box_color: ''
       - logo: /attached_assets/ebootcamp-top_1765549056325.png
         title: Mejor Bootcamp eBootcamp 2024
         excerpt: Fuimos nominados por eBootcamp como el mejor coding bootcamp para 2024.
@@ -92,7 +91,7 @@ sections:
         link_url: https://starthubcenters.com/4geeks-academy-named-top-coding-school-2017/
       - logo: /attached_assets/exelencia-educativa-es_1765549347699.png
         title: Mejor Programa Internacional de Becas 2022
-        excerpt: ""
+        excerpt: ''
         link_text: Ver artículo
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
       - logo: /attached_assets/pee-career_1765549482702.png
