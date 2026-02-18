@@ -1,13 +1,14 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import { apiFetch } from "@/lib/queryClient";
-import { IconLoader2, IconSearch, IconCalendar, IconUser, IconArrowRight } from "@tabler/icons-react";
+import { IconLoader2, IconSearch, IconCalendar, IconUser, IconArrowRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import Header from "@/components/Header";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 interface BlogAuthor {
@@ -22,20 +23,32 @@ interface BlogPost {
   slug: string;
   title: string;
   lang: string;
-  category: { slug: string };
+  category: { slug: string } | null;
   description: string;
   preview: string;
   author: BlogAuthor | null;
   published_at: string;
   created_at: string;
-  cluster: string | null;
+  cluster: string | { id: number; slug: string } | null;
   tags: string[];
 }
 
 interface BlogResponse {
   count: number;
+  total: number;
+  page?: number;
+  totalPages?: number;
+  hasNext?: boolean;
+  hasPrev?: boolean;
+  categories?: string[];
   results: BlogPost[];
 }
+
+interface BlogConfig {
+  url_pattern: Record<string, string>;
+}
+
+const POSTS_PER_PAGE = 12;
 
 function formatDate(dateStr: string, locale: string): string {
   try {
@@ -55,27 +68,71 @@ function getAuthorName(author: BlogAuthor | null): string {
   return `${author.first_name || ""} ${author.last_name || ""}`.trim() || "4Geeks Academy";
 }
 
+function getCategorySlug(post: BlogPost): string {
+  if (post.category?.slug) return post.category.slug;
+  if (typeof post.cluster === "object" && post.cluster) return post.cluster.slug;
+  if (typeof post.cluster === "string") return post.cluster;
+  return "";
+}
+
+function formatCategoryLabel(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+function buildPostUrl(pattern: string, post: BlogPost, locale: string): string {
+  let result = pattern.replaceAll(":locale", locale);
+  result = result.replaceAll(":slug", post.slug || "");
+  result = result.replaceAll(":category", getCategorySlug(post));
+  result = result.replaceAll(":lang", post.lang || "");
+  result = result.replaceAll(":status", (post as any).status || "");
+  result = result.replaceAll(":tags", (post.tags || []).join(","));
+  return result;
+}
+
 export default function BlogListingPage() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
+  const searchString = useSearch();
   const locale = location.startsWith("/es") ? "es" : "en";
   const handleLinkClick = useInternalNav();
+
+  const params = new URLSearchParams(searchString);
+  const currentPage = Math.max(1, parseInt(params.get("page") || "1", 10));
+  const activeCategory = params.get("category") || "";
   const [searchQuery, setSearchQuery] = useState("");
 
   usePageMeta({
-    page_title: locale === "es" ? "Blog | 4Geeks Academy" : "Blog | 4Geeks Academy",
+    page_title: locale === "es"
+      ? `Blog${currentPage > 1 ? ` - Página ${currentPage}` : ""} | 4Geeks Academy`
+      : `Blog${currentPage > 1 ? ` - Page ${currentPage}` : ""} | 4Geeks Academy`,
     description: locale === "es"
       ? "Lee las últimas noticias, tutoriales y artículos sobre programación, tecnología y educación en 4Geeks Academy."
       : "Read the latest news, tutorials and articles about coding, technology and education at 4Geeks Academy.",
   });
 
+  const apiParams = new URLSearchParams();
+  apiParams.set("locale", locale);
+  apiParams.set("page", String(currentPage));
+  apiParams.set("limit", String(POSTS_PER_PAGE));
+  if (activeCategory) apiParams.set("category", activeCategory);
+
   const { data, isLoading, error } = useQuery<BlogResponse>({
-    queryKey: ["/api/blog/posts", locale],
+    queryKey: ["/api/blog/posts", locale, currentPage, activeCategory],
     queryFn: async () => {
-      const response = await apiFetch(`/api/blog/posts?locale=${locale}`);
+      const response = await apiFetch(`/api/blog/posts?${apiParams.toString()}`);
       if (!response.ok) throw new Error("Failed to load blog posts");
       return response.json();
     },
   });
+
+  const { data: blogConfig } = useQuery<BlogConfig>({
+    queryKey: ["/api/blog/config"],
+    staleTime: 300000,
+  });
+
+  const urlPattern = blogConfig?.url_pattern?.[locale] || `/${locale}/blog/:slug`;
 
   const filteredPosts = useMemo(() => {
     if (!data?.results) return [];
@@ -85,9 +142,49 @@ export default function BlogListingPage() {
       (post) =>
         post.title?.toLowerCase().includes(query) ||
         post.description?.toLowerCase().includes(query) ||
-        post.cluster?.toLowerCase().includes(query)
+        getCategorySlug(post).toLowerCase().includes(query)
     );
   }, [data?.results, searchQuery]);
+
+  const categories = data?.categories || [];
+  const totalPages = data?.totalPages || 1;
+
+  const buildPageUrl = useCallback(
+    (page: number, category?: string) => {
+      const p = new URLSearchParams();
+      if (page > 1) p.set("page", String(page));
+      if (category) p.set("category", category);
+      const qs = p.toString();
+      return `/${locale}/blog${qs ? `?${qs}` : ""}`;
+    },
+    [locale]
+  );
+
+  const handleCategoryClick = (cat: string) => {
+    const next = activeCategory === cat ? "" : cat;
+    setLocation(buildPageUrl(1, next || undefined));
+  };
+
+  const handlePageChange = (page: number) => {
+    setLocation(buildPageUrl(page, activeCategory || undefined));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const pageNumbers = useMemo(() => {
+    const pages: (number | "...")[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push("...");
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (currentPage < totalPages - 2) pages.push("...");
+      pages.push(totalPages);
+    }
+    return pages;
+  }, [totalPages, currentPage]);
 
   if (isLoading) {
     return (
@@ -125,7 +222,7 @@ export default function BlogListingPage() {
               ? "Artículos, tutoriales y noticias sobre programación y tecnología"
               : "Articles, tutorials and news about coding and technology"}
           </p>
-          <div className="relative max-w-md">
+          <div className="relative max-w-md mb-4">
             <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               placeholder={locale === "es" ? "Buscar artículos..." : "Search articles..."}
@@ -135,6 +232,29 @@ export default function BlogListingPage() {
               data-testid="input-blog-search"
             />
           </div>
+          {categories.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap" data-testid="section-category-cloud">
+              <Badge
+                variant={activeCategory === "" ? "default" : "outline"}
+                className="cursor-pointer"
+                onClick={() => handleCategoryClick("")}
+                data-testid="chip-category-all"
+              >
+                {locale === "es" ? "Todos" : "All"}
+              </Badge>
+              {categories.map((cat) => (
+                <Badge
+                  key={cat}
+                  variant={activeCategory === cat ? "default" : "outline"}
+                  className="cursor-pointer"
+                  onClick={() => handleCategoryClick(cat)}
+                  data-testid={`chip-category-${cat}`}
+                >
+                  {formatCategoryLabel(cat)}
+                </Badge>
+              ))}
+            </div>
+          )}
         </div>
 
         {filteredPosts.length === 0 ? (
@@ -150,64 +270,138 @@ export default function BlogListingPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="grid-blog-posts">
-            {filteredPosts.map((post) => (
-              <a
-                key={post.id}
-                href={`/${locale}/blog/${post.slug}`}
-                onClick={handleLinkClick}
-                className="block group"
-                data-testid={`link-blog-post-${post.slug}`}
-              >
-                <Card className="h-full overflow-hidden hover-elevate transition-all">
-                  {post.preview && (
-                    <div className="aspect-video w-full overflow-hidden">
-                      <img
-                        src={post.preview}
-                        alt={post.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        data-testid={`img-blog-post-${post.slug}`}
-                      />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    {post.cluster && (
-                      <Badge variant="secondary" className="mb-3" data-testid={`badge-cluster-${post.slug}`}>
-                        {post.cluster}
-                      </Badge>
-                    )}
-                    <h2
-                      className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors"
-                      data-testid={`text-blog-post-title-${post.slug}`}
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="grid-blog-posts">
+              {filteredPosts.map((post) => {
+                const postUrl = buildPostUrl(urlPattern, post, locale);
+                return (
+                  <a
+                    key={post.id}
+                    href={postUrl}
+                    onClick={handleLinkClick}
+                    className="block group"
+                    data-testid={`link-blog-post-${post.slug}`}
+                  >
+                    <Card className="h-full overflow-visible hover-elevate transition-all">
+                      {post.preview && (
+                        <div className="aspect-video w-full overflow-hidden rounded-t-md">
+                          <img
+                            src={post.preview}
+                            alt={post.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            data-testid={`img-blog-post-${post.slug}`}
+                          />
+                        </div>
+                      )}
+                      <div className="p-5">
+                        {getCategorySlug(post) && (
+                          <Badge variant="secondary" className="mb-3" data-testid={`badge-cluster-${post.slug}`}>
+                            {formatCategoryLabel(getCategorySlug(post))}
+                          </Badge>
+                        )}
+                        <h2
+                          className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+                          data-testid={`text-blog-post-title-${post.slug}`}
+                        >
+                          {post.title}
+                        </h2>
+                        <p
+                          className="text-sm text-muted-foreground mb-4 line-clamp-3"
+                          data-testid={`text-blog-post-desc-${post.slug}`}
+                        >
+                          {post.description}
+                        </p>
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                          <span className="flex items-center gap-1">
+                            <IconUser className="w-3 h-3" />
+                            {getAuthorName(post.author)}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <IconCalendar className="w-3 h-3" />
+                            {formatDate(post.published_at || post.created_at, locale)}
+                          </span>
+                        </div>
+                        <div className="mt-4 flex items-center gap-1 text-sm text-primary font-medium">
+                          {locale === "es" ? "Leer más" : "Read more"}
+                          <IconArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </Card>
+                  </a>
+                );
+              })}
+            </div>
+
+            {totalPages > 1 && (
+              <nav className="flex items-center justify-center gap-1 mt-10" aria-label="Pagination" data-testid="nav-pagination">
+                <a
+                  href={data?.hasPrev ? buildPageUrl(currentPage - 1, activeCategory || undefined) : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (data?.hasPrev) handlePageChange(currentPage - 1);
+                  }}
+                  aria-disabled={!data?.hasPrev}
+                >
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={!data?.hasPrev}
+                    data-testid="button-page-prev"
+                  >
+                    <IconChevronLeft className="w-4 h-4" />
+                  </Button>
+                </a>
+                {pageNumbers.map((p, i) =>
+                  p === "..." ? (
+                    <span key={`ellipsis-${i}`} className="px-2 text-muted-foreground select-none">
+                      ...
+                    </span>
+                  ) : (
+                    <a
+                      key={p}
+                      href={buildPageUrl(p as number, activeCategory || undefined)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(p as number);
+                      }}
                     >
-                      {post.title}
-                    </h2>
-                    <p
-                      className="text-sm text-muted-foreground mb-4 line-clamp-3"
-                      data-testid={`text-blog-post-desc-${post.slug}`}
-                    >
-                      {post.description}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
-                      <span className="flex items-center gap-1">
-                        <IconUser className="w-3 h-3" />
-                        {getAuthorName(post.author)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <IconCalendar className="w-3 h-3" />
-                        {formatDate(post.published_at || post.created_at, locale)}
-                      </span>
-                    </div>
-                    <div className="mt-4 flex items-center gap-1 text-sm text-primary font-medium">
-                      {locale === "es" ? "Leer más" : "Read more"}
-                      <IconArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </Card>
-              </a>
-            ))}
-          </div>
+                      <Button
+                        variant={p === currentPage ? "default" : "outline"}
+                        size="icon"
+                        data-testid={`button-page-${p}`}
+                      >
+                        {p}
+                      </Button>
+                    </a>
+                  )
+                )}
+                <a
+                  href={data?.hasNext ? buildPageUrl(currentPage + 1, activeCategory || undefined) : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (data?.hasNext) handlePageChange(currentPage + 1);
+                  }}
+                  aria-disabled={!data?.hasNext}
+                >
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={!data?.hasNext}
+                    data-testid="button-page-next"
+                  >
+                    <IconChevronRight className="w-4 h-4" />
+                  </Button>
+                </a>
+              </nav>
+            )}
+
+            <div className="text-center mt-4 text-sm text-muted-foreground" data-testid="text-page-info">
+              {locale === "es"
+                ? `Página ${currentPage} de ${totalPages} · ${data?.total || 0} artículos`
+                : `Page ${currentPage} of ${totalPages} · ${data?.total || 0} articles`}
+            </div>
+          </>
         )}
       </div>
     </div>

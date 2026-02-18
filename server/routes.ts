@@ -1047,12 +1047,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blog/posts", async (req, res) => {
     try {
       const locale = req.query.locale as string | undefined;
+      const category = req.query.category as string | undefined;
+      const page = req.query.page ? parseInt(req.query.page as string, 10) : undefined;
+      const limit = Math.min(parseInt(req.query.limit as string, 10) || 12, 100);
       const posts = await getBlogPosts();
-      const filtered = locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts;
-      res.json({
-        count: filtered.length,
-        results: filtered,
+      let filtered = locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts;
+
+      if (category) {
+        filtered = filtered.filter((p: any) => {
+          const catSlug = p.category?.slug || (typeof p.cluster === "object" ? p.cluster?.slug : p.cluster) || "";
+          return catSlug === category;
+        });
+      }
+
+      const categories = Array.from(new Set(
+        (locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts)
+          .map((p: any) => p.category?.slug || (typeof p.cluster === "object" ? p.cluster?.slug : p.cluster) || "")
+          .filter(Boolean)
+      )).sort();
+
+      const total = filtered.length;
+      const stripped = filtered.map((p: any) => {
+        const { content, readme, ...rest } = p;
+        return rest;
       });
+
+      if (page && page > 0) {
+        const totalPages = Math.ceil(total / limit);
+        const start = (page - 1) * limit;
+        const paginated = stripped.slice(start, start + limit);
+        res.json({
+          count: paginated.length,
+          total,
+          page,
+          totalPages,
+          hasNext: page < totalPages,
+          hasPrev: page > 1,
+          categories,
+          results: paginated,
+        });
+      } else {
+        res.json({
+          count: total,
+          total,
+          categories,
+          results: stripped,
+        });
+      }
     } catch (error) {
       console.error("[Blog] Error fetching posts:", error);
       res.status(500).json({ error: "Failed to fetch blog posts" });
