@@ -62,7 +62,7 @@ sections:
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
         - icon: IconUsers
-          text: 7:1 Student-to-Instructor Ratio
+          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: book
