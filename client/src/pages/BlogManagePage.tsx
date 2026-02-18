@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -1149,12 +1149,24 @@ function DataSourceDialog({
   );
 }
 
-function buildBlogUrl(pattern: string, post: BlogPost, locale: string): string {
-  const cluster = (post.clusters && post.clusters.length > 0 ? post.clusters[0] : post.cluster) || "";
-  return pattern
-    .replace(":locale", locale)
-    .replace(":cluster", cluster)
-    .replace(":slug", post.slug);
+function resolvePostField(post: BlogPost, field: string): string {
+  switch (field) {
+    case "slug": return post.slug || "";
+    case "category": return post.category?.slug || (post.clusters && post.clusters.length > 0 ? post.clusters[0] : post.cluster) || "";
+    case "lang": return post.lang || "";
+    case "status": return post.status || "";
+    case "tags": return (post.tags || []).join(",");
+    default: return "";
+  }
+}
+
+function buildBlogUrl(pattern: string, post: BlogPost, locale: string, fieldMappingKeys?: string[]): string {
+  let result = pattern.replaceAll(":locale", locale);
+  const keys = fieldMappingKeys || ["slug", "category", "lang", "status", "tags"];
+  for (const key of keys) {
+    result = result.replaceAll(`:${key}`, resolvePostField(post, key));
+  }
+  return result;
 }
 
 function SeoSettingsDialog({
@@ -1173,6 +1185,7 @@ function SeoSettingsDialog({
   });
 
   const [pattern, setPattern] = useState("/en/blog/:slug");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (config) {
@@ -1180,11 +1193,47 @@ function SeoSettingsDialog({
     }
   }, [config]);
 
+  const URL_SAFE_FIELDS = new Set(["slug", "category", "lang", "status", "tags"]);
+
+  const mappedKeys = useMemo(() => {
+    if (!config?.field_mapping) return ["slug"];
+    return Object.entries(config.field_mapping)
+      .filter(([k, v]) => v != null && URL_SAFE_FIELDS.has(k))
+      .map(([k]) => k);
+  }, [config]);
+
+  const usedInPattern = useMemo(() => {
+    const matches = pattern.match(/:([a-z_]+)/g) || [];
+    return matches.map((m) => m.slice(1));
+  }, [pattern]);
+
+  const unknownVars = useMemo(() => {
+    return usedInPattern.filter((v) => v !== "locale" && !mappedKeys.includes(v));
+  }, [usedInPattern, mappedKeys]);
+
   const deriveLocalePattern = (basePattern: string, locale: string): string => {
     return basePattern.replace(/^\/en\//, `/${locale}/`).replace(/^\/en$/, `/${locale}`);
   };
 
   const esPreview = deriveLocalePattern(pattern, "es");
+
+  const insertVariable = (varName: string) => {
+    const el = inputRef.current;
+    if (!el) {
+      setPattern((prev) => prev + `:${varName}`);
+      return;
+    }
+    const start = el.selectionStart ?? pattern.length;
+    const end = el.selectionEnd ?? pattern.length;
+    const token = `:${varName}`;
+    const next = pattern.slice(0, start) + token + pattern.slice(end);
+    setPattern(next);
+    requestAnimationFrame(() => {
+      el.focus();
+      const pos = start + token.length;
+      el.setSelectionRange(pos, pos);
+    });
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -1207,7 +1256,7 @@ function SeoSettingsDialog({
     }
   };
 
-  const samplePost = { slug: "intro-to-python", cluster: "coding-bootcamp", clusters: ["coding-bootcamp"] } as BlogPost;
+  const samplePost = { slug: "intro-to-python", cluster: "coding-bootcamp", clusters: ["coding-bootcamp"], category: { slug: "coding-bootcamp" } } as BlogPost;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -1223,15 +1272,10 @@ function SeoSettingsDialog({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="rounded-md bg-muted px-3 py-2" data-testid="text-seo-variables-help">
-              <p className="text-xs text-muted-foreground">
-                Available variables: <code className="text-foreground">:slug</code> <code className="text-foreground">:cluster</code> (first cluster). The pattern must start with <code className="text-foreground">/en/</code>.
-              </p>
-            </div>
-
             <div className="space-y-2">
               <Label htmlFor="en-pattern" className="text-sm">URL Pattern</Label>
               <Input
+                ref={inputRef}
                 id="en-pattern"
                 value={pattern}
                 onChange={(e) => setPattern(e.target.value)}
@@ -1240,16 +1284,38 @@ function SeoSettingsDialog({
                 data-testid="input-en-pattern"
               />
               <p className="text-xs text-muted-foreground font-mono" data-testid="text-en-preview">
-                Preview: {buildBlogUrl(pattern, samplePost, "en")}
+                Preview: {buildBlogUrl(pattern, samplePost, "en", mappedKeys)}
               </p>
+              {unknownVars.length > 0 && (
+                <p className="text-xs text-destructive" data-testid="text-unknown-vars-warning">
+                  Unknown variable{unknownVars.length > 1 ? "s" : ""}: {unknownVars.map((v) => `:${v}`).join(", ")}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-1.5" data-testid="section-available-variables">
+              <Label className="text-xs text-muted-foreground">Click to insert a variable</Label>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {mappedKeys.map((key) => (
+                  <Badge
+                    key={key}
+                    variant="outline"
+                    className="cursor-pointer font-mono text-xs"
+                    onClick={() => insertVariable(key)}
+                    data-testid={`chip-var-${key}`}
+                  >
+                    :{key}
+                  </Badge>
+                ))}
+              </div>
             </div>
 
             <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="text-locale-note">
               <p className="text-xs text-muted-foreground">
-                Other languages follow the same structure. The <code className="text-foreground">/en/</code> prefix is replaced automatically.
+                The pattern must start with <code className="text-foreground">/en/</code>. Other languages follow the same structure — the prefix is replaced automatically.
               </p>
               <p className="text-xs text-muted-foreground font-mono" data-testid="text-es-preview">
-                Spanish: {buildBlogUrl(esPreview, samplePost, "es")}
+                Spanish: {buildBlogUrl(esPreview, samplePost, "es", mappedKeys)}
               </p>
             </div>
           </div>

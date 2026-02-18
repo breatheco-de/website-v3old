@@ -67,6 +67,16 @@ export interface BlogPost {
   [key: string]: unknown;
 }
 
+export function resolveUrlPattern(pattern: string, post: BlogPost, locale: string): string {
+  let result = pattern.replaceAll(":locale", locale);
+  result = result.replaceAll(":slug", post.slug || "");
+  result = result.replaceAll(":category", post.category?.slug || post.cluster || "");
+  result = result.replaceAll(":lang", post.lang || "");
+  result = result.replaceAll(":status", post.status || "");
+  result = result.replaceAll(":tags", (post.tags || []).join(","));
+  return result;
+}
+
 let configCache: BlogConfig | null = null;
 
 function loadConfig(): BlogConfig {
@@ -507,7 +517,7 @@ export function generateBlogSsrHtml(post: BlogPost, locale: string): string {
   const baseUrl = getBaseUrl();
   const config = loadConfig();
   const urlPattern = config.url_pattern[locale] || config.url_pattern["en"];
-  const postUrl = `${baseUrl}${urlPattern.replace(":slug", post.slug)}`;
+  const postUrl = `${baseUrl}${resolveUrlPattern(urlPattern, post, locale)}`;
 
   const authorName = post.author
     ? `${post.author.first_name || ""} ${post.author.last_name || ""}`.trim()

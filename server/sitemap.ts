@@ -10,6 +10,7 @@ import {
   MARKETING_CONTENT_PATH as BASE_CONTENT_PATH,
 } from "./utils/contentLoader";
 import { contentIndex } from "./content-index";
+import { resolveUrlPattern } from "./blog";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -474,7 +475,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
         for (const post of cached.results) {
           const locale = post.category?.slug === blogConfig.categories["es"] ? "es" : "en";
           const urlPattern = blogConfig.url_pattern[locale] || blogConfig.url_pattern["en"];
-          const postUrl = `${getBaseUrl()}${urlPattern.replace(":slug", post.slug)}`;
+          const postUrl = `${getBaseUrl()}${resolveUrlPattern(urlPattern, post as any, locale)}`;
           entries.push({
             loc: postUrl,
             lastmod: post.updated_at ? post.updated_at.split("T")[0] : today,
