@@ -650,10 +650,15 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
   }, [contentType, slug, locale, sections, toast]);
 
   const resolvedSections = useMemo(() => {
-    if (isEditMode || !varDefinitions || Object.keys(varDefinitions).length === 0) {
+    if (!varDefinitions || Object.keys(varDefinitions).length === 0) {
       return sections;
     }
-    const { data } = resolveDeep(sections, varDefinitions, varContext);
+    const { data } = resolveDeep(
+      sections,
+      varDefinitions,
+      varContext,
+      isEditMode ? { preserveTemplate: true } : undefined,
+    );
     return data as Section[];
   }, [sections, isEditMode, varDefinitions, varContext]);
 
