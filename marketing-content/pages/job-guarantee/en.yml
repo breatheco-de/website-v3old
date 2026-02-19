@@ -92,8 +92,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: default
-    heading: Career Programs that Offer The Job Guarantee Option
-    subheading: Our programs qualify for the Job Guarantee when all eligibility requirements are met.
+    heading: Career Programs with the Job Guarantee Option
+    subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
     courses:
       - name: AI Engineering
         icon: Brain
@@ -214,8 +214,8 @@ sections:
       desktop: lg none
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Apply now to secure your spot and get full program details.
     background: hsl(var(--primary))
     variant: form
     form:

@@ -66,7 +66,7 @@ sections:
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
         - icon: IconUsers
-          text: 7:1 Student-to-Instructor Ratio
+          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: book
@@ -330,7 +330,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
+          - text: {{ global_teacher_student_ratio | 7:1 }} student–teacher ratio for personalized guidance
           - text: Peer collaboration through Slack channels and weekly check-ins
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call

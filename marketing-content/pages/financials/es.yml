@@ -64,18 +64,20 @@ sections:
       desktop: none
   - type: syllabus
     title: Financia Tu Carrera Tech
-    subtitle: Explora caminos de financiamiento flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la opción que mejor se adapte a ti.
+    subtitle: Explora caminos de financiación flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la opción que mejor se adapte a ti.
     modules:
       - title: Pago Anticipado y Ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
       - title: Cuotas sin Intereses a 6 Meses
-        description: Distribuye tu matrícula en 6 meses sin intereses. Paga el costo estándar de matrícula en cuotas mensuales estructuradas.
+        description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales.
       - title: Pagos Basados en Ingresos
-        description: ¿Prefieres pagar después de conseguir empleo? A través de nuestro socio Edly, comienzas a pagar una vez que ganes al menos $35,000 al año. Los pagos mensuales se ajustan a tus ingresos y se pausan durante periodos de desempleo o subempleo. Se aceptan cosigners.
-      - title: Préstamos y Planes de Pago Extendidos
-        description: Ofrecemos planes de financiamiento de 1 a 5 años, según tu perfil crediticio, con pagos mensuales desde menos de $349. Los términos y aprobación dependen de tu elegibilidad.
+        description: ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar únicamente cuando tus ingresos anuales alcancen los {{ minimun_isa_salary | 17.000 € }}. A partir de ese momento, se aplica un porcentaje fijo de tus ingresos, adaptado a tu situación económica.
+      - title: Financia tu formación con comodidad
+        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde {{ mounthly_price_bootcamp | 200 € }}. La aprobación y condiciones finales dependen de la entidad financiera.
       - title: Becas
-        description: Becas parciales disponibles para solicitantes calificados a través de programas selectos y organizaciones aliadas. La disponibilidad y montos varían.
+        description: Ofrecemos becas parciales internas según perfil y promociones vigentes, así como becas a través de organizaciones colaboradoras. La disponibilidad y los importes pueden variar.
+    expand_label: Más Información
+    collapse_label: Ocultar información
     marginY:
       desktop: none lg
     paddingY:
@@ -83,18 +85,18 @@ sections:
     background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
     version: "1.0"
-    title: Compara Tus Opciones de Financiamiento de un Vistazo
+    title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
     subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
     columns:
-      - name: Opción
+      - name: Modalidad
         highlight: true
-      - name: Pago Completo
+      - name: Pago Total
         highlight: true
-      - name: Planes Mensuales
+      - name: Cuotas Flexibles (TFC)
         highlight: true
-      - name: Préstamos
+      - name: Financiamiento (Ascent/ Climb)
         highlight: true
-      - name: Plan Basado en Ingresos
+      - name: Paga Cuando Ganes (ISA)
         highlight: true
     rows:
       - feature: Descuento en Matrícula
@@ -103,19 +105,19 @@ sections:
           - "No"
           - "No"
           - "No"
-      - feature: Revisión de Crédito Requerida
+      - feature: Verificación de Crédito
         values:
           - "No"
-          - Baja barrera
+          - Fácil Acceso
           - Sí
           - Sí
-      - feature: Diferimiento de Pago Después de Graduarte
+      - feature: Diferir Pagos
         values:
           - "No"
           - "No"
           - Sí
           - Sí
-      - feature: Paga Solo Después de Conseguir Empleo
+      - feature: Pagar Una Vez Contratado
         values:
           - "No"
           - "No"
@@ -190,11 +192,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ price_full_cybersecurity | $14,999 }} inversión total
+            text: {{ global_salary_increase | 55 }}000000000000000 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ price_cybersecurity | 299$ }}
+        price: {{ global_salary_increase | 55 }}1111111111111110000
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -243,8 +245,8 @@ sections:
           - icon: CheckCircle
             text: Oferta de primavera, hasta el 1 de mayo*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: 140€
-        price_info: cuota sujeta a la aprobación de la financiera y depósito de 500€.
+        price: {{ global_salary_increase | 55 }}222222222
+        price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -255,15 +257,15 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}0000000000000000000111111111122222222 inversión total
+            text: 6.800€ inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         tags:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: {{ global_salary_increase | 55 }}1111111111111111111222222222233333333
-        price_info: o menos según tu plan de pago
+        price: Desde 200€
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -271,31 +273,31 @@ sections:
         icon: ChartLine
         duration: 16 semanas
         label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
+        title: Data Science y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}2222222222222222222333333333344444444 inversión total
+            text: 7.800 inversión total"
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: {{ global_salary_increase | 55 }}3333333333333333333444444444455555555
-        price_info: o menos según tu plan de pago
+        price: Desde 200€
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
         course_background: primary
-      - name: Cybersecurity
+      - name: Ciberseguridad
         icon: Shield
         duration: 16 semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}4444444444444444444555555555566666666 inversión total
+            text: 7.800€ inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ global_salary_increase | 55 }}5555555555555555555666666666677777777
-        price_info: o menos según tu plan de pago
+        price: Desde 200€
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -351,31 +353,6 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Garantía de Empleo Opcional*
-    subtitle: Respalda tu resultado profesional con un compromiso más fuerte
-    description: "Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></div>"
-    cta:
-      text: Más Información
-      url: /es/trabajo-garantizado
-      variant: primary
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
-    showOnLocations:
-      - valencia-spain
-      - rome-italy
-      - munich-germany
-      - milan-italy
-      - malaga-spain
-      - madrid-spain
-      - lisbon-portugal
-      - hamburg-germany
-      - dublin-ireland
-      - berlin-germany
-      - barcelona-spain
   - type: testimonials
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
@@ -421,7 +398,6 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
-    version: v1.0
     title: Preguntas Frecuentes
     related_features:
       - price
@@ -430,6 +406,49 @@ sections:
       desktop: lg none
     paddingY:
       desktop: none md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - dallas-usa
+      - chicago-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: faq
+    title: Preguntas Frecuentes
+    related_features:
+      - certification
+      - price
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: none md
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.

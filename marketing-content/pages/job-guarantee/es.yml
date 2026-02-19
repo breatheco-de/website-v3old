@@ -95,9 +95,9 @@ sections:
     version: "1.0"
     variant: default
     heading: Programas de Carrera con Garantía de Empleo
-    subheading: Ofrecemos la opcion de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
+    subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
-      - name: AI Engineering
+      - name: Ingeniería en IA
         icon: Brain
         duration: 24 semanas
         label: Actualizado en 2026
@@ -105,13 +105,11 @@ sections:
         badges:
           - icon: DollarSign
             text: APIs, automatización y telemetría
-        description: Construye y escala un negocio nativo en IA mientras aprendes a desarrollar sistemas y flujos de trabajo de IA listos para producción.
-        price: {{ price_ai_engineering | $349 }}
-        price_info: o menos según tu plan
+        description: Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo de IA listos para producción.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
-      - name: Full Stack Development with AI
+      - name: Desarollo Full Stack con IA
         duration: 20 semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
@@ -122,13 +120,11 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
-        price: {{ price_fullstack | $299 }}
-        original_price: $588
         price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/full-stack
         course_background: primary
-      - name: Data Science and Machine Learning
+      - name: Ciencia de Datos & Machine Learning
         duration: 16 semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
@@ -136,13 +132,11 @@ sections:
           - icon: Brain
             text: Python, TensorFlow y SQL
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning utilizadas por equipos modernos de datos.
-        price: {{ price_datascience | 299$ }}
-        original_price: $588
         price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-machine-learning
         course_background: accent
-      - name: Cybersecurity
+      - name: Ciberseguridad
         duration: 16 semanas
         label: Actualizado en 2026
         title: Ciberseguridad
@@ -150,8 +144,6 @@ sections:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: {{ price_cybersecurity | 299$ }}
-        original_price: $588
         price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -163,7 +155,7 @@ sections:
     description: "Calificas para la Garantía de Empleo si:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Tienes autorización para trabajar en EE.UU.
+        title: Tienes autorización para trabajar en tu país de residencia.
       - icon: IconCircleDashedCheck
         title: Completas toda la coursework y proyectos
       - icon: IconBrain
@@ -196,18 +188,18 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Por qué funciona nuestra Garantía de Empleo
-    description: La Garantía de Empleo se basa en resultados reales y un modelo enfocado en la contratación. Nuestros programas, metodología de enseñanza y soporte profesional están diseñados según cómo realmente se consigue empleo en el mercado tech actual. A lo largo de los años, hemos ayudado a más de 3,500 graduados a lanzar sus carreras en tech en distintos roles e industrias.
+    heading: Garantía de Empleo basada en resultados reales
+    description: Nuestra Garantía de Empleo se basa en resultados reales de contratación y en un modelo diseñado para maximizar tu empleabilidad. Nuestro contenido, metodología y acompañamiento profesional están alineados con las exigencias del mercado tech actual para ayudarte a conseguir tu próximo empleo. Hemos ayudado a más de 6000 graduados a lanzar su nueva carrera.
     image: /attached_assets/comunity-support_1765908983485.png
     image_alt: Soporte comunitario de 4Geeks Academy
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Resultados consistentes de contratación en toda nuestra comunidad de graduados
+        text: Altas tasas de contratación de nuestros graduados
       - icon: BrandStackshare
-        text: Fuerte y sostenida demanda de profesionales tech calificados
+        text: Alta demanda de talento tech calificado
       - icon: ChalkboardTeacher
-        text: Entrenamiento estructurado combinado con soporte continuo y práctico para tu carrera
+        text: Formación estructurada con acompañamiento práctico y continuo
   - type: faq
     version: "1.0"
     title: Preguntas frecuentes sobre la Garantía de Empleo
