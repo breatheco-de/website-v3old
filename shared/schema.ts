@@ -355,8 +355,14 @@ export {
 // ============================================
 export {
   comparisonTableColumnSchema,
+  comparisonTableCtaButtonSchema,
+  comparisonTableCellSchema,
+  comparisonTableCellValueSchema,
   comparisonTableRowSchema,
   comparisonTableSectionSchema,
+  type ComparisonTableCtaButton,
+  type ComparisonTableCell,
+  type ComparisonTableCellValue,
   type ComparisonTableColumn,
   type ComparisonTableRow,
   type ComparisonTableSection,
