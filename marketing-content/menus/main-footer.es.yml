@@ -2,10 +2,8 @@ footer:
   columns:
     - title: Empresa
       items:
-        - label: Por qué 4Geeks
-          href: /es/sobre-la-academia
         - label: Academia
-          href: /en/why-4geeks
+          href: /es/sobre-la-academia
         - label: Alianzas
           href: /es/alianzas
         - label: Precios
@@ -14,10 +12,8 @@ footer:
           href: /es/proximas-fechas
         - label: Preguntas Frecuentes
           href: /es/faq
-        - label: Contact Us
+        - label: Contáctanos
           href: /es/contactanos
-        - label: '[TRANSLATE] Contáctanos'
-          href: /en/contact-us
     - title: Programas
       items:
         - label: Ingeniería en IA
