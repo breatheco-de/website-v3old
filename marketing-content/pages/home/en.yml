@@ -93,9 +93,10 @@ sections:
     gap: md
     rounded: true
     marginY:
-      desktop: none lg
+      desktop: none
     paddingY:
-      desktop: md none
+      desktop: md xl
+    background: hsl(var(--secondary))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -115,6 +116,8 @@ sections:
       desktop: none lg
     video:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
+    paddingY:
+      desktop: none
   - type: features_grid
     version: "1.0"
     variant: highlight
