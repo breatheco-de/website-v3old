@@ -2,107 +2,374 @@ slug: home
 template: default
 title: La Plataforma de Recapacitación con IA
 meta:
+  robots: index, follow
+  priority: 1
+  change_frequency: daily
   page_title: 4Geeks Academy | La Plataforma de Recapacitación con IA
   description: Transforma tu carrera con aprendizaje potenciado por IA. Obtén educación personalizada, mentoría experta y apoyo profesional para lanzar tu carrera tecnológica.
   redirects:
     - /inicio
+schema:
+  include:
+    - organization
+    - website
+    - educational
 sections:
   - type: hero
-    variant: productShowcase
-    title: La Plataforma de Recapacitación con IA
-    subtitle: Transforma tu carrera
-    description: Domina habilidades tecnológicas demandadas con mentores expertos, herramientas de IA de vanguardia y apoyo profesional ilimitado. Únete a miles que han lanzado carreras tecnológicas exitosas.
-    marquee:
-      items:
-        - id: switchup-2025
-          alt: SwitchUp - Mejores Bootcamps de Programación 2025
-          logo: /attached_assets/switchup_1765590146414.webp
-          logoHeight: 48px
-        - id: course-report-2024
-          alt: Course Report - Mejor Bootcamp de Programación 2024
-          logo: /attached_assets/Course-Report-Badge-2025_1764709632231.webp
-          logoHeight: 48px
-        - id: newsweek
-          alt: Newsweek
-          logo: /attached_assets/newsweek_1764709608255.webp
-          logoHeight: 48px
-        - id: forbes
-          alt: Forbes - Top Bootcamp de Programación
-          logo: /attached_assets/forbes-logo-award_1764709625651.webp
-          logoHeight: 48px
-        - id: fortune
-          alt: Fortune - Mejor Empresa Educativa
-          logo: /attached_assets/fortune-logo_1764709618095.webp
-          logoHeight: 48px
-      speed: 40
-      gradient: true
-      gradientWidth: 50
+    variant: showcase
+    title: Carreras Tech de Nueva Generación. Impulsadas por IA.
+    subtitle: Programas enfocados en carreras de Ingeniería de IA, Desarrollo de Software, Ciencia de Datos y Ciberseguridad. Diseñados para impulsar carreras de alto crecimiento en la tecnología actual.
+    trust_bar:
+      rating: {{ global_review_rating | 4.9 }}/5
+      rating_count: 3,000+
+      trusted_text: Miles de estudiantes confían en nosotros
     cta_button:
-      text: Comenzar
-      url: /es/aplica
+      text: Explora Nuestros Programas
+      url: "#course_selector-6"
       variant: primary
-
-  - type: features_grid
-    variant: highlight
-    title: Nuestra misión es llevarte a la tecnología. Tú eliges cómo.
+      icon: ""
+    left_images:
+      - src: /attached_assets/community_1764717588840.png
+        alt: Ilustración de comunidad
+      - src: /attached_assets/caracas-graduates_1765387638222.png
+        alt: Celebración de graduados en Caracas
+    right_images:
+      - src: /attached_assets/fernando-funez_1765315920677.jpg
+        alt: Testimonio de Fernando Funez
+      - src: /attached_assets/feliz-empresario-laptop_1765406479465.png
+        alt: Profesional feliz con laptop
+    show_arrow: true
+    marginY:
+      desktop: sm none
+    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
+    paddingY:
+      desktop: sm none
+  - type: award_badges
+    version: v1.0
+    variant: detailed
+    showBorder: false
     items:
-      - icon: https://images.prismic.io/4geeks/aBu1IydWJ-7kRuaG_imagen_2025-05-07_153146531.png?auto=format,compress
-        title: Inicio Rápido
-        description: Comienza rápidamente con nuestra incorporación simplificada y currículo estructurado
-      - icon: https://images.prismic.io/4geeks/aBu4FydWJ-7kRub-_imagen_2025-05-07_154423512.png?auto=format,compress
-        title: Comunidad Global
-        description: Únete a miles de estudiantes en todo el mundo en el mismo camino hacia el dominio tecnológico
-      - icon: https://images.prismic.io/4geeks/aBu2USdWJ-7kRuat_imagen_2025-05-07_153648922.png?auto=format,compress
-        title: Cursos a tu ritmo
-        description: Aprende a tu propio ritmo con recursos guiados por expertos.
-      - icon: https://images.prismic.io/4geeks/aBu2kidWJ-7kRua__imagen_2025-05-07_153754062.png?auto=format,compress
-        title: Impulso Profesional
-        description: Mejora tu currículum, networking y habilidades de entrevista.
-
-  - type: testimonials_slide
-    title: Lo Que Dicen Nuestros Estudiantes
-    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
-
-  - type: two_column
-    proportions:
-      - 5
-      - 7
-    alignment: center
-    left:
-      image: /attached_assets/community_1764717588840.png
-      image_alt: Estudiantes colaborando en un proyecto
-      justify: start
-    right:
-      heading: Haciendo las Carreras Tecnológicas Accesibles
-      description: Creemos que todos merecen la oportunidad de construir una carrera en tecnología. Nuestra plataforma elimina barreras con horarios de aprendizaje flexibles, opciones de precios accesibles y soporte integral desde el primer día hasta la colocación laboral.
-      cta:
-        text: Comienza Tu Camino
-        href: /es/rutas-de-aprendizaje
-    reverse_on_mobile: true
+      - id: coursereport-detailed
+        alt: Logo del premio Forbes
+        logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logoHeight: 64px
+        description: Consistentemente listado entre los 5 mejores bootcamps por Forbes
+        link: https://www.coursereport.com
+        linkText: Leer reseñas
+      - id: clark-university
+        alt: Logo de Clark University
+        logo: /marketing-content/images/clark-university_1769653206336.png
+        logoHeight: 64px
+        description: Certificado por universidades reconocidas
+        link: https://www.switchup.org
+        linkText: Ver rankings
+      - id: careerkarma-detailed
+        alt: Insignias de premios
+        logo: /attached_assets/badges-new.avif
+        logoHeight: 64px
+        description: Elegido mejor bootcamp en 2024 y 2025 por SwitchUp, Course Report y Career Karma.
+        link: https://careerkarma.com
+        linkText: Saber más
+    marginY:
+      desktop: none md
+  - type: image_row
+    images:
+      - src: /attached_assets/student-1-asian.png
+        alt: Estudiante aprendiendo a programar
+      - src: /attached_assets/student-2-latin.png
+        alt: Desarrollador trabajando en un proyecto
+      - src: /attached_assets/student-3-african.png
+        alt: Sesión de colaboración en equipo
+      - src: /attached_assets/student-4-lady-latin.png
+        alt: Graduada celebrando su éxito
+    highlight:
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>"
+      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>"
+      background: primary
+      width: 2
+    height: 31rem
+    mobile_height: 24rem
+    gap: md
+    rounded: true
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md none
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: Donde el Aprendizaje con IA Se Une a la Mentoría de por Vida
+    description: El aprendizaje potenciado por IA se combina con mentoría ilimitada 1:1 para ayudarte a desarrollar habilidades, ganar confianza y avanzar en roles tech de alto crecimiento, más rápido e inteligente.
+    bullets:
+      - heading: Aprendizaje Personalizado en Cada Nivel
+        text: Grupos reducidos, acceso ilimitado a mentores y retroalimentación guiada por IA mantienen tu aprendizaje rápido, adaptativo y enfocado en lo que importa.
+      - heading: Mentoría de por Vida y Apoyo Profesional
+        text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
+      - heading: Currículo y Herramientas de Aprendizaje Integradas con IA
+        text: Domina las últimas herramientas y flujos de trabajo de IA que los empleadores están buscando activamente.
+    image: /attached_assets/community_1764717588840.png
+    image_alt: Estudiante aprendiendo con apoyo de mentor
+    reverse: true
+    marginY:
+      desktop: none lg
+    video:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Resultados Reales para Nuestros Graduados
+    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo lanzan carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
+    items:
+      - icon: Briefcase
+        value: 84%
+        title: Tasa de colocación laboral
+      - icon: Graduation
+        value: 3-6 meses
+        title: Tiempo promedio para conseguir empleo
+      - icon: GrowthChart
+        value: 55%
+        title: Aumento salarial después de graduarse
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
+  - type: career_support_explain
+    version: v1.0
+    heading: Consigue Empleo. Con Soporte de Carrera para la Era de la IA
+    description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
+    background: hsl(var(--sidebar-background))
+    tabs:
+      - tab_label: Listo para Trabajar, Más Rápido
+        layout: three_columns
+        col1_subtitle: Construye un perfil atractivo para reclutadores, de forma inteligente.
+        col1_description: |-
+          Prepárate para procesos reales de contratación usando una combinación de herramientas de IA y coaching 1:1.
+          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas para un impacto óptimo.
+        col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo personalizados
+        col1_boxes:
+          - icon: IconBrandLinkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Currículum
+          - icon: IconBriefcase
+            text: Portafolio
+          - icon: IconMail
+            text: Carta de presentación
+        col2_heading: Estrategia de Carrera, Construida para Ti
+        col2_bullets:
+          - icon: IconRobot
+            text: Retroalimentación 24/7 de RigoBot para auditar tu LinkedIn y currículum
+          - icon: IconUsers
+            text: Sesiones de coaching y estrategia de carrera 1:1
+          - icon: IconMicrophone
+            text: Entrevistas simuladas y preparación para entrevistas técnicas
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Acceso a Contratación Real
+        layout: two_column_cards
+        title: Accede al mercado laboral oculto.
+        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: 250+
+          label: empresas en la red de empleadores de 4Geeks
+        right_bullets:
+          - icon: IconUserPlus
+            text: Referidos directos a socios de contratación
+          - icon: IconTargetArrow
+            text: Ofertas laborales curadas según tu perfil
+          - icon: IconMessageChatbot
+            text: Coaching en networking y conversaciones con reclutadores
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Pruebas que Convierten
+        layout: text_and_image
+        title: Proyectos que demuestran habilidad real.
+        left_description: |-
+          La visibilidad atrae atención. Las pruebas cierran la brecha.
+          Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Proyectos alineados con la industria y el mundo real
+          - icon: IconPresentation
+            text: Un proyecto final listo para mostrar
+          - icon: IconBrandGithub
+            text: Optimización de GitHub y revisión profesional de código
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: El Rol Ideal para Ti
+        layout: text_with_testimonials_carousel
+        title: Convierte tu trayectoria en una ventaja.
+        left_description: |-
+          Cuando las ofertas lleguen, te ayudamos a elegir y negociar con confianza.
+          Tu experiencia previa importa. Mapeamos habilidades transferibles, enfocamos tu búsqueda en los roles correctos y te apoyamos en la negociación salarial y el crecimiento a largo plazo.
+        left_bullets:
+          - icon: IconTransfer
+            text: Mapeo de habilidades transferibles
+          - icon: IconMap
+            text: Hoja de ruta profesional personalizada
+          - icon: IconCoin
+            text: Coaching en negociación salarial
+          - icon: IconUsers
+            text: Soporte de carrera continuo para egresados
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de su proyecto.
+            achievement: ¡Lanzó su startup, contrata nuevo talento tech y coordina un equipo de desarrollo completo!
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y toda una nueva vida profesional.
+            achievement: Logró un aumento salarial del 100%.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
+            achievement: Logró un aumento salarial del 100%.
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Explora Nuestros Programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
+    courses:
+      - name: Ingeniería de IA
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
+        badges:
+          - icon: Cpu
+            text: LLMs, Agentes de IA y Automatización
+          - icon: Database
+            text: Sistemas de IA en Producción
+        description: "Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real."
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-profesionales/ingenieria-de-ia
+        course_background: hsl(var(--accent))
+      - name: Desarrollo Full Stack con IA
+        icon: Code
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo de Software Full Stack
+        badges:
+          - icon: Code
+            text: React, Node.js y Python
+        tags:
+          - icon: Plus
+            text: Desarrollo de APIs
+          - icon: ""
+            text: ""
+        description: "Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria."
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-profesionales/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Ciencia de Datos y ML
+        icon: ChartLine
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
+        badges:
+          - icon: BrainCircuit
+            text: Machine Learning y Modelos de IA
+          - icon: BarChart
+            text: Análisis y Visualización de Datos
+        description: "Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real."
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-profesionales/ciencia-de-datos-ml
+        course_background: hsl(var(--primary))
+      - name: Ciberseguridad
+        icon: Shield
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
+        badges:
+          - icon: Lock
+            text: Detección de Amenazas y Seguridad de Redes
+          - icon: Server
+            text: Seguridad en la Nube
+        description: "Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad."
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-profesionales/ciberseguridad
+        course_background: hsl(var(--secondary-foreground))
+    background: hsl(var(--muted))
+    marginY:
+      desktop: lg
     paddingY:
       desktop: md lg
-
   - type: features_grid
+    version: "1.0"
     variant: highlight
-    title: La Clave de Tu Éxito
-    subtitle: Herramientas Potenciadas por IA y Soporte Humano Sin Igual
+    title: Resultados Reales para Nuestros Graduados
+    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo lanzan carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
-      - icon: IconRocket
-        title: Aprendizaje con IA
-        description: El currículo personalizado se adapta a tu ritmo y estilo de aprendizaje
-      - icon: IconUsers
-        title: Mentoría Experta
-        description: Guía 1 a 1 de profesionales de la industria con experiencia del mundo real
-      - icon: IconBriefcase
-        title: Apoyo Profesional
-        description: Asistencia de colocación laboral y preparación para entrevistas incluidas
-
-  - type: awards_row
-    title: Premios Importantes y Calificaciones Destacadas
-    badges:
-      - name: "Calificación 5.0"
-        source: Course Report
-      - name: "Calificación 4.9"
-        source: SwitchUp
-      - name: Mejor Bootcamp de Programación
-        source: "Premios 2024"
+      - icon: Briefcase
+        value: 84%
+        title: Tasa de colocación laboral
+      - icon: Graduation
+        value: 3-6 meses
+        title: Tiempo promedio para conseguir empleo
+      - icon: GrowthChart
+        value: 55%
+        title: Aumento salarial después de graduarse
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Garantía de Empleo* Opcional para Mayor Confianza
+    subtitle: Respalda tu resultado profesional con un compromiso más fuerte
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    cta:
+      text: Más Información
+      url: /es/garantia-de-empleo
+      variant: primary
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none sm
+    background: hsl(210 100% 50% / 0.05)
+  - type: testimonials_slide
+    title: Graduados Reales, Resultados Profesionales Reales
+    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
+    background: hsl(var(--card))
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
+  - type: faq
+    title: Preguntas Frecuentes
+    related_features:
+      - online-platform
+      - certification
+      - mentors-and-teachers
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: md none
