@@ -138,7 +138,7 @@ price_fullstack:
       value: "$299"
     - query:
         region: "europe"
-      value: "299€"
+      value: "200€"
     - query:
         region: "latam"
       value: "$299"
