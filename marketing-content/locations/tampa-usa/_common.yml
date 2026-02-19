@@ -13,6 +13,11 @@ phone: +1 813-555-0100
 address: 100 N Tampa St, Tampa, FL 33602
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For this campus visitors and those interested in tech opportunities.
+  target_audience: Local professionals and residents seeking a coding bootcamp with job-focused training.
+  goals:
+    - Highlight job outcomes and connections to local employers
 catalog:
   admission_advisors:
     - name: "Admissions Team"

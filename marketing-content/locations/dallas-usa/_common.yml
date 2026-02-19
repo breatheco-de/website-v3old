@@ -13,6 +13,13 @@ phone: +1 214-555-0100
 address: 1401 Elm St, Dallas, TX 75202
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For Dallas and North Texas visitors or those interested in tech opportunities in the DFW metroplex.
+  target_audience: Local professionals, career changers, and residents seeking a coding bootcamp with job-focused training and global recognition.
+  goals:
+    - Position Dallas as a leading Texas tech hub
+    - Emphasize hybrid and online programs with live support
+    - Highlight job outcomes and connections to local employers
 catalog:
   admission_advisors:
     - name: "Admissions Team"

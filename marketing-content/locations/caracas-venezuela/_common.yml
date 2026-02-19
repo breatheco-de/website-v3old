@@ -13,6 +13,13 @@ phone: +58 212 123 4567
 address: Av. Francisco de Miranda, Caracas
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For Caracas and Venezuela visitors or those interested in tech opportunities in one of Venezuela's cities with the greatest technological entrepreneurship.
+  target_audience: Local professionals, entrepreneurs, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
+  goals:
+    - Position Caracas as a hub for tech entrepreneurship
+    - Emphasize bilingual (English/Spanish) and hybrid programs
+    - Highlight job outcomes and opportunities to grow locally and internationally
 catalog:
   admission_advisors:
     - name: "Admissions Team"

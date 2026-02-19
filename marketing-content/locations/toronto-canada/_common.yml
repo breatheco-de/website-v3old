@@ -13,6 +13,11 @@ phone: +1 416-850-4600
 address: 100 King St W, Toronto, ON M5X 1A9
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For this campus visitors and those interested in tech opportunities.
+  target_audience: Local professionals and residents seeking a coding bootcamp with job-focused training.
+  goals:
+    - Highlight job outcomes and connections to local employers
 catalog:
   admission_advisors:
     - name: "Admissions Team"

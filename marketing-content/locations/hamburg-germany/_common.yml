@@ -13,6 +13,13 @@ phone: +49 40 555 0100
 address: Jungfernstieg 1, 20095 Hamburg
 available_programs:
   - full-stack
+context:
+  when_to_use: For Hamburg and Germany visitors or those interested in tech opportunities in northern Germany.
+  target_audience: Local professionals and European residents seeking a coding bootcamp with hybrid/online options and global recognition.
+  goals:
+    - Position Hamburg as a tech hub in Germany
+    - Emphasize hybrid and online programs with live support
+    - Highlight job outcomes and connections to European employers
 catalog:
   admission_advisors:
     - name: Admissions Team

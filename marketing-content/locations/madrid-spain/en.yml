@@ -55,7 +55,8 @@ sections:
     version: '1.0'
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Madrid
-    subtitle: Train for today's most in-demand tech roles in Europe's
+    subtitle: Train for in-demand tech roles in Europe's #1 emerging startup ecosystem. Madrid holds 47% of Spain's tech jobs. Live instruction, hands-on projects, and career support for real hiring.
+
     badge: Madrid Campus
     cta_buttons:
       - text: Apply Now
