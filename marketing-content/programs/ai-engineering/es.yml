@@ -20,7 +20,7 @@ sections:
   - type: hero
     version: "1.3"
     variant: course
-    title: Ingeniería en IA
+    title: Ingeniería de IA
     subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
     students_enrolled:
       avatars:
@@ -59,7 +59,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa intensivo de 24 semanas o versión acelerada de 12 semanas
+          text: Programa de 24 semanas o versión acelerada de 12 semanas
         - icon: IconBriefcase
           text: Currículo orientado al empleo
         - icon: IconRobot
@@ -117,26 +117,26 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
-    version: "1.0"
+    version: "1.2"
     variant: stats-text
-    title: Por Qué Ingeniería de IA Ahora
-    subtitle: La brecha de talento es tu oportunidad
-    description: Según el informe Jobs on the Rise 2026 de LinkedIn, los Ingenieros de IA están entre los roles de más rápido crecimiento en EE.UU. La demanda se está acelerando y las empresas están contratando activamente para estas habilidades ahora.
+    title: Por Qué Estudiar Ingeniería de IA Ahora
+    subtitle: El mercado laboral de IA está creciendo más rápido que la oferta de talento.
+    description: Según el informe Jobs on the Rise 2026 de LinkedIn, los Ingenieros de IA están entre los perfiles con mayor crecimiento en Estados Unidos. Las empresas ya compiten por profesionales con estas habilidades.
     background: bg-muted/30
     items:
       - id: "1"
         value: 800,000
-        title: Roles relacionados con IA esperados para 2027
+        title: Roles relacionados con IA proyectados para 2027
       - id: "2"
         value: ~30%
-        title: Crecimiento año tras año en ofertas de trabajo de IA
+        title: Crecimiento anual en vacantes de IA
       - id: "3"
-        value: $95K-$135K
-        title: Salario inicial promedio para Ingenieros de IA
+        value: $95K–$135K
+        title: Rango salarial inicial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
-    program_title: Resumen del Programa de Ingeniería de IA
-    program_description: Aprende construyendo y escalando un único negocio nativo de IA a lo largo de 10 hitos. Gradúate en 24 semanas con una empresa completamente operativa e impulsada por IA que refleja las habilidades y flujos de trabajo utilizados por equipos de ingeniería modernos.
+    program_title: Plan de Estudios en Ingeniería de IA
+    program_description: "Aprende aplicando nuestra Metodología de Caso de Empresa: desarrolla un sistema completo de IA a lo largo de 10 hitos, desde el planteamiento inicial hasta su despliegue en producción. En 24 semanas, construye una solución funcional que refleja los estándares y flujos de trabajo de equipos de ingeniería modernos."
     tech_logos:
       - name: React
         icon: react
