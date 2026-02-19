@@ -31,7 +31,7 @@ navbar:
         footer:
           text: Unsure which program fits you best? See our program comparison
           linkText: here
-          href: /program-comparison
+          href: /en/program-comparison
     - label: WHY 4GEEKS
       href: /why-4geeks
       component: Dropdown
