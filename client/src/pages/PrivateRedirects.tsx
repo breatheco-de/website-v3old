@@ -1071,18 +1071,9 @@ export default function PrivateRedirects() {
             </div>
 
             {(isOriginRegex || isCustomDestination || isRegexDestination) && (
-              <div className="rounded-md border overflow-hidden">
-                <div className="flex items-center justify-between gap-4 px-3 py-2.5">
-                  <div className="space-y-0.5">
-                    <Label className="text-sm font-medium">Priority</Label>
-                    <p className="text-xs text-muted-foreground">
-                      {redirectPriority === "before"
-                        ? "Runs before page routing — always redirects, even if a real page exists at this URL."
-                        : "Only redirects if no real page matches — existing pages take precedence."}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex border-t">
+              <div className="space-y-2">
+                <Label>Priority</Label>
+                <div className="flex rounded-md border overflow-hidden">
                   {[
                     { value: "before" as const, label: "Before", desc: "Always redirect" },
                     { value: "fallback" as const, label: "Fallback", desc: "Only if no page exists" },
