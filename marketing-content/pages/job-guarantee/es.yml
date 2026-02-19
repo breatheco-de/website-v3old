@@ -44,8 +44,8 @@ sections:
   - type: graduates_stats
     version: v1.0
     variant: fullBleed
-    heading: Resultados que respaldan nuestra Garantía de Empleo
-    subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar exitosamente tu carrera en tech. Estos números reflejan las contrataciones reales de nuestros graduados."
+    heading: Resultados que respaldan nuestra Garantía
+    subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números reflejan las contrataciones reales de nuestros graduados."
     stats:
       - value: "84"
         unit: "%"
@@ -94,8 +94,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: default
-    heading: Programas cubiertos por la Garantía de Empleo
-    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
+    heading: Programas que Incluyen la Opción de Garantía
+    subheading: La Garantía de Empleo se ofrece en programas selectos de 4Geeks, para brindarte seguridad adicional.
     courses:
       - name: Full Stack Development
         duration: 9 meses part-time
