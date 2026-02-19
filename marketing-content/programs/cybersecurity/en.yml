@@ -157,7 +157,7 @@ sections:
         value: 41%
         title: Projected job growth, outpacing most sectors
       - id: "3"
-        value: $520B
+        value: {{ global_spending_cybersecurity | $520B }}
         title: Global spending on cybersecurity this year
   - type: syllabus
     variant: program-modules
