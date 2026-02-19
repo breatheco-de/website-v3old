@@ -3,43 +3,41 @@ footer:
     - title: Empresa
       items:
         - label: Por qué 4Geeks
-          href: /en/next-dates
+          href: /es/sobre-la-academia
         - label: Academia
           href: /en/why-4geeks
         - label: Alianzas
-          href: /en/the-academy
+          href: /es/alianzas
         - label: Precios
-          href: /en/career-programs/data-science-ml
-        - label: Eventos
-          href: /en/financials
+          href: /es/financiaciones
         - label: Próximas Fechas
-          href: /en/next-dates
+          href: /es/proximas-fechas
         - label: Preguntas Frecuentes
-          href: /en/faq
+          href: /es/faq
     - title: Programas
       items:
         - label: Ingeniería en IA
-          href: /en/career-programs/data-science-ml
+          href: /es/programas-de-carrera/ingenieria-ia
         - label: Ciencia de Datos y Machine Learning con IA
           href: /en/career-programs/ai-engineering
         - label: Ciberseguridad
-          href: /en/career-programs/cybersecurity
+          href: /es/programas-de-carrera/ciberseguridad
         - label: Full Stack con IA
-          href: /en/career-programs/full-stack
+          href: /es/programas-de-carrera/desarrollo-full-stack
     - title: Ubicaciones
       items:
         - label: Miami
           href: /es/ubicacion/miami-usa
         - label: Orlando
-          href: /en/coding-campus/coding-bootcamp-barcelona-spain
+          href: /es/ubicacion/orlando-usa
         - label: Madrid
-          href: /en/location/miami-usa
+          href: /es/ubicacion/madrid-espana
         - label: Santiago de Chile
-          href: /en/coding-campus/coding-bootcamp-valencia-spain
+          href: /es/ubicacion/santiago-chile
         - label: Costa Rica
-          href: /en/coding-campus/coding-bootcamp-mexico
+          href: /es/ubicacion/costa-rica
         - label: Venezuela
-          href: /en/coding-campus/coding-bootcamp-costa-rica
+          href: /es/ubicacion/caracas-venezuela
     - title: Para Empresas
       items:
         - label: 4Geeks para Empresas
@@ -67,4 +65,4 @@ footer:
     - label: Términos y Condiciones
       href: /es/terminos-y-condiciones
   subscribe_text: Suscríbete para más
-  copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+  copyright_text: 4Geeks Academy. Todos los derechos reservados.
