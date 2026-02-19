@@ -157,7 +157,7 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: Your Career – Guaranteed
+      heading: Your Career Guaranteed
       description: "The strongest proof that we believe in our model? We back it with an optional Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
       badge: Results-Backed Promise
     secondary:
