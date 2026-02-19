@@ -291,9 +291,39 @@ export function VariableHighlightProvider({
   }), [definitions, varContext, isEditMode]);
 
   const rescanRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isHighlightingRef = useRef(false);
+  const observerRef = useRef<MutationObserver | null>(null);
 
-  const rescan = useCallback(() => {
+  const observeContainer = useCallback(() => {
+    if (!wrapperRef.current || observerRef.current) return;
+    const observer = new MutationObserver(() => {
+      if (rescanRef.current) clearTimeout(rescanRef.current);
+      rescanRef.current = setTimeout(() => {
+        if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) return;
+        if (observerRef.current) {
+          observerRef.current.disconnect();
+          observerRef.current = null;
+        }
+        if (cleanupRef.current) {
+          cleanupRef.current();
+          cleanupRef.current = null;
+        }
+        cleanupRef.current = highlightDomVariables(
+          wrapperRef.current!,
+          definitions,
+          varContext,
+          isEditMode,
+        );
+        requestAnimationFrame(() => observeContainer());
+      }, 150);
+    });
+    observer.observe(wrapperRef.current, {
+      childList: true,
+      subtree: true,
+    });
+    observerRef.current = observer;
+  }, [definitions, varContext, isEditMode]);
+
+  useLayoutEffect(() => {
     if (cleanupRef.current) {
       cleanupRef.current();
       cleanupRef.current = null;
@@ -301,53 +331,33 @@ export function VariableHighlightProvider({
     if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) {
       return;
     }
-    isHighlightingRef.current = true;
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
     cleanupRef.current = highlightDomVariables(
       wrapperRef.current,
       definitions,
       varContext,
       isEditMode,
     );
-    isHighlightingRef.current = false;
-  }, [definitions, varContext, isEditMode]);
+    requestAnimationFrame(() => observeContainer());
 
-  useLayoutEffect(() => {
-    rescan();
     return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+      if (rescanRef.current) {
+        clearTimeout(rescanRef.current);
+        rescanRef.current = null;
+      }
       if (cleanupRef.current) {
         cleanupRef.current();
         cleanupRef.current = null;
       }
     };
-  }, [definitions, varContext, isEditMode, children]);
-
-  useEffect(() => {
-    if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) return;
-
-    const observer = new MutationObserver((mutations) => {
-      if (isHighlightingRef.current) return;
-      const isOwnChange = mutations.every(m => {
-        const target = m.target as HTMLElement;
-        return target.classList?.contains("variable-highlight-dom") ||
-               target.parentElement?.classList?.contains("variable-highlight-dom");
-      });
-      if (isOwnChange) return;
-
-      if (rescanRef.current) clearTimeout(rescanRef.current);
-      rescanRef.current = setTimeout(() => rescan(), 100);
-    });
-
-    observer.observe(wrapperRef.current, {
-      childList: true,
-      subtree: true,
-      characterData: true,
-    });
-
-    return () => {
-      observer.disconnect();
-      if (rescanRef.current) clearTimeout(rescanRef.current);
-    };
-  }, [definitions, varContext, isEditMode, rescan]);
+  }, [definitions, varContext, isEditMode, children, observeContainer]);
 
   return (
     <VariableHighlightContext.Provider value={contextValue}>
