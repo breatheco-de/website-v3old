@@ -465,6 +465,19 @@ export default function PrivateRedirects() {
     }
   };
 
+  const handleTogglePriority = async (redirect: Redirect) => {
+    const newPriority = redirect.priority === "fallback" ? "before" : "fallback";
+    try {
+      await apiRequest("PATCH", "/api/debug/redirects/priority", {
+        from: redirect.from,
+        priority: newPriority,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
+    } catch {
+      toast({ title: "Failed to update priority", variant: "destructive" });
+    }
+  };
+
   const handleReorderCustomRedirect = async (fromIndex: number, toIndex: number) => {
     const allCustomRedirects = redirects.filter(
       (r) => r.source === "marketing-content/custom-redirects.yml",
@@ -473,7 +486,7 @@ export default function PrivateRedirects() {
     const [moved] = reordered.splice(fromIndex, 1);
     reordered.splice(toIndex, 0, moved);
     await apiRequest("PATCH", "/api/debug/redirects/reorder", {
-      redirects: reordered.map((r) => ({ from: r.from, to: r.to, status: r.status })),
+      redirects: reordered.map((r) => ({ from: r.from, to: r.to, status: r.status, priority: r.priority })),
     });
     queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
   };
@@ -932,11 +945,31 @@ export default function PrivateRedirects() {
                                   regex
                                 </Badge>
                               )}
-                              {redirect.priority === "fallback" && (
+                              {isCustom ? (
+                                <button
+                                  onClick={() => handleTogglePriority(redirect)}
+                                  className="flex-shrink-0"
+                                  title={redirect.priority === "fallback"
+                                    ? "Fallback: only redirects if no real page exists. Click to switch to 'before'."
+                                    : "Before: always redirects, even if a real page exists. Click to switch to 'fallback'."}
+                                  data-testid={`button-toggle-priority-${index}`}
+                                >
+                                  <Badge
+                                    variant="outline"
+                                    className={`text-[10px] px-1.5 py-0 cursor-pointer ${
+                                      redirect.priority === "fallback"
+                                        ? "bg-primary/10"
+                                        : ""
+                                    }`}
+                                  >
+                                    {redirect.priority === "fallback" ? "fallback" : "before"}
+                                  </Badge>
+                                </button>
+                              ) : redirect.priority === "fallback" ? (
                                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0">
                                   fallback
                                 </Badge>
-                              )}
+                              ) : null}
                             </div>
                             <Badge
                               variant={

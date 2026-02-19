@@ -1784,9 +1784,10 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
 
-      const newEntries = redirects.map((r: { from: string; to: string; status?: number }) => {
-        const entry: { from: string; to: string; status?: number } = { from: r.from, to: r.to };
+      const newEntries = redirects.map((r: { from: string; to: string; status?: number; priority?: string }) => {
+        const entry: { from: string; to: string; status?: number; priority?: string } = { from: r.from, to: r.to };
         if (r.status && r.status !== 301) entry.status = r.status;
+        if (r.priority === "fallback") entry.priority = "fallback";
         return entry;
       });
 
@@ -1803,6 +1804,56 @@ Important: Only include mappings where you are confident the field exists. Use d
     } catch (err) {
       console.error("[Debug] Failed to reorder redirects:", err);
       res.status(500).json({ error: "Failed to reorder redirects" });
+    }
+  });
+
+  app.patch("/api/debug/redirects/priority", (req, res) => {
+    try {
+      const { from, priority } = req.body;
+
+      if (!from || typeof from !== "string") {
+        res.status(400).json({ error: "'from' is required" });
+        return;
+      }
+
+      if (priority !== "before" && priority !== "fallback") {
+        res.status(400).json({ error: "'priority' must be 'before' or 'fallback'" });
+        return;
+      }
+
+      const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
+
+      if (!fs.existsSync(customFilePath)) {
+        res.status(404).json({ error: "custom-redirects.yml not found" });
+        return;
+      }
+
+      const raw = fs.readFileSync(customFilePath, "utf-8");
+      const parsed = yaml.load(raw) as { redirects?: any[] } | null;
+      const entries = parsed?.redirects || [];
+
+      const entry = entries.find((r: any) => r.from === from);
+      if (!entry) {
+        res.status(404).json({ error: "Redirect not found in custom-redirects.yml" });
+        return;
+      }
+
+      if (priority === "fallback") {
+        entry.priority = "fallback";
+      } else {
+        delete entry.priority;
+      }
+
+      const yamlContent = safeYamlDump({ redirects: entries }, { lineWidth: -1, noRefs: true });
+      fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+
+      contentIndex.scan();
+      clearRedirectCache();
+
+      res.json({ success: true, priority: priority === "fallback" ? "fallback" : "before" });
+    } catch (err) {
+      console.error("[Debug] Failed to update redirect priority:", err);
+      res.status(500).json({ error: "Failed to update redirect priority" });
     }
   });
 
