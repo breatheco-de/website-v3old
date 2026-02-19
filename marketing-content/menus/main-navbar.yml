@@ -153,6 +153,8 @@ navbar:
                 href: /en/location/milan-italy
               - label: Rome, Italy
                 href: /en/location/rome-italy
+              - label: Rest of Europe
+                href: /en/location/rest-of-europe
           - title: LATAM
             items:
               - label: Santiago, Chile
@@ -177,6 +179,8 @@ navbar:
                 href: /en/location/montevideo-uruguay
               - label: Lima, Peru
                 href: /en/location/lima-peru
+              - label: Rest Of America
+                href: /en/location/remote
     - label: UPCOMING DATES
       href: /upcoming-dates
       component: SimpleLink
