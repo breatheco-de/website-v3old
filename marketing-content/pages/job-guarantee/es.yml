@@ -33,9 +33,6 @@ sections:
       - text: {{ call_to_action_apply | Aplicar ahora }}
         url: /apply
         variant: primary
-      - text: Descargar Detalles
-        url: "#syllabus"
-        variant: outline
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
