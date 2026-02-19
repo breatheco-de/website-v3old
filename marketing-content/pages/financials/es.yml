@@ -15,7 +15,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     title: En Tech, A Tu Manera
     subtitle: Opciones de pago flexibles para facilitar el salto a tech.
@@ -28,14 +28,10 @@ sections:
       - text: Planes de pago mensual estructurados
       - text: Opciones de financiamiento competitivas
       - text: Oportunidades de becas para candidatos calificados
-    video:
-      url: https://www.youtube.com/shorts/hvMLx6jX0EY?feature=share
-      ratio: '3:4'
-      muted: true
-      loop: true
+    image_id: our_story
     form: {}
     trust_bar:
-      rating: '4.5'
+      rating: "4.5"
       review_count: Basado en más de 5149 reseñas
       review_logos:
         - name: Google
@@ -49,7 +45,7 @@ sections:
     marginY:
       desktop: none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: Resultados Profesionales Comprobados
     subtitle: Alta empleabilidad. Crecimiento salarial real.
@@ -86,7 +82,7 @@ sections:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
-    version: '1.0'
+    version: "1.0"
     title: Compara Tus Opciones de Financiamiento de un Vistazo
     subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
     columns:
@@ -104,26 +100,26 @@ sections:
       - feature: Descuento en Matrícula
         values:
           - 10% de descuento
-          - 'No'
-          - 'No'
-          - 'No'
+          - "No"
+          - "No"
+          - "No"
       - feature: Revisión de Crédito Requerida
         values:
-          - 'No'
+          - "No"
           - Baja barrera
           - Sí
           - Sí
       - feature: Diferimiento de Pago Después de Graduarte
         values:
-          - 'No'
-          - 'No'
+          - "No"
+          - "No"
           - Sí
           - Sí
       - feature: Paga Solo Después de Conseguir Empleo
         values:
-          - 'No'
-          - 'No'
-          - 'No'
+          - "No"
+          - "No"
+          - "No"
           - Sí
     background: hsl(var(--background))
     marginY:
@@ -131,10 +127,10 @@ sections:
     paddingY:
       desktop: md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Inversión del Programa
-    subheading: '<span style="font-size: 1.125rem;">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en todas las regiones.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican términos y condiciones.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
+    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
@@ -163,8 +159,8 @@ sections:
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         tags:
-          - icon: ''
-            text: ''
+          - icon: ""
+            text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
         price: {{ price_fullstack | $299 }}
         price_info: o menos según tu plan de pago
@@ -207,11 +203,123 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - tampa-usa
+      - houston-usa
+      - losangeles-usa
+      - orlando-usa
+      - newyork-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - caracas-venezuela
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Inversión del Programa
+    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería en Inteligencia Artificial
+        badges:
+          - icon: DollarSign
+            text: 6.250€ precio de lanzamiento
+          - icon: CheckCircle
+            text: Oferta de primavera, hasta el 1 de mayo*
+        description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
+        price: 140€
+        price_info: cuota sujeta a la aprobación de la financiera y depósito de 500€.
+        cta_text: Ver programa
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo Full Stack con IA
+        badges:
+          - icon: DollarSign
+            text: {{ global_salary_increase | 55 }}0000000111111111122222222 inversión total
+          - icon: CheckCircle
+            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+        tags:
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
+        price: {{ global_salary_increase | 55 }}1111111222222222233333333
+        price_info: o menos según tu plan de pago
+        cta_text: Ver detalles del programa
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
+        badges:
+          - icon: DollarSign
+            text: {{ global_salary_increase | 55 }}2222222333333333344444444 inversión total
+          - icon: CheckCircle
+            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+        description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
+        price: {{ global_salary_increase | 55 }}3333333444444444455555555
+        price_info: o menos según tu plan de pago
+        cta_text: Ver programa
+        cta_url: /en/career-programs/data-science-ml
+        course_background: primary
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
+        badges:
+          - icon: DollarSign
+            text: {{ global_salary_increase | 55 }}4444444555555555566666666 inversión total
+          - icon: CheckCircle
+            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
+        price: {{ global_salary_increase | 55 }}5555555666666666677777777
+        price_info: o menos según tu plan de pago
+        cta_text: Ver programa
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    marginY:
+      desktop: lg
+    paddingY:
+      desktop: md lg
+    showOnLocations:
+      - valencia-spain
+      - rome-italy
+      - munich-germany
+      - milan-italy
+      - malaga-spain
+      - madrid-spain
+      - lisbon-portugal
+      - hamburg-germany
+      - dublin-ireland
+      - berlin-germany
+      - barcelona-spain
   - type: why_learn_ai
     variant: laptop-edge
     title: Garantía de Empleo Opcional*
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
-    description: 'Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style="font-size: 0.875rem;">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span></div>'
+    description: "Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></div>"
     cta:
       text: Más Información
       url: /es/trabajo-garantizado
@@ -225,7 +333,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
