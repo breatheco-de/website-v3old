@@ -245,7 +245,7 @@ sections:
           - icon: CheckCircle
             text: Oferta de primavera, hasta el 1 de mayo*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: {{ global_salary_increase | 55 }}2222222222222
+        price: {{ price_ai_engineering | 140 € }}
         price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
@@ -264,7 +264,7 @@ sections:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: Desde 200€
+        price: Desde {{ price_fullstack | 200 € }}
         price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
