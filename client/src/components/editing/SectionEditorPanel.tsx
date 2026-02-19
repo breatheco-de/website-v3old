@@ -19,6 +19,7 @@ import {
   IconTrash,
   IconPencil,
   IconMapPin,
+  IconExternalLink,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { getIcon } from "@/lib/icons";
@@ -1733,6 +1734,126 @@ export function SectionEditorPanel({
                   />
                   <p className="text-xs text-muted-foreground">
                     Limit visible rows. Users can expand to see all.
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-t pt-3 mt-3">
+                  <Label className="text-xs font-medium">Row Action Button</Label>
+                  {parsedSection?.action ? (
+                    <div className="space-y-2 p-3 rounded-lg border bg-muted/20">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <IconExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
+                          <span className="text-xs font-medium text-foreground">Action configured</span>
+                        </div>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => {
+                            try {
+                              const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                              if (!parsed || typeof parsed !== "object") return;
+                              pushUndoState(yamlContent);
+                              delete parsed.action;
+                              const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                              setYamlContent(newYaml);
+                              setHasChanges(true);
+                              setParseError(null);
+                              if (onPreviewChange) onPreviewChange(parsed as Section);
+                            } catch (err) {
+                              console.error("Error removing action:", err);
+                            }
+                          }}
+                          data-testid="button-remove-action"
+                        >
+                          <IconTrash className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
+                      <div className="space-y-1.5">
+                        <div>
+                          <Label className="text-[10px] text-muted-foreground">Button Label</Label>
+                          <Input
+                            value={(parsedSection.action as { label?: string })?.label || ""}
+                            placeholder="e.g. View, Apply, Details"
+                            onChange={(e) => {
+                              try {
+                                const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                                if (!parsed || typeof parsed !== "object") return;
+                                pushUndoState(yamlContent);
+                                const action = (parsed.action || {}) as Record<string, string>;
+                                action.label = e.target.value;
+                                parsed.action = action;
+                                const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                                setYamlContent(newYaml);
+                                setHasChanges(true);
+                                setParseError(null);
+                                if (onPreviewChange) onPreviewChange(parsed as Section);
+                              } catch (err) {
+                                console.error("Error updating action label:", err);
+                              }
+                            }}
+                            className="text-xs"
+                            data-testid="input-action-label"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-[10px] text-muted-foreground">URL Template</Label>
+                          <Input
+                            value={(parsedSection.action as { href?: string })?.href || ""}
+                            placeholder="e.g. https://example.com/item/{id}"
+                            onChange={(e) => {
+                              try {
+                                const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                                if (!parsed || typeof parsed !== "object") return;
+                                pushUndoState(yamlContent);
+                                const action = (parsed.action || {}) as Record<string, string>;
+                                action.href = e.target.value;
+                                parsed.action = action;
+                                const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                                setYamlContent(newYaml);
+                                setHasChanges(true);
+                                setParseError(null);
+                                if (onPreviewChange) onPreviewChange(parsed as Section);
+                              } catch (err) {
+                                console.error("Error updating action href:", err);
+                              }
+                            }}
+                            className="text-xs"
+                            data-testid="input-action-href"
+                          />
+                          <p className="text-[10px] text-muted-foreground mt-0.5">
+                            Use {"{columnKey}"} for dynamic values, e.g. {"{id}"} or {"{slug}"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        try {
+                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                          if (!parsed || typeof parsed !== "object") return;
+                          pushUndoState(yamlContent);
+                          parsed.action = { label: "View", href: "" };
+                          const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                          setYamlContent(newYaml);
+                          setHasChanges(true);
+                          setParseError(null);
+                          if (onPreviewChange) onPreviewChange(parsed as Section);
+                        } catch (err) {
+                          console.error("Error adding action:", err);
+                        }
+                      }}
+                      data-testid="button-add-action"
+                    >
+                      <IconPlus className="h-3.5 w-3.5 mr-1" />
+                      Add Action Button
+                    </Button>
+                  )}
+                  <p className="text-xs text-muted-foreground">
+                    Adds a button column to each row linking to a URL.
                   </p>
                 </div>
 
