@@ -163,9 +163,9 @@ export function StatCard({
     <div className={`font-inter ${isHorizontalMobile ? "flex items-center gap-4 sm:block" : ""}`}>
       <div className={`font-bold text-primary ${valueSizeClass} shrink-0`}>
         {animate ? (
-          <AnimatedValue value={value} animate={animate} animationDelay={animationDelay} />
+          <AnimatedValue value={resolvedValue} animate={animate} animationDelay={animationDelay} />
         ) : (
-          formatValueWithUnit(value)
+          formatValueWithUnit(resolvedValue)
         )}
       </div>
       <div className={`text-sm text-foreground`}>
