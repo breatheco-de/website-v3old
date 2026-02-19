@@ -465,8 +465,9 @@ export default function PrivateRedirects() {
     }
   };
 
-  const handleTogglePriority = async (redirect: Redirect) => {
-    const newPriority = redirect.priority === "fallback" ? "before" : "fallback";
+  const handleTogglePriority = async (redirect: Redirect, targetPriority?: "before" | "fallback") => {
+    const newPriority = targetPriority || (redirect.priority === "fallback" ? "before" : "fallback");
+    if ((redirect.priority || "before") === newPriority) return;
     try {
       await apiRequest("PATCH", "/api/debug/redirects/priority", {
         from: redirect.from,
@@ -946,32 +947,70 @@ export default function PrivateRedirects() {
                                 </Badge>
                               )}
                               {isCustom ? (
-                                <button
-                                  onClick={() => handleTogglePriority(redirect)}
-                                  className="flex-shrink-0"
-                                  title={redirect.priority === "fallback"
-                                    ? "Fallback: only redirects if no real page exists. Click to switch to 'before'."
-                                    : "Before: always redirects, even if a real page exists. Click to switch to 'fallback'."}
-                                  data-testid={`button-toggle-priority-${index}`}
-                                >
-                                  <Badge
-                                    variant="outline"
-                                    className={`text-[10px] px-1.5 py-0 cursor-pointer gap-0.5 ${
-                                      redirect.priority === "fallback"
-                                        ? "bg-primary/10"
-                                        : ""
-                                    }`}
-                                  >
-                                    {redirect.priority === "fallback" && (
-                                      <IconAlertTriangle className="h-2.5 w-2.5" />
-                                    )}
-                                    {redirect.priority === "fallback" ? "fallback only" : "before"}
-                                  </Badge>
-                                </button>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <button
+                                      className="flex-shrink-0"
+                                      data-testid={`button-toggle-priority-${index}`}
+                                    >
+                                      <Badge
+                                        variant="outline"
+                                        className={`text-[10px] px-1.5 py-0 cursor-pointer gap-0.5 ${
+                                          redirect.priority === "fallback"
+                                            ? "bg-primary/10"
+                                            : ""
+                                        }`}
+                                      >
+                                        {redirect.priority === "fallback" && (
+                                          <IconAlertTriangle className="h-2.5 w-2.5" />
+                                        )}
+                                        {redirect.priority === "fallback" ? "fallback" : "before"}
+                                      </Badge>
+                                    </button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-72 p-0" align="start" side="bottom">
+                                    <div className="p-3 space-y-2">
+                                      <p className="text-xs font-medium">When should this redirect apply?</p>
+                                      <div className="flex border rounded-md overflow-hidden">
+                                        {[
+                                          {
+                                            value: "before" as const,
+                                            label: "Before",
+                                            desc: "Always redirects, even if a real page exists at this URL.",
+                                          },
+                                          {
+                                            value: "fallback" as const,
+                                            label: "Fallback",
+                                            desc: "Only redirects if no real page matches. Real pages take priority.",
+                                          },
+                                        ].map((option, i) => (
+                                          <button
+                                            key={option.value}
+                                            type="button"
+                                            onClick={() => handleTogglePriority(redirect, option.value)}
+                                            className={`flex-1 text-left p-2.5 transition-colors ${
+                                              i > 0 ? "border-l" : ""
+                                            } ${
+                                              (redirect.priority || "before") === option.value
+                                                ? "bg-primary/15"
+                                                : "hover-elevate"
+                                            }`}
+                                            data-testid={`button-inline-priority-${option.value}-${index}`}
+                                          >
+                                            <span className="text-xs font-medium">{option.label}</span>
+                                            <p className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+                                              {option.desc}
+                                            </p>
+                                          </button>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </PopoverContent>
+                                </Popover>
                               ) : redirect.priority === "fallback" ? (
                                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 gap-0.5">
                                   <IconAlertTriangle className="h-2.5 w-2.5" />
-                                  fallback only
+                                  fallback
                                 </Badge>
                               ) : null}
                             </div>
