@@ -25,7 +25,7 @@ sections:
     version: "1.0"
     variant: simpleTwoColumn
     title: Ingresa al mundo tech con nuestra Garantía de Empleo
-    subtitle: "&nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked=\"1\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. Condiciones aplican.</span></span></span></span></a></div>"
+    subtitle: "&nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></span></span></span></div>"
     image:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
