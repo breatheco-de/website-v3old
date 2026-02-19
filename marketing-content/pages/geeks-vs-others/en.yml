@@ -44,7 +44,7 @@ sections:
           - Limited or short-term support
       - feature: Teacher-to-Student Ratio
         values:
-          - "1:7"
+          - {{ global_teacher_student_ratio | 1:7 }}
           - Usually 1:10+
       - feature: AI-Powered Feedback
         values:
@@ -60,7 +60,7 @@ sections:
           - Updates vary by provider
       - feature: Hiring Rate
         values:
-          - ~84% within 6 months
+          - ~{{ global_job_placement_rate | 84 }}% within 6 months
           - Varies; mostly unreported
       - feature: Community
         values:
@@ -99,11 +99,11 @@ sections:
     subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
     use_card: true
     items:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         title: Job placement rate
       - value: 3-6 months
         title: Average time to get hired
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         title: Salary increase after graduation
     marginY:
       desktop: lg
@@ -144,7 +144,7 @@ sections:
         description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
       - icon: CreditCard
         title: Flexible Financing
-        description: Financing options start below $299/month, so you can learn without financial stress.
+        description: Financing options start below {{ lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
       - icon: Coin
         title: Income-Based Payment
         description: Start learning now and only pay once you’re earning in tech.
