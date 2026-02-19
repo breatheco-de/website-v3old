@@ -7,13 +7,13 @@ footer:
         - label: Academy
           href: /en/the-academy
         - label: Partners
-          href: /en/career-programs/data-science-ml
+          href: /en/partners
         - label: Pricing
           href: /en/financials
         - label: Events
           href: /en/next-dates
         - label: Upcoming Dates
-          href: /en/next-dates
+          href: /en/upcoming-dates
         - label: FAQ
           href: /en/faq
     - title: Programs
@@ -31,43 +31,41 @@ footer:
         - label: Miami
           href: /en/location/miami-usa
         - label: Orlando
-          href: /new-page
+          href: /en/location/orlando-usa
         - label: Toronto
-          href: /en/coding-campus/coding-bootcamp-toronto-canada
-        - label: Miami
-          href: /en/location/miami-usa
+          href: /en/location/toronto-canada
         - label: Madrid
-          href: /en/coding-campus/coding-bootcamp-madrid
+          href: /en/location/madrid-spain
         - label: Barcelona
-          href: /en/coding-campus/coding-bootcamp-barcelona-spain
+          href: /en/location/barcelona-spain
         - label: Valencia
-          href: /en/coding-campus/coding-bootcamp-valencia-spain
+          href: /en/location/valencia-spain
         - label: Málaga
-          href: /en/coding-campus/coding-bootcamp-malaga-spain
+          href: /en/location/malaga-spain
         - label: Chile
-          href: /en/coding-campus/coding-bootcamp-santiago
+          href: /en/location/santiago-chile
         - label: Colombia
-          href: /en/coding-campus/coding-bootcamp-colombia
+          href: /en/location/bogota-colombia
         - label: Mexico
           href: /en/coding-campus/coding-bootcamp-mexico
         - label: Costa Rica
-          href: /en/coding-campus/coding-bootcamp-costa-rica
+          href: /en/location/costa-rica
         - label: Venezuela
-          href: /en/coding-campus/coding-bootcamp-caracas
+          href: /en/location/caracas-venezuela
         - label: Argentina
           href: /en/coding-campus/coding-bootcamp-argentina-buenos-aires
         - label: Ecuador
-          href: /new-page
+          href: /en/location/quito-ecuador
         - label: Uruguay
-          href: /en/coding-campus/coding-bootcamp-uruguay
+          href: /en/location/montevideo-uruguay
         - label: Panama
-          href: /en/coding-campus/coding-bootcamp-panama
+          href: /en/location/panamacity-panama
         - label: Bolivia
-          href: /en/coding-campus/coding-bootcamp-bolivia
+          href: /en/location/lapaz-bolivia
         - label: Portugal
-          href: /en/coding-campus/coding-bootcamp-lisbon-portugal
+          href: /en/location/lisbon-portugal
         - label: Berlin
-          href: /en/coding-campus/coding-bootcamp-berlin-germany
+          href: /en/location/berlin-germany
     - title: For Companies
       items:
         - label: 4Geeks For Companies
