@@ -129,7 +129,7 @@ price_full_cybersecurity:
       value: "7.800 €"
     - query:
         region: "latam"
-      value: "$9,999"
+      value: "2500 USD"
 price_fullstack:
   default: "$299"
   conditions:
@@ -284,3 +284,12 @@ monthly_ai_eng:
     - query:
         region: "europe"
       value: "140 €"
+monthly_cyber:
+  default: "$299"
+  conditions:
+    - query:
+        region: "latam"
+      value: "126 USD"
+    - query:
+        region: "europe"
+      value: "200 €"
