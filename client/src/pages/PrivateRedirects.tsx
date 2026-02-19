@@ -1070,37 +1070,6 @@ export default function PrivateRedirects() {
               </div>
             </div>
 
-            {(isOriginRegex || isCustomDestination || isRegexDestination) && (
-              <div className="space-y-2">
-                <Label>Priority</Label>
-                <div className="flex rounded-md border overflow-hidden">
-                  {[
-                    { value: "before" as const, label: "Before", desc: "Always redirect" },
-                    { value: "fallback" as const, label: "Fallback", desc: "Only if no page exists" },
-                  ].map((option, i) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => setRedirectPriority(option.value)}
-                      className={`flex-1 text-left p-3 transition-colors ${
-                        i > 0 ? "border-l" : ""
-                      } ${
-                        redirectPriority === option.value
-                          ? "bg-primary/5"
-                          : "hover-elevate"
-                      }`}
-                      data-testid={`button-priority-${option.value}`}
-                    >
-                      <span className="text-sm font-medium">{option.label}</span>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {option.desc}
-                      </p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
             <div className="space-y-2">
               <Label htmlFor="redirect-from">Origin URL</Label>
               <div className="flex items-center flex-wrap gap-2">
@@ -1479,6 +1448,37 @@ export default function PrivateRedirects() {
                     )}
                   </div>
                 )}
+              </div>
+            )}
+
+            {(isOriginRegex || isCustomDestination || isRegexDestination) && newTo.trim() && (
+              <div className="space-y-2">
+                <Label>Priority</Label>
+                <div className="flex rounded-md border overflow-hidden">
+                  {[
+                    { value: "before" as const, label: "Before", desc: "Always redirect" },
+                    { value: "fallback" as const, label: "Fallback", desc: "Only if no page exists" },
+                  ].map((option, i) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setRedirectPriority(option.value)}
+                      className={`flex-1 text-left p-3 transition-colors ${
+                        i > 0 ? "border-l" : ""
+                      } ${
+                        redirectPriority === option.value
+                          ? "bg-primary/5"
+                          : "hover-elevate"
+                      }`}
+                      data-testid={`button-priority-${option.value}`}
+                    >
+                      <span className="text-sm font-medium">{option.label}</span>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {option.desc}
+                      </p>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
