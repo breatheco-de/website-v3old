@@ -295,8 +295,8 @@ sections:
           required: false
           placeholder: Phone number
         program:
-          visible: true
-          required: true
+          visible: false
+          required: false
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
