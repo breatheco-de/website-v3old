@@ -312,3 +312,9 @@ global_verified_reviews_count:
     - query:
         locale: "es"
       value: "1.000"
+starting_salary_datascience:
+  default: "$90K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$90K"
