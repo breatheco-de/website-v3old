@@ -302,7 +302,7 @@ export function CourseSelector({ data }: CourseSelectorProps) {
               }}
             />
             {activeCourse && (
-              <CourseContent course={activeCourse} colorVar={colorVar} />
+              <CourseContent key={activeIndex} course={activeCourse} colorVar={colorVar} />
             )}
           </div>
         </div>
