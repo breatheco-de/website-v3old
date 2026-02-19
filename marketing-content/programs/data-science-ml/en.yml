@@ -411,7 +411,7 @@ sections:
     subtitle: Our programs deliver life-changing results. {{ global_review_count | 4.9 }} verified reviews prove it
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 3,000 }}
+      count: {{ global_review_count | 3,000+ }}
     items:
       - name: Gabriel Salazar
         role: Software Engineer
