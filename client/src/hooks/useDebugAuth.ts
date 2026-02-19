@@ -95,13 +95,25 @@ export function useDebugAuth() {
   const [hasToken, setHasToken] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
   const [capabilities, setCapabilities] = useState<Capabilities>(DEFAULT_CAPABILITIES);
+  const [tokenFromUrl, setTokenFromUrl] = useState(false);
   
   const isDevelopment = import.meta.env.DEV;
   const isDebugMode = isDebugModeActive();
 
   const validateToken = useCallback(async (skipCache = false) => {
-    // Check if we have a valid cached session (unless skipping cache for retry)
-    if (!skipCache) {
+    // Check if a token was provided via URL querystring
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlToken = urlParams.get("token");
+    
+    // URL token always takes priority and bypasses cache (acts like manual validate)
+    const forceValidate = !!urlToken || skipCache;
+    
+    if (urlToken) {
+      setTokenFromUrl(true);
+    }
+
+    // Check if we have a valid cached session (unless forced)
+    if (!forceValidate) {
       const cachedValidation = localStorage.getItem(DEBUG_SESSION_KEY);
       const cachedExpiry = localStorage.getItem(DEBUG_SESSION_EXPIRY_KEY);
       const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
@@ -124,7 +136,7 @@ export function useDebugAuth() {
         }
       }
     } else {
-      // Clear cache when retrying
+      // Clear cache when forced
       localStorage.removeItem(DEBUG_SESSION_KEY);
       localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
       localStorage.removeItem(DEBUG_TOKEN_KEY);
@@ -132,8 +144,6 @@ export function useDebugAuth() {
     }
 
     // Get token from URL querystring or env variable
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlToken = urlParams.get("token");
     const envToken = import.meta.env.VITE_BREATHECODE_TOKEN;
     
     const token = urlToken || envToken;
@@ -345,6 +355,7 @@ export function useDebugAuth() {
     capabilities,
     hasCapability,
     canEdit,
+    tokenFromUrl,
     retryValidation, 
     validateManualToken, 
     clearToken,
