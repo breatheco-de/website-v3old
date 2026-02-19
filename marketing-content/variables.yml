@@ -117,7 +117,7 @@ price_cybersecurity:
       value: "299 €"
     - query:
         region: "latam"
-      value: "126 USD"
+      value: "150 USD"
 price_full_cybersecurity:
   default: "$9,999"
   conditions:
