@@ -31,7 +31,7 @@ sections:
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar ahora }}
-        url: /apply
+        url: /es/apply
         variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
@@ -44,13 +44,14 @@ sections:
     heading: Resultados que respaldan nuestra Garantía
     subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números reflejan las contrataciones reales de nuestros graduados."
     stats:
-      - value: "84"
+      - value: {{ global_job_placement_rate | 84 }}
         unit: "%"
         label: Tasa promedio de colocación laboral
       - value: 3-6
         unit: meses
         label: Tiempo promedio para conseguir empleo
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}
+        unit: "%"
         label: Aumento salarial después de graduarte
     collage_images:
       - image_id: graduates_team_1
