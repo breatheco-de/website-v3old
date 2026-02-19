@@ -318,7 +318,7 @@ sections:
     paddingY:
       desktop: md
   - type: certificate
-    title: Resultados Profesionales
+    title: Empleabilidad y Salarios Reales en Ingeniería de IA
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: "Ingeniero de Software IA: $95K–$135K"
@@ -332,7 +332,7 @@ sections:
     stats:
       - value: 84%
         label: Tasa de contratación
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando activamente.
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando.
         benefits:
           - text: Certificado reconocido por el Departamento de Educación de Florida
           - text: Empresa de extremo a extremo diseñada con IA en tu portafolio
@@ -353,9 +353,9 @@ sections:
           - text: "Ingeniero Full-Stack IA: $125K–$185K"
           - text: "Ingeniero de Sistemas Agénticos: $140K–$210K"
           - text: "Ingeniero de Automatización de Flujos: $95K–$145K"
-      - value: 5,000+
+      - value: 500+
         label: Socios de contratación
-        description: Accede a nuestra red de más de 5,000 socios de contratación buscando activamente talento en IA. Obtén oportunidades exclusivas de empleo y referencias prioritarias.
+        description: Accede a nuestra red de más de 5,00 socios de contratación buscando activamente talento en IA. Obtén oportunidades exclusivas de empleo y referencias prioritarias.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Referencias prioritarias a empresas socias
@@ -376,8 +376,8 @@ sections:
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera es importante. Lo hacemos más fácil ofreciéndote múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago por adelantado."
-    financing_text: "Financiamiento Basado en Crédito: desde"
-    financing_amount: $349
+    financing_text: Financiamiento a cuotas desde
+    financing_amount: {{ monthly_ai_eng | $349 }}
     tech_icons:
       - openai
       - python
@@ -390,14 +390,12 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es de $14,999. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses durante 6 meses.
+        text: La matrícula estándar es de {{ price_full_ai_engineering | $14,999 }}. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses durante 6 meses.
       - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+        text: Financia tu matrícula a un máximo de 24 cuotas.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
         use_rigobot_icon: true
-      - icon: IconCheck
-        text: Inscríbete con Garantía de Empleo para mayor confianza. Consigue trabajo en 9 meses después de graduarte o te devolvemos tu dinero.
     cta:
       text: Obtener más información
       url: /es/aplica
@@ -406,8 +404,8 @@ sections:
       desktop: md
   - type: whos_hiring
     variant: carousel
-    title: Empresas Líderes Confían en Nosotros
-    subtitle: Nuestros graduados son contratados por empresas líderes en todo el mundo
+    title: Empresas que Contratan a Nuestros Graduados
+    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
