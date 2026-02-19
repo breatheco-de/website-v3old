@@ -105,7 +105,7 @@ price_full_ai_engineering:
       value: "9.800 €"
     - query:
         region: "latam"
-      value: "$14,999"
+      value: "3500 USD"
 price_cybersecurity:
   default: "$299"
   conditions:
@@ -150,7 +150,7 @@ price_full_fullstack:
       value: "$10,999"
     - query:
         region: "latam"
-      value: "$10,999"
+      value: "2500 USD"
     - query:
         region: "europe"
       value: "6.800 €"
@@ -244,3 +244,40 @@ average_salary_ai_engineer:
     - query:
         region: "usa-canada"
       value: "$100K–$160K"
+    - query:
+        region: "latam"
+      value: "$20K-$60K USD"
+    - query:
+        region: "europe"
+      value: "30.000 € - 60.000 €"
+average_salary_ai_specialist:
+  default: "$95K–$145K"
+  conditions:
+    - query:
+        region: "europe"
+      value: " 40.000 € - 60.000 €"
+    - query:
+        region: "latam"
+      value: "$25K–$60K USD"
+average_salary_ai_automation:
+  default: "$140K–$210K\""
+  conditions:
+    - query:
+        region: "europe"
+      value: "30.000 € - 45.000 €"
+    - query:
+        region: "latam"
+      value: "$25K–$40K"
+monthly_full_stack:
+  conditions:
+    - query:
+        region: "latam"
+      value: "150 USD"
+monthly_ai_eng:
+  conditions:
+    - query:
+        region: "latam"
+      value: "227 USD"
+    - query:
+        region: "europe"
+      value: "140 €"
