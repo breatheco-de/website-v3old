@@ -324,3 +324,9 @@ global_spending_cybersecurity:
     - query:
         region: "usa-canada"
       value: "$520B"
+lowest_monthly_financing_option:
+  default: "$299"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$299"
