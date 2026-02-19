@@ -30,7 +30,7 @@ sections:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
-      - text: Aplicar ahora
+      - text: {{ call_to_action_apply | Aplicar ahora }}
         url: /apply
         variant: primary
       - text: Descargar Detalles
@@ -157,11 +157,11 @@ sections:
       - icon: IconBriefcaseFilled
         title: Tienes autorización para trabajar en tu país de residencia.
       - icon: IconCircleDashedCheck
-        title: Completas toda la coursework y proyectos
+        title: Completas el curso satisfactoriamente.
       - icon: IconBrain
-        title: Apruebas nuestra prueba de lógica
+        title: Apruebas todos los proyectos.
       - icon: IconArrowGuideFilled
-        title: Sigues nuestro proceso de desarrollo profesional
+        title: Sigues nuestro proceso de desarrollo profesional.
     background: hsl(var(--muted))
     marginY:
       desktop: none md
@@ -195,7 +195,7 @@ sections:
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Altas tasas de contratación de nuestros graduados
+        text: Alta tasa de contratación de nuestros graduados
       - icon: BrandStackshare
         text: Alta demanda de talento tech calificado
       - icon: ChalkboardTeacher

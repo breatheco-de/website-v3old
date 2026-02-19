@@ -15,7 +15,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: Becas que abren puertas a carreras en tecnología
     subtitle: Explora oportunidades de becas diseñadas para apoyar tu transición hacia carreras tech de alto crecimiento.
@@ -23,15 +23,15 @@ sections:
       src: /attached_assets/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
-      - text: Aplica ahora
-        url: '#bottom'
+      - text: {{ call_to_action_apply | Aplica ahora }}
+        url: "#bottom"
         variant: primary
         icon: Rocket
     background: bg-gradient-to-b from-primary/5 to-background
     marginY:
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: cardHeader
     heading: Oportunidades de financiamiento disponibles
     description: Ofrecemos becas en programas y regiones seleccionadas para hacer que la educación en tecnología sea más accesible. Las oportunidades varían según la ubicación y el programa, e incluyen alianzas institucionales, becas patrocinadas o apoyo basado en mérito.
@@ -49,8 +49,8 @@ sections:
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: $20+ Million en becas
-    subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "$20 million" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
+    heading: $20+ Millones en becas
+    subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "$20 millones" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
     background: hsl(var(--muted))
     slides:
       - image_id: united_way_event
@@ -61,7 +61,7 @@ sections:
         stats:
           - value: $1mm
             label: Costo total
-          - value: '100'
+          - value: "100"
             label: Geeks beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
@@ -88,7 +88,7 @@ sections:
         stats:
           - value: $50,000
             label: Costo total
-          - value: '35'
+          - value: "35"
             label: Geeks beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -119,7 +119,7 @@ sections:
         stats:
           - value: $1.5mm
             label: Costo total
-          - value: '212'
+          - value: "212"
             label: Geeks beneficiados
         institution_logos:
           - image_id: logo_crusa
@@ -151,7 +151,7 @@ sections:
         stats:
           - value: 175k
             label: Costo total
-          - value: '60'
+          - value: "60"
             label: Geeks beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -181,15 +181,15 @@ sections:
     title: Donde el acceso se convierte en carreras reales
     description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del 84% contratados en los primeros seis meses.
   - type: horizontal_bars
-    version: '1.0'
+    version: "1.0"
     title: El retorno de la oportunidad
     subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo en distintas regiones.
     items:
       - label: LATAM
         value: 233
-      - label: U.S.
+      - label: EE.UU.
         value: 55
-      - label: Spain
+      - label: España
         value: 30
     marginY:
       desktop: none md
@@ -233,7 +233,7 @@ sections:
     paddingY:
       desktop: lg md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
     background: hsl(var(--primary))
