@@ -19,7 +19,7 @@ schema:
     - courses:data-science-ml
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: Data Science and Machine Learning
     title_highlight: Data Science
@@ -42,7 +42,7 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
+    tutors_label: "Your tutors:"
     description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
     media:
       type: video
@@ -77,7 +77,7 @@ sections:
     marginY:
       desktop: none
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: apply-modal
     heading: Download the curriculum
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -147,17 +147,17 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: Why Data Science now?
     subtitle: Data fuels the AI revolution.
     description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past—they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
     background: hsl(var(--background))
     items:
-      - id: '1'
+      - id: "1"
         value: 36%
         title: projected growth rate the next decade
-      - id: '3'
+      - id: "3"
         value: $90K+
         title: Average starting salary for data scientists
   - type: syllabus
@@ -244,7 +244,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -254,7 +254,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -264,7 +264,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -276,12 +276,12 @@ sections:
       desktop: md none
   - type: certificate
     title: Career Outcomes
-    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:'
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: 'Data Scientist: $80K–$130K'
-      - text: 'Machine Learning Engineer: $90K–$150K'
-      - text: 'Data Analyst: $60K–$95K'
-      - text: 'AI Engineer: $100K–$160K'
+      - text: "Data Scientist: $80K–$130K"
+      - text: "Machine Learning Engineer: $90K–$150K"
+      - text: "Data Analyst: $60K–$95K"
+      - text: "AI Engineer: $100K–$160K"
     card:
       title: Data Scientist
       subtitle: 4Geeks Academy Certificate
@@ -306,10 +306,10 @@ sections:
         label: Average salary increase
         description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
         benefits:
-          - text: 'Data Scientist: $80K–$130K'
-          - text: 'Machine Learning Engineer: $90K–$150K'
-          - text: 'Data Analyst: $60K–$95K'
-          - text: 'AI Engineer: $100K–$160K'
+          - text: "Data Scientist: $80K–$130K"
+          - text: "Machine Learning Engineer: $90K–$150K"
+          - text: "Data Analyst: $60K–$95K"
+          - text: "AI Engineer: $100K–$160K"
       - value: 5,000+
         label: Hiring Partners
         description: Access our network of 5,000+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
@@ -336,15 +336,15 @@ sections:
       - icon: Award
         title: Get hired within 9 months of graduation – or your money back
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting below'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
     financing_amount: {{ price_datascience | $299 }}
     tech_icons:
       - python
@@ -369,7 +369,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: '#apply-modal'
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: none md
@@ -454,22 +454,16 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    version: '1.0'
-    background: hsl(var(--muted))
     title: Frequently Asked Questions
     related_features:
       - data-science
-    cta:
-      text: Still have questions?
-      button:
-        label: Talk to an Advisor
-        url: /contact
-    paddingY:
-      desktop: sm md
     marginY:
       desktop: none
+    paddingY:
+      desktop: sm md
+    background: hsl(var(--muted))
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Start your Data Science career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
