@@ -269,25 +269,15 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
-  - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
-    related_features:
-      - price
-      - certification
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
-    subtitle: Contact us to get more details.
+    subtitle: Receive personalized program information and next steps.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get in touch
+      submit_label: Get the details
       tags: website-lead
       automations: hard
       fields:
@@ -305,7 +295,7 @@ sections:
           placeholder: Phone number
         program:
           visible: true
-          required: true
+          required: false
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
@@ -320,3 +310,13 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: faq
+    version: v1.0
+    title: Frequently Asked Questions
+    related_features:
+      - price
+      - certification
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: none md
