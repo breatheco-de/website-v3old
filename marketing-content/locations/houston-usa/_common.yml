@@ -13,6 +13,13 @@ phone: +1 713-555-0100
 address: 1000 Main St, Houston, TX 77002
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For Houston and Texas visitors or those interested in tech opportunities in the Gulf Coast region.
+  target_audience: Local professionals, career changers, and residents in energy, healthcare, and startup sectors seeking coding training.
+  goals:
+    - Position Houston as a growing tech hub
+    - Emphasize hybrid and online programs with live support
+    - Highlight job outcomes across energy, healthcare, and tech
 catalog:
   admission_advisors:
     - name: "Admissions Team"
