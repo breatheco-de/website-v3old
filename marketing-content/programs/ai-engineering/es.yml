@@ -61,7 +61,7 @@ sections:
         - icon: calendar
           text: Programa de 24 semanas o versión acelerada de 12 semanas
         - icon: IconBriefcase
-          text: Currículo orientado al empleo
+          text: Contenido orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
         - icon: IconUsers
@@ -349,18 +349,17 @@ sections:
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "Ingeniero de Software IA: $115K–$165K"
-          - text: "Ingeniero Full-Stack IA: $125K–$185K"
-          - text: "Ingeniero de Sistemas Agénticos: $140K–$210K"
-          - text: "Ingeniero de Automatización de Flujos: $95K–$145K"
+          - text: "AI Software Engineer: $20K–$30K"
+          - text: "AI Full-Stack Engineer: $25K–$40K"
+          - text: Agent / Workflow Automation Engineer:$25K–$50K
+          - text: "AI Integration Specialist (RAG, APIs, vector DBs): $25K–$50K"
       - value: 500+
-        label: Socios de contratación
-        description: Accede a nuestra red de más de 5,00 socios de contratación buscando activamente talento en IA. Obtén oportunidades exclusivas de empleo y referencias prioritarias.
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
-          - text: Referencias prioritarias a empresas socias
-          - text: Eventos de networking con gerentes de contratación
-          - text: Empresas incluyen Google, Meta, Amazon, startups
+          - text: Recomendaciones directas a empresas colaboradoras
+          - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
     marginY:
