@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect, useMemo, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   IconX,
   IconDeviceFloppy,
@@ -20,6 +20,9 @@ import {
   IconPencil,
   IconMapPin,
   IconExternalLink,
+  IconLink,
+  IconLinkOff,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { getIcon } from "@/lib/icons";
@@ -64,6 +67,7 @@ import { TableContentEditor } from "./TableContentEditor";
 import { FaqItemsVisibility } from "./FaqItemsVisibility";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
+import { SectionBindingDialog } from "./SectionBindingDialog";
 import { LinkPicker } from "./LinkPicker";
 import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
 import { locations as allLocations, getLocationBySlug } from "@/lib/locations";
@@ -417,6 +421,36 @@ export function SectionEditorPanel({
     registerEditorDirtyCheck(() => hasChangesRef.current);
     return () => registerEditorDirtyCheck(null);
   }, []);
+
+  // Binding state
+  const bindingQueryClient = useQueryClient();
+  const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
+
+  const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
+
+  const { data: bindingData, refetch: refetchBinding } = useQuery({
+    queryKey: ["/api/bindings/section", contentType, slug, sectionIndex],
+    queryFn: async () => {
+      if (!contentType || !slug) return { group: null };
+      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${sectionIndex}`);
+      return res.json();
+    },
+    enabled: !!contentType && !!slug,
+  });
+
+  const bindingGroup = bindingData?.group as {
+    id: string;
+    component: string;
+    locale: string;
+    members: Array<{ contentType: string; slug: string; sectionIndex: number }>;
+  } | null;
+
+  const boundSiblings = useMemo(() => {
+    if (!bindingGroup) return [];
+    return bindingGroup.members.filter(
+      m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex)
+    );
+  }, [bindingGroup, contentType, slug, sectionIndex]);
 
   // Icon picker state
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
@@ -1581,6 +1615,48 @@ export function SectionEditorPanel({
           </Button>
         </div>
       </div>
+
+      {/* Binding Banner */}
+      {boundSiblings.length > 0 && (
+        <div className="mx-4 mt-2 rounded-md border border-border bg-muted/50 p-2.5 text-sm" data-testid="binding-banner">
+          <div className="flex items-start gap-2">
+            <IconLink className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-foreground">
+                Bound section — changes sync to {boundSiblings.length} other page{boundSiblings.length > 1 ? "s" : ""}
+              </p>
+              <p className="text-muted-foreground text-xs mt-0.5">
+                {boundSiblings.map(s => `${s.slug}`).join(", ")}
+              </p>
+            </div>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="shrink-0 h-7 px-2 text-xs"
+              onClick={() => setBindingDialogOpen(true)}
+              data-testid="button-manage-bindings"
+            >
+              Manage
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Unbound - show link button */}
+      {!bindingGroup && contentType && slug && (
+        <div className="mx-4 mt-2">
+          <Button
+            size="sm"
+            variant="ghost"
+            className="h-7 px-2 text-xs text-muted-foreground gap-1"
+            onClick={() => setBindingDialogOpen(true)}
+            data-testid="button-create-binding"
+          >
+            <IconLink className="h-3.5 w-3.5" />
+            Bind to other pages
+          </Button>
+        </div>
+      )}
 
       {/* Tabs */}
       <Tabs
@@ -5753,6 +5829,21 @@ export function SectionEditorPanel({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Section Binding Dialog */}
+      {contentType && slug && locale && (
+        <SectionBindingDialog
+          open={bindingDialogOpen}
+          onOpenChange={setBindingDialogOpen}
+          contentType={contentType}
+          slug={slug}
+          sectionIndex={sectionIndex}
+          component={sectionComponentType}
+          locale={locale}
+          existingGroup={bindingGroup}
+          onBindingChanged={() => refetchBinding()}
+        />
+      )}
     </div>
   );
 }

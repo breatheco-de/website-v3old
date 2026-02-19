@@ -46,6 +46,7 @@ import {
   loadAllFieldEditors,
 } from "./component-registry";
 import { editContent, getContentForEdit } from "./content-editor";
+import { bindingService } from "./bindings";
 import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import {
   getExperimentManager,
@@ -3456,6 +3457,199 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  // Section Bindings API
+  app.get("/api/bindings", (_req, res) => {
+    try {
+      const groups = bindingService.getAll();
+      res.json({ groups });
+    } catch (error) {
+      console.error("Error fetching bindings:", error);
+      res.status(500).json({ error: "Failed to fetch bindings" });
+    }
+  });
+
+  app.get("/api/bindings/section", (req, res) => {
+    try {
+      const { contentType, slug, sectionIndex } = req.query;
+      if (!contentType || !slug || sectionIndex === undefined) {
+        res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
+        return;
+      }
+      const group = bindingService.findGroupForSection(
+        contentType as string,
+        slug as string,
+        parseInt(sectionIndex as string, 10)
+      );
+      res.json({ group: group || null });
+    } catch (error) {
+      console.error("Error finding binding for section:", error);
+      res.status(500).json({ error: "Failed to find binding" });
+    }
+  });
+
+  app.get("/api/bindings/candidates", (req, res) => {
+    try {
+      const { component, locale } = req.query;
+      if (!component || !locale) {
+        res.status(400).json({ error: "Missing component or locale" });
+        return;
+      }
+
+      const normalizedLocale = normalizeLocale(locale as string);
+      const allEntries = contentIndex.listAll();
+      const candidates: Array<{
+        contentType: string;
+        slug: string;
+        sectionIndex: number;
+        title?: string;
+        alreadyBound?: string;
+      }> = [];
+
+      for (const entry of allEntries) {
+        const entryContentType = entry.contentType.replace(/s$/, "");
+        if (!entry.locales.includes(normalizedLocale) && entryContentType !== "landing") continue;
+
+        try {
+          const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
+          const typeFolder = typeMap[entryContentType] || entry.contentType;
+          const resolved = contentIndex.resolveBaseSlug(entry.slug, typeFolder);
+          const folder = path.join(process.cwd(), "marketing-content", typeFolder, resolved);
+
+          let filePath: string;
+          if (entryContentType === "landing") {
+            filePath = path.join(folder, "promoted.yml");
+          } else {
+            filePath = path.join(folder, `${normalizedLocale}.yml`);
+          }
+
+          if (!fs.existsSync(filePath)) continue;
+
+          const commonPath = path.join(folder, "_common.yml");
+          let commonData: Record<string, unknown> = {};
+          if (fs.existsSync(commonPath)) {
+            const commonRaw = fs.readFileSync(commonPath, "utf-8");
+            commonData = yaml.load(commonRaw) as Record<string, unknown> || {};
+          }
+
+          const fileRaw = fs.readFileSync(filePath, "utf-8");
+          const localeData = yaml.load(fileRaw) as Record<string, unknown> || {};
+          const merged = { ...commonData, ...localeData };
+          const sections = merged.sections as Record<string, unknown>[];
+          if (!Array.isArray(sections)) continue;
+
+          for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section && section.type === component) {
+              const existingGroup = bindingService.findGroupForSection(entryContentType, entry.slug, i);
+              candidates.push({
+                contentType: entryContentType,
+                slug: entry.slug,
+                sectionIndex: i,
+                title: (merged.meta as Record<string, unknown>)?.title as string || entry.title || entry.slug,
+                alreadyBound: existingGroup?.id,
+              });
+            }
+          }
+        } catch {
+          // skip entries that fail to parse
+        }
+      }
+
+      res.json({ candidates });
+    } catch (error) {
+      console.error("Error finding binding candidates:", error);
+      res.status(500).json({ error: "Failed to find candidates" });
+    }
+  });
+
+  const requireEditAuth = (req: import("express").Request, res: import("express").Response): boolean => {
+    const isDevelopment = process.env.NODE_ENV !== "production";
+    if (isDevelopment) return true;
+    const authHeader = req.headers.authorization;
+    const debugToken = req.headers["x-debug-token"] as string | undefined;
+    if (!authHeader?.startsWith("Token ") && !debugToken) {
+      res.status(401).json({ error: "Authorization required" });
+      return false;
+    }
+    return true;
+  };
+
+  app.post("/api/bindings", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { component, locale, members } = req.body;
+      if (!component || !locale || !Array.isArray(members) || members.length < 2) {
+        res.status(400).json({ error: "Missing component, locale, or need at least 2 members" });
+        return;
+      }
+      const group = bindingService.createGroup(component, locale, members);
+      res.json({ group });
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Failed to create binding";
+      console.error("Error creating binding:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.post("/api/bindings/:groupId/members", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const { contentType, slug, sectionIndex } = req.body;
+      if (!contentType || !slug || sectionIndex === undefined) {
+        res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
+        return;
+      }
+      const group = bindingService.addMember(groupId, { contentType, slug, sectionIndex });
+      res.json({ group });
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Failed to add member";
+      console.error("Error adding binding member:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.delete("/api/bindings/:groupId/members", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const { contentType, slug, sectionIndex } = req.body;
+      if (!contentType || !slug || sectionIndex === undefined) {
+        res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
+        return;
+      }
+      const result = bindingService.removeMember(groupId, contentType, slug, parseInt(sectionIndex, 10));
+      res.json({ group: result });
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Failed to remove member";
+      console.error("Error removing binding member:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.delete("/api/bindings/:groupId", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      bindingService.deleteGroup(groupId);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting binding:", error);
+      res.status(500).json({ error: "Failed to delete binding" });
+    }
+  });
+
+  app.post("/api/bindings/cleanup", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const removed = bindingService.cleanupStaleReferences();
+      res.json({ removed });
+    } catch (error) {
+      console.error("Error cleaning up bindings:", error);
+      res.status(500).json({ error: "Failed to cleanup bindings" });
+    }
+  });
+
   // Content editing API
   app.post("/api/content/edit", async (req, res) => {
     try {
@@ -3584,14 +3778,44 @@ Important: Only include mappings where you are confident the field exists. Use d
         clearRedirectCache();
         contentIndex.refresh();
 
+        // Propagate to bound sections if this was a section update
+        let bindingWarnings: string[] = [];
+        const updateSectionOp = finalOperations.find(
+          (op: { action: string }) => op.action === "update_section"
+        );
+        if (updateSectionOp && !effectiveVariant) {
+          const sIdx = updateSectionOp.index as number;
+          const updatedSections = result.updatedSections as Record<string, unknown>[] | undefined;
+          const updatedSection = updatedSections?.[sIdx];
+          if (updatedSection) {
+            const normalizedLocaleForBinding = normalizeLocale(locale);
+            const propagation = bindingService.propagateUpdate(
+              contentType,
+              slug,
+              sIdx,
+              updatedSection,
+              authorName
+            );
+            if (propagation.errors.length > 0) {
+              bindingWarnings = propagation.errors;
+            }
+            if (propagation.updatedFiles.length > 0) {
+              contentIndex.refresh();
+            }
+          }
+        }
+
         // Return success with updated sections for immediate UI update
-        // Include warning if GitHub sync failed
-        const response: { success: boolean; updatedSections?: unknown; warning?: string } = { 
+        const response: { success: boolean; updatedSections?: unknown; warning?: string; boundUpdates?: string[] } = { 
           success: true, 
           updatedSections: result.updatedSections 
         };
         if (result.warning) {
           response.warning = result.warning;
+        }
+        if (bindingWarnings.length > 0) {
+          response.warning = (response.warning ? response.warning + "\n" : "") +
+            "Binding propagation warnings: " + bindingWarnings.join("; ");
         }
         res.json(response);
       } else {
