@@ -123,8 +123,8 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: Hear From Our Graduates
-      description: Listen to Joao talk about his experience during and after our bootcamp and how unlimited access to coding mentorship made a huge difference to his career.
+      heading: The Impact of Unlimited Coding Mentorship
+      description: Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow professionally afterward.
       justify: center
       text_align: center
       font_size: lg
