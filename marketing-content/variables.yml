@@ -330,3 +330,21 @@ lowest_monthly_financing_option:
     - query:
         region: "usa-canada"
       value: "$299"
+anual_income_based_payment_guarantee:
+  default: "$35,000"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$35,000"
+job_guarantee_price:
+  default: "$2,000"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$2,000"
+monthly_payment_minimun:
+  default: "$349"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$349"
