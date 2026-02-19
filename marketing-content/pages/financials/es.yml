@@ -28,7 +28,7 @@ sections:
       - text: Planes de pago mensual estructurados
       - text: Opciones de financiamiento competitivas
       - text: Oportunidades de becas para candidatos calificados
-    image_id: our_story
+    image_id: graduates_friends
     form: {}
     trust_bar:
       rating: "4.5"
@@ -255,14 +255,14 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}0000000111111111122222222 inversión total
+            text: {{ global_salary_increase | 55 }}0000000000000000000111111111122222222 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         tags:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: {{ global_salary_increase | 55 }}1111111222222222233333333
+        price: {{ global_salary_increase | 55 }}1111111111111111111222222222233333333
         price_info: o menos según tu plan de pago
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
@@ -274,11 +274,11 @@ sections:
         title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}2222222333333333344444444 inversión total
+            text: {{ global_salary_increase | 55 }}2222222222222222222333333333344444444 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: {{ global_salary_increase | 55 }}3333333444444444455555555
+        price: {{ global_salary_increase | 55 }}3333333333333333333444444444455555555
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
@@ -290,11 +290,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}4444444555555555566666666 inversión total
+            text: {{ global_salary_increase | 55 }}4444444444444444444555555555566666666 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ global_salary_increase | 55 }}5555555666666666677777777
+        price: {{ global_salary_increase | 55 }}5555555555555555555666666666677777777
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -328,6 +328,54 @@ sections:
       desktop: md
     paddingY:
       desktop: none sm
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Garantía de Empleo Opcional*
+    subtitle: Respalda tu resultado profesional con un compromiso más fuerte
+    description: "Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></div>"
+    cta:
+      text: Más Información
+      url: /es/trabajo-garantizado
+      variant: primary
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none sm
+    showOnLocations:
+      - valencia-spain
+      - rome-italy
+      - munich-germany
+      - milan-italy
+      - malaga-spain
+      - madrid-spain
+      - lisbon-portugal
+      - hamburg-germany
+      - dublin-ireland
+      - berlin-germany
+      - barcelona-spain
   - type: testimonials
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
