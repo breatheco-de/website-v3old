@@ -426,17 +426,25 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
       
       {isOpen && (
         isWideDropdown ? (
-          <div 
-            className="fixed top-16 left-0 right-0 z-50 flex justify-center"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
+          <>
+            <div
+              className="absolute left-0 right-0 top-full z-50"
+              style={{ height: "1rem" }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
             <div 
-              className={`bg-white dark:bg-zinc-900 border border-border rounded-lg shadow-lg ${getDropdownWidth()}`}
+              className="fixed top-16 left-0 right-0 z-50 flex justify-center pointer-events-none"
             >
-              {renderDropdownContent()}
+              <div 
+                className={`pointer-events-auto bg-white dark:bg-zinc-900 border border-border rounded-lg shadow-lg ${getDropdownWidth()}`}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                {renderDropdownContent()}
+              </div>
             </div>
-          </div>
+          </>
         ) : (
           <div
             ref={panelRef}

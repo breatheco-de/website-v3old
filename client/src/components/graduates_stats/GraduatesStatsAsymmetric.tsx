@@ -1,5 +1,6 @@
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsAsymmetric as GraduatesStatsAsymmetricType } from "@shared/schema";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface GraduatesStatsAsymmetricProps {
   data: GraduatesStatsAsymmetricType;
@@ -28,7 +29,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-1"
               data-testid={`text-stat-value-${index}`}
             >
-              {stat.value}
+              {resolveTemplateFallback(stat.value)}
               {stat.unit && <span className="text-xl md:text-2xl font-semibold ml-1">{stat.unit}</span>}
             </p>
             <p 

@@ -420,10 +420,10 @@ sections:
       desktop: md
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: {{ global_job_placement_rate | 84 }}00000+ graduates and {{ global_job_placement_rate | 84 }}1111100+ verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_job_placement_rate | 84 }}000+ graduates and {{ global_job_placement_rate | 84 }}1 verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: {{ global_job_placement_rate | 84 }}2222211
-      count: {{ global_job_placement_rate | 84 }}3333322
+      average: {{ global_job_placement_rate | 84 }}222
+      count: {{ global_job_placement_rate | 84 }}333
     items:
       - name: Sarah Johnson
         role: Software Engineer

@@ -46,7 +46,7 @@ import {
   loadAllFieldEditors,
 } from "./component-registry";
 import { editContent, getContentForEdit } from "./content-editor";
-import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
+import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import {
   getExperimentManager,
   getOrCreateSessionId,
@@ -81,10 +81,8 @@ function safeYamlLoad(yamlStr: string): unknown {
 }
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
-  const serialized = JSON.stringify(obj);
-  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
-  const escapedObj = JSON.parse(escapedJson);
-  const dumped = yaml.dump(escapedObj, opts);
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yaml.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
 

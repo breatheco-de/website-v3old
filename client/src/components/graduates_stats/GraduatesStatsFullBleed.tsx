@@ -1,5 +1,6 @@
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsSection, GraduatesCollageImage, GraduatesFeaturedImage } from "@shared/schema";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface GraduatesStatsFullBleedProps {
   data: GraduatesStatsSection;
@@ -59,7 +60,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
                 className="text-3xl md:text-4xl lg:text-6xl font-bold text-primary mb-1"
                 data-testid={`text-stat-value-${index}`}
               >
-                {stat.value}
+                {resolveTemplateFallback(stat.value)}
                 {stat.unit && <span className="text-lg md:text-xl lg:text-2xl font-semibold ml-1">{stat.unit}</span>}
               </p>
               <p 

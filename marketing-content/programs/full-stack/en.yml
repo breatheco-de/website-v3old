@@ -318,7 +318,7 @@ sections:
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: "AI Software Engineer: $95K–$135K"
+      - text: "AI Software Engineer: {{ average_salary_fullstack | $95K–$135K }}"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
       - text: "Agent Engineer: $105K–$155K"
       - text: "Workflow Automation Engineer: $85K–$120K"
@@ -346,9 +346,9 @@ sections:
         label: Average Salary Increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
-          - text: "Full Stack Engineer: $95K–$150K+"
-          - text: "AI-fluent Software Developer: $100K–$150K"
-          - text: "Web Applications Engineer: $95K–$140K"
+          - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
+          - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer | {{ average_salary_backend_services_developer | $100K–$150K }} }}"
+          - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
           - text: "Backend Services Developer: $100K–$150K"
       - value: 5,000+
         label: Hiring partners

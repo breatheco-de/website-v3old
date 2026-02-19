@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -46,7 +47,7 @@ function SlideContent({ slide }: { slide: PartnershipSlide }) {
                   className="text-2xl md:text-4xl font-bold text-primary text-center"
                   data-testid={`text-stat-value-${i}`}
                 >
-                  {stat.value}
+                  {resolveTemplateFallback(stat.value)}
                 </span>
                 <span
                   className="text-sm text-muted-foreground text-center"

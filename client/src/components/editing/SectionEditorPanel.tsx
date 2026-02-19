@@ -61,6 +61,7 @@ import { IconPickerModal } from "./IconPickerModal";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { TableContentEditor } from "./TableContentEditor";
+import { FaqItemsVisibility } from "./FaqItemsVisibility";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import { LinkPicker } from "./LinkPicker";
@@ -83,6 +84,7 @@ import { variableHighlightPlugin } from "@/lib/cm-variable-highlight";
 import * as yamlParser from "js-yaml";
 import {
   escapeTemplateVars,
+  escapeObjectVars,
   unescapeObjectVars,
   unescapeYamlDump,
 } from "@shared/templateVars";
@@ -95,10 +97,8 @@ function safeYamlLoad(yamlStr: string): unknown {
 }
 
 function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
-  const serialized = JSON.stringify(obj);
-  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
-  const escapedObj = JSON.parse(escapedJson);
-  const dumped = yamlParser.dump(escapedObj, opts);
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yamlParser.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
@@ -1656,13 +1656,44 @@ export function SectionEditorPanel({
             )}
             {/* FAQ related features picker */}
             {sectionType === "faq" && (
-              <RelatedFeaturesPicker
-                value={(parsedSection?.related_features as string[]) || []}
-                onChange={(value) =>
-                  updateArrayProperty("related_features", value)
-                }
-                locale={locale}
-              />
+              <>
+                <RelatedFeaturesPicker
+                  value={(parsedSection?.related_features as string[]) || []}
+                  onChange={(value) =>
+                    updateArrayProperty("related_features", value)
+                  }
+                  locale={locale}
+                />
+                <FaqItemsVisibility
+                  relatedFeatures={(parsedSection?.related_features as string[]) || []}
+                  locale={locale || "en"}
+                  inlineItems={
+                    (parsedSection?.items as Array<{ question: string; answer: string }>) || undefined
+                  }
+                  itemOverrides={
+                    (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
+                  }
+                  onChange={(overrides) => {
+                    try {
+                      const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                      if (!parsed || typeof parsed !== "object") return;
+                      pushUndoState(yamlContent);
+                      if (Object.keys(overrides).length === 0) {
+                        delete parsed.item_overrides;
+                      } else {
+                        parsed.item_overrides = overrides;
+                      }
+                      const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                      setYamlContent(newYaml);
+                      setHasChanges(true);
+                      setParseError(null);
+                      if (onPreviewChange) onPreviewChange(parsed as Section);
+                    } catch (err) {
+                      console.error("Error updating item_overrides:", err);
+                    }
+                  }}
+                />
+              </>
             )}
             {/* Testimonials Grid related features picker */}
             {sectionType === "testimonials_grid" && (

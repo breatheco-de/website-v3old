@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import type { CertificateSection as CertificateSectionType } from "@shared/schema";
 import { CertificateDisplay } from "./CertificateDisplay";
 import { cn } from "@/lib/utils";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface ParsedValue {
   prefix: string;
@@ -106,7 +107,7 @@ function useCountUp(target: number | null, duration: number, shouldAnimate: bool
 }
 
 function AnimatedStatValue({ value, shouldAnimate }: { value: string; shouldAnimate: boolean }) {
-  const parsed = parseStatValue(value);
+  const parsed = parseStatValue(resolveTemplateFallback(value));
   const count1 = useCountUp(parsed.number1, 1500, shouldAnimate && parsed.hasNumber);
   const count2 = useCountUp(parsed.number2, 1500, shouldAnimate && parsed.isRange);
 

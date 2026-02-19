@@ -89,11 +89,11 @@ price_ai_engineering:
         region: "usa-canada"
       value: "$349"
     - query:
+        region: "europe"
+      value: "140€"
+    - query:
         region: "latam"
       value: "$349"
-    - query:
-        region: "europe"
-      value: "349€"
 price_full_ai_engineering:
   default: "$14,999"
   conditions:
@@ -200,3 +200,47 @@ salary_data_scientist:
     - query:
         region: "usa-canada"
       value: "$80K–$130K"
+    - query:
+        region: "europe"
+      value: "40.000€"
+    - query:
+        region: "latam"
+      value: "US $22.500"
+minimun_isa_salary:
+  default: "17.000 €"
+  conditions:
+    - query:
+        region: "europe"
+      value: "17.000 €"
+average_salary_fullstack:
+  default: "$95K–$135K"
+mounthly_price_bootcamp:
+  default: "200 €"
+  conditions:
+    - query:
+        region: "europe"
+      value: "200 €"
+average_salary_machine_learning_engineer:
+  default: "$90K–$150K"
+  conditions:
+    - query:
+        region: "europe"
+      value: "$90K–$150K"
+average_salary_ai_fluent_software_developer:
+  default: "$100K–$150K"
+average_salary_web_aplications_engineer:
+  default: "$95K–$140K"
+average_salary_backend_services_developer:
+  default: "$100K–$150K"
+average_salary_data_analyst:
+  default: "$60K–$95K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$60K–$95K"
+average_salary_ai_engineer:
+  default: "$100K–$160K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$100K–$160K"

@@ -41,12 +41,17 @@ export const faqItemSchema = z.object({
   }
 );
 
+export const faqItemOverrideSchema = z.object({
+  hideOnLocations: z.array(z.string()).optional(),
+});
+
 export const faqSectionSchema = z
   .object({
     type: z.literal("faq"),
     title: z.string(),
     items: z.array(faqItemSchema).optional(),
     related_features: z.array(relatedFeaturesEnum).optional(),
+    item_overrides: z.record(z.string(), faqItemOverrideSchema).optional(),
     cta: z
       .object({
         text: z.string().optional(),
@@ -73,5 +78,6 @@ export const centralizedFaqsSchema = z.object({
 
 export type FaqItem = z.infer<typeof faqItemSchema>;
 export type FAQ = FaqItem;
+export type FaqItemOverride = z.infer<typeof faqItemOverrideSchema>;
 export type FaqSection = z.infer<typeof faqSectionSchema>;
 export type CentralizedFaqs = z.infer<typeof centralizedFaqsSchema>;
