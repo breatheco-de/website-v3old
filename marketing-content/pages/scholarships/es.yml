@@ -23,7 +23,7 @@ sections:
       src: /attached_assets/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
-      - text: Aplica ahora
+      - text: {{ call_to_action_apply | Aplica ahora }}
         url: "#bottom"
         variant: primary
         icon: Rocket
