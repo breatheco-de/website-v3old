@@ -8,45 +8,386 @@ meta:
   redirects: []
 sections:
   - type: hero
+    version: "1.0"
     variant: singleColumn
-    version: '1.0'
+    title: Launch an AI-Ready Tech Career in Orlando
+    subtitle: Train for in-demand tech roles, including AI Engineering, in Orlando's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
+
     badge: Orlando Campus
-    title: 4Geeks Academy Orlando
-    subtitle: Central Florida's premier coding bootcamp with unlimited mentorship, career support, and a global community of developers.
     cta_buttons:
       - text: Apply Now
-        url: /apply?location=orlando-usa
+        url: "#bottom"
         variant: primary
       - text: Download Syllabus
-        url: /syllabus
+        url: "#syllabus-modal"
         variant: outline
-  - type: features_grid
-    version: '1.0'
-    title: Why Choose Orlando?
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: modal
+    version: "1.0"
+    section_id: syllabus-modal
+    heading: Start Your Application
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Submit Application
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
     items:
-      - icon: Building
-        title: Growing Tech Hub
-        description: Orlando's tech industry is rapidly expanding.
-      - icon: Users
-        title: Simulation & Gaming
-        description: Leader in simulation, gaming, and entertainment tech.
-      - icon: TrendingUp
-        title: Affordable Living
-        description: Lower cost of living compared to other major tech hubs.
-      - icon: Briefcase
-        title: Career Opportunities
-        description: Strong demand in defense, tourism, and healthcare tech.
-  - type: programs_list
-    version: '1.0'
-    title: Programs Available in Orlando
-    filter_by_location: orlando-usa
+      - id: switchup-2025
+        logo: /attached_assets/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: /attached_assets/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: /attached_assets/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: /attached_assets/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+    marginY:
+      desktop: lg none
+  - type: banner
+    version: "1.0"
+    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    avatars:
+      - https://randomuser.me/api/portraits/women/1.jpg
+      - https://randomuser.me/api/portraits/men/2.jpg
+      - https://randomuser.me/api/portraits/women/3.jpg
+      - https://randomuser.me/api/portraits/men/4.jpg
+    title: At the Center of Orlando's Tech Momentum
+    description: Orlando's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence. As Orlando continues to expand its tech sector, we connect you with local employers, tech events, and hiring partners—helping you build relationships that support your entry and long-term growth in tech.
+    background: gradient
+    marginY:
+      desktop: lg none
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/EcqasocRKHo
+    right:
+      heading: Launch Your Tech Career in Orlando
+      sub_heading: Alissa on How 4Geeks Empowers Orlando Learners
+      description: 4Geeks Academy offers the guidance, structure, and hands-on experience you need to succeed in Orlando's growing tech ecosystem. Build practical job-ready skills through project-based learning, explore tools and workflows used in today's tech careers, and get expert coaching tailored to Orlando's evolving job market.
+      button:
+        text: Watch the full interview
+        url: https://youtu.be/EcqasocRKHo
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: none md
+  - type: course_selector
+    version: "1.0"
+    variant: default
+    heading: Programs Covered by the Job Guarantee
+    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    courses:
+      - name: Full Stack Development
+        duration: 9 months part-time
+        label: Updated in 2025
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
+        price: {{ price_fullstack | $299 }}
+        original_price: $588
+        price_info: with 4Geeks Installments
+        cta_text: Discover program
+        cta_url: /en/full-stack
+        course_background: hsl(var(--primary) / 0.4)
+      - name: AI and Machine Learning
+        duration: 9 months part-time
+        label: Updated in 2025
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Brain
+            text: LLMs & Generative AI training
+        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
+        price: {{ price_datascience | 299$ }}
+        original_price: $588
+        price_info: with 4Geeks Installments
+        cta_text: Discover program
+        cta_url: /en/ai-machine-learning
+        course_background: accent
+      - name: Cybersecurity
+        duration: 9 months part-time
+        label: Updated in 2025
+        title: Cybersecurity
+        badges:
+          - icon: Code
+            text: Threat detection & system protection
+        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
+        price: {{ price_cybersecurity | 299$ }}
+        original_price: $588
+        price_info: with 4Geeks Installments
+        cta_text: Discover program
+        cta_url: /en/cybersecurity
+        course_background: hsl(var(--color-pink))
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: Everything You Need to Succeed in an AI-Driven Industry
+    description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
+    bullets:
+      - heading: 1:1 Mentorship, Unlimited and for Life
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
+      - heading: AI-Powered Learning Support
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
+      - heading: Career Support, Unlimited and for Life
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
+      - heading: An Active Global Tech Community
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
+    image: /attached_assets/caracas-graduates_1765387638222.png
+    image_alt: Student working on AI project
+    image_object_fit: cover
+    paddingY:
+      desktop: md none
+  - type: testimonials_slide
+    title: Proven Paths to Tech Careers
+    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    background: bg-sidebar
+  - type: split_cards
+    variant: primary-left
+    primary:
+      heading: The Confidence of a Job Guarantee
+      description: |
+        The strongest proof that our approach works? We're willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
+      badge: Results-Backed Promise
+    secondary:
+      benefits:
+        - text: {{ global_job_placement_rate | 84 }}% hiring rate among graduates
+        - text: 3–6 months average time to get hired
+        - text: {{ global_salary_increase | 55 }}% average salary increase in tech roles
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none xl
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Why Orlando Is a Smart Place to Launch Your Tech Career
+    subtitle: A thriving tech ecosystem with real hiring momentum
+    description: "Orlando's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Orlando-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Orlando campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+
   - type: testimonials
     version: '1.0'
     title: Orlando Graduate Success Stories
     filter_by_location: orlando-usa
+    marginY:
+      desktop: none lg
+  - type: testimonials
+    version: v1.0
+    title: What Our Students Say
+    subtitle: Hear directly from graduates who transformed their careers
+    rating_summary:
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 2,847 }}
+    items:
+      - name: Maria Rodriguez
+        role: Software Engineer
+        company: Google
+        rating: 5
+        comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
+        outcome: Hired in 4 months
+      - name: James Chen
+        role: Full Stack Developer
+        company: Spotify
+        rating: 5
+        comment: The mentorship was incredible. Having unlimited access to senior developers made all the difference.
+        outcome: 3x salary increase
+      - name: Sarah Williams
+        role: Frontend Developer
+        company: Meta
+        rating: 5
+        comment: The AI-powered learning tools helped me understand complex concepts faster than any other course I've tried.
+        outcome: Career change at 35
+      - name: Carlos Mendez
+        role: Backend Engineer
+        company: Amazon
+        rating: 4
+        comment: Practical projects and real-world scenarios prepared me better than my computer science degree.
+        outcome: Remote work achieved
+      - name: Emily Thompson
+        role: DevOps Engineer
+        company: Netflix
+        rating: 5
+        comment: The career support team helped me negotiate a 50% higher salary than I expected.
+        outcome: 50% salary boost
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
+        outcome: Promoted in 1 year
+  - type: profiles_carousel
+    version: v1.0
+    heading: Meet the Geeks
+    description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
+    image_round: false
+    profiles:
+      - image_id: alejandro_sanchez
+        name: Alejandro Sánchez
+        role: Co-Founder & Technology Director
+        linkedin_url: https://www.linkedin.com/in/alesanchezr/
+      - image_id: marcelo_ricigliano
+        name: Marcelo Ricigliano
+        role: Co-founder & CEO
+        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
+      - image_id: alissalandra
+        name: Alissa Landra
+        role: Campus & Growth Manager USA
+        linkedin_url: https://www.linkedin.com/in/alissalandra/
+      - image_id: victor_gomez
+        name: Victor Manuel Gómez Pérez
+        role: Regional Manager Europe
+        linkedin_url: https://www.linkedin.com/in/victormgomezp/
+      - image_id: pablo_bullor
+        name: Pablo Bullor
+        role: Program Manager LATAM
+        linkedin_url: https://www.linkedin.com/in/pablobullor/
+      - image_id: laura
+        name: Laura Magallanes
+        role: Program Manager USA
+        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
+      - image_id: valentina_ancieta
+        name: Valentina Ancieta
+        role: Workforce Development Manager USA & LATAM
+        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
+      - image_id: ariana_sanchez
+        name: Ariana Sánchez
+        role: Culture & Talent Leader
+        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
+  - type: faq
+    title: Frequently Asked Questions
+    related_features:
+      - certification
+      - job-guarantee
+    marginY:
+      desktop: lg none
+    background: hsl(var(--muted))
+    paddingY:
+      desktop: md lg
   - type: cta_banner
-    version: '1.0'
-    title: Ready to Start Your Tech Career in Orlando?
-    subtitle: Join our next cohort and transform your future.
-    cta_text: Apply Now
-    cta_url: /apply?location=orlando-usa
+    version: "1.0"
+    title: Ready to get started?
+    subtitle: Limited spots available. Start your transformation today.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply Now
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
+
