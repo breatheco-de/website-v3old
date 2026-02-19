@@ -1,0 +1,20 @@
+slug: remote
+name: Remote
+city: Remote
+country: Unknown
+country_code: XX
+latitude: 0
+longitude: 0
+region: online
+default_language: en
+timezone: UTC
+visibility: listed
+phone: ""
+address: ""
+available_programs:
+  - "full-stack"
+
+schema:
+  include:
+    - organization
+    - website
