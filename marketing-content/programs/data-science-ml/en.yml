@@ -51,7 +51,7 @@ sections:
       alt: Data Science program introduction
     signup_card:
       title: Get the Full Syllabus
-      description: Access the full curriculum, schedule and everything else you need to know.
+      description: Access the full program description, schedule and everything else you need to know.
       cta_button:
         text: Send me the Curriculum
         url: "#apply-modal"
@@ -327,7 +327,7 @@ sections:
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
-    subtitle: Need extra peace of mind? Add our optional Job Guarantee for added security *The Job Guarantee is not available in all regions. Terms and conditions apply.
+    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
         title: Add the Job Guarantee to your payment plan
@@ -345,7 +345,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: {{ salary_data_scientist | $80K–$130K }}1
+    financing_amount: {{ price_datascience | $299 }}
     tech_icons:
       - python
       - tensorflow
@@ -359,7 +359,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is {{ salary_data_scientist | $80K–$130K }}2. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ price_full_datascience | $6900 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
@@ -377,8 +377,8 @@ sections:
       desktop: lg md
   - type: whos_hiring
     variant: carousel
-    title: Trusted by Leading Innovators
-    subtitle: Our graduates are hired by leading companies worldwide
+    title: Top Companies Hiring Our Graduates
+    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
@@ -408,10 +408,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. {{ salary_data_scientist | $80K–$130K }}33333333311+ verified reviews prove it
+    subtitle: Our programs deliver life-changing results. {{ global_review_count | 4.9 }} verified reviews prove it
     rating_summary:
-      average: {{ salary_data_scientist | $80K–$130K }}4444444442200
-      count: "2000"
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 3,000+ }}
     items:
       - name: Gabriel Salazar
         role: Software Engineer

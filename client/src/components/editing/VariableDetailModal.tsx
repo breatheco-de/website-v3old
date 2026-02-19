@@ -305,6 +305,8 @@ export function VariableDetailModal({
       setInspectVarName("");
       setNameAvailable(null);
       if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
+    } else if (mode === "inspect" && open) {
+      setInspectVarName("");
     }
     setAddingCondition(false);
     setEditingConditionIndex(null);

@@ -30,12 +30,9 @@ sections:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
-      - text: Aplicar ahora
+      - text: {{ call_to_action_apply | Aplicar ahora }}
         url: /apply
         variant: primary
-      - text: Descargar Detalles
-        url: "#syllabus"
-        variant: outline
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
@@ -157,11 +154,11 @@ sections:
       - icon: IconBriefcaseFilled
         title: Tienes autorización para trabajar en tu país de residencia.
       - icon: IconCircleDashedCheck
-        title: Completas toda la coursework y proyectos
+        title: Completas el curso satisfactoriamente.
       - icon: IconBrain
-        title: Apruebas nuestra prueba de lógica
+        title: Apruebas todos los proyectos.
       - icon: IconArrowGuideFilled
-        title: Sigues nuestro proceso de desarrollo profesional
+        title: Sigues nuestro proceso de desarrollo profesional.
     background: hsl(var(--muted))
     marginY:
       desktop: none md
@@ -177,7 +174,7 @@ sections:
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
     steps:
       - icon: Optimization
-        text: Notifícanos que no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
+        text: Notifícanos si no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
         title: Notificación
       - icon: Interview
         text: Nuestro equipo verifica exhaustivamente que cumpliste todos los requisitos de la Garantía de Empleo.
@@ -195,7 +192,7 @@ sections:
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Altas tasas de contratación de nuestros graduados
+        text: Alta tasa de contratación de nuestros graduados
       - icon: BrandStackshare
         text: Alta demanda de talento tech calificado
       - icon: ChalkboardTeacher

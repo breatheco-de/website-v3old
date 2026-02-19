@@ -66,9 +66,11 @@ export function resolveTemplateString(
   text: string,
   definitions: Record<string, VariableDefinition>,
   context: VariableContext,
+  options?: { preserveTemplate?: boolean },
 ): { text: string; variables: ResolvedVariable[] } {
   const variables: ResolvedVariable[] = [];
   const regex = new RegExp(TEMPLATE_REGEX.source, TEMPLATE_REGEX.flags);
+  const preserveTemplate = options?.preserveTemplate ?? false;
 
   const resolved = text.replace(regex, (match, expression: string, inlineDefault: string) => {
     const name = expression.trim();
@@ -85,6 +87,12 @@ export function resolveTemplateString(
       defaultValue: defVal,
     });
 
+    if (preserveTemplate) {
+      if (!result && !defVal) {
+        return match;
+      }
+      return `{{ ${name} | ${value} }}`;
+    }
     return value;
   });
 
@@ -95,12 +103,13 @@ export function resolveDeep(
   data: unknown,
   definitions: Record<string, VariableDefinition>,
   context: VariableContext,
+  options?: { preserveTemplate?: boolean },
 ): { data: unknown; variables: ResolvedVariable[] } {
   const allVariables: ResolvedVariable[] = [];
 
   function walk(value: unknown): unknown {
     if (typeof value === "string") {
-      const { text, variables } = resolveTemplateString(value, definitions, context);
+      const { text, variables } = resolveTemplateString(value, definitions, context, options);
       allVariables.push(...variables);
       return text;
     }
