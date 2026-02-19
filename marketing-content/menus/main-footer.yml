@@ -16,8 +16,8 @@ footer:
           href: /en/upcoming-dates
         - label: FAQ
           href: /en/faq
-        - label: Contact Us
-          href: /en/contact-us
+        - label: Contáctanos
+          href: /es/contactanos
     - title: Programs
       items:
         - label: Data Science and Machine Learning with AI
