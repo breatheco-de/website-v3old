@@ -72,11 +72,10 @@ sections:
           text: 12-Week Accelerated Morning Track
         - icon: code
           text: Interactive Coding Exercises
-          count: 100+
         - icon: robot
           text: AI-Powered Feedback
         - icon: calendar
-          text: 1:7 teacher Student Ratio
+          text: {{ global_teacher_student_ratio | 1:7 }} teacher Student Ratio
         - icon: users
           text: 1:1 Mentorship
     paddingY:
