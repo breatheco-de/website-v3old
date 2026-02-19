@@ -276,6 +276,9 @@ monthly_full_stack:
     - query:
         region: "latam"
       value: "150 USD"
+    - query:
+        region: "europe"
+      value: "200  €"
 monthly_ai_eng:
   conditions:
     - query:
