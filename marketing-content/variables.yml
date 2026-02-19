@@ -318,3 +318,9 @@ starting_salary_datascience:
     - query:
         region: "usa-canada"
       value: "$90K"
+global_spending_cybersecurity:
+  default: "$520B"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$520B"
