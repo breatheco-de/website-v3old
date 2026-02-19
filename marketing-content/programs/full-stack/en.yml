@@ -11,6 +11,9 @@ meta:
     - /bootcamp/full-stack
     - /programs/fullstack-developer
     - /coding-bootcamp/full-stack
+    - /us/coding-bootcamps/part-time-full-stack-developer
+    - /us/coding-bootcamps/full-time-full-stack-developer
+    - /us/coding-bootcamps/full-stack-developer-at-your-own-pace
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
@@ -26,7 +29,7 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: course
     title: Full Stack Development with AI Program
     title_highlight: Full Stack Developer with AI
@@ -50,14 +53,14 @@ sections:
       - name: Rigo
         role: AI Learning Assistant
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: "Your instructors:"
+    tutors_label: 'Your instructors:'
     description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
     signup_card:
       title: Get the Full Syllabus
       description: Request the full syllabus, program description, class schedule and everything else you need to know.
       cta_button:
         text: Get the Curriculum
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -81,7 +84,7 @@ sections:
     marginY:
       desktop: none
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: apply-modal
     heading: Download the curriculum
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -279,7 +282,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Instant feedback from Rigobot, our custom AI tutor
@@ -289,7 +292,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -299,7 +302,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -313,12 +316,12 @@ sections:
       desktop: md
   - type: certificate
     title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
+    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:'
     benefits:
-      - text: "AI Software Engineer: $95K–$135K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
+      - text: 'AI Software Engineer: $95K–$135K'
+      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
+      - text: 'Agent Engineer: $105K–$155K'
+      - text: 'Workflow Automation Engineer: $85K–$120K'
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
@@ -343,10 +346,10 @@ sections:
         label: Average Salary Increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
-          - text: "Full Stack Engineer: $95K–$150K+"
-          - text: "AI-fluent Software Developer: $100K–$150K"
-          - text: "Web Applications Engineer: $95K–$140K"
-          - text: "Backend Services Developer: $100K–$150K"
+          - text: 'Full Stack Engineer: $95K–$150K+'
+          - text: 'AI-fluent Software Developer: $100K–$150K'
+          - text: 'Web Applications Engineer: $95K–$140K'
+          - text: 'Backend Services Developer: $100K–$150K'
       - value: 5,000+
         label: Hiring partners
         description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
@@ -365,12 +368,12 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
+    financing_text: 'Credit-Based Financing: starting below'
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
       - openai
@@ -435,7 +438,7 @@ sections:
     title: Real Students. Real Careers.
     subtitle: 4,000+ graduates and 1,000+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: "4.8"
+      average: '4.8'
       count: 1,294
     items:
       - name: Sarah Johnson
@@ -477,7 +480,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    version: "1.0"
+    version: '1.0'
     title: Frequently Asked Questions
     related_features:
       - full-stack
@@ -492,7 +495,7 @@ sections:
     marginY:
       desktop: none
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Become a Full Stack Developer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
