@@ -36,10 +36,10 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: Calle de Alcalá 54
         addressLocality: Madrid
-        postalCode: '28014'
+        postalCode: "28014"
         addressCountry: ES
 meta:
   page_title: 4Geeks Academy Madrid | Bootcamp de Programación en España
@@ -53,17 +53,17 @@ meta:
     - /es/coding-campus/bootcamp-programacion-madrid
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Madrid
     subtitle: Capacítate para roles tech demandados en el ecosistema emergente de startups nº 1 de Europa. Madrid concentra el 47% de los empleos tech de España. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Madrid
     cta_buttons:
       - text: Aplicar Ahora
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
       - text: Descargar Programa
-        url: '#syllabus-modal'
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -71,7 +71,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: syllabus-modal
     heading: Inicia tu solicitud
     description: Completa el formulario y te responderemos en 24 horas.
@@ -135,7 +135,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -163,20 +163,20 @@ sections:
         url: /es/full-stack
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: default
-    heading: Programas Cubiertos por la Garantía de Empleo
-    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
+    heading: Programas Disponibles
+    subheading: Apoyo en la Búsqueda Laboral de Por Vida.
     courses:
       - name: Full Stack Development
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 20 semanas
+        label: Actualizado en 2026
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
@@ -185,43 +185,43 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $439
-        original_price: $588
+        price: 200 €
+        original_price: 300 €
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $439
-        original_price: $588
+        price: 200 €
+        original_price: 300 €
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $439
-        original_price: $588
+        price: 200 €
+        original_price: 300 €
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -261,7 +261,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Madrid es el Lugar para Lanzar tu Carrera Tech
     subtitle: El ecosistema emergente de startups nº 1 de Europa
-    description: 'Madrid se ha consolidado como la capital tech indiscutible de España, superando a Barcelona por primera vez en número total de empresas tech, startups y scaleups. Con más de 2.100 startups tech y un ecosistema valorado en 44.000 millones de euros, la ciudad ofrece oportunidades únicas para desarrolladores que entran al mercado.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Madrid concentra el 47% de todos los empleos tech de España, con más de 25.000 plazas de desarrollador sin cubrir en todo el país&nbsp;&nbsp;</span></li><li>Ocupa el puesto nº 1 globalmente como ecosistema emergente de startups según Startup Genome, y nº 3 en Europa en densidad de talento de ingeniería&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en fintech, ciberseguridad, travel tech y software empresarial&nbsp;&nbsp;</li></ul></div><div>Ubicado en el corazón de la ciudad, nuestro campus de Madrid te conecta con empleadores locales, socios de contratación y eventos tech a través de South Summit, Google Campus Madrid y una red vibrante de aceleradoras y fondos de inversión.</div></div>'
+    description: "Madrid se ha consolidado como la capital tech indiscutible de España, superando a Barcelona por primera vez en número total de empresas tech, startups y scaleups. Con más de 2.100 startups tech y un ecosistema valorado en 44.000 millones de euros, la ciudad ofrece oportunidades únicas para desarrolladores que entran al mercado.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid concentra el 47% de todos los empleos tech de España, con más de 25.000 plazas de desarrollador sin cubrir en todo el país&nbsp;&nbsp;</span></li><li>Ocupa el puesto nº 1 globalmente como ecosistema emergente de startups según Startup Genome, y nº 3 en Europa en densidad de talento de ingeniería&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en fintech, ciberseguridad, travel tech y software empresarial&nbsp;&nbsp;</li></ul></div><div>Ubicado en el corazón de la ciudad, nuestro campus de Madrid te conecta con empleadores locales, socios de contratación y eventos tech a través de South Summit, Google Campus Madrid y una red vibrante de aceleradoras y fondos de inversión.</div></div>"
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -277,7 +277,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Historias de Éxito de Graduados de Madrid
     filter_by_location: madrid-spain
     marginY:
@@ -287,7 +287,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -375,7 +375,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech en Madrid?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora
