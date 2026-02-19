@@ -903,9 +903,11 @@
       "remoteSha": "3b89a08d93c2254ac8f279fdedbe8d299ed07fe3a0c2922c18c6e6feefc00e6a"
     },
     "marketing-content/pages/program-comparison/en.yml": {
-      "sha": "8eb969a94772d957a60cc54a3f1632129ece722216542f895764ec4223eee651",
-      "lastModified": 1771522984944.4204,
-      "remoteSha": "8eb969a94772d957a60cc54a3f1632129ece722216542f895764ec4223eee651"
+      "sha": "ea1692e98f2f10110de5979092ecaf34e6972d98d73137b2d53529012406da0c",
+      "lastModified": 1771527398587.0112,
+      "remoteSha": "8eb969a94772d957a60cc54a3f1632129ece722216542f895764ec4223eee651",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-19T18:56:38.589Z"
     },
     "marketing-content/pages/program-comparison/es.yml": {
       "sha": "5fb830653cc81dcca1153bf28847502e951a1b0f38b030968a136f01f7940e38",
