@@ -3,7 +3,7 @@ meta:
   page_title: 4Geeks Academy | Bootcamp de Programación en el Resto de Europa
   description: Aprende a programar en Europa desde casa con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte profesional de por vida. Full Stack, Data Science o Ciberseguridad.
   robots: index, follow
-  og_image: /images/locations/rest-of-europe-og.jpg
+  og_image: /images/locations/rest-of-europe-og.jpg 
   priority: 0.8
   change_frequency: monthly
   redirects:
