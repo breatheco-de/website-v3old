@@ -54,11 +54,11 @@ sections:
       description: Access the full curriculum, schedule and everything else you need to know.
       cta_button:
         text: Send me the Curriculum
-        url: /en/apply
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: /login
+        url: https://4geeks.com/es/login
       features:
         - icon: calendar
           text: 16-Week Intensive Program
@@ -278,7 +278,7 @@ sections:
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: "Data Scientist: $80K–$130K"
+      - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
       - text: "Machine Learning Engineer: $90K–$150K"
       - text: "Data Analyst: $60K–$95K"
       - text: "AI Engineer: $100K–$160K"
@@ -287,7 +287,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: Data Science & Machine Learning
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
         benefits:
@@ -302,7 +302,7 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Average salary increase
         description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
         benefits:
@@ -310,9 +310,9 @@ sections:
           - text: "Machine Learning Engineer: $90K–$150K"
           - text: "Data Analyst: $60K–$95K"
           - text: "AI Engineer: $100K–$160K"
-      - value: 5,000+
+      - value: 500+
         label: Hiring Partners
-        description: Access our network of 5,000+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies

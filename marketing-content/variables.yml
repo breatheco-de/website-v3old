@@ -168,3 +168,35 @@ price_datascience:
       value: "$299"
 global_total_alumni:
   default: "4,000"
+global_salary_cybersecurity_analist:
+  default: "$75K–$120K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$75K–$120K"
+global_salary_penetration_tester:
+  default: "$90K–$150K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$90K–$150K"
+global_salary_security_engineer:
+  default: "$100K–$165K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$100K–$165K"
+global_salary_incident_responder:
+  default: "$85K–$140K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$85K–$140K"
+average_salary_cybersecurity_short:
+  default: "$85"
+salary_data_scientist:
+  default: "$80K–$130K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$80K–$130K"

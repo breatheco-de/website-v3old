@@ -57,7 +57,7 @@ sections:
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: /login
+        url: https://4geeks.com/es/login
       features:
         - icon: calendar
           text: 24-Week or 12-Week Accelerated Morning Program
