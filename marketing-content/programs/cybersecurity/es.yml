@@ -52,9 +52,9 @@ sections:
       alt: Introducción al programa de ciberseguridad
     signup_card:
       title: Obtén el Programa Completo
-      description: Accede al currículo completo, horarios y todo lo que necesitas saber sobre el programa.
+      description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Envíame el Currículo
+        text: Solicitar Información
         url: /es/apply
         variant: primary
       login_link:
