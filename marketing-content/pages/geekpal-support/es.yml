@@ -17,19 +17,19 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Mentoría en Programación de por Vida con Soporte de IA 24/7
+    title: Mentoría en Programación Potenciada por IA
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
       highlight: PAL
       suffix: ":"
       color: destructive
-    description: Accede a mentoría ilimitada en programación, soporte personalizada con IA y una comunidad global de desarrolladores diseñada para acelerar tu aprendizaje y fortalecer tu carrera en tecnología.
+    description: Accede a mentoría ilimitada en programación, soporte inteligente con IA disponible 24/7 y una comunidad global de desarrolladores para acelerar tu aprendizaje y avanzar en tu carrera en tecnología.
     bullets:
       - text: Mentoría ilimitada 1:1 en programación
-      - text: Acompañamiento con IA las 24 horas
+      - text: Soporte personalizado con IA 24/7
       - text: Acceso de por vida
-      - text: Comunidad activa de programadores
+      - text: Comunidad global de desarrolladores
     video:
       url: https://youtu.be/D5nUZNL52-Q
       ratio: "3:4"
