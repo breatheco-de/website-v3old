@@ -56,7 +56,7 @@ sections:
         title: Tasa promedio de colocación laboral
       - value: {{ global_salary_increase | 55 }}%
         title: Incremento salarial promedio tras la graduación
-      - value: 3-6 Months
+      - value: 3-6 Meses
         title: Tiempo promedio para conseguir empleo
     marginY:
       desktop: none lg
@@ -192,11 +192,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}000000000000000 inversión total
+            text: {{ global_salary_increase | 55 }}0000000000000000000 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ global_salary_increase | 55 }}1111111111111110000
+        price: {{ global_salary_increase | 55 }}11111111111111111110000
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -245,7 +245,7 @@ sections:
           - icon: CheckCircle
             text: Oferta de primavera, hasta el 1 de mayo*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: {{ global_salary_increase | 55 }}222222222
+        price: {{ global_salary_increase | 55 }}2222222222222
         price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering

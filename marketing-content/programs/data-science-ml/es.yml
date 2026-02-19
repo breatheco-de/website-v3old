@@ -323,7 +323,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
     financing_text: "Financiamiento Basado en Crédito: desde"
-    financing_amount: $299
+    financing_amount: {{ mounthly_price_bootcamp | Desde 200 € }}
     tech_icons:
       - python
       - tensorflow
@@ -337,13 +337,13 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es de $10,999. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses en 6 meses.
+        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos en 6 cuotas sin intereses con nuestros partners.
       - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+        text: Financia tu matrícula a través de nuestros parnerts con planes de 6 a 24 meses.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
-        text: Inscríbete con Garantía de Empleo para mayor confianza. Consigue empleo en 9 meses después de graduarte o te devolvemos tu dinero.
+        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
     cta:
       text: Obtener más información
       url: /es/apply

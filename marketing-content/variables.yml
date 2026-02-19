@@ -89,11 +89,11 @@ price_ai_engineering:
         region: "usa-canada"
       value: "$349"
     - query:
-        region: "latam"
-      value: "$349"
-    - query:
         region: "europe"
       value: "140€"
+    - query:
+        region: "latam"
+      value: "$349"
 price_full_ai_engineering:
   default: "$14,999"
   conditions:
