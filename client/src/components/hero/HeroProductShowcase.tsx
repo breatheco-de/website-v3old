@@ -337,7 +337,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                       )}
                       {data.trust_bar.review_count && (
                         <span className="text-[12px] font-bold">
-                          {resolveTemplateFallback(String(data.trust_bar.review_count))}
+                          {String(data.trust_bar.review_count)}
                         </span>
                       )}
                     </div>

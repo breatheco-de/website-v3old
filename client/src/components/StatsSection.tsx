@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import Briefcase from "@/components/custom-icons/Briefcase";
 import Graduation from "@/components/custom-icons/Graduation";
 import GrowthChart from "@/components/custom-icons/GrowthChart";
-import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 export interface StatItem {
   value: string;
@@ -73,7 +72,7 @@ export default function StatsSection({ data }: StatsSectionProps) {
                 )}
                 <div>
                   <div className="text-h2 text-foreground">
-                    {resolveTemplateFallback(stat.value)}
+                    {stat.value}
                   </div>
                   <div className="text-sm md:text-base text-muted-foreground mt-0.5 md:mt-1">{stat.label}</div>
                 </div>
@@ -117,7 +116,7 @@ export default function StatsSection({ data }: StatsSectionProps) {
           {stats.map((stat, index) => (
             <div key={index} data-testid={`stat-item-${index}`} className="space-y-2">
               <div className="text-h2 text-primary">
-                {resolveTemplateFallback(stat.value)}
+                {stat.value}
               </div>
               <div className="text-sm md:text-base text-muted-foreground">
                 {stat.label}

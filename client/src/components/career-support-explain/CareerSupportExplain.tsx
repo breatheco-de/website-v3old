@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UniversalImage } from "@/components/UniversalImage";
-import { resolveTemplateFallback } from "@/lib/variable-resolver";
 import type {
   CareerSupportExplainSection,
   CareerSupportTab,
@@ -204,7 +203,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
           {tab.left_stat && (
             <div className="mt-auto pt-4" data-testid="stat-left-mobile">
               <span className="text-5xl font-bold text-primary">
-                {resolveTemplateFallback(tab.left_stat.value)}
+                {tab.left_stat.value}
               </span>
               <p className="text-sm text-muted-foreground mt-1">
                 {tab.left_stat.label}
@@ -252,7 +251,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
             <div className="flex items-end h-full">
               <div className="mt-auto pt-4" data-testid="stat-left">
                 <span className="text-5xl font-bold text-primary">
-                  {resolveTemplateFallback(tab.left_stat.value)}
+                  {tab.left_stat.value}
                 </span>
                 <p className="text-sm text-muted-foreground mt-1">
                   {tab.left_stat.label}

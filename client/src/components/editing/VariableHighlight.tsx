@@ -290,23 +290,29 @@ export function VariableHighlightProvider({
     isEditMode,
   }), [definitions, varContext, isEditMode]);
 
-  useLayoutEffect(() => {
+  const rescanRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHighlightingRef = useRef(false);
+
+  const rescan = useCallback(() => {
     if (cleanupRef.current) {
       cleanupRef.current();
       cleanupRef.current = null;
     }
-
     if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) {
       return;
     }
-
+    isHighlightingRef.current = true;
     cleanupRef.current = highlightDomVariables(
       wrapperRef.current,
       definitions,
       varContext,
       isEditMode,
     );
+    isHighlightingRef.current = false;
+  }, [definitions, varContext, isEditMode]);
 
+  useLayoutEffect(() => {
+    rescan();
     return () => {
       if (cleanupRef.current) {
         cleanupRef.current();
@@ -314,6 +320,34 @@ export function VariableHighlightProvider({
       }
     };
   }, [definitions, varContext, isEditMode, children]);
+
+  useEffect(() => {
+    if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) return;
+
+    const observer = new MutationObserver((mutations) => {
+      if (isHighlightingRef.current) return;
+      const isOwnChange = mutations.every(m => {
+        const target = m.target as HTMLElement;
+        return target.classList?.contains("variable-highlight-dom") ||
+               target.parentElement?.classList?.contains("variable-highlight-dom");
+      });
+      if (isOwnChange) return;
+
+      if (rescanRef.current) clearTimeout(rescanRef.current);
+      rescanRef.current = setTimeout(() => rescan(), 100);
+    });
+
+    observer.observe(wrapperRef.current, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => {
+      observer.disconnect();
+      if (rescanRef.current) clearTimeout(rescanRef.current);
+    };
+  }, [definitions, varContext, isEditMode, rescan]);
 
   return (
     <VariableHighlightContext.Provider value={contextValue}>
