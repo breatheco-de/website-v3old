@@ -18,9 +18,9 @@ schema:
     - courses:data-science-ml
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
-    title: Ciencia de Datos y Machine Learninga
+    title: Ciencia de Datos y Machine Learning
     title_highlight: Ciencia de Datos
     subtitle: Domina las habilidades que impulsan la revolución de la IA. Aprende a analizar datos y construir modelos que impulsan decisiones en el mundo real.
     students_enrolled:
@@ -41,13 +41,8 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Tus tutores:'
+    tutors_label: "Tus tutores:"
     description: Prepárate para roles de alta demanda en ciencia de datos y machine learning a través de proyectos prácticos, mentoría ilimitada y soporte de carrera diseñado para que consigas empleo.
-    media:
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop
-      alt: Introducción al programa de Data Science
     signup_card:
       title: Obtén el Programa Completo
       description: Accede al plan de estudios completo, horarios y todo lo que necesitas saber.
@@ -59,7 +54,7 @@ sections:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: /login
       features:
-        - icon: calendar
+        - icon: IconCalendar
           text: Programa Intensivo de 16 Semanas
         - icon: IconBriefcase
           text: Plan de Estudios Orientado al Empleo
@@ -118,19 +113,19 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: ¿Por qué Ciencia de Datos ahora?
     subtitle: Los datos son el combustible de la revolución de la IA.
     description: A medida que las empresas avanzan hacia operaciones autónomas, la demanda de expertos capaces de convertir información en inteligencia predictiva nunca ha sido mayor. La Ciencia de Datos y el Machine Learning no se tratan solo de analizar el pasado, sino de construir los sistemas que predicen el futuro. Aprovechando herramientas modernas de IA, los profesionales de datos de hoy generan los insights que están transformando cada industria. Domina las habilidades que se mantienen en demanda, sin importar cómo cambie el panorama tecnológico.
+    background: hsl(var(--background))
     items:
-      - id: '1'
+      - id: "1"
         value: 36%
         title: tasa de crecimiento proyectada en la próxima década
-      - id: '3'
-        value: $90K+
+      - id: "3"
+        value: {{ salary_data_scientist | $90K+ }}
         title: Salario inicial promedio para científicos de datos
-    background: hsl(var(--background))
   - type: syllabus
     variant: program-modules
     program_title: Resumen del Programa de Ciencia de Datos y Machine Learning
@@ -215,7 +210,7 @@ sections:
     features:
       - icon: Robot
         title: Progresa más rápido con herramientas potenciadas por IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación instantánea de Rigobot, nuestro tutor de IA personalizado
@@ -229,7 +224,7 @@ sections:
           variant: primary
       - icon: TrendingUp
         title: Prospera en tech con soporte de carrera para la era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -243,7 +238,7 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -259,12 +254,12 @@ sections:
       desktop: md none
   - type: certificate
     title: Resultados Profesionales
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
-      - text: 'Data Scientist: $80K–$130K'
-      - text: 'Machine Learning Engineer: $90K–$150K'
-      - text: 'Data Analyst: $60K–$95K'
-      - text: 'AI Engineer: $100K–$160K'
+      - text: "Data Scientist: $80K–$130K"
+      - text: "Machine Learning Engineer: $90K–$150K"
+      - text: "Data Analyst: $60K–$95K"
+      - text: "AI Engineer: $100K–$160K"
     card:
       title: Data Scientist
       subtitle: Certificado de 4Geeks Academy
@@ -289,10 +284,10 @@ sections:
         label: Aumento salarial promedio
         description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: 'Data Scientist: $80K–$130K'
-          - text: 'Machine Learning Engineer: $90K–$150K'
-          - text: 'Data Analyst: $60K–$95K'
-          - text: 'AI Engineer: $100K–$160K'
+          - text: "Data Scientist: $80K–$130K"
+          - text: "Machine Learning Engineer: $90K–$150K"
+          - text: "Data Analyst: $60K–$95K"
+          - text: "AI Engineer: $100K–$160K"
       - value: 5,000+
         label: Empresas Asociadas
         description: Accede a nuestra red de más de 5,000 empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
@@ -319,15 +314,15 @@ sections:
       - icon: Award
         title: Consigue empleo en 9 meses después de graduarte o te devolvemos tu dinero
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: 'Descuento por Pago Completo: Ahorra 10% con pago anticipado.'
-    financing_text: 'Financiamiento Basado en Crédito: desde'
+    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
+    financing_text: "Financiamiento Basado en Crédito: desde"
     financing_amount: $299
     tech_icons:
       - python
@@ -392,7 +387,7 @@ sections:
     title: Tu Nueva Carrera Comienza Aquí
     subtitle: Nuestros programas generan resultados que cambian vidas. Más de 1,200 reseñas verificadas lo demuestran
     rating_summary:
-      average: '4.8'
+      average: "4.8"
       count: 1,294
     items:
       - name: Gabriel Salazar
@@ -436,7 +431,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    version: '1.0'
+    version: "1.0"
     background: hsl(var(--muted))
     title: Preguntas Frecuentes
     related_features:
@@ -451,7 +446,7 @@ sections:
     marginY:
       desktop: none
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera en Ciencia de Datos?
     subtitle: Únete a miles de graduados que han transformado sus carreras con 4Geeks.
     background: primary
@@ -465,7 +460,7 @@ sections:
     paddingY:
       desktop: md
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       desktop: none 10px
