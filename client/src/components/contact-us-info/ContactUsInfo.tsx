@@ -70,7 +70,6 @@ function LocationCard({ location }: { location: ContactLocation }) {
 export function ContactUsInfo({ data }: ContactUsInfoProps) {
   return (
     <section
-      className="py-12 md:py-16"
       style={data.background ? { background: data.background } : undefined}
       data-testid="section-contact-us-info"
     >
