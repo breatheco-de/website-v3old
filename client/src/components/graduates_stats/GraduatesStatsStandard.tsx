@@ -1,6 +1,7 @@
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsSection } from "@shared/schema";
 import { cn } from "@/lib/utils";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface GraduatesStatsStandardProps {
   data: GraduatesStatsSection;
@@ -65,7 +66,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2"
                 data-testid={`text-stat-value-${index}`}
               >
-                {stat.value}
+                {resolveTemplateFallback(stat.value)}
                 {stat.unit && <span className="text-2xl md:text-3xl font-semibold ml-1">{stat.unit}</span>}
               </p>
               <p 

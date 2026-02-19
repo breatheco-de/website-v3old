@@ -7,6 +7,7 @@ import { UniversalVideo } from "@/components/UniversalVideo";
 import { getIcon } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface HeroCourseProps {
   data: HeroCourseType;
@@ -81,11 +82,12 @@ export function HeroCourse({ data }: HeroCourseProps) {
 
             {data.rating && (
               <div className="flex items-center gap-2" data-testid="hero-rating">
-                <span className="text-foreground font-medium">{data.rating.value}</span>
+                <span className="text-foreground font-medium">{resolveTemplateFallback(String(data.rating.value))}</span>
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => {
-                    const fullStars = Math.floor(data.rating!.value);
-                    const hasHalf = data.rating!.value % 1 >= 0.5;
+                    const ratingNum = parseFloat(resolveTemplateFallback(String(data.rating!.value))) || 0;
+                    const fullStars = Math.floor(ratingNum);
+                    const hasHalf = ratingNum % 1 >= 0.5;
                     const isHalfStar = hasHalf && star === fullStars + 1;
 
                     if (star <= fullStars) {
@@ -124,10 +126,10 @@ export function HeroCourse({ data }: HeroCourseProps) {
                     className="text-primary hover:underline text-sm"
                     data-testid="link-hero-rating"
                   >
-                    {data.rating.count}
+                    {resolveTemplateFallback(String(data.rating.count))}
                   </a>
                 ) : (
-                  <span className="text-muted-foreground text-sm">{data.rating.count}</span>
+                  <span className="text-muted-foreground text-sm">{resolveTemplateFallback(String(data.rating.count))}</span>
                 )}
               </div>
             )}

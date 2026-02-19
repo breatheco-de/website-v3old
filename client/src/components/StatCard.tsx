@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 export interface StatCardProps {
   value: string;
@@ -148,6 +149,7 @@ export function StatCard({
   animate = false,
   animationDelay = 0
 }: StatCardProps) {
+  const resolvedValue = resolveTemplateFallback(value);
   const isHorizontalMobile = layout === "horizontal-mobile";
   const isSmall = size === "small";
   

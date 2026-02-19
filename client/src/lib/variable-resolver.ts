@@ -121,6 +121,16 @@ export function resolveDeep(
   return { data: resolved, variables: allVariables };
 }
 
+export function resolveTemplateFallback(text: string): string {
+  return text.replace(
+    new RegExp(TEMPLATE_REGEX.source, TEMPLATE_REGEX.flags),
+    (match, _expr: string, fallback: string) => {
+      const val = (fallback || "").trim();
+      return val || match;
+    }
+  );
+}
+
 export function hasTemplateVariables(text: string): boolean {
   return new RegExp(TEMPLATE_REGEX.source, TEMPLATE_REGEX.flags).test(text);
 }

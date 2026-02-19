@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { TestimonialsSection as TestimonialsSectionType } from "@shared/schema";
 import { DotsIndicator } from "@/components/DotsIndicator";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface LegacyTestimonial {
   id: string;
@@ -446,10 +447,10 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
             >
               <IconStarFilled className="w-7 h-7 text-yellow-500" />
               <span className="text-2xl font-bold text-foreground">
-                {ratingSummary.average}
+                {resolveTemplateFallback(String(ratingSummary.average))}
               </span>
               <span className="text-muted-foreground">
-                / {ratingSummary.count} Reviews
+                / {resolveTemplateFallback(String(ratingSummary.count))} Reviews
               </span>
             </div>
           )}

@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -125,7 +126,7 @@ function SlideLeftCard({
                       className="text-2xl md:text-3xl font-bold text-primary"
                       data-testid={`text-stat-value-${i}`}
                     >
-                      {stat.value}
+                      {resolveTemplateFallback(stat.value)}
                     </span>
                     <span
                       className="text-xs text-muted-foreground text-center"

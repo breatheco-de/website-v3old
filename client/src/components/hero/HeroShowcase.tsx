@@ -8,6 +8,7 @@ import avatar3 from "@assets/generated_images/Woman_profile_headshot_2_a0ea2c29.
 import avatar4 from "@assets/generated_images/Man_profile_headshot_2_516b72e4.webp";
 import curvedArrow from "@assets/curved-arrow-with-loop_1763159963338.png";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface HeroShowcaseProps {
   data: HeroShowcase;
@@ -76,7 +77,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
 
               <div className="flex flex-col items-start gap-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold">{data.trust_bar.rating}</span>
+                  <span className="font-semibold">{resolveTemplateFallback(data.trust_bar.rating || "")}</span>
                   <div className="flex">
                     {[1, 2, 3, 4].map((i) => (
                       <IconStarFilled
