@@ -10,7 +10,7 @@ interface ContactUsInfoProps {
 function LocationCard({ location }: { location: ContactLocation }) {
   return (
     <div
-      className="flex gap-4 py-2 borde border-border last:border-b-0 max-w-72"
+      className="flex gap-4 py-2 borde border-border last:border-b-0 w-full lg:max-w-72"
       data-testid={`card-location-${location.code.toLowerCase()}`}
     >
       <div className="flex flex-col gap-1 min-w-0">
@@ -74,7 +74,7 @@ export function ContactUsInfo({ data }: ContactUsInfoProps) {
       data-testid="section-contact-us-info"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-0 justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-4 md:gap-12 lg:gap-0 justify-between">
           <div className="w-full lg:w-[59%]">
             {data.title && (
               <h2
@@ -104,7 +104,7 @@ export function ContactUsInfo({ data }: ContactUsInfoProps) {
                 {data.locations_title}
               </h3>
             )}
-            <div className="" data-testid="list-contact-locations">
+            <div className="md:grid md:grid-cols-2 lg:grid-cols-none md:mx-8 lg:mx-0" data-testid="list-contact-locations">
               {data.locations.map((loc) => (
                 <LocationCard key={loc.code} location={loc} />
               ))}
