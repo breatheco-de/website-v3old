@@ -27,6 +27,7 @@ export interface RedirectEntry {
   type: string;
   source: string;
   status: number;
+  priority?: "before" | "fallback";
 }
 
 class ContentIndex {
@@ -341,7 +342,7 @@ class ContentIndex {
 
       for (const entry of parsed.redirects) {
         if (typeof entry !== "object" || entry === null || !("from" in entry) || !("to" in entry)) continue;
-        const obj = entry as { from: string; to: string; status?: number };
+        const obj = entry as { from: string; to: string; status?: number; priority?: string };
 
         let normalizedFrom = obj.from.startsWith("/") ? obj.from : `/${obj.from}`;
         normalizedFrom = normalizedFrom.toLowerCase();
@@ -350,6 +351,7 @@ class ContentIndex {
         }
 
         const status = obj.status && [301, 302].includes(obj.status) ? obj.status : 301;
+        const priority = obj.priority === "fallback" ? "fallback" : "before";
 
         this.redirectEntries.push({
           from: normalizedFrom,
@@ -357,6 +359,7 @@ class ContentIndex {
           type: "custom",
           source: "marketing-content/custom-redirects.yml",
           status,
+          priority,
         });
       }
     } catch (err) {

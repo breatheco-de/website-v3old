@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { fallbackRedirectMiddleware } from "./redirects";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -84,6 +85,10 @@ app.use((req, res, next) => {
     res.status(status).json({ message });
     throw err;
   });
+
+  // Fallback redirects: only fire for URLs that would otherwise 404
+  // Registered before Vite's catch-all so they can intercept unknown routes
+  app.use(fallbackRedirectMiddleware);
 
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route

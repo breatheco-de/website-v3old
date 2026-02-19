@@ -2,7 +2,9 @@ import type { Request, Response, NextFunction } from "express";
 import { contentIndex, type RedirectEntry } from "./content-index";
 
 let redirectMap: Map<string, RedirectEntry> | null = null;
-let regexRedirects: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
+let regexRedirectsBefore: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
+let fallbackMap: Map<string, RedirectEntry> | null = null;
+let regexRedirectsFallback: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
 
 export function isRegexPattern(path: string): boolean {
   return /\(.*\)|\[.*\]|\.\*|\.\+|\\d|\\w|\\s|\{\d+[,}]/.test(path);
@@ -11,9 +13,13 @@ export function isRegexPattern(path: string): boolean {
 function buildRedirectMap(): Map<string, RedirectEntry> {
   const entries = contentIndex.getRedirects();
   const map = new Map<string, RedirectEntry>();
-  const regexList: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
+  const regexBefore: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
+  const fbMap = new Map<string, RedirectEntry>();
+  const regexFb: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
 
   for (const entry of entries) {
+    const isFallback = entry.priority === "fallback";
+
     if (isRegexPattern(entry.from)) {
       if (entry.from.length > 500) {
         console.warn(`[Redirects] Regex pattern too long, skipping: ${entry.from.substring(0, 50)}...`);
@@ -21,19 +27,33 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
       }
       try {
         const regex = new RegExp(`^${entry.from}$`, "i");
-        regexList.push({ regex, entry });
+        if (isFallback) {
+          regexFb.push({ regex, entry });
+        } else {
+          regexBefore.push({ regex, entry });
+        }
       } catch {
         console.warn(`[Redirects] Invalid regex pattern: ${entry.from}`);
       }
     } else {
-      if (!map.has(entry.from)) {
-        map.set(entry.from, entry);
+      if (isFallback) {
+        if (!fbMap.has(entry.from)) {
+          fbMap.set(entry.from, entry);
+        }
+      } else {
+        if (!map.has(entry.from)) {
+          map.set(entry.from, entry);
+        }
       }
     }
   }
 
-  regexRedirects = regexList;
-  console.log(`[Redirects] Loaded ${map.size} exact redirects, ${regexList.length} regex redirects`);
+  regexRedirectsBefore = regexBefore;
+  fallbackMap = fbMap;
+  regexRedirectsFallback = regexFb;
+  const totalBefore = map.size + regexBefore.length;
+  const totalFallback = fbMap.size + regexFb.length;
+  console.log(`[Redirects] Loaded ${map.size} exact redirects, ${regexBefore.length} regex redirects (before), ${totalFallback} fallback redirects`);
   return map;
 }
 
@@ -99,8 +119,8 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
     return;
   }
 
-  if (regexRedirects) {
-    for (const { regex, entry: regexEntry } of regexRedirects) {
+  if (regexRedirectsBefore) {
+    for (const { regex, entry: regexEntry } of regexRedirectsBefore) {
       const match = req.path.match(regex);
       if (match) {
         const captureGroups = match.slice(1);
@@ -117,9 +137,56 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
   next();
 }
 
-export function getRedirects(): Array<{ from: string; to: string | Record<string, string>; type: string; status: number; source: string }> {
+export function fallbackRedirectMiddleware(req: Request, res: Response, next: NextFunction): void {
+  if (req.path.startsWith("/api/") || req.path.startsWith("/assets/") || req.path.startsWith("/@")) {
+    next();
+    return;
+  }
+
+  const cleanUrl = req.path.split("?")[0].split("#")[0];
+  try {
+    if (contentIndex.isKnownUrl(cleanUrl)) {
+      next();
+      return;
+    }
+  } catch {}
+
+  getRedirectMap();
+  const normalizedPath = normalizePath(req.path);
+
+  if (fallbackMap) {
+    const entry = fallbackMap.get(normalizedPath);
+    if (entry) {
+      const status = entry.status || 301;
+      const target = resolveRedirectTarget(entry, req);
+      const qs = getQueryString(req);
+      console.log(`[Redirects] ${status} (fallback): ${req.path} -> ${target}${qs}`);
+      res.redirect(status, target + qs);
+      return;
+    }
+  }
+
+  if (regexRedirectsFallback) {
+    for (const { regex, entry: regexEntry } of regexRedirectsFallback) {
+      const match = req.path.match(regex);
+      if (match) {
+        const captureGroups = match.slice(1);
+        const status = regexEntry.status || 301;
+        const target = resolveRedirectTarget(regexEntry, req, captureGroups);
+        const qs = getQueryString(req);
+        console.log(`[Redirects] ${status} (fallback regex): ${req.path} -> ${target}${qs}`);
+        res.redirect(status, target + qs);
+        return;
+      }
+    }
+  }
+
+  next();
+}
+
+export function getRedirects(): Array<{ from: string; to: string | Record<string, string>; type: string; status: number; source: string; priority?: string }> {
   const map = getRedirectMap();
-  const result: Array<{ from: string; to: string | Record<string, string>; type: string; status: number; source: string }> = [];
+  const result: Array<{ from: string; to: string | Record<string, string>; type: string; status: number; source: string; priority?: string }> = [];
 
   for (const [from, entry] of map) {
     result.push({
@@ -128,17 +195,45 @@ export function getRedirects(): Array<{ from: string; to: string | Record<string
       type: entry.type,
       status: entry.status || 301,
       source: entry.source,
+      priority: entry.priority,
     });
   }
 
-  if (regexRedirects) {
-    for (const { entry } of regexRedirects) {
+  if (fallbackMap) {
+    for (const [from, entry] of fallbackMap) {
+      result.push({
+        from,
+        to: entry.to,
+        type: entry.type,
+        status: entry.status || 301,
+        source: entry.source,
+        priority: entry.priority,
+      });
+    }
+  }
+
+  if (regexRedirectsBefore) {
+    for (const { entry } of regexRedirectsBefore) {
       result.push({
         from: entry.from,
         to: entry.to,
         type: entry.type,
         status: entry.status || 301,
         source: entry.source,
+        priority: entry.priority,
+      });
+    }
+  }
+
+  if (regexRedirectsFallback) {
+    for (const { entry } of regexRedirectsFallback) {
+      result.push({
+        from: entry.from,
+        to: entry.to,
+        type: entry.type,
+        status: entry.status || 301,
+        source: entry.source,
+        priority: entry.priority,
       });
     }
   }
@@ -148,11 +243,26 @@ export function getRedirects(): Array<{ from: string; to: string | Record<string
 
 export function lookupRedirect(urlPath: string): RedirectEntry | undefined {
   const map = getRedirectMap();
-  const exact = map.get(normalizePath(urlPath));
+  const normalized = normalizePath(urlPath);
+
+  const exact = map.get(normalized);
   if (exact) return exact;
 
-  if (regexRedirects) {
-    for (const { regex, entry } of regexRedirects) {
+  if (fallbackMap) {
+    const fbExact = fallbackMap.get(normalized);
+    if (fbExact) return fbExact;
+  }
+
+  if (regexRedirectsBefore) {
+    for (const { regex, entry } of regexRedirectsBefore) {
+      if (regex.test(urlPath)) {
+        return entry;
+      }
+    }
+  }
+
+  if (regexRedirectsFallback) {
+    for (const { regex, entry } of regexRedirectsFallback) {
       if (regex.test(urlPath)) {
         return entry;
       }
@@ -164,6 +274,8 @@ export function lookupRedirect(urlPath: string): RedirectEntry | undefined {
 
 export function clearRedirectCache(): void {
   redirectMap = null;
-  regexRedirects = null;
+  regexRedirectsBefore = null;
+  fallbackMap = null;
+  regexRedirectsFallback = null;
   console.log("[Redirects] Cache cleared");
 }

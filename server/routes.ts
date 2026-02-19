@@ -1503,8 +1503,9 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Add a new redirect (for debug tools)
   app.post("/api/debug/redirects", (req, res) => {
     try {
-      const { from, to, allLanguages, status: redirectStatus, isCustomDestination } = req.body;
+      const { from, to, allLanguages, status: redirectStatus, isCustomDestination, priority: redirectPriority } = req.body;
       const statusCode = redirectStatus && [301, 302].includes(redirectStatus) ? redirectStatus : 301;
+      const priority = redirectPriority === "fallback" ? "fallback" : "before";
 
       if (!from || !to) {
         res.status(400).json({ error: "Both 'from' and 'to' fields are required" });
@@ -1522,12 +1523,12 @@ Important: Only include mappings where you are confident the field exists. Use d
       if (isCustomDestination) {
         const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
 
-        let parsed: { redirects: Array<{ from: string; to: string; status?: number }> } = { redirects: [] };
+        let parsed: { redirects: Array<{ from: string; to: string; status?: number; priority?: string }> } = { redirects: [] };
         if (fs.existsSync(customFilePath)) {
           const raw = fs.readFileSync(customFilePath, "utf-8");
           const loaded = safeYamlLoad(raw) as { redirects?: unknown[] } | null;
           if (loaded && Array.isArray(loaded.redirects)) {
-            parsed.redirects = loaded.redirects as Array<{ from: string; to: string; status?: number }>;
+            parsed.redirects = loaded.redirects as Array<{ from: string; to: string; status?: number; priority?: string }>;
           }
         }
 
@@ -1536,9 +1537,12 @@ Important: Only include mappings where you are confident the field exists. Use d
           return;
         }
 
-        const newEntry: { from: string; to: string; status?: number } = { from: normalizedFrom, to: destUrl };
+        const newEntry: { from: string; to: string; status?: number; priority?: string } = { from: normalizedFrom, to: destUrl };
         if (statusCode !== 301) {
           newEntry.status = statusCode;
+        }
+        if (priority === "fallback") {
+          newEntry.priority = "fallback";
         }
         parsed.redirects.push(newEntry);
 

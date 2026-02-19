@@ -61,6 +61,7 @@ interface Redirect {
   type: string;
   status: number;
   source: string;
+  priority?: "before" | "fallback";
 }
 
 function formatRedirectTo(to: string | Record<string, string>): string {
@@ -122,6 +123,7 @@ export default function PrivateRedirects() {
   const [isRegexDestination, setIsRegexDestination] = useState(false);
   const [testUrl, setTestUrl] = useState("");
   const [redirectStatus, setRedirectStatus] = useState<number>(301);
+  const [redirectPriority, setRedirectPriority] = useState<"before" | "fallback">("before");
   const [localeUrls, setLocaleUrls] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deletingRedirect, setDeletingRedirect] = useState<Redirect | null>(
@@ -293,6 +295,7 @@ export default function PrivateRedirects() {
     setIsRegexDestination(false);
     setTestUrl("");
     setRedirectStatus(301);
+    setRedirectPriority("before");
     setLocaleUrls({});
     setOriginCheckStatus("idle");
     setOriginCheckReason(null);
@@ -329,6 +332,7 @@ export default function PrivateRedirects() {
         allLanguages,
         status: redirectStatus,
         isCustomDestination: isCustomDestination || isRegexDestination,
+        priority: redirectPriority,
       });
       const data = await res.json();
 
@@ -928,6 +932,11 @@ export default function PrivateRedirects() {
                                   regex
                                 </Badge>
                               )}
+                              {redirect.priority === "fallback" && (
+                                <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0">
+                                  fallback
+                                </Badge>
+                              )}
                             </div>
                             <Badge
                               variant={
@@ -1060,6 +1069,46 @@ export default function PrivateRedirects() {
                 ))}
               </div>
             </div>
+
+            {(isOriginRegex || isCustomDestination || isRegexDestination) && (
+              <div className="rounded-md border overflow-hidden">
+                <div className="flex items-center justify-between gap-4 px-3 py-2.5">
+                  <div className="space-y-0.5">
+                    <Label className="text-sm font-medium">Priority</Label>
+                    <p className="text-xs text-muted-foreground">
+                      {redirectPriority === "before"
+                        ? "Runs before page routing — always redirects, even if a real page exists at this URL."
+                        : "Only redirects if no real page matches — existing pages take precedence."}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex border-t">
+                  {[
+                    { value: "before" as const, label: "Before", desc: "Always redirect" },
+                    { value: "fallback" as const, label: "Fallback", desc: "Only if no page exists" },
+                  ].map((option, i) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setRedirectPriority(option.value)}
+                      className={`flex-1 text-left p-3 transition-colors ${
+                        i > 0 ? "border-l" : ""
+                      } ${
+                        redirectPriority === option.value
+                          ? "bg-primary/5"
+                          : "hover-elevate"
+                      }`}
+                      data-testid={`button-priority-${option.value}`}
+                    >
+                      <span className="text-sm font-medium">{option.label}</span>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {option.desc}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="redirect-from">Origin URL</Label>
