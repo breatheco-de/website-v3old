@@ -74,8 +74,8 @@ export function ContactUsInfo({ data }: ContactUsInfoProps) {
       data-testid="section-contact-us-info"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:flex lg:items-center gap-12 lg:gap-0 justify-between">
-          <div className="w-[59%]">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-0 justify-between">
+          <div className="w-full lg:w-[59%]">
             {data.title && (
               <h2
                 className="text-2xl font-bold text-foreground mb-6"
@@ -95,7 +95,7 @@ export function ContactUsInfo({ data }: ContactUsInfoProps) {
             <LeadForm data={data.form} />
           </div>
 
-          <div className="flex justify-end px-4 rounded-lg p-3">
+          <div className="flex flex-col items-center lg:items-end lg:justify-end px-4 rounded-lg p-3">
             {data.locations_title && (
               <h3
                 className="text-xl font-semibold text-foreground mb-4"
