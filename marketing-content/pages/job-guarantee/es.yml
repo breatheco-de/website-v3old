@@ -22,10 +22,10 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: Ingresa al mundo tech con nuestra Garantía de Empleo
-    subtitle: '&nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked="1"><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"><span style="font-size: 1rem;"><span><span style="font-size: 0.875rem;"><span>*Condiciones aplican.</span></span></span></span></a></div>'
+    subtitle: "&nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked=\"1\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. Condiciones aplican.</span></span></span></span></a></div>"
     image:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
@@ -34,7 +34,7 @@ sections:
         url: /apply
         variant: primary
       - text: Descargar Detalles
-        url: '#syllabus'
+        url: "#syllabus"
         variant: outline
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
@@ -45,10 +45,10 @@ sections:
     version: v1.0
     variant: fullBleed
     heading: Resultados que respaldan nuestra Garantía de Empleo
-    subheading: 'Estos números reflejan graduados reales y contrataciones reales. Nuestra Garantía de Empleo se basa en un solo resultado: lanzar exitosamente tu carrera en tech.'
+    subheading: "Estos números reflejan graduados reales y contrataciones reales. Nuestra Garantía de Empleo se basa en un solo resultado: lanzar exitosamente tu carrera en tech."
     stats:
-      - value: '84'
-        unit: '%'
+      - value: "84"
+        unit: "%"
         label: Tasa de colocación laboral
       - value: 3-6
         unit: meses
@@ -92,7 +92,7 @@ sections:
     paddingY:
       desktop: none
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: default
     heading: Programas cubiertos por la Garantía de Empleo
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
@@ -143,10 +143,10 @@ sections:
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: features_quad
-    version: '1.0'
+    version: "1.0"
     variant: laptopEdge
     heading: ¿Quién es elegible?
-    description: 'Calificas para la Garantía de Empleo si:'
+    description: "Calificas para la Garantía de Empleo si:"
     cards:
       - icon: IconBriefcaseFilled
         title: Tienes autorización para trabajar en EE.UU.
@@ -162,10 +162,10 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
     title: Cómo funciona el reembolso
-    description: 'Lo hemos hecho simple: si completas todos los pasos requeridos y no consigues un empleo calificado en 9 meses después de graduarte, te devolvemos el 100% de tu matrícula.'
+    description: "Lo hemos hecho simple: si completas todos los pasos requeridos y no consigues un empleo calificado en 9 meses después de graduarte, te devolvemos el 100% de tu matrícula."
     description_link:
       text: Condiciones aplican.
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
@@ -180,7 +180,7 @@ sections:
         text: Recibirás tu reembolso completo dentro de los 30 días siguientes a la aprobación de tu solicitud.
         title: Reembolso completo
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: cardHeader
     heading: Por qué funciona nuestra Garantía de Empleo
     description: La Garantía de Empleo se basa en resultados reales y un modelo enfocado en la contratación. Nuestros programas, metodología de enseñanza y soporte profesional están diseñados según cómo realmente se consigue empleo en el mercado tech actual. A lo largo de los años, hemos ayudado a más de 3,500 graduados a lanzar sus carreras en tech en distintos roles e industrias.
@@ -195,7 +195,7 @@ sections:
       - icon: ChalkboardTeacher
         text: Entrenamiento estructurado combinado con soporte continuo y práctico para tu carrera
   - type: faq
-    version: '1.0'
+    version: "1.0"
     title: Preguntas frecuentes sobre la Garantía de Empleo
     related_features:
       - job-guarantee
