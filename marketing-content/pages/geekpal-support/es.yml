@@ -15,24 +15,24 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
-    title: Mentoría de por Vida y Soporte de Programación con IA
+    title: Mentoría en Programación de por Vida con Soporte de IA 24/7
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
       highlight: PAL
-      suffix: ':'
+      suffix: ":"
       color: destructive
-    description: Nunca programes solo, recibe retroalimentación instantánea y forma parte de una comunidad global de desarrolladores — todo diseñado para que aprendas más rápido, te mantengas motivado y crezcas en tecnología para toda la vida.
+    description: Accede a mentoría ilimitada en programación, soporte personalizada con IA y una comunidad global de desarrolladores diseñada para acelerar tu aprendizaje y fortalecer tu carrera en tecnología.
     bullets:
       - text: Mentoría ilimitada 1:1 en programación
-      - text: Acompañamiento con IA de Rigobot 24/7
+      - text: Acompañamiento con IA las 24 horas
       - text: Acceso de por vida
-      - text: Soporte real de comunidad
+      - text: Comunidad activa de programadores
     video:
       url: https://youtu.be/D5nUZNL52-Q
-      ratio: '3:4'
+      ratio: "3:4"
       muted: true
       autoplay: false
       loop: true
@@ -40,7 +40,7 @@ sections:
       mobile: none lg
       desktop: md lg
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -51,18 +51,18 @@ sections:
     description: El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave. GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances de forma constante y segura.
     background: gradient
   - type: human_and_ai_duo
-    version: '1.0'
-    heading: 'Humanos + IA: La Ayuda Perfecta'
+    version: "1.0"
+    heading: "Humanos + IA: La Ayuda Perfecta"
     description: El aprendizaje funciona mejor cuando la experiencia humana y la IA trabajan juntos. En 4Geeks, avanzarás más rápido gracias a mentoría 1:1 ilimitada  y el acompañamiento inteligente de Rigobot.
     bullet_groups:
-      - title: 'Nuestro Equipo de Mentores Expertos:'
+      - title: "Nuestro Equipo de Mentores Expertos:"
         image: /attached_assets/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada
           - text: Resolución de problemas en vivo
           - text: Asistencia experta para corregir errores
           - text: Perspectiva de la industria y asesoría profesional
-      - title: 'Rigobot + Learnpack:'
+      - title: "Rigobot + Learnpack:"
         bullets:
           - text: Feedback y tutoría instantánea 24/7
           - text: Ajusta sus recomendaciones a tus habilidades y progreso
@@ -96,7 +96,7 @@ sections:
       mobile: sm none
       desktop: md none
   - type: community_support
-    version: '1.0'
+    version: "1.0"
     heading: Una Comunidad Global para Impulsar tu Crecimiento
     description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
@@ -129,7 +129,7 @@ sections:
       text_align: center
       font_size: lg
     heading_above_on_md: false
-    gap: '8'
+    gap: "8"
     paddingY:
       desktop: lg md
   - type: testimonials_slide
