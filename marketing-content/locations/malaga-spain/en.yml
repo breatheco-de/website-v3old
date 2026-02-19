@@ -5,7 +5,8 @@ meta:
   og_image: /images/locations/malaga-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects: []
+  redirects:
+    - /us/coding-campus/coding-bootcamp-malaga-spain
 sections:
   - type: hero
     variant: singleColumn
