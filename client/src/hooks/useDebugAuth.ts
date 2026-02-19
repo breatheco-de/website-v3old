@@ -154,13 +154,6 @@ export function useDebugAuth() {
     setHasToken(true);
     setIsLoading(true);
 
-    // Clean up URL if token was in querystring
-    if (urlToken) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("token");
-      window.history.replaceState({}, "", url.toString());
-    }
-
     try {
       const response = await fetch("/api/debug/validate-token", {
         method: "POST",
@@ -172,6 +165,13 @@ export function useDebugAuth() {
 
       const data = await response.json();
       
+      // Clean up URL after fetch completes (not before) so other hook instances can read the token
+      if (urlToken) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("token");
+        window.history.replaceState({}, "", url.toString());
+      }
+
       if (data.valid) {
         // Cache the validation result, token, capabilities, and userName with real expiry from Breathecode
         localStorage.setItem(DEBUG_SESSION_KEY, "true");
