@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "8fe2bac49d2f1e17ef19fa7eb0e30553aabd0488",
-  "lastSyncedAt": "2026-02-19T19:00:36.731Z",
+  "lastSyncedCommit": "03ec74deec1fc8e5d008bb1d3a9ef9aa40a1df0b",
+  "lastSyncedAt": "2026-02-19T19:15:51.018Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -536,6 +536,21 @@
       "sha": "ad46cfd826f96fcf4ff3c80fe5ae022bb729b4b7b14460b795343bc99f7d10d6",
       "lastModified": 1771524753321.6448,
       "remoteSha": "ad46cfd826f96fcf4ff3c80fe5ae022bb729b4b7b14460b795343bc99f7d10d6"
+    },
+    "marketing-content/locations/remote/_common.yml": {
+      "sha": "18ae9a1146dfb8bb4ea703a954046136ef72d1db61adc8c6da27e6505e673576",
+      "lastModified": 1771528523993.8635,
+      "remoteSha": "18ae9a1146dfb8bb4ea703a954046136ef72d1db61adc8c6da27e6505e673576"
+    },
+    "marketing-content/locations/remote/en.yml": {
+      "sha": "2331f29eb7905e14345e9643bced46891b9e57376486d20086a1c57f0acdf3cd",
+      "lastModified": 1771528523995.8635,
+      "remoteSha": "2331f29eb7905e14345e9643bced46891b9e57376486d20086a1c57f0acdf3cd"
+    },
+    "marketing-content/locations/remote/es.yml": {
+      "sha": "2a90b54c611ecceb725d48e9dd807ed266feb7ea245a37e1132b6a0767163be5",
+      "lastModified": 1771528524006.9995,
+      "remoteSha": "2a90b54c611ecceb725d48e9dd807ed266feb7ea245a37e1132b6a0767163be5"
     },
     "marketing-content/locations/rome-italy/_common.yml": {
       "sha": "21dbf3f37d91f0042797e678eb6b1e4fec51876a3a5695ad4814d0907521ab6c",
