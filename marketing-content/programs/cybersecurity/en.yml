@@ -423,7 +423,7 @@ sections:
     subtitle: {{ global_total_alumni | 3000 }}+ graduates and {{ global_job_placement_rate | 84 }}1 verified reviews prove our programs deliver life-changing results.
     rating_summary:
       average: {{ global_job_placement_rate | 4.9 }}
-      count: {{ global_job_placement_rate | 84 }}333
+      count: {{ global_job_placement_rate | 3000 }}
     items:
       - name: Sarah Johnson
         role: Software Engineer
