@@ -353,8 +353,8 @@ sections:
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago por adelantado."
-    financing_text: "Financiamiento Basado en Crédito: desde"
-    financing_amount: $349
+    financing_text: "Financiamiento: desde"
+    financing_amount: {{ monthly_full_stack | $349 }}
     tech_icons:
       - openai
       - python
@@ -367,22 +367,20 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es de $14,999. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses durante 6 meses.
+        text: La matrícula estándar es de {{ price_full_fullstack | $14,999 }}. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses durante 6 meses.
       - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+        text: Financia tu matrícula en 24 cuotas mensuales.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
         use_rigobot_icon: true
-      - icon: IconCheck
-        text: Inscríbete con una Garantía de Empleo para mayor confianza. Consigue empleo en 9 meses después de graduarte o te devolvemos tu dinero.
     cta:
       text: Obtener más información
       url: /signup
       variant: primary
-    paddingY:
-      desktop: md
     marginY:
       desktop: none md
+    paddingY:
+      desktop: md
   - type: whos_hiring
     variant: carousel
     title: Respaldados por Líderes Innovadores
