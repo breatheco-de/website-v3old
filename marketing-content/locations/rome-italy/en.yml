@@ -5,24 +5,20 @@ meta:
   og_image: /images/locations/rome-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /rome
-    - /campus/rome
-    - /en/rome
+  redirects: []
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Rome
     subtitle: Train for in-demand tech roles, including AI Engineering, in Rome's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
-
     badge: Rome Campus
     cta_buttons:
       - text: Apply Now
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
       - text: Download Syllabus
-        url: "#syllabus-modal"
+        url: '#syllabus-modal'
         variant: outline
     marginY:
       desktop: none lg
@@ -30,7 +26,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: syllabus-modal
     heading: Start Your Application
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -98,7 +94,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -126,13 +122,13 @@ sections:
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: Programs Covered by the Job Guarantee
     subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
@@ -184,7 +180,7 @@ sections:
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
@@ -224,7 +220,7 @@ sections:
     variant: laptop-edge
     title: Why Rome Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech ecosystem with real hiring momentum
-    description: "Rome's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Rome-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Rome campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
+    description: 'Rome''s tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Rome-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Rome campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>'
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -253,7 +249,6 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
-
   - type: testimonials
     version: '1.0'
     title: Rome Graduate Success Stories
@@ -353,7 +348,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to get started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -393,4 +388,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-
