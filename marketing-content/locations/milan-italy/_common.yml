@@ -13,6 +13,11 @@ phone: +39 02 555 0100
 address: Via Montenapoleone 8, 20121 Milano
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For this campus visitors and those interested in tech opportunities.
+  target_audience: Local professionals and residents seeking a coding bootcamp with job-focused training.
+  goals:
+    - Highlight job outcomes and connections to local employers
 catalog:
   admission_advisors:
     - name: "Admissions Team"
