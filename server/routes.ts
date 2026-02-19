@@ -4539,6 +4539,7 @@ sections: []
         sms_consent: leadData.sms_consent || false,
         consent_email: leadData.consent_email || false,
         comment: leadData.comment || null,
+        client_comments: leadData.client_comments || null,
         // Session/tracking data
         utm_url: leadData.utm_url || null,
         utm_source: leadData.utm_source || null,
