@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "09b1f6012799654ffaffe470b0152302e363342a",
-  "lastSyncedAt": "2026-02-19T22:44:07.943Z",
+  "lastSyncedCommit": "3044e5c36e0f9449f88541defaf4ba558d816d5d",
+  "lastSyncedAt": "2026-02-19T22:44:57.473Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -99,7 +99,7 @@
     },
     "marketing-content/landings/example-landing/promoted.yml": {
       "sha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
-      "lastModified": 1771541024302.2185,
+      "lastModified": 1771541096459.1267,
       "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
@@ -383,9 +383,9 @@
       "remoteSha": "87fab174234385dac0d51b28272c66d240b9b1e621da29969bfc09c147349b6f"
     },
     "marketing-content/locations/madrid-spain/es.yml": {
-      "sha": "3f9366bbee6e5ee3a4f99621dc33b554fb3417bc6b8165f58a5fff0daba87b7e",
-      "lastModified": 1771541030385.2104,
-      "remoteSha": "3f9366bbee6e5ee3a4f99621dc33b554fb3417bc6b8165f58a5fff0daba87b7e"
+      "sha": "7caeb2d31408d88d55732cb3d23b50be1a171f42c699eeecd8e29da50c30e95c",
+      "lastModified": 1771541097144.1257,
+      "remoteSha": "7caeb2d31408d88d55732cb3d23b50be1a171f42c699eeecd8e29da50c30e95c"
     },
     "marketing-content/locations/malaga-spain/_common.yml": {
       "sha": "21a247cd3b9273baf558cd780b49708f89c596afe91b46114702f1d9656b9a6e",
