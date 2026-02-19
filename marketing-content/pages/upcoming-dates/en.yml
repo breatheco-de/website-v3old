@@ -9,13 +9,14 @@ meta:
   description: upcoming-dates - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /upcoming-dates
+    - /us/next-dates
 schema:
   include:
     - organization
     - website
 sections:
   - type: dynamic_table
-    version: "1.0"
+    version: '1.0'
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
     title: Cohort Overview
