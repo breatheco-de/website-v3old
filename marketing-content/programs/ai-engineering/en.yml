@@ -57,7 +57,7 @@ sections:
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: https://4geeks.com/es/login
+        url: https://4geeks.com/login
       features:
         - icon: calendar
           text: 24-Week or 12-Week Accelerated Morning Program
@@ -160,7 +160,7 @@ sections:
         value: ~30%
         title: Year-over-year growth in AI job posts
       - id: "3"
-        value: $95K-$135K
+        value: {{ average_salary_ai_engineer | $95K-$135K }}
         title: Average starting salary for AI Engineers
   - type: syllabus
     variant: program-modules
