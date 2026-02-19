@@ -57,7 +57,7 @@ sections:
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: /login
+        url: https://4geeks.com/es/login
       features:
         - icon: calendar
           text: 24-Week or 12-Week Accelerated Morning Program
@@ -368,7 +368,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: /signup
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: none md
@@ -409,8 +409,8 @@ sections:
     title: Real Students. Real Careers.
     subtitle: 4,000+ graduates and 1,000+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: "4.8"
-      count: 1,294
+      average: {{ global_review_rating | 4.8 }}
+      count: {{ global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: AI Engineer
