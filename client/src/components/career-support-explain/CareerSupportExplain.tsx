@@ -693,7 +693,12 @@ export function CareerSupportExplain({ data }: CareerSupportExplainProps) {
                   <button
                     key={i}
                     onClick={() => setActiveTab(i)}
-                    className="py-1 rounded-lg text-sm font-medium transition-colors duration-200 col-span-1 w-full bg-primary text-primary-foreground pt-[10px] pb-[10px]"
+                    className={cn(
+                      "py-1 rounded-lg text-sm font-medium transition-colors duration-200 col-span-1 w-full pt-[10px] pb-[10px]",
+                      i === activeTab
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-transparent text-muted-foreground hover-elevate"
+                    )}
                     data-testid={`button-tab-${i}`}
                   >
                     {tab.tab_label}
