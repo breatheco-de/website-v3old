@@ -95,7 +95,6 @@ export function useDebugAuth() {
   const [hasToken, setHasToken] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
   const [capabilities, setCapabilities] = useState<Capabilities>(DEFAULT_CAPABILITIES);
-  const [tokenFromUrl, setTokenFromUrl] = useState(false);
   
   const isDevelopment = import.meta.env.DEV;
   const isDebugMode = isDebugModeActive();
@@ -108,10 +107,6 @@ export function useDebugAuth() {
     // URL token always takes priority and bypasses cache (acts like manual validate)
     const forceValidate = !!urlToken || skipCache;
     
-    if (urlToken) {
-      setTokenFromUrl(true);
-    }
-
     // Check if we have a valid cached session (unless forced)
     if (!forceValidate) {
       const cachedValidation = localStorage.getItem(DEBUG_SESSION_KEY);
@@ -355,7 +350,6 @@ export function useDebugAuth() {
     capabilities,
     hasCapability,
     canEdit,
-    tokenFromUrl,
     retryValidation, 
     validateManualToken, 
     clearToken,

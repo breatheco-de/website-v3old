@@ -542,7 +542,7 @@ export function DebugBubble() {
     window.location.pathname === "/preview-frame"
   );
   
-  const { isValidated, hasToken, isLoading, isDebugMode, retryValidation, validateManualToken, clearToken, checkSession, tokenFromUrl } = useDebugAuth();
+  const { isValidated, hasToken, isLoading, isDebugMode, retryValidation, validateManualToken, clearToken, checkSession } = useDebugAuth();
   const { session } = useSession();
   const editMode = useEditModeOptional();
   const syncContext = useSyncOptional();
@@ -580,7 +580,10 @@ export function DebugBubble() {
     );
   }, [componentRegistryData, componentSearch]);
   const [tokenInput, setTokenInput] = useState("");
-  const [pendingAutoEditMode, setPendingAutoEditMode] = useState(false);
+  const [pendingAutoEditMode, setPendingAutoEditMode] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return new URLSearchParams(window.location.search).has('token');
+  });
   const prevIsValidatedRef = useRef<boolean | null>(null);
   const [redirectsList, setRedirectsList] = useState<RedirectItem[]>([]);
   const [locationModalOpen, setLocationModalOpen] = useState(false);
@@ -795,13 +798,6 @@ export function DebugBubble() {
     if (!pageDiagnostics) return 0;
     return pageDiagnostics.issues?.filter(i => i.type === "warning").length || 0;
   }, [pageDiagnostics]);
-
-  // When token arrives via URL querystring, activate auto-edit mode (same as clicking Validate)
-  useEffect(() => {
-    if (tokenFromUrl) {
-      setPendingAutoEditMode(true);
-    }
-  }, [tokenFromUrl]);
 
   // Auto-enable edit mode after successful token validation
   useEffect(() => {
