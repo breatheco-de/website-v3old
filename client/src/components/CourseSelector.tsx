@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { useVariableText } from "@/components/editing/VariableHighlight";
 
 const COLOR_MAP: Record<string, string> = {
   primary: "var(--primary)",
@@ -46,6 +47,7 @@ function CourseBadgeItem({
   colorVar: string;
 }) {
   const IconComp = getIcon(icon);
+  const vt = useVariableText();
   return (
     <span
       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs md:text-base font-medium"
@@ -55,7 +57,7 @@ function CourseBadgeItem({
       data-testid="badge-course"
     >
       {IconComp && <IconComp className="w-4 h-4" />}
-      {text}
+      {vt(text)}
     </span>
   );
 }
@@ -84,6 +86,7 @@ function CourseContent({
   const [isClamped, setIsClamped] = useState(false);
   const handleLinkClick = useInternalNav();
   const descRef = useRef<HTMLParagraphElement>(null);
+  const vt = useVariableText();
 
   useEffect(() => {
     const el = descRef.current;
@@ -173,14 +176,14 @@ function CourseContent({
                 className="text-base text-muted-foreground line-through me-2"
                 data-testid="text-original-price"
               >
-                {course.original_price}
+                {vt(course.original_price)}
               </span>
             )}
             <span
               className="text-4xl font-bold text-foreground"
               data-testid="text-price"
             >
-              {course.price}
+              {vt(course.price)}
             </span>
             <span className="text-base text-muted-foreground">/mo</span>
           </div>

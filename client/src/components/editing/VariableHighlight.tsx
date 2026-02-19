@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useRef, useLayoutEffect, useCallback, useState, useEffect } from "react";
-import type { ReactNode } from "react";
+import type { ReactNode, CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
@@ -45,6 +45,9 @@ function highlightDomVariables(
 ): (() => void) {
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
+      if ((node.parentElement as HTMLElement)?.closest?.(".variable-highlight-react")) {
+        return NodeFilter.FILTER_SKIP;
+      }
       const text = node.textContent || "";
       TEMPLATE_REGEX.lastIndex = 0;
       if (TEMPLATE_REGEX.test(text)) {
@@ -457,8 +460,91 @@ export function useVariableText() {
 
   return useCallback(
     (text: ReactNode, _path?: string): ReactNode => {
-      return text;
+      if (typeof text !== "string") return text;
+
+      TEMPLATE_REGEX.lastIndex = 0;
+      if (!TEMPLATE_REGEX.test(text)) return text;
+
+      const definitions = ctx?.definitions || {};
+      const context = ctx?.context || {};
+      const isEditMode = ctx?.isEditMode ?? false;
+      const hasDefs = Object.keys(definitions).length > 0;
+
+      const parts: ReactNode[] = [];
+      let lastEnd = 0;
+      let key = 0;
+      TEMPLATE_REGEX.lastIndex = 0;
+      let match: RegExpExecArray | null;
+
+      while ((match = TEMPLATE_REGEX.exec(text)) !== null) {
+        if (match.index > lastEnd) {
+          parts.push(text.slice(lastEnd, match.index));
+        }
+
+        const varName = match[1].trim();
+        const inlineDefault = match[2]?.trim() || "";
+        const result = hasDefs ? resolveVariable(varName, definitions, context) : null;
+        const resolvedValue = result?.value || inlineDefault || varName;
+        const source = result?.source || (inlineDefault ? "inline" : "unresolved");
+
+        const style: CSSProperties = isEditMode
+          ? {
+              backgroundColor: "rgba(250, 204, 21, 0.3)",
+              outline: "2px solid rgb(239, 68, 68)",
+              outlineOffset: "1px",
+              borderRadius: "3px",
+              cursor: "pointer",
+            }
+          : {
+              textDecoration: "underline",
+              textDecorationStyle: "dotted" as const,
+              textDecorationColor: "rgb(139, 92, 246)",
+              textDecorationThickness: "2px",
+              textUnderlineOffset: "3px",
+              cursor: "help",
+            };
+
+        const title = isEditMode
+          ? `Click to inspect {{ ${varName} }}`
+          : `{{ ${varName} }}\nSource: ${source}${inlineDefault ? `\nDefault: ${inlineDefault}` : ""}`;
+
+        const handleClick = isEditMode
+          ? (e: ReactMouseEvent) => {
+              e.preventDefault();
+              e.stopPropagation();
+              window.dispatchEvent(
+                new CustomEvent<VariableClickDetail>(VARIABLE_CLICK_EVENT, {
+                  detail: { variableName: varName, inlineDefault },
+                }),
+              );
+            }
+          : undefined;
+
+        parts.push(
+          <span
+            key={`vr-${key++}`}
+            className="variable-highlight-react"
+            data-variable-name={varName}
+            data-variable-source={source}
+            data-variable-default={inlineDefault}
+            data-testid={`variable-highlight-${varName}`}
+            style={style}
+            title={title}
+            onClick={handleClick}
+          >
+            {resolvedValue}
+          </span>,
+        );
+
+        lastEnd = match.index + match[0].length;
+      }
+
+      if (lastEnd < text.length) {
+        parts.push(text.slice(lastEnd));
+      }
+
+      return parts.length === 1 ? parts[0] : <>{parts}</>;
     },
-    [],
+    [ctx],
   );
 }
