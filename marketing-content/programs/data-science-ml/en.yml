@@ -280,8 +280,8 @@ sections:
     benefits:
       - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
       - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | {{ average_salary_machine_learning_engineer | {{ average_salary_machine_learning_engineer | $90K–$150K }} }} }}"
-      - text: "Data Analyst: $60K–$95K"
-      - text: "AI Engineer: $100K–$160K"
+      - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
+      - text: "AI Engineer: {{ average_salary_ai_engineer | $100K–$160K }}"
     card:
       title: Data Scientist
       subtitle: 4Geeks Academy Certificate
@@ -307,9 +307,9 @@ sections:
         description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
         benefits:
           - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
-          - text: "Machine Learning Engineer: $90K–$150K"
-          - text: "Data Analyst: $60K–$95K"
-          - text: "AI Engineer: $100K–$160K"
+          - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | $90K–$150K }}"
+          - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
+          - text: "AI Engineer: {{ salary_data_scientist | $80K–$130K }}000"
       - value: 500+
         label: Hiring Partners
         description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
@@ -345,7 +345,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: {{ price_datascience | $299 }}
+    financing_amount: {{ salary_data_scientist | $80K–$130K }}1
     tech_icons:
       - python
       - tensorflow
@@ -359,7 +359,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is {{ price_full_datascience | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ salary_data_scientist | $80K–$130K }}2. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
@@ -408,9 +408,9 @@ sections:
       desktop: none
   - type: testimonials
     title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. {{ global_review_count | 1,200 }}+ verified reviews prove it
+    subtitle: Our programs deliver life-changing results. {{ salary_data_scientist | $80K–$130K }}33333333311+ verified reviews prove it
     rating_summary:
-      average: {{ global_review_rating | 4.8 }}
+      average: {{ salary_data_scientist | $80K–$130K }}4444444442200
       count: "2000"
     items:
       - name: Gabriel Salazar
