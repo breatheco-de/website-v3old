@@ -37,5 +37,5 @@ sections:
         type: text
         function: KHJvdykgPT4gcm93LnN5bGxhYnVzX3ZlcnNpb24/LmR1cmF0aW9uX2luX2RheXMgPyBNYXRoLnJvdW5kKHJvdy5zeWxsYWJ1c192ZXJzaW9uLmR1cmF0aW9uX2luX2RheXMgLyA3KSArICIgc2VtYW5hcyIgOiAnJw==
     action:
-      label: View
+      label: Ver
       href: /en/apply
