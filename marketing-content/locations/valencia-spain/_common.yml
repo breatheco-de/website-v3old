@@ -13,6 +13,11 @@ phone: +34 963 55 01 00
 address: Calle Colón 48, 46004 Valencia
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For this campus visitors and those interested in tech opportunities.
+  target_audience: Local professionals and residents seeking a coding bootcamp with job-focused training.
+  goals:
+    - Highlight job outcomes and connections to local employers
 catalog:
   admission_advisors:
     - name: "Admissions Team"
