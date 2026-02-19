@@ -92,7 +92,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: default
-    heading: Career Programs Backed by Our Job Guarantee
+    heading: Career Programs that Offer The Job Guarantee Option
     subheading: Our programs qualify for the Job Guarantee when all eligibility requirements are met.
     courses:
       - name: AI Engineering
@@ -104,8 +104,8 @@ sections:
           - icon: DollarSign
             text: APIS, automation, telemetry
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: {{ price_ai_engineering | $349 }}
-        price_info: or less depending on your plan
+        price: {{ price_ai_engineering | $2000 }}
+        price_info: for the additional Job Guarantee
         cta_text: Program details
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -120,9 +120,8 @@ sections:
           - icon: Plus
             text: API Development
         description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: {{ price_fullstack | $299 }}
-        original_price: $588
-        price_info: with 4Geeks Installments
+        price: {{ price_fullstack | $2000 }}
+        price_info: for the additional Job Guaranteewith 4Geeks Installments
         cta_text: Program details
         cta_url: /en/career-programs/full-stack
         course_background: primary
@@ -134,9 +133,8 @@ sections:
           - icon: Brain
             text: Python, TensorFlow, SQL
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: {{ price_datascience | 299$ }}
-        original_price: $588
-        price_info: with 4Geeks Installments
+        price: {{ price_datascience | 2000$ }}
+        price_info: for the additional Job Guarantee
         cta_text: Program details
         cta_url: /en/career-programs/ai-machine-learning
         course_background: accent
@@ -148,9 +146,8 @@ sections:
           - icon: Code
             text: Threat detection & system protection
         description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: {{ price_cybersecurity | 299$ }}
-        original_price: $588
-        price_info: with 4Geeks Installments
+        price: {{ price_cybersecurity | 2000$ }}
+        price_info: for the additional Job Guarantee
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--color-pink))
@@ -194,7 +191,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Why Our Job Guarantee Works
+    heading: Why The Job Guarantee
     description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
     image: /attached_assets/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy community support
