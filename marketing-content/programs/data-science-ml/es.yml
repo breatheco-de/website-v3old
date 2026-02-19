@@ -124,7 +124,7 @@ sections:
         value: 36%
         title: tasa de crecimiento proyectada en la próxima década
       - id: "3"
-        value: {{ salary_data_scientist | $90K+ }}
+        value: 22.000€
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
     variant: program-modules
