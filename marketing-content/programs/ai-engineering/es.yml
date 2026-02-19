@@ -8,9 +8,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   redirects:
-  - /bootcamp/ai-engineering-es
-  - /programas/ingeniero-ia
-  - /cursos/ingenieria-ia
+    - /bootcamp/ai-engineering-es
+    - /programas/ingeniero-ia
+    - /cursos/ingenieria-ia
 schema:
   include:
     - organization
@@ -18,10 +18,10 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: "1.0"
+    version: "1.3"
     variant: course
-    title: Ingeniería de IA
-    subtitle: Prospera en la tecnología de hoy y ayuda a crear el futuro. Inicia tu carrera impulsada por IA en 24 semanas.
+    title: Ingeniería en IA
+    subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -30,9 +30,9 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +7000 graduados
     bullet_points:
-      - Transforma un caso de negocio completo en un sistema totalmente nativo de IA, capa por capa.
-      - Integra IA en software real, conectando modelos inteligentes con usuarios y datos.
-      - Usa herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
+      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, capa por capa.
+      - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
+      - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
     tutors:
       - name: Marco Gonzalo
         role: Instructor Principal
@@ -40,36 +40,36 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus tutores:"
-    description: Construye sistemas reales listos para producción en nuestro programa integral de Ingeniería de IA, con mentoría ilimitada y orientación profesional. Conviértete en el ingeniero de software que las empresas están buscando activamente.
+    tutors_label: "Tus mentores:"
+    description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
       thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
-      alt: Introducción al programa de Ingeniería de IA
+      alt: Introducción al programa de Ingeniería en IA
     signup_card:
-      title: Obtén el Plan de Estudios Completo
-      description: Accede a la hoja de ruta completa de 10 hitos y la metodología de Caso de Empresa
+      title: Recibe el Plan de Estudios Completo
+      description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
-        text: Envíame el Currículo
-        url: /es/aplica
+        text: Recibir el Plan de Estudios
+        url: "#apply-modal"
         variant: primary
       login_link:
-        text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: /login
+        text: ¿Ya eres estudiante? Inicia sesión.
+        url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa Intensivo de 24 Semanas
+          text: Programa intensivo de 24 semanas o versión acelerada de 12 semanas
         - icon: IconBriefcase
-          text: Currículo Orientado al Empleo
+          text: Currículo orientado al empleo
         - icon: IconRobot
-          text: Aprendizaje y Retroalimentación con IA
+          text: Aprendizaje y feedback con IA
         - icon: IconUsers
-          text: Ratio de 7:1 Estudiante-Instructor
+          text: 7 estudiantes por mentor
         - icon: IconUserCheck
-          text: Mentoría 1:1 Ilimitada
+          text: Mentoría 1:1 ilimitada
         - icon: book
-          text: Portafolio de Nivel Profesional
+          text: Portafolio listo para producción
     paddingY:
       desktop: md
     marginY:
