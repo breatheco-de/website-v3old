@@ -145,9 +145,9 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Demand for Cybersecurity Specialists Is Soaring
-    subtitle: Launch a career in one of the world’s fastest-growing and essential tech sectors.
-    description: With a significant global talent gap and record-breaking investment in defense, the opportunity for skilled professionals is unprecedented. Our program provides the technical skills and hands-on experience to step directly into these high-paying roles.
+    title: Cybersecurity Talent Is in High Demand
+    subtitle: Enter a mission-critical field with long-term growth and strong earning potential.
+    description: A growing global talent gap and record-breaking investment in digital security have created unprecedented demand for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move directly into high-impact, high-paying roles.
     background: bg-muted/30
     items:
       - id: "1"

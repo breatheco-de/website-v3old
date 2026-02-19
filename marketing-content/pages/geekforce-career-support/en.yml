@@ -294,12 +294,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
-    subtitle: Apply now to secure your spot and get full program details.
+    subtitle: Get pricing, curriculum details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Get the details
       tags: website-lead
       automations: hard
       fields:
@@ -316,8 +316,8 @@ sections:
           required: false
           placeholder: Phone number
         program:
-          visible: true
-          required: true
+          visible: false
+          required: false
           default: auto
       success:
         message: Thank you! We'll be in touch soon.

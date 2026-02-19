@@ -62,14 +62,14 @@ call_to_action_apply:
   default: "Apply now"
   conditions:
     - query:
-        location: "santiago-de-chile"
-      value: "Solicita tu plaza"
-    - query:
-        location: "caracas"
-      value: "Aplica ya"
+        location: "santiago-chile"
+      value: "Postular Ahora"
     - query:
         location: "madrid-spain"
-      value: "4.8"
+      value: "Solicita tu plaza"
+    - query:
+        region: "latam"
+      value: "Aplicar Ahora"
 price_full_datascience:
   default: "$10,999"
   conditions:

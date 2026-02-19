@@ -405,8 +405,8 @@ sections:
       desktop: none md
   - type: whos_hiring
     variant: carousel
-    title: Trusted by Leading Innovators
-    subtitle: Our graduates are hired  by leading companies worldwide
+    title: Top Companies Hiring Our Graduates
+    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft

@@ -51,7 +51,7 @@ sections:
       alt: Data Science program introduction
     signup_card:
       title: Get the Full Syllabus
-      description: Access the full curriculum, schedule and everything else you need to know.
+      description: Access the full program description, schedule and everything else you need to know.
       cta_button:
         text: Send me the Curriculum
         url: "#apply-modal"
@@ -327,7 +327,7 @@ sections:
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
-    subtitle: Need extra peace of mind? Add our optional Job Guarantee for added security *The Job Guarantee is not available in all regions. Terms and conditions apply.
+    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
         title: Add the Job Guarantee to your payment plan
@@ -377,8 +377,8 @@ sections:
       desktop: lg md
   - type: whos_hiring
     variant: carousel
-    title: Trusted by Leading Innovators
-    subtitle: Our graduates are hired by leading companies worldwide
+    title: Top Companies Hiring Our Graduates
+    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
@@ -411,7 +411,7 @@ sections:
     subtitle: Our programs deliver life-changing results. {{ global_review_count | 4.9 }} verified reviews prove it
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 3,000 }}
+      count: {{ global_review_count | 3,000+ }}
     items:
       - name: Gabriel Salazar
         role: Software Engineer
