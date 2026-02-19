@@ -1056,7 +1056,7 @@ export default function PrivateRedirects() {
                       i > 0 ? "border-l" : ""
                     } ${
                       redirectStatus === option.code
-                        ? "bg-primary/5"
+                        ? "bg-primary/15"
                         : "hover-elevate"
                     }`}
                     data-testid={`button-status-${option.code}`}
@@ -1268,7 +1268,7 @@ export default function PrivateRedirects() {
                       <button
                         type="button"
                         onClick={() => setIsRegexDestination(false)}
-                        className={`px-2.5 py-1 transition-colors ${!isRegexDestination ? "bg-primary/10 font-medium" : "hover-elevate"}`}
+                        className={`px-2.5 py-1 transition-colors ${!isRegexDestination ? "bg-primary/15 font-medium" : "hover-elevate"}`}
                         data-testid="button-dest-page"
                       >
                         Pick a page
@@ -1276,7 +1276,7 @@ export default function PrivateRedirects() {
                       <button
                         type="button"
                         onClick={() => setIsRegexDestination(true)}
-                        className={`px-2.5 py-1 border-l transition-colors ${isRegexDestination ? "bg-primary/10 font-medium" : "hover-elevate"}`}
+                        className={`px-2.5 py-1 border-l transition-colors ${isRegexDestination ? "bg-primary/15 font-medium" : "hover-elevate"}`}
                         data-testid="button-dest-pattern"
                       >
                         Type a pattern
@@ -1467,7 +1467,7 @@ export default function PrivateRedirects() {
                         i > 0 ? "border-l" : ""
                       } ${
                         redirectPriority === option.value
-                          ? "bg-primary/5"
+                          ? "bg-primary/15"
                           : "hover-elevate"
                       }`}
                       data-testid={`button-priority-${option.value}`}
