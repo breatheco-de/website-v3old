@@ -189,17 +189,17 @@ sections:
     version: "1.0"
     variant: cardHeader
     heading: Garantía de Empleo basada en resultados reales
-    description: La Garantía de Empleo se basa en resultados reales y un modelo de programa enfocado en la contratación. Nuestro contenido, metodología de enseñanza y soporte profesional están diseñados para que consigas empleo en el mercado tech actual. A lo largo de los años, hemos ayudado a más de 6000 graduados a lanzar sus carreras en tech en distintos roles e industrias.
+    description: Nuestra Garantía de Empleo se basa en resultados reales de contratación y en un modelo diseñado para maximizar tu empleabilidad. Nuestro contenido, metodología y acompañamiento profesional están alineados con las exigencias del mercado tech actual para ayudarte a conseguir tu próximo empleo. Hemos ayudado a más de 6000 graduados a lanzar su nueva carrera.
     image: /attached_assets/comunity-support_1765908983485.png
     image_alt: Soporte comunitario de 4Geeks Academy
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Resultados consistentes de contratación en toda nuestra comunidad de graduados
+        text: Altas tasas de contratación de nuestros graduados
       - icon: BrandStackshare
-        text: Fuerte y sostenida demanda de profesionales tech calificados
+        text: Alta demanda de talento tech calificado
       - icon: ChalkboardTeacher
-        text: Entrenamiento estructurado combinado con soporte continuo y práctico para tu carrera
+        text: Formación estructurada con acompañamiento práctico y continuo
   - type: faq
     version: "1.0"
     title: Preguntas frecuentes sobre la Garantía de Empleo
