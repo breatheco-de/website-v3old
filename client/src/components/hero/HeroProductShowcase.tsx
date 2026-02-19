@@ -8,6 +8,7 @@ import { UniversalVideo } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 import { LeadForm, type LeadFormData } from "@/components/LeadForm";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
@@ -296,7 +297,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                           <div className="flex">
                             {[1, 2, 3, 4, 5].map((star) => {
                               const rating = parseFloat(
-                                data.trust_bar!.rating || "0",
+                                resolveTemplateFallback(data.trust_bar!.rating || "0"),
                               );
                               const fullStars = Math.floor(rating);
                               const hasHalf = rating % 1 >= 0.5;
@@ -336,7 +337,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                       )}
                       {data.trust_bar.review_count && (
                         <span className="text-[12px] font-bold">
-                          {data.trust_bar.review_count}
+                          {resolveTemplateFallback(String(data.trust_bar.review_count))}
                         </span>
                       )}
                     </div>

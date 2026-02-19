@@ -12,7 +12,8 @@ import { useLocation as useWouterLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import { filterFaqsByRelatedFeatures, type FaqItem } from "@/lib/faqConstants";
+import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
+import { useSession } from "@/contexts/SessionContext";
 
 interface FAQSectionProps {
   data: FAQSectionType;
@@ -24,6 +25,8 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
   const [pathname] = useWouterLocation();
   const { i18n } = useTranslation();
   const locale = i18n.language?.startsWith("es") ? "es" : "en";
+  const { session } = useSession();
+  const sessionLocationSlug = session.location?.slug;
   
   // Detect if we're on a location page and extract location slug
   const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
@@ -32,6 +35,10 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
   const hasInlineItems = data.items && data.items.length > 0;
   const hasRelatedFeatures = data.related_features && data.related_features.length > 0;
   
+  const itemOverrides = (data as Record<string, unknown>).item_overrides as
+    | Record<string, { hideOnLocations?: string[] }>
+    | undefined;
+  
   const { data: faqsData, isLoading } = useQuery<{ faqs: FaqItem[] }>({
     queryKey: ["/api/faqs", locale],
     enabled: hasRelatedFeatures,
@@ -39,21 +46,35 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
   });
   
   const faqItems = useMemo(() => {
+    let items: Array<{ question: string; answer: string }> = [];
+    
     if (hasRelatedFeatures && faqsData?.faqs) {
-      return filterFaqsByRelatedFeatures(faqsData.faqs, {
+      items = filterFaqsByRelatedFeatures(faqsData.faqs, {
         relatedFeatures: data.related_features!,
         location: locationSlug,
         limit: 9,
         programSlug,
       });
+    } else if (hasInlineItems) {
+      items = data.items!;
     }
     
-    if (hasInlineItems) {
-      return data.items!;
+    if (itemOverrides && Object.keys(itemOverrides).length > 0) {
+      const effectiveLocation = locationSlug || sessionLocationSlug;
+      if (effectiveLocation) {
+        items = items.filter((item) => {
+          const key = faqItemKey(item.question);
+          const override = itemOverrides[key];
+          if (override?.hideOnLocations?.includes(effectiveLocation)) {
+            return false;
+          }
+          return true;
+        });
+      }
     }
     
-    return [];
-  }, [hasRelatedFeatures, hasInlineItems, data.related_features, data.items, faqsData, locationSlug, programSlug]);
+    return items;
+  }, [hasRelatedFeatures, hasInlineItems, data.related_features, data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug]);
   
   if (isLoading && hasRelatedFeatures) {
     return (

@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UniversalImage } from "@/components/UniversalImage";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 import type {
   CareerSupportExplainSection,
   CareerSupportTab,
@@ -64,9 +65,9 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
                 {tab.col1_boxes.map((box, i) => {
                   const IconComp = box.icon ? getTablerIcon(box.icon) : null;
                   return (
-                    <Card
+                    <span
                       key={i}
-                      className="flex items-center gap-1.5 px-2 py-1.5 text-sm"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-primary/10"
                       data-testid={`box-item-${i}`}
                     >
                       {IconComp && (
@@ -75,7 +76,7 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
                       <span className="lg:text-xs text-foreground">
                         {box.text}
                       </span>
-                    </Card>
+                    </span>
                   );
                 })}
               </div>
@@ -203,7 +204,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
           {tab.left_stat && (
             <div className="mt-auto pt-4" data-testid="stat-left-mobile">
               <span className="text-5xl font-bold text-primary">
-                {tab.left_stat.value}
+                {resolveTemplateFallback(tab.left_stat.value)}
               </span>
               <p className="text-sm text-muted-foreground mt-1">
                 {tab.left_stat.label}
@@ -251,7 +252,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
             <div className="flex items-end h-full">
               <div className="mt-auto pt-4" data-testid="stat-left">
                 <span className="text-5xl font-bold text-primary">
-                  {tab.left_stat.value}
+                  {resolveTemplateFallback(tab.left_stat.value)}
                 </span>
                 <p className="text-sm text-muted-foreground mt-1">
                   {tab.left_stat.label}
@@ -694,10 +695,10 @@ export function CareerSupportExplain({ data }: CareerSupportExplainProps) {
                     key={i}
                     onClick={() => setActiveTab(i)}
                     className={cn(
-                      "py-1 rounded-lg text-sm font-medium transition-colors duration-200 col-span-1 w-full",
+                      "py-1 rounded-lg text-sm font-medium transition-colors duration-200 col-span-1 w-full pt-[10px] pb-[10px]",
                       i === activeTab
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover-elevate",
+                        : "bg-transparent text-muted-foreground hover-elevate"
                     )}
                     data-testid={`button-tab-${i}`}
                   >

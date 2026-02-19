@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import yaml from "js-yaml";
-import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
+import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -72,10 +72,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
-  const serialized = JSON.stringify(obj);
-  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
-  const escapedObj = JSON.parse(escapedJson);
-  const dumped = yaml.dump(escapedObj, opts);
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yaml.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
 

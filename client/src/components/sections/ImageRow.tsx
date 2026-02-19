@@ -81,23 +81,23 @@ function TypewriterText({
   if (isHtml) {
     if (isEditMode || visibleChars >= totalChars) {
       return (
-        <span
+        <div
           className={className}
           dangerouslySetInnerHTML={{ __html: text }}
         />
       );
     }
     return (
-      <span className={className} style={{ position: "relative" }}>
-        <span
-          style={{ opacity: 0 }}
+      <div className={className} style={{ position: "relative" }}>
+        <div
+          style={{ visibility: "hidden" }}
           dangerouslySetInnerHTML={{ __html: text }}
         />
-        <span
-          style={{ position: "absolute", left: 0, top: 0 }}
+        <div
+          style={{ position: "absolute", left: 0, top: 0, right: 0 }}
           dangerouslySetInnerHTML={{ __html: sliceHtml(text, visibleChars) }}
         />
-      </span>
+      </div>
     );
   }
 

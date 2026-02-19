@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
+import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 export interface StatCardProps {
   value: string;
@@ -148,6 +149,7 @@ export function StatCard({
   animate = false,
   animationDelay = 0
 }: StatCardProps) {
+  const resolvedValue = resolveTemplateFallback(value);
   const isHorizontalMobile = layout === "horizontal-mobile";
   const isSmall = size === "small";
   
@@ -161,9 +163,9 @@ export function StatCard({
     <div className={`font-inter ${isHorizontalMobile ? "flex items-center gap-4 sm:block" : ""}`}>
       <div className={`font-bold text-primary ${valueSizeClass} shrink-0`}>
         {animate ? (
-          <AnimatedValue value={value} animate={animate} animationDelay={animationDelay} />
+          <AnimatedValue value={resolvedValue} animate={animate} animationDelay={animationDelay} />
         ) : (
-          formatValueWithUnit(value)
+          formatValueWithUnit(resolvedValue)
         )}
       </div>
       <div className={`text-sm text-foreground`}>

@@ -14,7 +14,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     title: In Tech, Your Way
     subtitle: Flexible payment options designed for real career growth.
@@ -29,12 +29,12 @@ sections:
       - text: Scholarship opportunities for qualified candidates
     video:
       url: https://www.youtube.com/shorts/hvMLx6jX0EY?feature=share
-      ratio: '3:4'
+      ratio: "3:4"
       muted: true
       loop: true
     cta_button:
       text: Get more info
-      url: '#bottom'
+      url: "#bottom"
       variant: primary
     trust_bar:
       rating: 4.5"
@@ -51,7 +51,7 @@ sections:
     marginY:
       desktop: none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: Proven Career Outcomes
     subtitle: Strong hiring results. Real salary growth.
@@ -90,7 +90,7 @@ sections:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
-    version: '1.0'
+    version: "1.0"
     title: Your Financing Options at a Glance
     subtitle: Understand the key benefits and requirements of each path so you can choose with confidence.
     columns:
@@ -108,37 +108,37 @@ sections:
       - feature: Tuition Discount
         values:
           - 10% off
-          - 'No'
-          - 'No'
-          - 'No'
+          - "No"
+          - "No"
+          - "No"
       - feature: Credit Check Required
         values:
-          - 'No'
+          - "No"
           - Low barrier
-          - 'Yes'
-          - 'Yes'
+          - "Yes"
+          - "Yes"
       - feature: Payment Deferral After Graduation
         values:
-          - 'No'
-          - 'No'
-          - 'Yes'
-          - 'Yes'
+          - "No"
+          - "No"
+          - "Yes"
+          - "Yes"
       - feature: Pay Only After You’re Hired
         values:
-          - 'No'
-          - 'No'
-          - 'No'
-          - 'Yes'
+          - "No"
+          - "No"
+          - "No"
+          - "Yes"
     background: hsl(var(--background))
     marginY:
       desktop: lg md
     paddingY:
       desktop: md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Program Tuition
-    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
+    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
@@ -167,9 +167,9 @@ sections:
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
-          - icon: ''
-            text: ''
-        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         price: {{ price_fullstack | $299 }}
         price_info: or less depending on your plan
         cta_text: View Program Details
@@ -215,7 +215,7 @@ sections:
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: '<span style="font-size: 1.125rem;"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"><span style="color: hsl(var(--primary));">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span style="font-size: 1rem;"></span></span></div>'
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
       url: /en/job-guarantee
@@ -230,7 +230,7 @@ sections:
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -280,9 +280,9 @@ sections:
     paddingY:
       desktop: none md
   - type: cta_banner
-    version: '1.0'
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    version: "1.0"
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Apply now to secure your spot and get full program details.
     background: hsl(var(--primary))
     variant: form
     form:

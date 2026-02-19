@@ -61,6 +61,7 @@ interface Redirect {
   type: string;
   status: number;
   source: string;
+  priority?: "before" | "fallback";
 }
 
 function formatRedirectTo(to: string | Record<string, string>): string {
@@ -122,6 +123,7 @@ export default function PrivateRedirects() {
   const [isRegexDestination, setIsRegexDestination] = useState(false);
   const [testUrl, setTestUrl] = useState("");
   const [redirectStatus, setRedirectStatus] = useState<number>(301);
+  const [redirectPriority, setRedirectPriority] = useState<"before" | "fallback">("before");
   const [localeUrls, setLocaleUrls] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deletingRedirect, setDeletingRedirect] = useState<Redirect | null>(
@@ -293,6 +295,7 @@ export default function PrivateRedirects() {
     setIsRegexDestination(false);
     setTestUrl("");
     setRedirectStatus(301);
+    setRedirectPriority("before");
     setLocaleUrls({});
     setOriginCheckStatus("idle");
     setOriginCheckReason(null);
@@ -329,6 +332,7 @@ export default function PrivateRedirects() {
         allLanguages,
         status: redirectStatus,
         isCustomDestination: isCustomDestination || isRegexDestination,
+        priority: redirectPriority,
       });
       const data = await res.json();
 
@@ -461,6 +465,20 @@ export default function PrivateRedirects() {
     }
   };
 
+  const handleTogglePriority = async (redirect: Redirect, targetPriority?: "before" | "fallback") => {
+    const newPriority = targetPriority || (redirect.priority === "fallback" ? "before" : "fallback");
+    if ((redirect.priority || "before") === newPriority) return;
+    try {
+      await apiRequest("PATCH", "/api/debug/redirects/priority", {
+        from: redirect.from,
+        priority: newPriority,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
+    } catch {
+      toast({ title: "Failed to update priority", variant: "destructive" });
+    }
+  };
+
   const handleReorderCustomRedirect = async (fromIndex: number, toIndex: number) => {
     const allCustomRedirects = redirects.filter(
       (r) => r.source === "marketing-content/custom-redirects.yml",
@@ -469,7 +487,7 @@ export default function PrivateRedirects() {
     const [moved] = reordered.splice(fromIndex, 1);
     reordered.splice(toIndex, 0, moved);
     await apiRequest("PATCH", "/api/debug/redirects/reorder", {
-      redirects: reordered.map((r) => ({ from: r.from, to: r.to, status: r.status })),
+      redirects: reordered.map((r) => ({ from: r.from, to: r.to, status: r.status, priority: r.priority })),
     });
     queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
   };
@@ -928,6 +946,73 @@ export default function PrivateRedirects() {
                                   regex
                                 </Badge>
                               )}
+                              {isCustom ? (
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <button
+                                      className="flex-shrink-0"
+                                      data-testid={`button-toggle-priority-${index}`}
+                                    >
+                                      <Badge
+                                        variant="outline"
+                                        className={`text-[10px] px-1.5 py-0 cursor-pointer gap-0.5 ${
+                                          redirect.priority === "fallback"
+                                            ? "bg-primary/10"
+                                            : ""
+                                        }`}
+                                      >
+                                        {redirect.priority === "fallback" && (
+                                          <IconAlertTriangle className="h-2.5 w-2.5" />
+                                        )}
+                                        {redirect.priority === "fallback" ? "fallback" : "before"}
+                                      </Badge>
+                                    </button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-72 p-0" align="start" side="bottom">
+                                    <div className="p-3 space-y-2">
+                                      <p className="text-xs font-medium">When should this redirect apply?</p>
+                                      <div className="flex border rounded-md overflow-hidden">
+                                        {[
+                                          {
+                                            value: "before" as const,
+                                            label: "Before",
+                                            desc: "Always redirects, even if a real page exists at this URL.",
+                                          },
+                                          {
+                                            value: "fallback" as const,
+                                            label: "Fallback",
+                                            desc: "Only redirects if no real page matches. Real pages take priority.",
+                                          },
+                                        ].map((option, i) => (
+                                          <button
+                                            key={option.value}
+                                            type="button"
+                                            onClick={() => handleTogglePriority(redirect, option.value)}
+                                            className={`flex-1 text-left p-2.5 transition-colors ${
+                                              i > 0 ? "border-l" : ""
+                                            } ${
+                                              (redirect.priority || "before") === option.value
+                                                ? "bg-primary/15"
+                                                : "hover-elevate"
+                                            }`}
+                                            data-testid={`button-inline-priority-${option.value}-${index}`}
+                                          >
+                                            <span className="text-xs font-medium">{option.label}</span>
+                                            <p className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+                                              {option.desc}
+                                            </p>
+                                          </button>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </PopoverContent>
+                                </Popover>
+                              ) : redirect.priority === "fallback" ? (
+                                <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 gap-0.5">
+                                  <IconAlertTriangle className="h-2.5 w-2.5" />
+                                  fallback
+                                </Badge>
+                              ) : null}
                             </div>
                             <Badge
                               variant={
@@ -1047,7 +1132,7 @@ export default function PrivateRedirects() {
                       i > 0 ? "border-l" : ""
                     } ${
                       redirectStatus === option.code
-                        ? "bg-primary/5"
+                        ? "bg-primary/15"
                         : "hover-elevate"
                     }`}
                     data-testid={`button-status-${option.code}`}
@@ -1259,7 +1344,7 @@ export default function PrivateRedirects() {
                       <button
                         type="button"
                         onClick={() => setIsRegexDestination(false)}
-                        className={`px-2.5 py-1 transition-colors ${!isRegexDestination ? "bg-primary/10 font-medium" : "hover-elevate"}`}
+                        className={`px-2.5 py-1 transition-colors ${!isRegexDestination ? "bg-primary/15 font-medium" : "hover-elevate"}`}
                         data-testid="button-dest-page"
                       >
                         Pick a page
@@ -1267,7 +1352,7 @@ export default function PrivateRedirects() {
                       <button
                         type="button"
                         onClick={() => setIsRegexDestination(true)}
-                        className={`px-2.5 py-1 border-l transition-colors ${isRegexDestination ? "bg-primary/10 font-medium" : "hover-elevate"}`}
+                        className={`px-2.5 py-1 border-l transition-colors ${isRegexDestination ? "bg-primary/15 font-medium" : "hover-elevate"}`}
                         data-testid="button-dest-pattern"
                       >
                         Type a pattern
@@ -1439,6 +1524,37 @@ export default function PrivateRedirects() {
                     )}
                   </div>
                 )}
+              </div>
+            )}
+
+            {(isOriginRegex || isCustomDestination || isRegexDestination) && newTo.trim() && (
+              <div className="space-y-2">
+                <Label>Priority</Label>
+                <div className="flex rounded-md border overflow-hidden">
+                  {[
+                    { value: "before" as const, label: "Before", desc: "Always redirect" },
+                    { value: "fallback" as const, label: "Fallback", desc: "Only if no page exists" },
+                  ].map((option, i) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setRedirectPriority(option.value)}
+                      className={`flex-1 text-left p-3 transition-colors ${
+                        i > 0 ? "border-l" : ""
+                      } ${
+                        redirectPriority === option.value
+                          ? "bg-primary/15"
+                          : "hover-elevate"
+                      }`}
+                      data-testid={`button-priority-${option.value}`}
+                    >
+                      <span className="text-sm font-medium">{option.label}</span>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {option.desc}
+                      </p>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 

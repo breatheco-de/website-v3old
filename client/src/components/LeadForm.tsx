@@ -1149,7 +1149,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
             <p className={`text-xs text-center ${data.terms_className || "text-muted-foreground"}`} style={termsStyle} data-testid="text-terms">
               {locale === "es" ? "Al registrarte, aceptas los " : "By signing up, you agree to the "}
               <a 
-                href={data.terms_url || "/terms"} 
+                href={data.terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1159,7 +1159,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
               </a>
               {locale === "es" ? " y la " : " and "}
               <a 
-                href={data.privacy_url || "/privacy"} 
+                href={data.privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"

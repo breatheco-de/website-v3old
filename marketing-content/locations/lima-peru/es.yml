@@ -6,25 +6,20 @@ meta:
   priority: 0.8
   change_frequency: monthly
   redirects:
-    - /lima
-    - /lima-peru
-    - /campus/lima
-    - /pe/lima
-
     - /es/coding-campus/bootcamp-programacion-lima-peru
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Lima
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la capital y mayor hub tech de Perú. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Lima
     cta_buttons:
       - text: Aplicar Ahora
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
       - text: Descargar Programa
-        url: "#syllabus-modal"
+        url: '#syllabus-modal'
         variant: outline
     marginY:
       desktop: none lg
@@ -32,7 +27,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: syllabus-modal
     heading: Comienza tu Aplicación
     description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
@@ -100,7 +95,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -128,13 +123,13 @@ sections:
         url: https://player.vimeo.com/video/B01-eTfgqqc
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: Programas Cubiertos por la Garantía de Empleo
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
@@ -186,7 +181,7 @@ sections:
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -226,7 +221,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Lima es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en crecimiento con impulso de contratación real
-    description: "El ecosistema de startups en Perú ha ganado impulso en los últimos años. Empresas innovadoras han atraído inversiones y reconocimiento local e internacionalmente, enfocándose en inclusión financiera, educación y agricultura sostenible mientras escalan globalmente.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Aumento en el número de startups innovadoras con inversiones y reconocimiento</span></li><li>Enfoque en desafíos locales—fintech, educación, agricultura sostenible—con ambición global</li><li>Demanda creciente de habilidades en software, IA y datos en todos los sectores</li></ul></div><div>Desde nuestro campus en Lima, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
+    description: 'El ecosistema de startups en Perú ha ganado impulso en los últimos años. Empresas innovadoras han atraído inversiones y reconocimiento local e internacionalmente, enfocándose en inclusión financiera, educación y agricultura sostenible mientras escalan globalmente.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Aumento en el número de startups innovadoras con inversiones y reconocimiento</span></li><li>Enfoque en desafíos locales—fintech, educación, agricultura sostenible—con ambición global</li><li>Demanda creciente de habilidades en software, IA y datos en todos los sectores</li></ul></div><div>Desde nuestro campus en Lima, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>'
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -256,7 +251,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Lima
     filter_by_location: lima-peru
     marginY:
@@ -266,7 +261,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -354,7 +349,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Lima?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     background: hsl(var(--primary))

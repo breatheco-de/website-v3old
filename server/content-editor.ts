@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
-import { escapeTemplateVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
+import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { z } from "zod";
 
 function safeYamlLoad(yamlStr: string): unknown {
@@ -11,10 +11,8 @@ function safeYamlLoad(yamlStr: string): unknown {
 }
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
-  const serialized = JSON.stringify(obj);
-  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
-  const escapedObj = JSON.parse(escapedJson);
-  const dumped = yaml.dump(escapedObj, opts);
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yaml.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
 import type { EditOperation } from "@shared/schema";
