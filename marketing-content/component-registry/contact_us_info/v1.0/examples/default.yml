@@ -21,10 +21,10 @@
         required: true
         placeholder: Last name
       client_comments:
+        rows: 7
         visible: true
         required: true
         placeholder: Comments
-        rows: 7
     success:
       message: Thank you! We'll be in touch soon.
     show_terms: true
@@ -41,7 +41,7 @@
       email: es@4geeksacademy.com
     - code: CL
       name: Chile
-      address: Santiago Av. Manquehue Sur 350. Las Condes R.M.
+      address: Av. Manquehue Sur 350, oficina 110, Las Condes Región Metropolitana, Chile.
       phone: +56 (9) 7284 8039
       email: chile@4GeeksAcademy.com
     - code: CR

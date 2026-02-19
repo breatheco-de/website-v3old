@@ -10,7 +10,7 @@ interface ContactUsInfoProps {
 function LocationCard({ location }: { location: ContactLocation }) {
   return (
     <div
-      className="flex gap-4 py-2 borde border-border last:border-b-0"
+      className="flex gap-4 py-2 borde border-border last:border-b-0 max-w-72"
       data-testid={`card-location-${location.code.toLowerCase()}`}
     >
       <div className="flex flex-col gap-1 min-w-0">
