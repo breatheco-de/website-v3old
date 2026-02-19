@@ -19,7 +19,7 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
@@ -43,14 +43,14 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
+    tutors_label: "Your tutors:"
     description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
     signup_card:
       title: Get the Full Syllabus
       description: Access the full curriculum, schedule and everything else you need to know about the program.
       cta_button:
         text: Send me the Curriculum
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -73,7 +73,7 @@ sections:
     marginY:
       desktop: none
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: apply-modal
     heading: Request Program Information
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -143,20 +143,20 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: Demand for Cybersecurity Specialists Is Soaring
     subtitle: Launch a career in one of the world’s fastest-growing and essential tech sectors.
     description: With a significant global talent gap and record-breaking investment in defense, the opportunity for skilled professionals is unprecedented. Our program provides the technical skills and hands-on experience to step directly into these high-paying roles.
     background: bg-muted/30
     items:
-      - id: '1'
+      - id: "1"
         value: 4.8M
         title: Unfilled cybersecurity roles worldwide
-      - id: '2'
+      - id: "2"
         value: 41%
         title: Projected job growth, outpacing most sectors
-      - id: '3'
+      - id: "3"
         value: $520B
         title: Global spending on cybersecurity this year
   - type: syllabus
@@ -274,7 +274,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -284,7 +284,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -294,7 +294,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -310,7 +310,7 @@ sections:
       desktop: md
   - type: certificate
     title: Industry Certifications and Career Outcomes
-    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:'
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
       - text: CEH (Certified Ethical Hacker) pathway
@@ -340,10 +340,10 @@ sections:
         label: Average starting salary
         description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of 55%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
-          - text: 'Cybersecurity Analyst: $75K–$120K'
-          - text: 'Penetration Tester: $90K–$150K'
-          - text: 'Security Engineer: $100K–$165K'
-          - text: 'Incident Responder: $85K–$140K'
+          - text: "Cybersecurity Analyst: $75K–$120K"
+          - text: "Penetration Tester: $90K–$150K"
+          - text: "Security Engineer: $100K–$165K"
+          - text: "Incident Responder: $85K–$140K"
       - value: 5,000+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
@@ -357,12 +357,12 @@ sections:
     paddingY:
       desktop: md
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting below'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
     financing_amount: {{ price_cybersecurity | $299 }}
     tech_icons:
       - python
@@ -387,14 +387,14 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: /signup
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: none md
     paddingY:
       desktop: none md
   - type: whos_hiring
-    version: '1.0'
+    version: "1.0"
     variant: carousel
     title: Who's Hiring Our Graduates?
     subtitle: Our alumni work at top companies around the world
@@ -464,20 +464,14 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    version: '1.0'
-    background: muted
     title: Frequently Asked Questions
     related_features:
       - cybersecurity
-    cta:
-      text: Still have questions?
-      button:
-        label: Talk to an Advisor
-        url: /contact
     paddingY:
       desktop: md
+    background: muted
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to start your cybersecurity career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
