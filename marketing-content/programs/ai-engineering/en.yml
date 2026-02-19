@@ -409,8 +409,8 @@ sections:
     title: Real Students. Real Careers.
     subtitle: 4,000+ graduates and 1,000+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: "4.8"
-      count: 1,294
+      average: {{ global_review_rating | 4.8 }}
+      count: {{ global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: AI Engineer
