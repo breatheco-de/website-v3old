@@ -20,7 +20,7 @@ sections:
   - type: hero
     version: '1.0'
     variant: course
-    title: Ciencia de Datos y Machine Learning
+    title: Ciencia de Datos y Machine Learninga
     title_highlight: Ciencia de Datos
     subtitle: Domina las habilidades que impulsan la revolución de la IA. Aprende a analizar datos y construir modelos que impulsan decisiones en el mundo real.
     students_enrolled:
