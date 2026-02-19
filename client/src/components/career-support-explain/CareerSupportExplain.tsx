@@ -64,9 +64,9 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
                 {tab.col1_boxes.map((box, i) => {
                   const IconComp = box.icon ? getTablerIcon(box.icon) : null;
                   return (
-                    <Card
+                    <span
                       key={i}
-                      className="flex items-center gap-1.5 px-2 py-1.5 text-sm"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-primary/10"
                       data-testid={`box-item-${i}`}
                     >
                       {IconComp && (
@@ -75,7 +75,7 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
                       <span className="lg:text-xs text-foreground">
                         {box.text}
                       </span>
-                    </Card>
+                    </span>
                   );
                 })}
               </div>
