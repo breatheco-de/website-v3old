@@ -10,6 +10,7 @@ meta:
   redirects:
     - /bootcamp/ciencia-de-datos
     - /programas/datascience-machine-learning
+    - /es/coding-bootcamps/curso-datascience-machine-learning
 schema:
   include:
     - organization
