@@ -45,7 +45,8 @@ function highlightDomVariables(
 ): (() => void) {
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
-      if ((node.parentElement as HTMLElement)?.closest?.(".variable-highlight-react")) {
+      const el = node.parentElement as HTMLElement | null;
+      if (el?.closest?.("[data-var-react-owner]") || el?.closest?.(".variable-highlight-react")) {
         return NodeFilter.FILTER_SKIP;
       }
       const text = node.textContent || "";

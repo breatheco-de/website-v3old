@@ -64,13 +64,14 @@ function CourseBadgeItem({
 
 function CourseTagItem({ icon, text }: { icon: string; text: string }) {
   const IconComp = getIcon(icon);
+  const vt = useVariableText();
   return (
     <span
       className="inline-flex items-center gap-1.5 text-sm"
       data-testid="tag-course"
     >
       {IconComp && <IconComp className="w-4 h-4" />}
-      {text}
+      {vt(text)}
     </span>
   );
 }
@@ -96,14 +97,14 @@ function CourseContent({
   }, [course.description, expanded]);
 
   return (
-    <div className="flex flex-col h-full gap-4 relative z-10">
+    <div className="flex flex-col h-full gap-4 relative z-10" data-var-react-owner>
       <div className="flex items-center justify-between flex-wrap gap-2">
         <span
           className="inline-flex items-center gap-1.5 text-sm md:text-base text-muted-foreground"
           data-testid="text-duration"
         >
           <IconClock className="w-4 h-4" />
-          {course.duration}
+          {vt(course.duration)}
         </span>
         {course.label && (
           <span
@@ -114,7 +115,7 @@ function CourseContent({
             data-testid="badge-label"
           >
             <IconCheck className="w-3.5 h-3.5" />
-            {course.label}
+            {vt(course.label)}
           </span>
         )}
       </div>
@@ -123,12 +124,12 @@ function CourseContent({
         className="text-3xl md:text-4xl font-bold text-foreground leading-tight"
         data-testid="text-course-title"
       >
-        {course.title}
+        {vt(course.title)}
       </h3>
 
       {course.subtitle && (
         <p className="text-xl" data-testid="text-subtitle">
-          {course.subtitle}
+          {vt(course.subtitle)}
         </p>
       )}
       <div className="flex items-center flex-wrap gap-2" data-testid="container-badges-tags">
@@ -153,7 +154,7 @@ function CourseContent({
           }`}
           data-testid="text-description"
         >
-          {course.description}
+          {vt(course.description)}
         </p>
         {!expanded && isClamped && (
           <button
@@ -192,13 +193,13 @@ function CourseContent({
               className="text-base text-muted-foreground"
               data-testid="text-price-info"
             >
-              {course.price_info}
+              {vt(course.price_info)}
             </p>
           )}
         </div>
         <a href={course.cta_url} onClick={handleLinkClick} className="w-full md:w-auto" data-testid="link-cta">
           <Button variant="outline" className="gap-2 w-full md:w-auto">
-            {course.cta_text}
+            {vt(course.cta_text)}
             <IconArrowRight className="w-4 h-4" />
           </Button>
         </a>

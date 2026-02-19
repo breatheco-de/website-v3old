@@ -713,11 +713,11 @@
       "remoteSha": "0a20ed628666a4f3abd896728ff4b6e1cae06e8fd144d7088b4fb60376c71687"
     },
     "marketing-content/pages/financials/en.yml": {
-      "sha": "e9f5af194dd57fadc907a9745d6695e392414e59c045ab04ae4a5f58f296ef53",
-      "lastModified": 1771531066417.5442,
+      "sha": "dcb292d859a663812754543789fd2ce786e96d94bc64e3151970203ab883c15a",
+      "lastModified": 1771532751908.7678,
       "remoteSha": "8cac5aab88a774d580bdfd8b635b2b514ff14195fa7bf8f9073872796f4d7e55",
       "author": "Luis Miguel Del Valle",
-      "modifiedAt": "2026-02-19T19:57:46.422Z"
+      "modifiedAt": "2026-02-19T20:25:51.910Z"
     },
     "marketing-content/pages/financials/es.yml": {
       "sha": "b2e8a7bb324e565ee231ec18fe5140fb712307ef28c25159acdb6b08846c5fd9",

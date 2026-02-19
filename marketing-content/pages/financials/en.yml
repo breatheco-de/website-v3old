@@ -163,7 +163,7 @@ sections:
         title: Full Stack Software Development
         badges:
           - icon: DollarSign
-            text: full tuition
+            text: {{ price_full_fullstack | $10,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
