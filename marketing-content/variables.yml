@@ -200,3 +200,9 @@ salary_data_scientist:
     - query:
         region: "usa-canada"
       value: "$80K–$130K"
+    - query:
+        region: "europe"
+      value: "40.000€"
+    - query:
+        region: "latam"
+      value: "US $22.500"
