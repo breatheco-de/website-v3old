@@ -97,7 +97,7 @@ sections:
     heading: Programas de Carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
-      - name: Ingeniería de IA
+      - name: Ingeniería en IA
         icon: Brain
         duration: 24 semanas
         label: Actualizado en 2026
@@ -105,7 +105,7 @@ sections:
         badges:
           - icon: DollarSign
             text: APIs, automatización y telemetría
-        description: Construye y escala un negocio nativo en IA mientras aprendes a desarrollar sistemas y flujos de trabajo de IA listos para producción.
+        description: Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo de IA listos para producción.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -155,7 +155,7 @@ sections:
     description: "Calificas para la Garantía de Empleo si:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Tienes autorización para trabajar en EE.UU.
+        title: Tienes autorización para trabajar en tu país de residencia.
       - icon: IconCircleDashedCheck
         title: Completas toda la coursework y proyectos
       - icon: IconBrain
@@ -188,8 +188,8 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Por qué funciona nuestra Garantía de Empleo
-    description: La Garantía de Empleo se basa en resultados reales y un modelo enfocado en la contratación. Nuestros programas, metodología de enseñanza y soporte profesional están diseñados según cómo realmente se consigue empleo en el mercado tech actual. A lo largo de los años, hemos ayudado a más de 3,500 graduados a lanzar sus carreras en tech en distintos roles e industrias.
+    heading: Garantía de Empleo basada en resultados reales
+    description: La Garantía de Empleo se basa en resultados reales y un modelo de programa enfocado en la contratación. Nuestro contenido, metodología de enseñanza y soporte profesional están diseñados para que consigas empleo en el mercado tech actual. A lo largo de los años, hemos ayudado a más de 6000 graduados a lanzar sus carreras en tech en distintos roles e industrias.
     image: /attached_assets/comunity-support_1765908983485.png
     image_alt: Soporte comunitario de 4Geeks Academy
     background: bg-primary/5
