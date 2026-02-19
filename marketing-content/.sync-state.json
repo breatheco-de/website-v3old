@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "6188cdf1dde3d3cf0c9c34d87d7ff9cce505e9da",
-  "lastSyncedAt": "2026-02-19T02:40:52.540Z",
+  "lastSyncedCommit": "3880b610856dad42f1c06371add65c0a3d070ffb",
+  "lastSyncedAt": "2026-02-19T14:49:56.686Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -778,9 +778,9 @@
       "remoteSha": "d30a370f2a1f84c1d031582222d196b0c8d19748ed7a8f975a0361bf7b2d5c81"
     },
     "marketing-content/pages/home/es.yml": {
-      "sha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e",
-      "lastModified": 1770748359178.7417,
-      "remoteSha": "84b72701f5205803419f1f5c92d3411778acf7ce32176d8b8da2e00387d9116e"
+      "sha": "34f281efb33d12d9b623376c7571faf64932b5055e3b798aa6bcd1297fc31f88",
+      "lastModified": 1771512488049.253,
+      "remoteSha": "34f281efb33d12d9b623376c7571faf64932b5055e3b798aa6bcd1297fc31f88"
     },
     "marketing-content/pages/job-guarantee/_common.yml": {
       "sha": "70819c92de4a783ff5fb47962b24387b8f0ccfd9ad1f630342be113332d7d35c",
@@ -1096,6 +1096,12 @@
       "sha": "9f58972468e1c7bee7f4d2ecfdde8d1dc901e275aad67f18454d68a2af9e1206",
       "lastModified": 1771431899476.6108,
       "remoteSha": "9f58972468e1c7bee7f4d2ecfdde8d1dc901e275aad67f18454d68a2af9e1206"
+    },
+    "marketing-content/pages/contact-us/en.yml": {
+      "sha": "a82239d2db116ac931aedf6c7c688e14656bd0f4db9d91733e6c4d7ee8798d2d",
+      "lastModified": 1771519529352.0864,
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-19T16:45:29.354Z"
     }
   }
 }

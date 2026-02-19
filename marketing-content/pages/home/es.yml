@@ -142,11 +142,11 @@ sections:
     tabs:
       - tab_label: Listo para Trabajar, Más Rápido
         layout: three_columns
-        col1_subtitle: Construye un perfil atractivo para reclutadores, de forma inteligente.
+        col1_subtitle: Construye un perfil atractivo para reclutadores.
         col1_description: |-
           Prepárate para procesos reales de contratación usando una combinación de herramientas de IA y coaching 1:1.
-          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas para un impacto óptimo.
-        col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo personalizados
+          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
+        col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo
         col1_boxes:
           - icon: IconBrandLinkedin
             text: LinkedIn
@@ -267,7 +267,7 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: "Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real."
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-profesionales/ingenieria-de-ia
         course_background: hsl(var(--accent))
@@ -284,7 +284,7 @@ sections:
             text: Desarrollo de APIs
           - icon: ""
             text: ""
-        description: "Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria."
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-profesionales/full-stack
         course_background: hsl(var(--destructive))
@@ -298,7 +298,7 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: "Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real."
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-profesionales/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -312,7 +312,7 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: "Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad."
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-profesionales/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
