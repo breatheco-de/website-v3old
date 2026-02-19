@@ -163,7 +163,7 @@ sections:
         title: Full Stack Software Development
         badges:
           - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} full tuition
+            text: full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
@@ -182,7 +182,7 @@ sections:
         title: Data Science & Machine Learning with AI
         badges:
           - icon: DollarSign
-            text: {{ price_full_datascience | $14,999 }} full tuition
+            text: full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
@@ -198,7 +198,7 @@ sections:
         title: Cybersecurity
         badges:
           - icon: DollarSign
-            text: {{ price_full_cybersecurity | $14,999 }} full tuition
+            text: full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
