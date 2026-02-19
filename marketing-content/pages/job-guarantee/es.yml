@@ -45,11 +45,11 @@ sections:
     version: v1.0
     variant: fullBleed
     heading: Resultados que respaldan nuestra Garantía de Empleo
-    subheading: "Estos números reflejan graduados reales y contrataciones reales. Nuestra Garantía de Empleo se basa en un solo resultado: lanzar exitosamente tu carrera en tech."
+    subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar exitosamente tu carrera en tech. Estos números reflejan las contrataciones reales de nuestros graduados."
     stats:
       - value: "84"
         unit: "%"
-        label: Tasa de colocación laboral
+        label: Tasa promedio de colocación laboral
       - value: 3-6
         unit: meses
         label: Tiempo promedio para conseguir empleo
