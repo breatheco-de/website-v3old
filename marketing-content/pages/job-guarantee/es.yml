@@ -174,7 +174,7 @@ sections:
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
     steps:
       - icon: Optimization
-        text: Notifícanos que no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
+        text: Notifícanos si no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
         title: Notificación
       - icon: Interview
         text: Nuestro equipo verifica exhaustivamente que cumpliste todos los requisitos de la Garantía de Empleo.
