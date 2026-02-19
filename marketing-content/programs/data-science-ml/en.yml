@@ -309,7 +309,7 @@ sections:
           - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
           - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | $90K–$150K }}"
           - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
-          - text: "AI Engineer: {{ salary_data_scientist | $80K–$130K }}"
+          - text: "AI Engineer: {{ salary_data_scientist | $80K–$130K }}000"
       - value: 500+
         label: Hiring Partners
         description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
