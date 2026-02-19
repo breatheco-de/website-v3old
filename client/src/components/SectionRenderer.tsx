@@ -207,6 +207,7 @@ const CareerSupportExplain = lazy(() => import("@/components/career-support-expl
 const ProfilesCarousel = lazy(() => import("@/components/profiles-carousel/ProfilesCarousel"));
 const DoubleCTA = lazy(() => import("@/components/double-cta/DoubleCTA"));
 const Modal = lazy(() => import("@/components/Modal").then(m => ({ default: m.Modal })));
+const ContactUsInfo = lazy(() => import("@/components/contact-us-info/ContactUsInfo").then(m => ({ default: m.ContactUsInfo })));
 
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
@@ -514,6 +515,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <LazySection key={index}><DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} /></LazySection>;
     case "modal":
       return <LazySection key={index}><Modal data={section as unknown as Parameters<typeof Modal>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
+    case "contact_us_info":
+      return <LazySection key={index}><ContactUsInfo data={section as Parameters<typeof ContactUsInfo>[0]["data"]} /></LazySection>;
     default: {
       if (process.env.NODE_ENV === "development") {
         console.warn(`Unknown section type: ${sectionType}`);
