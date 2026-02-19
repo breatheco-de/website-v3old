@@ -151,7 +151,7 @@ sections:
     variant: stats-text
     title: Why Data Science now?
     subtitle: Data fuels the AI revolution.
-    description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past—they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
+    description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
     background: hsl(var(--background))
     items:
       - id: "1"
@@ -268,7 +268,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
+          - text: {{ global_teacher_student_ratio | 7:1 }} student–teacher ratio for personalized guidance
           - text: Peer collaboration through Slack channels and weekly check-ins
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call
@@ -279,7 +279,7 @@ sections:
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
       - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
-      - text: "Machine Learning Engineer: $90K–$150K"
+      - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | {{ average_salary_machine_learning_engineer | {{ average_salary_machine_learning_engineer | $90K–$150K }} }} }}"
       - text: "Data Analyst: $60K–$95K"
       - text: "AI Engineer: $100K–$160K"
     card:
@@ -306,7 +306,7 @@ sections:
         label: Average salary increase
         description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
         benefits:
-          - text: "Data Scientist: $80K–$130K"
+          - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
           - text: "Machine Learning Engineer: $90K–$150K"
           - text: "Data Analyst: $60K–$95K"
           - text: "AI Engineer: $100K–$160K"
@@ -411,7 +411,7 @@ sections:
     subtitle: Our programs deliver life-changing results. {{ global_review_count | 1,200 }}+ verified reviews prove it
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
-      count: {{ global_review_count | 1,294 }}
+      count: "2000"
     items:
       - name: Gabriel Salazar
         role: Software Engineer
