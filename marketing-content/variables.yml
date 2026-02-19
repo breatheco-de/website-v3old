@@ -168,6 +168,13 @@ price_datascience:
       value: "170 USD"
 global_total_alumni:
   default: "4,000"
+  conditions:
+    - query:
+        locale: "en"
+      value: "4,000"
+    - query:
+        locale: "es"
+      value: "4.000"
 global_salary_cybersecurity_analist:
   default: "$75K–$120K"
   conditions:
@@ -298,3 +305,10 @@ monthly_cyber:
       value: "200 €"
 global_verified_reviews_count:
   default: "1,000"
+  conditions:
+    - query:
+        locale: "en"
+      value: "1,000"
+    - query:
+        locale: "es"
+      value: "1.000"
