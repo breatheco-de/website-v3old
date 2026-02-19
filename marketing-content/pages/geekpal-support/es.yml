@@ -52,10 +52,10 @@ sections:
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Humanos + IA: La Ayuda Perfecta"
-    description: El aprendizaje funciona mejor cuando la experiencia humana y la IA trabajan juntos. En 4Geeks, avanzarás más rápido gracias a mentoría 1:1 ilimitada  y el acompañamiento inteligente de Rigobot.
+    heading: "Humanos + IA: La Combinación que Acelera Tu Aprendizaje"
+    description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
-      - title: "Nuestro Equipo de Mentores Expertos:"
+      - title: "Nuestro Equipo de Mentores Expertos ofrece:"
         image: /attached_assets/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada
