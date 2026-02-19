@@ -956,18 +956,22 @@ export default function PrivateRedirects() {
                                 >
                                   <Badge
                                     variant="outline"
-                                    className={`text-[10px] px-1.5 py-0 cursor-pointer ${
+                                    className={`text-[10px] px-1.5 py-0 cursor-pointer gap-0.5 ${
                                       redirect.priority === "fallback"
                                         ? "bg-primary/10"
                                         : ""
                                     }`}
                                   >
-                                    {redirect.priority === "fallback" ? "fallback" : "before"}
+                                    {redirect.priority === "fallback" && (
+                                      <IconAlertTriangle className="h-2.5 w-2.5" />
+                                    )}
+                                    {redirect.priority === "fallback" ? "fallback only" : "before"}
                                   </Badge>
                                 </button>
                               ) : redirect.priority === "fallback" ? (
-                                <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0">
-                                  fallback
+                                <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 gap-0.5">
+                                  <IconAlertTriangle className="h-2.5 w-2.5" />
+                                  fallback only
                                 </Badge>
                               ) : null}
                             </div>
