@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "dc5a5666445dffa0f9335527a5ffd02246338657",
-  "lastSyncedAt": "2026-02-19T01:24:22.385Z",
+  "lastSyncedCommit": "6188cdf1dde3d3cf0c9c34d87d7ff9cce505e9da",
+  "lastSyncedAt": "2026-02-19T02:40:52.540Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -118,259 +118,259 @@
       "remoteSha": "18753189304de9a5bb172d8f4c7226c3dbb7fe1f0cbdfafd44bc9c34753214b7"
     },
     "marketing-content/locations/atlanta-usa/_common.yml": {
-      "sha": "e6f64c1a84fc98d80eea02840af8408a8d28b4e7c761f489bad5f10e55469198",
-      "lastModified": 1770608610370.2908,
-      "remoteSha": "e6f64c1a84fc98d80eea02840af8408a8d28b4e7c761f489bad5f10e55469198"
+      "sha": "059cfc562586b5a661415cd9f2ed601987cf3378e0764ec4c20160836f26470f",
+      "lastModified": 1771468809702.7202,
+      "remoteSha": "059cfc562586b5a661415cd9f2ed601987cf3378e0764ec4c20160836f26470f"
     },
     "marketing-content/locations/atlanta-usa/en.yml": {
-      "sha": "58b4ac29a2a38ef4cde1e73f0b597a508f9d45df1a9f0215c81eef2dbe79d202",
-      "lastModified": 1771464200259.411,
-      "remoteSha": "58b4ac29a2a38ef4cde1e73f0b597a508f9d45df1a9f0215c81eef2dbe79d202"
+      "sha": "5c812fa498c306bec49d99b540856eb3e4bb8350a23191a384bbb74b89d7699d",
+      "lastModified": 1771468810163.7197,
+      "remoteSha": "5c812fa498c306bec49d99b540856eb3e4bb8350a23191a384bbb74b89d7699d"
     },
     "marketing-content/locations/atlanta-usa/es.yml": {
-      "sha": "5f6171283a0dee5bda74c5c9a03ce484f070a1c29850eafc2340bd16e0344161",
-      "lastModified": 1771458062043.8235,
-      "remoteSha": "5f6171283a0dee5bda74c5c9a03ce484f070a1c29850eafc2340bd16e0344161"
+      "sha": "f805a5e5fe850a3b4c30ac548cab65f0cbd28750fccb1af2f420f905aeaa5d69",
+      "lastModified": 1771468810647.7192,
+      "remoteSha": "f805a5e5fe850a3b4c30ac548cab65f0cbd28750fccb1af2f420f905aeaa5d69"
     },
     "marketing-content/locations/austin-usa/_common.yml": {
-      "sha": "0175817c21af109506af172388d2d7e4e301b16a310d3b7c1c4fd949ef28e835",
-      "lastModified": 1770608610409.2908,
-      "remoteSha": "0175817c21af109506af172388d2d7e4e301b16a310d3b7c1c4fd949ef28e835"
+      "sha": "0a03eaefa32a436a61f83c781e4d74254d373196e022be3ef06db34a7e3b4646",
+      "lastModified": 1771468811076.7188,
+      "remoteSha": "0a03eaefa32a436a61f83c781e4d74254d373196e022be3ef06db34a7e3b4646"
     },
     "marketing-content/locations/austin-usa/en.yml": {
-      "sha": "de849cde71fea2b535aaea33d83d883530d314e34ebd99ddd3b85bf77f794976",
-      "lastModified": 1771464200714.4104,
-      "remoteSha": "de849cde71fea2b535aaea33d83d883530d314e34ebd99ddd3b85bf77f794976"
+      "sha": "9d4c2db66c2587c5e72eb377860a1dd3618ae6d5ef5a4aa8740aa2566984eb22",
+      "lastModified": 1771468811527.7183,
+      "remoteSha": "9d4c2db66c2587c5e72eb377860a1dd3618ae6d5ef5a4aa8740aa2566984eb22"
     },
     "marketing-content/locations/austin-usa/es.yml": {
-      "sha": "397598a0ff94fe50d9abdef20595f50288ac9a871f2cb4a434c926393ccc1a59",
-      "lastModified": 1771458062043.8235,
-      "remoteSha": "397598a0ff94fe50d9abdef20595f50288ac9a871f2cb4a434c926393ccc1a59"
+      "sha": "155905e802a1c73fc168e3f7167ae90ae048a09de1b6b3bf74b31c2667f2f5d2",
+      "lastModified": 1771468811956.7178,
+      "remoteSha": "155905e802a1c73fc168e3f7167ae90ae048a09de1b6b3bf74b31c2667f2f5d2"
     },
     "marketing-content/locations/barcelona-spain/_common.yml": {
-      "sha": "e351f26331591cc851ab1c7d63a1eac928383a0672e15d640a67d642d14978fd",
-      "lastModified": 1770608610443.2905,
-      "remoteSha": "e351f26331591cc851ab1c7d63a1eac928383a0672e15d640a67d642d14978fd"
+      "sha": "9e7a6361b586b2c4103db6659548a5f181772b3d1d9aa5ca5a798b8f1bb8fe85",
+      "lastModified": 1771468812400.7173,
+      "remoteSha": "9e7a6361b586b2c4103db6659548a5f181772b3d1d9aa5ca5a798b8f1bb8fe85"
     },
     "marketing-content/locations/barcelona-spain/en.yml": {
-      "sha": "50a888ee6eda550b83f2a880bbb28d9b618745c485e9730cb929fde4415bbe72",
-      "lastModified": 1771458062043.8235,
-      "remoteSha": "50a888ee6eda550b83f2a880bbb28d9b618745c485e9730cb929fde4415bbe72"
+      "sha": "85a1b87c38c9c7764185cd3b67b24b094e45d6d083d7e822b68e1ec1fa7069dc",
+      "lastModified": 1771468812872.7168,
+      "remoteSha": "85a1b87c38c9c7764185cd3b67b24b094e45d6d083d7e822b68e1ec1fa7069dc"
     },
     "marketing-content/locations/barcelona-spain/es.yml": {
-      "sha": "e73f8f4f5a7fa0dfa15e9a1db0f088fc02351a3a6a4e4c8b3067b8d84729f69c",
-      "lastModified": 1771464201211.41,
-      "remoteSha": "e73f8f4f5a7fa0dfa15e9a1db0f088fc02351a3a6a4e4c8b3067b8d84729f69c"
+      "sha": "af118585ee7312a311821f43a40945fbfa12df21b95d36a697af9ce25e52ac42",
+      "lastModified": 1771468813354.716,
+      "remoteSha": "af118585ee7312a311821f43a40945fbfa12df21b95d36a697af9ce25e52ac42"
     },
     "marketing-content/locations/berlin-germany/_common.yml": {
-      "sha": "79c0103037d1f06edc0523921ce4a9cdd0b411984f9d5233b625e056778b4c66",
-      "lastModified": 1770608610480.2905,
-      "remoteSha": "79c0103037d1f06edc0523921ce4a9cdd0b411984f9d5233b625e056778b4c66"
+      "sha": "e8bf86c1a48862fbe51bdb3964feda922eb316601eb1b2e629aa03b1d682428a",
+      "lastModified": 1771468813868.7156,
+      "remoteSha": "e8bf86c1a48862fbe51bdb3964feda922eb316601eb1b2e629aa03b1d682428a"
     },
     "marketing-content/locations/berlin-germany/en.yml": {
-      "sha": "e5f59bad7fb644bbbfab9a8a43f4b0a23be726b0f84f1e30542fa65f50396d4b",
-      "lastModified": 1771464201672.4094,
-      "remoteSha": "e5f59bad7fb644bbbfab9a8a43f4b0a23be726b0f84f1e30542fa65f50396d4b"
+      "sha": "b4b0976f775e3406cf0718600c2091d65ee573250f7fcd6ea01eeec7f8c11752",
+      "lastModified": 1771468814299.715,
+      "remoteSha": "b4b0976f775e3406cf0718600c2091d65ee573250f7fcd6ea01eeec7f8c11752"
     },
     "marketing-content/locations/berlin-germany/es.yml": {
-      "sha": "9f911d57268b6d68dda6584d0816a1af5f89e9b612144171dd32ad46e808e05a",
-      "lastModified": 1771464241950.559,
-      "remoteSha": "9f911d57268b6d68dda6584d0816a1af5f89e9b612144171dd32ad46e808e05a"
+      "sha": "3daa378903edae378120d579e530d8e8ee0009373479900a83b14c40d5c20e6e",
+      "lastModified": 1771468814834.7146,
+      "remoteSha": "3daa378903edae378120d579e530d8e8ee0009373479900a83b14c40d5c20e6e"
     },
     "marketing-content/locations/bogota-colombia/_common.yml": {
-      "sha": "18352c6afc9af179cb8ca85db41da05580dad4fca26430827973842835605885",
-      "lastModified": 1770608610522.2905,
-      "remoteSha": "18352c6afc9af179cb8ca85db41da05580dad4fca26430827973842835605885"
+      "sha": "fb6443784e6519f35bb957529cd9bd5b267c7e6cc41226945177de721f08144b",
+      "lastModified": 1771468815291.714,
+      "remoteSha": "fb6443784e6519f35bb957529cd9bd5b267c7e6cc41226945177de721f08144b"
     },
     "marketing-content/locations/bogota-colombia/en.yml": {
-      "sha": "384de652f56b205dc694181d853fbabe0ec974aa3f51b67f9d682dc3c5b804de",
-      "lastModified": 1771464242424.5586,
-      "remoteSha": "384de652f56b205dc694181d853fbabe0ec974aa3f51b67f9d682dc3c5b804de"
+      "sha": "5647473b83c92af705995128b05a905ed47f80f8942e11a2ba1a8991a611c3e0",
+      "lastModified": 1771468815758.7136,
+      "remoteSha": "5647473b83c92af705995128b05a905ed47f80f8942e11a2ba1a8991a611c3e0"
     },
     "marketing-content/locations/bogota-colombia/es.yml": {
-      "sha": "7644844fe3104a108e9df1b7810fe20223a396f2bc72cf2924766ad7a94896a3",
-      "lastModified": 1771458062044.8235,
-      "remoteSha": "7644844fe3104a108e9df1b7810fe20223a396f2bc72cf2924766ad7a94896a3"
+      "sha": "8f2b46428a90ba135fb4a677244a659977af4cd95bd5779d080fa9639f13be48",
+      "lastModified": 1771468816170.7131,
+      "remoteSha": "8f2b46428a90ba135fb4a677244a659977af4cd95bd5779d080fa9639f13be48"
     },
     "marketing-content/locations/buenosaires-argentina/_common.yml": {
-      "sha": "1cb8cd1fc68c45de40e8ab7e16012f1ea3b9efa8923bdb967d990844c4f3d9de",
-      "lastModified": 1770608610628.505,
-      "remoteSha": "1cb8cd1fc68c45de40e8ab7e16012f1ea3b9efa8923bdb967d990844c4f3d9de"
+      "sha": "bb464adac98647c8d3e621badcb5c2a3775cea821e178fab43b6499f07083bfe",
+      "lastModified": 1771468816637.7126,
+      "remoteSha": "bb464adac98647c8d3e621badcb5c2a3775cea821e178fab43b6499f07083bfe"
     },
     "marketing-content/locations/buenosaires-argentina/en.yml": {
-      "sha": "b0b4dd3097f58767f7f6e0b5d956b370978a9da27f2e75c123606a8917c05674",
-      "lastModified": 1771464242859.8875,
-      "remoteSha": "b0b4dd3097f58767f7f6e0b5d956b370978a9da27f2e75c123606a8917c05674"
+      "sha": "9723a34076de312df3dd17802481ba67b5ff16b535c9ca98d29060fdc66757f9",
+      "lastModified": 1771468817075.7122,
+      "remoteSha": "9723a34076de312df3dd17802481ba67b5ff16b535c9ca98d29060fdc66757f9"
     },
     "marketing-content/locations/buenosaires-argentina/es.yml": {
-      "sha": "1c035d6aedfa505e572665145fa45ea4a6b27cdcd688d45536ce7206c23050bd",
-      "lastModified": 1771458062044.8235,
-      "remoteSha": "1c035d6aedfa505e572665145fa45ea4a6b27cdcd688d45536ce7206c23050bd"
+      "sha": "37908fe443b091cd0d09c9887276a052b385be2076ac621b5ead4ce365e358f5",
+      "lastModified": 1771468817513.7117,
+      "remoteSha": "37908fe443b091cd0d09c9887276a052b385be2076ac621b5ead4ce365e358f5"
     },
     "marketing-content/locations/caracas-venezuela/_common.yml": {
-      "sha": "dde10c83322760493f0f0a731f4a5932c5612948093b90469d019ed06f478a9f",
-      "lastModified": 1770608610722.2905,
-      "remoteSha": "dde10c83322760493f0f0a731f4a5932c5612948093b90469d019ed06f478a9f"
+      "sha": "de82446dbabcecfc054c35fc932c7d905048ad4c3059442069a5362754871ca5",
+      "lastModified": 1771468817952.7112,
+      "remoteSha": "de82446dbabcecfc054c35fc932c7d905048ad4c3059442069a5362754871ca5"
     },
     "marketing-content/locations/caracas-venezuela/en.yml": {
-      "sha": "b73b8cc610893253ba66f88734b0253017080f6ea63847505de1e382a5a0ed7f",
-      "lastModified": 1771464243321.5576,
-      "remoteSha": "b73b8cc610893253ba66f88734b0253017080f6ea63847505de1e382a5a0ed7f"
+      "sha": "112f442476811cc24f9744f9de42d5cf2b1c15ec11d1f29b810414b26d1f620f",
+      "lastModified": 1771468818432.7104,
+      "remoteSha": "112f442476811cc24f9744f9de42d5cf2b1c15ec11d1f29b810414b26d1f620f"
     },
     "marketing-content/locations/caracas-venezuela/es.yml": {
-      "sha": "20b3c8a6d2f09b942af2a108f88201eec551e6c832a437efc8f9639b489cb70f",
-      "lastModified": 1771458062044.8235,
-      "remoteSha": "20b3c8a6d2f09b942af2a108f88201eec551e6c832a437efc8f9639b489cb70f"
+      "sha": "d8bb2d7ed7304d55461f2c83005896e768fc8616fdf6ef09286c8bc8f5921127",
+      "lastModified": 1771468818934.71,
+      "remoteSha": "d8bb2d7ed7304d55461f2c83005896e768fc8616fdf6ef09286c8bc8f5921127"
     },
     "marketing-content/locations/chicago-usa/_common.yml": {
-      "sha": "e4ebf7d5f78100c24afd4745febdc860599b7b7007093ba9357a40146e8683ca",
-      "lastModified": 1770608610826.2903,
-      "remoteSha": "e4ebf7d5f78100c24afd4745febdc860599b7b7007093ba9357a40146e8683ca"
+      "sha": "605867dde855146f6ce32542cf3e74865a86e12319a508cb1b45f48b3eb5bef6",
+      "lastModified": 1771468819368.7095,
+      "remoteSha": "605867dde855146f6ce32542cf3e74865a86e12319a508cb1b45f48b3eb5bef6"
     },
     "marketing-content/locations/chicago-usa/en.yml": {
-      "sha": "0b58a8deee2a5c8d3028c1efb540bd99e9dd3e9305bcf58f77a5383f950899a8",
-      "lastModified": 1771464243758.5574,
-      "remoteSha": "0b58a8deee2a5c8d3028c1efb540bd99e9dd3e9305bcf58f77a5383f950899a8"
+      "sha": "8982356140c32c79e50082636ec51aad7409631afad02c4d89f840cfd1b431de",
+      "lastModified": 1771468819881.709,
+      "remoteSha": "8982356140c32c79e50082636ec51aad7409631afad02c4d89f840cfd1b431de"
     },
     "marketing-content/locations/chicago-usa/es.yml": {
-      "sha": "80a56b18223cdf946bf87f01789e9db7ac79c0567462b7eba667099cda3eef99",
-      "lastModified": 1771458062044.8235,
-      "remoteSha": "80a56b18223cdf946bf87f01789e9db7ac79c0567462b7eba667099cda3eef99"
+      "sha": "2950250b3b614af1684645a352e3f4948f8df8f9fcc213c5ad6373d6e0fb458f",
+      "lastModified": 1771468820386.7085,
+      "remoteSha": "2950250b3b614af1684645a352e3f4948f8df8f9fcc213c5ad6373d6e0fb458f"
     },
     "marketing-content/locations/costa-rica/_common.yml": {
-      "sha": "bb7bbc5b81b61a05fbe9376df1c9433389c25e5ae515571ad1c0d4269cb66fec",
-      "lastModified": 1770608610887.545,
-      "remoteSha": "bb7bbc5b81b61a05fbe9376df1c9433389c25e5ae515571ad1c0d4269cb66fec"
+      "sha": "3761c3511ef4c77de4b38d0b54a3b824a601c7b96a21c329f77e6ddf51c56a75",
+      "lastModified": 1771468820825.708,
+      "remoteSha": "3761c3511ef4c77de4b38d0b54a3b824a601c7b96a21c329f77e6ddf51c56a75"
     },
     "marketing-content/locations/costa-rica/en.yml": {
-      "sha": "354ccf5dddc1afc63cfdef8f842c2143b2a13ca1bf8879bac0f5094af1561e6c",
-      "lastModified": 1771464244220.557,
-      "remoteSha": "354ccf5dddc1afc63cfdef8f842c2143b2a13ca1bf8879bac0f5094af1561e6c"
+      "sha": "848c8d5bcf046b804e0a4e795b26cabd0c1ba6aca5e3577bc69308adcff6572d",
+      "lastModified": 1771468821256.7075,
+      "remoteSha": "848c8d5bcf046b804e0a4e795b26cabd0c1ba6aca5e3577bc69308adcff6572d"
     },
     "marketing-content/locations/costa-rica/es.yml": {
-      "sha": "3d573d596da06ccec2356791d3d4399c04e258694f3b296b8d9a3dd6c4083564",
-      "lastModified": 1771458062045.8235,
-      "remoteSha": "3d573d596da06ccec2356791d3d4399c04e258694f3b296b8d9a3dd6c4083564"
+      "sha": "8f4fbe2cd8e7ea3ff1cfcb87db258d2df49ffc0a218d02d35c938972070d99e9",
+      "lastModified": 1771468821794.7068,
+      "remoteSha": "8f4fbe2cd8e7ea3ff1cfcb87db258d2df49ffc0a218d02d35c938972070d99e9"
     },
     "marketing-content/locations/dallas-usa/_common.yml": {
-      "sha": "a5568531d465baaa99795dd0f14fe8f3d9b3dbf4de50aa86876805ee632a8f96",
-      "lastModified": 1770608610948.2903,
-      "remoteSha": "a5568531d465baaa99795dd0f14fe8f3d9b3dbf4de50aa86876805ee632a8f96"
+      "sha": "73f25f0b11f09bea373b2122522580e0feab18537bf74135888e2cbb260eca96",
+      "lastModified": 1771468822203.7063,
+      "remoteSha": "73f25f0b11f09bea373b2122522580e0feab18537bf74135888e2cbb260eca96"
     },
     "marketing-content/locations/dallas-usa/en.yml": {
-      "sha": "efcec572aaa7aefc38f8de08af7a4f8f1292af1e6149019a0540be5f57426626",
-      "lastModified": 1771464244711.5564,
-      "remoteSha": "efcec572aaa7aefc38f8de08af7a4f8f1292af1e6149019a0540be5f57426626"
+      "sha": "3697b673109d8f6e90fa8844b379209353c5d8e80e7dd8f888d449a231a3e44a",
+      "lastModified": 1771468822709.7058,
+      "remoteSha": "3697b673109d8f6e90fa8844b379209353c5d8e80e7dd8f888d449a231a3e44a"
     },
     "marketing-content/locations/dallas-usa/es.yml": {
-      "sha": "2e79cb64825815f0cf463a489e8147efc46c675eff4a88938be279b658cdd3ac",
-      "lastModified": 1771458062045.8235,
-      "remoteSha": "2e79cb64825815f0cf463a489e8147efc46c675eff4a88938be279b658cdd3ac"
+      "sha": "20647c6104b7a393c1b9b72a5b423477eff413d845db6e2676c700b4cd8fb82b",
+      "lastModified": 1771468823178.7053,
+      "remoteSha": "20647c6104b7a393c1b9b72a5b423477eff413d845db6e2676c700b4cd8fb82b"
     },
     "marketing-content/locations/dublin-ireland/_common.yml": {
-      "sha": "8743c21297f34243e0e1890d2b87970c064b1f98f8d964b501bdd9a2db9598ec",
-      "lastModified": 1770608610998.2903,
-      "remoteSha": "8743c21297f34243e0e1890d2b87970c064b1f98f8d964b501bdd9a2db9598ec"
+      "sha": "c17bb72e04e22f91657199ea3bff8872b24ad28444a8e7cc8e128ac480430d6e",
+      "lastModified": 1771468823614.7048,
+      "remoteSha": "c17bb72e04e22f91657199ea3bff8872b24ad28444a8e7cc8e128ac480430d6e"
     },
     "marketing-content/locations/dublin-ireland/en.yml": {
-      "sha": "6a76442bf1b2d2044a0e23d0d3fa267b7bc336d874e2e58efdfb069b4b6384cb",
-      "lastModified": 1771464245155.556,
-      "remoteSha": "6a76442bf1b2d2044a0e23d0d3fa267b7bc336d874e2e58efdfb069b4b6384cb"
+      "sha": "2e6b409a8ff498681e1a888522c5f62bfebe9a3d73b6d52d83eeb181aaf9165e",
+      "lastModified": 1771468824019.7043,
+      "remoteSha": "2e6b409a8ff498681e1a888522c5f62bfebe9a3d73b6d52d83eeb181aaf9165e"
     },
     "marketing-content/locations/dublin-ireland/es.yml": {
-      "sha": "4801517616a1f90e5ae716f2caba0a5ef72c9f4b2a727ea0665e28633f3628b9",
-      "lastModified": 1771464245644.5557,
-      "remoteSha": "4801517616a1f90e5ae716f2caba0a5ef72c9f4b2a727ea0665e28633f3628b9"
+      "sha": "63ccd942f01cdc2c53ee1b90493900a510669716c32edcb6104ad73c9a9aab4e",
+      "lastModified": 1771468824455.7039,
+      "remoteSha": "63ccd942f01cdc2c53ee1b90493900a510669716c32edcb6104ad73c9a9aab4e"
     },
     "marketing-content/locations/hamburg-germany/_common.yml": {
-      "sha": "5b4f982ce733a9f0dc2afe32de49fdc32a5a32d1a76a19b610b80cc657bcae59",
-      "lastModified": 1771423031630.1611,
-      "remoteSha": "5b4f982ce733a9f0dc2afe32de49fdc32a5a32d1a76a19b610b80cc657bcae59"
+      "sha": "1c0b04b727b10026919cf8388baa72178ad79647d60d90ec2835a00c48ae5dff",
+      "lastModified": 1771468824862.7034,
+      "remoteSha": "1c0b04b727b10026919cf8388baa72178ad79647d60d90ec2835a00c48ae5dff"
     },
     "marketing-content/locations/hamburg-germany/en.yml": {
-      "sha": "f1942992d8feda93c7d1574be84f58b2448d8b0828d34dbd786c9f2755da82df",
-      "lastModified": 1771464246103.5552,
-      "remoteSha": "f1942992d8feda93c7d1574be84f58b2448d8b0828d34dbd786c9f2755da82df"
+      "sha": "7be1fcd5e49129fa374e7fa861443c1a76c0192d9bb5dea9d9290694b1fb2ac3",
+      "lastModified": 1771468825310.703,
+      "remoteSha": "7be1fcd5e49129fa374e7fa861443c1a76c0192d9bb5dea9d9290694b1fb2ac3"
     },
     "marketing-content/locations/hamburg-germany/es.yml": {
-      "sha": "27042e322042ca91681d6215d0f71218d3d9a8a957038c6535e8ac9db84746db",
-      "lastModified": 1771464246578.5547,
-      "remoteSha": "27042e322042ca91681d6215d0f71218d3d9a8a957038c6535e8ac9db84746db"
+      "sha": "6ba0410e73f6a0223237e8267cfed9648c34983979b31cc0dca11d01d8031dc2",
+      "lastModified": 1771468825717.7024,
+      "remoteSha": "6ba0410e73f6a0223237e8267cfed9648c34983979b31cc0dca11d01d8031dc2"
     },
     "marketing-content/locations/houston-usa/_common.yml": {
-      "sha": "2dc1f2da92dbd5f4b85b1b30179080bc68334e281e4b7141e71533ef620badbf",
-      "lastModified": 1770608611086.29,
-      "remoteSha": "2dc1f2da92dbd5f4b85b1b30179080bc68334e281e4b7141e71533ef620badbf"
+      "sha": "82936918fd10e093364f70a0f0ccd62ef7f8f887684b43c9fc8ab0b064ddf21d",
+      "lastModified": 1771468826144.702,
+      "remoteSha": "82936918fd10e093364f70a0f0ccd62ef7f8f887684b43c9fc8ab0b064ddf21d"
     },
     "marketing-content/locations/houston-usa/en.yml": {
-      "sha": "cebcbca4408deb1e0e872c013195e8616cf1b3f8bfaa4411f332bae2b748197f",
-      "lastModified": 1771464247031.5542,
-      "remoteSha": "cebcbca4408deb1e0e872c013195e8616cf1b3f8bfaa4411f332bae2b748197f"
+      "sha": "1f2d3c1fd6896b5c0cf359ec75a189ed416b8ab45aa9618a5d0e6afb446d8f7b",
+      "lastModified": 1771468826653.7014,
+      "remoteSha": "1f2d3c1fd6896b5c0cf359ec75a189ed416b8ab45aa9618a5d0e6afb446d8f7b"
     },
     "marketing-content/locations/houston-usa/es.yml": {
-      "sha": "53995d9310ace883e6638985e1358d973bd6aa186cac6badcdf5f6aff43c3fb0",
-      "lastModified": 1771458062047.8235,
-      "remoteSha": "53995d9310ace883e6638985e1358d973bd6aa186cac6badcdf5f6aff43c3fb0"
+      "sha": "01b477cd2f0f5ebf83ac3cd80138d7c72541ecbd08af636d7f1270048aaf2dfb",
+      "lastModified": 1771468827075.701,
+      "remoteSha": "01b477cd2f0f5ebf83ac3cd80138d7c72541ecbd08af636d7f1270048aaf2dfb"
     },
     "marketing-content/locations/lapaz-bolivia/_common.yml": {
-      "sha": "3ccbab27a0d76f3adc04b9efa55af756abbf0c368e94b9d76eaa5d4c5765dcc4",
-      "lastModified": 1770608611135.29,
-      "remoteSha": "3ccbab27a0d76f3adc04b9efa55af756abbf0c368e94b9d76eaa5d4c5765dcc4"
+      "sha": "943f1192e3dc15658d40dbb4ebd9f131e0a698f26b48aaade51810c04ade6cf4",
+      "lastModified": 1771468827508.7004,
+      "remoteSha": "943f1192e3dc15658d40dbb4ebd9f131e0a698f26b48aaade51810c04ade6cf4"
     },
     "marketing-content/locations/lapaz-bolivia/en.yml": {
-      "sha": "09a8b1042010e955994f5ac299df4794cbcae0be1aebf39050b58b8ff3ac7796",
-      "lastModified": 1771464247479.554,
-      "remoteSha": "09a8b1042010e955994f5ac299df4794cbcae0be1aebf39050b58b8ff3ac7796"
+      "sha": "8d6ce295aca293c9cdbbe1c7c16eea9affc253e6167027df4a1c01d12e6170a3",
+      "lastModified": 1771468827903.7,
+      "remoteSha": "8d6ce295aca293c9cdbbe1c7c16eea9affc253e6167027df4a1c01d12e6170a3"
     },
     "marketing-content/locations/lapaz-bolivia/es.yml": {
-      "sha": "def086055bd22e41901a9fe184c0279af77eb90929b873a59ee513de8e0307a7",
-      "lastModified": 1771458062048.8235,
-      "remoteSha": "def086055bd22e41901a9fe184c0279af77eb90929b873a59ee513de8e0307a7"
+      "sha": "ea1fcbe965811cca9b1e03e6af43fcc817140821163fb9e0a4d405a204f7dbdb",
+      "lastModified": 1771468828307.6997,
+      "remoteSha": "ea1fcbe965811cca9b1e03e6af43fcc817140821163fb9e0a4d405a204f7dbdb"
     },
     "marketing-content/locations/lima-peru/_common.yml": {
-      "sha": "7e9f325ca883511e06ccd8334f36091956547cc44122784eebcd443a107e23ea",
-      "lastModified": 1770608611173.29,
-      "remoteSha": "7e9f325ca883511e06ccd8334f36091956547cc44122784eebcd443a107e23ea"
+      "sha": "2dfcf32ad091e0756aae0e80b08f66525b07a7cb6efffcc53409e91a5358dd8b",
+      "lastModified": 1771468828722.6992,
+      "remoteSha": "2dfcf32ad091e0756aae0e80b08f66525b07a7cb6efffcc53409e91a5358dd8b"
     },
     "marketing-content/locations/lima-peru/en.yml": {
-      "sha": "f96a15f9564be47517f4663b72f5c6e045f55d5ed941ee9b377466b4bdf394e1",
-      "lastModified": 1771464247890.5535,
-      "remoteSha": "f96a15f9564be47517f4663b72f5c6e045f55d5ed941ee9b377466b4bdf394e1"
+      "sha": "8b992c321027ae53c001fa2644e0fe93888232e1e3f2447e78338a6d6e645a22",
+      "lastModified": 1771468829126.6987,
+      "remoteSha": "8b992c321027ae53c001fa2644e0fe93888232e1e3f2447e78338a6d6e645a22"
     },
     "marketing-content/locations/lima-peru/es.yml": {
-      "sha": "a6da47f5cc9243b9b52bc2ab58ef6d8b6d729445e79a9759086b41787fcca0ac",
-      "lastModified": 1771458062048.8235,
-      "remoteSha": "a6da47f5cc9243b9b52bc2ab58ef6d8b6d729445e79a9759086b41787fcca0ac"
+      "sha": "fb7f20a9ee79b6293e08d14ab7ff1b51cb1e00b1a834290a345274f5b0c7de4a",
+      "lastModified": 1771468829568.6982,
+      "remoteSha": "fb7f20a9ee79b6293e08d14ab7ff1b51cb1e00b1a834290a345274f5b0c7de4a"
     },
     "marketing-content/locations/lisbon-portugal/_common.yml": {
-      "sha": "9726a0fdd60e3874ddd0d317927a0e05bf4e9a4e4ca37e18bf138c78ec116735",
-      "lastModified": 1770608611209.29,
-      "remoteSha": "9726a0fdd60e3874ddd0d317927a0e05bf4e9a4e4ca37e18bf138c78ec116735"
+      "sha": "701b86cb22086c247bbed9386c6677d2f51dc91e4ed25ed224b96c4de7977a65",
+      "lastModified": 1771468829992.6978,
+      "remoteSha": "701b86cb22086c247bbed9386c6677d2f51dc91e4ed25ed224b96c4de7977a65"
     },
     "marketing-content/locations/lisbon-portugal/en.yml": {
-      "sha": "82f8cc7f82ebff427db133c89b4d170cecfa702b7348636e72486740868f213a",
-      "lastModified": 1771464248353.553,
-      "remoteSha": "82f8cc7f82ebff427db133c89b4d170cecfa702b7348636e72486740868f213a"
+      "sha": "88f6f26fc5764b0cd9110df6af6bcd671a24d019c80eeb49c6684bb863e8629a",
+      "lastModified": 1771468830467.6973,
+      "remoteSha": "88f6f26fc5764b0cd9110df6af6bcd671a24d019c80eeb49c6684bb863e8629a"
     },
     "marketing-content/locations/lisbon-portugal/es.yml": {
-      "sha": "bfe3f3ec5116ae2aebb36fffc1416f34a50333ca839abcf300e7eabb4179694c",
-      "lastModified": 1771464248827.5527,
-      "remoteSha": "bfe3f3ec5116ae2aebb36fffc1416f34a50333ca839abcf300e7eabb4179694c"
+      "sha": "0b2b8c4c4e1095384859f9d23a25fefd84934b062978df0e46a5a29e954e44ad",
+      "lastModified": 1771468830884.6968,
+      "remoteSha": "0b2b8c4c4e1095384859f9d23a25fefd84934b062978df0e46a5a29e954e44ad"
     },
     "marketing-content/locations/losangeles-usa/_common.yml": {
-      "sha": "92839d3df601801e0c80eaf5955af7cffcc04abb0862e92c78ae53a823883ca3",
-      "lastModified": 1770608611242.29,
-      "remoteSha": "92839d3df601801e0c80eaf5955af7cffcc04abb0862e92c78ae53a823883ca3"
+      "sha": "7238fdcfba9382848b878cfc120a1a8d7c8d26c24a8c86b5b3f2eda5bc0dc9a7",
+      "lastModified": 1771468831333.6963,
+      "remoteSha": "7238fdcfba9382848b878cfc120a1a8d7c8d26c24a8c86b5b3f2eda5bc0dc9a7"
     },
     "marketing-content/locations/losangeles-usa/en.yml": {
-      "sha": "e69da4f2cd9be3eac8d09f5904d538c8876767018043f740ef9589f78604e889",
-      "lastModified": 1771464249263.5522,
-      "remoteSha": "e69da4f2cd9be3eac8d09f5904d538c8876767018043f740ef9589f78604e889"
+      "sha": "eee977d5e673d0a60252e3478e8b95d7e14c0d3d211270165c4fe19dd7b2249d",
+      "lastModified": 1771468831788.6958,
+      "remoteSha": "eee977d5e673d0a60252e3478e8b95d7e14c0d3d211270165c4fe19dd7b2249d"
     },
     "marketing-content/locations/losangeles-usa/es.yml": {
-      "sha": "c68ca7a4931cb5dd166ee94efdd899f212b1c938c87b7041627524313deda3d0",
-      "lastModified": 1771458062051.8235,
-      "remoteSha": "c68ca7a4931cb5dd166ee94efdd899f212b1c938c87b7041627524313deda3d0"
+      "sha": "09735788bbb58cf648e11dc5f45fc87f18766682309436d1503826dc4ab3aad5",
+      "lastModified": 1771468832221.6953,
+      "remoteSha": "09735788bbb58cf648e11dc5f45fc87f18766682309436d1503826dc4ab3aad5"
     },
     "marketing-content/locations/madrid-spain/_common.yml": {
       "sha": "7d03d46ea1a17f988d16f1061e89d2789cd887b701840d7eec3ee89b1df37ddf",
@@ -378,9 +378,9 @@
       "remoteSha": "7d03d46ea1a17f988d16f1061e89d2789cd887b701840d7eec3ee89b1df37ddf"
     },
     "marketing-content/locations/madrid-spain/en.yml": {
-      "sha": "a084ab82da6134f7f577bb4b12fe574a68f55dc36c7ad56f9680488ccf5378a4",
-      "lastModified": 1771464249741.7883,
-      "remoteSha": "a084ab82da6134f7f577bb4b12fe574a68f55dc36c7ad56f9680488ccf5378a4"
+      "sha": "a6b0abf60cbcc7c531181d267ff4a0ab9014fb23c990a251a2cd167316b5885a",
+      "lastModified": 1771468832658.6948,
+      "remoteSha": "a6b0abf60cbcc7c531181d267ff4a0ab9014fb23c990a251a2cd167316b5885a"
     },
     "marketing-content/locations/madrid-spain/es.yml": {
       "sha": "54910017ebf086745753aaaa6b4473fdb56604571131e3ca8721a9f82743a8b3",
@@ -388,34 +388,34 @@
       "remoteSha": "54910017ebf086745753aaaa6b4473fdb56604571131e3ca8721a9f82743a8b3"
     },
     "marketing-content/locations/malaga-spain/_common.yml": {
-      "sha": "fe4cb080a5f9a78c1797baa63def44586b6071c62b7fe23dbb55ea742e96e983",
-      "lastModified": 1770608611348.29,
-      "remoteSha": "fe4cb080a5f9a78c1797baa63def44586b6071c62b7fe23dbb55ea742e96e983"
+      "sha": "21a247cd3b9273baf558cd780b49708f89c596afe91b46114702f1d9656b9a6e",
+      "lastModified": 1771468833099.6943,
+      "remoteSha": "21a247cd3b9273baf558cd780b49708f89c596afe91b46114702f1d9656b9a6e"
     },
     "marketing-content/locations/malaga-spain/en.yml": {
-      "sha": "19f3ce9930e7eebd6a8a2b9d18fc5e8d8a58be533d9481298b0f002272eb750a",
-      "lastModified": 1771464250694.5508,
-      "remoteSha": "19f3ce9930e7eebd6a8a2b9d18fc5e8d8a58be533d9481298b0f002272eb750a"
+      "sha": "b09d9e6827eaecc7e6ee2152b7382eb57a0706638c303e7f7c42efd55e66082c",
+      "lastModified": 1771468833494.6938,
+      "remoteSha": "b09d9e6827eaecc7e6ee2152b7382eb57a0706638c303e7f7c42efd55e66082c"
     },
     "marketing-content/locations/malaga-spain/es.yml": {
-      "sha": "5846d2a1cb83011ac986ef26e0cd23167fcb5ed3b76d9be7fba87153a10b0a0e",
-      "lastModified": 1771464251114.5505,
-      "remoteSha": "5846d2a1cb83011ac986ef26e0cd23167fcb5ed3b76d9be7fba87153a10b0a0e"
+      "sha": "a6b7415f31b28fe3c3b9aa6667df7a009699bae6d91c34d726c78efa6a62e3e3",
+      "lastModified": 1771468834070.693,
+      "remoteSha": "a6b7415f31b28fe3c3b9aa6667df7a009699bae6d91c34d726c78efa6a62e3e3"
     },
     "marketing-content/locations/mexicocity-mexico/_common.yml": {
-      "sha": "732ae2e6605c2d2ec84c678c79f1185b346f0969ca38923710a87b7248deced4",
-      "lastModified": 1770608611422.6516,
-      "remoteSha": "732ae2e6605c2d2ec84c678c79f1185b346f0969ca38923710a87b7248deced4"
+      "sha": "be22386403f30d1924ad7aec75008b38e4e61b241150c81c784fdfe4715e3083",
+      "lastModified": 1771468834515.6926,
+      "remoteSha": "be22386403f30d1924ad7aec75008b38e4e61b241150c81c784fdfe4715e3083"
     },
     "marketing-content/locations/mexicocity-mexico/en.yml": {
-      "sha": "a0a4ca72062780dd40d86fdf3f66e42c7fe380c89fa2ffc3d2b08c26fd2eaca0",
-      "lastModified": 1771464251582.463,
-      "remoteSha": "a0a4ca72062780dd40d86fdf3f66e42c7fe380c89fa2ffc3d2b08c26fd2eaca0"
+      "sha": "f18f5910e8beef1eb968f95b80b675eb452029273ca065def6ee24dda657b164",
+      "lastModified": 1771468834948.6921,
+      "remoteSha": "f18f5910e8beef1eb968f95b80b675eb452029273ca065def6ee24dda657b164"
     },
     "marketing-content/locations/mexicocity-mexico/es.yml": {
-      "sha": "185eb61af20a4b87f69e6c4c5c80db72a8b70ecf4960f96253a4ae9d421db841",
-      "lastModified": 1771464252036.5496,
-      "remoteSha": "185eb61af20a4b87f69e6c4c5c80db72a8b70ecf4960f96253a4ae9d421db841"
+      "sha": "36ac315b8ddc15444108f6ab330f0d06fd79204127c7f5802fe34e0a43ee8209",
+      "lastModified": 1771468835372.6917,
+      "remoteSha": "36ac315b8ddc15444108f6ab330f0d06fd79204127c7f5802fe34e0a43ee8209"
     },
     "marketing-content/locations/miami-usa/_common.yml": {
       "sha": "e4bbf1b8d009bc0bbb759e32d32cca196da3f26de296e55bc2e64f94017fc5f8",
@@ -433,184 +433,184 @@
       "remoteSha": "cce132c6efa6d16aefb5b284711b0a05a597e9d5c6279cfae1cd0aef35ae1788"
     },
     "marketing-content/locations/milan-italy/_common.yml": {
-      "sha": "67178b4ba5b10ebb2a9757dbe51a6c589928430eb8d6e1416066eb5c0872de0a",
-      "lastModified": 1770608611526.2712,
-      "remoteSha": "67178b4ba5b10ebb2a9757dbe51a6c589928430eb8d6e1416066eb5c0872de0a"
+      "sha": "5c74e98c586520fdd8ec962f61b1b10118bc617ef935e9b65d4f7393ff30e608",
+      "lastModified": 1771468835794.6914,
+      "remoteSha": "5c74e98c586520fdd8ec962f61b1b10118bc617ef935e9b65d4f7393ff30e608"
     },
     "marketing-content/locations/milan-italy/en.yml": {
-      "sha": "89f55aefa98b69ae15f02d3c74bd4d7ae3ef34274b71e778974e1328374b24e2",
-      "lastModified": 1771464252959.5488,
-      "remoteSha": "89f55aefa98b69ae15f02d3c74bd4d7ae3ef34274b71e778974e1328374b24e2"
+      "sha": "418698292f62140aa095ca2c08d70e8f4202d8c6a369bc4a82b8dad1856d27bf",
+      "lastModified": 1771468836224.691,
+      "remoteSha": "418698292f62140aa095ca2c08d70e8f4202d8c6a369bc4a82b8dad1856d27bf"
     },
     "marketing-content/locations/milan-italy/es.yml": {
-      "sha": "4b6269b38bf22afdb41737a599d7e34c0c890fcea83debcdb9ec6bf66c2268b7",
-      "lastModified": 1771464253450.5483,
-      "remoteSha": "4b6269b38bf22afdb41737a599d7e34c0c890fcea83debcdb9ec6bf66c2268b7"
+      "sha": "234a266559cb714663f184c0e58a09687e5df460d5e0d63d7e3987eaf7aeaf8f",
+      "lastModified": 1771468836673.6904,
+      "remoteSha": "234a266559cb714663f184c0e58a09687e5df460d5e0d63d7e3987eaf7aeaf8f"
     },
     "marketing-content/locations/montevideo-uruguay/_common.yml": {
-      "sha": "26d9989430e30ab6bc3c458ab2ce4c44868dcc2011b8600d42d292e582047a25",
-      "lastModified": 1770608611566.2898,
-      "remoteSha": "26d9989430e30ab6bc3c458ab2ce4c44868dcc2011b8600d42d292e582047a25"
+      "sha": "f6bdc09832c5aca5fb19a4e55950e7174b3746d3187aa8297e88ab1c8a946a3d",
+      "lastModified": 1771468837091.69,
+      "remoteSha": "f6bdc09832c5aca5fb19a4e55950e7174b3746d3187aa8297e88ab1c8a946a3d"
     },
     "marketing-content/locations/montevideo-uruguay/en.yml": {
-      "sha": "72b0621ee1fc8ac0c68e7d01485fda574eab92bab41b9ab03e48d9f73e6651ac",
-      "lastModified": 1771464253866.5479,
-      "remoteSha": "72b0621ee1fc8ac0c68e7d01485fda574eab92bab41b9ab03e48d9f73e6651ac"
+      "sha": "7e91d7e4553febab3d41e2cfd5a2596f4adace40700026ffbf7f16637715e201",
+      "lastModified": 1771468837570.6895,
+      "remoteSha": "7e91d7e4553febab3d41e2cfd5a2596f4adace40700026ffbf7f16637715e201"
     },
     "marketing-content/locations/montevideo-uruguay/es.yml": {
-      "sha": "9445a00671eeb115649e44433084763febabe0026814925d55f69c2814836322",
-      "lastModified": 1771458062056.8235,
-      "remoteSha": "9445a00671eeb115649e44433084763febabe0026814925d55f69c2814836322"
+      "sha": "c2f688acf0872f059521ccc8ac9fe6eb42a63fd5d6336ccbcc740e9e06c5e1f0",
+      "lastModified": 1771468837990.689,
+      "remoteSha": "c2f688acf0872f059521ccc8ac9fe6eb42a63fd5d6336ccbcc740e9e06c5e1f0"
     },
     "marketing-content/locations/munich-germany/_common.yml": {
-      "sha": "98fb5f688c744106d83632cf81e18768bcf713eeba3f7bb0da84a38bebd0ec4a",
-      "lastModified": 1770608611606.2898,
-      "remoteSha": "98fb5f688c744106d83632cf81e18768bcf713eeba3f7bb0da84a38bebd0ec4a"
+      "sha": "4ec8d6d824d16c7651f13fd7005e4f47542de0205c88c207b16cff2fc3f19fb6",
+      "lastModified": 1771468838399.6885,
+      "remoteSha": "4ec8d6d824d16c7651f13fd7005e4f47542de0205c88c207b16cff2fc3f19fb6"
     },
     "marketing-content/locations/munich-germany/en.yml": {
-      "sha": "cbfac9155813285d32e6c0d39e494aa9f8d9e22478cb1c94c26b20694eb3bc77",
-      "lastModified": 1771464254312.5476,
-      "remoteSha": "cbfac9155813285d32e6c0d39e494aa9f8d9e22478cb1c94c26b20694eb3bc77"
+      "sha": "6d95def666860af2b857a1bf9ab46cc7569efaeb15ab6b7963cb2666b7b4ca23",
+      "lastModified": 1771468838870.688,
+      "remoteSha": "6d95def666860af2b857a1bf9ab46cc7569efaeb15ab6b7963cb2666b7b4ca23"
     },
     "marketing-content/locations/munich-germany/es.yml": {
-      "sha": "72ef8a0a697ef412154164db618cdf292b840519296f550b7d4d61190fab16a2",
-      "lastModified": 1771464254796.547,
-      "remoteSha": "72ef8a0a697ef412154164db618cdf292b840519296f550b7d4d61190fab16a2"
+      "sha": "ba518ec72edf9a6d9949b74069013becd1e4623a3b07fcbde7aa968faaf52fa1",
+      "lastModified": 1771468839296.6875,
+      "remoteSha": "ba518ec72edf9a6d9949b74069013becd1e4623a3b07fcbde7aa968faaf52fa1"
     },
     "marketing-content/locations/newyork-usa/_common.yml": {
-      "sha": "d23caaaaf4c62d141a6b0a4a509476d4929c8f6746e83a2bc9835a2edb65d35b",
-      "lastModified": 1770608611651.577,
-      "remoteSha": "d23caaaaf4c62d141a6b0a4a509476d4929c8f6746e83a2bc9835a2edb65d35b"
+      "sha": "ceb4a3a87cff85e61f193c54aa5b895e536f0ed4a6ac1b68ecd2d1bea9bd61e5",
+      "lastModified": 1771468839715.687,
+      "remoteSha": "ceb4a3a87cff85e61f193c54aa5b895e536f0ed4a6ac1b68ecd2d1bea9bd61e5"
     },
     "marketing-content/locations/newyork-usa/en.yml": {
-      "sha": "e4a5d617ff3c965035b9468ada6a42e6b9293b58ffdb5e0ac8e178c15ed1455f",
-      "lastModified": 1771464255263.5466,
-      "remoteSha": "e4a5d617ff3c965035b9468ada6a42e6b9293b58ffdb5e0ac8e178c15ed1455f"
+      "sha": "29c791ad7e25d8be2223dd49d3ea23bd8c3715c3c15c33ed3a5d67970c4ea231",
+      "lastModified": 1771468840211.6865,
+      "remoteSha": "29c791ad7e25d8be2223dd49d3ea23bd8c3715c3c15c33ed3a5d67970c4ea231"
     },
     "marketing-content/locations/newyork-usa/es.yml": {
-      "sha": "fe59bb7f601e69b26566ef18c1db12fd88210967bfaa9d71795c8e132b3f6f05",
-      "lastModified": 1771464255696.5461,
-      "remoteSha": "fe59bb7f601e69b26566ef18c1db12fd88210967bfaa9d71795c8e132b3f6f05"
+      "sha": "de34dd5ef051fb4b1400264f1457b0a32d9794f967cc6e0d77a1f028ba99f894",
+      "lastModified": 1771468840661.6858,
+      "remoteSha": "de34dd5ef051fb4b1400264f1457b0a32d9794f967cc6e0d77a1f028ba99f894"
     },
     "marketing-content/locations/orlando-usa/_common.yml": {
-      "sha": "11518b5c6958137a632b6291685f00be5a417c1d115af3d56067e7359978f304",
-      "lastModified": 1770608611724.2896,
-      "remoteSha": "11518b5c6958137a632b6291685f00be5a417c1d115af3d56067e7359978f304"
+      "sha": "dcdd715aeb2419fe5f805ec8850e4ef55bd531e5297a7737c80bb48ec4334851",
+      "lastModified": 1771468841081.6855,
+      "remoteSha": "dcdd715aeb2419fe5f805ec8850e4ef55bd531e5297a7737c80bb48ec4334851"
     },
     "marketing-content/locations/orlando-usa/en.yml": {
-      "sha": "42fc9a9ef912499f9eaaebb9d65edd941c34d618da90120c741d86fe2cd6fcbd",
-      "lastModified": 1771458062059.8235,
-      "remoteSha": "42fc9a9ef912499f9eaaebb9d65edd941c34d618da90120c741d86fe2cd6fcbd"
+      "sha": "bbd45607fb13f3a5e35daf5c2eea4ebd767542925fb8c308e48af6c82bb1876e",
+      "lastModified": 1771468841508.685,
+      "remoteSha": "bbd45607fb13f3a5e35daf5c2eea4ebd767542925fb8c308e48af6c82bb1876e"
     },
     "marketing-content/locations/orlando-usa/es.yml": {
-      "sha": "e948b9e971ad88601e10c1662eeeeaacf9182d898c0f9b7e672e7fb2819bc84f",
-      "lastModified": 1771458062060.8235,
-      "remoteSha": "e948b9e971ad88601e10c1662eeeeaacf9182d898c0f9b7e672e7fb2819bc84f"
+      "sha": "d90a3ae11033904c6f8113c0e13062c177dcfad264c361017196818eb297a137",
+      "lastModified": 1771468841934.6846,
+      "remoteSha": "d90a3ae11033904c6f8113c0e13062c177dcfad264c361017196818eb297a137"
     },
     "marketing-content/locations/panamacity-panama/_common.yml": {
-      "sha": "1abe54e4ec3e00dd85698fc87f2717a703d76002053a354df74497f485b74483",
-      "lastModified": 1770608611794.5889,
-      "remoteSha": "1abe54e4ec3e00dd85698fc87f2717a703d76002053a354df74497f485b74483"
+      "sha": "b457141b435efc0d5437cf86587eba75e0a8b1637beb4f4afd3e6f20dbb2d5f7",
+      "lastModified": 1771468842390.684,
+      "remoteSha": "b457141b435efc0d5437cf86587eba75e0a8b1637beb4f4afd3e6f20dbb2d5f7"
     },
     "marketing-content/locations/panamacity-panama/en.yml": {
-      "sha": "c8c9e8a4838c173c817c1f7ff9138635e15fa3141036c1ae6f52bf2f371f62c0",
-      "lastModified": 1771464256137.546,
-      "remoteSha": "c8c9e8a4838c173c817c1f7ff9138635e15fa3141036c1ae6f52bf2f371f62c0"
+      "sha": "2ad7ed4a3631b37e6ca8efcea8a4518512309273bdbae33a00fb027606158eb3",
+      "lastModified": 1771468842885.6833,
+      "remoteSha": "2ad7ed4a3631b37e6ca8efcea8a4518512309273bdbae33a00fb027606158eb3"
     },
     "marketing-content/locations/panamacity-panama/es.yml": {
-      "sha": "140aa45de81e6d4ffb1008deab89c918a9c3ef0da30126ffb43a1f68963c68f0",
-      "lastModified": 1771464256591.5454,
-      "remoteSha": "140aa45de81e6d4ffb1008deab89c918a9c3ef0da30126ffb43a1f68963c68f0"
+      "sha": "e1cc3ce61b2c25c9737f847a6dfcbc860b2f1f046cac7272d26c529aaed1fa55",
+      "lastModified": 1771468843524.6826,
+      "remoteSha": "e1cc3ce61b2c25c9737f847a6dfcbc860b2f1f046cac7272d26c529aaed1fa55"
     },
     "marketing-content/locations/quito-ecuador/_common.yml": {
-      "sha": "892b2ceaf290e0f3df9ea6b273a90512263c3bfb16b05d389ac2854fa0047eb4",
-      "lastModified": 1770608611838.2896,
-      "remoteSha": "892b2ceaf290e0f3df9ea6b273a90512263c3bfb16b05d389ac2854fa0047eb4"
+      "sha": "22c328521ef14e3a6dc0797a39d9417bf19775a14533e5af939584726075d453",
+      "lastModified": 1771468843957.6824,
+      "remoteSha": "22c328521ef14e3a6dc0797a39d9417bf19775a14533e5af939584726075d453"
     },
     "marketing-content/locations/quito-ecuador/en.yml": {
-      "sha": "bf23e5b236c290ba8f838c3519b590366bb070f8b5744b1b29ea6e508054f6fe",
-      "lastModified": 1771464257043.545,
-      "remoteSha": "bf23e5b236c290ba8f838c3519b590366bb070f8b5744b1b29ea6e508054f6fe"
+      "sha": "ce54f05ab4130bc94b99a30da76dbfd663ccef4ab67c770eb3a9d8e026d0879f",
+      "lastModified": 1771468844382.682,
+      "remoteSha": "ce54f05ab4130bc94b99a30da76dbfd663ccef4ab67c770eb3a9d8e026d0879f"
     },
     "marketing-content/locations/quito-ecuador/es.yml": {
-      "sha": "29557980ced5fb18768f41ca6a07fd71fecbe9460260fd38a39e9e20b78bb4e0",
-      "lastModified": 1771458062061.8235,
-      "remoteSha": "29557980ced5fb18768f41ca6a07fd71fecbe9460260fd38a39e9e20b78bb4e0"
+      "sha": "77738338d24363aee49582cf2386d8eac12325f0bfa0db2d313560fb8d6362f9",
+      "lastModified": 1771468844795.6814,
+      "remoteSha": "77738338d24363aee49582cf2386d8eac12325f0bfa0db2d313560fb8d6362f9"
     },
     "marketing-content/locations/rome-italy/_common.yml": {
-      "sha": "ef3a4a2ded19ff894133c07ced1467b612f07cc001d8739ccf496024248794e7",
-      "lastModified": 1770608611889.2896,
-      "remoteSha": "ef3a4a2ded19ff894133c07ced1467b612f07cc001d8739ccf496024248794e7"
+      "sha": "21dbf3f37d91f0042797e678eb6b1e4fec51876a3a5695ad4814d0907521ab6c",
+      "lastModified": 1771468845243.681,
+      "remoteSha": "21dbf3f37d91f0042797e678eb6b1e4fec51876a3a5695ad4814d0907521ab6c"
     },
     "marketing-content/locations/rome-italy/en.yml": {
-      "sha": "fa755d365d51b512ddeb74af6e2a516a309bf7d3fd7da30335ae5fb9428c5b5b",
-      "lastModified": 1771464257472.5447,
-      "remoteSha": "fa755d365d51b512ddeb74af6e2a516a309bf7d3fd7da30335ae5fb9428c5b5b"
+      "sha": "30eafe158bf7b090b17b39e37b2ab18d7839bd10e8db9f014825ab32d1a3088a",
+      "lastModified": 1771468845756.6802,
+      "remoteSha": "30eafe158bf7b090b17b39e37b2ab18d7839bd10e8db9f014825ab32d1a3088a"
     },
     "marketing-content/locations/rome-italy/es.yml": {
-      "sha": "92a2908d46f5045ee81ceeb5ed274f13c3ac5ea8764afdbbca8797c92be6de59",
-      "lastModified": 1771464257929.5442,
-      "remoteSha": "92a2908d46f5045ee81ceeb5ed274f13c3ac5ea8764afdbbca8797c92be6de59"
+      "sha": "d1422c6e3f2a43a06beed003847e520dc91204011c8bc3390f423adf507a8a33",
+      "lastModified": 1771468846179.6797,
+      "remoteSha": "d1422c6e3f2a43a06beed003847e520dc91204011c8bc3390f423adf507a8a33"
     },
     "marketing-content/locations/santiago-chile/_common.yml": {
-      "sha": "8fdaabfd278fd69f260b228fd1db173bf34636dcad4450ec9483cad3135c2ba9",
-      "lastModified": 1770608611939.2896,
-      "remoteSha": "8fdaabfd278fd69f260b228fd1db173bf34636dcad4450ec9483cad3135c2ba9"
+      "sha": "80a496cc9561d34ccfd9276e67829baee04c2428447073730320604be5769c5a",
+      "lastModified": 1771468846579.6794,
+      "remoteSha": "80a496cc9561d34ccfd9276e67829baee04c2428447073730320604be5769c5a"
     },
     "marketing-content/locations/santiago-chile/en.yml": {
-      "sha": "ea083b1d5b1a419220381e8b3672112832a0682c820cbe3c2cb480ff88118c7e",
-      "lastModified": 1771464258355.5437,
-      "remoteSha": "ea083b1d5b1a419220381e8b3672112832a0682c820cbe3c2cb480ff88118c7e"
+      "sha": "a0624a8b751ac17197ff4bbd0ae4469362098e2ac6b30368ada93a1addc2ae25",
+      "lastModified": 1771468846994.679,
+      "remoteSha": "a0624a8b751ac17197ff4bbd0ae4469362098e2ac6b30368ada93a1addc2ae25"
     },
     "marketing-content/locations/santiago-chile/es.yml": {
-      "sha": "6fe303c4642d4c4930a6fe1029fa0cb283ed249d1026d48cb2c343d22a2b27e3",
-      "lastModified": 1771458062062.8235,
-      "remoteSha": "6fe303c4642d4c4930a6fe1029fa0cb283ed249d1026d48cb2c343d22a2b27e3"
+      "sha": "b3026fedde73386acfc133f8d553912719fdac0026779a08eea56fbb7a7f3540",
+      "lastModified": 1771468847495.6782,
+      "remoteSha": "b3026fedde73386acfc133f8d553912719fdac0026779a08eea56fbb7a7f3540"
     },
     "marketing-content/locations/tampa-usa/_common.yml": {
-      "sha": "91de82c1e1afcdf261993e97e2db4e14c67158999e0e11fcc8a9305013b5c37b",
-      "lastModified": 1770608611997.2896,
-      "remoteSha": "91de82c1e1afcdf261993e97e2db4e14c67158999e0e11fcc8a9305013b5c37b"
+      "sha": "3e352624c6b7bc9c02624c337914c9151e9ed2c705c24af420b46d87554f0fb2",
+      "lastModified": 1771468847897.678,
+      "remoteSha": "3e352624c6b7bc9c02624c337914c9151e9ed2c705c24af420b46d87554f0fb2"
     },
     "marketing-content/locations/tampa-usa/en.yml": {
-      "sha": "726c0df4e4fee6a5c82dd32fe5eb19979dce7c1676836f7d4c69ec79d9d4b1e1",
-      "lastModified": 1771458062062.8235,
-      "remoteSha": "726c0df4e4fee6a5c82dd32fe5eb19979dce7c1676836f7d4c69ec79d9d4b1e1"
+      "sha": "9c8f83af239d76f1f40201deb36ea961bc87e0816c241e289cc5f86ff91967f0",
+      "lastModified": 1771468848351.6775,
+      "remoteSha": "9c8f83af239d76f1f40201deb36ea961bc87e0816c241e289cc5f86ff91967f0"
     },
     "marketing-content/locations/tampa-usa/es.yml": {
-      "sha": "bb1243468064bc0868a33d4785938d0b2329d3d8eca6a653017eb8a9dec5bafc",
-      "lastModified": 1771458062063.8235,
-      "remoteSha": "bb1243468064bc0868a33d4785938d0b2329d3d8eca6a653017eb8a9dec5bafc"
+      "sha": "94760aae2ff660959c3366eb06f60f73ddeb205f6978d48e4c0072cbda1ad287",
+      "lastModified": 1771468848763.677,
+      "remoteSha": "94760aae2ff660959c3366eb06f60f73ddeb205f6978d48e4c0072cbda1ad287"
     },
     "marketing-content/locations/toronto-canada/_common.yml": {
-      "sha": "2444561bc447465b171614f9154fe181d0ca42bfe4b03566de8e2a5a1a8b2f5a",
-      "lastModified": 1770608612052.2893,
-      "remoteSha": "2444561bc447465b171614f9154fe181d0ca42bfe4b03566de8e2a5a1a8b2f5a"
+      "sha": "b1a88f18aa06d2b69544a504e860a47547dc71425cb0c7a17aa379d7233dcbc3",
+      "lastModified": 1771468849184.6765,
+      "remoteSha": "b1a88f18aa06d2b69544a504e860a47547dc71425cb0c7a17aa379d7233dcbc3"
     },
     "marketing-content/locations/toronto-canada/en.yml": {
-      "sha": "dea4f1f8965a2880ba89620cd195c9920401702d672e0c542615e0e4fc951a25",
-      "lastModified": 1771464258805.5435,
-      "remoteSha": "dea4f1f8965a2880ba89620cd195c9920401702d672e0c542615e0e4fc951a25"
+      "sha": "0cd174a8b78a583fdea66aa43b651f31d7d2b38ddaa587d5ecd897d072caff75",
+      "lastModified": 1771468849625.676,
+      "remoteSha": "0cd174a8b78a583fdea66aa43b651f31d7d2b38ddaa587d5ecd897d072caff75"
     },
     "marketing-content/locations/toronto-canada/es.yml": {
-      "sha": "2c8b5a74a3fc0db03278f468502cfdda98a423a5d2101e64837539ecb2350015",
-      "lastModified": 1771458062063.8235,
-      "remoteSha": "2c8b5a74a3fc0db03278f468502cfdda98a423a5d2101e64837539ecb2350015"
+      "sha": "52d7246f579c35d3b06eafe6c0d511e80764b3f6a6020c5a880c9e830b6315a6",
+      "lastModified": 1771468850118.6755,
+      "remoteSha": "52d7246f579c35d3b06eafe6c0d511e80764b3f6a6020c5a880c9e830b6315a6"
     },
     "marketing-content/locations/valencia-spain/_common.yml": {
-      "sha": "c905f15c0714af1bf87d1f68a0b0105ef2700c6080040b56fe009f028b62881e",
-      "lastModified": 1770608612149.5183,
-      "remoteSha": "c905f15c0714af1bf87d1f68a0b0105ef2700c6080040b56fe009f028b62881e"
+      "sha": "8415df04b1721b414430ae5a0ef79362931555c61630943799667dd5736d16a6",
+      "lastModified": 1771468850519.675,
+      "remoteSha": "8415df04b1721b414430ae5a0ef79362931555c61630943799667dd5736d16a6"
     },
     "marketing-content/locations/valencia-spain/en.yml": {
-      "sha": "6dbf80f76214dde46018d1001d7e450fe6a49617fc04e32f1dc2c18debf905dc",
-      "lastModified": 1771464259299.543,
-      "remoteSha": "6dbf80f76214dde46018d1001d7e450fe6a49617fc04e32f1dc2c18debf905dc"
+      "sha": "4b6f89cb51fc072dac8a49f1c2f03ea5f5e3d8e6f231b1ba0010475f8027912d",
+      "lastModified": 1771468850932.6746,
+      "remoteSha": "4b6f89cb51fc072dac8a49f1c2f03ea5f5e3d8e6f231b1ba0010475f8027912d"
     },
     "marketing-content/locations/valencia-spain/es.yml": {
-      "sha": "851d1b27212ccb0febd3ac035774336205961c251e88a43998a6f6160ea5025e",
-      "lastModified": 1771464259763.5425,
-      "remoteSha": "851d1b27212ccb0febd3ac035774336205961c251e88a43998a6f6160ea5025e"
+      "sha": "1fba7648cc2406c16879662db0333bb92b77ac3771e72afc2d8d8d21626ad91a",
+      "lastModified": 1771468851383.674,
+      "remoteSha": "1fba7648cc2406c16879662db0333bb92b77ac3771e72afc2d8d8d21626ad91a"
     },
     "marketing-content/menus/main-footer.es.yml": {
       "sha": "8e46fb8a54109630aeb4464b030b1b286c77386f464089d6b10d01c786f97061",
@@ -619,7 +619,7 @@
     },
     "marketing-content/menus/main-footer.yml": {
       "sha": "8f5721487d7b569df1b9b4f6830ee0cad863cfc2a09b56dd6a34e4280c619b57",
-      "lastModified": 1771464260706.5415,
+      "lastModified": 1771468851831.6736,
       "remoteSha": "8f5721487d7b569df1b9b4f6830ee0cad863cfc2a09b56dd6a34e4280c619b57"
     },
     "marketing-content/menus/main-navbar.es.yml": {
@@ -988,9 +988,9 @@
       "remoteSha": "b007288724a9d52823c10b32086f3f3d2073f7b17557f881d667f2dc800a8a5e"
     },
     "marketing-content/pages/work-with-us/es.yml": {
-      "sha": "3066087ba8ad91bd3e1790642f7fc41b2b93f943d14563a247ebdd8098ccfde8",
-      "lastModified": 1771458062071.8235,
-      "remoteSha": "3066087ba8ad91bd3e1790642f7fc41b2b93f943d14563a247ebdd8098ccfde8"
+      "sha": "5a08fce9352eb252f5e732b0357cc59ecabaea96388d90c8328ee375581bc908",
+      "lastModified": 1771468852243.673,
+      "remoteSha": "5a08fce9352eb252f5e732b0357cc59ecabaea96388d90c8328ee375581bc908"
     },
     "marketing-content/programs/ai-engineering/en.yml": {
       "sha": "ad204332004ba041af93b9e0a0761e499ccfbb1b12e507c4baf10f2625dc83ed",
