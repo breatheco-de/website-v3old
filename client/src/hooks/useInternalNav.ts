@@ -35,6 +35,7 @@ export function useInternalNav(onNavigate?: () => void) {
       if (isInternalHref(href)) {
         e.preventDefault();
         setLocation(href);
+        window.scrollTo(0, 0);
         onNavigate?.();
       }
     },
