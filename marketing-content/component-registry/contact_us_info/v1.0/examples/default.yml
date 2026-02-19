@@ -1,6 +1,7 @@
 - type: contact_us_info
   version: "1.0"
-  title: Tell us about yourself
+  title: Tell us about you
+  background: hsl(var(--sidebar-background))
   form:
     variant: stacked
     submit_label: Get Started
@@ -23,6 +24,7 @@
         visible: true
         required: true
         placeholder: Comments
+        rows: 7
     success:
       message: Thank you! We'll be in touch soon.
     show_terms: true
@@ -30,17 +32,17 @@
     - code: US
       name: USA
       address: 1801 SW 3rd Av, Miami, FL 33129.
-      phone: "+1 (786) 416-6640"
+      phone: +1 (786) 416-6640
       email: info@4GeeksAcademy.com
     - code: ES
       name: Madrid
       address: Calle Edison, 3. 28006 Madrid, España.
-      phone: "+34 (910) 86 69 83"
+      phone: +34 (910) 86 69 83
       email: es@4geeksacademy.com
     - code: CL
       name: Chile
       address: Santiago Av. Manquehue Sur 350. Las Condes R.M.
-      phone: "+56 (9) 7284 8039"
+      phone: +56 (9) 7284 8039
       email: chile@4GeeksAcademy.com
     - code: CR
       name: Costa Rica
@@ -48,3 +50,4 @@
     - code: VE
       name: Venezuela
       email: venezuela@4GeeksAcademy.com
+  

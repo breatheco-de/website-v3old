@@ -7,6 +7,30 @@ meta:
   page_title: Contact Us | 4Geeks Academy
   description: Get in touch with 4Geeks Academy. Find our office locations, phone numbers, and email addresses worldwide.
 sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    title: Empowering Talent for the AI Era
+    subtitle: 4Geeks Academy is a global tech academy with 8 campuses across the U.S., Latin America, and Europe, training the next generation of tech professionals in AI-powered Full-Stack Development, Data Science & ML, and Cybersecurity.
+    badge: Bootcamps that launch careers
+  - type: hero
+    version: "1.0"
+    variant: simpleTwoColumn
+    title: Get into tech with our Job Guarantee
+    subtitle: Your success is our mission. Get hired within 9 months of graduation, or we will refund your tuition. Conditions apply.
+    image:
+      src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
+      alt: Students collaborating in a tech workspace
+    cta_buttons:
+      - text: Apply now
+        url: "#apply"
+        variant: primary
+        icon: Rocket
+      - text: Download Details
+        url: "#syllabus"
+        variant: outline
+        icon: Download
+    background: bg-gradient-to-b from-primary/5 to-background
   - type: contact_us_info
     version: "1.0"
     title: Tell us about you
@@ -30,7 +54,6 @@ sections:
           required: true
           placeholder: Last name
         client_comments:
-          rows: 6
           visible: true
           required: true
           placeholder: Comments
@@ -50,7 +73,7 @@ sections:
         email: es@4geeksacademy.com
       - code: CL
         name: Chile
-        address: Santiago Av. Manquehue Sur 350. Las Condes R.M.
+        address: Santiago Av. Manquehue Sur 350.
         phone: +56 (9) 7284 8039
         email: chile@4GeeksAcademy.com
       - code: CR
