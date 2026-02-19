@@ -323,7 +323,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
     financing_text: "Financiamiento Basado en Crédito: desde"
-    financing_amount: $299
+    financing_amount: {{ mounthly_price_bootcamp | Desde 200 € }}
     tech_icons:
       - python
       - tensorflow
@@ -343,7 +343,7 @@ sections:
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
-        text: Inscríbete con Garantía de Empleo para mayor confianza. Consigue empleo en 9 meses después de graduarte o te devolvemos tu dinero.
+        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
     cta:
       text: Obtener más información
       url: /es/apply
