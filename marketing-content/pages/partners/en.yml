@@ -303,6 +303,10 @@ sections:
           visible: true
           required: false
           placeholder: Phone number
+        client_comments:
+          visible: true
+          required: true
+          placeholder: Comments
       success:
         message: Thank you! We'll be in touch soon.
       consent:
