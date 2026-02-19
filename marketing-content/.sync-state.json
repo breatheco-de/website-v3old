@@ -1053,9 +1053,11 @@
       "remoteSha": "7bb3754facaea593d5aa30618791a4b3d69e36d46e1b22654255f3e29e3aa56e"
     },
     "marketing-content/programs/data-science-ml/en.yml": {
-      "sha": "f48a435855cf1bc8d01a7a77d8afa2ac6920e22f4465921770905d91e4b8e578",
-      "lastModified": 1771512026038.531,
-      "remoteSha": "f48a435855cf1bc8d01a7a77d8afa2ac6920e22f4465921770905d91e4b8e578"
+      "sha": "51e22e259dc9c41a646ebaf3832f044eae053f9658b3bf7fa2abb83f9a258377",
+      "lastModified": 1771521616505.7966,
+      "remoteSha": "f48a435855cf1bc8d01a7a77d8afa2ac6920e22f4465921770905d91e4b8e578",
+      "author": "Luis Miguel Del Valle",
+      "modifiedAt": "2026-02-19T17:20:16.508Z"
     },
     "marketing-content/programs/data-science-ml/es.yml": {
       "sha": "f2a17410a4ad87a4a3e97e8962235ddde6c0a225b84ade66c436655d5f958d42",

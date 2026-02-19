@@ -345,7 +345,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: {{ salary_data_scientist | $80K–$130K }}1
+    financing_amount: {{ salary_data_scientist | $80K–$130K }}
     tech_icons:
       - python
       - tensorflow
