@@ -73,10 +73,8 @@ export default function Footer() {
   if (!config) return null;
 
   const currentYear = new Date().getFullYear();
-  const defaultCopyrightText =
-    config.copyright_text?.replace(/\d{4}/, String(currentYear)) ||
-    `${currentYear} 4Geeks Academy`;
-  const copyrightText = config.copyright_text || defaultCopyrightText
+  const rawCopyright = (config.copyright_text || "4Geeks Academy").replace(/^\d{4}\s*/, "");
+  const copyrightText = `${currentYear} ${rawCopyright}`;
 
   return (
     <footer className="text-foreground" data-testid="section-global-footer">
