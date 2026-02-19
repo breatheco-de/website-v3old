@@ -93,7 +93,7 @@ price_ai_engineering:
       value: "$349"
     - query:
         region: "europe"
-      value: "349€"
+      value: "140€"
 price_full_ai_engineering:
   default: "$14,999"
   conditions:
@@ -232,3 +232,15 @@ average_salary_web_aplications_engineer:
   default: "$95K–$140K"
 average_salary_backend_services_developer:
   default: "$100K–$150K"
+average_salary_data_analyst:
+  default: "$60K–$95K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$60K–$95K"
+average_salary_ai_engineer:
+  default: "$100K–$160K"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "$100K–$160K"
