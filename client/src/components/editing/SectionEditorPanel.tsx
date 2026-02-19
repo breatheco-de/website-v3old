@@ -83,6 +83,7 @@ import { variableHighlightPlugin } from "@/lib/cm-variable-highlight";
 import * as yamlParser from "js-yaml";
 import {
   escapeTemplateVars,
+  escapeObjectVars,
   unescapeObjectVars,
   unescapeYamlDump,
 } from "@shared/templateVars";
@@ -95,10 +96,8 @@ function safeYamlLoad(yamlStr: string): unknown {
 }
 
 function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
-  const serialized = JSON.stringify(obj);
-  const { escaped: escapedJson, map } = escapeTemplateVars(serialized);
-  const escapedObj = JSON.parse(escapedJson);
-  const dumped = yamlParser.dump(escapedObj, opts);
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yamlParser.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
