@@ -19,7 +19,7 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
@@ -43,7 +43,7 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: 'Tus tutores:'
+    tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
     media:
       type: video
@@ -64,7 +64,7 @@ sections:
         - icon: calendar
           text: Programa Intensivo de 16 Semanas
         - icon: IconBriefcase
-          text: Currículo Orientado al Empleo
+          text: Programa Orientado a la Práctica
         - icon: IconRobot
           text: Aprendizaje y Feedback con IA
         - icon: IconUsers
@@ -72,7 +72,7 @@ sections:
         - icon: IconUserCheck
           text: Mentoría 1:1 Ilimitada
         - icon: book
-          text: Portafolio de Ciberseguridad Real
+          text: Portafolio con Proyectos Reales
     paddingY:
       desktop: md
     marginY:
@@ -120,20 +120,20 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: La Falta de Especialistas en Ciberseguridad es tu Oportunidad
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
     description: Con una brecha global significativa de talento e inversiones récord en defensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.
     background: bg-muted/30
     items:
-      - id: '1'
+      - id: "1"
         value: 4.8M
         title: Puestos de ciberseguridad sin cubrir a nivel mundial
-      - id: '2'
+      - id: "2"
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
-      - id: '3'
+      - id: "3"
         value: $520B
         title: Gasto global en ciberseguridad este año
   - type: syllabus
@@ -251,7 +251,7 @@ sections:
     features:
       - icon: Robot
         title: Progresa más rápido con herramientas de IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
@@ -265,7 +265,7 @@ sections:
           variant: primary
       - icon: TrendingUp
         title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -279,7 +279,7 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -291,7 +291,7 @@ sections:
       desktop: md
   - type: certificate
     title: Inserción Laboral Comprobada
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
       - text: Ruta hacia CEH (Certified Ethical Hacker)
@@ -321,10 +321,10 @@ sections:
         label: Salario inicial promedio
         description: Una carrera en ciberseguridad no es solo un nuevo empleo, es una nueva trayectoria de vida. Con un aumento salarial promedio del 55%, nuestros graduados alcanzan un nivel de estabilidad y crecimiento que pocas industrias pueden ofrecer.
         benefits:
-          - text: 'Analista de Ciberseguridad: $75K–$120K'
-          - text: 'Penetration Tester: $90K–$150K'
-          - text: 'Ingeniero de Seguridad: $100K–$165K'
-          - text: 'Especialista en Respuesta a Incidentes: $85K–$140K'
+          - text: "Analista de Ciberseguridad: $75K–$120K"
+          - text: "Penetration Tester: $90K–$150K"
+          - text: "Ingeniero de Seguridad: $100K–$165K"
+          - text: "Especialista en Respuesta a Incidentes: $85K–$140K"
       - value: 5,000+
         label: Empleadores asociados
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
@@ -338,13 +338,13 @@ sections:
     paddingY:
       desktop: md
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Matrícula y Opciones de Financiación
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: 'Descuento por Pago Completo: Ahorra un 10% con el pago anticipado.'
-    financing_text: 'Financiación Basada en Crédito: desde'
-    financing_amount: $299
+    discount_text: "Descuento por Pago Completo: Ahorra un 10% con el pago anticipado."
+    financing_text: Financiación en cuotas desde
+    financing_amount: {{ monthly_cyber | $299 }}
     tech_icons:
       - python
       - tensorflow
@@ -358,13 +358,11 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es de $9,999. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses en 6 meses.
+        text: La matrícula estándar es de {{ price_full_cybersecurity | 9999 }}. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+        text: Financia tu matrícula entre 6 y 24 meses.
       - icon: IconCheck
         text: Ofrecemos 2-3 becas por cohorte para candidatos altamente cualificados.
-      - icon: IconCheck
-        text: Inscríbete con Garantía de Empleo para mayor confianza. Consigue empleo en 9 meses tras la graduación o te devolvemos tu dinero.
     cta:
       text: Obtener más información
       url: /es/apply
@@ -401,7 +399,7 @@ sections:
     title: Historias Reales. Carreras Transformadoras.
     subtitle: Más de 4,000 graduados y 1,200 reseñas verificadas demuestran que nuestros programas generan resultados.
     rating_summary:
-      average: '4.5'
+      average: "4.5"
       count: 1,294
     items:
       - name: Sarah Johnson
@@ -443,7 +441,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    version: '1.0'
+    version: "1.0"
     background: muted
     title: Preguntas Frecuentes
     related_features:
@@ -456,7 +454,7 @@ sections:
     paddingY:
       desktop: md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Lanzar tu Carrera en Ciberseguridad?
     subtitle: Únete a miles de graduados que cambiaron al mundo tech con 4Geeks.
     background: primary
@@ -470,7 +468,7 @@ sections:
     paddingY:
       desktop: md
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       desktop: none 10px
