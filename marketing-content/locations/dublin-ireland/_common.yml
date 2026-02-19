@@ -13,6 +13,13 @@ phone: +353 1 555 0100
 address: 1 Grand Canal Square, Dublin 2
 available_programs:
   - "full-stack"
+context:
+  when_to_use: For Dublin and Ireland visitors or those interested in tech opportunities in Europe's major tech hub.
+  target_audience: Local professionals and European residents seeking a coding bootcamp with English-language instruction and global recognition.
+  goals:
+    - Position Dublin as a leading European tech hub
+    - Emphasize hybrid and online programs with live support
+    - Highlight job outcomes and connections to multinational employers
 catalog:
   admission_advisors:
     - name: "Admissions Team"
