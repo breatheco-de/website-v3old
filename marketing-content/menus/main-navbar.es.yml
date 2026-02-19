@@ -31,7 +31,7 @@ navbar:
         footer:
           text: ¿No sabes qué programa te conviene más? Mira nuestra comparación de programas
           linkText: aquí
-          href: /es/comparar-programas
+          href: /en/program-comparison
     - label: POR QUÉ 4GEEKS
       href: /why-4geeks
       component: Dropdown
@@ -58,7 +58,7 @@ navbar:
               - label: Premios
                 href: /en/awards
               - label: Resultados
-                href: /es/resultados
+                href: /en/outcomes
               - label: 4Geeks Vs Otros
                 href: /en/geeks-vs-others
           - title: Precios
@@ -153,6 +153,8 @@ navbar:
                 href: /en/location/milan-italy
               - label: Roma, Italia
                 href: /en/location/rome-italy
+              - label: Rest of Europe
+                href: /en/location/rest-of-europe
           - title: LATAM
             items:
               - label: Santiago, Chile
@@ -160,7 +162,7 @@ navbar:
               - label: Bogotá, Colombia
                 href: /en/location/bogota-colombia
               - label: Ciudad de México, México
-                href: /es/ubicacion/ciudad-de-mexico
+                href: /en/location/mexicocity-mexico
               - label: Caracas, Venezuela
                 href: /en/location/caracas-venezuela
               - label: Buenos Aires, Argentina
@@ -177,6 +179,8 @@ navbar:
                 href: /en/location/montevideo-uruguay
               - label: Lima, Perú
                 href: /en/location/lima-peru
+              - label: Rest Of America
+                href: /es/ubicacion/remoto
     - label: PRÓXIMAS FECHAS
       href: /upcoming-dates
       component: SimpleLink
