@@ -16,6 +16,8 @@ footer:
           href: /es/faq
         - label: Contact Us
           href: /es/contactanos
+        - label: '[TRANSLATE] Contáctanos'
+          href: /en/contact-us
     - title: Programas
       items:
         - label: Ingeniería en IA
