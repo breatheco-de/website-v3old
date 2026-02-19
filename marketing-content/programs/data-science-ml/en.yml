@@ -58,7 +58,7 @@ sections:
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: https://4geeks.com/es/login
+        url: https://4geeks.com/login
       features:
         - icon: calendar
           text: 16-Week Intensive Program
