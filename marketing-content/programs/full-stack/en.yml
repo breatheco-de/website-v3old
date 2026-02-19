@@ -160,7 +160,7 @@ sections:
     description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
       text: Get More Info
-      url: /job-guarantee
+      url: /en/job-guarantee
       variant: primary
     marginY:
       desktop: md
@@ -319,14 +319,14 @@ sections:
     benefits:
       - text: "AI Software Engineer: {{ average_salary_fullstack | $95K–$135K }}"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
+      - text: "Agent Engineer: $105K–$150K"
       - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
         benefits:
@@ -341,14 +341,14 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Average Salary Increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
           - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer | {{ average_salary_backend_services_developer | $100K–$150K }} }}"
+          - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer }}"
           - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: $100K–$150K"
+          - text: "Backend Services Developer: {{ average_salary_backend_services_developer | $100K–$150K }} "
       - value: 5,000+
         label: Hiring partners
         description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
@@ -435,7 +435,7 @@ sections:
       desktop: none
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: 4,000+ graduates and 1,000+ verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
       count: {{ global_review_count | 1,294 }}
