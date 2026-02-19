@@ -61,11 +61,11 @@ sections:
         - icon: IconRobot
           text: Aprendizaje y Retroalimentación con IA
         - icon: IconUsers
-          text: Ratio de 7:1 Estudiante-Instructor
+          text: Ratio de 8:1 Estudiante-Instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 Ilimitada
         - icon: book
-          text: Portafolio Real de DS y ML
+          text: Portafolio Real de Data Science y ML
     paddingY:
       desktop: md
     marginY:
@@ -316,6 +316,18 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - orlando-usa
+      - newyork-usa
+      - tampa-usa
+      - toronto-canada
   - type: pricing
     version: "1.0"
     variant: product
