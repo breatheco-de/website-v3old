@@ -85,18 +85,18 @@ sections:
     background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
     version: "1.0"
-    title: Compara Tus Opciones de Financiamiento de un Vistazo
+    title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
     subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
     columns:
-      - name: Opción
+      - name: Modalidad
         highlight: true
-      - name: Pago Completo
+      - name: Pago Total
         highlight: true
-      - name: Planes Mensuales
+      - name: Cuotas Flexibles (TFC)
         highlight: true
-      - name: Préstamos
+      - name: Financiamiento (Ascent/ Climb)
         highlight: true
-      - name: Plan Basado en Ingresos
+      - name: Paga Cuando Ganes (ISA)
         highlight: true
     rows:
       - feature: Descuento en Matrícula
@@ -105,19 +105,19 @@ sections:
           - "No"
           - "No"
           - "No"
-      - feature: Revisión de Crédito Requerida
+      - feature: Verificación de Crédito
         values:
           - "No"
-          - Baja barrera
+          - Fácil Acceso
           - Sí
           - Sí
-      - feature: Diferimiento de Pago Después de Graduarte
+      - feature: Diferir Pagos
         values:
           - "No"
           - "No"
           - Sí
           - Sí
-      - feature: Paga Solo Después de Conseguir Empleo
+      - feature: Pagar Una Vez Contratado
         values:
           - "No"
           - "No"
@@ -192,11 +192,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ global_salary_increase | 55 }}0000000 inversión total
+            text: {{ global_salary_increase | 55 }}000000000000000 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ global_salary_increase | 55 }}11111110000
+        price: {{ global_salary_increase | 55 }}1111111111111110000
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -245,7 +245,7 @@ sections:
           - icon: CheckCircle
             text: Oferta de primavera, hasta el 1 de mayo*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: {{ global_salary_increase | 55 }}2
+        price: {{ global_salary_increase | 55 }}222222222
         price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
