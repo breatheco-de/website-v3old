@@ -47,7 +47,7 @@ sections:
           - icon: DollarSign
             text: {{ price_full_ai_engineering | $14,999 }} matrícula completa
           - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido, Garantía de Empleo opcional*
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         description: Construye y escala un negocio totalmente nativo en IA mientras aprendes sistemas y flujos de trabajo de IA listos para producción.
         price: {{ price_ai_engineering | $349 }}
         price_info: o menos según tu plan
@@ -63,7 +63,7 @@ sections:
           - icon: DollarSign
             text: {{ price_full_fullstack | $10,999 }} matrícula completa
           - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido, Garantía de Empleo opcional*
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         tags:
           - icon: ""
             text: ""
@@ -82,7 +82,7 @@ sections:
           - icon: DollarSign
             text: {{ price_full_datascience | $14,999 }} matrícula completa
           - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido, Garantía de Empleo opcional*
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         description: Domina el análisis de datos impulsado por IA y construye modelos inteligentes para resolver problemas del mundo real.
         price: {{ price_datascience | 299$ }}
         price_info: o menos según tu plan
@@ -98,7 +98,7 @@ sections:
           - icon: DollarSign
             text: {{ price_full_cybersecurity | $14,999 }} matrícula completa
           - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido, Garantía de Empleo opcional*
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
         price: {{ price_cybersecurity | 299$ }}
         price_info: o menos según tu plan
@@ -175,11 +175,11 @@ sections:
           - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
           - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
           - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
-      - feature: Garantía de Empleo
+      - feature: Garantía de Empleo*
         values:
-          - Disponible por $2,000 adicionales. Incluida en la modalidad tiempo completo sin costo extra.
-          - Disponible por $2,000 adicionales.
-          - Disponible por $2,000 adicionales.
+          - Preguntar por disponibilidad. Condiciones Aplican.
+          - Preguntar por disponibilidad. Condiciones Aplican.
+          - Preguntar por disponibilidad. Condiciones Aplican.
       - feature: Es Ideal Para Ti Si
         values:
           - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
