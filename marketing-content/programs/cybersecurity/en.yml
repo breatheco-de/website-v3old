@@ -302,10 +302,6 @@ sections:
           - text: Peer collaboration through Slack channels and weekly check-ins
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call
-        cta:
-          text: Start learning now!
-          url: /apply
-          variant: primary
     paddingY:
       desktop: md
   - type: certificate
@@ -420,10 +416,10 @@ sections:
       desktop: md
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: {{ global_job_placement_rate | 84 }}000+ graduates and {{ global_job_placement_rate | 84 }}1 verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_verified_reviews_count | 1,000 }} verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: {{ global_job_placement_rate | 84 }}222
-      count: {{ global_job_placement_rate | 84 }}333
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 4,500 }}
     items:
       - name: Sarah Johnson
         role: Software Engineer

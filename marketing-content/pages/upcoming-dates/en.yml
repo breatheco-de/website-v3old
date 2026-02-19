@@ -16,7 +16,7 @@ schema:
     - website
 sections:
   - type: dynamic_table
-    version: '1.0'
+    version: "1.0"
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
     title: Cohort Overview
@@ -37,3 +37,6 @@ sections:
         label: Duration
         type: text
         function: KHJvdykgPT4gcm93LnN5bGxhYnVzX3ZlcnNpb24/LmR1cmF0aW9uX2luX2RheXMgPyBNYXRoLnJvdW5kKHJvdy5zeWxsYWJ1c192ZXJzaW9uLmR1cmF0aW9uX2luX2RheXMgLyA3KSArICIgd2Vla3MiIDogJyc=
+    action:
+      label: View
+      href: /en/apply

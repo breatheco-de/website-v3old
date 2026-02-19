@@ -82,7 +82,7 @@ export function HeroCourse({ data }: HeroCourseProps) {
 
             {data.rating && (
               <div className="flex items-center gap-2" data-testid="hero-rating">
-                <span className="text-foreground font-medium">{resolveTemplateFallback(String(data.rating.value))}</span>
+                <span className="text-foreground font-medium">{String(data.rating.value)}</span>
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => {
                     const ratingNum = parseFloat(resolveTemplateFallback(String(data.rating!.value))) || 0;
@@ -126,10 +126,10 @@ export function HeroCourse({ data }: HeroCourseProps) {
                     className="text-primary hover:underline text-sm"
                     data-testid="link-hero-rating"
                   >
-                    {resolveTemplateFallback(String(data.rating.count))}
+                    {String(data.rating.count)}
                   </a>
                 ) : (
-                  <span className="text-muted-foreground text-sm">{resolveTemplateFallback(String(data.rating.count))}</span>
+                  <span className="text-muted-foreground text-sm">{String(data.rating.count)}</span>
                 )}
               </div>
             )}

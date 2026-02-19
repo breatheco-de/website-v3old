@@ -61,11 +61,11 @@ sections:
         - icon: IconRobot
           text: Aprendizaje y Retroalimentación con IA
         - icon: IconUsers
-          text: Ratio de 7:1 Estudiante-Instructor
+          text: Ratio de 8:1 Estudiante-Instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 Ilimitada
         - icon: book
-          text: Portafolio Real de DS y ML
+          text: Portafolio Real de Data Science y ML
     paddingY:
       desktop: md
     marginY:
@@ -124,7 +124,7 @@ sections:
         value: 36%
         title: tasa de crecimiento proyectada en la próxima década
       - id: "3"
-        value: 22.000€
+        value: {{ salary_data_scientist | 22.000€ }}
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
     variant: program-modules
@@ -316,13 +316,25 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - orlando-usa
+      - newyork-usa
+      - tampa-usa
+      - toronto-canada
   - type: pricing
     version: "1.0"
     variant: product
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
-    financing_text: "Financiamiento Basado en Crédito: desde"
+    financing_text: Financiamiento en cuotas desde
     financing_amount: {{ mounthly_price_bootcamp | Desde 200 € }}
     tech_icons:
       - python

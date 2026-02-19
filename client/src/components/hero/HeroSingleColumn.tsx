@@ -8,7 +8,6 @@ import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroSingleColumn } from "@shared/schema";
 import type { ComponentType } from "react";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import { resolveTemplateFallback } from "@/lib/variable-resolver";
 import avatar1 from "@assets/generated_images/Woman_profile_headshot_1_608aff01.webp";
 import avatar2 from "@assets/generated_images/Man_profile_headshot_1_0850c276.webp";
 import avatar3 from "@assets/generated_images/Woman_profile_headshot_2_a0ea2c29.webp";
@@ -80,7 +79,7 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
             <div className="flex flex-col items-start gap-0.5">
               {data.trust_bar.rating && (
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-foreground">{resolveTemplateFallback(data.trust_bar.rating || "")}</span>
+                  <span className="font-semibold text-foreground">{data.trust_bar.rating || ""}</span>
                   <div className="flex">
                     {[1, 2, 3, 4].map((i) => (
                       <IconStarFilled

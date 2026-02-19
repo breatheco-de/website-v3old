@@ -407,7 +407,7 @@ sections:
       desktop: none
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: 4,000+ graduates and 1,000+ verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
       count: {{ global_review_count | 1,294 }}
