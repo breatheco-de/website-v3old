@@ -774,8 +774,10 @@
     },
     "marketing-content/pages/home/en.yml": {
       "sha": "d30a370f2a1f84c1d031582222d196b0c8d19748ed7a8f975a0361bf7b2d5c81",
-      "lastModified": 1771464170147.4407,
-      "remoteSha": "d30a370f2a1f84c1d031582222d196b0c8d19748ed7a8f975a0361bf7b2d5c81"
+      "lastModified": 1771522588941.6462,
+      "remoteSha": "d30a370f2a1f84c1d031582222d196b0c8d19748ed7a8f975a0361bf7b2d5c81",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-19T17:36:28.943Z"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "34f281efb33d12d9b623376c7571faf64932b5055e3b798aa6bcd1297fc31f88",
@@ -1098,10 +1100,10 @@
       "remoteSha": "9f58972468e1c7bee7f4d2ecfdde8d1dc901e275aad67f18454d68a2af9e1206"
     },
     "marketing-content/pages/contact-us/en.yml": {
-      "sha": "a82239d2db116ac931aedf6c7c688e14656bd0f4db9d91733e6c4d7ee8798d2d",
-      "lastModified": 1771519529352.0864,
+      "sha": "548b10a5a0bc68c9495e3d4034ab3238f4e8a5f43bde1a14ca8b977163a70254",
+      "lastModified": 1771523077348.098,
       "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-19T16:45:29.354Z"
+      "modifiedAt": "2026-02-19T17:44:37.349Z"
     }
   }
 }

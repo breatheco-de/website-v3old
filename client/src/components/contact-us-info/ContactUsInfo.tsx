@@ -10,24 +10,34 @@ interface ContactUsInfoProps {
 function LocationCard({ location }: { location: ContactLocation }) {
   return (
     <div
-      className="flex gap-4 py-5 border-b border-border last:border-b-0"
+      className="flex gap-4 py-2 borde border-border last:border-b-0"
       data-testid={`card-location-${location.code.toLowerCase()}`}
     >
-      <Badge
-        variant="outline"
-        className="shrink-0 h-8 w-8 rounded-md flex items-center justify-center text-xs font-bold no-default-hover-elevate no-default-active-elevate"
-        data-testid={`badge-country-${location.code.toLowerCase()}`}
-      >
-        {location.code}
-      </Badge>
       <div className="flex flex-col gap-1 min-w-0">
-        <span className="font-semibold text-foreground" data-testid={`text-location-name-${location.code.toLowerCase()}`}>
-          {location.name}
-        </span>
+        <div className="flex items-center">
+          <span
+            className="font-semibold text-foreground"
+            data-testid={`text-location-name-${location.code.toLowerCase()}`}
+          >
+            {location.name}
+          </span>
+          <Badge
+            variant="outline"
+            className="shrink-0 h-8 w-8 rounded-md flex border-none items-center justify-center text-xs font-bold no-default-hover-elevate no-default-active-elevate"
+            data-testid={`badge-country-${location.code.toLowerCase()}`}
+          >
+            {location.code}
+          </Badge>
+        </div>
+
         {location.address && (
           <span className="text-sm text-muted-foreground flex items-start gap-1.5">
             <IconMapPin className="w-4 h-4 shrink-0 mt-0.5" />
-            <span data-testid={`text-location-address-${location.code.toLowerCase()}`}>{location.address}</span>
+            <span
+              data-testid={`text-location-address-${location.code.toLowerCase()}`}
+            >
+              {location.address}
+            </span>
           </span>
         )}
         {location.phone && (
@@ -65,28 +75,37 @@ export function ContactUsInfo({ data }: ContactUsInfoProps) {
       data-testid="section-contact-us-info"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          <div>
+        <div className="grid grid-cols-1 lg:flex lg:items-center gap-12 lg:gap-16">
+          <div className="w-[57%]">
             {data.title && (
-              <h2 className="text-2xl font-bold text-foreground mb-6" data-testid="text-contact-title">
+              <h2
+                className="text-2xl font-bold text-foreground mb-6"
+                data-testid="text-contact-title"
+              >
                 {data.title}
               </h2>
             )}
             {data.description && (
-              <p className="text-muted-foreground mb-6" data-testid="text-contact-description">
+              <p
+                className="text-muted-foreground mb-6"
+                data-testid="text-contact-description"
+              >
                 {data.description}
               </p>
             )}
             <LeadForm data={data.form} />
           </div>
 
-          <div>
+          <div className="bg- px-4 rounded-lg p-3">
             {data.locations_title && (
-              <h3 className="text-xl font-semibold text-foreground mb-4" data-testid="text-locations-title">
+              <h3
+                className="text-xl font-semibold text-foreground mb-4"
+                data-testid="text-locations-title"
+              >
                 {data.locations_title}
               </h3>
             )}
-            <div className="flex flex-col" data-testid="list-contact-locations">
+            <div className="col" data-testid="list-contact-locations">
               {data.locations.map((loc) => (
                 <LocationCard key={loc.code} location={loc} />
               ))}

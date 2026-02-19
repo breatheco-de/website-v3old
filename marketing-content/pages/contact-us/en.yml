@@ -9,14 +9,13 @@ meta:
 sections:
   - type: contact_us_info
     version: "1.0"
-    title: Tell us about yourself
+    title: Tell us about you
+    background: hsl(var(--sidebar-background))
     form:
       variant: stacked
       submit_label: Get Started
       tags: contact-us
       automations: soft
-      turnstile:
-        enabled: false
       fields:
         email:
           visible: true
@@ -31,14 +30,13 @@ sections:
           required: true
           placeholder: Last name
         client_comments:
+          rows: 6
           visible: true
           required: true
           placeholder: Comments
       success:
         message: Thank you! We'll be in touch soon.
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
     locations:
       - code: US
         name: USA
