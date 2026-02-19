@@ -14,6 +14,8 @@ footer:
           href: /es/proximas-fechas
         - label: Preguntas Frecuentes
           href: /es/faq
+        - label: Contact Us
+          href: /es/contactanos
     - title: Programas
       items:
         - label: Ingeniería en IA
