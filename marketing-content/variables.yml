@@ -296,3 +296,5 @@ monthly_cyber:
     - query:
         region: "europe"
       value: "200 €"
+global_verified_reviews_count:
+  default: "1,000"
