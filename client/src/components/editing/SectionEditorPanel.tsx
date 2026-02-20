@@ -1578,7 +1578,7 @@ export function SectionEditorPanel({
   return (
     <div className="fixed right-0 top-0 bottom-0 w-[480px] bg-background border-l shadow-xl z-[9999] flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center justify-between px-4 border-b" style={{ paddingTop: "5px", paddingBottom: "5px" }}>
         <div>
           <h2 className="font-semibold" style={{ fontSize: "25px", lineHeight: "1.2" }}>Edit Section</h2>
           <p className="text-sm text-muted-foreground">
