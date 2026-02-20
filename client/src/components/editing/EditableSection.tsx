@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink } from "@tabler/icons-react";
+import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn } from "@shared/schema";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { getLocationBySlug } from "@/lib/locations";
@@ -109,6 +110,15 @@ export function EditableSection({ children, section, index, sectionType, content
   const [showReviewCodeModal, setShowReviewCodeModal] = useState(false);
   const [reviewCodeYaml, setReviewCodeYaml] = useState("");
   const [reviewCodeError, setReviewCodeError] = useState<string | null>(null);
+
+  const { data: bindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
+    queryKey: ["/api/bindings/section", contentType, slug, index],
+    queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}`).then(r => r.json()),
+    enabled: !!editMode?.isEditMode && !!contentType && !!slug,
+    staleTime: 30_000,
+  });
+  const isBound = !!bindingData?.group;
+  const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
 
   const selectedVariant = variants[selectedVariantIndex] || "";
   
@@ -520,6 +530,17 @@ export function EditableSection({ children, section, index, sectionType, content
             )}
           </div>
         </button>
+        {isBound && (
+          <button
+            onClick={handleOpenEditor}
+            className="p-2 bg-chart-2 text-primary-foreground rounded-md shadow-lg hover-elevate flex items-center gap-1"
+            data-testid={`button-binding-indicator-${index}`}
+            title={`Bound to ${boundSiblingCount} other page${boundSiblingCount !== 1 ? 's' : ''}`}
+          >
+            <IconLink className="h-4 w-4" />
+            <span className="text-xs font-medium">{boundSiblingCount}</span>
+          </button>
+        )}
         {onMoveUp && (
           <button
             onClick={(e) => { e.stopPropagation(); onMoveUp(index); }}
