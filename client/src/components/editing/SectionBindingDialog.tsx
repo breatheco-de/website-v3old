@@ -8,6 +8,7 @@ import {
   IconCheck,
   IconAlertTriangle,
   IconPencil,
+  IconArrowRight,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -297,13 +298,11 @@ export function SectionBindingDialog({
   const groupDisplayName = existingGroup?.name || `${component} binding`;
 
   if (showConfirmCreate) {
-    const selectedSlugs = filteredCandidates
-      .filter(c => selectedCandidates.has(candidateKey(c)))
-      .map(c => c.title || c.slug);
+    const selectedItems = filteredCandidates.filter(c => selectedCandidates.has(candidateKey(c)));
 
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <IconAlertTriangle className="h-5 w-5 text-destructive" />
@@ -312,11 +311,24 @@ export function SectionBindingDialog({
           </DialogHeader>
 
           <div className="space-y-3">
-            <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm">
-              <p className="font-medium mb-1">Content will be overwritten</p>
-              <p className="text-muted-foreground">
-                The selected section{selectedSlugs.length > 1 ? "s" : ""} ({selectedSlugs.join(", ")}) will lose {selectedSlugs.length > 1 ? "their" : "its"} current content and be replaced with the content from this section ({slug}).
-              </p>
+            <div className="flex items-stretch gap-3">
+              <div className="flex-1 rounded-md border border-border bg-muted/40 p-3 text-sm" data-testid="card-source-section">
+                <p className="text-xs text-muted-foreground mb-1">Source (keeps content)</p>
+                <p className="font-medium truncate" data-testid="text-source-page">{slug}</p>
+                <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
+              </div>
+
+              <div className="flex flex-col items-center justify-center shrink-0">
+                <IconArrowRight className="h-5 w-5 text-destructive" />
+              </div>
+
+              <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-destination-sections">
+                <p className="text-xs text-destructive mb-1">Will be overwritten</p>
+                {selectedItems.map(c => (
+                  <p key={candidateKey(c)} className="font-medium truncate" data-testid={`text-destination-page-${c.slug}`}>{c.title || c.slug}</p>
+                ))}
+                <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
+              </div>
             </div>
 
             <div>
@@ -364,7 +376,7 @@ export function SectionBindingDialog({
   if (pendingAddCandidate) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <IconAlertTriangle className="h-5 w-5 text-destructive" />
@@ -372,11 +384,22 @@ export function SectionBindingDialog({
             </DialogTitle>
           </DialogHeader>
 
-          <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm">
-            <p className="font-medium mb-1">Content will be replaced</p>
-            <p className="text-muted-foreground">
-              The section on <span className="font-medium">{pendingAddCandidate.title || pendingAddCandidate.slug}</span> will lose its current content and be replaced with the group's shared content.
-            </p>
+          <div className="flex items-stretch gap-3">
+            <div className="flex-1 rounded-md border border-border bg-muted/40 p-3 text-sm" data-testid="card-group-source">
+              <p className="text-xs text-muted-foreground mb-1">Group content (source)</p>
+              <p className="font-medium truncate" data-testid="text-group-name">{groupDisplayName}</p>
+              <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
+            </div>
+
+            <div className="flex flex-col items-center justify-center shrink-0">
+              <IconArrowRight className="h-5 w-5 text-destructive" />
+            </div>
+
+            <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-add-destination">
+              <p className="text-xs text-destructive mb-1">Will be overwritten</p>
+              <p className="font-medium truncate" data-testid="text-destination-page">{pendingAddCandidate.title || pendingAddCandidate.slug}</p>
+              <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
+            </div>
           </div>
 
           <DialogFooter className="gap-2">
