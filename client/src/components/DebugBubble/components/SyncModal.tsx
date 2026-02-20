@@ -166,17 +166,40 @@ export function SyncModal({
               ) : null}
             </div>
             <div className="flex items-center gap-3 text-muted-foreground">
-              {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (
-                <span className="font-mono">
-                  {autoCommitStatus.isCommitting
-                    ? 'now...'
-                    : autoCommitCountdown !== null && autoCommitCountdown > 0
-                    ? `${autoCommitCountdown}s`
-                    : autoCommitStatus.pendingFiles > 0
-                    ? 'soon'
-                    : 'idle'}
-                </span>
-              )}
+              {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (() => {
+                const label = autoCommitStatus.isCommitting
+                  ? 'now...'
+                  : autoCommitCountdown !== null && autoCommitCountdown > 0
+                  ? `${autoCommitCountdown}s`
+                  : autoCommitStatus.pendingFiles > 0
+                  ? 'soon'
+                  : 'waiting for changes';
+                const isIdle = label === 'waiting for changes';
+                return isIdle ? (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        className="font-mono text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                        data-testid="button-sync-status-info"
+                      >
+                        {label}
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent side="bottom" align="end" className="w-72 text-xs space-y-2">
+                      <p className="font-medium text-foreground">Waiting for changes</p>
+                      <p className="text-muted-foreground">
+                        No files are queued for sync. When you edit a file inside <span className="font-mono">marketing-content/</span>, the auto-commit system will detect the change and start a {autoCommitStatus.commitIntervalSeconds}s countdown before committing to GitHub.
+                      </p>
+                      <p className="text-muted-foreground">
+                        Only YAML and JSON files are tracked. Changes are batched into a single commit per cycle.
+                      </p>
+                    </PopoverContent>
+                  </Popover>
+                ) : (
+                  <span className="font-mono">{label}</span>
+                );
+              })()}
               {autoCommitStatus?.lastCommitSha && githubSyncStatus?.repoUrl && (
                 <a
                   href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
