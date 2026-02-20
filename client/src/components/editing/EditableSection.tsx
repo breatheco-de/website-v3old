@@ -528,10 +528,7 @@ export function EditableSection({ children, section, index, sectionType, content
           data-testid={`button-edit-section-${index}`}
         >
           <IconPencil className="h-4 w-4" />
-          <div className="flex flex-col items-start">
-            <span className="text-xs font-medium">{sectionType}</span>
-            <small className="text-[10px] opacity-75">{deslugify((currentSection as { variant?: string }).variant || "default")}</small>
-          </div>
+          <span className="text-xs font-medium">{sectionType}</span>
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); setBindingDialogOpen(true); }}
@@ -760,11 +757,13 @@ export function EditableSection({ children, section, index, sectionType, content
         className={`
           absolute top-2 left-2 z-30 
           px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground
-          transition-opacity duration-150
+          transition-opacity duration-150 flex items-center gap-1.5
           ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
         `}
       >
-        {sectionType}-{index}
+        <span>{sectionType}-{index}</span>
+        <span className="opacity-60">·</span>
+        <span className="opacity-75">{deslugify((currentSection as { variant?: string }).variant || "default")}</span>
       </div>
       
       {/* Content with pointer events enabled - show preview section when cycling variants */}
