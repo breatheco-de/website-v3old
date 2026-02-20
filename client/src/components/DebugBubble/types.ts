@@ -1,6 +1,6 @@
 import type { Icon } from "@tabler/icons-react";
 
-export type MenuView = "main" | "components" | "sitemap" | "experiments";
+export type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus";
 
 export const STORAGE_KEY = "debug-bubble-menu-view";
 
@@ -38,12 +38,9 @@ export interface ExperimentsResponse {
 }
 
 export interface ContentInfo {
-  type: string | null;
+  type: "program" | "page" | "landing" | "location" | null;
   slug: string | null;
   label: string;
-  locale: string | null;
-  variant: string | null;
-  version: number | null;
 }
 
 export interface VariantInfo {
@@ -95,3 +92,129 @@ export interface TargetingStepProps {
   targetCountries: string[];
   setTargetCountries: (v: string[]) => void;
 }
+
+export interface GitHubSyncStatus {
+  configured: boolean;
+  syncEnabled: boolean;
+  localCommit: string | null;
+  remoteCommit: string | null;
+  status: 'in-sync' | 'behind' | 'ahead' | 'diverged' | 'unknown' | 'not-configured' | 'invalid-credentials';
+  behindBy?: number;
+  aheadBy?: number;
+  repoUrl?: string;
+  branch?: string;
+}
+
+export interface PendingChange {
+  file: string;
+  status: 'modified' | 'added' | 'deleted';
+  source: 'local' | 'incoming' | 'conflict';
+  contentType: string;
+  slug: string;
+  author?: string;
+  date?: string;
+  commitSha?: string;
+}
+
+export interface AutoCommitStatus {
+  enabled: boolean;
+  pendingFiles: number;
+  pendingFilesList: string[];
+  pendingFilesDetails: Array<{ filePath: string; author: string; timestamp: number }>;
+  lastCommitAt: string | null;
+  lastCommitSha: string | null;
+  lastError: string | null;
+  conflictedFiles: string[];
+  commitIntervalSeconds: number;
+  nextSyncAt: number | null;
+  isCommitting: boolean;
+  githubConfigured: boolean;
+}
+
+export interface MenuFileItem {
+  name: string;
+  file: string;
+}
+
+export interface MenuData {
+  navbar?: {
+    items?: Array<{
+      label: string;
+      href: string;
+      component: string;
+      dropdown?: unknown;
+    }>;
+  };
+  footer?: {
+    columns?: Array<{
+      title: string;
+      items?: Array<{ label: string; href: string }>;
+    }>;
+  };
+}
+
+export interface MenuItemProps {
+  icon: typeof import("@tabler/icons-react").IconComponents;
+  label: string;
+  onClick?: () => void;
+  href?: string;
+  testId: string;
+  rightContent?: React.ReactNode;
+  indicator?: "chevron" | "arrow" | "none";
+  disabled?: boolean;
+  className?: string;
+}
+
+export interface ExpandableMenuItemProps {
+  icon: typeof import("@tabler/icons-react").IconComponents;
+  label: string;
+  expanded: boolean;
+  onToggle: () => void;
+  testId: string;
+  actions?: React.ReactNode;
+  children: React.ReactNode;
+}
+
+export interface PageDiagnostics {
+  url: string;
+  contentType: string;
+  slug: string;
+  locale: string;
+  filePath: string;
+  title: string;
+  schemaValidation: {
+    valid: boolean;
+    errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }>;
+  };
+  issues: Array<{
+    type: "error" | "warning" | "info";
+    code: string;
+    message: string;
+    category?: string;
+    details?: { path?: string; expected?: string; received?: string };
+  }>;
+  score: { total: number; seo: number; schema: number; content: number };
+}
+
+export interface SeoData {
+  meta: Record<string, unknown>;
+  faqSchema: Record<string, unknown> | null;
+  schemaOrg: Record<string, unknown>[];
+  title: string;
+}
+
+export interface SeoMeta {
+  page_title: string;
+  description: string;
+  canonical_url: string;
+}
+
+export interface SeoLocation {
+  slug: string;
+  name: string;
+  city: string;
+  country: string;
+}
+
+export type SlugCheckStatus = 'idle' | 'checking' | 'available' | 'taken';
+export type ContentTypeValue = 'location' | 'page' | 'program' | 'landing';
