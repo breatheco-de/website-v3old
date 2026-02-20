@@ -23,7 +23,7 @@ sections:
     image_id: academy_header_coding
     image_full_width: false
     marginY:
-      desktop: none
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
@@ -70,13 +70,13 @@ sections:
   - type: stats
     version: "1.0"
     items:
-      - value: "+7000"
+      - value: +{{ global_total_alumni | 7000 }}
         label: Alumni
-      - value: "8"
+      - value: {{ global_campuses | 10 }}
         label: Campus
-      - value: ~84%
+      - value: ~{{ global_job_placement_rate | 84 }}%
         label: Tasa de Contratación
-      - value: "4.9"
+      - value: {{ global_review_rating | 4.9 }}
         label: Calificación Promedio
     marginY:
       desktop: lg
@@ -218,6 +218,44 @@ sections:
         name: Ariana Sánchez
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para comenzar?
+    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
