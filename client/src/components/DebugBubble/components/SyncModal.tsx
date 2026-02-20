@@ -9,6 +9,7 @@ import {
   IconX,
   IconDeviceFloppy,
   IconTrash,
+  IconArrowBackUp,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -482,7 +483,7 @@ export function SyncModal({
                                           {filePulling === change.file ? (
                                             <IconRefresh className="h-3 w-3 animate-spin" />
                                           ) : (
-                                            <IconX className="h-3 w-3" />
+                                            <IconArrowBackUp className="h-3 w-3" />
                                           )}
                                         </Button>
                                       </TooltipTrigger>
