@@ -838,10 +838,10 @@
     },
     "marketing-content/pages/home/en.yml": {
       "sha": "6dc5bb8a13fc3690b9d12745e965c0f9e189df149e46446e5eb09ae7bdc8eb88",
-      "lastModified": 1771606838420.8147,
+      "lastModified": 1771610171121.3933,
       "remoteSha": "91d3b8509fb23a61a6fc8fbc721aa0f3cf7c0781aa2dd671b30c5206da00ddeb",
       "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-20T17:00:38.422Z"
+      "modifiedAt": "2026-02-20T17:56:11.125Z"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "34f281efb33d12d9b623376c7571faf64932b5055e3b798aa6bcd1297fc31f88",

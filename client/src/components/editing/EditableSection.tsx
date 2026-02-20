@@ -579,7 +579,7 @@ export function EditableSection({ children, section, index, sectionType, content
         {onDelete && (
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(index); }}
-            className="p-2 bg-destructive text-destructive-foreground rounded-md shadow-lg hover-elevate"
+            className="p-2 bg-muted text-destructive rounded-md shadow-lg hover-elevate"
             data-testid={`button-delete-section-${index}`}
             title="Delete section"
           >
