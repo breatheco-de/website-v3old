@@ -65,7 +65,7 @@ sections:
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
         - icon: IconUsers
-          text: 7 estudiantes por mentor
+          text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -74,6 +74,34 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Download the curriculum
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Obtener
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: true
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -305,7 +333,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Sesiones ilimitadas con mentores técnicos
-          - text: 7 estudiantes por mentor
+          - text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
           - text: Trabajo colaborativo y revisiones en grupo
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
@@ -434,10 +462,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Estudiantes Reales. Carreras Reales.
-    subtitle: Más de 4,000 graduados y 3,000+ reseñas verificadas demuestran que nuestros programas generan resultados.
+    subtitle: Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas demuestran que nuestros programas generan resultados.
     rating_summary:
-      average: "4.8"
-      count: 1,294
+      average: {{ global_review_rating | 4.8 }}
+      count: {{ global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: Ingeniera de IA
