@@ -1,3 +1,27 @@
 {
-  "groups": []
+  "groups": [
+    {
+      "id": "bind_mlv0adin_o68nua",
+      "component": "career_support_explain",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "page",
+          "slug": "home",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "landing",
+          "slug": "example-landing",
+          "sectionIndex": 13
+        },
+        {
+          "contentType": "page",
+          "slug": "component-test",
+          "sectionIndex": 4
+        }
+      ],
+      "createdAt": "2026-02-20T14:49:34.703Z"
+    }
+  ]
 }

@@ -99,10 +99,10 @@
     },
     "marketing-content/landings/example-landing/promoted.yml": {
       "sha": "4807e4dcfaf72c2fd34918eababd69d97171bb66fdec7d127013daab4cdecefb",
-      "lastModified": 1771597949612.3164,
+      "lastModified": 1771598974731.5698,
       "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
       "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-20T14:32:29.614Z"
+      "modifiedAt": "2026-02-20T14:49:34.746Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -710,9 +710,10 @@
       "remoteSha": "0ab870f3e2eca05db5fdf94dca372c58d1d20294dcfb88bce77b10fde7a29cf4"
     },
     "marketing-content/pages/component-test/en.yml": {
-      "sha": "413e7521bdf8ff5fc83f0868630e1e5cad2acc4c54fa32b12398a0b9ca1f6eba",
-      "lastModified": 1771430719066.2314,
-      "remoteSha": "413e7521bdf8ff5fc83f0868630e1e5cad2acc4c54fa32b12398a0b9ca1f6eba"
+      "sha": "bd7c369a0b308c57e4b99fa32d68416b3723ccb47d56e456c0513ec0e9834e48",
+      "lastModified": 1771598974811.5696,
+      "remoteSha": "413e7521bdf8ff5fc83f0868630e1e5cad2acc4c54fa32b12398a0b9ca1f6eba",
+      "modifiedAt": "2026-02-20T14:49:34.813Z"
     },
     "marketing-content/pages/contact-us/_common.yml": {
       "sha": "3c49a97b811df6f2036a6ec63536dbd913b4603e11ff5677defcfa13c19811bc",
