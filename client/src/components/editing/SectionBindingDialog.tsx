@@ -9,6 +9,7 @@ import {
   IconAlertTriangle,
   IconPencil,
   IconArrowRight,
+  IconTrash,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -84,6 +85,12 @@ export function SectionBindingDialog({
   const [pendingAddCandidate, setPendingAddCandidate] = useState<Candidate | null>(null);
   const [editingName, setEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState("");
+  const [confirmDissolve, setConfirmDissolve] = useState(false);
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen) setConfirmDissolve(false);
+    onOpenChange(nextOpen);
+  };
 
   const candidateKey = (c: Candidate | { contentType: string; slug: string; sectionIndex: number }) =>
     `${c.contentType}:${c.slug}:${c.sectionIndex}`;
@@ -211,6 +218,30 @@ export function SectionBindingDialog({
     },
   });
 
+  const dissolveGroupMutation = useMutation({
+    mutationFn: async () => {
+      if (!existingGroup) throw new Error("No binding group to dissolve");
+      const res = await fetchWithAuth(`/api/bindings/${existingGroup.id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to dissolve group");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Group dissolved", description: "All sections have been unbound." });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
+      onBindingChanged();
+      onOpenChange(false);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+      setConfirmDissolve(false);
+    },
+  });
+
   const renameGroupMutation = useMutation({
     mutationFn: async ({ groupId, name }: { groupId: string; name: string }) => {
       const res = await fetchWithAuth(`/api/bindings/${groupId}`, {
@@ -293,7 +324,7 @@ export function SectionBindingDialog({
     renameGroupMutation.mutate({ groupId: existingGroup.id, name: editNameValue.trim() });
   };
 
-  const isPending = createBindingMutation.isPending || addMemberMutation.isPending || removeMemberMutation.isPending || unbindCurrentMutation.isPending;
+  const isPending = createBindingMutation.isPending || addMemberMutation.isPending || removeMemberMutation.isPending || unbindCurrentMutation.isPending || dissolveGroupMutation.isPending;
 
   const groupDisplayName = existingGroup?.name || `${component} binding`;
 
@@ -436,7 +467,7 @@ export function SectionBindingDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg max-h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
@@ -480,133 +511,146 @@ export function SectionBindingDialog({
                   </Button>
                 </div>
               )}
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-destructive gap-1 shrink-0"
-                onClick={() => unbindCurrentMutation.mutate()}
-                disabled={isPending}
-                data-testid="button-unbind-current"
-              >
-                <IconLinkOff className="h-3.5 w-3.5" />
-                Unbind
-              </Button>
             </div>
             <div className="space-y-1">
               {existingGroup.members.map(m => {
                 const key = `${m.contentType}:${m.slug}:${m.sectionIndex}`;
                 const isSelf = key === currentKey;
                 return (
-                  <div key={key} className="flex items-center justify-between text-sm py-1">
+                  <div key={key} className="flex items-center text-sm py-1">
                     <div className="flex items-center gap-2 min-w-0 flex-wrap">
                       <Badge variant="outline" className="text-xs shrink-0">{m.contentType}</Badge>
                       <span className="truncate">{m.slug}</span>
                       <span className="text-muted-foreground text-xs">[{m.sectionIndex}]</span>
                       {isSelf && <Badge variant="secondary" className="text-xs">current</Badge>}
                     </div>
-                    {!isSelf && (
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="shrink-0"
-                        onClick={() => handleRemoveFromExisting(m)}
-                        disabled={isPending}
-                        data-testid={`button-remove-member-${key}`}
-                      >
-                        <IconLinkOff className="h-3.5 w-3.5" />
-                      </Button>
-                    )}
                   </div>
                 );
               })}
+            </div>
+            <div className="mt-3 pt-3 border-t">
+              {confirmDissolve ? (
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs text-destructive">Unbind all {existingGroup.members.length} sections?</p>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setConfirmDissolve(false)}
+                      disabled={isPending}
+                      data-testid="button-dissolve-cancel"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => dissolveGroupMutation.mutate()}
+                      disabled={isPending}
+                      data-testid="button-dissolve-confirm"
+                    >
+                      {dissolveGroupMutation.isPending ? (
+                        <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        "Confirm"
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-destructive gap-1"
+                  onClick={() => setConfirmDissolve(true)}
+                  disabled={isPending}
+                  data-testid="button-dissolve-group"
+                >
+                  <IconTrash className="h-3.5 w-3.5" />
+                  Dissolve group
+                </Button>
+              )}
             </div>
           </div>
         )}
 
-        <div className="relative">
-          <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search pages..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-8"
-            data-testid="input-binding-search"
-          />
-        </div>
-
-        <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
-          {loadingCandidates ? (
-            <div className="flex items-center justify-center py-8">
-              <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        {!existingGroup && (
+          <>
+            <div className="relative">
+              <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search pages..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-8"
+                data-testid="input-binding-search"
+              />
             </div>
-          ) : filteredCandidates.length === 0 ? (
-            <div className="text-center text-muted-foreground py-8 text-sm">
-              No matching sections found
-            </div>
-          ) : (
-            <div className="space-y-1 pr-3">
-              {filteredCandidates.map(c => {
-                const key = candidateKey(c);
-                const isMember = existingMemberKeys.has(key);
-                const isBoundElsewhere = c.alreadyBound && (!existingGroup || c.alreadyBound !== existingGroup.id);
-                const isSelected = selectedCandidates.has(key);
 
-                return (
-                  <div
-                    key={key}
-                    className={`flex items-center gap-3 p-2 rounded-md text-sm ${
-                      isBoundElsewhere ? "opacity-50" : "hover-elevate cursor-pointer"
-                    }`}
-                    onClick={() => {
-                      if (isBoundElsewhere || isMember) return;
-                      if (existingGroup) {
-                        handleAddToExisting(c);
-                      } else {
-                        handleToggleCandidate(c);
-                      }
-                    }}
-                    data-testid={`binding-candidate-${key}`}
-                  >
-                    {!existingGroup && !isBoundElsewhere && (
-                      <Checkbox
-                        checked={isSelected}
-                        onCheckedChange={() => handleToggleCandidate(c)}
-                        disabled={isBoundElsewhere || false}
-                        data-testid={`checkbox-candidate-${key}`}
-                      />
-                    )}
-                    {existingGroup && isMember && (
-                      <IconCheck className="h-4 w-4 text-primary shrink-0" />
-                    )}
-                    {existingGroup && !isMember && !isBoundElsewhere && (
-                      <IconLink className="h-4 w-4 text-muted-foreground shrink-0" />
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
-                        <span className="truncate font-medium">{c.title || c.slug}</span>
+            <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
+              {loadingCandidates ? (
+                <div className="flex items-center justify-center py-8">
+                  <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                </div>
+              ) : filteredCandidates.length === 0 ? (
+                <div className="text-center text-muted-foreground py-8 text-sm">
+                  No matching sections found
+                </div>
+              ) : (
+                <div className="space-y-1 pr-3">
+                  {filteredCandidates.map(c => {
+                    const key = candidateKey(c);
+                    const isBoundElsewhere = !!c.alreadyBound;
+                    const isSelected = selectedCandidates.has(key);
+
+                    return (
+                      <div
+                        key={key}
+                        className={`flex items-center gap-3 p-2 rounded-md text-sm ${
+                          isBoundElsewhere ? "opacity-50" : "hover-elevate cursor-pointer"
+                        }`}
+                        onClick={() => {
+                          if (isBoundElsewhere) return;
+                          handleToggleCandidate(c);
+                        }}
+                        data-testid={`binding-candidate-${key}`}
+                      >
+                        {!isBoundElsewhere && (
+                          <Checkbox
+                            checked={isSelected}
+                            onCheckedChange={() => handleToggleCandidate(c)}
+                            disabled={isBoundElsewhere || false}
+                            data-testid={`checkbox-candidate-${key}`}
+                          />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
+                            <span className="truncate font-medium">{c.title || c.slug}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {c.slug} — section [{c.sectionIndex}]
+                          </p>
+                        </div>
+                        {isBoundElsewhere && (
+                          <Badge variant="secondary" className="text-xs shrink-0">
+                            {c.alreadyBoundGroupName || "bound elsewhere"}
+                          </Badge>
+                        )}
                       </div>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {c.slug} — section [{c.sectionIndex}]
-                      </p>
-                    </div>
-                    {isBoundElsewhere && (
-                      <Badge variant="secondary" className="text-xs shrink-0">
-                        {c.alreadyBoundGroupName || "bound elsewhere"}
-                      </Badge>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </ScrollArea>
+                    );
+                  })}
+                </div>
+              )}
+            </ScrollArea>
+          </>
+        )}
 
         {!existingGroup && (
           <DialogFooter>
             <Button
               variant="outline"
-              onClick={() => onOpenChange(false)}
+              onClick={() => handleOpenChange(false)}
               data-testid="button-binding-cancel"
             >
               Cancel
