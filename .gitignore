@@ -10,6 +10,9 @@ server/public
 vite.config.ts.*
 *.tar.gz
 
+# Sync state (runtime, environment-specific)
+marketing-content/.sync-state.json
+
 # Environment variables
 .env
 .env.local
