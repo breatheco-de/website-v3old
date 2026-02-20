@@ -74,7 +74,7 @@ async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> 
 /**
  * Check if a file should be tracked by the sync system.
  * Tracks YAML and JSON files in marketing-content directory.
- * Excludes component-registry, .sync-state.json, and image directories.
+ * Excludes component-registry, dot-prefixed state files, and image directories.
  */
 export function shouldTrackFile(filePath: string): boolean {
   if (!filePath.startsWith('marketing-content/')) {
@@ -85,7 +85,8 @@ export function shouldTrackFile(filePath: string): boolean {
     return false;
   }
 
-  if (filePath.includes('.sync-state.json')) {
+  const basename = path.basename(filePath);
+  if (basename.startsWith('.') && basename.endsWith('-state.json')) {
     return false;
   }
 

@@ -17,7 +17,7 @@ import { getFolder } from "../content-types";
 import { gcs } from "../gcs";
 
 const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
-const STATE_FILE = path.join(CONTENT_DIR, "experiments-state.json");
+const STATE_FILE = path.join(CONTENT_DIR, ".experiments-state.json");
 const GCS_EXPERIMENTS_STATE_KEY = "sync/experiments-state.json";
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const FLUSH_INTERVAL = 30000; // 30 seconds
