@@ -245,6 +245,10 @@ minimun_isa_salary:
       value: "17.000 €"
 average_salary_fullstack:
   default: "$95K–$135K"
+  conditions:
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 mounthly_price_bootcamp:
   default: "200 €"
   conditions:
@@ -266,6 +270,9 @@ average_salary_ai_fluent_software_developer:
     - query:
         region: "usa-canada"
       value: "$100K–$150K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 average_salary_web_aplications_engineer:
   default: "$95K–$140K"
 average_salary_backend_services_developer:
@@ -391,9 +398,15 @@ average_salary_agent_engineer:
     - query:
         region: "usa-canada"
       value: "$25K–$40K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 average_salary_workflow_automation_engineer:
   default: "$25K–$40K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$25K–$40K"
+    - query:
+        region: "europe"
+      value: "20.000€- 30.000€"
