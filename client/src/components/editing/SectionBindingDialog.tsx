@@ -543,7 +543,7 @@ export function SectionBindingDialog({
                           {m.slug}
                         </a>
                       )}
-                      <span className="text-muted-foreground text-xs">[{m.sectionIndex}]</span>
+                      <span className="text-muted-foreground text-xs">section {m.sectionIndex}</span>
                       {isSelf && <Badge variant="secondary" className="text-xs">current</Badge>}
                     </div>
                   </div>
@@ -692,7 +692,7 @@ export function SectionBindingDialog({
                             <span className="truncate font-medium">{c.title || c.slug}</span>
                           </div>
                           <p className="text-xs text-muted-foreground truncate">
-                            {c.slug} — section [{c.sectionIndex}]
+                            {c.slug} — section {c.sectionIndex}
                           </p>
                         </div>
                         {isBoundElsewhere && (
