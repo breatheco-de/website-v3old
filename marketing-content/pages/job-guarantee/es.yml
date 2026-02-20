@@ -31,7 +31,7 @@ sections:
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar ahora }}
-        url: /es/apply
+        url: "#bottom"
         variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
