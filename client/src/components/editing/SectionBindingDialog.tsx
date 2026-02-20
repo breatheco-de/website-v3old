@@ -567,7 +567,7 @@ export function SectionBindingDialog({
                 </div>
               ) : confirmDissolve ? (
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-xs text-destructive">Unbind all {existingGroup.members.length} sections?</p>
+                  <p className="text-xs text-destructive">Dissolve the entire group and all {existingGroup.members.length} sections and changes will be independent from now on.</p>
                   <div className="flex items-center gap-1 shrink-0">
                     <Button
                       size="sm"
