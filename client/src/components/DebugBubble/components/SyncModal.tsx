@@ -468,6 +468,27 @@ export function SyncModal({
                                       <TooltipContent side="top"><p>Upload to remote</p></TooltipContent>
                                     </Tooltip>
                                   )}
+                                  {(change.source === 'local') && (
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Button
+                                          size="icon"
+                                          variant="ghost"
+                                          className="h-6 w-6"
+                                          onClick={() => setConfirmPullFile(change.file)}
+                                          disabled={filePulling === change.file}
+                                          data-testid={`button-drop-file-${index}`}
+                                        >
+                                          {filePulling === change.file ? (
+                                            <IconRefresh className="h-3 w-3 animate-spin" />
+                                          ) : (
+                                            <IconX className="h-3 w-3" />
+                                          )}
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent side="top"><p>Drop changes (revert to remote)</p></TooltipContent>
+                                    </Tooltip>
+                                  )}
                                   {(change.source === 'incoming' || change.source === 'conflict') && (
                                     <Tooltip>
                                       <TooltipTrigger asChild>
