@@ -414,8 +414,8 @@ sections:
       desktop: md
   - type: whos_hiring
     variant: carousel
-    title: Respaldados por Líderes Innovadores
-    subtitle: Nuestros graduados son contratados por empresas líderes en todo el mundo
+    title: Empresas que Contratan a Nuestros Graduados
+    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
