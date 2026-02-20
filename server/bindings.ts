@@ -1,18 +1,12 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
-import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
-import { contentIndex } from "./content-index";
-import { deepMerge } from "./utils/deepMerge";
+import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { markFileAsModified } from "./sync-state";
-import { normalizeLocale } from "@shared/locale";
-import { getFolder, getType } from "./content-types";
-
-function safeYamlLoad(yamlStr: string): unknown {
-  const { escaped, map } = escapeTemplateVars(yamlStr);
-  const parsed = yaml.load(escaped);
-  return unescapeObjectVars(parsed, map);
-}
+import {
+  loadLocaleData,
+  MARKETING_CONTENT_PATH,
+} from "./utils/contentLoader";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
@@ -20,8 +14,7 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   return unescapeYamlDump(dumped, map);
 }
 
-const BINDINGS_FILE = path.join(process.cwd(), "marketing-content", "section-bindings.json");
-const CONTENT_BASE_PATH = path.join(process.cwd(), "marketing-content");
+const BINDINGS_FILE = path.join(MARKETING_CONTENT_PATH, "section-bindings.json");
 
 const EXCLUDED_PROPERTIES = new Set([
   "paddingY",
@@ -152,11 +145,11 @@ class BindingManager {
   }
 
   private validateMemberComponent(member: BindingMember, expectedComponent: string, locale: string): void {
-    const content = this.loadPageContent(member.contentType, member.slug, locale);
-    if (!content) {
+    const { data } = this.loadPageContent(member.contentType, member.slug, locale);
+    if (!data) {
       throw new Error(`Cannot access content for ${member.contentType}/${member.slug}`);
     }
-    const sections = content.sections as Record<string, unknown>[];
+    const sections = data.sections as Record<string, unknown>[];
     if (!Array.isArray(sections) || member.sectionIndex >= sections.length) {
       throw new Error(`Section index ${member.sectionIndex} out of range for ${member.contentType}/${member.slug}`);
     }
@@ -224,9 +217,9 @@ class BindingManager {
   }
 
   private propagateFromMember(group: BindingGroup, sourceMember: BindingMember): void {
-    const sourceContent = this.loadPageContent(sourceMember.contentType, sourceMember.slug, group.locale);
-    if (!sourceContent) return;
-    const sourceSections = sourceContent.sections as Record<string, unknown>[];
+    const { data: sourceData } = this.loadPageContent(sourceMember.contentType, sourceMember.slug, group.locale);
+    if (!sourceData) return;
+    const sourceSections = sourceData.sections as Record<string, unknown>[];
     if (!Array.isArray(sourceSections) || sourceMember.sectionIndex >= sourceSections.length) return;
     const sourceSection = sourceSections[sourceMember.sectionIndex] as Record<string, unknown>;
     if (!sourceSection) return;
@@ -237,17 +230,15 @@ class BindingManager {
 
     for (const sibling of siblings) {
       try {
-        const filePath = this.getContentPath(sibling.contentType, sibling.slug, group.locale);
-        if (!fs.existsSync(filePath)) continue;
-        const content = this.loadPageContent(sibling.contentType, sibling.slug, group.locale);
-        if (!content) continue;
-        const sections = content.sections as Record<string, unknown>[];
+        const { data: siblingData, filePath } = this.loadPageContent(sibling.contentType, sibling.slug, group.locale);
+        if (!siblingData) continue;
+        const sections = siblingData.sections as Record<string, unknown>[];
         if (!Array.isArray(sections) || sibling.sectionIndex >= sections.length) continue;
         const existingSectionObj = sections[sibling.sectionIndex] as Record<string, unknown>;
         if (!existingSectionObj) continue;
 
         sections[sibling.sectionIndex] = this.mergeContentIntoSection(existingSectionObj, sourceSection);
-        const updatedYaml = safeYamlDump(content, {
+        const updatedYaml = safeYamlDump(siblingData, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -404,43 +395,9 @@ class BindingManager {
     }
   }
 
-  private getContentPath(contentType: string, slug: string, locale: string): string {
-    const typeFolder = getFolder(contentType);
-    const resolved = contentIndex.resolveBaseSlug(slug, contentType);
-    const folder = path.join(CONTENT_BASE_PATH, typeFolder, resolved);
-
-    if (getType(contentType) === "landing") {
-      return path.join(folder, "promoted.yml");
-    }
-    return path.join(folder, `${locale}.yml`);
-  }
-
-  private getContentFolder(contentType: string, slug: string): string {
-    const typeFolder = getFolder(contentType);
-    const resolved = contentIndex.resolveBaseSlug(slug, contentType);
-    return path.join(CONTENT_BASE_PATH, typeFolder, resolved);
-  }
-
-  private loadPageContent(contentType: string, slug: string, locale: string): Record<string, unknown> | null {
-    try {
-      const filePath = this.getContentPath(contentType, slug, locale);
-      if (!fs.existsSync(filePath)) return null;
-
-      const contentFolder = this.getContentFolder(contentType, slug);
-      const commonPath = path.join(contentFolder, "_common.yml");
-      let commonData: Record<string, unknown> = {};
-      if (fs.existsSync(commonPath)) {
-        const commonContent = fs.readFileSync(commonPath, "utf-8");
-        commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-      }
-
-      const fileContent = fs.readFileSync(filePath, "utf-8");
-      const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
-      return deepMerge(commonData, localeData);
-    } catch (error) {
-      console.error(`[BindingManager] Error loading content for ${contentType}/${slug}:`, error);
-      return null;
-    }
+  private loadPageContent(contentType: string, slug: string, locale: string): { data: Record<string, unknown> | null; filePath: string } {
+    const { data, filePath } = loadLocaleData(contentType, slug, locale);
+    return { data, filePath };
   }
 
   private stripExcludedProperties(section: Record<string, unknown>): Record<string, unknown> {
@@ -493,19 +450,13 @@ class BindingManager {
     for (const sibling of siblings) {
       try {
         const locale = group.locale;
-        const filePath = this.getContentPath(sibling.contentType, sibling.slug, locale);
-        if (!fs.existsSync(filePath)) {
-          errors.push(`File not found for ${sibling.contentType}/${sibling.slug}`);
-          continue;
-        }
-
-        const content = this.loadPageContent(sibling.contentType, sibling.slug, locale);
-        if (!content) {
+        const { data: siblingData, filePath } = this.loadPageContent(sibling.contentType, sibling.slug, locale);
+        if (!siblingData) {
           errors.push(`Could not load content for ${sibling.contentType}/${sibling.slug}`);
           continue;
         }
 
-        const sections = content.sections as Record<string, unknown>[];
+        const sections = siblingData.sections as Record<string, unknown>[];
         if (!Array.isArray(sections) || sibling.sectionIndex >= sections.length) {
           errors.push(`Section index ${sibling.sectionIndex} out of range for ${sibling.contentType}/${sibling.slug}`);
           continue;
@@ -528,7 +479,7 @@ class BindingManager {
 
         sections[sibling.sectionIndex] = this.mergeContentIntoSection(existingSectionObj, updatedSection);
 
-        const updatedYaml = safeYamlDump(content, {
+        const updatedYaml = safeYamlDump(siblingData, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -554,9 +505,9 @@ class BindingManager {
     for (const group of this.data.groups) {
       const validMembers = group.members.filter(member => {
         try {
-          const content = this.loadPageContent(member.contentType, member.slug, group.locale);
-          if (!content) return false;
-          const sections = content.sections as unknown[];
+          const { data } = this.loadPageContent(member.contentType, member.slug, group.locale);
+          if (!data) return false;
+          const sections = data.sections as unknown[];
           if (!Array.isArray(sections) || member.sectionIndex >= sections.length) return false;
           const section = sections[member.sectionIndex] as Record<string, unknown>;
           return section && section.type === group.component;

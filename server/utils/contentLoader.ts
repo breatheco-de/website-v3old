@@ -30,7 +30,9 @@ function stripNullValues<T>(obj: T): T {
     return undefined as unknown as T;
   }
   if (Array.isArray(obj)) {
-    return obj.map(item => stripNullValues(item)) as unknown as T;
+    return obj
+      .map(item => stripNullValues(item))
+      .filter(item => item !== undefined) as unknown as T;
   }
   if (typeof obj === "object" && obj !== null) {
     const result: Record<string, unknown> = {};
@@ -38,7 +40,6 @@ function stripNullValues<T>(obj: T): T {
       if (value !== null) {
         result[key] = stripNullValues(value);
       }
-      // If value is null, we simply don't include the key, making it undefined
     }
     return result as T;
   }
@@ -203,4 +204,101 @@ export function loadCommonData(contentType: ContentType, slug: string): Record<s
   }
 }
 
-export { MARKETING_CONTENT_PATH };
+/**
+ * Resolve the content folder path for a given content type and slug.
+ * Handles slug aliasing via contentIndex.resolveBaseSlug.
+ */
+export function getContentFolderPath(contentType: string, slug: string): string {
+  const folder = getFolder(contentType);
+  const resolved = contentIndex.resolveBaseSlug(slug, contentType);
+  return path.join(MARKETING_CONTENT_PATH, folder, resolved);
+}
+
+/**
+ * Resolve the content file path for a given content type, slug, and locale.
+ * Supports variant/version files and landing special-casing (promoted.yml).
+ */
+export function getContentFilePath(
+  contentType: string,
+  slug: string,
+  locale: string,
+  variant?: string,
+  version?: number
+): string {
+  const folder = getContentFolderPath(contentType, slug);
+
+  if (variant && variant !== "default" && version !== undefined) {
+    return path.join(folder, `${variant}.v${version}.${locale}.yml`);
+  }
+
+  if (contentType === "landing") {
+    return path.join(folder, "promoted.yml");
+  }
+
+  return path.join(folder, `${locale}.yml`);
+}
+
+/**
+ * Load only the locale-specific YAML data (no _common.yml merge).
+ * Use this when you need to write back to the locale file without polluting it
+ * with _common.yml content.
+ */
+export function loadLocaleData(
+  contentType: string,
+  slug: string,
+  locale: string,
+  variant?: string,
+  version?: number
+): { data: Record<string, unknown> | null; filePath: string; error?: string } {
+  try {
+    const filePath = getContentFilePath(contentType, slug, locale, variant, version);
+    if (!fs.existsSync(filePath)) {
+      return { data: null, filePath, error: `Content file not found: ${filePath}` };
+    }
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = safeYamlLoad(raw) as Record<string, unknown>;
+    return { data, filePath };
+  } catch (error) {
+    return { data: null, filePath: "", error: `Error loading locale data: ${error}` };
+  }
+}
+
+/**
+ * Load the merged content (_common.yml + locale file).
+ * Use this for validation and display where the full page structure is needed.
+ */
+export function loadMergedContent(
+  contentType: string,
+  slug: string,
+  locale: string,
+  variant?: string,
+  version?: number
+): { data: Record<string, unknown> | null; filePath: string; error?: string } {
+  try {
+    const filePath = getContentFilePath(contentType, slug, locale, variant, version);
+    if (!fs.existsSync(filePath)) {
+      return { data: null, filePath, error: `Content file not found: ${filePath}` };
+    }
+
+    const contentFolder = getContentFolderPath(contentType, slug);
+    const commonPath = path.join(contentFolder, "_common.yml");
+    let commonData: Record<string, unknown> = {};
+    if (fs.existsSync(commonPath)) {
+      const commonContent = fs.readFileSync(commonPath, "utf-8");
+      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
+    }
+
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const localeData = safeYamlLoad(raw) as Record<string, unknown>;
+
+    const merged = Object.keys(commonData).length > 0
+      ? deepMerge(commonData, localeData)
+      : localeData;
+
+    return { data: merged, filePath };
+  } catch (error) {
+    return { data: null, filePath: "", error: `Error loading merged content: ${error}` };
+  }
+}
+
+export { MARKETING_CONTENT_PATH, safeYamlLoad, stripNullValues };
