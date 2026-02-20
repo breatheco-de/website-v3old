@@ -217,7 +217,7 @@ salary_data_scientist:
       value: "$80K–$130K"
     - query:
         region: "europe"
-      value: "40.000€"
+      value: "20.000€ - 30.000€"
     - query:
         region: "latam"
       value: "$22.500 USD"
@@ -243,7 +243,7 @@ average_salary_machine_learning_engineer:
   conditions:
     - query:
         region: "europe"
-      value: "$90K–$150K"
+      value: "22.000 € - 30.000 €"
 average_salary_ai_fluent_software_developer:
   default: "$100K–$150K"
   conditions:
@@ -262,7 +262,7 @@ average_salary_data_analyst:
       value: "$60K–$95K"
     - query:
         region: "europe"
-      value: "20.000€-30.000€"
+      value: "20.000€ - 30.000€"
 average_salary_ai_engineer:
   default: "$100K–$160K"
   conditions:
