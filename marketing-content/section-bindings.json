@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "id": "bind_mlvj91zf_sbsqve",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 5
+        }
+      ],
+      "createdAt": "2026-02-20T23:40:25.803Z"
+    }
+  ]
+}
