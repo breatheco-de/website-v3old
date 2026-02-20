@@ -535,7 +535,7 @@ export function SectionBindingDialog({
                         <span className="truncate">{m.slug}</span>
                       ) : (
                         <a
-                          href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}`}
+                          href={`/private/preview/${m.contentType}s/${m.slug}?locale=${locale}`}
                           className="truncate underline cursor-pointer"
                           onClick={() => handleOpenChange(false)}
                           data-testid={`link-member-${key}`}
