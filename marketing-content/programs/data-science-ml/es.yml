@@ -61,7 +61,7 @@ sections:
         - icon: IconRobot
           text: Aprendizaje y Retroalimentación con IA
         - icon: IconUsers
-          text: Ratio de 8:1 Estudiante-Instructor
+          text: Ratio de {{ global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 Ilimitada
         - icon: book
@@ -257,15 +257,15 @@ sections:
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
-      - text: Data Scientist 22.000€ a 35.000€
-      - text: Full-Stack Engineer 20.000€ a 30.000€ (<2 años)
+      - text: Data Scientist
+      - text: Full-Stack Engineer (<2 años)
       - text: AI Engineer 22.000€ a 35.000€ (<2 años)
     card:
       title: Data Scientist
       subtitle: Certificado de 4Geeks Academy
       program_name: Data Science & Machine Learning
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan activamente.
         benefits:
@@ -280,14 +280,14 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Aumento salarial promedio
         description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
-          - text: Data Scientist 22.000€ a 35.000€
-          - text: Full-Stack Engineer 20.000€ a 30.000€ (<2 años)
-          - text: AI Engineer 22.000€ a 35.000€ (<2 años)
+          - text: Analista de Ciberseguridad {{ global_salary_cybersecurity_analist | 20.000€-25.000€ }}
+          - text: Científico de datos {{ salary_data_scientist | {{ average_salary_ai_engineer | 22.000€-35.000€ }} }}
+          - text: Analista de Datos {{ average_salary_data_analyst | 20.000€ a 30.000€ }} (<2 años)
+          - text: AI Engineer 22.000€-35.000€ (<2 años)
       - value: 5,000+
         label: Empresas Asociadas
         description: Accede a nuestra red de más de 5,000 empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
