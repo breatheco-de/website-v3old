@@ -14,7 +14,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: Dentro de la Plataforma de 4Geeks
     subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentoría humana. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.
@@ -43,10 +43,6 @@ sections:
       - Bucle de retroalimentación en tiempo real  
 
       Todo está diseñado para ayudarte a enfocarte, planificar y mantenerte motivado. No es solo fácil de usar, es *hecho para ti*.
-
-      ![Vista general del dashboard](attachment:4565a1f4-15b3-4936-84dd-9e94edcbd87c:image.png)
-
-      ---
 
       ## Aprende Haciendo: Modular, Interactivo y Centrado en las Personas
 
@@ -120,8 +116,8 @@ sections:
       Explora la plataforma de 4Geeks Academy, comienza a aprender con LearnPack, programa junto a Rigobot y da el primer paso hacia tu nueva carrera tech.
 
       👉 [Explora los programas ahora](https://4geeksacademy.com/) o agenda una sesión con un mentor hoy.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
   - type: faq
     version: v1.0
     title: Preguntas Frecuentes
@@ -129,6 +125,44 @@ sections:
       - online-platform
     paddingY:
       desktop: none md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para comenzar?
+    subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplica ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md

@@ -14,7 +14,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: LearnPack Crea Enseña Aprende
     subtitle: LearnPack transforma cualquier tema en cursos interactivos con autoevaluación en minutos usando IA. Crea currículos completos con lecciones, quizzes y ejercicios, sin necesidad de programar.
@@ -103,8 +103,8 @@ sections:
       - 🔗 ¿Quieres impulsar tu carrera? Aplica al [Full Stack Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) y obtén LearnPack y Rigobot desde el primer día.
 
       ¿Preguntas? Escribe a **info@4geeksacademy.com** o chatea con un asesor.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
   - type: faq
     version: v1.0
     title: Preguntas Frecuentes
@@ -113,7 +113,7 @@ sections:
     marginY:
       desktop: none md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
     background: hsl(var(--primary))

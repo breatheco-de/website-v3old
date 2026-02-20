@@ -361,7 +361,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
     financing_text: Financiamiento en cuotas desde
-    financing_amount: {{ mounthly_price_bootcamp | Desde 200 € }}
+    financing_amount: {{ price_datascience | 200€ }}
     tech_icons:
       - python
       - tensorflow
@@ -409,7 +409,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ price_ai_engineering | default: '$349' }}
+    financing_amount: {{ price_datascience | 200€ }}
     tech_icons:
       - openai
       - python
@@ -422,9 +422,9 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es {{ price_full_ai_engineering | default: '$14,999' }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: La matrícula estándar es {{ price_full_datascience | $14,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero. No disponible en todas las regiones. Aplican términos y condiciones.
+        text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -437,7 +437,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: none md
+      desktop: lg md
     showOnLocations:
       - atlanta-usa
       - austin-usa

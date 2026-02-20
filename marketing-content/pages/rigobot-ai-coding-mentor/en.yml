@@ -35,7 +35,7 @@ sections:
 
       ## How Rigobot Works – Step by Step Example
 
-      1. **Launch a [LearnPack](https://4geeksacademy.com/us/learnpack) exercise** with one click (no setup).
+      1. **Launch a [LearnPack](https://new.4geeks.com/en/learnpack) exercise** with one click (no setup).
       2. **Code like a pro** in VS Code; Rigobot silently watches tests and commits.
       3. **Ask for help** via the *Get Feedback* pane or wait for Rigobot’s proactive nudge.
       4. **Instant explanation**: highlights the bug, explains the logic, suggests a fix.
@@ -95,15 +95,14 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      tags: website-lead
-      automations: hard
+      submit_label: Get the details
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -120,7 +119,6 @@ sections:
         program:
           visible: true
           required: true
-          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:

@@ -405,7 +405,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full Payment Discount: Save 10% with early payment."
     financing_text: Installment financing starting from
-    financing_amount: {{ mounthly_price_bootcamp | Starting at €200 }}
+    financing_amount: {{ price_datascience | Starting at €200 }}
     tech_icons:
       - python
       - tensorflow

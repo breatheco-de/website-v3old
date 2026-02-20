@@ -1,4 +1,4 @@
-import type { ComparisonTableSection } from "@shared/schema";
+import type { ComparisonTableSection, ComparisonTableCellValue, ComparisonTableCtaButton } from "@shared/schema";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import {
   Accordion,
@@ -6,10 +6,47 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import SolidCard from "@/components/SolidCard.tsx";
 
 interface ComparisonTableProps {
   data: ComparisonTableSection;
+}
+
+function getCellText(value: ComparisonTableCellValue): string {
+  if (typeof value === "string") return value;
+  return value.text || "";
+}
+
+function getCellCta(value: ComparisonTableCellValue): ComparisonTableCtaButton[] | undefined {
+  if (typeof value === "string") return undefined;
+  return value.cta;
+}
+
+function mapCtaVariant(variant?: string): "default" | "outline" | "ghost" | "secondary" {
+  if (variant === "primary") return "default";
+  if (variant === "outline") return "outline";
+  if (variant === "ghost") return "ghost";
+  if (variant === "secondary") return "secondary";
+  return "default";
+}
+
+function CtaButtons({ buttons }: { buttons: ComparisonTableCtaButton[] }) {
+  return (
+    <div className="flex flex-col items-center gap-2 mt-2">
+      {buttons.map((btn, i) => (
+        <Button
+          key={i}
+          variant={mapCtaVariant(btn.variant)}
+          size="sm"
+          asChild
+          data-testid={`button-cta-${i}`}
+        >
+          <a href={btn.url}>{btn.text}</a>
+        </Button>
+      ))}
+    </div>
+  );
 }
 
 function CellValue({ value, isHighlighted }: { value: string; isHighlighted?: boolean }) {
@@ -107,11 +144,13 @@ function TableContent({
               const isHighlightedCol = valIndex === highlightIndex - 1;
               const isLastCol = valIndex === row.values.length - 1;
               const rowBg = rowIndex % 2 === 0 ? "bg-card" : oddRowColor;
+              const cellText = getCellText(value);
+              const cellCta = getCellCta(value);
               
               return (
                 <div
                   key={valIndex}
-                  className={`py-5 px-6 text-center flex items-center justify-center ${
+                  className={`py-5 px-6 text-center flex flex-col items-center justify-center ${
                     !isLastCol ? "border-r border-border/50" : ""
                   } ${rowBg} ${
                     isHighlightedCol
@@ -120,7 +159,8 @@ function TableContent({
                   }`}
                   data-testid={`td-value-${rowIndex}-${valIndex}`}
                 >
-                  <CellValue value={value} isHighlighted={isHighlightedCol} />
+                  {cellText && <CellValue value={cellText} isHighlighted={isHighlightedCol} />}
+                  {cellCta && cellCta.length > 0 && <CtaButtons buttons={cellCta} />}
                 </div>
               );
             })}
@@ -202,6 +242,8 @@ export function ComparisonTable({ data }: ComparisonTableProps) {
                     {row.values.map((value, valIndex) => {
                       const columnName = data.columns[valIndex + 1]?.name || `Column ${valIndex + 2}`;
                       const isHighlightedCol = valIndex === highlightIndex - 1;
+                      const cellText = getCellText(value);
+                      const cellCta = getCellCta(value);
                       
                       return (
                         <div 
@@ -217,11 +259,14 @@ export function ComparisonTable({ data }: ComparisonTableProps) {
                           }`}>
                             {columnName}
                           </p>
-                          <p className={`text-sm ${
-                            isHighlightedCol ? "font-bold text-foreground" : "text-muted-foreground"
-                          }`}>
-                            <CellValue value={value} isHighlighted={isHighlightedCol} />
-                          </p>
+                          {cellText && (
+                            <p className={`text-sm ${
+                              isHighlightedCol ? "font-bold text-foreground" : "text-muted-foreground"
+                            }`}>
+                              <CellValue value={cellText} isHighlighted={isHighlightedCol} />
+                            </p>
+                          )}
+                          {cellCta && cellCta.length > 0 && <CtaButtons buttons={cellCta} />}
                         </div>
                       );
                     })}

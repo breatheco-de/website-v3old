@@ -308,6 +308,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
   mediaGallery.setContentIndex(contentIndex);
 
+  app.get("/api/geo", async (req, res) => {
+    try {
+      const forwarded = req.headers["x-forwarded-for"];
+      const clientIp = typeof forwarded === "string"
+        ? forwarded.split(",")[0].trim()
+        : req.socket.remoteAddress || "";
+
+      const url = clientIp && clientIp !== "127.0.0.1" && clientIp !== "::1"
+        ? `http://ip-api.com/json/${clientIp}?fields=status,city,country,countryCode,regionName,timezone,lat,lon`
+        : `http://ip-api.com/json/?fields=status,city,country,countryCode,regionName,timezone,lat,lon`;
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        res.status(502).json({ status: "fail" });
+        return;
+      }
+      const data = await response.json();
+      res.json(data);
+    } catch {
+      res.status(502).json({ status: "fail" });
+    }
+  });
+
   app.get("/apply", (req, res) => {
     const lang = detectLanguageFromRequest(req);
     const target = lang === "es" ? "/es/aplica" : "/en/apply";
@@ -4620,6 +4647,7 @@ sections: []
         sms_consent: leadData.sms_consent || false,
         consent_email: leadData.consent_email || false,
         comment: leadData.comment || null,
+        client_comments: leadData.client_comments || null,
         // Session/tracking data
         utm_url: leadData.utm_url || null,
         utm_source: leadData.utm_source || null,

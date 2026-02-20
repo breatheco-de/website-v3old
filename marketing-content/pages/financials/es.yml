@@ -277,11 +277,11 @@ sections:
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
-            text: {{ price_full_ai_engineering | $14,999 }} inversión total
+            text: $14,999 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: {{ price_ai_engineering | $349 }}
+        price: $349
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
@@ -293,14 +293,14 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} inversión total
+            text: $10,999 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         tags:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: {{ price_fullstack | $299 }}
+        price: $299
         price_info: o menos según tu plan de pago
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
@@ -312,11 +312,11 @@ sections:
         title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_datascience | $14,999 }} inversión total
+            text: $10,999 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: {{ price_datascience | 299$ }}
+        price: 299$
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
@@ -328,11 +328,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ price_full_cybersecurity | $9999 }} inversión total
+            text: $9,999 inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ monthly_cyber | $555 }}
+        price: $299
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -366,11 +366,11 @@ sections:
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
-            text: {{ price_full_ai_engineering | $14,999 }} inversión total
+            text: 3500 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: {{ price_ai_engineering | $349 }}
+        price: 227 USD
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
@@ -382,14 +382,14 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} inversión total
+            text: 2500 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         tags:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: {{ price_fullstack | $299 }}
+        price: 150 USD
         price_info: o menos según tu plan de pago
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
@@ -401,11 +401,11 @@ sections:
         title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_datascience | $14,999 }} inversión total
+            text: 3250 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: {{ price_datascience | 299$ }}
+        price: 170 USD
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
@@ -417,11 +417,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ price_full_cybersecurity | {{ monthly_cyber | {{ price_cybersecurity | {{ monthly_cyber | 5555 }}  inversión total
+            text: 2500 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ monthly_cyber | $9999 }}
+        price: 150 USD
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -490,7 +490,7 @@ sections:
         title: Data Science y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: 7.800 inversión total"
+            text: 7.800€ inversión total"
           - icon: CheckCircle
             text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
@@ -680,3 +680,47 @@ sections:
           - barcelona-spain
           - berlin-germany
           - dublin-ireland
+<<<<<<< HEAD
+  - type: cta_banner
+    version: "1.0"
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Obtener los detalles
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: false
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
+=======
+>>>>>>> parent of 1b1dcafe (Restored to '068a05c93907146d1827af22470c5d5c02920752')

@@ -273,14 +273,13 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
-    subtitle: Contact us to get more details.
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get in touch
-      tags: website-lead
-      automations: hard
+      submit_label: Get the details
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -295,9 +294,8 @@ sections:
           required: false
           placeholder: Phone number
         program:
-          visible: false
-          required: false
-          default: auto
+          visible: true
+          required: true
       success:
         message: Thank you! We'll be in touch soon.
       consent:

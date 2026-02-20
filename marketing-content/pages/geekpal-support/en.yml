@@ -152,14 +152,13 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
-    subtitle: Get pricing, curriculum details, and personalized guidance.
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       submit_label: Get the details
-      tags: website-lead
-      automations: hard
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -174,9 +173,8 @@ sections:
           required: false
           placeholder: Phone number
         program:
-          visible: false
-          required: false
-          default: auto
+          visible: true
+          required: true
       success:
         message: Thank you! We'll be in touch soon.
       consent:

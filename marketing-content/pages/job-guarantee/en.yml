@@ -91,7 +91,7 @@ sections:
       desktop: none
   - type: course_selector
     version: "1.0"
-    variant: default
+    variant: solid
     heading: Career Programs with the Job Guarantee Option
     subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
     courses:
@@ -104,11 +104,12 @@ sections:
           - icon: DollarSign
             text: APIS, automation, telemetry
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: {{ price_ai_engineering | $2000 }}
+        price: $2000
+        price_period: " "
         price_info: for the additional Job Guarantee
         cta_text: Program details
         cta_url: /en/career-programs/ai-engineering
-        course_background: accent
+        course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         duration: 20 weeks
         label: Updated in 2026
@@ -120,11 +121,12 @@ sections:
           - icon: Plus
             text: API Development
         description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: {{ price_fullstack | $2000 }}
+        price: $2000
+        price_period: " "
         price_info: for the additional Job Guaranteewith 4Geeks Installments
         cta_text: Program details
         cta_url: /en/career-programs/full-stack
-        course_background: primary
+        course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
         duration: 16 weeks
         label: Updated in 2026
@@ -133,11 +135,12 @@ sections:
           - icon: Brain
             text: Python, TensorFlow, SQL
         description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: {{ price_datascience | 2000$ }}
+        price: $2000
+        price_period: " "
         price_info: for the additional Job Guarantee
         cta_text: Program details
         cta_url: /en/career-programs/ai-machine-learning
-        course_background: accent
+        course_background: hsl(var(--primary))
       - name: Cybersecurity
         duration: 16 weeks
         label: Updated in 2026
@@ -146,11 +149,105 @@ sections:
           - icon: Code
             text: Threat detection & system protection
         description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: {{ price_cybersecurity | 2000$ }}
+        price: $2000
+        price_period: " "
         price_info: for the additional Job Guarantee
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--color-pink))
+        course_background: hsl(var(--secondary-foreground))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Career Programs with the Job Guarantee Option
+    subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: APIS, automation, telemetry
+        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science and Machine Learning
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Brain
+            text: Python, TensorFlow, SQL
+        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-machine-learning
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Code
+            text: Threat detection & system protection
+        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
@@ -215,14 +312,13 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
-    subtitle: Apply now to secure your spot and get full program details.
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      tags: website-lead
-      automations: hard
+      submit_label: Get the details
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -239,7 +335,6 @@ sections:
         program:
           visible: true
           required: true
-          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:

@@ -336,6 +336,9 @@ monthly_cyber:
   default: "$299"
   conditions:
     - query:
+        region: "usa-canada"
+      value: "$299"
+    - query:
         region: "latam"
       value: "150 USD"
     - query:

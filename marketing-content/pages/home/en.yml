@@ -18,8 +18,8 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: Next-Generation Tech Careers. Powered by AI.
-    subtitle: Career-focused programs in AI Engineering, Software Development, Data Science, and Cybersecurity. Built to launch high-growth careers in today’s AI-powered tech.
+    title: Where AI Careers Are Built.
+    subtitle: AI Engineering, Data Science, Software Development, and Cybersecurity programs for high-growth careers in tech.
     trust_bar:
       rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 3,000+
@@ -140,7 +140,7 @@ sections:
       desktop: none md
   - type: career_support_explain
     version: v1.0
-    heading: Get Hired. With Career Support Built for the AI Era
+    heading: Get Hired. With Career Support Built for the AI Era.
     description: Our career support program is designed to help you land your first job in tech
     background: hsl(var(--sidebar-background))
     tabs:
@@ -357,3 +357,44 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
+  - type: cta_banner
+    version: "1.0"
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Get the details
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: false
+          required: false
+          default: auto
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
