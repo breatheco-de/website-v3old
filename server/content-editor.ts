@@ -15,6 +15,7 @@ import { markFileAsModified } from "./sync-state";
 import {
   loadLocaleData,
   loadCommonData,
+  getCommonFilePath,
   stripNullValues,
 } from "./utils/contentLoader";
 import { deepMerge } from "./utils/deepMerge";
@@ -328,6 +329,53 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     return { success: true, updatedSections };
   } catch (error) {
     console.error("Content edit error:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+interface CommonEditRequest {
+  contentType: "program" | "landing" | "location" | "page";
+  slug: string;
+  operations: Array<{ action: "update_field"; path: string; value: unknown }>;
+  author?: string;
+}
+
+export function editCommonContent(request: CommonEditRequest): { success: boolean; error?: string } {
+  const { contentType, slug, operations, author } = request;
+
+  try {
+    const commonPath = getCommonFilePath(contentType, slug);
+    if (!fs.existsSync(commonPath)) {
+      return { success: false, error: `_common.yml not found for ${contentType}/${slug}` };
+    }
+
+    const raw = fs.readFileSync(commonPath, "utf-8");
+    const commonData = (yaml.load(raw) as Record<string, unknown>) || {};
+
+    for (const op of operations) {
+      if (op.action !== "update_field") {
+        return { success: false, error: `Unsupported operation: ${op.action}` };
+      }
+      if (op.value === null || op.value === undefined) {
+        delete commonData[op.path];
+      } else {
+        setValueAtPath(commonData, op.path, op.value);
+      }
+    }
+
+    const updatedYaml = safeYamlDump(commonData, {
+      lineWidth: -1,
+      noRefs: true,
+      quotingType: '"',
+      forceQuotes: false,
+    });
+
+    fs.writeFileSync(commonPath, updatedYaml, "utf-8");
+    markFileAsModified(commonPath, author);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Common content edit error:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }

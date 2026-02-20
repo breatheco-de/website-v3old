@@ -21,7 +21,7 @@ export async function editContent(request: ContentEditRequest): Promise<ContentE
   const token = getDebugToken();
   const author = getDebugUserName() || "Unknown";
 
-  const response = await fetch("/api/content/edit", {
+  const response = await fetch("/api/content/edit-sections", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -215,6 +215,14 @@ export function getContentFolderPath(contentType: string, slug: string): string 
 }
 
 /**
+ * Resolve the _common.yml file path for a given content type and slug.
+ */
+export function getCommonFilePath(contentType: string, slug: string): string {
+  const folder = getContentFolderPath(contentType, slug);
+  return path.join(folder, "_common.yml");
+}
+
+/**
  * Resolve the content file path for a given content type, slug, and locale.
  * Supports variant/version files and landing special-casing (promoted.yml).
  */

@@ -45,7 +45,7 @@ import {
   saveExample,
   loadAllFieldEditors,
 } from "./component-registry";
-import { editContent, getContentForEdit } from "./content-editor";
+import { editContent, editCommonContent, getContentForEdit } from "./content-editor";
 import { bindingManager } from "./bindings";
 import {
   escapeTemplateVars,
@@ -67,6 +67,7 @@ import {
   loadContent,
   listContentSlugs,
   loadCommonData,
+  getContentFolderPath,
   type ContentType,
 } from "./utils/contentLoader";
 import {
@@ -3071,43 +3072,23 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const commonPath = path.join(
-        process.cwd(),
-        "marketing-content",
-        getFolder(contentType),
+      const authorName = author && typeof author === "string" ? author : undefined;
+
+      const result = editCommonContent({
+        contentType,
         slug,
-        "_common.yml",
-      );
-      if (!fs.existsSync(commonPath)) {
-        res
-          .status(404)
-          .json({ error: "_common.yml not found for this landing" });
+        operations: [
+          { action: "update_field", path: "locations", value: locations.length > 0 ? locations : null },
+        ],
+        author: authorName,
+      });
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
         return;
       }
 
-      const commonContent = fs.readFileSync(commonPath, "utf-8");
-      const commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-
-      if (locations.length === 0) {
-        delete commonData.locations;
-      } else {
-        commonData.locations = locations;
-      }
-
-      const updatedYaml = safeYamlDump(commonData, {
-        lineWidth: -1,
-        noRefs: true,
-        quotingType: '"',
-        forceQuotes: false,
-      });
-      fs.writeFileSync(commonPath, updatedYaml, "utf-8");
-
-      markFileAsModified(
-        commonPath,
-        author && typeof author === "string" ? author : undefined,
-      );
-
-      const landingDir = path.dirname(commonPath);
+      const landingDir = getContentFolderPath(contentType, slug);
       const variantFiles = fs
         .readdirSync(landingDir)
         .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
@@ -3131,7 +3112,7 @@ Important: Only include mappings where you are confident the field exists. Use d
             fs.writeFileSync(variantPath, variantYaml, "utf-8");
             markFileAsModified(
               variantPath,
-              author && typeof author === "string" ? author : undefined,
+              authorName,
             );
             strippedVariants.push(variantFile);
           }
@@ -3152,7 +3133,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       res.json({
         success: true,
-        locations: commonData.locations || [],
+        locations: locations.length > 0 ? locations : [],
         strippedVariants,
       });
     } catch (error) {
@@ -4373,8 +4354,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
-  // Content editing API
-  app.post("/api/content/edit", async (req, res) => {
+  // Content editing API (sections only — writes to locale files)
+  app.post("/api/content/edit-sections", async (req, res) => {
     try {
       // In development mode, allow without token (using X-Debug-Token or no auth)
       const isDevelopment = process.env.NODE_ENV !== "production";
@@ -4558,6 +4539,71 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
     } catch (error) {
       console.error("Content edit error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  app.post("/api/content/edit-common", async (req, res) => {
+    try {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const debugToken = req.headers["x-debug-token"] as string | undefined;
+      const authHeader = req.headers.authorization;
+
+      let token: string | null = null;
+      if (authHeader?.startsWith("Token ")) {
+        token = authHeader.slice(6);
+      } else if (debugToken) {
+        token = debugToken;
+      }
+
+      if (!isDevelopment) {
+        if (!token) {
+          res.status(401).json({ error: "Authorization required" });
+          return;
+        }
+        const capResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          {
+            method: "GET",
+            headers: { Authorization: `Token ${token}`, Academy: "4" },
+          },
+        );
+        if (capResponse.status === 401) {
+          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          return;
+        }
+        if (capResponse.status !== 200) {
+          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          return;
+        }
+      }
+
+      const { contentType, slug, operations, author: requestAuthor } = req.body;
+
+      if (!contentType || !slug || !Array.isArray(operations) || operations.length === 0) {
+        res.status(400).json({ error: "Missing required fields: contentType, slug, operations (array)" });
+        return;
+      }
+
+      const authorName = requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined;
+
+      const result = editCommonContent({
+        contentType,
+        slug,
+        operations,
+        author: authorName,
+      });
+
+      if (result.success) {
+        clearSitemapCache();
+        clearRedirectCache();
+        contentIndex.refresh();
+        res.json({ success: true });
+      } else {
+        res.status(400).json({ error: result.error });
+      }
+    } catch (error) {
+      console.error("Common content edit error:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });

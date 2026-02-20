@@ -43,7 +43,7 @@ async function updateSectionField(
   value: ResponsiveSpacing
 ): Promise<{ success: boolean; error?: string }> {
   const token = getDebugToken();
-  const response = await fetch("/api/content/edit", {
+  const response = await fetch("/api/content/edit-sections", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -362,7 +362,7 @@ export function EditableSection({ children, section, index, sectionType, content
     setIsConfirming(true);
     try {
       const token = getDebugToken();
-      const res = await fetch('/api/content/edit', {
+      const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -433,7 +433,7 @@ export function EditableSection({ children, section, index, sectionType, content
       const sectionToSave = { type: sectionType, ...sectionData } as Section;
       
       const token = getDebugToken();
-      const res = await fetch('/api/content/edit', {
+      const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

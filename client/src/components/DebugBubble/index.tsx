@@ -966,13 +966,12 @@ export function DebugBubble() {
         { action: "update_field", path: "schema", value: Object.keys(schemaValue).length > 0 ? schemaValue : null },
       ];
 
-      const res = await fetch("/api/content/edit", {
+      const res = await fetch("/api/content/edit-common", {
         method: "POST",
         headers,
         body: JSON.stringify({
           contentType: apiContentType,
           slug: contentInfo.slug,
-          locale,
           author: author || undefined,
           operations,
         }),
