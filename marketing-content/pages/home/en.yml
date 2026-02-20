@@ -18,8 +18,8 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: Next-Generation Tech Careers. Powered by AI.
-    subtitle: Career-focused programs in AI Engineering, Software Development, Data Science, and Cybersecurity. Built to launch high-growth careers in today’s AI-powered tech.
+    title: Where AI Careers Are Built.
+    subtitle: AI Engineering, Data Science, Software Development, and Cybersecurity programs for high-growth careers in the AI economy.
     trust_bar:
       rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 3,000+
