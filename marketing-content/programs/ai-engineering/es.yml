@@ -463,7 +463,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
     financing_text: Financiamiento en cuotas desde
-    financing_amount: 140€
+    financing_amount: {{ price_ai_engineering | 140€ }}
     tech_icons:
       - python
       - tensorflow
