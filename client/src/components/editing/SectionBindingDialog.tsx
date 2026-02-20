@@ -754,7 +754,7 @@ export function SectionBindingDialog({
                 </div>
               )}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 max-h-[132px] overflow-y-auto">
               {existingGroup.members.map(m => {
                 const key = `${m.contentType}:${m.slug}:${m.sectionIndex}`;
                 const isSelf = key === currentKey;
