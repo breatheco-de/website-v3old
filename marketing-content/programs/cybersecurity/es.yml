@@ -337,14 +337,14 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia de búsqueda de empleo personalizada con acceso a redes de contratación relevantes
-      - value: $85K+
+      - value: {{ average_salary_cybersecurity_short | $85 }}K+
         label: Salario inicial promedio
         description: Una carrera en ciberseguridad no es solo un nuevo empleo, es una nueva trayectoria de vida. Con un aumento salarial promedio del 55%, nuestros graduados alcanzan un nivel de estabilidad y crecimiento que pocas industrias pueden ofrecer.
         benefits:
-          - text: "Analista de Ciberseguridad: $75K–$120K"
-          - text: "Penetration Tester: $90K–$150K"
-          - text: "Ingeniero de Seguridad: $100K–$165K"
-          - text: "Especialista en Respuesta a Incidentes: $85K–$140K"
+          - text: "Analista de Ciberseguridad: {{ global_salary_cybersecurity_analist | $75K–$120K }}"
+          - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
+          - text: "Ingeniero de Seguridad: {{ global_salary_security_engineer | $100K–$165K }}"
+          - text: "Especialista en Respuesta a Incidentes: {{ global_salary_incident_responder | $85K–$140K }}"
       - value: 500+
         label: Empleadores asociados
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
@@ -476,8 +476,8 @@ sections:
     form:
       variant: stacked
       submit_label: Aplicar Ahora
-      tags: request_more_info
-      automations: soft
+      tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
