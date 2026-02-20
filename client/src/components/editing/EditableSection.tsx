@@ -752,18 +752,32 @@ export function EditableSection({ children, section, index, sectionType, content
       })()}
 
       
-      {/* Section label - top left */}
+      {/* Section labels - top left */}
       <div 
         className={`
-          absolute top-2 left-2 z-30 
-          px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground
-          transition-opacity duration-150 flex items-center gap-1.5
+          absolute top-2 left-2 z-30 flex items-center gap-1.5
+          transition-opacity duration-150
           ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
         `}
       >
-        <span>{sectionType}-{index}</span>
-        <span className="opacity-60">·</span>
-        <span className="opacity-75">{deslugify((currentSection as { variant?: string }).variant || "default")}</span>
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+              className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground hover-elevate cursor-pointer"
+              data-testid={`badge-section-anchor-${index}`}
+            >
+              #{sectionType}-{index}
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto max-w-xs p-3 text-xs" side="bottom" align="start" onClick={(e) => e.stopPropagation()}>
+            <p className="text-muted-foreground">
+              Include <span className="font-mono font-medium text-foreground">#{sectionType}-{index}</span> on the website URL to take the user to this section scroll position directly.
+            </p>
+          </PopoverContent>
+        </Popover>
+        <span className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground">
+          Variant: {deslugify((currentSection as { variant?: string }).variant || "default")}
+        </span>
       </div>
       
       {/* Content with pointer events enabled - show preview section when cycling variants */}
