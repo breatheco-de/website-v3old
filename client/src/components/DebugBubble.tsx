@@ -29,11 +29,8 @@ import {
   IconLayoutBottombar,
   IconArrowLeft,
   IconChevronRight,
-  IconChevronDown,
   IconRefresh,
   IconCheck,
-  IconSearch,
-  IconExternalLink,
   IconMessage,
   IconBuildingSkyscraper,
   IconCreditCard,
@@ -45,22 +42,15 @@ import {
   IconTable,
   IconFlask,
   IconStethoscope,
-  IconPlus,
   IconUsersGroup,
   IconBrandGithub,
   IconCloudDownload,
   IconDeviceMobile,
   IconDeviceDesktop,
   IconDatabase,
-  IconCopy,
   IconArrowUp,
-  IconArrowDown,
   IconFile,
-  IconTrash,
-  IconDeviceFloppy,
   IconMenu2,
-  IconDotsVertical,
-  IconDownload,
   IconPhoto,
 } from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -71,35 +61,26 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useDebugAuth, getDebugToken, getDebugUserName } from "@/hooks/useDebugAuth";
 import { locations } from "@/lib/locations";
 import { normalizeLocale } from "@shared/locale";
 import { LocaleFlag } from "@/components/DebugBubble/components/LocaleFlag";
 import { useQuery } from "@tanstack/react-query";
-
+import { MenusView } from "@/components/DebugBubble/components/MenusView";
+import { ComponentsView } from "@/components/DebugBubble/components/ComponentsView";
+import { ExperimentsView } from "@/components/DebugBubble/components/ExperimentsView";
+import { SitemapView } from "@/components/DebugBubble/components/SitemapView";
+import { LocationOverrideModal } from "@/components/DebugBubble/components/LocationOverrideModal";
+import { SessionModal } from "@/components/DebugBubble/components/SessionModal";
+import { SyncModal } from "@/components/DebugBubble/components/SyncModal";
+import { PullConflictModal } from "@/components/DebugBubble/components/PullConflictModal";
+import { ConfirmPullFileModal } from "@/components/DebugBubble/components/ConfirmPullFileModal";
+import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
+import { CreateContentModal } from "@/components/DebugBubble/components/CreateContentModal";
+import { PageErrorsModal } from "@/components/DebugBubble/components/PageErrorsModal";
+import { SeoModal } from "@/components/DebugBubble/components/SeoModal";
 const componentIconMap: Record<string, typeof IconComponents> = {
   hero: IconRocket,
   two_column: IconLayoutColumns,
@@ -145,7 +126,6 @@ const componentIconMap: Record<string, typeof IconComponents> = {
   bullet_tabs_showcase: IconSparkles,
   geeks_vs_others_comparison: IconTable,
 };
-
 type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus";
 
 const STORAGE_KEY = "debug-bubble-menu-view";
@@ -319,114 +299,6 @@ interface MenuData {
   };
 }
 
-function MenusView() {
-  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
-  const [, navigate] = useLocation();
-  
-  const { data: menusData, isLoading } = useQuery<{ menus: MenuFileItem[] }>({
-    queryKey: ["/api/menus"],
-  });
-  
-  const { data: menuDetailData, isFetching: isMenuLoading } = useQuery<{ name: string; data: MenuData }>({
-    queryKey: ["/api/menus", expandedMenu],
-    enabled: !!expandedMenu,
-  });
-
-  const menus = menusData?.menus || [];
-  const menuData = menuDetailData?.data;
-
-  const toggleMenu = (name: string) => {
-    setExpandedMenu(expandedMenu === name ? null : name);
-  };
-
-  const handleEditMenu = (e: React.MouseEvent, menuName: string) => {
-    e.stopPropagation();
-    navigate(`/private/menu-editor/${menuName}`);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
-      </div>
-    );
-  }
-
-  if (menus.length === 0) {
-    return (
-      <div className="text-center py-8 px-4">
-        <IconMenu2 className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-        <p className="text-sm text-muted-foreground mb-2">No menus found</p>
-        <p className="text-xs text-muted-foreground">
-          Add <code className="bg-muted px-1 rounded">.yml</code> files to{" "}
-          <code className="bg-muted px-1 rounded">marketing-content/menus/</code>
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      {menus.map((menu) => (
-        <div key={menu.name} className="mb-1">
-          <div className="flex items-center">
-            <button
-              onClick={() => toggleMenu(menu.name)}
-              className="flex items-center gap-2 flex-1 px-3 py-2 rounded-md text-sm hover-elevate cursor-pointer"
-              data-testid={`button-menu-${menu.name}`}
-            >
-              {isMenuLoading && expandedMenu === menu.name ? (
-                <IconRefresh className="h-4 w-4 text-muted-foreground animate-spin flex-shrink-0" />
-              ) : expandedMenu === menu.name ? (
-                <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-              ) : (
-                <IconChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-              )}
-              <IconMenu2 className="h-4 w-4 text-primary flex-shrink-0" />
-              <span className="font-medium">{menu.name}</span>
-              <span className="text-xs text-muted-foreground ml-auto">{menu.file}</span>
-            </button>
-            <button
-              onClick={(e) => handleEditMenu(e, menu.name)}
-              className="p-2 rounded-md hover-elevate cursor-pointer"
-              title="Edit menu"
-              data-testid={`button-edit-menu-${menu.name}`}
-            >
-              <IconPencil className="h-4 w-4 text-muted-foreground" />
-            </button>
-          </div>
-
-          {expandedMenu === menu.name && menuData && (
-            <div className="ml-4 border-l pl-2 space-y-1 mt-1">
-              {menuData?.navbar?.items?.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className="flex items-center justify-between px-3 py-1.5 rounded-md text-xs text-muted-foreground hover-elevate cursor-pointer"
-                  data-testid={`link-menu-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xs opacity-60">{item.component}</span>
-                </a>
-              ))}
-              {menuData?.footer?.columns?.map((column: { title: string; items?: { label: string; href: string }[] }, index: number) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between px-3 py-1.5 rounded-md text-xs text-muted-foreground"
-                  data-testid={`debug-footer-column-${index}`}
-                >
-                  <span>{column.title}</span>
-                  <span className="text-xs opacity-60">{column.items?.length || 0} links</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-    </>
-  );
-}
-
 // Edit Mode Toggle Component - uses optional hook to handle being outside provider
 function EditModeToggle() {
   const editMode = useEditModeOptional();
@@ -539,7 +411,6 @@ function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, act
     </div>
   );
 }
-
 export function DebugBubble() {
   const handleLinkClick = useInternalNav();
   // Check if we should hide the debug bubble (via URL param or in preview-frame route)
@@ -2555,185 +2426,24 @@ export function DebugBubble() {
               </div>
               </>
               ) : menuView === "components" ? (
-              <>
-              <div className="px-3 py-2 border-b">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => { setMenuView("main"); setComponentSearch(""); setShowComponentSearch(false); }}
-                      className="p-1 rounded-md hover-elevate"
-                      data-testid="button-back-to-main"
-                    >
-                      <IconArrowLeft className="h-4 w-4" />
-                    </button>
-                    {showComponentSearch ? (
-                      <div className="relative flex-1">
-                        <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <input
-                          type="text"
-                          placeholder="Search components..."
-                          value={componentSearch}
-                          onChange={(e) => setComponentSearch(e.target.value)}
-                          className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid="input-component-search"
-                          autoFocus
-                        />
-                      </div>
-                    ) : (
-                      <div>
-                        <h3 className="font-semibold text-sm">Gallery Registry</h3>
-                        <p className="text-xs text-muted-foreground">{filteredComponents.length} components</p>
-                      </div>
-                    )}
-                  </div>
-                  {showComponentSearch ? (
-                    <button
-                      onClick={() => { setShowComponentSearch(false); setComponentSearch(""); }}
-                      className="p-1.5 rounded hover-elevate"
-                      title="Cancel search"
-                      data-testid="button-cancel-component-search"
-                    >
-                      <IconX className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setShowComponentSearch(true)}
-                      className="p-1.5 rounded hover-elevate"
-                      title="Search components"
-                      data-testid="button-toggle-component-search"
-                    >
-                      <IconSearch className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                  )}
-                </div>
-              </div>
-              
-              <ScrollArea className="h-[280px]">
-                <div className="p-2 space-y-1">
-                  {!componentRegistryData ? (
-                    <div className="flex items-center justify-center py-8">
-                      <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
-                    </div>
-                  ) : filteredComponents.length === 0 ? (
-                    <div className="text-center py-8 text-sm text-muted-foreground">
-                      No components found
-                    </div>
-                  ) : (
-                    filteredComponents.map((component) => {
-                      const Icon = componentIconMap[component.type] || IconComponents;
-                      return (
-                        <a
-                          key={component.type}
-                          href={`/private/component-showcase/${component.type}`}
-                          className="flex items-center gap-3 px-3 py-2 rounded-md text-sm hover-elevate cursor-pointer"
-                          data-testid={`link-component-${component.type}`}
-                        >
-                          <Icon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                          <div className="flex-1 min-w-0">
-                            <div className="font-medium">{component.name}</div>
-                            <div className="text-xs text-muted-foreground truncate">{component.description}</div>
-                          </div>
-                        </a>
-                      );
-                    })
-                  )}
-                </div>
-              </ScrollArea>
-            </>
+              <ComponentsView
+                componentSearch={componentSearch}
+                setComponentSearch={setComponentSearch}
+                showComponentSearch={showComponentSearch}
+                setShowComponentSearch={setShowComponentSearch}
+                setMenuView={setMenuView}
+                filteredComponents={filteredComponents}
+                componentRegistryData={componentRegistryData}
+                componentIconMap={componentIconMap}
+              />
           ) : menuView === "experiments" ? (
-            <>
-              <div className="px-3 py-2 border-b">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => setMenuView("main")}
-                      className="p-1 rounded-md hover-elevate"
-                      data-testid="button-back-to-main-experiments"
-                    >
-                      <IconArrowLeft className="h-4 w-4" />
-                    </button>
-                    <div>
-                      <h3 className="font-semibold text-sm">Experiments</h3>
-                      <p className="text-xs text-muted-foreground">
-                        {contentInfo.label}: {contentInfo.slug}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    className="p-1.5 rounded hover-elevate"
-                    title="Create new experiment"
-                    data-testid="button-create-experiment"
-                  >
-                    <IconPlus className="h-4 w-4 text-muted-foreground" />
-                  </button>
-                </div>
-              </div>
-              
-              <ScrollArea className="h-[280px]">
-                <div className="p-2 space-y-1">
-                  {experimentsLoading ? (
-                    <div className="flex items-center justify-center py-8">
-                      <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
-                    </div>
-                  ) : !experimentsData?.hasExperimentsFile ? (
-                    <div className="text-center py-8 px-4">
-                      <IconFlask className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground mb-2">No experiments file found</p>
-                      <p className="text-xs text-muted-foreground">
-                        Create <code className="bg-muted px-1 rounded">experiments.yml</code> in the content folder
-                      </p>
-                    </div>
-                  ) : experimentsData.experiments.length === 0 ? (
-                    <div className="text-center py-8 px-4">
-                      <IconFlask className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground">No experiments defined</p>
-                    </div>
-                  ) : (
-                    experimentsData.experiments.map((experiment) => {
-                      const statusColors: Record<string, string> = {
-                        planned: "bg-muted text-muted-foreground",
-                        active: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
-                        paused: "bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300",
-                        winner: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
-                        archived: "bg-muted text-muted-foreground opacity-60",
-                      };
-                      const totalExposures = Object.values(experiment.stats || {}).reduce((a, b) => a + b, 0);
-                      
-                      return (
-                        <a
-                          key={experiment.slug}
-                          href={`/private/${contentInfo.type}/${contentInfo.slug}/experiment/${experiment.slug}`}
-                          onClick={handleLinkClick}
-                          className="flex flex-col w-full px-3 py-2.5 rounded-md text-sm hover-elevate cursor-pointer text-left"
-                          data-testid={`button-experiment-${experiment.slug}`}
-                        >
-                          <div className="flex items-center justify-between w-full mb-1">
-                            <span className="font-medium">{deslugify(experiment.slug)}</span>
-                            <span className={`text-xs px-2 py-0.5 rounded-full ${statusColors[experiment.status]}`}>
-                              {experiment.status}
-                            </span>
-                          </div>
-                          {experiment.description && (
-                            <p className="text-xs text-muted-foreground line-clamp-2 mb-1">
-                              {experiment.description}
-                            </p>
-                          )}
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                            <span>{experiment.variants.length} variants</span>
-                            {totalExposures > 0 && (
-                              <span>{totalExposures} exposures</span>
-                            )}
-                            {experiment.max_visitors && (
-                              <span>max {experiment.max_visitors}</span>
-                            )}
-                          </div>
-                        </a>
-                      );
-                    })
-                  )}
-                </div>
-              </ScrollArea>
-            </>
+              <ExperimentsView
+                setMenuView={setMenuView}
+                contentInfo={contentInfo}
+                experimentsLoading={experimentsLoading}
+                experimentsData={experimentsData}
+                handleLinkClick={handleLinkClick}
+              />
           ) : menuView === "menus" ? (
             <>
               <div className="px-3 py-2 border-b">
@@ -2759,2329 +2469,195 @@ export function DebugBubble() {
               </ScrollArea>
             </>
           ) : (
-            <>
-              <div className="px-3 py-2 border-b">
-                <div className="flex items-center justify-between gap-2">
-                  {showSitemapSearch ? (
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
-                      <div className="relative flex-1 min-w-0">
-                        <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <input
-                          type="text"
-                          placeholder="Search URLs..."
-                          value={sitemapSearch}
-                          onChange={(e) => setSitemapSearch(e.target.value)}
-                          className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid="input-sitemap-search"
-                          autoFocus
-                        />
-                      </div>
-                      <button
-                        onClick={() => { setShowSitemapSearch(false); setSitemapSearch(""); }}
-                        className="p-1.5 rounded hover-elevate flex-shrink-0"
-                        title="Cancel search"
-                        data-testid="button-cancel-sitemap-search"
-                      >
-                        <IconX className="h-4 w-4 text-muted-foreground" />
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => setMenuView("main")}
-                          className="p-1 rounded-md hover-elevate"
-                          data-testid="button-back-to-main-sitemap"
-                        >
-                          <IconArrowLeft className="h-4 w-4" />
-                        </button>
-                        <div>
-                          <h3 className="font-semibold text-sm">Sitemap URLs</h3>
-                          <p className="text-xs text-muted-foreground">{sitemapUrls.length} URLs indexed</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => setCreateContentModalOpen(true)}
-                          className="p-1.5 rounded hover-elevate"
-                          title="Create new content"
-                          data-testid="button-create-content"
-                        >
-                          <IconPlus className="h-4 w-4 text-muted-foreground" />
-                        </button>
-                        <button
-                          onClick={() => setShowSitemapSearch(true)}
-                          className="p-1.5 rounded hover-elevate"
-                          title="Search"
-                          data-testid="button-toggle-sitemap-search"
-                        >
-                          <IconSearch className="h-4 w-4 text-muted-foreground" />
-                        </button>
-                        <a
-                          href="/sitemap.xml"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-1.5 rounded hover-elevate"
-                          title="Open sitemap.xml"
-                          data-testid="link-sitemap-xml"
-                        >
-                          <IconExternalLink className="h-4 w-4 text-muted-foreground" />
-                        </a>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-              
-              <ScrollArea className="h-[240px]">
-                <div className="p-2 space-y-1">
-                  {sitemapLoading ? (
-                    <div className="flex items-center justify-center py-8">
-                      <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
-                    </div>
-                  ) : filteredSitemapUrls.length === 0 ? (
-                    <div className="text-center py-8 text-sm text-muted-foreground">
-                      No URLs found
-                    </div>
-                  ) : (
-                    <>
-                      {folders.map((folder) => (
-                        <div key={folder.name} className="mb-1">
-                          <button
-                            onClick={() => toggleFolder(folder.name)}
-                            className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm hover-elevate cursor-pointer"
-                            data-testid={`button-folder-${folder.name.toLowerCase()}`}
-                          >
-                            {expandedFolders.has(folder.name) ? (
-                              <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                            ) : (
-                              <IconChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                            )}
-                            <IconFolder className="h-4 w-4 text-primary flex-shrink-0" />
-                            <span className="font-medium">{folder.name}</span>
-                            <span className="text-xs text-muted-foreground ml-auto">
-                              {folder.urls.length}
-                            </span>
-                          </button>
-                          {expandedFolders.has(folder.name) && (
-                            <div className="ml-4 border-l pl-2 space-y-1 mt-1">
-                              {folder.urls.map((url, urlIndex) => {
-                                const path = new URL(url.loc).pathname;
-                                return (
-                                  <div
-                                    key={`${folder.name}-${urlIndex}-${url.loc}`}
-                                    className="group flex items-center gap-1 px-3 py-1 rounded-md hover-elevate"
-                                  >
-                                    <a
-                                      href={path}
-                                      className="flex-1 text-xs text-muted-foreground cursor-pointer truncate"
-                                      data-testid={`link-sitemap-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
-                                    >
-                                      {path}
-                                    </a>
-                                    <DropdownMenu>
-                                      <DropdownMenuTrigger asChild>
-                                        <button
-                                          className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-muted transition-opacity"
-                                          onClick={(e) => e.stopPropagation()}
-                                          data-testid={`button-url-menu-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
-                                        >
-                                          <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
-                                        </button>
-                                      </DropdownMenuTrigger>
-                                      <DropdownMenuContent align="end" className="w-40">
-                                        <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                          <IconCopy className="h-3.5 w-3.5 mr-2" />
-                                          Duplicate
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                          <IconDownload className="h-3.5 w-3.5 mr-2" />
-                                          Download YAML
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                          <IconTrash className="h-3.5 w-3.5 mr-2" />
-                                          Delete
-                                        </DropdownMenuItem>
-                                      </DropdownMenuContent>
-                                    </DropdownMenu>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                      {rootUrls.map((url, urlIndex) => {
-                        const path = new URL(url.loc).pathname;
-                        return (
-                          <div
-                            key={`root-${urlIndex}-${url.loc}`}
-                            className="group flex items-center gap-1 px-3 py-1.5 rounded-md hover-elevate"
-                          >
-                            <a
-                              href={path}
-                              className="flex-1 text-xs text-muted-foreground cursor-pointer truncate"
-                              data-testid={`link-sitemap-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
-                            >
-                              {path}
-                            </a>
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <button
-                                  className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-muted transition-opacity"
-                                  onClick={(e) => e.stopPropagation()}
-                                  data-testid={`button-url-menu-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
-                                >
-                                  <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
-                                </button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="w-40">
-                                <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconCopy className="h-3.5 w-3.5 mr-2" />
-                                  Duplicate
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconDownload className="h-3.5 w-3.5 mr-2" />
-                                  Download YAML
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconTrash className="h-3.5 w-3.5 mr-2" />
-                                  Delete
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </div>
-                        );
-                      })}
-                    </>
-                  )}
-                </div>
-              </ScrollArea>
-            </>
+              <SitemapView
+                setMenuView={setMenuView}
+                sitemapUrls={sitemapUrls}
+                sitemapLoading={sitemapLoading}
+                sitemapSearch={sitemapSearch}
+                setSitemapSearch={setSitemapSearch}
+                showSitemapSearch={showSitemapSearch}
+                setShowSitemapSearch={setShowSitemapSearch}
+                filteredSitemapUrls={filteredSitemapUrls}
+                folders={folders}
+                rootUrls={rootUrls}
+                expandedFolders={expandedFolders}
+                toggleFolder={toggleFolder}
+                setCreateContentModalOpen={setCreateContentModalOpen}
+                handleDuplicatePage={handleDuplicatePage}
+                handleDeletePage={handleDeletePage}
+                handleDownloadYml={handleDownloadYml}
+              />
           )}
             </>
           )}
         </PopoverContent>
       </Popover>
-      <Dialog open={locationModalOpen} onOpenChange={setLocationModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Override Session Location</DialogTitle>
-            <DialogDescription>
-              You can override the auto-detected location by adding a <code className="text-xs bg-muted px-1 py-0.5 rounded">?location=slug</code> query parameter to any URL. This is useful for testing location-specific content.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Select new Location</label>
-              <Select value={selectedLocationSlug} onValueChange={setSelectedLocationSlug}>
-                <SelectTrigger data-testid="select-location-override">
-                  <SelectValue placeholder="Choose a location..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(locationsByRegion).map(([region, locs]) => (
-                    <SelectGroup key={region}>
-                      <SelectLabel className="text-xs font-semibold text-muted-foreground">
-                        {regionLabels[region] || region}
-                      </SelectLabel>
-                      {locs.map((loc) => (
-                        <SelectItem key={loc.slug} value={loc.slug}>
-                          {loc.name}, {loc.country}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            {currentLocationOverride && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Currently overriding:</span>
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{currentLocationOverride}</code>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearLocationOverride}
-                  className="h-6 px-2 text-xs"
-                  data-testid="button-clear-location-override"
-                >
-                  Clear
-                </Button>
-              </div>
-            )}
-          </div>
-
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button
-              variant="outline"
-              onClick={() => setLocationModalOpen(false)}
-              data-testid="button-cancel-location-override"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleLocationOverride}
-              disabled={!selectedLocationSlug}
-              data-testid="button-confirm-location-override"
-            >
-              Override Location
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      <Dialog open={sessionModalOpen} onOpenChange={setSessionModalOpen}>
-        <DialogContent className="sm:max-w-lg max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Session Data{getDebugUserName() ? ` - ${getDebugUserName()}` : ''}</DialogTitle>
-            <DialogDescription>
-              Current session values captured from browser, geolocation, and URL parameters.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {hasToken && getDebugToken() && (
-              <div className="space-y-3">
-                <h4 className="text-sm font-semibold text-foreground">Authentication Token</h4>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-muted px-2 py-1.5 rounded text-xs font-mono truncate" data-testid="text-session-token">
-                    {getDebugToken()}
-                  </code>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 flex-shrink-0"
-                    onClick={() => {
-                      const token = getDebugToken();
-                      if (token) {
-                        navigator.clipboard.writeText(token);
-                        setTokenCopied(true);
-                        setTimeout(() => setTokenCopied(false), 2000);
-                      }
-                    }}
-                    data-testid="button-copy-token"
-                  >
-                    {tokenCopied ? (
-                      <IconCheck className="h-4 w-4 text-green-600" />
-                    ) : (
-                      <IconCopy className="h-4 w-4" />
-                    )}
-                  </Button>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 flex-shrink-0"
-                    onClick={() => {
-                      clearToken();
-                      setSessionModalOpen(false);
-                    }}
-                    data-testid="button-clear-session-token"
-                    title="Clear token"
-                  >
-                    <IconX className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            )}
-            
-            <div className={`space-y-3 ${hasToken && getDebugToken() ? 'border-t pt-3' : ''}`}>
-              <h4 className="text-sm font-semibold text-foreground">Geolocation</h4>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Country:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.geo?.country || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">City:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.geo?.city || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Region:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.geo?.region || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Timezone:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.geo?.timezone || 'N/A'}</code>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t pt-3 space-y-3">
-              <h4 className="text-sm font-semibold text-foreground">Device</h4>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Category:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.device?.deviceCategory || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">OS:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.device?.osFamily || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Browser:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.device?.browserFamily || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Viewport:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.device?.viewportWidth}x{session.device?.viewportHeight}</code>
-                </div>
-                <div className="flex justify-between col-span-2">
-                  <span className="text-muted-foreground">Pixel Ratio:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.device?.devicePixelRatio || 'N/A'}</code>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t pt-3 space-y-3">
-              <h4 className="text-sm font-semibold text-foreground">UTM Parameters</h4>
-              <div className="space-y-1.5 text-sm">
-                {(['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_placement', 'utm_plan'] as const).map(key => (
-                  <div key={key} className="flex justify-between">
-                    <span className="text-muted-foreground">{key}:</span>
-                    <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.utm?.[key] || '—'}</code>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div className="border-t pt-3 space-y-3">
-              <h4 className="text-sm font-semibold text-foreground">Tracking</h4>
-              <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">PPC Tracking ID:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs max-w-[150px] truncate">{session.utm?.ppc_tracking_id || '—'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Referral:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.utm?.referral || session.utm?.ref || '—'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Coupon:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.utm?.coupon || '—'}</code>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t pt-3 space-y-3">
-              <h4 className="text-sm font-semibold text-foreground">Experiment</h4>
-              <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Experiment:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.experiment?.experiment_slug || '—'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Variant:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.experiment?.variant_slug || '—'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Version:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.experiment?.variant_version ?? '—'}</code>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t pt-3 space-y-3">
-              <h4 className="text-sm font-semibold text-foreground">Session Info</h4>
-              <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Language:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.language}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Browser Lang:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.browserLang || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Location Campus:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.location?.slug || 'N/A'}</code>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Initialized:</span>
-                  <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.initialized ? 'Yes' : 'No'}</code>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setSessionModalOpen(false)}
-              data-testid="button-close-session-modal"
-            >
-              Close
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* Sync Files Modal */}
-      <Dialog open={commitModalOpen} onOpenChange={setCommitModalOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <IconBrandGithub className="h-5 w-5" />
-              GitHub Sync
-            </DialogTitle>
-            <DialogDescription>
-              Auto-commit keeps your content changes synced to GitHub.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-2">
-            {autoCommitStatus && (!autoCommitStatus.githubConfigured || autoCommitStatus.lastError) && (
-              <div className="flex items-start gap-2 p-3 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
-                <IconAlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
-                <div className="text-sm">
-                  {!autoCommitStatus.githubConfigured ? (
-                    <p className="text-red-700 dark:text-red-300">
-                      GitHub is not configured. Set <code className="text-xs bg-red-100 dark:bg-red-900/50 px-1 rounded">GITHUB_TOKEN</code>, <code className="text-xs bg-red-100 dark:bg-red-900/50 px-1 rounded">GITHUB_REPO_URL</code>, and enable <code className="text-xs bg-red-100 dark:bg-red-900/50 px-1 rounded">GITHUB_SYNC_ENABLED=true</code> in environment variables.
-                    </p>
-                  ) : (
-                    <p className="text-red-700 dark:text-red-300">{autoCommitStatus.lastError}</p>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <Card className="p-3 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className={`h-2 w-2 rounded-full ${
-                    autoCommitStatus?.enabled && autoCommitStatus.githubConfigured
-                      ? autoCommitStatus.isCommitting ? 'bg-amber-500 animate-pulse' : 'bg-green-500'
-                      : 'bg-muted-foreground/30'
-                  }`} />
-                  <span className="text-sm font-medium">
-                    {autoCommitStatus?.isCommitting ? 'Syncing...' : autoCommitStatus?.enabled ? 'Auto-sync active' : 'Auto-sync inactive'}
-                  </span>
-                </div>
-                {autoCommitStatus?.pendingFiles ? (
-                  <Badge variant="secondary">{autoCommitStatus.pendingFiles} queued</Badge>
-                ) : null}
-              </div>
-
-              {autoCommitCountdown !== null && autoCommitCountdown > 0 && (
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>Next sync in</span>
-                  <span className="font-mono font-medium">{autoCommitCountdown}s</span>
-                </div>
-              )}
-
-              {autoCommitStatus?.lastCommitAt && (
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>Last sync</span>
-                  <div className="flex items-center gap-1.5">
-                    <span>{new Date(autoCommitStatus.lastCommitAt).toLocaleTimeString()}</span>
-                    {autoCommitStatus.lastCommitSha && githubSyncStatus?.repoUrl && (
-                      <a
-                        href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-primary hover:underline"
-                        data-testid="link-last-auto-commit"
-                      >
-                        {autoCommitStatus.lastCommitSha.substring(0, 7)}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {autoCommitStatus?.enabled && autoCommitStatus.pendingFiles > 0 && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="w-full"
-                  onClick={handleFlush}
-                  disabled={isFlushing || autoCommitStatus.isCommitting}
-                  data-testid="button-flush-auto-commit"
-                >
-                  {isFlushing ? (
-                    <><IconRefresh className="h-3.5 w-3.5 mr-1.5 animate-spin" />Syncing...</>
-                  ) : (
-                    <><IconArrowUp className="h-3.5 w-3.5 mr-1.5" />Sync Now</>
-                  )}
-                </Button>
-              )}
-            </Card>
-
-            {autoCommitStatus && (autoCommitStatus.pendingFilesDetails.length > 0 || autoCommitStatus.conflictedFiles.length > 0) && (
-              <div className="space-y-2">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                  {autoCommitStatus.conflictedFiles.length > 0 ? 'Queued & Conflicted Files' : 'Queued Files'}
-                </span>
-                <ScrollArea className="max-h-[180px]">
-                  <div className="space-y-1">
-                    {autoCommitStatus.conflictedFiles.map((filePath, idx) => (
-                      <Card key={`conflict-${idx}`} className="p-2 space-y-1">
-                        <div className="font-mono text-xs text-foreground truncate" title={filePath}>
-                          {filePath.replace('marketing-content/', '')}
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="shrink-0 text-xs font-medium px-1.5 py-0.5 rounded bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300">
-                            Conflict
-                          </span>
-                          <div className="flex-1" />
-                          <div className="flex items-center gap-1">
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  size="icon"
-                                  variant="outline"
-                                  className="h-6 w-6"
-                                  onClick={() => {
-                                    setSelectedFileForCommit(filePath);
-                                    setFileCommitMessage("");
-                                  }}
-                                  data-testid={`button-resolve-upload-${idx}`}
-                                >
-                                  <IconArrowUp className="h-3 w-3" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent side="top"><p>Upload my version</p></TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  size="icon"
-                                  variant="outline"
-                                  className="h-6 w-6"
-                                  onClick={() => {
-                                    setConfirmPullFile(filePath);
-                                  }}
-                                  data-testid={`button-resolve-download-${idx}`}
-                                >
-                                  <IconArrowDown className="h-3 w-3" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent side="top"><p>Download remote version</p></TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  size="icon"
-                                  variant="ghost"
-                                  className="h-6 w-6"
-                                  onClick={() => handleClearConflict(filePath)}
-                                  data-testid={`button-clear-conflict-${idx}`}
-                                >
-                                  <IconX className="h-3 w-3" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent side="top"><p>Dismiss conflict</p></TooltipContent>
-                            </Tooltip>
-                          </div>
-                        </div>
-                      </Card>
-                    ))}
-                    {autoCommitStatus.pendingFilesDetails.map((file, idx) => (
-                      <Card key={`pending-${idx}`} className="p-2 space-y-1">
-                        <div className="font-mono text-xs text-foreground truncate" title={file.filePath}>
-                          {file.filePath.replace('marketing-content/', '')}
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="shrink-0 text-xs font-medium px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300">
-                            Queued
-                          </span>
-                          <span className="text-xs text-muted-foreground">{file.author}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {new Date(file.timestamp).toLocaleTimeString()}
-                          </span>
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </div>
-            )}
-
-            <div className="border-t pt-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setManualActionsOpen(!manualActionsOpen);
-                  if (!manualActionsOpen) fetchPendingChanges();
-                }}
-                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="button-toggle-manual-actions"
-              >
-                {manualActionsOpen ? (
-                  <IconChevronDown className="h-3.5 w-3.5" />
-                ) : (
-                  <IconChevronRight className="h-3.5 w-3.5" />
-                )}
-                Manual Actions
-              </button>
-              
-              {manualActionsOpen && (
-                <div className="mt-3 space-y-3">
-                  <div className="space-y-2">
-                    {pendingChangesLoading ? (
-                      <div className="flex items-center justify-center py-4">
-                        <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
-                      </div>
-                    ) : pendingChanges.length === 0 ? (
-                      <p className="text-xs text-muted-foreground py-2">
-                        No remote or local differences detected outside the auto-commit queue.
-                      </p>
-                    ) : (
-                      <ScrollArea className="max-h-[200px]">
-                        <div className="space-y-1">
-                          {pendingChanges.map((change, index) => (
-                            <Card
-                              key={`${change.file}-${index}`}
-                              className="p-2 space-y-1"
-                            >
-                              <div
-                                className="font-mono text-xs text-foreground truncate"
-                                title={change.file}
-                              >
-                                {change.file.replace('marketing-content/', '')}
-                              </div>
-                              
-                              {selectedFileForCommit === change.file ? (
-                                <div className="space-y-2">
-                                  <input
-                                    type="text"
-                                    value={fileCommitMessage}
-                                    onChange={(e) => setFileCommitMessage(e.target.value)}
-                                    placeholder="Commit message..."
-                                    className="w-full px-2 py-1.5 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                                    data-testid={`input-file-commit-message-${index}`}
-                                    autoFocus
-                                    onKeyDown={(e) => {
-                                      if (e.key === 'Enter' && fileCommitMessage.trim()) {
-                                        handleFileCommit(change.file);
-                                      } else if (e.key === 'Escape') {
-                                        setSelectedFileForCommit(null);
-                                        setFileCommitMessage("");
-                                      }
-                                    }}
-                                  />
-                                  <div className="flex items-center gap-1">
-                                    <Button
-                                      size="sm"
-                                      className="h-7 text-xs flex-1"
-                                      onClick={() => handleFileCommit(change.file)}
-                                      disabled={!fileCommitMessage.trim() || fileCommitting === change.file}
-                                      data-testid={`button-confirm-file-commit-${index}`}
-                                    >
-                                      {fileCommitting === change.file ? (
-                                        <IconRefresh className="h-3 w-3 animate-spin" />
-                                      ) : (
-                                        <><IconArrowUp className="h-3 w-3 mr-1" />Commit</>
-                                      )}
-                                    </Button>
-                                    <Button
-                                      size="sm"
-                                      variant="ghost"
-                                      className="h-7 text-xs"
-                                      onClick={() => {
-                                        setSelectedFileForCommit(null);
-                                        setFileCommitMessage("");
-                                      }}
-                                      data-testid={`button-cancel-file-commit-${index}`}
-                                    >
-                                      Cancel
-                                    </Button>
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <span className={`shrink-0 text-xs font-medium px-1.5 py-0.5 rounded ${
-                                    change.source === 'conflict'
-                                      ? 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'
-                                      : change.source === 'incoming'
-                                      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
-                                      : 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300'
-                                  }`}>
-                                    {change.source === 'conflict' ? 'Conflict' : change.source === 'incoming' ? 'Incoming' : 'Local'}
-                                  </span>
-                                  <span className="text-xs text-muted-foreground">
-                                    {change.author || ''}
-                                  </span>
-                                  {change.date && (
-                                    <span className="text-xs text-muted-foreground">
-                                      {new Date(change.date).toLocaleDateString()}
-                                    </span>
-                                  )}
-                                  {change.commitSha && githubSyncStatus?.repoUrl && (
-                                    <a
-                                      href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${change.commitSha}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-xs font-mono text-primary hover:underline"
-                                      data-testid={`link-commit-${index}`}
-                                    >
-                                      {change.commitSha.substring(0, 7)}
-                                    </a>
-                                  )}
-                                  <div className="flex-1" />
-                                  <div className="flex items-center gap-1">
-                                    <Tooltip>
-                                      <TooltipTrigger asChild>
-                                        <Button
-                                          size="icon"
-                                          variant="ghost"
-                                          className="h-6 w-6"
-                                          onClick={async () => {
-                                            try {
-                                              const token = getDebugToken();
-                                              const headers: Record<string, string> = {};
-                                              if (token) headers["Authorization"] = `Token ${token}`;
-                                              const response = await fetch(`/api/content/file?path=${encodeURIComponent(change.file)}`, { headers });
-                                              if (!response.ok) throw new Error('Failed to fetch file');
-                                              const content = await response.text();
-                                              const blob = new Blob([content], { type: 'application/x-yaml' });
-                                              const url = URL.createObjectURL(blob);
-                                              const a = document.createElement('a');
-                                              a.href = url;
-                                              const pathParts = change.file.replace('marketing-content/', '').split('/');
-                                              const fileName = pathParts.length >= 2
-                                                ? `${pathParts[pathParts.length - 2]}.${pathParts[pathParts.length - 1]}`
-                                                : pathParts.pop() || 'backup.yml';
-                                              a.download = fileName;
-                                              document.body.appendChild(a);
-                                              a.click();
-                                              document.body.removeChild(a);
-                                              URL.revokeObjectURL(url);
-                                              toast({
-                                                title: "Backup downloaded",
-                                                description: `Downloaded ${change.file.split('/').pop()}`,
-                                              });
-                                            } catch (error) {
-                                              console.error('Failed to download backup:', error);
-                                              toast({
-                                                title: "Download failed",
-                                                description: "Could not download the backup file",
-                                                variant: "destructive",
-                                              });
-                                            }
-                                          }}
-                                          data-testid={`button-backup-file-${index}`}
-                                        >
-                                          <IconDeviceFloppy className="h-3 w-3" />
-                                        </Button>
-                                      </TooltipTrigger>
-                                      <TooltipContent side="top"><p>Download backup</p></TooltipContent>
-                                    </Tooltip>
-                                    {(change.source === 'local' || change.source === 'conflict') && (
-                                      <Tooltip>
-                                        <TooltipTrigger asChild>
-                                          <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-6 w-6"
-                                            onClick={() => {
-                                              setSelectedFileForCommit(change.file);
-                                              setFileCommitMessage("");
-                                            }}
-                                            data-testid={`button-commit-file-${index}`}
-                                          >
-                                            <IconArrowUp className="h-3 w-3" />
-                                          </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent side="top"><p>Upload to remote</p></TooltipContent>
-                                      </Tooltip>
-                                    )}
-                                    {(change.source === 'incoming' || change.source === 'conflict') && (
-                                      <Tooltip>
-                                        <TooltipTrigger asChild>
-                                          <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-6 w-6"
-                                            onClick={() => {
-                                              if (change.source === 'conflict') {
-                                                setConfirmPullFile(change.file);
-                                              } else {
-                                                handleFilePull(change.file);
-                                              }
-                                            }}
-                                            disabled={filePulling === change.file}
-                                            data-testid={`button-pull-file-${index}`}
-                                          >
-                                            {filePulling === change.file ? (
-                                              <IconRefresh className="h-3 w-3 animate-spin" />
-                                            ) : (
-                                              <IconArrowDown className="h-3 w-3" />
-                                            )}
-                                          </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent side="top"><p>Download remote</p></TooltipContent>
-                                      </Tooltip>
-                                    )}
-                                  </div>
-                                </div>
-                              )}
-                            </Card>
-                          ))}
-                        </div>
-                      </ScrollArea>
-                    )}
-                  </div>
-
-                  <div className="p-3 bg-muted/50 rounded-md space-y-2">
-                    <p className="text-xs text-muted-foreground">
-                      Discard all local changes and reset to the remote version.
-                    </p>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={handleIgnoreAllChanges}
-                      disabled={isIgnoringAllChanges || !pendingChanges.some(c => c.source === 'local' || c.source === 'conflict')}
-                      data-testid="button-ignore-all-changes"
-                    >
-                      {isIgnoringAllChanges ? (
-                        <><IconRefresh className="h-3.5 w-3.5 mr-1.5 animate-spin" />Resetting...</>
-                      ) : (
-                        <><IconTrash className="h-3.5 w-3.5 mr-1.5" />Ignore all local changes</>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setCommitModalOpen(false);
-                setSelectedFileForCommit(null);
-                setFileCommitMessage("");
-                setManualActionsOpen(false);
-              }}
-              data-testid="button-close-commit-modal"
-            >
-              Close
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* Pull Conflict Modal */}
-      <Dialog open={pullConflictModalOpen} onOpenChange={setPullConflictModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30">
-                <IconAlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-              </div>
-              <div>
-                <DialogTitle>Conflicting Files Detected</DialogTitle>
-                <DialogDescription>
-                  The following files have been modified both locally and on remote.
-                </DialogDescription>
-              </div>
-            </div>
-          </DialogHeader>
-          
-          <div className="py-4">
-            <ScrollArea className="max-h-[200px] border rounded-md">
-              <div className="p-2 space-y-1">
-                {pullConflictFiles.map((file, idx) => (
-                  <div key={idx} className="flex items-center gap-2 px-2 py-1.5 text-sm">
-                    <IconFile className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                    <span 
-                      className="font-mono text-xs truncate" 
-                      title={file}
-                    >
-                      {file.replace('marketing-content/', '')}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-            
-            <p className="text-xs text-muted-foreground mt-3">
-              Pulling will overwrite your local changes to these files.
-            </p>
-          </div>
-
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button
-              variant="outline"
-              onClick={() => setPullConflictModalOpen(false)}
-              data-testid="button-cancel-pull"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setPullConflictModalOpen(false);
-                setCommitModalOpen(true);
-              }}
-              data-testid="button-commit-first"
-            >
-              <IconArrowUp className="h-4 w-4 mr-2" />
-              Commit First
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={() => {
-                setPullConflictModalOpen(false);
-                executeSyncFromRemote();
-              }}
-              data-testid="button-pull-anyway"
-            >
-              <IconCloudDownload className="h-4 w-4 mr-2" />
-              Pull Anyway
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* Per-file Download Confirmation Modal */}
-      <Dialog open={confirmPullFile !== null} onOpenChange={(open) => !open && setConfirmPullFile(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30">
-                <IconCloudDownload className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-              </div>
-              <div>
-                <DialogTitle>Download and Override Local File?</DialogTitle>
-                <DialogDescription>
-                  This will replace your local version with the remote version.
-                </DialogDescription>
-              </div>
-            </div>
-          </DialogHeader>
-          
-          <div className="py-4">
-            <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-              <IconFile className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-              <span 
-                className="font-mono text-sm truncate" 
-                title={confirmPullFile || ''}
-              >
-                {confirmPullFile?.replace('marketing-content/', '')}
-              </span>
-            </div>
-            
-            <p className="text-xs text-muted-foreground mt-3">
-              Your local version will be replaced with the remote version. This action cannot be undone.
-            </p>
-          </div>
-
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button
-              variant="outline"
-              onClick={() => setConfirmPullFile(null)}
-              disabled={filePulling === confirmPullFile}
-              data-testid="button-cancel-pull-file"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={() => {
-                if (confirmPullFile) {
-                  handleFilePull(confirmPullFile);
-                }
-              }}
-              disabled={filePulling === confirmPullFile}
-              data-testid="button-confirm-pull-file"
-            >
-              {filePulling === confirmPullFile ? (
-                <>
-                  <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
-                  Downloading...
-                </>
-              ) : (
-                <>
-                  <IconCloudDownload className="h-4 w-4 mr-2" />
-                  Download and Override mine
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* Delete Page Confirmation Modal */}
-      <Dialog open={deletePageModalOpen} onOpenChange={(open) => {
-        setDeletePageModalOpen(open);
-        if (!open) {
-          setDeleteConfirmInput("");
-          setDeletingPage(null);
-        }
-      }}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-destructive">Eliminar página</DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground pt-2">
-              Esta acción es irreversible y permanente. Si estás seguro de eliminar <span className="font-bold text-foreground">{deletingPage?.slug}</span> entonces escribe el nombre de la página acá abajo y dale click a confirmar.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3 py-2">
-            <label className="text-sm text-muted-foreground">
-              Escribe <span className="font-mono font-bold text-foreground">{deletingPage?.slug}</span> para completar esta acción:
-            </label>
-            <input
-              value={deleteConfirmInput}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDeleteConfirmInput(e.target.value)}
-              placeholder={deletingPage?.slug || ""}
-              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors font-mono placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              data-testid="input-delete-confirm-slug"
-            />
-          </div>
-          <DialogFooter className="gap-2">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setDeletePageModalOpen(false);
-                setDeleteConfirmInput("");
-                setDeletingPage(null);
-              }}
-              data-testid="button-delete-cancel"
-            >
-              Cancelar
-            </Button>
-            <Button
-              variant="destructive"
-              disabled={deleteConfirmInput !== deletingPage?.slug || isDeletingPage}
-              onClick={confirmDeletePage}
-              data-testid="button-delete-confirm"
-            >
-              {isDeletingPage ? "Eliminando..." : "Confirmar eliminación"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* Create Content Modal */}
-      <Dialog open={createContentModalOpen} onOpenChange={(open) => {
-        setCreateContentModalOpen(open);
-        if (!open) {
-          setCreateContentTitle("");
-          setCreateContentSlugEn("");
-          setCreateContentSlugEs("");
-          setCreateContentSlugEnStatus('idle');
-          setCreateContentSlugEsStatus('idle');
-          setSlugEnConflictReason(null);
-          setSlugEsConflictReason(null);
-          setEditingSlugEn(false);
-          setEditingSlugEs(false);
-          setCreateContentType('page');
-          setDuplicatingPage(null);
-        }
-      }}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              {duplicatingPage ? (
-                <>
-                  <IconCopy className="h-5 w-5" />
-                  Duplicando página
-                </>
-              ) : (
-                <>
-                  <IconPlus className="h-5 w-5" />
-                  Create New Content
-                </>
-              )}
-            </DialogTitle>
-            <DialogDescription>
-              {duplicatingPage ? (
-                <>Estás duplicando: <strong>{duplicatingPage.label}</strong></>
-              ) : (
-                <>Create a new page, location, program, or landing with starter YAML files.</>
-              )}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Content Type</label>
-              <div className="flex items-center gap-2">
-                <Select 
-                  value={createContentType} 
-                  disabled={!!duplicatingPage}
-                  onValueChange={(v) => {
-                    setCreateContentType(v as 'location' | 'page' | 'program' | 'landing');
-                    // Re-validate slugs with new type (skip for landing - uses different validation)
-                    if (v !== 'landing') {
-                      if (createContentSlugEn) {
-                        setCreateContentSlugEnStatus('checking');
-                        fetch(`/api/content/check-slug?type=${v}&slug=${createContentSlugEn}&locale=en`)
-                          .then(res => res.json())
-                          .then(data => {
-                            setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
-                            setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                          })
-                          .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
-                      }
-                      if (createContentSlugEs) {
-                        setCreateContentSlugEsStatus('checking');
-                        fetch(`/api/content/check-slug?type=${v}&slug=${createContentSlugEs}&locale=es`)
-                          .then(res => res.json())
-                          .then(data => {
-                            setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
-                            setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                          })
-                          .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
-                      }
-                    } else {
-                      // For landings, validate single slug
-                      if (createContentSlugEn) {
-                        setCreateContentSlugEnStatus('checking');
-                        fetch(`/api/content/check-slug?type=landing&slug=${createContentSlugEn}`)
-                          .then(res => res.json())
-                          .then(data => {
-                            setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
-                            setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                          })
-                          .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
-                      }
-                    }
-                  }}
-                >
-                  <SelectTrigger data-testid="select-content-type" className={createContentType === 'landing' ? 'flex-1' : 'w-full'}>
-                    <SelectValue placeholder="Select type..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="page">Page</SelectItem>
-                    <SelectItem value="program">Program</SelectItem>
-                    <SelectItem value="location">Location</SelectItem>
-                    <SelectItem value="landing">Landing</SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                {createContentType === 'landing' && (
-                  <Select value={createLandingLocale} onValueChange={(v) => setCreateLandingLocale(v as 'en' | 'es')}>
-                    <SelectTrigger className="w-36" data-testid="select-landing-locale">
-                      <SelectValue>
-                        <span className="flex items-center gap-2">
-                          <LocaleFlag locale={createLandingLocale} />
-                          <span>{createLandingLocale === 'en' ? 'English' : 'Spanish'}</span>
-                        </span>
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">
-                        <span className="flex items-center gap-2">
-                          <LocaleFlag locale="en" />
-                          <span>English</span>
-                        </span>
-                      </SelectItem>
-                      <SelectItem value="es">
-                        <span className="flex items-center gap-2">
-                          <LocaleFlag locale="es" />
-                          <span>Spanish</span>
-                        </span>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Title</label>
-              <input
-                type="text"
-                value={createContentTitle}
-                onChange={(e) => {
-                  const title = e.target.value;
-                  setCreateContentTitle(title);
-                  const slug = title
-                    .toLowerCase()
-                    .trim()
-                    .replace(/[^a-z0-9\s-]/g, '')
-                    .replace(/\s+/g, '-')
-                    .replace(/-+/g, '-')
-                    .replace(/^-|-$/g, '');
-                  setCreateContentSlugEn(slug);
-                  setCreateContentSlugEs(slug);
-                  if (slug) {
-                    if (createContentType === 'landing') {
-                      // Landings: single slug validation
-                      setCreateContentSlugEnStatus('checking');
-                      fetch(`/api/content/check-slug?type=landing&slug=${slug}`)
-                        .then(res => res.json())
-                        .then(data => {
-                          setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
-                          setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                        })
-                        .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
-                    } else {
-                      // Other types: validate both EN/ES slugs
-                      setCreateContentSlugEnStatus('checking');
-                      setCreateContentSlugEsStatus('checking');
-                      fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=en`)
-                        .then(res => res.json())
-                        .then(data => {
-                          setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
-                          setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                        })
-                        .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
-                      fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=es`)
-                        .then(res => res.json())
-                        .then(data => {
-                          setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
-                          setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                        })
-                        .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
-                    }
-                  } else {
-                    setCreateContentSlugEnStatus('idle');
-                    setCreateContentSlugEsStatus('idle');
-                    setSlugEnConflictReason(null);
-                    setSlugEsConflictReason(null);
-                  }
-                }}
-                placeholder="e.g., Career Development Guide"
-                className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                data-testid="input-content-title"
-              />
-            </div>
-            
-            {createContentSlugEn && createContentType === 'landing' && (
-              <div className="space-y-3 p-3 bg-muted/50 rounded-md">
-                {/* Single slug for landings */}
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground">Sitemap URL:</p>
-                  <div className="flex items-center gap-2">
-                    {editingSlugEn ? (
-                      <div className="flex-1 flex items-center gap-1">
-                        <span className="text-xs font-mono text-muted-foreground">/landing/</span>
-                        <input
-                          type="text"
-                          value={createContentSlugEn}
-                          onChange={(e) => {
-                            const slug = e.target.value
-                              .toLowerCase()
-                              .replace(/\s+/g, '-')
-                              .replace(/[^a-z0-9-]/g, '')
-                              .replace(/-+/g, '-');
-                            setCreateContentSlugEn(slug);
-                            if (slug) {
-                              setCreateContentSlugEnStatus('checking');
-                              fetch(`/api/content/check-slug?type=landing&slug=${slug}`)
-                                .then(res => res.json())
-                                .then(data => {
-                                  setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
-                                  setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                                })
-                                .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
-                            } else {
-                              setCreateContentSlugEnStatus('idle');
-                              setSlugEnConflictReason(null);
-                            }
-                          }}
-                          className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid="input-slug-landing"
-                          autoFocus
-                          onBlur={() => setEditingSlugEn(false)}
-                          onKeyDown={(e) => e.key === 'Enter' && setEditingSlugEn(false)}
-                        />
-                      </div>
-                    ) : (
-                      <code 
-                        className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
-                        onClick={() => setEditingSlugEn(true)}
-                        data-testid="url-preview-landing"
-                      >
-                        /landing/{createContentSlugEn}
-                      </code>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => setEditingSlugEn(!editingSlugEn)}
-                      className="p-1 rounded hover-elevate"
-                      title="Edit slug"
-                      data-testid="button-edit-slug-landing"
-                    >
-                      <IconPencil className="h-3 w-3 text-muted-foreground" />
-                    </button>
-                    <div className="w-4">
-                      {createContentSlugEnStatus === 'checking' && (
-                        <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                      )}
-                      {createContentSlugEnStatus === 'available' && (
-                        <IconCheck className="h-4 w-4 text-green-600" />
-                      )}
-                      {createContentSlugEnStatus === 'taken' && (
-                        <IconX className="h-4 w-4 text-red-600" />
-                      )}
-                    </div>
-                  </div>
-                  {createContentSlugEnStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'This slug is already taken'}</p>
-                  )}
-                </div>
-                
-                <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground">Files that will be created:</p>
-                  <div className="space-y-0.5 font-mono text-xs text-muted-foreground">
-                    <div>marketing-content/landings/{createContentSlugEn}/</div>
-                    <div className="pl-4">├── _common.yml</div>
-                    <div className="pl-4">└── promoted.yml</div>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {createContentSlugEn && createContentType !== 'landing' && (
-              <div className="space-y-3 p-3 bg-muted/50 rounded-md">
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
-                  
-                  {/* English URL Row */}
-                  <div className="flex items-center gap-2">
-                    {editingSlugEn ? (
-                      <div className="flex-1 flex items-center gap-1">
-                        <span className="text-xs font-mono text-muted-foreground">
-                          {buildContentUrl(createContentType as ContentType, '', 'en').slice(0, -1)}
-                        </span>
-                        <input
-                          type="text"
-                          value={createContentSlugEn}
-                          onChange={(e) => {
-                            const slug = e.target.value
-                              .toLowerCase()
-                              .replace(/\s+/g, '-')
-                              .replace(/[^a-z0-9-]/g, '')
-                              .replace(/-+/g, '-');
-                            setCreateContentSlugEn(slug);
-                            if (slug) {
-                              setCreateContentSlugEnStatus('checking');
-                              fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=en`)
-                                .then(res => res.json())
-                                .then(data => {
-                                  setCreateContentSlugEnStatus(data.available ? 'available' : 'taken');
-                                  setSlugEnConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                                })
-                                .catch(() => { setCreateContentSlugEnStatus('idle'); setSlugEnConflictReason(null); });
-                            } else {
-                              setCreateContentSlugEnStatus('idle');
-                              setSlugEnConflictReason(null);
-                            }
-                          }}
-                          className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid="input-slug-en"
-                          autoFocus
-                          onBlur={() => setEditingSlugEn(false)}
-                          onKeyDown={(e) => e.key === 'Enter' && setEditingSlugEn(false)}
-                        />
-                      </div>
-                    ) : (
-                      <code 
-                        className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
-                        onClick={() => setEditingSlugEn(true)}
-                        data-testid="url-preview-en"
-                      >
-                        {buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en')}
-                      </code>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => setEditingSlugEn(!editingSlugEn)}
-                      className="p-1 rounded hover-elevate"
-                      title="Edit English slug"
-                      data-testid="button-edit-slug-en"
-                    >
-                      <IconPencil className="h-3 w-3 text-muted-foreground" />
-                    </button>
-                    <div className="w-4">
-                      {createContentSlugEnStatus === 'checking' && (
-                        <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                      )}
-                      {createContentSlugEnStatus === 'available' && (
-                        <IconCheck className="h-4 w-4 text-green-600" />
-                      )}
-                      {createContentSlugEnStatus === 'taken' && (
-                        <IconX className="h-4 w-4 text-red-600" />
-                      )}
-                    </div>
-                  </div>
-                  {createContentSlugEnStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'English slug is taken'}</p>
-                  )}
-                  
-                  {/* Spanish URL Row */}
-                  <div className="flex items-center gap-2">
-                    {editingSlugEs ? (
-                      <div className="flex-1 flex items-center gap-1">
-                        <span className="text-xs font-mono text-muted-foreground">
-                          {buildContentUrl(createContentType as ContentType, '', 'es').slice(0, -1)}
-                        </span>
-                        <input
-                          type="text"
-                          value={createContentSlugEs}
-                          onChange={(e) => {
-                            const slug = e.target.value
-                              .toLowerCase()
-                              .replace(/\s+/g, '-')
-                              .replace(/[^a-z0-9-]/g, '')
-                              .replace(/-+/g, '-');
-                            setCreateContentSlugEs(slug);
-                            if (slug) {
-                              setCreateContentSlugEsStatus('checking');
-                              fetch(`/api/content/check-slug?type=${createContentType}&slug=${slug}&locale=es`)
-                                .then(res => res.json())
-                                .then(data => {
-                                  setCreateContentSlugEsStatus(data.available ? 'available' : 'taken');
-                                  setSlugEsConflictReason(data.available ? null : (data.reason === 'redirect_conflict' ? `Conflicts with redirect: ${data.conflictUrl} → ${data.redirectTo}` : null));
-                                })
-                                .catch(() => { setCreateContentSlugEsStatus('idle'); setSlugEsConflictReason(null); });
-                            } else {
-                              setCreateContentSlugEsStatus('idle');
-                              setSlugEsConflictReason(null);
-                            }
-                          }}
-                          className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid="input-slug-es"
-                          autoFocus
-                          onBlur={() => setEditingSlugEs(false)}
-                          onKeyDown={(e) => e.key === 'Enter' && setEditingSlugEs(false)}
-                        />
-                      </div>
-                    ) : (
-                      <code 
-                        className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
-                        onClick={() => setEditingSlugEs(true)}
-                        data-testid="url-preview-es"
-                      >
-                        {buildContentUrl(createContentType as ContentType, createContentSlugEs, 'es')}
-                      </code>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => setEditingSlugEs(!editingSlugEs)}
-                      className="p-1 rounded hover-elevate"
-                      title="Edit Spanish slug"
-                      data-testid="button-edit-slug-es"
-                    >
-                      <IconPencil className="h-3 w-3 text-muted-foreground" />
-                    </button>
-                    <div className="w-4">
-                      {createContentSlugEsStatus === 'checking' && (
-                        <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                      )}
-                      {createContentSlugEsStatus === 'available' && (
-                        <IconCheck className="h-4 w-4 text-green-600" />
-                      )}
-                      {createContentSlugEsStatus === 'taken' && (
-                        <IconX className="h-4 w-4 text-red-600" />
-                      )}
-                    </div>
-                  </div>
-                  {createContentSlugEsStatus === 'taken' && (
-                    <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || 'Spanish slug is taken'}</p>
-                  )}
-                </div>
-                
-                <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground">Files that will be created:</p>
-                  <div className="space-y-0.5 font-mono text-xs text-muted-foreground">
-                    <div>marketing-content/{createContentType === 'location' ? 'locations' : createContentType === 'program' ? 'programs' : 'pages'}/{createContentSlugEn}/</div>
-                    <div className="pl-4">├── _common.yml</div>
-                    <div className="pl-4">├── en.yml</div>
-                    <div className="pl-4">└── es.yml</div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button
-              variant="outline"
-              onClick={() => setCreateContentModalOpen(false)}
-              data-testid="button-cancel-create-content"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={async () => {
-                // Validation differs for landings vs other types
-                if (createContentType === 'landing') {
-                  if (!createContentSlugEn || createContentSlugEnStatus !== 'available') return;
-                } else {
-                  if (!createContentSlugEn || !createContentSlugEs || 
-                      createContentSlugEnStatus !== 'available' || 
-                      createContentSlugEsStatus !== 'available') return;
-                }
-                
-                setIsCreatingContent(true);
-                try {
-                  const token = getDebugToken();
-                  
-                  // Different endpoint for landings
-                  if (createContentType === 'landing') {
-                    const response = await fetch('/api/content/create-landing', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                        ...(token ? { Authorization: `Token ${token}` } : {}),
-                      },
-                      body: JSON.stringify({
-                        slug: createContentSlugEn,
-                        locale: createLandingLocale,
-                        title: createContentTitle || createContentSlugEn,
-                        ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
-                      }),
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok && data.success) {
-                      const newUrl = `/landing/${createContentSlugEn}`;
-                      toast({
-                        title: "Landing created",
-                        description: `Created new landing at ${newUrl}`,
-                      });
-                      setCreateContentModalOpen(false);
-                      setCreateContentTitle("");
-                      setCreateContentSlugEn("");
-                      setCreateContentSlugEs("");
-                      setCreateContentSlugEnStatus('idle');
-                      setCreateContentSlugEsStatus('idle');
-                      setSlugEnConflictReason(null);
-                      setSlugEsConflictReason(null);
-                      setCreateLandingLocale('en');
-                      
-                      // Refresh sitemap
-                      setSitemapLoading(true);
-                      const sitemapRes = await fetch('/api/debug/sitemap-urls');
-                      if (sitemapRes.ok) {
-                        const urls = await sitemapRes.json();
-                        setSitemapUrls(urls);
-                      }
-                      setSitemapLoading(false);
-                      
-                      // Navigate to the new landing
-                      window.location.href = newUrl;
-                    } else {
-                      toast({
-                        title: "Failed to create landing",
-                        description: data.error || "An error occurred",
-                        variant: "destructive",
-                      });
-                    }
-                  } else {
-                    const response = await fetch('/api/content/create', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                        ...(token ? { Authorization: `Token ${token}` } : {}),
-                      },
-                      body: JSON.stringify({
-                        type: createContentType,
-                        slugEn: createContentSlugEn,
-                        slugEs: createContentSlugEs,
-                        title: createContentTitle || createContentSlugEn,
-                        ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
-                      }),
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok && data.success) {
-                      const newUrl = buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en');
-                      toast({
-                        title: duplicatingPage ? "Página duplicada" : "Content created",
-                        description: duplicatingPage 
-                          ? `Creada copia en ${newUrl}` 
-                          : `Created new ${createContentType} at ${newUrl}`,
-                      });
-                      setCreateContentModalOpen(false);
-                      setCreateContentTitle("");
-                      setCreateContentSlugEn("");
-                      setCreateContentSlugEs("");
-                      setCreateContentSlugEnStatus('idle');
-                      setCreateContentSlugEsStatus('idle');
-                      setSlugEnConflictReason(null);
-                      setSlugEsConflictReason(null);
-                      setDuplicatingPage(null);
-                      
-                      // Refresh sitemap
-                      setSitemapLoading(true);
-                      const sitemapRes = await fetch('/api/debug/sitemap-urls');
-                      if (sitemapRes.ok) {
-                        const urls = await sitemapRes.json();
-                        setSitemapUrls(urls);
-                      }
-                      setSitemapLoading(false);
-                      
-                      // Navigate to the new page
-                      window.location.href = newUrl;
-                    } else {
-                      toast({
-                        title: "Failed to create content",
-                        description: data.error || "An error occurred",
-                        variant: "destructive",
-                      });
-                    }
-                  }
-                } catch (error) {
-                  console.error('Error creating content:', error);
-                  toast({
-                    title: "Failed to create content",
-                    description: "Network error occurred",
-                    variant: "destructive",
-                  });
-                } finally {
-                  setIsCreatingContent(false);
-                }
-              }}
-              disabled={
-                isCreatingContent || !createContentSlugEn || createContentSlugEnStatus !== 'available' ||
-                (createContentType !== 'landing' && (!createContentSlugEs || createContentSlugEsStatus !== 'available'))
-              }
-              data-testid="button-confirm-create-content"
-            >
-              {isCreatingContent ? (
-                <>
-                  <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
-                  {duplicatingPage ? "Duplicando..." : "Creating..."}
-                </>
-              ) : duplicatingPage ? (
-                <>
-                  <IconCopy className="h-4 w-4 mr-2" />
-                  Duplicar {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
-                </>
-              ) : (
-                <>
-                  <IconPlus className="h-4 w-4 mr-2" />
-                  Create {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* Page Errors Modal */}
-      <Dialog open={pageErrorsModalOpen} onOpenChange={setPageErrorsModalOpen}>
-        <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-destructive" />
-              Page Diagnostics
-            </DialogTitle>
-            <DialogDescription>
-              {pageDiagnostics ? `Issues found on ${pageDiagnostics.url}` : 'Loading diagnostics...'}
-            </DialogDescription>
-          </DialogHeader>
-          {pageDiagnostics && (
-            <div className="space-y-4">
-              <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
-                <div className="grid grid-cols-2 gap-1 text-muted-foreground">
-                  <span>Content Type:</span>
-                  <span className="font-mono text-foreground" data-testid="text-modal-content-type">{pageDiagnostics.contentType}</span>
-                  <span>Slug:</span>
-                  <span className="font-mono text-foreground" data-testid="text-modal-slug">{pageDiagnostics.slug}</span>
-                  <span>Locale:</span>
-                  <span className="font-mono text-foreground" data-testid="text-modal-locale">{pageDiagnostics.locale}</span>
-                  <span>Schema Valid:</span>
-                  <span className={`font-mono ${pageDiagnostics.schemaValidation?.valid ? "text-green-600 dark:text-green-400" : "text-destructive"}`} data-testid="text-modal-schema-valid">
-                    {pageDiagnostics.schemaValidation?.valid ? "Yes" : "No"}
-                  </span>
-                </div>
-              </div>
-
-              {(() => {
-                const errors = pageDiagnostics.issues?.filter(i => i.type === "error") || [];
-                const warnings = pageDiagnostics.issues?.filter(i => i.type === "warning") || [];
-                const infos = pageDiagnostics.issues?.filter(i => i.type === "info") || [];
-                return (
-                  <>
-                    {errors.length > 0 && (
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-medium text-destructive">Errors</h3>
-                        {errors.map((issue, i) => (
-                          <div key={i} className="p-3 rounded-md bg-destructive/10 border border-destructive/30 text-sm" data-testid={`modal-error-${i}`}>
-                            <div className="font-mono font-medium text-destructive text-xs">{issue.code}</div>
-                            <div className="mt-1 text-foreground">{issue.message}</div>
-                            {issue.details?.expected && (
-                              <div className="mt-1 text-xs text-muted-foreground">
-                                Expected: <span className="font-mono">{issue.details.expected}</span>
-                                {issue.details.received && (
-                                  <> | Received: <span className="font-mono">{issue.details.received}</span></>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {warnings.length > 0 && (
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-medium text-amber-600 dark:text-amber-400">Warnings</h3>
-                        {warnings.map((issue, i) => (
-                          <div key={i} className="p-3 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm" data-testid={`modal-warning-${i}`}>
-                            <div className="font-mono font-medium text-amber-700 dark:text-amber-300 text-xs">{issue.code}</div>
-                            <div className="mt-1 text-foreground">{issue.message}</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {infos.length > 0 && (
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-medium text-muted-foreground">Info</h3>
-                        {infos.map((issue, i) => (
-                          <div key={i} className="p-3 rounded-md bg-muted/50 border border-border text-sm" data-testid={`modal-info-${i}`}>
-                            <div className="font-mono font-medium text-muted-foreground text-xs">{issue.code}</div>
-                            <div className="mt-1 text-foreground">{issue.message}</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {errors.length === 0 && warnings.length === 0 && infos.length === 0 && (
-                      <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="modal-no-issues">
-                        No issues found. The content loads and validates correctly.
-                      </div>
-                    )}
-                  </>
-                );
-              })()}
-
-              <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
-                <div className="text-muted-foreground mb-1">Health Score</div>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <span data-testid="text-modal-score-total">Total: <strong>{pageDiagnostics.score?.total}%</strong></span>
-                  <span data-testid="text-modal-score-seo">SEO: {pageDiagnostics.score?.seo}%</span>
-                  <span data-testid="text-modal-score-schema">Schema: {pageDiagnostics.score?.schema}%</span>
-                  <span data-testid="text-modal-score-content">Content: {pageDiagnostics.score?.content}%</span>
-                </div>
-              </div>
-            </div>
-          )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setPageErrorsModalOpen(false)} data-testid="button-close-page-errors">
-              Close
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* SEO Editor Modal */}
-      <Dialog open={seoModalOpen} onOpenChange={setSeoModalOpen}>
-        <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto overflow-x-hidden">
-          <DialogHeader>
-            <DialogTitle>SEO & Meta Tags</DialogTitle>
-            <DialogDescription>
-              {contentInfo.slug ? `${contentInfo.label}: ${contentInfo.slug}` : "Page SEO settings"}
-            </DialogDescription>
-          </DialogHeader>
-
-          {seoLoading ? (
-            <div className="flex flex-col items-center justify-center py-12 gap-3">
-              <IconRefresh className="h-6 w-6 animate-spin text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">Loading SEO data...</p>
-            </div>
-          ) : seoData ? (
-            <div className="space-y-6 py-2">
-              {/* FAQ Schema - Read Only */}
-              {seoData.faqSchema && (
-                <div className="space-y-2">
-                  <button
-                    onClick={() => setSeoFaqExpanded(!seoFaqExpanded)}
-                    className="flex items-center gap-2 w-full text-left"
-                    data-testid="button-toggle-faq-schema"
-                  >
-                    {seoFaqExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    <h4 className="text-sm font-semibold">FAQ Schema</h4>
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
-                      Auto-generated
-                    </span>
-                  </button>
-                  {seoFaqExpanded && (
-                    <div className="space-y-2">
-                      <p className="text-xs text-muted-foreground">
-                        This FAQ structured data is generated automatically from FAQ sections on this page. Google uses it to show rich results in search.
-                      </p>
-                      <pre className="bg-muted p-3 rounded-md text-xs font-mono max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all" data-testid="text-faq-schema-preview">
-                        {JSON.stringify(seoData.faqSchema, null, 2)}
-                      </pre>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Schema Includes - Editable */}
-              <div className="space-y-2">
-                <button
-                  onClick={() => setSeoSchemaIncludeExpanded(!seoSchemaIncludeExpanded)}
-                  className="flex items-center gap-2 w-full text-left"
-                  data-testid="button-toggle-schema-includes"
-                >
-                  {seoSchemaIncludeExpanded ? (
-                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <IconChevronRight className="h-4 w-4 text-muted-foreground" />
-                  )}
-                  <h4 className="text-sm font-semibold">Schema Includes</h4>
-                  <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
-                    {seoSchemaInclude.length} selected
-                  </span>
-                </button>
-                {seoSchemaIncludeExpanded && (
-                  <div className="space-y-2">
-                    <p className="text-xs text-muted-foreground">
-                      Select which Schema.org schemas to include on this page. These are defined in schema-org.yml.
-                    </p>
-                    <div className="grid grid-cols-1 gap-1.5 max-h-[200px] overflow-y-auto">
-                      {availableSchemaKeys.map((key) => (
-                        <label
-                          key={key}
-                          className="flex items-center gap-2 px-2 py-1.5 rounded-md hover-elevate cursor-pointer text-sm"
-                          data-testid={`checkbox-schema-${key}`}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={seoSchemaInclude.includes(key)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSeoSchemaInclude(prev => [...prev, key]);
-                              } else {
-                                setSeoSchemaInclude(prev => prev.filter(k => k !== key));
-                                setSeoSchemaOverrides(prev => {
-                                  const next = { ...prev };
-                                  delete next[key];
-                                  return next;
-                                });
-                                setSeoSchemaOverridesErrors(prev => {
-                                  const next = { ...prev };
-                                  delete next[key];
-                                  return next;
-                                });
-                              }
-                            }}
-                            className="rounded"
-                          />
-                          <span className="font-mono text-xs">{key}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Schema Overrides - JSON Editor */}
-              {seoSchemaInclude.length > 0 && (
-                <div className="space-y-2">
-                  <button
-                    onClick={() => setSeoSchemaOverridesExpanded(!seoSchemaOverridesExpanded)}
-                    className="flex items-center gap-2 w-full text-left"
-                    data-testid="button-toggle-schema-overrides"
-                  >
-                    {seoSchemaOverridesExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    <h4 className="text-sm font-semibold">Schema Overrides</h4>
-                    {Object.keys(seoSchemaOverrides).length > 0 && (
-                      <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
-                        {Object.keys(seoSchemaOverrides).length} override{Object.keys(seoSchemaOverrides).length !== 1 ? "s" : ""}
-                      </span>
-                    )}
-                  </button>
-                  {seoSchemaOverridesExpanded && (
-                    <div className="space-y-3">
-                      <p className="text-xs text-muted-foreground">
-                        Add JSON overrides to customize properties of included schemas. Leave empty for no overrides.
-                      </p>
-                      {seoSchemaInclude.map((key) => (
-                        <div key={key} className="space-y-1.5">
-                          <label className="text-xs font-medium font-mono text-foreground">
-                            {key}
-                          </label>
-                          <textarea
-                            value={seoSchemaOverrides[key] || ""}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              setSeoSchemaOverrides(prev => ({ ...prev, [key]: val }));
-                              if (val.trim()) {
-                                try {
-                                  JSON.parse(val);
-                                  setSeoSchemaOverridesErrors(prev => {
-                                    const next = { ...prev };
-                                    delete next[key];
-                                    return next;
-                                  });
-                                } catch {
-                                  setSeoSchemaOverridesErrors(prev => ({ ...prev, [key]: "Invalid JSON" }));
-                                }
-                              } else {
-                                setSeoSchemaOverridesErrors(prev => {
-                                  const next = { ...prev };
-                                  delete next[key];
-                                  return next;
-                                });
-                              }
-                            }}
-                            placeholder={`{\n  "name": "Custom Name",\n  "description": "Custom description"\n}`}
-                            rows={4}
-                            className={`w-full px-3 py-2 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-y ${seoSchemaOverridesErrors[key] ? "border-destructive" : ""}`}
-                            data-testid={`input-schema-override-${key}`}
-                          />
-                          {seoSchemaOverridesErrors[key] && (
-                            <p className="text-xs text-destructive">{seoSchemaOverridesErrors[key]}</p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Schema.org Preview - Read Only */}
-              {seoData.schemaOrg && seoData.schemaOrg.length > 0 && (
-                <div className="space-y-2">
-                  <button
-                    onClick={() => setSeoSchemaExpanded(!seoSchemaExpanded)}
-                    className="flex items-center gap-2 w-full text-left"
-                    data-testid="button-toggle-schema-org"
-                  >
-                    {seoSchemaExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    <h4 className="text-sm font-semibold">Schema.org Preview</h4>
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
-                      Current output
-                    </span>
-                  </button>
-                  {seoSchemaExpanded && (
-                    <div className="space-y-2">
-                      <p className="text-xs text-muted-foreground">
-                        This is the current Schema.org output injected via SSR. Save changes above to update it.
-                      </p>
-                      <pre className="bg-muted p-3 rounded-md text-xs font-mono max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all" data-testid="text-schema-org-preview">
-                        {JSON.stringify(seoData.schemaOrg, null, 2)}
-                      </pre>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Slug Editor */}
-              {contentInfo.type && (
-                <div className="space-y-2">
-                  <button
-                    onClick={() => {
-                      setSlugEditorExpanded(!slugEditorExpanded);
-                      if (!slugEditorExpanded) {
-                        setNewSlugValue(contentInfo.slug || "");
-                        setSlugCheckStatus("idle");
-                        setSlugCheckReason(null);
-                        setSlugRedirectPrompt(false);
-                      }
-                    }}
-                    className="flex items-center gap-2 w-full text-left"
-                    data-testid="button-toggle-slug-editor"
-                  >
-                    {slugEditorExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    <h4 className="text-sm font-semibold">Page Slug</h4>
-                    <code className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-mono">
-                      {currentLocaleSlug}
-                    </code>
-                  </button>
-                  {slugEditorExpanded && (
-                    <div className="space-y-3 pl-6">
-                      <p className="text-xs text-muted-foreground">
-                        Change the slug (URL identifier) for this locale. The folder name stays the same; only this locale's URL changes.
-                      </p>
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-medium text-foreground" htmlFor="slug-editor-input">
-                          New Slug
-                        </label>
-                        <input
-                          id="slug-editor-input"
-                          type="text"
-                          value={newSlugValue}
-                          onChange={(e) => setNewSlugValue(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""))}
-                          placeholder="e.g. my-new-page-slug"
-                          className={`w-full px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring ${slugCheckStatus === "taken" ? "border-destructive" : slugCheckStatus === "available" ? "border-green-500" : ""}`}
-                          data-testid="input-slug-editor"
-                          disabled={slugRenaming}
-                        />
-                        {slugCheckStatus === "checking" && (
-                          <p className="text-xs text-muted-foreground">Checking availability...</p>
-                        )}
-                        {slugCheckStatus === "available" && (
-                          <p className="text-xs text-green-600">Slug is available</p>
-                        )}
-                        {slugCheckStatus === "taken" && slugCheckReason && (
-                          <p className="text-xs text-destructive">{slugCheckReason}</p>
-                        )}
-                        {newSlugValue === currentLocaleSlug && newSlugValue && (
-                          <p className="text-xs text-muted-foreground">Same as current slug</p>
-                        )}
-                      </div>
-
-                      {!slugRedirectPrompt ? (
-                        <Button
-                          size="sm"
-                          onClick={handleSlugRenameClick}
-                          disabled={slugCheckStatus !== "available" || slugRenaming || !newSlugValue || newSlugValue === currentLocaleSlug}
-                          data-testid="button-rename-slug"
-                        >
-                          {slugRenaming ? "Renaming..." : "Change Slug"}
-                        </Button>
-                      ) : (
-                        <div className="space-y-3 rounded-md border p-3">
-                          <p className="text-sm font-medium">Create a redirect?</p>
-                          <p className="text-xs text-muted-foreground">
-                            Do you want to create a redirect from the old URLs to the new ones? This ensures existing links and bookmarks still work.
-                          </p>
-                          <div className="space-y-1.5">
-                            <div className="flex items-center gap-2 text-xs font-mono">
-                              <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugOldUrl}</code>
-                              <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                              <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugNewUrl}</code>
-                            </div>
-                          </div>
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              onClick={() => handleSlugRename(true)}
-                              disabled={slugRenaming}
-                              data-testid="button-rename-with-redirect"
-                            >
-                              {slugRenaming ? "Renaming..." : "Yes, create redirect"}
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleSlugRename(false)}
-                              disabled={slugRenaming}
-                              data-testid="button-rename-without-redirect"
-                            >
-                              No, just rename
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => setSlugRedirectPrompt(false)}
-                              disabled={slugRenaming}
-                              data-testid="button-cancel-rename"
-                            >
-                              Cancel
-                            </Button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Editable Meta Fields */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-semibold">Meta Tags</h4>
-                <p className="text-xs text-muted-foreground">
-                  Edit these fields to improve how the page appears in search results and social media.
-                </p>
-                
-                <div className="space-y-3">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-foreground" htmlFor="seo-page-title">
-                      Page Title
-                    </label>
-                    <input
-                      id="seo-page-title"
-                      type="text"
-                      value={seoMeta.page_title}
-                      onChange={(e) => setSeoMeta(prev => ({ ...prev, page_title: e.target.value }))}
-                      placeholder="e.g. Full Stack Developer Program | 4Geeks"
-                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-seo-page-title"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      {seoMeta.page_title.length}/60 characters (recommended)
-                    </p>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-foreground" htmlFor="seo-description">
-                      Description
-                    </label>
-                    <textarea
-                      id="seo-description"
-                      value={seoMeta.description}
-                      onChange={(e) => setSeoMeta(prev => ({ ...prev, description: e.target.value }))}
-                      placeholder="e.g. Learn full stack development with unlimited mentorship..."
-                      rows={3}
-                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-none"
-                      data-testid="input-seo-description"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      {seoMeta.description.length}/160 characters (recommended)
-                    </p>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-foreground" htmlFor="seo-canonical-url">
-                      Canonical URL
-                    </label>
-                    <input
-                      id="seo-canonical-url"
-                      type="text"
-                      value={seoMeta.canonical_url}
-                      onChange={(e) => setSeoMeta(prev => ({ ...prev, canonical_url: e.target.value }))}
-                      placeholder="e.g. https://4geeks.com/en/career-programs/full-stack"
-                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-seo-canonical-url"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {contentInfo.type === "landing" && seoAvailableLocations.length > 0 && (
-                <div className="space-y-2">
-                  <button
-                    onClick={() => setSeoLocationsExpanded(!seoLocationsExpanded)}
-                    className="flex items-center gap-2 w-full text-left"
-                    data-testid="button-toggle-locations"
-                  >
-                    {seoLocationsExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    <IconMapPin className="h-4 w-4 text-muted-foreground" />
-                    <h4 className="text-sm font-semibold">Locations</h4>
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
-                      {seoLocations.length === 0 ? "All (session-based)" : `${seoLocations.length} selected`}
-                    </span>
-                  </button>
-                  {seoLocationsExpanded && (
-                    <div className="space-y-3">
-                      <p className="text-xs text-muted-foreground">
-                        Choose which campus locations appear on this landing page. If none are selected, the visitor's nearest location is used automatically.
-                      </p>
-
-                      {seoLocations.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {seoLocations.map((locSlug) => {
-                            const locInfo = seoAvailableLocations.find(l => l.slug === locSlug);
-                            return (
-                              <span
-                                key={locSlug}
-                                className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-muted text-sm"
-                                data-testid={`chip-location-${locSlug}`}
-                              >
-                                <span className="truncate max-w-[180px]">
-                                  {locInfo ? `${locInfo.city}, ${locInfo.country}` : locSlug}
-                                </span>
-                                <button
-                                  onClick={() => setSeoLocations(prev => prev.filter(s => s !== locSlug))}
-                                  className="ml-0.5 rounded-sm hover-elevate"
-                                  data-testid={`button-remove-location-${locSlug}`}
-                                >
-                                  <IconX className="h-3.5 w-3.5 text-muted-foreground" />
-                                </button>
-                              </span>
-                            );
-                          })}
-                          <button
-                            onClick={() => setSeoLocations([])}
-                            className="text-xs text-muted-foreground hover:text-foreground underline"
-                            data-testid="button-clear-all-locations"
-                          >
-                            Clear all
-                          </button>
-                        </div>
-                      )}
-
-                      <div className="space-y-1.5">
-                        <input
-                          type="text"
-                          value={seoLocationSearch}
-                          onChange={(e) => setSeoLocationSearch(e.target.value)}
-                          placeholder="Search locations..."
-                          className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid="input-location-search"
-                        />
-                        <div className="max-h-[160px] overflow-y-auto rounded-md border">
-                          {seoAvailableLocations
-                            .filter(loc => {
-                              if (seoLocations.includes(loc.slug)) return false;
-                              if (!seoLocationSearch) return true;
-                              const q = seoLocationSearch.toLowerCase();
-                              return loc.name.toLowerCase().includes(q)
-                                || loc.city.toLowerCase().includes(q)
-                                || loc.country.toLowerCase().includes(q)
-                                || loc.slug.toLowerCase().includes(q);
-                            })
-                            .map(loc => (
-                              <button
-                                key={loc.slug}
-                                onClick={() => setSeoLocations(prev => [...prev, loc.slug])}
-                                className="flex items-center gap-2 w-full text-left px-3 py-1.5 text-sm hover-elevate"
-                                data-testid={`button-add-location-${loc.slug}`}
-                              >
-                                <IconMapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-                                <span>{loc.city}, {loc.country}</span>
-                                <span className="text-xs text-muted-foreground ml-auto">{loc.slug}</span>
-                              </button>
-                            ))
-                          }
-                          {seoAvailableLocations.filter(loc => {
-                            if (seoLocations.includes(loc.slug)) return false;
-                            if (!seoLocationSearch) return true;
-                            const q = seoLocationSearch.toLowerCase();
-                            return loc.name.toLowerCase().includes(q)
-                              || loc.city.toLowerCase().includes(q)
-                              || loc.country.toLowerCase().includes(q)
-                              || loc.slug.toLowerCase().includes(q);
-                          }).length === 0 && (
-                            <p className="px-3 py-2 text-xs text-muted-foreground">
-                              {seoLocationSearch ? "No matching locations" : "All locations already added"}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-12 gap-3">
-              <IconAlertTriangle className="h-6 w-6 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">Could not load SEO data for this page.</p>
-            </div>
-          )}
-
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setSeoModalOpen(false)}
-              data-testid="button-cancel-seo"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSeoSave}
-              disabled={seoSaving || seoLoading || !seoData}
-              data-testid="button-save-seo"
-            >
-              {seoSaving ? (
-                <>
-                  <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                "Save Changes"
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <LocationOverrideModal
+        open={locationModalOpen}
+        onOpenChange={setLocationModalOpen}
+        selectedLocationSlug={selectedLocationSlug}
+        setSelectedLocationSlug={setSelectedLocationSlug}
+        currentLocationOverride={currentLocationOverride}
+        handleLocationOverride={handleLocationOverride}
+        handleClearLocationOverride={handleClearLocationOverride}
+        locationsByRegion={locationsByRegion}
+        regionLabels={regionLabels}
+      />
+      <SessionModal
+        open={sessionModalOpen}
+        onOpenChange={setSessionModalOpen}
+        session={session}
+        hasToken={hasToken}
+        getDebugToken={getDebugToken}
+        getDebugUserName={getDebugUserName}
+        clearToken={clearToken}
+      />
+      <SyncModal
+        open={commitModalOpen}
+        onOpenChange={setCommitModalOpen}
+        autoCommitStatus={autoCommitStatus}
+        autoCommitCountdown={autoCommitCountdown}
+        isFlushing={isFlushing}
+        handleFlush={handleFlush}
+        handleClearConflict={handleClearConflict}
+        pendingChanges={pendingChanges}
+        pendingChangesLoading={pendingChangesLoading}
+        selectedFileForCommit={selectedFileForCommit}
+        setSelectedFileForCommit={setSelectedFileForCommit}
+        fileCommitMessage={fileCommitMessage}
+        setFileCommitMessage={setFileCommitMessage}
+        fileCommitting={fileCommitting}
+        handleFileCommit={handleFileCommit}
+        filePulling={filePulling}
+        handleFilePull={handleFilePull}
+        setConfirmPullFile={setConfirmPullFile}
+        githubSyncStatus={githubSyncStatus}
+        commitMessage={commitMessage}
+        setCommitMessage={setCommitMessage}
+        isCommitting={isCommitting}
+        handleCommit={handleCommit}
+        handleSyncFromRemote={handleSyncFromRemote}
+        isSyncing={isSyncing}
+        handleIgnoreAllChanges={handleIgnoreAllChanges}
+        isIgnoringAllChanges={isIgnoringAllChanges}
+        fetchPendingChanges={fetchPendingChanges}
+        manualActionsOpen={manualActionsOpen}
+        setManualActionsOpen={setManualActionsOpen}
+        advancedOptionsOpen={advancedOptionsOpen}
+        setAdvancedOptionsOpen={setAdvancedOptionsOpen}
+        getDebugToken={getDebugToken}
+        toast={toast}
+      />
+      <PullConflictModal
+        open={pullConflictModalOpen}
+        onOpenChange={setPullConflictModalOpen}
+        pullConflictFiles={pullConflictFiles}
+        onCommitFirst={() => {
+          setPullConflictModalOpen(false);
+          fetchPendingChanges();
+          setCommitModalOpen(true);
+        }}
+        onPullAnyway={() => {
+          setPullConflictModalOpen(false);
+          executeSyncFromRemote();
+        }}
+      />
+      <ConfirmPullFileModal
+        confirmPullFile={confirmPullFile}
+        onOpenChange={(open) => { if (!open) setConfirmPullFile(null); }}
+        onConfirm={() => { if (confirmPullFile) handleFilePull(confirmPullFile); }}
+        filePulling={filePulling}
+      />
+      <DeletePageModal
+        open={deletePageModalOpen}
+        onOpenChange={setDeletePageModalOpen}
+        deletingPage={deletingPage}
+        deleteConfirmInput={deleteConfirmInput}
+        setDeleteConfirmInput={setDeleteConfirmInput}
+        isDeletingPage={isDeletingPage}
+        onConfirm={confirmDeletePage}
+      />
+      <CreateContentModal
+        open={createContentModalOpen}
+        onOpenChange={setCreateContentModalOpen}
+        duplicatingPage={duplicatingPage}
+        createContentType={createContentType}
+        setCreateContentType={setCreateContentType}
+        createContentTitle={createContentTitle}
+        setCreateContentTitle={setCreateContentTitle}
+        createContentSlugEn={createContentSlugEn}
+        setCreateContentSlugEn={setCreateContentSlugEn}
+        createContentSlugEs={createContentSlugEs}
+        setCreateContentSlugEs={setCreateContentSlugEs}
+        createContentSlugEnStatus={createContentSlugEnStatus}
+        setCreateContentSlugEnStatus={setCreateContentSlugEnStatus}
+        createContentSlugEsStatus={createContentSlugEsStatus}
+        setCreateContentSlugEsStatus={setCreateContentSlugEsStatus}
+        slugEnConflictReason={slugEnConflictReason}
+        setSlugEnConflictReason={setSlugEnConflictReason}
+        slugEsConflictReason={slugEsConflictReason}
+        setSlugEsConflictReason={setSlugEsConflictReason}
+        editingSlugEn={editingSlugEn}
+        setEditingSlugEn={setEditingSlugEn}
+        editingSlugEs={editingSlugEs}
+        setEditingSlugEs={setEditingSlugEs}
+        isCreatingContent={isCreatingContent}
+        setIsCreatingContent={setIsCreatingContent}
+        createLandingLocale={createLandingLocale}
+        setCreateLandingLocale={setCreateLandingLocale}
+        setSitemapUrls={setSitemapUrls}
+        setSitemapLoading={setSitemapLoading}
+        setDuplicatingPage={setDuplicatingPage}
+        toast={toast}
+      />
+      <PageErrorsModal
+        open={pageErrorsModalOpen}
+        onOpenChange={setPageErrorsModalOpen}
+        pageDiagnostics={pageDiagnostics}
+      />
+      <SeoModal
+        open={seoModalOpen}
+        onOpenChange={setSeoModalOpen}
+        contentInfo={contentInfo}
+        seoLoading={seoLoading}
+        seoData={seoData}
+        seoMeta={seoMeta}
+        setSeoMeta={setSeoMeta}
+        seoFaqExpanded={seoFaqExpanded}
+        setSeoFaqExpanded={setSeoFaqExpanded}
+        seoSchemaExpanded={seoSchemaExpanded}
+        setSeoSchemaExpanded={setSeoSchemaExpanded}
+        seoSchemaIncludeExpanded={seoSchemaIncludeExpanded}
+        setSeoSchemaIncludeExpanded={setSeoSchemaIncludeExpanded}
+        seoSchemaOverridesExpanded={seoSchemaOverridesExpanded}
+        setSeoSchemaOverridesExpanded={setSeoSchemaOverridesExpanded}
+        seoSchemaInclude={seoSchemaInclude}
+        setSeoSchemaInclude={setSeoSchemaInclude}
+        seoSchemaOverrides={seoSchemaOverrides}
+        setSeoSchemaOverrides={setSeoSchemaOverrides}
+        seoSchemaOverridesErrors={seoSchemaOverridesErrors}
+        setSeoSchemaOverridesErrors={setSeoSchemaOverridesErrors}
+        availableSchemaKeys={availableSchemaKeys}
+        seoLocations={seoLocations}
+        setSeoLocations={setSeoLocations}
+        seoAvailableLocations={seoAvailableLocations}
+        seoLocationSearch={seoLocationSearch}
+        setSeoLocationSearch={setSeoLocationSearch}
+        seoSaving={seoSaving}
+        handleSeoSave={handleSeoSave}
+        slugEditorExpanded={slugEditorExpanded}
+        setSlugEditorExpanded={setSlugEditorExpanded}
+        newSlugValue={newSlugValue}
+        setNewSlugValue={setNewSlugValue}
+        slugCheckStatus={slugCheckStatus}
+        slugRenaming={slugRenaming}
+        slugRedirectPrompt={slugRedirectPrompt}
+        slugOldUrl={slugOldUrl}
+        slugNewUrl={slugNewUrl}
+        handleSlugRenameClick={handleSlugRenameClick}
+        handleSlugRename={handleSlugRename}
+        currentLocaleSlug={currentLocaleSlug}
+      />
     </div>
   );
 }
