@@ -24,10 +24,10 @@ sections:
       desktop: none
     paddingY:
       desktop: md sm
+    background: hsl(var(--muted))
   - type: contact_us_info
     version: "1.0"
     title: Cuéntanos sobre ti
-    background: hsl(var(--muted))
     form:
       variant: stacked
       submit_label: Enviar
@@ -77,4 +77,4 @@ sections:
         name: Venezuela
         email: venezuela@4GeeksAcademy.com
     paddingY:
-      desktop: sm
+      desktop: md
