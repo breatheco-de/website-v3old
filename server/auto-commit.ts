@@ -31,15 +31,25 @@ interface PendingFileChange {
   timestamp: number;
 }
 
+interface PendingFileInfo {
+  filePath: string;
+  author: string;
+  timestamp: number;
+}
+
 interface AutoCommitStatus {
   enabled: boolean;
   pendingFiles: number;
   pendingFilesList: string[];
+  pendingFilesDetails: PendingFileInfo[];
   lastCommitAt: string | null;
   lastCommitSha: string | null;
   lastError: string | null;
   conflictedFiles: string[];
   commitIntervalSeconds: number;
+  nextSyncAt: number | null;
+  isCommitting: boolean;
+  githubConfigured: boolean;
 }
 
 interface GitHubConfig {
@@ -56,6 +66,9 @@ let lastCommitAt: string | null = null;
 let lastCommitSha: string | null = null;
 let lastError: string | null = null;
 let conflictedFiles: Set<string> = new Set();
+let nextSyncAt: number | null = null;
+let retryBackoffMs = 0;
+const BACKOFF_STEPS = [5000, 10000, 30000, 60000];
 
 function getGitHubConfig(): GitHubConfig | null {
   const token = process.env.GITHUB_TOKEN || '';
@@ -117,20 +130,37 @@ export function queueFileChange(filePath: string, author?: string): void {
   scheduleCommit();
 }
 
-function scheduleCommit(): void {
+function scheduleCommit(useBackoff = false): void {
   if (timer !== null) return;
   if (isCommitting) return;
 
   const config = getSyncConfig();
-  const intervalMs = (config.commitIntervalSeconds || 5) * 1000;
+  const baseIntervalMs = (config.commitIntervalSeconds || 5) * 1000;
+  const delayMs = useBackoff && retryBackoffMs > 0 ? retryBackoffMs : baseIntervalMs;
+
+  nextSyncAt = Date.now() + delayMs;
 
   timer = setTimeout(() => {
     timer = null;
+    nextSyncAt = null;
     processQueue().catch(err => {
       console.error('[AutoCommit] Error processing queue:', err);
       lastError = err instanceof Error ? err.message : 'Unknown error';
+      scheduleRetry();
     });
-  }, intervalMs);
+  }, delayMs);
+}
+
+function scheduleRetry(): void {
+  if (pendingChanges.size === 0) return;
+  const currentIndex = BACKOFF_STEPS.indexOf(retryBackoffMs);
+  retryBackoffMs = BACKOFF_STEPS[Math.min((currentIndex < 0 ? 0 : currentIndex + 1), BACKOFF_STEPS.length - 1)];
+  console.log(`[AutoCommit] Scheduling retry with backoff: ${retryBackoffMs / 1000}s`);
+  scheduleCommit(true);
+}
+
+function resetBackoff(): void {
+  retryBackoffMs = 0;
 }
 
 async function processQueue(): Promise<void> {
@@ -139,30 +169,53 @@ async function processQueue(): Promise<void> {
 
   isCommitting = true;
   lastError = null;
+  let hadFailure = false;
+
+  const snapshotChanges = new Map(pendingChanges);
+  pendingChanges.clear();
 
   try {
     const config = getGitHubConfig();
     if (!config) {
       lastError = 'GitHub not configured';
+      hadFailure = true;
+      for (const [key, val] of Array.from(snapshotChanges.entries())) {
+        if (!pendingChanges.has(key)) pendingChanges.set(key, val);
+      }
       return;
     }
 
-    const changes = new Map(pendingChanges);
-    pendingChanges.clear();
-
-    const authorGroups = groupByAuthor(changes);
+    const authorGroups = groupByAuthor(snapshotChanges);
+    const errorBefore = lastError;
 
     for (const [author, files] of Array.from(authorGroups.entries())) {
       await commitBatch(config, author, files);
     }
+
+    if (lastError && lastError !== errorBefore) {
+      hadFailure = true;
+    }
   } catch (error) {
     lastError = error instanceof Error ? error.message : 'Unknown error';
     console.error('[AutoCommit] Queue processing error:', error);
+    hadFailure = true;
+    for (const [key, val] of Array.from(snapshotChanges.entries())) {
+      if (!pendingChanges.has(key)) pendingChanges.set(key, val);
+    }
   } finally {
     isCommitting = false;
+
+    if (!hadFailure) {
+      resetBackoff();
+    }
+
     if (pendingChanges.size > 0) {
       timer = null;
-      scheduleCommit();
+      if (hadFailure) {
+        scheduleRetry();
+      } else {
+        scheduleCommit();
+      }
     }
   }
 }
@@ -220,7 +273,6 @@ async function commitBatch(config: GitHubConfig, author: string, files: string[]
         timestamp: Date.now(),
       });
     }
-    scheduleCommit();
   }
 }
 
@@ -411,11 +463,19 @@ export function getAutoCommitStatus(): AutoCommitStatus {
     enabled: isAutoCommitEnabled(),
     pendingFiles: pendingChanges.size,
     pendingFilesList: Array.from(pendingChanges.keys()),
+    pendingFilesDetails: Array.from(pendingChanges.values()).map(c => ({
+      filePath: c.filePath,
+      author: c.author,
+      timestamp: c.timestamp,
+    })),
     lastCommitAt,
     lastCommitSha,
     lastError,
     conflictedFiles: Array.from(conflictedFiles),
     commitIntervalSeconds: config.commitIntervalSeconds,
+    nextSyncAt,
+    isCommitting,
+    githubConfigured: getGitHubConfig() !== null,
   };
 }
 
@@ -439,6 +499,7 @@ export async function flushPendingChanges(): Promise<{ success: boolean; error?:
   if (timer !== null) {
     clearTimeout(timer);
     timer = null;
+    nextSyncAt = null;
   }
 
   if (pendingChanges.size === 0) {
