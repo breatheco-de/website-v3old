@@ -218,6 +218,44 @@ sections:
         name: Ariana Sánchez
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para comenzar?
+    subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplica ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
