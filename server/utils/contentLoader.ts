@@ -18,6 +18,7 @@ import type { ZodSchema } from "zod";
 import { deepMerge } from "./deepMerge";
 import { contentIndex } from "../content-index";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
+import { getFolder } from "../content-types";
 
 /**
  * Recursively strip null values from an object, converting them to undefined.
@@ -52,7 +53,7 @@ function safeYamlLoad(yamlStr: string): unknown {
   return unescapeObjectVars(parsed, map);
 }
 
-export type ContentType = "programs" | "pages" | "locations" | "landings";
+export type ContentType = "program" | "page" | "location" | "landing" | "programs" | "pages" | "locations" | "landings";
 
 export interface LoadContentOptions<T> {
   contentType: ContentType;
@@ -80,13 +81,14 @@ export function loadContent<T>(options: LoadContentOptions<T>): LoadContentResul
   const { contentType, slug, schema, localeOrVariant, requireCommon = false } = options;
 
   try {
+    const folder = getFolder(contentType);
     let resolvedSlug = slug;
-    const initialDir = path.join(MARKETING_CONTENT_PATH, contentType, slug);
+    const initialDir = path.join(MARKETING_CONTENT_PATH, folder, slug);
     if (!fs.existsSync(initialDir)) {
       resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
     }
 
-    const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, resolvedSlug);
+    const contentDir = path.join(MARKETING_CONTENT_PATH, folder, resolvedSlug);
     const commonPath = path.join(contentDir, "_common.yml");
     const contentPath = path.join(contentDir, `${localeOrVariant}.yml`);
 
@@ -138,7 +140,7 @@ export function loadContent<T>(options: LoadContentOptions<T>): LoadContentResul
  * List all content directories for a given content type.
  */
 export function listContentSlugs(contentType: ContentType): string[] {
-  const contentDir = path.join(MARKETING_CONTENT_PATH, contentType);
+  const contentDir = path.join(MARKETING_CONTENT_PATH, getFolder(contentType));
 
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -160,7 +162,7 @@ export function listContentSlugs(contentType: ContentType): string[] {
  * Returns filenames without .yml extension, excluding _common.yml and experiments.yml
  */
 export function getAvailableLocalesOrVariants(contentType: ContentType, slug: string): string[] {
-  const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, slug);
+  const contentDir = path.join(MARKETING_CONTENT_PATH, getFolder(contentType), slug);
 
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -186,7 +188,7 @@ export function getAvailableLocalesOrVariants(contentType: ContentType, slug: st
  * Load _common.yml data only (for getting locale from landings, etc.)
  */
 export function loadCommonData(contentType: ContentType, slug: string): Record<string, unknown> | null {
-  const commonPath = path.join(MARKETING_CONTENT_PATH, contentType, slug, "_common.yml");
+  const commonPath = path.join(MARKETING_CONTENT_PATH, getFolder(contentType), slug, "_common.yml");
 
   if (!fs.existsSync(commonPath)) {
     return null;

@@ -64,6 +64,7 @@ import {
   loadCommonData,
   type ContentType,
 } from "./utils/contentLoader";
+import { getFolder, getType, isValidType, getAllTypes, getAllFolders, getAllConfigs } from "./content-types";
 import { normalizeLocale } from "@shared/locale";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
@@ -125,7 +126,7 @@ const careerProgramsListingSchema = z.object({
 
 function loadCareerProgramsListing(locale: string) {
   const result = loadContent({
-    contentType: "pages",
+    contentType: "page",
     slug: "career-programs",
     schema: careerProgramsListingSchema,
     localeOrVariant: locale,
@@ -141,7 +142,7 @@ function loadCareerProgramsListing(locale: string) {
 
 function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
   const result = loadContent({
-    contentType: "programs",
+    contentType: "program",
     slug,
     schema: careerProgramSchema,
     localeOrVariant: locale,
@@ -158,7 +159,7 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
 function listCareerPrograms(
   locale: string,
 ): Array<{ slug: string; title: string }> {
-  const slugs = listContentSlugs("programs");
+  const slugs = listContentSlugs("program");
   const programs: Array<{ slug: string; title: string }> = [];
 
   for (const slug of slugs) {
@@ -173,7 +174,7 @@ function listCareerPrograms(
 
 function loadLandingPage(slug: string): LandingPage | null {
   const result = loadContent({
-    contentType: "landings",
+    contentType: "landing",
     slug,
     schema: landingPageSchema,
     localeOrVariant: "promoted",
@@ -192,13 +193,13 @@ function listLandingPages(): Array<{
   title: string;
   locale: string;
 }> {
-  const slugs = listContentSlugs("landings");
+  const slugs = listContentSlugs("landing");
   const landings: Array<{ slug: string; title: string; locale: string }> = [];
 
   for (const slug of slugs) {
     const landing = loadLandingPage(slug);
     if (landing) {
-      const commonData = loadCommonData("landings", slug);
+      const commonData = loadCommonData("landing", slug);
       const locale = (commonData?.locale as string) || "en";
       const landingSlug = landing.slug || slug;
       const landingTitle = landing.title || "";
@@ -213,7 +214,7 @@ function listLandingPages(): Array<{
 
 function loadLocationPage(slug: string, locale: string): LocationPage | null {
   const result = loadContent({
-    contentType: "locations",
+    contentType: "location",
     slug,
     schema: locationPageSchema,
     localeOrVariant: locale,
@@ -236,7 +237,7 @@ function listLocationPages(
   country: string;
   region: string;
 }> {
-  const slugs = listContentSlugs("locations");
+  const slugs = listContentSlugs("location");
   const locations: Array<{
     slug: string;
     name: string;
@@ -264,7 +265,7 @@ function listLocationPages(
 // Template Pages (marketing-content/pages/)
 function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
   const result = loadContent({
-    contentType: "pages",
+    contentType: "page",
     slug,
     schema: templatePageSchema,
     localeOrVariant: locale,
@@ -281,7 +282,7 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
 function listTemplatePages(
   locale: string,
 ): Array<{ slug: string; template: string; title: string }> {
-  const slugs = listContentSlugs("pages");
+  const slugs = listContentSlugs("page");
   const pages: Array<{ slug: string; template: string; title: string }> = [];
 
   for (const slug of slugs) {
@@ -823,7 +824,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       : undefined;
 
     // Get locale from _common.yml
-    const commonData = loadCommonData("landings", slug);
+    const commonData = loadCommonData("landing", slug);
     const locale = (commonData?.locale as string) || "en";
 
     let landing: LandingPage | null = null;
@@ -845,7 +846,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           assigned_at: Date.now(),
         },
         locale,
-        "landings",
+        "landing",
       );
       if (forcedContent) {
         landing = forcedContent as LandingPage;
@@ -931,7 +932,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Load common data for programs and locations
-    const commonData = loadCommonData("pages", "apply");
+    const commonData = loadCommonData("page", "apply");
     
     res.json({
       ...page,
@@ -1578,7 +1579,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       const basePath = path.join(process.cwd(), entry.folder);
 
       let targetFile: string;
-      if (contentType === "landings" || allLanguages) {
+      if (getType(contentType) === "landing" || allLanguages) {
         targetFile = "_common.yml";
       } else {
         targetFile = `${locale}.yml`;
@@ -2410,6 +2411,11 @@ Important: Only include mappings where you are confident the field exists. Use d
   });
 
   // Schema.org API endpoints
+  app.get("/api/content-types", (_req, res) => {
+    const configs = getAllConfigs();
+    res.json(configs);
+  });
+
   app.get("/api/schema", (req, res) => {
     const keys = getAvailableSchemaKeys();
     res.json({ available: keys });
@@ -2453,9 +2459,8 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { contentType, slug } = req.params;
       const locale = normalizeLocale((req.query.locale as string) || "en");
 
-      const validTypes = ["programs", "pages", "landings", "locations"];
-      if (!validTypes.includes(contentType)) {
-        res.status(400).json({ error: `Invalid content type. Must be one of: ${validTypes.join(", ")}` });
+      if (!isValidType(contentType)) {
+        res.status(400).json({ error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}` });
         return;
       }
 
@@ -2472,9 +2477,9 @@ Important: Only include mappings where you are confident the field exists. Use d
       const sections = pageData.sections as Array<Record<string, unknown>> | undefined;
       if (sections) {
         // Extract location slug if we're on a location page
-        const locationSlug = contentType === "locations" ? slug : undefined;
+        const locationSlug = getType(contentType) === "location" ? slug : undefined;
         // Extract program slug if we're on a program page
-        const programSlug = contentType === "programs" ? slug : undefined;
+        const programSlug = getType(contentType) === "program" ? slug : undefined;
         
         const allFaqItems: Array<{ question: string; answer: string }> = [];
         for (const section of sections) {
@@ -2506,8 +2511,8 @@ Important: Only include mappings where you are confident the field exists. Use d
         slug: pageData.slug || slug,
       };
 
-      if (contentType === "landings") {
-        const commonData = loadCommonData("landings", slug);
+      if (getType(contentType) === "landing") {
+        const commonData = loadCommonData("landing", slug);
         responseData.locations = (commonData?.locations as string[]) || [];
         responseData.availableLocations = listLocationPages(locale).map(loc => ({
           slug: loc.slug,
@@ -2561,12 +2566,12 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Missing required fields: contentType, slug, locations (array)" });
         return;
       }
-      if (contentType !== "landings") {
+      if (getType(contentType) !== "landing") {
         res.status(400).json({ error: "Locations can only be updated for landings" });
         return;
       }
 
-      const commonPath = path.join(process.cwd(), "marketing-content", contentType, slug, "_common.yml");
+      const commonPath = path.join(process.cwd(), "marketing-content", getFolder(contentType), slug, "_common.yml");
       if (!fs.existsSync(commonPath)) {
         res.status(404).json({ error: "_common.yml not found for this landing" });
         return;
@@ -2822,15 +2827,14 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/variants/:contentType/:slug", (req, res) => {
     const { contentType, slug } = req.params;
 
-    const validTypes = ["programs", "pages", "landings", "locations"];
-    if (!validTypes.includes(contentType)) {
-      res.status(400).json({ error: "Invalid content type", validTypes });
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
       return;
     }
 
     const experimentManager = getExperimentManager();
     const result = experimentManager.getAvailableVariants(
-      contentType as "programs" | "pages" | "landings" | "locations",
+      contentType as ContentType,
       slug,
     );
 
@@ -2846,19 +2850,17 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/experiments/:contentType/:slug", (req, res) => {
     const { contentType, slug } = req.params;
 
-    // Validate content type
-    const validTypes = ["programs", "pages", "landings", "locations"];
-    if (!validTypes.includes(contentType)) {
+    if (!isValidType(contentType)) {
       res.status(400).json({
         error: "Invalid content type",
-        validTypes,
+        validTypes: getAllFolders(),
       });
       return;
     }
 
     const experimentManager = getExperimentManager();
     const experiments = experimentManager.getExperimentsForContent(
-      contentType as "programs" | "pages" | "landings" | "locations",
+      contentType as ContentType,
       slug,
     );
 
@@ -2867,7 +2869,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         experiments: [],
         hasExperimentsFile: false,
         filePath: experimentManager.getExperimentsFilePath(
-          contentType as "programs" | "pages" | "landings" | "locations",
+          contentType as ContentType,
           slug,
         ),
       });
@@ -2887,7 +2889,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       experiments: experimentsWithStats,
       hasExperimentsFile: true,
       filePath: experimentManager.getExperimentsFilePath(
-        contentType as "programs" | "pages" | "landings" | "locations",
+        contentType as ContentType,
         slug,
       ),
     });
@@ -2899,15 +2901,14 @@ Important: Only include mappings where you are confident the field exists. Use d
     (req, res) => {
       const { contentType, contentSlug, experimentSlug } = req.params;
 
-      const validTypes = ["programs", "pages", "landings", "locations"];
-      if (!validTypes.includes(contentType)) {
-        res.status(400).json({ error: "Invalid content type", validTypes });
+      if (!isValidType(contentType)) {
+        res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
         return;
       }
 
       const experimentManager = getExperimentManager();
       const experiments = experimentManager.getExperimentsForContent(
-        contentType as "programs" | "pages" | "landings" | "locations",
+        contentType as ContentType,
         contentSlug,
       );
 
@@ -2937,7 +2938,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType,
         contentSlug,
         filePath: experimentManager.getExperimentsFilePath(
-          contentType as "programs" | "pages" | "landings" | "locations",
+          contentType as ContentType,
           contentSlug,
         ),
       });
@@ -2950,9 +2951,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     (req, res) => {
       const { contentType, contentSlug, experimentSlug } = req.params;
 
-      const validTypes = ["programs", "pages", "landings", "locations"];
-      if (!validTypes.includes(contentType)) {
-        res.status(400).json({ error: "Invalid content type", validTypes });
+      if (!isValidType(contentType)) {
+        res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
         return;
       }
 
@@ -2974,7 +2974,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       const experimentManager = getExperimentManager();
       try {
         const result = experimentManager.updateExperiment(
-          contentType as "programs" | "pages" | "landings" | "locations",
+          contentType as ContentType,
           contentSlug,
           experimentSlug,
           validatedUpdates,
@@ -2995,9 +2995,8 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.post("/api/experiments/:contentType/:slug/create", (req, res) => {
     const { contentType, slug } = req.params;
 
-    const validTypes = ["programs", "pages", "landings", "locations"];
-    if (!validTypes.includes(contentType)) {
-      res.status(400).json({ error: "Invalid content type", validTypes });
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
       return;
     }
 
@@ -3031,7 +3030,7 @@ Important: Only include mappings where you are confident the field exists. Use d
     const experimentManager = getExperimentManager();
     try {
       const result = experimentManager.createExperiment(
-        contentType as "programs" | "pages" | "landings" | "locations",
+        contentType as ContentType,
         slug,
         {
           experimentName,
@@ -3326,12 +3325,11 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const typeMap: Record<string, string> = { programs: "programs", landings: "landings", locations: "locations", pages: "pages" };
-      const folder = typeMap[contentType];
-      if (!folder) {
+      if (!isValidType(contentType)) {
         res.status(400).json({ error: `Unknown content type: ${contentType}` });
         return;
       }
+      const folder = getFolder(contentType);
 
       let resolvedSlug = slug;
       try {
@@ -3511,8 +3509,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         if (!entry.locales.includes(normalizedLocale) && entryContentType !== "landing") continue;
 
         try {
-          const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
-          const typeFolder = typeMap[entryContentType] || entry.contentType;
+          const typeFolder = getFolder(entryContentType);
           const resolved = contentIndex.resolveBaseSlug(entry.slug, typeFolder);
           const folder = path.join(process.cwd(), "marketing-content", typeFolder, resolved);
 
@@ -3885,9 +3882,8 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const validTypes = ["location", "page", "program", "landing"];
-      if (!validTypes.includes(contentType)) {
-        res.status(400).json({ error: `Invalid type. Must be one of: ${validTypes.join(", ")}` });
+      if (!isValidType(contentType)) {
+        res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}` });
         return;
       }
 
@@ -3897,13 +3893,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const folderMap: Record<string, string> = {
-        location: "locations",
-        page: "pages",
-        program: "programs",
-        landing: "landings",
-      };
-      const contentFolder = folderMap[contentType];
+      const contentFolder = getFolder(contentType);
       const resolvedFolderSlug = contentIndex.resolveBaseSlug(folderSlug, contentFolder);
       const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, resolvedFolderSlug);
 
@@ -3983,21 +3973,12 @@ Important: Only include mappings where you are confident the field exists. Use d
       return;
     }
     
-    const validTypes = ['location', 'page', 'program', 'landing'];
-    if (!validTypes.includes(type)) {
-      res.status(400).json({ error: `Invalid type. Must be one of: ${validTypes.join(', ')}` });
+    if (!isValidType(type)) {
+      res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(', ')}` });
       return;
     }
     
-    // Map type to folder name
-    const folderMap: Record<string, string> = {
-      location: 'locations',
-      page: 'pages',
-      program: 'programs',
-      landing: 'landings',
-    };
-    
-    const folderPath = path.join(process.cwd(), 'marketing-content', folderMap[type], slug);
+    const folderPath = path.join(process.cwd(), 'marketing-content', getFolder(type), slug);
     
     // For landings, also check that it's not a reserved name (starts with _)
     if (type === 'landing' && slug.startsWith('_')) {
@@ -4145,9 +4126,8 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const validTypes = ['location', 'page', 'program'];
-      if (!validTypes.includes(type)) {
-        res.status(400).json({ error: `Invalid type. Must be one of: ${validTypes.join(', ')}` });
+      if (!isValidType(type)) {
+        res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(', ')}` });
         return;
       }
 
@@ -4162,15 +4142,8 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      // Map type to folder name
-      const folderMap: Record<string, string> = {
-        location: 'locations',
-        page: 'pages',
-        program: 'programs',
-      };
-
       // Use English slug for folder name (primary identifier)
-      const folderPath = path.join(process.cwd(), 'marketing-content', folderMap[type], enSlug);
+      const folderPath = path.join(process.cwd(), 'marketing-content', getFolder(type), enSlug);
       
       // Check if folder already exists
       if (fs.existsSync(folderPath)) {
@@ -4259,7 +4232,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               }
               
               fs.writeFileSync(path.join(folderPath, file), content);
-              markFileAsModified(`marketing-content/${folderMap[type]}/${enSlug}/${file}`);
+              markFileAsModified(`marketing-content/${getFolder(type)}/${enSlug}/${file}`);
             }
             
             clearSitemapCache();
@@ -4270,7 +4243,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               slugEn: enSlug,
               slugEs: esSlug,
               type,
-              folder: `marketing-content/${folderMap[type]}/${enSlug}`,
+              folder: `marketing-content/${getFolder(type)}/${enSlug}`,
               duplicatedFrom: sourceUrl,
             });
             return;
@@ -4400,7 +4373,7 @@ sections: []
 
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];
-      const relFolder = `marketing-content/${folderMap[type]}/${enSlug}`;
+      const relFolder = `marketing-content/${getFolder(type)}/${enSlug}`;
       if (!fs.existsSync(path.join(folderPath, '_common.yml'))) {
         fs.writeFileSync(path.join(folderPath, '_common.yml'), commonYml);
         createdFiles.push('_common.yml');
@@ -4426,7 +4399,7 @@ sections: []
         slugEn: enSlug,
         slugEs: esSlug,
         type,
-        folder: `marketing-content/${folderMap[type]}/${enSlug}`,
+        folder: `marketing-content/${getFolder(type)}/${enSlug}`,
         files: createdFiles.length > 0 ? createdFiles : ['_common.yml', 'en.yml', 'es.yml'],
         recovered: createdFiles.length > 0 && createdFiles.length < 3,
       });
@@ -4489,15 +4462,8 @@ sections: []
         return;
       }
 
-      const folderMap: Record<string, string> = {
-        location: 'locations',
-        page: 'pages',
-        program: 'programs',
-        landing: 'landings',
-      };
-
-      if (!folderMap[type]) {
-        res.status(400).json({ error: `Invalid type. Must be one of: ${Object.keys(folderMap).join(', ')}` });
+      if (!isValidType(type)) {
+        res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(', ')}` });
         return;
       }
 
@@ -4506,10 +4472,10 @@ sections: []
         return;
       }
 
-      const typeFolder = { program: 'programs', page: 'pages', location: 'locations', landing: 'landings' }[type] || type;
+      const typeFolder = getFolder(type);
       const resolvedSlug = contentIndex.resolveBaseSlug(slug, typeFolder);
 
-      const folderPath = path.join(process.cwd(), 'marketing-content', folderMap[type], resolvedSlug);
+      const folderPath = path.join(process.cwd(), 'marketing-content', typeFolder, resolvedSlug);
 
       if (!fs.existsSync(folderPath)) {
         res.status(404).json({ error: `Content "${slug}" of type "${type}" not found` });
@@ -4517,7 +4483,7 @@ sections: []
       }
 
       const realPath = fs.realpathSync(path.resolve(folderPath));
-      const allowedBase = fs.realpathSync(path.join(process.cwd(), 'marketing-content', folderMap[type]));
+      const allowedBase = fs.realpathSync(path.join(process.cwd(), 'marketing-content', typeFolder));
       if (!realPath.startsWith(allowedBase + path.sep)) {
         res.status(400).json({ error: "Invalid path" });
         return;
@@ -5732,11 +5698,10 @@ sections: []
       }
 
       // Validate content type
-      const validTypes = ["programs", "pages", "landings", "locations"];
-      if (!validTypes.includes(contentType)) {
+      if (!isValidType(contentType)) {
         res.status(400).json({
           error: "Invalid content type",
-          validTypes,
+          validTypes: getAllFolders(),
         });
         return;
       }

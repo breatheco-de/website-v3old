@@ -6,6 +6,7 @@ import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { markFileAsModified } from "./sync-state";
 import { normalizeLocale } from "@shared/locale";
+import { getFolder, getType } from "./content-types";
 
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
@@ -403,33 +404,19 @@ class BindingManager {
   }
 
   private getContentPath(contentType: string, slug: string, locale: string): string {
-    const typeMap: Record<string, string> = {
-      program: "programs", programs: "programs",
-      landing: "landings", landings: "landings",
-      location: "locations", locations: "locations",
-      page: "pages", pages: "pages",
-    };
-    const typeFolder = typeMap[contentType];
-    if (!typeFolder) throw new Error(`Unknown content type: ${contentType}`);
-    const resolved = contentIndex.resolveBaseSlug(slug, typeFolder);
+    const typeFolder = getFolder(contentType);
+    const resolved = contentIndex.resolveBaseSlug(slug, contentType);
     const folder = path.join(CONTENT_BASE_PATH, typeFolder, resolved);
 
-    if (contentType === "landing" || contentType === "landings") {
+    if (getType(contentType) === "landing") {
       return path.join(folder, "promoted.yml");
     }
     return path.join(folder, `${locale}.yml`);
   }
 
   private getContentFolder(contentType: string, slug: string): string {
-    const typeMap: Record<string, string> = {
-      program: "programs", programs: "programs",
-      landing: "landings", landings: "landings",
-      location: "locations", locations: "locations",
-      page: "pages", pages: "pages",
-    };
-    const typeFolder = typeMap[contentType];
-    if (!typeFolder) throw new Error(`Unknown content type: ${contentType}`);
-    const resolved = contentIndex.resolveBaseSlug(slug, typeFolder);
+    const typeFolder = getFolder(contentType);
+    const resolved = contentIndex.resolveBaseSlug(slug, contentType);
     return path.join(CONTENT_BASE_PATH, typeFolder, resolved);
   }
 

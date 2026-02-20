@@ -5,6 +5,7 @@ import yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 
 export interface ContentTypeConfig {
+  folder: string;
   url_pattern: Record<string, string>;
 }
 
@@ -69,7 +70,8 @@ class ContentIndex {
   }
 
   buildUrl(contentType: string, locale: string, slug: string): string {
-    const config = this.contentTypeConfigs[contentType];
+    const normalized = this.normalizeType(contentType);
+    const config = this.contentTypeConfigs[normalized];
     if (!config?.url_pattern) {
       return `/${locale}/${slug}`;
     }
@@ -85,7 +87,26 @@ class ContentIndex {
 
   getContentTypeConfig(contentType: string): ContentTypeConfig | undefined {
     this.ensureInitialized();
-    return this.contentTypeConfigs[contentType];
+    const normalized = this.normalizeType(contentType);
+    return this.contentTypeConfigs[normalized];
+  }
+
+  normalizeType(typeOrFolder: string): string {
+    const config = this.contentTypeConfigs[typeOrFolder];
+    if (config) return typeOrFolder;
+    for (const [type, cfg] of Object.entries(this.contentTypeConfigs)) {
+      if (cfg.folder === typeOrFolder) return type;
+    }
+    return typeOrFolder;
+  }
+
+  getFolderName(type: string): string {
+    const config = this.contentTypeConfigs[type];
+    if (config?.folder) return config.folder;
+    for (const [, cfg] of Object.entries(this.contentTypeConfigs)) {
+      if (cfg.folder === type) return type;
+    }
+    return type;
   }
 
   scan(): void {
@@ -102,7 +123,8 @@ class ContentIndex {
     this.localeSlugMap = new Map();
 
     for (const contentType of contentTypes) {
-      const typeDir = path.join(baseDir, contentType);
+      const diskFolder = this.contentTypeConfigs[contentType]?.folder || contentType;
+      const typeDir = path.join(baseDir, diskFolder);
       if (!fs.existsSync(typeDir)) continue;
 
       const folders = fs.readdirSync(typeDir, { withFileTypes: true })
@@ -111,7 +133,7 @@ class ContentIndex {
 
       for (const folderName of folders) {
         const folderPath = path.join(typeDir, folderName);
-        const relFolder = `marketing-content/${contentType}/${folderName}`;
+        const relFolder = `marketing-content/${diskFolder}/${folderName}`;
         const files = fs.readdirSync(folderPath)
           .filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
 
@@ -178,7 +200,7 @@ class ContentIndex {
   }
 
   private contentTypeHasRedirects(contentType: string): boolean {
-    return contentType === "programs" || contentType === "landings" || contentType === "pages" || contentType === "locations";
+    return contentType === "program" || contentType === "landing" || contentType === "page" || contentType === "location";
   }
 
   private addImageRef(ref: string, filePath: string): void {
@@ -286,8 +308,7 @@ class ContentIndex {
     if (!Array.isArray(redirects)) return;
 
     const isCommon = locale === "_common";
-    const singularType = contentType === "programs" ? "program" : contentType === "landings" ? "landing" : contentType === "pages" ? "page" : contentType === "locations" ? "location" : contentType;
-    const typeLabel = isCommon ? `${singularType}-common` : singularType;
+    const typeLabel = isCommon ? `${contentType}-common` : contentType;
 
     let targetTo: string | Record<string, string>;
     if (isCommon) {
@@ -372,7 +393,7 @@ class ContentIndex {
   }
 
   private extractTitle(folderPath: string, files: string[], contentType: string): string | undefined {
-    const candidates = contentType === "landings"
+    const candidates = contentType === "landing"
       ? ["_common.yml", "_common.yaml"]
       : ["en.yml", "en.yaml"];
     for (const candidate of candidates) {
@@ -393,7 +414,7 @@ class ContentIndex {
   }
 
   private extractLocales(files: string[], contentType: string): string[] {
-    if (contentType === "landings") {
+    if (contentType === "landing") {
       return files
         .filter(f => f !== "_common.yml" && f !== "_common.yaml")
         .map(f => f.replace(/\.(yml|yaml)$/, ""));
@@ -413,7 +434,8 @@ class ContentIndex {
     this.ensureInitialized();
     const matches = this.bySlug.get(slug) || [];
     if (opts?.contentType) {
-      return matches.filter(e => e.contentType === opts.contentType);
+      const normalized = this.normalizeType(opts.contentType);
+      return matches.filter(e => e.contentType === normalized);
     }
     return matches;
   }
@@ -425,7 +447,8 @@ class ContentIndex {
 
   findByType(contentType: string): ContentEntry[] {
     this.ensureInitialized();
-    return this.entries.filter(e => e.contentType === contentType);
+    const normalized = this.normalizeType(contentType);
+    return this.entries.filter(e => e.contentType === normalized);
   }
 
   listAll(): ContentEntry[] {
@@ -443,7 +466,7 @@ class ContentIndex {
         `${locale}.yml`,
         `${locale}.yaml`,
       ];
-      if (entry.contentType === "landings") {
+      if (entry.contentType === "landing") {
         candidates.unshift("_common.yml", "_common.yaml");
       }
       for (const candidate of candidates) {
@@ -480,8 +503,9 @@ class ContentIndex {
 
   resolveBaseSlug(slug: string, contentType: string): string {
     this.ensureInitialized();
+    const normalized = this.normalizeType(contentType);
     if (this.bySlug.has(slug)) return slug;
-    return this.localeSlugMap.get(`${slug}:${contentType}`) || slug;
+    return this.localeSlugMap.get(`${slug}:${normalized}`) || slug;
   }
 
   getLocaleUrls(slug: string, contentType: string): Record<string, string> {
@@ -565,9 +589,14 @@ class ContentIndex {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
 
-    const previewMatch = cleanUrl.match(/^\/private\/preview\/(programs|pages|landings|locations)\/([^/?]+)/);
+    const allTypes = Object.keys(this.contentTypeConfigs);
+    const allFolders = allTypes.map(t => this.contentTypeConfigs[t]?.folder || t);
+    const combined = allTypes.concat(allFolders);
+    const allAccepted = combined.filter((v, i) => combined.indexOf(v) === i);
+    const previewRegex = new RegExp(`^\\/private\\/preview\\/(${allAccepted.join("|")})\\/([^/?]+)`);
+    const previewMatch = cleanUrl.match(previewRegex);
     if (previewMatch) {
-      return { contentType: previewMatch[1], slug: previewMatch[2], locale: "en" };
+      return { contentType: this.normalizeType(previewMatch[1]), slug: previewMatch[2], locale: "en" };
     }
 
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
@@ -595,7 +624,7 @@ class ContentIndex {
 
     const bareMatch = cleanUrl.match(/^\/([^/]+)$/);
     if (bareMatch) {
-      return { contentType: "pages", slug: bareMatch[1], locale: "en" };
+      return { contentType: "page", slug: bareMatch[1], locale: "en" };
     }
 
     return null;

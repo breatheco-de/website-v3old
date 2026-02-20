@@ -5,6 +5,7 @@ import { getMergedSchemas } from "./schema-org";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
+import { getFolder, getType } from "./content-types";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -35,7 +36,7 @@ interface SchemaReference {
 }
 
 interface ParsedRoute {
-  contentType: "programs" | "pages" | "locations" | "landings";
+  contentType: string;
   slug: string;
   locale: string;
 }
@@ -70,29 +71,29 @@ function parseRoute(url: string): ParsedRoute | null {
   match = cleanUrl.match(/^\/(en|es)\/career-programs\/(.+?)$/);
   if (!match) match = cleanUrl.match(/^\/(es)\/programas-de-carrera\/(.+?)$/);
   if (match) {
-    const folder = contentIndex.resolveBaseSlug(match[2], "programs");
-    return { contentType: "programs", slug: folder, locale: match[1] };
+    const folder = contentIndex.resolveBaseSlug(match[2], "program");
+    return { contentType: "program", slug: folder, locale: match[1] };
   }
 
   match = cleanUrl.match(/^\/(en|es)\/location\/(.+?)$/);
   if (!match) match = cleanUrl.match(/^\/(es)\/ubicacion\/(.+?)$/);
   if (match) {
-    const folder = contentIndex.resolveBaseSlug(match[2], "locations");
-    return { contentType: "locations", slug: folder, locale: match[1] };
+    const folder = contentIndex.resolveBaseSlug(match[2], "location");
+    return { contentType: "location", slug: folder, locale: match[1] };
   }
 
   match = cleanUrl.match(/^\/(en|es)\/landing\/(.+?)$/);
   if (match) {
-    const folder = contentIndex.resolveBaseSlug(match[2], "landings");
-    return { contentType: "landings", slug: folder, locale: match[1] };
+    const folder = contentIndex.resolveBaseSlug(match[2], "landing");
+    return { contentType: "landing", slug: folder, locale: match[1] };
   }
 
   match = cleanUrl.match(/^\/(en|es)\/(.+?)$/);
   if (match) {
     const locale = match[1];
     const slug = match[2];
-    const folder = contentIndex.resolveBaseSlug(slug, "pages");
-    return { contentType: "pages", slug: folder, locale };
+    const folder = contentIndex.resolveBaseSlug(slug, "page");
+    return { contentType: "page", slug: folder, locale };
   }
 
   if (cleanUrl === "/" || cleanUrl === "/en" || cleanUrl === "/en/" || cleanUrl === "/es" || cleanUrl === "/es/") {
@@ -104,10 +105,12 @@ function parseRoute(url: string): ParsedRoute | null {
 
 export function loadRawYaml(contentType: string, slug: string, locale: string): Record<string, unknown> | null {
   const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
-  const contentDir = path.join(MARKETING_CONTENT_PATH, contentType, resolvedSlug);
+  const folder = getFolder(contentType);
+  const contentDir = path.join(MARKETING_CONTENT_PATH, folder, resolvedSlug);
   const commonPath = path.join(contentDir, "_common.yml");
 
-  const localeOrVariant = contentType === "landings" ? "promoted" : locale;
+  const normalized = getType(contentType);
+  const localeOrVariant = normalized === "landing" ? "promoted" : locale;
   const contentPath = path.join(contentDir, `${localeOrVariant}.yml`);
 
   if (!fs.existsSync(contentPath)) return null;
@@ -220,8 +223,8 @@ export function generateSsrSchemaHtml(url: string): string {
 
     const sections = pageData.sections as Array<Record<string, unknown>> | undefined;
     if (sections) {
-      const locationSlug = route.contentType === "locations" ? route.slug : undefined;
-      const programSlug = route.contentType === "programs" ? route.slug : undefined;
+      const locationSlug = route.contentType === "location" ? route.slug : undefined;
+      const programSlug = route.contentType === "program" ? route.slug : undefined;
       
       for (const section of sections) {
         if (section.type === "faq") {

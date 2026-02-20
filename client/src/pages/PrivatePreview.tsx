@@ -14,14 +14,17 @@ import { Button } from "@/components/ui/button";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
-type ContentType = "programs" | "landings" | "locations" | "pages";
 type ContentData = CareerProgram | LandingPage | LocationPage | TemplatePage;
 
-const contentTypeConfig: Record<ContentType, { 
+const contentTypeConfig: Record<string, { 
   apiPath: string; 
   singular: string;
   label: string;
 }> = {
+  program: { apiPath: "career-programs", singular: "program", label: "Program" },
+  landing: { apiPath: "landings", singular: "landing", label: "Landing" },
+  location: { apiPath: "locations", singular: "location", label: "Location" },
+  page: { apiPath: "pages", singular: "page", label: "Page" },
   programs: { apiPath: "career-programs", singular: "program", label: "Program" },
   landings: { apiPath: "landings", singular: "landing", label: "Landing" },
   locations: { apiPath: "locations", singular: "location", label: "Location" },
@@ -33,7 +36,7 @@ export default function PrivatePreview() {
   const searchString = useSearch();
   const searchParams = new URLSearchParams(searchString);
   
-  const contentType = params.contentType as ContentType;
+  const contentType = params.contentType!;
   const slug = params.slug;
   const variant = searchParams.get("variant");
   const version = searchParams.get("version");
@@ -94,7 +97,7 @@ export default function PrivatePreview() {
             Content type "{contentType}" is not valid.
           </p>
           <p className="text-sm text-muted-foreground">
-            Valid types: programs, landings, locations, pages
+            Valid types: program, landing, location, page
           </p>
         </div>
       </div>
@@ -158,7 +161,8 @@ export default function PrivatePreview() {
     );
   }
 
-  const showHeader = contentType === "programs" || contentType === "locations" || contentType === "pages";
+  const singular = config.singular;
+  const showHeader = singular === "program" || singular === "location" || singular === "page";
 
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>

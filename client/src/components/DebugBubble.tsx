@@ -205,7 +205,7 @@ interface PendingChange {
 }
 
 interface ContentInfo {
-  type: "programs" | "pages" | "landings" | "locations" | null;
+  type: "program" | "page" | "landing" | "location" | null;
   slug: string | null;
   label: string;
 }
@@ -221,66 +221,70 @@ function deslugify(slug: string): string {
 // Detect content type and slug from URL path
 function detectContentInfo(pathname: string): ContentInfo {
   const typeLabels: Record<string, string> = {
-    programs: "Program",
-    pages: "Page",
-    landings: "Landing",
-    locations: "Location",
+    program: "Program",
+    page: "Page",
+    landing: "Landing",
+    location: "Location",
   };
 
+  const toSingular: Record<string, string> = { programs: "program", pages: "page", landings: "landing", locations: "location" };
+
   // Private preview route: /private/preview/:contentType/:slug
-  const previewMatch = pathname.match(/^\/private\/preview\/(programs|pages|landings|locations)\/([^/]+)\/?$/);
+  const previewMatch = pathname.match(/^\/private\/preview\/(program|page|landing|location|programs|pages|landings|locations)\/([^/]+)\/?$/);
   if (previewMatch) {
+    const normalizedType = (toSingular[previewMatch[1]] || previewMatch[1]) as ContentInfo["type"];
     return { 
-      type: previewMatch[1] as ContentInfo["type"], 
+      type: normalizedType, 
       slug: previewMatch[2], 
-      label: typeLabels[previewMatch[1]] || "Content" 
+      label: typeLabels[normalizedType!] || "Content" 
     };
   }
 
   // Private experiment editor: /private/:contentType/:contentSlug/experiment/:experimentSlug
-  const experimentMatch = pathname.match(/^\/private\/(programs|pages|landings|locations)\/([^/]+)\/experiment\/[^/]+\/?$/);
+  const experimentMatch = pathname.match(/^\/private\/(program|page|landing|location|programs|pages|landings|locations)\/([^/]+)\/experiment\/[^/]+\/?$/);
   if (experimentMatch) {
+    const normalizedType = (toSingular[experimentMatch[1]] || experimentMatch[1]) as ContentInfo["type"];
     return { 
-      type: experimentMatch[1] as ContentInfo["type"], 
+      type: normalizedType, 
       slug: experimentMatch[2], 
-      label: typeLabels[experimentMatch[1]] || "Content" 
+      label: typeLabels[normalizedType!] || "Content" 
     };
   }
 
   // Programs: /en/career-programs/:slug or /es/programas-de-carrera/:slug
   const programEnMatch = pathname.match(/^\/en\/career-programs\/([^/]+)\/?$/);
   if (programEnMatch) {
-    return { type: "programs", slug: programEnMatch[1], label: "Program" };
+    return { type: "program", slug: programEnMatch[1], label: "Program" };
   }
   const programEsMatch = pathname.match(/^\/es\/programas-de-carrera\/([^/]+)\/?$/);
   if (programEsMatch) {
-    return { type: "programs", slug: programEsMatch[1], label: "Program" };
+    return { type: "program", slug: programEsMatch[1], label: "Program" };
   }
 
   // Landings: /landing/:slug
   const landingMatch = pathname.match(/^\/landing\/([^/]+)\/?$/);
   if (landingMatch) {
-    return { type: "landings", slug: landingMatch[1], label: "Landing" };
+    return { type: "landing", slug: landingMatch[1], label: "Landing" };
   }
 
   // Locations: /en/location/:slug or /es/ubicacion/:slug
   const locationEnMatch = pathname.match(/^\/en\/location\/([^/]+)\/?$/);
   if (locationEnMatch) {
-    return { type: "locations", slug: locationEnMatch[1], label: "Location" };
+    return { type: "location", slug: locationEnMatch[1], label: "Location" };
   }
   const locationEsMatch = pathname.match(/^\/es\/ubicacion\/([^/]+)\/?$/);
   if (locationEsMatch) {
-    return { type: "locations", slug: locationEsMatch[1], label: "Location" };
+    return { type: "location", slug: locationEsMatch[1], label: "Location" };
   }
 
   // Template pages: /en/:slug or /es/:slug (catch-all for pages)
   const pageEnMatch = pathname.match(/^\/en\/([^/]+)\/?$/);
   if (pageEnMatch && !["career-programs", "location"].includes(pageEnMatch[1])) {
-    return { type: "pages", slug: pageEnMatch[1], label: "Page" };
+    return { type: "page", slug: pageEnMatch[1], label: "Page" };
   }
   const pageEsMatch = pathname.match(/^\/es\/([^/]+)\/?$/);
   if (pageEsMatch && !["programas-de-carrera", "ubicacion"].includes(pageEsMatch[1])) {
-    return { type: "pages", slug: pageEsMatch[1], label: "Page" };
+    return { type: "page", slug: pageEsMatch[1], label: "Page" };
   }
 
   return { type: null, slug: null, label: "" };
@@ -1013,10 +1017,10 @@ export function DebugBubble() {
       const urlLocale = getEffectiveLocale();
       const locale = normalizeLocale(urlLocale || i18n.language);
       const contentTypeMap: Record<string, string> = {
-        programs: "programs",
-        pages: "pages",
-        landings: "landings",
-        locations: "locations",
+        program: "programs",
+        page: "pages",
+        landing: "landings",
+        location: "locations",
       };
       const apiContentType = contentTypeMap[contentInfo.type] || contentInfo.type;
       const res = await fetch(`/api/seo-preview/${apiContentType}/${contentInfo.slug}?locale=${locale}`);
@@ -1088,8 +1092,7 @@ export function DebugBubble() {
     setSlugRenaming(true);
     setSlugRedirectPrompt(false);
     try {
-      const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
-      const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
+      const apiType = contentInfo.type;
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       const token = getDebugToken();
       if (token) headers["X-Debug-Token"] = token;
@@ -1139,8 +1142,7 @@ export function DebugBubble() {
 
   const handleSlugRenameClick = () => {
     if (!contentInfo.type || !contentInfo.slug || slugCheckStatus !== "available") return;
-    const contentTypeMap: Record<string, string> = { programs: "program", pages: "page", locations: "location", landings: "landing" };
-    const apiType = contentTypeMap[contentInfo.type] || contentInfo.type;
+    const apiType = contentInfo.type;
     const urlLocale = getEffectiveLocale() as "en" | "es";
     if (apiType === "landing") {
       setSlugOldUrl(`/landing/${currentLocaleSlug}`);
@@ -1159,13 +1161,7 @@ export function DebugBubble() {
     try {
       const urlLocale = getEffectiveLocale();
       const locale = normalizeLocale(urlLocale || i18n.language);
-      const contentTypeMap: Record<string, string> = {
-        programs: "program",
-        pages: "page",
-        landings: "landing",
-        locations: "location",
-      };
-      const apiContentType = contentTypeMap[contentInfo.type] || contentInfo.type;
+      const apiContentType = contentInfo.type;
       
       const existingMeta = { ...(seoData?.meta || {}) };
       const editableKeys = ["page_title", "description", "canonical_url"] as const;
@@ -1234,12 +1230,12 @@ export function DebugBubble() {
         throw new Error(errData.error || "Failed to save");
       }
 
-      if (contentInfo.type === "landings" && seoAvailableLocations.length > 0) {
+      if (contentInfo.type === "landing" && seoAvailableLocations.length > 0) {
         const locRes = await fetch("/api/content/update-locations", {
           method: "POST",
           headers,
           body: JSON.stringify({
-            contentType: "landings",
+            contentType: "landing",
             slug: contentInfo.slug,
             locations: seoLocations,
             author: author || undefined,
@@ -4718,7 +4714,7 @@ export function DebugBubble() {
                 </div>
               </div>
 
-              {contentInfo.type === "landings" && seoAvailableLocations.length > 0 && (
+              {contentInfo.type === "landing" && seoAvailableLocations.length > 0 && (
                 <div className="space-y-2">
                   <button
                     onClick={() => setSeoLocationsExpanded(!seoLocationsExpanded)}

@@ -21,14 +21,13 @@ import { normalizeLocale } from "@shared/locale";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { markFileAsModified } from "./sync-state";
+import { getFolder } from "./content-types";
 
 const CONTENT_BASE_PATH = path.join(process.cwd(), "marketing-content");
 
 function getContentFolder(contentType: string, slug: string, locale?: string): string {
-  const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
-  const folder = typeMap[contentType];
-  if (!folder) throw new Error(`Unknown content type: ${contentType}`);
-  const resolved = contentIndex.resolveBaseSlug(slug, folder);
+  const folder = getFolder(contentType);
+  const resolved = contentIndex.resolveBaseSlug(slug, contentType);
   return path.join(CONTENT_BASE_PATH, folder, resolved);
 }
 
@@ -72,10 +71,8 @@ interface ContentEditRequest {
 }
 
 function getContentPath(contentType: string, slug: string, locale: string, variant?: string, version?: number): string {
-  const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
-  const typeFolder = typeMap[contentType];
-  if (!typeFolder) throw new Error(`Unknown content type: ${contentType}`);
-  const resolved = contentIndex.resolveBaseSlug(slug, typeFolder);
+  const typeFolder = getFolder(contentType);
+  const resolved = contentIndex.resolveBaseSlug(slug, contentType);
   const folder = path.join(CONTENT_BASE_PATH, typeFolder, resolved);
   
   // If variant and version are specified, use variant file path

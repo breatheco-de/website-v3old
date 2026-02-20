@@ -13,6 +13,7 @@ import type {
 import { experimentsFileSchema, experimentConfigSchema, type ExperimentUpdate } from "@shared/schema";
 import { hashVisitorId } from "./cookie-utils";
 import { deepMerge } from "../utils/deepMerge";
+import { getFolder } from "../content-types";
 
 const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const STATE_FILE = path.join(process.cwd(), "experiments-state.json");
@@ -101,7 +102,7 @@ export class ExperimentManager {
       return this.configCache.get(cacheKey)!;
     }
 
-    const configPath = path.join(CONTENT_DIR, "programs", programSlug, "experiments.yml");
+    const configPath = path.join(CONTENT_DIR, getFolder("programs"), programSlug, "experiments.yml");
     
     if (!fs.existsSync(configPath)) {
       return null;
@@ -129,7 +130,7 @@ export class ExperimentManager {
     variantSlug: string,
     version: number,
     locale: string,
-    contentType: "programs" | "pages" | "landings" | "locations" = "programs"
+    contentType: string = "programs"
   ): unknown | null {
     const cacheKey = `${contentType}:${slug}:${variantSlug}.v${version}.${locale}`;
     
@@ -137,7 +138,7 @@ export class ExperimentManager {
       return this.contentCache.get(cacheKey)!.content;
     }
 
-    const contentDir = path.join(CONTENT_DIR, contentType, slug);
+    const contentDir = path.join(CONTENT_DIR, getFolder(contentType), slug);
     const commonPath = path.join(contentDir, "_common.yml");
     const filePath = path.join(contentDir, `${variantSlug}.v${version}.${locale}.yml`);
 
@@ -354,7 +355,7 @@ export class ExperimentManager {
       
       // Update the experiment status to "archived" with auto-stop flag
       this.updateExperiment(
-        contentType as "programs" | "pages" | "landings" | "locations",
+        contentType,
         contentSlug,
         experimentSlug,
         { 
@@ -448,7 +449,7 @@ export class ExperimentManager {
     slug: string,
     assignment: ExperimentAssignment,
     locale: string,
-    contentType: "programs" | "pages" | "landings" | "locations" = "programs"
+    contentType: string = "programs"
   ): unknown | null {
     return this.loadVariantContent(
       slug,
@@ -510,10 +511,10 @@ export class ExperimentManager {
    * Used by debug panel to show available experiments
    */
   public getExperimentsForContent(
-    contentType: "programs" | "pages" | "landings" | "locations",
+    contentType: string,
     slug: string
   ): ExperimentsFile | null {
-    const configPath = path.join(CONTENT_DIR, contentType, slug, "experiments.yml");
+    const configPath = path.join(CONTENT_DIR, getFolder(contentType), slug, "experiments.yml");
     
     if (!fs.existsSync(configPath)) {
       return null;
@@ -536,10 +537,10 @@ export class ExperimentManager {
    * Get the file path for experiments config
    */
   public getExperimentsFilePath(
-    contentType: "programs" | "pages" | "landings" | "locations",
+    contentType: string,
     slug: string
   ): string {
-    return path.join(CONTENT_DIR, contentType, slug, "experiments.yml");
+    return path.join(CONTENT_DIR, getFolder(contentType), slug, "experiments.yml");
   }
 
   /**
@@ -549,7 +550,7 @@ export class ExperimentManager {
    * - {variant-slug}.v{version}.{locale}.yml = named variant (e.g., salary-focus.v1.en.yml)
    */
   public getAvailableVariants(
-    contentType: "programs" | "pages" | "landings" | "locations",
+    contentType: string,
     slug: string
   ): {
     variants: Array<{
@@ -565,7 +566,7 @@ export class ExperimentManager {
     slug: string;
     folderPath: string;
   } | null {
-    const contentDir = path.join(CONTENT_DIR, contentType, slug);
+    const contentDir = path.join(CONTENT_DIR, getFolder(contentType), slug);
     
     if (!fs.existsSync(contentDir)) {
       return null;
@@ -635,7 +636,7 @@ export class ExperimentManager {
         variants,
         contentType,
         slug,
-        folderPath: `marketing-content/${contentType}/${slug}`
+        folderPath: `marketing-content/${getFolder(contentType)}/${slug}`
       };
     } catch (error) {
       console.error(`[Experiments] Error getting variants for ${contentType}/${slug}:`, error);
@@ -647,7 +648,7 @@ export class ExperimentManager {
    * Update an experiment's settings
    */
   public updateExperiment(
-    contentType: "programs" | "pages" | "landings" | "locations",
+    contentType: string,
     contentSlug: string,
     experimentSlug: string,
     updates: ExperimentUpdate
@@ -744,7 +745,7 @@ export class ExperimentManager {
    * Create a new experiment and optionally create a new variant file
    */
   public createExperiment(
-    contentType: "programs" | "pages" | "landings" | "locations",
+    contentType: string,
     contentSlug: string,
     experimentConfig: {
       experimentName: string;
@@ -765,7 +766,7 @@ export class ExperimentManager {
       };
     }
   ): { success: boolean; experimentSlug: string; newVariantFilename?: string } {
-    const contentDir = path.join(CONTENT_DIR, contentType, contentSlug);
+    const contentDir = path.join(CONTENT_DIR, getFolder(contentType), contentSlug);
     const configPath = path.join(contentDir, "experiments.yml");
     
     if (!fs.existsSync(contentDir)) {
