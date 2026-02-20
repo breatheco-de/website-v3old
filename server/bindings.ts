@@ -69,7 +69,7 @@ function generateId(): string {
   return `bind_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 }
 
-class BindingService {
+class BindingManager {
   private data: BindingsData = { groups: [] };
   private memberIndex: Map<string, string> = new Map();
   private loaded = false;
@@ -100,12 +100,12 @@ class BindingService {
         this.data = { groups: [] };
       }
     } catch (error) {
-      console.error("[BindingService] Error loading bindings:", error);
+      console.error("[BindingManager] Error loading bindings:", error);
       this.data = { groups: [] };
     }
     this.rebuildIndex();
     this.loaded = true;
-    console.log(`[BindingService] Loaded ${this.data.groups.length} binding groups`);
+    console.log(`[BindingManager] Loaded ${this.data.groups.length} binding groups`);
   }
 
   private ensureLoaded(): void {
@@ -120,7 +120,7 @@ class BindingService {
       }
       fs.writeFileSync(BINDINGS_FILE, JSON.stringify(this.data, null, 2), "utf-8");
     } catch (error) {
-      console.error("[BindingService] Error saving bindings:", error);
+      console.error("[BindingManager] Error saving bindings:", error);
     }
   }
 
@@ -254,7 +254,7 @@ class BindingService {
         fs.writeFileSync(filePath, updatedYaml, "utf-8");
         markFileAsModified(filePath);
       } catch (err) {
-        console.error(`[BindingService] Error propagating to ${sibling.contentType}/${sibling.slug}:`, err);
+        console.error(`[BindingManager] Error propagating to ${sibling.contentType}/${sibling.slug}:`, err);
       }
     }
   }
@@ -450,7 +450,7 @@ class BindingService {
       const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
       return deepMerge(commonData, localeData);
     } catch (error) {
-      console.error(`[BindingService] Error loading content for ${contentType}/${slug}:`, error);
+      console.error(`[BindingManager] Error loading content for ${contentType}/${slug}:`, error);
       return null;
     }
   }
@@ -588,11 +588,11 @@ class BindingService {
     if (removed > 0) {
       this.rebuildIndex();
       this.save();
-      console.log(`[BindingService] Cleaned up ${removed} stale references`);
+      console.log(`[BindingManager] Cleaned up ${removed} stale references`);
     }
 
     return removed;
   }
 }
 
-export const bindingService = new BindingService();
+export const bindingManager = new BindingManager();

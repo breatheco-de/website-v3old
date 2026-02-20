@@ -39,7 +39,7 @@ The platform utilizes React with TypeScript, Vite, Tailwind CSS, shadcn UI, wout
 -   **Media Module**: A pluggable storage provider system (`server/media/`) supporting local filesystem and cloud storage (Google Cloud Storage) using a strategy pattern.
 -   **MediaGallery Singleton**: Consolidates all image registry operations and API endpoints (`server/media-gallery.ts`), including upload and migration functionalities.
 -   **FAQ Per-Item Location Visibility**: FAQ sections support `item_overrides` for hiding specific FAQ items based on the visitor's location.
--   **Section Bindings System**: Allows synchronizing content between sections of the same component type and locale across different pages, with CRUD operations and automatic propagation.
+-   **Section Bindings System**: `BindingManager` singleton (`server/bindings.ts`) synchronizes content between sections of the same component type and locale across different pages, with CRUD operations, immediate content propagation on bind, optional group naming, and automatic propagation on edit.
 -   **Blog System**: Pluggable blog integration using a provider/adapter pattern, fetching posts from configurable data sources, caching them, and providing API routes for management. Frontend pages for blog listing and individual posts are supported with SSR meta tags.
 
 ### External Dependencies

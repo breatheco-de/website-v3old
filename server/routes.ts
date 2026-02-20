@@ -46,7 +46,7 @@ import {
   loadAllFieldEditors,
 } from "./component-registry";
 import { editContent, getContentForEdit } from "./content-editor";
-import { bindingService } from "./bindings";
+import { bindingManager } from "./bindings";
 import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import {
   getExperimentManager,
@@ -3460,7 +3460,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Section Bindings API
   app.get("/api/bindings", (_req, res) => {
     try {
-      const groups = bindingService.getAll();
+      const groups = bindingManager.getAll();
       res.json({ groups });
     } catch (error) {
       console.error("Error fetching bindings:", error);
@@ -3475,7 +3475,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingService.findGroupForSection(
+      const group = bindingManager.findGroupForSection(
         contentType as string,
         slug as string,
         parseInt(sectionIndex as string, 10)
@@ -3541,7 +3541,7 @@ Important: Only include mappings where you are confident the field exists. Use d
           for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
             if (section && section.type === component) {
-              const existingGroup = bindingService.findGroupForSection(entryContentType, entry.slug, i);
+              const existingGroup = bindingManager.findGroupForSection(entryContentType, entry.slug, i);
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
@@ -3585,7 +3585,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
       const { name, sourceIndex } = req.body;
-      const group = bindingService.createGroup(component, locale, members, { name, sourceIndex });
+      const group = bindingManager.createGroup(component, locale, members, { name, sourceIndex });
       res.json({ group });
     } catch (error) {
       const msg = error instanceof Error ? error.message : "Failed to create binding";
@@ -3603,7 +3603,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Missing name field" });
         return;
       }
-      const group = bindingService.renameGroup(groupId, name);
+      const group = bindingManager.renameGroup(groupId, name);
       res.json({ group });
     } catch (error) {
       const msg = error instanceof Error ? error.message : "Failed to rename binding";
@@ -3621,7 +3621,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingService.addMember(groupId, { contentType, slug, sectionIndex });
+      const group = bindingManager.addMember(groupId, { contentType, slug, sectionIndex });
       res.json({ group });
     } catch (error) {
       const msg = error instanceof Error ? error.message : "Failed to add member";
@@ -3639,7 +3639,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const result = bindingService.removeMember(groupId, contentType, slug, parseInt(sectionIndex, 10));
+      const result = bindingManager.removeMember(groupId, contentType, slug, parseInt(sectionIndex, 10));
       res.json({ group: result });
     } catch (error) {
       const msg = error instanceof Error ? error.message : "Failed to remove member";
@@ -3652,7 +3652,7 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      bindingService.deleteGroup(groupId);
+      bindingManager.deleteGroup(groupId);
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting binding:", error);
@@ -3663,7 +3663,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.post("/api/bindings/cleanup", (req, res) => {
     try {
       if (!requireEditAuth(req, res)) return;
-      const removed = bindingService.cleanupStaleReferences();
+      const removed = bindingManager.cleanupStaleReferences();
       res.json({ removed });
     } catch (error) {
       console.error("Error cleaning up bindings:", error);
@@ -3810,7 +3810,7 @@ Important: Only include mappings where you are confident the field exists. Use d
           const updatedSection = updatedSections?.[sIdx];
           if (updatedSection) {
             const normalizedLocaleForBinding = normalizeLocale(locale);
-            const propagation = bindingService.propagateUpdate(
+            const propagation = bindingManager.propagateUpdate(
               contentType,
               slug,
               sIdx,
