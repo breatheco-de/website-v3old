@@ -12,12 +12,7 @@ import type { EditOperation } from "@shared/schema";
 import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
 import { normalizeLocale } from "@shared/locale";
 import { markFileAsModified } from "./sync-state";
-import {
-  loadLocaleData,
-  loadCommonData,
-  getCommonFilePath,
-  stripNullValues,
-} from "./utils/contentLoader";
+import { contentIndex, stripNullValues } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 
 interface ContentEditRequest {
@@ -131,7 +126,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
   }
   
   try {
-    const { data: localeData, filePath, error: loadError } = loadLocaleData(contentType, slug, locale, variant, version);
+    const { data: localeData, filePath, error: loadError } = contentIndex.loadLocaleData(contentType, slug, locale, variant, version);
     if (!localeData || loadError) {
       return { success: false, error: loadError || `Content file not found` };
     }
@@ -143,7 +138,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
 
     // Merge _common.yml with the edited locale data for validation only
     // (schema expects the full page structure including _common.yml fields like meta, seo, slug)
-    const commonData = loadCommonData(contentType, slug);
+    const commonData = contentIndex.loadCommonData(contentType, slug);
     const content = commonData
       ? deepMerge(commonData, localeData)
       : localeData;
@@ -344,7 +339,7 @@ export function editCommonContent(request: CommonEditRequest): { success: boolea
   const { contentType, slug, operations, author } = request;
 
   try {
-    const commonPath = getCommonFilePath(contentType, slug);
+    const commonPath = contentIndex.getCommonFilePath(contentType, slug);
     if (!fs.existsSync(commonPath)) {
       return { success: false, error: `_common.yml not found for ${contentType}/${slug}` };
     }
@@ -396,12 +391,12 @@ export function getContentForEdit(
   }
   
   try {
-    const { data: localeData, error: loadError } = loadLocaleData(contentType, slug, locale, variant, version);
+    const { data: localeData, error: loadError } = contentIndex.loadLocaleData(contentType, slug, locale, variant, version);
     if (!localeData || loadError) {
       return { content: null, error: loadError || `Content file not found` };
     }
 
-    const commonData = loadCommonData(contentType, slug);
+    const commonData = contentIndex.loadCommonData(contentType, slug);
     const content = commonData
       ? deepMerge(commonData, localeData)
       : localeData;

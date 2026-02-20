@@ -22,7 +22,6 @@ import {
   getSitemapUrls,
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
-import { contentIndex } from "./content-index";
 import {
   redirectMiddleware,
   getRedirects,
@@ -64,12 +63,9 @@ import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
 import {
-  loadContent,
-  listContentSlugs,
-  loadCommonData,
-  getContentFolderPath,
+  contentIndex,
   type ContentType,
-} from "./utils/contentLoader";
+} from "./content-index";
 import {
   getFolder,
   getType,
@@ -161,7 +157,7 @@ const careerProgramsListingSchema = z.object({
 });
 
 function loadCareerProgramsListing(locale: string) {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "page",
     slug: "career-programs",
     schema: careerProgramsListingSchema,
@@ -177,7 +173,7 @@ function loadCareerProgramsListing(locale: string) {
 }
 
 function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "program",
     slug,
     schema: careerProgramSchema,
@@ -195,7 +191,7 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
 function listCareerPrograms(
   locale: string,
 ): Array<{ slug: string; title: string }> {
-  const slugs = listContentSlugs("program");
+  const slugs = contentIndex.listContentSlugs("program");
   const programs: Array<{ slug: string; title: string }> = [];
 
   for (const slug of slugs) {
@@ -209,7 +205,7 @@ function listCareerPrograms(
 }
 
 function loadLandingPage(slug: string): LandingPage | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "landing",
     slug,
     schema: landingPageSchema,
@@ -229,13 +225,13 @@ function listLandingPages(): Array<{
   title: string;
   locale: string;
 }> {
-  const slugs = listContentSlugs("landing");
+  const slugs = contentIndex.listContentSlugs("landing");
   const landings: Array<{ slug: string; title: string; locale: string }> = [];
 
   for (const slug of slugs) {
     const landing = loadLandingPage(slug);
     if (landing) {
-      const commonData = loadCommonData("landing", slug);
+      const commonData = contentIndex.loadCommonData("landing", slug);
       const locale = (commonData?.locale as string) || "en";
       const landingSlug = landing.slug || slug;
       const landingTitle = landing.title || "";
@@ -249,7 +245,7 @@ function listLandingPages(): Array<{
 }
 
 function loadLocationPage(slug: string, locale: string): LocationPage | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "location",
     slug,
     schema: locationPageSchema,
@@ -271,7 +267,7 @@ function listLocationPages(locale: string): Array<{
   country: string;
   region: string;
 }> {
-  const slugs = listContentSlugs("location");
+  const slugs = contentIndex.listContentSlugs("location");
   const locations: Array<{
     slug: string;
     name: string;
@@ -298,7 +294,7 @@ function listLocationPages(locale: string): Array<{
 
 // Template Pages (marketing-content/pages/)
 function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "page",
     slug,
     schema: templatePageSchema,
@@ -316,7 +312,7 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
 function listTemplatePages(
   locale: string,
 ): Array<{ slug: string; template: string; title: string }> {
-  const slugs = listContentSlugs("page");
+  const slugs = contentIndex.listContentSlugs("page");
   const pages: Array<{ slug: string; template: string; title: string }> = [];
 
   for (const slug of slugs) {
@@ -999,7 +995,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       : undefined;
 
     // Get locale from _common.yml
-    const commonData = loadCommonData("landing", slug);
+    const commonData = contentIndex.loadCommonData("landing", slug);
     const locale = (commonData?.locale as string) || "en";
 
     let landing: LandingPage | null = null;
@@ -1113,7 +1109,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     // Load common data for programs and locations
-    const commonData = loadCommonData("page", "apply");
+    const commonData = contentIndex.loadCommonData("page", "apply");
 
     res.json({
       ...page,
@@ -2997,7 +2993,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       };
 
       if (getType(contentType) === "landing") {
-        const commonData = loadCommonData("landing", slug);
+        const commonData = contentIndex.loadCommonData("landing", slug);
         responseData.locations = (commonData?.locations as string[]) || [];
         responseData.availableLocations = listLocationPages(locale).map(
           (loc) => ({
@@ -3088,7 +3084,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const landingDir = getContentFolderPath(contentType, slug);
+      const landingDir = contentIndex.getContentFolderPath(contentType, slug);
       const variantFiles = fs
         .readdirSync(landingDir)
         .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
@@ -4149,36 +4145,9 @@ Important: Only include mappings where you are confident the field exists. Use d
           continue;
 
         try {
-          const typeFolder = getFolder(entryContentType);
-          const resolved = contentIndex.resolveBaseSlug(entry.slug, typeFolder);
-          const folder = path.join(
-            process.cwd(),
-            "marketing-content",
-            typeFolder,
-            resolved,
-          );
-
-          let filePath: string;
-          if (entryContentType === "landing") {
-            filePath = path.join(folder, "promoted.yml");
-          } else {
-            filePath = path.join(folder, `${normalizedLocale}.yml`);
-          }
-
-          if (!fs.existsSync(filePath)) continue;
-
-          const commonPath = path.join(folder, "_common.yml");
-          let commonData: Record<string, unknown> = {};
-          if (fs.existsSync(commonPath)) {
-            const commonRaw = fs.readFileSync(commonPath, "utf-8");
-            commonData =
-              (yaml.load(commonRaw) as Record<string, unknown>) || {};
-          }
-
-          const fileRaw = fs.readFileSync(filePath, "utf-8");
-          const localeData =
-            (yaml.load(fileRaw) as Record<string, unknown>) || {};
-          const merged = { ...commonData, ...localeData };
+          const localeForLoad = entryContentType === "landing" ? "promoted" : normalizedLocale;
+          const { data: merged } = contentIndex.loadMergedContent(entryContentType, entry.slug, localeForLoad);
+          if (!merged) continue;
           const sections = merged.sections as Record<string, unknown>[];
           if (!Array.isArray(sections)) continue;
 
@@ -6278,7 +6247,7 @@ sections: []
           const localeOrVariant =
             file.type === "landing" ? "promoted" : inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
-          const result = loadContent({
+          const result = contentIndex.loadContent({
             contentType: file.type,
             slug: folderSlug,
             schema: zodSchema,

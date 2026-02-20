@@ -3,10 +3,7 @@ import path from "path";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { markFileAsModified } from "./sync-state";
-import {
-  loadLocaleData,
-  MARKETING_CONTENT_PATH,
-} from "./utils/contentLoader";
+import { contentIndex, MARKETING_CONTENT_PATH } from "./content-index";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
@@ -396,7 +393,7 @@ class BindingManager {
   }
 
   private loadPageContent(contentType: string, slug: string, locale: string): { data: Record<string, unknown> | null; filePath: string } {
-    const { data, filePath } = loadLocaleData(contentType, slug, locale);
+    const { data, filePath } = contentIndex.loadLocaleData(contentType, slug, locale);
     return { data, filePath };
   }
 
