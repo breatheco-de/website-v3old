@@ -466,9 +466,11 @@ export function SectionBindingDialog({
 
               <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-destination-sections">
                 <p className="text-xs text-destructive mb-1">Will be overwritten</p>
-                {selectedItems.map(c => (
-                  <p key={candidateKey(c)} className="font-medium truncate" data-testid={`text-destination-page-${c.slug}`}>{c.title || c.slug}</p>
-                ))}
+                <div className="max-h-[110px] overflow-y-auto">
+                  {selectedItems.map(c => (
+                    <p key={candidateKey(c)} className="font-medium truncate" data-testid={`text-destination-page-${c.slug}`}>{c.title || c.slug}</p>
+                  ))}
+                </div>
                 <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
               </div>
             </div>
