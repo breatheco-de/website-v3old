@@ -18,7 +18,7 @@ sections:
     version: "1.0"
     variant: singleColumn
     title: Building Careers in the AI Era
-    subtitle: 4Geeks Academy is an international coding bootcamp with 8 campuses across the U.S., Latin America, and Europe. We train students in AI Engineering, Data Science & Machine Learning, and Cybersecurity — with a clear path to getting hired.
+    subtitle: 4Geeks Academy is an international coding bootcamp with 8 campuses across the U.S., Latin America, and Europe. We train students in AI Engineering, Data Science & Machine Learning, and Cybersecurity; with a clear path to getting hired.
     badge: 10+ years launching tech careers
     image_id: academy_header_coding
     image_full_width: false
@@ -32,7 +32,7 @@ sections:
     primary_width: narrow
     primary:
       heading: Our Mission & Approach
-      description: "Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career support. The goal is simple: give students the technical depth, practical experience, and job-search strategy needed to get hired — and keep growing."
+      description: "Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career support. The goal is simple: give students the technical depth, practical experience, and job-search strategy needed to get hired, and keep growing."
       badge: Results-Backed Model
     secondary:
       benefits:
@@ -70,13 +70,13 @@ sections:
   - type: stats
     version: "1.0"
     items:
-      - value: "+7000"
+      - value: +{{ global_total_alumni | 7000 }}
         label: Alumni
-      - value: "8"
+      - value: {{ global_campuses | - value: "8" }}
         label: Campuses
-      - value: ~84%
+      - value: ~{{ global_job_placement_rate | 84 }}%
         label: Hiring Rate
-      - value: "4.9"
+      - value: {{ global_review_rating | 4.9 }}
         label: Avg Rating
     marginY:
       desktop: lg

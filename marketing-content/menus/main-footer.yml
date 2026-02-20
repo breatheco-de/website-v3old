@@ -2,8 +2,6 @@ footer:
   columns:
     - title: Company
       items:
-        - label: Why 4Geeks
-          href: /en/the-academy
         - label: Academy
           href: /en/the-academy
         - label: Partners
@@ -16,6 +14,8 @@ footer:
           href: /en/upcoming-dates
         - label: FAQ
           href: /en/faq
+        - label: Contact Us
+          href: /en/contact-us
     - title: Programs
       items:
         - label: Data Science and Machine Learning with AI
@@ -85,6 +85,9 @@ footer:
     - name: Instagram
       icon: instagram
       link: https://www.instagram.com/4GeeksAcademy
+    - name: New Social
+      icon: linkedin
+      link: https://
   legal_links:
     - label: Privacy Policy
       href: /en/privacy-policy
@@ -93,4 +96,4 @@ footer:
     - label: Terms and Conditions
       href: /en/terms-conditions
   subscribe_text: Subscribe for more
-  copyright_text: 2024 4Geeks Academy. All rights reserved.
+  copyright_text: 4Geeks Academy. All rights reserved.

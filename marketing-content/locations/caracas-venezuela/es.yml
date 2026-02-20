@@ -1,3 +1,44 @@
+slug: caracas-venezuela
+name: Caracas
+city: Caracas
+country: Venezuela
+country_code: VE
+latitude: 10.4806
+longitude: -66.9036
+region: latam
+default_language: es
+timezone: America/Caracas
+visibility: listed
+phone: +58 212 123 4567
+address: Av. Francisco de Miranda, Caracas
+available_programs:
+  - full-stack
+context:
+  when_to_use: For Caracas and Venezuela visitors or those interested in tech opportunities in one of Venezuela's cities with the greatest technological entrepreneurship.
+  target_audience: Local professionals, entrepreneurs, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
+  goals:
+    - Position Caracas as a hub for tech entrepreneurship
+    - Emphasize bilingual (English/Spanish) and hybrid programs
+    - Highlight job outcomes and opportunities to grow locally and internationally
+catalog:
+  admission_advisors:
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
+      languages:
+        - en
+        - es
+schema:
+  include:
+    - organization
+    - website
+  overrides:
+    organization:
+      address:
+        "@type": PostalAddress
+        streetAddress: Av. Francisco de Miranda
+        addressLocality: Caracas
+        addressCountry: VE
 meta:
   page_title: 4Geeks Academy Caracas | Bootcamp de Programación en Venezuela
   description: Únete al bootcamp de programación 4Geeks en Caracas. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
@@ -116,7 +157,7 @@ sections:
       video: https://www.youtube.com/watch?v=4H_Sp28PFLc
     right:
       heading: Entrenamiento, Impacto y Programación en Caracas
-      sub_heading: Paola elige 4Geeks Academy en Venezuela por esta y otras ventajas
+      sub_heading: Paula elige 4Geeks Academy en Venezuela por esta y otras ventajas
       description: Recibe orientación de mentores expertos para soporte personalizado en codificación. Accede a desarrollo profesional y apoyo continuo de por vida. Enfoque en habilidades prácticas para el mercado laboral. Descubre por qué 4Geeks Academy destaca como la mejor opción para aprender a programar.
       button:
         text: Ver video completo
@@ -135,8 +176,8 @@ sections:
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
       - name: Full Stack Development
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 20 semanas
+        label: Actualizado en 2026
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
@@ -145,36 +186,36 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $439
-        original_price: $588
+        price: $150
+        original_price: $200
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $439
-        original_price: $588
+        price: $170
+        original_price: $210
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $439
-        original_price: $588
+        price: $150
+        original_price: $200
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity

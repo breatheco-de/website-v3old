@@ -1,3 +1,44 @@
+slug: buenosaires-argentina
+name: Buenos Aires
+city: Buenos Aires
+country: Argentina
+country_code: AR
+latitude: -34.6037
+longitude: -58.3816
+region: latam
+default_language: es
+timezone: America/Argentina/Buenos_Aires
+visibility: listed
+phone: +54 11 1234 5678
+address: Av. Corrientes 1234, Buenos Aires
+available_programs:
+  - full-stack
+context:
+  when_to_use: For Buenos Aires and Argentina visitors or those interested in tech opportunities in Argentina's vibrant startup ecosystem.
+  target_audience: Local professionals, entrepreneurs, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
+  goals:
+    - Position Buenos Aires as Argentina's leading tech and startup hub
+    - Emphasize bilingual (English/Spanish) and hybrid programs
+    - Highlight job outcomes and connections to local and international employers
+catalog:
+  admission_advisors:
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
+      languages:
+        - en
+        - es
+schema:
+  include:
+    - organization
+    - website
+  overrides:
+    organization:
+      address:
+        "@type": PostalAddress
+        streetAddress: Av. Corrientes 1234
+        addressLocality: Buenos Aires
+        addressCountry: AR
 meta:
   page_title: 4Geeks Academy Buenos Aires | Bootcamp de Programación en Argentina
   description: Únete al bootcamp de programación 4Geeks en Buenos Aires. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
@@ -135,46 +176,46 @@ sections:
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
       - name: Full Stack Development
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 20 semanas
+        label: Actualizado en 2026
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: JavaScript, React & Python
         tags:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $439
-        original_price: $588
+        price: $150
+        original_price: $200
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $439
-        original_price: $588
+        price: $170
+        original_price: $210
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $439
-        original_price: $588
+        price: $150
+        original_price: $200
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity

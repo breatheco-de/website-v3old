@@ -1,20 +1,19 @@
 slug: resto-de-europa
 meta:
-  page_title: 4Geeks Academy | Bootcamp de Programación en el Resto de Europa
-  description: Aprende a programar en Europa desde casa con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte profesional de por vida. Full Stack, Data Science o Ciberseguridad.
+  page_title: 4Geeks Academy | Bootcamp de Programación Remoto
+  description: Aprende a programar desde cualquier lugar con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte profesional de por vida. Full Stack, Data Science o Ciberseguridad—garantía de empleo disponible.
   robots: index, follow
-  og_image: /images/locations/rest-of-europe-og.jpg
+  og_image: /images/locations/remote-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects:
-    - /es/coding-campus/bootcamp-programacion-europa-online
+  redirects: []
 sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Aprende a programar en Europa y desde casa
-    subtitle: Aprende a programar en Europa y desde casa con clases en vivo, mentoría ilimitada y soporte profesional de por vida. Únete a nuestra comunidad en Europa.
-    badge: Europa
+    title: Aprende a programar desde casa
+    subtitle: Aprende a programar desde casa con soporte 1:1 ilimitado, contenido con IA y soporte profesional de por vida. Clases en vivo y apoyo para conseguir trabajo—desde cualquier lugar.
+    badge: Campus Online
     cta_buttons:
       - text: Aplicar Ahora
         url: "#bottom"
@@ -103,8 +102,8 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Tu Viaje con 4Geeks Academy en Europa
-    description: Desarrolla tus habilidades en tecnología desde cualquier lugar. Cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad colaborativa de aprendizaje, y preparación para desafíos del mundo real y oportunidades laborales en tecnología en Europa.
+    title: Tu Carrera Tech Empieza Aquí—Donde Sea
+    description: No importa dónde vivas, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional. Nuestro horario flexible y plan de estudios enfocado en el futuro te ayudan a crecer desde cualquier lugar. Únete a miles de graduados que han construido nuevos futuros en tech.
     background: gradient
     marginY:
       desktop: lg none
@@ -116,9 +115,9 @@ sections:
     left:
       video: https://youtu.be/EcqasocRKHo
     right:
-      heading: Tu Viaje con 4Geeks Academy en Europa
-      sub_heading: Desarrolla tus Habilidades en Tecnología desde Cualquier Lugar
-      description: Cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad colaborativa de aprendizaje, y preparación para oportunidades laborales en tecnología.
+      heading: Tu Carrera Tech Empieza Aquí—En Cualquier Lugar
+      sub_heading: Alissa explica por qué 4Geeks es una gran opción para estudiantes en todo Estados Unidos
+      description: No importa dónde estés, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional. Desarrolla habilidades alineadas con IA mediante instrucción guiada, trabaja en proyectos prácticos y recibe soporte profesional experto adaptado a tus metas.
       button:
         text: Ver la entrevista completa
         url: https://youtu.be/EcqasocRKHo
@@ -187,13 +186,13 @@ sections:
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
       - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. En línea y en persona, por el resto de tu vida, incluso para dudas laborales de programación.
+        text: Obtén orientación técnica personalizada cuando la necesites. Nuestros mentores expertos están disponibles en línea, listos para ayudarte desde el día uno y para siempre.
       - heading: Soporte de Aprendizaje Impulsado por IA
         text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional a la Medida
-        text: Recibe coaching profesional personalizado basado en cada oportunidad laboral y tu perfil único.
+      - heading: Soporte Profesional Ilimitado y de por Vida
+        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una Comunidad Tech Global Activa
-        text: Cuando aprendes a programar online con 4Geeks en Europa no solo tienes acceso a nuestra plataforma; también tendrás disponible cualquiera de nuestras ubicaciones a nivel mundial.
+        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
@@ -208,7 +207,7 @@ sections:
     primary:
       heading: La Confianza de una Garantía de Empleo
       description: |
-        Nos comprometemos con tu carrera futura. Completa todas las etapas de nuestro proceso de apoyo profesional, accede a una red de más de 5K socios contratantes y obtén un trabajo dentro de los 9 meses posteriores a la graduación o recupera tu dinero. Condiciones aplican.
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra al transitar al mundo tech. Completa todas las etapas de nuestro proceso de apoyo profesional, accede a una red de más de 5K socios contratantes y consigue un empleo en un rol tech en 9 meses después de graduarte—o recibe reembolso completo de matrícula. Condiciones aplican.
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
@@ -220,27 +219,27 @@ sections:
       desktop: none xl
   - type: why_learn_ai
     variant: laptop-edge
-    title: Por Qué Aprender a Programar con 4Geeks en Europa
-    subtitle: Todos los programas son enseñados Online, Híbrida o En Persona
-    description: "Aprender a programar online es difícil—si lo haces solo. Únete a nuestra comunidad en Europa y recibe soporte para aprender y para conseguir trabajo de por vida. Cuando aprendes con 4Geeks online en Europa tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial."
+    title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
+    subtitle: Mentoría ilimitada, comunidad global, resultados reales
+    description: "Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial."
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
     cards:
       - icon: user
-        title: Todas las Mentorías que Necesitas
-        description: En línea y en persona, por el resto de tu vida, incluso para codificación de dudas laborales. No te llevará más de 15 minutos para que un instructor te ayude.
+        title: Mentoría 1:1 Bajo Demanda
+        description: Obtén soporte 1:1 para todas tus necesidades de código. Nuestros mentores expertos responden en 15 minutos o menos—nunca te quedas atascado.
       - icon: users
-        title: Proporción 1:9 Profesor : Estudiante
-        description: Encontrarás más profesores en 4Geeks que el promedio de la industria.
+        title: Coaching de Carrera
+        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación. Soporte a la medida para tu perfil y ofertas laborales.
       - icon: headset
-        title: Soporte Profesional a la Medida
-        description: Basado en cada oportunidad laboral y tu perfil único.
+        title: Soporte Comunitario 24/7
+        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
     version: "1.0"
-    title: Historias de Éxito de Graduados en Europa
-    filter_by_location: rest-of-europe
+    title: Historias de Éxito de Graduados Remotos
+    filter_by_location: remote
     marginY:
       desktop: none lg
   - type: testimonials
@@ -299,10 +298,10 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech en Europa?
+    title: ¿Listo para Iniciar tu Carrera Tech desde Cualquier Lugar?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     cta_text: Aplicar Ahora
-    cta_url: /es/aplica?location=rest-of-europe
+    cta_url: /es/aplica?location=remote
     background: hsl(var(--primary))
     variant: form
     form:

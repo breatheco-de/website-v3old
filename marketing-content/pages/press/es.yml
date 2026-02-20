@@ -14,18 +14,18 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Nuestra Historia, Haciendo Noticias
     badge: Prensa y Medios
     trust_bar:
-      rating: 4.8/5
+      rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
-      trusted_text: Más de 10,000 estudiantes confían en nosotros
+      trusted_text: Más de {{ global_total_alumni | 10,000 }} estudiantes confían en nosotros
     award_badges:
       - name: Mejor Bootcamp de Programación
         source: Forbes
-        year: '2024'
+        year: "2024"
       - name: Mejor Escuela Tech
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -63,7 +63,7 @@ sections:
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/
       - logo: cnn-logo
         title: Entrevista / 4Geeks Academy en CNN Chile
-        excerpt: 'Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de #Bootcamp de #Programación.'
+        excerpt: "Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de #Bootcamp de #Programación."
         link_text: Ver Entrevista
         link_url: https://www.facebook.com/4GeeksAcademyCL/videos/492034597993382/
       - logo: economista-logo
@@ -75,7 +75,7 @@ sections:
       desktop: none md
   - type: value_proof_panel
     title: Reconocidos Globalmente por la Excelencia
-    subtitle: No solo decimos que cumplimos — el reconocimiento de fuentes confiables lo demuestra.
+    subtitle: No solo decimos que cumplimos, el reconocimiento de fuentes confiables lo demuestra.
     evidence_items:
       - icon: Trophy
         title: Top 5 Bootcamps de Programación a Nivel Mundial
@@ -90,7 +90,7 @@ sections:
       type: image
       src: /attached_assets/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en el aula
-      aspect_ratio: '4:3'
+      aspect_ratio: "4:3"
       style: rounded
     background: hsl(210 100% 50% / 0.05)
     stacked_header: true
@@ -146,6 +146,44 @@ sections:
       - scholarships
     marginY:
       desktop: none md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para comenzar?
+    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
