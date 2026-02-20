@@ -31,11 +31,8 @@ sections:
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar ahora }}
-        url: /apply
+        url: "#bottom"
         variant: primary
-      - text: Descargar Detalles
-        url: "#syllabus"
-        variant: outline
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
@@ -47,13 +44,14 @@ sections:
     heading: Resultados que respaldan nuestra Garantía
     subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números reflejan las contrataciones reales de nuestros graduados."
     stats:
-      - value: "84"
+      - value: {{ global_job_placement_rate | 84 }}
         unit: "%"
         label: Tasa promedio de colocación laboral
       - value: 3-6
         unit: meses
         label: Tiempo promedio para conseguir empleo
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}
+        unit: "%"
         label: Aumento salarial después de graduarte
     collage_images:
       - image_id: graduates_team_1
@@ -177,7 +175,7 @@ sections:
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
     steps:
       - icon: Optimization
-        text: Notifícanos que no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
+        text: Notifícanos si no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
         title: Notificación
       - icon: Interview
         text: Nuestro equipo verifica exhaustivamente que cumpliste todos los requisitos de la Garantía de Empleo.
@@ -209,10 +207,44 @@ sections:
       desktop: none
     marginY:
       desktop: lg none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
-    paddingY:
-      desktop: md 10px
+  - type: cta_banner
+    version: "1.0"
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Aplica ahora para asegurar tu cupo y recibir todos los detalles del programa.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
     marginY:
-      desktop: none
+      desktop: lg none
+    paddingY:
+      desktop: md

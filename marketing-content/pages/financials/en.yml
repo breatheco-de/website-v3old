@@ -77,9 +77,9 @@ sections:
       - title: Interest-Free Installments over 6 Months
         description: Spread your tuition across 6 months with no interest. Pay the standard tuition cost in structured monthly installments.
       - title: Income-Based Payments
-        description: Prefer to pay after you land a job? Through our partner Edly, you can start repayment once you earn at least $35,000 per year. Monthly payments adjust to your income and pause during periods of unemployment or underemployment. Cosigners are supported.
+        description: Prefer to pay after you land a job? Through our partner Edly, you can start repayment once you earn at least {{ anual_income_based_payment_guarantee | $35,000 }} per year. Monthly payments adjust to your income and pause during periods of unemployment or underemployment. Cosigners are supported.
       - title: Loans and Extended Payment Plans
-        description: We offer financing plans ranging from 1 to 5 years, depending on your credit profile, with monthly payments starting below $349. Terms and approval are based on eligibility.
+        description: We offer financing plans ranging from 1 to 5 years, depending on your credit profile, with monthly payments starting below {{ monthly_payment_minimun | $349 }}. Terms and approval are based on eligibility.
       - title: Scholarships
         description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
     expand_label: More info
@@ -182,7 +182,7 @@ sections:
         title: Data Science & Machine Learning with AI
         badges:
           - icon: DollarSign
-            text: full tuition
+            text: {{ price_full_datascience | $14,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
@@ -198,7 +198,7 @@ sections:
         title: Cybersecurity
         badges:
           - icon: DollarSign
-            text: full tuition
+            text: {{ price_full_cybersecurity | $14,999 }} full tuition
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
@@ -215,7 +215,7 @@ sections:
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional {{ job_guarantee_price | $2,000 }}, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
       url: /en/job-guarantee
@@ -230,8 +230,8 @@ sections:
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
     rating_summary:
-      average: "4.9"
-      count: 2,847
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -269,6 +269,16 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
+  - type: faq
+    version: v1.0
+    title: Frequently Asked Questions
+    related_features:
+      - price
+      - certification
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
@@ -310,13 +320,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
-    related_features:
-      - price
-      - certification
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md

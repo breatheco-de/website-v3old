@@ -58,7 +58,7 @@ sections:
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: https://4geeks.com/es/login
+        url: https://4geeks.com/login
       features:
         - icon: calendar
           text: 16-Week Intensive Program
@@ -67,7 +67,7 @@ sections:
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
         - icon: IconUsers
-          text: 7:1 Student-to-Instructor Ratio
+          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: book
@@ -158,7 +158,7 @@ sections:
         value: 36%
         title: projected growth rate the next decade
       - id: "3"
-        value: $90K+
+        value: {{ starting_salary_datascience | $90K }}+
         title: Average starting salary for data scientists
   - type: syllabus
     variant: program-modules
@@ -278,8 +278,8 @@ sections:
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
-      - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | {{ average_salary_machine_learning_engineer | {{ average_salary_machine_learning_engineer | $90K–$150K }} }} }}"
+      - text: "Data Scientist: {{ salary_data_scientist | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | $80K–$130K }} }} }} }}"
+      - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer }}"
       - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
       - text: "AI Engineer: {{ average_salary_ai_engineer | $100K–$160K }}"
     card:
@@ -309,7 +309,7 @@ sections:
           - text: "Data Scientist: {{ salary_data_scientist | $80K–$130K }}"
           - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | $90K–$150K }}"
           - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
-          - text: "AI Engineer: {{ salary_data_scientist | $80K–$130K }}"
+          - text: "AI Engineer: {{ average_salary_ai_engineer | $100K–$160K }}"
       - value: 500+
         label: Hiring Partners
         description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.

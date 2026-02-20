@@ -48,11 +48,11 @@ sections:
       description: Accede al plan de estudios completo, horarios y todo lo que necesitas saber.
       cta_button:
         text: Envíame el Plan de Estudios
-        url: /es/apply
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: /login
+        url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
           text: Programa Intensivo de 16 Semanas
@@ -61,15 +61,43 @@ sections:
         - icon: IconRobot
           text: Aprendizaje y Retroalimentación con IA
         - icon: IconUsers
-          text: Ratio de 7:1 Estudiante-Instructor
+          text: Ratio de {{ global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 Ilimitada
         - icon: book
-          text: Portafolio Real de DS y ML
+          text: Portafolio Real de Data Science y ML
     paddingY:
       desktop: md
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Recibir el Plan de Estudios
+    description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Obtener
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: true
+          default: data-science-ml
+      success:
+        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -124,11 +152,11 @@ sections:
         value: 36%
         title: tasa de crecimiento proyectada en la próxima década
       - id: "3"
-        value: 22.000€
+        value: {{ salary_data_scientist | 22.000€ }}
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
     variant: program-modules
-    program_title: Resumen del Programa de Ciencia de Datos y Machine Learning
+    program_title: Lo que Aprenderás en el Programa de Ciencia de Datos & Machine Learning
     program_description: Domina el conjunto de herramientas estándar de la industria utilizado por equipos de datos modernos. Ve más allá del análisis simple para construir sistemas listos para producción, desde la ingeniería de datos crudos hasta el despliegue de modelos predictivos que las empresas usan para impulsar la innovación y escalar.
     tech_logos:
       - name: Python
@@ -205,67 +233,65 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: Cómo Aprenderás en 4Geeks
-    description: Avanza más rápido y mantente motivado con nuestras herramientas impulsadas por IA y nuestro método de enseñanza hiperpersonalizado.
+    title: El Modelo de Aprendizaje 4Geeks
+    description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
     features:
       - icon: Robot
-        title: Progresa más rápido con herramientas potenciadas por IA
+        title: Aprende más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Obtén retroalimentación instantánea de Rigobot, nuestro tutor de IA personalizado
-          - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
-          - text: Ayuda con depuración y resolución de problemas
-          - text: Practica con cientos de ejercicios de DS y ML en Learnpack, nuestra plataforma educativa
+          - text: Feedback instantáneo de Rigobot, nuestro tutor de IA
+          - text: Orientación adaptada a tu nivel y progreso
+          - text: Soporte 24/7 para depuración y resolución de errores
+          - text: Cientos de ejercicios prácticos y evaluaciones técnicas
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: ¡Empieza a aprender ahora!
-          url: /es/apply
-          variant: primary
       - icon: TrendingUp
-        title: Prospera en tech con soporte de carrera para la era de la IA
+        title: Acompañamiento profesional diseñado para lanzar tu carrera
         description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
-          - text: Currículums y portafolios preparados para la era de la IA
+          - text: CVs y portafolios optimizados para filtros de IA
           - text: Preparación para entrevistas y negociación salarial
           - text: Acceso de por vida para apoyar tu crecimiento
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: ¡Empieza a aprender ahora!
-          url: /es/apply
+          url: /es/aplica
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio de 7:1 estudiante-instructor para orientación personalizada
-          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
-          - text: Canales dedicados de Slack para soporte de código, bolsas de trabajo y consejos de carrera
+          - text: Sesiones ilimitadas con mentores técnicos
+          - text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
+          - text: Trabajo colaborativo y revisiones en grupo
+          - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
         cta:
           text: ¡Empieza a aprender ahora!
-          url: /es/apply
+          url: /es/aplica
           variant: primary
-    paddingY:
+    marginY:
       desktop: md none
+    paddingY:
+      desktop: md
   - type: certificate
     title: Resultados Profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
-      - text: Data Scientist 22.000€ a 35.000€
-      - text: Full-Stack Engineer 20.000€ a 30.000€ (<2 años)
+      - text: Data Scientist
+      - text: Full-Stack Engineer (<2 años)
       - text: AI Engineer 22.000€ a 35.000€ (<2 años)
     card:
       title: Data Scientist
       subtitle: Certificado de 4Geeks Academy
       program_name: Data Science & Machine Learning
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan activamente.
         benefits:
@@ -280,14 +306,14 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Aumento salarial promedio
         description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
-          - text: Data Scientist 22.000€ a 35.000€
-          - text: Full-Stack Engineer 20.000€ a 30.000€ (<2 años)
-          - text: AI Engineer 22.000€ a 35.000€ (<2 años)
+          - text: Científico de datos {{ salary_data_scientist }}
+          - text: Ingeniero de Machine Learnign {{ average_salary_machine_learning_engineer | $90K–$150K  }}
+          - text: Analista de Datos {{ average_salary_data_analyst | 20.000€-30.000€ }}
+          - text: AI Engineer {{ average_salary_ai_engineer | 22.000€-35.000€ }}
       - value: 5,000+
         label: Empresas Asociadas
         description: Accede a nuestra red de más de 5,000 empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
@@ -316,13 +342,25 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - orlando-usa
+      - newyork-usa
+      - tampa-usa
+      - toronto-canada
   - type: pricing
     version: "1.0"
     variant: product
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
-    financing_text: "Financiamiento Basado en Crédito: desde"
+    financing_text: Financiamiento en cuotas desde
     financing_amount: {{ mounthly_price_bootcamp | Desde 200 € }}
     tech_icons:
       - python
@@ -354,8 +392,8 @@ sections:
       desktop: lg md
   - type: whos_hiring
     variant: carousel
-    title: Respaldados por Líderes Innovadores
-    subtitle: Nuestros graduados son contratados por empresas líderes a nivel mundial
+    title: Empresas que Contratan a Nuestros Graduados
+    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
@@ -384,10 +422,10 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
-    title: Tu Nueva Carrera Comienza Aquí
-    subtitle: Nuestros programas generan resultados que cambian vidas. Más de 1,200 reseñas verificadas lo demuestran
+    title: Éxito Profesional Comprobado
+    subtitle: “Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
-      average: "4.8"
+      average: "4.9"
       count: 1,294
     items:
       - name: Gabriel Salazar
@@ -459,8 +497,3 @@ sections:
         variant: outline
     paddingY:
       desktop: md
-  - type: footer
-    version: "1.0"
-    copyright_text: 2024 4Geeks. Todos los derechos reservados.
-    paddingY:
-      desktop: none 10px
