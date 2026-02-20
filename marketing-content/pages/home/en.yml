@@ -19,7 +19,7 @@ sections:
   - type: hero
     variant: showcase
     title: Where AI Careers Are Built.
-    subtitle: AI Engineering, Data Science, Software Development, and Cybersecurity programs for high-growth careers in the AI economy.
+    subtitle: AI Engineering, Data Science, Software Development, and Cybersecurity programs for high-growth careers in tech.
     trust_bar:
       rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 3,000+
