@@ -552,6 +552,8 @@ sections:
     form:
       variant: stacked
       submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
