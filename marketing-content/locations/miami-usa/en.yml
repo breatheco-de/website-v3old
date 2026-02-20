@@ -269,7 +269,7 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: The Confidence of a Job Guarantee
+      heading: The Confidence of a Job Guarantee*
       description: |
         The strongest proof that our approach works? We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
       badge: Results-Backed Promise
@@ -376,17 +376,14 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start Your Tech Career in Miami?
-    subtitle: Join our next cohort and transform your future.
-    cta_text: Apply Now
-    cta_url: /apply?location=miami-usa
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      tags: website-lead
-      automations: hard
+      submit_label: Get the details
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -403,7 +400,6 @@ sections:
         program:
           visible: true
           required: true
-          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:
