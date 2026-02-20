@@ -335,7 +335,10 @@ export function SyncModal({
               ) : (
                 <IconChevronRight className="h-3.5 w-3.5" />
               )}
-              Manual Actions
+              Commit Queue
+              {pendingChanges.length > 0 && (
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-1">{pendingChanges.length}</Badge>
+              )}
             </button>
             
             {manualActionsOpen && (
