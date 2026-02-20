@@ -534,6 +534,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: footer
-    version: "1.0"
-    copyright_text: 2024 4Geeks. Todos los derechos reservados.
