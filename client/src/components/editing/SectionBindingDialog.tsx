@@ -192,6 +192,7 @@ export function SectionBindingDialog({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings/candidates"] });
       onBindingChanged();
     },
     onError: (error: Error) => {
@@ -215,6 +216,7 @@ export function SectionBindingDialog({
     onSuccess: () => {
       toast({ title: "Unbound", description: "This section is no longer linked to others." });
       queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings/candidates"] });
       onBindingChanged();
       onOpenChange(false);
     },
@@ -238,6 +240,7 @@ export function SectionBindingDialog({
     onSuccess: () => {
       toast({ title: "Group dissolved", description: "All sections have been unbound." });
       queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings/candidates"] });
       onBindingChanged();
       onOpenChange(false);
     },
