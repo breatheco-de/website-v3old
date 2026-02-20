@@ -210,13 +210,16 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
     
-    // Merge _common.yml with locale file (locale data overrides common)
-    const content = deepMerge(commonData, localeData);
-    
-    // Apply all operations
+    // Apply all operations to the locale data (this is what gets saved)
     for (const operation of operations) {
-      applyOperation(content, operation);
+      applyOperation(localeData, operation);
     }
+
+    // Merge _common.yml with edited locale data for validation only
+    // (schema expects the full page structure including _common.yml fields)
+    const content = Object.keys(commonData).length > 0
+      ? deepMerge(commonData, localeData)
+      : localeData;
     
     // Validate content against the appropriate full schema
     const validationErrors: string[] = [];
@@ -378,8 +381,8 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       };
     }
     
-    // Write back to file
-    const updatedYaml = safeYamlDump(content, {
+    // Write locale data back to file (without _common.yml content)
+    const updatedYaml = safeYamlDump(localeData, {
       lineWidth: -1, // Don't wrap lines
       noRefs: true,
       quotingType: '"',
@@ -394,7 +397,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // Note: GitHub commits are now handled manually via /api/github/commit endpoint
     // Changes are saved locally and users commit when ready
     
-    // Return updated sections for immediate UI update
+    // Return updated sections for immediate UI update (from merged content for full view)
     const updatedSections = (content.sections as unknown[]) || [];
     return { success: true, updatedSections };
   } catch (error) {
