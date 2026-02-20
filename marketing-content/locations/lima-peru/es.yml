@@ -1,3 +1,44 @@
+slug: lima-peru
+name: Lima
+city: Lima
+country: Peru
+country_code: PE
+latitude: -12.0464
+longitude: -77.0428
+region: latam
+default_language: es
+timezone: America/Lima
+visibility: listed
+phone: +51 1 123 4567
+address: Av. Javier Prado Este 123, Lima
+available_programs:
+  - full-stack
+context:
+  when_to_use: For Lima and Peru visitors or those interested in tech opportunities in Peru's growing startup ecosystem.
+  target_audience: Local professionals, entrepreneurs, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
+  goals:
+    - Position Lima as Peru's leading tech and startup hub
+    - Emphasize bilingual (English/Spanish) and hybrid programs
+    - Highlight job outcomes and connections to local and international employers
+catalog:
+  admission_advisors:
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
+      languages:
+        - en
+        - es
+schema:
+  include:
+    - organization
+    - website
+  overrides:
+    organization:
+      address:
+        "@type": PostalAddress
+        streetAddress: Av. Javier Prado Este 123
+        addressLocality: Lima
+        addressCountry: PE
 meta:
   page_title: 4Geeks Academy Lima | Bootcamp de Programación en Perú
   description: Únete al bootcamp de programación 4Geeks en Lima. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
@@ -9,17 +50,17 @@ meta:
     - /es/coding-campus/bootcamp-programacion-lima-peru
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Lima
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la capital y mayor hub tech de Perú. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Lima
     cta_buttons:
       - text: Aplicar Ahora
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
       - text: Descargar Programa
-        url: '#syllabus-modal'
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -27,7 +68,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: syllabus-modal
     heading: Comienza tu Aplicación
     description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
@@ -95,7 +136,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -123,20 +164,20 @@ sections:
         url: https://player.vimeo.com/video/B01-eTfgqqc
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: default
     heading: Programas Cubiertos por la Garantía de Empleo
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
       - name: Full Stack Development
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 20 semanas
+        label: Actualizado en 2026
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
@@ -145,43 +186,43 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $439
-        original_price: $588
+        price: $150
+        original_price: $200
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $439
-        original_price: $588
+        price: $170
+        original_price: $210
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $439
-        original_price: $588
+        price: $150
+        original_price: $200
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -221,7 +262,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Lima es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en crecimiento con impulso de contratación real
-    description: 'El ecosistema de startups en Perú ha ganado impulso en los últimos años. Empresas innovadoras han atraído inversiones y reconocimiento local e internacionalmente, enfocándose en inclusión financiera, educación y agricultura sostenible mientras escalan globalmente.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Aumento en el número de startups innovadoras con inversiones y reconocimiento</span></li><li>Enfoque en desafíos locales—fintech, educación, agricultura sostenible—con ambición global</li><li>Demanda creciente de habilidades en software, IA y datos en todos los sectores</li></ul></div><div>Desde nuestro campus en Lima, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>'
+    description: "El ecosistema de startups en Perú ha ganado impulso en los últimos años. Empresas innovadoras han atraído inversiones y reconocimiento local e internacionalmente, enfocándose en inclusión financiera, educación y agricultura sostenible mientras escalan globalmente.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Aumento en el número de startups innovadoras con inversiones y reconocimiento</span></li><li>Enfoque en desafíos locales—fintech, educación, agricultura sostenible—con ambición global</li><li>Demanda creciente de habilidades en software, IA y datos en todos los sectores</li></ul></div><div>Desde nuestro campus en Lima, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -251,7 +292,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Historias de Éxito de Graduados de Lima
     filter_by_location: lima-peru
     marginY:
@@ -261,7 +302,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -349,7 +390,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech en Lima?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     background: hsl(var(--primary))

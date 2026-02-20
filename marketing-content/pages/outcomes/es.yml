@@ -220,8 +220,8 @@ sections:
     title: Resultados Profesionales Reales
     subtitle: Nuestros alumni comparten cómo consiguieron roles, avanzaron en sus carreras y aumentaron su poder adquisitivo.
     rating_summary:
-      average: "4.9"
-      count: 2,847
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -271,6 +271,7 @@ sections:
       desktop: lg none
     marginY:
       desktop: md
+<<<<<<< HEAD
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
@@ -312,3 +313,5 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+=======
+>>>>>>> parent of 1b1dcafe (Restored to '068a05c93907146d1827af22470c5d5c02920752')

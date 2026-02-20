@@ -19,9 +19,9 @@ sections:
     title: Nuestra Historia, Haciendo Noticias
     badge: Prensa y Medios
     trust_bar:
-      rating: 4.8/5
+      rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
-      trusted_text: Más de 10,000 estudiantes confían en nosotros
+      trusted_text: Más de {{ global_total_alumni | 10,000 }} estudiantes confían en nosotros
     award_badges:
       - name: Mejor Bootcamp de Programación
         source: Forbes
@@ -75,7 +75,7 @@ sections:
       desktop: none md
   - type: value_proof_panel
     title: Reconocidos Globalmente por la Excelencia
-    subtitle: No solo decimos que cumplimos — el reconocimiento de fuentes confiables lo demuestra.
+    subtitle: No solo decimos que cumplimos, el reconocimiento de fuentes confiables lo demuestra.
     evidence_items:
       - icon: Trophy
         title: Top 5 Bootcamps de Programación a Nivel Mundial

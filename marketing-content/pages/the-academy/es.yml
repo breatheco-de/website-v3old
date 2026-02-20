@@ -23,7 +23,7 @@ sections:
     image_id: academy_header_coding
     image_full_width: false
     marginY:
-      desktop: none
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
@@ -70,13 +70,13 @@ sections:
   - type: stats
     version: "1.0"
     items:
-      - value: "+7000"
+      - value: +{{ global_total_alumni | 7000 }}
         label: Alumni
-      - value: "8"
+      - value: {{ global_campuses | 10 }}
         label: Campus
-      - value: ~84%
+      - value: ~{{ global_job_placement_rate | 84 }}%
         label: Tasa de Contratación
-      - value: "4.9"
+      - value: {{ global_review_rating | 4.9 }}
         label: Calificación Promedio
     marginY:
       desktop: lg

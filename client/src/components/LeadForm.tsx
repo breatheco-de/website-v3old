@@ -41,6 +41,7 @@ interface FieldConfig {
   placeholder?: string;
   show_label?: boolean;
   label?: string;
+  rows?: number;
 }
 
 export interface LeadFormData {
@@ -1080,6 +1081,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     <Textarea 
                       className="min-h-[100px]" 
                       placeholder={getFieldConfig("client_comments").placeholder || (locale === "es" ? "Comentarios" : "Comments")}
+                      rows={getFieldConfig("client_comments").rows}
                       {...field} 
                       data-testid="textarea-client-comments"
                     />

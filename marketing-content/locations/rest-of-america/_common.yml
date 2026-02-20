@@ -1,0 +1,20 @@
+slug: rest-of-america
+name: Rest of America
+city: Rest of America
+country: Unknown
+country_code: XX
+latitude: 0
+longitude: 0
+region: online
+default_language: en
+timezone: UTC
+visibility: listed
+phone: ""
+address: ""
+available_programs:
+  - "full-stack"
+
+schema:
+  include:
+    - organization
+    - website

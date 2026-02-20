@@ -86,7 +86,7 @@ function mapBankToGridItem(
   t: BankTestimonial,
   itemStyles?: Record<string, { box_color?: string; name_color?: string; comment_color?: string }>
 ): GridItem {
-  const media = t.student_video
+  const   media = t.student_video
     ? { url: t.student_video, type: "video" as const, ratio: "16:9" }
     : t.media;
 

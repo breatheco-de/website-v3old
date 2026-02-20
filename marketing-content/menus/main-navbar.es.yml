@@ -31,7 +31,7 @@ navbar:
         footer:
           text: ¿No sabes qué programa te conviene más? Mira nuestra comparación de programas
           linkText: aquí
-          href: /program-comparison
+          href: /en/program-comparison
     - label: POR QUÉ 4GEEKS
       href: /why-4geeks
       component: Dropdown
@@ -44,9 +44,9 @@ navbar:
           - title: Apoyo
             items:
               - label: Mentores y profesores
-                href: /en/geekpal-support
+                href: /es/soporte-geekpal
               - label: Apoyo Profesional
-                href: /en/geekforce-career-support
+                href: /es/soporte-profesional-geekforce
               - label: Plataforma Online
                 href: /es/plataforma-online
               - label: Rigobot
@@ -64,17 +64,17 @@ navbar:
           - title: Precios
             items:
               - label: Financiamiento
-                href: /en/financials
+                href: /es/financiaciones
               - label: Becas
-                href: /en/scholarships
+                href: /es/becas
               - label: Garantía de Empleo
-                href: /en/job-guarantee
+                href: /es/trabajo-garantizado
           - title: Nuestros Estudiantes
             items:
               - label: Egresados y Proyectos
-                href: /en/graduates-and-projects
+                href: /es/egresados-y-proyectos
               - label: Testimonios
-                href: /en/testimonials
+                href: /es/testimonios
               - label: Talento
                 href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
     - label: LA ACADEMIA
@@ -89,15 +89,15 @@ navbar:
           - label: Contrata a nuestros egresados
             href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
           - label: Asóciate con 4Geeks
-            href: /en/partners
+            href: /es/alianzas
           - label: Trabaja con nosotros
-            href: /en/work-with-us
+            href: /es/trabaja-con-nosotros
           - label: Quiénes somos
-            href: /en/the-academy
+            href: /es/sobre-la-academia
           - label: Prensa
-            href: /en/press
+            href: /es/prensa
           - label: Blog
-            href: /en/blog
+            href: /es/blog
     - label: CAMPUS
       href: /campus
       component: Dropdown
@@ -128,11 +128,11 @@ navbar:
               - label: Los Ángeles, EE.UU.
                 href: /es/ubicacion/losangeles-usa
               - label: Remoto, EE.UU.
-                href: /en/location/remote
+                href: /es/ubicacion/remoto
           - title: EUROPA
             items:
               - label: Madrid, España
-                href: /es/ubicacion/madrid-espana
+                href: /es/ubicacion/madrid-spain
               - label: Barcelona, España
                 href: /es/ubicacion/barcelona-espana
               - label: Valencia, España
@@ -153,6 +153,8 @@ navbar:
                 href: /es/ubicacion/milan-italia
               - label: Roma, Italia
                 href: /es/ubicacion/roma-italia
+              - label: Rest of Europe
+                href: /es/ubicacion/resto-de-europa
           - title: LATAM
             items:
               - label: Santiago, Chile
@@ -160,7 +162,7 @@ navbar:
               - label: Bogotá, Colombia
                 href: /es/ubicacion/bogota-colombia
               - label: Ciudad de México, México
-                href: /es/ubicacion/cuidad-de-mexico
+                href: /es/ubicacion/ciudad-de-mexico
               - label: Caracas, Venezuela
                 href: /es/ubicacion/caracas-venezuela
               - label: Buenos Aires, Argentina
@@ -177,6 +179,8 @@ navbar:
                 href: /es/ubicacion/montevideo-uruguay
               - label: Lima, Perú
                 href: /es/ubicacion/lima-peru
+              - label: Rest Of America
+                href: /es/ubicacion/resto-de-america
     - label: PRÓXIMAS FECHAS
-      href: /upcoming-dates
+      href: /es/upcoming-dates
       component: SimpleLink

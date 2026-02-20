@@ -29,7 +29,7 @@ sections:
     content: |
       ## Welcome to Your Coding Career Launchpad
 
-      Feeling overwhelmed by the fast-paced world of tech? Wondering how to start a career in coding when AI seems to be doing it all? You’re not alone. At 4Geeks Academy, we believe the future belongs to those who know how to code *with* AI allow, not against it. Our platform isn’t just a learning tool, it’s your personalized gateway into the tech world, built for [real results, real support, and real jobs.](https://4geeksacademy.com/us/geekforce-career-support)
+      Feeling overwhelmed by the fast-paced world of tech? Wondering how to start a career in coding when AI seems to be doing it all? You’re not alone. At 4Geeks Academy, we believe the future belongs to those who know how to code *with* AI allow, not against it. Our platform isn’t just a learning tool, it’s your personalized gateway into the tech world, built for [real results, real support, and real jobs.](https://new.4geeks.com/en/job-guarantee)
 
       Let’s take a closer look at why the 4Geeks platform feels like no other bootcamp experience out there.
 
@@ -44,8 +44,6 @@ sections:
       - Real time feedback loop  
 
       Everything is designed to help you focus, plan, and stay motivated. It’s not just user-friendly, it’s *you-friendly*.
-
-      ![Dashboard overview](attachment:4565a1f4-15b3-4936-84dd-9e94edcbd87c:image.png)
 
       ---
 
@@ -62,13 +60,13 @@ sections:
 
       ## Code Like a Pro with LearnPack and Rigobot
 
-      This is where 4Geeks stands out. The entire platform is [powered by **LearnPack**](https://4geeksacademy.com/us/learnpack), our open-source framework that integrates seamlessly with **Visual Studio Code**. You get the same tools that professional developers use:
+      This is where 4Geeks stands out. The entire platform is [powered by **LearnPack**](https://new.4geeks.com/en/learnpack), our open-source framework that integrates seamlessly with **Visual Studio Code**. You get the same tools that professional developers use:
 
       - One-click launch via Gitpod or Codespaces  
       - No local setup needed  
       - Real-time code testing  
 
-      And right by your side is [**Rigobot**](https://4geeksacademy.com/us/rigobot), your AI-powered coding mentor. It scans your code, finds bugs, explains errors, and guides you through fixes in real time, inside your coding window. Whether you're debugging a Python loop or styling a responsive layout, Rigobot gives you the *why* behind every solution.
+      And right by your side is [**Rigobot**](https://new.4geeks.com/en/rigobot-ai-coding-mentor), your AI-powered coding mentor. It scans your code, finds bugs, explains errors, and guides you through fixes in real time, inside your coding window. Whether you're debugging a Python loop or styling a responsive layout, Rigobot gives you the *why* behind every solution.
 
       ## Human Mentorship That Never Goes Away
 
@@ -97,7 +95,7 @@ sections:
       | **Metric** | **Value** |
       | --- | --- |
       | Graduates | 6,000+ |
-      | [Job placement (within 140d)](https://4geeksacademy.com/us/career-growth/outcomes-report-2024) | 84% |
+      | [Job placement (within 140d)](https://new.4geeks.com/en/outcomes) | 84% |
       | GitHub tutorials | 1,000+ (open-source) |
       | [SwitchUp rating](https://www.switchup.org/bootcamps/4geeks-academy) | 4.9/5 |
       | Campuses | 7 (USA, Spain, Germany, LATAM, etc.) |
@@ -121,7 +119,7 @@ sections:
 
       Explore the 4Geeks Academy platform, start learning with LearnPack, code alongside Rigobot, and take the first step toward your new tech career.
 
-      👉 [Explore programs now](https://4geeksacademy.com/) or book a mentor session today.
+      👉 [Explore programs now](https://new.4geeks.com/) or book a mentor session today.
     show_toc: true
     max_width: xl
   - type: faq
