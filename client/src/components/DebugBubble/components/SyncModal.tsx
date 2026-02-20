@@ -88,6 +88,8 @@ export function SyncModal({
   fetchPendingChanges,
   manualActionsOpen,
   setManualActionsOpen,
+  advancedOptionsOpen,
+  setAdvancedOptionsOpen,
   getDebugToken,
   toast,
 }: SyncModalProps) {
@@ -527,6 +529,27 @@ export function SyncModal({
                   )}
                 </div>
 
+              </div>
+            )}
+          </div>
+
+          <div className="border-t pt-3">
+            <button
+              type="button"
+              onClick={() => setAdvancedOptionsOpen(!advancedOptionsOpen)}
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="button-toggle-advanced-actions"
+            >
+              {advancedOptionsOpen ? (
+                <IconChevronDown className="h-3.5 w-3.5" />
+              ) : (
+                <IconChevronRight className="h-3.5 w-3.5" />
+              )}
+              Advanced Actions
+            </button>
+
+            {advancedOptionsOpen && (
+              <div className="mt-3">
                 <div className="p-3 bg-muted/50 rounded-md space-y-2">
                   <p className="text-xs text-muted-foreground">
                     Discard all local changes and reset to the remote version.
