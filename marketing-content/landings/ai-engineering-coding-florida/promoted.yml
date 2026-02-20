@@ -82,17 +82,17 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    title: Learn with Florida's Top-Rated Online AI Coding Bootcamp.
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
       color: primary
     description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Become the professional companies can’t wait to hire.
     video:
-      loop: false
       url: https://www.youtube.com/shorts/sSxJnelPJT8
       ratio: "9:16"
       muted: true
+      loop: false
     paddingY:
       mobile: md none
       desktop: lg none
