@@ -539,7 +539,7 @@ export function SectionBindingDialog({
             <div className="mt-3 pt-3 border-t space-y-2">
               {confirmLeave ? (
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-xs text-muted-foreground">Remove this section from the group?</p>
+                  <p className="text-xs text-muted-foreground">Unbind this section from the group? Future changes on the section will not be propagated to the group.</p>
                   <div className="flex items-center gap-1 shrink-0">
                     <Button
                       size="sm"
