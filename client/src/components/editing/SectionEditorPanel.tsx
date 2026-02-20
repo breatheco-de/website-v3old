@@ -1580,9 +1580,9 @@ export function SectionEditorPanel({
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b">
         <div>
-          <h2 className="font-semibold">Editar Sección</h2>
+          <h2 className="font-semibold" style={{ fontSize: "25px", lineHeight: "1.2" }}>Edit Section</h2>
           <p className="text-sm text-muted-foreground">
-            {sectionType}{parsedSection?.variant ? ` — ${parsedSection.variant}` : ""} (Sección {sectionIndex + 1})
+            {sectionType}{parsedSection?.variant ? ` — ${parsedSection.variant}` : ""} (Section {sectionIndex + 1})
           </p>
         </div>
         <div className="flex items-center gap-1">
