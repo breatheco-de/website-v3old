@@ -310,14 +310,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
   mediaGallery.setContentIndex(contentIndex);
 
-  const gcsProvider = media.getProvider("gcs");
-  if (gcsProvider) {
-    const { initSyncStateGCS, loadSyncStateFromBucket } = await import("./sync-state");
-    initSyncStateGCS(gcsProvider);
-    loadSyncStateFromBucket().catch(err => {
-      console.error("[SyncState] Failed to load from bucket on startup:", err);
-    });
-  }
+  const { loadSyncStateFromBucket } = await import("./sync-state");
+  loadSyncStateFromBucket().catch(err => {
+    console.error("[SyncState] Failed to load from bucket on startup:", err);
+  });
 
   app.get("/apply", (req, res) => {
     const lang = detectLanguageFromRequest(req);

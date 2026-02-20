@@ -9,40 +9,30 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import { gcs } from './gcs';
 
 const SYNC_STATE_PATH = path.join(process.cwd(), 'marketing-content', '.sync-state.json');
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), 'marketing-content');
 const GCS_SYNC_STATE_KEY = 'sync/sync-state.json';
-
-let gcsProvider: any = null;
-
-/**
- * Initialize the GCS provider for sync state persistence.
- * Called once on server startup.
- */
-export function initSyncStateGCS(provider: any): void {
-  gcsProvider = provider;
-  console.log('[SyncState] GCS provider initialized for persistent sync state');
-}
 
 /**
  * Load sync state from GCS bucket on startup using authenticated download.
  * Falls back to local file if GCS is unavailable.
  */
 export async function loadSyncStateFromBucket(): Promise<SyncState> {
-  if (!gcsProvider) {
-    console.log('[SyncState] No GCS provider, loading from local file');
+  if (!gcs.available) {
+    console.log('[SyncState] GCS unavailable, loading from local file');
     return loadSyncState();
   }
 
   try {
-    const exists = await gcsProvider.exists(GCS_SYNC_STATE_KEY);
+    const exists = await gcs.exists(GCS_SYNC_STATE_KEY);
     if (!exists) {
       console.log('[SyncState] No sync state found in bucket, using local file');
       return loadSyncState();
     }
 
-    const data = await gcsProvider.download(GCS_SYNC_STATE_KEY);
+    const data = await gcs.download(GCS_SYNC_STATE_KEY);
     if (!data) {
       console.log('[SyncState] Empty download from bucket, using local file');
       return loadSyncState();
@@ -63,11 +53,11 @@ export async function loadSyncStateFromBucket(): Promise<SyncState> {
  * Save sync state to GCS bucket for persistence across deployments.
  */
 async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> {
-  if (!gcsProvider) return;
+  if (!gcs.available) return;
 
   try {
     const content = JSON.stringify(state, null, 2);
-    await gcsProvider.upload(GCS_SYNC_STATE_KEY, Buffer.from(content, 'utf-8'), 'application/json');
+    await gcs.upload(GCS_SYNC_STATE_KEY, Buffer.from(content, 'utf-8'), 'application/json');
   } catch (error) {
     console.error('[SyncState] Error saving to bucket:', error);
   }

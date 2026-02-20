@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { setAutoCommitCallback } from "./sync-state";
 import { queueFileChange } from "./auto-commit";
+// Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
+// which happens before sync-state needs it.
 
 const app = express();
 

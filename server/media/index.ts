@@ -1,6 +1,7 @@
 import type { StorageProvider, MediaConfig, ProviderName } from "./types";
 import { LocalProvider } from "./local-provider";
 import { GCSProvider } from "./gcs-provider";
+import { gcs } from "../gcs";
 
 export type { StorageProvider, MediaConfig, ProviderName };
 export { LocalProvider } from "./local-provider";
@@ -17,10 +18,11 @@ class Media {
     const local = new LocalProvider();
     this.providers.set("local", local);
 
-    if (config?.gcs?.bucketName) {
-      const gcs = new GCSProvider(config.gcs);
-      this.providers.set("gcs", gcs);
-      console.log(`[Media] GCS provider configured for bucket: ${config.gcs.bucketName}`);
+    if (gcs.available) {
+      const mediaBasePath = config?.gcs?.basePath || process.env.GCS_BASE_PATH || "media";
+      const gcsProvider = new GCSProvider({ basePath: mediaBasePath });
+      this.providers.set("gcs", gcsProvider);
+      console.log(`[Media] GCS provider configured for bucket: ${gcs.getBucketName()} (basePath: ${mediaBasePath})`);
     }
 
     this.defaultProviderName = config?.defaultProvider || "local";
@@ -29,17 +31,15 @@ class Media {
   }
 
   initFromEnv(): void {
+    gcs.initFromEnv();
+
     const config: Partial<MediaConfig> = {
       defaultProvider: (process.env.MEDIA_DEFAULT_PROVIDER as ProviderName) || "local",
     };
 
-    const gcsBucket = process.env.GCS_BUCKET_NAME;
-    if (gcsBucket) {
+    if (gcs.available) {
       config.gcs = {
-        bucketName: gcsBucket,
-        projectId: process.env.GCS_PROJECT_ID,
-        keyFilename: process.env.GCS_KEY_FILENAME,
-        credentialsJson: process.env.GCS_CREDENTIALS_JSON,
+        bucketName: gcs.getBucketName(),
         basePath: process.env.GCS_BASE_PATH || "media",
       };
     }
@@ -69,7 +69,7 @@ class Media {
 
   resolveProvider(src: string): StorageProvider {
     this.ensureInit();
-    for (const provider of this.providers.values()) {
+    for (const provider of Array.from(this.providers.values())) {
       if (provider.owns(src)) {
         return provider;
       }
@@ -120,7 +120,7 @@ class Media {
     };
     if (this.providers.has("gcs")) {
       status.gcs = {
-        bucket: process.env.GCS_BUCKET_NAME || "",
+        bucket: gcs.getBucketName(),
         basePath: process.env.GCS_BASE_PATH || "media",
         projectId: process.env.GCS_PROJECT_ID,
       };

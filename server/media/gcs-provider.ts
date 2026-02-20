@@ -1,32 +1,14 @@
-import { Storage } from "@google-cloud/storage";
 import type { StorageProvider } from "./types";
+import { gcs } from "../gcs";
 
 export class GCSProvider implements StorageProvider {
   readonly name = "gcs";
-  private storage: Storage;
-  private bucketName: string;
   private basePath: string;
   private urlPrefix: string;
 
-  constructor(config: { bucketName: string; projectId?: string; keyFilename?: string; credentialsJson?: string; basePath?: string }) {
-    this.bucketName = config.bucketName;
+  constructor(config: { basePath?: string }) {
     this.basePath = config.basePath ? config.basePath.replace(/\/+$/, "") : "";
-    this.urlPrefix = `https://storage.googleapis.com/${config.bucketName}/`;
-
-    const storageOpts: Record<string, any> = {};
-    if (config.projectId) storageOpts.projectId = config.projectId;
-
-    if (config.credentialsJson) {
-      try {
-        storageOpts.credentials = JSON.parse(config.credentialsJson);
-      } catch {
-        console.error("[GCSProvider] Failed to parse GCS_CREDENTIALS_JSON, falling back to default auth");
-      }
-    } else if (config.keyFilename) {
-      storageOpts.keyFilename = config.keyFilename;
-    }
-
-    this.storage = new Storage(storageOpts);
+    this.urlPrefix = `https://storage.googleapis.com/${gcs.getBucketName()}/`;
   }
 
   private fullKey(key: string): string {
@@ -41,7 +23,7 @@ export class GCSProvider implements StorageProvider {
       }
       return true;
     }
-    return src.startsWith(`gs://${this.bucketName}/`);
+    return src.startsWith(`gs://${gcs.getBucketName()}/`);
   }
 
   extractKey(src: string): string | null {
@@ -52,7 +34,7 @@ export class GCSProvider implements StorageProvider {
       }
       return full;
     }
-    const gsPrefix = `gs://${this.bucketName}/`;
+    const gsPrefix = `gs://${gcs.getBucketName()}/`;
     if (src.startsWith(gsPrefix)) {
       const full = src.slice(gsPrefix.length);
       if (this.basePath && full.startsWith(this.basePath + "/")) {
@@ -64,45 +46,22 @@ export class GCSProvider implements StorageProvider {
   }
 
   async exists(key: string): Promise<boolean> {
-    try {
-      const [exists] = await this.storage.bucket(this.bucketName).file(this.fullKey(key)).exists();
-      return exists;
-    } catch {
-      return false;
-    }
+    return gcs.exists(this.fullKey(key));
   }
 
   async upload(key: string, data: Buffer, contentType?: string): Promise<string> {
-    const file = this.storage.bucket(this.bucketName).file(this.fullKey(key));
-    await file.save(data, {
-      contentType: contentType || "application/octet-stream",
-      resumable: false,
-      metadata: {
-        cacheControl: "public, max-age=31536000",
-      },
-    });
-    return this.getPublicUrl(key);
+    return gcs.upload(this.fullKey(key), data, contentType);
   }
 
   async delete(key: string): Promise<void> {
-    try {
-      await this.storage.bucket(this.bucketName).file(this.fullKey(key)).delete();
-    } catch (err: any) {
-      if (err?.code !== 404) throw err;
-    }
+    return gcs.delete(this.fullKey(key));
   }
 
   getPublicUrl(key: string): string {
-    return `${this.urlPrefix}${this.fullKey(key)}`;
+    return gcs.getPublicUrl(this.fullKey(key));
   }
 
   async download(key: string): Promise<Buffer | null> {
-    try {
-      const [data] = await this.storage.bucket(this.bucketName).file(this.fullKey(key)).download();
-      return data;
-    } catch (err: any) {
-      if (err?.code === 404) return null;
-      throw err;
-    }
+    return gcs.download(this.fullKey(key));
   }
 }
