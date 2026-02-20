@@ -1592,10 +1592,19 @@ export function SectionEditorPanel({
               variant="ghost"
               onClick={() => setBindingDialogOpen(true)}
               title={bindingGroup ? `Bound to ${boundSiblings.length} page${boundSiblings.length !== 1 ? 's' : ''} — click to manage` : "Manage bindings"}
+              className="relative"
               data-testid="button-binding-header"
             >
               {bindingGroup ? (
-                <IconLink className="h-4 w-4" />
+                <>
+                  <IconLink className="h-4 w-4" />
+                  <span
+                    className="absolute -top-0.5 -right-0.5 flex items-center justify-center rounded-full bg-amber-400 text-[9px] font-bold text-amber-950 min-w-[16px] px-0.5 leading-none py-0.5"
+                    data-testid="badge-binding-count"
+                  >
+                    {bindingGroup.members.length}
+                  </span>
+                </>
               ) : (
                 <IconLinkOff className="h-4 w-4" />
               )}
