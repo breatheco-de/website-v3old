@@ -88,11 +88,15 @@ export function SectionBindingDialog({
   const [editNameValue, setEditNameValue] = useState("");
   const [confirmDissolve, setConfirmDissolve] = useState(false);
   const [confirmLeave, setConfirmLeave] = useState(false);
+  const [unboundTab, setUnboundTab] = useState<"join" | "create">("join");
+  const [pendingJoinGroup, setPendingJoinGroup] = useState<{ id: string; name?: string; component: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null>(null);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
       setConfirmDissolve(false);
       setConfirmLeave(false);
+      setPendingJoinGroup(null);
+      setUnboundTab("join");
     }
     onOpenChange(nextOpen);
   };
@@ -111,6 +115,20 @@ export function SectionBindingDialog({
   });
 
   const candidates = (candidatesData?.candidates || []) as Candidate[];
+
+  const { data: allGroupsData, isLoading: loadingGroups } = useQuery<{ groups: Array<{ id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> }> }>({
+    queryKey: ["/api/bindings"],
+    queryFn: async () => {
+      const res = await fetchWithAuth("/api/bindings");
+      return res.json();
+    },
+    enabled: open && !existingGroup,
+  });
+
+  const matchingGroups = useMemo(() => {
+    if (!allGroupsData?.groups) return [];
+    return allGroupsData.groups.filter(g => g.component === component && g.locale === locale);
+  }, [allGroupsData, component, locale]);
 
   const filteredCandidates = useMemo(() => {
     return candidates
@@ -314,6 +332,37 @@ export function SectionBindingDialog({
     });
   };
 
+  const joinGroupMutation = useMutation({
+    mutationFn: async ({ groupId }: { groupId: string }) => {
+      const res = await fetchWithAuth(`/api/bindings/${groupId}/members`, {
+        method: "POST",
+        body: JSON.stringify({ contentType, slug, sectionIndex }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to join group");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Joined group", description: "This section has been added to the binding group and its content has been synchronized." });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings"] });
+      onBindingChanged();
+      setPendingJoinGroup(null);
+      onOpenChange(false);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+      setPendingJoinGroup(null);
+    },
+  });
+
+  const handleConfirmJoin = () => {
+    if (!pendingJoinGroup) return;
+    joinGroupMutation.mutate({ groupId: pendingJoinGroup.id });
+  };
+
   const handleRemoveFromExisting = (c: { contentType: string; slug: string; sectionIndex: number }) => {
     if (!existingGroup) return;
     removeMemberMutation.mutate({
@@ -332,7 +381,7 @@ export function SectionBindingDialog({
     renameGroupMutation.mutate({ groupId: existingGroup.id, name: editNameValue.trim() });
   };
 
-  const isPending = createBindingMutation.isPending || addMemberMutation.isPending || removeMemberMutation.isPending || unbindCurrentMutation.isPending || dissolveGroupMutation.isPending;
+  const isPending = createBindingMutation.isPending || addMemberMutation.isPending || removeMemberMutation.isPending || unbindCurrentMutation.isPending || dissolveGroupMutation.isPending || joinGroupMutation.isPending;
 
   const groupDisplayName = existingGroup?.name || `${component} binding`;
 
@@ -466,6 +515,72 @@ export function SectionBindingDialog({
                 </>
               ) : (
                 "Add and overwrite"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  if (pendingJoinGroup) {
+    const joinGroupDisplayName = pendingJoinGroup.name || `${pendingJoinGroup.component} binding`;
+    return (
+      <Dialog open={open} onOpenChange={handleOpenChange}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Join existing group
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground" data-testid="text-join-summary">
+              This section's content will be <span className="font-medium text-destructive">overwritten</span> with the group's content.
+            </p>
+            <div className="flex items-stretch gap-3">
+              <div className="flex-1 rounded-md border border-border bg-muted/40 p-3 text-sm" data-testid="card-join-group-source">
+                <p className="text-xs text-muted-foreground mb-1">Group (source)</p>
+                <p className="font-medium truncate" data-testid="text-join-group-name">{joinGroupDisplayName}</p>
+                <p className="text-xs text-muted-foreground mt-1">{pendingJoinGroup.members.length} member{pendingJoinGroup.members.length !== 1 ? "s" : ""}</p>
+                <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
+              </div>
+
+              <div className="flex flex-col items-center justify-center shrink-0">
+                <IconArrowRight className="h-5 w-5 text-destructive" />
+              </div>
+
+              <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-join-destination">
+                <p className="text-xs text-destructive mb-1">Will be overwritten</p>
+                <p className="font-medium truncate" data-testid="text-join-current">{slug}</p>
+                <span className="text-xs text-muted-foreground">section {sectionIndex}</span>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setPendingJoinGroup(null)}
+              disabled={isPending}
+              data-testid="button-join-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmJoin}
+              disabled={isPending}
+              data-testid="button-join-confirm"
+            >
+              {isPending ? (
+                <>
+                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Joining...
+                </>
+              ) : (
+                "Join and overwrite"
               )}
             </Button>
           </DialogFooter>
@@ -639,77 +754,143 @@ export function SectionBindingDialog({
 
         {!existingGroup && (
           <>
-            <div className="relative">
-              <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search pages..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-8"
-                data-testid="input-binding-search"
-              />
-            </div>
+            {matchingGroups.length > 0 && (
+              <div className="flex items-center gap-1 border-b border-border mb-1">
+                <button
+                  type="button"
+                  className={`px-3 py-1.5 text-sm font-medium border-b-2 transition-colors ${
+                    unboundTab === "join"
+                      ? "border-primary text-foreground"
+                      : "border-transparent text-muted-foreground"
+                  }`}
+                  onClick={() => setUnboundTab("join")}
+                  data-testid="tab-join-existing"
+                >
+                  Join existing group ({matchingGroups.length})
+                </button>
+                <button
+                  type="button"
+                  className={`px-3 py-1.5 text-sm font-medium border-b-2 transition-colors ${
+                    unboundTab === "create"
+                      ? "border-primary text-foreground"
+                      : "border-transparent text-muted-foreground"
+                  }`}
+                  onClick={() => setUnboundTab("create")}
+                  data-testid="tab-create-new"
+                >
+                  Create new group
+                </button>
+              </div>
+            )}
 
-            <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
-              {loadingCandidates ? (
-                <div className="flex items-center justify-center py-8">
-                  <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-                </div>
-              ) : filteredCandidates.length === 0 ? (
-                <div className="text-center text-muted-foreground py-8 text-sm">
-                  No matching sections found
-                </div>
-              ) : (
-                <div className="space-y-1 pr-3">
-                  {filteredCandidates.map(c => {
-                    const key = candidateKey(c);
-                    const isBoundElsewhere = !!c.alreadyBound;
-                    const isSelected = selectedCandidates.has(key);
-
-                    return (
+            {(unboundTab === "join" && matchingGroups.length > 0) ? (
+              <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
+                {loadingGroups ? (
+                  <div className="flex items-center justify-center py-8">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : (
+                  <div className="space-y-2 pr-3">
+                    {matchingGroups.map(g => (
                       <div
-                        key={key}
-                        className={`flex items-center gap-3 p-2 rounded-md text-sm ${
-                          isBoundElsewhere ? "opacity-50" : "hover-elevate cursor-pointer"
-                        }`}
-                        onClick={() => {
-                          if (isBoundElsewhere) return;
-                          handleToggleCandidate(c);
-                        }}
-                        data-testid={`binding-candidate-${key}`}
+                        key={g.id}
+                        className="rounded-md border border-border p-3 hover-elevate cursor-pointer"
+                        onClick={() => setPendingJoinGroup(g)}
+                        data-testid={`join-group-${g.id}`}
                       >
-                        {!isBoundElsewhere && (
-                          <Checkbox
-                            checked={isSelected}
-                            onCheckedChange={() => handleToggleCandidate(c)}
-                            disabled={isBoundElsewhere || false}
-                            data-testid={`checkbox-candidate-${key}`}
-                          />
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
-                            <span className="truncate font-medium">{c.title || c.slug}</span>
-                          </div>
-                          <p className="text-xs text-muted-foreground truncate">
-                            {c.slug} — section {c.sectionIndex}
-                          </p>
-                        </div>
-                        {isBoundElsewhere && (
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <p className="font-medium text-sm truncate">{g.name || `${g.component} binding`}</p>
                           <Badge variant="secondary" className="text-xs shrink-0">
-                            {c.alreadyBoundGroupName || "bound elsewhere"}
+                            {g.members.length} member{g.members.length !== 1 ? "s" : ""}
                           </Badge>
-                        )}
+                        </div>
+                        <div className="space-y-0.5">
+                          {g.members.map(m => (
+                            <p key={`${m.contentType}:${m.slug}:${m.sectionIndex}`} className="text-xs text-muted-foreground truncate">
+                              {m.slug} — section {m.sectionIndex}
+                            </p>
+                          ))}
+                        </div>
                       </div>
-                    );
-                  })}
+                    ))}
+                  </div>
+                )}
+              </ScrollArea>
+            ) : (
+              <>
+                <div className="relative">
+                  <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search pages..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="pl-8"
+                    data-testid="input-binding-search"
+                  />
                 </div>
-              )}
-            </ScrollArea>
+
+                <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
+                  {loadingCandidates ? (
+                    <div className="flex items-center justify-center py-8">
+                      <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                    </div>
+                  ) : filteredCandidates.length === 0 ? (
+                    <div className="text-center text-muted-foreground py-8 text-sm">
+                      No matching sections found
+                    </div>
+                  ) : (
+                    <div className="space-y-1 pr-3">
+                      {filteredCandidates.map(c => {
+                        const key = candidateKey(c);
+                        const isBoundElsewhere = !!c.alreadyBound;
+                        const isSelected = selectedCandidates.has(key);
+
+                        return (
+                          <div
+                            key={key}
+                            className={`flex items-center gap-3 p-2 rounded-md text-sm ${
+                              isBoundElsewhere ? "opacity-50" : "hover-elevate cursor-pointer"
+                            }`}
+                            onClick={() => {
+                              if (isBoundElsewhere) return;
+                              handleToggleCandidate(c);
+                            }}
+                            data-testid={`binding-candidate-${key}`}
+                          >
+                            {!isBoundElsewhere && (
+                              <Checkbox
+                                checked={isSelected}
+                                onCheckedChange={() => handleToggleCandidate(c)}
+                                disabled={isBoundElsewhere || false}
+                                data-testid={`checkbox-candidate-${key}`}
+                              />
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
+                                <span className="truncate font-medium">{c.title || c.slug}</span>
+                              </div>
+                              <p className="text-xs text-muted-foreground truncate">
+                                {c.slug} — section {c.sectionIndex}
+                              </p>
+                            </div>
+                            {isBoundElsewhere && (
+                              <Badge variant="secondary" className="text-xs shrink-0">
+                                {c.alreadyBoundGroupName || "bound elsewhere"}
+                              </Badge>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </ScrollArea>
+              </>
+            )}
           </>
         )}
 
-        {!existingGroup && (
+        {!existingGroup && (unboundTab === "create" || matchingGroups.length === 0) && (
           <DialogFooter>
             <Button
               variant="outline"
