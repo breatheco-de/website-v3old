@@ -521,6 +521,10 @@ sections:
           visible: true
           required: false
           placeholder: Número de teléfono
+        program:
+          visible: false
+          required: true
+          default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
