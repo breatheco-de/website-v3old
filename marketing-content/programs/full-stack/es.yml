@@ -499,13 +499,15 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Convertirte en Ingeniero de IA?
+    title: ¿Listo para Convertirte en Desarrollador Full Stack?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
