@@ -1177,6 +1177,14 @@
       "sha": "675793d48440e075168e984ae91d7909defe03ba3cee4898d83b3340c0c454d0",
       "lastModified": 1771533533078.6682,
       "remoteSha": "675793d48440e075168e984ae91d7909defe03ba3cee4898d83b3340c0c454d0"
+    },
+    "marketing-content/image-registry.json": {
+      "sha": "f72968a4586bcd393a0812cf396cf0e38071dc7b11840fa395aeab150597ceda",
+      "lastModified": 1771615874933.2102,
+      "modifiedAt": "2026-02-20T19:31:14.936Z"
     }
+  },
+  "config": {
+    "commitIntervalSeconds": 5
   }
 }
