@@ -5,6 +5,8 @@ import { fallbackRedirectMiddleware } from "./redirects";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import path from "path";
+import { setAutoCommitCallback } from "./sync-state";
+import { queueFileChange } from "./auto-commit";
 
 const app = express();
 
@@ -76,6 +78,9 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  setAutoCommitCallback(queueFileChange);
+  log('[AutoCommit] Auto-commit callback registered');
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

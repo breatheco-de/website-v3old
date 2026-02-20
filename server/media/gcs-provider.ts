@@ -95,4 +95,14 @@ export class GCSProvider implements StorageProvider {
   getPublicUrl(key: string): string {
     return `${this.urlPrefix}${this.fullKey(key)}`;
   }
+
+  async download(key: string): Promise<Buffer | null> {
+    try {
+      const [data] = await this.storage.bucket(this.bucketName).file(this.fullKey(key)).download();
+      return data;
+    } catch (err: any) {
+      if (err?.code === 404) return null;
+      throw err;
+    }
+  }
 }

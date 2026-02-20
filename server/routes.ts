@@ -310,6 +310,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
   mediaGallery.setContentIndex(contentIndex);
 
+  const gcsProvider = media.getProvider("gcs");
+  if (gcsProvider) {
+    const { initSyncStateGCS, loadSyncStateFromBucket } = await import("./sync-state");
+    initSyncStateGCS(gcsProvider);
+    loadSyncStateFromBucket().catch(err => {
+      console.error("[SyncState] Failed to load from bucket on startup:", err);
+    });
+  }
+
   app.get("/apply", (req, res) => {
     const lang = detectLanguageFromRequest(req);
     const target = lang === "es" ? "/es/aplica" : "/en/apply";
@@ -2820,6 +2829,69 @@ Important: Only include mappings where you are confident the field exists. Use d
     } catch (error) {
       console.error("Error syncing with remote:", error);
       res.status(500).json({ error: "Failed to sync with remote" });
+    }
+  });
+
+  app.get("/api/github/auto-commit/status", async (_req, res) => {
+    try {
+      const { getAutoCommitStatus } = await import("./auto-commit");
+      res.json(getAutoCommitStatus());
+    } catch (error) {
+      console.error("Error getting auto-commit status:", error);
+      res.status(500).json({ error: "Failed to get auto-commit status" });
+    }
+  });
+
+  app.post("/api/github/auto-commit/flush", async (_req, res) => {
+    try {
+      const { flushPendingChanges } = await import("./auto-commit");
+      const result = await flushPendingChanges();
+      res.json(result);
+    } catch (error) {
+      console.error("Error flushing auto-commit:", error);
+      res.status(500).json({ error: "Failed to flush pending changes" });
+    }
+  });
+
+  app.post("/api/github/auto-commit/config", async (req, res) => {
+    try {
+      const { commitIntervalSeconds } = req.body;
+      if (typeof commitIntervalSeconds === "number" && commitIntervalSeconds >= 1) {
+        const { updateSyncConfig } = await import("./sync-state");
+        updateSyncConfig({ commitIntervalSeconds });
+        res.json({ success: true, commitIntervalSeconds });
+      } else {
+        res.status(400).json({ error: "commitIntervalSeconds must be a number >= 1" });
+      }
+    } catch (error) {
+      console.error("Error updating auto-commit config:", error);
+      res.status(500).json({ error: "Failed to update auto-commit config" });
+    }
+  });
+
+  app.get("/api/github/auto-commit/conflicts", async (_req, res) => {
+    try {
+      const { getConflictedFiles } = await import("./auto-commit");
+      res.json({ conflicts: getConflictedFiles() });
+    } catch (error) {
+      console.error("Error getting conflicts:", error);
+      res.status(500).json({ error: "Failed to get conflicts" });
+    }
+  });
+
+  app.post("/api/github/auto-commit/clear-conflict", async (req, res) => {
+    try {
+      const { filePath } = req.body;
+      if (!filePath) {
+        res.status(400).json({ error: "filePath is required" });
+        return;
+      }
+      const { clearConflict } = await import("./auto-commit");
+      const cleared = clearConflict(filePath);
+      res.json({ success: cleared });
+    } catch (error) {
+      console.error("Error clearing conflict:", error);
+      res.status(500).json({ error: "Failed to clear conflict" });
     }
   });
 

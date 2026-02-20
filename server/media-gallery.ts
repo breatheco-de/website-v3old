@@ -5,6 +5,7 @@ import * as yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import type { ImageRegistry, ImageEntry } from "@shared/schema";
 import { media } from "./media";
+import { markFileAsModified } from "./sync-state";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
@@ -778,6 +779,7 @@ class MediaGallery {
 
   private saveRegistry(registry: ImageRegistry): void {
     fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
+    markFileAsModified("marketing-content/image-registry.json");
     this.clearCache();
   }
 }

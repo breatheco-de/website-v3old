@@ -120,6 +120,7 @@ class BindingManager {
         fs.mkdirSync(dir, { recursive: true });
       }
       fs.writeFileSync(BINDINGS_FILE, JSON.stringify(this.data, null, 2), "utf-8");
+      markFileAsModified("marketing-content/section-bindings.json");
     } catch (error) {
       console.error("[BindingManager] Error saving bindings:", error);
     }

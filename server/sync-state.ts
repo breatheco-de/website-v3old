@@ -2,7 +2,7 @@
  * Sync State Management
  * 
  * Tracks the synchronization state between local content files and GitHub.
- * Uses a .sync-state.json file to persist state across deployments.
+ * Persists state to GCS bucket to survive deployments, with local file as cache.
  * Works without git CLI - uses file hashes and GitHub API for comparison.
  */
 
@@ -12,24 +12,91 @@ import * as crypto from 'crypto';
 
 const SYNC_STATE_PATH = path.join(process.cwd(), 'marketing-content', '.sync-state.json');
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), 'marketing-content');
+const GCS_SYNC_STATE_KEY = 'sync/sync-state.json';
+
+let gcsProvider: any = null;
+
+/**
+ * Initialize the GCS provider for sync state persistence.
+ * Called once on server startup.
+ */
+export function initSyncStateGCS(provider: any): void {
+  gcsProvider = provider;
+  console.log('[SyncState] GCS provider initialized for persistent sync state');
+}
+
+/**
+ * Load sync state from GCS bucket on startup using authenticated download.
+ * Falls back to local file if GCS is unavailable.
+ */
+export async function loadSyncStateFromBucket(): Promise<SyncState> {
+  if (!gcsProvider) {
+    console.log('[SyncState] No GCS provider, loading from local file');
+    return loadSyncState();
+  }
+
+  try {
+    const exists = await gcsProvider.exists(GCS_SYNC_STATE_KEY);
+    if (!exists) {
+      console.log('[SyncState] No sync state found in bucket, using local file');
+      return loadSyncState();
+    }
+
+    const data = await gcsProvider.download(GCS_SYNC_STATE_KEY);
+    if (!data) {
+      console.log('[SyncState] Empty download from bucket, using local file');
+      return loadSyncState();
+    }
+
+    const state = JSON.parse(data.toString('utf-8')) as SyncStateWithConfig;
+    console.log('[SyncState] Loaded sync state from GCS bucket (authenticated)');
+
+    saveSyncStateLocal(state);
+    return state;
+  } catch (error) {
+    console.error('[SyncState] Error loading from bucket:', error);
+    return loadSyncState();
+  }
+}
+
+/**
+ * Save sync state to GCS bucket for persistence across deployments.
+ */
+async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> {
+  if (!gcsProvider) return;
+
+  try {
+    const content = JSON.stringify(state, null, 2);
+    await gcsProvider.upload(GCS_SYNC_STATE_KEY, Buffer.from(content, 'utf-8'), 'application/json');
+  } catch (error) {
+    console.error('[SyncState] Error saving to bucket:', error);
+  }
+}
 
 /**
  * Check if a file should be tracked by the sync system.
- * Only tracks YAML files in marketing-content directory.
- * Excludes component-registry (version schemas/examples are managed separately).
+ * Tracks YAML and JSON files in marketing-content directory.
+ * Excludes component-registry, .sync-state.json, and image directories.
  */
 export function shouldTrackFile(filePath: string): boolean {
   if (!filePath.startsWith('marketing-content/')) {
     return false;
   }
   
-  // Exclude component-registry (managed separately, too many versioned files)
   if (filePath.includes('component-registry/')) {
+    return false;
+  }
+
+  if (filePath.includes('.sync-state.json')) {
+    return false;
+  }
+
+  if (filePath.includes('/images/')) {
     return false;
   }
   
   const ext = path.extname(filePath).toLowerCase();
-  if (ext !== '.yml' && ext !== '.yaml') {
+  if (ext !== '.yml' && ext !== '.yaml' && ext !== '.json') {
     return false;
   }
   
@@ -40,15 +107,23 @@ export interface FileSyncInfo {
   sha: string;
   lastModified: number;
   remoteSha?: string;
-  pulledFromCommit?: string;  // Track which commit this file was pulled from
-  author?: string;  // Who made the last local modification
-  modifiedAt?: string;  // ISO date of when the file was modified locally
+  pulledFromCommit?: string;
+  author?: string;
+  modifiedAt?: string;
+}
+
+export interface SyncConfig {
+  commitIntervalSeconds: number;
 }
 
 export interface SyncState {
   lastSyncedCommit: string | null;
   lastSyncedAt: string | null;
   files: Record<string, FileSyncInfo>;
+}
+
+export interface SyncStateWithConfig extends SyncState {
+  config?: SyncConfig;
 }
 
 export interface PendingChange {
@@ -64,30 +139,53 @@ export interface PendingChange {
   commitSha?: string;
 }
 
-const DEFAULT_SYNC_STATE: SyncState = {
+const DEFAULT_CONFIG: SyncConfig = {
+  commitIntervalSeconds: 5,
+};
+
+const DEFAULT_SYNC_STATE: SyncStateWithConfig = {
+  config: DEFAULT_CONFIG,
   lastSyncedCommit: null,
   lastSyncedAt: null,
   files: {},
 };
 
-/**
- * Compute SHA-256 hash of file content (matches GitHub's blob SHA computation style)
- */
 export function computeFileSha(content: string): string {
   return crypto.createHash('sha256').update(content, 'utf8').digest('hex');
 }
 
+export function getSyncConfig(): SyncConfig {
+  const state = loadSyncState() as SyncStateWithConfig;
+  return state.config || DEFAULT_CONFIG;
+}
+
+export function updateSyncConfig(config: Partial<SyncConfig>): void {
+  const state = loadSyncState() as SyncStateWithConfig;
+  state.config = { ...(state.config || DEFAULT_CONFIG), ...config };
+  saveSyncState(state);
+}
+
 /**
- * Load sync state from .sync-state.json
- * Automatically prunes any non-YAML files from the state
+ * Save sync state to local file only (no bucket upload).
  */
+function saveSyncStateLocal(state: SyncStateWithConfig): void {
+  try {
+    const dir = path.dirname(SYNC_STATE_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(SYNC_STATE_PATH, JSON.stringify(state, null, 2), 'utf-8');
+  } catch (error) {
+    console.error('Error saving sync state locally:', error);
+  }
+}
+
 export function loadSyncState(): SyncState {
   try {
     if (fs.existsSync(SYNC_STATE_PATH)) {
       const content = fs.readFileSync(SYNC_STATE_PATH, 'utf-8');
-      const state = JSON.parse(content) as SyncState;
+      const state = JSON.parse(content) as SyncStateWithConfig;
       
-      // Prune non-YAML files from state
       const prunedFiles: Record<string, FileSyncInfo> = {};
       let pruned = false;
       for (const [filePath, info] of Object.entries(state.files)) {
@@ -100,7 +198,7 @@ export function loadSyncState(): SyncState {
       
       if (pruned) {
         state.files = prunedFiles;
-        saveSyncState(state);
+        saveSyncStateLocal(state);
       }
       
       return state;
@@ -112,35 +210,42 @@ export function loadSyncState(): SyncState {
 }
 
 /**
- * Save sync state to .sync-state.json
+ * Save sync state to local file AND to GCS bucket.
  */
 export function saveSyncState(state: SyncState): void {
-  try {
-    const dir = path.dirname(SYNC_STATE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(SYNC_STATE_PATH, JSON.stringify(state, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('Error saving sync state:', error);
+  const stateWithConfig = state as SyncStateWithConfig;
+  if (!stateWithConfig.config) {
+    stateWithConfig.config = DEFAULT_CONFIG;
   }
+  saveSyncStateLocal(stateWithConfig);
+  saveSyncStateToBucket(stateWithConfig).catch(err => {
+    console.error('[SyncState] Background bucket save failed:', err);
+  });
+}
+
+let autoCommitCallback: ((filePath: string, author?: string) => void) | null = null;
+
+/**
+ * Register the auto-commit callback. Called once during server init.
+ */
+export function setAutoCommitCallback(cb: (filePath: string, author?: string) => void): void {
+  autoCommitCallback = cb;
 }
 
 /**
- * Mark a file as modified (dirty) after an edit
- * Only tracks YAML files in marketing-content directory
+ * Mark a file as modified (dirty) after an edit.
+ * Tracks YAML and JSON files in marketing-content directory.
+ * Also queues the file for auto-commit if enabled.
  * @param filePath - The file path to mark as modified
  * @param author - Optional author name who made the modification
  */
 export function markFileAsModified(filePath: string, author?: string): void {
-  // Handle both absolute and relative paths
   const cwd = process.cwd();
   let relativePath: string;
   
   if (path.isAbsolute(filePath)) {
-    // Extract relative path from absolute path
     relativePath = filePath.startsWith(cwd) 
-      ? filePath.slice(cwd.length + 1)  // Remove cwd + leading slash
+      ? filePath.slice(cwd.length + 1)
       : filePath;
   } else if (filePath.startsWith('marketing-content/')) {
     relativePath = filePath;
@@ -148,7 +253,6 @@ export function markFileAsModified(filePath: string, author?: string): void {
     relativePath = `marketing-content/${filePath}`;
   }
   
-  // Only track YAML files
   if (!shouldTrackFile(relativePath)) {
     return;
   }
@@ -170,12 +274,13 @@ export function markFileAsModified(filePath: string, author?: string): void {
     };
     
     saveSyncState(state);
+
+    if (autoCommitCallback) {
+      autoCommitCallback(relativePath, author);
+    }
   }
 }
 
-/**
- * Get all YAML files in marketing-content directory
- */
 function getAllContentFiles(): string[] {
   const files: string[] = [];
   
@@ -189,9 +294,14 @@ function getAllContentFiles(): string[] {
         if (!entry.name.startsWith('.')) {
           walkDir(fullPath);
         }
-      } else if (entry.name.endsWith('.yml') || entry.name.endsWith('.yaml')) {
-        const relativePath = path.relative(process.cwd(), fullPath);
-        files.push(relativePath);
+      } else {
+        const ext = path.extname(entry.name).toLowerCase();
+        if (ext === '.yml' || ext === '.yaml' || ext === '.json') {
+          const relativePath = path.relative(process.cwd(), fullPath);
+          if (shouldTrackFile(relativePath)) {
+            files.push(relativePath);
+          }
+        }
       }
     }
   }
@@ -200,21 +310,21 @@ function getAllContentFiles(): string[] {
   return files;
 }
 
-/**
- * Extract content type and slug from file path
- */
 function parseContentPath(filePath: string): { contentType: string; slug: string } {
-  const pathMatch = filePath.match(/marketing-content\/(programs|landings|locations|pages|component-registry)\/([^\/]+)/);
+  const withoutPrefix = filePath.replace('marketing-content/', '');
+  const parts = withoutPrefix.split('/');
+  if (parts.length >= 2) {
+    return {
+      contentType: parts[0],
+      slug: parts[1],
+    };
+  }
   return {
-    contentType: pathMatch?.[1] || 'unknown',
-    slug: pathMatch?.[2] || path.basename(filePath, path.extname(filePath)),
+    contentType: 'config',
+    slug: path.basename(filePath, path.extname(filePath)),
   };
 }
 
-/**
- * Detect pending changes by comparing current file hashes against stored state
- * Only tracks YAML files in marketing-content, deduplicates results
- */
 export function detectPendingChanges(): PendingChange[] {
   const state = loadSyncState();
   const changesMap = new Map<string, PendingChange>();
@@ -222,7 +332,6 @@ export function detectPendingChanges(): PendingChange[] {
   const processedFiles = new Set<string>();
   
   for (const filePath of currentFiles) {
-    // Double-check file should be tracked
     if (!shouldTrackFile(filePath)) {
       continue;
     }
@@ -278,7 +387,6 @@ export function detectPendingChanges(): PendingChange[] {
     }
   }
   
-  // Check for deleted files (in state but not on disk)
   for (const [filePath, info] of Object.entries(state.files)) {
     if (!processedFiles.has(filePath) && shouldTrackFile(filePath) && info.remoteSha) {
       const { contentType, slug } = parseContentPath(filePath);
@@ -297,10 +405,6 @@ export function detectPendingChanges(): PendingChange[] {
   return Array.from(changesMap.values());
 }
 
-/**
- * Update sync state after a successful commit
- * Only tracks YAML files in marketing-content directory
- */
 export function updateSyncStateAfterCommit(
   commitSha: string,
   committedFiles: string[]
@@ -311,7 +415,6 @@ export function updateSyncStateAfterCommit(
   state.lastSyncedAt = new Date().toISOString();
   
   for (const filePath of committedFiles) {
-    // Only track YAML files
     if (!shouldTrackFile(filePath)) {
       continue;
     }
@@ -335,23 +438,19 @@ export function updateSyncStateAfterCommit(
   saveSyncState(state);
 }
 
-/**
- * Initialize sync state from GitHub remote
- * Call this when syncing with remote for the first time or after pulling changes
- * Only tracks YAML files in marketing-content directory
- */
 export function initializeSyncStateFromRemote(
   commitSha: string,
   remoteFiles: Array<{ path: string; sha: string }>
 ): void {
-  const state: SyncState = {
+  const existingState = loadSyncState() as SyncStateWithConfig;
+  const state: SyncStateWithConfig = {
+    config: existingState.config || DEFAULT_CONFIG,
     lastSyncedCommit: commitSha,
     lastSyncedAt: new Date().toISOString(),
     files: {},
   };
   
   for (const file of remoteFiles) {
-    // Only track YAML files in marketing-content
     if (!shouldTrackFile(file.path)) {
       continue;
     }
@@ -373,14 +472,11 @@ export function initializeSyncStateFromRemote(
   saveSyncState(state);
 }
 
-/**
- * Rebuild sync state from current local files after syncing with remote.
- * Sets both sha and remoteSha to the current local hash (since local = remote after sync).
- * This prevents all files from appearing as "added" after a sync.
- */
 export function rebuildSyncStateFromLocal(commitSha: string): void {
   const currentFiles = getAllContentFiles();
-  const state: SyncState = {
+  const existingState = loadSyncState() as SyncStateWithConfig;
+  const state: SyncStateWithConfig = {
+    config: existingState.config || DEFAULT_CONFIG,
     lastSyncedCommit: commitSha,
     lastSyncedAt: new Date().toISOString(),
     files: {},
@@ -400,7 +496,7 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
       state.files[filePath] = {
         sha,
         lastModified: stats.mtimeMs,
-        remoteSha: sha, // Local = remote after sync
+        remoteSha: sha,
       };
     } catch (error) {
       console.error(`Error reading file ${filePath}:`, error);
@@ -410,17 +506,11 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
   saveSyncState(state);
 }
 
-/**
- * Get the last synced commit SHA
- */
 export function getLastSyncedCommit(): string | null {
   const state = loadSyncState();
   return state.lastSyncedCommit;
 }
 
-/**
- * Get status for a single file (local sha, remote sha, conflict state)
- */
 export function getFileStatus(filePath: string): {
   exists: boolean;
   localSha: string | null;
@@ -440,23 +530,18 @@ export function getFileStatus(filePath: string): {
   const fullPath = path.join(process.cwd(), relativePath);
   const storedInfo = state.files[relativePath];
   
-  // Check if file exists locally
   if (!fs.existsSync(fullPath)) {
-    // File deleted locally but exists in remote
     if (storedInfo?.remoteSha) {
       return { exists: false, localSha: null, remoteSha: storedInfo.remoteSha, hasConflict: false, status: 'deleted' };
     }
     return { exists: false, localSha: null, remoteSha: null, hasConflict: false, status: 'unknown' };
   }
   
-  // Compute current local SHA
   const content = fs.readFileSync(fullPath, 'utf-8');
   const localSha = computeFileSha(content);
   const remoteSha = storedInfo?.remoteSha || null;
   
-  // Determine status
   if (!remoteSha) {
-    // No remote SHA known - file is new/added
     return { exists: true, localSha, remoteSha: null, hasConflict: false, status: 'added' };
   }
   
@@ -464,15 +549,9 @@ export function getFileStatus(filePath: string): {
     return { exists: true, localSha, remoteSha, hasConflict: false, status: 'synced' };
   }
   
-  // Local differs from remote - modified
   return { exists: true, localSha, remoteSha, hasConflict: false, status: 'modified' };
 }
 
-/**
- * Update a single file's remote SHA after pulling from remote
- * @param filePath - Path to the file
- * @param pulledFromCommit - The commit SHA this file was pulled from
- */
 export function updateFileAfterPull(filePath: string, pulledFromCommit?: string): void {
   const relativePath = filePath.startsWith('marketing-content/') 
     ? filePath 
@@ -493,18 +572,14 @@ export function updateFileAfterPull(filePath: string, pulledFromCommit?: string)
     state.files[relativePath] = {
       sha,
       lastModified: stats.mtimeMs,
-      remoteSha: sha, // After pull, local = remote
-      pulledFromCommit, // Track which commit this was pulled from
+      remoteSha: sha,
+      pulledFromCommit,
     };
     
     saveSyncState(state);
   }
 }
 
-/**
- * Check if a file was pulled from a specific commit or later
- * Used to filter out files that have already been individually pulled
- */
 export function wasFilePulledFromCommit(filePath: string, commitSha: string): boolean {
   const relativePath = filePath.startsWith('marketing-content/') 
     ? filePath 
@@ -517,13 +592,9 @@ export function wasFilePulledFromCommit(filePath: string, commitSha: string): bo
     return false;
   }
   
-  // Check if this file was pulled from the specified commit
   return fileInfo.pulledFromCommit === commitSha;
 }
 
-/**
- * Update a single file's sync state after committing to remote
- */
 export function updateFileAfterCommit(filePath: string, commitSha: string): void {
   const relativePath = filePath.startsWith('marketing-content/') 
     ? filePath 
@@ -536,7 +607,6 @@ export function updateFileAfterCommit(filePath: string, commitSha: string): void
   const state = loadSyncState();
   const fullPath = path.join(process.cwd(), relativePath);
   
-  // Update last synced commit
   state.lastSyncedCommit = commitSha;
   state.lastSyncedAt = new Date().toISOString();
   
@@ -548,20 +618,15 @@ export function updateFileAfterCommit(filePath: string, commitSha: string): void
     state.files[relativePath] = {
       sha,
       lastModified: stats.mtimeMs,
-      remoteSha: sha, // After commit, local = remote
+      remoteSha: sha,
     };
   } else {
-    // File was deleted
     delete state.files[relativePath];
   }
   
   saveSyncState(state);
 }
 
-/**
- * Check if a file is already synced (local sha matches remote sha in sync state)
- * Used to filter out individually-pulled files from incoming changes list
- */
 export function isFileSynced(filePath: string): boolean {
   const relativePath = filePath.startsWith('marketing-content/') 
     ? filePath 
@@ -574,14 +639,9 @@ export function isFileSynced(filePath: string): boolean {
     return false;
   }
   
-  // File is synced if local sha equals remote sha
   return fileInfo.sha === fileInfo.remoteSha;
 }
 
-/**
- * Discard local changes for a file by resetting its stored SHA to match current content
- * This marks the file as "synced" without actually reverting content
- */
 export function discardLocalChanges(filePath: string): boolean {
   const relativePath = filePath.startsWith('marketing-content/') 
     ? filePath 
@@ -595,7 +655,6 @@ export function discardLocalChanges(filePath: string): boolean {
   const fullPath = path.join(process.cwd(), relativePath);
   
   if (!fs.existsSync(fullPath)) {
-    // File doesn't exist, remove from state
     delete state.files[relativePath];
     saveSyncState(state);
     return true;
@@ -605,7 +664,6 @@ export function discardLocalChanges(filePath: string): boolean {
   const sha = computeFileSha(content);
   const stats = fs.statSync(fullPath);
   
-  // Reset both sha and remoteSha to current content
   state.files[relativePath] = {
     sha,
     lastModified: stats.mtimeMs,
