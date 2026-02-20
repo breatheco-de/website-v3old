@@ -1,3 +1,46 @@
+slug: dallas-usa
+name: Dallas
+city: Dallas
+country: United States
+country_code: US
+latitude: 32.7767
+longitude: -96.797
+region: usa-canada
+default_language: en
+timezone: America/Chicago
+visibility: listed
+phone: +1 214-555-0100
+address: 1401 Elm St, Dallas, TX 75202
+available_programs:
+  - full-stack
+context:
+  when_to_use: For Dallas and North Texas visitors or those interested in tech opportunities in the DFW metroplex.
+  target_audience: Local professionals, career changers, and residents seeking a coding bootcamp with job-focused training and global recognition.
+  goals:
+    - Position Dallas as a leading Texas tech hub
+    - Emphasize hybrid and online programs with live support
+    - Highlight job outcomes and connections to local employers
+catalog:
+  admission_advisors:
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
+      languages:
+        - en
+        - es
+schema:
+  include:
+    - organization
+    - website
+  overrides:
+    organization:
+      address:
+        "@type": PostalAddress
+        streetAddress: 1401 Elm St
+        addressLocality: Dallas
+        addressRegion: TX
+        postalCode: "75202"
+        addressCountry: US
 meta:
   page_title: 4Geeks Academy Dallas | Coding Bootcamp in Texas
   description: Join 4Geeks Dallas coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and job guarantee.
@@ -13,7 +56,6 @@ sections:
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Dallas
     subtitle: Train for in-demand tech roles, including AI Engineering, in North Texas's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
-
     badge: Dallas Campus
     cta_buttons:
       - text: Apply Now
@@ -251,16 +293,15 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
-
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Dallas Graduate Success Stories
     filter_by_location: dallas-usa
     marginY:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: What Our Students Say
+    title: What Our Students Sayy
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
@@ -391,4 +432,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-
