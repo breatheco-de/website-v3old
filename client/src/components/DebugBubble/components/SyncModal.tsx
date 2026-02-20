@@ -310,7 +310,7 @@ export function SyncModal({
                       No remote or local differences detected outside the auto-commit queue.
                     </p>
                   ) : (
-                    <ScrollArea className="max-h-[200px]">
+                    <div className="max-h-[200px] overflow-y-auto">
                       <div className="space-y-1">
                         {pendingChanges.map((change, index) => (
                           <Card
@@ -523,7 +523,7 @@ export function SyncModal({
                           </Card>
                         ))}
                       </div>
-                    </ScrollArea>
+                    </div>
                   )}
                 </div>
 

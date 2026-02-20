@@ -98,11 +98,10 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "50df5be1c42bf6b24a91159a737f79f1f7b86fc3f0074a8eed4076df1e83f2f2",
-      "lastModified": 1771606838154.815,
+      "sha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
+      "lastModified": 1771621533815.3188,
       "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
-      "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-20T17:00:38.157Z"
+      "pulledFromCommit": "26a868f36f525e578858c663329aabbcf67ce4de"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
