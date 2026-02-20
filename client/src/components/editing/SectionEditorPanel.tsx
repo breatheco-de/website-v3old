@@ -440,6 +440,7 @@ export function SectionEditorPanel({
 
   const bindingGroup = bindingData?.group as {
     id: string;
+    name?: string;
     component: string;
     locale: string;
     members: Array<{ contentType: string; slug: string; sectionIndex: number }>;

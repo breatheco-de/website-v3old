@@ -53,6 +53,7 @@ export interface BindingMember {
 
 export interface BindingGroup {
   id: string;
+  name?: string;
   component: string;
   locale: string;
   members: BindingMember[];
@@ -168,7 +169,8 @@ class BindingService {
   createGroup(
     component: string,
     locale: string,
-    members: BindingMember[]
+    members: BindingMember[],
+    options?: { name?: string; sourceIndex?: number }
   ): BindingGroup {
     this.ensureLoaded();
 
@@ -194,11 +196,67 @@ class BindingService {
       members,
       createdAt: new Date().toISOString(),
     };
+    if (options?.name) {
+      group.name = options.name;
+    }
 
     this.data.groups.push(group);
     this.rebuildIndex();
     this.save();
+
+    const srcIdx = options?.sourceIndex ?? 0;
+    const sourceMember = members[srcIdx] || members[0];
+    this.propagateFromMember(group, sourceMember);
+
     return group;
+  }
+
+  renameGroup(groupId: string, name: string): BindingGroup {
+    this.ensureLoaded();
+    const group = this.data.groups.find(g => g.id === groupId);
+    if (!group) throw new Error(`Binding group ${groupId} not found`);
+    group.name = name || undefined;
+    group.updatedAt = new Date().toISOString();
+    this.save();
+    return group;
+  }
+
+  private propagateFromMember(group: BindingGroup, sourceMember: BindingMember): void {
+    const sourceContent = this.loadPageContent(sourceMember.contentType, sourceMember.slug, group.locale);
+    if (!sourceContent) return;
+    const sourceSections = sourceContent.sections as Record<string, unknown>[];
+    if (!Array.isArray(sourceSections) || sourceMember.sectionIndex >= sourceSections.length) return;
+    const sourceSection = sourceSections[sourceMember.sectionIndex] as Record<string, unknown>;
+    if (!sourceSection) return;
+
+    const siblings = group.members.filter(
+      m => !(m.contentType === sourceMember.contentType && m.slug === sourceMember.slug && m.sectionIndex === sourceMember.sectionIndex)
+    );
+
+    for (const sibling of siblings) {
+      try {
+        const filePath = this.getContentPath(sibling.contentType, sibling.slug, group.locale);
+        if (!fs.existsSync(filePath)) continue;
+        const content = this.loadPageContent(sibling.contentType, sibling.slug, group.locale);
+        if (!content) continue;
+        const sections = content.sections as Record<string, unknown>[];
+        if (!Array.isArray(sections) || sibling.sectionIndex >= sections.length) continue;
+        const existingSectionObj = sections[sibling.sectionIndex] as Record<string, unknown>;
+        if (!existingSectionObj) continue;
+
+        sections[sibling.sectionIndex] = this.mergeContentIntoSection(existingSectionObj, sourceSection);
+        const updatedYaml = safeYamlDump(content, {
+          lineWidth: -1,
+          noRefs: true,
+          quotingType: '"',
+          forceQuotes: false,
+        });
+        fs.writeFileSync(filePath, updatedYaml, "utf-8");
+        markFileAsModified(filePath);
+      } catch (err) {
+        console.error(`[BindingService] Error propagating to ${sibling.contentType}/${sibling.slug}:`, err);
+      }
+    }
   }
 
   addMember(groupId: string, member: BindingMember): BindingGroup {
@@ -227,6 +285,17 @@ class BindingService {
     group.updatedAt = new Date().toISOString();
     this.rebuildIndex();
     this.save();
+
+    const existingMember = group.members.find(
+      m => !(m.contentType === member.contentType && m.slug === member.slug && m.sectionIndex === member.sectionIndex)
+    );
+    if (existingMember) {
+      this.propagateFromMember(
+        { ...group, members: [existingMember, member] },
+        existingMember
+      );
+    }
+
     return group;
   }
 

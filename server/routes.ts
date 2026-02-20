@@ -3503,6 +3503,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         sectionIndex: number;
         title?: string;
         alreadyBound?: string;
+        alreadyBoundGroupName?: string;
       }> = [];
 
       for (const entry of allEntries) {
@@ -3547,6 +3548,7 @@ Important: Only include mappings where you are confident the field exists. Use d
                 sectionIndex: i,
                 title: (merged.meta as Record<string, unknown>)?.title as string || entry.title || entry.slug,
                 alreadyBound: existingGroup?.id,
+                alreadyBoundGroupName: existingGroup?.name,
               });
             }
           }
@@ -3582,11 +3584,30 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Missing component, locale, or need at least 2 members" });
         return;
       }
-      const group = bindingService.createGroup(component, locale, members);
+      const { name, sourceIndex } = req.body;
+      const group = bindingService.createGroup(component, locale, members, { name, sourceIndex });
       res.json({ group });
     } catch (error) {
       const msg = error instanceof Error ? error.message : "Failed to create binding";
       console.error("Error creating binding:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.patch("/api/bindings/:groupId", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const { name } = req.body;
+      if (name === undefined) {
+        res.status(400).json({ error: "Missing name field" });
+        return;
+      }
+      const group = bindingService.renameGroup(groupId, name);
+      res.json({ group });
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Failed to rename binding";
+      console.error("Error renaming binding:", error);
       res.status(400).json({ error: msg });
     }
   });

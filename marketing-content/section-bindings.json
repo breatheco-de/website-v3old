@@ -1,22 +1,3 @@
 {
-  "groups": [
-    {
-      "id": "bind_mluxyz86_9tfjjk",
-      "component": "career_support_explain",
-      "locale": "en",
-      "members": [
-        {
-          "contentType": "page",
-          "slug": "home",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "landing",
-          "slug": "example-landing",
-          "sectionIndex": 13
-        }
-      ],
-      "createdAt": "2026-02-20T13:44:43.734Z"
-    }
-  ]
+  "groups": []
 }

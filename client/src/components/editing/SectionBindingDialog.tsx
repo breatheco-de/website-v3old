@@ -6,6 +6,8 @@ import {
   IconLoader2,
   IconSearch,
   IconCheck,
+  IconAlertTriangle,
+  IconPencil,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,6 +34,7 @@ interface SectionBindingDialogProps {
   locale: string;
   existingGroup?: {
     id: string;
+    name?: string;
     component: string;
     locale: string;
     members: Array<{ contentType: string; slug: string; sectionIndex: number }>;
@@ -45,6 +48,7 @@ interface Candidate {
   sectionIndex: number;
   title?: string;
   alreadyBound?: string;
+  alreadyBoundGroupName?: string;
 }
 
 function fetchWithAuth(url: string, options?: RequestInit) {
@@ -74,8 +78,14 @@ export function SectionBindingDialog({
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
   const [selectedCandidates, setSelectedCandidates] = useState<Set<string>>(new Set());
+  const [showConfirmCreate, setShowConfirmCreate] = useState(false);
+  const [groupName, setGroupName] = useState("");
+  const [pendingAddCandidate, setPendingAddCandidate] = useState<Candidate | null>(null);
+  const [editingName, setEditingName] = useState(false);
+  const [editNameValue, setEditNameValue] = useState("");
 
-  const candidateKey = (c: Candidate) => `${c.contentType}:${c.slug}:${c.sectionIndex}`;
+  const candidateKey = (c: Candidate | { contentType: string; slug: string; sectionIndex: number }) =>
+    `${c.contentType}:${c.slug}:${c.sectionIndex}`;
   const currentKey = `${contentType}:${slug}:${sectionIndex}`;
 
   const { data: candidatesData, isLoading: loadingCandidates } = useQuery({
@@ -109,10 +119,10 @@ export function SectionBindingDialog({
   }, [existingGroup]);
 
   const createBindingMutation = useMutation({
-    mutationFn: async (members: Array<{ contentType: string; slug: string; sectionIndex: number }>) => {
+    mutationFn: async ({ members, name }: { members: Array<{ contentType: string; slug: string; sectionIndex: number }>; name?: string }) => {
       const res = await fetchWithAuth("/api/bindings", {
         method: "POST",
-        body: JSON.stringify({ component, locale, members }),
+        body: JSON.stringify({ component, locale, members, name: name || undefined, sourceIndex: 0 }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -121,7 +131,7 @@ export function SectionBindingDialog({
       return res.json();
     },
     onSuccess: () => {
-      toast({ title: "Binding created", description: "Sections are now linked." });
+      toast({ title: "Binding created", description: "Sections are now linked and content has been synchronized." });
       queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
       onBindingChanged();
       onOpenChange(false);
@@ -144,11 +154,14 @@ export function SectionBindingDialog({
       return res.json();
     },
     onSuccess: () => {
+      toast({ title: "Section added", description: "Section has been added to the binding group and its content has been replaced." });
       queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
       onBindingChanged();
+      setPendingAddCandidate(null);
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
+      setPendingAddCandidate(null);
     },
   });
 
@@ -197,6 +210,28 @@ export function SectionBindingDialog({
     },
   });
 
+  const renameGroupMutation = useMutation({
+    mutationFn: async ({ groupId, name }: { groupId: string; name: string }) => {
+      const res = await fetchWithAuth(`/api/bindings/${groupId}`, {
+        method: "PATCH",
+        body: JSON.stringify({ name }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to rename");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Group renamed" });
+      queryClient.invalidateQueries({ queryKey: ["/api/bindings/section"] });
+      setEditingName(false);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
   const handleToggleCandidate = (c: Candidate) => {
     const key = candidateKey(c);
     setSelectedCandidates(prev => {
@@ -211,6 +246,10 @@ export function SectionBindingDialog({
   };
 
   const handleCreateBinding = () => {
+    setShowConfirmCreate(true);
+  };
+
+  const handleConfirmCreate = () => {
     const selectedMembers = filteredCandidates
       .filter(c => selectedCandidates.has(candidateKey(c)))
       .map(c => ({ contentType: c.contentType, slug: c.slug, sectionIndex: c.sectionIndex }));
@@ -220,18 +259,22 @@ export function SectionBindingDialog({
       ...selectedMembers,
     ];
 
-    createBindingMutation.mutate(allMembers);
+    createBindingMutation.mutate({ members: allMembers, name: groupName.trim() || undefined });
   };
 
   const handleAddToExisting = (c: Candidate) => {
-    if (!existingGroup) return;
+    setPendingAddCandidate(c);
+  };
+
+  const handleConfirmAdd = () => {
+    if (!existingGroup || !pendingAddCandidate) return;
     addMemberMutation.mutate({
       groupId: existingGroup.id,
-      member: { contentType: c.contentType, slug: c.slug, sectionIndex: c.sectionIndex },
+      member: { contentType: pendingAddCandidate.contentType, slug: pendingAddCandidate.slug, sectionIndex: pendingAddCandidate.sectionIndex },
     });
   };
 
-  const handleRemoveFromExisting = (c: Candidate) => {
+  const handleRemoveFromExisting = (c: { contentType: string; slug: string; sectionIndex: number }) => {
     if (!existingGroup) return;
     removeMemberMutation.mutate({
       groupId: existingGroup.id,
@@ -239,7 +282,132 @@ export function SectionBindingDialog({
     });
   };
 
+  const handleStartRename = () => {
+    setEditNameValue(existingGroup?.name || "");
+    setEditingName(true);
+  };
+
+  const handleSaveRename = () => {
+    if (!existingGroup) return;
+    renameGroupMutation.mutate({ groupId: existingGroup.id, name: editNameValue.trim() });
+  };
+
   const isPending = createBindingMutation.isPending || addMemberMutation.isPending || removeMemberMutation.isPending || unbindCurrentMutation.isPending;
+
+  const groupDisplayName = existingGroup?.name || `${component} binding`;
+
+  if (showConfirmCreate) {
+    const selectedSlugs = filteredCandidates
+      .filter(c => selectedCandidates.has(candidateKey(c)))
+      .map(c => c.title || c.slug);
+
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Confirm binding
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-3">
+            <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm">
+              <p className="font-medium mb-1">Content will be overwritten</p>
+              <p className="text-muted-foreground">
+                The selected section{selectedSlugs.length > 1 ? "s" : ""} ({selectedSlugs.join(", ")}) will lose {selectedSlugs.length > 1 ? "their" : "its"} current content and be replaced with the content from this section ({slug}).
+              </p>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-1 block">Group name (optional)</label>
+              <Input
+                value={groupName}
+                onChange={e => setGroupName(e.target.value)}
+                placeholder={`${component} binding`}
+                data-testid="input-binding-group-name"
+              />
+              <p className="text-xs text-muted-foreground mt-1">A name helps identify this group when managing bindings later.</p>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowConfirmCreate(false)}
+              disabled={isPending}
+              data-testid="button-binding-confirm-back"
+            >
+              Back
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmCreate}
+              disabled={isPending}
+              data-testid="button-binding-confirm-create"
+            >
+              {isPending ? (
+                <>
+                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                "Bind and overwrite"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  if (pendingAddCandidate) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Confirm adding to group
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm">
+            <p className="font-medium mb-1">Content will be replaced</p>
+            <p className="text-muted-foreground">
+              The section on <span className="font-medium">{pendingAddCandidate.title || pendingAddCandidate.slug}</span> will lose its current content and be replaced with the group's shared content.
+            </p>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setPendingAddCandidate(null)}
+              disabled={isPending}
+              data-testid="button-add-confirm-back"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmAdd}
+              disabled={isPending}
+              data-testid="button-add-confirm-yes"
+            >
+              {isPending ? (
+                <>
+                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                "Add and overwrite"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -252,25 +420,50 @@ export function SectionBindingDialog({
         </DialogHeader>
 
         <div className="text-sm text-muted-foreground mb-2">
-          Bind this <Badge variant="secondary" className="text-xs">{component}</Badge> section to matching sections on other pages. 
-          When you edit any bound section, the content changes sync automatically to all siblings. 
+          Bind this <Badge variant="secondary" className="text-xs">{component}</Badge> section to matching sections on other pages.
+          When you edit any bound section, the content changes sync automatically to all siblings.
           Layout settings (padding, background, visibility) remain independent per page.
         </div>
 
         {existingGroup && (
           <div className="rounded-md border border-border p-3 mb-3">
-            <div className="flex items-center justify-between mb-2">
-              <p className="font-medium text-sm">Current binding group</p>
+            <div className="flex items-center justify-between mb-2 gap-2">
+              {editingName ? (
+                <div className="flex items-center gap-1 flex-1 min-w-0">
+                  <Input
+                    value={editNameValue}
+                    onChange={e => setEditNameValue(e.target.value)}
+                    className="h-7 text-sm"
+                    placeholder={`${component} binding`}
+                    autoFocus
+                    onKeyDown={e => {
+                      if (e.key === "Enter") handleSaveRename();
+                      if (e.key === "Escape") setEditingName(false);
+                    }}
+                    data-testid="input-rename-group"
+                  />
+                  <Button size="icon" variant="ghost" onClick={handleSaveRename} disabled={renameGroupMutation.isPending} data-testid="button-save-rename">
+                    {renameGroupMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconCheck className="h-4 w-4" />}
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 min-w-0">
+                  <p className="font-medium text-sm truncate">{groupDisplayName}</p>
+                  <Button size="icon" variant="ghost" className="shrink-0" onClick={handleStartRename} data-testid="button-edit-group-name">
+                    <IconPencil className="h-3 w-3" />
+                  </Button>
+                </div>
+              )}
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-7 px-2 text-xs text-destructive gap-1"
+                className="text-destructive gap-1 shrink-0"
                 onClick={() => unbindCurrentMutation.mutate()}
                 disabled={isPending}
                 data-testid="button-unbind-current"
               >
                 <IconLinkOff className="h-3.5 w-3.5" />
-                Unbind this section
+                Unbind
               </Button>
             </div>
             <div className="space-y-1">
@@ -279,7 +472,7 @@ export function SectionBindingDialog({
                 const isSelf = key === currentKey;
                 return (
                   <div key={key} className="flex items-center justify-between text-sm py-1">
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex items-center gap-2 min-w-0 flex-wrap">
                       <Badge variant="outline" className="text-xs shrink-0">{m.contentType}</Badge>
                       <span className="truncate">{m.slug}</span>
                       <span className="text-muted-foreground text-xs">[{m.sectionIndex}]</span>
@@ -289,7 +482,7 @@ export function SectionBindingDialog({
                       <Button
                         size="icon"
                         variant="ghost"
-                        className="h-6 w-6 shrink-0"
+                        className="shrink-0"
                         onClick={() => handleRemoveFromExisting(m)}
                         disabled={isPending}
                         data-testid={`button-remove-member-${key}`}
@@ -372,7 +565,9 @@ export function SectionBindingDialog({
                       </p>
                     </div>
                     {isBoundElsewhere && (
-                      <Badge variant="secondary" className="text-xs shrink-0">bound elsewhere</Badge>
+                      <Badge variant="secondary" className="text-xs shrink-0">
+                        {c.alreadyBoundGroupName || "bound elsewhere"}
+                      </Badge>
                     )}
                   </div>
                 );

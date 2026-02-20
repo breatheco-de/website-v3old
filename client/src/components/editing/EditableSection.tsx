@@ -925,7 +925,7 @@ export function EditableSection({ children, section, index, sectionType, content
             sectionIndex={index}
             component={sectionType}
             locale={locale}
-            existingGroup={bindingData?.group as { id: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null}
+            existingGroup={bindingData?.group as { id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null}
             onBindingChanged={() => {}}
           />
         </Suspense>
