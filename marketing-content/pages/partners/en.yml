@@ -282,12 +282,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to be a Partner?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: Let’s build scalable pathways to high-growth tech careers together.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Start the Conversation
       tags: contact_us
       automations: soft
       fields:
