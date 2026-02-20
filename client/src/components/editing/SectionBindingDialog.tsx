@@ -11,6 +11,7 @@ import {
   IconArrowRight,
   IconTrash,
   IconX,
+  IconPlus,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -90,6 +91,7 @@ export function SectionBindingDialog({
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [unboundTab, setUnboundTab] = useState<"join" | "create">("join");
   const [pendingJoinGroup, setPendingJoinGroup] = useState<{ id: string; name?: string; component: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null>(null);
+  const [showAddMore, setShowAddMore] = useState(false);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -97,6 +99,7 @@ export function SectionBindingDialog({
       setConfirmLeave(false);
       setPendingJoinGroup(null);
       setUnboundTab("join");
+      setShowAddMore(false);
     }
     onOpenChange(nextOpen);
   };
@@ -155,6 +158,23 @@ export function SectionBindingDialog({
     if (!existingGroup) return new Set<string>();
     return new Set(existingGroup.members.map(m => `${m.contentType}:${m.slug}:${m.sectionIndex}`));
   }, [existingGroup]);
+
+  const addMoreCandidates = useMemo(() => {
+    if (!existingGroup) return [];
+    return candidates.filter(c => !existingMemberKeys.has(candidateKey(c)) && !c.alreadyBound);
+  }, [candidates, existingMemberKeys, existingGroup]);
+
+  const filteredAddMoreCandidates = useMemo(() => {
+    return addMoreCandidates.filter(c => {
+      if (!search) return true;
+      const lower = search.toLowerCase();
+      return (
+        c.slug.toLowerCase().includes(lower) ||
+        c.title?.toLowerCase().includes(lower) ||
+        c.contentType.toLowerCase().includes(lower)
+      );
+    });
+  }, [addMoreCandidates, search]);
 
   const createBindingMutation = useMutation({
     mutationFn: async ({ members, name }: { members: Array<{ contentType: string; slug: string; sectionIndex: number }>; name?: string }) => {
@@ -621,6 +641,7 @@ export function SectionBindingDialog({
         </div>
 
         {existingGroup && (
+          <>
           <div className="rounded-md border border-border p-3 mb-3">
             <div className="flex items-center justify-between mb-2 gap-2">
               {editingName ? (
@@ -738,7 +759,18 @@ export function SectionBindingDialog({
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="gap-1"
+                    onClick={() => { setShowAddMore(!showAddMore); setSearch(""); }}
+                    disabled={isPending || addMoreCandidates.length === 0}
+                    data-testid="button-add-more-sections"
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                    Add more sections
+                  </Button>
                   <Button
                     size="sm"
                     variant="ghost"
@@ -765,6 +797,60 @@ export function SectionBindingDialog({
               )}
             </div>
           </div>
+
+          {showAddMore && (
+            <>
+              <div className="relative mt-2">
+                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder={`Search ${addMoreCandidates.length} possible sections...`}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-8"
+                  autoFocus
+                  data-testid="input-add-more-search"
+                />
+              </div>
+
+              <ScrollArea className="flex-1 min-h-0 max-h-[250px]">
+                {loadingCandidates ? (
+                  <div className="flex items-center justify-center py-6">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : filteredAddMoreCandidates.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-6 text-sm">
+                    {addMoreCandidates.length === 0 ? "No more sections available to add" : "No matching sections found"}
+                  </div>
+                ) : (
+                  <div className="space-y-1 pr-3">
+                    {filteredAddMoreCandidates.map(c => {
+                      const key = candidateKey(c);
+                      return (
+                        <div
+                          key={key}
+                          className="flex items-center gap-3 p-2 rounded-md text-sm hover-elevate cursor-pointer"
+                          onClick={() => handleAddToExisting(c)}
+                          data-testid={`add-more-candidate-${key}`}
+                        >
+                          <IconPlus className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
+                              <span className="truncate font-medium">{c.title || c.slug}</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {c.slug} — section {c.sectionIndex}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </ScrollArea>
+            </>
+          )}
+          </>
         )}
 
         {!existingGroup && (
