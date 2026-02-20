@@ -602,14 +602,22 @@ export function SectionBindingDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <IconLink className="h-5 w-5" />
-            Section Bindings
+            {existingGroup ? "Section is actively binded" : "Section Bindings"}
           </DialogTitle>
         </DialogHeader>
 
         <div className="text-sm text-muted-foreground mb-2">
-          Bind this <Badge variant="secondary" className="text-xs">{component}</Badge> section to matching sections on other pages.
-          When you edit any bound section, the content changes sync automatically to all siblings.
-          Layout settings (padding, background, visibility) remain independent per page.
+          {existingGroup ? (
+            <>
+              This section is binded to {existingGroup.members.length - 1} other section{existingGroup.members.length - 1 !== 1 ? "s" : ""} in other pages, as you update its content, the other pages sections will also be updated.
+            </>
+          ) : (
+            <>
+              Bind this <Badge variant="secondary" className="text-xs">{component}</Badge> section to matching sections on other pages.
+              When you edit any bound section, the content changes sync automatically to all siblings.
+              Layout settings (padding, background, visibility) remain independent per page.
+            </>
+          )}
         </div>
 
         {existingGroup && (
