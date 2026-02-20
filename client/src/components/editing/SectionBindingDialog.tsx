@@ -130,9 +130,12 @@ export function SectionBindingDialog({
     return allGroupsData.groups.filter(g => g.component === component && g.locale === locale);
   }, [allGroupsData, component, locale]);
 
+  const availableCandidates = useMemo(() => {
+    return candidates.filter(c => candidateKey(c) !== currentKey);
+  }, [candidates, currentKey]);
+
   const filteredCandidates = useMemo(() => {
-    return candidates
-      .filter(c => candidateKey(c) !== currentKey)
+    return availableCandidates
       .filter(c => {
         if (!search) return true;
         const lower = search.toLowerCase();
@@ -142,7 +145,7 @@ export function SectionBindingDialog({
           c.contentType.toLowerCase().includes(lower)
         );
       });
-  }, [candidates, search, currentKey]);
+  }, [availableCandidates, search]);
 
   const existingMemberKeys = useMemo(() => {
     if (!existingGroup) return new Set<string>();
@@ -816,6 +819,19 @@ export function SectionBindingDialog({
                   </div>
                 )}
               </ScrollArea>
+            ) : loadingCandidates ? (
+              <div className="flex items-center justify-center py-8">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : availableCandidates.length === 0 ? (
+              <div className="text-center py-8 px-4" data-testid="text-no-candidates">
+                <p className="text-sm text-muted-foreground">
+                  No other sections use the <Badge variant="outline" className="mx-1 text-xs">{component}</Badge> component in this language.
+                </p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  A binding group requires at least two sections with the same component. Add this component to another page first.
+                </p>
+              </div>
             ) : (
               <>
                 <div className="relative">
@@ -830,11 +846,7 @@ export function SectionBindingDialog({
                 </div>
 
                 <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
-                  {loadingCandidates ? (
-                    <div className="flex items-center justify-center py-8">
-                      <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-                    </div>
-                  ) : filteredCandidates.length === 0 ? (
+                  {filteredCandidates.length === 0 ? (
                     <div className="text-center text-muted-foreground py-8 text-sm">
                       No matching sections found
                     </div>
@@ -890,7 +902,7 @@ export function SectionBindingDialog({
           </>
         )}
 
-        {!existingGroup && (unboundTab === "create" || matchingGroups.length === 0) && (
+        {!existingGroup && (unboundTab === "create" || matchingGroups.length === 0) && availableCandidates.length > 0 && (
           <DialogFooter>
             <Button
               variant="outline"
