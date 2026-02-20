@@ -1641,15 +1641,17 @@ export function SectionEditorPanel({
         </div>
       </div>
 
-      {/* Binding Banner - compact info when bound */}
+      {/* Binding Banner - warning style, full width, inside header area */}
       {boundSiblings.length > 0 && (
         <div
-          className="mx-4 mt-2 rounded-md bg-muted/50 px-3 py-1.5 text-xs text-muted-foreground flex items-center gap-1.5 cursor-pointer hover-elevate"
+          className="bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800 px-4 py-2 text-xs flex items-center gap-2 cursor-pointer hover-elevate"
           onClick={() => setBindingDialogOpen(true)}
           data-testid="binding-banner"
         >
-          <IconLink className="h-3.5 w-3.5 text-primary shrink-0" />
-          <span>Synced with {boundSiblings.length} page{boundSiblings.length > 1 ? "s" : ""}: {boundSiblings.map(s => s.slug).join(", ")}</span>
+          <IconAlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+          <span className="text-amber-800 dark:text-amber-200">
+            Synced with {boundSiblings.length} page{boundSiblings.length > 1 ? "s" : ""}: {boundSiblings.map(s => s.slug).join(", ")}
+          </span>
         </div>
       )}
 
