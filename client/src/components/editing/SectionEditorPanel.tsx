@@ -1585,6 +1585,21 @@ export function SectionEditorPanel({
           </p>
         </div>
         <div className="flex items-center gap-1">
+          {contentType && slug && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setBindingDialogOpen(true)}
+              title={bindingGroup ? `Bound to ${boundSiblings.length} page${boundSiblings.length !== 1 ? 's' : ''} — click to manage` : "Manage bindings"}
+              data-testid="button-binding-header"
+            >
+              {bindingGroup ? (
+                <IconLink className="h-4 w-4" />
+              ) : (
+                <IconLinkOff className="h-4 w-4" />
+              )}
+            </Button>
+          )}
           <Button
             size="icon"
             variant="ghost"
@@ -1616,45 +1631,15 @@ export function SectionEditorPanel({
         </div>
       </div>
 
-      {/* Binding Banner */}
+      {/* Binding Banner - compact info when bound */}
       {boundSiblings.length > 0 && (
-        <div className="mx-4 mt-2 rounded-md border border-border bg-muted/50 p-2.5 text-sm" data-testid="binding-banner">
-          <div className="flex items-start gap-2">
-            <IconLink className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-foreground">
-                Bound section — changes sync to {boundSiblings.length} other page{boundSiblings.length > 1 ? "s" : ""}
-              </p>
-              <p className="text-muted-foreground text-xs mt-0.5">
-                {boundSiblings.map(s => `${s.slug}`).join(", ")}
-              </p>
-            </div>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="shrink-0 h-7 px-2 text-xs"
-              onClick={() => setBindingDialogOpen(true)}
-              data-testid="button-manage-bindings"
-            >
-              Manage
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* Unbound - show link button */}
-      {!bindingGroup && contentType && slug && (
-        <div className="mx-4 mt-2">
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-7 px-2 text-xs text-muted-foreground gap-1"
-            onClick={() => setBindingDialogOpen(true)}
-            data-testid="button-create-binding"
-          >
-            <IconLink className="h-3.5 w-3.5" />
-            Bind to other pages
-          </Button>
+        <div
+          className="mx-4 mt-2 rounded-md bg-muted/50 px-3 py-1.5 text-xs text-muted-foreground flex items-center gap-1.5 cursor-pointer hover-elevate"
+          onClick={() => setBindingDialogOpen(true)}
+          data-testid="binding-banner"
+        >
+          <IconLink className="h-3.5 w-3.5 text-primary shrink-0" />
+          <span>Synced with {boundSiblings.length} page{boundSiblings.length > 1 ? "s" : ""}: {boundSiblings.map(s => s.slug).join(", ")}</span>
         </div>
       )}
 

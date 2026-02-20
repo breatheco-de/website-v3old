@@ -50,6 +50,10 @@ const SectionEditorPanel = lazy(() =>
   import("./SectionEditorPanel").then(mod => ({ default: mod.SectionEditorPanel }))
 );
 
+const SectionBindingDialog = lazy(() =>
+  import("./SectionBindingDialog").then(mod => ({ default: mod.SectionBindingDialog }))
+);
+
 interface EditableSectionProps {
   children: React.ReactNode;
   section: Section;
@@ -119,6 +123,7 @@ export function EditableSection({ children, section, index, sectionType, content
   });
   const isBound = !!bindingData?.group;
   const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
+  const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
 
   const selectedVariant = variants[selectedVariantIndex] || "";
   
@@ -531,7 +536,7 @@ export function EditableSection({ children, section, index, sectionType, content
           </div>
         </button>
         <button
-          onClick={handleOpenEditor}
+          onClick={(e) => { e.stopPropagation(); setBindingDialogOpen(true); }}
           className={`p-2 rounded-md shadow-lg hover-elevate flex items-center gap-1 ${
             isBound
               ? "bg-foreground text-background"
@@ -908,6 +913,23 @@ export function EditableSection({ children, section, index, sectionType, content
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Section Binding Dialog */}
+      {bindingDialogOpen && contentType && slug && locale && (
+        <Suspense fallback={null}>
+          <SectionBindingDialog
+            open={bindingDialogOpen}
+            onOpenChange={setBindingDialogOpen}
+            contentType={contentType}
+            slug={slug}
+            sectionIndex={index}
+            component={sectionType}
+            locale={locale}
+            existingGroup={bindingData?.group as { id: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null}
+            onBindingChanged={() => {}}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
