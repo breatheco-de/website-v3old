@@ -791,10 +791,9 @@ export default function MediaGallery() {
                         onClick={() => setSettingsProviderView(settingsProviderView === p ? null : p)}
                         data-testid={`badge-provider-${p}`}
                       >
-                        <Badge variant={settingsProviderView === p ? "default" : "outline"} className={`cursor-pointer ${!isActive ? "opacity-60" : ""}`}>
-                          {p === "gcs" ? "Google Cloud Storage" : p === "local" ? "Local Filesystem" : p}
-                          {isActive && p === mediaStatus?.defaultProvider && " (default)"}
-                          {!isActive && " (inactive)"}
+                        <Badge variant={settingsProviderView === p ? "default" : "outline"} className={`cursor-pointer gap-1.5 ${!isActive ? "opacity-60" : ""}`}>
+                          {isActive && <span className="inline-block h-2 w-2 rounded-full bg-green-500 flex-shrink-0" />}
+                          {p === "gcs" ? "Cloud Storage" : p === "local" ? "Local Filesystem" : p}
                         </Badge>
                       </button>
                     );
