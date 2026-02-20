@@ -16,7 +16,7 @@ import { deepMerge } from "../utils/deepMerge";
 import { getFolder } from "../content-types";
 
 const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
-const STATE_FILE = path.join(process.cwd(), "experiments-state.json");
+const STATE_FILE = path.join(CONTENT_DIR, "experiments-state.json");
 const FLUSH_INTERVAL = 30000; // 30 seconds
 
 interface ExperimentState {

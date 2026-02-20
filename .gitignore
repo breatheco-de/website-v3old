@@ -12,6 +12,7 @@ vite.config.ts.*
 
 # Sync state (runtime, environment-specific)
 marketing-content/.sync-state.json
+marketing-content/experiments-state.json
 
 # Environment variables
 .env
