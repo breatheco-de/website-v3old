@@ -813,17 +813,19 @@ export function SectionBindingDialog({
                         </div>
                         <div className="space-y-0.5">
                           {g.members.map(m => (
-                            <a
-                              key={`${m.contentType}:${m.slug}:${m.sectionIndex}`}
-                              href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${g.component}-${m.sectionIndex}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block text-xs text-muted-foreground truncate underline decoration-muted-foreground/40 hover:text-foreground"
-                              onClick={(e) => e.stopPropagation()}
-                              data-testid={`link-group-member-${m.contentType}:${m.slug}:${m.sectionIndex}`}
-                            >
-                              {m.slug} — section {m.sectionIndex}
-                            </a>
+                            <p key={`${m.contentType}:${m.slug}:${m.sectionIndex}`} className="text-xs text-muted-foreground truncate">
+                              <a
+                                href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${g.component}-${m.sectionIndex}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline decoration-muted-foreground/40 hover:text-foreground"
+                                onClick={(e) => e.stopPropagation()}
+                                data-testid={`link-group-member-${m.contentType}:${m.slug}:${m.sectionIndex}`}
+                              >
+                                {m.slug}
+                              </a>
+                              {" "}— section {m.sectionIndex}
+                            </p>
                           ))}
                         </div>
                       </div>
