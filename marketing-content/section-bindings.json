@@ -19,9 +19,30 @@
           "contentType": "location",
           "slug": "austin-usa",
           "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 5
         }
       ],
-      "createdAt": "2026-02-20T23:40:25.803Z"
+      "createdAt": "2026-02-20T23:40:25.803Z",
+      "updatedAt": "2026-02-20T23:52:22.338Z"
     }
   ]
 }
