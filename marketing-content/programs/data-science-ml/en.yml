@@ -408,10 +408,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. {{ global_review_count | 4.9 }} verified reviews prove it
+    subtitle: Our programs deliver life-changing results. More than {{ global_review_count | 700 }} verified reviews prove it
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 3,000+ }}
+      count: {{ global_review_count | 700+ }}
     items:
       - name: Gabriel Salazar
         role: Software Engineer
