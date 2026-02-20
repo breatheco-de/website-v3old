@@ -355,14 +355,8 @@ export {
 // ============================================
 export {
   comparisonTableColumnSchema,
-  comparisonTableCtaButtonSchema,
-  comparisonTableCellSchema,
-  comparisonTableCellValueSchema,
   comparisonTableRowSchema,
   comparisonTableSectionSchema,
-  type ComparisonTableCtaButton,
-  type ComparisonTableCell,
-  type ComparisonTableCellValue,
   type ComparisonTableColumn,
   type ComparisonTableRow,
   type ComparisonTableSection,
@@ -755,9 +749,6 @@ export { dynamicTableSectionSchema, type DynamicTableSection, type DynamicTableC
 import { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type DoubleCTABullet } from "../marketing-content/component-registry/double_cta/v1.0/schema";
 export { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type DoubleCTABullet };
 
-import { contactUsInfoSectionSchema, type ContactUsInfoSection, type ContactLocation } from "../marketing-content/component-registry/contact_us_info/v1.0/schema";
-export { contactUsInfoSectionSchema, type ContactUsInfoSection, type ContactLocation };
-
 // Responsive spacing schema - separate values for mobile and desktop
 // When only one breakpoint is specified, the other inherits its value
 export const responsiveSpacingSchema = z.object({
@@ -922,7 +913,6 @@ const baseSectionSchema = z.union([
   dynamicTableSectionSchema,
   doubleCTASectionSchema,
   modalSectionSchema,
-  contactUsInfoSectionSchema,
 ]);
 
 // Combined section schema with layout fields

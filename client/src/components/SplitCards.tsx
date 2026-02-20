@@ -5,7 +5,6 @@ import type {
   ToolIcon,
 } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
-import { RichTextContent } from "@/components/ui/rich-text-content";
 import * as TablerIcons from "@tabler/icons-react";
 import {
   IconCheck,
@@ -167,11 +166,12 @@ export const SplitCards = memo(function SplitCards({ data }: SplitCardsProps) {
           {primary.heading}
         </h2>
         {primary.description && (
-          <RichTextContent
-            html={primary.description}
-            className="text-white/85 leading-relaxed text-base md:text-lg [&_p]:mb-0 [&_a]:text-white [&_a]:underline"
+          <p
+            className="text-white/85 leading-relaxed text-base md:text-lg"
             data-testid="text-primary-description"
-          />
+          >
+            {primary.description}
+          </p>
         )}
       </div>
 

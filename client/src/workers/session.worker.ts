@@ -2,7 +2,7 @@ import type { Session, Location, GeoData, UTMParams, DeviceData, WorkerMessage, 
 import { defaultSession, SESSION_VERSION } from '@shared/session';
 import { locations } from '../lib/locations';
 
-const GEO_API_URL = '/api/geo';
+const IP_API_URL = 'https://ip-api.com/json';
 
 function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   if (lat1 === lat2 && lon1 === lon2) return 0;
@@ -116,12 +116,8 @@ async function fetchGeoData(): Promise<GeoData | null> {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
-
-    const url = typeof self !== 'undefined' && (self as unknown as { location?: { origin?: string } }).location?.origin
-      ? `${(self as unknown as { location: { origin: string } }).location.origin}${GEO_API_URL}`
-      : GEO_API_URL;
     
-    const response = await fetch(url, { 
+    const response = await fetch(IP_API_URL, { 
       signal: controller.signal,
       headers: { 'Accept': 'application/json' }
     });

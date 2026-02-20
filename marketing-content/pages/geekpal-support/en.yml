@@ -98,10 +98,10 @@ sections:
   - type: community_support
     version: "1.0"
     heading: A Global Tech Community to Support Your Growth
-    description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
+    description: 4Geeks is more than a program — it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
-        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding support, to job boards and career advice (and yes, there's coding humor too!).
+        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels — from coding support, to job boards and career advice (and yes, there's coding humor too!).
         icon: BrandSlack
         badge: 6,000+ Members
         accent_color: primary

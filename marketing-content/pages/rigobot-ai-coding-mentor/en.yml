@@ -35,7 +35,7 @@ sections:
 
       ## How Rigobot Works – Step by Step Example
 
-      1. **Launch a [LearnPack](https://new.4geeks.com/en/learnpack) exercise** with one click (no setup).
+      1. **Launch a [LearnPack](https://4geeksacademy.com/us/learnpack) exercise** with one click (no setup).
       2. **Code like a pro** in VS Code; Rigobot silently watches tests and commits.
       3. **Ask for help** via the *Get Feedback* pane or wait for Rigobot’s proactive nudge.
       4. **Instant explanation**: highlights the bug, explains the logic, suggests a fix.

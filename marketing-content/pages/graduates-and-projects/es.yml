@@ -6,7 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Proyectos de Graduados y Alumni | 4Geeks Academy
-  description: "Explora proyectos finales de graduados de 4Geeks Academy: apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni."
+  description: 'Explora proyectos finales de graduados de 4Geeks Academy: apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.'
   redirects:
     - /es/alumnos-y-proyectos
     - /es/graduados
@@ -16,60 +16,32 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Mira lo que Construyen Nuestros Estudiantes
     subtitle: Explora proyectos finales de graduados de 4Geeks Academy. Apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.
     badge: Programa Profesional
     cta_buttons:
       - text: Comienza a Aprender Ahora
-        url: "#bottom"
+        url: /signup
         variant: primary
         icon: Rocket
       - text: Ver Currículum
-        url: "#apply-modal"
+        url: /curriculum
         variant: outline
         icon: Book
     trust_bar:
-      rating: {{ global_review_rating | 4.9 }}/5
+      rating: 4.9/5
       rating_count: 2,500+
-      trusted_text: Confiado por más de {{ global_total_alumni | 10.000 }} estudiantes
+      trusted_text: Confiado por más de 10,000 estudiantes
     award_badges:
       - name: Mejor Bootcamp de Programación
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Escuela Top de Tecnología
         source: Course Report
-  - type: modal
-    version: "1.0"
-    section_id: apply-modal
-    heading: Recibir el Plan de Estudios
-    description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Download
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
   - type: projects_showcase
-    version: "1.0"
+    version: '1.0'
     items:
       - project_title: Raspberry Sky
         project_url: https://sattelite-beta.vercel.app/
@@ -89,7 +61,7 @@ sections:
             alt: Raspberry Sky - Acceso satelital para todos
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Seguimiento de Inventario"
+      - project_title: 'IMS: Seguimiento de Inventario'
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS es un sistema de inventario y logística para farmacias construido con Python, Javascript, React e integración con lectores de códigos de barras, SMS, la API de Twilio y sistemas de rastreo GPS.
         creators:
@@ -144,7 +116,7 @@ sections:
             src: cKcZD0_1IKk
     background: hsl(210 100% 50% / 0.05)
   - type: about
-    version: "1.0"
+    version: '1.0'
     height: 420px
     title: Más Sobre 4Geeks Academy
     description: 4Geeks Academy fue fundada en 2015. Lo que comenzó como un proyecto interno para entrenar desarrolladores se ha convertido en nuestra pasión. 4Geeks es hoy un Coding Bootcamp en USA que busca construir un nuevo marco para la Educación en Código. 4Geeks Academy tiene ubicaciones en 12 ciudades, 13 campus activos y más de 600 graduados.
@@ -162,44 +134,6 @@ sections:
       - content-and-syllabus
     marginY:
       desktop: none md
-  - type: cta_banner
-    version: "1.0"
-    title: ¿Listo para comenzar?
-    subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Aplicar Ahora
-      tags: website-lead
-      automations: hard
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Tu correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        phone:
-          visible: true
-          required: false
-          placeholder: Número de teléfono
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md
+  - type: footer
+    version: v1.0
+    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.

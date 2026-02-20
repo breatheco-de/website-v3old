@@ -1,68 +1,74 @@
 name: "Course Selector - Badges and Tags"
 description: "Course selector with badges and inline tags showing multiple programs with color-coded gradients"
 yaml: |
-type: course_selector
-version: "1.0"
-variant: default
-heading: Career Programs Backed by Our Job Guarantee
-subheading: Our programs qualify for the Job Guarantee when all eligibility requirements are met.
-courses:
-  - name: AI Engineering
-    icon: Brain
-    duration: 24 weeks
-    label: Updated in 2026
-    title: AI Engineering
-    badges:
-      - icon: DollarSign
-        text: APIS, automation, telemetry
-    description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-    price: {{ price_ai_engineering | $349 }}
-    price_info: or less depending on your plan
-    cta_text: Program details
-    cta_url: /en/career-programs/ai-engineering
-    course_background: accent
-  - name: Full Stack Development with AI
-    duration: 20 weeks
-    label: Updated in 2026
-    title: Full Stack Software Development
-    badges:
-      - icon: Code
-        text: React, Node.js & Python
-    tags:
-      - icon: Plus
-        text: API Development
-    description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-    price: {{ price_fullstack | $299 }}
-    original_price: $588
-    price_info: with 4Geeks Installments
-    cta_text: Program details
-    cta_url: /en/career-programs/full-stack
-    course_background: primary
-  - name: Data Science and Machine Learning
-    duration: 16 weeks
-    label: Updated in 2026
-    title: Data Science and Machine Learning
-    badges:
-      - icon: Brain
-        text: Python, TensorFlow, SQL
-    description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-    price: {{ price_datascience | 299$ }}
-    original_price: $588
-    price_info: with 4Geeks Installments
-    cta_text: Program details
-    cta_url: /en/career-programs/ai-machine-learning
-    course_background: accent
-  - name: Cybersecurity
-    duration: 16 weeks
-    label: Updated in 2026
-    title: Cybersecurity
-    badges:
-      - icon: Code
-        text: Threat detection & system protection
-    description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-    price: {{ price_cybersecurity | 299$ }}
-    original_price: $588
-    price_info: with 4Geeks Installments
-    cta_text: Program details
-    cta_url: /en/career-programs/cybersecurity
-    course_background: hsl(var(--color-pink))
+  - type: course_selector
+    version: "1.0"
+    heading: "Explore Our Programs"
+    subheading: "Choose the career path that's right for you"
+    courses:
+      - name: "AI Automation"
+        duration: "4 months part-time"
+        label: "Updated in 2025"
+        title: "AI Automation"
+        badges:
+          - icon: "Bolt"
+            text: "AI tools for business operations"
+        tags:
+          - icon: "Plus"
+            text: "Python for Automation"
+        description: "Connect AI tools to enterprise platforms and business data. Optimize existing solutions or build new ones. Eliminate resource bottlenecks. Become indispensable in any organization."
+        price: "$328"
+        original_price: "$442"
+        price_info: "with 4Geeks Installments"
+        cta_text: "Discover program"
+        cta_url: "/en/ai-automation"
+        course_background: "primary"
+
+      - name: "AI and Machine Learning"
+        duration: "9 months part-time"
+        label: "Updated in 2025"
+        title: "AI and Machine Learning"
+        badges:
+          - icon: "Brain"
+            text: "LLMs & Generative AI training"
+        description: "Build systems that learn from data and improve over time without being explicitly programmed. Design, train, and deploy machine learning models to solve real-world problems."
+        price: "$439"
+        original_price: "$588"
+        price_info: "with 4Geeks Installments"
+        cta_text: "Discover program"
+        cta_url: "/en/ai-machine-learning"
+        course_background: "accent"
+
+      - name: "BI Analytics"
+        duration: "4 months part-time"
+        label: "Updated in 2025"
+        title: "Business Intelligence Analytics"
+        badges:
+          - icon: "Bolt"
+            text: "AI for faster data workflows"
+        tags:
+          - icon: "Plus"
+            text: "Python for BIA"
+        description: "Turn raw data into clear, helpful insights that guide important business decisions. Help companies understand what's working, what's not, and where to go next."
+        price: "$328"
+        original_price: "$442"
+        price_info: "with 4Geeks Installments"
+        cta_text: "Discover program"
+        cta_url: "/en/bi-analytics"
+        course_background: "secondary"
+
+      - name: "Full Stack Development"
+        duration: "9 months part-time"
+        title: "Full Stack Software Development"
+        badges:
+          - icon: "Code"
+            text: "React, Node.js & Python"
+        tags:
+          - icon: "Plus"
+            text: "API Development"
+        description: "Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks."
+        price: "$439"
+        original_price: "$588"
+        cta_text: "Discover program"
+        cta_url: "/en/full-stack"
+        course_background: "muted"

@@ -1,43 +1,4 @@
 slug: munich-alemania
-name: Munich
-city: Munich
-country: Germany
-country_code: DE
-latitude: 48.1351
-longitude: 11.582
-region: europe
-default_language: en
-timezone: Europe/Berlin
-visibility: listed
-phone: +49 89 555 0100
-address: Marienplatz 1, 80331 München
-available_programs:
-  - full-stack
-context:
-  when_to_use: For this campus visitors and those interested in tech opportunities.
-  target_audience: Local professionals and residents seeking a coding bootcamp with job-focused training.
-  goals:
-    - Highlight job outcomes and connections to local employers
-catalog:
-  admission_advisors:
-    - name: Admissions Team
-      email: admissions@4geeks.com
-      calendar_url: https://calendly.com/4geeks-admissions
-      languages:
-        - en
-        - es
-schema:
-  include:
-    - organization
-    - website
-  overrides:
-    organization:
-      address:
-        "@type": PostalAddress
-        streetAddress: Marienplatz 1
-        addressLocality: München
-        postalCode: "80331"
-        addressCountry: DE
 meta:
   page_title: 4Geeks Academy Múnich | Bootcamp de Programación en Alemania
   description: Únete al bootcamp de programación 4Geeks en Múnich. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
@@ -49,17 +10,17 @@ meta:
     - /es/coding-campus/bootcamp-programacion-munich
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Múnich
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Múnich. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Múnich
     cta_buttons:
       - text: Aplicar Ahora
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
       - text: Descargar Programa
-        url: "#syllabus-modal"
+        url: '#syllabus-modal'
         variant: outline
     marginY:
       desktop: none lg
@@ -67,7 +28,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: syllabus-modal
     heading: Comienza tu Aplicación
     description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
@@ -135,7 +96,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -163,20 +124,20 @@ sections:
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: default
-    heading: Programas Disponibles
-    subheading: Apoyo en la Búsqueda Laboral de Por Vida.
+    heading: Programas Cubiertos por la Garantía de Empleo
+    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
       - name: Full Stack Development
-        duration: 20 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
@@ -185,43 +146,43 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: 200 €
-        original_price: 300 €
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 16 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: 200 €
-        original_price: 300 €
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 16 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: 200 €
-        original_price: 300 €
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -261,7 +222,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Múnich es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
-    description: "La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Múnich-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Múnich, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
+    description: 'La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Múnich-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Múnich, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>'
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -291,7 +252,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Múnich
     filter_by_location: munich-germany
     marginY:
@@ -301,7 +262,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -389,7 +350,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech en Múnich?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     background: hsl(var(--primary))
