@@ -148,12 +148,12 @@ sections:
     version: "1.2"
     variant: stats-text
     title: Por Qué Estudiar Ingeniería de IA Ahora
-    subtitle: El mercado laboral de IA está creciendo más rápido que la oferta de talento.
-    description: Según el informe Jobs on the Rise 2026 de LinkedIn, los Ingenieros de IA están entre los perfiles con mayor crecimiento en Estados Unidos. Las empresas ya compiten por profesionales con estas habilidades.
+    subtitle: El mercado laboral de inteligencia artificial está creciendo más rápido que la disponibilidad de talento cualificado.
+    description: Informes de Microsoft y LinkedIn destacan que las habilidades en inteligencia artificial se han convertido en una prioridad estratégica para las empresas, impulsadas por la adopción masiva de herramientas de IA generativa. Formarte ahora te posiciona en el centro de una transformación tecnológica que está redefiniendo industrias enteras.
     background: bg-muted/30
     items:
       - id: "1"
-        value: 800,000
+        value: "800.000"
         title: Roles relacionados con IA proyectados para 2027
       - id: "2"
         value: ~30%
@@ -377,10 +377,10 @@ sections:
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "AI Software Engineer: $20K–$30K"
-          - text: "AI Full-Stack Engineer: $25K–$40K"
-          - text: Agent / Workflow Automation Engineer:$25K–$50K
-          - text: "AI Integration Specialist (RAG, APIs, vector DBs): $25K–$50K"
+          - text: AI Engineer {{ average_salary_ai_engineer | 22.000€ - 30.000€ }}
+          - text: AI-Accelerated Frontend Engineer 22.000€ - 30.000€
+          - text: Agent / Workflow Automation Engineer {{ average_salary_workflow_automation_engineer | 22.000€ - 35.000€ }}
+          - text: AI Integration Specialist {{ average_salary_ai_specialist | 22.000€ - 35.000€ }}
       - value: 500+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
@@ -461,8 +461,8 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
-    title: Estudiantes Reales. Carreras Reales.
-    subtitle: Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas demuestran que nuestros programas generan resultados.
+    title: Éxito Profesional Comprobado
+    subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
       count: {{ global_review_count | 1,294 }}

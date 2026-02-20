@@ -1,46 +1,4 @@
 slug: barcelona-espana
-name: Barcelona
-city: Barcelona
-country: Spain
-country_code: ES
-latitude: 41.3851
-longitude: 2.1734
-region: europe
-default_language: es
-timezone: Europe/Madrid
-visibility: listed
-phone: +34 932 20 80 80
-address: Carrer de Balmes 200, 08006 Barcelona
-available_programs:
-  - full-stack
-context:
-  when_to_use: For Barcelona and Catalonia visitors or those interested in tech opportunities in Southern Europe's leading startup hub.
-  target_audience: Local Barcelona residents, international tech professionals, and career changers seeking roles in a dynamic tech ecosystem.
-  goals:
-    - Highlight Barcelona's dynamic tech ecosystem and leading startup hub status
-    - Emphasize immersive, hands-on coding education and talent cultivation
-    - Showcase connections to the city's flourishing tech landscape
-catalog:
-  admission_advisors:
-    - name: Admissions Team
-      email: admissions@4geeks.com
-      calendar_url: https://calendly.com/4geeks-admissions
-      languages:
-        - en
-        - es
-schema:
-  include:
-    - organization
-    - website
-  overrides:
-    organization:
-      address:
-        "@type": PostalAddress
-        streetAddress: Carrer de Balmes 200
-        addressLocality: Barcelona
-        addressRegion: Catalonia
-        postalCode: "08006"
-        addressCountry: ES
 meta:
   page_title: 4Geeks Academy Barcelona | Bootcamp de Programación en España
   description: Únete al bootcamp de programación 4Geeks en Barcelona. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
@@ -174,12 +132,12 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: default
-    heading: Programas Disponibles
-    subheading: Apoyo en la Búsqueda Laboral de Por Vida.
+    heading: Programas Cubiertos por la Garantía de Empleo
+    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
       - name: Full Stack Development
-        duration: 20 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
@@ -188,36 +146,36 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: 200 €
-        original_price: 300 €
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 16 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: 200 €
-        original_price: 300 €
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 16 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: 200 €
-        original_price: 300 €
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity
@@ -402,3 +360,4 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+

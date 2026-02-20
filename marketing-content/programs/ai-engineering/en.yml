@@ -338,6 +338,57 @@ sections:
       desktop: md none
     paddingY:
       desktop: md
+  - type: certificate
+    title: Certificate & Career Network
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
+    benefits:
+      - text: "AI Software Engineer: $95K–$135K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$155K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
+    card:
+      title: AI Engineer
+      subtitle: 4Geeks Academy Certificate
+      program_name: AI Engineering
+    stats:
+      - value: 84%
+        label: Hiring rate
+        description: 84% of our graduates land a tech job within 6 months. Our career services team works with you until you're hired.
+        benefits:
+          - text: Dedicated career coaching from day one
+          - text: Resume and LinkedIn profile optimization
+          - text: Mock interviews with industry professionals
+          - text: Direct introductions to hiring partners
+      - value: 3-6 months
+        label: Time to get hired
+        description: Most graduates secure their first role within 3-6 months of completing the program. We provide ongoing support until you land your dream job.
+        benefits:
+          - text: Job search strategy and planning
+          - text: Salary negotiation coaching
+          - text: Lifetime career support access
+          - text: Alumni network with 10,000+ professionals
+      - value: 55%
+        label: Average salary increase
+        description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
+        benefits:
+          - text: "AI Software Engineer: {{ average_salary_ai_engineer | $95K–$135K }}"
+          - text: "Full-Stack Engineer (AI-Fluent): {{ average_salary_ai_fluent_software_developer | $100K–$145K }}"
+          - text: "Agent Engineer: {{ average_salary_agent_engineer | $105K–$155K }}"
+          - text: "Workflow Automation Engineer: {{ average_salary_workflow_automation_engineer | $85K–$120K }}"
+      - value: 5,000+
+        label: Hiring Partners
+        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        benefits:
+          - text: Exclusive job board access
+          - text: Priority referrals to partner companies
+          - text: Networking events with hiring managers
+          - text: Companies include Google, Meta, Amazon, startups
+    certificate_position: right
+    useSolidCard: true
+    paddingY:
+      mobile: lg
+      desktop: lg
+    background: hsl(var(--muted))
   - type: pricing
     version: "1.0"
     variant: product
@@ -374,37 +425,51 @@ sections:
       desktop: none md
     paddingY:
       desktop: none md
-  - type: whos_hiring
-    variant: carousel
-    title: Top Companies Hiring Our Graduates
-    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
-    logos:
-      - src: /attached_assets/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
-        alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
-        alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
-        alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
-        alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
-        alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
-        alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
-        alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
-        alt: Jooble
+  - type: testimonials
+    title: Real Students. Real Careers.
+    subtitle: {{ global_total_alumni | 6,500 }}+ graduates and {{ global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
+    rating_summary:
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_review_count | 1,294 }}
+    items:
+      - name: Sarah Johnson
+        role: AI Engineer
+        company: Google
+        rating: 5
+        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world AI applications.
+        outcome: +55% salary increase
+      - name: Michael Chen
+        role: ML Engineer
+        company: Meta
+        rating: 5
+        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
+        outcome: Hired in 4 months
+      - name: Emily Rodriguez
+        role: AI Engineer
+        company: Amazon
+        rating: 5
+        comment: Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm working on cutting-edge AI.
+        outcome: +100% salary increase
+      - name: David Kim
+        role: AI Developer
+        company: Startup
+        rating: 5
+        comment: From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects made all the difference.
+        outcome: Career change success
+      - name: Jessica Martinez
+        role: AI Engineer
+        company: Spotify
+        rating: 4
+        comment: Great course with practical, real-world projects. The community is supportive and the instructors are always available to help.
+        outcome: +45% salary increase
+      - name: Ryan Thompson
+        role: ML Engineer
+        company: Tech Startup
+        rating: 5
+        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
+        outcome: Landed first tech job
     paddingY:
-      desktop: none
+      desktop: md
   - type: testimonials
     title: Real Students. Real Careers.
     subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.

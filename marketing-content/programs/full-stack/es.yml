@@ -59,14 +59,14 @@ sections:
       alt: Introducción al programa Full Stack Developer con IA en 4Geeks Academy
     signup_card:
       title: Obtén el Programa Completo
-      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
+      description: Accede al currículo completo, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar Información
-        url: "#apply-modal"
+        text: Envíame el Currículo
+        url: /es/apply
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: https://4geeks.com/es/login
+        url: /login
       features:
         - icon: IconCalendar
           text: Programa de 20 semanas
@@ -84,34 +84,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none
-  - type: modal
-    version: "1.0"
-    section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Download
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: true
-          default: full-stack
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -162,25 +134,13 @@ sections:
     description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
     cta:
       text: Conocer más
-      url: /es/trabajo-garantizado
+      url: /job-guarantee
       variant: primary
     marginY:
       desktop: md
     paddingY:
       desktop: none sm
     background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
   - type: syllabus
     version: "1.0"
     variant: program-modules
@@ -304,6 +264,10 @@ sections:
           - text: Ayuda con depuración y tareas de resolución de problemas
           - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: Quiero más información
+          url: /es/apply
+          variant: primary
       - icon: TrendingUp
         title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
         description: ""
@@ -314,6 +278,10 @@ sections:
           - text: Preparación de entrevistas y negociación salarial
           - text: Acceso de por vida para apoyar tu crecimiento profesional
         video_url: https://youtu.be/-2ZvlgDnltc
+        cta:
+          text: ¡Empieza a aprender ahora!
+          url: /es/apply
+          variant: primary
       - icon: Headset
         title: Mentoría ilimitada 1:1 y una comunidad activa
         description: ""
@@ -330,16 +298,16 @@ sections:
     title: Resultados Profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
-      - text: "AI Software Engineer: {{ average_salary_ai_fluent_software_developer | $20K–$30K }}"
-      - text: "Full-Stack Engineer (AI-Fluent): {{ average_salary_ai_engineer | $20K–$35K }}"
-      - text: "Agent Engineer: {{ average_salary_agent_engineer | $25K–$40K }}"
-      - text: {{ average_salary_workflow_automation_engineer | $25K–$40K }}
+      - text: "AI Software Engineer: $95K–$135K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$155K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: Certificado 4Geeks Academy
       program_name: AI Engineering
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: 84%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando activamente.
         benefits:
@@ -354,21 +322,22 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: {{ global_salary_increase | 55 }}%
+      - value: 55%
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "AI Software Engineer: {{ average_salary_ai_fluent_software_developer | $20K–$30K }}"
-          - text: "Full-Stack Engineer (AI-Fluent): {{ average_salary_fullstack | $95K–$150K }}"
-          - text: "Agent Engineer: {{ average_salary_agent_engineer | $25K–$40K }}"
-          - text: "Workflow Automation Engineer: {{ average_salary_workflow_automation_engineer | $25K–$40K }}"
-      - value: 500+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: "AI Software Engineer: $115K–$165K"
+          - text: "Full-Stack AI Engineer: $125K–$185K"
+          - text: "Agentic Systems Engineer: $140K–$210K"
+          - text: "Workflow Automation Engineer: $95K–$145K"
+      - value: 5,000+
+        label: Socios de contratación
+        description: Accede a nuestra red de más de 5,000 socios de contratación que buscan activamente talento en IA. Obtén oportunidades laborales exclusivas y referencias prioritarias.
         benefits:
-          - text: Acceso exclusivo a bolsa de de empleo
-          - text: Recomendaciones directas a empresas colaboradoras
-          - text: Eventos de networking con recruiters y responsables de selección
+          - text: Acceso exclusivo a bolsa de trabajo
+          - text: Referencias prioritarias a empresas socias
+          - text: Eventos de networking con gerentes de contratación
+          - text: Empresas incluyen Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
     marginY:
@@ -384,8 +353,8 @@ sections:
     title: Matrícula y Opciones de Financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago por adelantado."
-    financing_text: "Financiamiento: desde"
-    financing_amount: {{ monthly_full_stack | $349 }}
+    financing_text: "Financiamiento Basado en Crédito: desde"
+    financing_amount: $349
     tech_icons:
       - openai
       - python
@@ -398,20 +367,22 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es de {{ price_full_fullstack | $14,999 }}. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses durante 6 meses.
+        text: La matrícula estándar es de $14,999. Paga por adelantado y recibe un 10% de descuento, o distribuye los pagos sin intereses durante 6 meses.
       - icon: IconCheck
-        text: Financia tu matrícula en 24 cuotas mensuales.
+        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
         use_rigobot_icon: true
+      - icon: IconCheck
+        text: Inscríbete con una Garantía de Empleo para mayor confianza. Consigue empleo en 9 meses después de graduarte o te devolvemos tu dinero.
     cta:
       text: Obtener más información
       url: /signup
       variant: primary
-    marginY:
-      desktop: none md
     paddingY:
       desktop: md
+    marginY:
+      desktop: none md
   - type: whos_hiring
     variant: carousel
     title: Respaldados por Líderes Innovadores
@@ -445,9 +416,9 @@ sections:
       desktop: none
   - type: testimonials
     title: Estudiantes Reales. Carreras Reales.
-    subtitle: Más de {{ global_total_alumni | 4,000 }} graduados y más de {{ global_verified_reviews_count | 1,000 }} reseñas verificadas demuestran que nuestros programas generan resultados que cambian vidas.
+    subtitle: Más de 4,000 graduados y más de 1,000 reseñas verificadas demuestran que nuestros programas generan resultados que cambian vidas.
     rating_summary:
-      average: {{ global_review_rating | 4.8 }}
+      average: "4.8"
       count: 1,294
     items:
       - name: Sarah Johnson
@@ -489,52 +460,34 @@ sections:
     paddingY:
       desktop: md
   - type: faq
+    version: "1.0"
     title: Preguntas Frecuentes
     related_features:
       - full-stack
-    marginY:
-      desktop: none
+    cta:
+      text: ¿Aún tienes preguntas?
+      button:
+        label: Habla con un Asesor
+        url: /contact
     paddingY:
       desktop: md
     background: hsl(var(--muted))
+    marginY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Convertirte en Desarrollador Full Stack?
-    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    subtitle: Únete a miles de graduados que han transformado sus carreras con 4Geeks.
+    buttons:
+      - text: Empieza a Aprender Ahora
+        url: /signup
+        variant: secondary
+      - text: Habla con un Asesor
+        url: /contact
+        variant: outline
     background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Aplicar Ahora
-      tags: website-lead
-      automations: hard
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Tu correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        phone:
-          visible: true
-          required: false
-          placeholder: Número de teléfono
-        program:
-          visible: false
-          required: true
-          default: full-stack
-      success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+  - type: footer
+    version: "1.0"
+    copyright_text: 2024 4Geeks. Todos los derechos reservados.

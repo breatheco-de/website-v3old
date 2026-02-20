@@ -1,44 +1,3 @@
-slug: costa-rica
-name: Costa Rica
-city: San Jose
-country: Costa Rica
-country_code: CR
-latitude: 9.9281
-longitude: -84.0907
-region: latam
-default_language: es
-timezone: America/Costa_Rica
-visibility: listed
-phone: +506 2222 3333
-address: Avenida Central, San Jose
-available_programs:
-  - full-stack
-context:
-  when_to_use: For Costa Rica and Central America visitors or those interested in tech and nearshore opportunities in the region.
-  target_audience: Local professionals, nearshore talent, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
-  goals:
-    - Position Costa Rica as Central America's leading tech and nearshore hub
-    - Emphasize bilingual (English/Spanish) and remote-friendly programs
-    - Highlight job outcomes and connections to US and global employers
-catalog:
-  admission_advisors:
-    - name: Admissions Team
-      email: admissions@4geeks.com
-      calendar_url: https://calendly.com/4geeks-admissions
-      languages:
-        - en
-        - es
-schema:
-  include:
-    - organization
-    - website
-  overrides:
-    organization:
-      address:
-        "@type": PostalAddress
-        streetAddress: Avenida Central
-        addressLocality: San José
-        addressCountry: CR
 meta:
   page_title: 4Geeks Academy Costa Rica | Bootcamp de Programación en San José
   description: Únete al bootcamp de programación 4Geeks en Costa Rica. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
@@ -176,8 +135,8 @@ sections:
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
       - name: Full Stack Development
-        duration: 20 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
@@ -186,36 +145,36 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $150
-        original_price: $200
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
       - name: AI and Machine Learning
-        duration: 16 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Data Science y Machine Learning
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $170
-        original_price: $210
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
       - name: Cybersecurity
-        duration: 16 semanas
-        label: Actualizado en 2026
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $150
-        original_price: $200
+        price: $439
+        original_price: $588
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity

@@ -2,8 +2,10 @@ footer:
   columns:
     - title: Empresa
       items:
-        - label: Academia
+        - label: Por qué 4Geeks
           href: /es/sobre-la-academia
+        - label: Academia
+          href: /en/why-4geeks
         - label: Alianzas
           href: /es/alianzas
         - label: Precios
@@ -12,8 +14,6 @@ footer:
           href: /es/proximas-fechas
         - label: Preguntas Frecuentes
           href: /es/faq
-        - label: Contáctanos
-          href: /es/contactanos
     - title: Programas
       items:
         - label: Ingeniería en IA
@@ -31,7 +31,7 @@ footer:
         - label: Orlando
           href: /es/ubicacion/orlando-usa
         - label: Madrid
-          href: /es/ubicacion/madrid-spain
+          href: /es/ubicacion/madrid-espana
         - label: Santiago de Chile
           href: /es/ubicacion/santiago-chile
         - label: Costa Rica

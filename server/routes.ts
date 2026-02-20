@@ -460,6 +460,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/geo", async (req, res) => {
+    try {
+      const apiKey = process.env.IPAPI_PRO_KEY;
+      const forwarded = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim();
+      const rawIp = forwarded || req.ip || "";
+      const isLocal = !rawIp || rawIp === "127.0.0.1" || rawIp === "::1" || rawIp === "::ffff:127.0.0.1";
+      const ipSegment = isLocal ? "" : `/${rawIp}`;
+      const fields = "status,city,country,countryCode,regionName,timezone,lat,lon";
+      const url = apiKey
+        ? `https://pro.ip-api.com/json${ipSegment}?key=${apiKey}&fields=${fields}`
+        : `http://ip-api.com/json${ipSegment}?fields=${fields}`;
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        res.status(502).json({ status: "fail" });
+        return;
+      }
+      const data = await response.json();
+      res.json(data);
+    } catch {
+      res.status(502).json({ status: "fail" });
+    }
+  });
+
   // Cloudflare Turnstile endpoints
   app.get("/api/turnstile/site-key", (_req, res) => {
     const siteKey = process.env.TURNSTILE_SITE_KEY;
@@ -4592,7 +4620,6 @@ sections: []
         sms_consent: leadData.sms_consent || false,
         consent_email: leadData.consent_email || false,
         comment: leadData.comment || null,
-        client_comments: leadData.client_comments || null,
         // Session/tracking data
         utm_url: leadData.utm_url || null,
         utm_source: leadData.utm_source || null,

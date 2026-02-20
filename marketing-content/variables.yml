@@ -189,26 +189,42 @@ global_salary_cybersecurity_analist:
     - query:
         region: "usa-canada"
       value: "$75K–$120K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 25.000€"
 global_salary_penetration_tester:
   default: "$90K–$150K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$90K–$150K"
+    - query:
+        region: "europe"
+      value: "18.000€ - 30.000€"
 global_salary_security_engineer:
   default: "$100K–$165K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$100K–$165K"
+    - query:
+        region: "europe"
+      value: "22.000€- 30.000€"
 global_salary_incident_responder:
   default: "$85K–$140K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$85K–$140K"
+    - query:
+        region: "europe"
+      value: "25.000€ - 32.000€"
 average_salary_cybersecurity_short:
   default: "$85"
+  conditions:
+    - query:
+        region: "europe"
+      value: "35.000€"
 salary_data_scientist:
   default: "$80K–$130K"
   conditions:
@@ -217,7 +233,7 @@ salary_data_scientist:
       value: "$80K–$130K"
     - query:
         region: "europe"
-      value: "40.000€"
+      value: "20.000€ - 30.000€"
     - query:
         region: "latam"
       value: "$22.500 USD"
@@ -229,6 +245,10 @@ minimun_isa_salary:
       value: "17.000 €"
 average_salary_fullstack:
   default: "$95K–$135K"
+  conditions:
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 mounthly_price_bootcamp:
   default: "200 €"
   conditions:
@@ -243,13 +263,16 @@ average_salary_machine_learning_engineer:
   conditions:
     - query:
         region: "europe"
-      value: "$90K–$150K"
+      value: "22.000 € - 30.000 €"
 average_salary_ai_fluent_software_developer:
   default: "$100K–$150K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$100K–$150K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 average_salary_web_aplications_engineer:
   default: "$95K–$140K"
 average_salary_backend_services_developer:
@@ -260,6 +283,9 @@ average_salary_data_analyst:
     - query:
         region: "usa-canada"
       value: "$60K–$95K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 average_salary_ai_engineer:
   default: "$100K–$160K"
   conditions:
@@ -271,7 +297,7 @@ average_salary_ai_engineer:
       value: "$20K-$60K USD"
     - query:
         region: "europe"
-      value: "30.000 € - 60.000 €"
+      value: "30K € - 60K €"
 average_salary_ai_specialist:
   default: "$95K–$145K"
   conditions:
@@ -372,9 +398,15 @@ average_salary_agent_engineer:
     - query:
         region: "usa-canada"
       value: "$25K–$40K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 30.000€"
 average_salary_workflow_automation_engineer:
   default: "$25K–$40K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$25K–$40K"
+    - query:
+        region: "europe"
+      value: "20.000€- 30.000€"

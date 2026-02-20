@@ -32,9 +32,9 @@ sections:
         variant: outline
         icon: Book
     trust_bar:
-      rating: {{ global_review_rating | 4.9 }}/5
+      rating: 4.9/5
       rating_count: 2,500+
-      trusted_text: Trusted by {{ global_total_alumni | 10,000 }}+ students
+      trusted_text: Trusted by 10,000+ students
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
@@ -44,7 +44,7 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Obtener curriculum
+    heading: Download the curriculum
     description: Fill out the form below and we'll get back to you within 24 hours.
     show_close: true
     size: md
@@ -68,7 +68,7 @@ sections:
           required: true
           default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
+        message: Thanks! We'll be in touch within 24 hours.
   - type: projects_showcase
     version: "1.0"
     items:

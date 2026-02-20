@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UniversalImage } from "@/components/UniversalImage";
-import { RichTextContent } from "@/components/ui/rich-text-content";
 import * as TablerIcons from "@tabler/icons-react";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroSingleColumn } from "@shared/schema";
@@ -50,11 +49,12 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
         </h1>
         
         {data.subtitle && (
-          <RichTextContent 
-            html={data.subtitle}
-            className="text-body text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed [&_p]:mb-0"
+          <p 
+            className="text-body text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
             data-testid="text-hero-subtitle"
-          />
+          >
+            {data.subtitle}
+          </p>
         )}
 
         {data.trust_bar && (

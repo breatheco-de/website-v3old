@@ -14,7 +14,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Dentro de la Plataforma de 4Geeks
     subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentoría humana. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.

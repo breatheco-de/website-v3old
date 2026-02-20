@@ -416,10 +416,10 @@ sections:
       desktop: md
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_verified_reviews_count | 1,000 }} verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_total_alumni | 6,500 }}+ graduates and {{ global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 4,500 }}
+      count: {{ global_review_count | 700 }}
     items:
       - name: Sarah Johnson
         role: Software Engineer

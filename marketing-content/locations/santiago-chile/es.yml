@@ -51,8 +51,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Lanza una Carrera Tech Lista para IA en Santiago
-    subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Santiago. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
+    title: Lanza tu carrera tech preparada para la era de la IA en Santiago
+    subtitle: Capacítate para los roles tech más demandados —incluida Ingeniería en IA— dentro del dinámico hub tecnológico de Santiago. Clases en vivo, proyectos prácticos y acompañamiento profesional enfocado en tu empleabilidad real.
     badge: Campus Santiago
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar Ahora }}
@@ -69,31 +69,41 @@ sections:
   - type: modal
     version: "1.0"
     section_id: syllabus-modal
-    heading: Comienza tu Aplicación
-    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
+    heading: Comienza tu Postulación
+    description: Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Enviar Aplicación
+      submit_label: Solicitar Información
       tags: request_more_info
       automations: soft
       fields:
         email:
           visible: true
           required: true
+          placeholder: Email
         first_name:
           visible: true
           required: true
+          placeholder: Nombre y Apellido
         phone:
           visible: true
           required: false
+          default_country: CL
+          placeholder: Teléfono
         program:
           visible: true
           required: true
           default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto contigo en 24 horas.
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -142,8 +152,8 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: En el Centro del Impulso Tech de Santiago
-    description: El ecosistema tecnológico de Santiago está en auge con un número creciente de empresas tecnológicas y startups. La ciudad se ha convertido en un centro de innovación y tecnología, con grandes corporaciones estableciendo su presencia. A medida que Santiago continúa expandiendo su sector tecnológico, te conectamos con empleadores locales, eventos tech y socios de contratación para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.
+    title: En el corazón del impulso tech de Santiago
+    description: El ecosistema tecnológico de Santiago está en pleno crecimiento, con cada vez más startups y empresas tecnológicas consolidándose en la ciudad. Hoy, Santiago se posiciona como un polo de innovación donde grandes compañías y nuevos proyectos conviven y generan oportunidades reales. A medida que el sector tech local sigue expandiéndose, te conectamos con empleadores, eventos de la comunidad tech y partners de contratación, para que construyas redes que impulsen tu inserción laboral y crecimiento profesional a largo plazo en tecnología.
     background: gradient
     marginY:
       desktop: lg none
@@ -155,9 +165,9 @@ sections:
     left:
       video: https://youtu.be/ln3bQsV1BaQ
     right:
-      heading: Descubre el Escenario de la Programación en Santiago
-      sub_heading: Perspectivas de Hernan sobre 4GeeksAcademy
-      description: Plan de estudios alineado con la industria enfocado en aplicabilidad práctica. Aprendizaje práctico basado en proyectos para el perfeccionamiento de habilidades. Orientación profesional para navegar el dinámico sector tecnológico de Santiago.
+      heading: Descubre Cómo se Vive Aprender Programación en 4Geeks
+      sub_heading: La experiencia de Hernan en 4Geeks Academy
+      description: Un plan de estudios alineado con la industria y enfocado en la aplicación práctica desde el primer día. Aprendizaje basado en proyectos reales para desarrollar habilidades que el mercado laboral exige.
       button:
         text: Ver video completo
         url: https://youtu.be/ln3bQsV1BaQ
@@ -172,7 +182,7 @@ sections:
     version: "1.0"
     variant: default
     heading: Programas Disponibles
-    subheading: Apoyo en la Búsqueda Laboral de Por Vida. Condiciones Aplican*
+    subheading: Apoyo en la búsqueda laboral de por vida. Condiciones aplican*
     courses:
       - name: Full Stack con IA
         duration: 20 semanas
@@ -187,7 +197,7 @@ sections:
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
         price: 100.000 CLP
         original_price: 122.000 CLP
-        price_info: con pagos a plazos de 4Geeks
+        price_info: con financiamiento en cuotas con 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/full-stack
         course_background: hsl(var(--primary) / 0.4)
@@ -201,7 +211,7 @@ sections:
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
         price: 122.000 CLP
         original_price: 137.000 CLP
-        price_info: con pagos a plazos de 4Geeks
+        price_info: con financiamiento en cuotas con 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/ai-machine-learning
         course_background: accent
@@ -215,32 +225,32 @@ sections:
         description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
         price: 100.000 CLP
         original_price: 122.000 CLP
-        price_info: con pagos a plazos de 4Geeks
+        price_info: con financiamiento en cuotas con 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para triunfar en una industria impulsada por la IA
+    description: Formación preparada para la era de la IA, mentoría experta y soporte continuo diseñados para el entorno tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja directamente con mentores con experiencia en la industria durante el programa y sigue recibiendo apoyo incluso después de graduarte.
+      - heading: Soporte de aprendizaje impulsado por IA
+        text: Recibe feedback inmediato de RigoBot, nuestro asistente de aprendizaje con IA integrado. Practica, depura y mejora de forma continua con una guía adaptada a tu ritmo y objetivos.
+      - heading: Soporte profesional ilimitado y de por vida
+        text: Accede a coaching profesional personalizado enfocado en tu empleabilidad. Desde estrategia de búsqueda laboral y posicionamiento profesional hasta preparación de entrevistas, el acompañamiento evoluciona contigo y tu experiencia.
+      - heading: Una comunidad tech global y activa
+        text: Únete a nuestra comunidad en Slack con estudiantes, mentores y egresados. Resuelve dudas, comparte oportunidades y mantente conectado a una red global que te acompaña más allá de la graduación.
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    title: Caminos probados hacia carreras tech
+    description: Estas historias de estudiantes muestran cómo un aprendizaje estructurado, el soporte impulsado por IA y el coaching experto se traducen en resultados reales en el mundo laboral.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
@@ -259,9 +269,9 @@ sections:
       desktop: none xl
   - type: why_learn_ai
     variant: laptop-edge
-    title: Por Qué Santiago es un Lugar Inteligente para Lanzar tu Carrera Tech
+    title: Por qué Santiago es un lugar estratégico para lanzar tu carrera tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
-    description: "La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Santiago-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
+    description: Un ecosistema tecnológico en expansión, con oportunidades reales de contratación.<br><br>Santiago ha experimentado un crecimiento sostenido en la demanda de talento en programación y tecnología, impulsado por la digitalización de múltiples industrias. En este contexto, los bootcamps tech se han convertido en una vía efectiva para acelerar la inserción laboral en el sector.<br><div><div><ul><li>Creciente presencia de empresas tecnológicas y multinacionales con operaciones en Chile</li><li>Alta demanda de talento tech en industrias como fintech, retail, salud y startups</li><li>Necesidad creciente de habilidades en desarrollo de software, inteligencia artificial y análisis de datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con empleadores locales, eventos de la comunidad tech y un ecosistema dinámico que te ayudará a construir redes profesionales y potenciar tu inserción y crecimiento a largo plazo en tecnología.</div></div>
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
