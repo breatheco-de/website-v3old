@@ -609,7 +609,7 @@ export function SectionBindingDialog({
         <div className="text-sm text-muted-foreground mb-2">
           {existingGroup ? (
             <>
-              This section is binded to {existingGroup.members.length - 1} other section{existingGroup.members.length - 1 !== 1 ? "s" : ""} in other pages, as you update its content, the other pages sections will also be updated.
+              This <Badge variant="secondary" className="text-xs">{component}</Badge> section is binded to {existingGroup.members.length - 1} other section{existingGroup.members.length - 1 !== 1 ? "s" : ""} in other pages, as you update its content, the other pages sections will also be updated.
             </>
           ) : (
             <>
