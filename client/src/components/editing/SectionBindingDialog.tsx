@@ -100,6 +100,7 @@ export function SectionBindingDialog({
       setPendingJoinGroup(null);
       setUnboundTab("join");
       setShowAddMore(false);
+      setConfirmAddMore(false);
     }
     onOpenChange(nextOpen);
   };
@@ -359,6 +360,29 @@ export function SectionBindingDialog({
     });
   };
 
+  const [confirmAddMore, setConfirmAddMore] = useState(false);
+
+  const handleAddMoreToGroup = () => {
+    if (!existingGroup || selectedCandidates.size === 0) return;
+    setConfirmAddMore(true);
+  };
+
+  const handleConfirmAddMore = async () => {
+    if (!existingGroup) return;
+    const toAdd = filteredAddMoreCandidates
+      .filter(c => selectedCandidates.has(candidateKey(c)));
+    for (const c of toAdd) {
+      await addMemberMutation.mutateAsync({
+        groupId: existingGroup.id,
+        member: { contentType: c.contentType, slug: c.slug, sectionIndex: c.sectionIndex },
+      });
+    }
+    setSelectedCandidates(new Set());
+    setShowAddMore(false);
+    setConfirmAddMore(false);
+    setSearch("");
+  };
+
   const joinGroupMutation = useMutation({
     mutationFn: async ({ groupId }: { groupId: string }) => {
       const res = await fetchWithAuth(`/api/bindings/${groupId}/members`, {
@@ -542,6 +566,62 @@ export function SectionBindingDialog({
                 </>
               ) : (
                 "Add and overwrite"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  if (confirmAddMore && existingGroup) {
+    const addMoreSelected = filteredAddMoreCandidates.filter(c => selectedCandidates.has(candidateKey(c)));
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Confirm adding {addMoreSelected.length} section{addMoreSelected.length !== 1 ? "s" : ""} to group
+            </DialogTitle>
+          </DialogHeader>
+
+          <p className="text-sm text-muted-foreground" data-testid="text-add-more-warning">
+            The following sections will be <span className="font-medium text-destructive">overwritten</span> with the group's content:
+          </p>
+
+          <div className="space-y-1 max-h-[200px] overflow-y-auto">
+            {addMoreSelected.map(c => (
+              <div key={candidateKey(c)} className="flex items-center gap-2 text-sm py-1">
+                <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
+                <span className="truncate">{c.title || c.slug}</span>
+                <span className="text-muted-foreground text-xs">section {c.sectionIndex}</span>
+              </div>
+            ))}
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setConfirmAddMore(false)}
+              disabled={isPending}
+              data-testid="button-add-more-confirm-back"
+            >
+              Back
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmAddMore}
+              disabled={isPending}
+              data-testid="button-add-more-confirm-yes"
+            >
+              {isPending ? (
+                <>
+                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                `Add and overwrite ${addMoreSelected.length} section${addMoreSelected.length !== 1 ? "s" : ""}`
               )}
             </Button>
           </DialogFooter>
@@ -764,7 +844,7 @@ export function SectionBindingDialog({
                     size="sm"
                     variant="ghost"
                     className="gap-1"
-                    onClick={() => { setShowAddMore(!showAddMore); setSearch(""); }}
+                    onClick={() => { setShowAddMore(!showAddMore); setSearch(""); setSelectedCandidates(new Set()); }}
                     disabled={isPending || addMoreCandidates.length === 0}
                     data-testid="button-add-more-sections"
                   >
@@ -825,14 +905,19 @@ export function SectionBindingDialog({
                   <div className="space-y-1 pr-3">
                     {filteredAddMoreCandidates.map(c => {
                       const key = candidateKey(c);
+                      const isSelected = selectedCandidates.has(key);
                       return (
                         <div
                           key={key}
                           className="flex items-center gap-3 p-2 rounded-md text-sm hover-elevate cursor-pointer"
-                          onClick={() => handleAddToExisting(c)}
+                          onClick={() => handleToggleCandidate(c)}
                           data-testid={`add-more-candidate-${key}`}
                         >
-                          <IconPlus className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                          <Checkbox
+                            checked={isSelected}
+                            onCheckedChange={() => handleToggleCandidate(c)}
+                            data-testid={`checkbox-add-more-${key}`}
+                          />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
@@ -848,6 +933,35 @@ export function SectionBindingDialog({
                   </div>
                 )}
               </ScrollArea>
+
+              {selectedCandidates.size > 0 && (
+                <DialogFooter>
+                  <Button
+                    variant="outline"
+                    onClick={() => { setShowAddMore(false); setSelectedCandidates(new Set()); setSearch(""); }}
+                    data-testid="button-add-more-cancel"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleAddMoreToGroup}
+                    disabled={isPending}
+                    data-testid="button-add-more-confirm"
+                  >
+                    {isPending ? (
+                      <>
+                        <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Adding...
+                      </>
+                    ) : (
+                      <>
+                        <IconPlus className="h-4 w-4 mr-2" />
+                        Add {selectedCandidates.size} section{selectedCandidates.size !== 1 ? "s" : ""} to group
+                      </>
+                    )}
+                  </Button>
+                </DialogFooter>
+              )}
             </>
           )}
           </>
