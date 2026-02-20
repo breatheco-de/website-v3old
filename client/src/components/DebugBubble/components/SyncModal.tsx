@@ -132,6 +132,9 @@ export function SyncModal({
               <span className="font-medium">
                 {autoCommitStatus?.isCommitting ? 'Syncing...' : autoCommitStatus?.enabled ? 'Auto-sync' : 'Auto-sync off'}
               </span>
+              {autoCommitStatus?.enabled && autoCommitStatus.commitIntervalSeconds && (
+                <span className="text-muted-foreground">every {autoCommitStatus.commitIntervalSeconds}s</span>
+              )}
               {autoCommitStatus?.pendingFiles ? (
                 <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{autoCommitStatus.pendingFiles} queued</Badge>
               ) : null}
