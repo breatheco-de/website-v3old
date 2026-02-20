@@ -41,6 +41,7 @@ The platform utilizes React with TypeScript, Vite, Tailwind CSS, shadcn UI, wout
 -   **FAQ Per-Item Location Visibility**: FAQ sections support `item_overrides` for hiding specific FAQ items based on the visitor's location.
 -   **Section Bindings System**: `BindingManager` singleton (`server/bindings.ts`) synchronizes content between sections of the same component type and locale across different pages, with CRUD operations, immediate content propagation on bind, optional group naming, and automatic propagation on edit.
 -   **Blog System**: Pluggable blog integration using a provider/adapter pattern, fetching posts from configurable data sources, caching them, and providing API routes for management. Frontend pages for blog listing and individual posts are supported with SSR meta tags.
+-   **DebugBubble Modular Architecture**: The `client/src/components/DebugBubble/` directory is a modular component system. `index.tsx` is the orchestrator (state management + composition only, max ~2,700 lines). All rendering logic for views and modals lives in separate files under `components/`. NEVER add new inline view/modal JSX to `index.tsx` - always create a new file in `components/` and import it. Shared types live in `types.ts`, shared helpers in `utils/`.
 
 ### External Dependencies
 -   **4geeks Breathecode API**: For user authentication, profile management, and educational content delivery.

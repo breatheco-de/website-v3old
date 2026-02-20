@@ -66,21 +66,21 @@ import { useToast } from "@/hooks/use-toast";
 import { useDebugAuth, getDebugToken, getDebugUserName } from "@/hooks/useDebugAuth";
 import { locations } from "@/lib/locations";
 import { normalizeLocale } from "@shared/locale";
-import { LocaleFlag } from "@/components/DebugBubble/components/LocaleFlag";
+import { LocaleFlag } from "./components/LocaleFlag";
 import { useQuery } from "@tanstack/react-query";
-import { MenusView } from "@/components/DebugBubble/components/MenusView";
-import { ComponentsView } from "@/components/DebugBubble/components/ComponentsView";
-import { ExperimentsView } from "@/components/DebugBubble/components/ExperimentsView";
-import { SitemapView } from "@/components/DebugBubble/components/SitemapView";
-import { LocationOverrideModal } from "@/components/DebugBubble/components/LocationOverrideModal";
-import { SessionModal } from "@/components/DebugBubble/components/SessionModal";
-import { SyncModal } from "@/components/DebugBubble/components/SyncModal";
-import { PullConflictModal } from "@/components/DebugBubble/components/PullConflictModal";
-import { ConfirmPullFileModal } from "@/components/DebugBubble/components/ConfirmPullFileModal";
-import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
-import { CreateContentModal } from "@/components/DebugBubble/components/CreateContentModal";
-import { PageErrorsModal } from "@/components/DebugBubble/components/PageErrorsModal";
-import { SeoModal } from "@/components/DebugBubble/components/SeoModal";
+import { MenusView } from "./components/MenusView";
+import { ComponentsView } from "./components/ComponentsView";
+import { ExperimentsView } from "./components/ExperimentsView";
+import { SitemapView } from "./components/SitemapView";
+import { LocationOverrideModal } from "./components/LocationOverrideModal";
+import { SessionModal } from "./components/SessionModal";
+import { SyncModal } from "./components/SyncModal";
+import { PullConflictModal } from "./components/PullConflictModal";
+import { ConfirmPullFileModal } from "./components/ConfirmPullFileModal";
+import { DeletePageModal } from "./components/DeletePageModal";
+import { CreateContentModal } from "./components/CreateContentModal";
+import { PageErrorsModal } from "./components/PageErrorsModal";
+import { SeoModal } from "./components/SeoModal";
 const componentIconMap: Record<string, typeof IconComponents> = {
   hero: IconRocket,
   two_column: IconLayoutColumns,
@@ -2657,6 +2657,10 @@ export function DebugBubble() {
         handleSlugRenameClick={handleSlugRenameClick}
         handleSlugRename={handleSlugRename}
         currentLocaleSlug={currentLocaleSlug}
+        setSlugCheckStatus={setSlugCheckStatus}
+        setSlugCheckReason={setSlugCheckReason}
+        slugCheckReason={slugCheckReason}
+        setSlugRedirectPrompt={setSlugRedirectPrompt}
       />
     </div>
   );
