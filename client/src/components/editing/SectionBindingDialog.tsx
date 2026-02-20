@@ -134,6 +134,10 @@ export function SectionBindingDialog({
     return candidates.filter(c => candidateKey(c) !== currentKey);
   }, [candidates, currentKey]);
 
+  const selectableCandidates = useMemo(() => {
+    return availableCandidates.filter(c => !c.alreadyBound);
+  }, [availableCandidates]);
+
   const filteredCandidates = useMemo(() => {
     return availableCandidates
       .filter(c => {
@@ -832,6 +836,15 @@ export function SectionBindingDialog({
                   A binding group requires at least two sections with the same component. Add this component to another page first.
                 </p>
               </div>
+            ) : selectableCandidates.length === 0 ? (
+              <div className="text-center py-8 px-4" data-testid="text-all-bound">
+                <p className="text-sm text-muted-foreground">
+                  All other <Badge variant="outline" className="mx-1 text-xs">{component}</Badge> sections are already bound to existing groups.
+                </p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  You can join one of those groups from the "Join existing group" tab instead.
+                </p>
+              </div>
             ) : (
               <>
                 <div className="relative">
@@ -902,7 +915,7 @@ export function SectionBindingDialog({
           </>
         )}
 
-        {!existingGroup && (unboundTab === "create" || matchingGroups.length === 0) && availableCandidates.length > 0 && (
+        {!existingGroup && (unboundTab === "create" || matchingGroups.length === 0) && selectableCandidates.length > 0 && (
           <DialogFooter>
             <Button
               variant="outline"
