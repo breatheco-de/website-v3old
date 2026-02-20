@@ -152,7 +152,7 @@ sections:
     variant: stats-text
     title: La Falta de Especialistas en Ciberseguridad es tu Oportunidad
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
-    description: Con una brecha global significativa de talento e inversiones récord en defensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.
+    description: Con una brecha global significativa de talento e inversiones récord en ciberdefensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.
     background: bg-muted/30
     items:
       - id: "1"
@@ -162,7 +162,7 @@ sections:
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
       - id: "3"
-        value: $520B
+        value: 442.000 M€
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules
