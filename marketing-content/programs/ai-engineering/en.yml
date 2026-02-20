@@ -75,6 +75,34 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Download the curriculum
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Download
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: true
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -117,34 +145,6 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
-  - type: modal
-    version: "1.0"
-    section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Download
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: true
-          default: ai-engineering
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
   - type: features_grid
     version: "1.0"
     variant: stats-text
@@ -292,7 +292,7 @@ sections:
           - Real-time communication layer
           - Agents with tool calling
         projects: Your fully operational AI-first business system deployed end‑to‑end.
-        orientation: vertical
+        orientation: horizontal
         icon: IconCode
     marginY:
       desktop: md none
