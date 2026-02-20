@@ -36,11 +36,11 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: 1395 Brickell Ave
         addressLocality: Miami
         addressRegion: FL
-        postalCode: '33131'
+        postalCode: "33131"
         addressCountry: US
 meta:
   page_title: 4Geeks Academy Miami | Coding Bootcamp in Florida
@@ -54,17 +54,17 @@ meta:
     - /us/coding-campus/coding-bootcamp-miami
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Miami
     subtitle: Train for today’s most in-demand tech roles, including AI Engineering, in one of the country’s fastest-growing tech hubs and home to our global headquarters. Learn online or in person with live instruction, hands-on projects, and personalized career support built for real hiring.
     badge: Miami Campus
     cta_buttons:
       - text: Apply Now
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
       - text: Download Syllabus
-        url: '#syllabus-modal'
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -72,7 +72,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: syllabus-modal
     heading: Start Your Application
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -140,7 +140,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -168,20 +168,35 @@ sections:
         url: https://youtu.be/4n-ZAUPIxJI
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
-    variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    version: "1.0"
+    variant: solid
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
     courses:
-      - name: Full Stack Development
-        duration: 9 months part-time
-        label: Updated in 2025
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
         title: Full Stack Software Development
         badges:
           - icon: Code
@@ -189,44 +204,48 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: {{ price_fullstack | $299 }}
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/full-stack
-        course_background: hsl(var(--primary) / 0.4)
-      - name: AI and Machine Learning
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Data Science and Machine Learning
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
         badges:
-          - icon: Brain
-            text: LLMs & Generative AI training
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: {{ price_datascience | 299$ }}
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/ai-machine-learning
-        course_background: accent
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: 9 months part-time
-        label: Updated in 2025
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
         title: Cybersecurity
         badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: {{ price_cybersecurity | 299$ }}
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/cybersecurity
-        course_background: hsl(var(--color-pink))
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    background: hsl(var(--muted))
+    marginY:
+      desktop: lg
+    paddingY:
+      desktop: md lg
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
@@ -266,7 +285,7 @@ sections:
     variant: laptop-edge
     title: Why Miami Is a Smart Place to Launch Your Tech Career
     subtitle: A fast-growing tech ecosystem with real hiring momentum
-    description: 'Miami is one of the fastest-growing tech hubs in the U.S., with companies actively hiring across software, AI, and data roles. It’s a market with real demand for technical talent.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Miami ranks 4th in the U.S. for tech job growth, signaling strong and sustained hiring demand&nbsp;&nbsp;</span></li><li>Recognized among the top 30 global startup ecosystems, with rapid growth in venture capital and company relocations&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, healthcare, logistics, and emerging tech sectors&nbsp;&nbsp;</li></ul></div><div>Located in Brickell, our Miami campus connects you with local employers, hiring partners, and tech events, so you build relationships that support your entry and&nbsp; long-term growth in tech.</div></div>'
+    description: "Miami is one of the fastest-growing tech hubs in the U.S., with companies actively hiring across software, AI, and data roles. It’s a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ranks 4th in the U.S. for tech job growth, signaling strong and sustained hiring demand&nbsp;&nbsp;</span></li><li>Recognized among the top 30 global startup ecosystems, with rapid growth in venture capital and company relocations&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, healthcare, logistics, and emerging tech sectors&nbsp;&nbsp;</li></ul></div><div>Located in Brickell, our Miami campus connects you with local employers, hiring partners, and tech events, so you build relationships that support your entry and&nbsp; long-term growth in tech.</div></div>"
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -296,7 +315,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Miami Graduate Success Stories
     filter_by_location: miami-usa
     marginY:
@@ -356,7 +375,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Start Your Tech Career in Miami?
     subtitle: Join our next cohort and transform your future.
     cta_text: Apply Now
