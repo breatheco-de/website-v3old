@@ -381,8 +381,8 @@ export function SyncModal({
                                 }`}>
                                   {change.source === 'conflict' ? 'Conflict' : change.source === 'incoming' ? 'Incoming' : 'Local'}
                                 </span>
-                                <span className="text-xs text-muted-foreground">
-                                  {change.author || ''}
+                                <span className="text-xs text-muted-foreground italic">
+                                  {change.author || 'Unknown author'}
                                 </span>
                                 {change.date && (
                                   <span className="text-xs text-muted-foreground">
