@@ -377,10 +377,10 @@ sections:
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "AI Software Engineer: $20K–$30K"
-          - text: "AI Full-Stack Engineer: $25K–$40K"
-          - text: Agent / Workflow Automation Engineer:$25K–$50K
-          - text: "AI Integration Specialist (RAG, APIs, vector DBs): $25K–$50K"
+          - text: AI Engineer 22.000€ - 30.000€
+          - text: AI-Accelerated Frontend Engineer 22.000€ - 30.000€
+          - text: Agent / Workflow Automation Engineer 22.000€ - 35.000€
+          - text: AI Integration Specialist 22.000€ - 35.000€
       - value: 500+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
