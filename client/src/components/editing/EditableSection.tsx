@@ -539,7 +539,7 @@ export function EditableSection({ children, section, index, sectionType, content
           onClick={(e) => { e.stopPropagation(); setBindingDialogOpen(true); }}
           className={`p-2 rounded-md shadow-lg hover-elevate flex items-center gap-1 ${
             isBound
-              ? "bg-foreground text-background"
+              ? "bg-muted text-yellow-600 dark:text-yellow-500 animate-[binding-pulse_2s_ease-in-out_infinite]"
               : "bg-muted text-muted-foreground"
           }`}
           data-testid={`button-binding-indicator-${index}`}
