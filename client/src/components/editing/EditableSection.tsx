@@ -530,9 +530,7 @@ export function EditableSection({ children, section, index, sectionType, content
           <IconPencil className="h-4 w-4" />
           <div className="flex flex-col items-start">
             <span className="text-xs font-medium">{sectionType}</span>
-            {(currentSection as { variant?: string }).variant && (
-              <small className="text-[10px] opacity-75">{deslugify((currentSection as { variant?: string }).variant!)}</small>
-            )}
+            <small className="text-[10px] opacity-75">{deslugify((currentSection as { variant?: string }).variant || "default")}</small>
           </div>
         </button>
         <button
