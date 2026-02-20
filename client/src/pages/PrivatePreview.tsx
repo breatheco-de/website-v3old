@@ -1,4 +1,4 @@
-import { useCallback, useState, lazy, Suspense } from "react";
+import { useCallback, useState, useEffect, lazy, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
@@ -77,6 +77,19 @@ export default function PrivatePreview() {
   const handleRefetch = useCallback(() => {
     refetch();
   }, [refetch]);
+
+  useEffect(() => {
+    if (!content || isLoading) return;
+    const hash = window.location.hash;
+    if (!hash) return;
+    const id = hash.slice(1);
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }, [content, isLoading]);
 
   useContentAutoRefresh(
     config?.singular as "program" | "landing" | "location" | "page",
