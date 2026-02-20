@@ -11,7 +11,6 @@ import {
   IconMap,
   IconMapPin,
   IconPencil,
-  IconPencilOff,
   IconComponents,
   IconLanguage,
   IconRoute,
@@ -68,6 +67,23 @@ import { locations } from "@/lib/locations";
 import { normalizeLocale } from "@shared/locale";
 import { LocaleFlag } from "./components/LocaleFlag";
 import { useQuery } from "@tanstack/react-query";
+import {
+  STORAGE_KEY,
+  type MenuView,
+  type SitemapUrl,
+  type RedirectItem,
+  type ExperimentVariant,
+  type ExperimentConfig,
+  type ExperimentsResponse,
+  type GitHubSyncStatus,
+  type PendingChange,
+  type ContentInfo,
+  type MenuFileItem,
+  type MenuData,
+  type MenuItemProps,
+  type ExpandableMenuItemProps,
+} from "./types";
+import { deslugify, detectContentInfo, getPersistedMenuView } from "./utils/debugHelpers";
 import { MenusView } from "./components/MenusView";
 import { ComponentsView } from "./components/ComponentsView";
 import { ExperimentsView } from "./components/ExperimentsView";
@@ -126,190 +142,6 @@ const componentIconMap: Record<string, typeof IconComponents> = {
   bullet_tabs_showcase: IconSparkles,
   geeks_vs_others_comparison: IconTable,
 };
-type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus";
-
-const STORAGE_KEY = "debug-bubble-menu-view";
-
-interface SitemapUrl {
-  loc: string;
-  label: string;
-}
-
-interface RedirectItem {
-  from: string;
-  to: string;
-  type: string;
-}
-
-interface ExperimentVariant {
-  slug: string;
-  version: number;
-  allocation: number;
-}
-
-interface ExperimentConfig {
-  slug: string;
-  status: "planned" | "active" | "paused" | "winner" | "archived";
-  description?: string;
-  variants: ExperimentVariant[];
-  targeting?: Record<string, unknown>;
-  max_visitors?: number;
-  stats?: Record<string, number>;
-}
-
-interface ExperimentsResponse {
-  experiments: ExperimentConfig[];
-  hasExperimentsFile: boolean;
-  filePath: string;
-}
-
-interface GitHubSyncStatus {
-  configured: boolean;
-  syncEnabled: boolean;
-  localCommit: string | null;
-  remoteCommit: string | null;
-  status: 'in-sync' | 'behind' | 'ahead' | 'diverged' | 'unknown' | 'not-configured' | 'invalid-credentials';
-  behindBy?: number;
-  aheadBy?: number;
-  repoUrl?: string;
-  branch?: string;
-}
-
-interface PendingChange {
-  file: string;
-  status: 'modified' | 'added' | 'deleted';
-  source: 'local' | 'incoming' | 'conflict';
-  contentType: string;
-  slug: string;
-  author?: string;
-  date?: string;
-  commitSha?: string;
-}
-
-interface ContentInfo {
-  type: "program" | "page" | "landing" | "location" | null;
-  slug: string | null;
-  label: string;
-}
-
-// De-slugify a string (e.g., "hero-messaging-test" -> "Hero Messaging Test")
-function deslugify(slug: string): string {
-  return slug
-    .split("-")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-// Detect content type and slug from URL path
-function detectContentInfo(pathname: string): ContentInfo {
-  const typeLabels: Record<string, string> = {
-    program: "Program",
-    page: "Page",
-    landing: "Landing",
-    location: "Location",
-  };
-
-  const toSingular: Record<string, string> = { programs: "program", pages: "page", landings: "landing", locations: "location" };
-
-  // Private preview route: /private/preview/:contentType/:slug
-  const previewMatch = pathname.match(/^\/private\/preview\/(program|page|landing|location|programs|pages|landings|locations)\/([^/]+)\/?$/);
-  if (previewMatch) {
-    const normalizedType = (toSingular[previewMatch[1]] || previewMatch[1]) as ContentInfo["type"];
-    return { 
-      type: normalizedType, 
-      slug: previewMatch[2], 
-      label: typeLabels[normalizedType!] || "Content" 
-    };
-  }
-
-  // Private experiment editor: /private/:contentType/:contentSlug/experiment/:experimentSlug
-  const experimentMatch = pathname.match(/^\/private\/(program|page|landing|location|programs|pages|landings|locations)\/([^/]+)\/experiment\/[^/]+\/?$/);
-  if (experimentMatch) {
-    const normalizedType = (toSingular[experimentMatch[1]] || experimentMatch[1]) as ContentInfo["type"];
-    return { 
-      type: normalizedType, 
-      slug: experimentMatch[2], 
-      label: typeLabels[normalizedType!] || "Content" 
-    };
-  }
-
-  // Programs: /en/career-programs/:slug or /es/programas-de-carrera/:slug
-  const programEnMatch = pathname.match(/^\/en\/career-programs\/([^/]+)\/?$/);
-  if (programEnMatch) {
-    return { type: "program", slug: programEnMatch[1], label: "Program" };
-  }
-  const programEsMatch = pathname.match(/^\/es\/programas-de-carrera\/([^/]+)\/?$/);
-  if (programEsMatch) {
-    return { type: "program", slug: programEsMatch[1], label: "Program" };
-  }
-
-  // Landings: /landing/:slug
-  const landingMatch = pathname.match(/^\/landing\/([^/]+)\/?$/);
-  if (landingMatch) {
-    return { type: "landing", slug: landingMatch[1], label: "Landing" };
-  }
-
-  // Locations: /en/location/:slug or /es/ubicacion/:slug
-  const locationEnMatch = pathname.match(/^\/en\/location\/([^/]+)\/?$/);
-  if (locationEnMatch) {
-    return { type: "location", slug: locationEnMatch[1], label: "Location" };
-  }
-  const locationEsMatch = pathname.match(/^\/es\/ubicacion\/([^/]+)\/?$/);
-  if (locationEsMatch) {
-    return { type: "location", slug: locationEsMatch[1], label: "Location" };
-  }
-
-  // Template pages: /en/:slug or /es/:slug (catch-all for pages)
-  const pageEnMatch = pathname.match(/^\/en\/([^/]+)\/?$/);
-  if (pageEnMatch && !["career-programs", "location"].includes(pageEnMatch[1])) {
-    return { type: "page", slug: pageEnMatch[1], label: "Page" };
-  }
-  const pageEsMatch = pathname.match(/^\/es\/([^/]+)\/?$/);
-  if (pageEsMatch && !["programas-de-carrera", "ubicacion"].includes(pageEsMatch[1])) {
-    return { type: "page", slug: pageEsMatch[1], label: "Page" };
-  }
-
-  return { type: null, slug: null, label: "" };
-}
-
-// Get persisted menu view from sessionStorage
-const getPersistedMenuView = (): MenuView => {
-  if (typeof window !== "undefined") {
-    const stored = sessionStorage.getItem(STORAGE_KEY);
-    if (stored === "main" || stored === "components" || stored === "sitemap" || stored === "experiments" || stored === "menus") {
-      return stored;
-    }
-  }
-  return "main";
-};
-
-interface MenuFileItem {
-  name: string;
-  file: string;
-}
-
-interface MenuData {
-  navbar?: {
-    items?: Array<{
-      label: string;
-      href: string;
-      component: string;
-      dropdown?: unknown;
-    }>;
-  };
-}
-
-interface MenuItemProps {
-  icon: typeof IconComponents;
-  label: string;
-  onClick?: () => void;
-  href?: string;
-  testId: string;
-  rightContent?: React.ReactNode;
-  indicator?: "chevron" | "arrow" | "none";
-  disabled?: boolean;
-  className?: string;
-}
 
 function MenuItem({ icon: Icon, label, onClick, href, testId, rightContent, indicator = "none", disabled, className }: MenuItemProps) {
   const hasRightSide = rightContent || indicator !== "none";
@@ -344,16 +176,6 @@ function MenuItem({ icon: Icon, label, onClick, href, testId, rightContent, indi
     return <button onClick={onClick} className={combinedClass} data-testid={testId}>{content}</button>;
   }
   return <div className={combinedClass} data-testid={testId}>{content}</div>;
-}
-
-interface ExpandableMenuItemProps {
-  icon: typeof IconComponents;
-  label: string;
-  expanded: boolean;
-  onToggle: () => void;
-  testId: string;
-  actions?: React.ReactNode;
-  children: React.ReactNode;
 }
 
 function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, actions, children }: ExpandableMenuItemProps) {
