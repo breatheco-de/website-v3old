@@ -1,0 +1,16 @@
+# Common properties for AI Engineering Landing (English)
+slug: "ai-engineering-coding-florida"
+title: "ai-engineering-coding-florida"
+locale: "en"
+
+meta:
+  robots: "index, follow"
+  og_image: "/images/programs/ai-engineering-og.jpg"
+  priority: 0.9
+  change_frequency: "weekly"
+
+schema:
+  include:
+    - "organization"
+    - "website"
+    - "courses:ai-engineering"

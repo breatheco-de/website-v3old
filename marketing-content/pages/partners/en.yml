@@ -77,6 +77,24 @@ sections:
     background: hsl(var(--muted))
     marginY:
       desktop: none md
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: Impact in Numbers
+    subtitle: Over $20M in scholarships and grants awarded
+    description: 4Geeks Academy partners empower thousands of students worldwide with access to tech education, hands-on mentorship, and career opportunities that drive real results.
+    background: hsl(210 100% 50% / 0.05)
+    items:
+      - value: 84%
+        title: Job placement rate within 6 months of graduation
+      - value: 5K+
+        title: Hiring partners
+      - value: 6K+
+        title: Students supported worldwide
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
@@ -282,12 +300,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to be a Partner?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: Let’s build scalable pathways to high-growth tech careers together.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Start the Conversation
       tags: contact_us
       automations: soft
       fields:
@@ -303,6 +321,10 @@ sections:
           visible: true
           required: false
           placeholder: Phone number
+        client_comments:
+          visible: true
+          required: true
+          placeholder: Comments
       success:
         message: Thank you! We'll be in touch soon.
       consent:

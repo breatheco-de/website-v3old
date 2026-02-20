@@ -31,7 +31,7 @@ sections:
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar ahora }}
-        url: /apply
+        url: "#bottom"
         variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
@@ -44,13 +44,14 @@ sections:
     heading: Resultados que respaldan nuestra Garantía
     subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números reflejan las contrataciones reales de nuestros graduados."
     stats:
-      - value: "84"
+      - value: {{ global_job_placement_rate | 84 }}
         unit: "%"
         label: Tasa promedio de colocación laboral
       - value: 3-6
         unit: meses
         label: Tiempo promedio para conseguir empleo
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}
+        unit: "%"
         label: Aumento salarial después de graduarte
     collage_images:
       - image_id: graduates_team_1
@@ -90,7 +91,7 @@ sections:
       desktop: none
   - type: course_selector
     version: "1.0"
-    variant: default
+    variant: solid
     heading: Programas de Carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
@@ -103,6 +104,9 @@ sections:
           - icon: DollarSign
             text: APIs, automatización y telemetría
         description: Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo de IA listos para producción.
+        price: $2000
+        price_period: " "
+        price_info: Para agregar la garantía de empleo
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -117,10 +121,85 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
+        price: $2000
+        price_period: " "
+        price_info: Para agregar la garantía de empleo
+        cta_text: Ver programa
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Ciencia de Datos & Machine Learning
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning
+        badges:
+          - icon: Brain
+            text: Python, TensorFlow y SQL
+        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning utilizadas por equipos modernos de datos.
+        price: $2000
+        price_period: " "
+        price_info: Para agregar la garantía de empleo
+        cta_text: Ver programa
+        cta_url: /en/career-programs/ai-machine-learning
+        course_background: hsl(var(--primary))
+      - name: Ciberseguridad
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
+        badges:
+          - icon: Code
+            text: Detección de amenazas y protección de sistemas
+        description: Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
+        price: $2000
+        price_period: " "
+        price_info: Para agregar la garantía de empleo
+        cta_text: Ver programa
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Programas de Carrera con Garantía de Empleo
+    subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
+    courses:
+      - name: Ingeniería en IA
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería en Inteligencia Artificial
+        badges:
+          - icon: DollarSign
+            text: APIs, automatización y telemetría
+        description: Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo de IA listos para producción.
+        cta_text: Ver programa
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Desarollo Full Stack con IA
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo Full Stack con IA
+        badges:
+          - icon: Code
+            text: React, Node.js y Python
+        tags:
+          - icon: Plus
+            text: Desarrollo de APIs
+        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
         price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/full-stack
-        course_background: primary
+        course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
         duration: 16 semanas
         label: Actualizado en 2026
@@ -132,7 +211,7 @@ sections:
         price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-machine-learning
-        course_background: accent
+        course_background: hsl(var(--primary))
       - name: Ciberseguridad
         duration: 16 semanas
         label: Actualizado en 2026
@@ -144,7 +223,30 @@ sections:
         price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--color-pink))
+        course_background: hsl(var(--secondary-foreground))
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - valencia-spain
+      - rome-italy
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
@@ -206,10 +308,44 @@ sections:
       desktop: none
     marginY:
       desktop: lg none
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
-    paddingY:
-      desktop: md 10px
+  - type: cta_banner
+    version: "1.0"
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Aplica ahora para asegurar tu cupo y recibir todos los detalles del programa.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
     marginY:
-      desktop: none
+      desktop: lg none
+    paddingY:
+      desktop: md

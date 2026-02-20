@@ -64,7 +64,7 @@ sections:
         variant: primary
       login_link:
         text: Already a student? Login here.
-        url: https://4geeks.com/es/login
+        url: https://4geeks.com/login
       features:
         - icon: IconCalendar
           text: 20-Week Track
@@ -72,11 +72,10 @@ sections:
           text: 12-Week Accelerated Morning Track
         - icon: code
           text: Interactive Coding Exercises
-          count: 100+
         - icon: robot
           text: AI-Powered Feedback
         - icon: calendar
-          text: 1:7 teacher Student Ratio
+          text: {{ global_teacher_student_ratio | 1:7 }} teacher Student Ratio
         - icon: users
           text: 1:1 Mentorship
     paddingY:
@@ -161,7 +160,7 @@ sections:
     description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
       text: Get More Info
-      url: /job-guarantee
+      url: /en/job-guarantee
       variant: primary
     marginY:
       desktop: md
@@ -320,14 +319,14 @@ sections:
     benefits:
       - text: "AI Software Engineer: {{ average_salary_fullstack | $95K–$135K }}"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
+      - text: "Agent Engineer: $105K–$150K"
       - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
         benefits:
@@ -342,15 +341,15 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Average Salary Increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
           - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer | {{ average_salary_backend_services_developer | $100K–$150K }} }}"
+          - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer }}"
           - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: $100K–$150K"
-      - value: 5,000+
+          - text: "Backend Services Developer: {{ average_salary_backend_services_developer | $100K–$150K }} "
+      - value: 500+
         label: Hiring partners
         description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
@@ -403,6 +402,77 @@ sections:
       desktop: none md
     paddingY:
       desktop: none md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Tuition and Financing Options
+    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
+    discount_text: "Full Payment Discount: Save 10% with early payment."
+    financing_text: Installment financing starting from
+    financing_amount: {{ price_fullstack | $299 }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    static_icons: true
+    features_title: Choose the option that fits you best.
+    features:
+      - icon: IconCheck
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
+      - icon: IconCheck
+        text: Finance your tuition through our partners with plans ranging from 6 to 24 months.
+      - icon: IconCheck
+        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+      - icon: IconCheck
+        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
+    cta:
+      text: Get More Information
+      url: /es/apply
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - barcelona-spain
+      - madrid-spain
+      - malaga-spain
+      - valencia-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - milan-italy
+      - munich-germany
+      - rome-italy
   - type: whos_hiring
     variant: carousel
     title: Top Companies Hiring Our Graduates
@@ -436,7 +506,7 @@ sections:
       desktop: none
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: 4,000+ graduates and 1,000+ verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global_total_alumni | 4,000 }}+ graduates and {{ global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
       count: {{ global_review_count | 1,294 }}
@@ -497,8 +567,8 @@ sections:
     form:
       variant: stacked
       submit_label: Apply Now
-      automations: hard
       tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true

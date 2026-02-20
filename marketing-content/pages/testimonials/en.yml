@@ -21,9 +21,9 @@ sections:
     subtitle: Our graduates share how they built in-demand skills, gained confidence, and launched new careers in tech with the support of the 4Geeks community.
     badge: Student Testimonials & Career Outcomes
     trust_bar:
-      rating: 4.9/5
+      rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 2,500+
-      trusted_text: Trusted by 10,000+ students
+      trusted_text: Trusted by {{ global_total_alumni | 10,000 }}+ students
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
@@ -97,15 +97,14 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      tags: website-lead
-      automations: hard
+      submit_label: Get the details
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -122,7 +121,6 @@ sections:
         program:
           visible: true
           required: true
-          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:

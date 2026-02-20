@@ -47,7 +47,12 @@ import {
 } from "./component-registry";
 import { editContent, getContentForEdit } from "./content-editor";
 import { bindingManager } from "./bindings";
-import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
+import {
+  escapeTemplateVars,
+  escapeObjectVars,
+  unescapeObjectVars,
+  unescapeYamlDump,
+} from "@shared/templateVars";
 import {
   getExperimentManager,
   getOrCreateSessionId,
@@ -64,14 +69,43 @@ import {
   loadCommonData,
   type ContentType,
 } from "./utils/contentLoader";
-import { getFolder, getType, isValidType, getAllTypes, getAllFolders, getAllConfigs } from "./content-types";
+import {
+  getFolder,
+  getType,
+  isValidType,
+  getAllTypes,
+  getAllFolders,
+  getAllConfigs,
+} from "./content-types";
 import { normalizeLocale } from "@shared/locale";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
-import { generateSsrSchemaHtml, clearSsrSchemaCache, loadRawYaml, resolveFaqItems, buildFaqPageSchema, type FaqSection } from "./ssr-schema";
-import { getBlogPosts, getBlogPostsByLocale, findBlogPostBySlug, clearBlogCache, getBlogCacheStatus, getBlogConfig, saveBlogConfig, clearConfigCache, parseBlogRoute, generateBlogSsrHtml, generateBlogListingSsrHtml, fetchMarkdownContent, clearMarkdownCache, clearMarkdownCacheByUrl } from "./blog";
+import {
+  generateSsrSchemaHtml,
+  clearSsrSchemaCache,
+  loadRawYaml,
+  resolveFaqItems,
+  buildFaqPageSchema,
+  type FaqSection,
+} from "./ssr-schema";
+import {
+  getBlogPosts,
+  getBlogPostsByLocale,
+  findBlogPostBySlug,
+  clearBlogCache,
+  getBlogCacheStatus,
+  getBlogConfig,
+  saveBlogConfig,
+  clearConfigCache,
+  parseBlogRoute,
+  generateBlogSsrHtml,
+  generateBlogListingSsrHtml,
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "./blog";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -87,7 +121,6 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const dumped = yaml.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
-
 
 // Schema for career-programs listing page (custom page type)
 const careerProgramsListingSchema = z.object({
@@ -113,15 +146,17 @@ const careerProgramsListingSchema = z.object({
     difficulty_advanced: z.string(),
     no_results: z.string(),
   }),
-  courses: z.array(z.object({
-    id: z.string(),
-    title: z.string(),
-    description: z.string(),
-    duration: z.string(),
-    difficulty: z.string(),
-    lessons: z.number(),
-    link: z.string().optional(),
-  })),
+  courses: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
+      duration: z.string(),
+      difficulty: z.string(),
+      lessons: z.number(),
+      link: z.string().optional(),
+    }),
+  ),
 });
 
 function loadCareerProgramsListing(locale: string) {
@@ -131,12 +166,12 @@ function loadCareerProgramsListing(locale: string) {
     schema: careerProgramsListingSchema,
     localeOrVariant: locale,
   });
-  
+
   if (!result.success) {
     console.error(result.error);
     return null;
   }
-  
+
   return result.data;
 }
 
@@ -228,9 +263,7 @@ function loadLocationPage(slug: string, locale: string): LocationPage | null {
   return result.data;
 }
 
-function listLocationPages(
-  locale: string,
-): Array<{
+function listLocationPages(locale: string): Array<{
   slug: string;
   name: string;
   city: string;
@@ -311,15 +344,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   mediaGallery.setContentIndex(contentIndex);
 
   const { loadSyncStateFromBucket } = await import("./sync-state");
-  loadSyncStateFromBucket().catch(err => {
+  loadSyncStateFromBucket().catch((err) => {
     console.error("[SyncState] Failed to load from bucket on startup:", err);
+  });
+
+  app.get("/api/geo", async (req, res) => {
+    try {
+      const forwarded = req.headers["x-forwarded-for"];
+      const clientIp =
+        typeof forwarded === "string"
+          ? forwarded.split(",")[0].trim()
+          : req.socket.remoteAddress || "";
+
+      const url =
+        clientIp && clientIp !== "127.0.0.1" && clientIp !== "::1"
+          ? `http://ip-api.com/json/${clientIp}?fields=status,city,country,countryCode,regionName,timezone,lat,lon`
+          : `http://ip-api.com/json/?fields=status,city,country,countryCode,regionName,timezone,lat,lon`;
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        res.status(502).json({ status: "fail" });
+        return;
+      }
+      const data = await response.json();
+      res.json(data);
+    } catch {
+      res.status(502).json({ status: "fail" });
+    }
   });
 
   app.get("/apply", (req, res) => {
     const lang = detectLanguageFromRequest(req);
     const target = lang === "es" ? "/es/aplica" : "/en/apply";
     const qs = Object.keys(req.query).length
-      ? "?" + new URLSearchParams(req.query as Record<string, string>).toString()
+      ? "?" +
+        new URLSearchParams(req.query as Record<string, string>).toString()
       : "";
     res.redirect(302, target + qs);
   });
@@ -344,7 +407,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { method: "GET" },
         );
         if (tokenInfoResponse.ok) {
-          const tokenInfo = await tokenInfoResponse.json() as { expires_at?: string };
+          const tokenInfo = (await tokenInfoResponse.json()) as {
+            expires_at?: string;
+          };
           expiresAt = tokenInfo.expires_at || null;
         }
       } catch {
@@ -378,7 +443,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
         );
         if (userResponse.ok) {
-          const userData = await userResponse.json() as { first_name?: string; last_name?: string };
+          const userData = (await userResponse.json()) as {
+            first_name?: string;
+            last_name?: string;
+          };
           const firstName = userData.first_name || "";
           const lastName = userData.last_name || "";
           userName = `${firstName} ${lastName}`.trim();
@@ -429,7 +497,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (networkError) {
         // Network error - don't invalidate session, return error status
         console.error("Network error checking session:", networkError);
-        res.json({ valid: false, networkError: true, error: "Network error checking token" });
+        res.json({
+          valid: false,
+          networkError: true,
+          error: "Network error checking token",
+        });
         return;
       }
 
@@ -439,7 +511,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const tokenInfo = await tokenInfoResponse.json() as { 
+      const tokenInfo = (await tokenInfoResponse.json()) as {
         token?: string;
         token_type?: string;
         expires_at?: string;
@@ -450,20 +522,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (tokenInfo.expires_at) {
         const expiresAt = new Date(tokenInfo.expires_at);
         if (expiresAt <= new Date()) {
-          res.json({ valid: false, expired: true, expiresAt: tokenInfo.expires_at });
+          res.json({
+            valid: false,
+            expired: true,
+            expiresAt: tokenInfo.expires_at,
+          });
           return;
         }
       }
 
-      res.json({ 
-        valid: true, 
-        expired: false, 
-        expiresAt: tokenInfo.expires_at || null 
+      res.json({
+        valid: true,
+        expired: false,
+        expiresAt: tokenInfo.expires_at || null,
       });
     } catch (error) {
       console.error("Session check error:", error);
       // Unknown error - don't invalidate session
-      res.json({ valid: false, networkError: true, error: "Failed to check session" });
+      res.json({
+        valid: false,
+        networkError: true,
+        error: "Failed to check session",
+      });
+    }
+  });
+
+  app.get("/api/geo", async (req, res) => {
+    try {
+      const apiKey = process.env.IPAPI_PRO_KEY;
+      const forwarded = (req.headers["x-forwarded-for"] as string)
+        ?.split(",")[0]
+        ?.trim();
+      const rawIp = forwarded || req.ip || "";
+      const isLocal =
+        !rawIp ||
+        rawIp === "127.0.0.1" ||
+        rawIp === "::1" ||
+        rawIp === "::ffff:127.0.0.1";
+      const ipSegment = isLocal ? "" : `/${rawIp}`;
+      const fields =
+        "status,city,country,countryCode,regionName,timezone,lat,lon";
+      const url = apiKey
+        ? `https://pro.ip-api.com/json${ipSegment}?key=${apiKey}&fields=${fields}`
+        : `http://ip-api.com/json${ipSegment}?fields=${fields}`;
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        res.status(502).json({ status: "fail" });
+        return;
+      }
+      const data = await response.json();
+      res.json(data);
+    } catch {
+      res.status(502).json({ status: "fail" });
     }
   });
 
@@ -488,12 +603,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (!secretKey) {
-        res
-          .status(500)
-          .json({
-            success: false,
-            error: "Turnstile secret key not configured",
-          });
+        res.status(500).json({
+          success: false,
+          error: "Turnstile secret key not configured",
+        });
         return;
       }
 
@@ -535,7 +648,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const themePath = path.join(
         process.cwd(),
         "marketing-content",
-        "theme.json"
+        "theme.json",
       );
       if (!fs.existsSync(themePath)) {
         res.status(404).json({ error: "Theme configuration not found" });
@@ -574,17 +687,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
           break;
         }
         case "add_condition": {
-          const { condition } = body as { condition: { query: Record<string, string>; value: string } };
+          const { condition } = body as {
+            condition: { query: Record<string, string>; value: string };
+          };
           if (!condition || !condition.query || condition.value === undefined) {
-            return res.status(400).json({ error: "condition with query and value is required" });
+            return res
+              .status(400)
+              .json({ error: "condition with query and value is required" });
           }
           variableManager.addCondition(name, condition);
           break;
         }
         case "update_condition": {
-          const { index, condition } = body as { index: number; condition: { query: Record<string, string>; value: string } };
-          if (index === undefined || !condition || !condition.query || condition.value === undefined) {
-            return res.status(400).json({ error: "index and condition with query and value are required" });
+          const { index, condition } = body as {
+            index: number;
+            condition: { query: Record<string, string>; value: string };
+          };
+          if (
+            index === undefined ||
+            !condition ||
+            !condition.query ||
+            condition.value === undefined
+          ) {
+            return res
+              .status(400)
+              .json({
+                error: "index and condition with query and value are required",
+              });
           }
           variableManager.updateCondition(name, index, condition);
           break;
@@ -598,9 +727,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           break;
         }
         case "reorder_conditions": {
-          const { fromIndex, toIndex } = body as { fromIndex: number; toIndex: number };
+          const { fromIndex, toIndex } = body as {
+            fromIndex: number;
+            toIndex: number;
+          };
           if (fromIndex === undefined || toIndex === undefined) {
-            return res.status(400).json({ error: "fromIndex and toIndex are required" });
+            return res
+              .status(400)
+              .json({ error: "fromIndex and toIndex are required" });
           }
           variableManager.reorderConditions(name, fromIndex, toIndex);
           break;
@@ -609,9 +743,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(400).json({ error: `Unknown action: ${action}` });
       }
 
-      res.json({ success: true, definitions: variableManager.getDefinitions() });
+      res.json({
+        success: true,
+        definitions: variableManager.getDefinitions(),
+      });
     } catch (err: any) {
-      res.status(500).json({ error: err?.message || "Failed to update variable" });
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to update variable" });
     }
   });
 
@@ -622,32 +761,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       if (body.level) {
         const { level, key } = body as { level: string; key?: string };
-        const VALID_LEVELS = ["default", "by_locale", "by_region", "by_location"];
+        const VALID_LEVELS = [
+          "default",
+          "by_locale",
+          "by_region",
+          "by_location",
+        ];
         if (!level) {
           return res.status(400).json({ error: "level is required" });
         }
         if (!VALID_LEVELS.includes(level)) {
-          return res.status(400).json({ error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}` });
+          return res
+            .status(400)
+            .json({
+              error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}`,
+            });
         }
         if (level !== "default" && !key) {
-          return res.status(400).json({ error: "key is required for non-default levels" });
+          return res
+            .status(400)
+            .json({ error: "key is required for non-default levels" });
         }
         const result = variableManager.deleteVariableEntry(name, level, key);
         if (!result) {
           return res.status(404).json({ error: "Variable not found" });
         }
-        return res.json({ success: true, definitions: variableManager.getDefinitions() });
+        return res.json({
+          success: true,
+          definitions: variableManager.getDefinitions(),
+        });
       }
 
       const { action, index } = body as { action?: string; index?: number };
       if (action === "delete_condition" && index !== undefined) {
         variableManager.deleteCondition(name, index);
-        return res.json({ success: true, definitions: variableManager.getDefinitions() });
+        return res.json({
+          success: true,
+          definitions: variableManager.getDefinitions(),
+        });
       }
 
-      return res.status(400).json({ error: "level or action with index is required" });
+      return res
+        .status(400)
+        .json({ error: "level or action with index is required" });
     } catch (err: any) {
-      res.status(500).json({ error: err?.message || "Failed to delete variable entry" });
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to delete variable entry" });
     }
   });
 
@@ -657,7 +817,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const files = contentIndex.getVariableUsage(name);
       res.json({ variable: name, files });
     } catch (err: any) {
-      res.status(500).json({ error: err?.message || "Failed to get variable usage" });
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to get variable usage" });
     }
   });
 
@@ -672,7 +834,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const sanitized = newName.trim().replace(/\s+/g, "_").toLowerCase();
       if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(sanitized)) {
-        return res.status(400).json({ error: "Invalid variable name. Use letters, numbers, and underscores only." });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid variable name. Use letters, numbers, and underscores only.",
+          });
       }
 
       const affectedFiles = contentIndex.getVariableUsage(oldName);
@@ -707,7 +874,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         definitions: variableManager.getDefinitions(),
       });
     } catch (err: any) {
-      res.status(500).json({ error: err?.message || "Failed to rename variable" });
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to rename variable" });
     }
   });
 
@@ -873,8 +1042,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const landingLocations = (commonData?.locations as string[] | undefined) || undefined;
-    res.json({ ...landing, locale, landing_locations: landingLocations, _experiment: experimentInfo });
+    const landingLocations =
+      (commonData?.locations as string[] | undefined) || undefined;
+    res.json({
+      ...landing,
+      locale,
+      landing_locations: landingLocations,
+      _experiment: experimentInfo,
+    });
   });
 
   // Locations API
@@ -914,31 +1089,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Special handler for career-programs listing page (custom page type)
   app.get("/api/pages/career-programs", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
-    
+
     const page = loadCareerProgramsListing(locale);
-    
+
     if (!page) {
       res.status(404).json({ error: "Career programs listing page not found" });
       return;
     }
-    
+
     res.json(page);
   });
 
   // Special handler for apply page (includes programs and locations from _common.yml)
   app.get("/api/pages/apply", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
-    
+
     const page = loadTemplatePage("apply", locale);
-    
+
     if (!page) {
       res.status(404).json({ error: "Apply page not found" });
       return;
     }
-    
+
     // Load common data for programs and locations
     const commonData = loadCommonData("page", "apply");
-    
+
     res.json({
       ...page,
       programs: commonData?.programs || [],
@@ -949,14 +1124,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Apply form submission endpoint
   app.post("/api/apply", (req, res) => {
     try {
-      const { program, location, firstName, lastName, email, phone, consentMarketing, consentSms, locale } = req.body;
-      
+      const {
+        program,
+        location,
+        firstName,
+        lastName,
+        email,
+        phone,
+        consentMarketing,
+        consentSms,
+        locale,
+      } = req.body;
+
       // Validate required fields
-      if (!program || !location || !firstName || !lastName || !email || !phone) {
+      if (
+        !program ||
+        !location ||
+        !firstName ||
+        !lastName ||
+        !email ||
+        !phone
+      ) {
         res.status(400).json({ error: "Missing required fields" });
         return;
       }
-      
+
       // Log the application (in production, this would send to a CRM or database)
       console.log("New application received:", {
         program,
@@ -970,13 +1162,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         locale,
         timestamp: new Date().toISOString(),
       });
-      
+
       // In the future, this could:
       // 1. Send to Breathecode API
       // 2. Add to a CRM
       // 3. Send confirmation email
       // 4. Store in database
-      
+
       res.json({ success: true, message: "Application received" });
     } catch (error) {
       console.error("Error processing application:", error);
@@ -1031,13 +1223,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/sitemap-urls", (req, res) => {
     const locale = req.query.locale as string | undefined;
     const urls = getSitemapUrls();
-    
+
     if (locale) {
       const langPrefixes = ["/en/", "/es/", "/fr/", "/de/", "/pt/", "/it/"];
       const filteredUrls = urls.filter((entry) => {
         const path = entry.loc.replace(/^https?:\/\/[^/]+/, "");
         const matchesLocale = path.startsWith(`/${locale}/`);
-        const isNeutral = !langPrefixes.some((prefix) => path.startsWith(prefix));
+        const isNeutral = !langPrefixes.some((prefix) =>
+          path.startsWith(prefix),
+        );
         return matchesLocale || isNeutral;
       });
       res.json(filteredUrls);
@@ -1053,10 +1247,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const locale = req.query.locale as string | undefined;
       const category = req.query.category as string | undefined;
-      const page = req.query.page ? parseInt(req.query.page as string, 10) : undefined;
-      const limit = Math.min(parseInt(req.query.limit as string, 10) || 12, 100);
+      const page = req.query.page
+        ? parseInt(req.query.page as string, 10)
+        : undefined;
+      const limit = Math.min(
+        parseInt(req.query.limit as string, 10) || 12,
+        100,
+      );
       const posts = await getBlogPosts();
-      let filtered = locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts;
+      let filtered = locale
+        ? getBlogPostsByLocale(posts, normalizeLocale(locale))
+        : posts;
 
       if (category) {
         filtered = filtered.filter((p: any) => {
@@ -1064,11 +1265,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const categories = Array.from(new Set(
-        (locale ? getBlogPostsByLocale(posts, normalizeLocale(locale)) : posts)
-          .map((p: any) => p.category?.slug || "")
-          .filter(Boolean)
-      )).sort();
+      const categories = Array.from(
+        new Set(
+          (locale
+            ? getBlogPostsByLocale(posts, normalizeLocale(locale))
+            : posts
+          )
+            .map((p: any) => p.category?.slug || "")
+            .filter(Boolean),
+        ),
+      ).sort();
 
       const total = filtered.length;
       const stripped = filtered.map((p: any) => {
@@ -1109,7 +1315,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { slug } = req.params;
       const locale = req.query.locale as string | undefined;
       const posts = await getBlogPosts();
-      const post = findBlogPostBySlug(posts, slug, locale ? normalizeLocale(locale) : undefined);
+      const post = findBlogPostBySlug(
+        posts,
+        slug,
+        locale ? normalizeLocale(locale) : undefined,
+      );
 
       if (!post) {
         res.status(404).json({ error: "Blog post not found" });
@@ -1177,7 +1387,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return;
         }
         if (ds.type === "api" && (!ds.api || !ds.api.endpoint)) {
-          res.status(400).json({ error: "data_source.api.endpoint is required for API sources" });
+          res
+            .status(400)
+            .json({
+              error: "data_source.api.endpoint is required for API sources",
+            });
           return;
         }
       }
@@ -1190,7 +1404,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/blog/test-endpoint", async (req, res) => {
     try {
-      const { endpoint, params, token_env_var, auth_prefix, headers } = req.body || {};
+      const { endpoint, params, token_env_var, auth_prefix, headers } =
+        req.body || {};
       if (!endpoint) {
         res.status(400).json({ error: "endpoint is required" });
         return;
@@ -1211,7 +1426,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (token_env_var) {
         const token = process.env[token_env_var];
         if (token) {
-          fetchHeaders["Authorization"] = auth_prefix ? `${auth_prefix} ${token}` : token;
+          fetchHeaders["Authorization"] = auth_prefix
+            ? `${auth_prefix} ${token}`
+            : token;
         }
       }
 
@@ -1281,7 +1498,10 @@ Return JSON with this exact structure:
 
       let parsed;
       try {
-        const cleaned = result.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+        const cleaned = result
+          .replace(/```json?\n?/g, "")
+          .replace(/```\n?/g, "")
+          .trim();
         parsed = JSON.parse(cleaned);
       } catch {
         parsed = { raw: result, error: "Failed to parse AI response" };
@@ -1297,7 +1517,11 @@ Return JSON with this exact structure:
   app.post("/api/blog/ai/analyze-fields", async (req, res) => {
     try {
       const { sample_posts } = req.body || {};
-      if (!sample_posts || !Array.isArray(sample_posts) || sample_posts.length === 0) {
+      if (
+        !sample_posts ||
+        !Array.isArray(sample_posts) ||
+        sample_posts.length === 0
+      ) {
         res.status(400).json({ error: "sample_posts array is required" });
         return;
       }
@@ -1347,7 +1571,10 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       let parsed;
       try {
-        const cleaned = result.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+        const cleaned = result
+          .replace(/```json?\n?/g, "")
+          .replace(/```\n?/g, "")
+          .trim();
         parsed = JSON.parse(cleaned);
       } catch {
         parsed = { raw: result, error: "Failed to parse AI response" };
@@ -1389,8 +1616,10 @@ Important: Only include mappings where you are confident the field exists. Use d
       const configPath = path.resolve("marketing-content/llm.yml");
       const newConfig: Record<string, unknown> = {
         provider: {
-          api_key_env: body.provider?.api_key_env || "AI_INTEGRATIONS_OPENAI_API_KEY",
-          base_url_env: body.provider?.base_url_env || "AI_INTEGRATIONS_OPENAI_BASE_URL",
+          api_key_env:
+            body.provider?.api_key_env || "AI_INTEGRATIONS_OPENAI_API_KEY",
+          base_url_env:
+            body.provider?.base_url_env || "AI_INTEGRATIONS_OPENAI_BASE_URL",
         },
         model: body.model || "gpt-4o-mini",
         temperature: body.temperature ?? 0.3,
@@ -1469,11 +1698,16 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const parsed = contentIndex.parseContentUrl(url);
       if (!parsed) {
-        res.status(400).json({ error: "Could not determine content type from URL" });
+        res
+          .status(400)
+          .json({ error: "Could not determine content type from URL" });
         return;
       }
 
-      const baseSlug = contentIndex.resolveBaseSlug(parsed.slug, parsed.contentType);
+      const baseSlug = contentIndex.resolveBaseSlug(
+        parsed.slug,
+        parsed.contentType,
+      );
       const urls = contentIndex.getLocaleUrls(baseSlug, parsed.contentType);
       res.json({ urls, contentType: parsed.contentType, slug: baseSlug });
     } catch (err) {
@@ -1492,11 +1726,16 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const parsed = contentIndex.parseContentUrl(url);
       if (!parsed) {
-        res.status(400).json({ error: "Could not determine content type from URL" });
+        res
+          .status(400)
+          .json({ error: "Could not determine content type from URL" });
         return;
       }
 
-      const baseSlug = contentIndex.resolveBaseSlug(parsed.slug, parsed.contentType);
+      const baseSlug = contentIndex.resolveBaseSlug(
+        parsed.slug,
+        parsed.contentType,
+      );
       const urls = contentIndex.getLocaleUrls(baseSlug, parsed.contentType);
       res.json({ urls, contentType: parsed.contentType, slug: baseSlug });
     } catch (err) {
@@ -1508,16 +1747,30 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Add a new redirect (for debug tools)
   app.post("/api/debug/redirects", (req, res) => {
     try {
-      const { from, to, allLanguages, status: redirectStatus, isCustomDestination, priority: redirectPriority } = req.body;
-      const statusCode = redirectStatus && [301, 302].includes(redirectStatus) ? redirectStatus : 301;
+      const {
+        from,
+        to,
+        allLanguages,
+        status: redirectStatus,
+        isCustomDestination,
+        priority: redirectPriority,
+      } = req.body;
+      const statusCode =
+        redirectStatus && [301, 302].includes(redirectStatus)
+          ? redirectStatus
+          : 301;
       const priority = redirectPriority === "fallback" ? "fallback" : "before";
 
       if (!from || !to) {
-        res.status(400).json({ error: "Both 'from' and 'to' fields are required" });
+        res
+          .status(400)
+          .json({ error: "Both 'from' and 'to' fields are required" });
         return;
       }
 
-      let normalizedFrom = (from as string).startsWith("/") ? (from as string) : `/${from}`;
+      let normalizedFrom = (from as string).startsWith("/")
+        ? (from as string)
+        : `/${from}`;
       normalizedFrom = normalizedFrom.toLowerCase();
       if (normalizedFrom.length > 1 && normalizedFrom.endsWith("/")) {
         normalizedFrom = normalizedFrom.slice(0, -1);
@@ -1526,23 +1779,50 @@ Important: Only include mappings where you are confident the field exists. Use d
       const destUrl = to as string;
 
       if (isCustomDestination) {
-        const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
+        const customFilePath = path.join(
+          process.cwd(),
+          "marketing-content",
+          "custom-redirects.yml",
+        );
 
-        let parsed: { redirects: Array<{ from: string; to: string; status?: number; priority?: string }> } = { redirects: [] };
+        let parsed: {
+          redirects: Array<{
+            from: string;
+            to: string;
+            status?: number;
+            priority?: string;
+          }>;
+        } = { redirects: [] };
         if (fs.existsSync(customFilePath)) {
           const raw = fs.readFileSync(customFilePath, "utf-8");
           const loaded = safeYamlLoad(raw) as { redirects?: unknown[] } | null;
           if (loaded && Array.isArray(loaded.redirects)) {
-            parsed.redirects = loaded.redirects as Array<{ from: string; to: string; status?: number; priority?: string }>;
+            parsed.redirects = loaded.redirects as Array<{
+              from: string;
+              to: string;
+              status?: number;
+              priority?: string;
+            }>;
           }
         }
 
-        if (parsed.redirects.some(r => r.from?.toLowerCase() === normalizedFrom)) {
-          res.status(409).json({ error: `Redirect "${normalizedFrom}" already exists in custom-redirects.yml` });
+        if (
+          parsed.redirects.some((r) => r.from?.toLowerCase() === normalizedFrom)
+        ) {
+          res
+            .status(409)
+            .json({
+              error: `Redirect "${normalizedFrom}" already exists in custom-redirects.yml`,
+            });
           return;
         }
 
-        const newEntry: { from: string; to: string; status?: number; priority?: string } = { from: normalizedFrom, to: destUrl };
+        const newEntry: {
+          from: string;
+          to: string;
+          status?: number;
+          priority?: string;
+        } = { from: normalizedFrom, to: destUrl };
         if (statusCode !== 301) {
           newEntry.status = statusCode;
         }
@@ -1551,7 +1831,10 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
         parsed.redirects.push(newEntry);
 
-        const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+        const yamlContent = safeYamlDump(parsed, {
+          lineWidth: -1,
+          noRefs: true,
+        });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
         contentIndex.scan();
@@ -1568,15 +1851,26 @@ Important: Only include mappings where you are confident the field exists. Use d
       // Parse destination URL to find the content entry
       const parsed = contentIndex.parseContentUrl(destUrl);
       if (!parsed) {
-        res.status(400).json({ error: "Could not determine content type from destination URL" });
+        res
+          .status(400)
+          .json({
+            error: "Could not determine content type from destination URL",
+          });
         return;
       }
 
       const { contentType, locale } = parsed;
-      const resolvedSlug = contentIndex.resolveBaseSlug(parsed.slug, contentType);
+      const resolvedSlug = contentIndex.resolveBaseSlug(
+        parsed.slug,
+        contentType,
+      );
       const entries = contentIndex.findBySlug(resolvedSlug, { contentType });
       if (entries.length === 0) {
-        res.status(404).json({ error: `No content found for slug "${parsed.slug}" in ${contentType}` });
+        res
+          .status(404)
+          .json({
+            error: `No content found for slug "${parsed.slug}" in ${contentType}`,
+          });
         return;
       }
 
@@ -1609,12 +1903,17 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const existingPath = (r: unknown) => {
         if (typeof r === "string") return r.toLowerCase();
-        if (typeof r === "object" && r !== null && "path" in r) return ((r as { path: string }).path).toLowerCase();
+        if (typeof r === "object" && r !== null && "path" in r)
+          return (r as { path: string }).path.toLowerCase();
         return "";
       };
 
-      if (redirects.some(r => existingPath(r) === normalizedFrom)) {
-        res.status(409).json({ error: `Redirect "${normalizedFrom}" already exists in ${targetFile}` });
+      if (redirects.some((r) => existingPath(r) === normalizedFrom)) {
+        res
+          .status(409)
+          .json({
+            error: `Redirect "${normalizedFrom}" already exists in ${targetFile}`,
+          });
         return;
       }
 
@@ -1624,7 +1923,10 @@ Important: Only include mappings where you are confident the field exists. Use d
         redirects.push(normalizedFrom);
       }
 
-      const yamlContent = safeYamlDump(yamlData, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(yamlData, {
+        lineWidth: -1,
+        noRefs: true,
+      });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -1647,11 +1949,15 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { from, source } = req.body;
 
       if (!from || !source) {
-        res.status(400).json({ error: "Both 'from' and 'source' fields are required" });
+        res
+          .status(400)
+          .json({ error: "Both 'from' and 'source' fields are required" });
         return;
       }
 
-      let normalizedFrom = (from as string).startsWith("/") ? (from as string) : `/${from}`;
+      let normalizedFrom = (from as string).startsWith("/")
+        ? (from as string)
+        : `/${from}`;
       normalizedFrom = normalizedFrom.toLowerCase();
       if (normalizedFrom.length > 1 && normalizedFrom.endsWith("/")) {
         normalizedFrom = normalizedFrom.slice(0, -1);
@@ -1661,7 +1967,10 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const resolvedSource = path.resolve(process.cwd(), sourceFile);
       const marketingDir = path.resolve(process.cwd(), "marketing-content");
-      if (!resolvedSource.startsWith(marketingDir + path.sep) && resolvedSource !== marketingDir) {
+      if (
+        !resolvedSource.startsWith(marketingDir + path.sep) &&
+        resolvedSource !== marketingDir
+      ) {
         res.status(400).json({ error: "Invalid source file path" });
         return;
       }
@@ -1671,7 +1980,11 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       if (sourceFile === "marketing-content/custom-redirects.yml") {
-        const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
+        const customFilePath = path.join(
+          process.cwd(),
+          "marketing-content",
+          "custom-redirects.yml",
+        );
 
         if (!fs.existsSync(customFilePath)) {
           res.status(404).json({ error: "Custom redirects file not found" });
@@ -1679,27 +1992,39 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
 
         const raw = fs.readFileSync(customFilePath, "utf-8");
-        const loaded = safeYamlLoad(raw) as { redirects?: Array<{ from: string; to: string; status?: number }> } | null;
+        const loaded = safeYamlLoad(raw) as {
+          redirects?: Array<{ from: string; to: string; status?: number }>;
+        } | null;
 
         if (!loaded || !Array.isArray(loaded.redirects)) {
-          res.status(404).json({ error: "No redirects found in custom redirects file" });
+          res
+            .status(404)
+            .json({ error: "No redirects found in custom redirects file" });
           return;
         }
 
         const originalLength = loaded.redirects.length;
-        loaded.redirects = loaded.redirects.filter(r => {
+        loaded.redirects = loaded.redirects.filter((r) => {
           let rFrom = r.from?.startsWith("/") ? r.from : `/${r.from}`;
           rFrom = rFrom.toLowerCase();
-          if (rFrom.length > 1 && rFrom.endsWith("/")) rFrom = rFrom.slice(0, -1);
+          if (rFrom.length > 1 && rFrom.endsWith("/"))
+            rFrom = rFrom.slice(0, -1);
           return rFrom !== normalizedFrom;
         });
 
         if (loaded.redirects.length === originalLength) {
-          res.status(404).json({ error: `Redirect "${normalizedFrom}" not found in custom-redirects.yml` });
+          res
+            .status(404)
+            .json({
+              error: `Redirect "${normalizedFrom}" not found in custom-redirects.yml`,
+            });
           return;
         }
 
-        const yamlContent = safeYamlDump(loaded, { lineWidth: -1, noRefs: true });
+        const yamlContent = safeYamlDump(loaded, {
+          lineWidth: -1,
+          noRefs: true,
+        });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
         contentIndex.scan();
@@ -1715,7 +2040,9 @@ Important: Only include mappings where you are confident the field exists. Use d
       const filePath = path.join(process.cwd(), sourceFile);
 
       if (!fs.existsSync(filePath)) {
-        res.status(404).json({ error: `Source file "${sourceFile}" not found` });
+        res
+          .status(404)
+          .json({ error: `Source file "${sourceFile}" not found` });
         return;
       }
 
@@ -1724,7 +2051,9 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const meta = parsed.meta as Record<string, unknown> | undefined;
       if (!meta || !Array.isArray(meta.redirects)) {
-        res.status(404).json({ error: `No redirects found in "${sourceFile}"` });
+        res
+          .status(404)
+          .json({ error: `No redirects found in "${sourceFile}"` });
         return;
       }
 
@@ -1739,7 +2068,7 @@ Important: Only include mappings where you are confident the field exists. Use d
           return p;
         }
         if (typeof r === "object" && r !== null && "path" in r) {
-          let p = ((r as { path: string }).path);
+          let p = (r as { path: string }).path;
           p = p.startsWith("/") ? p : `/${p}`;
           p = p.toLowerCase();
           if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
@@ -1748,10 +2077,16 @@ Important: Only include mappings where you are confident the field exists. Use d
         return "";
       };
 
-      meta.redirects = redirects.filter(r => getRedirectPath(r) !== normalizedFrom);
+      meta.redirects = redirects.filter(
+        (r) => getRedirectPath(r) !== normalizedFrom,
+      );
 
       if ((meta.redirects as unknown[]).length === originalLength) {
-        res.status(404).json({ error: `Redirect "${normalizedFrom}" not found in "${sourceFile}"` });
+        res
+          .status(404)
+          .json({
+            error: `Redirect "${normalizedFrom}" not found in "${sourceFile}"`,
+          });
         return;
       }
 
@@ -1776,27 +2111,53 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { redirects } = req.body;
 
       if (!Array.isArray(redirects)) {
-        res.status(400).json({ error: "'redirects' must be an array of {from, to, status?} entries" });
+        res
+          .status(400)
+          .json({
+            error:
+              "'redirects' must be an array of {from, to, status?} entries",
+          });
         return;
       }
 
       for (const entry of redirects) {
         if (!entry || typeof entry !== "object" || !entry.from || !entry.to) {
-          res.status(400).json({ error: "Each redirect must have 'from' and 'to' fields" });
+          res
+            .status(400)
+            .json({ error: "Each redirect must have 'from' and 'to' fields" });
           return;
         }
       }
 
-      const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
+      const customFilePath = path.join(
+        process.cwd(),
+        "marketing-content",
+        "custom-redirects.yml",
+      );
 
-      const newEntries = redirects.map((r: { from: string; to: string; status?: number; priority?: string }) => {
-        const entry: { from: string; to: string; status?: number; priority?: string } = { from: r.from, to: r.to };
-        if (r.status && r.status !== 301) entry.status = r.status;
-        if (r.priority === "fallback") entry.priority = "fallback";
-        return entry;
-      });
+      const newEntries = redirects.map(
+        (r: {
+          from: string;
+          to: string;
+          status?: number;
+          priority?: string;
+        }) => {
+          const entry: {
+            from: string;
+            to: string;
+            status?: number;
+            priority?: string;
+          } = { from: r.from, to: r.to };
+          if (r.status && r.status !== 301) entry.status = r.status;
+          if (r.priority === "fallback") entry.priority = "fallback";
+          return entry;
+        },
+      );
 
-      const yamlContent = safeYamlDump({ redirects: newEntries }, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(
+        { redirects: newEntries },
+        { lineWidth: -1, noRefs: true },
+      );
       fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
       contentIndex.scan();
@@ -1822,11 +2183,17 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       if (priority !== "before" && priority !== "fallback") {
-        res.status(400).json({ error: "'priority' must be 'before' or 'fallback'" });
+        res
+          .status(400)
+          .json({ error: "'priority' must be 'before' or 'fallback'" });
         return;
       }
 
-      const customFilePath = path.join(process.cwd(), "marketing-content", "custom-redirects.yml");
+      const customFilePath = path.join(
+        process.cwd(),
+        "marketing-content",
+        "custom-redirects.yml",
+      );
 
       if (!fs.existsSync(customFilePath)) {
         res.status(404).json({ error: "custom-redirects.yml not found" });
@@ -1839,7 +2206,9 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const entry = entries.find((r: any) => r.from === from);
       if (!entry) {
-        res.status(404).json({ error: "Redirect not found in custom-redirects.yml" });
+        res
+          .status(404)
+          .json({ error: "Redirect not found in custom-redirects.yml" });
         return;
       }
 
@@ -1849,13 +2218,19 @@ Important: Only include mappings where you are confident the field exists. Use d
         delete entry.priority;
       }
 
-      const yamlContent = safeYamlDump({ redirects: entries }, { lineWidth: -1, noRefs: true });
+      const yamlContent = safeYamlDump(
+        { redirects: entries },
+        { lineWidth: -1, noRefs: true },
+      );
       fs.writeFileSync(customFilePath, yamlContent, "utf-8");
 
       contentIndex.scan();
       clearRedirectCache();
 
-      res.json({ success: true, priority: priority === "fallback" ? "fallback" : "before" });
+      res.json({
+        success: true,
+        priority: priority === "fallback" ? "fallback" : "before",
+      });
     } catch (err) {
       console.error("[Debug] Failed to update redirect priority:", err);
       res.status(500).json({ error: "Failed to update redirect priority" });
@@ -1865,22 +2240,27 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Menus API - list all menu files (excludes translation files like .es.yml)
   app.get("/api/menus", (_req, res) => {
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
-    
+
     if (!fs.existsSync(menusDir)) {
       res.json({ menus: [] });
       return;
     }
-    
+
     // Filter for .yml/.yaml files, excluding translation files (e.g., main-navbar.es.yml)
     const translationPattern = /\.[a-z]{2}\.(yml|yaml)$/;
-    const files = fs.readdirSync(menusDir)
-      .filter(f => (f.endsWith(".yml") || f.endsWith(".yaml")) && !translationPattern.test(f));
-    
-    const menus = files.map(file => {
+    const files = fs
+      .readdirSync(menusDir)
+      .filter(
+        (f) =>
+          (f.endsWith(".yml") || f.endsWith(".yaml")) &&
+          !translationPattern.test(f),
+      );
+
+    const menus = files.map((file) => {
       const name = file.replace(/\.(yml|yaml)$/, "");
       return { name, file };
     });
-    
+
     res.json({ menus });
   });
 
@@ -1889,21 +2269,21 @@ Important: Only include mappings where you are confident the field exists. Use d
     const { name } = req.params;
     const locale = req.query.locale as string | undefined;
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
-    
+
     // Build filename based on locale (e.g., main-navbar.es.yml for Spanish)
     const fileBaseName = locale && locale !== "en" ? `${name}.${locale}` : name;
-    
+
     // Try both .yml and .yaml extensions
     let filePath = path.join(menusDir, `${fileBaseName}.yml`);
     if (!fs.existsSync(filePath)) {
       filePath = path.join(menusDir, `${fileBaseName}.yaml`);
     }
-    
+
     if (!fs.existsSync(filePath)) {
       res.status(404).json({ error: "Menu not found" });
       return;
     }
-    
+
     try {
       const content = fs.readFileSync(filePath, "utf-8");
       const data = safeYamlLoad(content);
@@ -1930,33 +2310,40 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Use PUT /api/menus/:name/structure for structural changes (English only, propagates to translations)
   // Use PUT /api/menus/:name/translations?locale=xx for text-only changes
   app.post("/api/menus/:name", (req, res) => {
-    res.status(410).json({ 
-      error: "This endpoint is deprecated. Use the separated endpoints instead.",
+    res.status(410).json({
+      error:
+        "This endpoint is deprecated. Use the separated endpoints instead.",
       alternatives: {
-        structure: "PUT /api/menus/:name/structure - For structural changes (English only, propagates to translations)",
-        translations: "PUT /api/menus/:name/translations?locale=xx - For text-only changes"
-      }
+        structure:
+          "PUT /api/menus/:name/structure - For structural changes (English only, propagates to translations)",
+        translations:
+          "PUT /api/menus/:name/translations?locale=xx - For text-only changes",
+      },
     });
   });
-  
+
   // Helper function to sync menu structure from English (master) to translation
-  function syncMenuStructure(master: any, translation: any, previousMaster?: any): any {
+  function syncMenuStructure(
+    master: any,
+    translation: any,
+    previousMaster?: any,
+  ): any {
     if (master?.footer) {
       return syncFooterStructure(master, translation || {}, previousMaster);
     }
-    
+
     if (!master?.navbar?.items || !translation?.navbar?.items) {
       return translation;
     }
-    
+
     const masterItems = master.navbar.items;
     const translationItems = translation.navbar.items;
     const syncedItems: any[] = [];
-    
+
     for (let i = 0; i < masterItems.length; i++) {
       const masterItem = masterItems[i];
       const existingTranslation = translationItems[i];
-      
+
       if (existingTranslation) {
         const syncedItem = syncMenuItem(masterItem, existingTranslation);
         syncedItems.push(syncedItem);
@@ -1965,11 +2352,15 @@ Important: Only include mappings where you are confident the field exists. Use d
         syncedItems.push(newItem);
       }
     }
-    
+
     return { navbar: { items: syncedItems } };
   }
-  
-  function syncFooterStructure(master: any, translation: any, previousMaster?: any): any {
+
+  function syncFooterStructure(
+    master: any,
+    translation: any,
+    previousMaster?: any,
+  ): any {
     const mf = master.footer;
     const tf = translation.footer || {};
     const pf = previousMaster?.footer || {};
@@ -1989,7 +2380,10 @@ Important: Only include mappings where you are confident the field exists. Use d
       const prevItemsByIndex = new Map<number, Set<string>>();
       for (let i = 0; i < prevColumns.length; i++) {
         prevColTitleToIndex.set(prevColumns[i].title, i);
-        prevItemsByIndex.set(i, new Set((prevColumns[i].items || []).map((it: any) => it.label)));
+        prevItemsByIndex.set(
+          i,
+          new Set((prevColumns[i].items || []).map((it: any) => it.label)),
+        );
       }
 
       for (const masterCol of mf.columns) {
@@ -2005,7 +2399,9 @@ Important: Only include mappings where you are confident the field exists. Use d
           });
         } else {
           const prevItems = prevItemsByIndex.get(prevIndex) || new Set();
-          const newItems = (masterCol.items || []).filter((item: any) => !prevItems.has(item.label));
+          const newItems = (masterCol.items || []).filter(
+            (item: any) => !prevItems.has(item.label),
+          );
 
           if (newItems.length > 0 && result.columns[prevIndex]) {
             for (const newItem of newItems) {
@@ -2026,7 +2422,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     }));
 
     if (mf.socials) {
-      const prevSocialIcons = new Set((pf.socials || []).map((s: any) => s.icon));
+      const prevSocialIcons = new Set(
+        (pf.socials || []).map((s: any) => s.icon),
+      );
       for (const masterSocial of mf.socials) {
         if (!prevSocialIcons.has(masterSocial.icon)) {
           result.socials.push({
@@ -2044,7 +2442,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     }));
 
     if (mf.legal_links) {
-      const prevLegalLabels = new Set((pf.legal_links || []).map((l: any) => l.label));
+      const prevLegalLabels = new Set(
+        (pf.legal_links || []).map((l: any) => l.label),
+      );
       for (const masterLink of mf.legal_links) {
         if (!prevLegalLabels.has(masterLink.label)) {
           result.legal_links.push({
@@ -2056,15 +2456,17 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
 
     if (mf.subscribe_text !== undefined) {
-      result.subscribe_text = tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
+      result.subscribe_text =
+        tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
     }
     if (mf.copyright_text !== undefined) {
-      result.copyright_text = tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
+      result.copyright_text =
+        tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
     }
 
     return { footer: result };
   }
-  
+
   function syncMenuItem(master: any, translation: any): any {
     const result: any = {
       // TEXT field - from translation
@@ -2073,23 +2475,27 @@ Important: Only include mappings where you are confident the field exists. Use d
       href: master.href,
       component: master.component,
     };
-    
+
     if (master.dropdown) {
-      result.dropdown = syncDropdown(master.dropdown, translation.dropdown || {});
+      result.dropdown = syncDropdown(
+        master.dropdown,
+        translation.dropdown || {},
+      );
     }
-    
+
     return result;
   }
-  
+
   function syncDropdown(master: any, translation: any): any {
     const result: any = {
       type: master.type,
       title: translation.title || `[TRANSLATE] ${master.title}`,
-      description: translation.description || `[TRANSLATE] ${master.description}`,
+      description:
+        translation.description || `[TRANSLATE] ${master.description}`,
     };
-    
+
     if (master.icon) result.icon = master.icon;
-    
+
     // Sync items array (for cards and simple-list types)
     if (master.items) {
       result.items = master.items.map((masterItem: any, idx: number) => {
@@ -2097,7 +2503,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         return syncDropdownItem(masterItem, transItem);
       });
     }
-    
+
     // Sync columns (for columns type)
     if (master.columns) {
       result.columns = master.columns.map((masterCol: any, idx: number) => {
@@ -2116,7 +2522,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         };
       });
     }
-    
+
     // Sync groups (for grouped-list type)
     if (master.groups) {
       result.groups = master.groups.map((masterGroup: any, idx: number) => {
@@ -2136,24 +2542,26 @@ Important: Only include mappings where you are confident the field exists. Use d
         };
       });
     }
-    
+
     // Sync footer
     if (master.footer) {
       result.footer = {
         // TEXT fields - from translation
         text: translation.footer?.text || `[TRANSLATE] ${master.footer.text}`,
-        linkText: translation.footer?.linkText || `[TRANSLATE] ${master.footer.linkText}`,
+        linkText:
+          translation.footer?.linkText ||
+          `[TRANSLATE] ${master.footer.linkText}`,
         // STRUCTURE field - ALWAYS from master
         href: master.footer.href,
       };
     }
-    
+
     return result;
   }
-  
+
   function syncDropdownItem(master: any, translation: any): any {
     const result: any = {};
-    
+
     // TEXT fields - from translation if provided
     if (master.title !== undefined) {
       result.title = translation.title || `[TRANSLATE] ${master.title}`;
@@ -2162,7 +2570,8 @@ Important: Only include mappings where you are confident the field exists. Use d
       result.label = translation.label || `[TRANSLATE] ${master.label}`;
     }
     if (master.description !== undefined) {
-      result.description = translation.description || `[TRANSLATE] ${master.description}`;
+      result.description =
+        translation.description || `[TRANSLATE] ${master.description}`;
     }
     if (master.cta !== undefined) {
       result.cta = translation.cta || `[TRANSLATE] ${master.cta}`;
@@ -2174,21 +2583,21 @@ Important: Only include mappings where you are confident the field exists. Use d
     if (master.icon !== undefined) {
       result.icon = master.icon;
     }
-    
+
     return result;
   }
-  
+
   function createTranslationPlaceholder(master: any): any {
     const result: any = {
       label: `[TRANSLATE] ${master.label}`,
       href: master.href,
       component: master.component,
     };
-    
+
     if (master.dropdown) {
       result.dropdown = syncDropdown(master.dropdown, {});
     }
-    
+
     return result;
   }
 
@@ -2197,14 +2606,14 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.put("/api/menus/:name/structure", (req, res) => {
     const { name } = req.params;
     const { data } = req.body;
-    
+
     if (!data) {
       res.status(400).json({ error: "Missing data in request body" });
       return;
     }
-    
+
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
-    
+
     // Structure changes can ONLY be made to English (master) file
     let filePath = path.join(menusDir, `${name}.yml`);
     if (!fs.existsSync(filePath)) {
@@ -2213,7 +2622,7 @@ Important: Only include mappings where you are confident the field exists. Use d
     if (!fs.existsSync(filePath)) {
       filePath = path.join(menusDir, `${name}.yml`);
     }
-    
+
     try {
       let previousData: any = null;
       if (fs.existsSync(filePath)) {
@@ -2230,21 +2639,28 @@ Important: Only include mappings where you are confident the field exists. Use d
         sortKeys: false,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
-      
+
       const syncResults: Record<string, string> = {};
       const translationLocales = ["es", "fr", "de", "pt", "it"];
-      
+
       for (const targetLocale of translationLocales) {
         const translationFileName = `${name}.${targetLocale}.yml`;
         const translationFilePath = path.join(menusDir, translationFileName);
-        
+
         if (fs.existsSync(translationFilePath)) {
           try {
-            const translationContent = fs.readFileSync(translationFilePath, "utf-8");
+            const translationContent = fs.readFileSync(
+              translationFilePath,
+              "utf-8",
+            );
             const translationData = safeYamlLoad(translationContent) as any;
-            
-            const syncedData = syncMenuStructure(data, translationData, previousData);
-            
+
+            const syncedData = syncMenuStructure(
+              data,
+              translationData,
+              previousData,
+            );
+
             const syncedYaml = safeYamlDump(syncedData, {
               indent: 2,
               lineWidth: -1,
@@ -2254,18 +2670,21 @@ Important: Only include mappings where you are confident the field exists. Use d
             fs.writeFileSync(translationFilePath, syncedYaml, "utf-8");
             syncResults[targetLocale] = "synced";
           } catch (syncError) {
-            console.error(`Error syncing structure to ${targetLocale}:`, syncError);
+            console.error(
+              `Error syncing structure to ${targetLocale}:`,
+              syncError,
+            );
             syncResults[targetLocale] = "error";
           }
         }
       }
-      
-      res.json({ 
-        success: true, 
-        name, 
+
+      res.json({
+        success: true,
+        name,
         endpoint: "structure",
         syncResults,
-        message: "Structure updated in English and synced to all translations"
+        message: "Structure updated in English and synced to all translations",
       });
     } catch (error) {
       console.error(`Error saving menu structure ${name}:`, error);
@@ -2280,23 +2699,23 @@ Important: Only include mappings where you are confident the field exists. Use d
     const { name } = req.params;
     const locale = req.query.locale as string;
     const { data } = req.body;
-    
+
     if (!data) {
       res.status(400).json({ error: "Missing data in request body" });
       return;
     }
-    
+
     if (!locale) {
       res.status(400).json({ error: "Locale query parameter is required" });
       return;
     }
-    
+
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
     const isEnglish = locale === "en";
-    
+
     // Build filename based on locale
     const fileBaseName = isEnglish ? name : `${name}.${locale}`;
-    
+
     let filePath = path.join(menusDir, `${fileBaseName}.yml`);
     if (!fs.existsSync(filePath)) {
       filePath = path.join(menusDir, `${fileBaseName}.yaml`);
@@ -2304,34 +2723,40 @@ Important: Only include mappings where you are confident the field exists. Use d
     if (!fs.existsSync(filePath)) {
       filePath = path.join(menusDir, `${fileBaseName}.yml`);
     }
-    
+
     // Translations endpoint is for text and link changes in ANY locale (including English)
     // For structure changes (icon, add/delete), use the /structure endpoint instead
     const masterFilePath = path.join(menusDir, `${name}.yml`);
     if (!fs.existsSync(masterFilePath)) {
-      res.status(400).json({ error: "English master file not found. Cannot update translations." });
+      res
+        .status(400)
+        .json({
+          error: "English master file not found. Cannot update translations.",
+        });
       return;
     }
-    
+
     let dataToSave = data;
-    
+
     const isFooterMenu = data?.footer && !data?.navbar;
-    
+
     if (isFooterMenu && !isEnglish) {
       dataToSave = data;
     } else {
       try {
         const masterContent = fs.readFileSync(masterFilePath, "utf-8");
         const masterData = safeYamlLoad(masterContent) as any;
-        
+
         dataToSave = mergeTextOnlyFromTranslation(masterData, data);
       } catch (e) {
         console.error("Error syncing translation to master structure:", e);
-        res.status(500).json({ error: "Failed to sync translation with master structure" });
+        res
+          .status(500)
+          .json({ error: "Failed to sync translation with master structure" });
         return;
       }
     }
-    
+
     try {
       const yamlContent = safeYamlDump(dataToSave, {
         indent: 2,
@@ -2340,13 +2765,15 @@ Important: Only include mappings where you are confident the field exists. Use d
         sortKeys: false,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
-      
-      res.json({ 
-        success: true, 
-        name, 
+
+      res.json({
+        success: true,
+        name,
         locale,
         endpoint: "translations",
-        message: isEnglish ? "English text updated" : `${locale} translations updated`
+        message: isEnglish
+          ? "English text updated"
+          : `${locale} translations updated`,
       });
     } catch (error) {
       console.error(`Error saving menu translations ${name}:`, error);
@@ -2357,51 +2784,84 @@ Important: Only include mappings where you are confident the field exists. Use d
   // STRICT text-only merge: Deep-clone master, overlay ONLY translatable fields from translation
   // Translatable fields: label, title, description, cta, text, linkText, href
   // ALL other fields preserved from master (including unknown/extra keys)
-  const TEXT_FIELDS = new Set(['label', 'title', 'description', 'cta', 'text', 'linkText', 'href']);
-  
+  const TEXT_FIELDS = new Set([
+    "label",
+    "title",
+    "description",
+    "cta",
+    "text",
+    "linkText",
+    "href",
+  ]);
+
   function mergeTextOnlyFromTranslation(master: any, translation: any): any {
     if (!master?.navbar?.items && !master?.footer) {
-      throw new Error("Master file is missing navbar.items or footer structure");
+      throw new Error(
+        "Master file is missing navbar.items or footer structure",
+      );
     }
-    
+
     // For footer files, use the footer-aware structure sync which preserves translations
     if (master?.footer && !master?.navbar) {
       return syncFooterStructure(master, translation || {});
     }
-    
+
     // Deep clone master to preserve ALL structure
     const result = JSON.parse(JSON.stringify(master));
-    
+
     // Overlay text fields from translation onto the cloned master (starting at root)
     if (translation) {
       overlayTextFieldsOnObject(result, translation);
     }
-    
+
     return result;
   }
-  
-  function overlayTextFieldsOnItems(masterItems: any[], translationItems: any[]): void {
-    for (let i = 0; i < masterItems.length && i < translationItems.length; i++) {
+
+  function overlayTextFieldsOnItems(
+    masterItems: any[],
+    translationItems: any[],
+  ): void {
+    for (
+      let i = 0;
+      i < masterItems.length && i < translationItems.length;
+      i++
+    ) {
       overlayTextFieldsOnObject(masterItems[i], translationItems[i]);
     }
   }
-  
+
   function overlayTextFieldsOnObject(master: any, translation: any): void {
-    if (!master || !translation || typeof master !== 'object' || typeof translation !== 'object') {
+    if (
+      !master ||
+      !translation ||
+      typeof master !== "object" ||
+      typeof translation !== "object"
+    ) {
       return;
     }
-    
+
     // Overlay text fields from translation onto master
     for (const key of Object.keys(master)) {
       if (TEXT_FIELDS.has(key) && translation[key] !== undefined) {
         // This is a text field - take value from translation
         master[key] = translation[key];
-      } else if (Array.isArray(master[key]) && Array.isArray(translation[key])) {
+      } else if (
+        Array.isArray(master[key]) &&
+        Array.isArray(translation[key])
+      ) {
         // Recursively process arrays (items, columns, groups, etc.)
-        for (let i = 0; i < master[key].length && i < translation[key].length; i++) {
+        for (
+          let i = 0;
+          i < master[key].length && i < translation[key].length;
+          i++
+        ) {
           overlayTextFieldsOnObject(master[key][i], translation[key][i]);
         }
-      } else if (typeof master[key] === 'object' && master[key] !== null && translation[key]) {
+      } else if (
+        typeof master[key] === "object" &&
+        master[key] !== null &&
+        translation[key]
+      ) {
         // Recursively process nested objects (dropdown, footer, etc.)
         overlayTextFieldsOnObject(master[key], translation[key]);
       }
@@ -2465,7 +2925,11 @@ Important: Only include mappings where you are confident the field exists. Use d
       const locale = normalizeLocale((req.query.locale as string) || "en");
 
       if (!isValidType(contentType)) {
-        res.status(400).json({ error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}` });
+        res
+          .status(400)
+          .json({
+            error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}`,
+          });
         return;
       }
 
@@ -2476,20 +2940,34 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       const meta = (pageData.meta as Record<string, unknown>) || {};
-      const schema = pageData.schema as { include?: string[]; overrides?: Record<string, Record<string, unknown>> } | undefined;
+      const schema = pageData.schema as
+        | {
+            include?: string[];
+            overrides?: Record<string, Record<string, unknown>>;
+          }
+        | undefined;
 
       let faqSchema: Record<string, unknown> | null = null;
-      const sections = pageData.sections as Array<Record<string, unknown>> | undefined;
+      const sections = pageData.sections as
+        | Array<Record<string, unknown>>
+        | undefined;
       if (sections) {
         // Extract location slug if we're on a location page
-        const locationSlug = getType(contentType) === "location" ? slug : undefined;
+        const locationSlug =
+          getType(contentType) === "location" ? slug : undefined;
         // Extract program slug if we're on a program page
-        const programSlug = getType(contentType) === "program" ? slug : undefined;
-        
+        const programSlug =
+          getType(contentType) === "program" ? slug : undefined;
+
         const allFaqItems: Array<{ question: string; answer: string }> = [];
         for (const section of sections) {
           if (section.type === "faq") {
-            const items = resolveFaqItems(section as unknown as FaqSection, locale, locationSlug, programSlug);
+            const items = resolveFaqItems(
+              section as unknown as FaqSection,
+              locale,
+              locationSlug,
+              programSlug,
+            );
             allFaqItems.push(...items);
           }
         }
@@ -2504,7 +2982,8 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       const schemaInclude = (schema?.include as string[]) || [];
-      const schemaOverrides = (schema?.overrides as Record<string, Record<string, unknown>>) || {};
+      const schemaOverrides =
+        (schema?.overrides as Record<string, Record<string, unknown>>) || {};
 
       const responseData: Record<string, unknown> = {
         meta,
@@ -2519,12 +2998,14 @@ Important: Only include mappings where you are confident the field exists. Use d
       if (getType(contentType) === "landing") {
         const commonData = loadCommonData("landing", slug);
         responseData.locations = (commonData?.locations as string[]) || [];
-        responseData.availableLocations = listLocationPages(locale).map(loc => ({
-          slug: loc.slug,
-          name: loc.name,
-          city: loc.city,
-          country: loc.country,
-        }));
+        responseData.availableLocations = listLocationPages(locale).map(
+          (loc) => ({
+            slug: loc.slug,
+            name: loc.name,
+            city: loc.city,
+            country: loc.country,
+          }),
+        );
       }
 
       res.json(responseData);
@@ -2554,31 +3035,53 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
         const capResponse = await fetch(
           `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } },
+          {
+            method: "GET",
+            headers: { Authorization: `Token ${token}`, Academy: "4" },
+          },
         );
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to edit content" });
           return;
         }
       }
 
       const { contentType, slug, locations, author } = req.body;
       if (!contentType || !slug || !Array.isArray(locations)) {
-        res.status(400).json({ error: "Missing required fields: contentType, slug, locations (array)" });
+        res
+          .status(400)
+          .json({
+            error:
+              "Missing required fields: contentType, slug, locations (array)",
+          });
         return;
       }
       if (getType(contentType) !== "landing") {
-        res.status(400).json({ error: "Locations can only be updated for landings" });
+        res
+          .status(400)
+          .json({ error: "Locations can only be updated for landings" });
         return;
       }
 
-      const commonPath = path.join(process.cwd(), "marketing-content", getFolder(contentType), slug, "_common.yml");
+      const commonPath = path.join(
+        process.cwd(),
+        "marketing-content",
+        getFolder(contentType),
+        slug,
+        "_common.yml",
+      );
       if (!fs.existsSync(commonPath)) {
-        res.status(404).json({ error: "_common.yml not found for this landing" });
+        res
+          .status(404)
+          .json({ error: "_common.yml not found for this landing" });
         return;
       }
 
@@ -2599,18 +3102,24 @@ Important: Only include mappings where you are confident the field exists. Use d
       });
       fs.writeFileSync(commonPath, updatedYaml, "utf-8");
 
-      markFileAsModified(commonPath, author && typeof author === "string" ? author : undefined);
+      markFileAsModified(
+        commonPath,
+        author && typeof author === "string" ? author : undefined,
+      );
 
       const landingDir = path.dirname(commonPath);
-      const variantFiles = fs.readdirSync(landingDir).filter(
-        (f) => f.endsWith(".yml") && f !== "_common.yml"
-      );
+      const variantFiles = fs
+        .readdirSync(landingDir)
+        .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
       const strippedVariants: string[] = [];
       for (const variantFile of variantFiles) {
         const variantPath = path.join(landingDir, variantFile);
         try {
           const variantContent = fs.readFileSync(variantPath, "utf-8");
-          const variantData = safeYamlLoad(variantContent) as Record<string, unknown>;
+          const variantData = safeYamlLoad(variantContent) as Record<
+            string,
+            unknown
+          >;
           if (variantData && "locations" in variantData) {
             delete variantData.locations;
             const variantYaml = safeYamlDump(variantData, {
@@ -2620,20 +3129,32 @@ Important: Only include mappings where you are confident the field exists. Use d
               forceQuotes: false,
             });
             fs.writeFileSync(variantPath, variantYaml, "utf-8");
-            markFileAsModified(variantPath, author && typeof author === "string" ? author : undefined);
+            markFileAsModified(
+              variantPath,
+              author && typeof author === "string" ? author : undefined,
+            );
             strippedVariants.push(variantFile);
           }
         } catch (e) {
-          console.warn(`[Update Locations] Could not process variant ${variantFile}:`, e);
+          console.warn(
+            `[Update Locations] Could not process variant ${variantFile}:`,
+            e,
+          );
         }
       }
       if (strippedVariants.length > 0) {
-        console.log(`[Update Locations] Removed locations from variants: ${strippedVariants.join(", ")}`);
+        console.log(
+          `[Update Locations] Removed locations from variants: ${strippedVariants.join(", ")}`,
+        );
       }
 
       contentIndex.refresh();
 
-      res.json({ success: true, locations: commonData.locations || [], strippedVariants });
+      res.json({
+        success: true,
+        locations: commonData.locations || [],
+        strippedVariants,
+      });
     } catch (error) {
       console.error("[Update Locations] Error:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -2684,20 +3205,24 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.post("/api/github/commit", async (req, res) => {
     try {
       const { message, force, author } = req.body;
-      if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      if (
+        !message ||
+        typeof message !== "string" ||
+        message.trim().length === 0
+      ) {
         res.status(400).json({ error: "Commit message is required" });
         return;
       }
 
       // Prepend author to commit message if provided
       let finalMessage = message.trim();
-      if (author && typeof author === 'string' && author.trim()) {
+      if (author && typeof author === "string" && author.trim()) {
         finalMessage = `[Author: ${author.trim()}] ${finalMessage}`;
       }
 
       const { commitAndPush } = await import("./github");
       const result = await commitAndPush(finalMessage, { force: !!force });
-      
+
       if (result.success) {
         res.json({ success: true, commitHash: result.commitHash });
       } else {
@@ -2726,7 +3251,7 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       const { syncWithRemote } = await import("./github");
       const result = await syncWithRemote();
-      
+
       if (result.success) {
         res.json({ success: true });
       } else {
@@ -2777,7 +3302,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
       const { commitSingleFile } = await import("./github");
       const result = await commitSingleFile({ filePath, message, author });
-      
+
       if (result.success) {
         res.json({ success: true, commitSha: result.commitSha });
       } else {
@@ -2799,7 +3324,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
       const { pullSingleFile } = await import("./github");
       const result = await pullSingleFile(filePath);
-      
+
       if (result.success) {
         res.json({ success: true });
       } else {
@@ -2816,7 +3341,7 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       const { syncWithRemote } = await import("./github");
       const result = await syncWithRemote();
-      
+
       if (result.success) {
         res.json({ success: true });
       } else {
@@ -2852,12 +3377,17 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.post("/api/github/auto-commit/config", async (req, res) => {
     try {
       const { commitIntervalSeconds } = req.body;
-      if (typeof commitIntervalSeconds === "number" && commitIntervalSeconds >= 1) {
+      if (
+        typeof commitIntervalSeconds === "number" &&
+        commitIntervalSeconds >= 1
+      ) {
         const { updateSyncConfig } = await import("./sync-state");
         updateSyncConfig({ commitIntervalSeconds });
         res.json({ success: true, commitIntervalSeconds });
       } else {
-        res.status(400).json({ error: "commitIntervalSeconds must be a number >= 1" });
+        res
+          .status(400)
+          .json({ error: "commitIntervalSeconds must be a number >= 1" });
       }
     } catch (error) {
       console.error("Error updating auto-commit config:", error);
@@ -2896,7 +3426,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     const { contentType, slug } = req.params;
 
     if (!isValidType(contentType)) {
-      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      res
+        .status(400)
+        .json({ error: "Invalid content type", validTypes: getAllFolders() });
       return;
     }
 
@@ -2970,7 +3502,9 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { contentType, contentSlug, experimentSlug } = req.params;
 
       if (!isValidType(contentType)) {
-        res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+        res
+          .status(400)
+          .json({ error: "Invalid content type", validTypes: getAllFolders() });
         return;
       }
 
@@ -3020,7 +3554,9 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { contentType, contentSlug, experimentSlug } = req.params;
 
       if (!isValidType(contentType)) {
-        res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+        res
+          .status(400)
+          .json({ error: "Invalid content type", validTypes: getAllFolders() });
         return;
       }
 
@@ -3064,7 +3600,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     const { contentType, slug } = req.params;
 
     if (!isValidType(contentType)) {
-      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      res
+        .status(400)
+        .json({ error: "Invalid content type", validTypes: getAllFolders() });
       return;
     }
 
@@ -3179,12 +3717,10 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.json(result);
       })
       .catch((error) => {
-        res
-          .status(500)
-          .json({
-            error: "Failed to load validation module",
-            details: String(error),
-          });
+        res.status(500).json({
+          error: "Failed to load validation module",
+          details: String(error),
+        });
       });
   });
 
@@ -3284,7 +3820,10 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
       const normalizedPath = path.normalize(folderPath);
-      if (!normalizedPath.startsWith("marketing-content/") || normalizedPath.includes("..")) {
+      if (
+        !normalizedPath.startsWith("marketing-content/") ||
+        normalizedPath.includes("..")
+      ) {
         res.status(403).json({ error: "Access denied" });
         return;
       }
@@ -3311,16 +3850,28 @@ Important: Only include mappings where you are confident the field exists. Use d
       const opts = type ? { contentType: type as any } : undefined;
       const matches = contentIndex.findBySlug(slug, opts);
       if (matches.length === 0) {
-        res.status(404).json({ error: "No content folder found for this slug" });
+        res
+          .status(404)
+          .json({ error: "No content folder found for this slug" });
         return;
       }
       if (matches.length === 1) {
         const entry = matches[0];
-        res.json({ folder: entry.folder, contentType: entry.contentType, files: entry.files, title: entry.title });
+        res.json({
+          folder: entry.folder,
+          contentType: entry.contentType,
+          files: entry.files,
+          title: entry.title,
+        });
       } else {
         res.json({
           multiple: true,
-          matches: matches.map(e => ({ folder: e.folder, contentType: e.contentType, files: e.files, title: e.title })),
+          matches: matches.map((e) => ({
+            folder: e.folder,
+            contentType: e.contentType,
+            files: e.files,
+            title: e.title,
+          })),
         });
       }
     } catch (error) {
@@ -3354,26 +3905,33 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/content/file", (req, res) => {
     try {
       const filePath = req.query.path as string;
-      
+
       if (!filePath) {
         res.status(400).json({ error: "File path is required" });
         return;
       }
-      
+
       // Security: only allow files within marketing-content directory
       const normalizedPath = path.normalize(filePath);
-      if (!normalizedPath.startsWith("marketing-content/") || normalizedPath.includes("..")) {
-        res.status(403).json({ error: "Access denied: Only marketing-content files allowed" });
+      if (
+        !normalizedPath.startsWith("marketing-content/") ||
+        normalizedPath.includes("..")
+      ) {
+        res
+          .status(403)
+          .json({
+            error: "Access denied: Only marketing-content files allowed",
+          });
         return;
       }
-      
+
       const fullPath = path.join(process.cwd(), normalizedPath);
-      
+
       if (!fs.existsSync(fullPath)) {
         res.status(404).json({ error: "File not found" });
         return;
       }
-      
+
       const content = fs.readFileSync(fullPath, "utf-8");
       res.type("text/yaml").send(content);
     } catch (error) {
@@ -3386,7 +3944,7 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       const contentType = req.query.contentType as string;
       const slug = req.query.slug as string;
-      const locale = req.query.locale as string || "en";
+      const locale = (req.query.locale as string) || "en";
 
       if (!contentType || !slug) {
         res.status(400).json({ error: "contentType and slug are required" });
@@ -3411,11 +3969,16 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       if (!fs.existsSync(contentDir)) {
         const subdirs = fs.existsSync(baseDir)
-          ? fs.readdirSync(baseDir, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name)
+          ? fs
+              .readdirSync(baseDir, { withFileTypes: true })
+              .filter((d) => d.isDirectory())
+              .map((d) => d.name)
           : [];
         for (const dir of subdirs) {
           const candidateDir = path.join(baseDir, dir);
-          const ymlFiles = fs.readdirSync(candidateDir).filter(f => f.endsWith(".yml") && f !== "_common.yml");
+          const ymlFiles = fs
+            .readdirSync(candidateDir)
+            .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
           for (const yf of ymlFiles) {
             try {
               const raw = fs.readFileSync(path.join(candidateDir, yf), "utf-8");
@@ -3425,7 +3988,9 @@ Important: Only include mappings where you are confident the field exists. Use d
                 contentDir = candidateDir;
                 break;
               }
-            } catch { /* skip unreadable files */ }
+            } catch {
+              /* skip unreadable files */
+            }
           }
           if (contentDir === candidateDir) break;
         }
@@ -3434,7 +3999,10 @@ Important: Only include mappings where you are confident the field exists. Use d
       const localePath = path.join(contentDir, `${locale}.yml`);
       const commonPath = path.join(contentDir, "_common.yml");
 
-      const files: { locale?: { path: string; content: string }; common?: { path: string; content: string } } = {};
+      const files: {
+        locale?: { path: string; content: string };
+        common?: { path: string; content: string };
+      } = {};
 
       if (fs.existsSync(localePath)) {
         files.locale = {
@@ -3479,19 +4047,29 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
         const capResponse = await fetch(
           `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } },
+          {
+            method: "GET",
+            headers: { Authorization: `Token ${token}`, Academy: "4" },
+          },
         );
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to edit content" });
           return;
         }
       }
 
-      const { filePath, content } = req.body as { filePath: string; content: string };
+      const { filePath, content } = req.body as {
+        filePath: string;
+        content: string;
+      };
 
       if (!filePath || typeof content !== "string") {
         res.status(400).json({ error: "filePath and content are required" });
@@ -3499,8 +4077,15 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       const normalizedPath = path.normalize(filePath);
-      if (!normalizedPath.startsWith("marketing-content/") || normalizedPath.includes("..")) {
-        res.status(403).json({ error: "Access denied: Only marketing-content files allowed" });
+      if (
+        !normalizedPath.startsWith("marketing-content/") ||
+        normalizedPath.includes("..")
+      ) {
+        res
+          .status(403)
+          .json({
+            error: "Access denied: Only marketing-content files allowed",
+          });
         return;
       }
 
@@ -3538,13 +4123,15 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       const { contentType, slug, sectionIndex } = req.query;
       if (!contentType || !slug || sectionIndex === undefined) {
-        res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
+        res
+          .status(400)
+          .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
       const group = bindingManager.findGroupForSection(
         contentType as string,
         slug as string,
-        parseInt(sectionIndex as string, 10)
+        parseInt(sectionIndex as string, 10),
       );
       res.json({ group: group || null });
     } catch (error) {
@@ -3574,12 +4161,21 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       for (const entry of allEntries) {
         const entryContentType = entry.contentType.replace(/s$/, "");
-        if (!entry.locales.includes(normalizedLocale) && entryContentType !== "landing") continue;
+        if (
+          !entry.locales.includes(normalizedLocale) &&
+          entryContentType !== "landing"
+        )
+          continue;
 
         try {
           const typeFolder = getFolder(entryContentType);
           const resolved = contentIndex.resolveBaseSlug(entry.slug, typeFolder);
-          const folder = path.join(process.cwd(), "marketing-content", typeFolder, resolved);
+          const folder = path.join(
+            process.cwd(),
+            "marketing-content",
+            typeFolder,
+            resolved,
+          );
 
           let filePath: string;
           if (entryContentType === "landing") {
@@ -3594,11 +4190,13 @@ Important: Only include mappings where you are confident the field exists. Use d
           let commonData: Record<string, unknown> = {};
           if (fs.existsSync(commonPath)) {
             const commonRaw = fs.readFileSync(commonPath, "utf-8");
-            commonData = yaml.load(commonRaw) as Record<string, unknown> || {};
+            commonData =
+              (yaml.load(commonRaw) as Record<string, unknown>) || {};
           }
 
           const fileRaw = fs.readFileSync(filePath, "utf-8");
-          const localeData = yaml.load(fileRaw) as Record<string, unknown> || {};
+          const localeData =
+            (yaml.load(fileRaw) as Record<string, unknown>) || {};
           const merged = { ...commonData, ...localeData };
           const sections = merged.sections as Record<string, unknown>[];
           if (!Array.isArray(sections)) continue;
@@ -3606,12 +4204,19 @@ Important: Only include mappings where you are confident the field exists. Use d
           for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
             if (section && section.type === component) {
-              const existingGroup = bindingManager.findGroupForSection(entryContentType, entry.slug, i);
+              const existingGroup = bindingManager.findGroupForSection(
+                entryContentType,
+                entry.slug,
+                i,
+              );
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
                 sectionIndex: i,
-                title: (merged.meta as Record<string, unknown>)?.title as string || entry.title || entry.slug,
+                title:
+                  ((merged.meta as Record<string, unknown>)?.title as string) ||
+                  entry.title ||
+                  entry.slug,
                 alreadyBound: existingGroup?.id,
                 alreadyBoundGroupName: existingGroup?.name,
               });
@@ -3629,7 +4234,10 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
-  const requireEditAuth = (req: import("express").Request, res: import("express").Response): boolean => {
+  const requireEditAuth = (
+    req: import("express").Request,
+    res: import("express").Response,
+  ): boolean => {
     const isDevelopment = process.env.NODE_ENV !== "production";
     if (isDevelopment) return true;
     const authHeader = req.headers.authorization;
@@ -3645,15 +4253,28 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { component, locale, members } = req.body;
-      if (!component || !locale || !Array.isArray(members) || members.length < 2) {
-        res.status(400).json({ error: "Missing component, locale, or need at least 2 members" });
+      if (
+        !component ||
+        !locale ||
+        !Array.isArray(members) ||
+        members.length < 2
+      ) {
+        res
+          .status(400)
+          .json({
+            error: "Missing component, locale, or need at least 2 members",
+          });
         return;
       }
       const { name, sourceIndex } = req.body;
-      const group = bindingManager.createGroup(component, locale, members, { name, sourceIndex });
+      const group = bindingManager.createGroup(component, locale, members, {
+        name,
+        sourceIndex,
+      });
       res.json({ group });
     } catch (error) {
-      const msg = error instanceof Error ? error.message : "Failed to create binding";
+      const msg =
+        error instanceof Error ? error.message : "Failed to create binding";
       console.error("Error creating binding:", error);
       res.status(400).json({ error: msg });
     }
@@ -3671,7 +4292,8 @@ Important: Only include mappings where you are confident the field exists. Use d
       const group = bindingManager.renameGroup(groupId, name);
       res.json({ group });
     } catch (error) {
-      const msg = error instanceof Error ? error.message : "Failed to rename binding";
+      const msg =
+        error instanceof Error ? error.message : "Failed to rename binding";
       console.error("Error renaming binding:", error);
       res.status(400).json({ error: msg });
     }
@@ -3683,13 +4305,20 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { groupId } = req.params;
       const { contentType, slug, sectionIndex } = req.body;
       if (!contentType || !slug || sectionIndex === undefined) {
-        res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
+        res
+          .status(400)
+          .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingManager.addMember(groupId, { contentType, slug, sectionIndex });
+      const group = bindingManager.addMember(groupId, {
+        contentType,
+        slug,
+        sectionIndex,
+      });
       res.json({ group });
     } catch (error) {
-      const msg = error instanceof Error ? error.message : "Failed to add member";
+      const msg =
+        error instanceof Error ? error.message : "Failed to add member";
       console.error("Error adding binding member:", error);
       res.status(400).json({ error: msg });
     }
@@ -3701,13 +4330,21 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { groupId } = req.params;
       const { contentType, slug, sectionIndex } = req.body;
       if (!contentType || !slug || sectionIndex === undefined) {
-        res.status(400).json({ error: "Missing contentType, slug, or sectionIndex" });
+        res
+          .status(400)
+          .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const result = bindingManager.removeMember(groupId, contentType, slug, parseInt(sectionIndex, 10));
+      const result = bindingManager.removeMember(
+        groupId,
+        contentType,
+        slug,
+        parseInt(sectionIndex, 10),
+      );
       res.json({ group: result });
     } catch (error) {
-      const msg = error instanceof Error ? error.message : "Failed to remove member";
+      const msg =
+        error instanceof Error ? error.message : "Failed to remove member";
       console.error("Error removing binding member:", error);
       res.status(400).json({ error: msg });
     }
@@ -3772,12 +4409,16 @@ Important: Only include mappings where you are confident the field exists. Use d
         );
 
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
-        
+
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to edit content" });
           return;
         }
       }
@@ -3799,14 +4440,15 @@ Important: Only include mappings where you are confident the field exists. Use d
       } = req.body;
 
       // Use author from request body (sent by client from session context)
-      const authorName = requestAuthor && typeof requestAuthor === 'string' ? requestAuthor : undefined;
+      const authorName =
+        requestAuthor && typeof requestAuthor === "string"
+          ? requestAuthor
+          : undefined;
 
       if (!contentType || !slug || !locale) {
-        res
-          .status(400)
-          .json({
-            error: "Missing required fields: contentType, slug, locale",
-          });
+        res.status(400).json({
+          error: "Missing required fields: contentType, slug, locale",
+        });
         return;
       }
 
@@ -3818,11 +4460,9 @@ Important: Only include mappings where you are confident the field exists. Use d
           sectionData === undefined ||
           sectionData === null
         ) {
-          res
-            .status(400)
-            .json({
-              error: "update_section requires sectionIndex and sectionData",
-            });
+          res.status(400).json({
+            error: "update_section requires sectionIndex and sectionData",
+          });
           return;
         }
         finalOperations = [
@@ -3867,11 +4507,13 @@ Important: Only include mappings where you are confident the field exists. Use d
         // Propagate to bound sections if this was a section update
         let bindingWarnings: string[] = [];
         const updateSectionOp = finalOperations.find(
-          (op: { action: string }) => op.action === "update_section"
+          (op: { action: string }) => op.action === "update_section",
         );
         if (updateSectionOp && !effectiveVariant) {
           const sIdx = updateSectionOp.index as number;
-          const updatedSections = result.updatedSections as Record<string, unknown>[] | undefined;
+          const updatedSections = result.updatedSections as
+            | Record<string, unknown>[]
+            | undefined;
           const updatedSection = updatedSections?.[sIdx];
           if (updatedSection) {
             const normalizedLocaleForBinding = normalizeLocale(locale);
@@ -3880,7 +4522,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               slug,
               sIdx,
               updatedSection,
-              authorName
+              authorName,
             );
             if (propagation.errors.length > 0) {
               bindingWarnings = propagation.errors;
@@ -3892,16 +4534,23 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
 
         // Return success with updated sections for immediate UI update
-        const response: { success: boolean; updatedSections?: unknown; warning?: string; boundUpdates?: string[] } = { 
-          success: true, 
-          updatedSections: result.updatedSections 
+        const response: {
+          success: boolean;
+          updatedSections?: unknown;
+          warning?: string;
+          boundUpdates?: string[];
+        } = {
+          success: true,
+          updatedSections: result.updatedSections,
         };
         if (result.warning) {
           response.warning = result.warning;
         }
         if (bindingWarnings.length > 0) {
-          response.warning = (response.warning ? response.warning + "\n" : "") +
-            "Binding propagation warnings: " + bindingWarnings.join("; ");
+          response.warning =
+            (response.warning ? response.warning + "\n" : "") +
+            "Binding propagation warnings: " +
+            bindingWarnings.join("; ");
         }
         res.json(response);
       } else {
@@ -3931,51 +4580,88 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
         const capResponse = await fetch(
           `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } },
+          {
+            method: "GET",
+            headers: { Authorization: `Token ${token}`, Academy: "4" },
+          },
         );
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to rename content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to rename content" });
           return;
         }
       }
 
-      const { contentType, folderSlug, locale, newSlug, createRedirect } = req.body;
+      const { contentType, folderSlug, locale, newSlug, createRedirect } =
+        req.body;
 
       if (!contentType || !folderSlug || !locale || !newSlug) {
-        res.status(400).json({ error: "Missing required fields: contentType, folderSlug, locale, newSlug" });
+        res
+          .status(400)
+          .json({
+            error:
+              "Missing required fields: contentType, folderSlug, locale, newSlug",
+          });
         return;
       }
 
       if (!isValidType(contentType)) {
-        res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}` });
+        res
+          .status(400)
+          .json({
+            error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+          });
         return;
       }
 
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
       if (!slugRegex.test(newSlug)) {
-        res.status(400).json({ error: "Invalid slug format. Use lowercase letters, numbers, and hyphens only." });
+        res
+          .status(400)
+          .json({
+            error:
+              "Invalid slug format. Use lowercase letters, numbers, and hyphens only.",
+          });
         return;
       }
 
       const contentFolder = getFolder(contentType);
-      const resolvedFolderSlug = contentIndex.resolveBaseSlug(folderSlug, contentFolder);
-      const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, resolvedFolderSlug);
+      const resolvedFolderSlug = contentIndex.resolveBaseSlug(
+        folderSlug,
+        contentFolder,
+      );
+      const folderPath = path.join(
+        process.cwd(),
+        "marketing-content",
+        contentFolder,
+        resolvedFolderSlug,
+      );
 
       if (!fs.existsSync(folderPath)) {
-        res.status(404).json({ error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})` });
+        res
+          .status(404)
+          .json({
+            error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})`,
+          });
         return;
       }
 
       const effectiveLocale = contentType === "landing" ? "promoted" : locale;
-      const localeFile = [`${effectiveLocale}.yml`, `${effectiveLocale}.yaml`].find(f => 
-        fs.existsSync(path.join(folderPath, f))
-      );
+      const localeFile = [
+        `${effectiveLocale}.yml`,
+        `${effectiveLocale}.yaml`,
+      ].find((f) => fs.existsSync(path.join(folderPath, f)));
       if (!localeFile) {
-        res.status(404).json({ error: `Locale file not found: ${effectiveLocale}` });
+        res
+          .status(404)
+          .json({ error: `Locale file not found: ${effectiveLocale}` });
         return;
       }
 
@@ -3993,14 +4679,24 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const oldUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, currentSlug);
-      const newUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, newSlug);
+      const oldUrl = contentIndex.buildUrl(
+        contentFolder,
+        effectiveLocale,
+        currentSlug,
+      );
+      const newUrl = contentIndex.buildUrl(
+        contentFolder,
+        effectiveLocale,
+        newSlug,
+      );
 
       parsed.slug = newSlug;
 
       if (createRedirect) {
         const meta = (parsed.meta || {}) as Record<string, unknown>;
-        const redirects = Array.isArray(meta.redirects) ? [...meta.redirects] : [];
+        const redirects = Array.isArray(meta.redirects)
+          ? [...meta.redirects]
+          : [];
         if (!redirects.includes(oldUrl)) {
           redirects.push(oldUrl);
         }
@@ -4010,7 +4706,9 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(localeFilePath, updated, "utf-8");
-      markFileAsModified(`marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`);
+      markFileAsModified(
+        `marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`,
+      );
 
       contentIndex.refresh();
       clearSitemapCache();
@@ -4035,31 +4733,47 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Check if a slug is available for a given content type
   app.get("/api/content/check-slug", (req, res) => {
     const { type, slug } = req.query;
-    
-    if (!type || !slug || typeof type !== 'string' || typeof slug !== 'string') {
-      res.status(400).json({ error: "Missing required query params: type, slug" });
+
+    if (
+      !type ||
+      !slug ||
+      typeof type !== "string" ||
+      typeof slug !== "string"
+    ) {
+      res
+        .status(400)
+        .json({ error: "Missing required query params: type, slug" });
       return;
     }
-    
+
     if (!isValidType(type)) {
-      res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(', ')}` });
+      res
+        .status(400)
+        .json({
+          error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+        });
       return;
     }
-    
-    const folderPath = path.join(process.cwd(), 'marketing-content', getFolder(type), slug);
-    
+
+    const folderPath = path.join(
+      process.cwd(),
+      "marketing-content",
+      getFolder(type),
+      slug,
+    );
+
     // For landings, also check that it's not a reserved name (starts with _)
-    if (type === 'landing' && slug.startsWith('_')) {
+    if (type === "landing" && slug.startsWith("_")) {
       res.json({ available: false, slug, type, reason: "Reserved prefix" });
       return;
     }
-    
+
     const folderExists = fs.existsSync(folderPath);
-    
-    if (folderExists && type !== 'landing') {
-      const hasCommon = fs.existsSync(path.join(folderPath, '_common.yml'));
-      const hasEn = fs.existsSync(path.join(folderPath, 'en.yml'));
-      const hasEs = fs.existsSync(path.join(folderPath, 'es.yml'));
+
+    if (folderExists && type !== "landing") {
+      const hasCommon = fs.existsSync(path.join(folderPath, "_common.yml"));
+      const hasEn = fs.existsSync(path.join(folderPath, "en.yml"));
+      const hasEs = fs.existsSync(path.join(folderPath, "es.yml"));
       const isComplete = hasCommon && hasEn && hasEs;
       if (isComplete) {
         res.json({ available: false, slug, type, reason: "slug_taken" });
@@ -4070,30 +4784,41 @@ Important: Only include mappings where you are confident the field exists. Use d
       return;
     }
 
-    const locale = typeof req.query.locale === 'string' ? req.query.locale : undefined;
+    const locale =
+      typeof req.query.locale === "string" ? req.query.locale : undefined;
     const urlsToCheck: string[] = [];
     const contentTypeMap: Record<string, string> = {
-      location: 'locations',
-      page: 'pages',
-      program: 'programs',
-      landing: 'landings',
+      location: "locations",
+      page: "pages",
+      program: "programs",
+      landing: "landings",
     };
     const ctKey = contentTypeMap[type];
-    if (type === 'landing') {
-      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'default', slug));
+    if (type === "landing") {
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, "default", slug));
     } else if (locale) {
       urlsToCheck.push(contentIndex.buildUrl(ctKey, locale, slug));
     } else {
-      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'en', slug));
-      urlsToCheck.push(contentIndex.buildUrl(ctKey, 'es', slug));
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, "en", slug));
+      urlsToCheck.push(contentIndex.buildUrl(ctKey, "es", slug));
     }
 
     const redirects = contentIndex.getRedirects();
     for (const url of urlsToCheck) {
-      const conflict = redirects.find(r => r.from === url);
+      const conflict = redirects.find((r) => r.from === url);
       if (conflict) {
-        const redirectTo = typeof conflict.to === 'string' ? conflict.to : Object.values(conflict.to).join(', ');
-        res.json({ available: false, slug, type, reason: "redirect_conflict", conflictUrl: url, redirectTo });
+        const redirectTo =
+          typeof conflict.to === "string"
+            ? conflict.to
+            : Object.values(conflict.to).join(", ");
+        res.json({
+          available: false,
+          slug,
+          type,
+          reason: "redirect_conflict",
+          conflictUrl: url,
+          redirectTo,
+        });
         return;
       }
     }
@@ -4103,27 +4828,36 @@ Important: Only include mappings where you are confident the field exists. Use d
 
   app.get("/api/content/check-origin", (req, res) => {
     const { path: originPath } = req.query;
-    if (!originPath || typeof originPath !== 'string') {
+    if (!originPath || typeof originPath !== "string") {
       res.status(400).json({ error: "Missing required query param: path" });
       return;
     }
 
-    const normalized = originPath.startsWith("/") ? originPath : `/${originPath}`;
+    const normalized = originPath.startsWith("/")
+      ? originPath
+      : `/${originPath}`;
 
     const redirects = contentIndex.getRedirects();
-    const existingRedirect = redirects.find(r => r.from === normalized);
+    const existingRedirect = redirects.find((r) => r.from === normalized);
     if (existingRedirect) {
-      const redirectTo = typeof existingRedirect.to === 'string' ? existingRedirect.to : Object.values(existingRedirect.to).join(', ');
-      res.json({ taken: true, reason: "existing_redirect", details: `Already redirects to ${redirectTo}` });
+      const redirectTo =
+        typeof existingRedirect.to === "string"
+          ? existingRedirect.to
+          : Object.values(existingRedirect.to).join(", ");
+      res.json({
+        taken: true,
+        reason: "existing_redirect",
+        details: `Already redirects to ${redirectTo}`,
+      });
       return;
     }
 
     const entries = contentIndex.listAll();
     const contentTypeMap: Record<string, string> = {
-      locations: 'locations',
-      pages: 'pages',
-      programs: 'programs',
-      landings: 'landings',
+      locations: "locations",
+      pages: "pages",
+      programs: "programs",
+      landings: "landings",
     };
     for (const entry of entries) {
       const ctKey = contentTypeMap[entry.contentType] || entry.contentType;
@@ -4131,7 +4865,11 @@ Important: Only include mappings where you are confident the field exists. Use d
         if (locale.startsWith("_") || locale.includes(".")) continue;
         const url = contentIndex.buildUrl(ctKey, locale, entry.slug);
         if (url === normalized) {
-          res.json({ taken: true, reason: "existing_page", details: `This is the "${entry.title || entry.slug}" ${entry.contentType} page (${locale})` });
+          res.json({
+            taken: true,
+            reason: "existing_page",
+            details: `This is the "${entry.title || entry.slug}" ${entry.contentType} page (${locale})`,
+          });
           return;
         }
       }
@@ -4173,54 +4911,83 @@ Important: Only include mappings where you are confident the field exists. Use d
         );
 
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
-        
+
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to create content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to create content" });
           return;
         }
       }
 
       const { type, slugEn, slugEs, title, sourceUrl } = req.body;
-      
+
       // Support both old format (slug) and new format (slugEn/slugEs)
       const enSlug = slugEn || req.body.slug;
       const esSlug = slugEs || req.body.slug;
-      
+
       if (!type || !enSlug || !esSlug || !title) {
-        res.status(400).json({ error: "Missing required fields: type, slugEn, slugEs, title" });
+        res
+          .status(400)
+          .json({
+            error: "Missing required fields: type, slugEn, slugEs, title",
+          });
         return;
       }
 
       if (!isValidType(type)) {
-        res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(', ')}` });
+        res
+          .status(400)
+          .json({
+            error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+          });
         return;
       }
 
       // Validate slug format for both
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
       if (!slugRegex.test(enSlug)) {
-        res.status(400).json({ error: "Invalid English slug format. Use lowercase letters, numbers, and hyphens only." });
+        res
+          .status(400)
+          .json({
+            error:
+              "Invalid English slug format. Use lowercase letters, numbers, and hyphens only.",
+          });
         return;
       }
       if (!slugRegex.test(esSlug)) {
-        res.status(400).json({ error: "Invalid Spanish slug format. Use lowercase letters, numbers, and hyphens only." });
+        res
+          .status(400)
+          .json({
+            error:
+              "Invalid Spanish slug format. Use lowercase letters, numbers, and hyphens only.",
+          });
         return;
       }
 
       // Use English slug for folder name (primary identifier)
-      const folderPath = path.join(process.cwd(), 'marketing-content', getFolder(type), enSlug);
-      
+      const folderPath = path.join(
+        process.cwd(),
+        "marketing-content",
+        getFolder(type),
+        enSlug,
+      );
+
       // Check if folder already exists
       if (fs.existsSync(folderPath)) {
-        const hasCommon = fs.existsSync(path.join(folderPath, '_common.yml'));
-        const hasEn = fs.existsSync(path.join(folderPath, 'en.yml'));
-        const hasEs = fs.existsSync(path.join(folderPath, 'es.yml'));
-        
+        const hasCommon = fs.existsSync(path.join(folderPath, "_common.yml"));
+        const hasEn = fs.existsSync(path.join(folderPath, "en.yml"));
+        const hasEs = fs.existsSync(path.join(folderPath, "es.yml"));
+
         if (hasCommon && hasEn && hasEs) {
-          res.status(409).json({ error: `A ${type} with slug "${enSlug}" already exists` });
+          res
+            .status(409)
+            .json({ error: `A ${type} with slug "${enSlug}" already exists` });
           return;
         }
       }
@@ -4234,80 +5001,110 @@ Important: Only include mappings where you are confident the field exists. Use d
           // Parse source URL to get content info
           const sourceUrlObj = new URL(sourceUrl);
           const sourcePath = sourceUrlObj.pathname;
-          const pathParts = sourcePath.split('/').filter(Boolean);
-          
+          const pathParts = sourcePath.split("/").filter(Boolean);
+
           // Detect source locale and slug from path
-          const sourceLocale = pathParts[0] === 'es' ? 'es' : 'en';
-          let sourceSlug = '';
-          let sourceFolder = '';
-          
+          const sourceLocale = pathParts[0] === "es" ? "es" : "en";
+          let sourceSlug = "";
+          let sourceFolder = "";
+
           // Determine source folder and slug based on type
-          if (type === 'page') {
-            sourceSlug = pathParts.slice(1).join('-') || pathParts[pathParts.length - 1];
-            sourceFolder = path.join(process.cwd(), 'marketing-content', 'pages');
-          } else if (type === 'program') {
+          if (type === "page") {
+            sourceSlug =
+              pathParts.slice(1).join("-") || pathParts[pathParts.length - 1];
+            sourceFolder = path.join(
+              process.cwd(),
+              "marketing-content",
+              "pages",
+            );
+          } else if (type === "program") {
             // Programs are under /bootcamp/ or /course/
             sourceSlug = pathParts[pathParts.length - 1];
-            sourceFolder = path.join(process.cwd(), 'marketing-content', 'programs');
-          } else if (type === 'location') {
+            sourceFolder = path.join(
+              process.cwd(),
+              "marketing-content",
+              "programs",
+            );
+          } else if (type === "location") {
             // Locations are under /coding-campus/
             sourceSlug = pathParts[pathParts.length - 1];
-            sourceFolder = path.join(process.cwd(), 'marketing-content', 'locations');
+            sourceFolder = path.join(
+              process.cwd(),
+              "marketing-content",
+              "locations",
+            );
           }
-          
+
           // Find the source folder by checking which folder contains matching content
           const possibleFolders = fs.readdirSync(sourceFolder);
-          let foundSourceFolder = '';
-          
+          let foundSourceFolder = "";
+
           for (const folder of possibleFolders) {
             const testPath = path.join(sourceFolder, folder);
             if (fs.statSync(testPath).isDirectory()) {
               // Check if en.yml or es.yml contains matching slug
-              const enFile = path.join(testPath, 'en.yml');
-              const esFile = path.join(testPath, 'es.yml');
-              
+              const enFile = path.join(testPath, "en.yml");
+              const esFile = path.join(testPath, "es.yml");
+
               if (fs.existsSync(enFile)) {
-                const content = fs.readFileSync(enFile, 'utf8');
-                if (content.includes(`slug: ${sourceSlug}`) || content.includes(`slug: "${sourceSlug}"`)) {
+                const content = fs.readFileSync(enFile, "utf8");
+                if (
+                  content.includes(`slug: ${sourceSlug}`) ||
+                  content.includes(`slug: "${sourceSlug}"`)
+                ) {
                   foundSourceFolder = testPath;
                   break;
                 }
               }
               if (!foundSourceFolder && fs.existsSync(esFile)) {
-                const content = fs.readFileSync(esFile, 'utf8');
-                if (content.includes(`slug: ${sourceSlug}`) || content.includes(`slug: "${sourceSlug}"`)) {
+                const content = fs.readFileSync(esFile, "utf8");
+                if (
+                  content.includes(`slug: ${sourceSlug}`) ||
+                  content.includes(`slug: "${sourceSlug}"`)
+                ) {
                   foundSourceFolder = testPath;
                   break;
                 }
               }
             }
           }
-          
+
           if (foundSourceFolder) {
             // Copy all files from source folder
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             for (const file of sourceFiles) {
-              let content = fs.readFileSync(path.join(foundSourceFolder, file), 'utf8');
-              
+              let content = fs.readFileSync(
+                path.join(foundSourceFolder, file),
+                "utf8",
+              );
+
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
-              content = content.replace(new RegExp(`slug:\\s*["']?${oldSlug}["']?`, 'g'), `slug: ${file === 'es.yml' ? esSlug : enSlug}`);
-              content = content.replace(new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, 'g'), `slug: ${file === 'es.yml' ? esSlug : enSlug}`);
-              
+              content = content.replace(
+                new RegExp(`slug:\\s*["']?${oldSlug}["']?`, "g"),
+                `slug: ${file === "es.yml" ? esSlug : enSlug}`,
+              );
+              content = content.replace(
+                new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
+                `slug: ${file === "es.yml" ? esSlug : enSlug}`,
+              );
+
               // Replace title if it's a locale file
-              if (file === 'en.yml' || file === 'es.yml') {
+              if (file === "en.yml" || file === "es.yml") {
                 content = content.replace(/title:\s*.*$/m, `title: ${title}`);
               }
-              
+
               fs.writeFileSync(path.join(folderPath, file), content);
-              markFileAsModified(`marketing-content/${getFolder(type)}/${enSlug}/${file}`);
+              markFileAsModified(
+                `marketing-content/${getFolder(type)}/${enSlug}/${file}`,
+              );
             }
-            
+
             clearSitemapCache();
             contentIndex.refresh();
-            
-            res.json({ 
-              success: true, 
+
+            res.json({
+              success: true,
               slugEn: enSlug,
               slugEs: esSlug,
               type,
@@ -4327,7 +5124,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       let enYml: string;
       let esYml: string;
 
-      if (type === 'page') {
+      if (type === "page") {
         commonYml = `# Common properties shared across all language variants
 slug: "${enSlug}"
 template: "default"
@@ -4365,7 +5162,7 @@ meta:
     - /${esSlug}
 sections: []
 `;
-      } else if (type === 'program') {
+      } else if (type === "program") {
         commonYml = `# Common properties shared across all variants
 slug: ${enSlug}
 title: ${title}
@@ -4442,19 +5239,19 @@ sections: []
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];
       const relFolder = `marketing-content/${getFolder(type)}/${enSlug}`;
-      if (!fs.existsSync(path.join(folderPath, '_common.yml'))) {
-        fs.writeFileSync(path.join(folderPath, '_common.yml'), commonYml);
-        createdFiles.push('_common.yml');
+      if (!fs.existsSync(path.join(folderPath, "_common.yml"))) {
+        fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
+        createdFiles.push("_common.yml");
         markFileAsModified(`${relFolder}/_common.yml`);
       }
-      if (!fs.existsSync(path.join(folderPath, 'en.yml'))) {
-        fs.writeFileSync(path.join(folderPath, 'en.yml'), enYml);
-        createdFiles.push('en.yml');
+      if (!fs.existsSync(path.join(folderPath, "en.yml"))) {
+        fs.writeFileSync(path.join(folderPath, "en.yml"), enYml);
+        createdFiles.push("en.yml");
         markFileAsModified(`${relFolder}/en.yml`);
       }
-      if (!fs.existsSync(path.join(folderPath, 'es.yml'))) {
-        fs.writeFileSync(path.join(folderPath, 'es.yml'), esYml);
-        createdFiles.push('es.yml');
+      if (!fs.existsSync(path.join(folderPath, "es.yml"))) {
+        fs.writeFileSync(path.join(folderPath, "es.yml"), esYml);
+        createdFiles.push("es.yml");
         markFileAsModified(`${relFolder}/es.yml`);
       }
 
@@ -4462,13 +5259,16 @@ sections: []
       clearSitemapCache();
 
       contentIndex.refresh();
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         slugEn: enSlug,
         slugEs: esSlug,
         type,
         folder: `marketing-content/${getFolder(type)}/${enSlug}`,
-        files: createdFiles.length > 0 ? createdFiles : ['_common.yml', 'en.yml', 'es.yml'],
+        files:
+          createdFiles.length > 0
+            ? createdFiles
+            : ["_common.yml", "en.yml", "es.yml"],
         recovered: createdFiles.length > 0 && createdFiles.length < 3,
       });
     } catch (error) {
@@ -4508,12 +5308,16 @@ sections: []
         );
 
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
 
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to delete content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to delete content" });
           return;
         }
       }
@@ -4521,21 +5325,31 @@ sections: []
       const { type, slug, confirmSlug } = req.body;
 
       if (!type || !slug || !confirmSlug) {
-        res.status(400).json({ error: "Missing required fields: type, slug, confirmSlug" });
+        res
+          .status(400)
+          .json({ error: "Missing required fields: type, slug, confirmSlug" });
         return;
       }
 
       if (slug !== confirmSlug) {
-        res.status(400).json({ error: "Confirmation slug does not match. Deletion cancelled." });
+        res
+          .status(400)
+          .json({
+            error: "Confirmation slug does not match. Deletion cancelled.",
+          });
         return;
       }
 
       if (!isValidType(type)) {
-        res.status(400).json({ error: `Invalid type. Must be one of: ${getAllTypes().join(', ')}` });
+        res
+          .status(400)
+          .json({
+            error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+          });
         return;
       }
 
-      if (!slug || /[\/\\]|\.\./.test(slug) || slug.startsWith('.')) {
+      if (!slug || /[\/\\]|\.\./.test(slug) || slug.startsWith(".")) {
         res.status(400).json({ error: "Invalid slug format" });
         return;
       }
@@ -4543,15 +5357,24 @@ sections: []
       const typeFolder = getFolder(type);
       const resolvedSlug = contentIndex.resolveBaseSlug(slug, typeFolder);
 
-      const folderPath = path.join(process.cwd(), 'marketing-content', typeFolder, resolvedSlug);
+      const folderPath = path.join(
+        process.cwd(),
+        "marketing-content",
+        typeFolder,
+        resolvedSlug,
+      );
 
       if (!fs.existsSync(folderPath)) {
-        res.status(404).json({ error: `Content "${slug}" of type "${type}" not found` });
+        res
+          .status(404)
+          .json({ error: `Content "${slug}" of type "${type}" not found` });
         return;
       }
 
       const realPath = fs.realpathSync(path.resolve(folderPath));
-      const allowedBase = fs.realpathSync(path.join(process.cwd(), 'marketing-content', typeFolder));
+      const allowedBase = fs.realpathSync(
+        path.join(process.cwd(), "marketing-content", typeFolder),
+      );
       if (!realPath.startsWith(allowedBase + path.sep)) {
         res.status(400).json({ error: "Invalid path" });
         return;
@@ -4562,7 +5385,10 @@ sections: []
       console.log(`[Content] Deleted ${type}/${slug}`);
       contentIndex.refresh();
 
-      res.json({ success: true, message: `Successfully deleted ${type}/${slug}` });
+      res.json({
+        success: true,
+        message: `Successfully deleted ${type}/${slug}`,
+      });
     } catch (error) {
       console.error("Content delete error:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -4602,44 +5428,63 @@ sections: []
         );
 
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
-        
+
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to create content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to create content" });
           return;
         }
       }
 
       const { slug, locale, title, sourceUrl } = req.body;
-      
+
       if (!slug || !title) {
         res.status(400).json({ error: "Missing required fields: slug, title" });
         return;
       }
 
-      const validLocales = ['en', 'es'];
-      const landingLocale = locale && validLocales.includes(locale) ? locale : 'en';
+      const validLocales = ["en", "es"];
+      const landingLocale =
+        locale && validLocales.includes(locale) ? locale : "en";
 
       // Validate slug format
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
       if (!slugRegex.test(slug)) {
-        res.status(400).json({ error: "Invalid slug format. Use lowercase letters, numbers, and hyphens only." });
+        res
+          .status(400)
+          .json({
+            error:
+              "Invalid slug format. Use lowercase letters, numbers, and hyphens only.",
+          });
         return;
       }
 
       // Don't allow reserved prefixes
-      if (slug.startsWith('_')) {
-        res.status(400).json({ error: "Slug cannot start with underscore (reserved)" });
+      if (slug.startsWith("_")) {
+        res
+          .status(400)
+          .json({ error: "Slug cannot start with underscore (reserved)" });
         return;
       }
 
-      const folderPath = path.join(process.cwd(), 'marketing-content', 'landings', slug);
-      
+      const folderPath = path.join(
+        process.cwd(),
+        "marketing-content",
+        "landings",
+        slug,
+      );
+
       // Check if folder already exists
       if (fs.existsSync(folderPath)) {
-        res.status(409).json({ error: `A landing with slug "${slug}" already exists` });
+        res
+          .status(409)
+          .json({ error: `A landing with slug "${slug}" already exists` });
         return;
       }
 
@@ -4652,41 +5497,57 @@ sections: []
           // Parse source URL to get landing slug
           const sourceUrlObj = new URL(sourceUrl);
           const sourcePath = sourceUrlObj.pathname;
-          const pathParts = sourcePath.split('/').filter(Boolean);
-          
+          const pathParts = sourcePath.split("/").filter(Boolean);
+
           // Landing URLs are like /landing/example-landing or /us/landing/example-landing
-          let sourceSlug = '';
-          const landingIndex = pathParts.indexOf('landing');
+          let sourceSlug = "";
+          const landingIndex = pathParts.indexOf("landing");
           if (landingIndex !== -1 && pathParts.length > landingIndex + 1) {
             sourceSlug = pathParts[landingIndex + 1];
           }
-          
+
           if (sourceSlug) {
-            const sourceFolderPath = path.join(process.cwd(), 'marketing-content', 'landings', sourceSlug);
-            
+            const sourceFolderPath = path.join(
+              process.cwd(),
+              "marketing-content",
+              "landings",
+              sourceSlug,
+            );
+
             if (fs.existsSync(sourceFolderPath)) {
               // Copy all files from source folder
               const sourceFiles = fs.readdirSync(sourceFolderPath);
               for (const file of sourceFiles) {
-                let content = fs.readFileSync(path.join(sourceFolderPath, file), 'utf8');
-                
+                let content = fs.readFileSync(
+                  path.join(sourceFolderPath, file),
+                  "utf8",
+                );
+
                 // Replace slug in content
-                content = content.replace(new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, 'g'), `slug: "${slug}"`);
-                
+                content = content.replace(
+                  new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
+                  `slug: "${slug}"`,
+                );
+
                 // Replace title if it's _common.yml
-                if (file === '_common.yml') {
-                  content = content.replace(/title:\s*["']?.*["']?$/m, `title: "${title}"`);
+                if (file === "_common.yml") {
+                  content = content.replace(
+                    /title:\s*["']?.*["']?$/m,
+                    `title: "${title}"`,
+                  );
                 }
-                
+
                 fs.writeFileSync(path.join(folderPath, file), content);
-                markFileAsModified(`marketing-content/landings/${slug}/${file}`);
+                markFileAsModified(
+                  `marketing-content/landings/${slug}/${file}`,
+                );
               }
-              
+
               clearSitemapCache();
               contentIndex.refresh();
-              
-              res.json({ 
-                success: true, 
+
+              res.json({
+                success: true,
                 slug,
                 locale: landingLocale,
                 folder: `marketing-content/landings/${slug}`,
@@ -4725,20 +5586,20 @@ sections: []
 `;
 
       // Write files
-      fs.writeFileSync(path.join(folderPath, '_common.yml'), commonYml);
+      fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
       markFileAsModified(`marketing-content/landings/${slug}/_common.yml`);
-      fs.writeFileSync(path.join(folderPath, 'promoted.yml'), promotedYml);
+      fs.writeFileSync(path.join(folderPath, "promoted.yml"), promotedYml);
       markFileAsModified(`marketing-content/landings/${slug}/promoted.yml`);
 
       clearSitemapCache();
       contentIndex.refresh();
 
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         slug,
         locale: landingLocale,
         folder: `marketing-content/landings/${slug}`,
-        files: ['_common.yml', 'promoted.yml'],
+        files: ["_common.yml", "promoted.yml"],
       });
     } catch (error) {
       console.error("Landing create error:", error);
@@ -4772,7 +5633,10 @@ sections: []
 
   // Get form options (programs and locations for dropdowns)
   app.get(["/api/form-options", "/api/form-options/:locale"], (req, res) => {
-    const locale = normalizeLocale((req.params as { locale?: string }).locale || req.query.locale as string);
+    const locale = normalizeLocale(
+      (req.params as { locale?: string }).locale ||
+        (req.query.locale as string),
+    );
 
     // Get all programs for dropdown
     const programs = listCareerPrograms(locale).map((p) => ({
@@ -4912,7 +5776,9 @@ sections: []
 
       // Remove null, undefined, and empty string values from payload
       const cleanPayload = Object.fromEntries(
-        Object.entries(payload).filter(([_, value]) => value !== null && value !== undefined && value !== "")
+        Object.entries(payload).filter(
+          ([_, value]) => value !== null && value !== undefined && value !== "",
+        ),
       );
 
       // Post to Breathecode API
@@ -4964,7 +5830,10 @@ sections: []
         });
         return;
       }
-      res.json({ success: true, message: `Deleted "${req.params.id}" from registry` });
+      res.json({
+        success: true,
+        message: `Deleted "${req.params.id}" from registry`,
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Delete failed" });
     }
@@ -5011,14 +5880,18 @@ sections: []
         newImages: action === "update" ? [] : scanResult.newImages,
         updatedImages: action === "add" ? [] : scanResult.updatedImages,
       };
-      if (filtered.newImages.length === 0 && filtered.updatedImages.length === 0) {
+      if (
+        filtered.newImages.length === 0 &&
+        filtered.updatedImages.length === 0
+      ) {
         res.json({ message: "Nothing to apply", added: 0, updated: 0 });
         return;
       }
       const applied = mediaGallery.applyChanges(filtered);
-      const yamlMsg = applied.yamlFilesUpdated.length > 0
-        ? `. Updated paths in ${applied.yamlFilesUpdated.length} YAML file(s)`
-        : "";
+      const yamlMsg =
+        applied.yamlFilesUpdated.length > 0
+          ? `. Updated paths in ${applied.yamlFilesUpdated.length} YAML file(s)`
+          : "";
       res.json({
         message: `Applied ${applied.added} new, ${applied.updated} updated${yamlMsg}`,
         ...applied,
@@ -5032,13 +5905,18 @@ sections: []
     try {
       const scanResult = await mediaGallery.scan();
       if (scanResult.duplicates.length === 0) {
-        res.json({ message: "No duplicates found", removedCount: 0, results: [] });
+        res.json({
+          message: "No duplicates found",
+          removedCount: 0,
+          results: [],
+        });
         return;
       }
       const result = mediaGallery.removeDuplicates(scanResult.duplicates);
-      const yamlMsg = result.yamlFilesUpdated.length > 0
-        ? `. Updated references in ${result.yamlFilesUpdated.length} YAML file(s)`
-        : "";
+      const yamlMsg =
+        result.yamlFilesUpdated.length > 0
+          ? `. Updated references in ${result.yamlFilesUpdated.length} YAML file(s)`
+          : "";
       res.json({
         message: `Removed ${result.removedCount} duplicate(s)${yamlMsg}`,
         ...result,
@@ -5051,14 +5929,19 @@ sections: []
   app.post("/api/image-registry/migrate", async (req, res) => {
     try {
       const { from, to, dryRun, prefix } = req.body as {
-        from?: string; to?: string; dryRun?: boolean; prefix?: string;
+        from?: string;
+        to?: string;
+        dryRun?: boolean;
+        prefix?: string;
       };
       if (!from || !to) {
-        res.status(400).json({ error: "Missing 'from' and/or 'to' provider name" });
+        res
+          .status(400)
+          .json({ error: "Missing 'from' and/or 'to' provider name" });
         return;
       }
       const results = await mediaGallery.migrate(from, to, { dryRun, prefix });
-      const migrated = results.filter(r => r.status === "migrated").length;
+      const migrated = results.filter((r) => r.status === "migrated").length;
       res.json({
         message: dryRun
           ? `Dry run: ${results.length} image(s) would be migrated from ${from} to ${to}`
@@ -5076,7 +5959,15 @@ sections: []
     storage: multer.memoryStorage(),
     limits: { fileSize: 100 * 1024 * 1024 },
     fileFilter: (_req, file, cb) => {
-      const allowedImages = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
+      const allowedImages = [
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".webp",
+        ".svg",
+        ".avif",
+        ".gif",
+      ];
       const allowedVideos = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
       const ext = path.extname(file.originalname).toLowerCase();
       if ([...allowedImages, ...allowedVideos].includes(ext)) {
@@ -5087,26 +5978,30 @@ sections: []
     },
   });
 
-  app.post("/api/image-registry/upload", mediaUpload.single("file"), async (req, res) => {
-    try {
-      const file = (req as any).file;
-      if (!file) {
-        res.status(400).json({ error: "No file provided" });
-        return;
+  app.post(
+    "/api/image-registry/upload",
+    mediaUpload.single("file"),
+    async (req, res) => {
+      try {
+        const file = (req as any).file;
+        if (!file) {
+          res.status(400).json({ error: "No file provided" });
+          return;
+        }
+        const alt = (req.body?.alt as string) || undefined;
+        const tags = req.body?.tags ? JSON.parse(req.body.tags) : undefined;
+        const result = await mediaGallery.uploadAndRegister(
+          file.originalname,
+          file.buffer,
+          file.mimetype,
+          { alt, tags },
+        );
+        res.json(result);
+      } catch (error: any) {
+        res.status(500).json({ error: error.message || "Upload failed" });
       }
-      const alt = (req.body?.alt as string) || undefined;
-      const tags = req.body?.tags ? JSON.parse(req.body.tags) : undefined;
-      const result = await mediaGallery.uploadAndRegister(
-        file.originalname,
-        file.buffer,
-        file.mimetype,
-        { alt, tags }
-      );
-      res.json(result);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message || "Upload failed" });
-    }
-  });
+    },
+  );
 
   // ============================================
   // Validation API Endpoints
@@ -5268,13 +6163,18 @@ sections: []
       }
 
       const matchingFiles = context.contentFiles.filter(
-        (f: any) => getCanonicalUrl(f) === url
+        (f: any) => getCanonicalUrl(f) === url,
       );
-      const urlLocale = url.startsWith("/es/") ? "es" : url.startsWith("/en/") ? "en" : null;
-      const file = (urlLocale && matchingFiles.find((f: any) => f.locale === urlLocale))
-        || matchingFiles.find((f: any) => f.locale !== "_common")
-        || matchingFiles[0]
-        || null;
+      const urlLocale = url.startsWith("/es/")
+        ? "es"
+        : url.startsWith("/en/")
+          ? "en"
+          : null;
+      const file =
+        (urlLocale && matchingFiles.find((f: any) => f.locale === urlLocale)) ||
+        matchingFiles.find((f: any) => f.locale !== "_common") ||
+        matchingFiles[0] ||
+        null;
 
       if (!file) {
         res.status(404).json({ error: `No content found for URL: ${url}` });
@@ -5283,18 +6183,38 @@ sections: []
 
       let rawData: Record<string, unknown> = {};
       try {
-        const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
+        const commonPath = path.join(
+          path.dirname(file.filePath),
+          "_common.yml",
+        );
         if (fs.existsSync(commonPath)) {
-          const commonData = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown> || {};
+          const commonData =
+            (safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<
+              string,
+              unknown
+            >) || {};
           rawData = { ...commonData };
         }
         if (fs.existsSync(file.filePath)) {
-          const localeData = safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown> || {};
+          const localeData =
+            (safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<
+              string,
+              unknown
+            >) || {};
           rawData = { ...rawData, ...localeData };
         }
       } catch {}
 
-      const schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> } = { valid: true, errors: [] };
+      const schemaValidation: {
+        valid: boolean;
+        errors: Array<{
+          path: string;
+          code: string;
+          message: string;
+          expected?: string;
+          received?: string;
+        }>;
+      } = { valid: true, errors: [] };
       try {
         const typeToSchema: Record<string, any> = {
           program: careerProgramSchema,
@@ -5306,9 +6226,11 @@ sections: []
         if (zodSchema) {
           let inferredLocale = file.locale;
           if (!inferredLocale || inferredLocale === "_common") {
-            inferredLocale = urlLocale || (url.startsWith("/es/") ? "es" : "en");
+            inferredLocale =
+              urlLocale || (url.startsWith("/es/") ? "es" : "en");
           }
-          const localeOrVariant = file.type === "landing" ? "promoted" : inferredLocale;
+          const localeOrVariant =
+            file.type === "landing" ? "promoted" : inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
           const result = loadContent({
             contentType: file.type,
@@ -5318,18 +6240,26 @@ sections: []
           });
           if (!result.success) {
             schemaValidation.valid = false;
-            const zodErrorMatch = result.error.match(/Invalid YAML structure[^:]*:\s*([\s\S]*)/);
+            const zodErrorMatch = result.error.match(
+              /Invalid YAML structure[^:]*:\s*([\s\S]*)/,
+            );
             if (zodErrorMatch) {
               try {
                 const parsed = JSON.parse(zodErrorMatch[1]);
                 if (Array.isArray(parsed)) {
                   for (const issue of parsed) {
                     schemaValidation.errors.push({
-                      path: Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || ""),
+                      path: Array.isArray(issue.path)
+                        ? issue.path.join(".")
+                        : String(issue.path || ""),
                       code: issue.code || "unknown",
                       message: issue.message || "Validation failed",
-                      expected: issue.expected ? String(issue.expected) : undefined,
-                      received: issue.received ? String(issue.received) : undefined,
+                      expected: issue.expected
+                        ? String(issue.expected)
+                        : undefined,
+                      received: issue.received
+                        ? String(issue.received)
+                        : undefined,
                     });
                   }
                 }
@@ -5425,7 +6355,7 @@ sections: []
         (f: any) =>
           f.slug === file.slug &&
           f.type === file.type &&
-          f.locale === counterpartLocale
+          f.locale === counterpartLocale,
       );
       const counterpartUrl = counterpartFile
         ? getCanonicalUrl(counterpartFile)
@@ -5458,7 +6388,9 @@ sections: []
         }
       }
 
-      const schemaData = rawData.schema as { include?: string[]; overrides?: Record<string, unknown> } | undefined;
+      const schemaData = rawData.schema as
+        | { include?: string[]; overrides?: Record<string, unknown> }
+        | undefined;
       if (schemaData?.include) {
         const availableKeys = getAvailableSchemaKeys();
         const availableSet = new Set(availableKeys);
@@ -5561,7 +6493,7 @@ sections: []
 
       schemaMax += 10;
       const hasPlaceholders = parsedSchemas.some((s: any) =>
-        JSON.stringify(s).match(/todo/i)
+        JSON.stringify(s).match(/todo/i),
       );
       if (!hasPlaceholders) {
         schemaScore += 10;
@@ -5597,10 +6529,7 @@ sections: []
 
       contentMax += 15;
       const emptyFields: string[] = [];
-      function findEmptyFields(
-        obj: unknown,
-        path: string = ""
-      ): void {
+      function findEmptyFields(obj: unknown, path: string = ""): void {
         if (!obj || typeof obj !== "object") return;
         if (Array.isArray(obj)) {
           obj.forEach((item, i) => findEmptyFields(item, `${path}[${i}]`));
@@ -5643,7 +6572,7 @@ sections: []
       const contentPercent =
         contentMax > 0 ? Math.round((contentScore / contentMax) * 100) : 0;
       const totalScore = Math.round(
-        (seoPercent + schemaPercent + contentPercent) / 3
+        (seoPercent + schemaPercent + contentPercent) / 3,
       );
 
       res.json({
@@ -5808,21 +6737,37 @@ sections: []
 
   app.post("/api/ai/analyze-data-payload", async (req, res) => {
     try {
-      const { analyzeDataPayload } = await import("./ai/generateTableFromPayload");
+      const { analyzeDataPayload } = await import(
+        "./ai/generateTableFromPayload"
+      );
 
       const { sampleData, availableKeys } = req.body;
 
-      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+      if (
+        !sampleData ||
+        !Array.isArray(sampleData) ||
+        sampleData.length === 0
+      ) {
         res.status(400).json({ error: "sampleData must be a non-empty array" });
         return;
       }
-      if (!availableKeys || !Array.isArray(availableKeys) || availableKeys.length === 0) {
-        res.status(400).json({ error: "availableKeys must be a non-empty array" });
+      if (
+        !availableKeys ||
+        !Array.isArray(availableKeys) ||
+        availableKeys.length === 0
+      ) {
+        res
+          .status(400)
+          .json({ error: "availableKeys must be a non-empty array" });
         return;
       }
 
       const locale = req.body.locale || "en";
-      const analysis = await analyzeDataPayload({ sampleData, availableKeys, locale });
+      const analysis = await analyzeDataPayload({
+        sampleData,
+        availableKeys,
+        locale,
+      });
       res.json(analysis);
     } catch (error: any) {
       console.error("Error analyzing data payload:", error?.message || error);
@@ -5833,49 +6778,80 @@ sections: []
 
   app.post("/api/ai/generate-table-from-payload", async (req, res) => {
     try {
-      const { generateTableFromPayload } = await import("./ai/generateTableFromPayload");
+      const { generateTableFromPayload } = await import(
+        "./ai/generateTableFromPayload"
+      );
 
       const { sampleData, availableKeys, userPrompt } = req.body;
 
-      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+      if (
+        !sampleData ||
+        !Array.isArray(sampleData) ||
+        sampleData.length === 0
+      ) {
         res.status(400).json({ error: "sampleData must be a non-empty array" });
         return;
       }
-      if (!availableKeys || !Array.isArray(availableKeys) || availableKeys.length === 0) {
-        res.status(400).json({ error: "availableKeys must be a non-empty array" });
+      if (
+        !availableKeys ||
+        !Array.isArray(availableKeys) ||
+        availableKeys.length === 0
+      ) {
+        res
+          .status(400)
+          .json({ error: "availableKeys must be a non-empty array" });
         return;
       }
       if (!userPrompt || typeof userPrompt !== "string") {
-        res.status(400).json({ error: "userPrompt must be a non-empty string" });
+        res
+          .status(400)
+          .json({ error: "userPrompt must be a non-empty string" });
         return;
       }
 
       const locale = req.body.locale || "en";
-      const config = await generateTableFromPayload({ sampleData, availableKeys, userPrompt, locale });
+      const config = await generateTableFromPayload({
+        sampleData,
+        availableKeys,
+        userPrompt,
+        locale,
+      });
       res.json(config);
     } catch (error: any) {
       console.error("Error generating table config:", error?.message || error);
-      const message = error?.message || "Failed to generate table configuration";
+      const message =
+        error?.message || "Failed to generate table configuration";
       res.status(500).json({ error: message });
     }
   });
 
   app.post("/api/ai/refine-table-config", async (req, res) => {
     try {
-      const { refineTableConfig } = await import("./ai/generateTableFromPayload");
+      const { refineTableConfig } = await import(
+        "./ai/generateTableFromPayload"
+      );
 
-      const { currentConfig, sampleData, availableKeys, userFeedback, locale } = req.body;
+      const { currentConfig, sampleData, availableKeys, userFeedback, locale } =
+        req.body;
 
       if (!currentConfig || !currentConfig.columns) {
-        res.status(400).json({ error: "currentConfig with columns is required" });
+        res
+          .status(400)
+          .json({ error: "currentConfig with columns is required" });
         return;
       }
-      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+      if (
+        !sampleData ||
+        !Array.isArray(sampleData) ||
+        sampleData.length === 0
+      ) {
         res.status(400).json({ error: "sampleData must be a non-empty array" });
         return;
       }
       if (!userFeedback || typeof userFeedback !== "string") {
-        res.status(400).json({ error: "userFeedback must be a non-empty string" });
+        res
+          .status(400)
+          .json({ error: "userFeedback must be a non-empty string" });
         return;
       }
 
@@ -5896,16 +6872,31 @@ sections: []
 
   app.post("/api/ai/generate-global-filter", async (req, res) => {
     try {
-      const { generateGlobalFilter } = await import("./ai/generateTableFromPayload");
+      const { generateGlobalFilter } = await import(
+        "./ai/generateTableFromPayload"
+      );
 
-      const { sampleData, availableKeys, userPrompt, currentFilter, locale, sessionContext } = req.body;
+      const {
+        sampleData,
+        availableKeys,
+        userPrompt,
+        currentFilter,
+        locale,
+        sessionContext,
+      } = req.body;
 
-      if (!sampleData || !Array.isArray(sampleData) || sampleData.length === 0) {
+      if (
+        !sampleData ||
+        !Array.isArray(sampleData) ||
+        sampleData.length === 0
+      ) {
         res.status(400).json({ error: "sampleData must be a non-empty array" });
         return;
       }
       if (!userPrompt || typeof userPrompt !== "string") {
-        res.status(400).json({ error: "userPrompt must be a non-empty string" });
+        res
+          .status(400)
+          .json({ error: "userPrompt must be a non-empty string" });
         return;
       }
 
@@ -5928,7 +6919,7 @@ sections: []
   // ============================================
   // Centralized FAQs API
   // ============================================
-  
+
   // Get centralized FAQs from YAML file
   app.get("/api/testimonials/:locale", (req, res) => {
     const { locale } = req.params;
@@ -5938,7 +6929,7 @@ sections: []
       process.cwd(),
       "marketing-content",
       "testimonials",
-      `${normalizedLocale}.yml`
+      `${normalizedLocale}.yml`,
     );
 
     if (!fs.existsSync(testimonialsPath)) {
@@ -5959,19 +6950,19 @@ sections: []
   app.get("/api/faqs/:locale", (req, res) => {
     const { locale } = req.params;
     const normalizedLocale = normalizeLocale(locale);
-    
+
     const faqsPath = path.join(
       process.cwd(),
       "marketing-content",
       "faqs",
-      `${normalizedLocale}.yml`
+      `${normalizedLocale}.yml`,
     );
-    
+
     if (!fs.existsSync(faqsPath)) {
       res.status(404).json({ error: "FAQs not found for locale" });
       return;
     }
-    
+
     try {
       const content = fs.readFileSync(faqsPath, "utf8");
       const data = safeYamlLoad(content) as { faqs: unknown[] };
@@ -5981,31 +6972,31 @@ sections: []
       res.status(500).json({ error: "Failed to load FAQs" });
     }
   });
-  
+
   // Save centralized FAQs to YAML file (edit mode only)
   app.post("/api/faqs/:locale", async (req, res) => {
     try {
       const { locale } = req.params;
       const normalizedLocale = normalizeLocale(locale);
-      
+
       // Auth check (same as content edit)
       const isDevelopment = process.env.NODE_ENV !== "production";
       const authHeader = req.headers.authorization;
       const debugToken = req.headers["x-debug-token"] as string | undefined;
-      
+
       let token: string | null = null;
       if (authHeader?.startsWith("Token ")) {
         token = authHeader.slice(6);
       } else if (debugToken) {
         token = debugToken;
       }
-      
+
       if (!isDevelopment) {
         if (!token) {
           res.status(401).json({ error: "Authorization required" });
           return;
         }
-        
+
         const capResponse = await fetch(
           `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
           {
@@ -6014,52 +7005,61 @@ sections: []
               Authorization: `Token ${token}`,
               Academy: "4",
             },
-          }
+          },
         );
-        
+
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
-        
+
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to edit FAQs" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to edit FAQs" });
           return;
         }
       }
-      
+
       const { faqs } = req.body;
-      
+
       if (!faqs || !Array.isArray(faqs)) {
         res.status(400).json({ error: "Missing required field: faqs (array)" });
         return;
       }
-      
+
       const faqsPath = path.join(
         process.cwd(),
         "marketing-content",
         "faqs",
-        `${normalizedLocale}.yml`
+        `${normalizedLocale}.yml`,
       );
-      
+
       // Generate YAML with comment header
-      const header = `# Centralized FAQ Data - ${normalizedLocale === 'en' ? 'English' : 'Spanish'}
+      const header = `# Centralized FAQ Data - ${normalizedLocale === "en" ? "English" : "Spanish"}
 # All FAQs should be stored here and referenced by pages via related_features filter
 # No HTML tags - plain text only
 
 `;
-      const yamlContent = header + safeYamlDump({ faqs }, { 
-        lineWidth: -1, 
-        quotingType: '"',
-        forceQuotes: false,
-        flowLevel: -1
-      });
-      
+      const yamlContent =
+        header +
+        safeYamlDump(
+          { faqs },
+          {
+            lineWidth: -1,
+            quotingType: '"',
+            forceQuotes: false,
+            flowLevel: -1,
+          },
+        );
+
       fs.writeFileSync(faqsPath, yamlContent, "utf8");
-      
+
       // Clear relevant caches
       clearSitemapCache();
-      
+
       res.json({ success: true });
     } catch (error) {
       console.error("Error saving FAQs:", error);
@@ -6069,7 +7069,12 @@ sections: []
 
   app.use(async (req, res, next) => {
     const url = req.originalUrl || req.url;
-    if (url.startsWith("/api/") || url.startsWith("/attached_assets/") || url.startsWith("/marketing-content/") || /\.\w+$/.test(url)) {
+    if (
+      url.startsWith("/api/") ||
+      url.startsWith("/attached_assets/") ||
+      url.startsWith("/marketing-content/") ||
+      /\.\w+$/.test(url)
+    ) {
       return next();
     }
 
@@ -6079,7 +7084,11 @@ sections: []
     if (blogRoute) {
       try {
         const posts = await getBlogPosts();
-        const post = findBlogPostBySlug(posts, blogRoute.slug, blogRoute.locale);
+        const post = findBlogPostBySlug(
+          posts,
+          blogRoute.slug,
+          blogRoute.locale,
+        );
         if (post) {
           schemaHtml = generateBlogSsrHtml(post, blogRoute.locale);
         }
@@ -6096,7 +7105,8 @@ sections: []
       }
     }
 
-    const isBlogRoute = blogRoute !== null || /^\/(en|es)\/blog\/?/.test((url).split("?")[0]);
+    const isBlogRoute =
+      blogRoute !== null || /^\/(en|es)\/blog\/?/.test(url.split("?")[0]);
     if (!schemaHtml && !isBlogRoute) {
       return next();
     }
@@ -6120,12 +7130,26 @@ sections: []
     const originalEnd = res.end.bind(res);
     res.end = function (chunk?: any, ...args: any[]) {
       const contentType = res.getHeader("content-type");
-      if (contentType && typeof contentType === "string" && contentType.includes("text/html") && chunk) {
+      if (
+        contentType &&
+        typeof contentType === "string" &&
+        contentType.includes("text/html") &&
+        chunk
+      ) {
         if (isBlogRoute && res.statusCode === 404) {
           res.statusCode = 200;
         }
-        let html = typeof chunk === "string" ? chunk : Buffer.isBuffer(chunk) ? chunk.toString("utf-8") : chunk;
-        if (typeof html === "string" && html.includes("</head>") && schemaHtml) {
+        let html =
+          typeof chunk === "string"
+            ? chunk
+            : Buffer.isBuffer(chunk)
+              ? chunk.toString("utf-8")
+              : chunk;
+        if (
+          typeof html === "string" &&
+          html.includes("</head>") &&
+          schemaHtml
+        ) {
           html = html.replace("</head>", `${schemaHtml}\n</head>`);
           return originalEnd(html, ...args);
         }

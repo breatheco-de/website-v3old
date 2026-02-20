@@ -14,7 +14,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: Rigobot, tu Mentor de Programación con IA que se siente como un amigo
     subtitle: Conoce Rigobot, tu mentor de programación con IA que sigue tu progreso, proporciona retroalimentación en tiempo real y te ayuda a pensar como desarrollador. Disponible 24/7 en cada curso de 4Geeks.
@@ -83,8 +83,8 @@ sections:
       Rigobot es gratis dentro de cada curso de 4Geeks, desde Full Stack hasta Data Science. Explora un [**demo de LearnPack**](https://4geeksacademy.com/us/learnpack) o aplica a nuestro [**Full Stack Bootcamp**](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer).
 
       Deja que Rigobot convierta los bugs de medianoche en momentos de iluminación y tu esfuerzo en una carrera tech.
-    show_toc: false
-    max_width: md
+    show_toc: true
+    max_width: xl
   - type: faq
     version: v1.0
     title: Preguntas Frecuentes
@@ -93,7 +93,7 @@ sections:
     marginY:
       desktop: none md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados disponibles. Empieza tu transformación hoy.
     background: hsl(var(--primary))
