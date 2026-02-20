@@ -313,7 +313,7 @@ sections:
         description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
         benefits:
           - text: Científico de datos {{ salary_data_scientist }}
-          - text: Ingeniero de Machine Learnign {{ average_salary_machine_learning_engineer | $90K–$150K } }}
+          - text: Ingeniero de Machine Learnign {{ average_salary_machine_learning_engineer | $90K–$150K  }}
           - text: Analista de Datos {{ average_salary_data_analyst | 20.000€-30.000€ }} (<2 años)
           - text: AI Engineer {{ average_salary_ai_engineer | 22.000€-35.000€ }}  (<2 años)
       - value: 5,000+
