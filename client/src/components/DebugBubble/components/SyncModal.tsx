@@ -122,75 +122,61 @@ export function SyncModal({
             </div>
           )}
 
-          <Card className="p-3 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className={`h-2 w-2 rounded-full ${
-                  autoCommitStatus?.enabled && autoCommitStatus.githubConfigured
-                    ? autoCommitStatus.isCommitting ? 'bg-amber-500 animate-pulse' : 'bg-green-500'
-                    : 'bg-muted-foreground/30'
-                }`} />
-                <span className="text-sm font-medium">
-                  {autoCommitStatus?.isCommitting ? 'Syncing...' : autoCommitStatus?.enabled ? 'Auto-sync active' : 'Auto-sync inactive'}
-                </span>
-              </div>
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5">
+              <div className={`h-1.5 w-1.5 rounded-full ${
+                autoCommitStatus?.enabled && autoCommitStatus.githubConfigured
+                  ? autoCommitStatus.isCommitting ? 'bg-amber-500 animate-pulse' : 'bg-green-500'
+                  : 'bg-muted-foreground/30'
+              }`} />
+              <span className="font-medium">
+                {autoCommitStatus?.isCommitting ? 'Syncing...' : autoCommitStatus?.enabled ? 'Auto-sync' : 'Auto-sync off'}
+              </span>
               {autoCommitStatus?.pendingFiles ? (
-                <Badge variant="secondary">{autoCommitStatus.pendingFiles} queued</Badge>
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{autoCommitStatus.pendingFiles} queued</Badge>
               ) : null}
             </div>
-
-            {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Next sync</span>
-                <span className="font-mono font-medium">
+            <div className="flex items-center gap-3 text-muted-foreground">
+              {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (
+                <span className="font-mono">
                   {autoCommitStatus.isCommitting
                     ? 'now...'
                     : autoCommitCountdown !== null && autoCommitCountdown > 0
-                    ? `in ${autoCommitCountdown}s`
+                    ? `${autoCommitCountdown}s`
                     : autoCommitStatus.pendingFiles > 0
-                    ? 'momentarily...'
-                    : 'when files change'}
+                    ? 'soon'
+                    : 'idle'}
                 </span>
-              </div>
-            )}
-
-            {autoCommitStatus?.lastCommitAt && (
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Last sync</span>
-                <div className="flex items-center gap-1.5">
-                  <span>{new Date(autoCommitStatus.lastCommitAt).toLocaleTimeString()}</span>
-                  {autoCommitStatus.lastCommitSha && githubSyncStatus?.repoUrl && (
-                    <a
-                      href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-primary hover:underline"
-                      data-testid="link-last-auto-commit"
-                    >
-                      {autoCommitStatus.lastCommitSha.substring(0, 7)}
-                    </a>
+              )}
+              {autoCommitStatus?.lastCommitSha && githubSyncStatus?.repoUrl && (
+                <a
+                  href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-primary hover:underline"
+                  data-testid="link-last-auto-commit"
+                >
+                  {autoCommitStatus.lastCommitSha.substring(0, 7)}
+                </a>
+              )}
+              {autoCommitStatus?.enabled && autoCommitStatus.pendingFiles > 0 && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-6 text-xs px-2"
+                  onClick={handleFlush}
+                  disabled={isFlushing || autoCommitStatus.isCommitting}
+                  data-testid="button-flush-auto-commit"
+                >
+                  {isFlushing ? (
+                    <IconRefresh className="h-3 w-3 animate-spin" />
+                  ) : (
+                    'Sync Now'
                   )}
-                </div>
-              </div>
-            )}
-
-            {autoCommitStatus?.enabled && autoCommitStatus.pendingFiles > 0 && (
-              <Button
-                size="sm"
-                variant="outline"
-                className="w-full"
-                onClick={handleFlush}
-                disabled={isFlushing || autoCommitStatus.isCommitting}
-                data-testid="button-flush-auto-commit"
-              >
-                {isFlushing ? (
-                  <><IconRefresh className="h-3.5 w-3.5 mr-1.5 animate-spin" />Syncing...</>
-                ) : (
-                  <><IconArrowUp className="h-3.5 w-3.5 mr-1.5" />Sync Now</>
-                )}
-              </Button>
-            )}
-          </Card>
+                </Button>
+              )}
+            </div>
+          </div>
 
           {autoCommitStatus && (autoCommitStatus.pendingFilesDetails.length > 0 || autoCommitStatus.conflictedFiles.length > 0) && (
             <div className="space-y-2">
