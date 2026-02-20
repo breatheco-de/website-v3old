@@ -146,7 +146,7 @@ export function SyncModal({
                       <IconPencil className="h-3 w-3" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2">
+                  <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
                     <p className="font-medium text-foreground">Change sync interval</p>
                     <p className="text-muted-foreground">
                       Use the API endpoint to update the interval:
@@ -186,7 +186,7 @@ export function SyncModal({
                         {label}
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent side="bottom" align="end" className="w-72 text-xs space-y-2">
+                    <PopoverContent side="bottom" align="end" className="w-72 text-xs space-y-2 z-[10001]">
                       <p className="font-medium text-foreground">Waiting for changes</p>
                       <p className="text-muted-foreground">
                         No files are queued for sync. When you edit a file inside <span className="font-mono">marketing-content/</span>, the auto-commit system will detect the change and start a {autoCommitStatus.commitIntervalSeconds}s countdown before committing to GitHub.
