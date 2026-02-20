@@ -94,6 +94,20 @@ export function getAllConfigs(): Record<string, ContentTypeEntry> {
   return loadRegistry().types;
 }
 
+export function getLabel(type: string): string {
+  const singular = getType(type);
+  return singular.charAt(0).toUpperCase() + singular.slice(1);
+}
+
+export function getFolderMap(): Record<string, string> {
+  const reg = loadRegistry();
+  const map: Record<string, string> = {};
+  for (const [type, config] of Object.entries(reg.types)) {
+    map[type] = config.folder;
+  }
+  return map;
+}
+
 export function resetRegistry(): void {
   registry = null;
 }

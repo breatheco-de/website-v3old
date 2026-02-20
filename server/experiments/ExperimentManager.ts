@@ -102,7 +102,7 @@ export class ExperimentManager {
       return this.configCache.get(cacheKey)!;
     }
 
-    const configPath = path.join(CONTENT_DIR, getFolder("programs"), programSlug, "experiments.yml");
+    const configPath = path.join(CONTENT_DIR, getFolder("program"), programSlug, "experiments.yml");
     
     if (!fs.existsSync(configPath)) {
       return null;
@@ -130,7 +130,7 @@ export class ExperimentManager {
     variantSlug: string,
     version: number,
     locale: string,
-    contentType: string = "programs"
+    contentType: string = "program"
   ): unknown | null {
     const cacheKey = `${contentType}:${slug}:${variantSlug}.v${version}.${locale}`;
     
@@ -410,7 +410,7 @@ export class ExperimentManager {
           experiment.slug,
           existing.variant_slug,
           context.session_id,
-          "programs",
+          "program",
           programSlug,
           experiment.max_visitors
         );
@@ -426,7 +426,7 @@ export class ExperimentManager {
         experiment.slug,
         variant.slug,
         context.session_id,
-        "programs",
+        "program",
         programSlug,
         experiment.max_visitors
       );
@@ -449,7 +449,7 @@ export class ExperimentManager {
     slug: string,
     assignment: ExperimentAssignment,
     locale: string,
-    contentType: string = "programs"
+    contentType: string = "program"
   ): unknown | null {
     return this.loadVariantContent(
       slug,

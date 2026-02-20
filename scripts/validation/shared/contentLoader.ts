@@ -8,16 +8,21 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../../../shared/templateVars";
+import { getAllConfigs } from "../../../server/content-types";
 import type { ContentFile, ContentMeta, SchemaRef } from "./types";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
-export const CONTENT_PATHS = {
-  programs: path.join(MARKETING_CONTENT_PATH, "programs"),
-  landings: path.join(MARKETING_CONTENT_PATH, "landings"),
-  locations: path.join(MARKETING_CONTENT_PATH, "locations"),
-  pages: path.join(MARKETING_CONTENT_PATH, "pages"),
-};
+function buildContentPaths(): Record<string, string> {
+  const configs = getAllConfigs();
+  const paths: Record<string, string> = {};
+  for (const [type, config] of Object.entries(configs)) {
+    paths[type] = path.join(MARKETING_CONTENT_PATH, config.folder);
+  }
+  return paths;
+}
+
+export const CONTENT_PATHS = buildContentPaths();
 
 interface RawContentData {
   slug?: string;
@@ -108,21 +113,19 @@ export function loadContentDirectory(
 }
 
 export function loadAllContent(): ContentFile[] {
-  const programs = loadContentDirectory(CONTENT_PATHS.programs, "program");
-  const landings = loadContentDirectory(CONTENT_PATHS.landings, "landing");
-  const locations = loadContentDirectory(CONTENT_PATHS.locations, "location");
-  const pages = loadContentDirectory(CONTENT_PATHS.pages, "page");
-  
-  return [...programs, ...landings, ...locations, ...pages];
+  const configs = getAllConfigs();
+  const files: ContentFile[] = [];
+  for (const [type, config] of Object.entries(configs)) {
+    files.push(...loadContentDirectory(
+      path.join(MARKETING_CONTENT_PATH, config.folder),
+      type as ContentFile["type"]
+    ));
+  }
+  return files;
 }
 
 export function getContentByType(type: ContentFile["type"]): ContentFile[] {
-  const pathMap: Record<ContentFile["type"], string> = {
-    program: CONTENT_PATHS.programs,
-    landing: CONTENT_PATHS.landings,
-    location: CONTENT_PATHS.locations,
-    page: CONTENT_PATHS.pages,
-  };
-  
-  return loadContentDirectory(pathMap[type], type);
+  const dirPath = CONTENT_PATHS[type];
+  if (!dirPath) return [];
+  return loadContentDirectory(dirPath, type);
 }

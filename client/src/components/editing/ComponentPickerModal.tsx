@@ -61,6 +61,7 @@ import {
 } from "@/components/ui/tooltip";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { useToast } from "@/hooks/use-toast";
+import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TableBuilderWizard, type DynamicTableConfig } from "@/components/TableBuilderWizard";
@@ -209,6 +210,7 @@ export default function ComponentPickerModal({
   const [selectedRelatedFeatures, setSelectedRelatedFeatures] = useState<string[]>([]);
   const [componentSearch, setComponentSearch] = useState("");
   const { toast } = useToast();
+  const contentTypesMap = useContentTypes();
 
   const { data: registryData, isLoading: isLoadingRegistry } = useQuery<RegistryOverview>({
     queryKey: ["/api/component-registry"],
@@ -402,10 +404,7 @@ export default function ComponentPickerModal({
         setIsAdapting(true);
         try {
           // Convert content type to API format
-          const apiContentType = contentType === "program" ? "programs" 
-            : contentType === "landing" ? "landings"
-            : contentType === "location" ? "locations"
-            : "pages";
+          const apiContentType = contentTypesMap ? getFolderFromType(contentTypesMap, contentType || "") : contentType || "";
           
           // Convert example content to YAML for AI adaptation
           const sourceYaml = jsYaml.dump(selectedExampleData.content);

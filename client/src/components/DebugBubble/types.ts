@@ -38,7 +38,7 @@ export interface ExperimentsResponse {
 }
 
 export interface ContentInfo {
-  type: "programs" | "pages" | "landings" | "locations" | null;
+  type: string | null;
   slug: string | null;
   label: string;
   locale: string | null;

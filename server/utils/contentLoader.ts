@@ -53,7 +53,7 @@ function safeYamlLoad(yamlStr: string): unknown {
   return unescapeObjectVars(parsed, map);
 }
 
-export type ContentType = "program" | "page" | "location" | "landing" | "programs" | "pages" | "locations" | "landings";
+export type ContentType = string;
 
 export interface LoadContentOptions<T> {
   contentType: ContentType;

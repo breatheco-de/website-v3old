@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
 import { buildContentUrl, getFolderFromSlug, type ContentType } from "@shared/slugMappings";
+import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import {
   IconBug,
   IconMap,
@@ -547,6 +548,7 @@ export function DebugBubble() {
   );
   
   const { isValidated, hasToken, isLoading, isDebugMode, retryValidation, validateManualToken, clearToken, checkSession } = useDebugAuth();
+  const contentTypesMap = useContentTypes();
   const { session } = useSession();
   const editMode = useEditModeOptional();
   const syncContext = useSyncOptional();
@@ -1016,13 +1018,7 @@ export function DebugBubble() {
     try {
       const urlLocale = getEffectiveLocale();
       const locale = normalizeLocale(urlLocale || i18n.language);
-      const contentTypeMap: Record<string, string> = {
-        program: "programs",
-        page: "pages",
-        landing: "landings",
-        location: "locations",
-      };
-      const apiContentType = contentTypeMap[contentInfo.type] || contentInfo.type;
+      const apiContentType = contentTypesMap ? getFolderFromType(contentTypesMap, contentInfo.type) : contentInfo.type;
       const res = await fetch(`/api/seo-preview/${apiContentType}/${contentInfo.slug}?locale=${locale}`);
       if (!res.ok) throw new Error("Failed to fetch SEO data");
       const [data, schemaKeysRes] = await Promise.all([

@@ -46,6 +46,7 @@ import {
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
+import { normalizeContentType } from "@/hooks/useContentTypes";
 import type { ExperimentConfig, ExperimentVariant, ExperimentTargeting } from "@shared/schema";
 
 interface ExperimentWithStats extends ExperimentConfig {
@@ -255,6 +256,7 @@ export default function ExperimentEditor() {
     contentSlug: string;
     experimentSlug: string;
   }>();
+  const normalizedType = normalizeContentType(contentType || "");
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
@@ -375,16 +377,16 @@ export default function ExperimentEditor() {
   const totalExposures = Object.values(data?.experiment?.stats || {}).reduce((a, b) => a + b, 0);
 
   const backUrl = useMemo(() => {
-    if (contentType === "programs") {
+    if (normalizedType === "program") {
       return `/en/career-programs/${contentSlug}`;
-    } else if (contentType === "locations") {
+    } else if (normalizedType === "location") {
       return `/en/location/${contentSlug}`;
-    } else if (contentType === "landings") {
+    } else if (normalizedType === "landing") {
       return `/landing/${contentSlug}`;
     } else {
       return `/en/${contentSlug}`;
     }
-  }, [contentType, contentSlug]);
+  }, [normalizedType, contentSlug]);
 
   if (isLoading) {
     return (
@@ -531,13 +533,13 @@ export default function ExperimentEditor() {
           const token = getDebugToken();
           // Build base URL based on content type
           let basePath = "";
-          if (contentType === "programs") {
+          if (normalizedType === "program") {
             basePath = `/en/career-programs/${contentSlug}`;
-          } else if (contentType === "landings") {
+          } else if (normalizedType === "landing") {
             basePath = `/landing/${contentSlug}`;
-          } else if (contentType === "locations") {
+          } else if (normalizedType === "location") {
             basePath = `/en/location/${contentSlug}`;
-          } else if (contentType === "pages") {
+          } else if (normalizedType === "page") {
             basePath = `/en/${contentSlug}`;
           }
           const baseUrl = `${basePath}?force_variant=${variant.slug}&force_version=${variant.version || 1}&navbar=false&debug=true&edit_mode=true`;

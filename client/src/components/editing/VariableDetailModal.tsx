@@ -30,6 +30,7 @@ import {
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import { checkEditorHasUnsavedChanges, emitContentUpdated } from "@/lib/contentEvents";
+import { normalizeContentType } from "@/hooks/useContentTypes";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   IconCheck,
@@ -585,19 +586,14 @@ export function VariableDetailModal({
     onSuccess: (data: { newName: string; updatedFiles: string[] }) => {
       invalidateAndRefetch();
 
-      const typeMap: Record<string, "program" | "landing" | "location" | "page"> = {
-        programs: "program",
-        landings: "landing",
-        locations: "location",
-        pages: "page",
-      };
       for (const filePath of data.updatedFiles) {
         const match = filePath.match(
           /^marketing-content\/([^/]+)\/([^/]+)\/([^/]+)\.\w+$/,
         );
-        if (match && typeMap[match[1]]) {
+        if (match) {
+          const ct = normalizeContentType(match[1]);
           emitContentUpdated({
-            contentType: typeMap[match[1]],
+            contentType: ct as "program" | "landing" | "location" | "page",
             slug: match[2],
             locale: match[3],
           });

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
+import { normalizeContentType } from "@/hooks/useContentTypes";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
 import { IconLoader2, IconAlertTriangle, IconArrowLeft, IconCode } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -25,10 +26,6 @@ const contentTypeConfig: Record<string, {
   landing: { apiPath: "landings", singular: "landing", label: "Landing" },
   location: { apiPath: "locations", singular: "location", label: "Location" },
   page: { apiPath: "pages", singular: "page", label: "Page" },
-  programs: { apiPath: "career-programs", singular: "program", label: "Program" },
-  landings: { apiPath: "landings", singular: "landing", label: "Landing" },
-  locations: { apiPath: "locations", singular: "location", label: "Location" },
-  pages: { apiPath: "pages", singular: "page", label: "Page" },
 };
 
 export default function PrivatePreview() {
@@ -42,7 +39,8 @@ export default function PrivatePreview() {
   const version = searchParams.get("version");
   const locale = searchParams.get("locale") || "en";
   
-  const config = contentTypeConfig[contentType];
+  const normalizedType = normalizeContentType(contentType);
+  const config = contentTypeConfig[normalizedType];
   const isValidContentType = !!config;
 
   const [showRawEditor, setShowRawEditor] = useState(false);

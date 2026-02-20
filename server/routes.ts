@@ -4716,7 +4716,7 @@ sections: []
     const locationsPath = path.join(
       process.cwd(),
       "marketing-content",
-      "locations",
+      getFolder("location"),
     );
     const locationsList: Array<{
       slug: string;
@@ -5228,21 +5228,14 @@ sections: []
 
       const schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> } = { valid: true, errors: [] };
       try {
-        const typeToContentType: Record<string, ContentType> = {
-          program: "programs",
-          landing: "landings",
-          location: "locations",
-          page: "pages",
-        };
         const typeToSchema: Record<string, any> = {
           program: careerProgramSchema,
           landing: landingPageSchema,
           location: locationPageSchema,
           page: templatePageSchema,
         };
-        const ct = typeToContentType[file.type];
         const zodSchema = typeToSchema[file.type];
-        if (ct && zodSchema) {
+        if (zodSchema) {
           let inferredLocale = file.locale;
           if (!inferredLocale || inferredLocale === "_common") {
             inferredLocale = urlLocale || (url.startsWith("/es/") ? "es" : "en");
@@ -5250,7 +5243,7 @@ sections: []
           const localeOrVariant = file.type === "landing" ? "promoted" : inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
           const result = loadContent({
-            contentType: ct,
+            contentType: file.type,
             slug: folderSlug,
             schema: zodSchema,
             localeOrVariant,
