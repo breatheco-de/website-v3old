@@ -10,6 +10,7 @@ import {
   IconPencil,
   IconArrowRight,
   IconTrash,
+  IconX,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -86,9 +87,13 @@ export function SectionBindingDialog({
   const [editingName, setEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState("");
   const [confirmDissolve, setConfirmDissolve] = useState(false);
+  const [confirmLeave, setConfirmLeave] = useState(false);
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) setConfirmDissolve(false);
+    if (!nextOpen) {
+      setConfirmDissolve(false);
+      setConfirmLeave(false);
+    }
     onOpenChange(nextOpen);
   };
 
@@ -502,6 +507,9 @@ export function SectionBindingDialog({
                   <Button size="icon" variant="ghost" onClick={handleSaveRename} disabled={renameGroupMutation.isPending} data-testid="button-save-rename">
                     {renameGroupMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconCheck className="h-4 w-4" />}
                   </Button>
+                  <Button size="icon" variant="ghost" onClick={() => setEditingName(false)} disabled={renameGroupMutation.isPending} data-testid="button-cancel-rename">
+                    <IconX className="h-4 w-4" />
+                  </Button>
                 </div>
               ) : (
                 <div className="flex items-center gap-1 min-w-0">
@@ -528,8 +536,36 @@ export function SectionBindingDialog({
                 );
               })}
             </div>
-            <div className="mt-3 pt-3 border-t">
-              {confirmDissolve ? (
+            <div className="mt-3 pt-3 border-t space-y-2">
+              {confirmLeave ? (
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs text-muted-foreground">Remove this section from the group?</p>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setConfirmLeave(false)}
+                      disabled={isPending}
+                      data-testid="button-leave-cancel"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => unbindCurrentMutation.mutate()}
+                      disabled={isPending}
+                      data-testid="button-leave-confirm"
+                    >
+                      {unbindCurrentMutation.isPending ? (
+                        <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        "Confirm"
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              ) : confirmDissolve ? (
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-xs text-destructive">Unbind all {existingGroup.members.length} sections?</p>
                   <div className="flex items-center gap-1 shrink-0">
@@ -558,17 +594,30 @@ export function SectionBindingDialog({
                   </div>
                 </div>
               ) : (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="text-destructive gap-1"
-                  onClick={() => setConfirmDissolve(true)}
-                  disabled={isPending}
-                  data-testid="button-dissolve-group"
-                >
-                  <IconTrash className="h-3.5 w-3.5" />
-                  Dissolve group
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="gap-1"
+                    onClick={() => setConfirmLeave(true)}
+                    disabled={isPending}
+                    data-testid="button-leave-group"
+                  >
+                    <IconLinkOff className="h-3.5 w-3.5" />
+                    Leave group
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-destructive gap-1"
+                    onClick={() => setConfirmDissolve(true)}
+                    disabled={isPending}
+                    data-testid="button-dissolve-group"
+                  >
+                    <IconTrash className="h-3.5 w-3.5" />
+                    Dissolve group
+                  </Button>
+                </div>
               )}
             </div>
           </div>
