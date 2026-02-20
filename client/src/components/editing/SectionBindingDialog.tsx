@@ -531,7 +531,18 @@ export function SectionBindingDialog({
                   <div key={key} className="flex items-center text-sm py-1">
                     <div className="flex items-center gap-2 min-w-0 flex-wrap">
                       <Badge variant="outline" className="text-xs shrink-0">{m.contentType}</Badge>
-                      <span className="truncate">{m.slug}</span>
+                      {isSelf ? (
+                        <span className="truncate">{m.slug}</span>
+                      ) : (
+                        <a
+                          href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}`}
+                          className="truncate underline cursor-pointer"
+                          onClick={() => handleOpenChange(false)}
+                          data-testid={`link-member-${key}`}
+                        >
+                          {m.slug}
+                        </a>
+                      )}
                       <span className="text-muted-foreground text-xs">[{m.sectionIndex}]</span>
                       {isSelf && <Badge variant="secondary" className="text-xs">current</Badge>}
                     </div>
