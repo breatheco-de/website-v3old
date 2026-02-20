@@ -299,38 +299,6 @@ interface MenuData {
   };
 }
 
-// Edit Mode Toggle Component - uses optional hook to handle being outside provider
-function EditModeToggle() {
-  const editMode = useEditModeOptional();
-  
-  // If not within EditModeProvider, don't render
-  if (!editMode) {
-    return null;
-  }
-  
-  const { isEditMode, toggleEditMode } = editMode;
-  
-  return (
-    <button
-      onClick={toggleEditMode}
-      className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-      data-testid="button-toggle-edit-mode"
-    >
-      <div className="flex items-center gap-3">
-        {isEditMode ? (
-          <IconPencilOff className="h-4 w-4 text-muted-foreground" />
-        ) : (
-          <IconPencil className="h-4 w-4 text-muted-foreground" />
-        )}
-        <span>Edit Mode</span>
-      </div>
-      <span className={`text-xs font-medium px-2 py-1 rounded ${isEditMode ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
-        {isEditMode ? "ON" : "OFF"}
-      </span>
-    </button>
-  );
-}
-
 interface MenuItemProps {
   icon: typeof IconComponents;
   label: string;
