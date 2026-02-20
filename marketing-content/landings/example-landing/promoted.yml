@@ -570,7 +570,7 @@ sections:
     media_position: right
   - type: career_support_explain
     version: v1.0
-    heading: Get Hired. With Career Support Built for the AI Era
+    heading: Get Hired.. With Career Support Built for the AI Era
     description: Our career support program is designed to help you land your first job in tech
     tabs:
       - tab_label: Job-Ready, Faster
