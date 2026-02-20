@@ -353,13 +353,13 @@ sections:
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "Ingeniero de Software IA: $115K–$165K"
-          - text: "Ingeniero Full-Stack IA: $125K–$185K"
-          - text: "Ingeniero de Sistemas Agénticos: $140K–$210K"
-          - text: "Ingeniero de Automatización de Flujos: $95K–$145K"
-      - value: 5,000+
-        label: Socios de contratación
-        description: Accede a nuestra red de más de 5,000 socios de contratación buscando activamente talento en IA. Obtén oportunidades exclusivas de empleo y referencias prioritarias.
+          - text: AI Engineer {{ average_salary_ai_engineer | 22.000€ - 30.000€ }}
+          - text: AI-Accelerated Frontend Engineer 22.000€ - 30.000€
+          - text: Agent / Workflow Automation Engineer {{ average_salary_workflow_automation_engineer | 22.000€ - 35.000€ }}
+          - text: AI Integration Specialist {{ average_salary_ai_specialist | 22.000€ - 35.000€ }}
+      - value: 500+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Referencias prioritarias a empresas socias
