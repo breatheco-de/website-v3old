@@ -14,12 +14,19 @@ import { gcs } from './gcs';
 const SYNC_STATE_PATH = path.join(process.cwd(), 'marketing-content', '.sync-state.json');
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), 'marketing-content');
 const GCS_SYNC_STATE_KEY = 'sync/sync-state.json';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 /**
  * Load sync state from GCS bucket on startup using authenticated download.
- * Falls back to local file if GCS is unavailable.
+ * In production: loads from bucket, falls back to local file.
+ * In development: uses local file only (each dev environment has its own state).
  */
 export async function loadSyncStateFromBucket(): Promise<SyncState> {
+  if (!IS_PRODUCTION) {
+    console.log('[SyncState] Development mode, using local file only');
+    return loadSyncState();
+  }
+
   if (!gcs.available) {
     console.log('[SyncState] GCS unavailable, loading from local file');
     return loadSyncState();
@@ -51,9 +58,10 @@ export async function loadSyncStateFromBucket(): Promise<SyncState> {
 
 /**
  * Save sync state to GCS bucket for persistence across deployments.
+ * Only runs in production — development uses local file only.
  */
 async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> {
-  if (!gcs.available) return;
+  if (!IS_PRODUCTION || !gcs.available) return;
 
   try {
     const content = JSON.stringify(state, null, 2);
