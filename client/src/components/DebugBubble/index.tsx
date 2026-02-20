@@ -647,13 +647,26 @@ export function DebugBubble() {
           .then(r => r.json())
           .then(data => setAutoCommitStatus(data))
           .catch(() => {});
+        if (manualActionsOpen) {
+          setPendingChangesLoading(true);
+          fetch(`/api/github/pending-changes?_t=${Date.now()}`)
+            .then((res) => res.json())
+            .then((data: { changes: PendingChange[]; count: number }) => {
+              setPendingChanges(data.changes || []);
+              setPendingChangesLoading(false);
+            })
+            .catch(() => {
+              setPendingChanges([]);
+              setPendingChangesLoading(false);
+            });
+        }
       }
     };
     
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [commitModalOpen, autoCommitStatus?.nextSyncAt]);
+  }, [commitModalOpen, autoCommitStatus?.nextSyncAt, manualActionsOpen]);
 
   // Function to refresh sync status
   const refreshSyncStatus = () => {
