@@ -189,26 +189,42 @@ global_salary_cybersecurity_analist:
     - query:
         region: "usa-canada"
       value: "$75K–$120K"
+    - query:
+        region: "europe"
+      value: "20.000€ - 25.000€"
 global_salary_penetration_tester:
   default: "$90K–$150K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$90K–$150K"
+    - query:
+        region: "europe"
+      value: "18.000€ - 30.000€"
 global_salary_security_engineer:
   default: "$100K–$165K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$100K–$165K"
+    - query:
+        region: "europe"
+      value: "22.000€- 30.000€"
 global_salary_incident_responder:
   default: "$85K–$140K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$85K–$140K"
+    - query:
+        region: "europe"
+      value: "25.000€ - 32.000€"
 average_salary_cybersecurity_short:
   default: "$85"
+  conditions:
+    - query:
+        region: "europe"
+      value: "35.000€"
 salary_data_scientist:
   default: "$80K–$130K"
   conditions:
