@@ -291,7 +291,7 @@ sections:
           - Capa de comunicación en tiempo real
           - Agentes con llamadas a herramientas
         projects: Tu sistema de negocio AI-first completamente operativo desplegado de extremo a extremo.
-        orientation: vertical
+        orientation: horizontal
         icon: IconCode
     marginY:
       desktop: md none
