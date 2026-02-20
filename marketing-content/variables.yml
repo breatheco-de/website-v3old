@@ -348,3 +348,9 @@ monthly_payment_minimun:
     - query:
         region: "usa-canada"
       value: "$349"
+global_campuses:
+  default: "10"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "10"
