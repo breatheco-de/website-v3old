@@ -52,14 +52,14 @@ global_review_rating:
         location: "madrid-spain"
       value: "4.8"
 global_review_count:
-  default: "3,000"
+  default: "700"
   conditions:
     - query:
         locale: "es"
-      value: "3.000"
+      value: "700"
     - query:
         locale: "en"
-      value: "3,000"
+      value: "700"
 global_teacher_student_ratio:
   default: "1:7"
   conditions:
