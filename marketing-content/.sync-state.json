@@ -98,11 +98,11 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "4807e4dcfaf72c2fd34918eababd69d97171bb66fdec7d127013daab4cdecefb",
-      "lastModified": 1771598974731.5698,
+      "sha": "50df5be1c42bf6b24a91159a737f79f1f7b86fc3f0074a8eed4076df1e83f2f2",
+      "lastModified": 1771606838154.815,
       "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
       "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-20T14:49:34.746Z"
+      "modifiedAt": "2026-02-20T17:00:38.157Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -710,10 +710,11 @@
       "remoteSha": "0ab870f3e2eca05db5fdf94dca372c58d1d20294dcfb88bce77b10fde7a29cf4"
     },
     "marketing-content/pages/component-test/en.yml": {
-      "sha": "bd7c369a0b308c57e4b99fa32d68416b3723ccb47d56e456c0513ec0e9834e48",
-      "lastModified": 1771598974811.5696,
+      "sha": "6c147fbd6c0222070b01a2ce74778d19b1af4e0ec746fce3b71ee48f4ab7ce64",
+      "lastModified": 1771606838425.8147,
       "remoteSha": "413e7521bdf8ff5fc83f0868630e1e5cad2acc4c54fa32b12398a0b9ca1f6eba",
-      "modifiedAt": "2026-02-20T14:49:34.813Z"
+      "author": "Alejandro Sanchez",
+      "modifiedAt": "2026-02-20T17:00:38.427Z"
     },
     "marketing-content/pages/contact-us/_common.yml": {
       "sha": "3c49a97b811df6f2036a6ec63536dbd913b4603e11ff5677defcfa13c19811bc",
@@ -836,11 +837,11 @@
       "remoteSha": "88601db170bf65f72f2bc60e33f56c143af26aa7673572825762c7e039cdb62a"
     },
     "marketing-content/pages/home/en.yml": {
-      "sha": "72834df56357764b256421e58d66ac94820307c5f87be8b8e06ab3bec5140b77",
-      "lastModified": 1771597949337.3167,
+      "sha": "6dc5bb8a13fc3690b9d12745e965c0f9e189df149e46446e5eb09ae7bdc8eb88",
+      "lastModified": 1771606838420.8147,
       "remoteSha": "91d3b8509fb23a61a6fc8fbc721aa0f3cf7c0781aa2dd671b30c5206da00ddeb",
       "author": "Alejandro Sanchez",
-      "modifiedAt": "2026-02-20T14:32:29.339Z"
+      "modifiedAt": "2026-02-20T17:00:38.422Z"
     },
     "marketing-content/pages/home/es.yml": {
       "sha": "34f281efb33d12d9b623376c7571faf64932b5055e3b798aa6bcd1297fc31f88",

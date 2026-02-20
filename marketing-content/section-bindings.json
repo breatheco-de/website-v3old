@@ -6,11 +6,6 @@
       "locale": "en",
       "members": [
         {
-          "contentType": "page",
-          "slug": "home",
-          "sectionIndex": 5
-        },
-        {
           "contentType": "landing",
           "slug": "example-landing",
           "sectionIndex": 13
@@ -21,7 +16,8 @@
           "sectionIndex": 4
         }
       ],
-      "createdAt": "2026-02-20T14:49:34.703Z"
+      "createdAt": "2026-02-20T14:49:34.703Z",
+      "updatedAt": "2026-02-20T17:03:02.356Z"
     }
   ]
 }

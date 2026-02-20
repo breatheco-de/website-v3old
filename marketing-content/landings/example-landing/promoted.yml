@@ -570,8 +570,9 @@ sections:
     media_position: right
   - type: career_support_explain
     version: v1.0
-    heading: Get Hired.. With Career Support Built for the AI Era
+    heading: Get Hired. With Career Support Built for the AI Era
     description: Our career support program is designed to help you land your first job in tech
+    background: hsl(var(--secondary))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
@@ -684,7 +685,6 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-    background: hsl(var(--secondary))
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
