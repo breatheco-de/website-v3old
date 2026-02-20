@@ -136,10 +136,18 @@ export function SyncModal({
               ) : null}
             </div>
 
-            {autoCommitCountdown !== null && autoCommitCountdown > 0 && (
+            {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (
               <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Next sync in</span>
-                <span className="font-mono font-medium">{autoCommitCountdown}s</span>
+                <span>Next sync</span>
+                <span className="font-mono font-medium">
+                  {autoCommitStatus.isCommitting
+                    ? 'now...'
+                    : autoCommitCountdown !== null && autoCommitCountdown > 0
+                    ? `in ${autoCommitCountdown}s`
+                    : autoCommitStatus.pendingFiles > 0
+                    ? 'momentarily...'
+                    : 'when files change'}
+                </span>
               </div>
             )}
 
