@@ -312,7 +312,7 @@ export function SectionBindingDialog({
 
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground" data-testid="text-overwrite-summary">
-              {selectedItems.length} page{selectedItems.length > 1 ? "s" : ""} will have the <span className="font-medium text-foreground">{component}</span> component overwritten.
+              {selectedItems.length} page{selectedItems.length > 1 ? "s" : ""} will have the <span className="font-medium text-foreground">{component}</span> component overwritten and all {selectedItems.length + 1} components will be bound from now on.
             </p>
             <div className="flex items-stretch gap-3">
               <div className="flex-1 rounded-md border border-border bg-muted/40 p-3 text-sm" data-testid="card-source-section">
