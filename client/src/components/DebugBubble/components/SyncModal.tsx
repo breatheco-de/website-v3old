@@ -183,15 +183,11 @@ export function SyncModal({
                   <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
                     <p className="font-medium text-foreground">Change sync interval</p>
                     <p className="text-muted-foreground">
-                      Use the API endpoint to update the interval:
+                      Edit <span className="font-mono">.sync-state.json</span> and change the <span className="font-mono">commitIntervalSeconds</span> value (default: 5s).
                     </p>
                     <code className="block p-2 bg-muted rounded text-[11px] font-mono break-all whitespace-pre-wrap">
-{`POST /api/github/auto-commit/config
-{ "commitIntervalSeconds": 10 }`}
+{`{ "commitIntervalSeconds": 10 }`}
                     </code>
-                    <p className="text-muted-foreground">
-                      Or edit <span className="font-mono">server/sync-state.ts</span> and change <span className="font-mono">commitIntervalSeconds</span> in <span className="font-mono">DEFAULT_CONFIG</span> (default: 5s).
-                    </p>
                   </PopoverContent>
                 </Popover>
               )}
