@@ -361,15 +361,45 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start Your Tech Career in Madrid?
-    subtitle: Join our next cohort and transform your future.
-    cta_text: Apply Now
-    cta_url: /apply?location=madrid-spain
-    background: hsl(var(--primary))
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Receive personalized program information and next steps.
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Get the details
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: true
+          required: false
+          default: auto
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
     paddingY:
       desktop: md
     marginY:
       desktop: none
+    background: hsl(var(--primary))
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.

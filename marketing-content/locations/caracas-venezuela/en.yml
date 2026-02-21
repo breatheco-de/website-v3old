@@ -364,13 +364,12 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Receive personalized program information and next steps.
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Get the details
       tags: website-lead
       automations: hard
       fields:
@@ -388,7 +387,7 @@ sections:
           placeholder: Phone number
         program:
           visible: true
-          required: true
+          required: false
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
@@ -399,7 +398,8 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
