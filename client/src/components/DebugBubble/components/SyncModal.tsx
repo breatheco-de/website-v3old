@@ -666,20 +666,9 @@ export function SyncModal({
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-3 py-2">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground" data-testid="text-bulk-pull-description">
             There {nonConflictIncoming.length === 1 ? "is" : "are"} {nonConflictIncoming.length} incoming file{nonConflictIncoming.length !== 1 ? "s" : ""} without conflicts. Would you like to download all of them?
           </p>
-          <ul className="space-y-1 max-h-48 overflow-y-auto">
-            {nonConflictIncoming.map((change, i) => (
-              <li key={i} className={`flex items-center gap-2 text-sm px-2 py-1.5 rounded-md ${change.file === bulkPullPromptFile ? "bg-primary/10 border border-primary/30" : "bg-muted"}`} data-testid={`bulk-pull-file-${i}`}>
-                <IconArrowDown className="h-3.5 w-3.5 shrink-0" />
-                <span className="truncate" data-testid={`text-bulk-pull-filename-${i}`}>{change.file.split('/').pop()}</span>
-                {change.file === bulkPullPromptFile && (
-                  <Badge variant="outline" className="ml-auto text-[10px] shrink-0">selected</Badge>
-                )}
-              </li>
-            ))}
-          </ul>
         </div>
         <DialogFooter className="gap-2 sm:gap-0">
           <Button
