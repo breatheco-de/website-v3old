@@ -45,7 +45,7 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
               </h2>
               {data.subtitle && (
                 <p 
-                  className="text-body opacity-90 max-w-xl" style={{ fontSize: '16px' }}
+                  className="text-body opacity-90 max-w-xl mx-auto lg:mx-0" style={{ fontSize: '16px' }}
                   data-testid="text-cta-banner-subtitle"
                 >
                   {data.subtitle}
