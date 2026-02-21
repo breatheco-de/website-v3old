@@ -681,7 +681,7 @@ export function SyncModal({
             disabled={isBulkPulling}
             data-testid="button-pull-single"
           >
-            Download this one
+            Only this file
           </Button>
           <Button
             onClick={handleBulkPull}
