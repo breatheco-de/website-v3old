@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import {
   IconBrandGithub,
   IconAlertTriangle,
@@ -95,7 +96,38 @@ export function SyncModal({
   getDebugToken,
   toast,
 }: SyncModalProps) {
+  const [bulkPullPromptFile, setBulkPullPromptFile] = useState<string | null>(null);
+  const [isBulkPulling, setIsBulkPulling] = useState(false);
+
+  const nonConflictIncoming = pendingChanges.filter(c => c.source === 'incoming');
+
+  const handleDownloadClick = useCallback((file: string, source: string) => {
+    if (source === 'conflict') {
+      setConfirmPullFile(file);
+      return;
+    }
+    if (nonConflictIncoming.length > 1) {
+      setBulkPullPromptFile(file);
+    } else {
+      handleFilePull(file);
+    }
+  }, [nonConflictIncoming.length, handleFilePull, setConfirmPullFile]);
+
+  const handleBulkPull = useCallback(async () => {
+    setIsBulkPulling(true);
+    setBulkPullPromptFile(null);
+    for (const change of nonConflictIncoming) {
+      try {
+        await handleFilePull(change.file);
+      } catch (e) {
+        // continue pulling remaining files
+      }
+    }
+    setIsBulkPulling(false);
+  }, [nonConflictIncoming, handleFilePull]);
+
   return (
+    <>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
@@ -540,14 +572,8 @@ export function SyncModal({
                                           size="icon"
                                           variant="outline"
                                           className="h-6 w-6"
-                                          onClick={() => {
-                                            if (change.source === 'conflict') {
-                                              setConfirmPullFile(change.file);
-                                            } else {
-                                              handleFilePull(change.file);
-                                            }
-                                          }}
-                                          disabled={filePulling === change.file}
+                                          onClick={() => handleDownloadClick(change.file, change.source)}
+                                          disabled={filePulling === change.file || isBulkPulling}
                                           data-testid={`button-pull-file-${index}`}
                                         >
                                           {filePulling === change.file ? (
@@ -630,5 +656,58 @@ export function SyncModal({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
+    <Dialog open={!!bulkPullPromptFile} onOpenChange={(open) => { if (!open) setBulkPullPromptFile(null); }}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <IconArrowDown className="h-5 w-5" />
+            Download Remote Files
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <p className="text-sm text-muted-foreground">
+            There {nonConflictIncoming.length === 1 ? "is" : "are"} {nonConflictIncoming.length} incoming file{nonConflictIncoming.length !== 1 ? "s" : ""} without conflicts. Would you like to download all of them?
+          </p>
+          <ul className="space-y-1 max-h-48 overflow-y-auto">
+            {nonConflictIncoming.map((change, i) => (
+              <li key={i} className={`flex items-center gap-2 text-sm px-2 py-1.5 rounded-md ${change.file === bulkPullPromptFile ? "bg-primary/10 border border-primary/30" : "bg-muted"}`} data-testid={`bulk-pull-file-${i}`}>
+                <IconArrowDown className="h-3.5 w-3.5 shrink-0" />
+                <span className="truncate" data-testid={`text-bulk-pull-filename-${i}`}>{change.file.split('/').pop()}</span>
+                {change.file === bulkPullPromptFile && (
+                  <Badge variant="outline" className="ml-auto text-[10px] shrink-0">selected</Badge>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button
+            variant="outline"
+            onClick={() => {
+              const file = bulkPullPromptFile;
+              setBulkPullPromptFile(null);
+              if (file) handleFilePull(file);
+            }}
+            disabled={isBulkPulling}
+            data-testid="button-pull-single"
+          >
+            Download this one
+          </Button>
+          <Button
+            onClick={handleBulkPull}
+            disabled={isBulkPulling}
+            data-testid="button-pull-all"
+          >
+            {isBulkPulling ? (
+              <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Downloading...</>
+            ) : (
+              <><IconArrowDown className="h-4 w-4 mr-2" />Download all ({nonConflictIncoming.length})</>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
