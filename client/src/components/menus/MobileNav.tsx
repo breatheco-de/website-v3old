@@ -28,7 +28,7 @@ interface MobileNavItemProps {
 }
 
 function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProps) {
-  const handleNav = useInternalNav({ onNavigate });
+  const handleNav = useInternalNav(onNavigate);
   const [openSubIndex, setOpenSubIndex] = useState<number | null>(null);
 
   const handleSubToggle = (index: number) => {
