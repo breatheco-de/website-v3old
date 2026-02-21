@@ -425,6 +425,7 @@ export function SectionEditorPanel({
   // Binding state
   const bindingQueryClient = useQueryClient();
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
+  const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -1541,11 +1542,10 @@ export function SectionEditorPanel({
   ]);
 
   // Save without closing editor
-  const handleSave = useCallback(async () => {
+  const executeSave = useCallback(async () => {
     const result = await saveToServer();
     if (result && result.success) {
       if (result.warning) {
-        // Show warning toast for GitHub sync failures
         toast({
           title: "Changes saved with warning",
           description: result.warning,
@@ -1559,6 +1559,14 @@ export function SectionEditorPanel({
       }
     }
   }, [saveToServer, toast]);
+
+  const handleSave = useCallback(async () => {
+    if (boundSiblings.length > 0) {
+      setBindingConfirmOpen(true);
+      return;
+    }
+    await executeSave();
+  }, [boundSiblings.length, executeSave]);
 
   // Handle close with unsaved changes warning
   const handleClose = useCallback(() => {
@@ -5841,6 +5849,50 @@ export function SectionEditorPanel({
           onBindingChanged={() => refetchBinding()}
         />
       )}
+
+      <Dialog open={bindingConfirmOpen} onOpenChange={setBindingConfirmOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-amber-500" />
+              Synced Section
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 py-2">
+            <p className="text-sm text-muted-foreground">
+              This section is synced with {boundSiblings.length} other page{boundSiblings.length !== 1 ? "s" : ""}. Your changes will also be applied to:
+            </p>
+            <ul className="space-y-1 max-h-48 overflow-y-auto">
+              {boundSiblings.map((sibling, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm px-2 py-1.5 rounded-md bg-muted">
+                  <IconLink className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                  <span className="font-medium">{sibling.slug}</span>
+                  <span className="text-muted-foreground">({sibling.contentType}, section {sibling.sectionIndex + 1})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setBindingConfirmOpen(false)}
+              data-testid="button-binding-confirm-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={async () => {
+                setBindingConfirmOpen(false);
+                await executeSave();
+              }}
+              data-testid="button-binding-confirm-save"
+            >
+              <IconDeviceFloppy className="h-4 w-4 mr-2" />
+              Save to all
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
