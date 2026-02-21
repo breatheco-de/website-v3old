@@ -688,7 +688,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                           data-testid="input-first-name"
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                     </FormItem>
                   )}
                 />
@@ -713,7 +713,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                         data-testid="input-email"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                   </FormItem>
                 )}
               />
@@ -831,7 +831,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                             data-testid="input-first-name" 
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                       </FormItem>
                     )}
                   />
@@ -853,7 +853,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                             data-testid="input-last-name" 
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                       </FormItem>
                     )}
                   />
@@ -888,7 +888,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     {getFieldConfig("phone").helper_text && (
                       <p className="text-sm text-muted-foreground">{getFieldConfig("phone").helper_text}</p>
                     )}
-                    <FormMessage />
+                    <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                   </FormItem>
                 )}
               />
@@ -919,7 +919,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                         data-testid="input-email"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                   </FormItem>
                 )}
               />
@@ -959,7 +959,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                         {getFieldConfig("region").helper_text && (
                           <p className="text-sm text-muted-foreground">{getFieldConfig("region").helper_text}</p>
                         )}
-                        <FormMessage />
+                        <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                       </FormItem>
                     )}
                   />
@@ -1001,7 +1001,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                         {getFieldConfig("location").helper_text && (
                           <p className="text-sm text-muted-foreground">{getFieldConfig("location").helper_text}</p>
                         )}
-                        <FormMessage />
+                        <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                       </FormItem>
                     )}
                   />
@@ -1036,7 +1036,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     {getFieldConfig("program").helper_text && (
                       <p className="text-sm text-muted-foreground">{getFieldConfig("program").helper_text}</p>
                     )}
-                    <FormMessage />
+                    <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                   </FormItem>
                 )}
               />
@@ -1061,7 +1061,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                     {getFieldConfig("coupon").helper_text && (
                       <p className="text-sm text-muted-foreground">{getFieldConfig("coupon").helper_text}</p>
                     )}
-                    <FormMessage />
+                    <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                   </FormItem>
                 )}
               />
@@ -1089,7 +1089,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                   {getFieldConfig("client_comments").helper_text && (
                     <p className="text-sm text-muted-foreground">{getFieldConfig("client_comments").helper_text}</p>
                   )}
-                  <FormMessage />
+                  <FormMessage className="text-white bg-destructive/90 px-2 py-0.5 rounded text-xs inline-block" />
                 </FormItem>
               )}
             />
