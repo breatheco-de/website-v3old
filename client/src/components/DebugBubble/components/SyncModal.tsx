@@ -25,6 +25,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { AutoCommitStatus, PendingChange, GitHubSyncStatus } from "../types";
@@ -98,6 +99,7 @@ export function SyncModal({
 }: SyncModalProps) {
   const [bulkPullPromptFile, setBulkPullPromptFile] = useState<string | null>(null);
   const [isBulkPulling, setIsBulkPulling] = useState(false);
+  const [skipBulkPrompt, setSkipBulkPrompt] = useState(false);
 
   const nonConflictIncoming = pendingChanges.filter(c => c.source === 'incoming');
 
@@ -106,12 +108,12 @@ export function SyncModal({
       setConfirmPullFile(file);
       return;
     }
-    if (nonConflictIncoming.length > 1) {
+    if (!skipBulkPrompt && nonConflictIncoming.length > 1) {
       setBulkPullPromptFile(file);
     } else {
       handleFilePull(file);
     }
-  }, [nonConflictIncoming.length, handleFilePull, setConfirmPullFile]);
+  }, [skipBulkPrompt, nonConflictIncoming.length, handleFilePull, setConfirmPullFile]);
 
   const handleBulkPull = useCallback(async () => {
     setIsBulkPulling(true);
@@ -128,7 +130,7 @@ export function SyncModal({
 
   return (
     <>
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={(v) => { if (!v) setSkipBulkPrompt(false); onOpenChange(v); }}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
@@ -669,6 +671,14 @@ export function SyncModal({
           <p className="text-sm text-muted-foreground" data-testid="text-bulk-pull-description">
             There {nonConflictIncoming.length === 1 ? "is" : "are"} {nonConflictIncoming.length} incoming file{nonConflictIncoming.length !== 1 ? "s" : ""} without conflicts. Would you like to download all of them?
           </p>
+          <label className="flex items-center gap-2 cursor-pointer" data-testid="label-skip-bulk-prompt">
+            <Checkbox
+              checked={skipBulkPrompt}
+              onCheckedChange={(checked) => setSkipBulkPrompt(!!checked)}
+              data-testid="checkbox-skip-bulk-prompt"
+            />
+            <span className="text-xs text-muted-foreground">Don't ask me again in this session</span>
+          </label>
         </div>
         <DialogFooter className="gap-2 sm:gap-0">
           <Button
