@@ -13,7 +13,6 @@ sections:
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Houston
     subtitle: Train for in-demand tech roles, including AI Engineering, in Houston's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
-
     badge: Houston Campus
     cta_buttons:
       - text: Apply Now
@@ -135,9 +134,24 @@ sections:
     heading: Programs Covered by the Job Guarantee
     subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
     courses:
-      - name: Full Stack Development
-        duration: 9 months part-time
-        label: Updated in 2025
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
         title: Full Stack Software Development
         badges:
           - icon: Code
@@ -145,41 +159,40 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price: {{ price_fullstack | $299 }}
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/full-stack
-        course_background: hsl(var(--primary) / 0.4)
-      - name: AI and Machine Learning
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: Data Science and Machine Learning
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
         badges:
-          - icon: Brain
-            text: LLMs & Generative AI training
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price: {{ price_datascience | 299$ }}
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/ai-machine-learning
-        course_background: accent
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: 9 months part-time
-        label: Updated in 2025
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
         title: Cybersecurity
         badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price: {{ price_cybersecurity | 299$ }}
-        original_price: $588
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/cybersecurity
-        course_background: hsl(var(--color-pink))
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -206,18 +219,18 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: The Confidence of a Job Guarantee
+      heading: The Confidence of a Job Guarantee*
       description: |
-        The strongest proof that our approach works? We're willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
+        The strongest proof that our approach works? We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
       badge: Results-Backed Promise
     secondary:
       benefits:
         - text: {{ global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
         - text: {{ global_salary_increase | 55 }}% average salary increase in tech roles
-    background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Houston Is a Smart Place to Launch Your Tech Career
@@ -251,9 +264,8 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
-
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Houston Graduate Success Stories
     filter_by_location: houston-usa
     marginY:
@@ -352,13 +364,12 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Receive personalized program information and next steps.
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Get the details
       tags: website-lead
       automations: hard
       fields:
@@ -376,7 +387,7 @@ sections:
           placeholder: Phone number
         program:
           visible: true
-          required: true
+          required: false
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
@@ -387,8 +398,8 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
-
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
