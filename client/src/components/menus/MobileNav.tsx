@@ -29,11 +29,17 @@ interface MobileNavItemProps {
 
 function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProps) {
   const handleNav = useInternalNav({ onNavigate });
+  const [openSubIndex, setOpenSubIndex] = useState<number | null>(null);
+
+  const handleSubToggle = (index: number) => {
+    setOpenSubIndex(openSubIndex === index ? null : index);
+  };
+
   if (item.component === "Dropdown" && item.dropdown) {
     const dropdown = item.dropdown;
 
     return (
-      <Collapsible open={isOpen} onOpenChange={onToggle}>
+      <Collapsible open={isOpen} onOpenChange={() => { onToggle(); setOpenSubIndex(null); }}>
         <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-2 text-base font-medium text-foreground hover-elevate rounded-md">
           <span>{item.label}</span>
           <IconChevronDown 
@@ -48,41 +54,46 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                   key={index}
                   href={card.href}
                   onClick={handleNav}
-                  className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
+                  className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
                   data-testid={`mobile-nav-card-${(card.title || "item").toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  <IconChevronRight className="h-3 w-3" />
                   <div>
                     <div className="font-medium text-foreground">{card.title}</div>
                     <div className="text-xs text-muted-foreground line-clamp-1">{card.description}</div>
                   </div>
+                  <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
                 </a>
               ))}
             </div>
           )}
           
           {dropdown.type === "columns" && dropdown.columns && (
-            <div className="space-y-4">
+            <div className="space-y-1">
               {dropdown.columns.map((column, colIndex) => (
-                <div key={colIndex}>
-                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 px-2">
-                    {column.title}
-                  </div>
-                  <div className="space-y-1">
-                    {column.items.map((link, linkIndex) => (
-                      <a
-                        key={linkIndex}
-                        href={link.href}
-                        onClick={handleNav}
-                        className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
-                        data-testid={`mobile-nav-column-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
-                      >
-                        <IconChevronRight className="h-3 w-3" />
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+                <Collapsible key={colIndex} open={openSubIndex === colIndex} onOpenChange={() => handleSubToggle(colIndex)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between py-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider hover-elevate rounded-md">
+                    <span>{column.title}</span>
+                    <IconChevronDown 
+                      className={`h-3 w-3 transition-transform duration-200 ${openSubIndex === colIndex ? "rotate-180" : ""}`} 
+                    />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pl-2">
+                    <div className="space-y-1">
+                      {column.items.map((link, linkIndex) => (
+                        <a
+                          key={linkIndex}
+                          href={link.href}
+                          onClick={handleNav}
+                          className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
+                          data-testid={`mobile-nav-column-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          <span>{link.label}</span>
+                          <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
+                        </a>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
               ))}
             </div>
           )}
@@ -94,38 +105,43 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                   key={index}
                   href={link.href}
                   onClick={handleNav}
-                  className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
+                  className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
                   data-testid={`mobile-nav-list-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  <IconChevronRight className="h-3 w-3" />
-                  {link.label}
+                  <span>{link.label}</span>
+                  <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
                 </a>
               ))}
             </div>
           )}
           
           {dropdown.type === "grouped-list" && dropdown.groups && (
-            <div className="space-y-4">
+            <div className="space-y-1">
               {dropdown.groups.map((group, groupIndex) => (
-                <div key={groupIndex}>
-                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 px-2">
-                    {group.title}
-                  </div>
-                  <div className="space-y-1">
-                    {group.items.map((link, linkIndex) => (
-                      <a
-                        key={linkIndex}
-                        href={link.href}
-                        onClick={handleNav}
-                        className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
-                        data-testid={`mobile-nav-group-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
-                      >
-                        <IconChevronRight className="h-3 w-3" />
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+                <Collapsible key={groupIndex} open={openSubIndex === groupIndex} onOpenChange={() => handleSubToggle(groupIndex)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between py-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider hover-elevate rounded-md">
+                    <span>{group.title}</span>
+                    <IconChevronDown 
+                      className={`h-3 w-3 transition-transform duration-200 ${openSubIndex === groupIndex ? "rotate-180" : ""}`} 
+                    />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pl-2">
+                    <div className="space-y-1">
+                      {group.items.map((link, linkIndex) => (
+                        <a
+                          key={linkIndex}
+                          href={link.href}
+                          onClick={handleNav}
+                          className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
+                          data-testid={`mobile-nav-group-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          <span>{link.label}</span>
+                          <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
+                        </a>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
               ))}
             </div>
           )}
