@@ -218,18 +218,18 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: The Confidence of a Job Guarantee
+      heading: The Confidence of a Job Guarantee*
       description: |
-        The strongest proof that our approach works? We're willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
+        The strongest proof that our approach works? We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
       badge: Results-Backed Promise
     secondary:
       benefits:
         - text: {{ global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
         - text: {{ global_salary_increase | 55 }}% average salary increase in tech roles
-    background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Valencia Is a Smart Place to Launch Your Tech Career
