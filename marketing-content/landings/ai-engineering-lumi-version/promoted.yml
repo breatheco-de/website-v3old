@@ -21,7 +21,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Aprende Ingenieria de IA
+    title: Aprende las ultimas tecnicas en Ingenieria de IA
     brand_mark:
       prefix: Que no te
       highlight: reemplace, Dominala!
