@@ -19,11 +19,16 @@ sections:
     image:
       src: /attached_assets/outcomes_1765562850573.png
       alt: Student outcomes growth chart
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
       desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
+    cta_buttons:
+      - text: Download Outcomes Report
+        url: "#bottom"
+        variant: primary
+        icon: Rocket
   - type: vertical_bars_cards
     version: "1.0"
     title: Hiring Results, Year After Year
