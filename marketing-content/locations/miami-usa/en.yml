@@ -64,7 +64,7 @@ sections:
         url: /en/apply
         variant: primary
       - text: Download Syllabus
-        url: "#bottom"
+        url: "#cta_banner-15"
         variant: outline
     marginY:
       desktop: none lg
