@@ -28,11 +28,12 @@ yaml: |
         image: "https://randomuser.me/api/portraits/lego/1.jpg"
     tutors_label: "Your tutors:"
     description: "Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms."
-    media:
-      type: video
-      thumbnail: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop"
-      src: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      alt: "Course introduction video"
+    video:
+      url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      ratio: "16:9"
+      muted: true
+      autoplay: true
+      loop: true
     signup_card:
       title: "Sign up to 4Geeks Plus"
       description: "Subscribe and get access to hundreds of challenges, projects and courses"
