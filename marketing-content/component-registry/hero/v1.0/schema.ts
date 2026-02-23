@@ -207,6 +207,7 @@ export const heroCourseSchema = z.object({
   tutors: z.array(heroCourseTutorSchema).optional(),
   tutors_label: z.string().optional(),
   description: z.string().optional(),
+  video: videoConfigSchema.optional(),
   media: z.object({
     type: z.enum(["video", "image"]),
     src: z.string(),

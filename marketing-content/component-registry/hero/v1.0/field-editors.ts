@@ -42,5 +42,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "singleColumn:subtitle": "rich-text-editor",
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
-  "course:media.src": "video-picker",
+  "course:video.url": "video-picker",
 };
