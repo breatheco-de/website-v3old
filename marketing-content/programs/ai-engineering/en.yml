@@ -43,15 +43,16 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
-    video:
-      url: https://youtu.be/sSxJnelPJT8
-      ratio: "21:9"
-      preview_image_url: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+    media:
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program introduction
     signup_card:
-      title: Get the Full Syllabus
-      description: Access the full 10-milestone roadmap and Company Case methodology.
+      title: Get the Full Program Overview
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send me the Curriculum
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:

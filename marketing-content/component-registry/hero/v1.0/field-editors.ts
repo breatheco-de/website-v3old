@@ -43,4 +43,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
   "course:video.url": "video-picker",
+  "productShowcase:video.url": "video-picker",
+  "simpleTwoColumn:video.url": "video-picker",
 };
