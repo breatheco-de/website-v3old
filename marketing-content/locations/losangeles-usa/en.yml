@@ -103,67 +103,67 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explora Nuestros Programas
-    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
     courses:
-      - name: Ingeniería de IA
+      - name: AI Engineering
         icon: Brain
-        duration: 24 semanas
-        label: Actualizado en 2026
-        title: Ingeniería de IA
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
         badges:
           - icon: Cpu
-            text: LLMs, Agentes de IA y Automatización
+            text: LLMs, AI Agents & Automation
           - icon: Database
-            text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ingenieria-ia
+            text: Production AI Systems
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
-      - name: Desarrollo Full Stack con IA
+      - name: Full Stack Development with AI
         icon: Code
-        duration: 20 semanas
-        label: Actualizado en 2026
-        title: Desarrollo de Software Full Stack
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
         badges:
           - icon: Code
-            text: React, Node.js y Python
+            text: React, Node.js & Python
         tags:
           - icon: Plus
-            text: Desarrollo de APIs
+            text: API Development
           - icon: ""
             text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
-      - name: Ciencia de Datos y ML
+      - name: Data Science & ML
         icon: ChartLine
-        duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
         badges:
           - icon: BrainCircuit
-            text: Machine Learning y Modelos de IA
+            text: Machine Learning & AI Models
           - icon: BarChart
-            text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+            text: Data Analysis & Visualization
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
-      - name: Ciberseguridad
+      - name: Cybersecurity
         icon: Shield
-        duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciberseguridad
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
         badges:
           - icon: Lock
-            text: Detección de Amenazas y Seguridad de Redes
+            text: Threat Detection & Network Security
           - icon: Server
-            text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciberseguridad
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
