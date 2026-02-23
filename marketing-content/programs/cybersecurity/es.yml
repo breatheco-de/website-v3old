@@ -45,11 +45,6 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
-    media:
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=450&fit=crop
-      alt: Introducción al programa de ciberseguridad
     signup_card:
       title: Obtén el Programa Completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
