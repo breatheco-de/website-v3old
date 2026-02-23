@@ -4098,7 +4098,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
   app.get("/api/bindings/section", (req, res) => {
     try {
-      const { contentType, slug, sectionIndex, component } = req.query;
+      const { contentType, slug, sectionIndex } = req.query;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -4109,7 +4109,6 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType as string,
         slug as string,
         parseInt(sectionIndex as string, 10),
-        component as string | undefined,
       );
       res.json({ group: group || null });
     } catch (error) {

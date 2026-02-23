@@ -430,10 +430,10 @@ export function SectionEditorPanel({
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
   const { data: bindingData, refetch: refetchBinding } = useQuery({
-    queryKey: ["/api/bindings/section", contentType, slug, sectionIndex, sectionComponentType],
+    queryKey: ["/api/bindings/section", contentType, slug, sectionIndex],
     queryFn: async () => {
       if (!contentType || !slug) return { group: null };
-      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${sectionIndex}&component=${encodeURIComponent(sectionComponentType)}`);
+      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${sectionIndex}`);
       return res.json();
     },
     enabled: !!contentType && !!slug,

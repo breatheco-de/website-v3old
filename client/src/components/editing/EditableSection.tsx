@@ -116,8 +116,8 @@ export function EditableSection({ children, section, index, sectionType, content
   const [reviewCodeError, setReviewCodeError] = useState<string | null>(null);
 
   const { data: bindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
-    queryKey: ["/api/bindings/section", contentType, slug, index, sectionType],
-    queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}&component=${encodeURIComponent(sectionType)}`).then(r => r.json()),
+    queryKey: ["/api/bindings/section", contentType, slug, index],
+    queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}`).then(r => r.json()),
     enabled: !!editMode?.isEditMode && !!contentType && !!slug,
     staleTime: 30_000,
   });
