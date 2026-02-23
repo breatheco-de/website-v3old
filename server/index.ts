@@ -10,7 +10,6 @@ import { queueFileChange } from "./auto-commit";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
 
-dotenv.config();
 const app = express();
 
 app.use(cookieParser());
