@@ -107,6 +107,43 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 
+const TECHNICAL_SUFFIXES = new Set(["src", "url", "id", "href"]);
+const POSITIONAL_LABELS: Record<string, string> = {
+  left: "Izquierda",
+  right: "Derecha",
+};
+const ACRONYMS = new Set(["url", "cta", "id", "api", "seo"]);
+
+function getFieldLabel(fieldPath: string): string {
+  const segments = fieldPath.split(".");
+  const filtered = segments.filter(
+    (s) => !TECHNICAL_SUFFIXES.has(s.toLowerCase()),
+  );
+  const meaningful = filtered.length > 0 ? filtered : segments;
+
+  const positionalIdx = meaningful.findIndex(
+    (s) => s.toLowerCase() in POSITIONAL_LABELS,
+  );
+  let suffix = "";
+  if (positionalIdx !== -1) {
+    suffix = ` ${POSITIONAL_LABELS[meaningful[positionalIdx].toLowerCase()]}`;
+    meaningful.splice(positionalIdx, 1);
+  }
+
+  const label = meaningful
+    .map((s) => s.replace(/_/g, " "))
+    .join(" ")
+    .split(" ")
+    .map((w) =>
+      ACRONYMS.has(w.toLowerCase())
+        ? w.toUpperCase()
+        : w.charAt(0).toUpperCase() + w.slice(1),
+    )
+    .join(" ");
+
+  return (label + suffix).trim() || fieldPath;
+}
+
 interface SectionEditorPanelProps {
   section: Section;
   sectionIndex: number;
@@ -2204,15 +2241,7 @@ export function SectionEditorPanel({
                         "",
                     )
                   : "";
-                const fieldLabelMap: Record<string, string> = {
-                  form_background: "Fondo del formulario",
-                  terms_color: "Color de términos y condiciones",
-                  title_color: "Color de título",
-                  subtitle_color: "Color de subtítulo",
-                  text_color: "Color de texto",
-                };
-                const label =
-                  fieldLabelMap[fieldPath] || fieldPath.replace(/_/g, " ");
+                const label = getFieldLabel(fieldPath);
                 return (
                   <div key={fieldPath} className="mt-3">
                     <ColorPicker
@@ -2248,7 +2277,7 @@ export function SectionEditorPanel({
                   return (current as string) || "";
                 };
                 const currentValue = getFieldValue();
-                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                const fieldLabel = getFieldLabel(fieldPath);
                 const isIdField = fieldPath.endsWith("_id");
                 const displaySrc = isIdField
                   ? imageRegistry?.images?.[currentValue]?.src || currentValue
@@ -2259,8 +2288,8 @@ export function SectionEditorPanel({
 
                 return (
                   <div key={fieldPath} className="space-y-2 mt-3">
-                    <Label className="text-sm font-medium capitalize">
-                      {fieldLabel.replace(/_/g, " ")}
+                    <Label className="text-sm font-medium">
+                      {fieldLabel}
                     </Label>
                     <div className="flex items-center gap-2">
                       <button
@@ -2324,7 +2353,7 @@ export function SectionEditorPanel({
                   return (current as string) || "";
                 };
                 const currentValue = getFieldValue();
-                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                const fieldLabel = getFieldLabel(fieldPath);
 
                 const pathParts = fieldPath.split(".");
                 const parentPrefix = pathParts.length > 1
@@ -2349,9 +2378,9 @@ export function SectionEditorPanel({
                 const currentLoop = getVideoSiblingValue("loop");
                 const currentPreviewImage = (getVideoSiblingValue("preview_image_url") as string) || "";
 
-                const parentLabel = parentPrefix
-                  ? parentPrefix.replace(/\.$/, "").split(".").pop() || "Video"
-                  : "Video";
+                const parentLabel = getFieldLabel(
+                  parentPrefix ? parentPrefix.replace(/\.$/, "") : "video"
+                );
 
                 return (
                   <Collapsible key={fieldPath} className="border rounded-md">
@@ -3679,12 +3708,7 @@ export function SectionEditorPanel({
                   };
 
                   const currentValue = getSimpleLinkValue();
-                  const acronyms = new Set(["url", "cta", "id", "api", "seo"]);
-                  const fieldLabel = fieldPath
-                    .replace(/[._]/g, " ")
-                    .split(" ")
-                    .map((w) => acronyms.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))
-                    .join(" ");
+                  const fieldLabel = getFieldLabel(fieldPath);
 
                   return (
                     <div key={fieldPath} className="space-y-2">
@@ -3743,14 +3767,7 @@ export function SectionEditorPanel({
                     "",
                   ) as string;
 
-                  const fieldLabel =
-                    side === "left"
-                      ? "Imagen Izquierda"
-                      : side === "right"
-                        ? "Imagen Derecha"
-                        : side === "image"
-                          ? "Imagen"
-                          : fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
 
                   return (
                     <Collapsible key={fieldPath} className="border rounded-md">
@@ -4277,17 +4294,17 @@ export function SectionEditorPanel({
                     return (current as string) || "";
                   };
                   const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
                   return (
                     <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium capitalize">
-                        {fieldLabel.replace(/_/g, " ")}
+                      <Label className="text-sm font-medium">
+                        {fieldLabel}
                       </Label>
                       <RichTextArea
                         key={`${sectionIndex}-${fieldPath}`}
                         value={currentValue}
                         onChange={(html) => updateProperty(fieldPath, html)}
-                        placeholder={`Edit ${fieldLabel.replace(/_/g, " ")}…`}
+                        placeholder={`Edit ${fieldLabel}…`}
                         minHeight="120px"
                         locale={locale}
                         data-testid={`props-rich-text-${fieldLabel}`}
@@ -4309,16 +4326,14 @@ export function SectionEditorPanel({
                     return (current as string) || "";
                   };
                   const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
                   return (
                     <div key={fieldPath} className="space-y-2">
                       <MarkdownEditorField
                         key={`${sectionIndex}-${fieldPath}`}
                         value={currentValue}
                         onChange={(md) => updateProperty(fieldPath, md)}
-                        label={fieldLabel
-                          .replace(/_/g, " ")
-                          .replace(/\b\w/g, (c) => c.toUpperCase())}
+                        label={fieldLabel}
                         data-testid={`props-markdown-${fieldLabel}`}
                       />
                     </div>
@@ -4338,12 +4353,12 @@ export function SectionEditorPanel({
                     return current === true || current === "true";
                   };
                   const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
                   return (
                     <div key={fieldPath} className="space-y-2">
                       <div className="flex items-center gap-3">
-                        <Label className="text-sm font-medium capitalize">
-                          {fieldLabel.replace(/_/g, " ")}
+                        <Label className="text-sm font-medium">
+                          {fieldLabel}
                         </Label>
                         <Switch
                           checked={currentValue}
@@ -4391,12 +4406,12 @@ export function SectionEditorPanel({
 
                 const safeArrayData = Array.isArray(arrayData) ? arrayData : [];
 
-                const arrayFieldLabel = arrayPath.split(".").pop() || arrayPath;
+                const arrayFieldLabel = getFieldLabel(arrayPath);
 
                 if (editorType === "icon-picker") {
                   return (
                     <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium capitalize">
+                      <Label className="text-sm font-medium">
                         {arrayFieldLabel} Icons
                       </Label>
                       <div className="flex flex-wrap gap-2">
