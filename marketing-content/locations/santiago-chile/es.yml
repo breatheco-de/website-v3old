@@ -66,44 +66,6 @@ sections:
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    section_id: syllabus-modal
-    heading: Comienza tu Postulación
-    description: Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Solicitar Información
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Email
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre y Apellido
-        phone:
-          visible: true
-          required: false
-          default_country: CL
-          placeholder: Teléfono
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
   - type: awards_marquee
     version: v1.0
     speed: 40
