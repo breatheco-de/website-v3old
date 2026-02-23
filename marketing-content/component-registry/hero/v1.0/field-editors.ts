@@ -38,7 +38,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "productShowcase:marquee.items[].logoHeight": "text-input",
   "showcase:left_images[].src": "image-picker",
   "showcase:right_images[].src": "image-picker",
-  "simpleTwoColumn:image.src": "image-picker",
+  "simpleTwoColumn:image": "image-with-style-picker",
   "simpleTwoColumn:subtitle": "rich-text-editor",
   "singleColumn:subtitle": "rich-text-editor",
   "singleColumn:image_id": "image-picker",

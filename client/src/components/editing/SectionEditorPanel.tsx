@@ -3753,11 +3753,20 @@ export function SectionEditorPanel({
                   const hasParent = parentPath.length > 0;
                   const fieldPrefix = hasParent ? `${parentPath}.` : "";
 
-                  const currentValue = getNestedValue(fieldPath, "") as string;
-                  const currentAlt = getNestedValue(
+                  const rawValue = getNestedValue(fieldPath, "");
+                  const currentValue = typeof rawValue === "string"
+                    ? rawValue
+                    : (rawValue && typeof rawValue === "object" && "src" in (rawValue as Record<string, unknown>))
+                      ? String((rawValue as Record<string, unknown>).src || "")
+                      : "";
+                  const currentAlt = (getNestedValue(
                     `${fieldPrefix}image_alt`,
                     "",
-                  ) as string;
+                  ) as string) || (
+                    typeof rawValue === "object" && rawValue && "alt" in (rawValue as Record<string, unknown>)
+                      ? String((rawValue as Record<string, unknown>).alt || "")
+                      : ""
+                  );
                   const currentObjectFit = getNestedValue(
                     `${fieldPrefix}image_object_fit`,
                     "",

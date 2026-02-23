@@ -150,10 +150,13 @@ export const heroSimpleTwoColumnSchema = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
   badge: z.string().optional(),
-  image: z.object({
-    src: z.string(),
-    alt: z.string(),
-  }).optional(),
+  image: z.union([
+    z.object({ src: z.string(), alt: z.string() }),
+    z.string(),
+  ]).optional(),
+  image_alt: z.string().optional(),
+  image_object_fit: z.string().optional(),
+  image_object_position: z.string().optional(),
   video: videoConfigSchema.optional(),
   cta_buttons: z.array(ctaButtonSchema).optional(),
   background: z.string().optional(),
