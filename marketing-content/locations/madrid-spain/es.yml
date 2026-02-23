@@ -60,10 +60,10 @@ sections:
     badge: Campus Madrid
     cta_buttons:
       - text: Aplicar Ahora
-        url: "#bottom"
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: "#syllabus-modal"
+        url: "#cta_banner-13"
         variant: outline
     marginY:
       desktop: none lg
