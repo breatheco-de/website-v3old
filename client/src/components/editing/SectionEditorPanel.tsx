@@ -1860,8 +1860,8 @@ export function SectionEditorPanel({
                 />
               </>
             )}
-            {/* Testimonials Grid related features picker */}
-            {sectionType === "testimonials_grid" && (
+            {/* Testimonials (grid, carousel, slide) related features picker */}
+            {["testimonials_grid", "testimonials", "testimonials_slide"].includes(sectionType) && (
               <>
                 <div
                   className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
@@ -1870,8 +1870,12 @@ export function SectionEditorPanel({
                   <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-amber-800 dark:text-amber-200">
                     {locale === "es"
-                      ? "Los testimonios se cargan del banco centralizado y se filtran por las características seleccionadas."
-                      : "Testimonials are loaded from the centralized bank and filtered by the selected features."}
+                      ? sectionType === "testimonials_grid"
+                        ? "Los testimonios se cargan del banco centralizado y se filtran por las características seleccionadas."
+                        : "Cuando se seleccionan características, los testimonios se cargan del banco centralizado. Sin características, se usan los items por defecto."
+                      : sectionType === "testimonials_grid"
+                        ? "Testimonials are loaded from the centralized bank and filtered by the selected features."
+                        : "When features are selected, testimonials load from the centralized bank. Without features, default items are used."}
                   </p>
                 </div>
                 <RelatedFeaturesPicker
@@ -1887,67 +1891,26 @@ export function SectionEditorPanel({
                     (parsedSection?.related_features as string[]) || []
                   }
                   itemStyles={
-                    (parsedSection?.item_styles as Record<
-                      string,
-                      {
-                        box_color?: string;
-                        name_color?: string;
-                        comment_color?: string;
-                      }
-                    >) || {}
+                    sectionType === "testimonials_grid"
+                      ? (parsedSection?.item_styles as Record<
+                          string,
+                          {
+                            box_color?: string;
+                            name_color?: string;
+                            comment_color?: string;
+                          }
+                        >) || {}
+                      : {}
                   }
                   locale={locale || "en"}
-                  onUpdateItemStyle={(studentName, prop, value) => {
-                    updateProperty(`item_styles.${studentName}.${prop}`, value);
-                  }}
-                />
-              </>
-            )}
-            {/* Testimonials (carousel) related features picker */}
-            {sectionType === "testimonials" && (
-              <>
-                <div
-                  className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
-                  data-testid="alert-testimonials-carousel-edit-info"
-                >
-                  <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-amber-800 dark:text-amber-200">
-                    {locale === "es"
-                      ? "Cuando se seleccionan características, los testimonios se cargan del banco centralizado. Sin características, se usan los items del YAML."
-                      : "When features are selected, testimonials load from the centralized bank. Without features, YAML items are used."}
-                  </p>
-                </div>
-                <RelatedFeaturesPicker
-                  value={(parsedSection?.related_features as string[]) || []}
-                  onChange={(value) =>
-                    updateArrayProperty("related_features", value)
+                  onUpdateItemStyle={
+                    sectionType === "testimonials_grid"
+                      ? (studentName, prop, value) => {
+                          updateProperty(`item_styles.${studentName}.${prop}`, value);
+                        }
+                      : undefined
                   }
-                  locale={locale}
-                  context="testimonials"
-                />
-              </>
-            )}
-            {/* Testimonials Slide (marquee) related features picker */}
-            {sectionType === "testimonials_slide" && (
-              <>
-                <div
-                  className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
-                  data-testid="alert-testimonials-slide-edit-info"
-                >
-                  <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-amber-800 dark:text-amber-200">
-                    {locale === "es"
-                      ? "Cuando se seleccionan características, los testimonios se cargan del banco centralizado. Sin características, se usan los testimonios por defecto."
-                      : "When features are selected, testimonials load from the centralized bank. Without features, default testimonials are used."}
-                  </p>
-                </div>
-                <RelatedFeaturesPicker
-                  value={(parsedSection?.related_features as string[]) || []}
-                  onChange={(value) =>
-                    updateArrayProperty("related_features", value)
-                  }
-                  locale={locale}
-                  context="testimonials"
+                  readOnly={sectionType !== "testimonials_grid"}
                 />
               </>
             )}
