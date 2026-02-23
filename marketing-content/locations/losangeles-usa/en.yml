@@ -16,10 +16,10 @@ sections:
     badge: Los Angeles Campus
     cta_buttons:
       - text: Apply Now
-        url: "#bottom"
+        url: /en/apply
         variant: primary
-      - text: Download Syllabus
-        url: "#syllabus-modal"
+      - text: Get Program Details
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
