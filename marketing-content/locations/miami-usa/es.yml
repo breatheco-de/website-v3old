@@ -349,8 +349,8 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
-    subtitle: Receive personalized program information and next steps.
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -362,15 +362,15 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Your email address
+          placeholder: Email
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre y Apellido
         phone:
           visible: true
           required: false
-          placeholder: Phone number
+          placeholder: Teléfono
         program:
           visible: true
           required: false
