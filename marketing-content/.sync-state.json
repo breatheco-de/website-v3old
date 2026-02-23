@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "682e07c3671cefc2b9b4aba9a2894c8caa0d8ddb",
-  "lastSyncedAt": "2026-02-20T19:29:56.398Z",
+  "lastSyncedCommit": "cdabffdf979eb2410f61348eb48729056a7bf0c7",
+  "lastSyncedAt": "2026-02-23T21:27:21.565Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -1141,6 +1141,14 @@
       "sha": "96918210fe92077446183cf4a554a58c6da4a70d06b4764db8c67d142d8b0fdf",
       "lastModified": 1771615520256.7817,
       "remoteSha": "96918210fe92077446183cf4a554a58c6da4a70d06b4764db8c67d142d8b0fdf"
+    },
+    "marketing-content/pages/outcomes/_common.yml": {
+      "sha": "27a139c7d5cf93f868d82e642dc3ef3f78a292a48211be460f23845ff4d10b83",
+      "lastModified": 1771881949736.1006,
+      "remoteSha": "27a139c7d5cf93f868d82e642dc3ef3f78a292a48211be460f23845ff4d10b83"
     }
+  },
+  "config": {
+    "commitIntervalSeconds": 5
   }
 }
