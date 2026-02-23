@@ -35,7 +35,7 @@ sections:
       - key: syllabus_version.duration_in_days
         label: Duración
         type: text
-        function: KHJvdykgPT4gcm93LnN5bGxhYnVzX3ZlcnNpb24/LmR1cmF0aW9uX2luX2RheXMgPyBNYXRoLnJvdW5kKHJvdy5zeWxsYWJ1c192ZXJzaW9uLmR1cmF0aW9uX2luX2RheXMgLyA3KSArICIgc2VtYW5hcyIgOiAnJw==
+        function: KHJvdykgPT4geyBjb25zdCBwcm9nID0gKHJvdy5zeWxsYWJ1c192ZXJzaW9uPy5uYW1lIHx8ICcnKS50b0xvd2VyQ2FzZSgpOyBpZiAocHJvZy5pbmNsdWRlcygnY3liZXJzZWN1cml0eScpKSByZXR1cm4gJzE2IHNlbWFuYXMnOyBpZiAocHJvZy5pbmNsdWRlcygnZGF0YSBzY2llbmNlJykpIHJldHVybiAnMTYgc2VtYW5hcyc7IGlmIChwcm9nLmluY2x1ZGVzKCdmdWxsLXN0YWNrJykgfHwgcHJvZy5pbmNsdWRlcygnZnVsbCBzdGFjaycpKSByZXR1cm4gJzIwIHNlbWFuYXMnOyBpZiAocHJvZy5pbmNsdWRlcygnYWkgZW5naW5lZXIgZnQnKSkgcmV0dXJuICcxNiBzZW1hbmFzJzsgaWYgKHByb2cuaW5jbHVkZXMoJ2FpIGVuZ2luZWVyJykpIHJldHVybiAnMjQgc2VtYW5hcyc7IHJldHVybiByb3cuc3lsbGFidXNfdmVyc2lvbj8uZHVyYXRpb25faW5fZGF5cyA/IE1hdGgucm91bmQocm93LnN5bGxhYnVzX3ZlcnNpb24uZHVyYXRpb25faW5fZGF5cyAvIDcpICsgJyBzZW1hbmFzJyA6ICcnOyB9
     action:
       label: Ver
-      href: /en/apply
+      href: /es/apply

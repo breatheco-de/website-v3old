@@ -16,7 +16,6 @@ sections:
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Orlando
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Orlando. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
-
     badge: Campus Orlando
     cta_buttons:
       - text: Aplicar Ahora
@@ -209,18 +208,19 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: La Confianza de una Garantía de Empleo
-      description: |
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
+      heading: La Confianza de una Garantía de Empleo*
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: 84% tasa de contratación entre graduados
+        - text: {{ global_job_placement_rate | 84% }} tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: 55% aumento salarial promedio en roles tech
-    background: hsl(var(--secondary))
+        - text: {{ global_salary_increase | 55% }} aumento salarial promedio en roles tech
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Orlando es un Lugar Inteligente para Lanzar tu Carrera Tech
@@ -254,9 +254,8 @@ sections:
       - icon: headset
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
-
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Historias de Éxito de Graduados de Orlando
     filter_by_location: orlando-usa
     marginY:
@@ -305,44 +304,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-  - type: profiles_carousel
-    version: v1.0
-    heading: Conoce a los Geeks
-    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
-    image_round: false
-    profiles:
-      - image_id: alejandro_sanchez
-        name: Alejandro Sánchez
-        role: Co-Fundador y Director de Tecnología
-        linkedin_url: https://www.linkedin.com/in/alesanchezr/
-      - image_id: marcelo_ricigliano
-        name: Marcelo Ricigliano
-        role: Co-Fundador y CEO
-        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
-      - image_id: alissalandra
-        name: Alissa Landra
-        role: Campus & Growth Manager USA
-        linkedin_url: https://www.linkedin.com/in/alissalandra/
-      - image_id: victor_gomez
-        name: Victor Manuel Gómez Pérez
-        role: Regional Manager Europe
-        linkedin_url: https://www.linkedin.com/in/victormgomezp/
-      - image_id: pablo_bullor
-        name: Pablo Bullor
-        role: Program Manager LATAM
-        linkedin_url: https://www.linkedin.com/in/pablobullor/
-      - image_id: laura
-        name: Laura Magallanes
-        role: Program Manager USA
-        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
-      - image_id: valentina_ancieta
-        name: Valentina Ancieta
-        role: Workforce Development Manager USA & LATAM
-        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
-      - image_id: ariana_sanchez
-        name: Ariana Sánchez
-        role: Culture & Talent Leader
-        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -354,7 +315,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech en Orlando?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     background: hsl(var(--primary))
