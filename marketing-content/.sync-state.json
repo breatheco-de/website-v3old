@@ -921,11 +921,10 @@
       "remoteSha": "9da5a3ae6ee4e06a9c70f89ea238bc19b3d2b4f9c9c1d3c63c2233981e8fc0a1"
     },
     "marketing-content/pages/outcomes/en.yml": {
-      "sha": "c4957d0ad766d0993653fe963020acacadff970295b7be88201c36afb33279c3",
-      "lastModified": 1771871898136.836,
+      "sha": "4ef5089b07fedc335c5c59003d48b2e0de43a117c45c4a79a19dc10896760f0c",
+      "lastModified": 1771872088018.4243,
       "remoteSha": "4ef5089b07fedc335c5c59003d48b2e0de43a117c45c4a79a19dc10896760f0c",
-      "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-23T18:38:18.140Z"
+      "pulledFromCommit": "9ffc6044fb57af728fd860a78ac8bea83a12d2f0"
     },
     "marketing-content/pages/outcomes/es.yml": {
       "sha": "5f807205008fe2f792db4acd68c76598f8234d547639900c29ac26a4c1056317",

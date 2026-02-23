@@ -4383,7 +4383,7 @@ export function SectionEditorPanel({
 
                 // Parse field path like "features[].icon" or "signup_card.features[].icon"
                 // Matches: optional.nested.path.arrayName[].fieldName
-                const match = fieldPath.match(/^([\w.]+)\[\]\.(\w+)$/);
+                const match = fieldPath.match(/^([\w.]+)\[\]\.([\w.]+)$/);
                 if (!match) return null;
 
                 const [, arrayPath, itemField] = match;
