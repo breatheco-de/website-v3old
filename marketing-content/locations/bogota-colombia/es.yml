@@ -57,44 +57,16 @@ sections:
     badge: Campus Bogotá
     cta_buttons:
       - text: Aplicar Ahora
-        url: "#bottom"
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: "#syllabus-modal"
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    section_id: syllabus-modal
-    heading: Comienza tu Aplicación
-    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Enviar Aplicación
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: ¡Gracias! Nos pondremos en contacto contigo en 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -171,55 +143,69 @@ sections:
       desktop: none md
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programas Cubiertos por la Garantía de Empleo
-    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
+    variant: solid
+    heading: Explora Nuestros Programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
-      - name: Full Stack Development
+      - name: Ingeniería de IA
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
+        badges:
+          - icon: Cpu
+            text: LLMs, Agentes de IA y Automatización
+          - icon: Database
+            text: Sistemas de IA en Producción
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
+        course_background: hsl(var(--accent))
+      - name: Desarrollo Full Stack con IA
+        icon: Code
         duration: 20 semanas
         label: Actualizado en 2026
-        title: Desarrollo Full Stack de Software
+        title: Desarrollo de Software Full Stack
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: React, Node.js y Python
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $150
-        original_price: $200
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/full-stack
-        course_background: hsl(var(--primary) / 0.4)
-      - name: AI and Machine Learning
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        course_background: hsl(var(--destructive))
+      - name: Ciencia de Datos y ML
+        icon: ChartLine
         duration: 16 semanas
         label: Actualizado en 2026
-        title: Data Science y Machine Learning
+        title: Ciencia de Datos y Machine Learning con IA
         badges:
-          - icon: Brain
-            text: LLMs y entrenamiento en IA Generativa
-        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $170
-        original_price: $210
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/ai-machine-learning
-        course_background: accent
-      - name: Cybersecurity
+          - icon: BrainCircuit
+            text: Machine Learning y Modelos de IA
+          - icon: BarChart
+            text: Análisis y Visualización de Datos
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+        course_background: hsl(var(--primary))
+      - name: Ciberseguridad
+        icon: Shield
         duration: 16 semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
-          - icon: Code
-            text: Detección de amenazas y protección de sistemas
-        description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $150
-        original_price: $200
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/cybersecurity
-        course_background: hsl(var(--color-pink))
+          - icon: Lock
+            text: Detección de Amenazas y Seguridad de Redes
+          - icon: Server
+            text: Seguridad en la Nube
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
+        course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -341,44 +327,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-  - type: profiles_carousel
-    version: v1.0
-    heading: Conoce a los Geeks
-    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
-    image_round: false
-    profiles:
-      - image_id: alejandro_sanchez
-        name: Alejandro Sánchez
-        role: Co-Fundador y Director de Tecnología
-        linkedin_url: https://www.linkedin.com/in/alesanchezr/
-      - image_id: marcelo_ricigliano
-        name: Marcelo Ricigliano
-        role: Co-Fundador y CEO
-        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
-      - image_id: alissalandra
-        name: Alissa Landra
-        role: Campus & Growth Manager USA
-        linkedin_url: https://www.linkedin.com/in/alissalandra/
-      - image_id: victor_gomez
-        name: Victor Manuel Gómez Pérez
-        role: Regional Manager Europe
-        linkedin_url: https://www.linkedin.com/in/victormgomezp/
-      - image_id: pablo_bullor
-        name: Pablo Bullor
-        role: Program Manager LATAM
-        linkedin_url: https://www.linkedin.com/in/pablobullor/
-      - image_id: laura
-        name: Laura Magallanes
-        role: Program Manager USA
-        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
-      - image_id: valentina_ancieta
-        name: Valentina Ancieta
-        role: Workforce Development Manager USA & LATAM
-        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
-      - image_id: ariana_sanchez
-        name: Ariana Sánchez
-        role: Culture & Talent Leader
-        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -391,12 +339,43 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech en Bogotá?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
-    background: hsl(var(--primary))
-    cta_text: Aplicar Ahora
-    cta_url: /es/apply?location=bogota-colombia
-    marginY:
-      desktop: lg none
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre y Apellido
+        phone:
+          visible: true
+          required: false
+          placeholder: Teléfono
+        program:
+          visible: true
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    terms_color: hsl(var(--card))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))

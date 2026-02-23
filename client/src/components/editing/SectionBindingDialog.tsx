@@ -704,7 +704,7 @@ export function SectionBindingDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <IconLink className="h-5 w-5" />
-            {existingGroup ? "Section is actively binded" : "Section Bindings"}
+            {existingGroup ? "Section is actively binded" : `Section Bindings in \`${locale}\``}
           </DialogTitle>
         </DialogHeader>
 
@@ -1116,7 +1116,7 @@ export function SectionBindingDialog({
                                 <span className="truncate font-medium">{c.title || c.slug}</span>
                               </div>
                               <p className="text-xs text-muted-foreground truncate">
-                                {c.slug} — section {c.sectionIndex}
+                                {c.slug} — section {c.sectionIndex} · <span className="uppercase font-medium">{locale}</span>
                               </p>
                             </div>
                             {isBoundElsewhere && (

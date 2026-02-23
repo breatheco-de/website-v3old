@@ -102,11 +102,11 @@ sections:
           placeholder: Nombre
         last_name:
           visible: true
-          required: false
+          required: true
           placeholder: Apellido
         phone:
           visible: true
-          required: false
+          required: true
           default_country: MX
         program:
           visible: false

@@ -61,10 +61,10 @@ sections:
     badge: Campus Miami
     cta_buttons:
       - text: Aplicar Ahora
-        url: /es/aplica?location=miami-usa
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: /syllabus
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -242,8 +242,9 @@ sections:
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: |
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
@@ -348,13 +349,44 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech en Miami?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
-    cta_text: Aplicar Ahora
-    cta_url: /es/apply?location=miami-usa
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre y Apellido
+        phone:
+          visible: true
+          required: false
+          placeholder: Teléfono
+        program:
+          visible: true
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    terms_color: hsl(var(--card))
     marginY:
-      desktop: none
+      desktop: lg none
     paddingY:
       desktop: md
   - type: footer
