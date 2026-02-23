@@ -126,10 +126,11 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
-      "lastModified": 1771886324154.5679,
+      "sha": "ca298033a0c43915c1174d5d617bfca06708fe0c1d50bbce76ce2112c43d2105",
+      "lastModified": 1771888181308.2017,
       "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
-      "pulledFromCommit": "8678df2d0a550bc2fd953d219e175359379c70d8"
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T23:09:41.311Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -152,14 +153,18 @@
       "remoteSha": "059cfc562586b5a661415cd9f2ed601987cf3378e0764ec4c20160836f26470f"
     },
     "marketing-content/locations/atlanta-usa/en.yml": {
-      "sha": "55f574107674ff0cc7f2cbfd9862b5392abe5af9b95e2659a3835021b8af9757",
-      "lastModified": 1771885465942.753,
-      "remoteSha": "55f574107674ff0cc7f2cbfd9862b5392abe5af9b95e2659a3835021b8af9757"
+      "sha": "ada67f68377ef600025d343063ff799756c844ceaee912ac1f8817cd839f4b16",
+      "lastModified": 1771888993173.5876,
+      "remoteSha": "55f574107674ff0cc7f2cbfd9862b5392abe5af9b95e2659a3835021b8af9757",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T23:23:13.175Z"
     },
     "marketing-content/locations/atlanta-usa/es.yml": {
-      "sha": "ba7602b7a1a0c1a0135905ba816f48c9ed2a32ceff1e3b52bbcdcbb170e1d8f1",
-      "lastModified": 1771885592004.2874,
-      "remoteSha": "ba7602b7a1a0c1a0135905ba816f48c9ed2a32ceff1e3b52bbcdcbb170e1d8f1"
+      "sha": "05d477c464ae18eb746a87fb9449d64d60cd55f50161f41c0aa9149d4969df33",
+      "lastModified": 1771888443754.0024,
+      "remoteSha": "ba7602b7a1a0c1a0135905ba816f48c9ed2a32ceff1e3b52bbcdcbb170e1d8f1",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T23:14:03.756Z"
     },
     "marketing-content/locations/austin-usa/_common.yml": {
       "sha": "0a03eaefa32a436a61f83c781e4d74254d373196e022be3ef06db34a7e3b4646",

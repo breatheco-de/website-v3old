@@ -189,6 +189,9 @@ sections:
       desktop: md none
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
+    related_features:
+      - data-science
+      - full-stack
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
   - type: split_cards

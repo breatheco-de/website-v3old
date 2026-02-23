@@ -172,6 +172,8 @@ sections:
       desktop: md none
   - type: testimonials_slide
     title: Caminos Probados hacia Carreras Tech
+    related_features:
+      - outcomes
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
   - type: split_cards
