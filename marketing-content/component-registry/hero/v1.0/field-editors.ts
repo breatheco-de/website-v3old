@@ -15,6 +15,7 @@ export type EditorType =
   | "color-picker"
   | "image-picker"
   | "image-picker:logo"
+  | "image-with-style-picker"
   | "link-picker"
   | "video-picker"
   | "text-input"
