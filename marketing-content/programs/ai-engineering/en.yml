@@ -52,7 +52,7 @@ sections:
       title: Get the Full Program Overview
       description: Receive the complete roadmap of the 10-milestones, learning structure, schedule options, tuition, and career support model.
       cta_button:
-        text: Get the Full Overview
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:
