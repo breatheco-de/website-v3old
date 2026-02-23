@@ -50,7 +50,7 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete roadmap of the 10-milestones, learning structure, schedule options, tuition, and career support model.
+      description: Receive the complete 10-milestone syllabus, learning structure, schedule options, tuition, and career support model.
       cta_button:
         text: Send Me the Details
         url: "#apply-modal"
