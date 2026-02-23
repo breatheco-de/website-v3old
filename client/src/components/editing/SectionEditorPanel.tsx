@@ -4465,6 +4465,15 @@ export function SectionEditorPanel({
                                 <CollapsibleContent>
                                   <div className="p-3 pt-0 space-y-3 border-t">
                                     <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">Text</Label>
+                                      <Input
+                                        value={btnText}
+                                        onChange={(e) => updateCtaField(index, "text", e.target.value)}
+                                        placeholder="Button text"
+                                        data-testid={`props-cta-${index}-text`}
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
                                       <Label className="text-xs text-muted-foreground">URL</Label>
                                       <LinkPicker
                                         value={btnUrl}
