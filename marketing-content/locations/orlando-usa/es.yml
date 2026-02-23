@@ -16,7 +16,6 @@ sections:
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Orlando
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Orlando. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
-
     badge: Campus Orlando
     cta_buttons:
       - text: Aplicar Ahora
@@ -209,18 +208,18 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: La Confianza de una Garantía de Empleo
+      heading: La Confianza de una Garantía de Empleo*
       description: |
         ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: 84% tasa de contratación entre graduados
+        - text: {{ global_job_placement_rate | 84% }} tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: 55% aumento salarial promedio en roles tech
-    background: hsl(var(--secondary))
+        - text: {{ global_salary_increase | 55% }} aumento salarial promedio en roles tech
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Orlando es un Lugar Inteligente para Lanzar tu Carrera Tech
@@ -254,9 +253,8 @@ sections:
       - icon: headset
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
-
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Historias de Éxito de Graduados de Orlando
     filter_by_location: orlando-usa
     marginY:
@@ -354,7 +352,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech en Orlando?
     subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
     background: hsl(var(--primary))
