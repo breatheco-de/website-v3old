@@ -26,9 +26,7 @@ export type EditorType =
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
   "signup_card.features[].icon": "icon-picker",
-  "cta_buttons[]": "cta-picker",
-  "cta_button.url": "link-picker",
-  "panels[].cta_button.url": "link-picker",
+  "simpleTwoColumn:cta_buttons[]": "cta-picker",
 
   // Variant-specific - prefixed with variant name
   "productShowcase:image_id": "image-picker",

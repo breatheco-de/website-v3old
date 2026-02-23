@@ -4459,12 +4459,6 @@ export function SectionEditorPanel({
                                         <span className="text-xs text-muted-foreground">#{index + 1}</span>
                                       )}
                                     </div>
-                                    <div className="flex-1 text-left">
-                                      <span className="text-sm font-medium block truncate">{btnText}</span>
-                                      {btnVariant && (
-                                        <span className="text-xs text-muted-foreground">{btnVariant}</span>
-                                      )}
-                                    </div>
                                     <IconChevronDown className="h-4 w-4 text-muted-foreground" />
                                   </button>
                                 </CollapsibleTrigger>
@@ -4494,7 +4488,7 @@ export function SectionEditorPanel({
                                           });
                                           setIconPickerOpen(true);
                                         }}
-                                        className="flex items-center gap-2 w-full p-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors"
+                                        className="flex items-center gap-2 w-full transition-colors"
                                         data-testid={`props-cta-${index}-icon`}
                                       >
                                         <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">

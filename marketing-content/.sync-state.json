@@ -2,8 +2,8 @@
   "config": {
     "commitIntervalSeconds": 5
   },
-  "lastSyncedCommit": "c0f5a94bc96616a734202d221a473b0eb9a17f3a",
-  "lastSyncedAt": "2026-02-23T18:14:45.085Z",
+  "lastSyncedCommit": "5aedd3c6fd901f67c58c61c24abac6f4c28a89ac",
+  "lastSyncedAt": "2026-02-23T20:42:10.118Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -921,15 +921,16 @@
       "remoteSha": "9da5a3ae6ee4e06a9c70f89ea238bc19b3d2b4f9c9c1d3c63c2233981e8fc0a1"
     },
     "marketing-content/pages/outcomes/en.yml": {
-      "sha": "4ef5089b07fedc335c5c59003d48b2e0de43a117c45c4a79a19dc10896760f0c",
-      "lastModified": 1771872088018.4243,
+      "sha": "8360f674fef5260263ab775fe2a46a94cea694f9f3a4cf8c115bf91a539e892a",
+      "lastModified": 1771880051785.6055,
       "remoteSha": "4ef5089b07fedc335c5c59003d48b2e0de43a117c45c4a79a19dc10896760f0c",
-      "pulledFromCommit": "9ffc6044fb57af728fd860a78ac8bea83a12d2f0"
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T20:54:11.787Z"
     },
     "marketing-content/pages/outcomes/es.yml": {
-      "sha": "5f807205008fe2f792db4acd68c76598f8234d547639900c29ac26a4c1056317",
-      "lastModified": 1771870126451.131,
-      "remoteSha": "5f807205008fe2f792db4acd68c76598f8234d547639900c29ac26a4c1056317"
+      "sha": "300326ca9cd8bc7679a678514ca2db7cd3c764b40279bb8dc2d391911e86ee82",
+      "lastModified": 1771879316002.139,
+      "remoteSha": "300326ca9cd8bc7679a678514ca2db7cd3c764b40279bb8dc2d391911e86ee82"
     },
     "marketing-content/pages/partners/_common.yml": {
       "sha": "839d55feee674c47e723d6c49efbbf8fd2a6ebc71b114cec51f03b4590b44bc3",
@@ -1107,9 +1108,11 @@
       "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
-      "sha": "aad912e733e19ce4a4e88154904b640d225067b85c2eddf98e55c6d47bf062cb",
-      "lastModified": 1771867351132.364,
-      "remoteSha": "aad912e733e19ce4a4e88154904b640d225067b85c2eddf98e55c6d47bf062cb"
+      "sha": "26d1df181d6a3db0b1743d4c5b39909e0e054db9912d4c5c474512be0b6d6d46",
+      "lastModified": 1771880244954.4622,
+      "remoteSha": "aad912e733e19ce4a4e88154904b640d225067b85c2eddf98e55c6d47bf062cb",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T20:57:24.962Z"
     },
     "marketing-content/programs/ai-for-professionals/_common.yml": {
       "sha": "cd6ef75b6e0719ae5bc0fa822a1c0a11edd73fb259fe6b8869143a37773448c2",
