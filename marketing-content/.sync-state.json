@@ -1,6 +1,6 @@
 {
-  "lastSyncedCommit": "f41efc3fe7273cd1ffc7ff9177af812311d59d11",
-  "lastSyncedAt": "2026-02-23T16:25:48.407Z",
+  "lastSyncedCommit": "b75438118bf178cc12fade8c5bc6c431986858a1",
+  "lastSyncedAt": "2026-02-23T16:35:34.544Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -1083,9 +1083,9 @@
       "remoteSha": "7bb3754facaea593d5aa30618791a4b3d69e36d46e1b22654255f3e29e3aa56e"
     },
     "marketing-content/programs/data-science-ml/en.yml": {
-      "sha": "543927a5310f13faafc16333ff6ae90024c14cec0249e2778bf87dfe75f84c0f",
-      "lastModified": 1771615518016.7837,
-      "remoteSha": "543927a5310f13faafc16333ff6ae90024c14cec0249e2778bf87dfe75f84c0f"
+      "sha": "e27f37d2af6da2964539ca509259f9610328e39296398a265dbb32b099589c27",
+      "lastModified": 1771864527461.8403,
+      "remoteSha": "e27f37d2af6da2964539ca509259f9610328e39296398a265dbb32b099589c27"
     },
     "marketing-content/programs/data-science-ml/es.yml": {
       "sha": "cab1754e94b377aa7a3c45f429fe639abef2f39d8af51c9eeb513b94f7f42b49",
