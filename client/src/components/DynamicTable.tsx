@@ -409,7 +409,7 @@ function ComparisonLayout({
             {columns.map((col, colIdx) => (
               <div
                 key={col.key}
-                className={`py-5 px-6 font-semibold text-sm cursor-pointer select-none bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center ${colIdx < colCount - 1 ? "border-r border-primary-foreground/20" : ""}`}
+                className={`py-5 px-6 font-semibold text-sm cursor-pointer select-none bg-primary text-primary-foreground text-center ${colIdx < colCount - 1 ? "border-r border-primary-foreground/20" : ""}`}
                 onClick={() => onSort(col.key)}
                 data-testid={`th-${col.key}`}
               >
@@ -420,7 +420,7 @@ function ComparisonLayout({
               </div>
             ))}
             {action && (
-              <div className="py-5 px-6 font-semibold text-sm bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center" data-testid="th-action">
+              <div className="py-5 px-6 font-semibold text-sm bg-primary text-primary-foreground text-center" data-testid="th-action">
                 {action.label}
               </div>
             )}
