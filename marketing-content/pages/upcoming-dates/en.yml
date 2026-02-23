@@ -38,7 +38,7 @@ sections:
         type: text
         function: KHJvdykgPT4gcm93LnN5bGxhYnVzX3ZlcnNpb24/LmR1cmF0aW9uX2luX2RheXMgPyBNYXRoLnJvdW5kKHJvdy5zeWxsYWJ1c192ZXJzaW9uLmR1cmF0aW9uX2luX2RheXMgLyA3KSArICIgd2Vla3MiIDogJyc=
     action:
-      label: View program
+      label: View
       href: /en/apply
   - type: cta_banner
     version: "1.0"
