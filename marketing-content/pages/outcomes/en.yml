@@ -15,13 +15,17 @@ sections:
     variant: simpleTwoColumn
     title: Real Career Outcomes, Backed by Data
     subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity, the outcomes are backed by verified data.
-    badge: 4Geeks Academy Outcomes Report
     image:
       src: /attached_assets/outcomes_1765562850573.png
       alt: Student outcomes growth chart
+    cta_buttons:
+      - text: Download Outcomes Report
+        url: "#bottom"
+        variant: primary
+        icon: Rocket
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
       desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
   - type: vertical_bars_cards

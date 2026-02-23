@@ -271,7 +271,6 @@ sections:
       desktop: lg none
     marginY:
       desktop: md
-<<<<<<< HEAD
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
@@ -313,5 +312,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-=======
->>>>>>> parent of 1b1dcafe (Restored to '068a05c93907146d1827af22470c5d5c02920752')

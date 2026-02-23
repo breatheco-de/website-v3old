@@ -5,7 +5,8 @@ meta:
   og_image: /images/locations/lima-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects: []
+  redirects:
+    - /us/coding-campus/coding-bootcamp-lima-peru
 sections:
   - type: hero
     version: "1.0"
@@ -129,68 +130,68 @@ sections:
       desktop: none md
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    variant: solid
+    heading: Explora Nuestros Programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
-      - name: AI Engineering
+      - name: Ingeniería de IA
         icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
         badges:
           - icon: Cpu
-            text: LLMs, AI Agents & Automation
+            text: LLMs, Agentes de IA y Automatización
           - icon: Database
-            text: Production AI Systems
-        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/ai-engineering
+            text: Sistemas de IA en Producción
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
-      - name: Full Stack Development with AI
+      - name: Desarrollo Full Stack con IA
         icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo de Software Full Stack
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: React, Node.js y Python
         tags:
           - icon: Plus
-            text: API Development
+            text: Desarrollo de APIs
           - icon: ""
             text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/full-stack
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
-      - name: Data Science & ML
+      - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: BrainCircuit
-            text: Machine Learning & AI Models
+            text: Machine Learning y Modelos de IA
           - icon: BarChart
-            text: Data Analysis & Visualization
-        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/data-science-ml
+            text: Análisis y Visualización de Datos
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
-      - name: Cybersecurity
+      - name: Ciberseguridad
         icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
         badges:
           - icon: Lock
-            text: Threat Detection & Network Security
+            text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
-            text: Cloud Security
-        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/cybersecurity
+            text: Seguridad en la Nube
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
@@ -219,8 +220,9 @@ sections:
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
-      description: |
-        The strongest proof that our approach works? We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund. Conditions apply.
+      description: |-
+        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
+        </div></div>
       badge: Results-Backed Promise
     secondary:
       benefits:
@@ -369,8 +371,8 @@ sections:
     form:
       variant: stacked
       submit_label: Get the details
-      tags: website-lead
-      automations: hard
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true

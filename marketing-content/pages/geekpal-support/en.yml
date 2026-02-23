@@ -34,9 +34,6 @@ sections:
     video:
       url: https://youtu.be/D5nUZNL52-Q
       ratio: "3:4"
-      muted: true
-      autoplay: false
-      loop: true
     paddingY:
       mobile: none lg
       desktop: md lg
