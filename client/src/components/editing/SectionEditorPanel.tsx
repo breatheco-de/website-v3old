@@ -4484,6 +4484,22 @@ export function SectionEditorPanel({
                                       />
                                     </div>
                                     <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">Variant</Label>
+                                      <Select
+                                        value={btnVariant || "primary"}
+                                        onValueChange={(val) => updateCtaField(index, "variant", val)}
+                                      >
+                                        <SelectTrigger data-testid={`props-cta-${index}-variant`}>
+                                          <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="primary">Primary</SelectItem>
+                                          <SelectItem value="secondary">Secondary</SelectItem>
+                                          <SelectItem value="outline">Outline</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                    <div className="space-y-1">
                                       <Label className="text-xs text-muted-foreground">Icon</Label>
                                       <button
                                         type="button"

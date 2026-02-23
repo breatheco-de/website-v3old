@@ -1104,15 +1104,17 @@
     },
     "marketing-content/programs/ai-engineering/en.yml": {
       "sha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598",
-      "lastModified": 1771870484746.6177,
-      "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598"
+      "lastModified": 1771882448574.8755,
+      "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T21:34:08.578Z"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
-      "sha": "26d1df181d6a3db0b1743d4c5b39909e0e054db9912d4c5c474512be0b6d6d46",
-      "lastModified": 1771880244954.4622,
+      "sha": "7e3692d70f33064a3667a6308761a8928b47fa18097a30a4f791364f190c0d61",
+      "lastModified": 1771882535682.8135,
       "remoteSha": "aad912e733e19ce4a4e88154904b640d225067b85c2eddf98e55c6d47bf062cb",
       "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-23T20:57:24.962Z"
+      "modifiedAt": "2026-02-23T21:35:35.685Z"
     },
     "marketing-content/programs/ai-for-professionals/_common.yml": {
       "sha": "cd6ef75b6e0719ae5bc0fa822a1c0a11edd73fb259fe6b8869143a37773448c2",
