@@ -1,0 +1,515 @@
+/**
+ * Auto-Commit Queue
+ * 
+ * Automatically commits marketing-content file changes to GitHub using a
+ * configurable throttled queue. Uses setTimeout-based debouncing — the timer
+ * only runs when there are pending changes.
+ * 
+ * Content type files (dynamic via getAllFolders()) are tagged with the author.
+ * All other files are committed as "System" changes.
+ * Commit messages use the [Auto-sync] prefix.
+ * 
+ * Conflict-resilient: if a batch commit fails, it retries with only the
+ * non-conflicting files.
+ */
+
+import * as fs from 'fs';
+import * as path from 'path';
+import {
+  getSyncConfig,
+  updateSyncStateAfterCommit,
+  computeFileSha,
+  loadSyncState,
+  saveSyncState,
+  shouldTrackFile,
+} from './sync-state';
+import { getAllFolders } from './content-types';
+
+interface PendingFileChange {
+  filePath: string;
+  author: string;
+  timestamp: number;
+}
+
+interface PendingFileInfo {
+  filePath: string;
+  author: string;
+  timestamp: number;
+}
+
+interface AutoCommitStatus {
+  enabled: boolean;
+  pendingFiles: number;
+  pendingFilesList: string[];
+  pendingFilesDetails: PendingFileInfo[];
+  lastCommitAt: string | null;
+  lastCommitSha: string | null;
+  lastError: string | null;
+  conflictedFiles: string[];
+  commitIntervalSeconds: number;
+  nextSyncAt: number | null;
+  isCommitting: boolean;
+  githubConfigured: boolean;
+}
+
+interface GitHubConfig {
+  token: string;
+  owner: string;
+  repo: string;
+  branch: string;
+}
+
+let pendingChanges: Map<string, PendingFileChange> = new Map();
+let timer: ReturnType<typeof setTimeout> | null = null;
+let isCommitting = false;
+let lastCommitAt: string | null = null;
+let lastCommitSha: string | null = null;
+let lastError: string | null = null;
+let conflictedFiles: Set<string> = new Set();
+let nextSyncAt: number | null = null;
+let retryBackoffMs = 0;
+const BACKOFF_STEPS = [5000, 10000, 30000, 60000];
+
+function getGitHubConfig(): GitHubConfig | null {
+  const token = process.env.GITHUB_TOKEN || '';
+  const repoUrl = process.env.GITHUB_REPO_URL || '';
+  const branch = process.env.GITHUB_BRANCH || 'main';
+
+  const match = repoUrl.replace(/\.git$/, '').match(/github\.com\/([^\/]+)\/([^\/]+)/);
+  if (!token || !match) return null;
+
+  return { token, owner: match[1], repo: match[2], branch };
+}
+
+function isAutoCommitEnabled(): boolean {
+  return process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.AUTO_COMMIT_ENABLED !== 'false';
+}
+
+function isContentTypeFile(filePath: string): boolean {
+  const folders = getAllFolders();
+  const withoutPrefix = filePath.replace('marketing-content/', '');
+  const topFolder = withoutPrefix.split('/')[0];
+  return folders.includes(topFolder);
+}
+
+/**
+ * Queue a file change for auto-commit.
+ * If auto-commit is disabled, does nothing.
+ * Starts/resets the throttle timer.
+ */
+export function queueFileChange(filePath: string, author?: string): void {
+  if (!isAutoCommitEnabled()) return;
+
+  const cwd = process.cwd();
+  let relativePath: string;
+
+  if (path.isAbsolute(filePath)) {
+    relativePath = filePath.startsWith(cwd)
+      ? filePath.slice(cwd.length + 1)
+      : filePath;
+  } else if (filePath.startsWith('marketing-content/')) {
+    relativePath = filePath;
+  } else {
+    relativePath = `marketing-content/${filePath}`;
+  }
+
+  if (!shouldTrackFile(relativePath)) return;
+
+  const resolvedAuthor = author || (isContentTypeFile(relativePath) ? 'Unknown' : 'System');
+
+  pendingChanges.set(relativePath, {
+    filePath: relativePath,
+    author: resolvedAuthor,
+    timestamp: Date.now(),
+  });
+
+  if (conflictedFiles.has(relativePath)) {
+    conflictedFiles.delete(relativePath);
+  }
+
+  scheduleCommit();
+}
+
+function scheduleCommit(useBackoff = false): void {
+  if (timer !== null) return;
+  if (isCommitting) return;
+
+  const config = getSyncConfig();
+  const baseIntervalMs = (config.commitIntervalSeconds || 5) * 1000;
+  const delayMs = useBackoff && retryBackoffMs > 0 ? retryBackoffMs : baseIntervalMs;
+
+  nextSyncAt = Date.now() + delayMs;
+
+  timer = setTimeout(() => {
+    timer = null;
+    nextSyncAt = null;
+    processQueue().catch(err => {
+      console.error('[AutoCommit] Error processing queue:', err);
+      lastError = err instanceof Error ? err.message : 'Unknown error';
+      scheduleRetry();
+    });
+  }, delayMs);
+}
+
+function scheduleRetry(): void {
+  if (pendingChanges.size === 0) return;
+  const currentIndex = BACKOFF_STEPS.indexOf(retryBackoffMs);
+  retryBackoffMs = BACKOFF_STEPS[Math.min((currentIndex < 0 ? 0 : currentIndex + 1), BACKOFF_STEPS.length - 1)];
+  console.log(`[AutoCommit] Scheduling retry with backoff: ${retryBackoffMs / 1000}s`);
+  scheduleCommit(true);
+}
+
+function resetBackoff(): void {
+  retryBackoffMs = 0;
+}
+
+async function processQueue(): Promise<void> {
+  if (pendingChanges.size === 0) return;
+  if (isCommitting) return;
+
+  isCommitting = true;
+  lastError = null;
+  let hadFailure = false;
+
+  const snapshotChanges = new Map(pendingChanges);
+  pendingChanges.clear();
+
+  try {
+    const config = getGitHubConfig();
+    if (!config) {
+      lastError = 'GitHub not configured';
+      hadFailure = true;
+      for (const [key, val] of Array.from(snapshotChanges.entries())) {
+        if (!pendingChanges.has(key)) pendingChanges.set(key, val);
+      }
+      return;
+    }
+
+    const authorGroups = groupByAuthor(snapshotChanges);
+    const errorBefore = lastError;
+
+    for (const [author, files] of Array.from(authorGroups.entries())) {
+      await commitBatch(config, author, files);
+    }
+
+    if (lastError && lastError !== errorBefore) {
+      hadFailure = true;
+    }
+  } catch (error) {
+    lastError = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[AutoCommit] Queue processing error:', error);
+    hadFailure = true;
+    for (const [key, val] of Array.from(snapshotChanges.entries())) {
+      if (!pendingChanges.has(key)) pendingChanges.set(key, val);
+    }
+  } finally {
+    isCommitting = false;
+
+    if (!hadFailure) {
+      resetBackoff();
+    }
+
+    if (pendingChanges.size > 0) {
+      timer = null;
+      if (hadFailure) {
+        scheduleRetry();
+      } else {
+        scheduleCommit();
+      }
+    }
+  }
+}
+
+function groupByAuthor(changes: Map<string, PendingFileChange>): Map<string, string[]> {
+  const groups = new Map<string, string[]>();
+
+  for (const [filePath, change] of Array.from(changes.entries())) {
+    const author = change.author;
+    if (!groups.has(author)) {
+      groups.set(author, []);
+    }
+    groups.get(author)!.push(filePath);
+  }
+
+  return groups;
+}
+
+async function commitBatch(config: GitHubConfig, author: string, files: string[]): Promise<void> {
+  const existingFiles: Array<{ path: string; content: string }> = [];
+  const deletedFiles: string[] = [];
+
+  for (const filePath of files) {
+    const fullPath = path.join(process.cwd(), filePath);
+    if (fs.existsSync(fullPath)) {
+      const content = fs.readFileSync(fullPath, 'utf-8');
+      existingFiles.push({ path: filePath, content });
+    } else {
+      deletedFiles.push(filePath);
+    }
+  }
+
+  if (existingFiles.length === 0 && deletedFiles.length === 0) return;
+
+  const fileNames = files.map(f => f.replace('marketing-content/', '')).join(', ');
+  const message = `[Auto-sync] ${author} updated ${fileNames}`;
+
+  const result = await commitFilesViaTreeAPI(config, message, existingFiles, deletedFiles);
+
+  if (result.success && result.commitSha) {
+    lastCommitAt = new Date().toISOString();
+    lastCommitSha = result.commitSha;
+    updateSyncStateAfterCommit(result.commitSha, files);
+    console.log(`[AutoCommit] Committed ${files.length} file(s) by ${author}: ${result.commitSha.substring(0, 7)}`);
+  } else if (result.error?.includes('422') || result.error?.includes('conflict') || result.error?.includes('Update is not a fast forward')) {
+    console.warn(`[AutoCommit] Conflict detected for batch by ${author}, retrying individual files...`);
+    await retryIndividualFiles(config, author, existingFiles, deletedFiles);
+  } else {
+    lastError = result.error || 'Unknown commit error';
+    console.error(`[AutoCommit] Batch commit failed: ${lastError}`);
+    for (const filePath of files) {
+      pendingChanges.set(filePath, {
+        filePath,
+        author,
+        timestamp: Date.now(),
+      });
+    }
+  }
+}
+
+async function retryIndividualFiles(
+  config: GitHubConfig,
+  author: string,
+  existingFiles: Array<{ path: string; content: string }>,
+  deletedFiles: string[]
+): Promise<void> {
+  for (const file of existingFiles) {
+    const fileName = file.path.replace('marketing-content/', '');
+    const message = `[Auto-sync] ${author} updated ${fileName}`;
+
+    const result = await commitSingleFileViaContentsAPI(config, file.path, file.content, message);
+
+    if (result.success && result.commitSha) {
+      lastCommitAt = new Date().toISOString();
+      lastCommitSha = result.commitSha;
+      updateSyncStateAfterCommit(result.commitSha, [file.path]);
+      console.log(`[AutoCommit] Individual commit succeeded: ${fileName}`);
+    } else {
+      conflictedFiles.add(file.path);
+      lastError = `Conflict on ${fileName}: ${result.error}`;
+      console.warn(`[AutoCommit] Conflict on ${fileName}, marked as conflicted`);
+    }
+  }
+
+  for (const filePath of deletedFiles) {
+    conflictedFiles.add(filePath);
+    console.warn(`[AutoCommit] Skipping delete for conflicted file: ${filePath}`);
+  }
+}
+
+async function commitFilesViaTreeAPI(
+  config: GitHubConfig,
+  message: string,
+  files: Array<{ path: string; content: string }>,
+  deletedFiles: string[]
+): Promise<{ success: boolean; commitSha?: string; error?: string }> {
+  const headers = {
+    'Authorization': `Bearer ${config.token}`,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+
+  try {
+    const refRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/git/ref/heads/${config.branch}`,
+      { headers }
+    );
+    if (!refRes.ok) return { success: false, error: `Failed to get branch ref: ${refRes.status}` };
+    const refData = await refRes.json();
+    const headSha = refData.object?.sha;
+    if (!headSha) return { success: false, error: 'No HEAD SHA found' };
+
+    const commitRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/git/commits/${headSha}`,
+      { headers }
+    );
+    if (!commitRes.ok) return { success: false, error: `Failed to get commit: ${commitRes.status}` };
+    const commitData = await commitRes.json();
+    const baseTreeSha = commitData.tree?.sha;
+    if (!baseTreeSha) return { success: false, error: 'No base tree SHA found' };
+
+    const treeEntries: Array<{ path: string; mode: string; type: string; sha: string | null }> = [];
+
+    for (const file of files) {
+      const blobRes = await fetch(
+        `https://api.github.com/repos/${config.owner}/${config.repo}/git/blobs`,
+        {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            content: Buffer.from(file.content).toString('base64'),
+            encoding: 'base64',
+          }),
+        }
+      );
+      if (!blobRes.ok) return { success: false, error: `Failed to create blob for ${file.path}: ${blobRes.status}` };
+      const blobData = await blobRes.json();
+      treeEntries.push({ path: file.path, mode: '100644', type: 'blob', sha: blobData.sha });
+    }
+
+    for (const filePath of deletedFiles) {
+      treeEntries.push({ path: filePath, mode: '100644', type: 'blob', sha: null as any });
+    }
+
+    const treeRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/git/trees`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ base_tree: baseTreeSha, tree: treeEntries }),
+      }
+    );
+    if (!treeRes.ok) {
+      const errText = await treeRes.text();
+      return { success: false, error: `Failed to create tree: ${treeRes.status} ${errText}` };
+    }
+    const treeData = await treeRes.json();
+
+    const newCommitRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/git/commits`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          message,
+          tree: treeData.sha,
+          parents: [headSha],
+        }),
+      }
+    );
+    if (!newCommitRes.ok) return { success: false, error: `Failed to create commit: ${newCommitRes.status}` };
+    const newCommitData = await newCommitRes.json();
+
+    const updateRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/git/refs/heads/${config.branch}`,
+      {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({ sha: newCommitData.sha, force: false }),
+      }
+    );
+    if (!updateRes.ok) {
+      const errText = await updateRes.text();
+      return { success: false, error: `Failed to update ref: ${updateRes.status} ${errText}` };
+    }
+
+    return { success: true, commitSha: newCommitData.sha };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+async function commitSingleFileViaContentsAPI(
+  config: GitHubConfig,
+  filePath: string,
+  content: string,
+  message: string
+): Promise<{ success: boolean; commitSha?: string; error?: string }> {
+  const headers = {
+    'Authorization': `Bearer ${config.token}`,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+
+  try {
+    let sha: string | undefined;
+    const getRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${filePath}?ref=${config.branch}`,
+      { headers }
+    );
+    if (getRes.ok) {
+      const getData = await getRes.json();
+      sha = getData.sha;
+    }
+
+    const body: Record<string, string> = {
+      message,
+      content: Buffer.from(content).toString('base64'),
+      branch: config.branch,
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${filePath}`,
+      { method: 'PUT', headers, body: JSON.stringify(body) }
+    );
+
+    if (!putRes.ok) {
+      const errText = await putRes.text();
+      return { success: false, error: `${putRes.status} ${errText}` };
+    }
+
+    const putData = await putRes.json();
+    return { success: true, commitSha: putData.commit?.sha };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+export function getAutoCommitStatus(): AutoCommitStatus {
+  const config = getSyncConfig();
+  return {
+    enabled: isAutoCommitEnabled(),
+    pendingFiles: pendingChanges.size,
+    pendingFilesList: Array.from(pendingChanges.keys()),
+    pendingFilesDetails: Array.from(pendingChanges.values()).map(c => ({
+      filePath: c.filePath,
+      author: c.author,
+      timestamp: c.timestamp,
+    })),
+    lastCommitAt,
+    lastCommitSha,
+    lastError,
+    conflictedFiles: Array.from(conflictedFiles),
+    commitIntervalSeconds: config.commitIntervalSeconds,
+    nextSyncAt,
+    isCommitting,
+    githubConfigured: getGitHubConfig() !== null,
+  };
+}
+
+export function getConflictedFiles(): string[] {
+  return Array.from(conflictedFiles);
+}
+
+export function clearConflict(filePath: string): boolean {
+  return conflictedFiles.delete(filePath);
+}
+
+export function clearAllConflicts(): void {
+  conflictedFiles.clear();
+}
+
+/**
+ * Force flush all pending changes immediately (bypasses timer).
+ * Useful before shutting down or when the user explicitly requests it.
+ */
+export async function flushPendingChanges(): Promise<{ success: boolean; error?: string }> {
+  if (timer !== null) {
+    clearTimeout(timer);
+    timer = null;
+    nextSyncAt = null;
+  }
+
+  if (pendingChanges.size === 0) {
+    return { success: true };
+  }
+
+  try {
+    await processQueue();
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}

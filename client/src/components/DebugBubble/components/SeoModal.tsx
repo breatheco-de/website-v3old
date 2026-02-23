@@ -1,0 +1,640 @@
+import { useState } from "react";
+import {
+  IconRefresh,
+  IconAlertTriangle,
+  IconChevronRight,
+  IconChevronDown,
+  IconArrowRight,
+  IconMapPin,
+  IconX,
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import type { ContentInfo, SeoMeta, SeoLocation, SlugCheckStatus } from "../types";
+
+export interface SeoModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  contentInfo: ContentInfo;
+  seoLoading: boolean;
+  seoData: any;
+  seoMeta: SeoMeta;
+  setSeoMeta: (v: SeoMeta) => void;
+  seoFaqExpanded: boolean;
+  setSeoFaqExpanded: (v: boolean) => void;
+  seoSchemaExpanded: boolean;
+  setSeoSchemaExpanded: (v: boolean) => void;
+  seoSchemaIncludeExpanded: boolean;
+  setSeoSchemaIncludeExpanded: (v: boolean) => void;
+  seoSchemaOverridesExpanded: boolean;
+  setSeoSchemaOverridesExpanded: (v: boolean) => void;
+  seoSchemaInclude: string[];
+  setSeoSchemaInclude: (v: string[] | ((prev: string[]) => string[])) => void;
+  seoSchemaOverrides: Record<string, string>;
+  setSeoSchemaOverrides: (v: Record<string, string> | ((prev: Record<string, string>) => Record<string, string>)) => void;
+  seoSchemaOverridesErrors: Record<string, string>;
+  setSeoSchemaOverridesErrors: (v: Record<string, string> | ((prev: Record<string, string>) => Record<string, string>)) => void;
+  availableSchemaKeys: string[];
+  seoLocations: string[];
+  setSeoLocations: (v: string[] | ((prev: string[]) => string[])) => void;
+  seoAvailableLocations: SeoLocation[];
+  seoLocationSearch: string;
+  setSeoLocationSearch: (v: string) => void;
+  seoSaving: boolean;
+  handleSeoSave: () => Promise<void>;
+  slugEditorExpanded: boolean;
+  setSlugEditorExpanded: (v: boolean) => void;
+  newSlugValue: string;
+  setNewSlugValue: (v: string) => void;
+  slugCheckStatus: SlugCheckStatus;
+  slugRenaming: boolean;
+  slugRedirectPrompt: boolean;
+  slugOldUrl: string;
+  slugNewUrl: string;
+  handleSlugRenameClick: () => void;
+  handleSlugRename: (createRedirect: boolean) => Promise<void>;
+  currentLocaleSlug: string;
+  setSlugCheckStatus: (v: SlugCheckStatus) => void;
+  setSlugCheckReason: (v: string | null) => void;
+  slugCheckReason: string | null;
+  setSlugRedirectPrompt: (v: boolean) => void;
+}
+
+export function SeoModal({
+  open,
+  onOpenChange,
+  contentInfo,
+  seoLoading,
+  seoData,
+  seoMeta,
+  setSeoMeta,
+  seoFaqExpanded,
+  setSeoFaqExpanded,
+  seoSchemaExpanded,
+  setSeoSchemaExpanded,
+  seoSchemaIncludeExpanded,
+  setSeoSchemaIncludeExpanded,
+  seoSchemaOverridesExpanded,
+  setSeoSchemaOverridesExpanded,
+  seoSchemaInclude,
+  setSeoSchemaInclude,
+  seoSchemaOverrides,
+  setSeoSchemaOverrides,
+  seoSchemaOverridesErrors,
+  setSeoSchemaOverridesErrors,
+  availableSchemaKeys,
+  seoLocations,
+  setSeoLocations,
+  seoAvailableLocations,
+  seoLocationSearch,
+  setSeoLocationSearch,
+  seoSaving,
+  handleSeoSave,
+  slugEditorExpanded,
+  setSlugEditorExpanded,
+  newSlugValue,
+  setNewSlugValue,
+  slugCheckStatus,
+  slugRenaming,
+  slugRedirectPrompt,
+  slugOldUrl,
+  slugNewUrl,
+  handleSlugRenameClick,
+  handleSlugRename,
+  currentLocaleSlug,
+  setSlugCheckStatus,
+  setSlugCheckReason,
+  slugCheckReason,
+  setSlugRedirectPrompt,
+}: SeoModalProps) {
+  const [seoLocationsExpanded, setSeoLocationsExpanded] = useState(true);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto overflow-x-hidden">
+        <DialogHeader>
+          <DialogTitle>SEO & Meta Tags</DialogTitle>
+          <DialogDescription>
+            {contentInfo.slug ? `${contentInfo.label}: ${contentInfo.slug}` : "Page SEO settings"}
+          </DialogDescription>
+        </DialogHeader>
+
+        {seoLoading ? (
+          <div className="flex flex-col items-center justify-center py-12 gap-3">
+            <IconRefresh className="h-6 w-6 animate-spin text-muted-foreground" />
+            <p className="text-sm text-muted-foreground">Loading SEO data...</p>
+          </div>
+        ) : seoData ? (
+          <div className="space-y-6 py-2">
+            {seoData.faqSchema && (
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSeoFaqExpanded(!seoFaqExpanded)}
+                  className="flex items-center gap-2 w-full text-left"
+                  data-testid="button-toggle-faq-schema"
+                >
+                  {seoFaqExpanded ? (
+                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  <h4 className="text-sm font-semibold">FAQ Schema</h4>
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                    Auto-generated
+                  </span>
+                </button>
+                {seoFaqExpanded && (
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">
+                      This FAQ structured data is generated automatically from FAQ sections on this page. Google uses it to show rich results in search.
+                    </p>
+                    <pre className="bg-muted p-3 rounded-md text-xs font-mono max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all" data-testid="text-faq-schema-preview">
+                      {JSON.stringify(seoData.faqSchema, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <button
+                onClick={() => setSeoSchemaIncludeExpanded(!seoSchemaIncludeExpanded)}
+                className="flex items-center gap-2 w-full text-left"
+                data-testid="button-toggle-schema-includes"
+              >
+                {seoSchemaIncludeExpanded ? (
+                  <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                )}
+                <h4 className="text-sm font-semibold">Schema Includes</h4>
+                <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                  {seoSchemaInclude.length} selected
+                </span>
+              </button>
+              {seoSchemaIncludeExpanded && (
+                <div className="space-y-2">
+                  <p className="text-xs text-muted-foreground">
+                    Select which Schema.org schemas to include on this page. These are defined in schema-org.yml.
+                  </p>
+                  <div className="grid grid-cols-1 gap-1.5 max-h-[200px] overflow-y-auto">
+                    {availableSchemaKeys.map((key) => (
+                      <label
+                        key={key}
+                        className="flex items-center gap-2 px-2 py-1.5 rounded-md hover-elevate cursor-pointer text-sm"
+                        data-testid={`checkbox-schema-${key}`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={seoSchemaInclude.includes(key)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSeoSchemaInclude(prev => [...prev, key]);
+                            } else {
+                              setSeoSchemaInclude(prev => prev.filter(k => k !== key));
+                              setSeoSchemaOverrides(prev => {
+                                const next = { ...prev };
+                                delete next[key];
+                                return next;
+                              });
+                              setSeoSchemaOverridesErrors(prev => {
+                                const next = { ...prev };
+                                delete next[key];
+                                return next;
+                              });
+                            }
+                          }}
+                          className="rounded"
+                        />
+                        <span className="font-mono text-xs">{key}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {seoSchemaInclude.length > 0 && (
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSeoSchemaOverridesExpanded(!seoSchemaOverridesExpanded)}
+                  className="flex items-center gap-2 w-full text-left"
+                  data-testid="button-toggle-schema-overrides"
+                >
+                  {seoSchemaOverridesExpanded ? (
+                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  <h4 className="text-sm font-semibold">Schema Overrides</h4>
+                  {Object.keys(seoSchemaOverrides).length > 0 && (
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                      {Object.keys(seoSchemaOverrides).length} override{Object.keys(seoSchemaOverrides).length !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                </button>
+                {seoSchemaOverridesExpanded && (
+                  <div className="space-y-3">
+                    <p className="text-xs text-muted-foreground">
+                      Add JSON overrides to customize properties of included schemas. Leave empty for no overrides.
+                    </p>
+                    {seoSchemaInclude.map((key) => (
+                      <div key={key} className="space-y-1.5">
+                        <label className="text-xs font-medium font-mono text-foreground">
+                          {key}
+                        </label>
+                        <textarea
+                          value={seoSchemaOverrides[key] || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setSeoSchemaOverrides(prev => ({ ...prev, [key]: val }));
+                            if (val.trim()) {
+                              try {
+                                JSON.parse(val);
+                                setSeoSchemaOverridesErrors(prev => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                              } catch {
+                                setSeoSchemaOverridesErrors(prev => ({ ...prev, [key]: "Invalid JSON" }));
+                              }
+                            } else {
+                              setSeoSchemaOverridesErrors(prev => {
+                                const next = { ...prev };
+                                delete next[key];
+                                return next;
+                              });
+                            }
+                          }}
+                          placeholder={`{\n  "name": "Custom Name",\n  "description": "Custom description"\n}`}
+                          rows={4}
+                          className={`w-full px-3 py-2 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-y ${seoSchemaOverridesErrors[key] ? "border-destructive" : ""}`}
+                          data-testid={`input-schema-override-${key}`}
+                        />
+                        {seoSchemaOverridesErrors[key] && (
+                          <p className="text-xs text-destructive">{seoSchemaOverridesErrors[key]}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {seoData.schemaOrg && seoData.schemaOrg.length > 0 && (
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSeoSchemaExpanded(!seoSchemaExpanded)}
+                  className="flex items-center gap-2 w-full text-left"
+                  data-testid="button-toggle-schema-org"
+                >
+                  {seoSchemaExpanded ? (
+                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  <h4 className="text-sm font-semibold">Schema.org Preview</h4>
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                    Current output
+                  </span>
+                </button>
+                {seoSchemaExpanded && (
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">
+                      This is the current Schema.org output injected via SSR. Save changes above to update it.
+                    </p>
+                    <pre className="bg-muted p-3 rounded-md text-xs font-mono max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all" data-testid="text-schema-org-preview">
+                      {JSON.stringify(seoData.schemaOrg, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {contentInfo.type && (
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setSlugEditorExpanded(!slugEditorExpanded);
+                    if (!slugEditorExpanded) {
+                      setNewSlugValue(contentInfo.slug || "");
+                      setSlugCheckStatus("idle");
+                      setSlugCheckReason(null);
+                      setSlugRedirectPrompt(false);
+                    }
+                  }}
+                  className="flex items-center gap-2 w-full text-left"
+                  data-testid="button-toggle-slug-editor"
+                >
+                  {slugEditorExpanded ? (
+                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  <h4 className="text-sm font-semibold">Page Slug</h4>
+                  <code className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-mono">
+                    {currentLocaleSlug}
+                  </code>
+                </button>
+                {slugEditorExpanded && (
+                  <div className="space-y-3 pl-6">
+                    <p className="text-xs text-muted-foreground">
+                      Change the slug (URL identifier) for this locale. The folder name stays the same; only this locale's URL changes.
+                    </p>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-foreground" htmlFor="slug-editor-input">
+                        New Slug
+                      </label>
+                      <input
+                        id="slug-editor-input"
+                        type="text"
+                        value={newSlugValue}
+                        onChange={(e) => setNewSlugValue(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""))}
+                        placeholder="e.g. my-new-page-slug"
+                        className={`w-full px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring ${slugCheckStatus === "taken" ? "border-destructive" : slugCheckStatus === "available" ? "border-green-500" : ""}`}
+                        data-testid="input-slug-editor"
+                        disabled={slugRenaming}
+                      />
+                      {slugCheckStatus === "checking" && (
+                        <p className="text-xs text-muted-foreground">Checking availability...</p>
+                      )}
+                      {slugCheckStatus === "available" && (
+                        <p className="text-xs text-green-600">Slug is available</p>
+                      )}
+                      {slugCheckStatus === "taken" && slugCheckReason && (
+                        <p className="text-xs text-destructive">{slugCheckReason}</p>
+                      )}
+                      {newSlugValue === currentLocaleSlug && newSlugValue && (
+                        <p className="text-xs text-muted-foreground">Same as current slug</p>
+                      )}
+                    </div>
+
+                    {!slugRedirectPrompt ? (
+                      <Button
+                        size="sm"
+                        onClick={handleSlugRenameClick}
+                        disabled={slugCheckStatus !== "available" || slugRenaming || !newSlugValue || newSlugValue === currentLocaleSlug}
+                        data-testid="button-rename-slug"
+                      >
+                        {slugRenaming ? "Renaming..." : "Change Slug"}
+                      </Button>
+                    ) : (
+                      <div className="space-y-3 rounded-md border p-3">
+                        <p className="text-sm font-medium">Create a redirect?</p>
+                        <p className="text-xs text-muted-foreground">
+                          Do you want to create a redirect from the old URLs to the new ones? This ensures existing links and bookmarks still work.
+                        </p>
+                        <div className="space-y-1.5">
+                          <div className="flex items-center gap-2 text-xs font-mono">
+                            <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugOldUrl}</code>
+                            <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                            <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugNewUrl}</code>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => handleSlugRename(true)}
+                            disabled={slugRenaming}
+                            data-testid="button-rename-with-redirect"
+                          >
+                            {slugRenaming ? "Renaming..." : "Yes, create redirect"}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleSlugRename(false)}
+                            disabled={slugRenaming}
+                            data-testid="button-rename-without-redirect"
+                          >
+                            No, just rename
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => setSlugRedirectPrompt(false)}
+                            disabled={slugRenaming}
+                            data-testid="button-cancel-rename"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <h4 className="text-sm font-semibold">Meta Tags</h4>
+              <p className="text-xs text-muted-foreground">
+                Edit these fields to improve how the page appears in search results and social media.
+              </p>
+              
+              <div className="space-y-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground" htmlFor="seo-page-title">
+                    Page Title
+                  </label>
+                  <input
+                    id="seo-page-title"
+                    type="text"
+                    value={seoMeta.page_title}
+                    onChange={(e) => setSeoMeta({ ...seoMeta, page_title: e.target.value })}
+                    placeholder="e.g. Full Stack Developer Program | 4Geeks"
+                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                    data-testid="input-seo-page-title"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    {seoMeta.page_title.length}/60 characters (recommended)
+                  </p>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground" htmlFor="seo-description">
+                    Description
+                  </label>
+                  <textarea
+                    id="seo-description"
+                    value={seoMeta.description}
+                    onChange={(e) => setSeoMeta({ ...seoMeta, description: e.target.value })}
+                    placeholder="e.g. Learn full stack development with unlimited mentorship..."
+                    rows={3}
+                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-none"
+                    data-testid="input-seo-description"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    {seoMeta.description.length}/160 characters (recommended)
+                  </p>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground" htmlFor="seo-canonical-url">
+                    Canonical URL
+                  </label>
+                  <input
+                    id="seo-canonical-url"
+                    type="text"
+                    value={seoMeta.canonical_url}
+                    onChange={(e) => setSeoMeta({ ...seoMeta, canonical_url: e.target.value })}
+                    placeholder="e.g. https://4geeks.com/en/career-programs/full-stack"
+                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                    data-testid="input-seo-canonical-url"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {contentInfo.type === "landing" && seoAvailableLocations.length > 0 && (
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSeoLocationsExpanded(!seoLocationsExpanded)}
+                  className="flex items-center gap-2 w-full text-left"
+                  data-testid="button-toggle-locations"
+                >
+                  {seoLocationsExpanded ? (
+                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  <IconMapPin className="h-4 w-4 text-muted-foreground" />
+                  <h4 className="text-sm font-semibold">Locations</h4>
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                    {seoLocations.length === 0 ? "All (session-based)" : `${seoLocations.length} selected`}
+                  </span>
+                </button>
+                {seoLocationsExpanded && (
+                  <div className="space-y-3">
+                    <p className="text-xs text-muted-foreground">
+                      Choose which campus locations appear on this landing page. If none are selected, the visitor's nearest location is used automatically.
+                    </p>
+
+                    {seoLocations.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {seoLocations.map((locSlug) => {
+                          const locInfo = seoAvailableLocations.find(l => l.slug === locSlug);
+                          return (
+                            <span
+                              key={locSlug}
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-muted text-sm"
+                              data-testid={`chip-location-${locSlug}`}
+                            >
+                              <span className="truncate max-w-[180px]">
+                                {locInfo ? `${locInfo.city}, ${locInfo.country}` : locSlug}
+                              </span>
+                              <button
+                                onClick={() => setSeoLocations(prev => prev.filter(s => s !== locSlug))}
+                                className="ml-0.5 rounded-sm hover-elevate"
+                                data-testid={`button-remove-location-${locSlug}`}
+                              >
+                                <IconX className="h-3.5 w-3.5 text-muted-foreground" />
+                              </button>
+                            </span>
+                          );
+                        })}
+                        <button
+                          onClick={() => setSeoLocations([])}
+                          className="text-xs text-muted-foreground hover:text-foreground underline"
+                          data-testid="button-clear-all-locations"
+                        >
+                          Clear all
+                        </button>
+                      </div>
+                    )}
+
+                    <div className="space-y-1.5">
+                      <input
+                        type="text"
+                        value={seoLocationSearch}
+                        onChange={(e) => setSeoLocationSearch(e.target.value)}
+                        placeholder="Search locations..."
+                        className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                        data-testid="input-location-search"
+                      />
+                      <div className="max-h-[160px] overflow-y-auto rounded-md border">
+                        {seoAvailableLocations
+                          .filter(loc => {
+                            if (seoLocations.includes(loc.slug)) return false;
+                            if (!seoLocationSearch) return true;
+                            const q = seoLocationSearch.toLowerCase();
+                            return loc.name.toLowerCase().includes(q)
+                              || loc.city.toLowerCase().includes(q)
+                              || loc.country.toLowerCase().includes(q)
+                              || loc.slug.toLowerCase().includes(q);
+                          })
+                          .map(loc => (
+                            <button
+                              key={loc.slug}
+                              onClick={() => setSeoLocations(prev => [...prev, loc.slug])}
+                              className="flex items-center gap-2 w-full text-left px-3 py-1.5 text-sm hover-elevate"
+                              data-testid={`button-add-location-${loc.slug}`}
+                            >
+                              <IconMapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                              <span>{loc.city}, {loc.country}</span>
+                              <span className="text-xs text-muted-foreground ml-auto">{loc.slug}</span>
+                            </button>
+                          ))
+                        }
+                        {seoAvailableLocations.filter(loc => {
+                          if (seoLocations.includes(loc.slug)) return false;
+                          if (!seoLocationSearch) return true;
+                          const q = seoLocationSearch.toLowerCase();
+                          return loc.name.toLowerCase().includes(q)
+                            || loc.city.toLowerCase().includes(q)
+                            || loc.country.toLowerCase().includes(q)
+                            || loc.slug.toLowerCase().includes(q);
+                        }).length === 0 && (
+                          <p className="px-3 py-2 text-xs text-muted-foreground">
+                            {seoLocationSearch ? "No matching locations" : "All locations already added"}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-12 gap-3">
+            <IconAlertTriangle className="h-6 w-6 text-muted-foreground" />
+            <p className="text-sm text-muted-foreground">Could not load SEO data for this page.</p>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            data-testid="button-cancel-seo"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSeoSave}
+            disabled={seoSaving || seoLoading || !seoData}
+            data-testid="button-save-seo"
+          >
+            {seoSaving ? (
+              <>
+                <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save Changes"
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}

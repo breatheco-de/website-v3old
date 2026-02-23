@@ -1,8 +1,9 @@
-import { useCallback, useState, lazy, Suspense } from "react";
+import { useCallback, useState, useEffect, lazy, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
+import { normalizeContentType } from "@/hooks/useContentTypes";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
 import { IconLoader2, IconAlertTriangle, IconArrowLeft, IconCode } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -14,18 +15,17 @@ import { Button } from "@/components/ui/button";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
-type ContentType = "programs" | "landings" | "locations" | "pages";
 type ContentData = CareerProgram | LandingPage | LocationPage | TemplatePage;
 
-const contentTypeConfig: Record<ContentType, { 
+const contentTypeConfig: Record<string, { 
   apiPath: string; 
   singular: string;
   label: string;
 }> = {
-  programs: { apiPath: "career-programs", singular: "program", label: "Program" },
-  landings: { apiPath: "landings", singular: "landing", label: "Landing" },
-  locations: { apiPath: "locations", singular: "location", label: "Location" },
-  pages: { apiPath: "pages", singular: "page", label: "Page" },
+  program: { apiPath: "career-programs", singular: "program", label: "Program" },
+  landing: { apiPath: "landings", singular: "landing", label: "Landing" },
+  location: { apiPath: "locations", singular: "location", label: "Location" },
+  page: { apiPath: "pages", singular: "page", label: "Page" },
 };
 
 export default function PrivatePreview() {
@@ -33,13 +33,14 @@ export default function PrivatePreview() {
   const searchString = useSearch();
   const searchParams = new URLSearchParams(searchString);
   
-  const contentType = params.contentType as ContentType;
+  const contentType = params.contentType!;
   const slug = params.slug;
   const variant = searchParams.get("variant");
   const version = searchParams.get("version");
   const locale = searchParams.get("locale") || "en";
   
-  const config = contentTypeConfig[contentType];
+  const normalizedType = normalizeContentType(contentType);
+  const config = contentTypeConfig[normalizedType];
   const isValidContentType = !!config;
 
   const [showRawEditor, setShowRawEditor] = useState(false);
@@ -77,6 +78,19 @@ export default function PrivatePreview() {
     refetch();
   }, [refetch]);
 
+  useEffect(() => {
+    if (!content || isLoading) return;
+    const hash = window.location.hash;
+    if (!hash) return;
+    const id = hash.slice(1);
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }, [content, isLoading]);
+
   useContentAutoRefresh(
     config?.singular as "program" | "landing" | "location" | "page",
     slug,
@@ -94,7 +108,7 @@ export default function PrivatePreview() {
             Content type "{contentType}" is not valid.
           </p>
           <p className="text-sm text-muted-foreground">
-            Valid types: programs, landings, locations, pages
+            Valid types: program, landing, location, page
           </p>
         </div>
       </div>
@@ -158,7 +172,8 @@ export default function PrivatePreview() {
     );
   }
 
-  const showHeader = contentType === "programs" || contentType === "locations" || contentType === "pages";
+  const singular = config.singular;
+  const showHeader = singular === "program" || singular === "location" || singular === "page";
 
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>

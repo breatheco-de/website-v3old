@@ -95,7 +95,7 @@ export interface FullContext {
 
 // Options for content adaptation
 export interface AdaptOptions {
-  contentType: "programs" | "pages" | "landings" | "locations";
+  contentType: string;
   contentSlug: string;
   targetComponent: string;
   targetVersion: string;

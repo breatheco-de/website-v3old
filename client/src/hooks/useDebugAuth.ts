@@ -100,8 +100,15 @@ export function useDebugAuth() {
   const isDebugMode = isDebugModeActive();
 
   const validateToken = useCallback(async (skipCache = false) => {
-    // Check if we have a valid cached session (unless skipping cache for retry)
-    if (!skipCache) {
+    // Check if a token was provided via URL querystring
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlToken = urlParams.get("token");
+    
+    // URL token always takes priority and bypasses cache (acts like manual validate)
+    const forceValidate = !!urlToken || skipCache;
+    
+    // Check if we have a valid cached session (unless forced)
+    if (!forceValidate) {
       const cachedValidation = localStorage.getItem(DEBUG_SESSION_KEY);
       const cachedExpiry = localStorage.getItem(DEBUG_SESSION_EXPIRY_KEY);
       const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
@@ -124,7 +131,7 @@ export function useDebugAuth() {
         }
       }
     } else {
-      // Clear cache when retrying
+      // Clear cache when forced
       localStorage.removeItem(DEBUG_SESSION_KEY);
       localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
       localStorage.removeItem(DEBUG_TOKEN_KEY);
@@ -132,8 +139,6 @@ export function useDebugAuth() {
     }
 
     // Get token from URL querystring or env variable
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlToken = urlParams.get("token");
     const envToken = import.meta.env.VITE_BREATHECODE_TOKEN;
     
     const token = urlToken || envToken;
@@ -149,13 +154,6 @@ export function useDebugAuth() {
     setHasToken(true);
     setIsLoading(true);
 
-    // Clean up URL if token was in querystring
-    if (urlToken) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("token");
-      window.history.replaceState({}, "", url.toString());
-    }
-
     try {
       const response = await fetch("/api/debug/validate-token", {
         method: "POST",
@@ -167,6 +165,13 @@ export function useDebugAuth() {
 
       const data = await response.json();
       
+      // Clean up URL after fetch completes (not before) so other hook instances can read the token
+      if (urlToken) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("token");
+        window.history.replaceState({}, "", url.toString());
+      }
+
       if (data.valid) {
         // Cache the validation result, token, capabilities, and userName with real expiry from Breathecode
         localStorage.setItem(DEBUG_SESSION_KEY, "true");

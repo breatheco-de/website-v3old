@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect, useMemo, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   IconX,
   IconDeviceFloppy,
@@ -20,6 +20,9 @@ import {
   IconPencil,
   IconMapPin,
   IconExternalLink,
+  IconLink,
+  IconLinkOff,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { getIcon } from "@/lib/icons";
@@ -64,6 +67,7 @@ import { TableContentEditor } from "./TableContentEditor";
 import { FaqItemsVisibility } from "./FaqItemsVisibility";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
+import { SectionBindingDialog } from "./SectionBindingDialog";
 import { LinkPicker } from "./LinkPicker";
 import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
 import { locations as allLocations, getLocationBySlug } from "@/lib/locations";
@@ -417,6 +421,38 @@ export function SectionEditorPanel({
     registerEditorDirtyCheck(() => hasChangesRef.current);
     return () => registerEditorDirtyCheck(null);
   }, []);
+
+  // Binding state
+  const bindingQueryClient = useQueryClient();
+  const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
+  const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
+
+  const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
+
+  const { data: bindingData, refetch: refetchBinding } = useQuery({
+    queryKey: ["/api/bindings/section", contentType, slug, sectionIndex],
+    queryFn: async () => {
+      if (!contentType || !slug) return { group: null };
+      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${sectionIndex}`);
+      return res.json();
+    },
+    enabled: !!contentType && !!slug,
+  });
+
+  const bindingGroup = bindingData?.group as {
+    id: string;
+    name?: string;
+    component: string;
+    locale: string;
+    members: Array<{ contentType: string; slug: string; sectionIndex: number }>;
+  } | null;
+
+  const boundSiblings = useMemo(() => {
+    if (!bindingGroup) return [];
+    return bindingGroup.members.filter(
+      m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex)
+    );
+  }, [bindingGroup, contentType, slug, sectionIndex]);
 
   // Icon picker state
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
@@ -1506,11 +1542,10 @@ export function SectionEditorPanel({
   ]);
 
   // Save without closing editor
-  const handleSave = useCallback(async () => {
+  const executeSave = useCallback(async () => {
     const result = await saveToServer();
     if (result && result.success) {
       if (result.warning) {
-        // Show warning toast for GitHub sync failures
         toast({
           title: "Changes saved with warning",
           description: result.warning,
@@ -1524,6 +1559,14 @@ export function SectionEditorPanel({
       }
     }
   }, [saveToServer, toast]);
+
+  const handleSave = useCallback(async () => {
+    if (boundSiblings.length > 0) {
+      setBindingConfirmOpen(true);
+      return;
+    }
+    await executeSave();
+  }, [boundSiblings.length, executeSave]);
 
   // Handle close with unsaved changes warning
   const handleClose = useCallback(() => {
@@ -1543,14 +1586,38 @@ export function SectionEditorPanel({
   return (
     <div className="fixed right-0 top-0 bottom-0 w-[480px] bg-background border-l shadow-xl z-[9999] flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center justify-between px-4 border-b" style={{ paddingTop: "5px", paddingBottom: "5px" }}>
         <div>
-          <h2 className="font-semibold">Editar Sección</h2>
+          <h2 className="font-semibold" style={{ fontSize: "25px", lineHeight: "1.2" }}>Edit Section</h2>
           <p className="text-sm text-muted-foreground">
-            {sectionType}{parsedSection?.variant ? ` — ${parsedSection.variant}` : ""} (Sección {sectionIndex + 1})
+            {sectionType}{parsedSection?.variant ? ` — ${parsedSection.variant}` : ""} (Section {sectionIndex + 1})
           </p>
         </div>
         <div className="flex items-center gap-1">
+          {contentType && slug && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setBindingDialogOpen(true)}
+              title={bindingGroup ? `Bound to ${boundSiblings.length} page${boundSiblings.length !== 1 ? 's' : ''} — click to manage` : "Manage bindings"}
+              className="relative"
+              data-testid="button-binding-header"
+            >
+              {bindingGroup ? (
+                <>
+                  <IconLink className="h-4 w-4" />
+                  <span
+                    className="absolute -top-0.5 -right-0.5 flex items-center justify-center rounded-full bg-amber-400 text-[9px] font-bold text-amber-950 min-w-[16px] px-0.5 leading-none py-0.5"
+                    data-testid="badge-binding-count"
+                  >
+                    {bindingGroup.members.length}
+                  </span>
+                </>
+              ) : (
+                <IconLinkOff className="h-4 w-4" />
+              )}
+            </Button>
+          )}
           <Button
             size="icon"
             variant="ghost"
@@ -1581,6 +1648,20 @@ export function SectionEditorPanel({
           </Button>
         </div>
       </div>
+
+      {/* Binding Banner - warning style, full width, inside header area */}
+      {boundSiblings.length > 0 && (
+        <div
+          className="bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800 px-4 py-2 text-xs flex items-center gap-2 cursor-pointer hover-elevate"
+          onClick={() => setBindingDialogOpen(true)}
+          data-testid="binding-banner"
+        >
+          <IconAlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+          <span className="text-amber-800 dark:text-amber-200">
+            Synced with {boundSiblings.length} page{boundSiblings.length > 1 ? "s" : ""}: {boundSiblings.map(s => s.slug).join(", ")}
+          </span>
+        </div>
+      )}
 
       {/* Tabs */}
       <Tabs
@@ -5750,6 +5831,65 @@ export function SectionEditorPanel({
                 Save
               </Button>
             </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Section Binding Dialog */}
+      {contentType && slug && locale && (
+        <SectionBindingDialog
+          open={bindingDialogOpen}
+          onOpenChange={setBindingDialogOpen}
+          contentType={contentType}
+          slug={slug}
+          sectionIndex={sectionIndex}
+          component={sectionComponentType}
+          locale={locale}
+          existingGroup={bindingGroup}
+          onBindingChanged={() => refetchBinding()}
+        />
+      )}
+
+      <Dialog open={bindingConfirmOpen} onOpenChange={setBindingConfirmOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-amber-500" />
+              Synced Section
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 py-2">
+            <p className="text-sm text-muted-foreground">
+              This section is synced with {boundSiblings.length} other page{boundSiblings.length !== 1 ? "s" : ""}. Your changes will also be applied to:
+            </p>
+            <ul className="space-y-1 max-h-48 overflow-y-auto">
+              {boundSiblings.map((sibling, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm px-2 py-1.5 rounded-md bg-muted">
+                  <IconLink className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                  <span className="font-medium">{sibling.slug}</span>
+                  <span className="text-muted-foreground">({sibling.contentType}, section {sibling.sectionIndex + 1})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setBindingConfirmOpen(false)}
+              data-testid="button-binding-confirm-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={async () => {
+                setBindingConfirmOpen(false);
+                await executeSave();
+              }}
+              data-testid="button-binding-confirm-save"
+            >
+              <IconDeviceFloppy className="h-4 w-4 mr-2" />
+              Save to all
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

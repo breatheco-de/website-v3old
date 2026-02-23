@@ -1,24 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as yaml from "js-yaml";
-import { deepMerge } from "./utils/deepMerge";
-import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
-import {
-  listContentSlugs,
-  getAvailableLocalesOrVariants,
-  loadCommonData,
-  MARKETING_CONTENT_PATH as BASE_CONTENT_PATH,
-} from "./utils/contentLoader";
-import { contentIndex } from "./content-index";
+import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
 import { resolveUrlPattern } from "./blog";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
-
-function safeYamlLoad(yamlStr: string): unknown {
-  const { escaped, map } = escapeTemplateVars(yamlStr);
-  const parsed = yaml.load(escaped);
-  return unescapeObjectVars(parsed, map);
-}
 
 function getBaseUrl(): string {
   // Use explicit SITE_URL if set
@@ -122,44 +107,20 @@ function loadMergedContent(
   slug: string,
   localeOrVariant: string,
 ): Record<string, unknown> | null {
-  const contentDir = path.join(BASE_CONTENT_PATH, contentType, slug);
-  const commonPath = path.join(contentDir, "_common.yml");
-  const contentPath = path.join(contentDir, `${localeOrVariant}.yml`);
-
-  if (!fs.existsSync(contentPath)) {
-    return null;
-  }
-
-  try {
-    let commonData: Record<string, unknown> = {};
-    if (fs.existsSync(commonPath)) {
-      const commonContent = fs.readFileSync(commonPath, "utf-8");
-      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-    }
-
-    const content = fs.readFileSync(contentPath, "utf-8");
-    const contentData = safeYamlLoad(content) as Record<string, unknown>;
-
-    return deepMerge(commonData, contentData) as Record<string, unknown>;
-  } catch (error) {
-    console.error(
-      `Error loading ${contentType}/${slug}/${localeOrVariant}:`,
-      error,
-    );
-    return null;
-  }
+  const { data } = contentIndex.loadMergedContent(contentType, slug, localeOrVariant);
+  return data;
 }
 
 function getAvailablePrograms(): AvailableProgram[] {
   try {
     const programs: AvailableProgram[] = [];
-    const slugs = listContentSlugs("programs");
+    const slugs = contentIndex.listContentSlugs("program");
 
     for (const slug of slugs) {
-      const locales = getAvailableLocalesOrVariants("programs", slug);
+      const locales = contentIndex.getAvailableLocalesOrVariants("program", slug);
 
       for (const locale of locales) {
-        const merged = loadMergedContent("programs", slug, locale);
+        const merged = loadMergedContent("program", slug, locale);
         if (!merged) continue;
 
         const meta = (merged.meta as ContentMeta) || {};
@@ -182,15 +143,15 @@ function getAvailablePrograms(): AvailableProgram[] {
 function getAvailableLandings(): AvailableLanding[] {
   try {
     const landings: AvailableLanding[] = [];
-    const slugs = listContentSlugs("landings");
+    const slugs = contentIndex.listContentSlugs("landing");
 
     for (const slug of slugs) {
       // For landings, we use "promoted" as the content file
       // and get locale from _common.yml
-      const merged = loadMergedContent("landings", slug, "promoted");
+      const merged = loadMergedContent("landing", slug, "promoted");
       if (!merged) {
         // Fallback: try to load en.yml for backward compatibility
-        const legacyMerged = loadMergedContent("landings", slug, "en");
+        const legacyMerged = loadMergedContent("landing", slug, "en");
         if (legacyMerged) {
           const meta = (legacyMerged.meta as ContentMeta) || {};
           landings.push({
@@ -204,7 +165,7 @@ function getAvailableLandings(): AvailableLanding[] {
       }
 
       // Get locale from _common.yml
-      const commonData = loadCommonData("landings", slug);
+      const commonData = contentIndex.loadCommonData("landing", slug);
       const locale = (commonData?.locale as string) || "en";
       const meta = (merged.meta as ContentMeta) || {};
 
@@ -226,13 +187,13 @@ function getAvailableLandings(): AvailableLanding[] {
 function getAvailableLocations(): AvailableLocation[] {
   try {
     const locations: AvailableLocation[] = [];
-    const slugs = listContentSlugs("locations");
+    const slugs = contentIndex.listContentSlugs("location");
 
     for (const slug of slugs) {
-      const locales = getAvailableLocalesOrVariants("locations", slug);
+      const locales = contentIndex.getAvailableLocalesOrVariants("location", slug);
 
       for (const locale of locales) {
-        const merged = loadMergedContent("locations", slug, locale);
+        const merged = loadMergedContent("location", slug, locale);
         if (!merged) continue;
 
         const visibility = (merged.visibility as string) || "listed";
@@ -259,16 +220,16 @@ function getAvailableLocations(): AvailableLocation[] {
 function getAvailableTemplatePages(): AvailableTemplatePage[] {
   try {
     const pages: AvailableTemplatePage[] = [];
-    const slugs = listContentSlugs("pages");
+    const slugs = contentIndex.listContentSlugs("page");
 
     for (const dirSlug of slugs) {
-      const locales = getAvailableLocalesOrVariants("pages", dirSlug);
+      const locales = contentIndex.getAvailableLocalesOrVariants("page", dirSlug);
 
       for (const locale of locales) {
         // Only process locale files (en, es)
         if (!["en", "es"].includes(locale)) continue;
 
-        const merged = loadMergedContent("pages", dirSlug, locale);
+        const merged = loadMergedContent("page", dirSlug, locale);
         if (!merged) continue;
 
         const meta = (merged.meta as ContentMeta) || {};
@@ -350,7 +311,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       continue;
     }
 
-    const url = `${getBaseUrl()}${contentIndex.buildUrl("programs", program.locale, program.slug)}`;
+    const url = `${getBaseUrl()}${contentIndex.buildUrl("program", program.locale, program.slug)}`;
 
     entries.push({
       loc: url,
@@ -377,7 +338,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     processedLandingSlugs.add(landing.slug);
 
     entries.push({
-      loc: `${getBaseUrl()}${contentIndex.buildUrl("landings", landing.locale || "en", landing.slug)}`,
+      loc: `${getBaseUrl()}${contentIndex.buildUrl("landing", landing.locale || "en", landing.slug)}`,
       lastmod: today,
       changefreq: landing.meta.change_frequency || "weekly",
       priority: landing.meta.priority || 0.8,
@@ -396,7 +357,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       continue;
     }
 
-    const url = `${getBaseUrl()}${contentIndex.buildUrl("locations", location.locale, location.slug)}`;
+    const url = `${getBaseUrl()}${contentIndex.buildUrl("location", location.locale, location.slug)}`;
 
     entries.push({
       loc: url,
@@ -454,7 +415,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
   try {
     const blogConfigPath = path.join(BASE_CONTENT_PATH, "blog.yml");
     if (fs.existsSync(blogConfigPath)) {
-      const rawBlogConfig = yaml.load(fs.readFileSync(blogConfigPath, "utf-8")) as Record<string, unknown>;
+      const rawBlogConfig = contentIndex.safeYamlLoad(fs.readFileSync(blogConfigPath, "utf-8")) as Record<string, unknown>;
       const blogConfig = rawBlogConfig as {
         data_source?: { type: string; api?: unknown };
         api?: unknown;

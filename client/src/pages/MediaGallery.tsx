@@ -778,20 +778,26 @@ export default function MediaGallery() {
               </div>
 
               <div className="rounded-md border p-3 space-y-2">
-                <p className="text-sm font-medium">Active Providers</p>
+                <p className="text-sm font-medium">Storage Providers</p>
                 <div className="flex flex-wrap gap-2">
-                  {mediaStatus?.providers.map((p) => (
-                    <button
-                      key={p}
-                      onClick={() => setSettingsProviderView(settingsProviderView === p ? null : p)}
-                      data-testid={`badge-provider-${p}`}
-                    >
-                      <Badge variant={settingsProviderView === p ? "default" : "outline"} className="cursor-pointer">
-                        {p === "gcs" ? "Google Cloud Storage" : p === "local" ? "Local Filesystem" : p}
-                        {p === mediaStatus.defaultProvider && " (default)"}
-                      </Badge>
-                    </button>
-                  ))}
+                  {(mediaStatus?.providers.includes("gcs")
+                    ? mediaStatus.providers
+                    : [...(mediaStatus?.providers ?? []), "gcs"]
+                  ).map((p) => {
+                    const isActive = mediaStatus?.providers.includes(p);
+                    return (
+                      <button
+                        key={p}
+                        onClick={() => setSettingsProviderView(settingsProviderView === p ? null : p)}
+                        data-testid={`badge-provider-${p}`}
+                      >
+                        <Badge variant={settingsProviderView === p ? "default" : "outline"} className={`cursor-pointer gap-1.5 ${!isActive ? "opacity-60" : ""}`}>
+                          {isActive && <span className="inline-block h-2 w-2 rounded-full bg-green-500 flex-shrink-0" />}
+                          {p === "gcs" ? "Cloud Storage" : p === "local" ? "Local Filesystem" : p}
+                        </Badge>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -848,11 +854,25 @@ export default function MediaGallery() {
                 </div>
               )}
 
+              {settingsProviderView === "gcs" && !mediaStatus?.gcs && (
+                <div className="rounded-md border border-dashed p-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <IconCloud className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-sm font-medium">Google Cloud Storage</p>
+                    <Badge variant="outline" className="text-xs">Not configured</Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Cloud storage is not active. Set the environment variables below to enable it.
+                  </p>
+                </div>
+              )}
+
               {settingsProviderView === "gcs" && mediaStatus?.gcs && (
                 <div className="rounded-md border p-3 space-y-2">
                   <div className="flex items-center gap-2">
                     <IconCloud className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm font-medium">Google Cloud Storage</p>
+                    <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">Active</Badge>
                   </div>
                   <div className="space-y-1.5 text-sm">
                     <div className="flex items-center justify-between">
@@ -875,9 +895,9 @@ export default function MediaGallery() {
 
               {settingsProviderView === "gcs" && (
                 <div className="rounded-md border p-3 space-y-2">
-                  <p className="text-sm font-medium">Setup Guide</p>
+                  <p className="text-sm font-medium">{mediaStatus?.gcs ? "Configuration Reference" : "Setup Guide"}</p>
                   <div className="text-xs text-muted-foreground space-y-1.5">
-                    <p>Configure these environment variables to set up cloud storage:</p>
+                    <p>{mediaStatus?.gcs ? "Cloud storage is configured with these environment variables:" : "Configure these environment variables to enable cloud storage:"}</p>
                     <div className="space-y-1 font-mono bg-muted p-2 rounded">
                       <p><span className="text-foreground">GCS_BUCKET_NAME</span> - Bucket name</p>
                       <p><span className="text-foreground">GCS_PROJECT_ID</span> - GCP project ID</p>

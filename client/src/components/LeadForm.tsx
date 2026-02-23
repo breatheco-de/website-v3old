@@ -813,7 +813,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
           <div className="space-y-4">
             {/* First + Last name on same row - NEW ORDER: Name -> Phone -> Email */}
             {(getFieldConfig("first_name").visible || getFieldConfig("last_name").visible) && (
-              <div className="grid grid-cols-2 gap-3">
+              <div className={`grid gap-3 ${getFieldConfig("first_name").visible && getFieldConfig("last_name").visible ? "grid-cols-2" : "grid-cols-1"}`}>
                 {getFieldConfig("first_name").visible && (
                   <FormField
                     control={form.control}

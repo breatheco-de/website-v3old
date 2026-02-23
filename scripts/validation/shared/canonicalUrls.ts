@@ -7,17 +7,9 @@
 import type { ContentFile } from "./types";
 import { contentIndex } from "../../../server/content-index";
 
-const typeToContentType: Record<string, string> = {
-  program: "programs",
-  landing: "landings",
-  location: "locations",
-  page: "pages",
-};
-
 export function getCanonicalUrl(file: ContentFile): string {
-  const contentType = typeToContentType[file.type] || file.type;
   const locale = file.locale === "_common" ? "en" : file.locale;
-  return contentIndex.buildUrl(contentType, locale, file.slug);
+  return contentIndex.buildUrl(file.type, locale, file.slug);
 }
 
 export function normalizeUrl(url: string): string {

@@ -6,6 +6,7 @@ import {
   resolveTokens,
   type ResolvedToken,
 } from "./template-parser";
+import { markFileAsModified } from "./sync-state";
 
 const VARIABLES_PATH = path.join(
   process.cwd(),
@@ -411,6 +412,7 @@ class VariableManager {
       fs.writeFileSync(VARIABLES_PATH, content, "utf-8");
       const stat = fs.statSync(VARIABLES_PATH);
       this.lastModified = stat.mtimeMs;
+      markFileAsModified("marketing-content/variables.yml");
       console.log("[VariableManager] Saved variables.yml");
     } catch (err) {
       console.error("[VariableManager] Failed to save variables.yml:", err);

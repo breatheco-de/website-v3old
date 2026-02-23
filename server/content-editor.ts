@@ -1,14 +1,7 @@
 import fs from "fs";
-import path from "path";
 import yaml from "js-yaml";
-import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
+import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { z } from "zod";
-
-function safeYamlLoad(yamlStr: string): unknown {
-  const { escaped, map } = escapeTemplateVars(yamlStr);
-  const parsed = yaml.load(escaped);
-  return unescapeObjectVars(parsed, map);
-}
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
@@ -18,48 +11,9 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
 import type { EditOperation } from "@shared/schema";
 import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
 import { normalizeLocale } from "@shared/locale";
-import { contentIndex } from "./content-index";
-import { deepMerge } from "./utils/deepMerge";
 import { markFileAsModified } from "./sync-state";
-
-const CONTENT_BASE_PATH = path.join(process.cwd(), "marketing-content");
-
-function getContentFolder(contentType: string, slug: string, locale?: string): string {
-  const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
-  const folder = typeMap[contentType];
-  if (!folder) throw new Error(`Unknown content type: ${contentType}`);
-  const resolved = contentIndex.resolveBaseSlug(slug, folder);
-  return path.join(CONTENT_BASE_PATH, folder, resolved);
-}
-
-/**
- * Recursively strip null values from an object, converting them to undefined.
- * This is needed because YAML files may have explicit null values, but Zod
- * schemas use .optional() which only accepts undefined, not null.
- * For arrays, null elements are removed entirely (not replaced with undefined),
- * since arrays with embedded undefined can fail Zod validation.
- */
-function stripNullValues<T>(obj: T): T {
-  if (obj === null) {
-    return undefined as unknown as T;
-  }
-  if (Array.isArray(obj)) {
-    return obj
-      .map((item) => stripNullValues(item))
-      .filter((item) => item !== undefined) as unknown as T;
-  }
-  if (typeof obj === "object" && obj !== null) {
-    const result: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(obj)) {
-      if (value !== null) {
-        result[key] = stripNullValues(value);
-      }
-      // If value is null, we simply don't include the key, making it undefined
-    }
-    return result as T;
-  }
-  return obj;
-}
+import { contentIndex, stripNullValues } from "./content-index";
+import { deepMerge } from "./utils/deepMerge";
 
 interface ContentEditRequest {
   contentType: "program" | "landing" | "location" | "page";
@@ -68,28 +22,7 @@ interface ContentEditRequest {
   operations: EditOperation[];
   variant?: string;
   version?: number;
-  author?: string;  // Who made this edit (for sync tracking)
-}
-
-function getContentPath(contentType: string, slug: string, locale: string, variant?: string, version?: number): string {
-  const typeMap: Record<string, string> = { program: "programs", landing: "landings", location: "locations", page: "pages" };
-  const typeFolder = typeMap[contentType];
-  if (!typeFolder) throw new Error(`Unknown content type: ${contentType}`);
-  const resolved = contentIndex.resolveBaseSlug(slug, typeFolder);
-  const folder = path.join(CONTENT_BASE_PATH, typeFolder, resolved);
-  
-  // If variant and version are specified, use variant file path
-  // "default" variant means base content, not a variant file
-  if (variant && variant !== "default" && version !== undefined) {
-    return path.join(folder, `${variant}.v${version}.${locale}.yml`);
-  }
-  
-  // Landings use promoted.yml instead of {locale}.yml
-  if (contentType === "landing") {
-    return path.join(folder, "promoted.yml");
-  }
-  
-  return path.join(folder, `${locale}.yml`);
+  author?: string;
 }
 
 function getValueAtPath(obj: Record<string, unknown>, pathStr: string): unknown {
@@ -193,33 +126,22 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
   }
   
   try {
-    const filePath = getContentPath(contentType, slug, locale, variant, version);
-    
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
-      return { success: false, error: `Content file not found: ${filePath}` };
+    const { data: localeData, filePath, error: loadError } = contentIndex.loadLocaleData(contentType, slug, locale, variant, version);
+    if (!localeData || loadError) {
+      return { success: false, error: loadError || `Content file not found` };
     }
     
-    // Load _common.yml if it exists
-    const contentFolder = getContentFolder(contentType, slug, locale);
-    const commonPath = path.join(contentFolder, "_common.yml");
-    let commonData: Record<string, unknown> = {};
-    if (fs.existsSync(commonPath)) {
-      const commonContent = fs.readFileSync(commonPath, "utf-8");
-      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-    }
-    
-    // Read current content from locale file
-    const fileContent = fs.readFileSync(filePath, "utf-8");
-    const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
-    
-    // Merge _common.yml with locale file (locale data overrides common)
-    const content = deepMerge(commonData, localeData);
-    
-    // Apply all operations
+    // Apply all operations to the locale data (this is what gets saved)
     for (const operation of operations) {
-      applyOperation(content, operation);
+      applyOperation(localeData, operation);
     }
+
+    // Merge _common.yml with the edited locale data for validation only
+    // (schema expects the full page structure including _common.yml fields like meta, seo, slug)
+    const commonData = contentIndex.loadCommonData(contentType, slug);
+    const content = commonData
+      ? deepMerge(commonData, localeData)
+      : localeData;
     
     // Validate content against the appropriate full schema
     const validationErrors: string[] = [];
@@ -381,8 +303,8 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       };
     }
     
-    // Write back to file
-    const updatedYaml = safeYamlDump(content, {
+    // Write locale data back to file (without _common.yml content)
+    const updatedYaml = safeYamlDump(localeData, {
       lineWidth: -1, // Don't wrap lines
       noRefs: true,
       quotingType: '"',
@@ -397,11 +319,58 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // Note: GitHub commits are now handled manually via /api/github/commit endpoint
     // Changes are saved locally and users commit when ready
     
-    // Return updated sections for immediate UI update
+    // Return updated sections for immediate UI update (from merged content for full view)
     const updatedSections = (content.sections as unknown[]) || [];
     return { success: true, updatedSections };
   } catch (error) {
     console.error("Content edit error:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+interface CommonEditRequest {
+  contentType: "program" | "landing" | "location" | "page";
+  slug: string;
+  operations: Array<{ action: "update_field"; path: string; value: unknown }>;
+  author?: string;
+}
+
+export function editCommonContent(request: CommonEditRequest): { success: boolean; error?: string } {
+  const { contentType, slug, operations, author } = request;
+
+  try {
+    const commonPath = contentIndex.getCommonFilePath(contentType, slug);
+    if (!fs.existsSync(commonPath)) {
+      return { success: false, error: `_common.yml not found for ${contentType}/${slug}` };
+    }
+
+    const raw = fs.readFileSync(commonPath, "utf-8");
+    const commonData = (yaml.load(raw) as Record<string, unknown>) || {};
+
+    for (const op of operations) {
+      if (op.action !== "update_field") {
+        return { success: false, error: `Unsupported operation: ${op.action}` };
+      }
+      if (op.value === null || op.value === undefined) {
+        delete commonData[op.path];
+      } else {
+        setValueAtPath(commonData, op.path, op.value);
+      }
+    }
+
+    const updatedYaml = safeYamlDump(commonData, {
+      lineWidth: -1,
+      noRefs: true,
+      quotingType: '"',
+      forceQuotes: false,
+    });
+
+    fs.writeFileSync(commonPath, updatedYaml, "utf-8");
+    markFileAsModified(commonPath, author);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Common content edit error:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -413,10 +382,8 @@ export function getContentForEdit(
   variant?: string,
   version?: number
 ): { content: Record<string, unknown> | null; error?: string } {
-  // Normalize locale to prevent es-ES, en-US etc from causing file lookup failures
   const locale = normalizeLocale(rawLocale);
   
-  // Validate variant/version are used together and version is valid
   const hasVariant = variant !== undefined && variant !== null && variant !== "";
   const hasValidVersion = version !== undefined && version !== null && Number.isFinite(version);
   if (hasVariant !== hasValidVersion) {
@@ -424,28 +391,16 @@ export function getContentForEdit(
   }
   
   try {
-    const filePath = getContentPath(contentType, slug, locale, variant, version);
-    
-    if (!fs.existsSync(filePath)) {
-      return { content: null, error: `Content file not found` };
+    const { data: localeData, error: loadError } = contentIndex.loadLocaleData(contentType, slug, locale, variant, version);
+    if (!localeData || loadError) {
+      return { content: null, error: loadError || `Content file not found` };
     }
-    
-    // Load _common.yml if it exists
-    const contentFolder = getContentFolder(contentType, slug, locale);
-    const commonPath = path.join(contentFolder, "_common.yml");
-    let commonData: Record<string, unknown> = {};
-    if (fs.existsSync(commonPath)) {
-      const commonContent = fs.readFileSync(commonPath, "utf-8");
-      commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-    }
-    
-    // Read locale file content
-    const fileContent = fs.readFileSync(filePath, "utf-8");
-    const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
-    
-    // Merge _common.yml with locale file (locale data overrides common)
-    const content = deepMerge(commonData, localeData);
-    
+
+    const commonData = contentIndex.loadCommonData(contentType, slug);
+    const content = commonData
+      ? deepMerge(commonData, localeData)
+      : localeData;
+
     return { content };
   } catch (error) {
     console.error("Error reading content:", error);

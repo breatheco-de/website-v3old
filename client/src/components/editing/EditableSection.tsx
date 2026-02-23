@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff } from "@tabler/icons-react";
+import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn } from "@shared/schema";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { getLocationBySlug } from "@/lib/locations";
@@ -47,6 +48,10 @@ function getUniqueCountryCodes(locationSlugs: string[]): string[] {
 
 const SectionEditorPanel = lazy(() => 
   import("./SectionEditorPanel").then(mod => ({ default: mod.SectionEditorPanel }))
+);
+
+const SectionBindingDialog = lazy(() =>
+  import("./SectionBindingDialog").then(mod => ({ default: mod.SectionBindingDialog }))
 );
 
 interface EditableSectionProps {
@@ -109,6 +114,16 @@ export function EditableSection({ children, section, index, sectionType, content
   const [showReviewCodeModal, setShowReviewCodeModal] = useState(false);
   const [reviewCodeYaml, setReviewCodeYaml] = useState("");
   const [reviewCodeError, setReviewCodeError] = useState<string | null>(null);
+
+  const { data: bindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
+    queryKey: ["/api/bindings/section", contentType, slug, index],
+    queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}`).then(r => r.json()),
+    enabled: !!editMode?.isEditMode && !!contentType && !!slug,
+    staleTime: 30_000,
+  });
+  const isBound = !!bindingData?.group;
+  const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
+  const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
 
   const selectedVariant = variants[selectedVariantIndex] || "";
   
@@ -347,7 +362,7 @@ export function EditableSection({ children, section, index, sectionType, content
     setIsConfirming(true);
     try {
       const token = getDebugToken();
-      const res = await fetch('/api/content/edit', {
+      const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -418,7 +433,7 @@ export function EditableSection({ children, section, index, sectionType, content
       const sectionToSave = { type: sectionType, ...sectionData } as Section;
       
       const token = getDebugToken();
-      const res = await fetch('/api/content/edit', {
+      const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -513,12 +528,26 @@ export function EditableSection({ children, section, index, sectionType, content
           data-testid={`button-edit-section-${index}`}
         >
           <IconPencil className="h-4 w-4" />
-          <div className="flex flex-col items-start">
-            <span className="text-xs font-medium">{sectionType}</span>
-            {(currentSection as { variant?: string }).variant && (
-              <small className="text-[10px] opacity-75">{deslugify((currentSection as { variant?: string }).variant!)}</small>
-            )}
-          </div>
+          <span className="text-xs font-medium">{sectionType}</span>
+        </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); setBindingDialogOpen(true); }}
+          className={`p-2 rounded-md shadow-lg hover-elevate flex items-center gap-1 ${
+            isBound
+              ? "bg-muted text-yellow-600 dark:text-yellow-500 animate-[binding-pulse_2s_ease-in-out_infinite]"
+              : "bg-muted text-muted-foreground"
+          }`}
+          data-testid={`button-binding-indicator-${index}`}
+          title={isBound ? `Bound to ${boundSiblingCount} other page${boundSiblingCount !== 1 ? 's' : ''}` : "Not bound – click to manage bindings"}
+        >
+          {isBound ? (
+            <>
+              <IconLink className="h-4 w-4" />
+              <span className="text-xs font-medium">{boundSiblingCount}</span>
+            </>
+          ) : (
+            <IconLinkOff className="h-4 w-4" />
+          )}
         </button>
         {onMoveUp && (
           <button
@@ -545,7 +574,7 @@ export function EditableSection({ children, section, index, sectionType, content
         {onDelete && (
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(index); }}
-            className="p-2 bg-destructive text-destructive-foreground rounded-md shadow-lg hover-elevate"
+            className="p-2 bg-muted text-destructive rounded-md shadow-lg hover-elevate"
             data-testid={`button-delete-section-${index}`}
             title="Delete section"
           >
@@ -723,16 +752,32 @@ export function EditableSection({ children, section, index, sectionType, content
       })()}
 
       
-      {/* Section label - top left */}
+      {/* Section labels - top left */}
       <div 
         className={`
-          absolute top-2 left-2 z-30 
-          px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground
+          absolute top-2 left-2 z-30 flex items-center gap-1.5
           transition-opacity duration-150
           ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
         `}
       >
-        {sectionType}-{index}
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+              className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground hover-elevate cursor-pointer"
+              data-testid={`badge-section-anchor-${index}`}
+            >
+              #{sectionType}-{index}
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto max-w-xs p-3 text-xs" side="bottom" align="start" onClick={(e) => e.stopPropagation()}>
+            <p className="text-muted-foreground">
+              Include <span className="font-mono font-medium text-foreground">#{sectionType}-{index}</span> on the website URL to take the user to this section scroll position directly.
+            </p>
+          </PopoverContent>
+        </Popover>
+        <span className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground">
+          Variant: {deslugify((currentSection as { variant?: string }).variant || "default")}
+        </span>
       </div>
       
       {/* Content with pointer events enabled - show preview section when cycling variants */}
@@ -879,6 +924,23 @@ export function EditableSection({ children, section, index, sectionType, content
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Section Binding Dialog */}
+      {bindingDialogOpen && contentType && slug && locale && (
+        <Suspense fallback={null}>
+          <SectionBindingDialog
+            open={bindingDialogOpen}
+            onOpenChange={setBindingDialogOpen}
+            contentType={contentType}
+            slug={slug}
+            sectionIndex={index}
+            component={sectionType}
+            locale={locale}
+            existingGroup={bindingData?.group as { id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null}
+            onBindingChanged={() => {}}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

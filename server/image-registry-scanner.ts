@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
+import { markFileAsModified } from "./sync-state";
 
 const ATTACHED_ASSETS_DIR = path.join(process.cwd(), "attached_assets");
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
@@ -330,6 +331,7 @@ export function applyRegistryChanges(scanResult: ScanResult): {
   }
 
   fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
+  markFileAsModified("marketing-content/image-registry.json");
 
   return {
     added: scanResult.newImages.length,
