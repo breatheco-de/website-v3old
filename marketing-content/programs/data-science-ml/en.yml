@@ -76,6 +76,9 @@ sections:
       desktop: md
     marginY:
       desktop: none
+    video:
+      preview_image_url: /attached_assets/caracas-graduates_1765387638222.png
+      url: https://www.youtube.com/watch?v=RLZ7peL-j_U&list=RDMMyd6FKPbLMFc&index=7
   - type: modal
     version: "1.0"
     section_id: apply-modal
