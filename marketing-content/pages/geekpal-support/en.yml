@@ -31,11 +31,11 @@ sections:
       - text: AI-powered guidance from Rigobot 24/7
       - text: Lifelong access
       - text: Real community support
+    video:
+      url: https://youtu.be/D5nUZNL52-Q
     paddingY:
       mobile: none lg
       desktop: md lg
-    video:
-      url: https://www.youtube.com/watch?v=YDI-KGjUvK4&list=RDMMyd6FKPbLMFc&index=9
   - type: banner
     version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
