@@ -78,8 +78,6 @@ sections:
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
-    related_features:
-      - online-platform
     subtitle: 4Geeks alumni share their experiences, career wins, and how the program helped them break into tech.
     title_color: hsl(var(--foreground))
     subtitle_color: hsl(var(--muted-foreground))
