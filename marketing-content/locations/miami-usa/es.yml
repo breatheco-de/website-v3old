@@ -376,7 +376,7 @@ sections:
           required: false
           default: auto
       success:
-        message: Gracias! Muy pronto te llegará el detalle del programa.
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
       consent:
         email: true
         marketing: true
