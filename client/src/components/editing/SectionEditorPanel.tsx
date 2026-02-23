@@ -1819,6 +1819,17 @@ export function SectionEditorPanel({
                 />
               </>
             )}
+            {sectionType === "dynamic_table" && (
+              <VariantPicker
+                value={(parsedSection?.variant as string) || "default"}
+                onChange={(value) => updateProperty("variant", value)}
+                options={[
+                  { id: "default", label: "Default" },
+                  { id: "striped", label: "Striped" },
+                  { id: "cards", label: "Cards" },
+                ]}
+              />
+            )}
             {sectionType === "dynamic_table" && parsedSection?.endpoint && (
               <>
                 <div className="space-y-2">
