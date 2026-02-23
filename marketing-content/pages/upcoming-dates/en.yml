@@ -17,7 +17,7 @@ schema:
 sections:
   - type: dynamic_table
     version: "1.0"
-    variant: striped
+    variant: comparison
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
     title: Cohort Overview
