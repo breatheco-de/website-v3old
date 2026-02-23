@@ -16,44 +16,16 @@ sections:
     badge: Chicago Campus
     cta_buttons:
       - text: Apply Now
-        url: "#bottom"
+        url: /en/apply
         variant: primary
-      - text: Download Syllabus
-        url: "#syllabus-modal"
+      - text: Get Program Details
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    section_id: syllabus-modal
-    heading: Start Your Application
-    description: Fill out the form below and we'll get back to you within 24 hours.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Submit Application
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
