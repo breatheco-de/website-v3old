@@ -1102,8 +1102,10 @@
     },
     "marketing-content/programs/ai-engineering/en.yml": {
       "sha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598",
-      "lastModified": 1771867660973.0713,
-      "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598"
+      "lastModified": 1771868187584.4368,
+      "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598",
+      "author": "Alejandro Mauricio Jimenez Morales",
+      "modifiedAt": "2026-02-23T17:36:27.586Z"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "aad912e733e19ce4a4e88154904b640d225067b85c2eddf98e55c6d47bf062cb",

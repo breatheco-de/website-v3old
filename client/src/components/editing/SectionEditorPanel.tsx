@@ -945,6 +945,7 @@ export function SectionEditorPanel({
           } else {
             delete current[finalKey];
           }
+
           // Clean up empty parent objects after deletion
           if (!value) {
             for (let i = pathParts.length - 2; i >= 0; i--) {
@@ -1014,23 +1015,25 @@ export function SectionEditorPanel({
             current[finalKey] = value;
           } else {
             delete current[finalKey];
-          }
-          // Clean up empty parent objects after deletion
-          if (!value && value !== false && value !== 0) {
-            for (let i = pathParts.length - 2; i >= 0; i--) {
-              const parentPath = pathParts.slice(0, i);
-              let parent: Record<string, unknown> = parsed;
-              for (const p of parentPath) {
-                parent = parent[p] as Record<string, unknown>;
-              }
-              const child = parent[pathParts[i]];
-              if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
-                delete parent[pathParts[i]];
-              } else {
-                break;
-              }
+
             }
+            // Clean up empty parent objects after deletion
+            if (!value && value !== false && value !== 0) {
+              for (let i = pathParts.length - 2; i >= 0; i--) {
+                const parentPath = pathParts.slice(0, i);
+                let parent: Record<string, unknown> = parsed;
+                for (const p of parentPath) {
+                  parent = parent[p] as Record<string, unknown>;
+                }
+                const child = parent[pathParts[i]];
+                if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
+                  delete parent[pathParts[i]];
+                } else {
+                  break;
+                }
+              }
           }
+          
         }
 
         const newYaml = safeYamlDump(parsed, {
@@ -2418,7 +2421,6 @@ export function SectionEditorPanel({
                             )}
                           </div>
                         </div>
-
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
                             <button
