@@ -78,7 +78,7 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Request Full Program Overview
+    heading: Get the Full AI Engineering Program Overview
     description: Fill out the form below and we'll get back to you within 24 hours.
     show_close: true
     size: md
