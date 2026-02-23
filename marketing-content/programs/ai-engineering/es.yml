@@ -20,7 +20,7 @@ sections:
   - type: hero
     version: "1.3"
     variant: course
-    title: Ingeniería de IA
+    title: Ingeniería de Inteligencia Artificial
     subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
     students_enrolled:
       avatars:
