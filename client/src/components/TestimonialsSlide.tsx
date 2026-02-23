@@ -1,8 +1,10 @@
 import { IconFlag } from "@tabler/icons-react";
 import Marquee from "react-fast-marquee";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export interface TestimonialsSlideTestimonial {
   name: string;
@@ -22,10 +24,63 @@ export interface TestimonialsSlideData {
   description: string;
   background?: string;
   testimonials?: TestimonialsSlideTestimonial[];
+  related_features?: string[];
+  limit?: number;
 }
 
 interface TestimonialsSlideProps {
   data: TestimonialsSlideData;
+}
+
+interface BankTestimonial {
+  student_name: string;
+  student_thumb?: string;
+  student_video?: string;
+  excerpt?: string;
+  full_text?: string;
+  content?: string;
+  short_content?: string;
+  related_features?: string[];
+  priority?: number;
+  role?: string;
+  company?: string;
+}
+
+const ANONYMOUS_NAMES_SLIDE = ["anonymous", "anonimous", "anónimo", "anonimo", "anon"];
+
+function isValidBankForSlide(t: BankTestimonial): boolean {
+  if (ANONYMOUS_NAMES_SLIDE.includes(t.student_name.trim().toLowerCase())) return false;
+  if (t.student_video) return false;
+  const hasText = !!(t.excerpt || t.short_content || t.content || t.full_text);
+  return hasText && !!t.student_thumb;
+}
+
+function mapBankToSlideItem(t: BankTestimonial): TestimonialsSlideTestimonial {
+  return {
+    name: t.student_name,
+    img: t.student_thumb || "",
+    contributor: t.company || t.role || "",
+    description: t.excerpt || t.short_content || t.content || t.full_text || "",
+    country: { name: "", iso: "" },
+  };
+}
+
+function sortBankForSlide(testimonials: BankTestimonial[], relatedFeatures?: string[]): BankTestimonial[] {
+  return [...testimonials].sort((a, b) => {
+    const aPriority5 = (a.priority ?? 0) >= 5 ? 1 : 0;
+    const bPriority5 = (b.priority ?? 0) >= 5 ? 1 : 0;
+    if (bPriority5 !== aPriority5) return bPriority5 - aPriority5;
+
+    if (relatedFeatures && relatedFeatures.length > 0) {
+      const aFeatures = a.related_features || [];
+      const bFeatures = b.related_features || [];
+      const aMatchCount = relatedFeatures.filter((f) => aFeatures.includes(f)).length;
+      const bMatchCount = relatedFeatures.filter((f) => bFeatures.includes(f)).length;
+      if (bMatchCount !== aMatchCount) return bMatchCount - aMatchCount;
+    }
+
+    return (b.priority ?? 0) - (a.priority ?? 0);
+  });
 }
 
 type CardSize = "small" | "medium" | "large";
@@ -370,9 +425,32 @@ function MasonryColumnComponent({ column }: { column: MasonryColumn }) {
 export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
   const [location] = useLocation();
   const isSpanish = location.startsWith("/es/") || location === "/es";
+  const { i18n } = useTranslation();
+  const locale = i18n.language?.startsWith("es") ? "es" : "en";
   const [isPlaying, setIsPlaying] = useState(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const relatedFeatures = data.related_features || [];
+  const limitVal = Math.min(data.limit || 20, 30);
+  const useBankData = relatedFeatures.length > 0;
+
+  const { data: bankData } = useQuery<{ testimonials: BankTestimonial[] }>({
+    queryKey: ["/api/testimonials", locale],
+    staleTime: 5 * 60 * 1000,
+    enabled: useBankData,
+  });
+
+  const bankItems: TestimonialsSlideTestimonial[] = useMemo(() => {
+    if (!useBankData || !bankData?.testimonials) return [];
+    const valid = bankData.testimonials.filter(isValidBankForSlide);
+    const filtered = valid.filter((t) => {
+      const features = t.related_features || [];
+      return relatedFeatures.some((f) => features.includes(f));
+    });
+    const sorted = sortBankForSlide(filtered, relatedFeatures);
+    return sorted.slice(0, limitVal).map(mapBankToSlideItem);
+  }, [useBankData, bankData, relatedFeatures, limitVal]);
   
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -409,9 +487,10 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
   }, [prefersReducedMotion]);
 
   const defaultFallback = isSpanish ? DEFAULT_TESTIMONIALS_ES : DEFAULT_TESTIMONIALS;
-  const testimonials = data.testimonials && data.testimonials.length > 0 
+  const hardcodedTestimonials = data.testimonials && data.testimonials.length > 0 
     ? data.testimonials 
     : defaultFallback;
+  const testimonials = useBankData && bankItems.length > 0 ? bankItems : hardcodedTestimonials;
   const masonryColumns = createMasonryColumns(testimonials);
 
   return (
