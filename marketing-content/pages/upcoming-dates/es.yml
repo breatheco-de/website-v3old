@@ -39,3 +39,4 @@ sections:
     action:
       label: Ver
       href: /es/apply
+    variant: comparison
