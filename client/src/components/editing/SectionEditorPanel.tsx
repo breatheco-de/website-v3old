@@ -355,7 +355,7 @@ function ShowOnLocationsPicker({
 interface VariantPickerProps {
   value: string;
   onChange: (value: string) => void;
-  options: { id: string; label: string }[];
+  options: { id: string; label: string; preview?: () => JSX.Element }[];
   label?: string;
 }
 
@@ -366,6 +366,42 @@ function VariantPicker({
   label = "Variant",
 }: VariantPickerProps) {
   const currentValue = value || options[0]?.id || "";
+  const hasPreview = options.some((o) => o.preview);
+
+  if (hasPreview) {
+    return (
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">{label}</Label>
+        <div className="grid grid-cols-2 gap-2">
+          {options.map((option) => {
+            const isSelected = currentValue === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => onChange(option.id)}
+                className={`flex flex-col items-center gap-1.5 p-2 rounded-md border-2 transition-colors ${
+                  isSelected
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-muted-foreground/30"
+                }`}
+                data-testid={`props-variant-${option.id}`}
+              >
+                {option.preview && (
+                  <div className="w-full pointer-events-none">
+                    {option.preview()}
+                  </div>
+                )}
+                <span className={`text-xs font-medium ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
+                  {option.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-between gap-3">
@@ -392,6 +428,83 @@ function VariantPicker({
       </div>
     </div>
   );
+}
+
+function TableVariantPreview({ variant }: { variant: string }) {
+  const rows = [0, 1, 2];
+  if (variant === "default") {
+    return (
+      <div className="rounded border overflow-hidden">
+        <div className="flex bg-muted/50 border-b">
+          <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/20" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/20" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/20" />
+        </div>
+        {rows.map((i) => (
+          <div key={i} className="flex border-b last:border-0">
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (variant === "striped") {
+    return (
+      <div className="rounded border overflow-hidden">
+        <div className="flex bg-primary">
+          <div className="flex-1 h-2 m-1.5 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-primary-foreground/30" />
+        </div>
+        {rows.map((i) => (
+          <div key={i} className={`flex ${i % 2 === 1 ? "bg-muted/30" : ""}`}>
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (variant === "cards") {
+    return (
+      <div className="flex flex-col gap-1">
+        {rows.map((i) => (
+          <div key={i} className="rounded border p-1.5 space-y-1">
+            <div className="flex justify-between gap-2">
+              <div className="w-8 h-1.5 rounded bg-muted-foreground/20" />
+              <div className="w-12 h-1.5 rounded bg-muted-foreground/10" />
+            </div>
+            <div className="flex justify-between gap-2">
+              <div className="w-6 h-1.5 rounded bg-muted-foreground/20" />
+              <div className="w-10 h-1.5 rounded bg-muted-foreground/10" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (variant === "comparison") {
+    return (
+      <div className="rounded-lg overflow-hidden shadow-sm ring-1 ring-black/5">
+        <div className="flex">
+          <div className="flex-1 h-2.5 m-1 rounded bg-muted/50" />
+          <div className="flex-1 h-2.5 m-1 rounded bg-gradient-to-r from-primary to-primary/80" />
+          <div className="flex-1 h-2.5 m-1 rounded bg-muted-foreground/10" />
+        </div>
+        {rows.map((i) => (
+          <div key={i} className={`flex ${i % 2 === 0 ? "" : "bg-primary/5"}`}>
+            <div className="flex-1 h-2 m-1 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1 rounded bg-muted-foreground/15" />
+            <div className="flex-1 h-2 m-1 rounded bg-muted-foreground/10" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
 }
 
 export function SectionEditorPanel({
@@ -1824,9 +1937,10 @@ export function SectionEditorPanel({
                 value={(parsedSection?.variant as string) || "default"}
                 onChange={(value) => updateProperty("variant", value)}
                 options={[
-                  { id: "default", label: "Default" },
-                  { id: "striped", label: "Striped" },
-                  { id: "cards", label: "Cards" },
+                  { id: "default", label: "Default", preview: () => <TableVariantPreview variant="default" /> },
+                  { id: "striped", label: "Striped", preview: () => <TableVariantPreview variant="striped" /> },
+                  { id: "cards", label: "Cards", preview: () => <TableVariantPreview variant="cards" /> },
+                  { id: "comparison", label: "Comparison", preview: () => <TableVariantPreview variant="comparison" /> },
                 ]}
               />
             )}

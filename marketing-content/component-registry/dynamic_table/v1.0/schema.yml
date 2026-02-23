@@ -25,6 +25,7 @@ props:
       - default
       - striped
       - cards
+      - comparison
   endpoint:
     type: string
     required: true

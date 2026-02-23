@@ -2,6 +2,12 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IconExternalLink, IconPhoto, IconCheck, IconX, IconArrowUp, IconArrowDown, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import type { DynamicTableConfig } from "./TableBuilderWizard";
 import { useSession } from "@/contexts/SessionContext";
 import type { DynamicTableSection } from "@shared/schema";
@@ -10,7 +16,7 @@ interface DynamicTableProps {
   data: DynamicTableSection;
 }
 
-type TableVariant = "default" | "striped" | "cards";
+type TableVariant = "default" | "striped" | "cards" | "comparison";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.split(".");
@@ -375,6 +381,172 @@ function CardsLayout({
   );
 }
 
+function ComparisonLayout({
+  rows,
+  columns,
+  action,
+  sortKey,
+  sortDir,
+  onSort,
+}: {
+  rows: Record<string, unknown>[];
+  columns: DynamicTableSection["columns"];
+  action?: DynamicTableSection["action"];
+  sortKey: string | null;
+  sortDir: "asc" | "desc";
+  onSort: (key: string) => void;
+}) {
+  const colCount = columns.length + (action ? 1 : 0);
+
+  return (
+    <>
+      <div className="hidden md:block overflow-x-auto">
+        <div className="rounded-xl overflow-hidden shadow-lg ring-1 ring-black/5" style={{ minWidth: `${colCount * 160}px` }} data-testid="dynamic-table">
+          <div
+            className="grid"
+            style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
+          >
+            {columns.map((col, colIdx) => {
+              const hasMultipleCols = columns.length >= 2;
+              const isLabelCol = hasMultipleCols && colIdx === 0;
+              const isHighlightCol = hasMultipleCols && colIdx === 1;
+
+              return (
+                <div
+                  key={col.key}
+                  className={`py-5 px-6 font-semibold text-sm cursor-pointer select-none ${
+                    isLabelCol
+                      ? "bg-muted/50 text-muted-foreground text-left"
+                      : isHighlightCol
+                        ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center"
+                        : !hasMultipleCols
+                          ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center"
+                          : "bg-card text-foreground text-center"
+                  } ${colIdx < colCount - 1 ? "border-r border-border/50" : ""}`}
+                  onClick={() => onSort(col.key)}
+                  data-testid={`th-${col.key}`}
+                >
+                  <div className={`flex items-center gap-1 ${isLabelCol ? "" : "justify-center"}`}>
+                    {col.label}
+                    <SortIcon sortKey={sortKey} sortDir={sortDir} colKey={col.key} />
+                  </div>
+                </div>
+              );
+            })}
+            {action && (
+              <div className="py-5 px-6 font-semibold text-sm bg-card text-foreground text-center" data-testid="th-action">
+                {action.label}
+              </div>
+            )}
+          </div>
+
+          {rows.length === 0 ? (
+            <div className="py-8 text-center text-muted-foreground text-sm">No data available</div>
+          ) : (
+            rows.map((row, idx) => (
+              <div
+                key={idx}
+                className="grid transition-colors"
+                style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
+                data-testid={`row-${idx}`}
+              >
+                {columns.map((col, colIdx) => {
+                  const hasMultipleCols = columns.length >= 2;
+                  const isLabelCol = hasMultipleCols && colIdx === 0;
+                  const isHighlightCol = hasMultipleCols && colIdx === 1;
+                  const rowBg = idx % 2 === 0 ? "bg-card" : "bg-primary/5";
+
+                  return (
+                    <div
+                      key={col.key}
+                      className={`py-4 px-6 text-sm flex items-center ${
+                        isLabelCol ? "text-left font-medium" : "text-center justify-center"
+                      } ${
+                        isLabelCol ? "bg-muted/50 text-muted-foreground" : rowBg
+                      } ${
+                        isHighlightCol ? "font-semibold text-foreground" : isLabelCol ? "" : "text-muted-foreground"
+                      } ${colIdx < colCount - 1 ? "border-r border-border/50" : ""}`}
+                      data-testid={`cell-${col.key}-${idx}`}
+                    >
+                      <CellValue value={getCellValue(row, col)} type={col.type} hasFunction={!!col.function} />
+                    </div>
+                  );
+                })}
+                {action && (
+                  <div className={`py-4 px-6 flex items-center justify-center ${idx % 2 === 0 ? "bg-card" : "bg-primary/5"}`}>
+                    <Button variant="outline" size="sm" asChild data-testid={`button-action-${idx}`}>
+                      <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
+                        {action.label}
+                        <IconExternalLink className="w-3 h-3 ml-1" />
+                      </a>
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="md:hidden">
+        <Accordion type="single" collapsible className="flex flex-col gap-2">
+          {rows.length === 0 ? (
+            <div className="text-center text-muted-foreground py-8 text-sm">No data available</div>
+          ) : (
+            rows.map((row, idx) => {
+              const firstVal = getCellValue(row, columns[0]);
+              const firstLabel = firstVal != null ? String(firstVal) : `Row ${idx + 1}`;
+
+              return (
+                <AccordionItem
+                  key={idx}
+                  value={`row-${idx}`}
+                  className="rounded-[0.8rem] shadow-sm px-5 [&]:border-0 bg-card transition-colors duration-200 data-[state=open]:bg-primary/5 data-[state=open]:shadow-md"
+                  data-testid={`accordion-row-${idx}`}
+                >
+                  <AccordionTrigger className="hover:no-underline py-4 min-h-[48px] [&>svg]:w-5 [&>svg]:h-5">
+                    <span className="font-semibold text-foreground text-sm">{firstLabel}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-3 pb-5">
+                    <div className="flex flex-col gap-2">
+                      {columns.slice(1).map((col) => {
+                        const val = getCellValue(row, col);
+                        return (
+                          <div
+                            key={col.key}
+                            className="rounded-[0.8rem] p-3 bg-muted/30"
+                          >
+                            <p className="text-xs font-semibold mb-0.5 text-muted-foreground uppercase tracking-wide">
+                              {col.label}
+                            </p>
+                            <p className="text-sm text-foreground">
+                              <CellValue value={val} type={col.type} hasFunction={!!col.function} />
+                            </p>
+                          </div>
+                        );
+                      })}
+                      {action && (
+                        <div className="pt-2">
+                          <Button variant="outline" size="sm" className="w-full" asChild data-testid={`button-action-${idx}`}>
+                            <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
+                              {action.label}
+                              <IconExternalLink className="w-3 h-3 ml-1" />
+                            </a>
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })
+          )}
+        </Accordion>
+      </div>
+    </>
+  );
+}
+
 function TableFooter({
   maxRows,
   expanded,
@@ -543,6 +715,15 @@ export function DynamicTable({ data }: DynamicTableProps) {
 
         {variant === "cards" ? (
           <CardsLayout
+            rows={rows}
+            columns={data.columns}
+            action={data.action}
+            sortKey={sortKey}
+            sortDir={sortDir}
+            onSort={handleSort}
+          />
+        ) : variant === "comparison" ? (
+          <ComparisonLayout
             rows={rows}
             columns={data.columns}
             action={data.action}
