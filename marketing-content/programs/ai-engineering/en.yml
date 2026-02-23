@@ -49,7 +49,7 @@ sections:
       thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
       alt: AI Engineering program introduction
     signup_card:
-      title: Get the Full Syllabus
+      title: Get the Full Program Overview
       description: Receive the complete roadmap of the 10-milestones, learning structure, schedule options, tuition, and career support model.
       cta_button:
         text: Get the Full Overview
