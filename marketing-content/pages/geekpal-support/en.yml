@@ -40,6 +40,7 @@ sections:
     paddingY:
       mobile: none lg
       desktop: md lg
+    image_id: group_original
   - type: banner
     version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
