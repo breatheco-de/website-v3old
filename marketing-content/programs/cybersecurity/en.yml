@@ -75,13 +75,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Request Program Information
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Request syllabus
+      submit_label: Get the Full Overview
       tags: request_more_info
       automations: soft
       fields:
@@ -97,9 +97,9 @@ sections:
         program:
           visible: false
           required: true
-          default: cybersecurity
+          default: ai-engineering
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
