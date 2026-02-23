@@ -2,8 +2,8 @@
   "config": {
     "commitIntervalSeconds": 5
   },
-  "lastSyncedCommit": "58ef4bd297174e2d2aa80718689e04e9ab79c056",
-  "lastSyncedAt": "2026-02-23T22:30:06.508Z",
+  "lastSyncedCommit": "b9970d39ff4d4269f7105e94b234544301097c7a",
+  "lastSyncedAt": "2026-02-23T22:31:42.423Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -127,8 +127,9 @@
     },
     "marketing-content/landings/example-landing/promoted.yml": {
       "sha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
-      "lastModified": 1771541096459.1267,
-      "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8"
+      "lastModified": 1771886324154.5679,
+      "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
+      "pulledFromCommit": "8678df2d0a550bc2fd953d219e175359379c70d8"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -456,9 +457,9 @@
       "remoteSha": "c253c086a18a5df06caf266c97624740ec0044382a3d42f1b4fc7ab1f9739839"
     },
     "marketing-content/locations/miami-usa/es.yml": {
-      "sha": "a901b2537fc519745ff4d6bb5027c6318967e2d76aca2d759ea23b202777a9cc",
-      "lastModified": 1771885805654.4395,
-      "remoteSha": "a901b2537fc519745ff4d6bb5027c6318967e2d76aca2d759ea23b202777a9cc"
+      "sha": "6e86eb62e4f8845ab619bdf0dab735ec1aeb2bf37de3ce54f42f880a00d25a53",
+      "lastModified": 1771885902100.3506,
+      "remoteSha": "6e86eb62e4f8845ab619bdf0dab735ec1aeb2bf37de3ce54f42f880a00d25a53"
     },
     "marketing-content/locations/milan-italy/_common.yml": {
       "sha": "5c74e98c586520fdd8ec962f61b1b10118bc617ef935e9b65d4f7393ff30e608",
