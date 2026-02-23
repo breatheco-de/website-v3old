@@ -44,18 +44,16 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
-    video:
-      url: https://youtu.be/snI-n8Ruvxg
     media:
       type: video
       src: https://www.youtube.com/watch?v=snI-n8Ruvxg&t=27s
       thumbnail: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop
       alt: Data Science program introduction
     signup_card:
-      title: Get the Full Syllabus
-      description: Access the full program description, schedule and everything else you need to know.
+      title: Get the Full Program Overview
+      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send me the Curriculum
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -74,6 +72,8 @@ sections:
           text: Unlimited 1:1 Mentorship
         - icon: book
           text: Real-World DS & ML Portfolio
+    video:
+      url: https://youtu.be/snI-n8Ruvxg
     paddingY:
       desktop: md
     marginY:
