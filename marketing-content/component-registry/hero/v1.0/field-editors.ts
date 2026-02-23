@@ -26,7 +26,6 @@ export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
   "signup_card.features[].icon": "icon-picker",
   "cta_buttons[].url": "link-picker",
-  "cta_buttons[].icon": "icon-picker",
   "cta_button.url": "link-picker",
   "panels[].cta_button.url": "link-picker",
 

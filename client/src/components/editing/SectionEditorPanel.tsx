@@ -5107,7 +5107,7 @@ export function SectionEditorPanel({
 
                 if (
                   editorType === "link-picker" &&
-                  (arrayPath === "cta_buttons" || arrayPath.endsWith(".cta_buttons"))
+                  (arrayPath === "cta_buttons" || arrayPath === "cta" || arrayPath.endsWith(".cta_buttons"))
                 ) {
                   return (
                     <div key={fieldPath} className="space-y-3">
