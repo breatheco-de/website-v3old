@@ -17,6 +17,7 @@ export type EditorType =
   | "image-picker:logo"
   | "image-with-style-picker"
   | "link-picker"
+  | "cta-picker"
   | "video-picker"
   | "text-input"
   | "rich-text-editor"
@@ -25,7 +26,7 @@ export type EditorType =
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
   "signup_card.features[].icon": "icon-picker",
-  "cta_buttons[].url": "link-picker",
+  "cta_buttons[]": "cta-picker",
   "cta_button.url": "link-picker",
   "panels[].cta_button.url": "link-picker",
 
