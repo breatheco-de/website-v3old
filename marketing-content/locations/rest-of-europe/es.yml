@@ -1,5 +1,4 @@
 slug: resto-de-europa
-<<<<<<< HEAD
 name: Rest of Europe
 city: Rest of Europe
 country: Unknown
@@ -33,8 +32,6 @@ schema:
   include:
     - organization
     - website
-=======
->>>>>>> parent of 1b1dcafe (Restored to '068a05c93907146d1827af22470c5d5c02920752')
 meta:
   page_title: 4Geeks Academy | Bootcamp de Programación Remoto
   description: Aprende a programar desde cualquier lugar con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte profesional de por vida. Full Stack, Data Science o Ciberseguridad—garantía de empleo disponible.
