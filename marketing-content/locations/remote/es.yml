@@ -28,7 +28,6 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
     version: "1.0"
-    section_id: syllabus-modal
     heading: Comienza tu Aplicación
     description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
     show_close: true
@@ -54,6 +53,7 @@ sections:
           default: auto
       success:
         message: Gracias. Nos pondremos en contacto en 24 horas.
+    section_id: syllabus-modal
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -221,7 +221,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
-    description: "Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial."
+    description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
