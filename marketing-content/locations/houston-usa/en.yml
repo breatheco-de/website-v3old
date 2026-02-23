@@ -16,10 +16,10 @@ sections:
     badge: Houston Campus
     cta_buttons:
       - text: Apply Now
-        url: "#bottom"
+        url: /en/apply
         variant: primary
       - text: Get Program Details
-        url: "#syllabus-modal"
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
