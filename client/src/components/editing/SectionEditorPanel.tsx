@@ -1211,7 +1211,19 @@ export function SectionEditorPanel({
           | undefined;
         if (!Array.isArray(array) || !array[index]) return;
 
-        array[index][field] = value;
+        const fieldParts = field.split(".");
+        if (fieldParts.length > 1) {
+          let target: Record<string, unknown> = array[index];
+          for (let i = 0; i < fieldParts.length - 1; i++) {
+            if (!target[fieldParts[i]] || typeof target[fieldParts[i]] !== "object") {
+              target[fieldParts[i]] = {};
+            }
+            target = target[fieldParts[i]] as Record<string, unknown>;
+          }
+          target[fieldParts[fieldParts.length - 1]] = value;
+        } else {
+          array[index][field] = value;
+        }
 
         const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
@@ -4381,6 +4393,131 @@ export function SectionEditorPanel({
                   );
                 }
 
+                // Handle cta-picker: "cta_buttons[]" or "features[].cta"
+                if (editorType === "cta-picker") {
+                  // Match "arrayName[]" or "path.arrayName[].subField"
+                  const ctaMatchWhole = fieldPath.match(/^([\w.]+)\[\]$/);
+                  const ctaMatchNested = fieldPath.match(/^([\w.]+)\[\]\.([\w.]+)$/);
+
+                  if (ctaMatchWhole || ctaMatchNested) {
+                    const ctaArrayPath = ctaMatchWhole ? ctaMatchWhole[1] : ctaMatchNested![1];
+                    const ctaSubPath = ctaMatchNested ? ctaMatchNested[2] : null;
+
+                    const getCtaArrayData = () => {
+                      if (!parsedSection) return undefined;
+                      const pathParts = ctaArrayPath.split(".");
+                      let current: Record<string, unknown> = parsedSection as Record<string, unknown>;
+                      for (const part of pathParts) {
+                        if (!current || typeof current !== "object") return undefined;
+                        current = current[part] as Record<string, unknown>;
+                      }
+                      return current as unknown as Record<string, unknown>[] | undefined;
+                    };
+
+                    const ctaArrayData = getCtaArrayData();
+                    const safeCtaArray = Array.isArray(ctaArrayData) ? ctaArrayData : [];
+
+                    const getCtaField = (item: Record<string, unknown>, field: string): string => {
+                      if (ctaSubPath) {
+                        const sub = item[ctaSubPath] as Record<string, unknown> | undefined;
+                        return (sub?.[field] as string) || "";
+                      }
+                      return (item[field] as string) || "";
+                    };
+
+                    const updateCtaField = (index: number, field: string, value: string) => {
+                      const fullField = ctaSubPath ? `${ctaSubPath}.${field}` : field;
+                      updateArrayItemField(ctaArrayPath, index, fullField, value);
+                    };
+
+                    const ctaLabel = getFieldLabel(ctaSubPath || ctaArrayPath);
+
+                    return (
+                      <div key={fieldPath} className="space-y-3">
+                        <Label className="text-sm font-medium capitalize">
+                          {ctaLabel.replace(/_/g, " ")} ({safeCtaArray.length})
+                        </Label>
+                        <div className="space-y-2">
+                          {safeCtaArray.map((item, index) => {
+                            const btnText = getCtaField(item, "text") || (item.title as string) || `CTA ${index + 1}`;
+                            const btnUrl = getCtaField(item, "url");
+                            const btnIcon = getCtaField(item, "icon");
+                            const btnVariant = getCtaField(item, "variant");
+
+                            return (
+                              <Collapsible key={index} className="border rounded-md">
+                                <CollapsibleTrigger asChild>
+                                  <button
+                                    type="button"
+                                    className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
+                                    data-testid={`props-cta-${index}-trigger`}
+                                  >
+                                    <div className="w-8 h-8 rounded-md bg-muted border flex-shrink-0 flex items-center justify-center">
+                                      {btnIcon ? (
+                                        renderIconByName(btnIcon)
+                                      ) : (
+                                        <span className="text-xs text-muted-foreground">#{index + 1}</span>
+                                      )}
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                      <span className="text-sm font-medium block truncate">{btnText}</span>
+                                      {btnVariant && (
+                                        <span className="text-xs text-muted-foreground">{btnVariant}</span>
+                                      )}
+                                    </div>
+                                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                                  </button>
+                                </CollapsibleTrigger>
+                                <CollapsibleContent>
+                                  <div className="p-3 pt-0 space-y-3 border-t">
+                                    <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">URL</Label>
+                                      <LinkPicker
+                                        value={btnUrl}
+                                        onChange={(url) => updateCtaField(index, "url", url)}
+                                        locale={locale}
+                                        allSections={allSections}
+                                        testId={`props-cta-${index}-url`}
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">Icon</Label>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setIconPickerTarget({
+                                            arrayField: ctaArrayPath,
+                                            index,
+                                            field: ctaSubPath ? `${ctaSubPath}.icon` : "icon",
+                                            label: btnText,
+                                            currentIcon: btnIcon,
+                                          });
+                                          setIconPickerOpen(true);
+                                        }}
+                                        className="flex items-center gap-2 w-full p-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors"
+                                        data-testid={`props-cta-${index}-icon`}
+                                      >
+                                        <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">
+                                          {btnIcon ? renderIconByName(btnIcon) : (
+                                            <IconPlus className="h-4 w-4 text-muted-foreground" />
+                                          )}
+                                        </div>
+                                        <span className="text-sm text-muted-foreground flex-1 text-left truncate">
+                                          {btnIcon || "No icon"}
+                                        </span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </CollapsibleContent>
+                              </Collapsible>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+                }
+
                 // Parse field path like "features[].icon" or "signup_card.features[].icon"
                 // Matches: optional.nested.path.arrayName[].fieldName
                 const match = fieldPath.match(/^([\w.]+)\[\]\.([\w.]+)$/);
@@ -5103,104 +5240,6 @@ export function SectionEditorPanel({
                       </div>
                     </div>
                   );
-                }
-
-                if (
-                  editorType === "link-picker" &&
-                  (arrayPath === "cta_buttons" || arrayPath === "cta" || arrayPath.endsWith(".cta_buttons"))
-                ) {
-                  return (
-                    <div key={fieldPath} className="space-y-3">
-                      <Label className="text-sm font-medium">
-                        CTA Buttons ({safeArrayData.length})
-                      </Label>
-                      <div className="space-y-2">
-                        {safeArrayData.map((item, index) => {
-                          const btnText = (item.text as string) || `Button ${index + 1}`;
-                          const btnUrl = (item.url as string) || "";
-                          const btnIcon = (item.icon as string) || "";
-                          const btnVariant = (item.variant as string) || "";
-
-                          return (
-                            <Collapsible key={index} className="border rounded-md">
-                              <CollapsibleTrigger asChild>
-                                <button
-                                  type="button"
-                                  className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
-                                  data-testid={`props-cta-button-${index}-trigger`}
-                                >
-                                  <div className="w-8 h-8 rounded-md bg-muted border flex-shrink-0 flex items-center justify-center">
-                                    {btnIcon ? (
-                                      renderIconByName(btnIcon)
-                                    ) : (
-                                      <span className="text-xs text-muted-foreground">#{index + 1}</span>
-                                    )}
-                                  </div>
-                                  <div className="flex-1 text-left">
-                                    <span className="text-sm font-medium block">{btnText}</span>
-                                    {btnVariant && (
-                                      <span className="text-xs text-muted-foreground">{btnVariant}</span>
-                                    )}
-                                  </div>
-                                  <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                                </button>
-                              </CollapsibleTrigger>
-                              <CollapsibleContent>
-                                <div className="p-3 pt-0 space-y-3 border-t">
-                                  <div className="space-y-1">
-                                    <Label className="text-xs text-muted-foreground">URL</Label>
-                                    <LinkPicker
-                                      value={btnUrl}
-                                      onChange={(url) =>
-                                        updateArrayItemField(arrayPath, index, "url", url)
-                                      }
-                                      locale={locale}
-                                      allSections={allSections}
-                                      testId={`props-cta-button-${index}-url`}
-                                    />
-                                  </div>
-                                  <div className="space-y-1">
-                                    <Label className="text-xs text-muted-foreground">Icono</Label>
-                                    <button
-                                      type="button"
-                                      onClick={() => {
-                                        setIconPickerTarget({
-                                          arrayField: arrayPath,
-                                          index,
-                                          field: "icon",
-                                          label: btnText,
-                                          currentIcon: btnIcon,
-                                        });
-                                        setIconPickerOpen(true);
-                                      }}
-                                      className="flex items-center gap-2 w-full p-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors"
-                                      data-testid={`props-cta-button-${index}-icon`}
-                                    >
-                                      <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">
-                                        {btnIcon ? renderIconByName(btnIcon) : (
-                                          <IconPlus className="h-4 w-4 text-muted-foreground" />
-                                        )}
-                                      </div>
-                                      <span className="text-sm text-muted-foreground flex-1 text-left truncate">
-                                        {btnIcon || "Sin icono"}
-                                      </span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </CollapsibleContent>
-                            </Collapsible>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                }
-
-                if (
-                  editorType === "icon-picker" &&
-                  (arrayPath === "cta_buttons" || arrayPath.endsWith(".cta_buttons"))
-                ) {
-                  return null;
                 }
 
                 {
