@@ -2,8 +2,8 @@
   "config": {
     "commitIntervalSeconds": 5
   },
-  "lastSyncedCommit": "9827e65b441ca3337faeb11b43f242d97ebdb3b5",
-  "lastSyncedAt": "2026-02-23T17:27:41.285Z",
+  "lastSyncedCommit": "c0f5a94bc96616a734202d221a473b0eb9a17f3a",
+  "lastSyncedAt": "2026-02-23T18:14:45.085Z",
   "files": {
     "marketing-content/blog.yml": {
       "sha": "8acf85c8fbe1d1e59d8a0ab115bd44ecfe84b19289e0c26eacea8c30a26d25e1",
@@ -796,9 +796,9 @@
       "remoteSha": "981c3e0004871b4dc4e890660d464b9390c25046a5d056001c902e2447d6d2fa"
     },
     "marketing-content/pages/financials/es.yml": {
-      "sha": "8f744073061e92fc1320267eeab085f31077f41b953aa81a3c43639aaa8329b2",
-      "lastModified": 1771859943429.5613,
-      "remoteSha": "8f744073061e92fc1320267eeab085f31077f41b953aa81a3c43639aaa8329b2"
+      "sha": "e35d554ba50d34644758469ce2f58ecc3b5b6ae56eb7eac4c3f373ccf0d00716",
+      "lastModified": 1771869980421.4836,
+      "remoteSha": "e35d554ba50d34644758469ce2f58ecc3b5b6ae56eb7eac4c3f373ccf0d00716"
     },
     "marketing-content/pages/geekforce-career-support/_common.yml": {
       "sha": "f83717a3761082e14bc2fa7336df1d5341ddfcf85b859175d43d4aa681bfd5f1",
@@ -822,7 +822,7 @@
     },
     "marketing-content/pages/geekpal-support/en.yml": {
       "sha": "9d54319fff3d8e012c19e81f10ed8d3132d102a436c3e3bd1b78b5cc7b8c8853",
-      "lastModified": 1771867657539.1016,
+      "lastModified": 1771870481913.6204,
       "remoteSha": "9d54319fff3d8e012c19e81f10ed8d3132d102a436c3e3bd1b78b5cc7b8c8853"
     },
     "marketing-content/pages/geekpal-support/es.yml": {
@@ -927,7 +927,7 @@
     },
     "marketing-content/pages/outcomes/es.yml": {
       "sha": "5f807205008fe2f792db4acd68c76598f8234d547639900c29ac26a4c1056317",
-      "lastModified": 1771867343912.3408,
+      "lastModified": 1771870126451.131,
       "remoteSha": "5f807205008fe2f792db4acd68c76598f8234d547639900c29ac26a4c1056317"
     },
     "marketing-content/pages/partners/_common.yml": {
@@ -1102,10 +1102,8 @@
     },
     "marketing-content/programs/ai-engineering/en.yml": {
       "sha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598",
-      "lastModified": 1771868187584.4368,
-      "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598",
-      "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-23T17:36:27.586Z"
+      "lastModified": 1771870484746.6177,
+      "remoteSha": "f121b200d6b3ef59adac3bbc997b93599802beedd532ef9bdbf579f439432598"
     },
     "marketing-content/programs/ai-engineering/es.yml": {
       "sha": "aad912e733e19ce4a4e88154904b640d225067b85c2eddf98e55c6d47bf062cb",
