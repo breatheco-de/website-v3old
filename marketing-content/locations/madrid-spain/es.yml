@@ -348,7 +348,7 @@ sections:
   - type: profiles_carousel
     version: v1.0
     heading: Conoce a los Geeks
-    description: Nuestro equipo está dedicado, es muy capaz y siempre listo para apoyarte en tu camino hacia la tecnología. Te brindan la orientación y el ánimo que necesitas para lanzar una carrera exitosa.
+    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
     image_round: false
     profiles:
       - image_id: alejandro_sanchez
