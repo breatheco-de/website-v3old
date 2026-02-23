@@ -131,8 +131,8 @@ export function SectionBindingDialog({
 
   const matchingGroups = useMemo(() => {
     if (!allGroupsData?.groups) return [];
-    return allGroupsData.groups.filter(g => g.component === component && g.locale === locale);
-  }, [allGroupsData, component, locale]);
+    return allGroupsData.groups.filter(g => g.component === component);
+  }, [allGroupsData, component]);
 
   const availableCandidates = useMemo(() => {
     return candidates.filter(c => candidateKey(c) !== currentKey);

@@ -126,12 +126,20 @@ class BindingManager {
     return this.data.groups.find(g => g.id === groupId);
   }
 
-  findGroupForSection(contentType: string, slug: string, sectionIndex: number): BindingGroup | undefined {
+  findGroupForSection(contentType: string, slug: string, sectionIndex: number, component?: string): BindingGroup | undefined {
     this.ensureLoaded();
     const key = this.memberKey(contentType, slug, sectionIndex);
     const groupId = this.memberIndex.get(key);
-    if (!groupId) return undefined;
-    return this.data.groups.find(g => g.id === groupId);
+    if (groupId) return this.data.groups.find(g => g.id === groupId);
+
+    if (component) {
+      const matches = this.data.groups.filter(g =>
+        g.component === component &&
+        g.members.some(m => m.contentType === contentType && m.slug === slug)
+      );
+      if (matches.length === 1) return matches[0];
+    }
+    return undefined;
   }
 
   findGroupsForPage(contentType: string, slug: string): BindingGroup[] {
