@@ -1903,6 +1903,54 @@ export function SectionEditorPanel({
                 />
               </>
             )}
+            {/* Testimonials (carousel) related features picker */}
+            {sectionType === "testimonials" && (
+              <>
+                <div
+                  className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
+                  data-testid="alert-testimonials-carousel-edit-info"
+                >
+                  <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-800 dark:text-amber-200">
+                    {locale === "es"
+                      ? "Cuando se seleccionan características, los testimonios se cargan del banco centralizado. Sin características, se usan los items del YAML."
+                      : "When features are selected, testimonials load from the centralized bank. Without features, YAML items are used."}
+                  </p>
+                </div>
+                <RelatedFeaturesPicker
+                  value={(parsedSection?.related_features as string[]) || []}
+                  onChange={(value) =>
+                    updateArrayProperty("related_features", value)
+                  }
+                  locale={locale}
+                  context="testimonials"
+                />
+              </>
+            )}
+            {/* Testimonials Slide (marquee) related features picker */}
+            {sectionType === "testimonials_slide" && (
+              <>
+                <div
+                  className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
+                  data-testid="alert-testimonials-slide-edit-info"
+                >
+                  <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-800 dark:text-amber-200">
+                    {locale === "es"
+                      ? "Cuando se seleccionan características, los testimonios se cargan del banco centralizado. Sin características, se usan los testimonios por defecto."
+                      : "When features are selected, testimonials load from the centralized bank. Without features, default testimonials are used."}
+                  </p>
+                </div>
+                <RelatedFeaturesPicker
+                  value={(parsedSection?.related_features as string[]) || []}
+                  onChange={(value) =>
+                    updateArrayProperty("related_features", value)
+                  }
+                  locale={locale}
+                  context="testimonials"
+                />
+              </>
+            )}
             {sectionType === "dynamic_table" && parsedSection?.endpoint && (
               <>
                 <div className="space-y-2">
