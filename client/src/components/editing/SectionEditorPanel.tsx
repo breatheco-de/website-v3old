@@ -489,10 +489,10 @@ function TableVariantPreview({ variant }: { variant: string }) {
   if (variant === "comparison") {
     return (
       <div className="rounded-lg overflow-hidden shadow-sm ring-1 ring-black/5">
-        <div className="flex">
-          <div className="flex-1 h-2.5 m-1 rounded bg-muted/50" />
-          <div className="flex-1 h-2.5 m-1 rounded bg-gradient-to-r from-primary to-primary/80" />
-          <div className="flex-1 h-2.5 m-1 rounded bg-muted-foreground/10" />
+        <div className="flex bg-gradient-to-r from-primary to-primary/80">
+          <div className="flex-1 h-2.5 m-1 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2.5 m-1 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2.5 m-1 rounded bg-primary-foreground/30" />
         </div>
         {rows.map((i) => (
           <div key={i} className={`flex ${i % 2 === 0 ? "" : "bg-primary/5"}`}>

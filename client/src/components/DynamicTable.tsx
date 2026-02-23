@@ -406,35 +406,21 @@ function ComparisonLayout({
             className="grid"
             style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
           >
-            {columns.map((col, colIdx) => {
-              const hasMultipleCols = columns.length >= 2;
-              const isLabelCol = hasMultipleCols && colIdx === 0;
-              const isHighlightCol = hasMultipleCols && colIdx === 1;
-
-              return (
-                <div
-                  key={col.key}
-                  className={`py-5 px-6 font-semibold text-sm cursor-pointer select-none ${
-                    isLabelCol
-                      ? "bg-muted/50 text-muted-foreground text-left"
-                      : isHighlightCol
-                        ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center"
-                        : !hasMultipleCols
-                          ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center"
-                          : "bg-card text-foreground text-center"
-                  } ${colIdx < colCount - 1 ? "border-r border-border/50" : ""}`}
-                  onClick={() => onSort(col.key)}
-                  data-testid={`th-${col.key}`}
-                >
-                  <div className={`flex items-center gap-1 ${isLabelCol ? "" : "justify-center"}`}>
-                    {col.label}
-                    <SortIcon sortKey={sortKey} sortDir={sortDir} colKey={col.key} />
-                  </div>
+            {columns.map((col, colIdx) => (
+              <div
+                key={col.key}
+                className={`py-5 px-6 font-semibold text-sm cursor-pointer select-none bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center ${colIdx < colCount - 1 ? "border-r border-primary-foreground/20" : ""}`}
+                onClick={() => onSort(col.key)}
+                data-testid={`th-${col.key}`}
+              >
+                <div className="flex items-center gap-1 justify-center">
+                  {col.label}
+                  <SortIcon sortKey={sortKey} sortDir={sortDir} colKey={col.key} />
                 </div>
-              );
-            })}
+              </div>
+            ))}
             {action && (
-              <div className="py-5 px-6 font-semibold text-sm bg-card text-foreground text-center" data-testid="th-action">
+              <div className="py-5 px-6 font-semibold text-sm bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-center" data-testid="th-action">
                 {action.label}
               </div>
             )}
@@ -451,21 +437,12 @@ function ComparisonLayout({
                 data-testid={`row-${idx}`}
               >
                 {columns.map((col, colIdx) => {
-                  const hasMultipleCols = columns.length >= 2;
-                  const isLabelCol = hasMultipleCols && colIdx === 0;
-                  const isHighlightCol = hasMultipleCols && colIdx === 1;
                   const rowBg = idx % 2 === 0 ? "bg-card" : "bg-primary/5";
 
                   return (
                     <div
                       key={col.key}
-                      className={`py-4 px-6 text-sm flex items-center ${
-                        isLabelCol ? "text-left font-medium" : "text-center justify-center"
-                      } ${
-                        isLabelCol ? "bg-muted/50 text-muted-foreground" : rowBg
-                      } ${
-                        isHighlightCol ? "font-semibold text-foreground" : isLabelCol ? "" : "text-muted-foreground"
-                      } ${colIdx < colCount - 1 ? "border-r border-border/50" : ""}`}
+                      className={`py-4 px-6 text-sm flex items-center text-center justify-center ${rowBg} text-foreground ${colIdx < colCount - 1 ? "border-r border-border/50" : ""}`}
                       data-testid={`cell-${col.key}-${idx}`}
                     >
                       <CellValue value={getCellValue(row, col)} type={col.type} hasFunction={!!col.function} />
