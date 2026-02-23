@@ -308,10 +308,6 @@ sections:
           - text: Soporte 24/7 para depuración y resolución de errores
           - text: Cientos de ejercicios prácticos y evaluaciones técnicas
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          variant: primary
-          text: Aprende más rápidso con herramientas de IA
-          url: /es/programas-de-carrera/ingenieria-ia
       - icon: TrendingUp
         title: Acompañamiento profesional enfocado en tech
         description: ""
@@ -324,7 +320,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: ¡Empieza a aprender ahora!
-          url: /es/programas-de-carrera/ciberseguridad
+          url: /es/aplica
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
