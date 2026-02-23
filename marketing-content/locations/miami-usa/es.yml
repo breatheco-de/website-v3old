@@ -351,7 +351,7 @@ sections:
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
-    background: hsl(var(--primary))
+    background: hsl(210 100% 50% / 0.05)
     variant: form
     form:
       variant: stacked
