@@ -174,6 +174,7 @@ export function HeroCourse({ data }: HeroCourseProps) {
                     autoplay={data.video.autoplay !== false}
                     muted={data.video.muted !== false}
                     loop={data.video.loop !== false}
+                    preview_image_url={data.video.preview_image_url}
                   />
                 ) : data.media?.type === "video" ? (
                   <UniversalVideo
