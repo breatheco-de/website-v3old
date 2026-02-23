@@ -2388,6 +2388,9 @@ export function SectionEditorPanel({
                         </div>
 
                         <div className="space-y-1">
+                          <Label className="text-xs text-muted-foreground">
+                            Preview Image
+                          </Label>
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
@@ -2400,7 +2403,7 @@ export function SectionEditorPanel({
                                 });
                                 setImagePickerOpen(true);
                               }}
-                              className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
+                              className="relative w-12 h-12 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
                               data-testid={`props-video-${fieldLabel}-preview-image`}
                               title="Change preview image"
                             >
@@ -2439,7 +2442,7 @@ export function SectionEditorPanel({
                                 </div>
                               ) : (
                                 <span className="text-xs text-muted-foreground italic">
-                                  No preview image selected
+                                  No preview image
                                 </span>
                               )}
                             </div>

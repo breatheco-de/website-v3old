@@ -19,7 +19,7 @@ sections:
   - type: hero
     variant: showcase
     title: Where AI Careers Are Built.
-    subtitle: AI-native programs in AI Engineering, Data Science, Software Development and Cybersecurity for high-demand roles in tech.
+    subtitle: AI-native programs in AI Engineering, Data Science, Software Development, and Cybersecurity for today’s tech job market.
     trust_bar:
       rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 3,000+

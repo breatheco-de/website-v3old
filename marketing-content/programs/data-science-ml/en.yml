@@ -44,8 +44,6 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
-    video:
-      url: https://youtu.be/snI-n8Ruvxg
     media:
       type: video
       src: https://www.youtube.com/watch?v=snI-n8Ruvxg&t=27s
