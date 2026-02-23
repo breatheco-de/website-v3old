@@ -23,9 +23,10 @@ interface BankTestimonial {
 
 interface TestimonialItemsPreviewProps {
   relatedFeatures: string[];
-  itemStyles: Record<string, { box_color?: string; name_color?: string; comment_color?: string }>;
+  itemStyles?: Record<string, { box_color?: string; name_color?: string; comment_color?: string }>;
   locale: string;
-  onUpdateItemStyle: (studentName: string, prop: string, value: string) => void;
+  onUpdateItemStyle?: (studentName: string, prop: string, value: string) => void;
+  readOnly?: boolean;
 }
 
 const ANONYMOUS_NAMES = ["anonymous", "anonimous", "anónimo", "anonimo", "anon"];
@@ -51,9 +52,10 @@ function getInitials(name: string): string {
 
 export function TestimonialItemsPreview({
   relatedFeatures,
-  itemStyles,
+  itemStyles = {},
   locale,
   onUpdateItemStyle,
+  readOnly = false,
 }: TestimonialItemsPreviewProps) {
   const { data: bankData, isLoading } = useQuery<{ testimonials: BankTestimonial[] }>({
     queryKey: ["/api/testimonials", locale],
@@ -121,7 +123,8 @@ export function TestimonialItemsPreview({
             item={item}
             style={itemStyles[item.student_name]}
             locale={locale}
-            onUpdateStyle={(prop, value) => onUpdateItemStyle(item.student_name, prop, value)}
+            onUpdateStyle={(prop, value) => onUpdateItemStyle?.(item.student_name, prop, value)}
+            readOnly={readOnly}
           />
         ))}
       </div>
@@ -134,12 +137,13 @@ interface TestimonialItemRowProps {
   style?: { box_color?: string; name_color?: string; comment_color?: string };
   locale: string;
   onUpdateStyle: (prop: string, value: string) => void;
+  readOnly?: boolean;
 }
 
-function TestimonialItemRow({ item, style, locale, onUpdateStyle }: TestimonialItemRowProps) {
+function TestimonialItemRow({ item, style, locale, onUpdateStyle, readOnly = false }: TestimonialItemRowProps) {
   const [isOpen, setIsOpen] = useState(false);
   const text = item.excerpt || item.short_content || item.content || item.full_text || "";
-  const hasCustomStyle = style?.box_color || style?.name_color || style?.comment_color;
+  const hasCustomStyle = !readOnly && (style?.box_color || style?.name_color || style?.comment_color);
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -183,29 +187,31 @@ function TestimonialItemRow({ item, style, locale, onUpdateStyle }: TestimonialI
           {text && (
             <p className="text-[11px] text-muted-foreground line-clamp-3 italic">&ldquo;{text}&rdquo;</p>
           )}
-          <div className="space-y-2">
-            <ColorPicker
-              value={style?.box_color || ""}
-              onChange={(value) => onUpdateStyle("box_color", value)}
-              type="background"
-              label={locale === "es" ? "Fondo" : "Background"}
-              testIdPrefix={`testimonial-${item.student_name}-box`}
-            />
-            <ColorPicker
-              value={style?.name_color || ""}
-              onChange={(value) => onUpdateStyle("name_color", value)}
-              type="text"
-              label={locale === "es" ? "Color de nombre" : "Name color"}
-              testIdPrefix={`testimonial-${item.student_name}-name`}
-            />
-            <ColorPicker
-              value={style?.comment_color || ""}
-              onChange={(value) => onUpdateStyle("comment_color", value)}
-              type="text"
-              label={locale === "es" ? "Color de texto" : "Text color"}
-              testIdPrefix={`testimonial-${item.student_name}-comment`}
-            />
-          </div>
+          {!readOnly && (
+            <div className="space-y-2">
+              <ColorPicker
+                value={style?.box_color || ""}
+                onChange={(value) => onUpdateStyle("box_color", value)}
+                type="background"
+                label={locale === "es" ? "Fondo" : "Background"}
+                testIdPrefix={`testimonial-${item.student_name}-box`}
+              />
+              <ColorPicker
+                value={style?.name_color || ""}
+                onChange={(value) => onUpdateStyle("name_color", value)}
+                type="text"
+                label={locale === "es" ? "Color de nombre" : "Name color"}
+                testIdPrefix={`testimonial-${item.student_name}-name`}
+              />
+              <ColorPicker
+                value={style?.comment_color || ""}
+                onChange={(value) => onUpdateStyle("comment_color", value)}
+                type="text"
+                label={locale === "es" ? "Color de texto" : "Text color"}
+                testIdPrefix={`testimonial-${item.student_name}-comment`}
+              />
+            </div>
+          )}
         </div>
       </CollapsibleContent>
     </Collapsible>
