@@ -5105,6 +5105,104 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (
+                  editorType === "link-picker" &&
+                  (arrayPath === "cta_buttons" || arrayPath.endsWith(".cta_buttons"))
+                ) {
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium">
+                        CTA Buttons ({safeArrayData.length})
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => {
+                          const btnText = (item.text as string) || `Button ${index + 1}`;
+                          const btnUrl = (item.url as string) || "";
+                          const btnIcon = (item.icon as string) || "";
+                          const btnVariant = (item.variant as string) || "";
+
+                          return (
+                            <Collapsible key={index} className="border rounded-md">
+                              <CollapsibleTrigger asChild>
+                                <button
+                                  type="button"
+                                  className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
+                                  data-testid={`props-cta-button-${index}-trigger`}
+                                >
+                                  <div className="w-8 h-8 rounded-md bg-muted border flex-shrink-0 flex items-center justify-center">
+                                    {btnIcon ? (
+                                      renderIconByName(btnIcon)
+                                    ) : (
+                                      <span className="text-xs text-muted-foreground">#{index + 1}</span>
+                                    )}
+                                  </div>
+                                  <div className="flex-1 text-left">
+                                    <span className="text-sm font-medium block">{btnText}</span>
+                                    {btnVariant && (
+                                      <span className="text-xs text-muted-foreground">{btnVariant}</span>
+                                    )}
+                                  </div>
+                                  <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                                </button>
+                              </CollapsibleTrigger>
+                              <CollapsibleContent>
+                                <div className="p-3 pt-0 space-y-3 border-t">
+                                  <div className="space-y-1">
+                                    <Label className="text-xs text-muted-foreground">URL</Label>
+                                    <LinkPicker
+                                      value={btnUrl}
+                                      onChange={(url) =>
+                                        updateArrayItemField(arrayPath, index, "url", url)
+                                      }
+                                      locale={locale}
+                                      allSections={allSections}
+                                      testId={`props-cta-button-${index}-url`}
+                                    />
+                                  </div>
+                                  <div className="space-y-1">
+                                    <Label className="text-xs text-muted-foreground">Icono</Label>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setIconPickerTarget({
+                                          arrayField: arrayPath,
+                                          index,
+                                          field: "icon",
+                                          label: btnText,
+                                          currentIcon: btnIcon,
+                                        });
+                                        setIconPickerOpen(true);
+                                      }}
+                                      className="flex items-center gap-2 w-full p-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors"
+                                      data-testid={`props-cta-button-${index}-icon`}
+                                    >
+                                      <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">
+                                        {btnIcon ? renderIconByName(btnIcon) : (
+                                          <IconPlus className="h-4 w-4 text-muted-foreground" />
+                                        )}
+                                      </div>
+                                      <span className="text-sm text-muted-foreground flex-1 text-left truncate">
+                                        {btnIcon || "Sin icono"}
+                                      </span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </CollapsibleContent>
+                            </Collapsible>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (
+                  editorType === "icon-picker" &&
+                  (arrayPath === "cta_buttons" || arrayPath.endsWith(".cta_buttons"))
+                ) {
+                  return null;
+                }
+
                 {
                   const getItemLabel = (item: Record<string, unknown>, idx: number) =>
                     (item.tab_label as string) ||
