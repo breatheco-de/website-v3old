@@ -84,7 +84,7 @@ sections:
     size: md
     form:
       variant: stacked
-      submit_label: Get the information
+      submit_label: Send me the details
       tags: request_more_info
       automations: soft
       fields:
