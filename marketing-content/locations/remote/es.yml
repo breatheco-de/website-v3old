@@ -230,44 +230,43 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech desde Cualquier Lugar?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
-    cta_text: Aplicar Ahora
-    cta_url: /es/aplica?location=remote
-    background: hsl(var(--primary))
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
-      tags: website-lead
-      automations: hard
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Email
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: Nombre y Apellido
         phone:
           visible: true
           required: false
           placeholder: Teléfono
         program:
           visible: true
-          required: true
+          required: false
           default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    marginY:
-      desktop: lg none
+    terms_color: hsl(var(--card))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))

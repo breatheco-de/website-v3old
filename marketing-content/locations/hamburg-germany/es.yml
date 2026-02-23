@@ -327,12 +327,43 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech en Hamburgo?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
-    background: hsl(var(--primary))
-    cta_text: Aplicar Ahora
-    cta_url: /es/apply?location=hamburg-germany
-    marginY:
-      desktop: lg none
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre y Apellido
+        phone:
+          visible: true
+          required: false
+          placeholder: Teléfono
+        program:
+          visible: true
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    terms_color: hsl(var(--card))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
