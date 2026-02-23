@@ -109,10 +109,10 @@ sections:
           required: true
         last_name:
           visible: true
-          required: false
+          required: true
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           default: ai-engineering
