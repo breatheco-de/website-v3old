@@ -16,84 +16,16 @@ sections:
     badge: Campus Online
     cta_buttons:
       - text: Aplicar Ahora
-        url: "#bottom"
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: "#syllabus-modal"
+        url: "#cta_banner-12"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    section_id: syllabus-modal
-    heading: Comienza tu Aplicación
-    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Enviar Aplicación
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Gracias. Nos pondremos en contacto en 24 horas.
-  - type: awards_marquee
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
-    items:
-      - id: switchup-2025
-        logo: /attached_assets/switchup_1765590146414.webp
-        alt: SwitchUp - Mejores Coding Bootcamps 2025
-        logoHeight: 56px
-      - id: course-report-2024
-        logo: /attached_assets/course-report_1765590146414.webp
-        alt: Course Report - Mejor Coding Bootcamp 2024
-        logoHeight: 56px
-      - id: tech-hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
-        alt: South Florida Tech Hub
-        logoHeight: 56px
-      - id: ebootcamp
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
-        alt: eBootcamp Top
-        logoHeight: 56px
-      - id: premios-tecnologia
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
-        alt: Premios Tecnología Siglo XXI
-        logoHeight: 56px
-      - id: newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
-        alt: Newsweek
-        logoHeight: 56px
-      - id: reviews-coursereport
-        logo: /attached_assets/reviews_1765549549051.png
-        alt: 4.9 en Reseñas de Course Report
-        logoHeight: 56px
-      - id: excelencia-educativa
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
-        alt: Excelencia Educativa - Calidad Institucional
-        logoHeight: 56px
-    marginY:
-      desktop: lg none
   - type: banner
     version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
@@ -130,55 +62,69 @@ sections:
       desktop: none md
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programas Cubiertos por la Garantía de Empleo
-    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
+    variant: solid
+    heading: Explora Nuestros Programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
-      - name: Full Stack Development
-        duration: 9 meses part-time
-        label: Actualizado en 2025
-        title: Desarrollo Full Stack de Software
+      - name: Ingeniería de IA
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
+        badges:
+          - icon: Cpu
+            text: LLMs, Agentes de IA y Automatización
+          - icon: Database
+            text: Sistemas de IA en Producción
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
+        course_background: hsl(var(--accent))
+      - name: Desarrollo Full Stack con IA
+        icon: Code
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo de Software Full Stack
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: React, Node.js y Python
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $439
-        original_price: $588
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/full-stack
-        course_background: hsl(var(--primary) / 0.4)
-      - name: AI and Machine Learning
-        duration: 9 meses part-time
-        label: Actualizado en 2025
-        title: Data Science y Machine Learning
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        course_background: hsl(var(--destructive))
+      - name: Ciencia de Datos y ML
+        icon: ChartLine
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
         badges:
-          - icon: Brain
-            text: LLMs y entrenamiento en IA Generativa
-        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $439
-        original_price: $588
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/ai-machine-learning
-        course_background: accent
-      - name: Cybersecurity
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+          - icon: BrainCircuit
+            text: Machine Learning y Modelos de IA
+          - icon: BarChart
+            text: Análisis y Visualización de Datos
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+        course_background: hsl(var(--primary))
+      - name: Ciberseguridad
+        icon: Shield
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Ciberseguridad
         badges:
-          - icon: Code
-            text: Detección de amenazas y protección de sistemas
-        description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $439
-        original_price: $588
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/cybersecurity
-        course_background: hsl(var(--color-pink))
+          - icon: Lock
+            text: Detección de Amenazas y Seguridad de Redes
+          - icon: Server
+            text: Seguridad en la Nube
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
+        course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -221,7 +167,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
-    description: "Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial."
+    description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -298,47 +244,46 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech desde Cualquier Lugar?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
-    cta_text: Aplicar Ahora
-    cta_url: /es/aplica?location=remote
-    background: hsl(var(--primary))
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
-      tags: website-lead
-      automations: hard
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Email
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: Nombre y Apellido
         phone:
           visible: true
           required: false
           placeholder: Teléfono
         program:
           visible: true
-          required: true
+          required: false
           default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    marginY:
-      desktop: lg none
+    terms_color: hsl(var(--card))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

@@ -4159,6 +4159,7 @@ Important: Only include mappings where you are confident the field exists. Use d
                 entry.slug,
                 i,
               );
+              const sameLocaleGroup = existingGroup && existingGroup.locale === normalizedLocale ? existingGroup : undefined;
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
@@ -4167,8 +4168,8 @@ Important: Only include mappings where you are confident the field exists. Use d
                   ((merged.meta as Record<string, unknown>)?.title as string) ||
                   entry.title ||
                   entry.slug,
-                alreadyBound: existingGroup?.id,
-                alreadyBoundGroupName: existingGroup?.name,
+                alreadyBound: sameLocaleGroup?.id,
+                alreadyBoundGroupName: sameLocaleGroup?.name,
               });
             }
           }
