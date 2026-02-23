@@ -731,7 +731,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
     if (!contentType || !slug || !locale) return;
 
     try {
-      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}`);
+      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}&locale=${locale}`);
       const data = await res.json();
       if (data.group && data.group.members && data.group.members.length > 1) {
         setDeleteDialog({ open: true, index, bindingGroup: data.group, isDeleting: false });

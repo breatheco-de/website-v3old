@@ -4098,7 +4098,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
   app.get("/api/bindings/section", (req, res) => {
     try {
-      const { contentType, slug, sectionIndex } = req.query;
+      const { contentType, slug, sectionIndex, locale } = req.query;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -4109,6 +4109,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType as string,
         slug as string,
         parseInt(sectionIndex as string, 10),
+        locale as string | undefined,
       );
       res.json({ group: group || null });
     } catch (error) {
@@ -4158,8 +4159,9 @@ Important: Only include mappings where you are confident the field exists. Use d
                 entryContentType,
                 entry.slug,
                 i,
+                normalizedLocale,
               );
-              const sameLocaleGroup = existingGroup && existingGroup.locale === normalizedLocale ? existingGroup : undefined;
+              const sameLocaleGroup = existingGroup;
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
@@ -4474,6 +4476,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               sIdx,
               updatedSection,
               authorName,
+              normalizedLocaleForBinding,
             );
             if (propagation.errors.length > 0) {
               bindingWarnings = propagation.errors;
