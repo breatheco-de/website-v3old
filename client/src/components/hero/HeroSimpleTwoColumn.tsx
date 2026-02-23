@@ -2,19 +2,13 @@ import type { HeroSimpleTwoColumn as HeroSimpleTwoColumnType } from "@shared/sch
 import { Button } from "@/components/ui/button";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { UniversalVideo } from "@/components/UniversalVideo";
-import * as TablerIcons from "@tabler/icons-react";
-import type { ComponentType } from "react";
+import { createElement } from "react";
+import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 interface HeroSimpleTwoColumnProps {
   data: HeroSimpleTwoColumnType;
 }
-
-const getIcon = (iconName: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
-  return IconComponent ? <IconComponent className="w-5 h-5" /> : null;
-};
 
 const DEFAULT_IMAGE_SRC = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop";
 const DEFAULT_IMAGE_ALT = "Students learning together";
@@ -100,7 +94,7 @@ export function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) {
                     data-testid={`button-hero-cta-${index}`}
                   >
                     <a href={button.url} onClick={handleLinkClick} className="flex items-center gap-2">
-                      {button.icon && getIcon(button.icon)}
+                      {button.icon && (() => { const Ic = getIcon(button.icon); return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null; })()}
                       {button.text}
                     </a>
                   </Button>
