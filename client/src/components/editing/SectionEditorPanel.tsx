@@ -2613,7 +2613,6 @@ export function SectionEditorPanel({
                 "link-picker",
                 "rich-text-editor",
                 "variant-picker",
-                "icon-picker",
               ]);
               const groupedArrayPaths = new Set(
                 Object.entries(arrayFieldGroups)
@@ -2951,11 +2950,6 @@ export function SectionEditorPanel({
                                           <button
                                             type="button"
                                             onClick={() => {
-                                              if (fieldKey.includes(".")) {
-                                                setNestedUpdateFn(() => (iconName: string) => {
-                                                  updateNestedField(index, fieldKey, iconName);
-                                                });
-                                              }
                                               setIconPickerTarget({
                                                 arrayField: arrPath,
                                                 index,
@@ -3666,7 +3660,6 @@ export function SectionEditorPanel({
                     "link-picker",
                     "rich-text-editor",
                     "variant-picker",
-                    "icon-picker",
                   ]);
                   const allForArr = Object.entries(configuredFields).filter(
                     ([fp]) => fp.startsWith(`${arrPathCheck}[].`),
@@ -3703,9 +3696,9 @@ export function SectionEditorPanel({
                 }
 
                 if (isSimpleField && editorType === "link-picker") {
-                  const getNestedSimpleValue = (path: string) => {
+                  const getSimpleLinkValue = () => {
                     if (!parsedSection) return "";
-                    const pathParts = path.split(".");
+                    const pathParts = fieldPath.split(".");
                     let current: unknown = parsedSection;
                     for (const part of pathParts) {
                       if (!current || typeof current !== "object") return "";
@@ -3714,92 +3707,8 @@ export function SectionEditorPanel({
                     return (current as string) || "";
                   };
 
-                  const currentValue = getNestedSimpleValue(fieldPath);
+                  const currentValue = getSimpleLinkValue();
                   const fieldLabel = getFieldLabel(fieldPath);
-
-                  const urlParts = fieldPath.split(".");
-                  const lastPart = urlParts[urlParts.length - 1];
-                  const parentPrefix = urlParts.slice(0, -1).join(".");
-                  const siblingIconPath = parentPrefix ? `${parentPrefix}.icon` : "icon";
-                  const hasSiblingIcon = lastPart === "url" && configuredFields[siblingIconPath] === "icon-picker";
-
-                  if (hasSiblingIcon) {
-                    const ctaUrl = currentValue;
-                    const ctaIcon = getNestedSimpleValue(siblingIconPath);
-                    const ctaText = getNestedSimpleValue(parentPrefix ? `${parentPrefix}.text` : "text") || "CTA";
-                    const ctaLabel = parentPrefix ? getFieldLabel(parentPrefix) : "CTA";
-
-                    return (
-                      <div key={fieldPath} className="space-y-2">
-                        <Label className="text-sm font-medium">{ctaLabel}</Label>
-                        <Collapsible className="border rounded-md">
-                          <CollapsibleTrigger asChild>
-                            <button
-                              type="button"
-                              className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
-                              data-testid={`props-cta-${fieldPath.replace(/\./g, "-")}-trigger`}
-                            >
-                              <div className="w-8 h-8 rounded-md bg-muted border flex-shrink-0 flex items-center justify-center">
-                                {ctaIcon ? (
-                                  renderIconByName(ctaIcon)
-                                ) : (
-                                  <IconLink className="h-4 w-4 text-muted-foreground" />
-                                )}
-                              </div>
-                              <div className="flex-1 text-left">
-                                <span className="text-sm font-medium block">{ctaText}</span>
-                              </div>
-                              <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                            </button>
-                          </CollapsibleTrigger>
-                          <CollapsibleContent>
-                            <div className="p-3 pt-0 space-y-3 border-t">
-                              <div className="space-y-1">
-                                <Label className="text-xs text-muted-foreground">URL</Label>
-                                <LinkPicker
-                                  value={ctaUrl}
-                                  onChange={(url) => updateProperty(fieldPath, url)}
-                                  locale={locale}
-                                  allSections={allSections}
-                                  testId={`props-link-${fieldPath.replace(/\./g, "-")}`}
-                                />
-                              </div>
-                              <div className="space-y-1">
-                                <Label className="text-xs text-muted-foreground">Icono</Label>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setNestedUpdateFn(() => (iconName: string) => {
-                                      updateProperty(siblingIconPath, iconName);
-                                    });
-                                    setIconPickerTarget({
-                                      arrayField: "",
-                                      index: 0,
-                                      field: "icon",
-                                      label: ctaText,
-                                      currentIcon: ctaIcon,
-                                    });
-                                    setIconPickerOpen(true);
-                                  }}
-                                  className="flex items-center gap-2 w-full p-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors"
-                                  data-testid={`props-icon-${siblingIconPath.replace(/\./g, "-")}`}
-                                >
-                                  <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">
-                                    {ctaIcon ? renderIconByName(ctaIcon) : (
-                                      <IconPlus className="h-4 w-4 text-muted-foreground" />
-                                    )}
-                                  </div>
-                                  <span className="text-sm text-muted-foreground flex-1 text-left truncate">
-                                    {ctaIcon || "Sin icono"}
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </CollapsibleContent>
-                        </Collapsible>
-                      </div>
-                    );
-                  }
 
                   return (
                     <div key={fieldPath} className="space-y-2">
@@ -3815,13 +3724,6 @@ export function SectionEditorPanel({
                       />
                     </div>
                   );
-                }
-
-                if (isSimpleField && editorType === "icon-picker" && fieldPath.endsWith(".icon")) {
-                  const urlSiblingPath = fieldPath.replace(/\.icon$/, ".url");
-                  if (configuredFields[urlSiblingPath] === "link-picker") {
-                    return null;
-                  }
                 }
 
                 // Handle simple field paths with image-with-style-picker (e.g., "left.image" or just "image")
