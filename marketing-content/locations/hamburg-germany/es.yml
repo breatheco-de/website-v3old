@@ -384,12 +384,13 @@ sections:
     title: Preguntas Frecuentes
     related_features:
       - certification
-      - job-guarantee
+      - outcomes
+      - career-support
     marginY:
       desktop: lg none
-    background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech en Hamburgo?
