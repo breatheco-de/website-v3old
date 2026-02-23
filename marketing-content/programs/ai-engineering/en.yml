@@ -102,7 +102,7 @@ sections:
           required: true
           default: ai-engineering
       success:
-        message: Thank you. A program advisor will reach out within 24 hours.
+        message: Thank you. A program advisor will reach out within 24 hours with the full details.
   - type: awards_marquee
     version: v1.0
     speed: 40
