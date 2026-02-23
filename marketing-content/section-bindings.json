@@ -867,6 +867,70 @@
       ],
       "createdAt": "2026-02-23T22:40:40.743Z",
       "name": "course_selector_usa"
+    },
+    {
+      "id": "bind_mlzrhjen_b7esol",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionIndex": 4
+        }
+      ],
+      "createdAt": "2026-02-23T22:42:03.263Z",
+      "name": "course_selector_europe"
     }
   ]
 }
