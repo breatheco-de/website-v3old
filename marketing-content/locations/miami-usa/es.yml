@@ -355,7 +355,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Get the details
+      submit_label: Descargar Programa
       tags: request_more_info
       automations: soft
       fields:
