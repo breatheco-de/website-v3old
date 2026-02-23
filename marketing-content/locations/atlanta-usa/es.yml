@@ -16,7 +16,7 @@ sections:
     badge: Campus Atlanta
     cta_buttons:
       - text: Aplicar Ahora
-        url: "#bottom"
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
         url: "#cta_banner-14"
