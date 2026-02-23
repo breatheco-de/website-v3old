@@ -46,6 +46,7 @@ sections:
     video:
       url: https://youtu.be/sSxJnelPJT8
       preview_image_url: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      ratio: "1:1"
     signup_card:
       title: Get the Full Syllabus
       description: Access the full 10-milestone roadmap and Company Case methodology.
