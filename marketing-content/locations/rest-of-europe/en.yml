@@ -129,9 +129,9 @@ sections:
       desktop: none md
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programs Covered by the Job Guarantee
-    subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
+    variant: solid
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
         icon: Brain
