@@ -78,7 +78,7 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Get the Full AI Engineering Program Overview
+    heading: Request Program Details
     description: Enter your details to receive the complete 10-milestone syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
