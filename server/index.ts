@@ -5,7 +5,9 @@ import { fallbackRedirectMiddleware } from "./redirects";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import path from "path";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 app.use(cookieParser());
