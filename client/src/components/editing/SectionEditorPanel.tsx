@@ -2312,6 +2312,7 @@ export function SectionEditorPanel({
                 const currentMuted = getVideoSiblingValue("muted");
                 const currentAutoplay = getVideoSiblingValue("autoplay");
                 const currentLoop = getVideoSiblingValue("loop");
+                const currentPreviewImage = (getVideoSiblingValue("preview_image_url") as string) || "";
 
                 const parentLabel = parentPrefix
                   ? parentPrefix.replace(/\.$/, "").split(".").pop() || "Video"
@@ -2383,6 +2384,68 @@ export function SectionEditorPanel({
                                 No video selected
                               </span>
                             )}
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <Label className="text-xs text-muted-foreground">
+                            Preview Image
+                          </Label>
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setImagePickerTarget({
+                                  fieldPath: parentPrefix + "preview_image_url",
+                                  label: "Preview Image",
+                                  currentSrc: currentPreviewImage,
+                                  currentAlt: "",
+                                });
+                                setImagePickerOpen(true);
+                              }}
+                              className="relative w-12 h-12 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
+                              data-testid={`props-video-${fieldLabel}-preview-image`}
+                              title="Change preview image"
+                            >
+                              {currentPreviewImage ? (
+                                <>
+                                  <img
+                                    src={currentPreviewImage}
+                                    alt="Preview"
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <IconPhoto className="h-4 w-4 text-white" />
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                              )}
+                            </button>
+                            <div className="flex-1 min-w-0">
+                              {currentPreviewImage ? (
+                                <div className="flex items-center gap-1">
+                                  <span className="text-xs text-muted-foreground truncate flex-1">
+                                    {currentPreviewImage.split("/").pop() || currentPreviewImage}
+                                  </span>
+                                  <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-6 w-6 flex-shrink-0"
+                                    onClick={() => updateProperty(parentPrefix + "preview_image_url", "")}
+                                    data-testid={`props-video-${fieldLabel}-preview-image-clear`}
+                                  >
+                                    <IconX className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              ) : (
+                                <span className="text-xs text-muted-foreground italic">
+                                  No preview image
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
 
