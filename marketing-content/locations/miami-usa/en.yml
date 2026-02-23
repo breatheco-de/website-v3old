@@ -420,8 +420,8 @@ sections:
     form:
       variant: stacked
       submit_label: Get the details
-      tags: website-lead
-      automations: hard
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true

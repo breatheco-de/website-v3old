@@ -5,7 +5,8 @@ meta:
   og_image: /images/locations/panamacity-og.jpg
   priority: 0.8
   change_frequency: monthly
-  redirects: []
+  redirects:
+    - /us/coding-campus/coding-bootcamp-panama
 sections:
   - type: hero
     version: "1.0"
@@ -369,8 +370,8 @@ sections:
     form:
       variant: stacked
       submit_label: Get the details
-      tags: website-lead
-      automations: hard
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true

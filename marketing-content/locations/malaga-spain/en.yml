@@ -9,17 +9,17 @@ meta:
     - /us/coding-campus/coding-bootcamp-malaga-spain
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Malaga
     subtitle: Train for in-demand tech roles, including AI Engineering, in Malaga's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
     badge: Malaga Campus
     cta_buttons:
       - text: Apply Now
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
       - text: Download Syllabus
-        url: '#syllabus-modal'
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -27,7 +27,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: syllabus-modal
     heading: Start Your Application
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -95,7 +95,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -123,13 +123,13 @@ sections:
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: default
     heading: Programs Covered by the Job Guarantee
     subheading: The Job Guarantee applies to select 4Geeks programs designed for direct hiring outcomes.
@@ -144,7 +144,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: 'Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  '
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -159,9 +159,9 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -175,7 +175,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: 'Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  '
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -189,13 +189,13 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: 'Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  '
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
@@ -235,7 +235,7 @@ sections:
     variant: laptop-edge
     title: Why Malaga Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech ecosystem with real hiring momentum
-    description: 'Malaga''s tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Malaga-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Malaga campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>'
+    description: "Malaga's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Malaga-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Malaga campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -265,7 +265,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Malaga Graduate Success Stories
     filter_by_location: malaga-spain
     marginY:
@@ -363,15 +363,15 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
     form:
       variant: stacked
       submit_label: Get the details
-      tags: website-lead
-      automations: hard
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
