@@ -31,16 +31,10 @@ sections:
       - text: AI-powered guidance from Rigobot 24/7
       - text: Lifelong access
       - text: Real community support
-    video:
-      url: https://youtu.be/D5nUZNL52-Q
-      ratio: "3:4"
-      muted: true
-      autoplay: false
-      loop: true
+    image_id: group_original
     paddingY:
       mobile: none lg
       desktop: md lg
-    image_id: group_original
   - type: banner
     version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
