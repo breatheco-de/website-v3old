@@ -2613,6 +2613,7 @@ export function SectionEditorPanel({
                 "link-picker",
                 "rich-text-editor",
                 "variant-picker",
+                "icon-picker",
               ]);
               const groupedArrayPaths = new Set(
                 Object.entries(arrayFieldGroups)
@@ -2950,6 +2951,11 @@ export function SectionEditorPanel({
                                           <button
                                             type="button"
                                             onClick={() => {
+                                              if (fieldKey.includes(".")) {
+                                                setNestedUpdateFn(() => (iconName: string) => {
+                                                  updateNestedField(index, fieldKey, iconName);
+                                                });
+                                              }
                                               setIconPickerTarget({
                                                 arrayField: arrPath,
                                                 index,
@@ -3660,6 +3666,7 @@ export function SectionEditorPanel({
                     "link-picker",
                     "rich-text-editor",
                     "variant-picker",
+                    "icon-picker",
                   ]);
                   const allForArr = Object.entries(configuredFields).filter(
                     ([fp]) => fp.startsWith(`${arrPathCheck}[].`),
