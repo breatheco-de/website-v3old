@@ -61,10 +61,10 @@ sections:
     badge: Campus Miami
     cta_buttons:
       - text: Aplicar Ahora
-        url: /es/aplica?location=miami-usa
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: /syllabus
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
