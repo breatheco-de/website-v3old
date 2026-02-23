@@ -16,6 +16,7 @@ export type EditorType =
   | "image-picker"
   | "image-picker:logo"
   | "link-picker"
+  | "video-picker"
   | "text-input"
   | "rich-text-editor"
   | "boolean-toggle";
@@ -41,4 +42,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "singleColumn:subtitle": "rich-text-editor",
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
+  "course:media.src": "video-picker",
 };
