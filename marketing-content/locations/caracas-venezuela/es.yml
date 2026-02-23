@@ -67,34 +67,6 @@ sections:
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    heading: Comienza tu Aplicación
-    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Enviar Aplicación
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Gracias. Nos pondremos en contacto en 24 horas.
-    section_id: syllabus-modal
   - type: awards_marquee
     version: v1.0
     speed: 40
