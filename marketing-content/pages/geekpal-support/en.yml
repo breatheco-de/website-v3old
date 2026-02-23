@@ -33,6 +33,7 @@ sections:
       - text: Real community support
     video:
       url: https://youtu.be/D5nUZNL52-Q
+      ratio: "4:3"
     paddingY:
       mobile: none lg
       desktop: md lg
