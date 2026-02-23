@@ -165,9 +165,9 @@ export function HeroCourse({ data }: HeroCourseProps) {
           
           {/* Media + signup column (right by default, left when reversed) */}
           <div className={cn("space-y-4", data.layout_reversed && "lg:order-1")}>
-            {(data.video?.url || data.media) && (
+            {(data.video?.url?.trim() || data.media) && (
               <div className="relative rounded-lg overflow-hidden aspect-video">
-                {data.video?.url ? (
+                {data.video?.url?.trim() ? (
                   <UniversalVideo
                     url={data.video.url}
                     ratio={data.video.ratio || "16:9"}
