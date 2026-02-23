@@ -2,5 +2,7 @@ export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link
 
 export const fieldEditors: Record<string, EditorType> = {
   "cta.url": "link-picker",
+  "cta.icon": "icon-picker",
   "features[].cta.url": "link-picker",
+  "features[].cta.icon": "icon-picker",
 };
