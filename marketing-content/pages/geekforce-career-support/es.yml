@@ -249,6 +249,18 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - houston-usa
+      - dallas-usa
+      - miami-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: whos_hiring
     variant: carousel
     title: Principales Empresas Tecnológicas que Contratan Egresados de 4Geeks
