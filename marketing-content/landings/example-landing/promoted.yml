@@ -17,7 +17,6 @@ schema:
     - website
 sections:
   - type: testimonials_slide
-    version: "1.0"
     title: Real Careers Start Here — Just Ask Our Students
     description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
     testimonials:
@@ -93,41 +92,6 @@ sections:
         contributor: UTEC-BID
         description: Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator.
         achievement: She got a 120% increase in her salary
-      - name: Melanie Galaretto
-        img: /attached_assets/MelamnieGalaretto_1764725408397.jpeg
-        status: Graduated
-        country:
-          name: Uruguay
-          iso: uy
-        contributor: UTEC-BID
-        description: Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country.
-        achievement: She got a +100% increase in her salary
-      - name: Natia Lombardo
-        img: /attached_assets/NatiaLombardo_1764725413363.jpeg
-        status: Graduated
-        country:
-          name: Uruguay
-          iso: uy
-        contributor: UTEC-BID
-        description: Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm.
-      - name: Luis Larraburo
-        img: /attached_assets/LuisLarraburo_1764725418057.jpeg
-        status: Graduated
-        country:
-          name: Costa Rica
-          iso: cr
-        contributor: CINDE-BID
-        description: Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica.
-        achievement: He got a 50% increase in his salary
-      - name: Leandro Matonte
-        img: /attached_assets/Leandro_1764725403142.jpeg
-        status: Graduated
-        country:
-          name: Uruguay
-          iso: uy
-        contributor: UTEC-BID
-        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
-        achievement: He got a 60% increase in his salary
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
