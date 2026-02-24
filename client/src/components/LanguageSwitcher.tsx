@@ -61,10 +61,12 @@ export default function LanguageSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          size="icon"
+          size="sm"
           data-testid="button-language-switcher"
           aria-label={t("nav.changeLanguage")}
+          className="gap-1 px-2"
         >
+          <span className="text-xs font-semibold">{currentLanguage.code.toUpperCase()}</span>
           <IconWorld className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
