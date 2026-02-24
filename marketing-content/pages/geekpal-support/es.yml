@@ -140,7 +140,6 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    version: v1.0
     title: Preguntas Frecuentes
     related_features:
       - mentors-and-teachers
@@ -149,6 +148,20 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+    item_overrides:
+      cmo-estn-estructuradas-las-clases-en-vivo:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
