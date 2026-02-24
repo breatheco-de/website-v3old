@@ -63,6 +63,7 @@ sections:
         excerpt: Educational Excelence Awards 2021 to the best international trajectory school, more information found on the palmares for the 2021 awards
         link_text: Read article
         link_url: https://premiosexcelenciaeducativa.org/wp-content/uploads/2016/05/PALMARE%CC%81S-EXCELENCIA-2020-1.pdf
+        box_color: ""
       - logo: ../../../static/images/badges/switchup-badge-2023.png
         title: Best Bootcamp according to Switchup 2023
         excerpt: Not only in Florida, but over each of our campus 4Geeks is constantly keeping a ~5 start rating that makes us one of the top bootcamp in the world
@@ -135,7 +136,6 @@ sections:
         excerpt: We are pleased to announce that we have been distinguished with the Excellence in Education Award for Best Coding Bootcamp Program of 2022. This recognition highlights our commitment to excellence in technology education.
         link_text: Read article
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
-    default_logo_height: 80
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
