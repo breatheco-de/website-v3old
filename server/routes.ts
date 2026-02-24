@@ -340,21 +340,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
   mediaGallery.setContentIndex(contentIndex);
 
+  const { loadSyncLog, logSync, getInstanceId } = await import("./sync-log");
   const { loadSyncStateFromBucket } = await import("./sync-state");
+
+  await loadSyncLog();
+  logSync('RESTART', `Server started (instance=${getInstanceId()}, env=${process.env.NODE_ENV || 'development'}, pid=${process.pid})`);
+
   loadSyncStateFromBucket()
     .then(async () => {
       const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
       await reconcileSyncStateOnStartup();
       const result = await autoPullNonConflicting();
       if (result.pulled.length > 0) {
-        console.log(`[Startup] Auto-pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
       }
       if (result.conflicted.length > 0) {
-        console.log(`[Startup] ${result.conflicted.length} files have conflicts, awaiting manual resolution`);
+        logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
       }
       await ensureWebhook();
     })
     .catch((err) => {
+      logSync('ERROR', `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`);
       console.error("[SyncState] Failed to load/reconcile on startup:", err);
     });
 
@@ -3182,8 +3188,10 @@ Important: Only include mappings where you are confident the field exists. Use d
   // GitHub webhook endpoint - receives push events for auto-pull
   app.post("/api/github/webhook", async (req, res) => {
     try {
+      const { logSync } = await import("./sync-log");
       const signature = req.headers['x-hub-signature-256'] as string;
       if (!signature) {
+        logSync('WEBHOOK', 'Rejected: missing signature header');
         res.status(401).json({ error: 'Missing signature' });
         return;
       }
@@ -3191,6 +3199,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { getWebhookInfo } = await import("./sync-state");
       const webhookInfo = getWebhookInfo();
       if (!webhookInfo) {
+        logSync('WEBHOOK', 'Rejected: no webhook configured in sync state');
         res.status(500).json({ error: 'No webhook configured' });
         return;
       }
@@ -3200,6 +3209,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       const payload = rawBody ? rawBody.toString('utf-8') : JSON.stringify(req.body);
 
       if (!verifyWebhookSignature(payload, signature, webhookInfo.webhookSecret)) {
+        logSync('WEBHOOK', 'Rejected: invalid HMAC signature');
         res.status(401).json({ error: 'Invalid signature' });
         return;
       }
@@ -3207,18 +3217,20 @@ Important: Only include mappings where you are confident the field exists. Use d
       const event = req.headers['x-github-event'] as string;
 
       if (event === 'ping') {
-        console.log('[Webhook] Received ping event');
+        logSync('WEBHOOK', 'Received ping event — webhook is active');
         res.json({ ok: true, message: 'pong' });
         return;
       }
 
       if (event !== 'push') {
+        logSync('WEBHOOK', `Ignored event: ${event}`);
         res.json({ ok: true, message: `Ignored event: ${event}` });
         return;
       }
 
       const pushPayload = req.body;
       const commitSha = pushPayload.after;
+      const pusher = pushPayload.pusher?.name || 'unknown';
       const commits = pushPayload.commits || [];
 
       const changedFiles = new Set<string>();
@@ -3231,23 +3243,24 @@ Important: Only include mappings where you are confident the field exists. Use d
       const marketingFiles = Array.from(changedFiles).filter(f => f.startsWith('marketing-content/'));
 
       if (marketingFiles.length === 0) {
+        logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: no marketing-content files changed`);
         res.json({ ok: true, message: 'No marketing-content files changed' });
         return;
       }
 
-      console.log(`[Webhook] Push event: ${marketingFiles.length} marketing-content files changed in ${commitSha?.slice(0, 7)}`);
+      logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`);
 
       const { autoPullNonConflicting } = await import("./github");
       const result = await autoPullNonConflicting(marketingFiles, commitSha);
 
       if (result.pulled.length > 0) {
-        console.log(`[Webhook] Auto-pulled ${result.pulled.length} files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        logSync('AUTO-PULL', `Webhook: pulled ${result.pulled.length} files from ${commitSha?.slice(0, 7)}: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
       }
       if (result.conflicted.length > 0) {
-        console.log(`[Webhook] ${result.conflicted.length} files have local conflicts, left for manual resolution`);
+        logSync('CONFLICT', `Webhook: ${result.conflicted.length} files have local edits: ${result.conflicted.map(f => f.replace('marketing-content/', '')).join(', ')}`);
       }
       if (result.errors.length > 0) {
-        console.error(`[Webhook] Errors: ${result.errors.join('; ')}`);
+        logSync('ERROR', `Webhook pull errors: ${result.errors.join('; ')}`);
       }
 
       res.json({
@@ -3257,8 +3270,45 @@ Important: Only include mappings where you are confident the field exists. Use d
         errors: result.errors.length,
       });
     } catch (error) {
+      const { logSync } = await import("./sync-log");
+      logSync('ERROR', `Webhook handler error: ${error instanceof Error ? error.message : String(error)}`);
       console.error('[Webhook] Error handling webhook:', error);
       res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Get the full sync log text
+  app.get("/api/github/sync-log", async (_req, res) => {
+    try {
+      const { getSyncLogText } = await import("./sync-log");
+      const text = getSyncLogText();
+      res.type('text/plain').send(text);
+    } catch (error) {
+      res.status(500).send('Error reading sync log');
+    }
+  });
+
+  // Get structured sync info (webhook status, instance, recent log entries)
+  app.get("/api/github/sync-info", async (_req, res) => {
+    try {
+      const { getRecentEntries, getInstanceId } = await import("./sync-log");
+      const { getWebhookInfo } = await import("./sync-state");
+      const webhookInfo = getWebhookInfo();
+
+      res.json({
+        instanceId: getInstanceId(),
+        env: process.env.NODE_ENV || 'development',
+        pid: process.pid,
+        webhook: webhookInfo ? {
+          active: true,
+          id: webhookInfo.webhookId,
+          url: webhookInfo.webhookUrl,
+          createdAt: webhookInfo.createdAt,
+        } : { active: false },
+        recentLog: getRecentEntries(20),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Error reading sync info' });
     }
   });
 

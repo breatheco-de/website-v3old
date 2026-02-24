@@ -994,16 +994,21 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
   const config = getGitHubConfig();
   if (!config) return;
 
+  const { logSync } = await import("./sync-log");
+
   try {
     const { getLastSyncedCommit } = await import("./sync-state");
     const lastSyncedCommit = getLastSyncedCommit();
     const remoteCommit = await getBranchHeadSha(config);
 
     if (!remoteCommit || !lastSyncedCommit || lastSyncedCommit === remoteCommit) {
+      if (lastSyncedCommit && remoteCommit) {
+        logSync('RECONCILE', `Already in sync at ${lastSyncedCommit.slice(0, 7)}`);
+      }
       return;
     }
 
-    console.log(`[SyncReconcile] Local commit ${lastSyncedCommit.slice(0, 7)} differs from remote ${remoteCommit.slice(0, 7)}, checking file hashes...`);
+    logSync('RECONCILE', `Local ${lastSyncedCommit.slice(0, 7)} ≠ remote ${remoteCommit.slice(0, 7)}, checking file hashes...`);
 
     const conflictInfo = await getConflictInfo();
     const { shouldTrackFile, computeGitBlobSha, updateFileAfterPull } = await import("./sync-state");
@@ -1012,7 +1017,7 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
     if (trackedFiles.length === 0) {
       const { rebuildSyncStateFromLocal } = await import("./sync-state");
       rebuildSyncStateFromLocal(remoteCommit);
-      console.log('[SyncReconcile] No tracked files changed, updated lastSyncedCommit');
+      logSync('RECONCILE', `No tracked files changed, updated to ${remoteCommit.slice(0, 7)}`);
       return;
     }
 
@@ -1046,11 +1051,12 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
     if (allReconciled) {
       const { rebuildSyncStateFromLocal } = await import("./sync-state");
       rebuildSyncStateFromLocal(remoteCommit);
-      console.log(`[SyncReconcile] All ${reconciledCount} files match remote, updated lastSyncedCommit to ${remoteCommit.slice(0, 7)}`);
+      logSync('RECONCILE', `All ${reconciledCount} files match remote, updated to ${remoteCommit.slice(0, 7)}`);
     } else {
-      console.log(`[SyncReconcile] ${reconciledCount}/${trackedFiles.length} files match remote, ${trackedFiles.length - reconciledCount} still differ`);
+      logSync('RECONCILE', `${reconciledCount}/${trackedFiles.length} files match remote, ${trackedFiles.length - reconciledCount} still differ`);
     }
   } catch (error) {
+    logSync('ERROR', `Reconciliation error: ${error instanceof Error ? error.message : String(error)}`);
     console.error('[SyncReconcile] Error during reconciliation:', error);
   }
 }
@@ -1170,9 +1176,11 @@ export async function ensureWebhook(): Promise<void> {
   const config = getGitHubConfig();
   if (!config) return;
 
+  const { logSync } = await import("./sync-log");
+
   const baseUrl = getWebhookBaseUrl();
   if (!baseUrl) {
-    console.log('[Webhook] No SITE_URL or REPLIT_DEV_DOMAIN set, skipping webhook setup');
+    logSync('WEBHOOK', 'No SITE_URL or REPLIT_DEV_DOMAIN set, skipping webhook setup');
     return;
   }
 
@@ -1186,12 +1194,12 @@ export async function ensureWebhook(): Promise<void> {
       if (existing.webhookUrl === webhookUrl) {
         const isActive = await verifyWebhookExists(config, existing.webhookId);
         if (isActive) {
-          console.log(`[Webhook] Existing webhook #${existing.webhookId} is active at ${webhookUrl}`);
+          logSync('WEBHOOK', `Verified: webhook #${existing.webhookId} is active at ${webhookUrl}`);
           return;
         }
-        console.log(`[Webhook] Webhook #${existing.webhookId} no longer exists on GitHub, recreating...`);
+        logSync('WEBHOOK', `Webhook #${existing.webhookId} no longer exists on GitHub, recreating...`);
       } else {
-        console.log(`[Webhook] URL changed from ${existing.webhookUrl} to ${webhookUrl}, recreating...`);
+        logSync('WEBHOOK', `URL changed from ${existing.webhookUrl} to ${webhookUrl}, recreating...`);
         await deleteWebhook(config, existing.webhookId);
       }
       clearWebhookInfo();
@@ -1207,11 +1215,12 @@ export async function ensureWebhook(): Promise<void> {
         webhookUrl,
         createdAt: new Date().toISOString(),
       });
-      console.log(`[Webhook] Created webhook #${webhookId} at ${webhookUrl}`);
+      logSync('WEBHOOK', `Created webhook #${webhookId} at ${webhookUrl}`);
     } else {
-      console.error('[Webhook] Failed to create webhook');
+      logSync('ERROR', `Failed to create webhook at ${webhookUrl} (check token permissions: needs admin:repo_hook scope)`);
     }
   } catch (error) {
+    logSync('ERROR', `Webhook setup error: ${error instanceof Error ? error.message : String(error)}`);
     console.error('[Webhook] Error ensuring webhook:', error);
   }
 }
@@ -1510,11 +1519,11 @@ export async function commitSingleFile(options: {
     const data = await response.json();
     const commitSha = data.commit?.sha;
     
-    // Update sync state for this file
     const { updateFileAfterCommit } = await import("./sync-state");
     updateFileAfterCommit(options.filePath, commitSha || '');
-    
-    console.log(`File committed to GitHub: ${options.filePath}`);
+
+    const { logSync } = await import("./sync-log");
+    logSync('COMMIT', `${options.filePath.replace('marketing-content/', '')} → ${commitSha?.slice(0, 7) || '?'}${options.author ? ` by ${options.author}` : ''}`);
     
     return { success: true, commitSha };
   } catch (error) {
