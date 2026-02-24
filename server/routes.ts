@@ -344,8 +344,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { loadSyncStateFromBucket } = await import("./sync-state");
 
   await loadSyncLog();
-  const { getLocalCommitHash } = await import("./sync-log");
-  logSync('RESTART', `Server started (instance=${getInstanceId()}, commit=${getLocalCommitHash()}, env=${process.env.NODE_ENV || 'development'}, pid=${process.pid})`);
+  const { getReplitCheckpoint, refreshGithubCommit } = await import("./sync-log");
+  logSync('RESTART', `Server started (instance=${getInstanceId()}, checkpoint=${getReplitCheckpoint()}, env=${process.env.NODE_ENV || 'development'}, pid=${process.pid})`);
+  refreshGithubCommit();
 
   loadSyncStateFromBucket()
     .then(async () => {
@@ -3302,14 +3303,15 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Get structured sync info (webhook status, instance, recent log entries)
   app.get("/api/github/sync-info", async (_req, res) => {
     try {
-      const { getRecentEntries, getInstanceId, getLocalCommitHash } = await import("./sync-log");
+      const { getRecentEntries, getInstanceId, getReplitCheckpoint, getGithubCommit } = await import("./sync-log");
       const { getWebhookInfo } = await import("./sync-state");
       const webhookInfo = getWebhookInfo();
 
       const repoUrl = (process.env.GITHUB_REPO_URL || '').replace(/\.git$/, '');
       res.json({
         instanceId: getInstanceId(),
-        commitHash: getLocalCommitHash(),
+        replitCheckpoint: getReplitCheckpoint(),
+        githubCommit: getGithubCommit(),
         repoUrl: repoUrl || null,
         env: process.env.NODE_ENV || 'development',
         pid: process.pid,

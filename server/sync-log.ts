@@ -11,11 +11,51 @@ const MAX_LOG_LINES = 500;
 
 const INSTANCE_ID = crypto.randomBytes(2).toString('hex');
 
-let LOCAL_COMMIT_HASH = '?';
+let REPLIT_CHECKPOINT = '?';
 try {
-  LOCAL_COMMIT_HASH = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
+  REPLIT_CHECKPOINT = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
 } catch {
-  LOCAL_COMMIT_HASH = '?';
+  REPLIT_CHECKPOINT = '?';
+}
+
+let GITHUB_COMMIT: string | null = null;
+
+function parseGitHubUrl(url: string): { owner: string; repo: string } | null {
+  try {
+    const cleanUrl = url.replace(/\.git$/, '');
+    const match = cleanUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (match) return { owner: match[1], repo: match[2] };
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export async function refreshGithubCommit(): Promise<void> {
+  const token = process.env.GITHUB_TOKEN || '';
+  const repoUrl = process.env.GITHUB_REPO_URL || '';
+  const branch = process.env.GITHUB_BRANCH || 'main';
+  const parsed = parseGitHubUrl(repoUrl);
+  if (!token || !parsed) return;
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${parsed.owner}/${parsed.repo}/commits?sha=${branch}&per_page=1`,
+      { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (res.ok) {
+      const commits = await res.json() as Array<{ sha: string }>;
+      if (commits.length > 0) {
+        GITHUB_COMMIT = commits[0].sha.slice(0, 8);
+      }
+    }
+  } catch {
+    // silently ignore - GITHUB_COMMIT stays as previous value or null
+  }
+}
+
+export function getGithubCommit(): string | null {
+  return GITHUB_COMMIT;
 }
 
 type SyncLogCategory =
@@ -125,8 +165,8 @@ export function getInstanceId(): string {
   return INSTANCE_ID;
 }
 
-export function getLocalCommitHash(): string {
-  return LOCAL_COMMIT_HASH;
+export function getReplitCheckpoint(): string {
+  return REPLIT_CHECKPOINT;
 }
 
 export function getSyncLogText(): string {
@@ -156,5 +196,5 @@ export async function clearSyncLog(): Promise<void> {
   logLines = [];
   saveLocal();
   await saveToBucket();
-  logSync('RESTART', `Log cleared (instance=${INSTANCE_ID}, commit=${LOCAL_COMMIT_HASH})`);
+  logSync('RESTART', `Log cleared (instance=${INSTANCE_ID}, checkpoint=${REPLIT_CHECKPOINT})`);
 }
