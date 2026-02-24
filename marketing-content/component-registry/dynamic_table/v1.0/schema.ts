@@ -16,6 +16,7 @@ export const dynamicTableActionSchema = z.object({
 export const dynamicTableSectionSchema = z.object({
   type: z.literal("dynamic_table"),
   version: z.string().optional(),
+  variant: z.enum(["default", "striped", "cards", "comparison"]).optional(),
   endpoint: z.string(),
   data_path: z.string().optional(),
   title: z.string().optional(),
