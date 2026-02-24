@@ -37,7 +37,10 @@ sections:
       - key: syllabus_version.duration_in_days
         label: Duration
         type: text
-        function: KHJvdykgPT4gcm93LnN5bGxhYnVzX3ZlcnNpb24/LmR1cmF0aW9uX2luX2RheXMgPyBNYXRoLnJvdW5kKHJvdy5zeWxsYWJ1c192ZXJzaW9uLmR1cmF0aW9uX2luX2RheXMgLyA3KSArICIgd2Vla3MiIDogJyc=
+        function: KHJvdykgPT4geyBjb25zdCBuYW1lID0gKHJvdy5zeWxsYWJ1c192ZXJzaW9uPy5uYW1lIHx8ICcnKS50b0xvd2VyQ2FzZSgpOyBpZiAobmFtZS5pbmNsdWRlcygnY3liZXJzZWN1cml0eScpKSByZXR1cm4gJzE2IHdlZWtzJzsgaWYgKG5hbWUuaW5jbHVkZXMoJ2RhdGEgc2NpZW5jZScpKSByZXR1cm4gJzE2IHdlZWtzJzsgaWYgKG5hbWUuaW5jbHVkZXMoJ2Z1bGwtc3RhY2snKSB8fCBuYW1lLmluY2x1ZGVzKCdmdWxsIHN0YWNrJykpIHJldHVybiAnMjAgd2Vla3MnOyBpZiAobmFtZS5pbmNsdWRlcygnYWkgZW5naW5lZXInKSkgeyByZXR1cm4gbmFtZS5pbmNsdWRlcygnZnQnKSA/ICcxNiB3ZWVrcycgOiAnMjQgd2Vla3MnOyB9IHJldHVybiAnJzsgfQ==
+    action:
+      label: View
+      href: /en/apply
   - type: cta_banner
     version: "1.0"
     title: Ready to launch your tech career?
