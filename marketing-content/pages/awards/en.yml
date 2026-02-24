@@ -33,13 +33,14 @@ sections:
     columns: 3
     items:
       - logo: /attached_assets/forbes-logo-award_1764709625651.webp
-        logo_height: 58
+        logo_height: 5
         title: Best Overall Data Science and Machine Learning Bootcamp 2025
         excerpt: Our bootcamp was chosen as the top option for its hands- on beginner friendly format, verified outcomes and job guarantee.
         link_text: See article
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/#4geeks_academy_data_science_and_machine_learning_course_section
         box_color: ""
       - logo: /attached_assets/arp-logo-certification_1765548854924.png
+        logo_height: 5
         title: Institutional Quality Online Education
         excerpt: 4Geeks Academy has earned the ARP certification, distinguishing it as a leader in online coding education.
         link_text: See website

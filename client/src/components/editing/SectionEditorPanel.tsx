@@ -1185,7 +1185,7 @@ export function SectionEditorPanel({
       arrayPath: string,
       index: number,
       field: string,
-      value: string | number | boolean,
+      value: string | number | boolean | undefined,
     ) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
@@ -1220,9 +1220,17 @@ export function SectionEditorPanel({
             }
             target = target[fieldParts[i]] as Record<string, unknown>;
           }
-          target[fieldParts[fieldParts.length - 1]] = value;
+          if (value === undefined) {
+            delete target[fieldParts[fieldParts.length - 1]];
+          } else {
+            target[fieldParts[fieldParts.length - 1]] = value;
+          }
         } else {
-          array[index][field] = value;
+          if (value === undefined) {
+            delete array[index][field];
+          } else {
+            array[index][field] = value;
+          }
         }
 
         const newYaml = safeYamlDump(parsed, {
@@ -2768,9 +2776,10 @@ export function SectionEditorPanel({
                   } else {
                     if (
                       typeof value === "string" ||
-                      typeof value === "number"
+                      typeof value === "number" ||
+                      value === undefined
                     ) {
-                      updateArrayItemField(arrPath, idx, fieldName, value);
+                      updateArrayItemField(arrPath, idx, fieldName, value as string | number | boolean | undefined);
                     }
                   }
                 };
