@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const pressMentionItemSchema = z.object({
   logo: z.string().optional(),
+  logo_height: z.number().optional(),
   title: z.string(),
   excerpt: z.string(),
   link_text: z.string().optional(),
@@ -23,6 +24,7 @@ export const pressMentionsSectionSchema = z.object({
   default_title_color: z.string().optional(),
   default_excerpt_color: z.string().optional(),
   default_link_color: z.string().optional(),
+  default_logo_height: z.number().optional(),
   columns: z.number().optional(),
   items: z.array(pressMentionItemSchema).optional(),
   background: z.string().optional(),

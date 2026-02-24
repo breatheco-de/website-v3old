@@ -1819,6 +1819,46 @@ export function SectionEditorPanel({
                 ]}
               />
             )}
+            {sectionType === "press_mentions" && (
+              <div className="space-y-2">
+                <Label className="text-xs font-medium">
+                  {locale === "es" ? "Altura del logo (px)" : "Logo Height (px)"}
+                </Label>
+                <Input
+                  type="number"
+                  value={(parsedSection?.default_logo_height as number) || ""}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    try {
+                      const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                      if (!parsed || typeof parsed !== "object") return;
+                      pushUndoState(yamlContent);
+                      if (val && Number(val) > 0) {
+                        parsed.default_logo_height = Number(val);
+                      } else {
+                        delete parsed.default_logo_height;
+                      }
+                      const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                      setYamlContent(newYaml);
+                      setHasChanges(true);
+                      setParseError(null);
+                      if (onPreviewChange) onPreviewChange(parsed as Section);
+                    } catch (err) {
+                      console.error("Error updating default_logo_height:", err);
+                    }
+                  }}
+                  placeholder="28"
+                  className="h-8 text-sm"
+                  min={1}
+                  data-testid="props-press-mentions-logo-height"
+                />
+                <p className="text-xs text-muted-foreground">
+                  {locale === "es"
+                    ? "Altura por defecto de los logos en px. Vacío = 24px/28px."
+                    : "Default logo height in px. Empty = 24px/28px."}
+                </p>
+              </div>
+            )}
             {/* FAQ related features picker */}
             {sectionType === "faq" && (
               <>
