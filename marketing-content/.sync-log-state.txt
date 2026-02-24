@@ -59,3 +59,10 @@
 2026-02-24T16:40:55.841Z [RESTART] Server started (instance=3e0a, checkpoint=404d1387, env=development, pid=14253)
 2026-02-24T16:40:56.884Z [RECONCILE] Already in sync at a197053
 2026-02-24T16:40:57.962Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:43:30.688Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-24T16:43:30.834Z [WEBHOOK] Push 9730ca6 by alesanchezr: 4 marketing-content files changed
+2026-02-24T16:43:32.066Z [AUTO-PULL] Webhook: pulled 3 files from 9730ca6: locations/miami-usa/en.yml, locations/miami-usa/es.yml, programs/ai-engineering/es.yml
+2026-02-24T16:43:50.157Z [RESTART] Server started (instance=7f34, checkpoint=9730ca68, env=development, pid=256)
+2026-02-24T16:43:51.073Z [RECONCILE] Already in sync at 9730ca6
+2026-02-24T16:43:52.285Z [WEBHOOK] Created webhook #597784851 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:43:54.399Z [WEBHOOK] Received ping event — webhook is active
