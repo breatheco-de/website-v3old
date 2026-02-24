@@ -29,6 +29,34 @@ sections:
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: modal
+    version: "1.0"
+    section_id: syllabus-modal
+    heading: Start Your Application
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Submit Application
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -106,67 +134,67 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explore Our Programs
-    subheading: Industry-aligned training designed to launch your career in tech
+    heading: Explora Nuestros Programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
-      - name: AI Engineering
+      - name: Ingeniería de IA
         icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
         badges:
           - icon: Cpu
-            text: LLMs, AI Agents & Automation
+            text: LLMs, Agentes de IA y Automatización
           - icon: Database
-            text: Production AI Systems
-        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/ai-engineering
+            text: Sistemas de IA en Producción
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
-      - name: Full Stack Development with AI
+      - name: Desarrollo Full Stack con IA
         icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo de Software Full Stack
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: React, Node.js y Python
         tags:
           - icon: Plus
-            text: API Development
+            text: Desarrollo de APIs
           - icon: ""
             text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/full-stack
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
-      - name: Data Science & ML
+      - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: BrainCircuit
-            text: Machine Learning & AI Models
+            text: Machine Learning y Modelos de IA
           - icon: BarChart
-            text: Data Analysis & Visualization
-        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/data-science-ml
+            text: Análisis y Visualización de Datos
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
-      - name: Cybersecurity
+      - name: Ciberseguridad
         icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
         badges:
           - icon: Lock
-            text: Threat Detection & Network Security
+            text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
-            text: Cloud Security
-        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
-        cta_text: View Program Details
-        cta_url: /en/career-programs/cybersecurity
+            text: Seguridad en la Nube
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
@@ -290,6 +318,44 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
+  - type: profiles_carousel
+    version: v1.0
+    heading: Meet the Geeks
+    description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
+    image_round: false
+    profiles:
+      - image_id: alejandro_sanchez
+        name: Alejandro Sánchez
+        role: Co-Founder & Technology Director
+        linkedin_url: https://www.linkedin.com/in/alesanchezr/
+      - image_id: marcelo_ricigliano
+        name: Marcelo Ricigliano
+        role: Co-founder & CEO
+        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
+      - image_id: alissalandra
+        name: Alissa Landra
+        role: Campus & Growth Manager USA
+        linkedin_url: https://www.linkedin.com/in/alissalandra/
+      - image_id: victor_gomez
+        name: Victor Manuel Gómez Pérez
+        role: Regional Manager Europe
+        linkedin_url: https://www.linkedin.com/in/victormgomezp/
+      - image_id: pablo_bullor
+        name: Pablo Bullor
+        role: Program Manager LATAM
+        linkedin_url: https://www.linkedin.com/in/pablobullor/
+      - image_id: laura
+        name: Laura Magallanes
+        role: Program Manager USA
+        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
+      - image_id: valentina_ancieta
+        name: Valentina Ancieta
+        role: Workforce Development Manager USA & LATAM
+        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
+      - image_id: ariana_sanchez
+        name: Ariana Sánchez
+        role: Culture & Talent Leader
+        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: faq
     title: Frequently Asked Questions
     related_features:
@@ -341,33 +407,3 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
-  - type: sticky_cta
-    version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Submit Application
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: false
-          default: ai-engineering
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
