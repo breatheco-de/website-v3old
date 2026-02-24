@@ -131,8 +131,6 @@ sections:
       features:
         - icon: IconCalendar
           text: Programa de {{ fullstack_week_duration | 20 semanas }}
-        - icon: IconCalendarBolt
-          text: Modalidad intensiva de 12 semanas (mañanas)
         - icon: code
           text: +100 ejercicios interactivos de programación
         - icon: robot
