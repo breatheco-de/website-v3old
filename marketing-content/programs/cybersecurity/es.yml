@@ -57,7 +57,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa Intensivo de 16 Semanas
+          text: Programa Intensivo de {{ cybersecurity_week_duration | 16 Semanas }}
         - icon: IconBriefcase
           text: Programa Orientado a la Práctica
         - icon: IconRobot
