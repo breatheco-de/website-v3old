@@ -26,13 +26,13 @@ sections:
       desktop: md
   - type: article
     content: |
-      ## Por Qué LearnPack Es Clave en 2026
+      ## Por Qué LearnPack Es Clave en 2025
 
       En la era de los LLM, memorizar sintaxis ya no tiene sentido. Lo que importa es **pensar como desarrollador** y colaborar con la IA. LearnPack convierte cualquier tema, técnico o no, en un **curso interactivo con autoevaluación** en minutos.
 
       Dile a la plataforma un título, duración y objetivos de aprendizaje, o agrega tu propio contenido (documentos, videos o simplemente un tema), y al instante genera un **sílabus estructurado** y un curso interactivo completo. Incluye lecciones, quizzes y ejercicios autoevaluados, sin necesidad de programar. Luego **Rigobot**, nuestro mentor con IA disponible 24/7, guía a los estudiantes línea por línea.
 
-      ### Contexto y visión general
+      ### Algo de Contexto
 
       En el panorama digital actual, que evoluciona rápidamente, las plataformas de aprendizaje deben adaptarse para cubrir diversas necesidades. LearnPack, inicialmente lanzado como una herramienta de educación en programación, ha evolucionado hasta convertirse en una plataforma versátil que permite a cualquier persona crear cursos interactivos con autoevaluación sin experiencia técnica.
 
@@ -57,13 +57,13 @@ sections:
       | Accesibilidad e i18n | Navegación por teclado, UI accesible, EN/ES | Aprendizaje inclusivo y bilingüe desde el primer día |
       | Repositorio Open-Source | Contenido disponible en GitHub | Reutiliza, adapta y mejora libremente |
 
-      ## Resultados Recientes (Ene – Jun 2025)
+      ## Resultados Hasta Ahora (Ene – Jun 2025)
 
       | **Métrica** | **Mitad de 2025** | **Fuente** |
       | --- | --- | --- |
       | Estudiantes en LearnPack | 4,000+ en 6 países | Caso de estudio de Gitpod |
       | Instalaciones en VS Code Marketplace | 88,268 | Estadísticas del VS Marketplace |
-      | Tasa de inserción laboral de graduados | 79% en 140 días | [Mid-Year Outcomes 2025](https://4geeksacademy.com/us/outcomes-2025-midyear) |
+      | Tasa de contratación del programa | 79% en 140 días | [Mid-Year Outcomes 2025](https://4geeksacademy.com/us/outcomes-2025-midyear) |
       | Incremento salarial mediano en LATAM | +282% | Mismo reporte |
 
       ## Por Qué LearnPack Supera a los LMS Genéricos
@@ -153,32 +153,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
