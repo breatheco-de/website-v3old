@@ -471,8 +471,6 @@ sections:
       - icon: IconCheck
         text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
       - icon: IconCheck
-        text: Finance your tuition through our partners with plans ranging from 6 to 24 months.
-      - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
@@ -620,34 +618,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: sticky_cta
-    version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Submit Application
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: false
-          default: ai-engineering
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
-
