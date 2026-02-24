@@ -238,8 +238,8 @@ sections:
       desktop: md lg
     background: hsl(var(--muted))
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    title: Historias reales de crecimiento profesional en tech
+    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en empleo y avance de carrera.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
@@ -351,12 +351,42 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech en Miami?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
-    cta_text: Aplicar Ahora
-    cta_url: /es/apply?location=miami-usa
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Obtener los detalles
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: false
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
     marginY:
-      desktop: none
+      desktop: lg none
     paddingY:
       desktop: md
