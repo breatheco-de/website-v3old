@@ -605,6 +605,31 @@ sections:
     related_features:
       - price
       - certification
+    item_overrides:
+      puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
+        hideOnLocations:
+          - santiago-chile
+          - quito-ecuador
+          - panamacity-panama
+          - montevideo-uruguay
+          - mexicocity-mexico
+          - lima-peru
+          - lapaz-bolivia
+          - costa-rica
+          - caracas-venezuela
+          - buenosaires-argentina
+          - bogota-colombia
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - lisbon-portugal
+          - madrid-spain
+          - hamburg-germany
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
     marginY:
       desktop: lg none
     paddingY:
@@ -632,20 +657,6 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    item_overrides:
-      puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
-        hideOnLocations:
-          - santiago-chile
-          - quito-ecuador
-          - panamacity-panama
-          - montevideo-uruguay
-          - mexicocity-mexico
-          - lima-peru
-          - lapaz-bolivia
-          - costa-rica
-          - caracas-venezuela
-          - buenosaires-argentina
-          - bogota-colombia
   - type: faq
     title: Preguntas Frecuentes
     related_features:
