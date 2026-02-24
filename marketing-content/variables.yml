@@ -429,3 +429,5 @@ ai_engineering_week_duration:
   default: "24 semanas"
 cybersecurity_week_duration:
   default: "16 Semanas"
+fullstack_week_duration:
+  default: "20 semanas"
