@@ -48,6 +48,7 @@ sections:
         link_text: Read Article
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/
       - logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logo_height: 52
         title: Best Data Science Bootcamps Online In 2024
         excerpt: Current and prospective tech professionals can complete data science bootcamps to sharpen their existing skills, change fields or advance in their current careers.
         link_text: Read Article
