@@ -3270,6 +3270,25 @@ export function SectionEditorPanel({
                                     </div>
                                   );
                                 })}
+                                {sectionType === "press_mentions" && (
+                                  <div className="space-y-1">
+                                    <Label className="text-xs text-muted-foreground">
+                                      {locale === "es" ? "Altura del logo (px)" : "Logo Height (px)"}
+                                    </Label>
+                                    <Input
+                                      type="number"
+                                      value={item.logo_height != null ? String(item.logo_height) : ""}
+                                      onChange={(e) => {
+                                        const num = e.target.value === "" ? undefined : Number(e.target.value);
+                                        updateNestedField(index, "logo_height", num);
+                                      }}
+                                      placeholder="28"
+                                      min={1}
+                                      className="h-8 text-sm"
+                                      data-testid={`props-press-logo-height-${index}`}
+                                    />
+                                  </div>
+                                )}
                               </div>
                             </CollapsibleContent>
                           </Collapsible>
