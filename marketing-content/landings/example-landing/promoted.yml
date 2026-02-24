@@ -38,15 +38,6 @@ sections:
         contributor: Clark University
         description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
         achievement: He got a 30% increase in his salary
-      - name: MaiLinh Tran
-        img: /attached_assets/MaiLinh_1764725334980.png
-        status: Graduated
-        country:
-          name: United States of America
-          iso: us
-        contributor: Clark University
-        description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
-        achievement: She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
