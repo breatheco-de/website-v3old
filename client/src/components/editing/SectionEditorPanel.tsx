@@ -107,6 +107,43 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 
+const TECHNICAL_SUFFIXES = new Set(["src", "url", "id", "href"]);
+const POSITIONAL_LABELS: Record<string, string> = {
+  left: "Izquierda",
+  right: "Derecha",
+};
+const ACRONYMS = new Set(["url", "cta", "id", "api", "seo"]);
+
+function getFieldLabel(fieldPath: string): string {
+  const segments = fieldPath.split(".");
+  const filtered = segments.filter(
+    (s) => !TECHNICAL_SUFFIXES.has(s.toLowerCase()),
+  );
+  const meaningful = filtered.length > 0 ? filtered : segments;
+
+  const positionalIdx = meaningful.findIndex(
+    (s) => s.toLowerCase() in POSITIONAL_LABELS,
+  );
+  let suffix = "";
+  if (positionalIdx !== -1) {
+    suffix = ` ${POSITIONAL_LABELS[meaningful[positionalIdx].toLowerCase()]}`;
+    meaningful.splice(positionalIdx, 1);
+  }
+
+  const label = meaningful
+    .map((s) => s.replace(/_/g, " "))
+    .join(" ")
+    .split(" ")
+    .map((w) =>
+      ACRONYMS.has(w.toLowerCase())
+        ? w.toUpperCase()
+        : w.charAt(0).toUpperCase() + w.slice(1),
+    )
+    .join(" ");
+
+  return (label + suffix).trim() || fieldPath;
+}
+
 interface SectionEditorPanelProps {
   section: Section;
   sectionIndex: number;
@@ -355,7 +392,7 @@ function ShowOnLocationsPicker({
 interface VariantPickerProps {
   value: string;
   onChange: (value: string) => void;
-  options: { id: string; label: string }[];
+  options: { id: string; label: string; preview?: () => JSX.Element }[];
   label?: string;
 }
 
@@ -366,6 +403,42 @@ function VariantPicker({
   label = "Variant",
 }: VariantPickerProps) {
   const currentValue = value || options[0]?.id || "";
+  const hasPreview = options.some((o) => o.preview);
+
+  if (hasPreview) {
+    return (
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">{label}</Label>
+        <div className="grid grid-cols-2 gap-2">
+          {options.map((option) => {
+            const isSelected = currentValue === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => onChange(option.id)}
+                className={`flex flex-col items-center gap-1.5 p-2 rounded-md border-2 transition-colors ${
+                  isSelected
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-muted-foreground/30"
+                }`}
+                data-testid={`props-variant-${option.id}`}
+              >
+                {option.preview && (
+                  <div className="w-full pointer-events-none">
+                    {option.preview()}
+                  </div>
+                )}
+                <span className={`text-xs font-medium ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
+                  {option.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-between gap-3">
@@ -392,6 +465,83 @@ function VariantPicker({
       </div>
     </div>
   );
+}
+
+function TableVariantPreview({ variant }: { variant: string }) {
+  const rows = [0, 1, 2];
+  if (variant === "default") {
+    return (
+      <div className="rounded border overflow-hidden">
+        <div className="flex bg-muted/50 border-b">
+          <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/20" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/20" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/20" />
+        </div>
+        {rows.map((i) => (
+          <div key={i} className="flex border-b last:border-0">
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (variant === "striped") {
+    return (
+      <div className="rounded border overflow-hidden">
+        <div className="flex bg-primary">
+          <div className="flex-1 h-2 m-1.5 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2 m-1.5 rounded bg-primary-foreground/30" />
+        </div>
+        {rows.map((i) => (
+          <div key={i} className={`flex ${i % 2 === 1 ? "bg-muted/30" : ""}`}>
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1.5 rounded bg-muted-foreground/10" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (variant === "cards") {
+    return (
+      <div className="flex flex-col gap-1">
+        {rows.map((i) => (
+          <div key={i} className="rounded border p-1.5 space-y-1">
+            <div className="flex justify-between gap-2">
+              <div className="w-8 h-1.5 rounded bg-muted-foreground/20" />
+              <div className="w-12 h-1.5 rounded bg-muted-foreground/10" />
+            </div>
+            <div className="flex justify-between gap-2">
+              <div className="w-6 h-1.5 rounded bg-muted-foreground/20" />
+              <div className="w-10 h-1.5 rounded bg-muted-foreground/10" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (variant === "comparison") {
+    return (
+      <div className="rounded-lg overflow-hidden shadow-sm ring-1 ring-black/5">
+        <div className="flex bg-primary">
+          <div className="flex-1 h-2.5 m-1 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2.5 m-1 rounded bg-primary-foreground/30" />
+          <div className="flex-1 h-2.5 m-1 rounded bg-primary-foreground/30" />
+        </div>
+        {rows.map((i) => (
+          <div key={i} className={`flex ${i % 2 === 0 ? "" : "bg-primary/5"}`}>
+            <div className="flex-1 h-2 m-1 rounded bg-muted-foreground/10" />
+            <div className="flex-1 h-2 m-1 rounded bg-muted-foreground/15" />
+            <div className="flex-1 h-2 m-1 rounded bg-muted-foreground/10" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
 }
 
 export function SectionEditorPanel({
@@ -945,6 +1095,23 @@ export function SectionEditorPanel({
           } else {
             delete current[finalKey];
           }
+
+          // Clean up empty parent objects after deletion
+          if (!value) {
+            for (let i = pathParts.length - 2; i >= 0; i--) {
+              const parentPath = pathParts.slice(0, i);
+              let parent: Record<string, unknown> = parsed;
+              for (const p of parentPath) {
+                parent = parent[p] as Record<string, unknown>;
+              }
+              const child = parent[pathParts[i]];
+              if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
+                delete parent[pathParts[i]];
+              } else {
+                break;
+              }
+            }
+          }
         }
 
         const newYaml = safeYamlDump(parsed, {
@@ -998,7 +1165,25 @@ export function SectionEditorPanel({
             current[finalKey] = value;
           } else {
             delete current[finalKey];
+
+            }
+            // Clean up empty parent objects after deletion
+            if (!value && value !== false && value !== 0) {
+              for (let i = pathParts.length - 2; i >= 0; i--) {
+                const parentPath = pathParts.slice(0, i);
+                let parent: Record<string, unknown> = parsed;
+                for (const p of parentPath) {
+                  parent = parent[p] as Record<string, unknown>;
+                }
+                const child = parent[pathParts[i]];
+                if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
+                  delete parent[pathParts[i]];
+                } else {
+                  break;
+                }
+              }
           }
+          
         }
 
         const newYaml = safeYamlDump(parsed, {
@@ -1113,7 +1298,7 @@ export function SectionEditorPanel({
       arrayPath: string,
       index: number,
       field: string,
-      value: string | number | boolean,
+      value: string | number | boolean | undefined,
     ) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
@@ -1139,7 +1324,27 @@ export function SectionEditorPanel({
           | undefined;
         if (!Array.isArray(array) || !array[index]) return;
 
-        array[index][field] = value;
+        const fieldParts = field.split(".");
+        if (fieldParts.length > 1) {
+          let target: Record<string, unknown> = array[index];
+          for (let i = 0; i < fieldParts.length - 1; i++) {
+            if (!target[fieldParts[i]] || typeof target[fieldParts[i]] !== "object") {
+              target[fieldParts[i]] = {};
+            }
+            target = target[fieldParts[i]] as Record<string, unknown>;
+          }
+          if (value === undefined) {
+            delete target[fieldParts[fieldParts.length - 1]];
+          } else {
+            target[fieldParts[fieldParts.length - 1]] = value;
+          }
+        } else {
+          if (value === undefined) {
+            delete array[index][field];
+          } else {
+            array[index][field] = value;
+          }
+        }
 
         const newYaml = safeYamlDump(parsed, {
           lineWidth: -1,
@@ -1835,8 +2040,8 @@ export function SectionEditorPanel({
                 />
               </>
             )}
-            {/* Testimonials Grid related features picker */}
-            {sectionType === "testimonials_grid" && (
+            {/* Testimonials (grid, carousel, slide) related features picker */}
+            {["testimonials_grid", "testimonials", "testimonials_slide"].includes(sectionType) && (
               <>
                 <div
                   className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
@@ -1845,8 +2050,12 @@ export function SectionEditorPanel({
                   <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-amber-800 dark:text-amber-200">
                     {locale === "es"
-                      ? "Los testimonios se cargan del banco centralizado y se filtran por las características seleccionadas."
-                      : "Testimonials are loaded from the centralized bank and filtered by the selected features."}
+                      ? sectionType === "testimonials_grid"
+                        ? "Los testimonios se cargan del banco centralizado y se filtran por las características seleccionadas."
+                        : "Cuando se seleccionan características, los testimonios se cargan del banco centralizado. Sin características, se usan los items por defecto."
+                      : sectionType === "testimonials_grid"
+                        ? "Testimonials are loaded from the centralized bank and filtered by the selected features."
+                        : "When features are selected, testimonials load from the centralized bank. Without features, default items are used."}
                   </p>
                 </div>
                 <RelatedFeaturesPicker
@@ -1862,21 +2071,40 @@ export function SectionEditorPanel({
                     (parsedSection?.related_features as string[]) || []
                   }
                   itemStyles={
-                    (parsedSection?.item_styles as Record<
-                      string,
-                      {
-                        box_color?: string;
-                        name_color?: string;
-                        comment_color?: string;
-                      }
-                    >) || {}
+                    sectionType === "testimonials_grid"
+                      ? (parsedSection?.item_styles as Record<
+                          string,
+                          {
+                            box_color?: string;
+                            name_color?: string;
+                            comment_color?: string;
+                          }
+                        >) || {}
+                      : {}
                   }
                   locale={locale || "en"}
-                  onUpdateItemStyle={(studentName, prop, value) => {
-                    updateProperty(`item_styles.${studentName}.${prop}`, value);
-                  }}
+                  onUpdateItemStyle={
+                    sectionType === "testimonials_grid"
+                      ? (studentName, prop, value) => {
+                          updateProperty(`item_styles.${studentName}.${prop}`, value);
+                        }
+                      : undefined
+                  }
+                  readOnly={sectionType !== "testimonials_grid"}
                 />
               </>
+            )}
+            {sectionType === "dynamic_table" && (
+              <VariantPicker
+                value={(parsedSection?.variant as string) || "default"}
+                onChange={(value) => updateProperty("variant", value)}
+                options={[
+                  { id: "default", label: "Default", preview: () => <TableVariantPreview variant="default" /> },
+                  { id: "striped", label: "Striped", preview: () => <TableVariantPreview variant="striped" /> },
+                  { id: "cards", label: "Cards", preview: () => <TableVariantPreview variant="cards" /> },
+                  { id: "comparison", label: "Comparison", preview: () => <TableVariantPreview variant="comparison" /> },
+                ]}
+              />
             )}
             {sectionType === "dynamic_table" && parsedSection?.endpoint && (
               <>
@@ -2228,15 +2456,7 @@ export function SectionEditorPanel({
                         "",
                     )
                   : "";
-                const fieldLabelMap: Record<string, string> = {
-                  form_background: "Fondo del formulario",
-                  terms_color: "Color de términos y condiciones",
-                  title_color: "Color de título",
-                  subtitle_color: "Color de subtítulo",
-                  text_color: "Color de texto",
-                };
-                const label =
-                  fieldLabelMap[fieldPath] || fieldPath.replace(/_/g, " ");
+                const label = getFieldLabel(fieldPath);
                 return (
                   <div key={fieldPath} className="mt-3">
                     <ColorPicker
@@ -2272,7 +2492,7 @@ export function SectionEditorPanel({
                   return (current as string) || "";
                 };
                 const currentValue = getFieldValue();
-                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                const fieldLabel = getFieldLabel(fieldPath);
                 const isIdField = fieldPath.endsWith("_id");
                 const displaySrc = isIdField
                   ? imageRegistry?.images?.[currentValue]?.src || currentValue
@@ -2283,8 +2503,8 @@ export function SectionEditorPanel({
 
                 return (
                   <div key={fieldPath} className="space-y-2 mt-3">
-                    <Label className="text-sm font-medium capitalize">
-                      {fieldLabel.replace(/_/g, " ")}
+                    <Label className="text-sm font-medium">
+                      {fieldLabel}
                     </Label>
                     <div className="flex items-center gap-2">
                       <button
@@ -2348,7 +2568,7 @@ export function SectionEditorPanel({
                   return (current as string) || "";
                 };
                 const currentValue = getFieldValue();
-                const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                const fieldLabel = getFieldLabel(fieldPath);
 
                 const pathParts = fieldPath.split(".");
                 const parentPrefix = pathParts.length > 1
@@ -2371,10 +2591,11 @@ export function SectionEditorPanel({
                 const currentMuted = getVideoSiblingValue("muted");
                 const currentAutoplay = getVideoSiblingValue("autoplay");
                 const currentLoop = getVideoSiblingValue("loop");
+                const currentPreviewImage = (getVideoSiblingValue("preview_image_url") as string) || "";
 
-                const parentLabel = parentPrefix
-                  ? parentPrefix.replace(/\.$/, "").split(".").pop() || "Video"
-                  : "Video";
+                const parentLabel = getFieldLabel(
+                  parentPrefix ? parentPrefix.replace(/\.$/, "") : "video"
+                );
 
                 return (
                   <Collapsible key={fieldPath} className="border rounded-md">
@@ -2442,6 +2663,64 @@ export function SectionEditorPanel({
                                 No video selected
                               </span>
                             )}
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setImagePickerTarget({
+                                  fieldPath: parentPrefix + "preview_image_url",
+                                  label: "Preview Image",
+                                  currentSrc: currentPreviewImage,
+                                  currentAlt: "",
+                                });
+                                setImagePickerOpen(true);
+                              }}
+                              className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
+                              data-testid={`props-video-${fieldLabel}-preview-image`}
+                              title="Change preview image"
+                            >
+                              {currentPreviewImage ? (
+                                <>
+                                  <img
+                                    src={currentPreviewImage}
+                                    alt="Preview"
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <IconPhoto className="h-4 w-4 text-white" />
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                              )}
+                            </button>
+                            <div className="flex-1 min-w-0">
+                              {currentPreviewImage ? (
+                                <div className="flex items-center gap-1">
+                                  <span className="text-xs text-muted-foreground truncate flex-1">
+                                    {currentPreviewImage.split("/").pop() || currentPreviewImage}
+                                  </span>
+                                  <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-6 w-6 flex-shrink-0"
+                                    onClick={() => updateProperty(parentPrefix + "preview_image_url", "")}
+                                    data-testid={`props-video-${fieldLabel}-preview-image-clear`}
+                                  >
+                                    <IconX className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              ) : (
+                                <span className="text-xs text-muted-foreground italic">
+                                  No preview image selected
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
 
@@ -2603,6 +2882,7 @@ export function SectionEditorPanel({
                   linkedin_url: "LinkedIn URL",
                   link_text: "Texto del enlace",
                   link_url: "URL del enlace",
+                  logo_height: "Altura del logo (px)",
                   "media.url": "Video / Media URL",
                 };
 
@@ -2611,6 +2891,7 @@ export function SectionEditorPanel({
                   "media.type",
                   "media.ratio",
                   "ratio",
+                  "logo_height",
                 ]);
                 if (fields.some((f) => f.fieldName === "button_variant")) {
                   hiddenFields.add("variant");
@@ -2680,9 +2961,10 @@ export function SectionEditorPanel({
                   } else {
                     if (
                       typeof value === "string" ||
-                      typeof value === "number"
+                      typeof value === "number" ||
+                      value === undefined
                     ) {
-                      updateArrayItemField(arrPath, idx, fieldName, value);
+                      updateArrayItemField(arrPath, idx, fieldName, value as string | number | boolean | undefined);
                     }
                   }
                 };
@@ -3644,12 +3926,7 @@ export function SectionEditorPanel({
                   };
 
                   const currentValue = getSimpleLinkValue();
-                  const acronyms = new Set(["url", "cta", "id", "api", "seo"]);
-                  const fieldLabel = fieldPath
-                    .replace(/[._]/g, " ")
-                    .split(" ")
-                    .map((w) => acronyms.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))
-                    .join(" ");
+                  const fieldLabel = getFieldLabel(fieldPath);
 
                   return (
                     <div key={fieldPath} className="space-y-2">
@@ -3694,11 +3971,20 @@ export function SectionEditorPanel({
                   const hasParent = parentPath.length > 0;
                   const fieldPrefix = hasParent ? `${parentPath}.` : "";
 
-                  const currentValue = getNestedValue(fieldPath, "") as string;
-                  const currentAlt = getNestedValue(
+                  const rawValue = getNestedValue(fieldPath, "");
+                  const currentValue = typeof rawValue === "string"
+                    ? rawValue
+                    : (rawValue && typeof rawValue === "object" && "src" in (rawValue as Record<string, unknown>))
+                      ? String((rawValue as Record<string, unknown>).src || "")
+                      : "";
+                  const currentAlt = (getNestedValue(
                     `${fieldPrefix}image_alt`,
                     "",
-                  ) as string;
+                  ) as string) || (
+                    typeof rawValue === "object" && rawValue && "alt" in (rawValue as Record<string, unknown>)
+                      ? String((rawValue as Record<string, unknown>).alt || "")
+                      : ""
+                  );
                   const currentObjectFit = getNestedValue(
                     `${fieldPrefix}image_object_fit`,
                     "",
@@ -3708,14 +3994,7 @@ export function SectionEditorPanel({
                     "",
                   ) as string;
 
-                  const fieldLabel =
-                    side === "left"
-                      ? "Imagen Izquierda"
-                      : side === "right"
-                        ? "Imagen Derecha"
-                        : side === "image"
-                          ? "Imagen"
-                          : fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
 
                   return (
                     <Collapsible key={fieldPath} className="border rounded-md">
@@ -4242,17 +4521,17 @@ export function SectionEditorPanel({
                     return (current as string) || "";
                   };
                   const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
                   return (
                     <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium capitalize">
-                        {fieldLabel.replace(/_/g, " ")}
+                      <Label className="text-sm font-medium">
+                        {fieldLabel}
                       </Label>
                       <RichTextArea
                         key={`${sectionIndex}-${fieldPath}`}
                         value={currentValue}
                         onChange={(html) => updateProperty(fieldPath, html)}
-                        placeholder={`Edit ${fieldLabel.replace(/_/g, " ")}…`}
+                        placeholder={`Edit ${fieldLabel}…`}
                         minHeight="120px"
                         locale={locale}
                         data-testid={`props-rich-text-${fieldLabel}`}
@@ -4274,16 +4553,14 @@ export function SectionEditorPanel({
                     return (current as string) || "";
                   };
                   const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
                   return (
                     <div key={fieldPath} className="space-y-2">
                       <MarkdownEditorField
                         key={`${sectionIndex}-${fieldPath}`}
                         value={currentValue}
                         onChange={(md) => updateProperty(fieldPath, md)}
-                        label={fieldLabel
-                          .replace(/_/g, " ")
-                          .replace(/\b\w/g, (c) => c.toUpperCase())}
+                        label={fieldLabel}
                         data-testid={`props-markdown-${fieldLabel}`}
                       />
                     </div>
@@ -4303,12 +4580,12 @@ export function SectionEditorPanel({
                     return current === true || current === "true";
                   };
                   const currentValue = getSimpleFieldValue();
-                  const fieldLabel = fieldPath.split(".").pop() || fieldPath;
+                  const fieldLabel = getFieldLabel(fieldPath);
                   return (
                     <div key={fieldPath} className="space-y-2">
                       <div className="flex items-center gap-3">
-                        <Label className="text-sm font-medium capitalize">
-                          {fieldLabel.replace(/_/g, " ")}
+                        <Label className="text-sm font-medium">
+                          {fieldLabel}
                         </Label>
                         <Switch
                           checked={currentValue}
@@ -4322,9 +4599,153 @@ export function SectionEditorPanel({
                   );
                 }
 
+                // Handle cta-picker: "cta_buttons[]" or "features[].cta"
+                if (editorType === "cta-picker") {
+                  // Match "arrayName[]" or "path.arrayName[].subField"
+                  const ctaMatchWhole = fieldPath.match(/^([\w.]+)\[\]$/);
+                  const ctaMatchNested = fieldPath.match(/^([\w.]+)\[\]\.([\w.]+)$/);
+
+                  if (ctaMatchWhole || ctaMatchNested) {
+                    const ctaArrayPath = ctaMatchWhole ? ctaMatchWhole[1] : ctaMatchNested![1];
+                    const ctaSubPath = ctaMatchNested ? ctaMatchNested[2] : null;
+
+                    const getCtaArrayData = () => {
+                      if (!parsedSection) return undefined;
+                      const pathParts = ctaArrayPath.split(".");
+                      let current: Record<string, unknown> = parsedSection as Record<string, unknown>;
+                      for (const part of pathParts) {
+                        if (!current || typeof current !== "object") return undefined;
+                        current = current[part] as Record<string, unknown>;
+                      }
+                      return current as unknown as Record<string, unknown>[] | undefined;
+                    };
+
+                    const ctaArrayData = getCtaArrayData();
+                    const safeCtaArray = Array.isArray(ctaArrayData) ? ctaArrayData : [];
+
+                    const getCtaField = (item: Record<string, unknown>, field: string): string => {
+                      if (ctaSubPath) {
+                        const sub = item[ctaSubPath] as Record<string, unknown> | undefined;
+                        return (sub?.[field] as string) || "";
+                      }
+                      return (item[field] as string) || "";
+                    };
+
+                    const updateCtaField = (index: number, field: string, value: string) => {
+                      const fullField = ctaSubPath ? `${ctaSubPath}.${field}` : field;
+                      updateArrayItemField(ctaArrayPath, index, fullField, value);
+                    };
+
+                    const ctaLabel = getFieldLabel(ctaSubPath || ctaArrayPath);
+
+                    return (
+                      <div key={fieldPath} className="space-y-3">
+                        <Label className="text-sm font-medium capitalize">
+                          {ctaLabel.replace(/_/g, " ")} ({safeCtaArray.length})
+                        </Label>
+                        <div className="space-y-2">
+                          {safeCtaArray.map((item, index) => {
+                            const btnText = getCtaField(item, "text") || (item.title as string) || `CTA ${index + 1}`;
+                            const btnUrl = getCtaField(item, "url");
+                            const btnIcon = getCtaField(item, "icon");
+                            const btnVariant = getCtaField(item, "variant");
+
+                            return (
+                              <Collapsible key={index} className="border rounded-md">
+                                <CollapsibleTrigger asChild>
+                                  <button
+                                    type="button"
+                                    className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
+                                    data-testid={`props-cta-${index}-trigger`}
+                                  >
+                                    <div className="w-8 h-8 rounded-md bg-muted border flex-shrink-0 flex items-center justify-center">
+                                      {btnIcon ? (
+                                        renderIconByName(btnIcon)
+                                      ) : (
+                                        <span className="text-xs text-muted-foreground">#{index + 1}</span>
+                                      )}
+                                    </div>
+                                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                                  </button>
+                                </CollapsibleTrigger>
+                                <CollapsibleContent>
+                                  <div className="p-3 pt-0 space-y-3 border-t">
+                                    <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">Text</Label>
+                                      <Input
+                                        value={btnText}
+                                        onChange={(e) => updateCtaField(index, "text", e.target.value)}
+                                        placeholder="Button text"
+                                        data-testid={`props-cta-${index}-text`}
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">URL</Label>
+                                      <LinkPicker
+                                        value={btnUrl}
+                                        onChange={(url) => updateCtaField(index, "url", url)}
+                                        locale={locale}
+                                        allSections={allSections}
+                                        testId={`props-cta-${index}-url`}
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">Variant</Label>
+                                      <Select
+                                        value={btnVariant || "primary"}
+                                        onValueChange={(val) => updateCtaField(index, "variant", val)}
+                                      >
+                                        <SelectTrigger data-testid={`props-cta-${index}-variant`}>
+                                          <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="primary">Primary</SelectItem>
+                                          <SelectItem value="secondary">Secondary</SelectItem>
+                                          <SelectItem value="outline">Outline</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                    <div className="space-y-1">
+                                      <Label className="text-xs text-muted-foreground">Icon</Label>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setIconPickerTarget({
+                                            arrayField: ctaArrayPath,
+                                            index,
+                                            field: ctaSubPath ? `${ctaSubPath}.icon` : "icon",
+                                            label: btnText,
+                                            currentIcon: btnIcon,
+                                          });
+                                          setIconPickerOpen(true);
+                                        }}
+                                        className="flex items-center gap-2 w-full transition-colors"
+                                        data-testid={`props-cta-${index}-icon`}
+                                      >
+                                        <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">
+                                          {btnIcon ? renderIconByName(btnIcon) : (
+                                            <IconPlus className="h-4 w-4 text-muted-foreground" />
+                                          )}
+                                        </div>
+                                        <span className="text-sm text-muted-foreground flex-1 text-left truncate">
+                                          {btnIcon || "No icon"}
+                                        </span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </CollapsibleContent>
+                              </Collapsible>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+                }
+
                 // Parse field path like "features[].icon" or "signup_card.features[].icon"
                 // Matches: optional.nested.path.arrayName[].fieldName
-                const match = fieldPath.match(/^([\w.]+)\[\]\.(\w+)$/);
+                const match = fieldPath.match(/^([\w.]+)\[\]\.([\w.]+)$/);
                 if (!match) return null;
 
                 const [, arrayPath, itemField] = match;
@@ -4356,12 +4777,12 @@ export function SectionEditorPanel({
 
                 const safeArrayData = Array.isArray(arrayData) ? arrayData : [];
 
-                const arrayFieldLabel = arrayPath.split(".").pop() || arrayPath;
+                const arrayFieldLabel = getFieldLabel(arrayPath);
 
                 if (editorType === "icon-picker") {
                   return (
                     <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium capitalize">
+                      <Label className="text-sm font-medium">
                         {arrayFieldLabel} Icons
                       </Label>
                       <div className="flex flex-wrap gap-2">

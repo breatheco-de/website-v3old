@@ -27,13 +27,13 @@ sections:
       desktop: md
   - type: article
     content: |
-      ## Why LearnPack Matters in 2025
+      ## Why LearnPack Matters in 2026
 
       In the LLM era, it’s pointless to memorize syntax. What matters is **thinking like a developer** and collaborating with AI. LearnPack turns any topic, technical or not, into an **interactive, auto-graded course** in minutes.
 
       Tell the platform a title, length, and learning goals, or add your own input (documents, videos, or just a topic), and it instantly produces a **structured syllabus** and a complete interactive course. It includes lessons, quizzes, and auto-graded exercises, no coding required. Then **Rigobot**, our 24/7 AI mentor, guides learners line by line.
 
-      ### Some Context
+      ### Context and Overview
 
       In today’s fast-evolving digital landscape, learning platforms must adapt to meet diverse needs. LearnPack, initially launched as a coding education tool, has evolved into a versatile platform that empowers anyone to create interactive, auto-graded courses without technical expertise.
 
@@ -58,7 +58,7 @@ sections:
       | Accessibility & i18n | Keyboard navigation, color-safe UI, EN/ES | Inclusive, bilingual learning from day one |
       | Open-Source Repository | Content available on GitHub | Reuse, adapt, and improve freely |
 
-      ## Outcomes So Far (Jan – Jun 2025)
+      ## Recents Outcomes (Jan – Jun 2025)
 
       | **Metric** | **Mid-Year 2025** | **Source** |
       | --- | --- | --- |

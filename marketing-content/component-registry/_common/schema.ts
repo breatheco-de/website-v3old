@@ -35,7 +35,7 @@ export type CtaButton = z.infer<typeof ctaButtonSchema>;
 
 // Video configuration - used in hero, two_column, etc.
 export const videoConfigSchema = z.object({
-  url: z.string(),
+  url: z.string().optional(),
   ratio: z.string().optional(),
   mobile_ratio: z.string().optional(),
   width: z.string().optional(), // CSS width value e.g., "400px", "100%"

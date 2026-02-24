@@ -3,10 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UniversalImage } from "@/components/UniversalImage";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import * as TablerIcons from "@tabler/icons-react";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroSingleColumn } from "@shared/schema";
-import type { ComponentType } from "react";
+import { createElement } from "react";
+import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import avatar1 from "@assets/generated_images/Woman_profile_headshot_1_608aff01.webp";
 import avatar2 from "@assets/generated_images/Man_profile_headshot_1_0850c276.webp";
@@ -18,12 +18,6 @@ interface HeroSingleColumnProps {
 }
 
 export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
-  const getIcon = (iconName: string) => {
-    const icons = TablerIcons as unknown as Record<string, ComponentType<{ size?: number }>>;
-    const IconComponent = icons[`Icon${iconName}`];
-    return IconComponent ? <IconComponent size={20} /> : null;
-  };
-
   const avatars = [avatar1, avatar2, avatar3, avatar4];
   const handleLinkClick = useInternalNav();
 
@@ -109,7 +103,7 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
                 data-testid={`button-hero-cta-${index}`}
               >
                 <a href={button.url} onClick={handleLinkClick} className="flex items-center gap-2">
-                  {button.icon && getIcon(button.icon)}
+                  {button.icon && (() => { const Ic = getIcon(button.icon); return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null; })()}
                   {button.text}
                 </a>
               </Button>

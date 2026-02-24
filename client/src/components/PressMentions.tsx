@@ -13,6 +13,7 @@ export function PressMentions({ data }: PressMentionsProps) {
   const defaultTitleColor = data.default_title_color;
   const defaultExcerptColor = data.default_excerpt_color;
   const defaultLinkColor = data.default_link_color;
+  const defaultLogoHeight = data.default_logo_height;
   const columns = data.columns || 3;
   const background = data.background;
 
@@ -85,6 +86,7 @@ export function PressMentions({ data }: PressMentionsProps) {
               defaultTitleColor={defaultTitleColor}
               defaultExcerptColor={defaultExcerptColor}
               defaultLinkColor={defaultLinkColor}
+              defaultLogoHeight={defaultLogoHeight}
               index={index}
             />
           ))}
@@ -100,6 +102,7 @@ interface PressMentionCardProps {
   defaultTitleColor?: string;
   defaultExcerptColor?: string;
   defaultLinkColor?: string;
+  defaultLogoHeight?: number;
   index: number;
 }
 
@@ -109,6 +112,7 @@ function PressMentionCard({
   defaultTitleColor,
   defaultExcerptColor,
   defaultLinkColor,
+  defaultLogoHeight,
   index,
 }: PressMentionCardProps) {
   const boxColor = item.box_color || defaultBoxColor;
@@ -124,7 +128,11 @@ function PressMentionCard({
     >
       <div className="p-5 md:p-6 flex flex-col gap-4">
         {item.logo && (
-          <div className="h-6 md:h-7 flex items-start" data-testid={`img-press-logo-${index}`}>
+          <div
+            className={`flex items-start ${!(item.logo_height || defaultLogoHeight) ? "h-6 md:h-7" : ""}`}
+            style={(item.logo_height || defaultLogoHeight) ? { height: `${item.logo_height || defaultLogoHeight}px` } : undefined}
+            data-testid={`img-press-logo-${index}`}
+          >
             <UniversalImage
               id={item.logo}
               alt={item.title}

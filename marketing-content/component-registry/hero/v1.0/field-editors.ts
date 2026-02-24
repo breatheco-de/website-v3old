@@ -15,7 +15,10 @@ export type EditorType =
   | "color-picker"
   | "image-picker"
   | "image-picker:logo"
+  | "image-with-style-picker"
   | "link-picker"
+  | "cta-picker"
+  | "video-picker"
   | "text-input"
   | "rich-text-editor"
   | "boolean-toggle";
@@ -23,9 +26,7 @@ export type EditorType =
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
   "signup_card.features[].icon": "icon-picker",
-  "cta_buttons[].url": "link-picker",
-  "cta_button.url": "link-picker",
-  "panels[].cta_button.url": "link-picker",
+  "simpleTwoColumn:cta_buttons[]": "cta-picker",
 
   // Variant-specific - prefixed with variant name
   "productShowcase:image_id": "image-picker",
@@ -36,9 +37,12 @@ export const fieldEditors: Record<string, EditorType> = {
   "productShowcase:marquee.items[].logoHeight": "text-input",
   "showcase:left_images[].src": "image-picker",
   "showcase:right_images[].src": "image-picker",
-  "simpleTwoColumn:image.src": "image-picker",
+  "simpleTwoColumn:image": "image-with-style-picker",
   "simpleTwoColumn:subtitle": "rich-text-editor",
   "singleColumn:subtitle": "rich-text-editor",
   "singleColumn:image_id": "image-picker",
   "course:layout_reversed": "boolean-toggle",
+  "course:video.url": "video-picker",
+  "productShowcase:video.url": "video-picker",
+  "simpleTwoColumn:video.url": "video-picker",
 };

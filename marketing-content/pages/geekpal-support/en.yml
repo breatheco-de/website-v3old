@@ -137,7 +137,6 @@ sections:
     marginY:
       desktop: none
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
@@ -146,6 +145,33 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+    item_overrides:
+      do-i-get-a-job-after-completing-the-program:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+      how-are-the-live-classes-structured:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career

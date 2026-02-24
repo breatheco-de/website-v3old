@@ -121,10 +121,10 @@ sections:
           required: true
         last_name:
           visible: true
-          required: true
+          required: false
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: false
           default: ai-engineering
