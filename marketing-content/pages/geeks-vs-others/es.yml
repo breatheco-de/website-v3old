@@ -213,7 +213,6 @@ sections:
     paddingY:
       desktop: none md
   - type: faq
-    version: v1.0
     title: Preguntas Frecuentes
     related_features:
       - online-platform
@@ -221,6 +220,31 @@ sections:
       - career-support
     paddingY:
       desktop: md
+    item_overrides:
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para comenzar?
