@@ -147,3 +147,14 @@ export async function flushSyncLog(): Promise<void> {
   saveLocal();
   await saveToBucket();
 }
+
+export async function clearSyncLog(): Promise<void> {
+  if (saveTimer) {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+  }
+  logLines = [];
+  saveLocal();
+  await saveToBucket();
+  logSync('RESTART', `Log cleared (instance=${INSTANCE_ID}, commit=${LOCAL_COMMIT_HASH})`);
+}

@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +16,9 @@ import {
   IconCheck,
   IconX,
   IconBrandGithub,
+  IconTrash,
 } from "@tabler/icons-react";
+import { apiRequest } from "@/lib/queryClient";
 
 const CATEGORIES = [
   "RESTART",
@@ -103,6 +105,15 @@ export default function SyncLogPage() {
   const [activeCategories, setActiveCategories] = useState<Set<Category>>(
     new Set(CATEGORIES)
   );
+  const qc = useQueryClient();
+
+  const clearMutation = useMutation({
+    mutationFn: () => apiRequest("DELETE", "/api/github/sync-log"),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["/api/github/sync-log"] });
+      qc.invalidateQueries({ queryKey: ["/api/github/sync-info"] });
+    },
+  });
 
   const {
     data: logText,
@@ -236,6 +247,16 @@ export default function SyncLogPage() {
             >
               <IconRefresh className={`h-3.5 w-3.5 mr-1.5 ${logLoading ? "animate-spin" : ""}`} />
               Refresh
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => clearMutation.mutate()}
+              disabled={clearMutation.isPending}
+              data-testid="button-clear-sync-log"
+            >
+              <IconTrash className="h-3.5 w-3.5 mr-1.5" />
+              Clear
             </Button>
           </div>
         </div>

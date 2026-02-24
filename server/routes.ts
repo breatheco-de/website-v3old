@@ -3289,6 +3289,16 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.delete("/api/github/sync-log", async (_req, res) => {
+    try {
+      const { clearSyncLog } = await import("./sync-log");
+      await clearSyncLog();
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: 'Error clearing sync log' });
+    }
+  });
+
   // Get structured sync info (webhook status, instance, recent log entries)
   app.get("/api/github/sync-info", async (_req, res) => {
     try {
