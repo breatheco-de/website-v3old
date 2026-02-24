@@ -250,6 +250,18 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(var(--sidebar-background))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: whos_hiring
     variant: carousel
     title: Top Tech Companies Hiring 4Geeks Graduates
