@@ -33,14 +33,12 @@ sections:
     columns: 3
     items:
       - logo: /attached_assets/forbes-logo-award_1764709625651.webp
-        logo_height: 5
         title: Best Overall Data Science and Machine Learning Bootcamp 2025
         excerpt: Our bootcamp was chosen as the top option for its hands- on beginner friendly format, verified outcomes and job guarantee.
         link_text: See article
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/#4geeks_academy_data_science_and_machine_learning_course_section
         box_color: ""
       - logo: /attached_assets/arp-logo-certification_1765548854924.png
-        logo_height: 5
         title: Institutional Quality Online Education
         excerpt: 4Geeks Academy has earned the ARP certification, distinguishing it as a leader in online coding education.
         link_text: See website
@@ -65,7 +63,6 @@ sections:
         excerpt: Educational Excelence Awards 2021 to the best international trajectory school, more information found on the palmares for the 2021 awards
         link_text: Read article
         link_url: https://premiosexcelenciaeducativa.org/wp-content/uploads/2016/05/PALMARE%CC%81S-EXCELENCIA-2020-1.pdf
-        box_color: ""
       - logo: ../../../static/images/badges/switchup-badge-2023.png
         title: Best Bootcamp according to Switchup 2023
         excerpt: Not only in Florida, but over each of our campus 4Geeks is constantly keeping a ~5 start rating that makes us one of the top bootcamp in the world
