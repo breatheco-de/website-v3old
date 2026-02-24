@@ -3193,29 +3193,26 @@ export function SectionEditorPanel({
                                           {label}
                                         </Label>
                                         <Input
-                                          type="number"
+                                          type="text"
+                                          inputMode="numeric"
+                                          pattern="[0-9]*"
                                           value={
                                             rawValue !== undefined
                                               ? String(rawValue)
                                               : ""
                                           }
                                           onChange={(e) => {
+                                            const val = e.target.value.replace(/[^0-9]/g, "");
                                             const num =
-                                              e.target.value === ""
+                                              val === ""
                                                 ? undefined
-                                                : Number(e.target.value);
+                                                : Number(val);
                                             updateNestedField(
                                               index,
                                               fieldKey,
                                               num,
                                             );
                                           }}
-                                          min={0}
-                                          max={
-                                            fieldKey === "rating"
-                                              ? 5
-                                              : undefined
-                                          }
                                           className="h-8 text-sm"
                                           data-testid={`props-grouped-number-${fieldKey}-${index}`}
                                         />
