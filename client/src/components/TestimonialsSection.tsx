@@ -104,8 +104,8 @@ const CARD_SPACING_DESKTOP = 330;
 const CARD_WIDTH_MOBILE = 240;
 const CARD_SPACING_MOBILE = 220;
 
-const DRAG_MULTIPLIER = 0.5; // Slower drag
-const SIDE_SCALE = 0.85; // Smaller side cards
+const DRAG_MULTIPLIER = 0.52;
+const SIDE_SCALE = 0.85;
 const SIDE_OPACITY = 0.5;
 
 export function TestimonialsSection({ data, testimonials }: TestimonialsSectionProps) {

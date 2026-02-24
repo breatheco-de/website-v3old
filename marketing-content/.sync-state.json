@@ -126,11 +126,11 @@
       "remoteSha": "f6ed13b5eb4bf7af4459c2631e6e8a4bd1d2a9dd460a6aad1e8564b423fbb9e5"
     },
     "marketing-content/landings/example-landing/promoted.yml": {
-      "sha": "ca298033a0c43915c1174d5d617bfca06708fe0c1d50bbce76ce2112c43d2105",
-      "lastModified": 1771888181308.2017,
+      "sha": "8e9e75d501426047ab9326927de2bfb57de5a986841f8d07bb9c917fa7a31341",
+      "lastModified": 1771893313374.424,
       "remoteSha": "759ce649554f55dbb7db9bbb2044972b77e42d8c490102739934b06cea7ddda8",
       "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-23T23:09:41.311Z"
+      "modifiedAt": "2026-02-24T00:35:13.377Z"
     },
     "marketing-content/landings/test-example-check/_common.yml": {
       "sha": "628ed61062d92cfb87ae61befdf82fc152bf2418e5c3ec7e97a09604fa2a694c",
@@ -153,11 +153,11 @@
       "remoteSha": "059cfc562586b5a661415cd9f2ed601987cf3378e0764ec4c20160836f26470f"
     },
     "marketing-content/locations/atlanta-usa/en.yml": {
-      "sha": "ada67f68377ef600025d343063ff799756c844ceaee912ac1f8817cd839f4b16",
-      "lastModified": 1771888993173.5876,
+      "sha": "a8e700292d0c6c6b85df46bc2da15b5b0a11b812ccbdb802510d8b8e8c9f2c9c",
+      "lastModified": 1771889990480.8452,
       "remoteSha": "55f574107674ff0cc7f2cbfd9862b5392abe5af9b95e2659a3835021b8af9757",
       "author": "Alejandro Mauricio Jimenez Morales",
-      "modifiedAt": "2026-02-23T23:23:13.175Z"
+      "modifiedAt": "2026-02-23T23:39:50.483Z"
     },
     "marketing-content/locations/atlanta-usa/es.yml": {
       "sha": "05d477c464ae18eb746a87fb9449d64d60cd55f50161f41c0aa9149d4969df33",
