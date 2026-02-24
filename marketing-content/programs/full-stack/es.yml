@@ -563,6 +563,20 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
+    item_overrides:
+      cunto-dura-el-programa-full-stack:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Convertirte en Desarrollador Full Stack?
