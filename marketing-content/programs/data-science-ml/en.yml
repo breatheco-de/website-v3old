@@ -533,6 +533,20 @@ sections:
     paddingY:
       desktop: sm md
     background: hsl(var(--muted))
+    item_overrides:
+      how-long-does-it-take-to-complete-the-data-science-program:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: Ready to Start your Data Science career?
