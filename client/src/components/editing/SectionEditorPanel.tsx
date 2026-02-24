@@ -3193,26 +3193,28 @@ export function SectionEditorPanel({
                                           {label}
                                         </Label>
                                         <Input
-                                          type="text"
-                                          inputMode="numeric"
-                                          pattern="[0-9]*"
+                                          type="number"
                                           value={
                                             rawValue !== undefined
                                               ? String(rawValue)
                                               : ""
                                           }
                                           onChange={(e) => {
-                                            const val = e.target.value.replace(/[^0-9]/g, "");
                                             const num =
-                                              val === ""
+                                              e.target.value === ""
                                                 ? undefined
-                                                : Number(val);
+                                                : Number(e.target.value);
                                             updateNestedField(
                                               index,
                                               fieldKey,
                                               num,
                                             );
                                           }}
+                                          max={
+                                            fieldKey === "rating"
+                                              ? 5
+                                              : undefined
+                                          }
                                           className="h-8 text-sm"
                                           data-testid={`props-grouped-number-${fieldKey}-${index}`}
                                         />
