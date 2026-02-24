@@ -3233,6 +3233,15 @@ Important: Only include mappings where you are confident the field exists. Use d
       const pushPayload = req.body;
       const commitSha = pushPayload.after;
       const pusher = pushPayload.pusher?.name || 'unknown';
+
+      const { getAutoCommitStatus } = await import("./auto-commit");
+      const { lastCommitSha } = getAutoCommitStatus();
+      if (lastCommitSha && commitSha && (commitSha === lastCommitSha || commitSha.startsWith(lastCommitSha) || lastCommitSha.startsWith(commitSha))) {
+        logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: skipping auto-pull — commit was pushed by this instance`);
+        res.json({ ok: true, message: 'Self-push, skipping auto-pull' });
+        return;
+      }
+
       const commits = pushPayload.commits || [];
 
       const changedFiles = new Set<string>();
