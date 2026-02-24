@@ -165,6 +165,18 @@ sections:
         - text: Nuestra mentoría es ilimitada y personalizada
         - text: Nuestro soporte profesional nunca expira
     background: muted
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: Carreras Reales Comienzan Aquí — Solo Pregúntale a Nuestros Estudiantes
     description: Con el {{ global_job_placement_rate | 84 }}% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
