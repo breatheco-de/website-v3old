@@ -64,7 +64,7 @@ global_teacher_student_ratio:
   default: "1:7"
   conditions:
     - query:
-        location: "madrid-spain"
+        region: "europe"
       value: "1:8"
 call_to_action_apply:
   default: "Apply now"
