@@ -16,7 +16,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Rigobot, tu Mentor de Programación con IA que se siente como un amigo
+    title: Rigobot, tu Mentor de Programación con IA que te acompaña en cada paso
     subtitle: Conoce Rigobot, tu mentor de programación con IA que sigue tu progreso, proporciona retroalimentación en tiempo real y te ayuda a pensar como desarrollador. Disponible 24/7 en cada curso de 4Geeks.
     image:
       src: https://breathecode.herokuapp.com/v1/media/file/rigo-png
