@@ -38,7 +38,6 @@ sections:
         link_text: See article
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/#4geeks_academy_data_science_and_machine_learning_course_section
         box_color: ""
-        logoHeight: 80px
       - logo: /attached_assets/arp-logo-certification_1765548854924.png
         title: Institutional Quality Online Education
         excerpt: 4Geeks Academy has earned the ARP certification, distinguishing it as a leader in online coding education.
@@ -136,6 +135,7 @@ sections:
         excerpt: We are pleased to announce that we have been distinguished with the Excellence in Education Award for Best Coding Bootcamp Program of 2022. This recognition highlights our commitment to excellence in technology education.
         link_text: Read article
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
+    default_logo_height: 80
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
