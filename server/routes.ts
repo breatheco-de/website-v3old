@@ -343,8 +343,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { loadSyncStateFromBucket } = await import("./sync-state");
   loadSyncStateFromBucket()
     .then(async () => {
-      const { reconcileSyncStateOnStartup } = await import("./github");
+      const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
       await reconcileSyncStateOnStartup();
+      const result = await autoPullNonConflicting();
+      if (result.pulled.length > 0) {
+        console.log(`[Startup] Auto-pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+      }
+      if (result.conflicted.length > 0) {
+        console.log(`[Startup] ${result.conflicted.length} files have conflicts, awaiting manual resolution`);
+      }
+      await ensureWebhook();
     })
     .catch((err) => {
       console.error("[SyncState] Failed to load/reconcile on startup:", err);
@@ -3168,6 +3176,89 @@ Important: Only include mappings where you are confident the field exists. Use d
     } catch (error) {
       console.error("Error checking GitHub sync status:", error);
       res.status(500).json({ error: "Failed to check sync status" });
+    }
+  });
+
+  // GitHub webhook endpoint - receives push events for auto-pull
+  app.post("/api/github/webhook", async (req, res) => {
+    try {
+      const signature = req.headers['x-hub-signature-256'] as string;
+      if (!signature) {
+        res.status(401).json({ error: 'Missing signature' });
+        return;
+      }
+
+      const { getWebhookInfo } = await import("./sync-state");
+      const webhookInfo = getWebhookInfo();
+      if (!webhookInfo) {
+        res.status(500).json({ error: 'No webhook configured' });
+        return;
+      }
+
+      const { verifyWebhookSignature } = await import("./github");
+      const rawBody = (req as any).rawBody;
+      const payload = rawBody ? rawBody.toString('utf-8') : JSON.stringify(req.body);
+
+      if (!verifyWebhookSignature(payload, signature, webhookInfo.webhookSecret)) {
+        res.status(401).json({ error: 'Invalid signature' });
+        return;
+      }
+
+      const event = req.headers['x-github-event'] as string;
+
+      if (event === 'ping') {
+        console.log('[Webhook] Received ping event');
+        res.json({ ok: true, message: 'pong' });
+        return;
+      }
+
+      if (event !== 'push') {
+        res.json({ ok: true, message: `Ignored event: ${event}` });
+        return;
+      }
+
+      const pushPayload = req.body;
+      const commitSha = pushPayload.after;
+      const commits = pushPayload.commits || [];
+
+      const changedFiles = new Set<string>();
+      for (const commit of commits) {
+        for (const f of (commit.added || [])) changedFiles.add(f);
+        for (const f of (commit.modified || [])) changedFiles.add(f);
+        for (const f of (commit.removed || [])) changedFiles.add(f);
+      }
+
+      const marketingFiles = Array.from(changedFiles).filter(f => f.startsWith('marketing-content/'));
+
+      if (marketingFiles.length === 0) {
+        res.json({ ok: true, message: 'No marketing-content files changed' });
+        return;
+      }
+
+      console.log(`[Webhook] Push event: ${marketingFiles.length} marketing-content files changed in ${commitSha?.slice(0, 7)}`);
+
+      const { autoPullNonConflicting } = await import("./github");
+      const result = await autoPullNonConflicting(marketingFiles, commitSha);
+
+      if (result.pulled.length > 0) {
+        console.log(`[Webhook] Auto-pulled ${result.pulled.length} files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+      }
+      if (result.conflicted.length > 0) {
+        console.log(`[Webhook] ${result.conflicted.length} files have local conflicts, left for manual resolution`);
+      }
+      if (result.errors.length > 0) {
+        console.error(`[Webhook] Errors: ${result.errors.join('; ')}`);
+      }
+
+      res.json({
+        ok: true,
+        pulled: result.pulled.length,
+        conflicted: result.conflicted.length,
+        errors: result.errors.length,
+      });
+    } catch (error) {
+      console.error('[Webhook] Error handling webhook:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
   });
 

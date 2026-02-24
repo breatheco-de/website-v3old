@@ -9,6 +9,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 import {
   detectPendingChanges,
   getLastSyncedCommit,
@@ -1051,6 +1052,243 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
     }
   } catch (error) {
     console.error('[SyncReconcile] Error during reconciliation:', error);
+  }
+}
+
+/**
+ * Auto-pull non-conflicting incoming files from remote.
+ * For each changed file: if no local modifications exist, pull silently.
+ * Files with local edits are left untouched for manual resolution.
+ * @param changedFiles - optional list of file paths from webhook payload; if omitted, uses getAllSyncChanges
+ * @param remoteCommitSha - optional commit SHA from webhook payload
+ */
+export async function autoPullNonConflicting(changedFiles?: string[], remoteCommitSha?: string): Promise<{
+  pulled: string[];
+  conflicted: string[];
+  errors: string[];
+}> {
+  const config = getGitHubConfig();
+  if (!config) return { pulled: [], conflicted: [], errors: ['GitHub not configured'] };
+
+  const pulled: string[] = [];
+  const conflicted: string[] = [];
+  const errors: string[] = [];
+
+  try {
+    const { shouldTrackFile } = await import("./sync-state");
+
+    if (changedFiles) {
+      const tracked = changedFiles.filter(shouldTrackFile);
+      if (tracked.length === 0) return { pulled, conflicted, errors };
+
+      const localChanges = await getPendingChanges();
+      const localFileSet = new Set(localChanges.map(c => c.file));
+
+      for (const filePath of tracked) {
+        if (localFileSet.has(filePath)) {
+          conflicted.push(filePath);
+          continue;
+        }
+        try {
+          const result = await pullSingleFile(filePath);
+          if (result.success) {
+            pulled.push(filePath);
+          } else {
+            errors.push(`${filePath}: ${result.error}`);
+          }
+        } catch (e) {
+          errors.push(`${filePath}: ${e instanceof Error ? e.message : 'Unknown error'}`);
+        }
+      }
+    } else {
+      const allChanges = await getAllSyncChanges();
+      const incomingOnly = allChanges.filter(c => c.source === 'incoming');
+      if (incomingOnly.length === 0) return { pulled, conflicted, errors };
+
+      for (const change of incomingOnly) {
+        try {
+          const result = await pullSingleFile(change.file);
+          if (result.success) {
+            pulled.push(change.file);
+          } else {
+            errors.push(`${change.file}: ${result.error}`);
+          }
+        } catch (e) {
+          errors.push(`${change.file}: ${e instanceof Error ? e.message : 'Unknown error'}`);
+        }
+      }
+
+      const conflictChanges = allChanges.filter(c => c.source === 'conflict');
+      conflicted.push(...conflictChanges.map(c => c.file));
+    }
+
+    if (pulled.length > 0 && conflicted.length === 0) {
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      const commitSha = remoteCommitSha || await getBranchHeadSha(config);
+      if (commitSha) {
+        rebuildSyncStateFromLocal(commitSha);
+      }
+    }
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'Unknown error');
+  }
+
+  return { pulled, conflicted, errors };
+}
+
+/**
+ * Verify GitHub webhook HMAC-SHA256 signature.
+ */
+export function verifyWebhookSignature(payload: string, signature: string, secret: string): boolean {
+  const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(payload).digest('hex');
+  try {
+    return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Get the base URL of this application for webhook registration.
+ */
+function getWebhookBaseUrl(): string | null {
+  if (process.env.SITE_URL) {
+    return process.env.SITE_URL.replace(/\/$/, '');
+  }
+  if (process.env.REPLIT_DEV_DOMAIN) {
+    return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  }
+  return null;
+}
+
+/**
+ * Ensure a GitHub webhook exists for push events.
+ * Checks sync state for existing webhook, verifies it's active, creates one if needed.
+ * Auto-generates a random secret and stores webhookId + secret in sync state.
+ */
+export async function ensureWebhook(): Promise<void> {
+  const config = getGitHubConfig();
+  if (!config) return;
+
+  const baseUrl = getWebhookBaseUrl();
+  if (!baseUrl) {
+    console.log('[Webhook] No SITE_URL or REPLIT_DEV_DOMAIN set, skipping webhook setup');
+    return;
+  }
+
+  const webhookUrl = `${baseUrl}/api/github/webhook`;
+
+  try {
+    const { getWebhookInfo, setWebhookInfo, clearWebhookInfo } = await import("./sync-state");
+    const existing = getWebhookInfo();
+
+    if (existing) {
+      if (existing.webhookUrl === webhookUrl) {
+        const isActive = await verifyWebhookExists(config, existing.webhookId);
+        if (isActive) {
+          console.log(`[Webhook] Existing webhook #${existing.webhookId} is active at ${webhookUrl}`);
+          return;
+        }
+        console.log(`[Webhook] Webhook #${existing.webhookId} no longer exists on GitHub, recreating...`);
+      } else {
+        console.log(`[Webhook] URL changed from ${existing.webhookUrl} to ${webhookUrl}, recreating...`);
+        await deleteWebhook(config, existing.webhookId);
+      }
+      clearWebhookInfo();
+    }
+
+    const secret = crypto.randomBytes(32).toString('hex');
+    const webhookId = await createWebhook(config, webhookUrl, secret);
+
+    if (webhookId) {
+      setWebhookInfo({
+        webhookId,
+        webhookSecret: secret,
+        webhookUrl,
+        createdAt: new Date().toISOString(),
+      });
+      console.log(`[Webhook] Created webhook #${webhookId} at ${webhookUrl}`);
+    } else {
+      console.error('[Webhook] Failed to create webhook');
+    }
+  } catch (error) {
+    console.error('[Webhook] Error ensuring webhook:', error);
+  }
+}
+
+async function verifyWebhookExists(config: GitHubConfig, webhookId: number): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks/${webhookId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+async function createWebhook(config: GitHubConfig, url: string, secret: string): Promise<number | null> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({
+          name: 'web',
+          active: true,
+          events: ['push'],
+          config: {
+            url,
+            content_type: 'json',
+            secret,
+            insecure_ssl: '0',
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error(`[Webhook] GitHub API error creating webhook: ${response.status}`, text);
+      return null;
+    }
+
+    const data = await response.json();
+    return data.id;
+  } catch (error) {
+    console.error('[Webhook] Error creating webhook:', error);
+    return null;
+  }
+}
+
+async function deleteWebhook(config: GitHubConfig, webhookId: number): Promise<void> {
+  try {
+    await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks/${webhookId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+  } catch {
+    // best-effort deletion
   }
 }
 
