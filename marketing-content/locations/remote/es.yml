@@ -130,55 +130,69 @@ sections:
       desktop: none md
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programas Cubiertos por la Garantía de Empleo
-    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
+    variant: solid
+    heading: Explora Nuestros Programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
-      - name: Full Stack Development
-        duration: 9 meses part-time
-        label: Actualizado en 2025
-        title: Desarrollo Full Stack de Software
+      - name: Ingeniería de IA
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
+        badges:
+          - icon: Cpu
+            text: LLMs, Agentes de IA y Automatización
+          - icon: Database
+            text: Sistemas de IA en Producción
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
+        course_background: hsl(var(--accent))
+      - name: Desarrollo Full Stack con IA
+        icon: Code
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo de Software Full Stack
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: React, Node.js y Python
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: $439
-        original_price: $588
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/full-stack
-        course_background: hsl(var(--primary) / 0.4)
-      - name: AI and Machine Learning
-        duration: 9 meses part-time
-        label: Actualizado en 2025
-        title: Data Science y Machine Learning
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        course_background: hsl(var(--destructive))
+      - name: Ciencia de Datos y ML
+        icon: ChartLine
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
         badges:
-          - icon: Brain
-            text: LLMs y entrenamiento en IA Generativa
-        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: $439
-        original_price: $588
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/ai-machine-learning
-        course_background: accent
-      - name: Cybersecurity
-        duration: 9 meses part-time
-        label: Actualizado en 2025
+          - icon: BrainCircuit
+            text: Machine Learning y Modelos de IA
+          - icon: BarChart
+            text: Análisis y Visualización de Datos
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+        course_background: hsl(var(--primary))
+      - name: Ciberseguridad
+        icon: Shield
+        duration: 16 semanas
+        label: Actualizado en 2026
         title: Ciberseguridad
         badges:
-          - icon: Code
-            text: Detección de amenazas y protección de sistemas
-        description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: $439
-        original_price: $588
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/cybersecurity
-        course_background: hsl(var(--color-pink))
+          - icon: Lock
+            text: Detección de Amenazas y Seguridad de Redes
+          - icon: Server
+            text: Seguridad en la Nube
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
+        course_background: hsl(var(--secondary-foreground))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -221,7 +235,7 @@ sections:
     variant: laptop-edge
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
-    description: "Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial."
+    description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
