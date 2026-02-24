@@ -415,6 +415,18 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - tampa-usa
+      - orlando-usa
+      - toronto-canada
   - type: testimonials
     version: v1.0
     title: What Our Students Say
