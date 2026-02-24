@@ -260,8 +260,9 @@ async function commitBatch(config: GitHubConfig, author: string, files: string[]
     lastCommitSha = result.commitSha;
     updateSyncStateAfterCommit(result.commitSha, files);
     console.log(`[AutoCommit] Committed ${files.length} file(s) by ${author}: ${result.commitSha.substring(0, 7)}`);
-    const { logSync } = await import("./sync-log");
+    const { logSync, refreshGithubCommit } = await import("./sync-log");
     logSync('COMMIT', `Auto-commit ${result.commitSha.substring(0, 7)} by ${author}: ${fileNames}`);
+    refreshGithubCommit();
   } else if (result.error?.includes('422') || result.error?.includes('conflict') || result.error?.includes('Update is not a fast forward')) {
     console.warn(`[AutoCommit] Conflict detected for batch by ${author}, retrying individual files...`);
     const { logSync } = await import("./sync-log");

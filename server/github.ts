@@ -994,7 +994,8 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
   const config = getGitHubConfig();
   if (!config) return;
 
-  const { logSync } = await import("./sync-log");
+  const { logSync, refreshGithubCommit } = await import("./sync-log");
+  refreshGithubCommit();
 
   try {
     const { getLastSyncedCommit } = await import("./sync-state");
@@ -1522,8 +1523,9 @@ export async function commitSingleFile(options: {
     const { updateFileAfterCommit } = await import("./sync-state");
     updateFileAfterCommit(options.filePath, commitSha || '');
 
-    const { logSync } = await import("./sync-log");
+    const { logSync, refreshGithubCommit } = await import("./sync-log");
     logSync('COMMIT', `${options.filePath.replace('marketing-content/', '')} → ${commitSha?.slice(0, 7) || '?'}${options.author ? ` by ${options.author}` : ''}`);
+    refreshGithubCommit();
     
     return { success: true, commitSha };
   } catch (error) {

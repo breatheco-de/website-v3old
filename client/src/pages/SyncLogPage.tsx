@@ -34,7 +34,8 @@ type Category = (typeof CATEGORIES)[number];
 
 interface SyncInfo {
   instanceId: string;
-  commitHash: string;
+  replitCheckpoint: string;
+  githubCommit: string | null;
   repoUrl: string | null;
   env: string;
   pid: number;
@@ -206,19 +207,24 @@ export default function SyncLogPage() {
                 <span className="flex items-center gap-1.5">
                   <IconServer className="h-3.5 w-3.5" />
                   <code className="text-xs bg-muted px-1.5 py-0.5 rounded" data-testid="text-instance-id">
-                    {syncInfo.instanceId} @{" "}
-                    {syncInfo.repoUrl && syncInfo.commitHash !== "?" ? (
-                      <a
-                        href={`${syncInfo.repoUrl}/commit/${syncInfo.commitHash}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline hover:text-foreground"
-                        data-testid="link-commit-hash"
-                      >
-                        {syncInfo.commitHash}
-                      </a>
-                    ) : (
-                      syncInfo.commitHash
+                    {syncInfo.instanceId} · checkpoint {syncInfo.replitCheckpoint}
+                    {syncInfo.githubCommit && (
+                      <>
+                        {" · "}
+                        {syncInfo.repoUrl ? (
+                          <a
+                            href={`${syncInfo.repoUrl}/commit/${syncInfo.githubCommit}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-foreground"
+                            data-testid="link-github-commit"
+                          >
+                            gh:{syncInfo.githubCommit}
+                          </a>
+                        ) : (
+                          <>gh:{syncInfo.githubCommit}</>
+                        )}
+                      </>
                     )}
                   </code>
                 </span>
