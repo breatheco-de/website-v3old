@@ -416,15 +416,15 @@ average_salary_workflow_automation_engineer:
 data_science_week_duration:
   default: "16 weeks"
   conditions:
-    - query:
-        region: "europe"
-      value: "18 semanas"
-    - query:
-        region: "latam"
-      value: "18 semanas"
-    - query:
-        region: "usa-canada"
-      value: "16 semanas"
+  - query:
+      region: "europe"
+    value: "18 semanas"
+  - query:
+      region: "latam"
+    value: "16 weeks"
+  - query:
+      region: "usa-canada"
+    value: "16 semanas"
 ai_engineering_week_duration:
   default: "24 semanas"
 cybersecurity_week_duration:

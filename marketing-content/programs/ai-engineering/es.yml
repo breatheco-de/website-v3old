@@ -30,70 +30,6 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +7000 graduados
     bullet_points:
-      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel
-      - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
-      - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
-    tutors:
-      - name: Marco Gonzalo
-        role: Instructor Principal
-        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
-      - name: Rigo
-        role: Tutor de IA
-        image: /attached_assets/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus mentores:"
-    description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
-    signup_card:
-      title: Recibe el Plan de Estudios Completo
-      description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
-      cta_button:
-        text: Recibir el Plan de Estudios
-        url: "#apply-modal"
-        variant: primary
-      login_link:
-        text: ¿Ya eres estudiante? Inicia sesión.
-        url: https://4geeks.com/es/login
-      features:
-        - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 semanas }} o versión acelerada de 12 semanas
-        - icon: IconBriefcase
-          text: Contenido orientado a la práctica
-        - icon: IconRobot
-          text: Aprendizaje y feedback con IA
-        - icon: IconUsers
-          text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor
-        - icon: IconUserCheck
-          text: Mentoría 1:1 ilimitada
-        - icon: book
-          text: Portafolio listo para producción
-    paddingY:
-      desktop: md
-    marginY:
-      desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-  - type: hero
-    version: "1.3"
-    variant: course
-    title: Ingeniería de Inteligencia Artificial
-    subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduados
-    bullet_points:
       - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
       - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
       - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
@@ -118,7 +54,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 semanas }}
+          text: Programa de {{ ai_engineering_week_duration | 24 semanas }} o versión acelerada de 12 semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
@@ -813,3 +749,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
