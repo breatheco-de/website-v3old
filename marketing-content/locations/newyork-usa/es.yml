@@ -10,23 +10,51 @@ meta:
     - /es/coding-campus/bootcamp-programacion-newyork
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Nueva York
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Nueva York. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Nueva York
     cta_buttons:
       - text: Aplicar Ahora
-        url: /es/apply
+        url: '#bottom'
         variant: primary
       - text: Descargar Programa
-        url: "#cta_banner-14"
+        url: '#syllabus-modal'
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: modal
+    version: '1.0'
+    section_id: syllabus-modal
+    heading: Comienza tu Aplicación
+    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Enviar Aplicación
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo en 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -68,7 +96,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: /attached_assets/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -96,79 +124,65 @@ sections:
         url: https://youtu.be/EcqasocRKHo
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Explora Nuestros Programas
-    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
+    version: '1.0'
+    variant: default
+    heading: Programas Cubiertos por la Garantía de Empleo
+    subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
     courses:
-      - name: Ingeniería de IA
-        icon: Brain
-        duration: 24 semanas
-        label: Actualizado en 2026
-        title: Ingeniería de IA
-        badges:
-          - icon: Cpu
-            text: LLMs, Agentes de IA y Automatización
-          - icon: Database
-            text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ingenieria-ia
-        course_background: hsl(var(--accent))
-      - name: Desarrollo Full Stack con IA
-        icon: Code
-        duration: 20 semanas
-        label: Actualizado en 2026
-        title: Desarrollo de Software Full Stack
+      - name: Full Stack Development
+        duration: 9 meses part-time
+        label: Actualizado en 2025
+        title: Desarrollo Full Stack de Software
         badges:
           - icon: Code
-            text: React, Node.js y Python
+            text: React, Node.js & Python
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
-        course_background: hsl(var(--destructive))
-      - name: Ciencia de Datos y ML
-        icon: ChartLine
-        duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
+        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
+        price: $439
+        original_price: $588
+        price_info: con pagos a plazos de 4Geeks
+        cta_text: Descubre el programa
+        cta_url: /es/full-stack
+        course_background: hsl(var(--primary) / 0.4)
+      - name: AI and Machine Learning
+        duration: 9 meses part-time
+        label: Actualizado en 2025
+        title: Data Science y Machine Learning
         badges:
-          - icon: BrainCircuit
-            text: Machine Learning y Modelos de IA
-          - icon: BarChart
-            text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
-        course_background: hsl(var(--primary))
-      - name: Ciberseguridad
-        icon: Shield
-        duration: 16 semanas
-        label: Actualizado en 2026
+          - icon: Brain
+            text: LLMs y entrenamiento en IA Generativa
+        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
+        price: $439
+        original_price: $588
+        price_info: con pagos a plazos de 4Geeks
+        cta_text: Descubre el programa
+        cta_url: /es/ai-machine-learning
+        course_background: accent
+      - name: Cybersecurity
+        duration: 9 meses part-time
+        label: Actualizado en 2025
         title: Ciberseguridad
         badges:
-          - icon: Lock
-            text: Detección de Amenazas y Seguridad de Redes
-          - icon: Server
-            text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciberseguridad
-        course_background: hsl(var(--secondary-foreground))
+          - icon: Code
+            text: Detección de amenazas y protección de sistemas
+        description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
+        price: $439
+        original_price: $588
+        price_info: con pagos a plazos de 4Geeks
+        cta_text: Descubre el programa
+        cta_url: /es/cybersecurity
+        course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -192,24 +206,23 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: La Confianza de una Garantía de Empleo*
-      description: |-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
+      heading: La Confianza de una Garantía de Empleo
+      description: |
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global_job_placement_rate | 84% }} tasa de contratación entre graduados
+        - text: 84% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global_salary_increase | 55% }} aumento salarial promedio en roles tech
+        - text: 55% aumento salarial promedio en roles tech
+    background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Nueva York es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
-    description: "La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Nueva York-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Nueva York, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
+    description: 'La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Nueva York-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Nueva York, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>'
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -239,7 +252,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Nueva York
     filter_by_location: newyork-usa
     marginY:
@@ -249,7 +262,7 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -288,6 +301,44 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+  - type: profiles_carousel
+    version: v1.0
+    heading: Conoce a los Geeks
+    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
+    image_round: false
+    profiles:
+      - image_id: alejandro_sanchez
+        name: Alejandro Sánchez
+        role: Co-Fundador y Director de Tecnología
+        linkedin_url: https://www.linkedin.com/in/alesanchezr/
+      - image_id: marcelo_ricigliano
+        name: Marcelo Ricigliano
+        role: Co-Fundador y CEO
+        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
+      - image_id: alissalandra
+        name: Alissa Landra
+        role: Campus & Growth Manager USA
+        linkedin_url: https://www.linkedin.com/in/alissalandra/
+      - image_id: victor_gomez
+        name: Victor Manuel Gómez Pérez
+        role: Regional Manager Europe
+        linkedin_url: https://www.linkedin.com/in/victormgomezp/
+      - image_id: pablo_bullor
+        name: Pablo Bullor
+        role: Program Manager LATAM
+        linkedin_url: https://www.linkedin.com/in/pablobullor/
+      - image_id: laura
+        name: Laura Magallanes
+        role: Program Manager USA
+        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
+      - image_id: valentina_ancieta
+        name: Valentina Ancieta
+        role: Workforce Development Manager USA & LATAM
+        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
+      - image_id: ariana_sanchez
+        name: Ariana Sánchez
+        role: Culture & Talent Leader
+        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -299,73 +350,13 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech?
-    subtitle: Recibe información personalizada del programa y los próximos pasos.
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Descargar Programa
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Email
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre y Apellido
-        phone:
-          visible: true
-          required: false
-          placeholder: Teléfono
-        program:
-          visible: true
-          required: false
-          default: auto
-      success:
-        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    terms_color: hsl(var(--card))
-    paddingY:
-      desktop: md
+    version: '1.0'
+    title: ¿Listo para Iniciar tu Carrera Tech en Nueva York?
+    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
+    background: hsl(var(--primary))
+    cta_text: Aplicar Ahora
+    cta_url: /es/apply?location=newyork-usa
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    paddingY:
+      desktop: md
