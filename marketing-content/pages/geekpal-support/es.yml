@@ -144,10 +144,6 @@ sections:
     related_features:
       - mentors-and-teachers
       - career-support
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none md
     item_overrides:
       cmo-estn-estructuradas-las-clases-en-vivo:
         hideOnLocations:
@@ -162,6 +158,23 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
