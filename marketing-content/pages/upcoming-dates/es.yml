@@ -71,4 +71,8 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
 =======
       href: /es/apply
+<<<<<<< HEAD
 >>>>>>> df6b1ecf560cf4c5dddc539fcec8a49019dda0a1
+=======
+    variant: comparison
+>>>>>>> f6a018ace64979e7ce0f0202ce9b2fc45bde2f67
