@@ -427,3 +427,5 @@ data_science_week_duration:
       value: "16 semanas"
 ai_engineering_week_duration:
   default: "24 semanas"
+cybersecurity_week_duration:
+  default: "16 Semanas"
