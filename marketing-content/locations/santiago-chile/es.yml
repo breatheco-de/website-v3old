@@ -251,17 +251,17 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que necesitas para triunfar en una industria impulsada por la IA
-    description: Formación preparada para la era de la IA, mentoría experta y soporte continuo diseñados para el entorno tech actual.
+    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
+    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
-      - heading: Mentoría 1:1 ilimitada y de por vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja directamente con mentores con experiencia en la industria durante el programa y sigue recibiendo apoyo incluso después de graduarte.
-      - heading: Soporte de aprendizaje impulsado por IA
-        text: Recibe feedback inmediato de RigoBot, nuestro asistente de aprendizaje con IA integrado. Practica, depura y mejora de forma continua con una guía adaptada a tu ritmo y objetivos.
-      - heading: Soporte profesional ilimitado y de por vida
-        text: Accede a coaching profesional personalizado enfocado en tu empleabilidad. Desde estrategia de búsqueda laboral y posicionamiento profesional hasta preparación de entrevistas, el acompañamiento evoluciona contigo y tu experiencia.
-      - heading: Una comunidad tech global y activa
-        text: Únete a nuestra comunidad en Slack con estudiantes, mentores y egresados. Resuelve dudas, comparte oportunidades y mantente conectado a una red global que te acompaña más allá de la graduación.
+      - heading: Mentoría 1:1 Ilimitada y de por Vida
+        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
+      - heading: Soporte de Aprendizaje Impulsado por IA
+        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
+      - heading: Soporte Profesional Ilimitado y de por Vida
+        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
+      - heading: Una Comunidad Tech Global Activa
+        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
