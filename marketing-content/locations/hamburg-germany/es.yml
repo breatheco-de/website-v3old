@@ -256,7 +256,7 @@ sections:
       desktop: md none
   - type: testimonials_slide
     title: Historias reales de crecimiento profesional en tech
-    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en carreras reales.
+    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
