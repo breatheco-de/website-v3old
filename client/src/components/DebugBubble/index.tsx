@@ -2071,10 +2071,7 @@ export function DebugBubble() {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <SyncStatusPopover onOpenLog={() => {
-                      fetchPendingChanges();
-                      setCommitModalOpen(true);
-                    }}>
+                    <SyncStatusPopover>
                     {syncStatusLoading ? (
                       <IconRefresh className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
                     ) : githubSyncStatus ? (

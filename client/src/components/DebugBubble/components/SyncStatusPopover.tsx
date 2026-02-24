@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import {
   IconBrandGithub,
   IconWebhook,
@@ -30,11 +31,11 @@ interface SyncInfo {
 
 interface SyncStatusPopoverProps {
   children: React.ReactNode;
-  onOpenLog: () => void;
 }
 
-export function SyncStatusPopover({ children, onOpenLog }: SyncStatusPopoverProps) {
+export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
   const [open, setOpen] = useState(false);
+  const [, navigate] = useLocation();
 
   const { data: syncInfo } = useQuery<SyncInfo>({
     queryKey: ["/api/github/sync-info"],
@@ -125,7 +126,7 @@ export function SyncStatusPopover({ children, onOpenLog }: SyncStatusPopoverProp
           <button
             onClick={() => {
               setOpen(false);
-              onOpenLog();
+              navigate("/private/sync-log");
             }}
             className="flex items-center gap-2 w-full px-3 py-1.5 rounded-md text-sm hover-elevate"
             data-testid="button-open-sync-log"
