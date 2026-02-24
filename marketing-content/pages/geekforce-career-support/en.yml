@@ -250,26 +250,6 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(var(--sidebar-background))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - newyork-usa
-      - losangeles-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
   - type: whos_hiring
     variant: carousel
     title: Top Tech Companies Hiring 4Geeks Graduates
@@ -350,33 +330,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: sticky_cta
-    version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Submit Application
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: false
-          default: ai-engineering
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
