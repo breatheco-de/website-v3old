@@ -297,12 +297,60 @@ sections:
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - career-support
     marginY:
       desktop: none
+    item_overrides:
+      do-i-get-a-job-after-completing-the-program:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - lapaz-bolivia
+          - costa-rica
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      whats-the-average-time-it-takes-for-4geeks-grads-to-get-hired:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - costa-rica
+          - caracas-venezuela
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
