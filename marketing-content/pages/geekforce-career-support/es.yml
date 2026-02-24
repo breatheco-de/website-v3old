@@ -249,30 +249,10 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(210 100% 50% / 0.05)
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
   - type: whos_hiring
     variant: carousel
-    title: Principales Empresas Tecnológicas que Contratan Graduados de 4Geeks
-    description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
+    title: Principales Empresas Tecnológicas que Contratan Egresados de 4Geeks
+    description: Los egresados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
     logos:
       - src: /attached_assets/twilio_1764719992371.png
         alt: Twilio
@@ -304,12 +284,25 @@ sections:
     title: Las Historias Detrás de las Estadísticas
     description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
-    version: v1.0
     title: Preguntas Frecuentes
     related_features:
       - career-support
+      - job-guarantee
+      - price
     marginY:
       desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para comenzar?
@@ -351,32 +344,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
