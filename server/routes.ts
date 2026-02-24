@@ -3296,9 +3296,11 @@ Important: Only include mappings where you are confident the field exists. Use d
       const { getWebhookInfo } = await import("./sync-state");
       const webhookInfo = getWebhookInfo();
 
+      const repoUrl = (process.env.GITHUB_REPO_URL || '').replace(/\.git$/, '');
       res.json({
         instanceId: getInstanceId(),
         commitHash: getLocalCommitHash(),
+        repoUrl: repoUrl || null,
         env: process.env.NODE_ENV || 'development',
         pid: process.pid,
         webhook: webhookInfo ? {

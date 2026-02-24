@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 interface SyncInfo {
   instanceId: string;
   commitHash: string;
+  repoUrl: string | null;
   env: string;
   pid: number;
   webhook: {
@@ -72,7 +73,19 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
             </div>
             {syncInfo ? (
               <code className="text-xs bg-muted px-2 py-0.5 rounded">
-                {syncInfo.instanceId} @ {syncInfo.commitHash} ({syncInfo.env})
+                {syncInfo.instanceId} @{" "}
+                {syncInfo.repoUrl && syncInfo.commitHash !== "?" ? (
+                  <a
+                    href={`${syncInfo.repoUrl}/commit/${syncInfo.commitHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-foreground"
+                  >
+                    {syncInfo.commitHash}
+                  </a>
+                ) : (
+                  syncInfo.commitHash
+                )}
               </code>
             ) : (
               <span className="text-xs text-muted-foreground">--</span>
