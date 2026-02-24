@@ -52,7 +52,7 @@ sections:
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Humanos + IA: Acelera Tu Aprendizaje en Programación"
+    heading: "Mentores expertos + IA: Acelera Tu Aprendizaje en Programación"
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
       - title: "Nuestro Equipo de Mentores Expertos ofrece:"
@@ -97,7 +97,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: Una Comunidad Global para Impulsar tu Crecimiento
+    heading: Aprende Acompañado por una Comunidad Global
     description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
@@ -140,11 +140,37 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    version: v1.0
     title: Preguntas Frecuentes
     related_features:
       - mentors-and-teachers
       - career-support
+    item_overrides:
+      cmo-estn-estructuradas-las-clases-en-vivo:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
     marginY:
       desktop: none
     paddingY:
@@ -185,3 +211,44 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+  - type: cta_banner
+    version: "1.0"
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Obtener los detalles
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: false
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md

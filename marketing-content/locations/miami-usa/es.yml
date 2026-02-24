@@ -248,9 +248,9 @@ sections:
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global_job_placement_rate | 84% }} tasa de contratación entre graduados
+        - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global_salary_increase | 55% }} aumento salarial promedio en roles tech
+        - text: {{ global_salary_increase | 55% }}% aumento salarial promedio en roles tech
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
@@ -389,13 +389,6 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

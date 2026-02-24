@@ -296,7 +296,7 @@ sections:
   - type: testimonials
     version: v1.0
     title: What Our Students Say
-    subtitle: Hear directly from graduates who transformed their careers
+    subtitle: Real stories from graduates who transformed their careers
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
       count: {{ global_review_count | 2,847 }}

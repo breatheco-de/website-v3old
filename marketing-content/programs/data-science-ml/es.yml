@@ -55,7 +55,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa Intensivo de 16 Semanas
+          text: Programa Intensivo de {{ data_science_week_duration | 18 Semanas }}
         - icon: IconBriefcase
           text: Plan de Estudios Orientado al Empleo
         - icon: IconRobot
@@ -375,9 +375,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos en 6 cuotas sin intereses con nuestros partners.
-      - icon: IconCheck
-        text: Financia tu matrícula a través de nuestros parnerts con planes de 6 a 24 meses.
+        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 a 24 cuotas con nuestros partners.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
@@ -540,8 +538,6 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    version: "1.0"
-    background: hsl(var(--muted))
     title: Preguntas Frecuentes
     related_features:
       - data-science
@@ -550,10 +546,25 @@ sections:
       button:
         label: Habla con un Asesor
         url: /contact
-    paddingY:
-      desktop: sm md
     marginY:
       desktop: none
+    paddingY:
+      desktop: sm md
+    background: hsl(var(--muted))
+    item_overrides:
+      cunto-tiempo-toma-completar-el-programa-de-data-science:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera en Ciencia de Datos?
