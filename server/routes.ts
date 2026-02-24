@@ -341,9 +341,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   mediaGallery.setContentIndex(contentIndex);
 
   const { loadSyncStateFromBucket } = await import("./sync-state");
-  loadSyncStateFromBucket().catch((err) => {
-    console.error("[SyncState] Failed to load from bucket on startup:", err);
-  });
+  loadSyncStateFromBucket()
+    .then(async () => {
+      const { reconcileSyncStateOnStartup } = await import("./github");
+      await reconcileSyncStateOnStartup();
+    })
+    .catch((err) => {
+      console.error("[SyncState] Failed to load/reconcile on startup:", err);
+    });
 
   app.get("/api/geo", async (req, res) => {
     try {

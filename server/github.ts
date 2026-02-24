@@ -686,6 +686,7 @@ export interface ConflictInfo {
   behindBy: number;
   commits: RemoteCommit[];
   changedFiles: string[];  // All files changed between lastSyncedCommit and remoteCommit
+  fileBlobShas: Record<string, string>;  // Map of filename → Git blob SHA from remote
   lastSyncedCommit: string | null;
   remoteCommit: string | null;
 }
@@ -703,6 +704,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 0,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit: null,
       remoteCommit: null,
     };
@@ -717,22 +719,21 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 0,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit,
       remoteCommit: null,
     };
   }
   
   if (!lastSyncedCommit || lastSyncedCommit === remoteCommit) {
-    // If no lastSyncedCommit, we need to fetch all files from the remote
-    // This happens on first sync or when sync state is missing
     if (!lastSyncedCommit && remoteCommit) {
-      // Fetch files from the latest commit tree
       const changedFiles = await fetchFilesFromTree(config, remoteCommit);
       return {
         hasConflict: true,
         behindBy: 1,
         commits: [],
         changedFiles,
+        fileBlobShas: {},
         lastSyncedCommit,
         remoteCommit,
       };
@@ -742,6 +743,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 0,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit,
       remoteCommit,
     };
@@ -765,6 +767,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
         behindBy: 1,
         commits: [],
         changedFiles: [],
+        fileBlobShas: {},
         lastSyncedCommit,
         remoteCommit,
       };
@@ -780,10 +783,15 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       files: [],
     }));
     
-    // Extract all changed files from the compare response (this is the aggregate of all changes)
     const changedFiles: string[] = (data.files || []).map((f: any) => f.filename);
     
-    // Also assign files to the last commit for backward compatibility
+    const fileBlobShas: Record<string, string> = {};
+    for (const f of (data.files || [])) {
+      if (f.filename && f.sha) {
+        fileBlobShas[f.filename] = f.sha;
+      }
+    }
+    
     if (commits.length > 0 && changedFiles.length > 0) {
       commits[commits.length - 1].files = changedFiles;
     }
@@ -792,7 +800,8 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       hasConflict: commits.length > 0 || changedFiles.length > 0,
       behindBy: data.behind_by || commits.length,
       commits,
-      changedFiles,  // Direct access to all changed files
+      changedFiles,
+      fileBlobShas,
       lastSyncedCommit,
       remoteCommit,
     };
@@ -803,6 +812,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 1,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit,
       remoteCommit,
     };
@@ -970,6 +980,77 @@ export async function syncWithRemote(): Promise<{ success: boolean; error?: stri
   } catch (error) {
     console.error('Error syncing with remote:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Reconcile sync state on startup by comparing local file hashes against remote blob SHAs.
+ * If local files already match the remote (e.g., after a deploy where files were pulled in dev),
+ * silently updates the sync state instead of showing false "incoming" changes.
+ * Uses only 2 API calls: HEAD SHA + compare (no per-file fetches).
+ */
+export async function reconcileSyncStateOnStartup(): Promise<void> {
+  const config = getGitHubConfig();
+  if (!config) return;
+
+  try {
+    const { getLastSyncedCommit } = await import("./sync-state");
+    const lastSyncedCommit = getLastSyncedCommit();
+    const remoteCommit = await getBranchHeadSha(config);
+
+    if (!remoteCommit || !lastSyncedCommit || lastSyncedCommit === remoteCommit) {
+      return;
+    }
+
+    console.log(`[SyncReconcile] Local commit ${lastSyncedCommit.slice(0, 7)} differs from remote ${remoteCommit.slice(0, 7)}, checking file hashes...`);
+
+    const conflictInfo = await getConflictInfo();
+    const { shouldTrackFile, computeGitBlobSha, updateFileAfterPull } = await import("./sync-state");
+
+    const trackedFiles = conflictInfo.changedFiles.filter(shouldTrackFile);
+    if (trackedFiles.length === 0) {
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      rebuildSyncStateFromLocal(remoteCommit);
+      console.log('[SyncReconcile] No tracked files changed, updated lastSyncedCommit');
+      return;
+    }
+
+    let allReconciled = true;
+    let reconciledCount = 0;
+
+    for (const filePath of trackedFiles) {
+      const remoteBlobSha = conflictInfo.fileBlobShas[filePath];
+      if (!remoteBlobSha) {
+        allReconciled = false;
+        continue;
+      }
+
+      const fullPath = path.join(process.cwd(), filePath);
+      if (!fs.existsSync(fullPath)) {
+        allReconciled = false;
+        continue;
+      }
+
+      const localContent = fs.readFileSync(fullPath, 'utf-8');
+      const localBlobSha = computeGitBlobSha(localContent);
+
+      if (localBlobSha === remoteBlobSha) {
+        updateFileAfterPull(filePath, remoteCommit);
+        reconciledCount++;
+      } else {
+        allReconciled = false;
+      }
+    }
+
+    if (allReconciled) {
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      rebuildSyncStateFromLocal(remoteCommit);
+      console.log(`[SyncReconcile] All ${reconciledCount} files match remote, updated lastSyncedCommit to ${remoteCommit.slice(0, 7)}`);
+    } else {
+      console.log(`[SyncReconcile] ${reconciledCount}/${trackedFiles.length} files match remote, ${trackedFiles.length - reconciledCount} still differ`);
+    }
+  } catch (error) {
+    console.error('[SyncReconcile] Error during reconciliation:', error);
   }
 }
 

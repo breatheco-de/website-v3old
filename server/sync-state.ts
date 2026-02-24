@@ -153,6 +153,12 @@ export function computeFileSha(content: string): string {
   return crypto.createHash('sha256').update(content, 'utf8').digest('hex');
 }
 
+export function computeGitBlobSha(content: string): string {
+  const buf = Buffer.from(content, 'utf-8');
+  const header = `blob ${buf.length}\0`;
+  return crypto.createHash('sha1').update(header).update(buf).digest('hex');
+}
+
 export function getSyncConfig(): SyncConfig {
   const state = loadSyncState() as SyncStateWithConfig;
   return state.config || DEFAULT_CONFIG;
