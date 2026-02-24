@@ -101,13 +101,13 @@ sections:
           placeholder: Nombre
         last_name:
           visible: true
-          required: true
+          required: false
           placeholder: Apellido
         phone:
           visible: true
-          required: true
-          default_country: ES
+          required: false
           placeholder: Número telefónico
+          default_country: ES
         program:
           visible: false
           default: ai-engineering

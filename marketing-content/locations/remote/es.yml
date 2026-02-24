@@ -16,16 +16,84 @@ sections:
     badge: Campus Online
     cta_buttons:
       - text: Aplicar Ahora
-        url: /es/apply
+        url: "#bottom"
         variant: primary
       - text: Descargar Programa
-        url: "#cta_banner-12"
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: modal
+    version: "1.0"
+    section_id: syllabus-modal
+    heading: Comienza tu Aplicación
+    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Enviar Aplicación
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Gracias. Nos pondremos en contacto en 24 horas.
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: /attached_assets/switchup_1765590146414.webp
+        alt: SwitchUp - Mejores Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: /attached_assets/course-report_1765590146414.webp
+        alt: Course Report - Mejor Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnología Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: /attached_assets/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: /attached_assets/reviews_1765549549051.png
+        alt: 4.9 en Reseñas de Course Report
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Calidad Institucional
+        logoHeight: 56px
+    marginY:
+      desktop: lg none
   - type: banner
     version: "1.0"
     logo: /attached_assets/rigobot-logo_1764707022198.webp
@@ -128,25 +196,25 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y apoyo continuo, diseñados para el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Nuestros mentores expertos están disponibles en línea, listos para ayudarte desde el día uno y para siempre.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
     image: /attached_assets/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    title: Historias reales de crecimiento profesional en tech
+    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
@@ -244,72 +312,44 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech?
-    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    title: ¿Listo para Iniciar tu Carrera Tech desde Cualquier Lugar?
+    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
+    cta_text: Aplicar Ahora
+    cta_url: /es/aplica?location=remote
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Descargar Programa
-      tags: request_more_info
-      automations: soft
+      submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email
+          placeholder: Tu correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: Nombre y Apellido
+          placeholder: Nombre
         phone:
           visible: true
           required: false
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
-        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+        message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información sobre cursos y promociones
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    terms_color: hsl(var(--card))
-    paddingY:
-      desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    paddingY:
+      desktop: md

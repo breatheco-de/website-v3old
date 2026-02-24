@@ -121,8 +121,16 @@ export interface SyncState {
   files: Record<string, FileSyncInfo>;
 }
 
+export interface WebhookInfo {
+  webhookId: number;
+  webhookSecret: string;
+  webhookUrl: string;
+  createdAt: string;
+}
+
 export interface SyncStateWithConfig extends SyncState {
   config?: SyncConfig;
+  webhook?: WebhookInfo;
 }
 
 export interface PendingChange {
@@ -151,6 +159,12 @@ const DEFAULT_SYNC_STATE: SyncStateWithConfig = {
 
 export function computeFileSha(content: string): string {
   return crypto.createHash('sha256').update(content, 'utf8').digest('hex');
+}
+
+export function computeGitBlobSha(content: string): string {
+  const buf = Buffer.from(content, 'utf-8');
+  const header = `blob ${buf.length}\0`;
+  return crypto.createHash('sha1').update(header).update(buf).digest('hex');
 }
 
 export function getSyncConfig(): SyncConfig {
@@ -680,5 +694,22 @@ export function removeFileFromState(filePath: string): void {
   
   const state = loadSyncState();
   delete state.files[relativePath];
+  saveSyncState(state);
+}
+
+export function getWebhookInfo(): WebhookInfo | undefined {
+  const state = loadSyncState() as SyncStateWithConfig;
+  return state.webhook;
+}
+
+export function setWebhookInfo(webhook: WebhookInfo): void {
+  const state = loadSyncState() as SyncStateWithConfig;
+  state.webhook = webhook;
+  saveSyncState(state);
+}
+
+export function clearWebhookInfo(): void {
+  const state = loadSyncState() as SyncStateWithConfig;
+  delete state.webhook;
   saveSyncState(state);
 }

@@ -65,15 +65,15 @@ class BindingManager {
   private memberIndex: Map<string, string> = new Map();
   private loaded = false;
 
-  private memberKey(contentType: string, slug: string, sectionIndex: number): string {
-    return `${contentType}:${slug}:${sectionIndex}`;
+  private memberKey(contentType: string, slug: string, sectionIndex: number, locale: string): string {
+    return `${contentType}:${slug}:${sectionIndex}:${locale}`;
   }
 
   private rebuildIndex(): void {
     this.memberIndex.clear();
     for (const group of this.data.groups) {
       for (const member of group.members) {
-        const key = this.memberKey(member.contentType, member.slug, member.sectionIndex);
+        const key = this.memberKey(member.contentType, member.slug, member.sectionIndex, group.locale);
         this.memberIndex.set(key, group.id);
       }
     }
@@ -126,12 +126,17 @@ class BindingManager {
     return this.data.groups.find(g => g.id === groupId);
   }
 
-  findGroupForSection(contentType: string, slug: string, sectionIndex: number): BindingGroup | undefined {
+  findGroupForSection(contentType: string, slug: string, sectionIndex: number, locale?: string): BindingGroup | undefined {
     this.ensureLoaded();
-    const key = this.memberKey(contentType, slug, sectionIndex);
-    const groupId = this.memberIndex.get(key);
-    if (!groupId) return undefined;
-    return this.data.groups.find(g => g.id === groupId);
+    if (locale) {
+      const key = this.memberKey(contentType, slug, sectionIndex, locale);
+      const groupId = this.memberIndex.get(key);
+      if (!groupId) return undefined;
+      return this.data.groups.find(g => g.id === groupId);
+    }
+    return this.data.groups.find(g =>
+      g.members.some(m => m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex)
+    );
   }
 
   findGroupsForPage(contentType: string, slug: string): BindingGroup[] {
@@ -172,7 +177,7 @@ class BindingManager {
 
     for (const member of members) {
       this.validateMemberComponent(member, component, locale);
-      const key = this.memberKey(member.contentType, member.slug, member.sectionIndex);
+      const key = this.memberKey(member.contentType, member.slug, member.sectionIndex, locale);
       const existingGroupId = this.memberIndex.get(key);
       if (existingGroupId) {
         throw new Error(
@@ -256,7 +261,7 @@ class BindingManager {
 
     this.validateMemberComponent(member, group.component, group.locale);
 
-    const key = this.memberKey(member.contentType, member.slug, member.sectionIndex);
+    const key = this.memberKey(member.contentType, member.slug, member.sectionIndex, group.locale);
     const existingGroupId = this.memberIndex.get(key);
     if (existingGroupId) {
       throw new Error(
@@ -428,11 +433,12 @@ class BindingManager {
     sourceSlug: string,
     sectionIndex: number,
     updatedSection: Record<string, unknown>,
-    author?: string
+    author?: string,
+    locale?: string
   ): { success: boolean; updatedFiles: string[]; errors: string[] } {
     this.ensureLoaded();
 
-    const group = this.findGroupForSection(sourceContentType, sourceSlug, sectionIndex);
+    const group = this.findGroupForSection(sourceContentType, sourceSlug, sectionIndex, locale);
     if (!group) return { success: true, updatedFiles: [], errors: [] };
 
     const siblings = group.members.filter(

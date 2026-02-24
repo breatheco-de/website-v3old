@@ -9,6 +9,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 import {
   detectPendingChanges,
   getLastSyncedCommit,
@@ -686,6 +687,7 @@ export interface ConflictInfo {
   behindBy: number;
   commits: RemoteCommit[];
   changedFiles: string[];  // All files changed between lastSyncedCommit and remoteCommit
+  fileBlobShas: Record<string, string>;  // Map of filename → Git blob SHA from remote
   lastSyncedCommit: string | null;
   remoteCommit: string | null;
 }
@@ -703,6 +705,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 0,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit: null,
       remoteCommit: null,
     };
@@ -717,22 +720,21 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 0,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit,
       remoteCommit: null,
     };
   }
   
   if (!lastSyncedCommit || lastSyncedCommit === remoteCommit) {
-    // If no lastSyncedCommit, we need to fetch all files from the remote
-    // This happens on first sync or when sync state is missing
     if (!lastSyncedCommit && remoteCommit) {
-      // Fetch files from the latest commit tree
       const changedFiles = await fetchFilesFromTree(config, remoteCommit);
       return {
         hasConflict: true,
         behindBy: 1,
         commits: [],
         changedFiles,
+        fileBlobShas: {},
         lastSyncedCommit,
         remoteCommit,
       };
@@ -742,6 +744,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 0,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit,
       remoteCommit,
     };
@@ -765,6 +768,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
         behindBy: 1,
         commits: [],
         changedFiles: [],
+        fileBlobShas: {},
         lastSyncedCommit,
         remoteCommit,
       };
@@ -780,10 +784,15 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       files: [],
     }));
     
-    // Extract all changed files from the compare response (this is the aggregate of all changes)
     const changedFiles: string[] = (data.files || []).map((f: any) => f.filename);
     
-    // Also assign files to the last commit for backward compatibility
+    const fileBlobShas: Record<string, string> = {};
+    for (const f of (data.files || [])) {
+      if (f.filename && f.sha) {
+        fileBlobShas[f.filename] = f.sha;
+      }
+    }
+    
     if (commits.length > 0 && changedFiles.length > 0) {
       commits[commits.length - 1].files = changedFiles;
     }
@@ -792,7 +801,8 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       hasConflict: commits.length > 0 || changedFiles.length > 0,
       behindBy: data.behind_by || commits.length,
       commits,
-      changedFiles,  // Direct access to all changed files
+      changedFiles,
+      fileBlobShas,
       lastSyncedCommit,
       remoteCommit,
     };
@@ -803,6 +813,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       behindBy: 1,
       commits: [],
       changedFiles: [],
+      fileBlobShas: {},
       lastSyncedCommit,
       remoteCommit,
     };
@@ -970,6 +981,324 @@ export async function syncWithRemote(): Promise<{ success: boolean; error?: stri
   } catch (error) {
     console.error('Error syncing with remote:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Reconcile sync state on startup by comparing local file hashes against remote blob SHAs.
+ * If local files already match the remote (e.g., after a deploy where files were pulled in dev),
+ * silently updates the sync state instead of showing false "incoming" changes.
+ * Uses only 2 API calls: HEAD SHA + compare (no per-file fetches).
+ */
+export async function reconcileSyncStateOnStartup(): Promise<void> {
+  const config = getGitHubConfig();
+  if (!config) return;
+
+  const { logSync, refreshGithubCommit } = await import("./sync-log");
+  refreshGithubCommit();
+
+  try {
+    const { getLastSyncedCommit } = await import("./sync-state");
+    const lastSyncedCommit = getLastSyncedCommit();
+    const remoteCommit = await getBranchHeadSha(config);
+
+    if (!remoteCommit || !lastSyncedCommit || lastSyncedCommit === remoteCommit) {
+      if (lastSyncedCommit && remoteCommit) {
+        logSync('RECONCILE', `Already in sync at ${lastSyncedCommit.slice(0, 7)}`);
+      }
+      return;
+    }
+
+    logSync('RECONCILE', `Local ${lastSyncedCommit.slice(0, 7)} ≠ remote ${remoteCommit.slice(0, 7)}, checking file hashes...`);
+
+    const conflictInfo = await getConflictInfo();
+    const { shouldTrackFile, computeGitBlobSha, updateFileAfterPull } = await import("./sync-state");
+
+    const trackedFiles = conflictInfo.changedFiles.filter(shouldTrackFile);
+    if (trackedFiles.length === 0) {
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      rebuildSyncStateFromLocal(remoteCommit);
+      logSync('RECONCILE', `No tracked files changed, updated to ${remoteCommit.slice(0, 7)}`);
+      return;
+    }
+
+    let allReconciled = true;
+    let reconciledCount = 0;
+
+    for (const filePath of trackedFiles) {
+      const remoteBlobSha = conflictInfo.fileBlobShas[filePath];
+      if (!remoteBlobSha) {
+        allReconciled = false;
+        continue;
+      }
+
+      const fullPath = path.join(process.cwd(), filePath);
+      if (!fs.existsSync(fullPath)) {
+        allReconciled = false;
+        continue;
+      }
+
+      const localContent = fs.readFileSync(fullPath, 'utf-8');
+      const localBlobSha = computeGitBlobSha(localContent);
+
+      if (localBlobSha === remoteBlobSha) {
+        updateFileAfterPull(filePath, remoteCommit);
+        reconciledCount++;
+      } else {
+        allReconciled = false;
+      }
+    }
+
+    if (allReconciled) {
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      rebuildSyncStateFromLocal(remoteCommit);
+      logSync('RECONCILE', `All ${reconciledCount} files match remote, updated to ${remoteCommit.slice(0, 7)}`);
+    } else {
+      logSync('RECONCILE', `${reconciledCount}/${trackedFiles.length} files match remote, ${trackedFiles.length - reconciledCount} still differ`);
+    }
+  } catch (error) {
+    logSync('ERROR', `Reconciliation error: ${error instanceof Error ? error.message : String(error)}`);
+    console.error('[SyncReconcile] Error during reconciliation:', error);
+  }
+}
+
+/**
+ * Auto-pull non-conflicting incoming files from remote.
+ * For each changed file: if no local modifications exist, pull silently.
+ * Files with local edits are left untouched for manual resolution.
+ * @param changedFiles - optional list of file paths from webhook payload; if omitted, uses getAllSyncChanges
+ * @param remoteCommitSha - optional commit SHA from webhook payload
+ */
+export async function autoPullNonConflicting(changedFiles?: string[], remoteCommitSha?: string): Promise<{
+  pulled: string[];
+  conflicted: string[];
+  errors: string[];
+}> {
+  const config = getGitHubConfig();
+  if (!config) return { pulled: [], conflicted: [], errors: ['GitHub not configured'] };
+
+  const pulled: string[] = [];
+  const conflicted: string[] = [];
+  const errors: string[] = [];
+
+  try {
+    const { shouldTrackFile } = await import("./sync-state");
+
+    if (changedFiles) {
+      const tracked = changedFiles.filter(shouldTrackFile);
+      if (tracked.length === 0) return { pulled, conflicted, errors };
+
+      const localChanges = await getPendingChanges();
+      const localFileSet = new Set(localChanges.map(c => c.file));
+
+      for (const filePath of tracked) {
+        if (localFileSet.has(filePath)) {
+          conflicted.push(filePath);
+          continue;
+        }
+        try {
+          const result = await pullSingleFile(filePath);
+          if (result.success) {
+            pulled.push(filePath);
+          } else {
+            errors.push(`${filePath}: ${result.error}`);
+          }
+        } catch (e) {
+          errors.push(`${filePath}: ${e instanceof Error ? e.message : 'Unknown error'}`);
+        }
+      }
+    } else {
+      const allChanges = await getAllSyncChanges();
+      const incomingOnly = allChanges.filter(c => c.source === 'incoming');
+      if (incomingOnly.length === 0) return { pulled, conflicted, errors };
+
+      for (const change of incomingOnly) {
+        try {
+          const result = await pullSingleFile(change.file);
+          if (result.success) {
+            pulled.push(change.file);
+          } else {
+            errors.push(`${change.file}: ${result.error}`);
+          }
+        } catch (e) {
+          errors.push(`${change.file}: ${e instanceof Error ? e.message : 'Unknown error'}`);
+        }
+      }
+
+      const conflictChanges = allChanges.filter(c => c.source === 'conflict');
+      conflicted.push(...conflictChanges.map(c => c.file));
+    }
+
+    if (pulled.length > 0 && conflicted.length === 0) {
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      const commitSha = remoteCommitSha || await getBranchHeadSha(config);
+      if (commitSha) {
+        rebuildSyncStateFromLocal(commitSha);
+      }
+    }
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'Unknown error');
+  }
+
+  return { pulled, conflicted, errors };
+}
+
+/**
+ * Verify GitHub webhook HMAC-SHA256 signature.
+ */
+export function verifyWebhookSignature(payload: string, signature: string, secret: string): boolean {
+  const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(payload).digest('hex');
+  try {
+    return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Get the base URL of this application for webhook registration.
+ */
+function getWebhookBaseUrl(): string | null {
+  if (process.env.SITE_URL) {
+    return process.env.SITE_URL.replace(/\/$/, '');
+  }
+  if (process.env.REPLIT_DEV_DOMAIN) {
+    return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  }
+  return null;
+}
+
+/**
+ * Ensure a GitHub webhook exists for push events.
+ * Checks sync state for existing webhook, verifies it's active, creates one if needed.
+ * Auto-generates a random secret and stores webhookId + secret in sync state.
+ */
+export async function ensureWebhook(): Promise<void> {
+  const config = getGitHubConfig();
+  if (!config) return;
+
+  const { logSync } = await import("./sync-log");
+
+  const baseUrl = getWebhookBaseUrl();
+  if (!baseUrl) {
+    logSync('WEBHOOK', 'No SITE_URL or REPLIT_DEV_DOMAIN set, skipping webhook setup');
+    return;
+  }
+
+  const webhookUrl = `${baseUrl}/api/github/webhook`;
+
+  try {
+    const { getWebhookInfo, setWebhookInfo, clearWebhookInfo } = await import("./sync-state");
+    const existing = getWebhookInfo();
+
+    if (existing) {
+      if (existing.webhookUrl === webhookUrl) {
+        const isActive = await verifyWebhookExists(config, existing.webhookId);
+        if (isActive) {
+          logSync('WEBHOOK', `Verified: webhook #${existing.webhookId} is active at ${webhookUrl}`);
+          return;
+        }
+        logSync('WEBHOOK', `Webhook #${existing.webhookId} no longer exists on GitHub, recreating...`);
+      } else {
+        logSync('WEBHOOK', `URL changed from ${existing.webhookUrl} to ${webhookUrl}, recreating...`);
+        await deleteWebhook(config, existing.webhookId);
+      }
+      clearWebhookInfo();
+    }
+
+    const secret = crypto.randomBytes(32).toString('hex');
+    const webhookId = await createWebhook(config, webhookUrl, secret);
+
+    if (webhookId) {
+      setWebhookInfo({
+        webhookId,
+        webhookSecret: secret,
+        webhookUrl,
+        createdAt: new Date().toISOString(),
+      });
+      logSync('WEBHOOK', `Created webhook #${webhookId} at ${webhookUrl}`);
+    } else {
+      logSync('ERROR', `Failed to create webhook at ${webhookUrl} (check token permissions: needs admin:repo_hook scope)`);
+    }
+  } catch (error) {
+    logSync('ERROR', `Webhook setup error: ${error instanceof Error ? error.message : String(error)}`);
+    console.error('[Webhook] Error ensuring webhook:', error);
+  }
+}
+
+async function verifyWebhookExists(config: GitHubConfig, webhookId: number): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks/${webhookId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+async function createWebhook(config: GitHubConfig, url: string, secret: string): Promise<number | null> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({
+          name: 'web',
+          active: true,
+          events: ['push'],
+          config: {
+            url,
+            content_type: 'json',
+            secret,
+            insecure_ssl: '0',
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error(`[Webhook] GitHub API error creating webhook: ${response.status}`, text);
+      return null;
+    }
+
+    const data = await response.json();
+    return data.id;
+  } catch (error) {
+    console.error('[Webhook] Error creating webhook:', error);
+    return null;
+  }
+}
+
+async function deleteWebhook(config: GitHubConfig, webhookId: number): Promise<void> {
+  try {
+    await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks/${webhookId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+  } catch {
+    // best-effort deletion
   }
 }
 
@@ -1191,11 +1520,12 @@ export async function commitSingleFile(options: {
     const data = await response.json();
     const commitSha = data.commit?.sha;
     
-    // Update sync state for this file
     const { updateFileAfterCommit } = await import("./sync-state");
     updateFileAfterCommit(options.filePath, commitSha || '');
-    
-    console.log(`File committed to GitHub: ${options.filePath}`);
+
+    const { logSync, refreshGithubCommit } = await import("./sync-log");
+    logSync('COMMIT', `${options.filePath.replace('marketing-content/', '')} → ${commitSha?.slice(0, 7) || '?'}${options.author ? ` by ${options.author}` : ''}`);
+    refreshGithubCommit();
     
     return { success: true, commitSha };
   } catch (error) {

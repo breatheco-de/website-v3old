@@ -175,40 +175,34 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none 10px
-  - type: sticky_cta
+  - type: cta_banner
     version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
+    variant: form
     form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
+      variant: stacked
+      submit_label: Obtener los detalles
       tags: website-lead
-      automations: strong
+      automations: hard
       fields:
         email:
           visible: true
           required: true
+          placeholder: Tu correo electrónico
         first_name:
           visible: true
           required: true
-        last_name:
-          visible: true
-          required: false
+          placeholder: Nombre
         phone:
           visible: true
           required: false
+          placeholder: Número de teléfono
         program:
           visible: false
-          default: ai-engineering
+          required: false
+          default: auto
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
   - type: cta_banner

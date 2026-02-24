@@ -17,7 +17,7 @@ context:
   when_to_use: Para visitantes del área de Miami o interesados en oportunidades tech en el creciente ecosistema de South Florida.
   target_audience: Residentes locales de Miami, inmigrantes latinoamericanos buscando carreras tech en EE.UU., y profesionales en las diversas industrias de South Florida.
   goals:
-    - Destacar el estatus emergente de Miami como hub tech
+    - Destacar el estatus emergente de Miami como hub tech.
     - Enfatizar el soporte bilingüe (inglés/español)
     - Mostrar alianzas locales con empleadores y oportunidades de networking
     - Resaltar la vibrante y multicultural comunidad tech
@@ -61,10 +61,10 @@ sections:
     badge: Campus Miami
     cta_buttons:
       - text: Aplicar Ahora
-        url: /es/apply
+        url: /es/aplica?location=miami-usa
         variant: primary
       - text: Descargar Programa
-        url: "#cta_banner-14"
+        url: /syllabus
         variant: outline
     marginY:
       desktop: none lg
@@ -218,33 +218,35 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y apoyo continuo, diseñados para el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
     image: /attached_assets/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
+    marginY:
+      desktop: lg
     paddingY:
-      desktop: md none
+      desktop: md lg
+    background: hsl(var(--muted))
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    title: Historias reales de crecimiento profesional en tech
+    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: |-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
+      description: |
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
@@ -349,42 +351,41 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech?
+    title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Descargar Programa
-      tags: request_more_info
-      automations: soft
+      submit_label: Obtener los detalles
+      tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email
+          placeholder: Tu correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: Nombre y Apellido
+          placeholder: Nombre
         phone:
           visible: true
           required: false
-          placeholder: Teléfono
+          placeholder: Número de teléfono
         program:
-          visible: true
+          visible: false
           required: false
           default: auto
       success:
-        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información sobre cursos y promociones
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    terms_color: hsl(var(--card))
     marginY:
       desktop: lg none
     paddingY:

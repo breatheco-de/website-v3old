@@ -66,6 +66,7 @@ import { useDebugAuth, getDebugToken, getDebugUserName } from "@/hooks/useDebugA
 import { locations } from "@/lib/locations";
 import { normalizeLocale } from "@shared/locale";
 import { LocaleFlag } from "./components/LocaleFlag";
+import { SyncStatusPopover } from "./components/SyncStatusPopover";
 import { useQuery } from "@tanstack/react-query";
 import {
   STORAGE_KEY,
@@ -2070,6 +2071,7 @@ export function DebugBubble() {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
+                    <SyncStatusPopover>
                     {syncStatusLoading ? (
                       <IconRefresh className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
                     ) : githubSyncStatus ? (
@@ -2115,6 +2117,7 @@ export function DebugBubble() {
                     ) : (
                       <span className="text-xs text-muted-foreground">--</span>
                     )}
+                    </SyncStatusPopover>
                     <button
                       onClick={refreshSyncStatus}
                       disabled={syncStatusLoading}

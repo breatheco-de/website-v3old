@@ -66,6 +66,34 @@ sections:
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: modal
+    version: "1.0"
+    section_id: syllabus-modal
+    heading: Comienza tu Aplicación
+    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Enviar Aplicación
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto contigo en 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -208,25 +236,25 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y apoyo continuo, diseñados para el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
     image: /attached_assets/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    title: Historias reales de crecimiento profesional en tech
+    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
@@ -326,6 +354,44 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+  - type: profiles_carousel
+    version: v1.0
+    heading: Conoce a los Geeks
+    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
+    image_round: false
+    profiles:
+      - image_id: alejandro_sanchez
+        name: Alejandro Sánchez
+        role: Co-Fundador y Director de Tecnología
+        linkedin_url: https://www.linkedin.com/in/alesanchezr/
+      - image_id: marcelo_ricigliano
+        name: Marcelo Ricigliano
+        role: Co-Fundador y CEO
+        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
+      - image_id: alissalandra
+        name: Alissa Landra
+        role: Campus & Growth Manager USA
+        linkedin_url: https://www.linkedin.com/in/alissalandra/
+      - image_id: victor_gomez
+        name: Victor Manuel Gómez Pérez
+        role: Regional Manager Europe
+        linkedin_url: https://www.linkedin.com/in/victormgomezp/
+      - image_id: pablo_bullor
+        name: Pablo Bullor
+        role: Program Manager LATAM
+        linkedin_url: https://www.linkedin.com/in/pablobullor/
+      - image_id: laura
+        name: Laura Magallanes
+        role: Program Manager USA
+        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
+      - image_id: valentina_ancieta
+        name: Valentina Ancieta
+        role: Workforce Development Manager USA & LATAM
+        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
+      - image_id: ariana_sanchez
+        name: Ariana Sánchez
+        role: Culture & Talent Leader
+        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -338,72 +404,12 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech?
-    subtitle: Recibe información personalizada del programa y los próximos pasos.
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Descargar Programa
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Email
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre y Apellido
-        phone:
-          visible: true
-          required: false
-          placeholder: Teléfono
-        program:
-          visible: true
-          required: false
-          default: auto
-      success:
-        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    terms_color: hsl(var(--card))
-    paddingY:
-      desktop: md
+    title: ¿Listo para Iniciar tu Carrera Tech en Milán?
+    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
+    background: hsl(var(--primary))
+    cta_text: Aplicar Ahora
+    cta_url: /es/apply?location=milan-italy
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    paddingY:
+      desktop: md

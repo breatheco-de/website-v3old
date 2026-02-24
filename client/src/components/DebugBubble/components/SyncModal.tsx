@@ -125,8 +125,14 @@ export function SyncModal({
         // continue pulling remaining files
       }
     }
+    try {
+      await fetch("/api/github/sync-with-remote", { method: "POST" });
+    } catch {
+      // best-effort sync
+    }
+    fetchPendingChanges();
     setIsBulkPulling(false);
-  }, [nonConflictIncoming, handleFilePull]);
+  }, [nonConflictIncoming, handleFilePull, fetchPendingChanges]);
 
   return (
     <>

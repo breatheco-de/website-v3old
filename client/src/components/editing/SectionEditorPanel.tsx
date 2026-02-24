@@ -580,10 +580,10 @@ export function SectionEditorPanel({
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
   const { data: bindingData, refetch: refetchBinding } = useQuery({
-    queryKey: ["/api/bindings/section", contentType, slug, sectionIndex],
+    queryKey: ["/api/bindings/section", contentType, slug, sectionIndex, locale],
     queryFn: async () => {
       if (!contentType || !slug) return { group: null };
-      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${sectionIndex}`);
+      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${sectionIndex}&locale=${locale || ""}`);
       return res.json();
     },
     enabled: !!contentType && !!slug,
@@ -1788,8 +1788,67 @@ export function SectionEditorPanel({
     onClose();
   }, [hasChanges, onClose, onPreviewChange]);
 
+  const STORAGE_KEY = "section-editor-width";
+  const DEFAULT_WIDTH = 480;
+  const MIN_WIDTH = 320;
+  const MAX_WIDTH_RATIO = 0.8;
+
+  const [panelWidth, setPanelWidth] = useState(() => {
+    try {
+      const stored = sessionStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = parseInt(stored, 10);
+        if (!isNaN(parsed) && parsed >= MIN_WIDTH) return parsed;
+      }
+    } catch {}
+    return DEFAULT_WIDTH;
+  });
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartWidthRef = useRef(DEFAULT_WIDTH);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, String(panelWidth));
+    } catch {}
+  }, [panelWidth]);
+
+  const handleDragStart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragStartWidthRef.current = panelWidth;
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+
+    const handleMouseMove = (ev: MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      const delta = dragStartXRef.current - ev.clientX;
+      const maxW = window.innerWidth * MAX_WIDTH_RATIO;
+      const newWidth = Math.max(MIN_WIDTH, Math.min(maxW, dragStartWidthRef.current + delta));
+      setPanelWidth(newWidth);
+    };
+    const handleMouseUp = () => {
+      isDraggingRef.current = false;
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+  }, [panelWidth]);
+
   return (
-    <div className="fixed right-0 top-0 bottom-0 w-[480px] bg-background border-l shadow-xl z-[9999] flex flex-col">
+    <div
+      className="fixed right-0 top-0 bottom-0 bg-background border-l shadow-xl z-[9999] flex flex-col"
+      style={{ width: `${panelWidth}px` }}
+    >
+      <div
+        className="absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize z-10 hover:bg-primary/20 active:bg-primary/30 transition-colors"
+        onMouseDown={handleDragStart}
+        data-testid="panel-resize-handle"
+      />
       {/* Header */}
       <div className="flex items-center justify-between px-4 border-b" style={{ paddingTop: "5px", paddingBottom: "5px" }}>
         <div>
