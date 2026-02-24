@@ -90,7 +90,7 @@ sections:
         text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
       - heading: Lifelong Career Support
         text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
-    footer: More than 10,000 graduates have launched successful tech careers with 4Geeks.
+    footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: features_grid
     version: "1.0"
