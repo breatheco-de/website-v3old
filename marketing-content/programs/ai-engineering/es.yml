@@ -54,7 +54,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de 24 semanas o versión acelerada de 12 semanas
+          text: Programa de {{ ai_engineering_week_duration | 24 semanas }} o versión acelerada de 12 semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
