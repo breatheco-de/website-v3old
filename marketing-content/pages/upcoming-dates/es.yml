@@ -16,6 +16,7 @@ schema:
 sections:
   - type: dynamic_table
     version: "1.0"
+    variant: comparison
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
     title: Resumen de Cohortes
@@ -38,7 +39,6 @@ sections:
         function: KHJvdykgPT4geyBjb25zdCBwcm9nID0gKHJvdy5zeWxsYWJ1c192ZXJzaW9uPy5uYW1lIHx8ICcnKS50b0xvd2VyQ2FzZSgpOyBpZiAocHJvZy5pbmNsdWRlcygnY3liZXJzZWN1cml0eScpKSByZXR1cm4gJzE2IHNlbWFuYXMnOyBpZiAocHJvZy5pbmNsdWRlcygnZGF0YSBzY2llbmNlJykpIHJldHVybiAnMTYgc2VtYW5hcyc7IGlmIChwcm9nLmluY2x1ZGVzKCdmdWxsLXN0YWNrJykgfHwgcHJvZy5pbmNsdWRlcygnZnVsbCBzdGFjaycpKSByZXR1cm4gJzIwIHNlbWFuYXMnOyBpZiAocHJvZy5pbmNsdWRlcygnYWkgZW5naW5lZXIgZnQnKSkgcmV0dXJuICcxNiBzZW1hbmFzJzsgaWYgKHByb2cuaW5jbHVkZXMoJ2FpIGVuZ2luZWVyJykpIHJldHVybiAnMjQgc2VtYW5hcyc7IHJldHVybiByb3cuc3lsbGFidXNfdmVyc2lvbj8uZHVyYXRpb25faW5fZGF5cyA/IE1hdGgucm91bmQocm93LnN5bGxhYnVzX3ZlcnNpb24uZHVyYXRpb25faW5fZGF5cyAvIDcpICsgJyBzZW1hbmFzJyA6ICcnOyB9
     action:
       label: Ver
-<<<<<<< HEAD
       href: /en/apply
   - type: sticky_cta
     version: "1.0"
@@ -69,10 +69,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-=======
-      href: /es/apply
-<<<<<<< HEAD
->>>>>>> df6b1ecf560cf4c5dddc539fcec8a49019dda0a1
-=======
-    variant: comparison
->>>>>>> f6a018ace64979e7ce0f0202ce9b2fc45bde2f67
