@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 
 interface SyncInfo {
   instanceId: string;
+  commitHash: string;
   env: string;
   pid: number;
   webhook: {
@@ -71,7 +72,7 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
             </div>
             {syncInfo ? (
               <code className="text-xs bg-muted px-2 py-0.5 rounded">
-                {syncInfo.instanceId} ({syncInfo.env})
+                {syncInfo.instanceId} @ {syncInfo.commitHash} ({syncInfo.env})
               </code>
             ) : (
               <span className="text-xs text-muted-foreground">--</span>

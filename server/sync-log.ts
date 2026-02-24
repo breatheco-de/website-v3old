@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import { execSync } from 'child_process';
 import { gcs } from './gcs';
 
 const SYNC_LOG_PATH = path.join(process.cwd(), 'marketing-content', '.sync-log-state.txt');
@@ -9,6 +10,13 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const MAX_LOG_LINES = 500;
 
 const INSTANCE_ID = crypto.randomBytes(2).toString('hex');
+
+let LOCAL_COMMIT_HASH = '?';
+try {
+  LOCAL_COMMIT_HASH = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
+} catch {
+  LOCAL_COMMIT_HASH = '?';
+}
 
 type SyncLogCategory =
   | 'RESTART'
@@ -115,6 +123,10 @@ export function logSync(category: SyncLogCategory, message: string): void {
 
 export function getInstanceId(): string {
   return INSTANCE_ID;
+}
+
+export function getLocalCommitHash(): string {
+  return LOCAL_COMMIT_HASH;
 }
 
 export function getSyncLogText(): string {

@@ -32,6 +32,7 @@ type Category = (typeof CATEGORIES)[number];
 
 interface SyncInfo {
   instanceId: string;
+  commitHash: string;
   env: string;
   pid: number;
   webhook: {
@@ -193,7 +194,7 @@ export default function SyncLogPage() {
                 <span className="flex items-center gap-1.5">
                   <IconServer className="h-3.5 w-3.5" />
                   <code className="text-xs bg-muted px-1.5 py-0.5 rounded" data-testid="text-instance-id">
-                    {syncInfo.instanceId}
+                    {syncInfo.instanceId} @ {syncInfo.commitHash}
                   </code>
                 </span>
                 <span className="flex items-center gap-1.5">
