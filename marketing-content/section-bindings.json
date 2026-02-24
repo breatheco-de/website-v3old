@@ -1054,6 +1054,184 @@
         }
       ],
       "createdAt": "2026-02-24T12:43:20.917Z"
+    },
+    {
+      "id": "bind_mm0lm073_nc5u8d",
+      "component": "testimonials_slide",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 6
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionIndex": 7
+        }
+      ],
+      "createdAt": "2026-02-24T12:45:20.127Z"
     }
   ]
 }
