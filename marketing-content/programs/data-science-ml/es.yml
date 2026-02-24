@@ -571,7 +571,7 @@ sections:
     subtitle: Únete a miles de graduados que han transformado sus carreras con 4Geeks.
     background: primary
     buttons:
-      - text: Empieza a Aprender Ahora.
+      - text: Empieza a Aprender Ahora
         url: /es/apply
         variant: secondary
       - text: Habla con un Asesor
