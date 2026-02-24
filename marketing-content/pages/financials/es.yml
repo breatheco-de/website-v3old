@@ -485,7 +485,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 semanas
+        duration: 18 semanas
         label: Actualizado en 2026
         title: Data Science y Machine Learning con IA
         badges:
