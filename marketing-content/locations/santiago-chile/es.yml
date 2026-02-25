@@ -205,6 +205,7 @@ sections:
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-ggfjpb
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
