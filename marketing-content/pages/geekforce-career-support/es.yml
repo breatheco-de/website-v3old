@@ -211,23 +211,23 @@ sections:
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
-    title: Consigue Empleo con Nuestro Proceso de Desarrollo de Carrera en 3 Pasos
+    title: Consigue empleo con nuestro proceso de desarrollo de carrera en 3 pasos
     description: Nuestro proceso estructurado está diseñado para que consigas empleo — rápido.
     steps:
       - icon: Optimization
-        title: Optimización de Perfil
+        title: Optimización de perfil
         bullets:
           - Perfecciona LinkedIn, GitHub y portafolio para atraer reclutadores y pasar filtros basados en IA.
           - Crea un currículum que supere los sistemas de seguimiento de candidatos (ATS) y destaque tus fortalezas.
           - Muestra tus habilidades con un portafolio listo para reclutadores.
       - icon: Interview
-        title: Preparación para Entrevistas
+        title: Preparación para entrevistas
         bullets:
           - Gana confianza con entrevistas técnicas y conductuales simuladas.
           - Practica código y resolución de problemas con ejercicios auto-calificados.
           - Desarrolla estrategias personalizadas para tus entrevistas próximas.
       - icon: JobSearch
-        title: Búsqueda Estratégica de Empleo
+        title: Búsqueda estratégica de empleo
         bullets:
           - Crea un plan de búsqueda de empleo personalizado alineado con tus metas.
           - Navega plataformas de contratación con IA, desde escáneres de currículum hasta entrevistas automatizadas.
