@@ -47,19 +47,19 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: Qué Nos Hace Diferentes
+    heading: Qué nos hace diferentes
     cards:
       - icon: Trophy
-        title: Programas Enfocados en la Carrera
+        title: Programas enfocados en la carrera
         description: Formación práctica, intensiva y orientada al mundo real para lanzar carreras tecnológicas.
       - icon: Wallet
-        title: Aprendizaje Hiperpersonalizado
+        title: Aprendizaje hiperpersonalizado
         description: Rigobot ofrece retroalimentación instantánea 24/7 para asegurar que siempre recibas la guía que necesitas.
       - icon: Clock
-        title: Mentoría Humana Ilimitada
+        title: Mentoría humana ilimitada
         description: Mentores y coaches de carrera brindan apoyo personalizado durante el programa y para siempre.
       - icon: Users
-        title: Habilidades Preparadas para el Futuro
+        title: Habilidades preparadas para el futuro
         description: Currículo actualizado continuamente con herramientas y tecnologías que impulsan la industria tecnológica.
     background: hsl(var(--muted))
     description_with_background: false
