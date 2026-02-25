@@ -106,40 +106,40 @@ sections:
         description: Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación para mantener los datos precisos y comparables entre cohortes.
         years:
           - year: "2023"
-            value: 86
-            displayValue: 86%
+            value: 80
+            displayValue: 80%
           - year: "2024"
-            value: 84
-            displayValue: 84%
+            value: 75
+            displayValue: 75%
           - year: Mid 2025
-            value: 82
-            displayValue: 82%
+            value: 75
+            displayValue: 75%
       - title: Aumento salarial promedio
         unit: Comparado con salario pre-bootcamp
         description: Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el bootcamp.
         years:
           - year: "2023"
-            value: 12500
-            displayValue: $12.5k
+            value: 22
+            displayValue: 22%
           - year: "2024"
-            value: 14200
-            displayValue: $14.2k
+            value: 18
+            displayValue: 18%
           - year: Mid 2025
-            value: 15800
-            displayValue: $15.8k
+            value: 33
+            displayValue: 33%
       - title: Días para el primer empleo
         unit: Tiempo promedio desde graduación hasta oferta
         description: Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
         years:
           - year: "2023"
-            value: 52
-            displayValue: 52 días
+            value: 96
+            displayValue: 96 días
           - year: "2024"
-            value: 48
-            displayValue: 48 días
+            value: 128
+            displayValue: 128 días
           - year: Mid 2025
-            value: 45
-            displayValue: 45 días
+            value: 85
+            displayValue: 85 días
     marginY:
       desktop: none
     paddingY:
