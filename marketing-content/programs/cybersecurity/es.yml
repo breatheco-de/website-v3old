@@ -75,13 +75,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Recibir el Plan de Estudios
+    description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Obtener
       tags: request_more_info
       automations: soft
       fields:
@@ -99,7 +99,7 @@ sections:
           required: true
           default: cybersecurity
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
