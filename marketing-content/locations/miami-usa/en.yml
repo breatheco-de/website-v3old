@@ -384,11 +384,12 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-    terms_color: hsl(var(--card))
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
