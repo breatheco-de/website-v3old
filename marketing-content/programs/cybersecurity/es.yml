@@ -492,7 +492,7 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: ¿Quién Contrata a Nuestros Alumnos?
+    title: ¿Quién contrata a nuestros alumnos?
     subtitle: Nuestros graduados trabajan en importantes empresas a nivel mundial
     description: Las mejores empresas contratan graduados de 4Geeks. {{ global_job_placement_rate | 84 }}% consiguen empleo dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
     logos:
