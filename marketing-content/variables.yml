@@ -437,7 +437,7 @@ data_science_week_duration:
 ai_engineering_week_duration:
   default: "24 "
 cybersecurity_week_duration:
-  default: "16 Semanas"
+  default: "16 "
 fullstack_week_duration:
   default: "20 "
 total_scholarships:
