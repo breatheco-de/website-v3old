@@ -157,8 +157,7 @@ sections:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - content-and-syllabus
     marginY:
