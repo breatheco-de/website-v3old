@@ -234,7 +234,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Learn by defending real systems
+    title: Learn by Defending Real Systems
     subtitle: Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a portfolio of security projects that demonstrate your defensive and offensive capabilities.
     items:
       - title: Network Vulnerability Assessment
