@@ -44,14 +44,14 @@ sections:
 
       ## Tabla de funcionalidades
 
-      | **Funcionalidad** | **Qué Hace** | **Por Qué Te Encantará** |
+      | **Funcionalidad** | **Qué hace** | **Por qué te encantará** |
       | --- | --- | --- |
       | Disponibilidad 24/7 | Responde preguntas a cualquier hora | Mantén el ritmo, nunca esperes |
-      | Análisis en Tiempo Real | Analiza el código frente a unit tests mientras escribes | Detecta errores *antes* de que escalen |
-      | Sugerencias Personalizadas | Aprende tus fortalezas y brechas | Feedback que se siente hecho a tu medida |
-      | Coaching Proactivo | Señala malos hábitos (nombres, complejidad) | Construye código limpio y listo para entrevistas |
-      | Seguimiento de Habilidades | Registra tu progreso y muestra próximos objetivos | Ruta clara hacia el dominio |
-      | Integración Profunda con VS Code | Funciona en VS Code local o Gitpod/Codespaces | Programa con la misma herramienta que los profesionales |
+      | Análisis en tiempo real | Analiza el código frente a unit tests mientras escribes | Detecta errores *antes* de que escalen |
+      | Sugerencias personalizadas | Aprende tus fortalezas y brechas | Feedback que se siente hecho a tu medida |
+      | Coaching proactivo | Señala malos hábitos (nombres, complejidad) | Construye código limpio y listo para entrevistas |
+      | Seguimiento de habilidades | Registra tu progreso y muestra próximos objetivos | Ruta clara hacia el dominio |
+      | Integración profunda con VS Code | Funciona en VS Code local o Gitpod/Codespaces | Programa con la misma herramienta que los profesionales |
 
       ## Rigobot vs herramientas de IA genéricas
 
