@@ -177,6 +177,138 @@ sections:
           text: Conviértete en partner
           url: /en
           variant: outline
+  - type: partnership_carousel
+    variant: split-card
+    vertical_cards: true
+    version: v1.0
+    heading: $20+ Millones en becas
+    subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "$20 millones" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
+    background: hsl(var(--muted))
+    slides:
+      - image_id: united_way_event
+        object_position: 100% 80%
+        title: United Way Miami y 4Geeks Academy
+        subtitle: Lanzando el Miami Workforce Project
+        description: United Way Miami se asoció con 4Geeks Academy para lanzar el Miami Workforce Project. Este programa transformador fue creado para ofrecer educación y formación de alta calidad a los residentes del condado de Miami-Dade y es posible gracias a una donación multimillonaria de la filántropa Mackenzie Scott. Los estudiantes admitidos reciben formación en programación sin costos iniciales.
+        stats:
+          - value: $1mm
+            label: Costo total
+          - value: "100"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Miami Herald
+            url: https://www.miamiherald.com/news/business/article263937731.html
+            source: Miami Herald
+          - text: Refresh Miami
+            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
+            source: Refresh Miami
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en/partners
+          variant: primary
+      - image_id: crusa_forte_scholarship
+        object_position: 100% 80%
+        title: Costa Rica Forte y 4Geeks Academy
+        subtitle: Impulsando el desarrollo de talento en Costa Rica
+        description: En colaboración con Forte y Crusa, 4Geeks Academy se unió al modelo FORTE para impulsar el desarrollo de talento en Costa Rica. Este programa ha formado a más de 35 estudiantes en tecnologías digitales de alta demanda, enfocándose en mujeres de zonas con alto desempleo. A través del programa, las participantes reciben formación gratuita que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
+        stats:
+          - value: $50,000
+            label: Costo total
+          - value: "35"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: bid_logo
+            alt: BID logo
+          - image_id: logo_crusa
+            alt: CRUSA Foundation logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Periodico Mensaje
+            url: https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
+            source: Periodico Mensaje
+          - text: La Republica
+            url: https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
+            source: La Republica
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/FORTE%20Report.pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en
+          variant: primary
+      - image_id: costa_rica_city
+        object_position: 10% 80%
+        title: Proyecto Costa Rica-CINDE y 4Geeks
+        subtitle: Invirtiendo en el talento tecnológico de Costa Rica
+        description: En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el IDB lanzó un programa para invertir en el talento del país. Juntos estamos ayudando a aproximadamente 250 estudiantes a convertirse en desarrolladores de software calificados, abriendo puertas a mejores oportunidades laborales tras graduarse.
+        stats:
+          - value: $1.5mm
+            label: Costo total
+          - value: "212"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: logo_crusa
+            alt: CRUSA Foundation logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Revista Summa
+            url: https://revistasumma.com/costa-rica-y-bid-lanzan-becas-para-aprender-programacion/
+            source: Revista Summa
+          - text: IDB Press
+            url: https://www.iadb.org/es/idb-blog
+            source: IDB Press
+          - text: Cultura Costa Rica
+            url: https://culturacr.net/4geeks-academy-ofrecera-becas-del-100-para-aprender-programacion/
+            source: Cultura Costa Rica
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en
+          variant: outline
+      - image_id: uruguay_city
+        object_position: 10% 80%
+        title: UTEC y 4Geeks
+        subtitle: Formando uruguayos en programación
+        description: Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, IDB y 4Geeks. El objetivo fue formar uruguayos en programación y potenciar el crecimiento impulsado por la tecnología en el país.
+        stats:
+          - value: 175k
+            label: Costo total
+          - value: "60"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: bid_logo
+            alt: Interamerican Development Bank logo
+          - image_id: logo_utec
+            alt: UTEC logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: El País
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            source: El País
+          - text: San José Ahora
+            url: https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
+            source: San José Ahora
+          - text: Marca País
+            url: https://www.uruguayxxi.gub.uy/es/marca-pais/
+            source: Marca País
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Uruguay%20Projects.pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en
+          variant: outline
   - type: testimonials_slide
     title: Donde el acceso se convierte en carreras reales
     description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del 84% contratados en los primeros seis meses.
