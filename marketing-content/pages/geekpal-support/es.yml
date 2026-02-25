@@ -133,7 +133,7 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
-    title: Carreras Reales que Comenzaron Aquí
+    title: Carreras reales que comenzaron aquí
     description: Descubre cómo nuestros estudiantes alcanzaron sus metas
     marginY:
       desktop: none
