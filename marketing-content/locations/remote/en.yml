@@ -184,6 +184,7 @@ sections:
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-etlkbk
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
@@ -209,6 +210,7 @@ sections:
     title: Why Learn to Code with 4Geeks from Anywhere
     subtitle: Unlimited mentorship, global community, real results
     description: Learn online the real way—not by being told to 'watch the video and figure it out.' At 4Geeks Academy, you'll get unlimited 1-on-1 mentoring, live chat support 12 hours a day, hundreds of interactive exercises and videos, real-time streaming classes, and access to our global graduate network. When you learn with us remotely, you get access to our full platform and any of our locations worldwide.
+    section_id: why_learn_ai-uz9dfs
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -354,3 +356,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-uz0nk6

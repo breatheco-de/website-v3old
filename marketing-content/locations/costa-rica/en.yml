@@ -225,6 +225,7 @@ sections:
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-33l4up
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
@@ -250,6 +251,7 @@ sections:
     title: Why Costa Rica Is a Smart Place to Launch Your Tech Career
     subtitle: Central America's leading tech ecosystem with strong nearshore demand
     description: "Costa Rica offers a supportive environment for startups and entrepreneurs, with a well-educated workforce and strong demand for technical talent. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Leading nearshore hub for US companies, with high demand for software, AI, and data skills</span></li><li>Incubators, accelerators, and co-working spaces provide support and networking for tech professionals</li><li>Universities and coding bootcamps nurture programming skills to bridge the tech talent gap</li></ul></div><div>From our Costa Rica campus, we connect you with local employers, regional opportunities, and a thriving ecosystem of startups and tech events—so you build relationships that support your entry and long-term growth in tech.</div></div>"
+    section_id: why_learn_ai-wfhxfk
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -409,4 +411,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-

@@ -165,6 +165,7 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-h2twh9
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -209,6 +210,7 @@ sections:
     title: Why Tampa Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech ecosystem with real hiring momentum
     description: "Tampa's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Tampa-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Tampa campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
+    section_id: why_learn_ai-yw78mi
   - type: mentorship
     version: v1.0
     title: Mentorship & Support

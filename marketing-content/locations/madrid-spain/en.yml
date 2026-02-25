@@ -209,6 +209,7 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
+    section_id: course_selector-f33qpf
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -248,6 +249,7 @@ sections:
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
+    section_id: split_cards-sx0f2c
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Madrid Is the Place to Launch Your Tech Career
@@ -375,6 +377,7 @@ sections:
       desktop: none
     paddingY:
       desktop: none
+    section_id: footer-lvyozx
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?

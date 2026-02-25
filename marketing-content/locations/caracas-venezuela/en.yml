@@ -184,6 +184,7 @@ sections:
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-40yx8x
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
@@ -209,6 +210,7 @@ sections:
     title: Why Caracas Is a Smart Place to Launch Your Tech Career
     subtitle: Strong technological entrepreneurship with opportunities to grow locally and globally
     description: "Caracas is one of the cities with the greatest technological entrepreneurship, with great opportunities to grow both inside and outside the country. It has become an opportunity for SMEs to move forward quickly.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">High speed internet access and first class office space</span></li><li>Strong focus on practical skills and industry-aligned curriculum</li><li>Growing demand for software, AI, and data skills across sectors</li></ul></div><div>From our Caracas campus, we connect you with local employers, tech events, and a growing ecosystem so you build relationships that support your entry and long-term growth in tech—both locally and internationally.</div></div>"
+    section_id: why_learn_ai-y1vbff
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -368,4 +370,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-

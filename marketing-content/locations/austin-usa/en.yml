@@ -166,6 +166,7 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-a2udya
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -210,6 +211,7 @@ sections:
     title: Why Austin Is a Smart Place to Launch Your Tech Career
     subtitle: Texas's most innovative city with a thriving tech community
     description: "Austin has witnessed substantial growth in the demand for coding proficiency as technology becomes increasingly integrated into diverse sectors. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Substantial growth in demand for coding proficiency across fintech, logistics, and enterprise sectors</span></li><li>Coding bootcamps have emerged as key contributors, offering accessible and comprehensive training for Austin's expanding tech community</li><li>Strong demand for software, AI, and data skills with companies like IBM, Indeed, and local startups actively hiring</li></ul></div><div>From our Austin campus, we connect you with local employers, tech events, and a thriving innovation community—helping you build relationships that support your entry and long-term growth in tech.</div></div>"
+    section_id: why_learn_ai-qdwt3i
   - type: mentorship
     version: v1.0
     title: Mentorship & Support

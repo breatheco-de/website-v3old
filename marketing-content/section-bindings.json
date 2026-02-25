@@ -8,182 +8,22 @@
         {
           "contentType": "page",
           "slug": "financials",
-          "sectionIndex": 10
-        },
-        {
-          "contentType": "location",
-          "slug": "atlanta-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "austin-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "barcelona-spain",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "berlin-germany",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "bogota-colombia",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "buenosaires-argentina",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "caracas-venezuela",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "chicago-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "costa-rica",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "dallas-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "dublin-ireland",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "hamburg-germany",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "houston-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "lapaz-bolivia",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "lima-peru",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "lisbon-portugal",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "losangeles-usa",
-          "sectionIndex": 16
+          "sectionId": "faq-t7j9xg"
         },
         {
           "contentType": "location",
           "slug": "madrid-spain",
-          "sectionIndex": 14
-        },
-        {
-          "contentType": "location",
-          "slug": "malaga-spain",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "mexicocity-mexico",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "miami-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "milan-italy",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "montevideo-uruguay",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "munich-germany",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "newyork-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "orlando-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "panamacity-panama",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "quito-ecuador",
-          "sectionIndex": 16
+          "sectionId": "footer-lvyozx"
         },
         {
           "contentType": "location",
           "slug": "remote",
-          "sectionIndex": 14
+          "sectionId": "sticky_cta-uz0nk6"
         },
         {
           "contentType": "location",
           "slug": "rest-of-europe",
-          "sectionIndex": 14
-        },
-        {
-          "contentType": "location",
-          "slug": "rome-italy",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "santiago-chile",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "tampa-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "toronto-canada",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "valencia-spain",
-          "sectionIndex": 16
+          "sectionId": "sticky_cta-xygxnu"
         }
       ],
       "createdAt": "2026-02-21T02:04:38.489Z",
@@ -197,177 +37,177 @@
         {
           "contentType": "location",
           "slug": "miami-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-s6ygkj"
         },
         {
           "contentType": "location",
           "slug": "atlanta-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-m9hdha"
         },
         {
           "contentType": "location",
           "slug": "austin-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-qdwt3i"
         },
         {
           "contentType": "location",
           "slug": "barcelona-spain",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-jt85h4"
         },
         {
           "contentType": "location",
           "slug": "berlin-germany",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-js76l7"
         },
         {
           "contentType": "location",
           "slug": "bogota-colombia",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-a69sg2"
         },
         {
           "contentType": "location",
           "slug": "buenosaires-argentina",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-1apju5"
         },
         {
           "contentType": "location",
           "slug": "caracas-venezuela",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-y1vbff"
         },
         {
           "contentType": "location",
           "slug": "chicago-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-96vje9"
         },
         {
           "contentType": "location",
           "slug": "costa-rica",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-wfhxfk"
         },
         {
           "contentType": "location",
           "slug": "dallas-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-9knerg"
         },
         {
           "contentType": "location",
           "slug": "dublin-ireland",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-8isoz6"
         },
         {
           "contentType": "location",
           "slug": "hamburg-germany",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-e519oy"
         },
         {
           "contentType": "location",
           "slug": "houston-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-clm62b"
         },
         {
           "contentType": "location",
           "slug": "lapaz-bolivia",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-0kqhcr"
         },
         {
           "contentType": "location",
           "slug": "lima-peru",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-6kj98m"
         },
         {
           "contentType": "location",
           "slug": "lisbon-portugal",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-9f46dk"
         },
         {
           "contentType": "location",
           "slug": "losangeles-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-hna7fb"
         },
         {
           "contentType": "location",
           "slug": "madrid-spain",
-          "sectionIndex": 7
+          "sectionId": "split_cards-sx0f2c"
         },
         {
           "contentType": "location",
           "slug": "malaga-spain",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-5tfjuo"
         },
         {
           "contentType": "location",
           "slug": "mexicocity-mexico",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-a1zvv9"
         },
         {
           "contentType": "location",
           "slug": "milan-italy",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-j0ggh1"
         },
         {
           "contentType": "location",
           "slug": "montevideo-uruguay",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-dirrni"
         },
         {
           "contentType": "location",
           "slug": "munich-germany",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-uleezw"
         },
         {
           "contentType": "location",
           "slug": "newyork-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-uwx0nq"
         },
         {
           "contentType": "location",
           "slug": "orlando-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-jwtm41"
         },
         {
           "contentType": "location",
           "slug": "panamacity-panama",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-a21n85"
         },
         {
           "contentType": "location",
           "slug": "quito-ecuador",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-qgimm3"
         },
         {
           "contentType": "location",
           "slug": "remote",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-uz9dfs"
         },
         {
           "contentType": "location",
           "slug": "rest-of-europe",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-tjge80"
         },
         {
           "contentType": "location",
           "slug": "rome-italy",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-az2ksc"
         },
         {
           "contentType": "location",
           "slug": "santiago-chile",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-porwgj"
         },
         {
           "contentType": "location",
           "slug": "tampa-usa",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-yw78mi"
         },
         {
           "contentType": "location",
           "slug": "toronto-canada",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-9ouz5a"
         },
         {
           "contentType": "location",
           "slug": "valencia-spain",
-          "sectionIndex": 8
+          "sectionId": "why_learn_ai-0lsp7e"
         }
       ],
       "createdAt": "2026-02-21T02:08:57.595Z",
@@ -381,57 +221,57 @@
         {
           "contentType": "location",
           "slug": "miami-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-nvso65"
         },
         {
           "contentType": "location",
           "slug": "atlanta-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-cyb97l"
         },
         {
           "contentType": "location",
           "slug": "austin-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-grard0"
         },
         {
           "contentType": "location",
           "slug": "chicago-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-9u8fa3"
         },
         {
           "contentType": "location",
           "slug": "dallas-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-msb4zd"
         },
         {
           "contentType": "location",
           "slug": "houston-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-c8q1ct"
         },
         {
           "contentType": "location",
           "slug": "losangeles-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-1jmewl"
         },
         {
           "contentType": "location",
           "slug": "newyork-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-lqcrcf"
         },
         {
           "contentType": "location",
           "slug": "orlando-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-0nt2bd"
         },
         {
           "contentType": "location",
           "slug": "tampa-usa",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-goq7hd"
         },
         {
           "contentType": "location",
           "slug": "toronto-canada",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-sa1ffy"
         }
       ],
       "createdAt": "2026-02-24T12:06:59.420Z",
@@ -445,72 +285,72 @@
         {
           "contentType": "location",
           "slug": "madrid-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-s3513s"
         },
         {
           "contentType": "location",
           "slug": "barcelona-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-axcbet"
         },
         {
           "contentType": "location",
           "slug": "berlin-germany",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-5m0imj"
         },
         {
           "contentType": "location",
           "slug": "dublin-ireland",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-zux7ak"
         },
         {
           "contentType": "location",
           "slug": "hamburg-germany",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-uktmay"
         },
         {
           "contentType": "location",
           "slug": "lisbon-portugal",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-6gi42b"
         },
         {
           "contentType": "location",
           "slug": "malaga-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-wd6pst"
         },
         {
           "contentType": "location",
           "slug": "milan-italy",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-i7mj06"
         },
         {
           "contentType": "location",
           "slug": "munich-germany",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-2o74pf"
         },
         {
           "contentType": "location",
           "slug": "remote",
-          "sectionIndex": 5
+          "sectionId": "testimonials_slide-ve8br2"
         },
         {
           "contentType": "location",
           "slug": "rome-italy",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-j6maju"
         },
         {
           "contentType": "location",
           "slug": "valencia-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-2z2n5w"
         },
         {
           "contentType": "location",
           "slug": "madrid-spain",
-          "sectionIndex": 4
+          "sectionId": "two_column_accordion_card-ggetq5"
         },
         {
           "contentType": "location",
           "slug": "valencia-espana",
-          "sectionIndex": 4
+          "sectionId": "two_column_accordion_card-p7fkl1"
         }
       ],
       "createdAt": "2026-02-24T12:10:32.190Z",
@@ -525,57 +365,57 @@
         {
           "contentType": "location",
           "slug": "santiago-chile",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-1h77xa"
         },
         {
           "contentType": "location",
           "slug": "bogota-colombia",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-gkuzlw"
         },
         {
           "contentType": "location",
           "slug": "buenosaires-argentina",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-f3u45n"
         },
         {
           "contentType": "location",
           "slug": "caracas-venezuela",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-25y7k0"
         },
         {
           "contentType": "location",
           "slug": "costa-rica",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-to28k5"
         },
         {
           "contentType": "location",
           "slug": "lapaz-bolivia",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-u8ixxr"
         },
         {
           "contentType": "location",
           "slug": "lima-peru",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-0bzkq9"
         },
         {
           "contentType": "location",
           "slug": "mexicocity-mexico",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-zqsul6"
         },
         {
           "contentType": "location",
           "slug": "montevideo-uruguay",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-7jrv7u"
         },
         {
           "contentType": "location",
           "slug": "panamacity-panama",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-zhwe6p"
         },
         {
           "contentType": "location",
           "slug": "quito-ecuador",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-q25ytx"
         }
       ],
       "createdAt": "2026-02-24T12:13:14.509Z",
@@ -589,62 +429,62 @@
         {
           "contentType": "location",
           "slug": "madrid-spain",
-          "sectionIndex": 4
+          "sectionId": "course_selector-f33qpf"
         },
         {
           "contentType": "location",
           "slug": "barcelona-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-d1o2n0"
         },
         {
           "contentType": "location",
           "slug": "berlin-germany",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-be88bm"
         },
         {
           "contentType": "location",
           "slug": "dublin-ireland",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-zwrt9s"
         },
         {
           "contentType": "location",
           "slug": "hamburg-germany",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-yb2uf8"
         },
         {
           "contentType": "location",
           "slug": "lisbon-portugal",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-ym1kz1"
         },
         {
           "contentType": "location",
           "slug": "malaga-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-s0xgqe"
         },
         {
           "contentType": "location",
           "slug": "milan-italy",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-j7obsc"
         },
         {
           "contentType": "location",
           "slug": "munich-germany",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-ae7esi"
         },
         {
           "contentType": "location",
           "slug": "rest-of-europe",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-k35rix"
         },
         {
           "contentType": "location",
           "slug": "rome-italy",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-bwfmrp"
         },
         {
           "contentType": "location",
           "slug": "valencia-spain",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-bwy5x2"
         }
       ],
       "createdAt": "2026-02-24T12:21:58.614Z",
@@ -658,62 +498,62 @@
         {
           "contentType": "location",
           "slug": "santiago-chile",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-bd5sy1"
         },
         {
           "contentType": "location",
           "slug": "bogota-colombia",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-31822i"
         },
         {
           "contentType": "location",
           "slug": "buenosaires-argentina",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-qpf8j7"
         },
         {
           "contentType": "location",
           "slug": "caracas-venezuela",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-40yx8x"
         },
         {
           "contentType": "location",
           "slug": "costa-rica",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-33l4up"
         },
         {
           "contentType": "location",
           "slug": "lapaz-bolivia",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-3k1y71"
         },
         {
           "contentType": "location",
           "slug": "lima-peru",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-gvfrei"
         },
         {
           "contentType": "location",
           "slug": "mexicocity-mexico",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-oiqk2n"
         },
         {
           "contentType": "location",
           "slug": "montevideo-uruguay",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-assntx"
         },
         {
           "contentType": "location",
           "slug": "panamacity-panama",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-upiqm5"
         },
         {
           "contentType": "location",
           "slug": "quito-ecuador",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-80uhyb"
         },
         {
           "contentType": "location",
           "slug": "remote",
-          "sectionIndex": 5
+          "sectionId": "two_column_accordion_card-etlkbk"
         }
       ],
       "createdAt": "2026-02-24T12:33:14.042Z",
@@ -727,57 +567,57 @@
         {
           "contentType": "location",
           "slug": "miami-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-nuqpjp"
         },
         {
           "contentType": "location",
           "slug": "atlanta-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-77yrzn"
         },
         {
           "contentType": "location",
           "slug": "austin-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-a2udya"
         },
         {
           "contentType": "location",
           "slug": "chicago-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-hf1dyz"
         },
         {
           "contentType": "location",
           "slug": "dallas-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-5ake6c"
         },
         {
           "contentType": "location",
           "slug": "houston-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-rst1tv"
         },
         {
           "contentType": "location",
           "slug": "losangeles-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-1wz1lt"
         },
         {
           "contentType": "location",
           "slug": "newyork-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-mje84c"
         },
         {
           "contentType": "location",
           "slug": "orlando-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-1m4np6"
         },
         {
           "contentType": "location",
           "slug": "tampa-usa",
-          "sectionIndex": 4
+          "sectionId": "course_selector-h2twh9"
         },
         {
           "contentType": "location",
           "slug": "toronto-canada",
-          "sectionIndex": 4
+          "sectionId": "course_selector-fefx9o"
         }
       ],
       "createdAt": "2026-02-25T14:40:19.104Z",
@@ -791,127 +631,127 @@
         {
           "contentType": "location",
           "slug": "miami-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-ef3won"
         },
         {
           "contentType": "location",
           "slug": "atlanta-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-sfzwr9"
         },
         {
           "contentType": "location",
           "slug": "atlanta-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-t14mdc"
         },
         {
           "contentType": "location",
           "slug": "austin-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-r08hwc"
         },
         {
           "contentType": "location",
           "slug": "austin-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-de8vz6"
         },
         {
           "contentType": "location",
           "slug": "chicago-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-lk9xb4"
         },
         {
           "contentType": "location",
           "slug": "chicago-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-baf5le"
         },
         {
           "contentType": "location",
           "slug": "dallas-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-7zk64g"
         },
         {
           "contentType": "location",
           "slug": "dallas-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-rcb1q0"
         },
         {
           "contentType": "location",
           "slug": "houston-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-euf7p1"
         },
         {
           "contentType": "location",
           "slug": "houston-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-6zv7oj"
         },
         {
           "contentType": "location",
           "slug": "losangeles-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-lpag6o"
         },
         {
           "contentType": "location",
           "slug": "losangeles-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-adnnd0"
         },
         {
           "contentType": "location",
           "slug": "miami-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-um6w41"
         },
         {
           "contentType": "location",
           "slug": "newyork-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-jd0jv8"
         },
         {
           "contentType": "location",
           "slug": "newyork-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-wdy1u6"
         },
         {
           "contentType": "location",
           "slug": "orlando-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-con0xa"
         },
         {
           "contentType": "location",
           "slug": "orlando-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-yns7s1"
         },
         {
           "contentType": "location",
           "slug": "remote",
-          "sectionIndex": 9
+          "sectionId": "testimonials-huuo1f"
         },
         {
           "contentType": "location",
           "slug": "remote",
-          "sectionIndex": 10
+          "sectionId": "testimonials-05a9ms"
         },
         {
           "contentType": "location",
           "slug": "tampa-usa",
-          "sectionIndex": 11
+          "sectionId": "testimonials-qoc43p"
         },
         {
           "contentType": "location",
           "slug": "tampa-usa",
-          "sectionIndex": 12
+          "sectionId": "testimonials-4jumml"
         },
         {
           "contentType": "location",
           "slug": "toronto-canada",
-          "sectionIndex": 11
+          "sectionId": "testimonials-2fh166"
         },
         {
           "contentType": "location",
           "slug": "toronto-canada",
-          "sectionIndex": 12
+          "sectionId": "testimonials-9jn0ea"
         },
         {
           "contentType": "landing",
           "slug": "ai-engineering-coding-florida",
-          "sectionIndex": 11
+          "sectionId": "testimonials-n8olzx"
         }
       ],
       "createdAt": "2026-02-25T14:47:37.446Z"
@@ -924,57 +764,57 @@
         {
           "contentType": "location",
           "slug": "dallas-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-4nwbrz"
         },
         {
           "contentType": "location",
           "slug": "atlanta-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-w6ohr1"
         },
         {
           "contentType": "location",
           "slug": "austin-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-g65kam"
         },
         {
           "contentType": "location",
           "slug": "chicago-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-7vdfc9"
         },
         {
           "contentType": "location",
           "slug": "houston-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-tua07r"
         },
         {
           "contentType": "location",
           "slug": "losangeles-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-idsynk"
         },
         {
           "contentType": "location",
           "slug": "miami-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-z2dpsn"
         },
         {
           "contentType": "location",
           "slug": "newyork-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-67gbao"
         },
         {
           "contentType": "location",
           "slug": "orlando-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-x4gtpn"
         },
         {
           "contentType": "location",
           "slug": "tampa-usa",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-h8iy6s"
         },
         {
           "contentType": "location",
           "slug": "toronto-canada",
-          "sectionIndex": 14
+          "sectionId": "cta_banner-bl56ax"
         }
       ],
       "createdAt": "2026-02-25T15:09:10.358Z",
