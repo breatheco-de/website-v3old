@@ -67,17 +67,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: IconCalendar
-          text: 20-Week Track
+          text: 20-week track
         - icon: IconCalendarBolt
-          text: 12-Week Accelerated Morning Track
+          text: 12-week accelerated morning track
         - icon: code
-          text: Interactive Coding Exercises
+          text: Interactive coding exercises
         - icon: robot
-          text: AI-Powered Feedback
+          text: AI-powered deedback
         - icon: calendar
-          text: {{ global_teacher_student_ratio | 1:7 }} teacher Student Ratio
+          text: {{ global_teacher_student_ratio | 1:7 }} teacher student ratio
         - icon: users
-          text: 1:1 Mentorship
+          text: 1:1 mentorship
     paddingY:
       desktop: md lg
     marginY:
