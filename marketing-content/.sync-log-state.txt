@@ -83,3 +83,46 @@
 2026-02-25T22:53:14.376Z [RESTART] Server started (instance=b51f, checkpoint=d7dcd115, env=development, pid=2580)
 2026-02-25T22:53:15.072Z [RECONCILE] Already in sync at 43d3e9b
 2026-02-25T22:53:16.053Z [WEBHOOK] Verified: webhook #597998198 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:53:43.159Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:43.165Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:43.192Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:43.225Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:43.266Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:43.303Z [WEBHOOK] Push 03c914b by alesanchezr: no marketing-content files changed
+2026-02-25T22:53:56.238Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:56.252Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:56.293Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:56.342Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:56.345Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:56.464Z [WEBHOOK] Push e10bd1c by alesanchezr: 10 marketing-content files changed
+2026-02-25T22:53:58.940Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:58.980Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:59.002Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:59.003Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:59.003Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:53:59.111Z [AUTO-PULL] Webhook: pulled 10 files from e10bd1c: locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/costa-rica/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/mexicocity-mexico/en.yml, locations/montevideo-uruguay/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml
+2026-02-25T22:53:59.122Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:38.926Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:38.958Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:38.985Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:39.003Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:39.007Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:39.072Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:45.815Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:45.884Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:45.888Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:45.892Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:45.895Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:46.005Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:56.548Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:56.557Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:56.580Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:56.589Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:56.615Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:54:56.633Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:55:14.011Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:55:14.065Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:55:14.081Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:55:14.091Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:55:14.093Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:55:14.150Z [WEBHOOK] Rejected: no webhook configured in sync state

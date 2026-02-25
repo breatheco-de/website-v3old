@@ -414,11 +414,27 @@ export default function SyncLogPage() {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{syncInfo?.webhook.active ? "Webhook Active" : "Webhook Inactive"}</DialogTitle>
-          <DialogDescription>
-            {syncInfo?.webhook.active
-              ? "The GitHub webhook is registered and receiving events. Changes pushed to GitHub are automatically synced to this app."
-              : "The GitHub webhook is not currently registered. Without it, changes pushed to GitHub won't be automatically pulled into this app. Click retry to attempt registration now."
-            }
+          <DialogDescription asChild>
+            <div>
+              {syncInfo?.webhook.active
+                ? "The GitHub webhook is registered and receiving events. Changes pushed to GitHub are automatically synced to this app."
+                : <>
+                    The GitHub webhook is not currently registered. Without it, changes pushed to GitHub won't be automatically pulled into this app.{" "}
+                    {syncInfo?.repoUrl && (
+                      <a
+                        href={`${syncInfo.repoUrl}/settings/hooks`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-foreground hover:text-foreground/80"
+                        data-testid="link-github-webhooks"
+                      >
+                        View webhooks on GitHub
+                      </a>
+                    )}{" "}
+                    Click retry to attempt registration now.
+                  </>
+              }
+            </div>
           </DialogDescription>
         </DialogHeader>
 
