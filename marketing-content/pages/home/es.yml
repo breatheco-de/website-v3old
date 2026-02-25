@@ -260,7 +260,7 @@ sections:
       - name: Ingeniería de IA
         icon: Brain
         duration: {{ ai_engineering_week_duration | 24 }} semanas
-        label: Actualizado en {{ ai_engineering_week_duration | {{ fullstack_week_duration | 20 }} }}26
+        label: Actualizado en 2026
         title: Ingeniería de IA
         badges:
           - icon: Cpu
