@@ -16,7 +16,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: LearnPack Crea Enseña Aprende
+    title: LearnPack Crea enseña aprende
     subtitle: LearnPack transforma cualquier tema en cursos interactivos con autoevaluación en minutos usando IA. Crea currículos completos con lecciones, quizzes y ejercicios, sin necesidad de programar.
     image:
       src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
