@@ -740,6 +740,5 @@ sections:
           required: false
         program:
           visible: false
-          default: ai-engineering
-      success:
+          default: full-stack
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
