@@ -171,13 +171,15 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Start Your Application
+    heading: Download the curriculum
     description: Fill out the form below and we'll get back to you within 24 hours.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Submit Application
+      submit_label: Download
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
@@ -189,9 +191,9 @@ sections:
           visible: true
           required: false
         program:
-          visible: true
+          visible: false
           required: true
-          default: auto
+          default: data-science-ml
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
