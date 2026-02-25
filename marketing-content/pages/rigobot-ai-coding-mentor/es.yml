@@ -28,13 +28,13 @@ sections:
     content: |
       ## Por qué la mentoría con IA supera el método de prueba y error
 
-      En un mundo donde la IA puede escribir código, aprender a programar no se trata de memorizar sintaxis, sino de entender *cómo* pensar como desarrollador. [Rigobot, el mentor con IA](https://4geeksacademy.com/us/ai-powered-learning/rigobot-ai-mentor), creado por el equipo de 4Geeks Academy, no es solo otro chatbot. Te acompaña donde sea que estés aprendiendo (teléfono, laptop, entorno de programación, LearnPack), observa cada línea que escribes y te brinda retroalimentación personalizada en tiempo real que evoluciona contigo. Ya sea que estés depurando un script en Python o construyendo una app en React, Rigobot te respalda de día y de noche.
+      En un mundo donde la IA puede escribir código, aprender a programar no se trata de memorizar sintaxis, sino de entender *cómo* pensar como desarrollador. [Rigobot, el mentor con IA](https://new.4geeks.com/en/blog/ai-powered-learning/rigobot-ai-mentor), creado por el equipo de 4Geeks Academy, no es solo otro chatbot. Te acompaña donde sea que estés aprendiendo (teléfono, laptop, entorno de programación, LearnPack), observa cada línea que escribes y te brinda retroalimentación personalizada en tiempo real que evoluciona contigo. Ya sea que estés depurando un script en Python o construyendo una app en React, Rigobot te respalda de día y de noche.
 
       Imagina esto: estás trabajando en un ejercicio de JavaScript y tu loop no funciona como debería. En lugar de horas de frustración, Rigobot resalta la línea exacta, explica el error lógico y sugiere una forma más limpia de resolverlo. Es como hacer pair-programming con un profesional que nunca se cansa. ¿Lo mejor? Está integrado en cada curso de 4Geeks, así que comienzas a aprender con Rigobot desde el primer día.
 
       ## Cómo funciona Rigobot – ejemplo paso a paso
 
-      1. **Lanza un ejercicio de [LearnPack](https://4geeksacademy.com/us/learnpack)** con un solo clic (sin configuración).
+      1. **Lanza un ejercicio de [LearnPack](https://new.4geeks.com/es/learnpack)** con un solo clic (sin configuración).
       2. **Programa como un profesional** en VS Code; Rigobot observa silenciosamente las pruebas y commits.
       3. **Pide ayuda** desde el panel *Get Feedback* o espera el aviso proactivo de Rigobot.
       4. **Explicación instantánea**: resalta el error, explica la lógica y sugiere una solución.
@@ -80,9 +80,7 @@ sections:
 
       ### Recuerda, no se trata de programar más duro, sino de programar más inteligente :)
 
-      Rigobot es gratis dentro de cada curso de 4Geeks, desde Full Stack hasta Data Science. Explora un [**demo de LearnPack**](https://4geeksacademy.com/us/learnpack) o aplica a nuestro [**Full Stack Bootcamp**](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer).
-
-      Deja que Rigobot convierta los bugs de medianoche en momentos de iluminación y tu esfuerzo en una carrera tech.
+      Rigobot es gratis dentro de cada curso de 4Geeks, desde Full Stack hasta Data Science. Deja que Rigobot convierta los bugs de medianoche en momentos de iluminación y tu esfuerzo en una carrera tech.
     show_toc: true
     max_width: xl
   - type: faq
