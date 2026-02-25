@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Mentoría en Programación Potenciada por IA
+    title: Mentoría en programación potenciada por IA
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
