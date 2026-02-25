@@ -270,6 +270,134 @@
       ],
       "createdAt": "2026-02-25T22:42:36.248Z",
       "name": "course_selector_europe_en"
+    },
+    {
+      "id": "bind_mm2mj70w_l0gbw0",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "course_selector-rjvke2"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "course_selector-rmx7hh"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "course_selector-5z63ye"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "course_selector-ikj1ag"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "course_selector-dzxl68"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "course_selector-hxkbk4"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "course_selector-i0afjm"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "course_selector-sua2q0"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "course_selector-rxd42t"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "course_selector-44cd97"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "course_selector-9nlqmk"
+        }
+      ],
+      "createdAt": "2026-02-25T22:46:40.976Z",
+      "name": "course_selector_latam_en"
+    },
+    {
+      "id": "bind_mm2mkvxz_vksnes",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "course_selector-ggfjpb"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "course_selector-p03xku"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "course_selector-znx9e5"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "course_selector-93hob9"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "course_selector-hljd7k"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "course_selector-5ymyre"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "course_selector-adw9yj"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "course_selector-hcprzg"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "course_selector-odvucq"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "course_selector-70zqdy"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "course_selector-b0dudd"
+        }
+      ],
+      "createdAt": "2026-02-25T22:47:59.927Z",
+      "name": "course_selector_latam_es"
     }
   ]
 }

@@ -3,3 +3,46 @@
 2026-02-25T22:45:37.644Z [RECONCILE] All 27 files match remote, updated to b40ea89
 2026-02-25T22:45:38.132Z [WEBHOOK] Created webhook #597997543 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
 2026-02-25T22:45:39.379Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:45:52.636Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:45:52.665Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:45:52.694Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:45:52.723Z [WEBHOOK] Push cdbee64 by alesanchezr: 1 marketing-content files changed
+2026-02-25T22:45:53.151Z [AUTO-PULL] Webhook: pulled 1 files from cdbee64: locations/santiago-chile/en.yml
+2026-02-25T22:46:31.889Z [RESTART] Server started (instance=8985, checkpoint=0b2dafcd, env=development, pid=624)
+2026-02-25T22:46:32.591Z [RECONCILE] Already in sync at cdbee64
+2026-02-25T22:46:33.379Z [WEBHOOK] Created webhook #597997640 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:46:35.406Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:46:49.260Z [RESTART] Server started (instance=1ffb, checkpoint=0b2dafcd, env=development, pid=754)
+2026-02-25T22:46:49.620Z [RECONCILE] Already in sync at cdbee64
+2026-02-25T22:46:52.579Z [WEBHOOK] Verified: webhook #597997640 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:46:53.544Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:46:53.544Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:46:53.576Z [WEBHOOK] Push 647520b by alesanchezr: 10 marketing-content files changed
+2026-02-25T22:46:53.718Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:46:53.721Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:46:56.120Z [AUTO-PULL] Webhook: pulled 10 files from 647520b: locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/costa-rica/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/mexicocity-mexico/en.yml, locations/montevideo-uruguay/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml
+2026-02-25T22:46:57.737Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:46:57.748Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:46:57.774Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:46:57.780Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:46:57.830Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:47:14.458Z [RESTART] Server started (instance=e9bb, checkpoint=0b2dafcd, env=development, pid=1048)
+2026-02-25T22:47:14.837Z [RECONCILE] Local 647520b ≠ remote 8e7ca73, checking file hashes...
+2026-02-25T22:47:15.305Z [RECONCILE] 0/1 files match remote, 1 still differ
+2026-02-25T22:47:18.782Z [AUTO-PULL] Startup: pulled 1 incoming files: section-bindings.json
+2026-02-25T22:47:19.005Z [WEBHOOK] Created webhook #597997715 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:47:19.543Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:48:13.650Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:13.657Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:13.662Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:13.663Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:13.694Z [WEBHOOK] Push 5476ba7 by alesanchezr: 11 marketing-content files changed
+2026-02-25T22:48:13.778Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:16.063Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:16.104Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:16.105Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:16.129Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:16.144Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:48:16.264Z [WEBHOOK] Push 4910e4b by alesanchezr: 1 marketing-content files changed
+2026-02-25T22:48:16.717Z [AUTO-PULL] Webhook: pulled 1 files from 4910e4b: section-bindings.json
+2026-02-25T22:48:16.911Z [AUTO-PULL] Webhook: pulled 11 files from 5476ba7: locations/bogota-colombia/es.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/es.yml, locations/costa-rica/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/mexicocity-mexico/es.yml, locations/montevideo-uruguay/es.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/es.yml, locations/santiago-chile/es.yml
