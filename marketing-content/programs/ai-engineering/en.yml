@@ -439,9 +439,9 @@ sections:
           - text: "Full-Stack AI Engineer: {{ average_salary_ai_fluent_software_developer | $125K–$185K }}"
           - text: "Agentic Systems Engineer: {{ average_salary_agent_engineer | $140K–$210K }}"
           - text: "Workflow Automation Engineer: {{ average_salary_workflow_automation_engineer | $95K–$145K }}"
-      - value: 5,000+
+      - value: 400+
         label: Hiring partners
-        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
