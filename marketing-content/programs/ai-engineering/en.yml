@@ -404,7 +404,7 @@ sections:
     paddingY:
       desktop: md
   - type: certificate
-    title: Certificate & career network
+    title: Certificate & Career Network
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
       - text: "AI Software Engineer: $95K–$135K"
