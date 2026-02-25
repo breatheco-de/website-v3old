@@ -146,7 +146,7 @@ sections:
       - toronto-canada
   - type: comparison_table
     version: "1.0"
-    title: ¿Qué Camino Se Adapta Mejor a Ti?
+    title: ¿Qué camino se adapta mejor a ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
     columns:
       - name: Categoría
