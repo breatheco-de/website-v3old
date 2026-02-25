@@ -74,7 +74,7 @@ sections:
     paddingY:
       desktop: none md
   - type: value_proof_panel
-    title: Reconocidos Globalmente por la Excelencia
+    title: Reconocidos globalmente por la excelencia
     subtitle: No solo decimos que cumplimos, el reconocimiento de fuentes confiables lo demuestra.
     evidence_items:
       - icon: Trophy
