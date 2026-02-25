@@ -98,7 +98,7 @@ sections:
       desktop: lg
   - type: pie_charts
     version: "1.0"
-    title: Our Student Body at a Glance
+    title: Our student body at a glance
     subtitle: A snapshot of who our students are by age, gender, and region.
     background: hsl(var(--background))
     charts:
