@@ -233,6 +233,141 @@ sections:
           text: Saber más
           url: "#"
           variant: outline
+  - type: partnership_carousel
+    variant: split-card
+    vertical_cards: true
+    version: v1.0
+    heading: Nuestras alianzas globales
+    subtitle: Colaborando con instituciones líderes para llevar la educación en programación en todo el mundo
+    background: hsl(var(--muted))
+    slides:
+      - image_id: united_way_event
+        object_position: 100% 80%
+        title: United Way Miami y 4Geeks Academy
+        subtitle: Lanzamiento del Proyecto de Fuerza Laboral de Miami
+        description: United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos recibirán capacitación en programación sin costos iniciales.
+        stats:
+          - value: $1mm
+            label: Costo total
+          - value: "100"
+            label: Beneficiados
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: Logo de 4Geeks Academy
+        press_references:
+          - text: Miami Herald
+            url: "#"
+            source: Miami Herald
+          - text: Refresh Miami
+            url: "#"
+            source: Refresh Miami
+          - text: Social Finance
+            url: "#"
+            source: Social Finance
+          - text: Ver proyecto completo (PDF)
+            url: "#"
+            source: PDF
+        cta:
+          text: Saber más
+          url: "#"
+          variant: primary
+      - image_id: crusa_forte_scholarship
+        object_position: 100% 80%
+        title: Costa Rica Forte y 4Geeks Academy
+        subtitle: Impulsando el desarrollo del talento en Costa Rica
+        description: En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
+        stats:
+          - value: $50,000
+            label: Costo total
+          - value: "35"
+            label: Beneficiados
+        institution_logos:
+          - image_id: bid_logo
+            alt: Logo del BID
+          - image_id: logo_crusa
+            alt: Logo de la Fundación CRUSA
+          - image_id: 4geeks_academy_logo
+            alt: Logo de 4Geeks Academy
+        press_references:
+          - text: Periódico Mensaje
+            url: "#"
+            source: Periódico Mensaje
+          - text: La República
+            url: "#"
+            source: La República
+          - text: Ver proyecto completo (PDF)
+            url: "#"
+            source: PDF
+        cta:
+          text: Saber más
+          url: "#"
+          variant: primary
+      - image_id: costa_rica_city
+        object_position: 10% 80%
+        title: Costa Rica-CINDE y 4Geeks
+        subtitle: Invirtiendo en talento tecnológico en Costa Rica
+        description: En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el BID lanzó un programa para invertir en talento costarricense. Juntos estamos ayudando a unos 250 estudiantes a convertirse en desarrolladores de software capacitados, abriendo puertas a mejores oportunidades laborales tras graduarse.
+        stats:
+          - value: $1.5mm
+            label: Costo total
+          - value: "212"
+            label: Beneficiados
+        institution_logos:
+          - image_id: logo_crusa
+            alt: Logo de CRUSA
+          - image_id: 4geeks_academy_logo
+            alt: Logo de 4Geeks Academy
+        press_references:
+          - text: Revista Summa
+            url: "#"
+            source: Revista Summa
+          - text: IDB Press
+            url: "#"
+            source: IDB Press
+          - text: Cultura Costa Rica
+            url: "#"
+            source: Cultura Costa Rica
+          - text: Ver proyecto completo (PDF)
+            url: "#"
+            source: PDF
+        cta:
+          text: Saber más
+          url: "#"
+          variant: outline
+      - image_id: uruguay_city
+        object_position: 10% 80%
+        title: UTEC y 4Geeks
+        subtitle: Capacitando uruguayos en programación
+        description: Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, BID y 4Geeks. El objetivo era capacitar a uruguayos en programación y aprovechar el crecimiento impulsado por la tecnología en el país.
+        stats:
+          - value: 175k
+            label: Costo total
+          - value: "60"
+            label: Beneficiados
+        institution_logos:
+          - image_id: bid_logo
+            alt: Logo del Banco Interamericano de Desarrollo
+          - image_id: logo_utec
+            alt: Logo de UTEC
+          - image_id: 4geeks_academy_logo
+            alt: Logo de 4Geeks Academy
+        press_references:
+          - text: El País
+            url: "#"
+            source: El País
+          - text: San José Ahora
+            url: "#"
+            source: San José Ahora
+          - text: Marca País
+            url: "#"
+            source: Marca País
+          - text: Ver proyecto completo (PDF)
+            url: "#"
+            source: PDF
+        cta:
+          text: Saber más
+          url: "#"
+          variant: outline
   - type: two_column
     proportions:
       - 5
