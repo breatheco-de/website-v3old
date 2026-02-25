@@ -1,5 +1,5 @@
-import logoImage from "@assets/4geeks-logo.png";
 import SolidCard from "./SolidCard";
+import UniversalImage from "@/components/UniversalImage";
 
 interface CertificateProps {
   programName?: string;
@@ -8,6 +8,7 @@ interface CertificateProps {
 }
 
 export function Certificate({ programName = "Full-Stack Developer", studentName = "Pedro Fuentes Escaloso de los Lobos", useSolidCard = false }: CertificateProps) {
+  const logoImage = "4geeks-logo"
   const CertificateInner = (
     <div className="w-full aspect-[4/3]">
       <div 
@@ -18,10 +19,11 @@ export function Certificate({ programName = "Full-Stack Developer", studentName 
       >
         <div className="w-full h-full bg-white rounded-[2px] relative overflow-hidden flex flex-col">
           <div className="flex items-center justify-between px-4 py-3">
-            <img 
-              src={logoImage} 
-              alt="4Geeks" 
+            <UniversalImage
+              id={logoImage}
+              alt="4Geeks"
               className="h-5 w-auto"
+              style={{ objectFit: "contain" }}
             />
             <div className="flex gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
@@ -133,10 +135,11 @@ export function Certificate({ programName = "Full-Stack Developer", studentName 
         >
           <div className="w-full h-full bg-white rounded-[2px] relative overflow-hidden flex flex-col">
             <div className="flex items-center justify-between px-4 py-3">
-              <img 
-                src={logoImage} 
-                alt="4Geeks" 
+              <UniversalImage
+                id={logoImage}
+                alt="4Geeks"
                 className="h-5 w-auto"
+                style={{ objectFit: "contain" }}
               />
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />

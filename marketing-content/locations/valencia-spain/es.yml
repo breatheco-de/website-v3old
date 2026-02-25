@@ -222,8 +222,6 @@ sections:
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
-    paddingY:
-      desktop: md none
   - type: testimonials_slide
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.

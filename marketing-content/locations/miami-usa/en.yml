@@ -64,7 +64,7 @@ sections:
         url: /en/apply
         variant: primary
       - text: Get Program Details
-        url: "#cta_banner-15"
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -351,6 +351,7 @@ sections:
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -381,13 +382,14 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
-    paddingY:
-      desktop: md
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?

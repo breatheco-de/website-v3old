@@ -72,7 +72,7 @@ sections:
       - title: Pago Anticipado y Ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
       - title: Cuotas sin Intereses a 6 Meses
-        description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales.
+        description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales con nuestros partners.
       - title: Pagos Basados en Ingresos
         description: ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar únicamente cuando tus ingresos anuales alcancen los {{ minimun_isa_salary | 17.000 € }}. A partir de ese momento, se aplica un porcentaje fijo de tus ingresos, adaptado a tu situación económica.
       - title: Financia tu formación con comodidad

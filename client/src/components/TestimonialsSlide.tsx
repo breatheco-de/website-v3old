@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import UniversalImage from "@/components/UniversalImage";
 
 export interface TestimonialsSlideTestimonial {
   name: string;
@@ -88,7 +89,7 @@ type CardSize = "small" | "medium" | "large";
 const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   {
     name: "Loretta Thompson",
-    img: "/attached_assets/ttaLoretta_1764725322100.jpeg",
+    img: "ttaloretta-1764725322100",
     status: "Graduated",
     country: { iso: "us", name: "United States of America" },
     contributor: "United Way Miami",
@@ -97,7 +98,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Rich Akers",
-    img: "/attached_assets/Akers_1764725327796.jpeg",
+    img: "akers-1764725327796",
     status: "Graduated",
     country: { iso: "us", name: "United States of America" },
     contributor: "Clark University",
@@ -106,7 +107,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "MaiLinh Tran",
-    img: "/attached_assets/MaiLinh_1764725334980.png",
+    img: "mailinh-1764725334980",
     status: "Graduated",
     country: { iso: "us", name: "United States of America" },
     contributor: "Clark University",
@@ -115,7 +116,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Jorge Martín Coimbra",
-    img: "/attached_assets/coimbra_1764725341501.png",
+    img: "coimbra-1764725341501",
     status: "Graduated",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -124,7 +125,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Jean St. Cloud",
-    img: "/attached_assets/JeanSt.Cloud_1764725356935.jpeg",
+    img: "jeanstcloud-1764725356935",
     status: "Graduated",
     country: { iso: "us", name: "United States of America" },
     contributor: "Clark",
@@ -133,7 +134,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Alexandra Espinoza",
-    img: "/attached_assets/AlexandraEspinoza_1764725386161.jpeg",
+    img: "alexandraespinoza-1764725386161",
     status: "Graduated",
     country: { iso: "cr", name: "Costa Rica" },
     contributor: "CINDE-BID",
@@ -142,7 +143,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Gabriel Salazar",
-    img: "/attached_assets/GabrielSalazar_1764725392872.jpeg",
+    img: "gabrielsalazar-1764725392872",
     status: "Graduated",
     country: { iso: "cr", name: "Costa Rica" },
     contributor: "CINDE-BID",
@@ -151,7 +152,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Laura Magallanes",
-    img: "/attached_assets/Laura_1764725397398.jpeg",
+    img: "laura-1764725397398",
     status: "Graduated",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -160,7 +161,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Melanie Galaretto",
-    img: "/attached_assets/MelamnieGalaretto_1764725408397.jpeg",
+    img: "melamniegalaretto-1764725408397",
     status: "Graduated",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -169,7 +170,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Natia Lombardo",
-    img: "/attached_assets/NatiaLombardo_1764725413363.jpeg",
+    img: "natialombardo-1764725413363",
     status: "Graduated",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -177,7 +178,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Luis Larraburo",
-    img: "/attached_assets/LuisLarraburo_1764725418057.jpeg",
+    img: "luislarraburo-1764725418057",
     status: "Graduated",
     country: { iso: "cr", name: "Costa Rica" },
     contributor: "CINDE-BID",
@@ -186,7 +187,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Leandro Matonte",
-    img: "/attached_assets/Leandro_1764725403142.jpeg",
+    img: "leandro-1764725403142",
     status: "Graduated",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -198,7 +199,7 @@ const DEFAULT_TESTIMONIALS: TestimonialsSlideTestimonial[] = [
 const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   {
     name: "Loretta Thompson",
-    img: "/attached_assets/ttaLoretta_1764725322100.jpeg",
+    img: "ttaloretta-1764725322100",
     status: "Graduada",
     country: { iso: "us", name: "Estados Unidos" },
     contributor: "United Way Miami",
@@ -207,7 +208,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Rich Akers",
-    img: "/attached_assets/Akers_1764725327796.jpeg",
+    img: "akers-1764725327796",
     status: "Graduado",
     country: { iso: "us", name: "Estados Unidos" },
     contributor: "Clark University",
@@ -216,7 +217,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "MaiLinh Tran",
-    img: "/attached_assets/MaiLinh_1764725334980.png",
+    img: "mailinh-1764725334980",
     status: "Graduada",
     country: { iso: "us", name: "Estados Unidos" },
     contributor: "Clark University",
@@ -225,7 +226,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Jorge Martín Coimbra",
-    img: "/attached_assets/coimbra_1764725341501.png",
+    img: "coimbra-1764725341501",
     status: "Graduado",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -234,7 +235,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Jean St. Cloud",
-    img: "/attached_assets/JeanSt.Cloud_1764725356935.jpeg",
+    img: "jeanstcloud-1764725356935",
     status: "Graduado",
     country: { iso: "us", name: "Estados Unidos" },
     contributor: "Clark",
@@ -243,7 +244,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Alexandra Espinoza",
-    img: "/attached_assets/AlexandraEspinoza_1764725386161.jpeg",
+    img: "alexandraespinoza-1764725386161",
     status: "Graduada",
     country: { iso: "cr", name: "Costa Rica" },
     contributor: "CINDE-BID",
@@ -252,7 +253,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Gabriel Salazar",
-    img: "/attached_assets/GabrielSalazar_1764725392872.jpeg",
+    img: "gabrielsalazar-1764725392872",
     status: "Graduado",
     country: { iso: "cr", name: "Costa Rica" },
     contributor: "CINDE-BID",
@@ -261,7 +262,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Laura Magallanes",
-    img: "/attached_assets/Laura_1764725397398.jpeg",
+    img: "laura-1764725397398",
     status: "Graduada",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -270,7 +271,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Melanie Galaretto",
-    img: "/attached_assets/MelamnieGalaretto_1764725408397.jpeg",
+    img: "melamniegalaretto-1764725408397",
     status: "Graduada",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -279,7 +280,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Natia Lombardo",
-    img: "/attached_assets/NatiaLombardo_1764725413363.jpeg",
+    img: "natialombardo-1764725413363",
     status: "Graduada",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -287,7 +288,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Luis Larraburo",
-    img: "/attached_assets/LuisLarraburo_1764725418057.jpeg",
+    img: "luislarraburo-1764725418057",
     status: "Graduado",
     country: { iso: "cr", name: "Costa Rica" },
     contributor: "CINDE-BID",
@@ -296,7 +297,7 @@ const DEFAULT_TESTIMONIALS_ES: TestimonialsSlideTestimonial[] = [
   },
   {
     name: "Leandro Matonte",
-    img: "/attached_assets/Leandro_1764725403142.jpeg",
+    img: "leandro-1764725403142",
     status: "Graduado",
     country: { iso: "uy", name: "Uruguay" },
     contributor: "UTEC-BID",
@@ -329,10 +330,11 @@ function MasonryCard({
       data-testid={`card-testimonial-${testimonial.name.replace(/\s+/g, '-').toLowerCase()}`}
     >
       <div className="flex items-center gap-3 mb-3">
-        <img 
-          src={testimonial.img} 
+        <UniversalImage 
+          id={testimonial.img} 
           alt={testimonial.name}
-          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+          className="w-10 h-10 rounded-full flex-shrink-0"
+          style={{ objectFit: "cover" }}
         />
         <div className="min-w-0 flex-1">
           <h4 className="font-semibold text-foreground text-sm leading-tight truncate">

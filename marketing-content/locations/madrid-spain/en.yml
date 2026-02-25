@@ -54,7 +54,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Launch an AI-Ready Tech Career in Madrid
+    title: Launch an AI-Ready Tech career in Madrid
     subtitle: Train for in-demand tech roles in Europe's
     badge: Madrid Campus
     cta_buttons:
@@ -113,7 +113,7 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: At the Heart of Spain's Tech Revolution
+    title: At the heart of Spain's Tech Revolution
     description: Madrid has surpassed Barcelona to become Spain's
     background: gradient
     marginY:
@@ -126,7 +126,7 @@ sections:
     left:
       video: https://youtu.be/4n-ZAUPIxJI
     right:
-      heading: Why Spain's Tech Boom Creates Opportunity for New Developers
+      heading: Why Spain's tech boom creates opportunity for new developers
       sub_heading: Madrid leads Spain's digital transformation with 47% of all tech jobs and a rapidly growing startup ecosystem
       description: Spain's tech sector grew 5.8% in 2024, generating over 120 billion euros in turnover. Madrid attracts 85% of all foreign tech investment in the country and ranks
       button:
@@ -142,7 +142,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explore Our Programs
+    heading: Explore our programs
     subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
@@ -178,7 +178,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 weeks
+        duration: 18 weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
@@ -212,16 +212,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Everything You Need to Succeed in an AI-Driven Industry
+    title: Everything you need to succeed in an AI-Driven industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
-      - heading: 1:1 Mentorship, Unlimited and for Life
+      - heading: 1:1 Mentorship, unlimited and for life
         text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
-      - heading: AI-Powered Learning Support
+      - heading: AI-Powered learning support
         text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
-      - heading: Career Support, Unlimited and for Life
+      - heading: Career Support, unlimited and for life
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
-      - heading: An Active Global Tech Community
+      - heading: An active global tech community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
@@ -229,7 +229,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
-    title: Proven Paths to Tech Careers
+    title: Proven paths to tech careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
   - type: split_cards
@@ -250,7 +250,7 @@ sections:
     background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
-    title: Why Madrid Is the Place to Launch Your Tech Career
+    title: Why Madrid is the place to launch your tech career
     subtitle: Europe's
     description: "Madrid has emerged as Spain's undisputed tech capital, surpassing Barcelona for the first time in total tech companies, startups, and scaleups. With over 2,100 tech startups and an ecosystem valued at 44 billion euros, the city offers unmatched opportunity for developers entering the market.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid holds 47% of all tech jobs in Spain, with 25,000+ developer positions currently unfilled nationwide&nbsp;&nbsp;</span></li><li>Ranked #1 globally as an emerging startup ecosystem by Startup Genome, and #3 in Europe for engineering talent density&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, cybersecurity, travel tech, and enterprise software sectors&nbsp;&nbsp;</li></ul></div><div>Located in the heart of the city, our Madrid campus connects you with local employers, hiring partners, and tech events through South Summit, Google Campus Madrid, and a thriving network of accelerators and VCs.</div></div>"
   - type: mentorship
@@ -275,7 +275,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: What Our Students Say
+    title: What our students say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
       average: "4.9"
@@ -318,15 +318,137 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - certification
-      - job-guarantee
+      - scholarships
+      - content-and-syllabus
     marginY:
       desktop: lg none
-    background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    background: hsl(var(--muted))
+    item_overrides:
+      do-i-get-a-job-after-completing-the-program:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - madrid-spain
+          - lisbon-portugal
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      does-the-job-guarantee-refund-the-full-tuition-if-i-dont-get-hired:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      how-does-the-4geeks-academy-job-guarantee-work:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      how-long-do-i-have-to-look-for-a-job-before-the-refund-is-issued:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - madrid-spain
+          - lisbon-portugal
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      is-the-job-guarantee-available-for-all-courses:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - hamburg-germany
+          - dublin-ireland
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career

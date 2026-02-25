@@ -102,7 +102,13 @@ variant_props:
         trusted_text:
           type: string
           required: true
-      description: Social proof with ratings
+        avatars:
+          type: array
+          required: false
+          items:
+            type: string
+          description: Image registry IDs or URLs for avatar images in the trust bar
+      description: Social proof with ratings and optional avatars
     cta_button:
       type: object
       required: true

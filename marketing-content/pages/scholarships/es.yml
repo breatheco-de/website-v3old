@@ -205,32 +205,28 @@ sections:
     vertical_cards: true
     version: v1.0
     heading: {{ total_scholarships | {{ total_scholarships | $20 }}+ Millones en becas
-    subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "17 millones" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
+    subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "17 millones €" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
     background: hsl(var(--muted))
     slides:
       - image_id: student_coding_laptop
         object_position: 100% 80%
         title: Beca Talento Digital y 4Geeks Academy
-        subtitle: Lanzando el Miami Workforce Project
-        description: United Way Miami se asoció con 4Geeks Academy para lanzar el Miami Workforce Project. Este programa transformador fue creado para ofrecer educación y formación de alta calidad a los residentes del condado de Miami-Dade y es posible gracias a una donación multimillonaria de la filántropa Mackenzie Scott. Los estudiantes admitidos reciben formación en programación sin costos iniciales.
+        subtitle: Lanzando por la Fundación ONCE
+        description: La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con 4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
         stats:
-          - value: $1mm
-            label: Costo total
-          - value: "100"
+          - value: 20%
+            label: Coste que asume el alumno + impuestos
+          - value: "+10"
             label: Geeks beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
+          - image_id: logo-fonce
+            alt: "Image: logo-fonce"
         press_references:
-          - text: Miami Herald
-            url: https://www.miamiherald.com/news/business/article263937731.html
-            source: Miami Herald
-          - text: Refresh Miami
-            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
-            source: Refresh Miami
-          - text: Ver proyecto completo (PDF)
-            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
-            source: PDF
+          - text: Talento Digital
+            url: https://portalentodigital.fundaciononce.es/becas
+            source: Fundación Once
         cta:
           text: Conviértete en partner
           url: /en/partners

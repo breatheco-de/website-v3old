@@ -19,15 +19,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: See What Our Students Build
+    title: See what our students build
     subtitle: Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.
-    badge: Career Program
+    badge: Career program
     cta_buttons:
-      - text: Start Learning Now
+      - text: Start learning now
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: View Curriculum
+      - text: View curriculum
         url: "#apply-modal"
         variant: outline
         icon: Book
@@ -90,7 +90,7 @@ sections:
             alt: Raspberry Sky - Satellite access for everyone
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Inventory Tracking"
+      - project_title: "IMS: Inventory tracking"
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS is a Pharmacy Inventory and logistics tracking system built using Python, Javascript, React, and integration with Barcode Readers, SMS, the Twillio API, and GPS Tracking Systems. IMS holds stock quantities of all products stored and sold by the Drug Store and then tracks the vehicles that deliver those sells.
         creators:
@@ -157,8 +157,7 @@ sections:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - content-and-syllabus
     marginY:

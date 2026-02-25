@@ -16,8 +16,8 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Career Development
-    subtitle: for the AI Era
+    title: Career development
+    subtitle: for the AI era
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
@@ -71,7 +71,7 @@ sections:
       desktop: none sm
   - type: career_support_explain
     version: v1.0
-    heading: GeekForce Career Support
+    heading: GeekForce career support
     description: Our career support program is designed to help you land your first job in tech
     background: hsl(var(--secondary))
     tabs:
@@ -91,7 +91,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Career Strategy, Built Around You
+        col2_heading: Career strategy, built around you
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -187,7 +187,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: graduates_stats
-    heading: Career Placement
+    heading: Career placement
     subheading: We turn your education into employment. See the real-world impact of our coaching.
     stats:
       - value: {{ global_job_placement_rate | 84 }}%
@@ -212,23 +212,23 @@ sections:
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
-    title: Get Hired with Our 3-Step Career Development Process
+    title: Get hired with our 3-step career development Process
     description: Our structured process is designed to get you hired fast.
     steps:
       - icon: Optimization
-        title: Profile Optimization
+        title: Profile optimization
         bullets:
           - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
           - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
           - Showcase your skills with a recruiter-ready portfolio.
       - icon: Interview
-        title: Interview Preparation
+        title: Interview preparation
         bullets:
           - Gain confidence with mock technical and behavioral interviews.
           - Practice coding and problem-solving with auto-graded exercises.
           - Develop tailored strategies for upcoming interviews.
       - icon: JobSearch
-        title: Strategic Job Search
+        title: Strategic job search
         bullets:
           - Create a personalized job search plan aligned with your goals.
           - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
@@ -238,11 +238,11 @@ sections:
       desktop: md none
   - type: why_learn_ai
     variant: laptop-edge
-    title: Optional Job Guarantee* for Extra Confidence
+    title: Optional job guarantee* for extra confidence
     subtitle: Back your career outcome with a stronger commitment
     description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
-      text: Get More Info
+      text: Get more info
       url: /en/job-guarantee
       variant: primary
     marginY:
@@ -264,7 +264,7 @@ sections:
       - toronto-canada
   - type: whos_hiring
     variant: carousel
-    title: Top Tech Companies Hiring 4Geeks Graduates
+    title: Top tech companies hiring 4Geeks graduates
     description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
       - src: /attached_assets/twilio_1764719992371.png
@@ -294,14 +294,12 @@ sections:
     paddingY:
       desktop: sm none
   - type: testimonials_slide
-    title: The Stories Behind the Stats
+    title: The stories behind the stats
     description: Discover how our graduates transformed their careers
   - type: faq
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - career-support
-    marginY:
-      desktop: none
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:
@@ -351,9 +349,11 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    marginY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
+    title: Take the next step toward your tech career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form

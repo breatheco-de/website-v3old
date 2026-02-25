@@ -17,8 +17,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Our Story, Making News
-    badge: Press & Media
+    title: Our Story, making News
+    badge: Press & media
     trust_bar:
       rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
@@ -34,7 +34,7 @@ sections:
       desktop: md none
   - type: press_mentions
     version: v1.0
-    title: Featured in the Press
+    title: Featured in the press
     columns: 3
     items:
       - logo: global-miami-logo
@@ -85,17 +85,17 @@ sections:
     paddingY:
       desktop: none md
   - type: value_proof_panel
-    title: Recognized Globally for Excellence
+    title: Recognized globally for excellence
     subtitle: We don't just say we deliver; recognition from trusted sources proves our worth.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Coding Bootcamps Worldwide
+        title: Top 5 Coding Bootcamps worldwide
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Best Student Support & Best Value
+        title: Best student support & best value
         source: Course Report, SwitchUp
       - icon: Users
-        title: 35,000+ Graduates Across 20+ Countries
+        title: 35,000+ graduates across 20+ countries
         description: A global community of successful tech professionals
     media:
       type: image
@@ -150,8 +150,7 @@ sections:
     marginY:
       desktop: none lg
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - outcomes
       - scholarships

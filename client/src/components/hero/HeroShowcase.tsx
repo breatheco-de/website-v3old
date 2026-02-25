@@ -1,20 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroShowcase } from "@shared/schema";
-import avatar1 from "@assets/generated_images/Woman_profile_headshot_1_608aff01.webp";
-import avatar2 from "@assets/generated_images/Man_profile_headshot_1_0850c276.webp";
-import avatar3 from "@assets/generated_images/Woman_profile_headshot_2_a0ea2c29.webp";
-import avatar4 from "@assets/generated_images/Man_profile_headshot_2_516b72e4.webp";
-import curvedArrow from "@assets/curved-arrow-with-loop_1763159963338.png";
+import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
+
+const DEFAULT_AVATAR_IDS = [
+  "woman-profile-headshot-1-608aff01",
+  "man-profile-headshot-1-0850c276",
+  "woman-profile-headshot-2-a0ea2c29",
+  "man-profile-headshot-2-516b72e4",
+];
 
 interface HeroShowcaseProps {
   data: HeroShowcase;
 }
 
 export function HeroShowcase({ data }: HeroShowcaseProps) {
-  const avatars = [avatar1, avatar2, avatar3, avatar4];
+  const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
 
   return (
@@ -32,11 +35,11 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
               }`}
               style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
             >
-              <img
-                src={image.src}
+              <UniversalImage
+                id={image.src}
                 alt={image.alt}
-                className="w-full h-48 object-cover rounded-lg"
-                loading="lazy"
+                className="w-full h-48 rounded-lg"
+                style={{ objectFit: "cover" }}
               />
             </div>
           ))}
@@ -64,12 +67,14 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
           {data.trust_bar && (
             <div className="flex items-center justify-center gap-3 mb-8" data-testid="trust-bar">
               <div className="flex -space-x-2">
-                {avatars.map((avatar, index) => (
+                {avatarIds.map((avatarId, index) => (
                   <Avatar key={index} className="h-8 w-8 border-2 border-background">
-                    <AvatarImage src={avatar} alt={`User ${index + 1}`} />
-                    <AvatarFallback className="bg-primary/20 text-xs">
-                      {String.fromCharCode(65 + index)}
-                    </AvatarFallback>
+                    <UniversalImage
+                      id={avatarId}
+                      alt={`User ${index + 1}`}
+                      className="h-full w-full"
+                      style={{ objectFit: "cover" }}
+                    />
                   </Avatar>
                 ))}
               </div>
@@ -103,11 +108,11 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
           {/* Curved arrow */}
           {data.show_arrow && (
             <div className="hidden lg:flex justify-center mb-4">
-              <img
-                src={curvedArrow}
+              <UniversalImage
+                id="curved-arrow-with-loop-1763159963338"
                 alt="Arrow pointing to CTA"
                 className="w-24 h-auto opacity-80"
-                loading="lazy"
+                style={{ objectFit: "contain" }}
               />
             </div>
           )}
@@ -139,11 +144,11 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
               }`}
               style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
             >
-              <img
-                src={image.src}
+              <UniversalImage
+                id={image.src}
                 alt={image.alt}
-                className="w-full h-48 object-cover rounded-lg"
-                loading="lazy"
+                className="w-full h-48 rounded-lg"
+                style={{ objectFit: "cover" }}
               />
             </div>
           ))}

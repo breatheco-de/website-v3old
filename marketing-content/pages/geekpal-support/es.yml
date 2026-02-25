@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Mentoría en Programación Potenciada por IA
+    title: Mentoría en programación potenciada por IA
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
@@ -47,12 +47,12 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Avanza sin Bloqueos. Aprende con Confianza.
+    title: Avanza sin bloqueos. Aprende con confianza.
     description: El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave. GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances de forma constante y segura.
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Mentores expertos + IA: Acelera Tu Aprendizaje en Programación"
+    heading: "Mentores expertos + IA: Acelera tu aprendizaje en programación"
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
       - title: "Nuestro Equipo de Mentores Expertos ofrece:"
@@ -97,7 +97,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: Aprende Acompañado por una Comunidad Global
+    heading: Aprende acompañado por una comunidad global
     description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
@@ -123,7 +123,7 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: Escucha a Nuestros Graduados
+      heading: Escucha a nuestros graduados
       description: Escucha a Joao hablar sobre su experiencia durante y después de nuestro bootcamp y cómo el acceso ilimitado a mentoría en programación marcó una gran diferencia en su carrera.
       justify: center
       text_align: center
@@ -133,14 +133,14 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
-    title: Carreras Reales que Comenzaron Aquí
+    title: Carreras reales que comenzaron aquí
     description: Descubre cómo nuestros estudiantes alcanzaron sus metas
     marginY:
       desktop: none
     paddingY:
       desktop: md none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - mentors-and-teachers
       - career-support

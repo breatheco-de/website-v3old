@@ -10,6 +10,11 @@ yaml: |
       rating: "4.9/5"
       rating_count: "3,000+"
       trusted_text: "Rated by students worldwide"
+      avatars:
+        - woman-profile-headshot-1-608aff01
+        - man-profile-headshot-1-0850c276
+        - woman-profile-headshot-2-a0ea2c29
+        - man-profile-headshot-2-516b72e4
     cta_button:
       text: "Choose Your Path"
       url: "/programs"

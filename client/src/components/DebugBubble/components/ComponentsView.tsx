@@ -4,6 +4,7 @@ import {
   IconX,
   IconRefresh,
   IconComponents,
+  IconExternalLink,
 } from "@tabler/icons-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { MenuView } from "../types";
@@ -71,14 +72,24 @@ export function ComponentsView({
               <IconX className="h-4 w-4 text-muted-foreground" />
             </button>
           ) : (
-            <button
-              onClick={() => setShowComponentSearch(true)}
-              className="p-1.5 rounded hover-elevate"
-              title="Search components"
-              data-testid="button-toggle-component-search"
-            >
-              <IconSearch className="h-4 w-4 text-muted-foreground" />
-            </button>
+            <div className="flex items-center gap-1">
+              <a
+                href="/private/component-showcase"
+                className="p-1.5 rounded hover-elevate"
+                title="Open Component Showcase"
+                data-testid="link-component-showcase"
+              >
+                <IconExternalLink className="h-4 w-4 text-muted-foreground" />
+              </a>
+              <button
+                onClick={() => setShowComponentSearch(true)}
+                className="p-1.5 rounded hover-elevate"
+                title="Search components"
+                data-testid="button-toggle-component-search"
+              >
+                <IconSearch className="h-4 w-4 text-muted-foreground" />
+              </button>
+            </div>
           )}
         </div>
       </div>

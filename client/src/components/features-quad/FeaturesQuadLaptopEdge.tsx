@@ -1,10 +1,11 @@
 import type { FeatureQuadSection } from "@shared/schema";
-import { UniversalImage } from "@/components/UniversalImage";
+import { UniversalImage, useImageRegistry } from "@/components/UniversalImage";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { Button } from "@/components/ui/button";
 import { getIcon } from "@/lib/icons";
-import laptopCodeEditor from "@assets/243f0f155c3d1683ecfaa1020801b365ad23092d_1769656566581.png";
 import { useInternalNav } from "@/hooks/useInternalNav";
+
+const LAPTOP_IMAGE_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
 
 function getButtonVariant(
   variant?: string,
@@ -135,6 +136,8 @@ function normalizeVideo(
 }
 
 export function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeProps) {
+  const { registry } = useImageRegistry();
+  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src;
   const isCompact = data.compact !== null ? data.compact : false;
   const CardComponent = isCompact ? CompactCard : FullCard;
   const images = data.images || [];

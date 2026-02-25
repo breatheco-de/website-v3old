@@ -56,7 +56,7 @@ global_review_rating:
   conditions:
     - query:
         location: "madrid-spain"
-      value: "4.8"
+      value: "4.9"
 global_review_count:
   default: "700"
   conditions:
@@ -128,7 +128,7 @@ price_cybersecurity:
       value: "$299"
     - query:
         region: "europe"
-      value: "299 €"
+      value: "200 €"
     - query:
         region: "latam"
       value: "150 USD"
@@ -185,10 +185,10 @@ global_total_alumni:
   conditions:
     - query:
         locale: "en"
-      value: "4,000"
+      value: "6,000"
     - query:
         locale: "es"
-      value: "4.000"
+      value: "6.000"
 global_salary_cybersecurity_analist:
   default: "$75K–$120K"
   conditions:
@@ -226,7 +226,7 @@ global_salary_incident_responder:
         region: "europe"
       value: "25.000€ - 32.000€"
 average_salary_cybersecurity_short:
-  default: "$85"
+  default: "$85K"
   conditions:
     - query:
         region: "europe"
@@ -303,7 +303,12 @@ average_salary_ai_engineer:
       value: "$20K-$60K USD"
     - query:
         region: "europe"
-      value: "30K € - 60K €"
+        locale: "es"
+      value: "30.000€ - 60.000€"
+    - query:
+        region: "europe"
+        locale: "en"
+      value: "30,000€ - 60,000€"
 average_salary_ai_specialist:
   default: "$95K–$145K"
   conditions:
@@ -355,10 +360,10 @@ global_verified_reviews_count:
   conditions:
     - query:
         locale: "en"
-      value: "1,000"
+      value: "700"
     - query:
         locale: "es"
-      value: "1.000"
+      value: "700"
 starting_salary_datascience:
   default: "$90K"
   conditions:
@@ -437,7 +442,7 @@ data_science_week_duration:
 ai_engineering_week_duration:
   default: "24 "
 cybersecurity_week_duration:
-  default: "16 Semanas"
+  default: "16 "
 fullstack_week_duration:
   default: "20 "
 total_scholarships:

@@ -3,31 +3,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { IconChevronLeft, IconChevronRight, IconClock, IconCalendar } from "@tabler/icons-react";
 import SolidCard from "@/components/SolidCard";
+import UniversalImage from "@/components/UniversalImage";
 import type { ProjectsSection as ProjectsSectionType } from "@shared/schema";
-
-import flaskRenderImg from "@assets/flask-render_1765396097392.webp";
-import streamlitRenderImg from "@assets/streamlit-render_1765396163031.webp";
-import mlFinalProjectImg from "@assets/final-project-applied-ai_1767880920613.webp";
-import starWarsImg from "@assets/star-wars_1764729369149.webp";
-import authenticationImg from "@assets/authentication-python_1764729364254.webp";
-import fullstackFinalImg from "@assets/fullstack-user-stories_1764729359334.webp";
-import cloneYourselfImg from "@assets/clon-yourself_1765501526533.webp";
-import promptBookAiImg from "@assets/prompt-book-ai_1765501656292.webp";
 
 interface ProjectsSectionProps {
   data: ProjectsSectionType;
 }
 
 const projectImages: Record<string, string> = {
-  "flask-render": flaskRenderImg,
-  "streamlit-render": streamlitRenderImg,
-  "ml-final-project": mlFinalProjectImg,
-  "star-wars": starWarsImg,
-  "authentication": authenticationImg,
-  "final-project": fullstackFinalImg,
-  "chatbot": cloneYourselfImg,
-  "clone-yourself": cloneYourselfImg,
-  "prompt-book-ai": promptBookAiImg,
+  "flask-render": "flask-render-1765396097392",
+  "streamlit-render": "streamlit-render-1765396163031",
+  "ml-final-project": "final-project-applied-ai-1767880920613",
+  "star-wars": "star-wars-1764729369149",
+  "authentication": "authentication-python-1764729364254",
+  "final-project": "fullstack-user-stories-1764729359334",
+  "chatbot": "clon-yourself-1765501526533",
+  "clone-yourself": "clon-yourself-1765501526533",
+  "prompt-book-ai": "prompt-book-ai-1765501656292",
 };
 
 const difficultyColors: Record<string, string> = {
@@ -100,11 +92,11 @@ export function ProjectsSection({ data }: ProjectsSectionProps) {
             <div className="flex flex-col md:flex-row gap-7 h-full">
 
               <div className="md:w-2/5 aspect-video md:aspect-auto md:min-h-[240px] overflow-hidden bg-muted rounded-lg shrink-0 shadow-xs border">
-                <img 
-                  src={imageSrc}
+                <UniversalImage 
+                  id={imageSrc}
                   alt={currentProject.title}
-                  className="w-full h-full object-cover "
-                  loading="lazy"
+                  className="w-full h-full"
+                  style={{ objectFit: "cover" }}
                 />
               </div>
 

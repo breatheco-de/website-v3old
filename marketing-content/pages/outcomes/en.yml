@@ -13,7 +13,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Real Career Outcomes, Backed by Data
+    title: Real career outcomes, backed by data
     subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity, the outcomes are backed by verified data.
     image:
       src: /attached_assets/outcomes_1765562850573.png
@@ -30,10 +30,10 @@ sections:
       desktop: lg none
   - type: vertical_bars_cards
     version: "1.0"
-    title: Hiring Results, Year After Year
+    title: Hiring results, year after year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
-      - title: Job Placement Rate
+      - title: Job placement rate
         unit: Graduates hired within 6 months
         description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
         years:
@@ -46,7 +46,7 @@ sections:
           - year: Mid 2025
             value: 82
             displayValue: 82%
-      - title: Average Salary Increase
+      - title: Average salary increase
         unit: Compared to pre-bootcamp salary
         description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
         years:
@@ -59,7 +59,7 @@ sections:
           - year: Mid 2025
             value: 15800
             displayValue: $15.8k
-      - title: Days to First Job
+      - title: Days to first job
         unit: Average time from graduation to offer
         description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
         years:
@@ -76,9 +76,92 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+    showOnLocations:
+      - austin-usa
+      - atlanta-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: vertical_bars_cards
+    version: "1.0"
+    title: Hiring results, year after year
+    subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
+    metrics:
+      - title: Job placement rate
+        unit: Graduates hired within 6 months
+        description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
+        years:
+          - year: "2023"
+            value: 80
+            displayValue: 80%
+          - year: "2024"
+            value: 75
+            displayValue: 75%
+          - year: Mid 2025
+            value: 75
+            displayValue: 75%
+      - title: Average salary increase
+        unit: Compared to pre-bootcamp salary
+        description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
+        years:
+          - year: "2023"
+            value: 22
+            displayValue: 22%
+          - year: "2024"
+            value: 18
+            displayValue: 18%
+          - year: Mid 2025
+            value: 33
+            displayValue: 33%
+      - title: Days to first job
+        unit: Average time from graduation to offer
+        description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
+        years:
+          - year: "2023"
+            value: 96
+            displayValue: 96 days
+          - year: "2024"
+            value: 128
+            displayValue: 128 days
+          - year: Mid 2025
+            value: 85
+            displayValue: 85 days
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none md
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - munich-germany
+      - milan-italy
+      - rome-italy
+      - valencia-spain
   - type: stats
     version: "1.0"
-    title: Hiring Outcomes Across Regions
+    title: Hiring outcomes across regions
     subtitle: Our graduates get hired and increase their salaries in multiple job markets.
     background: hsl(210 100% 50% / 0.05)
     items:
@@ -88,7 +171,7 @@ sections:
         label: average U.S. salary increase
       - value: +233%
         label: average salary increase in LATAM
-      - value: 85%
+      - value: 75%
         label: placement rate in Spain
       - value: 3-6 months
         label: average time to get hired across all markets
@@ -98,7 +181,7 @@ sections:
       desktop: lg
   - type: pie_charts
     version: "1.0"
-    title: Our Student Body at a Glance
+    title: Our student body at a glance
     subtitle: A snapshot of who our students are by age, gender, and region.
     background: hsl(var(--background))
     charts:
@@ -134,20 +217,20 @@ sections:
     paddingY:
       desktop: sm none
   - type: value_proof_panel
-    title: Globally Recognized for Real Outcomes
+    title: Globally recognized for real outcomes
     subtitle: Independent organizations recognize 4Geeks for graduate results, the quality of our programs and career support.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Coding Bootcamps Worldwide
+        title: Top 5 Coding Bootcamps worldwide
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Best Student Support & Best Value
+        title: Best student support & best value
         source: Course Report, SwitchUp
       - icon: Users
-        title: 35,000+ Graduates Across 20+ Countries
+        title: 35,000+ graduates across 20+ countries
         description: A global community of successful tech professionals
       - icon: Certificate
-        title: Industry-Recognized Certificates
+        title: Industry-recognized certificates
         description: Credentials that employers trust and value
     media:
       type: image
@@ -201,16 +284,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Why Our Graduates Consistently Get Hired
+    title: Why our graduates consistently get hired
     description: Strong outcomes come from how we teach, support, and place students into tech roles.
     bullets:
-      - heading: GeekFORCE Lifelong Career Support
+      - heading: GeekFORCE lifelong career support
         text: Unlimited 1:1 career mentorship, interview prep, and resume and portfolio coaching, designed around today’s AI-driven hiring processes.
-      - heading: GeekPAL Lifelong Technical Mentorship
+      - heading: GeekPAL lifelong technical mentorship
         text: Unlimited access to human mentors who help students keep progressing and build real-world confidence.
-      - heading: AI-Powered Learning & Feedback
+      - heading: AI-Powered learning & feedback
         text: 24/7 personalized feedback that helps students learn faster and more effectively.
-      - heading: Global Hiring Partner Network
+      - heading: Global hiring partner network
         text: Hundreds of companies worldwide that actively recruit 4Geeks graduates.
     footer: Support built for long-term careers, not just first jobs.
     image: https://4geeksacademy.com/static/197e7cf794b47d7a7f53770a4b55186f/56f2e/marceloricigliano.webp
@@ -220,7 +303,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Real Career Results
+    title: Real career results
     subtitle: Alumni share how they landed roles, advanced their careers, and increased their earning power.
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
@@ -266,17 +349,16 @@ sections:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - outcomes
-    paddingY:
-      desktop: lg none
     marginY:
       desktop: md
+    paddingY:
+      desktop: lg none
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
+    title: Take the next step toward your tech career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form

@@ -16,7 +16,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Rigobot, tu Mentor de Programación con IA que te acompaña en cada paso
+    title: Rigobot, tu mentor de programación con IA que te acompaña en cada paso
     subtitle: Conoce Rigobot, el mentor de programación con IA que sigue tu progreso y te ofrece retroalimentación en tiempo real para ayudarte a pensar como un desarrollador. Disponible 24/7 en los cursos de 4Geeks.
     image:
       src: https://breathecode.herokuapp.com/v1/media/file/rigo-png
@@ -26,13 +26,13 @@ sections:
       desktop: md
   - type: article
     content: |
-      ## Por Qué la Mentoría con IA Supera el Método de Prueba y Error
+      ## Por qué la mentoría con IA supera el método de prueba y error
 
       En un mundo donde la IA puede escribir código, aprender a programar no se trata de memorizar sintaxis, sino de entender *cómo* pensar como desarrollador. [Rigobot, el mentor con IA](https://4geeksacademy.com/us/ai-powered-learning/rigobot-ai-mentor), creado por el equipo de 4Geeks Academy, no es solo otro chatbot. Te acompaña donde sea que estés aprendiendo (teléfono, laptop, entorno de programación, LearnPack), observa cada línea que escribes y te brinda retroalimentación personalizada en tiempo real que evoluciona contigo. Ya sea que estés depurando un script en Python o construyendo una app en React, Rigobot te respalda de día y de noche.
 
       Imagina esto: estás trabajando en un ejercicio de JavaScript y tu loop no funciona como debería. En lugar de horas de frustración, Rigobot resalta la línea exacta, explica el error lógico y sugiere una forma más limpia de resolverlo. Es como hacer pair-programming con un profesional que nunca se cansa. ¿Lo mejor? Está integrado en cada curso de 4Geeks, así que comienzas a aprender con Rigobot desde el primer día.
 
-      ## Cómo Funciona Rigobot – Ejemplo Paso a Paso
+      ## Cómo funciona Rigobot – ejemplo paso a paso
 
       1. **Lanza un ejercicio de [LearnPack](https://4geeksacademy.com/us/learnpack)** con un solo clic (sin configuración).
       2. **Programa como un profesional** en VS Code; Rigobot observa silenciosamente las pruebas y commits.
@@ -42,18 +42,18 @@ sections:
 
       Permaneces dentro de un flujo de trabajo real de desarrollador desde el primer día, sin sandboxes en el navegador ni editores limitados.
 
-      ## Tabla de Funcionalidades
+      ## Tabla de funcionalidades
 
-      | **Funcionalidad** | **Qué Hace** | **Por Qué Te Encantará** |
+      | **Funcionalidad** | **Qué hace** | **Por qué te encantará** |
       | --- | --- | --- |
       | Disponibilidad 24/7 | Responde preguntas a cualquier hora | Mantén el ritmo, nunca esperes |
-      | Análisis en Tiempo Real | Analiza el código frente a unit tests mientras escribes | Detecta errores *antes* de que escalen |
-      | Sugerencias Personalizadas | Aprende tus fortalezas y brechas | Feedback que se siente hecho a tu medida |
-      | Coaching Proactivo | Señala malos hábitos (nombres, complejidad) | Construye código limpio y listo para entrevistas |
-      | Seguimiento de Habilidades | Registra tu progreso y muestra próximos objetivos | Ruta clara hacia el dominio |
-      | Integración Profunda con VS Code | Funciona en VS Code local o Gitpod/Codespaces | Programa con la misma herramienta que los profesionales |
+      | Análisis en tiempo real | Analiza el código frente a unit tests mientras escribes | Detecta errores *antes* de que escalen |
+      | Sugerencias personalizadas | Aprende tus fortalezas y brechas | Feedback que se siente hecho a tu medida |
+      | Coaching proactivo | Señala malos hábitos (nombres, complejidad) | Construye código limpio y listo para entrevistas |
+      | Seguimiento de habilidades | Registra tu progreso y muestra próximos objetivos | Ruta clara hacia el dominio |
+      | Integración profunda con VS Code | Funciona en VS Code local o Gitpod/Codespaces | Programa con la misma herramienta que los profesionales |
 
-      ## Rigobot vs Herramientas de IA Genéricas
+      ## Rigobot vs herramientas de IA genéricas
 
       |  | **Rigobot** | **IA Genérica (ej. Copilot)** |
       | --- | --- | --- |
@@ -66,7 +66,7 @@ sections:
 
       Rigobot *enseña*; la IA genérica solo te da la respuesta.
 
-      ## Por Qué Rigobot Es Tu Arma Secreta
+      ## Por qué Rigobot es tu arma secreta
 
       Rigobot no está aquí para reemplazarte, sino para ayudarte a avanzar más rápido. En un mundo tech impulsado por IA, aprender a programar significa aprender a colaborar con herramientas como Rigobot. Te enseña a escribir código limpio y profesional, comprender lógica compleja y construir proyectos que destaquen ante empleadores.
 
@@ -74,7 +74,7 @@ sections:
 
       Además, está integrado en nuestra plataforma open-source LearnPack, utilizada por universidades y bootcamps en todo el mundo, por lo que aprendes con herramientas confiables para la comunidad tech global. Ya seas principiante o estés subiendo de nivel, Rigobot hace que programar se sienta menos solitario y más como una aventura colaborativa.
 
-      ### La Mentoría Humana Sigue Siendo Clave
+      ### La mentoría humana sigue siendo clave
 
       Rigobot se encarga de las correcciones rápidas para que los humanos puedan ir **más profundo**: revisiones de system design, coaching de habilidades blandas y mock interviews. Agenda sesiones 1-a-1 ilimitadas, participa en workshops **Learn LIVE** y colabora en canales globales de Slack.
 
@@ -86,8 +86,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - rigobot
     marginY:
@@ -100,7 +99,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplica Ahora
+      submit_label: Aplica ahora
       tags: website-lead
       automations: hard
       fields:

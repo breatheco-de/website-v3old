@@ -17,9 +17,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Top Coding Bootcamp
+    title: Top coding bootcamp
     subtitle: 4Geeks Academy earns top honors from Forbes, SwitchUp, Course Report and global industry leaders for our hands-on, career-focused programs.
-    badge: Awards & Recognitions
+    badge: Awards & recognitions
     image_id: academy_header_coding
     image_full_width: true
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -27,7 +27,7 @@ sections:
       desktop: lg none
   - type: press_mentions
     version: v1.0
-    title: Our Awards
+    title: Our awards
     subtitle: Globally recognized for excellence in tech education
     subtitle_color: hsl(var(--primary))
     columns: 3
@@ -137,7 +137,7 @@ sections:
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
+    title: Take the next step toward your tech career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form

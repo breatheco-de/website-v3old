@@ -1,183 +1,3 @@
-2026-02-25T11:43:15.762Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:15.763Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.394Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.447Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.451Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.468Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.533Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.535Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:43:53.557Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.631Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.746Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.754Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.757Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.773Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.777Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:50:55.780Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.425Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.468Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.479Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.502Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.511Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.540Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:25.641Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:42.999Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:43.020Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:43.031Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:43.037Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:43.075Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:43.091Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T11:54:43.157Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:44.744Z [RESTART] Server started (instance=0784, checkpoint=5ded85fd, env=development, pid=81)
-2026-02-25T12:00:45.578Z [RECONCILE] Local 19931d0 ≠ remote 32637e1, checking file hashes...
-2026-02-25T12:00:46.200Z [RECONCILE] 0/4 files match remote, 4 still differ
-2026-02-25T12:00:48.144Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:48.147Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:48.150Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:48.154Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:48.156Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:48.157Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:48.160Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:00:49.870Z [AUTO-PULL] Startup: pulled 4 incoming files: pages/financials/en.yml, pages/financials/es.yml, pages/geeks-vs-others/en.yml, pages/geeks-vs-others/es.yml
-2026-02-25T12:00:50.358Z [WEBHOOK] Created webhook #597916025 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
-2026-02-25T12:00:50.999Z [WEBHOOK] Received ping event — webhook is active
-2026-02-25T12:03:27.419Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.424Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.435Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.499Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.504Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.508Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.517Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:03:27.584Z [WEBHOOK] Push c2ca8be by alesanchezr: 1 marketing-content files changed
-2026-02-25T12:03:28.256Z [AUTO-PULL] Webhook: pulled 1 files from c2ca8be: pages/financials/es.yml
-2026-02-25T12:04:34.751Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.778Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.792Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.802Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.807Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.822Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.881Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:34.990Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.567Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.584Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.591Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.657Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.677Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.682Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.770Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:04:59.844Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.047Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.109Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.123Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.160Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.189Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.201Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.228Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:08.354Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.555Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.583Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.585Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.587Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.594Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.613Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.692Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:05:28.694Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.365Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.447Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.466Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.494Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.498Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.527Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.563Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:10:59.568Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.320Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.323Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.346Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.349Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.354Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.377Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.383Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:07.531Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.003Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.021Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.045Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.047Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.064Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.067Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.089Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:27.150Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.362Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.377Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.418Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.422Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.426Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.430Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.434Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:12:43.489Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.513Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.540Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.543Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.551Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.568Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.592Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.610Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:13:28.643Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.761Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.836Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.838Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.841Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.884Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.894Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.916Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:14:36.955Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.698Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.722Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.796Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.857Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.874Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.891Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.963Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:17:19.975Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.600Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.650Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.682Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.685Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.714Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.735Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.757Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:18:35.759Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:42.806Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:42.885Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:42.932Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:42.940Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:42.965Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:43.021Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:43.055Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:19:43.071Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:31.858Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:31.898Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:31.902Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:31.911Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:31.943Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:32.025Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:32.040Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:21:32.045Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.118Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.146Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.206Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.292Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.342Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.359Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.375Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:24.435Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.708Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.712Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.715Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.761Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.813Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.816Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.828Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:36.829Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:22:45.726Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:22:45.764Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:22:45.826Z [WEBHOOK] Rejected: no webhook configured in sync state
@@ -498,3 +318,181 @@
 2026-02-25T13:37:49.510Z [RESTART] Server started (instance=02e7, checkpoint=c2858863, env=development, pid=696)
 2026-02-25T13:37:49.866Z [RECONCILE] Already in sync at 6d8ab22
 2026-02-25T13:37:50.706Z [WEBHOOK] Verified: webhook #597930718 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:08:19.320Z [RESTART] Server started (instance=dde7, env=development, pid=6765)
+2026-02-24T16:10:17.977Z [RESTART] Server started (instance=7b2e, env=development, pid=7056)
+2026-02-24T16:10:19.038Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:10:20.257Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:11:22.770Z [RESTART] Server started (instance=7d5a, env=development, pid=7214)
+2026-02-24T16:11:23.741Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:11:26.697Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:13:01.380Z [RESTART] Server started (instance=783c, env=development, pid=7552)
+2026-02-24T16:13:02.098Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:13:02.968Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:17:25.465Z [RESTART] Server started (instance=6d38, env=development, pid=7941)
+2026-02-24T16:17:26.167Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:17:27.114Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:18:21.169Z [RESTART] Server started (instance=5183, env=development, pid=8097)
+2026-02-24T16:18:21.611Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:18:22.518Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:19:18.902Z [RESTART] Server started (instance=d52c, env=development, pid=8415)
+2026-02-24T16:19:20.046Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:19:21.166Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:25:06.814Z [RESTART] Server started (instance=f331, env=development, pid=9525)
+2026-02-24T16:25:07.525Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:25:08.390Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:25:56.640Z [RESTART] Server started (instance=b327, commit=e5e77b77, env=development, pid=9780)
+2026-02-24T16:25:57.692Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:25:58.916Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:26:10.948Z [RESTART] Server started (instance=b944, commit=e5e77b77, env=development, pid=10075)
+2026-02-24T16:26:11.686Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:26:12.602Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:27:06.510Z [RESTART] Server started (instance=0e60, commit=1c621b45, env=development, pid=10344)
+2026-02-24T16:27:07.316Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:27:08.494Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:28:27.012Z [RESTART] Server started (instance=4c71, commit=da3921e8, env=development, pid=10868)
+2026-02-24T16:28:27.882Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:28:29.052Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:29:43.352Z [RESTART] Server started (instance=828b, commit=e374970e, env=development, pid=11349)
+2026-02-24T16:29:44.528Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:29:45.762Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:30:13.936Z [RESTART] Server started (instance=4c61, commit=e374970e, env=development, pid=11652)
+2026-02-24T16:30:14.415Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:30:15.226Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:31:31.829Z [WEBHOOK] Push a197053 by alesanchezr: 1 marketing-content files changed
+2026-02-24T16:31:32.462Z [AUTO-PULL] Webhook: pulled 1 files from a197053: programs/ai-engineering/es.yml
+2026-02-24T16:36:04.894Z [RESTART] Server started (instance=cf1c, checkpoint=4a411e59, env=development, pid=12551)
+2026-02-24T16:36:05.316Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:36:06.139Z [WEBHOOK] Created webhook #597783775 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:36:08.792Z [WEBHOOK] Received ping event — webhook is active
+2026-02-24T16:36:49.485Z [RESTART] Server started (instance=fc82, checkpoint=4a411e59, env=development, pid=12775)
+2026-02-24T16:36:49.976Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:36:50.820Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:37:43.729Z [RESTART] Server started (instance=d5f5, checkpoint=e1781380, env=development, pid=13129)
+2026-02-24T16:37:44.420Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:37:45.286Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:38:29.479Z [RESTART] Server started (instance=ef0d, checkpoint=e1781380, env=development, pid=13311)
+2026-02-24T16:38:30.224Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:38:31.107Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:40:43.900Z [RESTART] Server started (instance=f3c9, checkpoint=404d1387, env=development, pid=14176)
+2026-02-24T16:40:44.306Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:40:45.010Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:40:55.841Z [RESTART] Server started (instance=3e0a, checkpoint=404d1387, env=development, pid=14253)
+2026-02-24T16:40:56.884Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:40:57.962Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:43:30.688Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-24T16:43:30.834Z [WEBHOOK] Push 9730ca6 by alesanchezr: 4 marketing-content files changed
+2026-02-24T16:43:32.066Z [AUTO-PULL] Webhook: pulled 3 files from 9730ca6: locations/miami-usa/en.yml, locations/miami-usa/es.yml, programs/ai-engineering/es.yml
+2026-02-24T16:43:50.157Z [RESTART] Server started (instance=7f34, checkpoint=9730ca68, env=development, pid=256)
+2026-02-24T16:43:51.073Z [RECONCILE] Already in sync at 9730ca6
+2026-02-24T16:43:52.285Z [WEBHOOK] Created webhook #597784851 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:43:54.399Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T02:09:20.904Z [RESTART] Server started (instance=0fdd, checkpoint=56730de2, env=development, pid=205)
+2026-02-25T02:09:22.330Z [RECONCILE] Local 9730ca6 ≠ remote 1b6aba0, checking file hashes...
+2026-02-25T02:09:26.345Z [RECONCILE] 0/139 files match remote, 139 still differ
+2026-02-25T02:10:01.656Z [AUTO-PULL] Startup: pulled 139 incoming files: landings/ai-engineering-chile/promoted.yml, landings/ai-engineering-coding-florida/promoted.yml, landings/ai-engineering-es/promoted.yml, landings/ai-engineering-mexico/promoted.yml, landings/ai-engineering-spain/promoted.yml, landings/example-landing/promoted.yml, locations/atlanta-usa/en.yml, locations/atlanta-usa/es.yml, locations/austin-usa/en.yml, locations/austin-usa/es.yml, locations/barcelona-spain/en.yml, locations/barcelona-spain/es.yml, locations/berlin-germany/en.yml, locations/berlin-germany/es.yml, locations/bogota-colombia/en.yml, locations/bogota-colombia/es.yml, locations/buenosaires-argentina/en.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/en.yml, locations/caracas-venezuela/es.yml, locations/chicago-usa/en.yml, locations/chicago-usa/es.yml, locations/costa-rica/en.yml, locations/costa-rica/es.yml, locations/dallas-usa/en.yml, locations/dallas-usa/es.yml, locations/dublin-ireland/en.yml, locations/dublin-ireland/es.yml, locations/hamburg-germany/en.yml, locations/hamburg-germany/es.yml, locations/houston-usa/en.yml, locations/houston-usa/es.yml, locations/lapaz-bolivia/en.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/en.yml, locations/lima-peru/es.yml, locations/lisbon-portugal/en.yml, locations/lisbon-portugal/es.yml, locations/losangeles-usa/en.yml, locations/losangeles-usa/es.yml, locations/madrid-spain/en.yml, locations/madrid-spain/es.yml, locations/malaga-spain/en.yml, locations/malaga-spain/es.yml, locations/mexicocity-mexico/en.yml, locations/mexicocity-mexico/es.yml, locations/miami-usa/en.yml, locations/miami-usa/es.yml, locations/milan-italy/en.yml, locations/milan-italy/es.yml, locations/montevideo-uruguay/en.yml, locations/montevideo-uruguay/es.yml, locations/munich-germany/en.yml, locations/munich-germany/es.yml, locations/newyork-usa/en.yml, locations/newyork-usa/es.yml, locations/orlando-usa/en.yml, locations/orlando-usa/es.yml, locations/panamacity-panama/en.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/en.yml, locations/quito-ecuador/es.yml, locations/remote/en.yml, locations/remote/es.yml, locations/rest-of-america/en.yml, locations/rest-of-america/es.yml, locations/rest-of-europe/en.yml, locations/rest-of-europe/es.yml, locations/rome-italy/en.yml, locations/rome-italy/es.yml, locations/santiago-chile/en.yml, locations/santiago-chile/es.yml, locations/tampa-usa/en.yml, locations/tampa-usa/es.yml, locations/toronto-canada/en.yml, locations/toronto-canada/es.yml, locations/valencia-spain/en.yml, locations/valencia-spain/es.yml, pages/apply/en.yml, pages/apply/es.yml, pages/awards/en.yml, pages/awards/es.yml, pages/contact-us/en.yml, pages/contact-us/es.yml, pages/cookies/en.yml, pages/cookies/es.yml, pages/faq/en.yml, pages/faq/es.yml, pages/financials/en.yml, pages/financials/es.yml, pages/geekforce-career-support/en.yml, pages/geekforce-career-support/es.yml, pages/geekpal-support/en.yml, pages/geekpal-support/es.yml, pages/geeks-vs-others/en.yml, pages/geeks-vs-others/es.yml, pages/graduates-and-projects/en.yml, pages/graduates-and-projects/es.yml, pages/job-guarantee/en.yml, pages/job-guarantee/es.yml, pages/learnpack/en.yml, pages/learnpack/es.yml, pages/online-platform/en.yml, pages/online-platform/es.yml, pages/outcomes/en.yml, pages/outcomes/es.yml, pages/partners/en.yml, pages/partners/es.yml, pages/press/en.yml, pages/press/es.yml, pages/privacy-policy/en.yml, pages/privacy-policy/es.yml, pages/program-comparison/en.yml, pages/program-comparison/es.yml, pages/rigobot-ai-coding-mentor/en.yml, pages/rigobot-ai-coding-mentor/es.yml, pages/scholarships/en.yml, pages/scholarships/es.yml, pages/terms-conditions/en.yml, pages/terms-conditions/es.yml, pages/testimonials/en.yml, pages/testimonials/es.yml, pages/the-academy/en.yml, pages/the-academy/es.yml, pages/upcoming-dates/en.yml, pages/upcoming-dates/es.yml, pages/work-with-us/en.yml, pages/work-with-us/es.yml, programs/ai-engineering/en.yml, programs/ai-engineering/es.yml, programs/ai-for-professionals/es.yml, programs/cybersecurity/en.yml, programs/cybersecurity/es.yml, programs/data-science-ml/en.yml, programs/data-science-ml/es.yml, programs/full-stack/en.yml, programs/full-stack/es.yml, section-bindings.json, variables.yml
+2026-02-25T02:10:01.964Z [WEBHOOK] Created webhook #597848486 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:10:02.480Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T02:12:51.528Z [COMMIT] Auto-commit 58582d9 by System: image-registry.json
+2026-02-25T02:12:52.609Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T02:12:52.613Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T02:12:52.614Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T02:12:52.750Z [WEBHOOK] Push 58582d9 by alesanchezr: skipping auto-pull — commit was pushed by this instance
+2026-02-25T02:27:58.696Z [RESTART] Server started (instance=4249, checkpoint=8cc0a303, env=development, pid=1661)
+2026-02-25T02:27:59.068Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:27:59.812Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:29:08.126Z [RESTART] Server started (instance=11e5, checkpoint=8cc0a303, env=development, pid=2027)
+2026-02-25T02:29:08.795Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:29:09.629Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:30:16.441Z [RESTART] Server started (instance=52bb, checkpoint=8cc0a303, env=development, pid=2491)
+2026-02-25T02:30:16.807Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:30:17.855Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:30:37.695Z [RESTART] Server started (instance=14f6, checkpoint=8cc0a303, env=development, pid=2561)
+2026-02-25T02:30:38.357Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:30:39.180Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T15:31:46.603Z [RESTART] Server started (instance=8878, checkpoint=4b0295b6a, env=development, pid=4196)
+2026-02-25T15:31:49.068Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:35:11.699Z [RESTART] Server started (instance=33d0, checkpoint=6122ae8ff, env=development, pid=4605)
+2026-02-25T15:35:13.028Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:36:08.984Z [RESTART] Server started (instance=a17a, checkpoint=6122ae8ff, env=development, pid=4958)
+2026-02-25T15:36:10.924Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:36:49.154Z [RESTART] Server started (instance=ceb5, checkpoint=6122ae8ff, env=development, pid=5194)
+2026-02-25T15:36:50.597Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:37:59.263Z [RESTART] Server started (instance=5c60, checkpoint=6122ae8ff, env=development, pid=5472)
+2026-02-25T15:38:01.618Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:38:53.176Z [RESTART] Server started (instance=1388, checkpoint=6122ae8ff, env=development, pid=5757)
+2026-02-25T15:38:55.124Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:39:38.316Z [RESTART] Server started (instance=3159, checkpoint=6122ae8ff, env=development, pid=6008)
+2026-02-25T15:39:42.475Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:39:59.236Z [RESTART] Server started (instance=44ac, checkpoint=6122ae8ff, env=development, pid=6167)
+2026-02-25T15:40:04.973Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:41:30.508Z [RESTART] Server started (instance=e940, checkpoint=6122ae8ff, env=development, pid=6714)
+2026-02-25T15:41:32.359Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:41:56.184Z [RESTART] Server started (instance=4f2b, checkpoint=6122ae8ff, env=development, pid=6927)
+2026-02-25T15:42:01.883Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:43:30.882Z [RESTART] Server started (instance=a29b, checkpoint=422f6b59c, env=development, pid=7798)
+2026-02-25T15:43:33.056Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:45:30.522Z [RESTART] Server started (instance=0927, checkpoint=422f6b59c, env=development, pid=144)
+2026-02-25T15:46:29.193Z [RESTART] Server started (instance=6707, checkpoint=422f6b59c, env=development, pid=386)
+2026-02-25T15:46:33.554Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:48:44.808Z [RESTART] Server started (instance=472f, checkpoint=88fc8733f, env=development, pid=807)
+2026-02-25T15:48:46.139Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:49:54.632Z [RESTART] Server started (instance=b233, checkpoint=88fc8733f, env=development, pid=1277)
+2026-02-25T15:49:56.863Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:50:38.773Z [RESTART] Server started (instance=7ec6, checkpoint=88fc8733f, env=development, pid=1523)
+2026-02-25T15:50:43.224Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:37:57.231Z [RESTART] Server started (instance=d04f, checkpoint=49414f70d, env=development, pid=2525)
+2026-02-25T16:37:58.283Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:53:13.111Z [RESTART] Server started (instance=8ad5, checkpoint=49414f70d, env=development, pid=2745)
+2026-02-25T16:53:19.061Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:54:58.808Z [RESTART] Server started (instance=b112, checkpoint=49414f70d, env=development, pid=3210)
+2026-02-25T16:55:00.509Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:55:33.889Z [RESTART] Server started (instance=fd14, checkpoint=49414f70d, env=development, pid=3353)
+2026-02-25T16:55:39.456Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:58:19.088Z [RESTART] Server started (instance=aa32, checkpoint=696de6829, env=development, pid=3964)
+2026-02-25T16:58:24.595Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:12:55.308Z [RESTART] Server started (instance=52a3, checkpoint=c23db5684, env=development, pid=6073)
+2026-02-25T17:12:59.726Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:13:21.542Z [RESTART] Server started (instance=6399, checkpoint=c23db5684, env=development, pid=6260)
+2026-02-25T17:13:26.966Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:14:09.218Z [RESTART] Server started (instance=8ddd, checkpoint=c23db5684, env=development, pid=6667)
+2026-02-25T17:14:15.928Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:22:32.383Z [RESTART] Server started (instance=41f4, checkpoint=a94f3f08a, env=development, pid=122)
+2026-02-25T17:22:35.690Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:26:13.944Z [RESTART] Server started (instance=0462, checkpoint=a94f3f08a, env=development, pid=537)
+2026-02-25T17:26:17.628Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:53:16.850Z [RESTART] Server started (instance=7551, checkpoint=cb9f527bc, env=development, pid=1867)
+2026-02-25T17:53:22.492Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:53:49.210Z [RESTART] Server started (instance=7873, checkpoint=cb9f527bc, env=development, pid=2070)
+2026-02-25T17:53:53.788Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:54:39.488Z [RESTART] Server started (instance=ecec, checkpoint=cb9f527bc, env=development, pid=153)
+2026-02-25T17:54:44.201Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:55:35.923Z [RESTART] Server started (instance=ca80, checkpoint=cb9f527bc, env=development, pid=564)
+2026-02-25T17:55:41.118Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:58:17.603Z [RESTART] Server started (instance=22c1, checkpoint=fb0b69dc9, env=development, pid=1309)
+2026-02-25T17:58:22.466Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:58:32.436Z [RESTART] Server started (instance=4e08, checkpoint=fb0b69dc9, env=development, pid=1362)
+2026-02-25T17:58:37.436Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:02:03.978Z [RESTART] Server started (instance=3870, checkpoint=fb0b69dc9, env=development, pid=1673)
+2026-02-25T18:02:09.013Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:10:14.848Z [RESTART] Server started (instance=f05a, checkpoint=d03ef4133, env=development, pid=2231)
+2026-02-25T18:10:20.191Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:11:33.764Z [RESTART] Server started (instance=66dd, checkpoint=d03ef4133, env=development, pid=244)
+2026-02-25T18:11:39.207Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:12:08.652Z [RESTART] Server started (instance=c862, checkpoint=d03ef4133, env=development, pid=170)
+2026-02-25T18:12:13.234Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:12:27.156Z [RESTART] Server started (instance=0f07, checkpoint=d03ef4133, env=development, pid=293)
+2026-02-25T18:12:32.523Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T19:49:54.214Z [RESTART] Server started (instance=91b6, checkpoint=fc1e4ba96, env=development, pid=2310)
+2026-02-25T19:49:56.653Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T19:50:30.288Z [RESTART] Server started (instance=1a13, checkpoint=fc1e4ba96, env=development, pid=2634)
+2026-02-25T19:51:00.479Z [RESTART] Server started (instance=64c4, checkpoint=fc1e4ba96, env=development, pid=375)
+2026-02-25T19:51:02.364Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:00:34.767Z [RESTART] Server started (instance=620f, checkpoint=d8ee79dd9, env=development, pid=2117)
+2026-02-25T20:00:36.861Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:02:54.253Z [RESTART] Server started (instance=8ce4, checkpoint=d8ee79dd9, env=development, pid=2505)
+2026-02-25T20:02:55.739Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:32:11.906Z [RESTART] Server started (instance=cbbf, checkpoint=51a91269c, env=development, pid=5657)
+2026-02-25T20:32:12.500Z [RECONCILE] Already in sync at f0899f1
+2026-02-25T20:32:12.915Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:58:31.387Z [RESTART] Server started (instance=6737, checkpoint=49487884, env=development, pid=620)
+2026-02-25T20:58:31.766Z [RECONCILE] Local 350f73f ≠ remote 99d6c77, checking file hashes...

@@ -54,7 +54,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 semanas }} o versión acelerada de 12 semanas
+          text: Programa de {{ ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
@@ -107,10 +107,10 @@ sections:
     tutors_label: "Tus mentores:"
     description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
     signup_card:
-      title: Recibe el Plan de Estudios Completo
+      title: Recibe el plan de estudios completo
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
-        text: Recibir el Plan de Estudios
+        text: Recibir el plan de estudios
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -118,7 +118,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 semanas }}
+          text: Programa de {{ ai_engineering_week_duration | 24 }} semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
@@ -229,7 +229,7 @@ sections:
   - type: features_grid
     version: "1.2"
     variant: stats-text
-    title: Por Qué Estudiar Ingeniería de IA Ahora
+    title: Por qué estudiar Ingeniería de IA ahora
     subtitle: El mercado laboral de inteligencia artificial está creciendo más rápido que la disponibilidad de talento cualificado.
     description: Informes de Microsoft y LinkedIn destacan que las habilidades en inteligencia artificial se han convertido en una prioridad estratégica para las empresas, impulsadas por la adopción masiva de herramientas de IA generativa. Formarte ahora te posiciona en el centro de una transformación tecnológica que está redefiniendo industrias enteras.
     background: bg-muted/30
@@ -245,7 +245,7 @@ sections:
         title: Rango salarial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
-    program_title: Plan de Estudios en Ingeniería de IA
+    program_title: Plan de estudios en Ingeniería de IA
     program_description: "Aprende aplicando nuestra Metodología de Caso de Empresa: desarrolla un sistema completo de IA a lo largo de 10 hitos, desde el planteamiento inicial hasta su despliegue en producción. En 24 semanas, construye una solución funcional que refleja los estándares y flujos de trabajo de equipos de ingeniería modernos."
     tech_logos:
       - name: React
@@ -382,7 +382,7 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: El Modelo de Aprendizaje 4Geeks
+    title: El Modelo de aprendizaje 4Geeks
     description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
     features:
       - icon: Robot
@@ -426,21 +426,21 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
-    title: Empleabilidad y Salarios Reales en Ingeniería de IA
+    title: Empleabilidad y salarios reales en Ingeniería de IA
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: "Ingeniero de Software IA: $95K–$135K"
       - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
-      - text: "Ingeniero de Agentes: $105K–$155K"
+      - text: "Ingeniero de Agentes: $105K–$150K"
       - text: "Ingeniero de Automatización de Flujos: $85K–$120K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado de 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando.
         benefits:
@@ -455,7 +455,7 @@ sections:
           - text: Optimiza tu CV, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
@@ -474,17 +474,17 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: none
+      desktop: none md
     paddingY:
       mobile: lg
-      desktop: lg
+      desktop: lg md
     background: hsl(var(--muted))
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
     financing_amount: {{ price_ai_engineering | default: '$349' }}
     tech_icons:
@@ -514,7 +514,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: none md
+      desktop: none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -541,10 +541,10 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
-    financing_text: Financiamiento en cuotas desde
+    financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
     financing_amount: {{ price_ai_engineering | 140€ }}
     tech_icons:
       - python
@@ -586,7 +586,7 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Contratan a Nuestros Graduados
+    title: Empresas que contratan a nuestros graduados
     subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -613,10 +613,12 @@ sections:
         alt: Neo9
       - src: /attached_assets/jooble_1764720010702.png
         alt: Jooble
+    marginY:
+      desktop: none md
     paddingY:
       desktop: none
   - type: testimonials
-    title: Éxito Profesional Comprobado
+    title: Éxito profesional comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
@@ -661,7 +663,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     items:
       - question: ¿Qué requisitos previos necesito para Ingeniería de IA?
         answer: Se recomienda conocimiento básico de programación, pero no es obligatorio. Nuestro programa comienza con conceptos fundamentales y avanza hasta ingeniería de IA avanzada. Si eres nuevo en programación, tenemos materiales preparatorios para ayudarte a comenzar.
@@ -693,11 +695,6 @@ sections:
           - all
         related_features: []
         priority: 0
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
     item_overrides:
       cunto-dura-el-programa:
         hideOnLocations:
@@ -712,15 +709,20 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Convertirte en Ingeniero de IA?
+    title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: Aplicar ahora
       tags: website-lead
       automations: hard
       fields:

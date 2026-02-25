@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Building Careers in the AI Era
+    title: Building careers in the AI era
     subtitle: 4Geeks Academy is an international coding bootcamp with 8 campuses across the U.S., Latin America, and Europe. We train students in AI Engineering, Data Science & Machine Learning, and Cybersecurity; with a clear path to getting hired.
     badge: 10+ years launching tech careers
     image_id: academy_header_coding
@@ -31,7 +31,7 @@ sections:
     variant: primary-left
     primary_width: narrow
     primary:
-      heading: Our Mission & Approach
+      heading: Our mission & approach
       description: "Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career support. The goal is simple: give students the technical depth, practical experience, and job-search strategy needed to get hired, and keep growing."
       badge: Results-Backed Model
     secondary:
@@ -47,19 +47,19 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: What Makes Us Different
+    heading: What makes us different
     cards:
       - icon: Trophy
-        title: Career-Focused Programs
+        title: Career-focused programs
         description: Hands-on, practical, and fast-paced training designed to launch real-world tech careers.
       - icon: Wallet
-        title: Hyperpersonalized Learning
+        title: Hyperpersonalized learning
         description: Rigobot provides instant 24/7 feedback as youship ensure you get the guidance you need.
       - icon: Clock
-        title: Unlimited Human Mentorship
+        title: Unlimited human mentorship
         description: Mentors and career coaches provide persoduring your program and forever after.
       - icon: Users
-        title: Future-Ready Skills
+        title: Future-ready skills
         description: Continuously updated currict tools and technologies driving the tech industry.
     background: hsl(var(--muted))
     description_with_background: false
@@ -75,9 +75,9 @@ sections:
       - value: {{ global_campuses | - value: "8" }}
         label: Campuses
       - value: ~{{ global_job_placement_rate | 84 }}%
-        label: Hiring Rate
+        label: Hiring rate
       - value: {{ global_review_rating | 4.9 }}
-        label: Avg Rating
+        label: Avg rating
     marginY:
       desktop: lg
     paddingY:
@@ -95,7 +95,7 @@ sections:
       image_object_position: 10% 80%
       justify: end
     right:
-      heading: Shaping the Global Tech Ecosystem
+      heading: Shaping the global tech ecosystem
       description: At 4Geeks Academy, we believe collaboration drives real impact. We work with universities, nonprofits, workforce development initiatives, global organizations, and local tech communities to expand access to top tech education and strengthen career pathways. Together, we train and place diverse talent, close the digital skills gap, and build the tech workforce of the future. We’re also active in the community, partnering on hackathons, tech challenges, and industry events that connect talent with opportunity and showcase the skills of our students and graduates.
       text_align: left
     gap: "12"
@@ -149,7 +149,7 @@ sections:
       desktop: lg none
   - type: whos_hiring
     variant: carousel
-    title: Trusted by Hiring Teams
+    title: Trusted by hiring teams
     description: |-
       4Geeks graduates are hired by leading tech companies across the U.S., Latin America, and Europe. Employers consistently highlight their technical depth, practical experience, and ability to contribute from day one.
       'I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires went on to become a team leader.' - CodeNinjas

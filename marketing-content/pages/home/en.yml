@@ -30,14 +30,14 @@ sections:
       variant: primary
       icon: ""
     left_images:
-      - src: /attached_assets/community_1764717588840.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Community illustration
-      - src: /attached_assets/caracas-graduates_1765387638222.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
         alt: Caracas graduates celebration
     right_images:
-      - src: /attached_assets/fernando-funez_1765315920677.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
         alt: Fernando Funez testimonial
-      - src: /attached_assets/feliz-empresario-laptop_1765406479465.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
         alt: Happy professional with laptop
     show_arrow: true
     marginY:
@@ -50,23 +50,23 @@ sections:
     variant: detailed
     showBorder: false
     items:
-      - id: coursereport-detailed
+      - id: forbes-logo-award
         alt: Forbes Award logo
-        logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistently listed among top 5 bootcamps by Forbes
         link: https://www.coursereport.com
         linkText: Read reviews
       - id: clark-university
         alt: Clark University Logo
-        logo: /marketing-content/images/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certified by recognized universities
         link: https://www.switchup.org
         linkText: See rankings
       - id: careerkarma-detailed
         alt: Award badges
-        logo: /attached_assets/badges-new.avif
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
         link: https://careerkarma.com
@@ -75,13 +75,13 @@ sections:
       desktop: none md
   - type: image_row
     images:
-      - src: /attached_assets/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
-      - src: /attached_assets/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Developer working on project
-      - src: /attached_assets/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Team collaboration session
-      - src: /attached_assets/student-4-lady-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
       heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
@@ -92,11 +92,11 @@ sections:
     mobile_height: 24rem
     gap: md
     rounded: true
+    background: hsl(var(--secondary))
     marginY:
       desktop: none
     paddingY:
       desktop: md xl
-    background: hsl(var(--secondary))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -277,7 +277,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 2O }} weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -294,7 +294,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | 18 }} weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
@@ -308,7 +308,7 @@ sections:
         course_background: hsl(var(--primary))
       - name: Cybersecurity
         icon: Shield
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -339,6 +339,18 @@ sections:
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.

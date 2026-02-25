@@ -15,7 +15,6 @@ const STATIC_ROUTES = new Set([
   "/en/",
   "/es",
   "/es/",
-  "/old-home",
   "/en/apply",
   "/es/aplica",
   "/terms-conditions",

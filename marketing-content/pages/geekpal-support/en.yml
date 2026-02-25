@@ -18,7 +18,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Lifetime Mentorship & AI-Powered Coding Support
+    title: Lifetime mentorship & AI-powered coding support
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
@@ -45,14 +45,15 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Advance Faster, Never Lose Momentum
+    title: Advance faster, never lose momentum
     description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
+    background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
+    heading: "Human + AI: The perfect support duo"
     description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
-      - title: "Our Team of Expert Mentors:"
+      - title: "Our team of expert mentors:"
         image: /attached_assets/profile-pic6_1764775742734.webp
         bullets:
           - text: Personalized guidance
@@ -94,7 +95,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: A Global Tech Community to Support Your Growth
+    heading: A global tech community to support your growth
     description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
@@ -120,7 +121,7 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: The Impact of Unlimited Coding Mentorship
+      heading: The impact of unlimited coding mentorship
       description: Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow professionally afterward.
       justify: center
       text_align: center
@@ -130,21 +131,17 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
-    title: Real Careers Start Here
+    title: Real careers start here
     description: See how our alumni achieved their goals
-    paddingY:
-      desktop: md none
     marginY:
       desktop: none
+    paddingY:
+      desktop: md none
   - type: faq
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - mentors-and-teachers
       - career-support
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none md
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:
@@ -172,9 +169,13 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
+    title: Take the next step toward your tech career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form

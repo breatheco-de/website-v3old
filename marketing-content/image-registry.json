@@ -1460,6 +1460,13 @@
       "usage_count": 0,
       "hash": "dd66426da6b2816dcd57deeac74172a916913addfed92d47c78368c55fd2d321"
     },
+    "leandro-1764725403142": {
+      "src": "/attached_assets/Leandro_1764725403142.jpeg",
+      "alt": "Leandro Matonte - 4Geeks Academy graduate",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0
+    },
     "luislarraburo-1764725418057": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg",
       "alt": "TODO: Add alt text for LuisLarraburo_1764725418057.jpeg",
@@ -4658,6 +4665,46 @@
       "tags": [],
       "usage_count": 0,
       "hash": "5806be464fe40aa8460fecb98c2d07f339bbd1390f7bb883117a20081e652eff"
+    },
+    "avatar-woman-1": {
+      "src": "https://randomuser.me/api/portraits/women/1.jpg",
+      "alt": "Woman portrait avatar 1",
+      "focal_point": "center",
+      "tags": ["avatar", "portrait"],
+      "usage_count": 0,
+      "hash": ""
+    },
+    "avatar-man-2": {
+      "src": "https://randomuser.me/api/portraits/men/2.jpg",
+      "alt": "Man portrait avatar 2",
+      "focal_point": "center",
+      "tags": ["avatar", "portrait"],
+      "usage_count": 0,
+      "hash": ""
+    },
+    "avatar-woman-3": {
+      "src": "https://randomuser.me/api/portraits/women/3.jpg",
+      "alt": "Woman portrait avatar 3",
+      "focal_point": "center",
+      "tags": ["avatar", "portrait"],
+      "usage_count": 0,
+      "hash": ""
+    },
+    "avatar-man-4": {
+      "src": "https://randomuser.me/api/portraits/men/4.jpg",
+      "alt": "Man portrait avatar 4",
+      "focal_point": "center",
+      "tags": ["avatar", "portrait"],
+      "usage_count": 0,
+      "hash": ""
+    },
+    "logo-fonce": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo-fonce.png",
+      "alt": "Image: logo-fonce",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "3ca682a0c006128b46266af0a0a19a2c021ac10df9c518c82b50b2f6258401d0"
     }
   }
 }
