@@ -343,9 +343,9 @@ sections:
   - type: faq
     title: Preguntas frecuentes
     related_features:
-      - scholarships
-      - job-guarantee
       - online-platform
+      - scholarships
+      - outcomes
     item_overrides:
       consigo-trabajo-despus-de-completar-el-programa:
         hideOnLocations:
