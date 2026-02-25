@@ -200,7 +200,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: 16 semanas
+        duration: {{ data_science_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
