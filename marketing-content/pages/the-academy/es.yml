@@ -149,7 +149,7 @@ sections:
       desktop: lg none
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Confían en Nuestros Graduados
+    title: Empresas que confían en nuestros graduados
     description: |-
       Los graduados de 4Geeks son contratados por empresas tecnológicas líderes en EE. UU., Latinoamérica y Europa. Los empleadores destacan constantemente su profundidad técnica, experiencia práctica y capacidad de aportar valor desde el primer día.
       'Siempre me impresiona la profundidad de conocimiento de los estudiantes de 4Geeks. Una de mis contrataciones se convirtió en líder de equipo.' - CodeNinjas
