@@ -352,7 +352,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: md lg
+      desktop: none lg
     showOnLocations:
       - bogota-colombia
       - buenosaires-argentina
