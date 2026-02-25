@@ -242,10 +242,10 @@ sections:
         - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
         - text: {{ global_salary_increase | 55% }}% aumento salarial promedio en roles tech
-    background: hsl(var(--secondary))
-    section_id: split_cards-cysz0z
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
+    section_id: split_cards-cysz0z
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Ciudad de México es un Lugar Inteligente para Lanzar tu Carrera Tech
