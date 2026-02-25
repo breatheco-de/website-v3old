@@ -131,20 +131,20 @@ sections:
     paddingY:
       desktop: sm none
   - type: value_proof_panel
-    title: Reconocidos Globalmente por Resultados Reales
+    title: Reconocidos globalmente por resultados reales
     subtitle: Organizaciones independientes reconocen a 4Geeks por los resultados de graduados, la calidad de nuestros programas y el soporte profesional.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Coding Bootcamps Mundiales
+        title: Top 5 coding bootcamps mundiales
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Mejor Soporte Estudiantil y Mejor Valor
+        title: Mejor soporte estudiantil y mejor valor
         source: Course Report, SwitchUp
       - icon: Users
-        title: Más de 35,000 Graduados en Más de 20 Países
+        title: Más de 35,000 graduados en más de 20 países
         description: Una comunidad global de profesionales tech exitosos
       - icon: Certificate
-        title: Certificados Reconocidos por la Industria
+        title: Certificados reconocidos por la industria
         description: Credenciales que los empleadores confían y valoran
     media:
       type: image
