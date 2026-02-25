@@ -314,7 +314,7 @@ sections:
           - text: "AI Engineer: {{ average_salary_ai_engineer | $100K–$160K }}"
       - value: 400+
         label: Hiring Partners
-        description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
