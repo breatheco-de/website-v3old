@@ -478,7 +478,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Inversión del Programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en Europa.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
