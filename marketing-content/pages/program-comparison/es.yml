@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Encuentra Tu Mejor Camino en Tecnología
+    title: Encuentra tu mejor camino en tecnología
     badge: Compara nuestros programas
     trust_bar:
       rating: 4.8/5
