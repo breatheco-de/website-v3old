@@ -18,15 +18,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Mira lo que Construyen Nuestros Estudiantes
+    title: Mira lo que construyen nuestros estudiantes
     subtitle: Explora proyectos finales de graduados de 4Geeks Academy. Apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.
-    badge: Programa Profesional
+    badge: Programa profesional
     cta_buttons:
-      - text: Comienza a Aprender Ahora
+      - text: Comienza a aprender ahora
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: Ver Currículum
+      - text: Ver currículum
         url: "#apply-modal"
         variant: outline
         icon: Book
