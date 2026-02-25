@@ -221,6 +221,9 @@ sections:
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
+          - image_id: logo-fonce
+            alt: "Image: logo-fonce"
+            id: logo-fonce
         press_references:
           - text: Miami Herald
             url: https://www.miamiherald.com/news/business/article263937731.html
