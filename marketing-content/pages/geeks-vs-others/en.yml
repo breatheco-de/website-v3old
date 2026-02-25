@@ -133,6 +133,9 @@ sections:
     stacked_header: true
     marginY:
       desktop: none lg
+  - type: testimonials_slide
+    title: Real careers start here — just ask our students
+    description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
   - type: features_quad
     version: "1.0"
     variant: default
@@ -184,9 +187,6 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-  - type: testimonials_slide
-    title: Real careers start here — just ask our students
-    description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
