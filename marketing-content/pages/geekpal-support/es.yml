@@ -97,7 +97,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: Aprende Acompañado por una Comunidad Global
+    heading: Aprende acompañado por una comunidad global
     description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
