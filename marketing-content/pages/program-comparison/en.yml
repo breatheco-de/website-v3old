@@ -148,7 +148,7 @@ sections:
       - toronto-canada
   - type: comparison_table
     version: "1.0"
-    title: Which Path Fits You Best?
+    title: Which path fits you best?
     subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
     columns:
       - name: Category
