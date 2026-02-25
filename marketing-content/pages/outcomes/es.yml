@@ -73,6 +73,54 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+  - type: vertical_bars_cards
+    version: "1.0"
+    title: Resultados de contratación año tras año
+    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en outcomes verificados de cohortes recientes.
+    metrics:
+      - title: Tasa de colocación laboral
+        unit: Graduados contratados en 6 meses
+        description: Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación para mantener los datos precisos y comparables entre cohortes.
+        years:
+          - year: "2023"
+            value: 86
+            displayValue: 86%
+          - year: "2024"
+            value: 84
+            displayValue: 84%
+          - year: Mid 2025
+            value: 82
+            displayValue: 82%
+      - title: Aumento salarial promedio
+        unit: Comparado con salario pre-bootcamp
+        description: Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el bootcamp.
+        years:
+          - year: "2023"
+            value: 12500
+            displayValue: $12.5k
+          - year: "2024"
+            value: 14200
+            displayValue: $14.2k
+          - year: Mid 2025
+            value: 15800
+            displayValue: $15.8k
+      - title: Días para el primer empleo
+        unit: Tiempo promedio desde graduación hasta oferta
+        description: Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
+        years:
+          - year: "2023"
+            value: 52
+            displayValue: 52 días
+          - year: "2024"
+            value: 48
+            displayValue: 48 días
+          - year: Mid 2025
+            value: 45
+            displayValue: 45 días
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none md
   - type: stats
     version: "1.0"
     title: Resultados de contratación por regiones
