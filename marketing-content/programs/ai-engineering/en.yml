@@ -432,8 +432,8 @@ sections:
           - text: Salary negotiation coaching
           - text: Lifetime career support access
           - text: Alumni network with 10,000+ professionals
-      - value: {{ global_salary_increase | 55 }}%
-        label: Average salary increase
+      - value: {{ average_salary_cybersecurity_short | $85 }}
+        label: Salario inicial promedio
         description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
         benefits:
           - text: "AI Software Engineer: {{ average_salary_ai_engineer | $95K–$135K }}"
