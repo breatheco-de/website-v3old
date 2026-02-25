@@ -34,7 +34,7 @@ sections:
       desktop: md none
   - type: press_mentions
     version: v1.0
-    title: Featured in the Press
+    title: Featured in the press
     columns: 3
     items:
       - logo: global-miami-logo
