@@ -109,40 +109,40 @@ sections:
         description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
         years:
           - year: "2023"
-            value: 86
-            displayValue: 86%
+            value: 80
+            displayValue: 80%
           - year: "2024"
-            value: 84
-            displayValue: 84%
+            value: 75
+            displayValue: 75%
           - year: Mid 2025
-            value: 82
-            displayValue: 82%
+            value: 75
+            displayValue: 75%
       - title: Average salary increase
         unit: Compared to pre-bootcamp salary
         description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
         years:
           - year: "2023"
-            value: 12500
-            displayValue: $12.5k
+            value: 22
+            displayValue: 22%
           - year: "2024"
-            value: 14200
-            displayValue: $14.2k
+            value: 18
+            displayValue: 18%
           - year: Mid 2025
-            value: 15800
-            displayValue: $15.8k
+            value: 33
+            displayValue: 33%
       - title: Days to first job
         unit: Average time from graduation to offer
         description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
         years:
           - year: "2023"
-            value: 52
-            displayValue: 52 days
+            value: 96
+            displayValue: 96 days
           - year: "2024"
-            value: 48
-            displayValue: 48 days
+            value: 128
+            displayValue: 128 days
           - year: Mid 2025
-            value: 45
-            displayValue: 45 days
+            value: 85
+            displayValue: 85 days
     marginY:
       desktop: none
     paddingY:
