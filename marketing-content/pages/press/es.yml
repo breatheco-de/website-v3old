@@ -33,7 +33,7 @@ sections:
       desktop: md none
   - type: press_mentions
     version: v1.0
-    title: Destacados en Prensa
+    title: Destacados en prensa
     columns: 3
     items:
       - logo: global-miami-logo
