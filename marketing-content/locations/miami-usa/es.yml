@@ -215,6 +215,7 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
+    section_id: course_selector-nyglwg
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -456,9 +457,9 @@ sections:
           required: false
         phone:
           visible: true
-          required: false
+          required: true
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.

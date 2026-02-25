@@ -53,10 +53,10 @@ sections:
     tutors_label: "Tus instructores:"
     description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     signup_card:
-      title: Obtén el programa completo
+      title: Recibe el plan de estudios completo
       description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar información
+        text: Recibir el plan de estudios
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -448,10 +448,10 @@ sections:
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: Full-Stack Developer {{ average_salary_ai_fluent_software_developer | $20K–$30K }}"
-          - text: QA / Testing {{ average_salary_fullstack | $95K–$150K }}"
-          - text: Backend Developer {{ average_salary_agent_engineer | $25K–$40K }}"
-          - text: Frontend Developer {{ average_salary_workflow_automation_engineer | $25K–$40K }}"
+          - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
+          - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer }}"
+          - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
+          - text: "Backend Services Developer: {{ average_salary_backend_services_developer | $100K–$150K }} "
       - value: 500+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
@@ -681,7 +681,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar ahora
+      submit_label: {{ call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       automations: hard
       fields:
@@ -706,10 +706,12 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
@@ -740,6 +742,5 @@ sections:
           required: false
         program:
           visible: false
-          default: ai-engineering
-      success:
+          default: full-stack
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.

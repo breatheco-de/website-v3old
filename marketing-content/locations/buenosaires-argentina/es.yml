@@ -206,6 +206,7 @@ sections:
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-znx9e5
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -232,18 +233,20 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: La Confianza de una Garantía de Empleo
-      description: |
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
+      heading: La Confianza de una Garantía de Empleo*
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: 84% tasa de contratación entre graduados
+        - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: 55% aumento salarial promedio en roles tech
-    background: hsl(var(--secondary))
+        - text: {{ global_salary_increase | 55% }}% aumento salarial promedio en roles tech
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
+    section_id: split_cards-0rwztl
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Buenos Aires es un Lugar Inteligente para Lanzar tu Carrera Tech

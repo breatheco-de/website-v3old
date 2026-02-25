@@ -77,7 +77,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: md lg
+      desktop: md
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -106,7 +106,10 @@ sections:
       - value: {{ global_salary_increase | 55 }}%
         title: Salary increase after graduation
     marginY:
-      desktop: lg
+      desktop: md
+  - type: testimonials_slide
+    title: Real careers start here — just ask our students
+    description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
   - type: value_proof_panel
     title: Recognized globally for excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
@@ -132,7 +135,7 @@ sections:
     background: bg-muted/30
     stacked_header: true
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: features_quad
     version: "1.0"
     variant: default
@@ -153,7 +156,7 @@ sections:
         description: Partial scholarships are available for eligible students.
     background: hsl(var(--secondary))
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: split_cards
     variant: primary-left
     primary:
@@ -178,9 +181,14 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-  - type: testimonials_slide
-    title: Real careers start here — just ask our students
-    description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+    marginY:
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement

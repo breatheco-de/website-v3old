@@ -165,6 +165,7 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-9nlqmk
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -204,6 +205,7 @@ sections:
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
+    section_id: split_cards-ma7z98
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Quito Is a Smart Place to Launch Your Tech Career
@@ -368,4 +370,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-

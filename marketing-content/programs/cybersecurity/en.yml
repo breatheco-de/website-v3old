@@ -644,6 +644,6 @@ sections:
         program:
           visible: false
           required: false
-          default: ai-engineering
+          default: cybersecurity
       success:
         message: Thanks! We'll be in touch within 24 hours.

@@ -105,7 +105,12 @@ sections:
       - value: {{ global_salary_increase | 55 }}%
         title: Aumento salarial después de graduarte
     marginY:
-      desktop: lg
+      desktop: lg none
+  - type: testimonials_slide
+    title: Carreras reales comienzan aquí — solo pregúntale a nuestros estudiantes
+    description: Con el {{ global_job_placement_rate | 84 }}% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
+    marginY:
+      desktop: md none
   - type: value_proof_panel
     title: Reconocidos blobalmente por excelencia
     subtitle: No solo lo decimos — el reconocimiento de fuentes confiables demuestra nuestro valor.
@@ -132,27 +137,8 @@ sections:
     stacked_header: true
     marginY:
       desktop: none lg
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Haciendo las carreras tech accesibles
-    description: Las carreras tech pueden transformar vidas y las finanzas nunca deberían ser un obstáculo. Por eso ofrecemos algunas de las opciones de pago y becas más flexibles y amigables para estudiantes en la industria.
-    cards:
-      - icon: CurrencyDollar
-        title: Matrícula asequible
-        description: Entre las matrículas más asequibles de cualquier programa top-ranked (reconocido por Forbes).
-      - icon: CreditCard
-        title: Financiamiento flexible
-        description: Opciones de financiamiento desde {{ lowest_monthly_financing_option | $299 }}/mes, para que aprendas sin estrés financiero.
-      - icon: Coin
-        title: Pago basado en ingresos
-        description: Comienza a aprender ahora y solo paga una vez que estés ganando en tech.
-      - icon: School
-        title: Becas disponibles
-        description: Becas parciales disponibles para estudiantes elegibles.
-    background: hsl(var(--secondary))
-    marginY:
-      desktop: none lg
+    paddingY:
+      desktop: none sm
   - type: split_cards
     variant: primary-left
     primary:
@@ -177,9 +163,35 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-  - type: testimonials_slide
-    title: Carreras reales comienzan aquí — solo pregúntale a nuestros estudiantes
-    description: Con el {{ global_job_placement_rate | 84 }}% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+    marginY:
+      desktop: none xl
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: Haciendo las carreras tech accesibles
+    description: Las carreras tech pueden transformar vidas y las finanzas nunca deberían ser un obstáculo. Por eso ofrecemos algunas de las opciones de pago y becas más flexibles y amigables para estudiantes en la industria.
+    cards:
+      - icon: CurrencyDollar
+        title: Matrícula asequible
+        description: Entre las matrículas más asequibles de cualquier programa top-ranked (reconocido por Forbes).
+      - icon: CreditCard
+        title: Financiamiento flexible
+        description: Opciones de financiamiento desde {{ lowest_monthly_financing_option | $299 }}/mes, para que aprendas sin estrés financiero.
+      - icon: Coin
+        title: Pago basado en ingresos
+        description: Comienza a aprender ahora y solo paga una vez que estés ganando en tech.
+      - icon: School
+        title: Becas disponibles
+        description: Becas parciales disponibles para estudiantes elegibles.
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: Colocación Laboral

@@ -7,6 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
   IconArrowLeft,
   IconRefresh,
   IconSearch,
@@ -17,6 +25,7 @@ import {
   IconX,
   IconBrandGithub,
   IconTrash,
+  IconLoader2,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -113,6 +122,20 @@ export default function SyncLogPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["/api/github/sync-log"] });
       qc.invalidateQueries({ queryKey: ["/api/github/sync-info"] });
+    },
+  });
+
+  const [webhookRetryOpen, setWebhookRetryOpen] = useState(false);
+  const [webhookRetryResult, setWebhookRetryResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  const webhookSetupMutation = useMutation({
+    mutationFn: () => apiRequest("POST", "/api/github/webhook/setup").then(r => r.json()),
+    onSuccess: (data) => {
+      setWebhookRetryResult(data);
+      qc.invalidateQueries({ queryKey: ["/api/github/sync-info"] });
+    },
+    onError: (err: any) => {
+      setWebhookRetryResult({ success: false, message: err.message || "Request failed" });
     },
   });
 
@@ -236,10 +259,14 @@ export default function SyncLogPage() {
                       Active
                     </span>
                   ) : (
-                    <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400" data-testid="text-webhook-status">
+                    <button
+                      className="flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:underline"
+                      onClick={() => { setWebhookRetryResult(null); setWebhookRetryOpen(true); }}
+                      data-testid="button-webhook-inactive"
+                    >
                       <IconX className="h-3 w-3" />
                       Inactive
-                    </span>
+                    </button>
                   )}
                 </span>
               </div>
@@ -377,5 +404,50 @@ export default function SyncLogPage() {
         </Card>
       </div>
     </div>
+
+    <Dialog open={webhookRetryOpen} onOpenChange={(open) => { if (!open) { setWebhookRetryOpen(false); setWebhookRetryResult(null); } }}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Webhook Inactive</DialogTitle>
+          <DialogDescription>
+            The GitHub webhook is not currently registered. Without it, changes pushed to GitHub won't be automatically pulled into this app. Click retry to attempt registration now.
+          </DialogDescription>
+        </DialogHeader>
+
+        {webhookRetryResult ? (
+          <div className={`flex items-start gap-2 p-3 rounded-md border text-sm ${webhookRetryResult.success ? "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900" : "bg-destructive/10 border-destructive/20"}`}>
+            {webhookRetryResult.success
+              ? <IconCheck className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+              : <IconX className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+            }
+            <p className={webhookRetryResult.success ? "text-green-700 dark:text-green-300" : "text-destructive"}>
+              {webhookRetryResult.message}
+            </p>
+          </div>
+        ) : null}
+
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button
+            variant="outline"
+            onClick={() => { setWebhookRetryOpen(false); setWebhookRetryResult(null); }}
+            data-testid="button-close-webhook-retry"
+          >
+            {webhookRetryResult ? "Close" : "Cancel"}
+          </Button>
+          {!webhookRetryResult?.success && (
+            <Button
+              onClick={() => webhookSetupMutation.mutate()}
+              disabled={webhookSetupMutation.isPending}
+              data-testid="button-retry-webhook"
+            >
+              {webhookSetupMutation.isPending
+                ? <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Retrying...</>
+                : <><IconWebhook className="h-4 w-4 mr-2" />Retry</>
+              }
+            </Button>
+          )}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
