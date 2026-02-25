@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Rigobot, your AI Coding Mentor That Feels Like a Friend
+    title: Rigobot, your AI coding mentor that feels like a friend
     subtitle: Meet Rigobot, your AI coding mentor that follows your progress, provides real-time feedback, and helps you think like a developer. Available 24/7 in every 4Geeks course.
     image:
       src: https://breathecode.herokuapp.com/v1/media/file/rigo-png
