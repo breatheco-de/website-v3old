@@ -29,13 +29,13 @@ sections:
       desktop: none md
   - type: comparison_table
     version: "1.0"
-    title: Lanzando Carreras Tech Exitosas en la Era de la IA
+    title: Lanzando carreras tech exitosas en la era de la IA
     subtitle: "Estamos construidos para prepararte para el éxito. Desde un currículo alineado con la industria y preparado para el futuro hasta mentoría de por vida y soporte profesional, así es como 4Geeks se diferencia:"
     columns:
       - name: Característica
       - name: 4Geeks Academy
         highlight: true
-      - name: Promedio de la Industria / Competidores
+      - name: Promedio de la industria / competidores
     rows:
       - feature: Apoyo Profesional
         values:
@@ -45,7 +45,7 @@ sections:
         values:
           - {{ global_teacher_student_ratio | 1:7 }}
           - Usualmente 1:10 o más
-      - feature: Feedback Impulsado por IA
+      - feature: Feedback impulsado por IA
         values:
           - Personalizado según tu progreso de aprendizaje
           - Raramente disponible
@@ -57,7 +57,7 @@ sections:
         values:
           - Actualizado continuamente para ajustarse a las necesidades del mercado
           - Actualizaciones varían según el proveedor
-      - feature: Tasa de Contratación
+      - feature: Tasa de contratación
         values:
           - ~{{ global_job_placement_rate | 84 }}% en 6 meses
           - Varía; mayormente no reportada
@@ -65,11 +65,11 @@ sections:
         values:
           - Fuerte red local y global
           - Depende de la escuela
-      - feature: Formato de Clases
+      - feature: Formato de clases
         values:
           - Opciones online y presencial
           - Usualmente solo un formato
-      - feature: Experiencia Previa
+      - feature: Experiencia previa
         values:
           - No se requiere experiencia
           - La mayoría exige habilidades previas o evaluaciones
