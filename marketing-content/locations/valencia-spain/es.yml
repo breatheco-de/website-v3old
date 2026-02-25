@@ -106,6 +106,19 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
+  - type: banner
+    version: "1.0"
+    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    avatars:
+      - https://randomuser.me/api/portraits/women/1.jpg
+      - https://randomuser.me/api/portraits/men/2.jpg
+      - https://randomuser.me/api/portraits/women/3.jpg
+      - https://randomuser.me/api/portraits/men/4.jpg
+    title: En el Centro del Impulso Tech de Valencia
+    description: El ecosistema tecnológico de Valencia está en auge con un número creciente de empresas tecnológicas y startups. La ciudad se ha convertido en un centro de innovación y tecnología, con grandes corporaciones estableciendo su presencia. A medida que Valencia continúa expandiendo su sector tecnológico, te conectamos con empleadores locales, eventos tech y socios de contratación para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.
+    background: gradient
+    marginY:
+      desktop: lg none
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -153,19 +166,6 @@ sections:
         cta_text: Discover program
         cta_url: /en/full-stack
         course_background: secondary
-  - type: banner
-    version: "1.0"
-    logo: /attached_assets/rigobot-logo_1764707022198.webp
-    avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
-    title: En el Centro del Impulso Tech de Valencia
-    description: El ecosistema tecnológico de Valencia está en auge con un número creciente de empresas tecnológicas y startups. La ciudad se ha convertido en un centro de innovación y tecnología, con grandes corporaciones estableciendo su presencia. A medida que Valencia continúa expandiendo su sector tecnológico, te conectamos con empleadores locales, eventos tech y socios de contratación para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.
-    background: gradient
-    marginY:
-      desktop: lg none
   - type: two_column
     proportions:
       - 6
