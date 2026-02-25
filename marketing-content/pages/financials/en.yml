@@ -65,7 +65,7 @@ sections:
       - value: 3-6 Months
         title: Average time to get hired
     marginY:
-      desktop: none md
+      desktop: none lg
     paddingY:
       desktop: none
   - type: syllabus
