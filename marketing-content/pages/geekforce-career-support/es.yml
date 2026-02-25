@@ -296,26 +296,11 @@ sections:
     title: Las historias detrás de las estadísticas
     description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - career-support
       - job-guarantee
       - price
-    marginY:
-      desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
     item_overrides:
       consigo-trabajo-despus-de-completar-el-programa:
         hideOnLocations:
@@ -460,6 +445,20 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    marginY:
+      desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para comenzar?
