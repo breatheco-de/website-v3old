@@ -145,7 +145,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explora Nuestros Programas
+    heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
       - name: Ingeniería de IA
@@ -181,7 +181,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 16 semanas
+        duration: 18 semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning con IA
         badges:
@@ -207,6 +207,7 @@ sections:
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-1tv1c5
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
