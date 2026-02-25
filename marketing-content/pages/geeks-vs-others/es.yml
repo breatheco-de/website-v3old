@@ -94,7 +94,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-cards
-    title: Éxito de Graduados en Números
+    title: Éxito de graduados en números
     subtitle: Nuestros alumnos están consiguiendo empleos, aumentando salarios y lanzando carreras tech en todo el mundo.
     use_card: true
     items:
