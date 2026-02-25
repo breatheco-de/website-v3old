@@ -137,6 +137,8 @@ sections:
     stacked_header: true
     marginY:
       desktop: none lg
+    paddingY:
+      desktop: none sm
   - type: split_cards
     variant: primary-left
     primary:
