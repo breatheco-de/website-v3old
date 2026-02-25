@@ -223,17 +223,10 @@ sections:
             alt: 4Geeks Academy logo
           - image_id: logo-fonce
             alt: "Image: logo-fonce"
-            id: logo-fonce
         press_references:
-          - text: Miami Herald
-            url: https://www.miamiherald.com/news/business/article263937731.html
-            source: Miami Herald
-          - text: Refresh Miami
-            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
-            source: Refresh Miami
-          - text: Ver proyecto completo (PDF)
-            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
-            source: PDF
+          - text: Talento Digital
+            url: https://portalentodigital.fundaciononce.es/becas
+            source: Fundación Once
         cta:
           text: Conviértete en partner
           url: /en/partners
