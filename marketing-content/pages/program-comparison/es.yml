@@ -132,6 +132,18 @@ sections:
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
     footer_note: "* Los detalles del programa están sujetos a cambios"
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: comparison_table
     version: "1.0"
     title: ¿Qué Camino Se Adapta Mejor a Ti?
