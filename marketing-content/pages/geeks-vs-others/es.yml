@@ -134,7 +134,7 @@ sections:
     background: bg-muted/30
     stacked_header: true
     marginY:
-      desktop: none xl
+      desktop: none lg
   - type: split_cards
     variant: primary-left
     primary:
