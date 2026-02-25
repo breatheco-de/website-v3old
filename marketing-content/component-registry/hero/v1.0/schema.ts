@@ -11,6 +11,7 @@ export const trustBarSchema = z.object({
   rating: z.string().optional(),
   rating_count: z.string().optional(),
   trusted_text: z.string(),
+  avatars: z.array(z.string()).optional(),
 });
 
 // Award badge

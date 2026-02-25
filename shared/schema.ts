@@ -557,26 +557,6 @@ export type PieChartData = z.infer<typeof pieChartDataSchema>;
 export type PieChartsSection = z.infer<typeof pieChartsSectionSchema>;
 
 // ============================================
-// Awards Row Section
-// ============================================
-export const awardsRowSectionSchema = z.object({
-  type: z.literal("awards_row"),
-  version: z.string().optional(),
-  title: z.string().optional(),
-  background: z.string().optional(),
-  link_text: z.string().optional(),
-  link_url: z.string().optional(),
-  badges: z.array(z.object({
-    name: z.string(),
-    source: z.string(),
-    year: z.string().optional(),
-    logo: z.string().optional(),
-  })),
-});
-
-export type AwardsRowSection = z.infer<typeof awardsRowSectionSchema>;
-
-// ============================================
 // Human and AI Duo Section
 // ============================================
 export const humanAndAIDuoBulletSchema = z.object({
@@ -897,7 +877,6 @@ const baseSectionSchema = z.union([
   horizontalBarsSectionSchema,
   verticalBarsCardsSectionSchema,
   pieChartsSectionSchema,
-  awardsRowSectionSchema,
   applyFormSectionSchema,
   awardBadgesSectionSchema,
   awardsMarqueeSectionSchema,
