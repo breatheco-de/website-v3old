@@ -62,7 +62,7 @@ sections:
       - value: 3-6 Meses
         title: Tiempo promedio para conseguir empleo
     marginY:
-      desktop: none lg
+      desktop: none sm
     paddingY:
       desktop: none
   - type: syllabus
