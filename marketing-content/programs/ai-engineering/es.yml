@@ -722,7 +722,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar ahora
+      submit_label: {{ call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       automations: hard
       fields:
