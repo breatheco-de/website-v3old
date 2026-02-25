@@ -55,17 +55,17 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa Intensivo de {{ data_science_week_duration | 18 }} Semanas
+          text: Programa intensivo de {{ data_science_week_duration | 18 }} Semanas
         - icon: IconBriefcase
-          text: Plan de Estudios Orientado al Empleo
+          text: Plan de estudios orientado al empleo
         - icon: IconRobot
-          text: Aprendizaje y Retroalimentación con IA
+          text: Aprendizaje y retroalimentación con IA
         - icon: IconUsers
           text: Ratio de {{ global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
         - icon: IconUserCheck
-          text: Mentoría 1:1 Ilimitada
+          text: Mentoría 1:1 ilimitada
         - icon: book
-          text: Portafolio Real de Data Science y ML
+          text: Portafolio real de Data Science y ML
     paddingY:
       desktop: md
     marginY:
