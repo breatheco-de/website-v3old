@@ -123,8 +123,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - online-platform
     paddingY:
