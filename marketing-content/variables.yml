@@ -438,7 +438,7 @@ cybersecurity_week_duration:
 fullstack_week_duration:
   default: "20 semanas"
 total_scholarships:
-  default: "20"
+  default: "20$M"
   conditions:
     - query:
         region: "europe"
