@@ -324,7 +324,7 @@ sections:
     useSolidCard: true
     paddingY:
       mobile: lg
-      desktop: lg
+      desktop: none lg
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
