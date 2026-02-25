@@ -333,7 +333,6 @@ sections:
       - src: /attached_assets/jooble_1764720010702.png
         alt: Jooble
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - scholarships
@@ -341,6 +340,18 @@ sections:
       - online-platform
     paddingY:
       desktop: lg md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
