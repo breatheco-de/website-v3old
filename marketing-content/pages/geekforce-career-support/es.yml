@@ -237,7 +237,7 @@ sections:
       desktop: md none
   - type: why_learn_ai
     variant: default
-    title: Garantía de empleo* Opcional para Mayor Confianza
+    title: Garantía de empleo* opcional para Mayor Confianza
     subtitle: Respaldamos tu resultado profesional con un compromiso más fuerte
     description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
