@@ -49,7 +49,7 @@ sections:
       title: Obtén el programa completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar información
+        text: Recibe el plan de estudios completo
         url: "#apply-modal"
         variant: primary
       login_link:
