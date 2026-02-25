@@ -8,7 +8,7 @@ import {
   IconBrandX,
   IconBrandInstagram,
 } from "@tabler/icons-react";
-import logo from "@assets/4geeks-devs-logo_1763162063433.png";
+const logo = "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png";
 
 interface FooterColumn {
   title: string;
