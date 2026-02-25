@@ -447,9 +447,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition and Financing Options
+    title: Tuition and financing options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
