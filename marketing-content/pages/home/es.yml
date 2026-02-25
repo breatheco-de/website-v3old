@@ -118,7 +118,7 @@ sections:
     version: "1.0"
     variant: highlight
     title: Resultados Reales para Nuestros Graduados
-    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo lanzan carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
+    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
         value: 84%
