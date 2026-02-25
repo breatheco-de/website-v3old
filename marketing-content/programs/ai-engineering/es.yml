@@ -544,7 +544,7 @@ sections:
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
-    financing_text: Financiamiento en cuotas desde
+    financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
     financing_amount: {{ price_ai_engineering | 140€ }}
     tech_icons:
       - python
