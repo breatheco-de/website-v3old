@@ -121,7 +121,7 @@ sections:
     subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
-        value: 84%
+        value: {{ global_job_placement_rate | 84 }}%
         title: Tasa de colocación laboral
       - icon: Graduation
         value: 3-6 meses
