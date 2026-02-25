@@ -263,6 +263,13 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: syllabus
     version: "1.0"
     variant: program-modules
