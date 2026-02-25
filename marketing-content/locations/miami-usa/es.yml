@@ -56,14 +56,14 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Lanza una Carrera Tech Lista para IA en Miami
-    subtitle: Capacítate para los roles tech más demandados de hoy, incluyendo Ingeniería de IA, en uno de los hubs tech de más rápido crecimiento del país y sede global de 4Geeks. Aprende online o presencial con instrucción en vivo, proyectos prácticos y soporte profesional personalizado diseñado para contrataciones reales.
+    title: Construye tu carrera en tecnología en Miami
+    subtitle: Prepárate para los roles más demandados, incluyendo Ingeniería en IA, en uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos. Estudia online o presencial con mentoría 1:1, proyectos reales y acompañamiento profesional diseñado para impulsar tu desarrollo profesional.
     badge: Campus Miami
     cta_buttons:
-      - text: Aplicar Ahora
+      - text: Aplicar ahora
         url: /es/apply
         variant: primary
-      - text: Descargar Programa
+      - text: Ver el programa
         url: "#cta_banner-14"
         variant: outline
     marginY:
@@ -119,8 +119,8 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: En el Centro del Impulso Tech de Miami
-    description: Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., y 4Geeks Academy juega un rol clave en su ecosistema. Desde nuestro campus en Miami, organizamos eventos prácticos, charlas tech y meetups enfocados en contratación que conectan a estudiantes con empleadores locales, alumni y constructores que moldean la escena tech de South Florida.
+    title: En el centro del crecimiento tecnológico de Miami
+    description: Miami es uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos, y 4Geeks Academy forma parte activa de su ecosistema. Desde nuestro campus en la ciudad, organizamos eventos técnicos, charlas especializadas y encuentros enfocados en empleabilidad que conectan a estudiantes con empresas locales y profesionales del sector en el sur de Florida.
     background: gradient
     marginY:
       desktop: lg none
@@ -132,11 +132,11 @@ sections:
     left:
       video: https://youtu.be/4n-ZAUPIxJI
     right:
-      heading: Lo que el Boom Tech de Miami Desbloquea para el Talento Local
-      sub_heading: Escucha directamente del Alcalde Francis Suarez por qué Miami se ha convertido en uno de los hubs tech de más rápido crecimiento en EE.UU.
-      description: El Alcalde Suarez comparte consejos para personas que entran al mundo tech y explica qué impulsa el crecimiento de empleos en Miami — y por qué el desarrollo de software y habilidades en IA son centrales para el futuro de la ciudad.
+      heading: La visión del alcalde sobre el futuro tech de Miami
+      sub_heading: El alcalde Francis Suárez explica por qué Miami se ha consolidado como uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos.
+      description: En esta entrevista, comparte su visión sobre la expansión del empleo en tecnología en la ciudad y el papel clave del desarrollo de software y la inteligencia artificial en su futuro económico.
       button:
-        text: Ver la entrevista completa
+        text: Ver entrevista completa
         url: https://youtu.be/4n-ZAUPIxJI
         variant: primary
         icon: Rocket
@@ -219,22 +219,25 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
     image: /attached_assets/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
+    marginY:
+      desktop: lg
     paddingY:
-      desktop: md none
+      desktop: md lg
+    background: hsl(var(--muted))
   - type: testimonials_slide
     title: Historias reales de crecimiento profesional en tech
     description: Las experiencias de nuestros graduados muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.

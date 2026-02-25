@@ -49,7 +49,7 @@ sections:
       title: Get the Full Program Overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send Me the Details
+        text: Send me the details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -57,17 +57,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: {{ cybersecurity_week_duration | 16 }}-Week Intensive Program
+          text: {{ cybersecurity_week_duration | 16 }}-week intensive program
         - icon: IconBriefcase
-          text: Employment-First Curriculum
+          text: Employment-first curriculum
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback
+          text: AI-Powered learning & feedback
         - icon: IconUsers
           text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 Mentorship
+          text: Unlimited 1:1 mentorship
         - icon: book
-          text: Real-World Cybersecurity Portfolio
+          text: Real-world cybersecurity portfolio
     paddingY:
       desktop: md
     marginY:
@@ -244,8 +244,8 @@ sections:
           - Nessus
           - Nmap
         duration: 8 HOURS
-        date: 15/01/2025
         difficulty: medium
+        date: 15/01/2025
       - title: Penetration Testing Lab
         description: Conduct authorized penetration tests on simulated environments using Metasploit. Exploit vulnerabilities, establish persistence, and document your findings following professional pentesting methodologies.
         image: pentesting
@@ -253,8 +253,8 @@ sections:
           - Metasploit
           - Pentesting
         duration: 12 HOURS
-        date: 01/02/2025
         difficulty: hard
+        date: 01/02/2025
       - title: Incident Response Simulation
         description: Analyze network traffic with Wireshark to detect and respond to security incidents. Create incident reports, timeline reconstructions, and remediation plans based on real attack patterns.
         image: incident-response
@@ -262,14 +262,14 @@ sections:
           - Wireshark
           - DFIR
         duration: 10 HOURS
-        date: 15/02/2025
         difficulty: hard
+        date: 15/02/2025
     paddingY:
       desktop: md
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: How you'll learn at 4Geeks
+    title: How You'll Learn at 4Geeks
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
     features:
       - icon: Robot
@@ -332,7 +332,7 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ average_salary_cybersecurity_short | $85 }}K+
+      - value: {{ average_salary_cybersecurity_short | $85 }}
         label: Average starting salary
         description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
@@ -340,7 +340,7 @@ sections:
           - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
           - text: "Security Engineer: {{ global_salary_security_engineer | $100K–$165K }}"
           - text: "Incident Responder: {{ global_salary_incident_responder | $85K–$140K }}"
-      - value: 500+
+      - value: 400+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
         benefits:
@@ -356,9 +356,9 @@ sections:
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
-      text: Get More Info
+      text: Get more info
       url: /en/job-guarantee
       variant: primary
     marginY:
@@ -390,8 +390,8 @@ sections:
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ price_cybersecurity | $299 }}
     tech_icons:
       - python
@@ -408,7 +408,7 @@ sections:
       - icon: IconCheck
         text: Standard tuition is {{ price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -450,7 +450,7 @@ sections:
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ price_cybersecurity | 299€ }}
     tech_icons:
@@ -472,7 +472,7 @@ sections:
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
-      text: Get More Information
+      text: Get more information
       url: /es/apply
       variant: primary
     marginY:
@@ -492,30 +492,36 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
-    version: "1.0"
     variant: carousel
-    title: Who's Hiring Our Graduates?
-    subtitle: Our alumni work at top companies around the world
-    description: Top companies hire 4Geeks graduates, with 84% landing jobs within 6 months of graduation thanks to their skills and our personalized career support.
+    title: Top Companies Hiring Our Graduates
+    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
         alt: Microsoft
       - src: /attached_assets/google-developers_1764719904190.png
         alt: Google Developers
+      - src: /attached_assets/boats_1764719939123.jpg
+        alt: Boats Group
       - src: /attached_assets/meta-logo_1764719959855.png
         alt: Meta
       - src: /attached_assets/ebay_1764719967118.png
         alt: eBay
+      - src: /attached_assets/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: /attached_assets/evernote_1764719981901.png
+        alt: Evernote
       - src: /attached_assets/telefonica_1764719987250.png
         alt: Telefonica
+      - src: /attached_assets/twilio_1764719992371.png
+        alt: Twilio
       - src: /attached_assets/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/kpmg-logo1_1764720019827.png
-        alt: KPMG
-      - src: /attached_assets/blackstone_1764720124773.png
-        alt: Blackstone
+      - src: /attached_assets/Neo9_1764720006347.png
+        alt: Neo9
+      - src: /attached_assets/jooble_1764720010702.png
+        alt: Jooble
     paddingY:
-      desktop: md
+      desktop: none
   - type: testimonials
     title: Real Students. Real Careers.
     subtitle: {{ global_total_alumni | 6,500 }}+ graduates and {{ global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
@@ -576,9 +582,9 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      automations: hard
+      submit_label: Apply now
       tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true

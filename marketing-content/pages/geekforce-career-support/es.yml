@@ -16,12 +16,12 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Career Coaching Ilimitado
-    subtitle: para Impulsar tu Carrera en Tecnología
+    title: Career coaching ilimitado
+    subtitle: para impulsar tu carrera en tecnología
     brand_mark:
       prefix: Geek
       highlight: FORCE
-      suffix: ':'
+      suffix: ":"
       color: chart-5
     description: Mentoría profesional ilimitada 1:1 adaptada a tu perfil. Desde tu CV y portafolio hasta entrevistas y plataformas de contratación con IA, te acompañamos para que consigas tu primer empleo en tecnología y sigas avanzando en tu carrera.
     marquee:
@@ -63,14 +63,14 @@ sections:
       gradientWidth: 60
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
-      ratio: '2:2'
+      ratio: "2:2"
     paddingY:
       desktop: none
     marginY:
       desktop: none sm
   - type: career_support_explain
     version: v1.0
-    heading: Geek FORCE Career Coaching
+    heading: Geek FORCE career coaching
     description: Acompañamiento profesional diseñado para ayudarte a conseguir tu primer empleo en tecnología y construir una carrera con dirección.
     background: hsl(var(--secondary))
     tabs:
@@ -186,7 +186,7 @@ sections:
             description: Melanie construyó una carrera sólida como desarrolladora de software en su país.
             achievement: Logró un aumento salarial del 100%.
   - type: graduates_stats
-    heading: Colocación Laboral
+    heading: Colocación laboral
     subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
     stats:
       - value: {{ global_job_placement_rate | 84 }}%
@@ -209,25 +209,25 @@ sections:
         col_span: 6
         row_span: 2
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
-    title: Consigue Empleo con Nuestro Proceso de Desarrollo de Carrera en 3 Pasos
+    title: Consigue empleo con nuestro proceso de desarrollo de carrera en 3 pasos
     description: Nuestro proceso estructurado está diseñado para que consigas empleo — rápido.
     steps:
       - icon: Optimization
-        title: Optimización de Perfil
+        title: Optimización de perfil
         bullets:
           - Perfecciona LinkedIn, GitHub y portafolio para atraer reclutadores y pasar filtros basados en IA.
           - Crea un currículum que supere los sistemas de seguimiento de candidatos (ATS) y destaque tus fortalezas.
           - Muestra tus habilidades con un portafolio listo para reclutadores.
       - icon: Interview
-        title: Preparación para Entrevistas
+        title: Preparación para entrevistas
         bullets:
           - Gana confianza con entrevistas técnicas y conductuales simuladas.
           - Practica código y resolución de problemas con ejercicios auto-calificados.
           - Desarrolla estrategias personalizadas para tus entrevistas próximas.
       - icon: JobSearch
-        title: Búsqueda Estratégica de Empleo
+        title: Búsqueda estratégica de empleo
         bullets:
           - Crea un plan de búsqueda de empleo personalizado alineado con tus metas.
           - Navega plataformas de contratación con IA, desde escáneres de currículum hasta entrevistas automatizadas.
@@ -237,9 +237,9 @@ sections:
       desktop: md none
   - type: why_learn_ai
     variant: default
-    title: Garantía de Empleo* Opcional para Mayor Confianza
+    title: Garantía de empleo* opcional para mayor confianza
     subtitle: Respaldamos tu resultado profesional con un compromiso más fuerte
-    description: '<span style="font-size: 1.125rem;"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span style="font-size: 1rem;"></span></span></div>'
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Más Información
       url: /en/job-guarantee
@@ -263,7 +263,7 @@ sections:
       - toronto-canada
   - type: whos_hiring
     variant: carousel
-    title: Principales Empresas Tecnológicas que Contratan Graduados de 4Geeks
+    title: Principales empresas tecnológicas que contratan graduados de 4Geeks
     description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
     logos:
       - src: /attached_assets/twilio_1764719992371.png
@@ -293,29 +293,14 @@ sections:
     paddingY:
       desktop: sm none
   - type: testimonials_slide
-    title: Las Historias Detrás de las Estadísticas
+    title: Las historias detrás de las estadísticas
     description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - career-support
       - job-guarantee
       - price
-    marginY:
-      desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
     item_overrides:
       consigo-trabajo-despus-de-completar-el-programa:
         hideOnLocations:
@@ -460,15 +445,29 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    marginY:
+      desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados. Inicia tu transformación hoy mismo.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Postular Ahora
+      submit_label: Postular ahora
       tags: website-lead
       automations: hard
       fields:

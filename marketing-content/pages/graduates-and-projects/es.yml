@@ -18,15 +18,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Mira lo que Construyen Nuestros Estudiantes
+    title: Mira lo que construyen nuestros estudiantes
     subtitle: Explora proyectos finales de graduados de 4Geeks Academy. Apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.
-    badge: Programa Profesional
+    badge: Programa profesional
     cta_buttons:
-      - text: Comienza a Aprender Ahora
+      - text: Comienza a aprender ahora
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: Ver Currículum
+      - text: Ver currículum
         url: "#apply-modal"
         variant: outline
         icon: Book
@@ -89,7 +89,7 @@ sections:
             alt: Raspberry Sky - Acceso satelital para todos
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Seguimiento de Inventario"
+      - project_title: "IMS: Seguimiento de inventario"
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS es un sistema de inventario y logística para farmacias construido con Python, Javascript, React e integración con lectores de códigos de barras, SMS, la API de Twilio y sistemas de rastreo GPS.
         creators:
@@ -156,8 +156,7 @@ sections:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - content-and-syllabus
     marginY:

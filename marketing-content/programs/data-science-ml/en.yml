@@ -44,6 +44,8 @@ sections:
         image: /attached_assets/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
+    video:
+      url: https://youtu.be/snI-n8Ruvxg
     media:
       type: video
       src: https://www.youtube.com/watch?v=snI-n8Ruvxg&t=27s
@@ -53,7 +55,7 @@ sections:
       title: Get the Full Program Overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send Me the Details
+        text: Send me the details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -61,19 +63,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 18-Week Intensive Program
+          text: {{ data_science_week_duration | 18 }}-week intensive program
         - icon: IconBriefcase
-          text: Employment-First Curriculum
+          text: Employment-first curriculum
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback
+          text: AI-Powered learning & feedback
         - icon: IconUsers
           text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 Mentorship
+          text: Unlimited 1:1 mentorship
         - icon: book
-          text: Real-World DS & ML Portfolio
-    video:
-      url: https://youtu.be/snI-n8Ruvxg
+          text: Real-world DS & ML portfolio
     paddingY:
       desktop: md
     marginY:
@@ -151,7 +151,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why Data Science now?
+    title: Why Data Science Now?
     subtitle: Data fuels the AI revolution.
     description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
     background: hsl(var(--background))
@@ -160,7 +160,7 @@ sections:
         value: 36%
         title: projected growth rate the next decade
       - id: "3"
-        value: {{ starting_salary_datascience | $90K }}+
+        value: {{ salary_data_scientist | 22.000€ }}
         title: Average starting salary for data scientists
   - type: syllabus
     variant: program-modules
@@ -312,9 +312,9 @@ sections:
           - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | $90K–$150K }}"
           - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
           - text: "AI Engineer: {{ average_salary_ai_engineer | $100K–$160K }}"
-      - value: 500+
+      - value: 400+
         label: Hiring Partners
-        description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -324,15 +324,14 @@ sections:
     useSolidCard: true
     paddingY:
       mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
+      desktop: none lg
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
     subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
-        title: Add the Job Guarantee to your payment plan
+        title: Add the job guarantee to your payment plan
       - icon: Users
         title: Complete the program and follow the GeekFORCE career process
       - icon: Award
@@ -340,13 +339,32 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ price_datascience | $299 }}
     tech_icons:
       - python
@@ -405,7 +423,7 @@ sections:
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ price_datascience | Starting at €200 }}
     tech_icons:
@@ -427,7 +445,7 @@ sections:
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
-      text: Get More Information
+      text: Get more information
       url: /es/apply
       variant: primary
     marginY:
@@ -448,7 +466,7 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Top Companies Hiring Our Graduates
+    title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -528,11 +546,6 @@ sections:
     title: Frequently Asked Questions
     related_features:
       - data-science
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: sm md
-    background: hsl(var(--muted))
     item_overrides:
       how-long-does-it-take-to-complete-the-data-science-program:
         hideOnLocations:
@@ -547,17 +560,22 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: sm md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start your Data Science career?
+    title: Ready to Start Your Data Science Career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      automations: hard
+      submit_label: Apply now
       tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
@@ -618,4 +636,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-

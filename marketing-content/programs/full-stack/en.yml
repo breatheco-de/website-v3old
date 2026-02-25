@@ -56,10 +56,10 @@ sections:
     tutors_label: "Your instructors:"
     description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
     signup_card:
-      title: Get the Full Program Overview
+      title: Get the full program overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send Me the Details
+        text: Send me the details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -67,17 +67,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: IconCalendar
-          text: 20-Week Track
+          text: 20-week track
         - icon: IconCalendarBolt
-          text: 12-Week Accelerated Morning Track
+          text: 12-week accelerated morning track
         - icon: code
-          text: Interactive Coding Exercises
+          text: Interactive coding exercises
         - icon: robot
-          text: AI-Powered Feedback
+          text: AI-powered deedback
         - icon: calendar
-          text: {{ global_teacher_student_ratio | 1:7 }} teacher Student Ratio
+          text: {{ global_teacher_student_ratio | 1:7 }} teacher student ratio
         - icon: users
-          text: 1:1 Mentorship
+          text: 1:1 mentorship
     paddingY:
       desktop: md lg
     marginY:
@@ -157,9 +157,9 @@ sections:
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
-      text: Get More Info
+      text: Get more info
       url: /en/job-guarantee
       variant: primary
     marginY:
@@ -361,16 +361,16 @@ sections:
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
       - value: {{ global_salary_increase | 55 }}%
-        label: Average Salary Increase
+        label: Average salary increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
           - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
           - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer }}"
           - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
           - text: "Backend Services Developer: {{ average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 500+
+      - value: 400+
         label: Hiring partners
-        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -390,8 +390,8 @@ sections:
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
       - openai
@@ -407,7 +407,7 @@ sections:
       - icon: IconCheck
         text: Standard tuition is {{ price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -449,7 +449,7 @@ sections:
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
@@ -492,7 +492,7 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Top Companies Hiring Our Graduates
+    title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -577,13 +577,13 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become a Full Stack Developer?
+    title: Ready to become a Full Stack Developer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Apply now
       tags: website-lead
       automations: hard
       fields:

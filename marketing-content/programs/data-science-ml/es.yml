@@ -44,10 +44,10 @@ sections:
     tutors_label: "Tus tutores:"
     description: Prepárate para roles de alta demanda en ciencia de datos y machine learning a través de proyectos prácticos, mentoría ilimitada y soporte de carrera diseñado para que consigas empleo.
     signup_card:
-      title: Obtén el Programa Completo
+      title: Obtén el programa completo
       description: Accede al plan de estudios completo, horarios y todo lo que necesitas saber.
       cta_button:
-        text: Envíame el Plan de Estudios
+        text: Envíame el plan de estudios
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -55,17 +55,17 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa Intensivo de {{ data_science_week_duration | 18 }} Semanas
+          text: Programa intensivo de {{ data_science_week_duration | 18 }} Semanas
         - icon: IconBriefcase
-          text: Plan de Estudios Orientado al Empleo
+          text: Plan de estudios orientado al empleo
         - icon: IconRobot
-          text: Aprendizaje y Retroalimentación con IA
+          text: Aprendizaje y retroalimentación con IA
         - icon: IconUsers
           text: Ratio de {{ global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
         - icon: IconUserCheck
-          text: Mentoría 1:1 Ilimitada
+          text: Mentoría 1:1 ilimitada
         - icon: book
-          text: Portafolio Real de Data Science y ML
+          text: Portafolio real de Data Science y ML
     paddingY:
       desktop: md
     marginY:
@@ -156,7 +156,7 @@ sections:
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
     variant: program-modules
-    program_title: Lo que Aprenderás en el Programa de Ciencia de Datos & Machine Learning
+    program_title: Lo que aprenderás en el programa de ciencia de Datos & Machine Learning
     program_description: Domina el conjunto de herramientas estándar de la industria utilizado por equipos de datos modernos. Ve más allá del análisis simple para construir sistemas listos para producción, desde la ingeniería de datos crudos hasta el despliegue de modelos predictivos que las empresas usan para impulsar la innovación y escalar.
     tech_logos:
       - name: Python
@@ -229,11 +229,11 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md lg
+      desktop: md
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: El Modelo de Aprendizaje 4Geeks
+    title: El Modelo de aprendizaje 4Geeks
     description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
     features:
       - icon: Robot
@@ -277,9 +277,9 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
-    title: Resultados Profesionales
+    title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
@@ -326,8 +326,7 @@ sections:
     useSolidCard: true
     paddingY:
       mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
+      desktop: none lg
   - type: features_grid
     variant: highlight
     title: Inscríbete con Garantía de Empleo*
@@ -364,9 +363,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
+    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
     financing_text: Financiamiento en cuotas desde
     financing_amount: {{ price_datascience | 200€ }}
     tech_icons:
@@ -410,9 +409,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
     financing_amount: {{ price_datascience | 200€ }}
     tech_icons:
@@ -429,7 +428,7 @@ sections:
       - icon: IconCheck
         text: La matrícula estándar es {{ price_full_datascience | $14,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -468,7 +467,7 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Contratan a Nuestros Graduados
+    title: Empresas que contratan a nuestros graduados
     subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -498,7 +497,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
-    title: Éxito Profesional Comprobado
+    title: Éxito profesional comprobado
     subtitle: “Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
@@ -541,23 +540,13 @@ sections:
         comment: La transición de la industria musical a tech fue desafiante pero 4Geeks lo hizo posible. Ahora trabajo como desarrollador y Mentor, ayudando a otros a lograr el mismo sueño.
         outcome: +100% aumento salarial
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: md none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - data-science
-    cta:
-      text: ¿Todavía tienes preguntas?
-      button:
-        label: Habla con un Asesor
-        url: /contact
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: sm md
-    background: hsl(var(--muted))
     item_overrides:
       cunto-tiempo-toma-completar-el-programa-de-data-science:
         hideOnLocations:
@@ -572,18 +561,55 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    cta:
+      text: ¿Todavía tienes preguntas?
+      button:
+        label: Habla con un Asesor
+        url: /contact
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: sm md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera en Ciencia de Datos?
-    subtitle: Únete a miles de graduados que han transformado sus carreras con 4Geeks.
-    background: primary
-    buttons:
-      - text: Empieza a Aprender Ahora
-        url: /es/apply
-        variant: secondary
-      - text: Habla con un Asesor
-        url: /contact
-        variant: outline
+    title: ¿Listo para iniciar tu carrera en Ciencia de Datos?
+    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Aplicar Ahora
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+        program:
+          visible: false
+          required: true
+          default: cybersecurity
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información sobre cursos y promociones
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
     paddingY:
       desktop: md
   - type: sticky_cta

@@ -4697,6 +4697,14 @@
       "tags": ["avatar", "portrait"],
       "usage_count": 0,
       "hash": ""
+    },
+    "logo-fonce": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo-fonce.png",
+      "alt": "Image: logo-fonce",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "3ca682a0c006128b46266af0a0a19a2c021ac10df9c518c82b50b2f6258401d0"
     }
   }
 }

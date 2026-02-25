@@ -16,9 +16,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Mejores Bootcamps de Programación
+    title: Mejores bootcamps de programación
     subtitle: 4Geeks Academy recibe los más altos reconocimientos de Forbes, SwitchUp y líderes de la industria por nuestros programas prácticos y enfocados en la carrera profesional.
-    badge: Premios y Reconocimientos
+    badge: Premios y reconocimientos
     image_id: academy_header_coding
     image_full_width: true
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -26,7 +26,7 @@ sections:
       desktop: lg none
   - type: press_mentions
     version: v1.0
-    title: Nuestros Premios
+    title: Nuestros premios
     subtitle: Reconocidos globalmente por excelencia en educación tecnológica
     subtitle_color: hsl(var(--primary))
     columns: 3

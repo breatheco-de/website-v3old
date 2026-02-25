@@ -178,6 +178,196 @@ sections:
           text: Become a partner
           url: /en
           variant: outline
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: partnership_carousel
+    variant: split-card
+    vertical_cards: true
+    version: v1.0
+    heading: {{ total_scholarships | $20 }}+ Million in Scholarships
+    subtitle: Backed by global institutions and industry leaders, we’ve awarded over 17 million in scholarships to expand access to tech careers worldwide.
+    background: hsl(var(--muted))
+    slides:
+      - image_id: student_coding_laptop
+        object_position: 100% 80%
+        title: Digital Talent Scholarship and 4Geeks Academy
+        subtitle: Launched by ONCE Foundation
+        description: The ONCE Foundation, through its Digital Talent programme, promotes training in technological skills through a partial scholarship to improve the employability of people with disabilities. In collaboration with 4Geeks Academy, this scholarship provides access to intensive training programmes in programming, data science, artificial intelligence and other digital areas with high labour demand.
+        stats:
+          - value: 20%
+            label: Cost borne by the student + taxes
+          - value: "+10"
+            label: Geeks who benefited
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+          - image_id: logo-fonce
+            alt: "Image: logo-fonce"
+        press_references:
+          - text: Digital Talent
+            url: https://portalentodigital.fundaciononce.es/becas
+            source: ONCE Foundation
+        cta:
+          text: Conviértete en partner
+          url: /en/partners
+          variant: primary
+      - image_id: united_way_event
+        object_position: 100% 80%
+        title: United Way Miami and 4Geeks Academy
+        subtitle: Launching the Miami Workforce Project
+        description: United Way Miami has partnered with 4Geeks Academy to launch the Miami Workforce Project. This transformative program was created to provide top-quality education and training to Miami-Dade County residents and is made possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding training with no upfront costs.
+        stats:
+          - value: $1mm
+            label: Total cost
+          - value: "100"
+            label: Geeks benefited
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Miami Herald
+            url: https://www.miamiherald.com/news/business/article263937731.html
+            source: Miami Herald
+          - text: Refresh Miami
+            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
+            source: Refresh Miami
+          - text: See full project (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
+            source: PDF
+        cta:
+          text: Become a partner
+          url: /en/partners
+          variant: primary
+      - image_id: crusa_forte_scholarship
+        object_position: 100% 80%
+        title: Costa Rica Forte and 4Geeks Academy
+        subtitle: Boosting talent development in Costa Rica
+        description: In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent development in Costa Rica. This program has trained over 35 students in high-demand digital technologies, focusing on women from areas with high unemployment. Through the program, participants receive free training, enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
+        stats:
+          - value: $50,000
+            label: Total cost
+          - value: "35"
+            label: Geeks benefited
+        institution_logos:
+          - image_id: bid_logo
+            alt: BID logo
+          - image_id: logo_crusa
+            alt: CRUSA Foundation logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Periodico Mensaje
+            url: https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
+            source: Periodico Mensaje
+          - text: La Republica
+            url: https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
+            source: La Republica
+          - text: See full project (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/FORTE%20Report.pdf
+            source: PDF
+        cta:
+          text: Become a partner
+          url: /en
+          variant: primary
+      - image_id: costa_rica_city
+        object_position: 10% 80%
+        title: Costa Rica-CINDE and 4Geeks Project
+        subtitle: Investing in Costa Rica's tech talent
+        description: In collaboration with the Ministry for Science, Technology, Telecommunication and Innovation of Costa Rica, the IDB launched a program to invest in Costa Rica's talent. Together, we're helping around 250 students become skilled software developers, opening doors to better job opportunities after graduation.
+        stats:
+          - value: $1.5mm
+            label: Total cost
+          - value: "212"
+            label: Geeks benefited
+        institution_logos:
+          - image_id: logo_crusa
+            alt: CRUSA Foundation logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Revista Summa
+            url: https://revistasumma.com/costa-rica-y-bid-lanzan-becas-para-aprender-programacion/
+            source: Revista Summa
+          - text: IDB Press
+            url: https://www.iadb.org/es/idb-blog
+            source: IDB Press
+          - text: Cultura Costa Rica
+            url: https://culturacr.net/4geeks-academy-ofrecera-becas-del-100-para-aprender-programacion/
+            source: Cultura Costa Rica
+          - text: See full project (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            source: PDF
+        cta:
+          text: Become a partner
+          url: /en
+          variant: outline
+      - image_id: uruguay_city
+        object_position: 10% 80%
+        title: UTEC and 4Geeks
+        subtitle: Training Uruguayans in coding
+        description: This project was possible thanks to a combined effort between UTEC, IDB, and 4Geeks. The goal was to train Uruguayans in coding and leverage tech-driven growth in the country.
+        stats:
+          - value: 175k
+            label: Total cost
+          - value: "60"
+            label: Geeks benefited
+        institution_logos:
+          - image_id: bid_logo
+            alt: Interamerican Development Bank logo
+          - image_id: logo_utec
+            alt: UTEC logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: El País
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            source: El País
+          - text: San José Ahora
+            url: https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
+            source: San José Ahora
+          - text: Marca País
+            url: https://www.uruguayxxi.gub.uy/es/marca-pais/
+            source: Marca País
+          - text: See full project (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Uruguay%20Projects.pdf
+            source: PDF
+        cta:
+          text: Become a partner
+          url: /en
+          variant: outline
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: testimonials_slide
     title: Where Access Turns Into Real Careers
     description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.

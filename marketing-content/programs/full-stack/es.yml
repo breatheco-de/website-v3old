@@ -53,10 +53,10 @@ sections:
     tutors_label: "Tus instructores:"
     description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     signup_card:
-      title: Obtén el Programa Completo
+      title: Obtén el programa completo
       description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar Información
+        text: Solicitar información
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -119,10 +119,10 @@ sections:
     tutors_label: "Tus instructores:"
     description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     signup_card:
-      title: Obtén el Programa Completo
+      title: Obtén el programa completo
       description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar Información
+        text: Solicitar información
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -239,9 +239,9 @@ sections:
       desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
-    title: Tu Futuro Profesional, con Garantía*
+    title: Tu futuro profesional, con garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
+    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
     cta:
       text: Conocer más
       url: /es/trabajo-garantizado
@@ -271,9 +271,8 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: syllabus
-    version: "1.0"
     variant: program-modules
-    program_title: Lo Que Aprenderás en el Programa Full Stack
+    program_title: Lo que aprenderás en el programa Full Stack
     program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
     tech_logos:
       - name: HTML5
@@ -346,7 +345,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Aprende Construyendo Proyectos Reales
+    title: Aprende construyendo proyectos reales
     subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
       - title: Construye una API REST de StarWars
@@ -375,14 +374,14 @@ sections:
         duration: 40 HORAS
         difficulty: hard
         date: 01/03/2023
-    paddingY:
-      desktop: md sm
     marginY:
       desktop: none md
+    paddingY:
+      desktop: md sm
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: Todo Lo que Necesitas Para Lanzar Tu Carrera en Tecnología
+    title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
@@ -418,7 +417,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Resultados Profesionales
+    title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: "AI Software Engineer: {{ average_salary_ai_fluent_software_developer | $20K–$30K }}"
@@ -471,9 +470,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
+    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
     financing_text: Financiamiento en cuotas desde
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
@@ -517,9 +516,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
@@ -536,7 +535,7 @@ sections:
       - icon: IconCheck
         text: La matrícula estándar es {{ price_full_fullstack | $10,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -575,7 +574,7 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Contratan a Nuestros Graduados
+    title: Empresas que contratan a nuestros graduados
     subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -602,12 +601,12 @@ sections:
         alt: Neo9
       - src: /attached_assets/jooble_1764720010702.png
         alt: Jooble
-    paddingY:
-      desktop: none
     marginY:
       desktop: none md
+    paddingY:
+      desktop: none
   - type: testimonials
-    title: Éxito Profesional Comprobado
+    title: Éxito profesional comprobado
     subtitle: Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
@@ -652,14 +651,9 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - full-stack
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
     item_overrides:
       cunto-dura-el-programa-full-stack:
         hideOnLocations:
@@ -674,15 +668,20 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Convertirte en Desarrollador Full Stack?
+    title: ¿Listo para convertirte en Desarrollador Full Stack?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: Aplicar ahora
       tags: website-lead
       automations: hard
       fields:

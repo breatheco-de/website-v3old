@@ -97,7 +97,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: 24 weeks
+        duration: {{ ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -111,7 +111,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 20 }} weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -128,7 +128,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
@@ -142,7 +142,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -175,7 +175,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: 24 weeks
+        duration: {{ ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -187,7 +187,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 20 }} weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -202,7 +202,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
@@ -214,7 +214,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:

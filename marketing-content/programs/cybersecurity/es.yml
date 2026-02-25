@@ -46,10 +46,10 @@ sections:
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
     signup_card:
-      title: Obtén el Programa Completo
+      title: Obtén el programa completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar Información
+        text: Solicitar información
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -57,17 +57,17 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa Intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
+          text: Programa intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
         - icon: IconBriefcase
-          text: Programa Orientado a la Práctica
+          text: Programa orientado a la práctica
         - icon: IconRobot
-          text: Aprendizaje y Feedback con IA
+          text: Aprendizaje y feedback con IA
         - icon: IconUsers
           text: Relación {{ global_teacher_student_ratio | 7:1 }} de estudiantes a instructor
         - icon: IconUserCheck
-          text: Mentoría 1:1 Ilimitada
+          text: Mentoría 1:1 ilimitada
         - icon: book
-          text: Portafolio con Proyectos Reales
+          text: Portafolio con proyectos reales
     paddingY:
       desktop: md
     marginY:
@@ -145,7 +145,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: La Falta de Especialistas en Ciberseguridad es tu Oportunidad
+    title: La falta de especialistas en Ciberseguridad es tu Oportunidad
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
     description: Con una brecha global significativa de talento e inversiones récord en ciberdefensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.
     background: bg-muted/30
@@ -161,7 +161,7 @@ sections:
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules
-    program_title: Lo que Aprenderás en el Programa de Ciberseguridad
+    program_title: Lo que aprenderás en el programa de Ciberseguridad
     program_description: Domina el stack completo de ciberseguridad desde seguridad de redes hasta pruebas de penetración. Desarrolla habilidades defensivas y ofensivas del mundo real usando las herramientas estándar de la industria que los empleadores buscan.
     tech_logos:
       - name: Linux
@@ -234,7 +234,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Aprende Defendiendo Sistemas Reales
+    title: Aprende defendiendo sistemas reales
     subtitle: Obtén experiencia práctica con ejercicios que simulan escenarios reales de ciberseguridad. Construye un portafolio de proyectos de seguridad que demuestren tus capacidades defensivas y ofensivas.
     items:
       - title: Evaluación de Vulnerabilidades de Red
@@ -244,8 +244,8 @@ sections:
           - Nessus
           - Nmap
         duration: 8 HOURS
-        date: 15/01/2025
         difficulty: medium
+        date: 15/01/2025
       - title: Laboratorio de Pruebas de Penetración
         description: Realiza pruebas de penetración autorizadas en entornos simulados usando Metasploit. Explota vulnerabilidades, establece persistencia y documenta tus hallazgos siguiendo metodologías profesionales de pentesting.
         image: pentesting
@@ -253,8 +253,8 @@ sections:
           - Metasploit
           - Pentesting
         duration: 12 HOURS
-        date: 01/02/2025
         difficulty: hard
+        date: 01/02/2025
       - title: Simulación de Respuesta a Incidentes
         description: Analiza tráfico de red con Wireshark para detectar y responder a incidentes de seguridad. Crea reportes de incidentes, reconstrucciones de líneas de tiempo y planes de remediación basados en patrones de ataque reales.
         image: incident-response
@@ -262,14 +262,14 @@ sections:
           - Wireshark
           - DFIR
         duration: 10 HOURS
-        date: 15/02/2025
         difficulty: hard
+        date: 15/02/2025
     paddingY:
       desktop: md
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: Todo Lo que Necesitas Para Lanzar Tu Carrera en Tecnología
+    title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
@@ -305,7 +305,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Inserción Laboral Comprobada
+    title: Inserción laboral comprobada
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
@@ -354,9 +354,9 @@ sections:
       desktop: md
   - type: why_learn_ai
     variant: laptop-edge
-    title: Tu Futuro Profesional, con Garantía*
+    title: Tu futuro profesional, con garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
+    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
     cta:
       text: Conocer más
       url: /es/trabajo-garantizado
@@ -388,9 +388,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% con el pago anticipado."
+    discount_text: "Descuento por pago completo: Ahorra 10% con el pago anticipado."
     financing_text: Financiamiento en cuotas desde
     financing_amount: {{ price_cybersecurity | 299€ }}
     tech_icons:
@@ -434,9 +434,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
     financing_amount: {{ price_cybersecurity | $299 }}
     tech_icons:
@@ -453,7 +453,7 @@ sections:
       - icon: IconCheck
         text: La matrícula estándar es {{ price_full_cybersecurity | $9,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -492,7 +492,7 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: ¿Quién Contrata a Nuestros Alumnos?
+    title: ¿Quién contrata a nuestros alumnos?
     subtitle: Nuestros graduados trabajan en importantes empresas a nivel mundial
     description: Las mejores empresas contratan graduados de 4Geeks. {{ global_job_placement_rate | 84 }}% consiguen empleo dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
     logos:
@@ -515,7 +515,7 @@ sections:
     paddingY:
       desktop: md
   - type: testimonials
-    title: Éxito Profesional Comprobado
+    title: Éxito profesional comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
       average: {{ global_review_rating | 4.5 }}
@@ -560,7 +560,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - cybersecurity
     paddingY:
@@ -568,13 +568,13 @@ sections:
     background: muted
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Convertirte en Ingeniero en Ciberseguridad?
+    title: ¿Listo para convertirte en Ingeniero en Ciberseguridad?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: Aplicar ahora
       tags: website-lead
       automations: hard
       fields:

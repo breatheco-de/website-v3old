@@ -17,9 +17,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: 4Geeks Academy vs Other Programs
+    title: 4Geeks Academy vs other programs
     subtitle: See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship and lifetime career support, everything we do is designed to help you launch a thriving career.
-    badge: Why 4Geeks Stands Out
+    badge: Why 4Geeks stands out
     image:
       src: /attached_assets/unsplash_QckxruozjRg_1765395521123.png
       alt: Students coding together at a table with laptops
@@ -30,27 +30,27 @@ sections:
       desktop: none md
   - type: comparison_table
     version: "1.0"
-    title: Launching Successful Tech Careers in the AI Era
+    title: Launching successful tech careers in the AI era
     subtitle: "We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:"
     columns:
       - name: Feature
       - name: 4Geeks Academy
         highlight: true
-      - name: Industry Average / Competitors
+      - name: Industry average / competitors
     rows:
-      - feature: Career Support
+      - feature: Career support
         values:
           - Personalized, lifelong guidance
           - Limited or short-term support
-      - feature: Teacher-to-Student Ratio
+      - feature: Teacher-to-student ratio
         values:
           - {{ global_teacher_student_ratio | 1:7 }}
           - Usually 1:10+
-      - feature: AI-Powered Feedback
+      - feature: AI-powered feedback
         values:
           - Personalized to your learning progress
           - Rarely available
-      - feature: 1-on-1 Mentoring
+      - feature: 1-on-1 mentoring
         values:
           - Unlimited, lifelong access
           - Mostly limited sessions
@@ -58,7 +58,7 @@ sections:
         values:
           - Continuously updated to fit market needs
           - Updates vary by provider
-      - feature: Hiring Rate
+      - feature: Hiring rate
         values:
           - ~{{ global_job_placement_rate | 84 }}% within 6 months
           - Varies; mostly unreported
@@ -66,11 +66,11 @@ sections:
         values:
           - Strong local & global network
           - Depends on school
-      - feature: Class Format
+      - feature: Class format
         values:
           - Online & in-person options
           - Usually one format only
-      - feature: Prior Experience
+      - feature: Prior experience
         values:
           - No experience required
           - Most require prior skills or assessments
@@ -81,21 +81,21 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Hyperpersonalized Learning & Support That Lasts a Lifetime
+    title: Hyperpersonalized learning & support that lasts a lifetime
     description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
     bullets:
-      - heading: Unlimited 1:1 Mentorship
+      - heading: Unlimited 1:1 mentorship
         text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
-      - heading: AI-Powered Learning & Feedback
+      - heading: AI-Powered learning & feedback
         text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
-      - heading: Lifelong Career Support
+      - heading: Lifelong career support
         text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
     footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: features_grid
     version: "1.0"
     variant: stats-cards
-    title: Graduate Success by the Numbers
+    title: Graduate success by the numbers
     subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
     use_card: true
     items:
@@ -108,20 +108,20 @@ sections:
     marginY:
       desktop: lg
   - type: value_proof_panel
-    title: Recognized Globally for Excellence
+    title: Recognized globally for excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Coding Bootcamps Worldwide
+        title: Top 5 coding bootcamps worldwide
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Best Student Support & Best Value
+        title: Best student support & best value
         source: Course Report, SwitchUp
       - icon: Users
         title: 35,000+ Graduates Across 20+ Countries
         description: A global community of successful tech professionals
       - icon: Certificate
-        title: Industry-Recognized Certificates
+        title: Industry-recognized certificates
         description: Credentials that employers trust and value
     media:
       type: image
@@ -136,20 +136,20 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Making Tech Careers Accessible
+    heading: Making tech careers accessible
     description: Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most flexible, student-friendly payment and scholarship options in the industry.
     cards:
       - icon: CurrencyDollar
-        title: Affordable Tuition
+        title: Affordable tuition
         description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
       - icon: CreditCard
-        title: Flexible Financing
+        title: Flexible financing
         description: Financing options start from {{ lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
       - icon: Coin
-        title: Income-Based Payment
+        title: Income-based payment
         description: Start learning now and only pay once you’re earning in tech.
       - icon: School
-        title: Scholarships Available
+        title: Scholarships available
         description: Partial scholarships are available for eligible students.
     background: hsl(var(--secondary))
     marginY:
@@ -157,9 +157,9 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: Your Career Guaranteed
+      heading: Your career guaranteed
       description: "The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.&nbsp;&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 0.875rem;\"></span></span></span></a></div>"
-      badge: Results-Backed Promise
+      badge: Results-backed promise
     secondary:
       benefits:
         - text: Our curriculum is industry-aligned and AI-ready
@@ -179,12 +179,12 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: testimonials_slide
-    title: Real Careers Start Here — Just Ask Our Students
+    title: Real careers start here — just ask our students
     description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
-    title: Our Alumni Work at Top Global Companies
+    title: Our alumni work at top global companies
     subtitle: Thrive in tech with our worldwide network of hiring partners.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -214,13 +214,11 @@ sections:
     paddingY:
       desktop: none md
   - type: faq
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - online-platform
       - certification
       - career-support
-    paddingY:
-      desktop: md
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:
@@ -246,6 +244,8 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    paddingY:
+      desktop: md
   - type: cta_banner
     version: "1.0"
     title: Ready to get started?
@@ -254,7 +254,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Apply now
       tags: website-lead
       automations: hard
       fields:
