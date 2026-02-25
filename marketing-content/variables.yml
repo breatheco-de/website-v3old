@@ -439,3 +439,7 @@ fullstack_week_duration:
   default: "20 semanas"
 total_scholarships:
   default: "20"
+  conditions:
+    - query:
+        region: "europe"
+      value: "17M€"
