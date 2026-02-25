@@ -26,7 +26,7 @@ sections:
       desktop: lg none
   - type: press_mentions
     version: v1.0
-    title: Nuestros Premios
+    title: Nuestros premios
     subtitle: Reconocidos globalmente por excelencia en educación tecnológica
     subtitle_color: hsl(var(--primary))
     columns: 3
