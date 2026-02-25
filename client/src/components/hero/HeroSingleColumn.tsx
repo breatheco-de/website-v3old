@@ -1,24 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UniversalImage } from "@/components/UniversalImage";
+import { Avatar } from "@/components/ui/avatar";
+import UniversalImage from "@/components/UniversalImage";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroSingleColumn } from "@shared/schema";
 import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import avatar1 from "@assets/generated_images/Woman_profile_headshot_1_608aff01.webp";
-import avatar2 from "@assets/generated_images/Man_profile_headshot_1_0850c276.webp";
-import avatar3 from "@assets/generated_images/Woman_profile_headshot_2_a0ea2c29.webp";
-import avatar4 from "@assets/generated_images/Man_profile_headshot_2_516b72e4.webp";
+
+const DEFAULT_AVATAR_IDS = [
+  "woman-profile-headshot-1-608aff01",
+  "man-profile-headshot-1-0850c276",
+  "woman-profile-headshot-2-a0ea2c29",
+  "man-profile-headshot-2-516b72e4",
+];
 
 interface HeroSingleColumnProps {
   data: HeroSingleColumn;
 }
 
 export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
-  const avatars = [avatar1, avatar2, avatar3, avatar4];
+  const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
 
   return (
@@ -57,15 +60,17 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
             data-testid="trust-bar"
           >
             <div className="flex -space-x-2">
-              {avatars.map((avatar, index) => (
+              {avatarIds.map((avatarId, index) => (
                 <Avatar 
                   key={index} 
                   className="h-8 w-8 border-2 border-background"
                 >
-                  <AvatarImage src={avatar} alt={`Student ${index + 1}`} />
-                  <AvatarFallback className="bg-primary/20 text-xs">
-                    {String.fromCharCode(65 + index)}
-                  </AvatarFallback>
+                  <UniversalImage
+                    id={avatarId}
+                    alt={`Student ${index + 1}`}
+                    className="h-full w-full"
+                    style={{ objectFit: "cover" }}
+                  />
                 </Avatar>
               ))}
             </div>

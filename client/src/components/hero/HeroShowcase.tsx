@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroShowcase } from "@shared/schema";
 import UniversalImage from "@/components/UniversalImage";
@@ -69,18 +69,12 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
               <div className="flex -space-x-2">
                 {avatarIds.map((avatarId, index) => (
                   <Avatar key={index} className="h-8 w-8 border-2 border-background">
-                    {avatarIds.length > 0 ?
-                      <UniversalImage
-                        id={avatarId}
-                        alt={`User ${index + 1}`}
-                        className="h-full w-full"
-                        style={{ objectFit: "cover" }}
-                      />
-                      :
-                      <AvatarFallback className="bg-primary/20 text-xs">
-                        {String.fromCharCode(65 + index)}
-                      </AvatarFallback>
-                    }
+                    <UniversalImage
+                      id={avatarId}
+                      alt={`User ${index + 1}`}
+                      className="h-full w-full"
+                      style={{ objectFit: "cover" }}
+                    />
                   </Avatar>
                 ))}
               </div>
