@@ -87,7 +87,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: md lg
+      desktop: md
     background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
     version: "1.0"
