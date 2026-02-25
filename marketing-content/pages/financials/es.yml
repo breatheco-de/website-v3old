@@ -350,7 +350,7 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none lg
     paddingY:
       desktop: md lg
     showOnLocations:
