@@ -228,6 +228,9 @@ global_salary_security_engineer:
     - query:
         region: "europe"
       value: "22.000€- 30.000€"
+    - query:
+        region: "latam"
+      value: "$45K – $75K"
 global_salary_incident_responder:
   default: "$85K–$140K"
   conditions:
