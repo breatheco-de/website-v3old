@@ -467,7 +467,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Postular Ahora
+      submit_label: Postular ahora
       tags: website-lead
       automations: hard
       fields:
