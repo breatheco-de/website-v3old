@@ -261,6 +261,9 @@ average_salary_fullstack:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$45K – $70K"
 mounthly_price_bootcamp:
   default: "200 €"
   conditions:
