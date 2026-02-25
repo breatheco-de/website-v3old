@@ -17,7 +17,7 @@ context:
   when_to_use: Para visitantes del área de Miami o interesados en oportunidades tech en el creciente ecosistema de South Florida.
   target_audience: Residentes locales de Miami, inmigrantes latinoamericanos buscando carreras tech en EE.UU., y profesionales en las diversas industrias de South Florida.
   goals:
-    - Destacar el estatus emergente de Miami como hub tech.
+    - Destacar el estatus emergente de Miami como hub tech
     - Enfatizar el soporte bilingüe (inglés/español)
     - Mostrar alianzas locales con empleadores y oportunidades de networking
     - Resaltar la vibrante y multicultural comunidad tech
@@ -61,10 +61,10 @@ sections:
     badge: Campus Miami
     cta_buttons:
       - text: Aplicar Ahora
-        url: /es/aplica?location=miami-usa
+        url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: /syllabus
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -218,35 +218,33 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que necesitas para crecer en la industria tech de hoy
-    description: Formación orientada a IA, mentoría experta y apoyo continuo, diseñados para el ecosistema tech actual.
+    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
+    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
-      - heading: Mentoría 1:1 ilimitada y de por vida
-        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
-      - heading: Aprendizaje potenciado por IA
-        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
-      - heading: Acompañamiento profesional ilimitado y de por vida
-        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
-      - heading: Comunidad tech global activa
-        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
+      - heading: Mentoría 1:1 Ilimitada y de por Vida
+        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
+      - heading: Soporte de Aprendizaje Impulsado por IA
+        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
+      - heading: Soporte Profesional Ilimitado y de por Vida
+        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
+      - heading: Una Comunidad Tech Global Activa
+        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: /attached_assets/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en un proyecto de IA
+    image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
-    marginY:
-      desktop: lg
     paddingY:
-      desktop: md lg
-    background: hsl(var(--muted))
+      desktop: md none
   - type: testimonials_slide
     title: Historias reales de crecimiento profesional en tech
-    description: Estas experiencias muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
+    description: Las experiencias de nuestros graduados muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
     background: bg-sidebar
   - type: split_cards
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: |
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
@@ -290,15 +288,55 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: "1.0"
-    title: Historias de Éxito de Graduados de Miami
-    filter_by_location: miami-usa
+    version: v1.0
+    title: Testimonios de Nuestros Graduados
+    subtitle: Experiencias que respaldan nuestros resultados.
+    rating_summary:
+      average: "4.9"
+      count: 2,847
+    items:
+      - name: Maria Rodriguez
+        role: Ingeniera de Software
+        company: Google
+        rating: 5
+        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
+        outcome: Contratada en 4 meses
+      - name: James Chen
+        role: Desarrollador Full Stack
+        company: Spotify
+        rating: 5
+        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
+        outcome: Aumento salarial 3x
+      - name: Sarah Williams
+        role: Desarrolladora Frontend
+        company: Meta
+        rating: 5
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        outcome: Cambio de carrera a los 35
+      - name: Carlos Mendez
+        role: Ingeniero Backend
+        company: Amazon
+        rating: 4
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        outcome: Trabajo remoto conseguido
+      - name: Emily Thompson
+        role: Ingeniera DevOps
+        company: Netflix
+        rating: 5
+        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
+        outcome: Aumento salarial del 50%
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
+        outcome: Promovido en 1 año
     marginY:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Lo que Dicen Nuestros Estudiantes
-    subtitle: Escucha directamente de graduados que transformaron sus carreras
+    title: Testimonios de Nuestros Graduados
+    subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
       average: "4.9"
       count: 2,847
@@ -351,42 +389,73 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: Da el siguiente paso hacia tu carrera en tecnología
+    title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
-    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Obtener los detalles
-      tags: website-lead
-      automations: hard
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Email
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: Nombre y Apellido
         phone:
           visible: true
           required: false
-          placeholder: Número de teléfono
+          placeholder: Teléfono
         program:
-          visible: false
+          visible: true
           required: false
           default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
-    marginY:
-      desktop: lg none
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

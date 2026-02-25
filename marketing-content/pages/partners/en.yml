@@ -81,15 +81,15 @@ sections:
     version: "1.0"
     variant: stats-text
     title: Impact in Numbers
-    subtitle: Over $20M in scholarships and grants awarded
+    subtitle: Over {{ total_scholarships | $20M }} in scholarships and grants awarded
     description: 4Geeks Academy partners empower thousands of students worldwide with access to tech education, hands-on mentorship, and career opportunities that drive real results.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         title: Job placement rate within 6 months of graduation
-      - value: 5K+
+      - value: 5000+
         title: Hiring partners
-      - value: 6K+
+      - value: 6000+
         title: Students supported worldwide
     marginY:
       desktop: none lg
@@ -338,3 +338,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

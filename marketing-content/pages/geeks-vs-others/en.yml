@@ -144,7 +144,7 @@ sections:
         description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
       - icon: CreditCard
         title: Flexible Financing
-        description: Financing options start below {{ lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
+        description: Financing options start from {{ lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
       - icon: Coin
         title: Income-Based Payment
         description: Start learning now and only pay once you’re earning in tech.
@@ -287,3 +287,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

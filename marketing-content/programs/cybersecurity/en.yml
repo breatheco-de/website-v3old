@@ -23,7 +23,7 @@ sections:
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
-    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in 16 weeks.
+    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ cybersecurity_week_duration | 16 }} weeks.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -57,7 +57,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 16-Week Intensive Program
+          text: {{ cybersecurity_week_duration | 16 }}-Week Intensive Program
         - icon: IconBriefcase
           text: Employment-First Curriculum
         - icon: IconRobot
@@ -303,7 +303,7 @@ sections:
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
     title: Industry Certifications and Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
@@ -351,7 +351,40 @@ sections:
     certificate_position: right
     useSolidCard: true
     paddingY:
+      desktop: none md
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Enroll with a Job Guarantee* for Extra Confidence
+    subtitle: Back your career outcome with a stronger commitment
+    description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    cta:
+      text: Get More Info
+      url: /en/job-guarantee
+      variant: primary
+    marginY:
       desktop: md
+    paddingY:
+      desktop: none sm
+    background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
@@ -576,3 +609,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

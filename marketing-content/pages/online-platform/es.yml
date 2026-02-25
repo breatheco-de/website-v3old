@@ -17,7 +17,7 @@ sections:
     version: "1.0"
     variant: simpleTwoColumn
     title: Dentro de la Plataforma de 4Geeks
-    subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentoría humana. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.
+    subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentores expertos. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.
     image:
       src: /attached_assets/community_1764717588840.png
       alt: Estudiantes colaborando en un espacio tecnológico
@@ -166,3 +166,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

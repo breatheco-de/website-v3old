@@ -25,34 +25,6 @@ sections:
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    section_id: syllabus-modal
-    heading: Start Your Application
-    description: Fill out the form below and we'll get back to you within 24 hours.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Submit Application
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -351,3 +323,33 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

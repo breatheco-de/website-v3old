@@ -23,7 +23,7 @@ sections:
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
-    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en 16 semanas.
+    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en {{ cybersecurity_week_duration | 16 }} semanas.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -57,7 +57,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa Intensivo de {{ cybersecurity_week_duration | 16 Semanas }}
+          text: Programa Intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
         - icon: IconBriefcase
           text: Programa Orientado a la Práctica
         - icon: IconRobot
@@ -157,7 +157,7 @@ sections:
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
       - id: "3"
-        value: 442.000 M€
+        value: {{ global_spending_cybersecurity | $520B }}
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules
@@ -303,7 +303,7 @@ sections:
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
     title: Inserción Laboral Comprobada
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
@@ -352,6 +352,39 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: md
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Tu Futuro Profesional, con Garantía*
+    subtitle: Respaldamos tu resultado profesional con un compromiso real
+    description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
+    cta:
+      text: Conocer más
+      url: /es/trabajo-garantizado
+      variant: primary
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none sm
+    background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
@@ -574,3 +607,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

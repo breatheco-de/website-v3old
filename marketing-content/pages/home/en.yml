@@ -132,7 +132,7 @@ sections:
         title: Average time to get hired
       - icon: GrowthChart
         value: {{ global_salary_increase | 55 }}%
-        title: Salary increase after graduation
+        title: Average salary increase after graduation
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
@@ -263,7 +263,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: 24 weeks
+        duration: {{ ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -277,7 +277,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 2O }} weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -294,7 +294,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | 18 }} weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
@@ -308,7 +308,7 @@ sections:
         course_background: hsl(var(--primary))
       - name: Cybersecurity
         icon: Shield
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -339,6 +339,18 @@ sections:
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.

@@ -16,6 +16,44 @@ schema:
     - organization
     - website
 sections:
+  - type: testimonials_slide
+    title: Real Careers Start Here — Just Ask Our Students
+    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    testimonials:
+      - name: Loretta Thompson
+        img: /attached_assets/ttaLoretta_1764725322100.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: United Way Miami
+        description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
+        achievement: She got a 45% increase in her salary
+      - name: Rich Akers
+        img: /attached_assets/Akers_1764725327796.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark University
+        description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
+        achievement: He got a 30% increase in his salary
+  - type: testimonials_grid
+    version: v1.0
+    title: What Our Students Say
+    related_features:
+      - data-science
+    subtitle: Real stories from graduates who transformed their careers
+    title_color: hsl(var(--foreground))
+    subtitle_color: hsl(var(--muted-foreground))
+    default_box_color: hsl(var(--muted))
+    default_name_color: hsl(var(--foreground))
+    default_role_color: hsl(var(--muted-foreground))
+    default_comment_color: hsl(var(--muted-foreground))
+    default_star_color: hsl(45 93% 47%)
+    columns: 3
+    limit: 12
+    background: hsl(var(--background))
   - type: hero
     variant: course
     title: Work not harder, apply AI at Work

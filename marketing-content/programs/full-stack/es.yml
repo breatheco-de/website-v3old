@@ -37,7 +37,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: Más de 1.000 estudiantes en LATAM y EE. UU.
+      count: Más de 1000 estudiantes en LATAM y EE. UU.
     bullet_points:
       - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
       - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
@@ -64,7 +64,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa de {{ fullstack_week_duration | 20 semanas }}
+          text: Programa de {{ fullstack_week_duration | 20 }} semanas
         - icon: IconCalendarBolt
           text: Modalidad intensiva de 12 semanas (mañanas)
         - icon: code
@@ -72,7 +72,7 @@ sections:
         - icon: robot
           text: Feedback con IA en tiempo real
         - icon: calendar
-          text: Ratio 1:7 estudiante–profesor
+          text: Ratio {{ global_teacher_student_ratio | 1:7 }} estudiante–profesor
         - icon: users
           text: Mentoría personalizada 1:1
     paddingY:
@@ -130,7 +130,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa de {{ fullstack_week_duration | 20 semanas }}
+          text: Programa de {{ fullstack_week_duration | 20 }} semanas
         - icon: code
           text: +100 ejercicios interactivos de programación
         - icon: robot
@@ -247,9 +247,9 @@ sections:
       url: /es/trabajo-garantizado
       variant: primary
     marginY:
-      desktop: md
+      desktop: md sm
     paddingY:
-      desktop: none sm
+      desktop: none
     background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
@@ -263,6 +263,13 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: syllabus
     version: "1.0"
     variant: program-modules
@@ -370,6 +377,8 @@ sections:
         date: 01/03/2023
     paddingY:
       desktop: md sm
+    marginY:
+      desktop: none md
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
@@ -407,7 +416,7 @@ sections:
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
     title: Resultados Profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
@@ -458,8 +467,7 @@ sections:
       desktop: none md
     paddingY:
       mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
+      desktop: md
   - type: pricing
     version: "1.0"
     variant: product
@@ -596,6 +604,8 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
+    marginY:
+      desktop: none md
   - type: testimonials
     title: Éxito Profesional Comprobado
     subtitle: Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
@@ -705,3 +715,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

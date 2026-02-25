@@ -134,6 +134,63 @@ sections:
       desktop: lg md
     paddingY:
       desktop: md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - newyork-usa
+      - losangeles-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: comparison_table
+    version: "1.0"
+    title: Your Financing Options at a Glance
+    subtitle: Understand the key benefits and requirements of each path so you can choose with confidence.
+    columns:
+      - name: Option
+        highlight: true
+      - name: Pay in Full
+        highlight: true
+      - name: Monthly Plans
+        highlight: true
+      - name: Loans
+        highlight: true
+      - name: Income-Based Plan
+        highlight: true
+    rows:
+      - feature: Tuition Discount
+        values:
+          - 10% off
+          - "No"
+          - "No"
+          - "No"
+      - feature: Credit Check Required
+        values:
+          - "No"
+          - Low barrier
+          - "Yes"
+          - "Yes"
+      - feature: Payment Deferral After Graduation
+        values:
+          - "No"
+          - "No"
+          - "Yes"
+          - "Yes"
+      - feature: Pay Only After You’re Hired
+        values:
+          - "No"
+          - "No"
+          - "No"
+          - "Yes"
+    background: hsl(var(--background))
+    marginY:
+      desktop: lg md
+    paddingY:
+      desktop: md
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -546,3 +603,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

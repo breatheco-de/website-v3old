@@ -55,7 +55,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa Intensivo de {{ data_science_week_duration | 18 Semanas }}
+          text: Programa Intensivo de {{ data_science_week_duration | 18 }} Semanas
         - icon: IconBriefcase
           text: Plan de Estudios Orientado al Empleo
         - icon: IconRobot
@@ -354,6 +354,13 @@ sections:
       - newyork-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
@@ -579,3 +586,32 @@ sections:
         variant: outline
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

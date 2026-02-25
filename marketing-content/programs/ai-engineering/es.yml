@@ -28,9 +28,9 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduados
+      count: +6000 graduados
     bullet_points:
-      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel
+      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
       - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
       - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
     tutors:
@@ -54,7 +54,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 semanas }} o versión acelerada de 12 semanas
+          text: Programa de {{ ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
@@ -92,7 +92,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduados
+      count: +6000 graduados
     bullet_points:
       - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
       - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
@@ -118,7 +118,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 semanas }}
+          text: Programa de {{ ai_engineering_week_duration | 24 }} semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
@@ -242,7 +242,7 @@ sections:
         title: Crecimiento anual en vacantes de IA
       - id: "3"
         value: {{ average_salary_ai_engineer | $95K–$135K }}
-        title: Rango salarial inicial para Ingenieros de IA
+        title: Rango salarial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
     program_title: Plan de Estudios en Ingeniería de IA
@@ -433,14 +433,14 @@ sections:
     benefits:
       - text: "Ingeniero de Software IA: $95K–$135K"
       - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
-      - text: "Ingeniero de Agentes: $105K–$155K"
+      - text: "Ingeniero de Agentes: $105K–$150K"
       - text: "Ingeniero de Automatización de Flujos: $85K–$120K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado de 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando.
         benefits:
@@ -455,7 +455,7 @@ sections:
           - text: Optimiza tu CV, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
@@ -474,7 +474,7 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: none
+      desktop: none xl
     paddingY:
       mobile: lg
       desktop: lg
@@ -615,6 +615,8 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
+    marginY:
+      desktop: none md
   - type: testimonials
     title: Éxito Profesional Comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
@@ -749,3 +751,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
