@@ -144,6 +144,18 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: stats
     version: "1.0"
     title: Resultados de contratación por regiones
