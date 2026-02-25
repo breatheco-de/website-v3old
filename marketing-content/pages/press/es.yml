@@ -78,13 +78,13 @@ sections:
     subtitle: No solo decimos que cumplimos, el reconocimiento de fuentes confiables lo demuestra.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Bootcamps de Programación a Nivel Mundial
+        title: Top 5 bootcamps de programación a nivel mundial
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Mejor Soporte al Estudiante y Mejor Valor
+        title: Mejor soporte al estudiante y mejor valor
         source: Course Report, SwitchUp
       - icon: Users
-        title: 35,000+ Graduados en Más de 20 Países
+        title: 35,000+ graduados en más de 20 países
         description: Una comunidad global de profesionales de tecnología exitosos
     media:
       type: image
