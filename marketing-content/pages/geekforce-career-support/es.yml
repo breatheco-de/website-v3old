@@ -186,7 +186,7 @@ sections:
             description: Melanie construyó una carrera sólida como desarrolladora de software en su país.
             achievement: Logró un aumento salarial del 100%.
   - type: graduates_stats
-    heading: Colocación Laboral
+    heading: Colocación laboral
     subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
     stats:
       - value: {{ global_job_placement_rate | 84 }}%
