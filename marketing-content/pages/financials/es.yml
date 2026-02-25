@@ -464,7 +464,7 @@ sections:
       url: /es/trabajo-garantizado
       variant: primary
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none sm
     showOnLocations:
