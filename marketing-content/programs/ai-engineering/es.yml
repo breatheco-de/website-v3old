@@ -245,7 +245,7 @@ sections:
         title: Rango salarial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
-    program_title: Plan de Estudios en Ingeniería de IA
+    program_title: Plan de estudios en Ingeniería de IA
     program_description: "Aprende aplicando nuestra Metodología de Caso de Empresa: desarrolla un sistema completo de IA a lo largo de 10 hitos, desde el planteamiento inicial hasta su despliegue en producción. En 24 semanas, construye una solución funcional que refleja los estándares y flujos de trabajo de equipos de ingeniería modernos."
     tech_logos:
       - name: React
