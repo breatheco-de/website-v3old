@@ -465,7 +465,7 @@ sections:
           - text: Ingeniero de Automatización de Flujos {{ average_salary_workflow_automation_engineer | $85K–$120K }}
       - value: {{ number_of_hiring_partners_aprox | 500 }}+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: Accede a nuestra red de más de {{ number_of_hiring_partners_aprox | 400 }} empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Recomendaciones directas a empresas colaboradoras
