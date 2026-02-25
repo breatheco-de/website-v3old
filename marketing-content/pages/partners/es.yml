@@ -16,7 +16,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Construyendo el Futuro de la Tecnología, Juntos
+    title: Construyendo el futuro de la tecnología, juntos
     subtitle: 4Geeks Academy se asocia con universidades, organizaciones sin fines de lucro, iniciativas laborales y organizaciones globales para ampliar el acceso a la educación tecnológica, colocar talento diverso y cerrar la brecha de habilidades digitales, creando caminos profesionales más fuertes y una fuerza laboral lista para la era de la IA.
     image:
       src: /attached_assets/our-story_1765323971104.webp
