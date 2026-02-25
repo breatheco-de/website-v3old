@@ -496,7 +496,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
-    title: Your New Career Starts Here
+    title: Your new career starts here
     subtitle: Our programs deliver life-changing results. More than {{ global_review_count | 700 }} verified reviews prove it
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
