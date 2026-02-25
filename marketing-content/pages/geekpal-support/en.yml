@@ -45,8 +45,9 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Advance Faster, Never Lose Momentum
+    title: Advance faster, never lose momentum
     description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
+    background: gradient
   - type: human_and_ai_duo
     version: "1.0"
     heading: "Human + AI: The Perfect Support Duo"
