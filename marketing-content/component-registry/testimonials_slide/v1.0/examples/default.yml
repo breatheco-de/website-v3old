@@ -7,7 +7,7 @@ yaml: |
     description: "Our grads are in high demand, with over 84% hired within six months of finishing the program."
     testimonials:
       - name: "Loretta Thompson"
-        img: "/attached_assets/ttaLoretta_1764725322100.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg"
         status: "Graduated"
         country:
           name: "United States of America"
@@ -16,7 +16,7 @@ yaml: |
         description: "Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!"
         achievement: "She got a 45% increase in her salary"
       - name: "Rich Akers"
-        img: "/attached_assets/Akers_1764725327796.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg"
         status: "Graduated"
         country:
           name: "United States of America"
@@ -25,7 +25,7 @@ yaml: |
         description: "Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field."
         achievement: "He got a 30% increase in his salary"
       - name: "MaiLinh Tran"
-        img: "/attached_assets/MaiLinh_1764725334980.png"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png"
         status: "Graduated"
         country:
           name: "United States of America"
@@ -34,7 +34,7 @@ yaml: |
         description: "An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour."
         achievement: "She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!"
       - name: "Jorge Martín Coimbra"
-        img: "/attached_assets/coimbra_1764725341501.png"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png"
         status: "Graduated"
         country:
           name: "Uruguay"
@@ -43,7 +43,7 @@ yaml: |
         description: "Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life."
         achievement: "He got a 100% increase in his salary"
       - name: "Jean St. Cloud"
-        img: "/attached_assets/JeanSt.Cloud_1764725356935.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg"
         status: "Graduated"
         country:
           name: "United States of America"
@@ -52,7 +52,7 @@ yaml: |
         description: "Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the support of Clark University and is already performing as a developer and a Mentor."
         achievement: "He got a 100% increase in his salary"
       - name: "Alexandra Espinoza"
-        img: "/attached_assets/AlexandraEspinoza_1764725386161.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg"
         status: "Graduated"
         country:
           name: "Costa Rica"
@@ -61,7 +61,7 @@ yaml: |
         description: "Alexandra came from a total different background is been a huge revelation for her and everyone around her. She is now a successful and talented software developer in Costa Rica."
         achievement: "She got a 100% increase in her salary"
       - name: "Gabriel Salazar"
-        img: "/attached_assets/GabrielSalazar_1764725392872.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg"
         status: "Graduated"
         country:
           name: "Costa Rica"
@@ -70,7 +70,7 @@ yaml: |
         description: "Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve a new position within Microsoft where he is now working as a Software Engineer."
         achievement: "He got a 50% increase in his salary"
       - name: "Laura Magallanes"
-        img: "/attached_assets/Laura_1764725397398.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg"
         status: "Graduated"
         country:
           name: "Uruguay"
@@ -79,7 +79,7 @@ yaml: |
         description: "Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator."
         achievement: "She got a 120% increase in her salary"
       - name: "Melanie Galaretto"
-        img: "/attached_assets/MelamnieGalaretto_1764725408397.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg"
         status: "Graduated"
         country:
           name: "Uruguay"
@@ -88,7 +88,7 @@ yaml: |
         description: "Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country."
         achievement: "She got a +100% increase in her salary"
       - name: "Natia Lombardo"
-        img: "/attached_assets/NatiaLombardo_1764725413363.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg"
         status: "Graduated"
         country:
           name: "Uruguay"
@@ -96,7 +96,7 @@ yaml: |
         contributor: "UTEC-BID"
         description: "Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm."
       - name: "Luis Larraburo"
-        img: "/attached_assets/LuisLarraburo_1764725418057.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg"
         status: "Graduated"
         country:
           name: "Costa Rica"
@@ -105,7 +105,7 @@ yaml: |
         description: "Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica."
         achievement: "He got a 50% increase in his salary"
       - name: "Leandro Matonte"
-        img: "/attached_assets/Leandro_1764725403142.jpeg"
+        img: "https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg"
         status: "Graduated"
         country:
           name: "Uruguay"

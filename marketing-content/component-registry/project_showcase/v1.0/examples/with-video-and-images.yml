@@ -12,9 +12,9 @@ media:
   - type: video
     src: "OZfv9kYl0_o"
   - type: image
-    src: "/attached_assets/Screenshot_2023-05-11_at_5.59_1_1765310496047.png"
+    src: "https://storage.googleapis.com/4geeks-academy-website/media/Screenshot_2023-05-11_at_5.59_1_1765310496047.png"
     alt: "Project screenshot"
   - type: image
-    src: "/attached_assets/image_1765310359129.png"
+    src: "https://storage.googleapis.com/4geeks-academy-website/media/image_1765310359129.png"
     alt: "Project demo"
 media_position: left

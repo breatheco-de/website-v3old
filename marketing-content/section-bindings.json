@@ -127,6 +127,75 @@
       ],
       "createdAt": "2026-02-25T22:31:50.228Z",
       "name": "course_selector_usa_es"
+    },
+    {
+      "id": "bind_mm2mcowd_mf638p",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "course_selector-0yz19z"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "course_selector-7lbz78"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "course_selector-ef10qt"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "course_selector-0giqsb"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "course_selector-1tv1c5"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "course_selector-x16vga"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "course_selector-5039li"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "course_selector-nc5ay9"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "course_selector-kfb41f"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "course_selector-rgbtgl"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "course_selector-2ctw91"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "course_selector-evrfhf"
+        }
+      ],
+      "createdAt": "2026-02-25T22:41:37.549Z",
+      "name": "course_selector_europe_es"
     }
   ]
 }

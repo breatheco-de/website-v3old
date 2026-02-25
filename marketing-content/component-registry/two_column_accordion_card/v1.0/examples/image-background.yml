@@ -14,5 +14,5 @@ yaml: |
     - heading: "Career Acceleration"
       text: "Get personalized career support including resume reviews, interview prep, and direct connections to hiring partners."
   footer: "Join thousands of graduates now working at top tech companies."
-  image: "/attached_assets/feliz-empresario-laptop_1765406479465.png"
+  image: "https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png"
   image_alt: "Student working on AI project"

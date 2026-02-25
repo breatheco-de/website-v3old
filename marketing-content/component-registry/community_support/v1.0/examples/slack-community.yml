@@ -3,7 +3,7 @@ version: "1.0"
 heading: A Global Developer Community Supporting Your Growth
 description: 4Geeks is more than a bootcamp — it's a supportive network of tech pros, mentors, and fellow geeks to keep you moving forward in your career.
 background: bg-primary/5
-image: /attached_assets/Group-6606.webp
+image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
 image_alt: 4Geeks global developer community
 bullet_groups:
   - title: Slack Community

@@ -4,7 +4,7 @@ description: "A centered banner with logo and avatars on top border, title, desc
 yaml: |
   type: banner
   version: "1.0"
-  logo: /attached_assets/rigobot-logo_1764707022198.webp
+  logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
   avatars:
     - avatar-woman-1
     - avatar-man-2
