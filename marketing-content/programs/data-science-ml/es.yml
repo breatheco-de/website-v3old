@@ -593,7 +593,7 @@ sections:
         program:
           visible: false
           required: true
-          default: cybersecurity
+          default: data-scienceml
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
@@ -601,12 +601,14 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información sobre cursos y promociones
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
