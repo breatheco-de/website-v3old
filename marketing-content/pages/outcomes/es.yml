@@ -198,16 +198,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Por Qué Nuestros Graduados Siempre Consiguen Empleo
+    title: Por qué nuestros graduados siempre consiguen empleo
     description: Los excelentes resultados provienen de cómo enseñamos, apoyamos y colocamos a los estudiantes en roles tech.
     bullets:
-      - heading: Soporte Profesional GeekFORCE de por Vida
+      - heading: Soporte profesional GeekFORCE de por vida
         text: Mentoría ilimitada 1:1 en carrera, preparación de entrevistas, y coaching de CV y portafolio, diseñado para los procesos de contratación impulsados por IA actuales.
-      - heading: Mentoría Técnica GeekPAL de por Vida
+      - heading: Mentoría técnica GeekPAL de por vida
         text: Acceso ilimitado a mentores humanos que ayudan a los estudiantes a seguir progresando y ganar confianza en el mundo real.
-      - heading: Aprendizaje y Feedback Impulsado por IA
+      - heading: Aprendizaje y feedback impulsado por IA
         text: Feedback personalizado 24/7 que ayuda a los estudiantes a aprender más rápido y de forma más efectiva.
-      - heading: Red Global de Socios de Contratación
+      - heading: Red global de socios de contratación
         text: Cientos de empresas en todo el mundo que reclutan activamente a graduados de 4Geeks.
     footer: Soporte diseñado para carreras a largo plazo, no solo para el primer empleo.
     image: https://4geeksacademy.com/static/197e7cf794b47d7a7f53770a4b55186f/56f2e/marceloricigliano.webp
