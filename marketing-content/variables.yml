@@ -42,6 +42,9 @@ global_job_placement_rate:
     - query:
         region: "europe"
       value: "75"
+    - query:
+        region: "latam"
+      value: "81"
 global_salary_increase:
   default: "55"
   conditions:
@@ -51,6 +54,9 @@ global_salary_increase:
     - query:
         region: "europe"
       value: "30"
+    - query:
+        region: "latam"
+      value: "40"
 global_review_rating:
   default: "4.9"
   conditions:
@@ -435,7 +441,7 @@ data_science_week_duration:
       value: "18 "
     - query:
         region: "latam"
-      value: "16 "
+      value: "18"
     - query:
         region: "usa-canada"
       value: "16 "
@@ -451,3 +457,5 @@ total_scholarships:
     - query:
         region: "europe"
       value: "17M€"
+number_of_hiring_partners_aprox:
+  default: "400"
