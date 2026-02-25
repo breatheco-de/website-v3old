@@ -165,6 +165,8 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    marginY:
+      desktop: none lg
   - type: features_quad
     version: "1.0"
     variant: default
