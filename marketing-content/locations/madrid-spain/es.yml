@@ -119,6 +119,27 @@ sections:
     background: gradient
     marginY:
       desktop: lg none
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/4n-ZAUPIxJI
+    right:
+      heading: Por qué el Boom Tech de España Crea Oportunidad para Nuevos Desarrolladores
+      sub_heading: Madrid lidera la transformación digital de España con el 47% de todos los empleos tech y un ecosistema de startups en rápido crecimiento
+      description: El sector tech de España creció un 5,8% en 2024, generando más de 120.000 millones de euros en facturación. Madrid atrae el 85% de toda la inversión tecnológica extranjera del país y destaca entre los principales ecosistemas de startups europeos.
+      button:
+        text: Conoce nuestros programas
+        url: /es/full-stack
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -166,27 +187,6 @@ sections:
         cta_text: Discover program
         cta_url: /en/full-stack
         course_background: secondary
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://youtu.be/4n-ZAUPIxJI
-    right:
-      heading: Por qué el Boom Tech de España Crea Oportunidad para Nuevos Desarrolladores
-      sub_heading: Madrid lidera la transformación digital de España con el 47% de todos los empleos tech y un ecosistema de startups en rápido crecimiento
-      description: El sector tech de España creció un 5,8% en 2024, generando más de 120.000 millones de euros en facturación. Madrid atrae el 85% de toda la inversión tecnológica extranjera del país y destaca entre los principales ecosistemas de startups europeos.
-      button:
-        text: Conoce nuestros programas
-        url: /es/full-stack
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none sm
-    paddingY:
-      desktop: none md
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
