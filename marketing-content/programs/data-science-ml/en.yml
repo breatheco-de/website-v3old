@@ -635,6 +635,6 @@ sections:
         program:
           visible: false
           required: false
-          default: ai-engineering
+          default: data-science-ml
       success:
         message: Thanks! We'll be in touch within 24 hours.
