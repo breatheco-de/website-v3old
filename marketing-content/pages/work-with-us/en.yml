@@ -23,7 +23,7 @@ sections:
     image_id: academy_header_coding
     image_full_width: false
     marginY:
-      desktop: none md
+      desktop: none xl
   - type: two_column
     proportions:
       - 5
