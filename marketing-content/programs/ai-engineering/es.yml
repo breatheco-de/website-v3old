@@ -242,7 +242,7 @@ sections:
         title: Crecimiento anual en vacantes de IA
       - id: "3"
         value: {{ average_salary_ai_engineer | $95K–$135K }}
-        title: Rango salarial inicial para Ingenieros de IA
+        title: Rango salarial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
     program_title: Plan de Estudios en Ingeniería de IA
