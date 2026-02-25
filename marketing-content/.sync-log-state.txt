@@ -167,3 +167,7 @@
 2026-02-25T19:50:30.288Z [RESTART] Server started (instance=1a13, checkpoint=fc1e4ba96, env=development, pid=2634)
 2026-02-25T19:51:00.479Z [RESTART] Server started (instance=64c4, checkpoint=fc1e4ba96, env=development, pid=375)
 2026-02-25T19:51:02.364Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:00:34.767Z [RESTART] Server started (instance=620f, checkpoint=d8ee79dd9, env=development, pid=2117)
+2026-02-25T20:00:36.861Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:02:54.253Z [RESTART] Server started (instance=8ce4, checkpoint=d8ee79dd9, env=development, pid=2505)
+2026-02-25T20:02:55.739Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
