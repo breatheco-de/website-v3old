@@ -482,9 +482,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
     financing_amount: {{ price_ai_engineering | default: '$349' }}
     tech_icons:
