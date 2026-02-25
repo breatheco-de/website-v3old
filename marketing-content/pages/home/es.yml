@@ -373,8 +373,8 @@ sections:
       desktop: md none
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para convertirte en Ingeniero de IA?
-    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Obtén precios, detalles del programa y orientación personalizada.
     background: hsl(var(--primary))
     variant: form
     form:
