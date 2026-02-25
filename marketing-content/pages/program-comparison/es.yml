@@ -244,6 +244,18 @@ sections:
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
     footer_note: "* Los detalles del programa están sujetos a cambios"
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: comparison_table
     version: "1.0"
     title: ¿Qué Camino Se Adapta Mejor a Ti?
