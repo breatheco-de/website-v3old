@@ -435,7 +435,7 @@ data_science_week_duration:
         region: "usa-canada"
       value: "16 semanas"
 ai_engineering_week_duration:
-  default: "24 semanas"
+  default: "24 "
 cybersecurity_week_duration:
   default: "16 Semanas"
 fullstack_week_duration:
