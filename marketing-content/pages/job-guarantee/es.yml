@@ -175,7 +175,7 @@ sections:
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: 24 semanas
+        duration: {{ ai_engineering_week_duration | 24 }} semanas
         label: Actualizado en 2026
         title: Ingeniería en Inteligencia Artificial
         badges:
@@ -186,7 +186,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Desarollo Full Stack con IA
-        duration: 20 semanas
+        duration: {{ fullstack_week_duration | 2O }} semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
