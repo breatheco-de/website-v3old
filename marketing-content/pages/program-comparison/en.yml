@@ -482,7 +482,7 @@ sections:
         title: AI Engineering
         badges:
           - icon: DollarSign
-            text: €6,250 launch price
+            text: €6.250 launch price
           - icon: CheckCircle
             text: Spring offer, valid until May 1*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
