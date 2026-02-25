@@ -561,11 +561,6 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
-    cta:
-      text: ¿Todavía tienes preguntas?
-      button:
-        label: Habla con un Asesor
-        url: /contact
     marginY:
       desktop: none
     paddingY:
