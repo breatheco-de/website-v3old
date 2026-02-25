@@ -169,7 +169,7 @@ sections:
       - value: +233%
         label: aumento salarial promedio en LATAM
       - value: 75%
-        label: Tasa de contratación
+        label: Tasa de contratación en Europa
       - value: 3-6 meses
         label: tiempo promedio para conseguir empleo en todos los mercados
     marginY:
