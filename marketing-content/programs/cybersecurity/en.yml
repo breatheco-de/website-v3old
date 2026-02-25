@@ -575,9 +575,9 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      automations: hard
+      submit_label: Apply now
       tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
