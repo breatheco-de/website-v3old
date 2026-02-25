@@ -189,34 +189,29 @@ sections:
           - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
       - feature: Average U.S. Salary
         values:
-          - $75K to $110K
-          - $85K to $130K
-          - $80K to $120K
+          - 22.000€ to 40.000€
+          - 30.000€ to 60.000€
+          - 25.000€ to 45.000€
       - feature: Bootcamp Schedule
         values:
-          - Full-Time (12 weeks) or Part-Time (20 weeks).
-          - Part-Time (16 weeks).
+          - Part-Time (20 weeks).
+          - Part-Time (18 weeks).
           - Part-Time (16 weeks).
       - feature: Course Delivery
         values:
-          - Online or In-Person (select cities).
+          - Online.
           - Online.
           - Online.
       - feature: Cost
         values:
-          - $10,999 (discounts and scholarships available).
-          - $10,999 (discounts and scholarships available).
-          - $9,999 (discounts and scholarships available).
+          - 6.800€ (discounts and scholarships available).
+          - 7.800€ (discounts and scholarships available).
+          - 7.800€ (discounts and scholarships available).
       - feature: Payment Plans
         values:
           - Monthly plans, upfront discounts, loans, and income-based options.
           - Monthly plans, upfront discounts, loans, and income-based options.
           - Monthly plans, upfront discounts, loans, and income-based options.
-      - feature: Job Guarantee
-        values:
-          - Available for additional $2,000. Included in the full time course option at no extra cost.
-          - Available for additional $2,000.
-          - Available for additional $2,000.
       - feature: Best For You If
         values:
           - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
