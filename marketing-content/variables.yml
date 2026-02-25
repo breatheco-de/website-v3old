@@ -204,6 +204,9 @@ global_salary_cybersecurity_analist:
     - query:
         region: "europe"
       value: "20.000€ - 25.000€"
+    - query:
+        region: "latam"
+      value: "$30K – $55K"
 global_salary_penetration_tester:
   default: "$90K–$150K"
   conditions:
