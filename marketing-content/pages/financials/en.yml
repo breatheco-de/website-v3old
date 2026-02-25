@@ -134,6 +134,39 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
+  - type: syllabus
+    title: Fund Your Tech Career
+    subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
+    modules:
+      - title: Pay Upfront and Save 10%
+        description: Pay your tuition in full before the program starts and receive a 10% discount.
+      - title: Interest-Free Installments over 6 Months
+        description: Spread the cost of your tuition fee over 6 months, with no interest or additional costs, through our partners.
+      - title: Income-Based Payments
+        description: Prefer to pay after you land a job? With ISA financing from BCAS FinTECH, you only start paying once your annual income reaches {{ minimun_isa_salary | £17,000 }}. From that point onwards, a fixed percentage of your income is applied, adapted to your financial situation.
+      - title: Loans and Extended Payment Plans
+        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly instalments starting at {{ mounthly_price_bootcamp | £200 }}. Approval and final conditions are subject to the financial institution.
+      - title: Scholarships
+        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
+    expand_label: More info
+    collapse_label: Hide info
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: comparison_table
     version: "1.0"
     title: Your Financing Options at a Glance
