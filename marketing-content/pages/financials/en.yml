@@ -67,7 +67,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: none sm
+      desktop: none
   - type: syllabus
     title: Fund Your Tech Career
     subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
@@ -87,7 +87,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: none lg
+      desktop: md lg
     background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
     version: "1.0"
