@@ -46,7 +46,7 @@ sections:
     tutors_label: "Your tutors:"
     description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
     signup_card:
-      title: Get the full program overview
+      title: Get the Full Program Overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send me the details
