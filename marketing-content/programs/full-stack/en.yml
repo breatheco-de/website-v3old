@@ -333,7 +333,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Career Outcomes
+    title: Career outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
       - text: "AI Software Engineer: {{ average_salary_fullstack | $95K–$135K }}"
@@ -361,7 +361,7 @@ sections:
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
       - value: {{ global_salary_increase | 55 }}%
-        label: Average Salary Increase
+        label: Average salary increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
           - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
