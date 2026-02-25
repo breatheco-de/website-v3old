@@ -261,7 +261,7 @@ sections:
       desktop: none md
   - type: profiles_carousel
     version: v1.0
-    heading: Lo Que Dicen Nuestros Socios Sobre el Impacto de 4Geeks
+    heading: Lo que dicen nuestros socios sobre el impacto de 4Geeks
     image_round: true
     profiles:
       - image_id: enrique_infanzon
