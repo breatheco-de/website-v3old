@@ -5,6 +5,7 @@ import { useInternalNav } from "@/hooks/useInternalNav";
 import UniversalImage from "@/components/UniversalImage";
 
 const MOBILE_CHAR_LIMIT = 150;
+const DEFAULT_LOGO_ID = "rigo-avatar-1763181725290";
 
 function truncateAtWordBoundary(text: string, limit: number): string {
   if (text.length <= limit) return text;
@@ -55,7 +56,7 @@ export function Banner({ data }: BannerProps) {
         data-testid="banner-avatars"
       >
         <div className="flex -space-x-3">
-          {hasLogo && logo && (
+          {hasLogo && (
             <div
               className="w-14 h-14 rounded-full border-4 border-white overflow-hidden flex items-center justify-center"
               style={{ 
@@ -65,7 +66,7 @@ export function Banner({ data }: BannerProps) {
               data-testid="banner-logo"
             >
               <UniversalImage
-                id={logo}
+                id={typeof logo === "string" && logo.length > 0 ? logo : DEFAULT_LOGO_ID}
                 alt="Logo"
                 className="w-9 h-9"
                 style={{ objectFit: "contain" }}
