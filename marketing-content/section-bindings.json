@@ -467,6 +467,65 @@
       ],
       "createdAt": "2026-02-25T22:51:51.114Z",
       "name": "split_cards_job_guarantee_latam_es"
+    },
+    {
+      "id": "bind_mm2msa0k_eg52sc",
+      "component": "split_cards",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "split_cards-lyifxs"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "split_cards-88dkbg"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "split_cards-sjvykt"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "split_cards-zv6mrs"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "split_cards-h7p73e"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "split_cards-olub3e"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "split_cards-ee59dt"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "split_cards-6i4ef4"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "split_cards-kf5fre"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "split_cards-ma7z98"
+        }
+      ],
+      "createdAt": "2026-02-25T22:53:44.756Z",
+      "name": "split_cards_job_guarantee_latam_en"
     }
   ]
 }
