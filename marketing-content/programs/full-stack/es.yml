@@ -345,7 +345,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Aprende Construyendo Proyectos Reales
+    title: Aprende construyendo proyectos reales
     subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
       - title: Construye una API REST de StarWars
@@ -374,10 +374,10 @@ sections:
         duration: 40 HORAS
         difficulty: hard
         date: 01/03/2023
-    paddingY:
-      desktop: md sm
     marginY:
       desktop: none md
+    paddingY:
+      desktop: md sm
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
