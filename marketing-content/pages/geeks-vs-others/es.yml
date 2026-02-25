@@ -16,9 +16,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: 4Geeks Academy vs Otros Programas
+    title: 4Geeks Academy vs otros programas
     subtitle: Descubre por qué nuestros graduados triunfan en tech. Desde aprendizaje impulsado por IA y proyectos prácticos hasta mentoría personalizada y soporte profesional de por vida, todo está diseñado para ayudarte a lanzar una carrera exitosa y duradera.
-    badge: Por Qué 4Geeks Destaca
+    badge: Por qué 4Geeks destaca
     image:
       src: /attached_assets/unsplash_QckxruozjRg_1765395521123.png
       alt: Estudiantes programando juntos en una mesa con laptops
