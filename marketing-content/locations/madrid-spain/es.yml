@@ -256,6 +256,7 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: split_cards-cysz0z
   - type: why_learn_ai
     variant: laptop-edge
     title: Por qué Madrid es el lugar para lanzar tu carrera tech
