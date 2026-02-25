@@ -114,7 +114,7 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: En el Corazón de la Revolución Tech de España
+    title: En el corazón de la Revolución Tech de España
     description: Madrid ha superado a Barcelona para convertirse en el principal hub tech de España.
     background: gradient
     marginY:
