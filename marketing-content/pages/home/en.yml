@@ -30,14 +30,14 @@ sections:
       variant: primary
       icon: ""
     left_images:
-      - src: /attached_assets/community_1764717588840.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Community illustration
-      - src: /attached_assets/caracas-graduates_1765387638222.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
         alt: Caracas graduates celebration
     right_images:
-      - src: /attached_assets/fernando-funez_1765315920677.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
         alt: Fernando Funez testimonial
-      - src: /attached_assets/feliz-empresario-laptop_1765406479465.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
         alt: Happy professional with laptop
     show_arrow: true
     marginY:
