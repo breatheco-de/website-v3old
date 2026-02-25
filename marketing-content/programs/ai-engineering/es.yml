@@ -586,7 +586,7 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Contratan a Nuestros Graduados
+    title: Empresas que contratan a nuestros graduados
     subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
@@ -613,10 +613,10 @@ sections:
         alt: Neo9
       - src: /attached_assets/jooble_1764720010702.png
         alt: Jooble
-    paddingY:
-      desktop: none
     marginY:
       desktop: none md
+    paddingY:
+      desktop: none
   - type: testimonials
     title: Éxito Profesional Comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
