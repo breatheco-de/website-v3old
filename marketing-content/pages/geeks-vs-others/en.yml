@@ -36,21 +36,21 @@ sections:
       - name: Feature
       - name: 4Geeks Academy
         highlight: true
-      - name: Industry Average / Competitors
+      - name: Industry average / Competitors
     rows:
-      - feature: Career Support
+      - feature: Career support
         values:
           - Personalized, lifelong guidance
           - Limited or short-term support
-      - feature: Teacher-to-Student Ratio
+      - feature: Teacher-to-student ratio
         values:
           - {{ global_teacher_student_ratio | 1:7 }}
           - Usually 1:10+
-      - feature: AI-Powered Feedback
+      - feature: AI-powered feedback
         values:
           - Personalized to your learning progress
           - Rarely available
-      - feature: 1-on-1 Mentoring
+      - feature: 1-on-1 mentoring
         values:
           - Unlimited, lifelong access
           - Mostly limited sessions
@@ -58,7 +58,7 @@ sections:
         values:
           - Continuously updated to fit market needs
           - Updates vary by provider
-      - feature: Hiring Rate
+      - feature: Hiring rate
         values:
           - ~{{ global_job_placement_rate | 84 }}% within 6 months
           - Varies; mostly unreported
@@ -66,11 +66,11 @@ sections:
         values:
           - Strong local & global network
           - Depends on school
-      - feature: Class Format
+      - feature: Class format
         values:
           - Online & in-person options
           - Usually one format only
-      - feature: Prior Experience
+      - feature: Prior experience
         values:
           - No experience required
           - Most require prior skills or assessments
