@@ -335,6 +335,18 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: Graduados Reales, Resultados Profesionales Reales
     description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
