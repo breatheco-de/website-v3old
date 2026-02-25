@@ -294,7 +294,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: {{ data_science_week_duration | {{ cybersecurity_week_duration | 16 }} }} weeks
+        duration: {{ data_science_week_duration | 18 }} weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
@@ -308,7 +308,7 @@ sections:
         course_background: hsl(var(--primary))
       - name: Cybersecurity
         icon: Shield
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
