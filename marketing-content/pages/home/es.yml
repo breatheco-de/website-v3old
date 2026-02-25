@@ -127,7 +127,7 @@ sections:
         value: 3-6 meses
         title: Tiempo promedio para conseguir empleo
       - icon: GrowthChart
-        value: 55%
+        value: {{ global_salary_increase | 55 }}%
         title: Aumento salarial después de graduarse
     columns: 3
     icon_color: "#0097CD"
