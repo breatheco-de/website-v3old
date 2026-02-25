@@ -187,6 +187,8 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    marginY:
+      desktop: none lg
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
