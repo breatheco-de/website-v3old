@@ -303,6 +303,7 @@ average_salary_ai_engineer:
       value: "$20K-$60K USD"
     - query:
         region: "europe"
+        locale: "es"
       value: "30.000€ - 60.000€"
 average_salary_ai_specialist:
   default: "$95K–$145K"
