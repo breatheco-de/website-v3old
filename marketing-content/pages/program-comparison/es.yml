@@ -484,15 +484,15 @@ sections:
         icon: Brain
         duration: 24 semanas
         label: Actualizado en 2026
-        title: Ingeniería en IA
+        title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
-            text: {{ price_full_ai_engineering | $14,999 }} matrícula completa
+            text: 6.250€ precio de lanzamiento
           - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
-        description: Construye y escala un negocio totalmente nativo en IA mientras aprendes sistemas y flujos de trabajo de IA listos para producción.
+            text: Oferta de primavera, hasta el 1 de mayo*
+        description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
         price: {{ price_ai_engineering | $349 }}
-        price_info: o menos según tu plan
+        price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Descubrir programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -503,7 +503,7 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} matrícula completa
+            text: {{ price_full_fullstack | $10,999 }} inversión total
           - icon: CheckCircle
             text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         tags:
