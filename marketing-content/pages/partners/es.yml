@@ -102,7 +102,7 @@ sections:
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: Nuestras Alianzas Globales
+    heading: Nuestras alianzas globales
     subtitle: Colaborando con instituciones líderes para llevar la educación en programación en todo el mundo
     background: hsl(var(--muted))
     slides:
