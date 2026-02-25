@@ -437,3 +437,5 @@ cybersecurity_week_duration:
   default: "16 Semanas"
 fullstack_week_duration:
   default: "20 semanas"
+total_scholarships:
+  default: "20"
