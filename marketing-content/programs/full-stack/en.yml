@@ -331,7 +331,7 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
