@@ -132,11 +132,11 @@ sections:
     left:
       video: https://youtu.be/4n-ZAUPIxJI
     right:
-      heading: Lo que el Boom Tech de Miami Desbloquea para el Talento Local
-      sub_heading: Escucha directamente del Alcalde Francis Suarez por qué Miami se ha convertido en uno de los hubs tech de más rápido crecimiento en EE.UU.
-      description: El Alcalde Suarez comparte consejos para personas que entran al mundo tech y explica qué impulsa el crecimiento de empleos en Miami — y por qué el desarrollo de software y habilidades en IA son centrales para el futuro de la ciudad.
+      heading: El crecimiento del sector tecnológico en Miami
+      sub_heading: El alcalde Francis Suárez explica por qué Miami se ha consolidado como uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos.
+      description: En esta entrevista, comparte su visión sobre la expansión del empleo en tecnología en la ciudad y el papel clave del desarrollo de software y la inteligencia artificial en su futuro económico.
       button:
-        text: Ver la entrevista completa
+        text: Ver entrevista completa
         url: https://youtu.be/4n-ZAUPIxJI
         variant: primary
         icon: Rocket
