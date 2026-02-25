@@ -183,7 +183,7 @@ sections:
   - type: whos_hiring
     variant: carousel
     pretitle: Colocación Laboral
-    title: Nuestros Alumnos Trabajan en las Mejores Empresas Globales
+    title: Nuestros alumnos trabajan en las mejores empresas globales
     subtitle: Triunfa en tech con nuestra red mundial de socios de contratación.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
