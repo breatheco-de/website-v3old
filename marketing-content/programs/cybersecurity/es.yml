@@ -560,7 +560,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - cybersecurity
     paddingY:
