@@ -4,7 +4,7 @@ import { useInternalNav } from "@/hooks/useInternalNav";
 import { useQuery } from "@tanstack/react-query";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Navbar, MobileNav, type NavbarConfig } from "@/components/menus";
-import logo from "@assets/4geeks-devs-logo_1763162063433.png";
+import UniversalImage from "@/components/UniversalImage";
 
 export default function Header() {
   const handleLinkClick = useInternalNav();
@@ -46,7 +46,7 @@ export default function Header() {
           className="flex items-center hover-elevate rounded-md px-3 py-2" 
           data-testid="link-home"
         >
-          <img src={logo} alt={t('nav.brand')} className="h-8" />
+          <UniversalImage id="4geeks-devs-logo-1763162063433" alt={t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
         </a>
 
         <div className="hidden md:flex flex-1 justify-center">

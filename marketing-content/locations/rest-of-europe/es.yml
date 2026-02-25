@@ -265,7 +265,7 @@ sections:
         title: Todas las Mentorías que Necesitas
         description: En línea y en persona, por el resto de tu vida, incluso para codificación de dudas laborales. No te llevará más de 15 minutos para que un instructor te ayude.
       - icon: users
-        title: Proporción 1:9 Profesor : Estudiante
+        title: "Proporción 1:9 Profesor : Estudiante"
         description: Encontrarás más profesores en 4Geeks que el promedio de la industria.
       - icon: headset
         title: Soporte Profesional a la Medida

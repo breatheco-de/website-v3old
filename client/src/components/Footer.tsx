@@ -8,7 +8,9 @@ import {
   IconBrandX,
   IconBrandInstagram,
 } from "@tabler/icons-react";
-import logo from "@assets/4geeks-devs-logo_1763162063433.png";
+import { useImageRegistry } from "@/components/UniversalImage";
+
+const LOGO_ID = "4geeks-devs-logo-1763162063433";
 
 interface FooterColumn {
   title: string;
@@ -45,6 +47,8 @@ export default function Footer() {
   const handleLinkClick = useInternalNav();
   const { i18n } = useTranslation();
   const locale = i18n.language || "en";
+  const { registry } = useImageRegistry();
+  const logoSrc = registry?.images?.[LOGO_ID]?.src;
 
   const [colDivisor, setColDivisor] = useState(4);
   useEffect(() => {
@@ -86,7 +90,7 @@ export default function Footer() {
             className="flex items-center h-full"
             data-testid="link-footer-home"
           >
-            <img src={logo} alt="4Geeks Academy" className="h-9" />
+            {logoSrc && <img src={logoSrc} alt="4Geeks Academy" className="h-9" />}
           </a>
           <div>
             <p className="text-center mb-1">{config.subscribe_text || 'Subscribe for more'}</p>

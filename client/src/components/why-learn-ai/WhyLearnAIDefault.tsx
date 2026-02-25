@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { WhyLearnAISection as WhyLearnAISectionType } from "@shared/schema";
-import manWithLaptop from "@assets/man-with-laptop_1764772912948.webp";
+import { useImageRegistry } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 
@@ -10,6 +10,8 @@ interface WhyLearnAIDefaultProps {
 
 export function WhyLearnAIDefault({ data }: WhyLearnAIDefaultProps) {
   const handleLinkClick = useInternalNav();
+  const { registry } = useImageRegistry();
+  const manWithLaptop = registry?.images?.["man-with-laptop-1764772912948"]?.src;
   return (
     <section 
       className="bg-gradient-to-r from-muted/50 to-background dark:from-muted/30 dark:to-background"
@@ -50,13 +52,15 @@ export function WhyLearnAIDefault({ data }: WhyLearnAIDefaultProps) {
           </div>
           
           <div className="flex justify-center lg:justify-end">
-            <img 
-              src={manWithLaptop}
-              alt="Developer coding with AI"
-              className="max-w-full h-auto max-h-[400px] object-contain"
-              loading="lazy"
-              data-testid="img-why-learn-ai"
-            />
+            {manWithLaptop && (
+              <img 
+                src={manWithLaptop}
+                alt="Developer coding with AI"
+                className="max-w-full h-auto max-h-[400px] object-contain"
+                loading="lazy"
+                data-testid="img-why-learn-ai"
+              />
+            )}
           </div>
         </div>
       </div>

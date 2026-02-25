@@ -10,10 +10,12 @@ import avatar1 from "@assets/generated_images/Woman_profile_headshot_1_608aff01.
 import avatar2 from "@assets/generated_images/Man_profile_headshot_1_0850c276.webp";
 import avatar3 from "@assets/generated_images/Woman_profile_headshot_2_a0ea2c29.webp";
 import avatar4 from "@assets/generated_images/Man_profile_headshot_2_516b72e4.webp";
-import curvedArrow from "@assets/curved-arrow-with-loop_1763159963338.png";
+import { useImageRegistry } from "@/components/UniversalImage";
 
 export default function LandingHero() {
   const { t } = useTranslation();
+  const { registry } = useImageRegistry();
+  const curvedArrow = registry?.images?.["curved-arrow-with-loop-1763159963338"]?.src;
 
   return (
     <section className="relative container mx-auto px-4 overflow-hidden">
@@ -112,14 +114,16 @@ export default function LandingHero() {
           </div>
 
           {/* Curved arrow - hidden on mobile */}
-          <div className="hidden lg:flex justify-center mb-4">
-            <img
-              src={curvedArrow}
-              alt={t("hero.altArrow")}
-              className="w-24 h-auto opacity-80"
-              loading="lazy"
-            />
-          </div>
+          {curvedArrow && (
+            <div className="hidden lg:flex justify-center mb-4">
+              <img
+                src={curvedArrow}
+                alt={t("hero.altArrow")}
+                className="w-24 h-auto opacity-80"
+                loading="lazy"
+              />
+            </div>
+          )}
 
           {/* CTA Button */}
           <div>

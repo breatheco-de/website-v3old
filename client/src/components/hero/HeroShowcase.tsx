@@ -6,7 +6,7 @@ import avatar1 from "@assets/generated_images/Woman_profile_headshot_1_608aff01.
 import avatar2 from "@assets/generated_images/Man_profile_headshot_1_0850c276.webp";
 import avatar3 from "@assets/generated_images/Woman_profile_headshot_2_a0ea2c29.webp";
 import avatar4 from "@assets/generated_images/Man_profile_headshot_2_516b72e4.webp";
-import curvedArrow from "@assets/curved-arrow-with-loop_1763159963338.png";
+import { useImageRegistry } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 interface HeroShowcaseProps {
@@ -16,6 +16,8 @@ interface HeroShowcaseProps {
 export function HeroShowcase({ data }: HeroShowcaseProps) {
   const avatars = [avatar1, avatar2, avatar3, avatar4];
   const handleLinkClick = useInternalNav();
+  const { registry } = useImageRegistry();
+  const curvedArrow = registry?.images?.["curved-arrow-with-loop-1763159963338"]?.src;
 
   return (
     <section className="container mx-auto px-4">
@@ -101,7 +103,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
           )}
 
           {/* Curved arrow */}
-          {data.show_arrow && (
+          {data.show_arrow && curvedArrow && (
             <div className="hidden lg:flex justify-center mb-4">
               <img
                 src={curvedArrow}
