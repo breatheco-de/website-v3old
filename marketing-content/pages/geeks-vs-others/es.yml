@@ -177,6 +177,12 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: testimonials_slide
     title: Carreras reales comienzan aquí — solo pregúntale a nuestros estudiantes
     description: Con el {{ global_job_placement_rate | 84 }}% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
