@@ -229,7 +229,7 @@ sections:
         title: Average starting salary for AI Engineers
   - type: syllabus
     variant: program-modules
-    program_title: AI Engineering Program Overview
+    program_title: AI Engineering program overview
     program_description: Learn by building and scaling a single AI-native business across 10 milestones. Graduate with a fully operational, AI-powered company that reflects the skills and workflows used by modern engineering teams. Choose between a 24-week evening schedule and a 15-week accelerated morning track.
     tech_logos:
       - name: React
