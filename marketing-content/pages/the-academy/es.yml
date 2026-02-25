@@ -31,9 +31,9 @@ sections:
     variant: primary-left
     primary_width: narrow
     primary:
-      heading: Nuestra Misión y Enfoque
+      heading: Nuestra misión y enfoque
       description: "Desde 2015, 4Geeks Academy ha ayudado a miles de estudiantes a hacer la transición hacia carreras en tecnología. Nuestro modelo combina formación práctica basada en proyectos con mentorías ilimitadas 1:1, herramientas de aprendizaje impulsadas por IA y acompañamiento estructurado para la búsqueda de empleo. El objetivo es simple: brindar la profundidad técnica, experiencia práctica y estrategia profesional necesarias para conseguir trabajo — y seguir creciendo."
-      badge: Modelo Respaldado por Resultados
+      badge: Modelo respaldado por resultados
     secondary:
       benefits:
         - text: Currículo alineado con la industria e integrado con IA
