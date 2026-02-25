@@ -551,7 +551,7 @@ sections:
     title: Tuition and financing options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full payment discount: Save 10% with early payment."
-    financing_text: Installment financing starting from
+    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
     tech_icons:
       - python
