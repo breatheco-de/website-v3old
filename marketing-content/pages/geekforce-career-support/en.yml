@@ -294,7 +294,7 @@ sections:
     paddingY:
       desktop: sm none
   - type: testimonials_slide
-    title: The Stories Behind the Stats
+    title: The stories behind the stats
     description: Discover how our graduates transformed their careers
   - type: faq
     title: Frequently Asked Questions
