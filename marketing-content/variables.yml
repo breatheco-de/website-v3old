@@ -294,6 +294,9 @@ average_salary_machine_learning_engineer:
     - query:
         region: "europe"
       value: "22.000 € - 30.000 €"
+    - query:
+        region: "latam"
+      value: "$45K – $80K"
 average_salary_ai_fluent_software_developer:
   default: "$100K–$150K"
   conditions:
