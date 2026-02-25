@@ -208,16 +208,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
+    title: Todo lo que necesitas para triunfar en una industria impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
+      - heading: Mentoría 1:1 ilimitada y de por Vida
         text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de Aprendizaje Impulsado por IA
+      - heading: Soporte de aprendizaje impulsado por IA
         text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
+      - heading: Soporte profesional ilimitado y de por vida
         text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
+      - heading: Una comunidad tech global activa
         text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
