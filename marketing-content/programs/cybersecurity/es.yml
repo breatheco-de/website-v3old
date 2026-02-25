@@ -340,7 +340,7 @@ sections:
           - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
           - text: "Ingeniero de Seguridad: {{ global_salary_security_engineer | $100K–$165K }}"
           - text: "Especialista en Respuesta a Incidentes: {{ global_salary_incident_responder | $85K–$140K }}"
-      - value: 500+
+      - value: {{ number_of_hiring_partners_aprox | 500 }}+
         label: Empleadores asociados
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
         benefits:
