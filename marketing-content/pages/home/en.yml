@@ -277,7 +277,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 2O }} weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -294,7 +294,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | {{ cybersecurity_week_duration | 16 }} }} weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
