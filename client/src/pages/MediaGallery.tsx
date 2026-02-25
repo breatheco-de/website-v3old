@@ -67,6 +67,7 @@ export default function MediaGallery() {
   const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
   const [redundantOpen, setRedundantOpen] = useState(false);
   const [redundantResult, setRedundantResult] = useState<{ resolved: number; errors: string[] } | null>(null);
+  const [redundantVisible, setRedundantVisible] = useState(10);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -1099,8 +1100,8 @@ export default function MediaGallery() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={redundantOpen} onOpenChange={(open) => { if (!open) { setRedundantOpen(false); setRedundantResult(null); } }}>
-        <DialogContent className="sm:max-w-md">
+      <Dialog open={redundantOpen} onOpenChange={(open) => { if (!open) { setRedundantOpen(false); setRedundantResult(null); setRedundantVisible(10); } }}>
+        <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle>Redundant Images Found</DialogTitle>
             <DialogDescription>
@@ -1109,35 +1110,79 @@ export default function MediaGallery() {
           </DialogHeader>
 
           {!redundantResult ? (
-            <div className="space-y-2 py-1">
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2"
-                disabled={resolveRedundancyMutation.isPending}
-                onClick={() => resolveRedundancyMutation.mutate("delete-local")}
-                data-testid="button-delete-local-redundant"
-              >
-                {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-local"
-                  ? <IconLoader2 className="h-4 w-4 animate-spin" />
-                  : <IconFolder className="h-4 w-4 text-muted-foreground" />
-                }
-                <span>Delete from local filesystem</span>
-                <span className="ml-auto text-xs text-muted-foreground">Keep cloud copy</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2"
-                disabled={resolveRedundancyMutation.isPending}
-                onClick={() => resolveRedundancyMutation.mutate("delete-cloud")}
-                data-testid="button-delete-cloud-redundant"
-              >
-                {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-cloud"
-                  ? <IconLoader2 className="h-4 w-4 animate-spin" />
-                  : <IconCloud className="h-4 w-4 text-muted-foreground" />
-                }
-                <span>Delete from cloud</span>
-                <span className="ml-auto text-xs text-muted-foreground">Keep local copy</span>
-              </Button>
+            <div className="space-y-3">
+              <ScrollArea className="max-h-72 rounded-md border">
+                <div className="divide-y">
+                  {(redundantData?.images ?? []).slice(0, redundantVisible).map((img) => (
+                    <div key={img.id} className="px-3 py-2.5 space-y-1.5">
+                      <p className="text-xs font-mono font-medium text-foreground truncate" data-testid={`text-redundant-id-${img.id}`}>{img.id}</p>
+                      <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 items-start">
+                        <div className="flex items-center gap-1 pt-px">
+                          <IconCloud className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <span className="text-xs text-muted-foreground">Cloud</span>
+                        </div>
+                        <p className="text-xs font-mono text-muted-foreground break-all leading-relaxed">{img.cloudUrl}</p>
+                        <div className="flex items-center gap-1 pt-px">
+                          <IconFolder className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <span className="text-xs text-muted-foreground">Local</span>
+                        </div>
+                        <p className="text-xs font-mono text-muted-foreground break-all leading-relaxed">{img.localPath}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {redundantVisible < redundantCount && (
+                  <div className="p-3 border-t">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full text-xs"
+                      onClick={() => setRedundantVisible(v => v + 10)}
+                      data-testid="button-load-more-redundant"
+                    >
+                      Load 10 more ({redundantCount - redundantVisible} remaining)
+                    </Button>
+                  </div>
+                )}
+              </ScrollArea>
+
+              <div className="space-y-2">
+                <p className="text-xs font-medium text-foreground">Choose an action to apply to all {redundantCount} {redundantCount === 1 ? "image" : "images"}:</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    variant="outline"
+                    className="justify-start gap-2"
+                    disabled={resolveRedundancyMutation.isPending}
+                    onClick={() => resolveRedundancyMutation.mutate("delete-local")}
+                    data-testid="button-delete-local-redundant"
+                  >
+                    {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-local"
+                      ? <IconLoader2 className="h-4 w-4 animate-spin" />
+                      : <IconFolder className="h-4 w-4 text-muted-foreground" />
+                    }
+                    <span className="flex flex-col items-start text-left">
+                      <span className="text-xs font-medium">Delete local</span>
+                      <span className="text-xs text-muted-foreground font-normal">Keep cloud copy</span>
+                    </span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="justify-start gap-2"
+                    disabled={resolveRedundancyMutation.isPending}
+                    onClick={() => resolveRedundancyMutation.mutate("delete-cloud")}
+                    data-testid="button-delete-cloud-redundant"
+                  >
+                    {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-cloud"
+                      ? <IconLoader2 className="h-4 w-4 animate-spin" />
+                      : <IconCloud className="h-4 w-4 text-muted-foreground" />
+                    }
+                    <span className="flex flex-col items-start text-left">
+                      <span className="text-xs font-medium">Delete cloud</span>
+                      <span className="text-xs text-muted-foreground font-normal">Keep local copy</span>
+                    </span>
+                  </Button>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="space-y-2 py-1">
@@ -1146,11 +1191,13 @@ export default function MediaGallery() {
                 {redundantResult.errors.length > 0 && ` ${redundantResult.errors.length} error(s) occurred.`}
               </p>
               {redundantResult.errors.length > 0 && (
-                <div className="rounded-md border p-2 space-y-1">
-                  {redundantResult.errors.map((e, i) => (
-                    <p key={i} className="text-xs text-destructive font-mono">{e}</p>
-                  ))}
-                </div>
+                <ScrollArea className="max-h-48 rounded-md border p-2">
+                  <div className="space-y-1">
+                    {redundantResult.errors.map((e, i) => (
+                      <p key={i} className="text-xs text-destructive font-mono">{e}</p>
+                    ))}
+                  </div>
+                </ScrollArea>
               )}
             </div>
           )}
@@ -1158,7 +1205,7 @@ export default function MediaGallery() {
           <DialogFooter>
             <Button
               variant="outline"
-              onClick={() => { setRedundantOpen(false); setRedundantResult(null); }}
+              onClick={() => { setRedundantOpen(false); setRedundantResult(null); setRedundantVisible(10); }}
               data-testid="button-close-redundant"
             >
               {redundantResult ? "Close" : "Cancel"}
