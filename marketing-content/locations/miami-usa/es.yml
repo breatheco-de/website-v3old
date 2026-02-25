@@ -56,14 +56,14 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Lanza una Carrera Tech Lista para IA en Miami
-    subtitle: Capacítate para los roles tech más demandados de hoy, incluyendo Ingeniería de IA, en uno de los hubs tech de más rápido crecimiento del país y sede global de 4Geeks. Aprende online o presencial con instrucción en vivo, proyectos prácticos y soporte profesional personalizado diseñado para contrataciones reales.
+    title: Construye tu carrera en tecnología en Miami
+    subtitle: Prepárate para los roles más demandados, incluyendo Ingeniería en IA, en uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos. Estudia online o presencial con mentoría en vivo, proyectos reales y acompañamiento profesional diseñado para lanzar tu carrera.
     badge: Campus Miami
     cta_buttons:
-      - text: Aplicar Ahora
+      - text: Aplicar ahora
         url: /es/apply
         variant: primary
-      - text: Descargar Programa
+      - text: Ver el programa
         url: "#cta_banner-14"
         variant: outline
     marginY:
