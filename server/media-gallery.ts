@@ -777,6 +777,81 @@ class MediaGallery {
     };
   }
 
+  findRedundantImages(): Array<{ id: string; cloudUrl: string; localPath: string }> {
+    const registry = this.getRegistry();
+    if (!registry) return [];
+
+    const ATTACHED_ASSETS_DIR = path.join(process.cwd(), "attached_assets");
+    const redundant: Array<{ id: string; cloudUrl: string; localPath: string }> = [];
+
+    for (const [id, entry] of Object.entries(registry.images)) {
+      if (!entry.src.startsWith("http")) continue;
+
+      const filename = entry.src.split("/").pop();
+      if (!filename) continue;
+
+      const inImages = path.join(MARKETING_IMAGES_DIR, filename);
+      const inAssets = path.join(ATTACHED_ASSETS_DIR, filename);
+
+      if (fs.existsSync(inImages)) {
+        redundant.push({ id, cloudUrl: entry.src, localPath: `/marketing-content/images/${filename}` });
+      } else if (fs.existsSync(inAssets)) {
+        redundant.push({ id, cloudUrl: entry.src, localPath: `/attached_assets/${filename}` });
+      }
+    }
+
+    return redundant;
+  }
+
+  async resolveRedundancy(
+    action: "delete-local" | "delete-cloud",
+    ids?: string[],
+  ): Promise<{ resolved: number; errors: string[] }> {
+    const registry = this.getRegistry();
+    if (!registry) throw new Error("Failed to load registry");
+
+    const ATTACHED_ASSETS_DIR = path.join(process.cwd(), "attached_assets");
+    const all = this.findRedundantImages();
+    const targets = ids && ids.length > 0 ? all.filter(r => ids.includes(r.id)) : all;
+
+    let resolved = 0;
+    const errors: string[] = [];
+
+    for (const item of targets) {
+      try {
+        if (action === "delete-local") {
+          const localDiskPath = path.join(process.cwd(), item.localPath);
+          if (fs.existsSync(localDiskPath)) {
+            fs.unlinkSync(localDiskPath);
+          }
+          resolved++;
+        } else {
+          await media.delete(item.cloudUrl);
+          const localDiskPath = path.join(process.cwd(), item.localPath);
+          const fileExists = fs.existsSync(localDiskPath);
+          if (fileExists) {
+            const entry = registry.images[item.id];
+            if (entry) {
+              (registry.images as Record<string, ImageEntry>)[item.id] = {
+                ...entry,
+                src: item.localPath,
+              };
+            }
+          }
+          resolved++;
+        }
+      } catch (err: any) {
+        errors.push(`[${item.id}] ${err.message || String(err)}`);
+      }
+    }
+
+    if (action === "delete-cloud" && resolved > 0) {
+      this.saveRegistry(registry);
+    }
+
+    return { resolved, errors };
+  }
+
   private saveRegistry(registry: ImageRegistry): void {
     fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
     markFileAsModified("marketing-content/image-registry.json");

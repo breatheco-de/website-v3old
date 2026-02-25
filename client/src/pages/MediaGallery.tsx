@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2 } from "@tabler/icons-react";
@@ -65,6 +65,8 @@ export default function MediaGallery() {
   const [migrating, setMigrating] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
   const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
+  const [redundantOpen, setRedundantOpen] = useState(false);
+  const [redundantResult, setRedundantResult] = useState<{ resolved: number; errors: string[] } | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -80,6 +82,25 @@ export default function MediaGallery() {
 
   const { data: registry, isLoading, error } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
+  });
+
+  interface RedundantImage { id: string; cloudUrl: string; localPath: string; }
+  const { data: redundantData } = useQuery<{ count: number; images: RedundantImage[] }>({
+    queryKey: ["/api/image-registry/redundant"],
+  });
+  const redundantCount = redundantData?.count ?? 0;
+
+  const resolveRedundancyMutation = useMutation({
+    mutationFn: (action: "delete-local" | "delete-cloud") =>
+      apiRequest("POST", "/api/image-registry/redundant/resolve", { action }).then(r => r.json()),
+    onSuccess: (data) => {
+      setRedundantResult(data);
+      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/image-registry/redundant"] });
+    },
+    onError: (err: any) => {
+      toast({ title: "Error", description: err.message || "Failed to resolve redundancy", variant: "destructive" });
+    },
   });
 
   const handleCopyId = (id: string) => {
@@ -847,8 +868,19 @@ export default function MediaGallery() {
                     </div>
                   )}
                   {cloudProvider && localImageCount === 0 && (
-                    <div className="border-t pt-3">
+                    <div className="border-t pt-3 flex items-center justify-between gap-2 flex-wrap">
                       <p className="text-xs text-muted-foreground">All images are already stored in {cloudProviderLabel}.</p>
+                      {redundantCount > 0 && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => { setRedundantOpen(true); setRedundantResult(null); }}
+                          data-testid="button-redundant-images"
+                        >
+                          <IconAlertTriangle className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
+                          {redundantCount} Redundant {redundantCount === 1 ? "image" : "images"}
+                        </Button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -1062,6 +1094,74 @@ export default function MediaGallery() {
           <DialogFooter>
             <Button onClick={() => setMigrateResults(null)} data-testid="button-close-migrate-results">
               Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={redundantOpen} onOpenChange={(open) => { if (!open) { setRedundantOpen(false); setRedundantResult(null); } }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Redundant Images Found</DialogTitle>
+            <DialogDescription>
+              There {redundantCount === 1 ? "is" : "are"} <span className="font-semibold text-foreground">{redundantCount}</span> {redundantCount === 1 ? "image" : "images"} that {redundantCount === 1 ? "has a copy" : "have copies"} in the cloud but also in the local filesystem. What do you want to do?
+            </DialogDescription>
+          </DialogHeader>
+
+          {!redundantResult ? (
+            <div className="space-y-2 py-1">
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-2"
+                disabled={resolveRedundancyMutation.isPending}
+                onClick={() => resolveRedundancyMutation.mutate("delete-local")}
+                data-testid="button-delete-local-redundant"
+              >
+                {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-local"
+                  ? <IconLoader2 className="h-4 w-4 animate-spin" />
+                  : <IconFolder className="h-4 w-4 text-muted-foreground" />
+                }
+                <span>Delete from local filesystem</span>
+                <span className="ml-auto text-xs text-muted-foreground">Keep cloud copy</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-2"
+                disabled={resolveRedundancyMutation.isPending}
+                onClick={() => resolveRedundancyMutation.mutate("delete-cloud")}
+                data-testid="button-delete-cloud-redundant"
+              >
+                {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-cloud"
+                  ? <IconLoader2 className="h-4 w-4 animate-spin" />
+                  : <IconCloud className="h-4 w-4 text-muted-foreground" />
+                }
+                <span>Delete from cloud</span>
+                <span className="ml-auto text-xs text-muted-foreground">Keep local copy</span>
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-2 py-1">
+              <p className="text-sm text-muted-foreground">
+                {redundantResult.resolved} {redundantResult.resolved === 1 ? "image" : "images"} resolved successfully.
+                {redundantResult.errors.length > 0 && ` ${redundantResult.errors.length} error(s) occurred.`}
+              </p>
+              {redundantResult.errors.length > 0 && (
+                <div className="rounded-md border p-2 space-y-1">
+                  {redundantResult.errors.map((e, i) => (
+                    <p key={i} className="text-xs text-destructive font-mono">{e}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => { setRedundantOpen(false); setRedundantResult(null); }}
+              data-testid="button-close-redundant"
+            >
+              {redundantResult ? "Close" : "Cancel"}
             </Button>
           </DialogFooter>
         </DialogContent>

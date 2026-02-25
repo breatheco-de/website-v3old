@@ -6116,6 +6116,29 @@ sections: []
     }
   });
 
+  app.get("/api/image-registry/redundant", (_req, res) => {
+    try {
+      const images = mediaGallery.findRedundantImages();
+      res.json({ count: images.length, images });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to find redundant images" });
+    }
+  });
+
+  app.post("/api/image-registry/redundant/resolve", async (req, res) => {
+    try {
+      const { action, ids } = req.body as { action?: string; ids?: string[] };
+      if (action !== "delete-local" && action !== "delete-cloud") {
+        res.status(400).json({ error: "Invalid action. Must be 'delete-local' or 'delete-cloud'" });
+        return;
+      }
+      const result = await mediaGallery.resolveRedundancy(action, ids);
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to resolve redundancy" });
+    }
+  });
+
   app.post("/api/image-registry/migrate", async (req, res) => {
     try {
       const { from, to, dryRun, prefix } = req.body as {
