@@ -54,6 +54,9 @@ global_salary_increase:
     - query:
         region: "europe"
       value: "30"
+    - query:
+        region: "latam"
+      value: "40"
 global_review_rating:
   default: "4.9"
   conditions:
