@@ -486,6 +486,8 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    paddingY:
+      desktop: lg none
   - type: pricing
     version: "1.0"
     variant: product
