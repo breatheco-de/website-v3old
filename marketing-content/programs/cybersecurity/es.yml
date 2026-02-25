@@ -388,9 +388,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% con el pago anticipado."
+    discount_text: "Descuento por pago completo: Ahorra 10% con el pago anticipado."
     financing_text: Financiamiento en cuotas desde
     financing_amount: {{ price_cybersecurity | 299€ }}
     tech_icons:
