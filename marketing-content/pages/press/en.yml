@@ -150,8 +150,7 @@ sections:
     marginY:
       desktop: none lg
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - outcomes
       - scholarships
