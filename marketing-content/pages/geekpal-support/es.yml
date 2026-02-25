@@ -140,7 +140,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - mentors-and-teachers
       - career-support
