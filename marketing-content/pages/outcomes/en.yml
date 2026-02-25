@@ -220,7 +220,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Real Career Results
+    title: Real career results
     subtitle: Alumni share how they landed roles, advanced their careers, and increased their earning power.
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
