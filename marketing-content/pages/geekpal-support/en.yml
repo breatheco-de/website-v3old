@@ -95,7 +95,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: A Global Tech Community to Support Your Growth
+    heading: A global tech community to support your growth
     description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
