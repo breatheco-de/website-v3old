@@ -391,6 +391,18 @@ sections:
           text: Saber más
           url: "#"
           variant: outline
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - hamburg-germany
+      - dublin-ireland
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: two_column
     proportions:
       - 5
