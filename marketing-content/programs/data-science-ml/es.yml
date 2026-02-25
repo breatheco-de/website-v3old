@@ -544,19 +544,9 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - data-science
-    cta:
-      text: ¿Todavía tienes preguntas?
-      button:
-        label: Habla con un Asesor
-        url: /contact
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: sm md
-    background: hsl(var(--muted))
     item_overrides:
       cunto-tiempo-toma-completar-el-programa-de-data-science:
         hideOnLocations:
@@ -571,6 +561,16 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    cta:
+      text: ¿Todavía tienes preguntas?
+      button:
+        label: Habla con un Asesor
+        url: /contact
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: sm md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera en Ciencia de Datos?
