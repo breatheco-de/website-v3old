@@ -108,20 +108,20 @@ sections:
     marginY:
       desktop: lg
   - type: value_proof_panel
-    title: Recognized Globally for Excellence
+    title: Recognized globally for excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Coding Bootcamps Worldwide
+        title: Top 5 coding bootcamps worldwide
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Best Student Support & Best Value
+        title: Best student support & best value
         source: Course Report, SwitchUp
       - icon: Users
         title: 35,000+ Graduates Across 20+ Countries
         description: A global community of successful tech professionals
       - icon: Certificate
-        title: Industry-Recognized Certificates
+        title: Industry-recognized certificates
         description: Credentials that employers trust and value
     media:
       type: image
