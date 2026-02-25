@@ -321,26 +321,6 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Resultados Reales para Nuestros Graduados
-    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo lanzan carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
-    items:
-      - icon: Briefcase
-        value: 84%
-        title: Tasa de colocación laboral
-      - icon: Graduation
-        value: 3-6 meses
-        title: Tiempo promedio para conseguir empleo
-      - icon: GrowthChart
-        value: 55%
-        title: Aumento salarial después de graduarse
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    marginY:
-      desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
     title: Garantía de Empleo* Opcional para Mayor Confianza
