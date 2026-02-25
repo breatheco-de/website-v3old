@@ -271,9 +271,8 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: syllabus
-    version: "1.0"
     variant: program-modules
-    program_title: Lo Que Aprenderás en el Programa Full Stack
+    program_title: Lo que aprenderás en el programa Full Stack
     program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
     tech_logos:
       - name: HTML5
