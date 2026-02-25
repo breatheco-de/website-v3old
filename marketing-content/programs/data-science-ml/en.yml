@@ -277,7 +277,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Career Outcomes
+    title: Career outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
       - text: "Data Scientist: {{ salary_data_scientist | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | $80K–$130K }} }} }} }}"
