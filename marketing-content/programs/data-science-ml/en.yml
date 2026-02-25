@@ -361,10 +361,10 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Financing Options
+    title: Tuition & financing options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ price_datascience | $299 }}
     tech_icons:
       - python
