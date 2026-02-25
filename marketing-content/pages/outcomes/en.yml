@@ -82,13 +82,13 @@ sections:
     subtitle: Our graduates get hired and increase their salaries in multiple job markets.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: 84%
         label: of U.S. graduates hired within 6 months
       - value: +55%
         label: average U.S. salary increase
       - value: +233%
         label: average salary increase in LATAM
-      - value: {{ global_job_placement_rate | 75 }}%
+      - value: 75%
         label: placement rate in Spain
       - value: 3-6 months
         label: average time to get hired across all markets
