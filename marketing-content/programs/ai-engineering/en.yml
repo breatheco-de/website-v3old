@@ -29,7 +29,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduates
+      count: +6000 graduates
     bullet_points:
       - Transform an entire business case into a fully AI-native system, layer by layer.
       - Integrate AI into real software, connecting intelligent models to users and data.
