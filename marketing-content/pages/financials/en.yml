@@ -443,7 +443,7 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: md none
+      desktop: none
     paddingY:
       desktop: none
     showOnLocations:
