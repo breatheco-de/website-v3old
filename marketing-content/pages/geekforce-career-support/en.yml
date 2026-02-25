@@ -212,23 +212,23 @@ sections:
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
-    title: Get Hired with Our 3-Step Career Development Process
+    title: Get hired with our 3-step career development Process
     description: Our structured process is designed to get you hired fast.
     steps:
       - icon: Optimization
-        title: Profile Optimization
+        title: Profile optimization
         bullets:
           - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
           - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
           - Showcase your skills with a recruiter-ready portfolio.
       - icon: Interview
-        title: Interview Preparation
+        title: Interview preparation
         bullets:
           - Gain confidence with mock technical and behavioral interviews.
           - Practice coding and problem-solving with auto-graded exercises.
           - Develop tailored strategies for upcoming interviews.
       - icon: JobSearch
-        title: Strategic Job Search
+        title: Strategic job search
         bullets:
           - Create a personalized job search plan aligned with your goals.
           - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
