@@ -153,3 +153,12 @@
 2026-02-25T23:06:56.066Z [RESTART] Server started (instance=6319, checkpoint=0d6165a5, env=development, pid=4693)
 2026-02-25T23:06:56.848Z [RECONCILE] Already in sync at 32b6602
 2026-02-25T23:06:57.816Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T23:09:30.541Z [RESTART] Server started (instance=790e, checkpoint=bc5b12b5, env=development, pid=428)
+2026-02-25T23:09:33.146Z [RECONCILE] Local 32b6602 ≠ remote bc5b12b, checking file hashes...
+2026-02-25T23:09:38.908Z [RECONCILE] No tracked files changed, updated to bc5b12b
+2026-02-25T23:09:39.839Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T23:11:31.455Z [WEBHOOK] Push b478628 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:11:31.897Z [AUTO-PULL] Webhook: pulled 1 files from b478628: pages/financials/es.yml
+2026-02-25T23:11:55.836Z [WEBHOOK] Push 9357335 by alesanchezr: no marketing-content files changed
+2026-02-25T23:13:42.527Z [WEBHOOK] Push 75ec4f8 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:13:42.957Z [AUTO-PULL] Webhook: pulled 1 files from 75ec4f8: pages/financials/es.yml

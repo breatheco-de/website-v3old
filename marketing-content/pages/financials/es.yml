@@ -107,9 +107,9 @@ sections:
       - title: Cuotas sin Intereses a 6 Meses
         description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
       - title: Pagos Basados en Ingresos
-        description: ¿Prefieres pagar después de conseguir empleo? A través de nuestro partner Edly, puedes comenzar a pagar una vez que ganes al menos {{ anual_income_based_payment_guarantee | $35,000 }} al año. Las cuotas mensuales se ajustan a tus ingresos y se pausan en períodos de desempleo o subempleo. Se permiten codeudores.
+        description: Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países, y aplican ciertas condiciones. Contáctanos para saber más.
       - title: Préstamos y Planes de Pago Extendidos
-        description: Ofrecemos planes de financiamiento de 1 a 5 años, dependiendo de tu perfil crediticio, con pagos mensuales desde menos de {{ monthly_payment_minimun | $349 }}. Los términos y la aprobación están sujetos a elegibilidad.
+        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde 170 USD. La aprobación y condiciones finales dependen de la entidad financiera.
       - title: Becas
         description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
     expand_label: Más información
@@ -120,17 +120,6 @@ sections:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
     showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
       - bogota-colombia
       - buenosaires-argentina
       - caracas-venezuela
