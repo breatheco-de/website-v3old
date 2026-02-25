@@ -23,7 +23,7 @@ sections:
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
-    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ cybersecurity_week_duration | {{ cybersecurity_week_duration | 16 }} }} weeks.
+    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ cybersecurity_week_duration | 16 }} weeks.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -57,7 +57,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 16-Week Intensive Program
+          text: {{ cybersecurity_week_duration | 16 }}-Week Intensive Program
         - icon: IconBriefcase
           text: Employment-First Curriculum
         - icon: IconRobot
