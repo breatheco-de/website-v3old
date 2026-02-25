@@ -615,6 +615,8 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
+    marginY:
+      desktop: none md
   - type: testimonials
     title: Éxito Profesional Comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
