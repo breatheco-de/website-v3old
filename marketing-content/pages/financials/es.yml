@@ -263,7 +263,7 @@ sections:
     marginY:
       desktop: lg
     paddingY:
-      desktop: md lg
+      desktop: md none
     showOnLocations:
       - atlanta-usa
       - austin-usa
