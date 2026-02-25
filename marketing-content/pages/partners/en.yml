@@ -59,20 +59,20 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Why Partner with 4Geeks?
+    heading: Why partner with 4Geeks?
     description: Every collaboration is designed to drive measurable results for organizations and communities, creating opportunities, expanding access to tech education, and strengthening the future tech workforce.
     cards:
       - icon: Trophy
-        title: Scholarships & Funding
+        title: Scholarships & funding
         description: Break down financial barriers and make coding education accessible to underserved communities.
       - icon: Wallet
-        title: Reskilling & Upskilling Programs
+        title: Reskilling & upskilling programs
         description: Invest in your workforce and prepare employees for the digital-first future.
       - icon: Clock
-        title: Recruitment & Hiring Pipelines
+        title: Recruitment & hiring pipelines
         description: Gain direct access to job-ready developers, data scientists, and cybersecurity specialists.
       - icon: Users
-        title: Events & Outreach
+        title: Events & outreach
         description: Partner on hackathons, speaker series, and innovation initiatives that amplify your brand and mission.
     background: hsl(var(--muted))
     marginY:
