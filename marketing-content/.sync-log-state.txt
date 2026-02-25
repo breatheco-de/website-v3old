@@ -1,25 +1,3 @@
-2026-02-25T12:28:02.197Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.243Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.261Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.264Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.277Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.323Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:54:33.644Z [RESTART] Server started (instance=ab0b, checkpoint=5ded85fd, env=development, pid=80)
-2026-02-25T12:54:34.496Z [RECONCILE] Local c2ca8be ≠ remote a7cfdb5, checking file hashes...
-2026-02-25T12:54:35.132Z [RECONCILE] 0/10 files match remote, 10 still differ
-2026-02-25T12:54:39.703Z [AUTO-PULL] Startup: pulled 10 incoming files: landings/ai-engineering-spain/_common.yml, pages/financials/es.yml, pages/partners/en.yml, pages/partners/es.yml, pages/scholarships/en.yml, pages/scholarships/es.yml, pages/work-with-us/en.yml, programs/ai-engineering/es.yml, section-bindings.json, variables.yml
-2026-02-25T12:54:39.992Z [WEBHOOK] Created webhook #597924594 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
-2026-02-25T12:54:41.140Z [WEBHOOK] Received ping event — webhook is active
-2026-02-25T12:55:18.520Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.538Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.558Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.561Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.594Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.618Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.653Z [WEBHOOK] Push 458161c by alesanchezr: 1 marketing-content files changed
-2026-02-25T12:55:18.742Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:18.743Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T12:55:19.135Z [AUTO-PULL] Webhook: pulled 1 files from 458161c: pages/scholarships/es.yml
 2026-02-25T12:55:19.625Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:55:19.628Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:55:19.641Z [WEBHOOK] Rejected: no webhook configured in sync state
@@ -498,3 +476,25 @@
 2026-02-25T22:38:50.012Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T22:39:05.572Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T22:39:09.672Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:39:38.205Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:39:42.354Z [RESTART] Server started (instance=8d4f, checkpoint=8075d7ff, env=development, pid=3287)
+2026-02-25T22:39:42.714Z [RECONCILE] Local 8b73b48 ≠ remote 46232e1, checking file hashes...
+2026-02-25T22:39:48.005Z [RECONCILE] 0/39 files match remote, 39 still differ
+2026-02-25T22:39:59.000Z [AUTO-PULL] Startup: pulled 39 incoming files: locations/atlanta-usa/es.yml, locations/austin-usa/es.yml, locations/barcelona-spain/en.yml, locations/barcelona-spain/es.yml, locations/berlin-germany/en.yml, locations/berlin-germany/es.yml, locations/chicago-usa/es.yml, locations/dallas-usa/es.yml, locations/dublin-ireland/en.yml, locations/dublin-ireland/es.yml, locations/hamburg-germany/en.yml, locations/hamburg-germany/es.yml, locations/houston-usa/es.yml, locations/lisbon-portugal/en.yml, locations/lisbon-portugal/es.yml, locations/losangeles-usa/es.yml, locations/madrid-spain/en.yml, locations/madrid-spain/es.yml, locations/malaga-spain/en.yml, locations/malaga-spain/es.yml, locations/miami-usa/es.yml, locations/milan-italy/en.yml, locations/milan-italy/es.yml, locations/munich-germany/en.yml, locations/munich-germany/es.yml, locations/newyork-usa/es.yml, locations/orlando-usa/es.yml, locations/remote/en.yml, locations/remote/es.yml, locations/rest-of-europe/en.yml, locations/rome-italy/en.yml, locations/rome-italy/es.yml, locations/tampa-usa/es.yml, locations/toronto-canada/es.yml, locations/valencia-spain/en.yml, locations/valencia-spain/es.yml, pages/geeks-vs-others/en.yml, pages/geeks-vs-others/es.yml, section-bindings.json
+2026-02-25T22:39:59.245Z [WEBHOOK] Created webhook #597997002 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:40:00.001Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:40:19.240Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:40:19.307Z [WEBHOOK] Push e3a089d by alesanchezr: 1 marketing-content files changed
+2026-02-25T22:40:19.879Z [AUTO-PULL] Webhook: pulled 1 files from e3a089d: pages/geeks-vs-others/en.yml
+2026-02-25T22:40:27.644Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:40:27.757Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:40:43.831Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:40:43.846Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:40:56.817Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:40:56.843Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:41:02.748Z [RESTART] Server started (instance=4efb, checkpoint=8075d7ff, env=development, pid=3942)
+2026-02-25T22:41:03.132Z [RECONCILE] Local e3a089d ≠ remote e5b975e, checking file hashes...
+2026-02-25T22:41:03.849Z [RECONCILE] 0/2 files match remote, 2 still differ
+2026-02-25T22:41:08.112Z [AUTO-PULL] Startup: pulled 2 incoming files: pages/geeks-vs-others/en.yml, section-bindings.json
+2026-02-25T22:41:08.400Z [WEBHOOK] Created webhook #597997114 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:41:09.480Z [WEBHOOK] Received ping event — webhook is active

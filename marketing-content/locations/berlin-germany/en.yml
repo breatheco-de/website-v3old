@@ -204,6 +204,7 @@ sections:
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
+    section_id: split_cards-p2pgjk
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Berlin Is a Smart Place to Launch Your Tech Career

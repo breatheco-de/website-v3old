@@ -3337,6 +3337,22 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.post("/api/github/webhook/setup", async (_req, res) => {
+    try {
+      const { ensureWebhook } = await import("./github");
+      await ensureWebhook();
+      const { getWebhookInfo } = await import("./sync-state");
+      const info = getWebhookInfo();
+      if (info) {
+        res.json({ success: true, message: `Webhook #${info.webhookId} is active at ${info.webhookUrl}` });
+      } else {
+        res.status(500).json({ success: false, message: "Webhook setup ran but no webhook was registered. Check that your GitHub token has the admin:repo_hook scope." });
+      }
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: error.message || "Webhook setup failed" });
+    }
+  });
+
   // Get all sync changes (local and incoming)
   app.get("/api/github/pending-changes", async (req, res) => {
     try {
