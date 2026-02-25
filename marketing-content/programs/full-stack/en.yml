@@ -567,7 +567,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - full-stack
     marginY:
