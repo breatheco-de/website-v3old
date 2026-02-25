@@ -46,10 +46,10 @@ sections:
     tutors_label: "Your tutors:"
     description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
     signup_card:
-      title: Get the Full Program Overview
+      title: Get the full program overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send Me the Details
+        text: Send me the details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -57,17 +57,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: {{ cybersecurity_week_duration | 16 }}-Week Intensive Program
+          text: {{ cybersecurity_week_duration | 16 }}-week intensive program
         - icon: IconBriefcase
-          text: Employment-First Curriculum
+          text: Employment-first curriculum
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback
+          text: AI-Powered learning & feedback
         - icon: IconUsers
           text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 Mentorship
+          text: Unlimited 1:1 mentorship
         - icon: book
-          text: Real-World Cybersecurity Portfolio
+          text: Real-world cybersecurity portfolio
     paddingY:
       desktop: md
     marginY:
