@@ -215,7 +215,6 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
-    section_id: course_selector-nvso65
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -337,7 +336,6 @@ sections:
         outcome: Promovido en 1 año
     marginY:
       desktop: none lg
-    section_id: testimonials-um6w41
   - type: testimonials
     version: v1.0
     title: Testimonios de Nuestros Graduados
@@ -382,7 +380,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-ef3won
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -436,7 +433,6 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
-    section_id: cta_banner-z2dpsn
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

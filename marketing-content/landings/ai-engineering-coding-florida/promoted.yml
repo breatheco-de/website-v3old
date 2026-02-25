@@ -598,7 +598,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-n8olzx
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an AI Engineer?

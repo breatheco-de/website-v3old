@@ -185,7 +185,6 @@ sections:
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-lqcrcf
   - type: testimonials_slide
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
@@ -285,7 +284,6 @@ sections:
         outcome: Promovido en 1 año
     marginY:
       desktop: none lg
-    section_id: testimonials-jd0jv8
   - type: testimonials
     version: v1.0
     title: Testimonios de Nuestros Graduados
@@ -330,7 +328,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-wdy1u6
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -384,7 +381,6 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
-    section_id: cta_banner-67gbao
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

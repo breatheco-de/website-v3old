@@ -183,7 +183,6 @@ sections:
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-k35rix
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
@@ -209,7 +208,6 @@ sections:
     title: Why Learn to Code with 4Geeks in Europe
     subtitle: All programs are taught online, hybrid, or in person
     description: Learning to code online is challenging—but not alone. Join our European community and get support to learn and to land a job for life. When you learn with 4Geeks online in Europe, you get access to our full platform and any of our locations worldwide.
-    section_id: why_learn_ai-tjge80
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -355,4 +353,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-xygxnu

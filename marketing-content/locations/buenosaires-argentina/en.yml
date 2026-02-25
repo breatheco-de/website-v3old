@@ -184,7 +184,6 @@ sections:
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-qpf8j7
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
@@ -210,7 +209,6 @@ sections:
     title: Why Buenos Aires Is a Smart Place to Launch Your Tech Career
     subtitle: A vibrant startup ecosystem with real hiring momentum
     description: "Buenos Aires encourages innovation and entrepreneurship through various initiatives and events. The city hosts tech conferences, startup competitions, and entrepreneurship programs that provide opportunities for startups to showcase their ideas and connect with investors.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Rising number of innovative startups attracting investment and gaining recognition</span></li><li>Strong focus on e-commerce, edtech, agritech, and mobility solutions with global ambition</li><li>Growing demand for software, AI, and data skills across sectors</li></ul></div><div>From our Buenos Aires campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
-    section_id: why_learn_ai-1apju5
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -370,3 +368,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+
