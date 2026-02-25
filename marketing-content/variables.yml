@@ -293,6 +293,13 @@ average_salary_ai_fluent_software_developer:
       value: "$55K – $75K"
 average_salary_web_aplications_engineer:
   default: "$95K–$140K"
+  conditions:
+    - query:
+        region: "latam"
+      value: "$40K – $65K"
+    - query:
+        region: "latam"
+      value: "$40K – $65K"
 average_salary_backend_services_developer:
   default: "$100K–$150K"
 average_salary_data_analyst:
