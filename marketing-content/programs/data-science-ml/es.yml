@@ -467,7 +467,7 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Contratan a Nuestros Graduados
+    title: Empresas que contratan a nuestros graduados
     subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
