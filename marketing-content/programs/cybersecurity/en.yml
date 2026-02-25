@@ -340,7 +340,7 @@ sections:
           - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
           - text: "Security Engineer: {{ global_salary_security_engineer | $100K–$165K }}"
           - text: "Incident Responder: {{ global_salary_incident_responder | $85K–$140K }}"
-      - value: 500+
+      - value: 400+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
         benefits:
