@@ -193,7 +193,7 @@ sections:
         program:
           visible: false
           required: true
-          default: data-science-ml
+          default: ai_engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
