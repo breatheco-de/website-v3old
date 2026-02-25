@@ -295,7 +295,7 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: How you’ll learn at 4Geeks
+    title: How You’ll Learn at 4Geeks
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
     features:
       - icon: Robot
