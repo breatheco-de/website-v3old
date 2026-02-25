@@ -263,7 +263,7 @@ salary_data_scientist:
       value: "20.000€ - 30.000€"
     - query:
         region: "latam"
-      value: "$22.500 USD"
+      value: "$35K – $65K"
 minimun_isa_salary:
   default: "17.000 €"
   conditions:
