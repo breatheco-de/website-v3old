@@ -37,11 +37,11 @@ sections:
         highlight: true
       - name: Promedio de la industria / competidores
     rows:
-      - feature: Apoyo Profesional
+      - feature: Apoyo profesional
         values:
           - Orientación personalizada y de por vida
           - Limitado o de corto plazo
-      - feature: Ratio Profesor-Estudiante
+      - feature: Ratio Profesor-estudiante
         values:
           - {{ global_teacher_student_ratio | 1:7 }}
           - Usualmente 1:10 o más
