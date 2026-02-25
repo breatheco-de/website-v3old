@@ -188,7 +188,7 @@ global_total_alumni:
       value: "6,000"
     - query:
         locale: "es"
-      value: "4.000"
+      value: "6,000"
 global_salary_cybersecurity_analist:
   default: "$75K–$120K"
   conditions:
