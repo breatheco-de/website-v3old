@@ -327,7 +327,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    background: hsl(var(--muted))
   - type: features_grid
     variant: highlight
     title: Inscríbete con Garantía de Empleo*
