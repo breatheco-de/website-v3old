@@ -101,17 +101,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: syllabus
     title: Fund Your Tech Career
     subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
