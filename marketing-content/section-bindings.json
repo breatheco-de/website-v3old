@@ -670,10 +670,16 @@
           "contentType": "location",
           "slug": "valencia-spain",
           "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 4
         }
       ],
       "createdAt": "2026-02-24T12:10:32.190Z",
-      "name": "course_selector_europe_es"
+      "name": "course_selector_europe_es",
+      "updatedAt": "2026-02-25T14:38:03.272Z"
     },
     {
       "id": "bind_mm0kgqdp_f4yyuw",
