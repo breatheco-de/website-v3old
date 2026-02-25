@@ -185,26 +185,26 @@ sections:
           - Desarrollador Full Stack, Desarrollador Front-End, Desarrollador Back-End, Ingeniero de Software en IA, Desarrollador Web.
           - Analista de Datos, Científico de Datos, Ingeniero de Machine Learning, Analista BI.
           - Analista de Ciberseguridad, Analista SOC, Pentester, Consultor de Seguridad.
-      - feature: Salario Promedio en EE.UU.
+      - feature: Salario Promedio en Europa.
         values:
-          - $75K a $110K
-          - $85K a $130K
-          - $80K a $120K
+          - 22.000€ a 40.000€
+          - 30.000€ a 60.000€
+          - 25.000€ a 45.000€
       - feature: Modalidad del Bootcamp
         values:
-          - Tiempo Completo (12 semanas) o Medio Tiempo (20 semanas).
-          - Medio Tiempo (16 semanas).
+          - Medio Tiempo (20 semanas).
+          - Medio Tiempo (18 semanas).
           - Medio Tiempo (16 semanas).
       - feature: Modalidad de Estudio
         values:
-          - Online o Presencial (ciudades seleccionadas).
+          - Online.
           - Online.
           - Online.
       - feature: Costo
         values:
-          - $10,999 (descuentos y becas disponibles).
-          - $10,999 (descuentos y becas disponibles).
-          - $9,999 (descuentos y becas disponibles).
+          - 6.800€ (descuentos y becas disponibles).
+          - 7.800€ (descuentos y becas disponibles).
+          - 7.800€ (descuentos y becas disponibles).
       - feature: Planes de Pago
         values:
           - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
