@@ -226,7 +226,7 @@ global_salary_incident_responder:
         region: "europe"
       value: "25.000€ - 32.000€"
 average_salary_cybersecurity_short:
-  default: "$85"
+  default: "$85K"
   conditions:
     - query:
         region: "europe"
