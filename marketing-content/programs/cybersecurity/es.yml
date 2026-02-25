@@ -46,10 +46,10 @@ sections:
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
     signup_card:
-      title: Obtén el Programa Completo
+      title: Obtén el programa completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar Información
+        text: Solicitar información
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -57,17 +57,17 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa Intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
+          text: Programa intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
         - icon: IconBriefcase
-          text: Programa Orientado a la Práctica
+          text: Programa orientado a la práctica
         - icon: IconRobot
-          text: Aprendizaje y Feedback con IA
+          text: Aprendizaje y feedback con IA
         - icon: IconUsers
           text: Relación {{ global_teacher_student_ratio | 7:1 }} de estudiantes a instructor
         - icon: IconUserCheck
-          text: Mentoría 1:1 Ilimitada
+          text: Mentoría 1:1 ilimitada
         - icon: book
-          text: Portafolio con Proyectos Reales
+          text: Portafolio con proyectos reales
     paddingY:
       desktop: md
     marginY:
