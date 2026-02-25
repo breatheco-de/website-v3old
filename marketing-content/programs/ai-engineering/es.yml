@@ -382,7 +382,7 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: El Modelo de Aprendizaje 4Geeks
+    title: El Modelo de aprendizaje 4Geeks
     description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
     features:
       - icon: Robot
