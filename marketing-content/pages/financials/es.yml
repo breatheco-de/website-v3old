@@ -561,8 +561,8 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
-      count: 2,847
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_verified_reviews_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
