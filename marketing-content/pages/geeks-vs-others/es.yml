@@ -156,7 +156,7 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: Tu Carrera – Garantizada
+      heading: Tu Carrera – garantizada
       description: "La prueba más fuerte de que creemos en nuestro modelo? Lo respaldamos con una Garantía de Empleo opcional. La mayoría de escuelas prometen \"apoyo profesional\". En 4Geeks prometemos resultados: consigue empleo en 9 meses o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked=\"1\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\"><span style=\"font-size: 0.875rem;\">Condiciones aplican.</span></a></div>"
       badge: Promesa Respaldada por Resultados
     secondary:
