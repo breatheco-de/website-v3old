@@ -339,6 +339,18 @@ sections:
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
