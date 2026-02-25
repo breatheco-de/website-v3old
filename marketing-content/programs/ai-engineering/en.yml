@@ -87,34 +87,87 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-  - type: modal
+  - type: hero
     version: "1.0"
-    section_id: apply-modal
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Get the Full Overview
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: true
-          default: ai-engineering
-      success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
+    variant: course
+    title: AI Engineering
+    title_highlight: AI Enginerering
+    subtitle: Learn to design, build, and deploy complete AI systems used in real-world production.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: +7000 graduates
+    bullet_points:
+      - Transform an entire business case into a fully AI-native system, layer by layer.
+      - Integrate AI into real software, connecting intelligent models to users and data.
+      - Use modern AI tools and coding agents to build and ship software faster.
+    tutors:
+      - name: Marco Gonzalo
+        role: Main Instructor
+        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
+      - name: Rigo
+        role: AI Tutor
+        image: /attached_assets/rigobot-logo_1764707022198.webp
+    tutors_label: "Your tutors:"
+    description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
+    media:
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program introduction
+    signup_card:
+      title: Get the full program overview
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
+      cta_button:
+        text: Send me the details
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: Already a student? Login here.
+        url: https://4geeks.com/login
+      features:
+        - icon: calendar
+          text: 24-Week or 12-Week accelerated morning program
+        - icon: IconBriefcase
+          text: Employment-first curriculum
+        - icon: IconRobot
+          text: AI-Powered learning & feedback
+        - icon: IconUsers
+          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+        - icon: IconUserCheck
+          text: Unlimited 1:1 mentorship
+        - icon: book
+          text: Production-grade portfolio
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - caracas-venezuela
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - santiago-chile
+      - quito-ecuador
   - type: awards_marquee
     version: v1.0
     speed: 40
