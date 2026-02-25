@@ -4260,7 +4260,14 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/bindings", (_req, res) => {
     try {
       const groups = bindingManager.getAll();
-      res.json({ groups });
+      const enrichedGroups = groups.map(g => ({
+        ...g,
+        members: g.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, g.locale),
+        })),
+      }));
+      res.json({ groups: enrichedGroups });
     } catch (error) {
       console.error("Error fetching bindings:", error);
       res.status(500).json({ error: "Failed to fetch bindings" });
@@ -4276,13 +4283,24 @@ Important: Only include mappings where you are confident the field exists. Use d
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingManager.findGroupForSection(
+      const group = bindingManager.findGroupForSectionByIndex(
         contentType as string,
         slug as string,
         parseInt(sectionIndex as string, 10),
-        locale as string | undefined,
+        locale as string || "en",
       );
-      res.json({ group: group || null });
+      if (!group) {
+        res.json({ group: null });
+        return;
+      }
+      const enrichedGroup = {
+        ...group,
+        members: group.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
+        })),
+      };
+      res.json({ group: enrichedGroup });
     } catch (error) {
       console.error("Error finding binding for section:", error);
       res.status(500).json({ error: "Failed to find binding" });
@@ -4303,6 +4321,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType: string;
         slug: string;
         sectionIndex: number;
+        sectionId?: string;
         title?: string;
         alreadyBound?: string;
         alreadyBoundGroupName?: string;
@@ -4326,7 +4345,7 @@ Important: Only include mappings where you are confident the field exists. Use d
           for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
             if (section && section.type === component) {
-              const existingGroup = bindingManager.findGroupForSection(
+              const existingGroup = bindingManager.findGroupForSectionByIndex(
                 entryContentType,
                 entry.slug,
                 i,
@@ -4337,6 +4356,7 @@ Important: Only include mappings where you are confident the field exists. Use d
                 contentType: entryContentType,
                 slug: entry.slug,
                 sectionIndex: i,
+                sectionId: (section as Record<string, unknown>).section_id as string | undefined,
                 title:
                   ((merged.meta as Record<string, unknown>)?.title as string) ||
                   entry.title ||
@@ -4390,12 +4410,24 @@ Important: Only include mappings where you are confident the field exists. Use d
           });
         return;
       }
+      const normalizedLocale = normalizeLocale(locale);
+      const resolvedMembers = members.map((m: { contentType: string; slug: string; sectionIndex: number }) => {
+        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale);
+        return { contentType: m.contentType, slug: m.slug, sectionId };
+      });
       const { name, sourceIndex } = req.body;
-      const group = bindingManager.createGroup(component, locale, members, {
+      const group = bindingManager.createGroup(component, normalizedLocale, resolvedMembers, {
         name,
         sourceIndex,
       });
-      res.json({ group });
+      const enrichedGroup = {
+        ...group,
+        members: group.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
+        })),
+      };
+      res.json({ group: enrichedGroup });
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to create binding";
@@ -4434,12 +4466,25 @@ Important: Only include mappings where you are confident the field exists. Use d
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingManager.addMember(groupId, {
+      const group = bindingManager.getGroupById(groupId);
+      if (!group) {
+        res.status(404).json({ error: "Binding group not found" });
+        return;
+      }
+      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      const updatedGroup = bindingManager.addMember(groupId, {
         contentType,
         slug,
-        sectionIndex,
+        sectionId,
       });
-      res.json({ group });
+      const enrichedGroup = {
+        ...updatedGroup,
+        members: updatedGroup.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, updatedGroup.locale),
+        })),
+      };
+      res.json({ group: enrichedGroup });
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to add member";
@@ -4459,13 +4504,34 @@ Important: Only include mappings where you are confident the field exists. Use d
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const result = bindingManager.removeMember(
+      const group = bindingManager.getGroupById(groupId);
+      if (!group) {
+        res.status(404).json({ error: "Binding group not found" });
+        return;
+      }
+      const sectionId = bindingManager.getSectionIdAtIndex(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      if (!sectionId) {
+        res.status(400).json({ error: `No section_id found at index ${sectionIndex} for ${contentType}/${slug}` });
+        return;
+      }
+      const result = bindingManager.removeMemberBySectionId(
         groupId,
         contentType,
         slug,
-        parseInt(sectionIndex, 10),
+        sectionId,
       );
-      res.json({ group: result });
+      if (result) {
+        const enrichedResult = {
+          ...result,
+          members: result.members.map(m => ({
+            ...m,
+            sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, result.locale),
+          })),
+        };
+        res.json({ group: enrichedResult });
+      } else {
+        res.json({ group: null });
+      }
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to remove member";

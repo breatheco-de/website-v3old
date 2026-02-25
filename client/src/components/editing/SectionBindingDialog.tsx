@@ -41,7 +41,7 @@ interface SectionBindingDialogProps {
     name?: string;
     component: string;
     locale: string;
-    members: Array<{ contentType: string; slug: string; sectionIndex: number }>;
+    members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }>;
   } | null;
   onBindingChanged: () => void;
 }
@@ -50,6 +50,7 @@ interface Candidate {
   contentType: string;
   slug: string;
   sectionIndex: number;
+  sectionId?: string;
   title?: string;
   alreadyBound?: string;
   alreadyBoundGroupName?: string;
@@ -90,7 +91,7 @@ export function SectionBindingDialog({
   const [confirmDissolve, setConfirmDissolve] = useState(false);
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [unboundTab, setUnboundTab] = useState<"join" | "create">("join");
-  const [pendingJoinGroup, setPendingJoinGroup] = useState<{ id: string; name?: string; component: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null>(null);
+  const [pendingJoinGroup, setPendingJoinGroup] = useState<{ id: string; name?: string; component: string; members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }> } | null>(null);
   const [showAddMore, setShowAddMore] = useState(false);
 
   const handleOpenChange = (nextOpen: boolean) => {
@@ -105,9 +106,8 @@ export function SectionBindingDialog({
     onOpenChange(nextOpen);
   };
 
-  const candidateKey = (c: Candidate | { contentType: string; slug: string; sectionIndex: number }) =>
-    `${c.contentType}:${c.slug}:${c.sectionIndex}`;
-  const currentKey = `${contentType}:${slug}:${sectionIndex}`;
+  const candidateKey = (c: Candidate | { contentType: string; slug: string; sectionIndex: number; sectionId?: string }) =>
+    `${c.contentType}:${c.slug}:${(c as { sectionId?: string }).sectionId || c.sectionIndex}`;
 
   const { data: candidatesData, isLoading: loadingCandidates } = useQuery({
     queryKey: ["/api/bindings/candidates", component, locale],
@@ -120,7 +120,7 @@ export function SectionBindingDialog({
 
   const candidates = (candidatesData?.candidates || []) as Candidate[];
 
-  const { data: allGroupsData, isLoading: loadingGroups } = useQuery<{ groups: Array<{ id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> }> }>({
+  const { data: allGroupsData, isLoading: loadingGroups } = useQuery<{ groups: Array<{ id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }> }> }>({
     queryKey: ["/api/bindings"],
     queryFn: async () => {
       const res = await fetchWithAuth("/api/bindings");
@@ -135,8 +135,8 @@ export function SectionBindingDialog({
   }, [allGroupsData, component, locale]);
 
   const availableCandidates = useMemo(() => {
-    return candidates.filter(c => candidateKey(c) !== currentKey);
-  }, [candidates, currentKey]);
+    return candidates.filter(c => !(c.contentType === contentType && c.slug === slug && c.sectionIndex === sectionIndex));
+  }, [candidates, contentType, slug, sectionIndex]);
 
   const selectableCandidates = useMemo(() => {
     return availableCandidates.filter(c => !c.alreadyBound);
@@ -157,7 +157,7 @@ export function SectionBindingDialog({
 
   const existingMemberKeys = useMemo(() => {
     if (!existingGroup) return new Set<string>();
-    return new Set(existingGroup.members.map(m => `${m.contentType}:${m.slug}:${m.sectionIndex}`));
+    return new Set(existingGroup.members.map(m => candidateKey(m)));
   }, [existingGroup]);
 
   const addMoreCandidates = useMemo(() => {
@@ -758,8 +758,9 @@ export function SectionBindingDialog({
             </div>
             <div className="space-y-1 max-h-[132px] overflow-y-auto">
               {existingGroup.members.map(m => {
-                const key = `${m.contentType}:${m.slug}:${m.sectionIndex}`;
-                const isSelf = key === currentKey;
+                const key = candidateKey(m);
+                const isSelf = m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex;
+                const hashAnchor = m.sectionId || `${component}-${m.sectionIndex}`;
                 return (
                   <div key={key} className="flex items-center text-sm py-1">
                     <div className="flex items-center gap-2 min-w-0 flex-wrap">
@@ -768,7 +769,7 @@ export function SectionBindingDialog({
                         <span className="truncate">{m.slug}</span>
                       ) : (
                         <a
-                          href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${component}-${m.sectionIndex}`}
+                          href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${hashAnchor}`}
                           className="truncate underline cursor-pointer"
                           onClick={() => handleOpenChange(false)}
                           data-testid={`link-member-${key}`}
