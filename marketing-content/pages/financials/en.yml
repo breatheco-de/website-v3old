@@ -134,6 +134,18 @@ sections:
       desktop: lg md
     paddingY:
       desktop: md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - newyork-usa
+      - losangeles-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: comparison_table
     version: "1.0"
     title: Your Financing Options at a Glance
