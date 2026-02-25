@@ -72,7 +72,7 @@ sections:
         - icon: robot
           text: Feedback con IA en tiempo real
         - icon: calendar
-          text: Ratio 1:7 estudiante–profesor
+          text: Ratio {{ global_teacher_student_ratio | 1:7 }} estudiante–profesor
         - icon: users
           text: Mentoría personalizada 1:1
     paddingY:
