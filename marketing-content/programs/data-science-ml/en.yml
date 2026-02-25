@@ -567,7 +567,7 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to start your Data Science career?
+    title: Ready to Start Your Data Science Career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
