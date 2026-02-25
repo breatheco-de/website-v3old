@@ -1,37 +1,3 @@
-2026-02-25T12:22:45.726Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.764Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.826Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.829Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.855Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.910Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.936Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:22:45.961Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.292Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.342Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.360Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.388Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.391Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.401Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.409Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:08.611Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.423Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.477Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.513Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.561Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.604Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.615Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.659Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:25:30.691Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.646Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.666Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.697Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.714Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.724Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.789Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.794Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:27:51.863Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.160Z [WEBHOOK] Rejected: no webhook configured in sync state
-2026-02-25T12:28:02.193Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:28:02.197Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:28:02.243Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T12:28:02.261Z [WEBHOOK] Rejected: no webhook configured in sync state
@@ -496,3 +462,39 @@
 2026-02-25T20:32:12.915Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
 2026-02-25T20:58:31.387Z [RESTART] Server started (instance=6737, checkpoint=49487884, env=development, pid=620)
 2026-02-25T20:58:31.766Z [RECONCILE] Local 350f73f ≠ remote 99d6c77, checking file hashes...
+2026-02-25T22:30:28.091Z [RESTART] Server started (instance=a791, checkpoint=39dea9cb, env=development, pid=2367)
+2026-02-25T22:30:28.456Z [RECONCILE] Local 99d6c77 ≠ remote a15526b, checking file hashes...
+2026-02-25T22:30:33.492Z [RECONCILE] 0/126 files match remote, 126 still differ
+2026-02-25T22:31:06.329Z [AUTO-PULL] Startup: pulled 126 incoming files: landings/ai-engineering-chile/promoted.yml, landings/ai-engineering-coding-florida/promoted.yml, landings/ai-engineering-en/promoted.yml, landings/ai-engineering-es/promoted.yml, landings/ai-engineering-lumi-version/promoted.yml, landings/ai-engineering-mexico/promoted.yml, landings/ai-engineering-spain/promoted.yml, landings/example-landing/promoted.yml, locations/atlanta-usa/en.yml, locations/atlanta-usa/es.yml, locations/austin-usa/en.yml, locations/austin-usa/es.yml, locations/barcelona-spain/en.yml, locations/barcelona-spain/es.yml, locations/berlin-germany/en.yml, locations/berlin-germany/es.yml, locations/bogota-colombia/en.yml, locations/bogota-colombia/es.yml, locations/buenosaires-argentina/en.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/en.yml, locations/caracas-venezuela/es.yml, locations/chicago-usa/en.yml, locations/chicago-usa/es.yml, locations/costa-rica/en.yml, locations/costa-rica/es.yml, locations/dallas-usa/en.yml, locations/dallas-usa/es.yml, locations/dublin-ireland/en.yml, locations/dublin-ireland/es.yml, locations/hamburg-germany/en.yml, locations/hamburg-germany/es.yml, locations/houston-usa/en.yml, locations/houston-usa/es.yml, locations/lapaz-bolivia/en.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/en.yml, locations/lima-peru/es.yml, locations/lisbon-portugal/en.yml, locations/lisbon-portugal/es.yml, locations/losangeles-usa/en.yml, locations/losangeles-usa/es.yml, locations/madrid-spain/en.yml, locations/madrid-spain/es.yml, locations/malaga-spain/en.yml, locations/malaga-spain/es.yml, locations/mexicocity-mexico/en.yml, locations/mexicocity-mexico/es.yml, locations/miami-usa/en.yml, locations/miami-usa/es.yml, locations/milan-italy/en.yml, locations/milan-italy/es.yml, locations/montevideo-uruguay/en.yml, locations/montevideo-uruguay/es.yml, locations/munich-germany/en.yml, locations/munich-germany/es.yml, locations/newyork-usa/en.yml, locations/newyork-usa/es.yml, locations/orlando-usa/en.yml, locations/orlando-usa/es.yml, locations/panamacity-panama/en.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/en.yml, locations/quito-ecuador/es.yml, locations/remote/en.yml, locations/remote/es.yml, locations/rest-of-europe/en.yml, locations/rest-of-europe/es.yml, locations/rome-italy/en.yml, locations/rome-italy/es.yml, locations/santiago-chile/en.yml, locations/santiago-chile/es.yml, locations/tampa-usa/en.yml, locations/tampa-usa/es.yml, locations/toronto-canada/en.yml, locations/toronto-canada/es.yml, locations/valencia-spain/en.yml, locations/valencia-spain/es.yml, pages/awards/en.yml, pages/awards/es.yml, pages/financials/en.yml, pages/financials/es.yml, pages/geekforce-career-support/en.yml, pages/geekforce-career-support/es.yml, pages/geekpal-support/en.yml, pages/geekpal-support/es.yml, pages/geeks-vs-others/en.yml, pages/geeks-vs-others/es.yml, pages/graduates-and-projects/en.yml, pages/graduates-and-projects/es.yml, pages/home/en.yml, pages/home/es.yml, pages/job-guarantee/en.yml, pages/job-guarantee/es.yml, pages/learnpack/en.yml, pages/learnpack/es.yml, pages/online-platform/en.yml, pages/online-platform/es.yml, pages/outcomes/en.yml, pages/outcomes/es.yml, pages/partners/en.yml, pages/partners/es.yml, pages/press/en.yml, pages/press/es.yml, pages/rigobot-ai-coding-mentor/en.yml, pages/rigobot-ai-coding-mentor/es.yml, pages/sample-page/en.yml, pages/scholarships/en.yml, pages/scholarships/es.yml, pages/testimonials/en.yml, pages/testimonials/es.yml, pages/the-academy/en.yml, pages/the-academy/es.yml, pages/work-with-us/en.yml, pages/work-with-us/es.yml, programs/ai-engineering/en.yml, programs/ai-engineering/es.yml, programs/ai-for-professionals/en.yml, programs/ai-for-professionals/es.yml, programs/cybersecurity/en.yml, programs/cybersecurity/es.yml, programs/data-science-ml/en.yml, programs/data-science-ml/es.yml, programs/full-stack/en.yml, programs/full-stack/es.yml, variables.yml
+2026-02-25T22:31:06.657Z [WEBHOOK] Created webhook #597996122 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:31:07.228Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:31:07.881Z [WEBHOOK] Push 8b73b48 by alesanchezr: 1 marketing-content files changed
+2026-02-25T22:31:08.319Z [AUTO-PULL] Webhook: pulled 1 files from 8b73b48: section-bindings.json
+2026-02-25T22:31:17.824Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:31:42.481Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:32:02.576Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:32:07.426Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:32:40.598Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:32:49.226Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:33:11.501Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:33:27.422Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:34:39.020Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:34:55.773Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:36:03.261Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:36:17.810Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:36:28.209Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:36:43.615Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:36:56.730Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:37:06.535Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:37:22.473Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:37:26.671Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:37:33.730Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:37:49.234Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:37:57.158Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:38:07.283Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:38:15.940Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:38:31.147Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:38:42.747Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:38:50.012Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:39:05.572Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:39:09.672Z [WEBHOOK] Rejected: no webhook configured in sync state

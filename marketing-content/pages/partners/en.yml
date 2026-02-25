@@ -20,7 +20,7 @@ sections:
     title: Building the future of tech, together
     subtitle: 4Geeks Academy partners with universities, nonprofits, workforce initiatives, and global organizations to expand access to tech education, place diverse talent, and bridge the digital skills gap, creating stronger career pathways and a workforce ready for the AI era.
     image:
-      src: /attached_assets/our-story_1765323971104.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Join our partnership network

@@ -41,7 +41,7 @@ sections:
       desktop: md lg
   - type: banner
     version: "1.0"
-    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
       - https://randomuser.me/api/portraits/men/2.jpg
@@ -56,7 +56,7 @@ sections:
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
       - title: "Nuestro Equipo de Mentores Expertos ofrece:"
-        image: /attached_assets/profile-pic6_1764775742734.webp
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada
           - text: Resolución de problemas en vivo
@@ -69,27 +69,27 @@ sections:
           - text: Soporte para debugging y resolución de problemas
           - text: Cientos de ejercicios prácticos y pruebas de programación
     images:
-      - src: /attached_assets/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Estudiante asiático aprendiendo a programar
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: /attached_assets/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Estudiante latino trabajando en un proyecto
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: /attached_assets/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Estudiante africano colaborando con su equipo
         object_fit: cover
         object_position: 50%15%
         border_radius: 0.5rem
-      - src: /attached_assets/student-4-lady-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Estudiante latina celebrando su éxito
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-    image: /attached_assets/Group_6685_(1)_1765300162049.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Mujer trabajando en laptop en un café
     background: bg-background
     paddingY:
@@ -109,7 +109,7 @@ sections:
         description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás — y saben cómo ayudarte a llegar a donde quieres ir.
         icon: Rigobot
         accent_color: primary
-    image: /attached_assets/Group-6606.webp
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
     image_alt: Comunidad global de desarrolladores 4Geeks
     background: bg-primary/5
     paddingY:

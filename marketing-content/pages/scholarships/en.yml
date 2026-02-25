@@ -21,7 +21,7 @@ sections:
     title: Scholarships That Open Doors to Tech Careers
     subtitle: Explore scholarship opportunities designed to support your transition into high-growth tech careers.
     image:
-      src: /attached_assets/caracas-graduates_1765387638222.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Apply now
@@ -36,7 +36,7 @@ sections:
     variant: cardHeader
     heading: Available Funding Opportunities
     description: We offer scholarships across select programs and regions to help make tech education more accessible. Opportunities vary by location and program, and can include institutional partnerships, sponsored awards, or merit-based support.
-    image: /attached_assets/comunity-support_1765908983485.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: Students supported through scholarship opportunities
     background: bg-primary/5
     cards:
@@ -373,7 +373,7 @@ sections:
     description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.
     testimonials:
       - name: Loretta Thompson
-        img: /attached_assets/ttaLoretta_1764725322100.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
         status: Graduated
         country:
           name: United States of America
@@ -382,7 +382,7 @@ sections:
         description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
         achievement: She got a 45% increase in her salary
       - name: Rich Akers
-        img: /attached_assets/Akers_1764725327796.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
         status: Graduated
         country:
           name: United States of America
@@ -391,7 +391,7 @@ sections:
         description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
         achievement: He got a 30% increase in his salary
       - name: MaiLinh Tran
-        img: /attached_assets/MaiLinh_1764725334980.png
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
         status: Graduated
         country:
           name: United States of America
@@ -400,7 +400,7 @@ sections:
         description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
         achievement: She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!
       - name: Jorge Martín Coimbra
-        img: /attached_assets/coimbra_1764725341501.png
+        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
         status: Graduated
         country:
           name: Uruguay
@@ -409,7 +409,7 @@ sections:
         description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
         achievement: He got a 100% increase in his salary
       - name: Jean St. Cloud
-        img: /attached_assets/JeanSt.Cloud_1764725356935.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
         status: Graduated
         country:
           name: United States of America
@@ -418,7 +418,7 @@ sections:
         description: Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the support of Clark University and is already performing as a developer and a Mentor.
         achievement: He got a 100% increase in his salary
       - name: Alexandra Espinoza
-        img: /attached_assets/AlexandraEspinoza_1764725386161.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         status: Graduated
         country:
           name: Costa Rica
@@ -427,7 +427,7 @@ sections:
         description: Alexandra came from a total different background is been a huge revelation for her and everyone around her. She is now a successful and talented software developer in Costa Rica.
         achievement: She got a 100% increase in her salary
       - name: Gabriel Salazar
-        img: /attached_assets/GabrielSalazar_1764725392872.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
         status: Graduated
         country:
           name: Costa Rica
@@ -436,7 +436,7 @@ sections:
         description: Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve a new position within Microsoft where he is now working as a Software Engineer.
         achievement: He got a 50% increase in his salary
       - name: Laura Magallanes
-        img: /attached_assets/Laura_1764725397398.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
         status: Graduated
         country:
           name: Uruguay
@@ -445,7 +445,7 @@ sections:
         description: Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator.
         achievement: She got a 120% increase in her salary
       - name: Melanie Galaretto
-        img: /attached_assets/MelamnieGalaretto_1764725408397.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
         status: Graduated
         country:
           name: Uruguay
@@ -454,7 +454,7 @@ sections:
         description: Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country.
         achievement: She got a +100% increase in her salary
       - name: Natia Lombardo
-        img: /attached_assets/NatiaLombardo_1764725413363.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
         status: Graduated
         country:
           name: Uruguay
@@ -462,7 +462,7 @@ sections:
         contributor: UTEC-BID
         description: Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm.
       - name: Luis Larraburo
-        img: /attached_assets/LuisLarraburo_1764725418057.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
         status: Graduated
         country:
           name: Costa Rica
@@ -471,7 +471,7 @@ sections:
         description: Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica.
         achievement: He got a 50% increase in his salary
       - name: Leandro Matonte
-        img: /attached_assets/Leandro_1764725403142.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
         status: Graduated
         country:
           name: Uruguay
@@ -498,29 +498,29 @@ sections:
     title: The Companies Hiring Our Graduates
     subtitle: Access creates opportunity. Employers turn it into real tech careers.
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
   - type: faq
     title: Frequently Asked Questions

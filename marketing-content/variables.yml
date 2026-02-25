@@ -42,6 +42,9 @@ global_job_placement_rate:
     - query:
         region: "europe"
       value: "75"
+    - query:
+        region: "latam"
+      value: "81"
 global_salary_increase:
   default: "55"
   conditions:
@@ -51,6 +54,9 @@ global_salary_increase:
     - query:
         region: "europe"
       value: "30"
+    - query:
+        region: "latam"
+      value: "40"
 global_review_rating:
   default: "4.9"
   conditions:
@@ -198,6 +204,9 @@ global_salary_cybersecurity_analist:
     - query:
         region: "europe"
       value: "20.000€ - 25.000€"
+    - query:
+        region: "latam"
+      value: "$30K – $55K"
 global_salary_penetration_tester:
   default: "$90K–$150K"
   conditions:
@@ -207,6 +216,9 @@ global_salary_penetration_tester:
     - query:
         region: "europe"
       value: "18.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$35K – $65K"
 global_salary_security_engineer:
   default: "$100K–$165K"
   conditions:
@@ -216,6 +228,9 @@ global_salary_security_engineer:
     - query:
         region: "europe"
       value: "22.000€- 30.000€"
+    - query:
+        region: "latam"
+      value: "$45K – $75K"
 global_salary_incident_responder:
   default: "$85K–$140K"
   conditions:
@@ -225,12 +240,18 @@ global_salary_incident_responder:
     - query:
         region: "europe"
       value: "25.000€ - 32.000€"
+    - query:
+        region: "latam"
+      value: "$40K – $70K"
 average_salary_cybersecurity_short:
   default: "$85K"
   conditions:
     - query:
         region: "europe"
       value: "35.000€"
+    - query:
+        region: "latam"
+      value: "35K USD"
 salary_data_scientist:
   default: "$80K–$130K"
   conditions:
@@ -242,7 +263,7 @@ salary_data_scientist:
       value: "20.000€ - 30.000€"
     - query:
         region: "latam"
-      value: "$22.500 USD"
+      value: "$35K – $65K"
 minimun_isa_salary:
   default: "17.000 €"
   conditions:
@@ -255,6 +276,9 @@ average_salary_fullstack:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$45K – $70K"
 mounthly_price_bootcamp:
   default: "200 €"
   conditions:
@@ -270,6 +294,9 @@ average_salary_machine_learning_engineer:
     - query:
         region: "europe"
       value: "22.000 € - 30.000 €"
+    - query:
+        region: "latam"
+      value: "$45K – $80K"
 average_salary_ai_fluent_software_developer:
   default: "$100K–$150K"
   conditions:
@@ -279,10 +306,24 @@ average_salary_ai_fluent_software_developer:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$55K – $75K"
 average_salary_web_aplications_engineer:
   default: "$95K–$140K"
+  conditions:
+    - query:
+        region: "latam"
+      value: "$40K – $65K"
+    - query:
+        region: "latam"
+      value: "$40K – $65K"
 average_salary_backend_services_developer:
   default: "$100K–$150K"
+  conditions:
+    - query:
+        region: "latam"
+      value: "$50K – $75K"
 average_salary_data_analyst:
   default: "$60K–$95K"
   conditions:
@@ -292,6 +333,9 @@ average_salary_data_analyst:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$20K – $40K"
 average_salary_ai_engineer:
   default: "$100K–$160K"
   conditions:
@@ -300,7 +344,7 @@ average_salary_ai_engineer:
       value: "$100K–$160K"
     - query:
         region: "latam"
-      value: "$20K-$60K USD"
+      value: "$40K – $75K"
     - query:
         region: "europe"
         locale: "es"
@@ -371,11 +415,14 @@ starting_salary_datascience:
         region: "usa-canada"
       value: "$90K"
 global_spending_cybersecurity:
-  default: "442.000 M€"
+  default: "$520B USD"
   conditions:
     - query:
         region: "usa-canada"
       value: "$520B"
+    - query:
+        region: "europe"
+      value: "442.000 M€"
 lowest_monthly_financing_option:
   default: "$299"
   conditions:
@@ -435,7 +482,7 @@ data_science_week_duration:
       value: "18 "
     - query:
         region: "latam"
-      value: "16 "
+      value: "18"
     - query:
         region: "usa-canada"
       value: "16 "
@@ -451,3 +498,5 @@ total_scholarships:
     - query:
         region: "europe"
       value: "17M€"
+number_of_hiring_partners_aprox:
+  default: "400"

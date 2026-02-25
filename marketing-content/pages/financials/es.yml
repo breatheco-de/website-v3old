@@ -38,11 +38,11 @@ sections:
       review_count: Basado en más de 5149 reseñas
       review_logos:
         - name: Google
-          logo: /attached_assets/google_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
         - name: Course Report
-          logo: /attached_assets/course-report_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         - name: SwitchUp
-          logo: /attached_assets/switchup_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     paddingY:
       desktop: none
     marginY:

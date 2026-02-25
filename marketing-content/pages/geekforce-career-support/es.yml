@@ -28,35 +28,35 @@ sections:
       items:
         - id: logo-google-developers
           alt: Logo de Google Developers
-          logo: /attached_assets/google-developers_1764719904190.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
           logoHeight: 48px
         - id: logo-uber
           alt: Logo de Uber
-          logo: /attached_assets/uber_1764719999685.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
           logoHeight: 48px
         - id: logo-telefonica
           alt: Logo de Telefónica
-          logo: /attached_assets/telefonica_1764719987250.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
           logoHeight: 48px
         - id: logo-twilio
           alt: Logo de Twilio
-          logo: /attached_assets/twilio_1764719992371.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
           logoHeight: 48px
         - id: logo-evernote
           alt: Logo de Evernote
-          logo: /attached_assets/evernote_1764719981901.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
           logoHeight: 48px
         - id: newsweek
           alt: Newsweek
-          logo: /attached_assets/newsweek_1764709608255.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
           logoHeight: 48px
         - id: logo-microsoft
           alt: Logo de Microsoft
-          logo: /attached_assets/microsoft_1764719829995.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
           logoHeight: 48px
         - id: logo-ebay
           alt: Logo de eBay
-          logo: /attached_assets/ebay_1764719967118.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
           logoHeight: 48px
       speed: 40
       gradient: true
@@ -236,59 +236,66 @@ sections:
     paddingY:
       desktop: md none
   - type: why_learn_ai
-    variant: default
-    title: Garantía de empleo* opcional para mayor confianza
-    subtitle: Respaldamos tu resultado profesional con un compromiso más fuerte
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    variant: laptop-edge
+    title: Tu futuro profesional, con garantía*
+    subtitle: Respaldamos tu resultado profesional con un compromiso real
+    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
     cta:
-      text: Más Información
-      url: /en/job-guarantee
+      text: Conocer más
+      url: /es/trabajo-garantizado
       variant: primary
     marginY:
       desktop: md
     paddingY:
       desktop: none sm
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
       - austin-usa
       - chicago-usa
-      - houston-usa
       - dallas-usa
       - miami-usa
+      - houston-usa
       - losangeles-usa
       - newyork-usa
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: whos_hiring
     variant: carousel
     title: Principales empresas tecnológicas que contratan graduados de 4Geeks
     description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
     logos:
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefónica
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
     paddingY:
       desktop: sm none
