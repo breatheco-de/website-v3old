@@ -263,7 +263,7 @@ sections:
       - toronto-canada
   - type: whos_hiring
     variant: carousel
-    title: Principales Empresas Tecnológicas que Contratan Graduados de 4Geeks
+    title: Principales empresas tecnológicas que contratan graduados de 4Geeks
     description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
     logos:
       - src: /attached_assets/twilio_1764719992371.png
