@@ -42,6 +42,9 @@ global_job_placement_rate:
     - query:
         region: "europe"
       value: "75"
+    - query:
+        region: "latam"
+      value: "81"
 global_salary_increase:
   default: "55"
   conditions:
