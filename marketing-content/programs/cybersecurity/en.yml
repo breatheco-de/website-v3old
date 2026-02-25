@@ -145,7 +145,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Cybersecurity Talent Is in High Demand
+    title: Cybersecurity talent is in high demand
     subtitle: Enter a mission-critical field with long-term growth and strong earning potential.
     description: A growing global talent gap and record-breaking investment in digital security have created unprecedented demand for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move directly into high-impact, high-paying roles.
     background: bg-muted/30
