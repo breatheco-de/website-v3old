@@ -344,14 +344,14 @@ sections:
     benefits:
       - text: "AI Software Engineer: $95K–$135K"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
+      - text: "Agent Engineer: $105K–$1K"
       - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: 84% of our graduates land a tech job within 6 months. Our career services team works with you until you're hired.
         benefits:
@@ -367,7 +367,7 @@ sections:
           - text: Salary negotiation coaching
           - text: Lifetime career support access
           - text: Alumni network with 10,000+ professionals
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Average salary increase
         description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
         benefits:
@@ -577,7 +577,7 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
-    item_overrides: 
+    item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
           - barcelona-spain
@@ -662,4 +662,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-
