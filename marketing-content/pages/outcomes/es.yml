@@ -217,7 +217,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Resultados Profesionales Reales
+    title: Resultados profesionales reales
     subtitle: Nuestros alumni comparten cómo consiguieron roles, avanzaron en sus carreras y aumentaron su poder adquisitivo.
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
@@ -263,14 +263,13 @@ sections:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - outcomes
-    paddingY:
-      desktop: lg none
     marginY:
       desktop: md
+    paddingY:
+      desktop: lg none
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
