@@ -46,3 +46,40 @@
 2026-02-25T22:48:16.264Z [WEBHOOK] Push 4910e4b by alesanchezr: 1 marketing-content files changed
 2026-02-25T22:48:16.717Z [AUTO-PULL] Webhook: pulled 1 files from 4910e4b: section-bindings.json
 2026-02-25T22:48:16.911Z [AUTO-PULL] Webhook: pulled 11 files from 5476ba7: locations/bogota-colombia/es.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/es.yml, locations/costa-rica/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/mexicocity-mexico/es.yml, locations/montevideo-uruguay/es.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/es.yml, locations/santiago-chile/es.yml
+2026-02-25T22:49:26.007Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:49:26.012Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:49:26.020Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:49:26.060Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:49:26.076Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:49:26.083Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:49:46.210Z [RESTART] Server started (instance=e90c, checkpoint=d7dcd115, env=development, pid=1919)
+2026-02-25T22:49:46.585Z [RECONCILE] Local 5476ba7 ≠ remote 2ab1fb8, checking file hashes...
+2026-02-25T22:49:47.781Z [RECONCILE] 1/2 files match remote, 1 still differ
+2026-02-25T22:49:51.182Z [AUTO-PULL] Startup: pulled 1 incoming files: locations/mexicocity-mexico/es.yml
+2026-02-25T22:49:51.843Z [WEBHOOK] Created webhook #597997969 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:49:52.239Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:50:28.592Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:50:28.609Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:50:28.645Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:50:28.648Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T22:50:28.664Z [WEBHOOK] Push f24ad6a by alesanchezr: 1 marketing-content files changed
+2026-02-25T22:50:29.110Z [AUTO-PULL] Webhook: pulled 1 files from f24ad6a: pages/financials/es.yml
+2026-02-25T22:51:23.625Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:51:23.632Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:51:23.640Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:51:23.641Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:51:23.668Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:52:02.225Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:52:02.228Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:52:02.238Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:52:02.287Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:52:02.330Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T22:52:07.334Z [RESTART] Server started (instance=a106, checkpoint=d7dcd115, env=development, pid=2133)
+2026-02-25T22:52:07.713Z [RECONCILE] Local f24ad6a ≠ remote 43d3e9b, checking file hashes...
+2026-02-25T22:52:11.234Z [RECONCILE] 0/13 files match remote, 13 still differ
+2026-02-25T22:52:16.327Z [AUTO-PULL] Startup: pulled 13 incoming files: locations/bogota-colombia/es.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/es.yml, locations/costa-rica/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/mexicocity-mexico/es.yml, locations/montevideo-uruguay/es.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/es.yml, locations/valencia-spain/es.yml, section-bindings.json, variables.yml
+2026-02-25T22:52:16.675Z [WEBHOOK] Created webhook #597998198 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T22:52:17.189Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T22:53:14.376Z [RESTART] Server started (instance=b51f, checkpoint=d7dcd115, env=development, pid=2580)
+2026-02-25T22:53:15.072Z [RECONCILE] Already in sync at 43d3e9b
+2026-02-25T22:53:16.053Z [WEBHOOK] Verified: webhook #597998198 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook

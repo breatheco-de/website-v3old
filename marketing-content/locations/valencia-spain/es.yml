@@ -240,18 +240,6 @@ sections:
         - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
         - text: {{ global_salary_increase | 55% }}% aumento salarial promedio en roles tech
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))

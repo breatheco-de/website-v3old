@@ -438,6 +438,14 @@ anual_income_based_payment_guarantee:
     - query:
         region: "usa-canada"
       value: "$35,000"
+    - query:
+        locale: "en"
+        region: "usa-canada"
+      value: "$35,000"
+    - query:
+        region: "usa-canada"
+        locale: "es"
+      value: "$35.000"
 job_guarantee_price:
   default: "$2,000"
   conditions:
