@@ -136,37 +136,37 @@ sections:
       - valencia-spain
   - type: syllabus
     title: Fund Your Tech Career
-    subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
+    subtitle: Explore flexible financing options, from upfront discounted payments to income-based plans, and choose the alternative that works best for you.
     modules:
       - title: Pay Upfront and Save 10%
-        description: Pay your tuition in full before the program starts and receive a 10% discount.
+        description: Pay your full tuition before the program begins and receive a 10% discount.
       - title: Interest-Free Installments over 6 Months
-        description: Spread the cost of your tuition fee over 6 months, with no interest or additional costs, through our partners.
+        description: Split your tuition into 6 interest-free monthly payments. Pay the standard tuition cost in structured monthly installments.
       - title: Income-Based Payments
-        description: Prefer to pay after you land a job? With ISA financing from BCAS FinTECH, you only start paying once your annual income reaches {{ minimun_isa_salary | £17,000 }}. From that point onwards, a fixed percentage of your income is applied, adapted to your financial situation.
+        description: Income Share Agreement (ISA) payment plans are not available in all countries, and certain conditions apply. Contact us to learn more.
       - title: Loans and Extended Payment Plans
-        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly instalments starting at {{ mounthly_price_bootcamp | £200 }}. Approval and final conditions are subject to the financial institution.
+        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly payments starting at 170 USD. Final approval and terms depend on the financial institution.
       - title: Scholarships
-        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
-    expand_label: More info
-    collapse_label: Hide info
+        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts may vary.
+    expand_label: More information
+    collapse_label: Hide information
     marginY:
       desktop: none lg
     paddingY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
     showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: comparison_table
     version: "1.0"
     title: Your Financing Options at a Glance
