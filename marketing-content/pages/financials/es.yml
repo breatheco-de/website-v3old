@@ -184,7 +184,7 @@ sections:
           - Sí
     background: hsl(var(--background))
     marginY:
-      desktop: lg md
+      desktop: md
     paddingY:
       desktop: md none
   - type: course_selector

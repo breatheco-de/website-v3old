@@ -103,7 +103,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explore Our Programs
+    heading: Explore our programs
     subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
@@ -139,7 +139,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 weeks
+        duration: 18 weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
@@ -165,6 +165,7 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-t8ms10
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"

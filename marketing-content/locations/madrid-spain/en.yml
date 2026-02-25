@@ -209,6 +209,7 @@ sections:
       desktop: lg
     paddingY:
       desktop: md lg
+    section_id: course_selector-k6g4kc
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
