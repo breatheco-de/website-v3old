@@ -29,7 +29,7 @@ sections:
     content: |
       ## Why AI mentorship beats guess-and-check coding
 
-      In a world where AI can write code, learning to code isn’t about memorizing syntax, it’s about understanding *how* to think like a developer. [Rigobot the AI mentor](https://4geeksacademy.com/us/ai-powered-learning/rigobot-ai-mentor), created by the 4Geeks Academy team, isn’t just another chatbot. It follows you everywhere you are learning (phone, laptop, coding environment, LearnPack), watches every line you write, and gives you real-time, personalized feedback that grows with you. Whether you’re debugging a Python script or building a React app, Rigobot’s got your back day or night.
+      In a world where AI can write code, learning to code isn’t about memorizing syntax, it’s about understanding *how* to think like a developer. [Rigobot the AI mentor](https://new.4geeks.com/en/blog/ai-powered-learning/rigobot-ai-mentor), created by the 4Geeks Academy team, isn’t just another chatbot. It follows you everywhere you are learning (phone, laptop, coding environment, LearnPack), watches every line you write, and gives you real-time, personalized feedback that grows with you. Whether you’re debugging a Python script or building a React app, Rigobot’s got your back day or night.
 
       Imagine this: you’re working on a JavaScript exercise, and your loop’s not behaving. Instead of hours of frustration, Rigobot highlights the exact line, explains the logic error, and suggests a cleaner approach. It’s like pair-programming with a pro who never gets tired. And the best part? It’s built into every 4Geeks course, so you start learning with Rigobot from day one.
 
@@ -81,9 +81,7 @@ sections:
 
       ### Remember, it is not about coding harder, it is about coding smarter :)
 
-      Rigobot is free inside every 4Geeks course, from Full Stack to Data Science. Jump into a [**LearnPack demo**](https://4geeksacademy.com/us/learnpack), or apply to our [**Full Stack Bootcamp**](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer).
-
-      Let Rigobot turn late-night bugs into light-bulb moments and your effort into a tech career.
+      Rigobot is free inside every 4Geeks course, from Full Stack to Data Science. Let Rigobot turn late-night bugs into light-bulb moments and your effort into a tech career.
     show_toc: true
     max_width: xl
   - type: faq
