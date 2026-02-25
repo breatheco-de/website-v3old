@@ -302,6 +302,10 @@ average_salary_web_aplications_engineer:
       value: "$40K – $65K"
 average_salary_backend_services_developer:
   default: "$100K–$150K"
+  conditions:
+    - query:
+        region: "latam"
+      value: "$50K – $75K"
 average_salary_data_analyst:
   default: "$60K–$95K"
   conditions:
