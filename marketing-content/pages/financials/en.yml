@@ -443,9 +443,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: md lg
+      desktop: md none
     paddingY:
-      desktop: none lg
+      desktop: none
     showOnLocations:
       - valencia-spain
       - rome-italy
