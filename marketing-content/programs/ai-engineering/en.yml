@@ -647,7 +647,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: testimonials
-    title: Real students. Real careers.
+    title: Real Students. Real Careers.
     subtitle: {{ global_total_alumni | 6,500 }}+ graduates and {{ global_verified_reviews_count | 700 }}+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
