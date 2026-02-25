@@ -185,7 +185,7 @@ global_total_alumni:
   conditions:
     - query:
         locale: "en"
-      value: "4,000"
+      value: "6,000"
     - query:
         locale: "es"
       value: "4.000"
