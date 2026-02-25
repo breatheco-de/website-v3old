@@ -65,9 +65,9 @@ sections:
       - value: 3-6 Months
         title: Average time to get hired
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
-      desktop: none
+      desktop: none sm
   - type: syllabus
     title: Fund Your Tech Career
     subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
