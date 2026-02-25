@@ -85,7 +85,7 @@ sections:
         label: aumento salarial promedio en EE.UU.
       - value: +233%
         label: aumento salarial promedio en LATAM
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: 75%
         label: Tasa de contratación
       - value: 3-6 meses
         label: tiempo promedio para conseguir empleo en todos los mercados
