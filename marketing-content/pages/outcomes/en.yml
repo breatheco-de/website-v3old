@@ -201,16 +201,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Why Our Graduates Consistently Get Hired
+    title: Why our graduates consistently get hired
     description: Strong outcomes come from how we teach, support, and place students into tech roles.
     bullets:
-      - heading: GeekFORCE Lifelong Career Support
+      - heading: GeekFORCE lifelong career support
         text: Unlimited 1:1 career mentorship, interview prep, and resume and portfolio coaching, designed around today’s AI-driven hiring processes.
-      - heading: GeekPAL Lifelong Technical Mentorship
+      - heading: GeekPAL lifelong technical mentorship
         text: Unlimited access to human mentors who help students keep progressing and build real-world confidence.
-      - heading: AI-Powered Learning & Feedback
+      - heading: AI-Powered learning & feedback
         text: 24/7 personalized feedback that helps students learn faster and more effectively.
-      - heading: Global Hiring Partner Network
+      - heading: Global hiring partner network
         text: Hundreds of companies worldwide that actively recruit 4Geeks graduates.
     footer: Support built for long-term careers, not just first jobs.
     image: https://4geeksacademy.com/static/197e7cf794b47d7a7f53770a4b55186f/56f2e/marceloricigliano.webp
