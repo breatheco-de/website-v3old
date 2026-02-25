@@ -92,10 +92,10 @@ sections:
         title: Top 5 Coding Bootcamps Worldwide
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Best Student Support & Best Value
+        title: Best student support & best Value
         source: Course Report, SwitchUp
       - icon: Users
-        title: 35,000+ Graduates Across 20+ Countries
+        title: 35,000+ graduates across 20+ countries
         description: A global community of successful tech professionals
     media:
       type: image
