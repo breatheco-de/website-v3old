@@ -39,12 +39,18 @@ global_job_placement_rate:
     - query:
         region: "usa-canada"
       value: "84"
+    - query:
+        region: "europe"
+      value: "75"
 global_salary_increase:
   default: "55"
   conditions:
     - query:
         region: "usa-canada"
       value: "55"
+    - query:
+        region: "europe"
+      value: "30"
 global_review_rating:
   default: "4.9"
   conditions:
@@ -371,6 +377,9 @@ lowest_monthly_financing_option:
     - query:
         region: "usa-canada"
       value: "$299"
+    - query:
+        region: "europe"
+      value: "200€"
 anual_income_based_payment_guarantee:
   default: "$35,000"
   conditions:
@@ -414,20 +423,26 @@ average_salary_workflow_automation_engineer:
         region: "europe"
       value: "20.000€- 30.000€"
 data_science_week_duration:
-  default: "16 weeks"
+  default: "16"
   conditions:
-  - query:
-      region: "europe"
-    value: "18 semanas"
-  - query:
-      region: "latam"
-    value: "16 weeks"
-  - query:
-      region: "usa-canada"
-    value: "16 semanas"
+    - query:
+        region: "europe"
+      value: "18 "
+    - query:
+        region: "latam"
+      value: "16 "
+    - query:
+        region: "usa-canada"
+      value: "16 "
 ai_engineering_week_duration:
-  default: "24 semanas"
+  default: "24 "
 cybersecurity_week_duration:
   default: "16 Semanas"
 fullstack_week_duration:
-  default: "20 semanas"
+  default: "20 "
+total_scholarships:
+  default: "20$M"
+  conditions:
+    - query:
+        region: "europe"
+      value: "17M€"

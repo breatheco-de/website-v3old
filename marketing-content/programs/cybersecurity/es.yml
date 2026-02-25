@@ -157,7 +157,7 @@ sections:
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
       - id: "3"
-        value: 442.000 M€
+        value: {{ global_spending_cybersecurity | $520B }}
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules

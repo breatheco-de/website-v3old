@@ -144,7 +144,7 @@ sections:
         description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
       - icon: CreditCard
         title: Flexible Financing
-        description: Financing options start below {{ lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
+        description: Financing options start from {{ lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
       - icon: Coin
         title: Income-Based Payment
         description: Start learning now and only pay once you’re earning in tech.

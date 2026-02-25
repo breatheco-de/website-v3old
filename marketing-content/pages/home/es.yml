@@ -105,30 +105,30 @@ sections:
         text: Grupos reducidos, acceso ilimitado a mentores y retroalimentación guiada por IA mantienen tu aprendizaje rápido, adaptativo y enfocado en lo que importa.
       - heading: Mentoría de por Vida y Apoyo Profesional
         text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
-      - heading: Currículo y Herramientas de Aprendizaje Integradas con IA
+      - heading: Currículum y Herramientas de Aprendizaje Integradas con IA
         text: Domina las últimas herramientas y flujos de trabajo de IA que los empleadores están buscando activamente.
     image: /attached_assets/community_1764717588840.png
     image_alt: Estudiante aprendiendo con apoyo de mentor
+    video:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
     reverse: true
     marginY:
       desktop: none lg
-    video:
-      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
   - type: features_grid
     version: "1.0"
     variant: highlight
     title: Resultados Reales para Nuestros Graduados
-    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo lanzan carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
+    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
-        value: 84%
+        value: {{ global_job_placement_rate | 84 }}%
         title: Tasa de colocación laboral
       - icon: Graduation
         value: 3-6 meses
         title: Tiempo promedio para conseguir empleo
       - icon: GrowthChart
-        value: 55%
-        title: Aumento salarial después de graduarse
+        value: {{ global_salary_increase | 55 }}%
+        title: Aumento salarial promedio después de graduarse
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
@@ -259,7 +259,7 @@ sections:
     courses:
       - name: Ingeniería de IA
         icon: Brain
-        duration: 24 semanas
+        duration: {{ ai_engineering_week_duration | 24 }} semanas
         label: Actualizado en 2026
         title: Ingeniería de IA
         badges:
@@ -273,7 +273,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
         icon: Code
-        duration: 20 semanas
+        duration: {{ fullstack_week_duration | 2O }} semanas
         label: Actualizado en 2026
         title: Desarrollo de Software Full Stack
         badges:
@@ -290,7 +290,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 16 semanas
+        duration: {{ data_science_week_duration | 18 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning con IA
         badges:

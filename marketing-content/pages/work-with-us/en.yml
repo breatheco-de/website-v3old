@@ -22,6 +22,8 @@ sections:
     badge: Job Opportunities
     image_id: academy_header_coding
     image_full_width: false
+    marginY:
+      desktop: none xl
   - type: two_column
     proportions:
       - 5

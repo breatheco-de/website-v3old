@@ -29,7 +29,10 @@ sections:
       - text: Opciones de financiamiento competitivas
       - text: Oportunidades de becas para candidatos calificados
     image_id: group_original
-    form: {}
+    cta_button:
+      text: Solicita información
+      url: "#bottom"
+      variant: primary
     trust_bar:
       rating: "4.5"
       review_count: Basado en más de 5149 reseñas
@@ -167,7 +170,7 @@ sections:
           - Fácil Acceso
           - Sí
           - Sí
-      - feature: Diferir Pagos
+      - feature: Aplazar Pagos
         values:
           - "No"
           - "No"
@@ -184,86 +187,6 @@ sections:
       desktop: lg md
     paddingY:
       desktop: md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-  - type: comparison_table
-    version: "1.0"
-    title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
-    subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
-    columns:
-      - name: Modalidad
-        highlight: true
-      - name: Pago Total
-        highlight: true
-      - name: Cuotas Flexibles
-        highlight: true
-      - name: Financiamiento
-        highlight: true
-      - name: Acuerdo de Ingresos Compartidos (ISA)
-        highlight: true
-    rows:
-      - feature: Descuento en Matrícula
-        values:
-          - 10% de descuento
-          - "No"
-          - "No"
-          - "No"
-      - feature: Verificación de Crédito
-        values:
-          - "No"
-          - Fácil Acceso
-          - Sí
-          - Sí
-      - feature: Diferir Pagos
-        values:
-          - "No"
-          - "No"
-          - "No"
-          - Sí
-      - feature: Pagar Una Vez Contratado
-        values:
-          - "No"
-          - "No"
-          - "No"
-          - Sí
-    background: hsl(var(--background))
-    marginY:
-      desktop: lg md
-    paddingY:
-      desktop: md
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - hamburg-germany
-      - dublin-ireland
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - rome-italy
-      - munich-germany
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -340,7 +263,7 @@ sections:
     marginY:
       desktop: lg
     paddingY:
-      desktop: md lg
+      desktop: md none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -561,8 +484,8 @@ sections:
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
-      count: 2,847
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_verified_reviews_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -603,80 +526,8 @@ sections:
   - type: faq
     title: Preguntas Frecuentes
     related_features:
-      - price
-      - certification
-    item_overrides:
-      puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
-        hideOnLocations:
-          - santiago-chile
-          - quito-ecuador
-          - panamacity-panama
-          - montevideo-uruguay
-          - mexicocity-mexico
-          - lima-peru
-          - lapaz-bolivia
-          - costa-rica
-          - caracas-venezuela
-          - buenosaires-argentina
-          - bogota-colombia
-          - barcelona-spain
-          - berlin-germany
-          - dublin-ireland
-          - lisbon-portugal
-          - madrid-spain
-          - hamburg-germany
-          - malaga-spain
-          - milan-italy
-          - munich-germany
-          - rome-italy
-          - valencia-spain
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - dallas-usa
-      - chicago-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-  - type: faq
-    title: Preguntas Frecuentes
-    related_features:
       - certification
       - price
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
     item_overrides:
       puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
         hideOnLocations:
@@ -691,6 +542,10 @@ sections:
           - barcelona-spain
           - berlin-germany
           - dublin-ireland
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
