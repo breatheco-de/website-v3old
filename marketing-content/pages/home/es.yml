@@ -304,7 +304,7 @@ sections:
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
         icon: Shield
-        duration: 16 semanas
+        duration: {{ cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
