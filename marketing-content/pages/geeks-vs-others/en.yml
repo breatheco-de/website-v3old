@@ -106,7 +106,7 @@ sections:
       - value: {{ global_salary_increase | 55 }}%
         title: Salary increase after graduation
     marginY:
-      desktop: lg
+      desktop: md lg
   - type: value_proof_panel
     title: Recognized globally for excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
