@@ -214,8 +214,8 @@ sections:
         subtitle: Lanzando el Miami Workforce Project
         description: La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con 4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
         stats:
-          - value: 20% + impuestos
-            label: Coste que asume el alumno
+          - value: 20%
+            label: Coste que asume el alumno + impuestos
           - value: "+10"
             label: Geeks beneficiados
         institution_logos:
