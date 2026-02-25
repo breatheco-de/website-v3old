@@ -266,17 +266,16 @@ sections:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - outcomes
-    paddingY:
-      desktop: lg none
     marginY:
       desktop: md
+    paddingY:
+      desktop: lg none
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
+    title: Take the next step toward your tech career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
