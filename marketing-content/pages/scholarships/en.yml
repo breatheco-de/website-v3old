@@ -352,6 +352,26 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+  - type: faq
+    title: Frequently Asked Questions
+    related_features:
+      - scholarships
+      - job-guarantee
+      - online-platform
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
