@@ -394,9 +394,9 @@ sections:
       url: /es/trabajo-garantizado
       variant: primary
     marginY:
-      desktop: md lg
+      desktop: md sm
     paddingY:
-      desktop: none sm
+      desktop: none
     background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
