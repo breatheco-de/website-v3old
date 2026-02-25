@@ -89,7 +89,7 @@ sections:
             alt: Raspberry Sky - Acceso satelital para todos
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Seguimiento de Inventario"
+      - project_title: "IMS: Seguimiento de inventario"
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS es un sistema de inventario y logística para farmacias construido con Python, Javascript, React e integración con lectores de códigos de barras, SMS, la API de Twilio y sistemas de rastreo GPS.
         creators:
