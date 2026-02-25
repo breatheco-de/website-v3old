@@ -745,7 +745,7 @@ sections:
           - valencia-spain
   - type: cta_banner
     version: "1.0"
-    title: Ready to become an AI Engineer?
+    title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
