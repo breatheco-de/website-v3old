@@ -265,9 +265,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: lg none
     paddingY:
-      desktop: md lg
+      desktop: md none
     showOnLocations:
       - atlanta-usa
       - austin-usa
