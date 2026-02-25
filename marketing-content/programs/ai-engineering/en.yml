@@ -422,7 +422,7 @@ sections:
       url: "#apply-modal"
       variant: primary
     marginY:
-      desktop: none md
+      desktop: md
     paddingY:
       desktop: none md
     showOnLocations:
