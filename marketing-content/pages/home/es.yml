@@ -260,7 +260,7 @@ sections:
       - name: Ingeniería de IA
         icon: Brain
         duration: {{ ai_engineering_week_duration | 24 }} semanas
-        label: Actualizado en 2026
+        label: Actualizado en {{ fullstack_week_duration | 20 }}26
         title: Ingeniería de IA
         badges:
           - icon: Cpu
@@ -273,7 +273,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
         icon: Code
-        duration: 2 semanas
+        duration: 20 semanas
         label: Actualizado en 2026
         title: Desarrollo de Software Full Stack
         badges:
