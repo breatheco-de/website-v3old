@@ -446,17 +446,28 @@ sections:
     paddingY:
       desktop: lg md
     showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
+      - barcelona-spain
+      - berlin-germany
+      - lisbon-portugal
+      - hamburg-germany
+      - dublin-ireland
+      - malaga-spain
+      - milan-italy
+      - madrid-spain
+      - rome-italy
+      - munich-germany
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para comenzar?
