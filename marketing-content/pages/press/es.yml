@@ -16,8 +16,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Nuestra Historia, Haciendo Noticias
-    badge: Prensa y Medios
+    title: Nuestra Historia, en las noticias
+    badge: Prensa y medios
     trust_bar:
       rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
