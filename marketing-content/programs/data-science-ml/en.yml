@@ -466,7 +466,7 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Top companies hiring our graduates
+    title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
