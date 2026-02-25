@@ -303,7 +303,7 @@ sections:
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
     title: Industry Certifications and Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
