@@ -371,6 +371,9 @@ lowest_monthly_financing_option:
     - query:
         region: "usa-canada"
       value: "$299"
+    - query:
+        region: "europe"
+      value: "200€"
 anual_income_based_payment_guarantee:
   default: "$35,000"
   conditions:
@@ -416,15 +419,15 @@ average_salary_workflow_automation_engineer:
 data_science_week_duration:
   default: "16 weeks"
   conditions:
-  - query:
-      region: "europe"
-    value: "18 semanas"
-  - query:
-      region: "latam"
-    value: "16 weeks"
-  - query:
-      region: "usa-canada"
-    value: "16 semanas"
+    - query:
+        region: "europe"
+      value: "18 semanas"
+    - query:
+        region: "latam"
+      value: "16 weeks"
+    - query:
+        region: "usa-canada"
+      value: "16 semanas"
 ai_engineering_week_duration:
   default: "24 semanas"
 cybersecurity_week_duration:
