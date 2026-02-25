@@ -161,7 +161,7 @@ sections:
         title: Global spending on cybersecurity this year
   - type: syllabus
     variant: program-modules
-    program_title: Cybersecurity Program Overview
+    program_title: Cybersecurity program overview
     program_description: Master the complete cybersecurity stack from network security to penetration testing. Build real-world defensive and offensive skills using the industry-standard tools employers are looking for.
     tech_logos:
       - name: Linux
