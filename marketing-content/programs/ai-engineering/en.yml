@@ -481,7 +481,7 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Average Salary Increase
         description: Master the AI skills that companies are struggling to find talent for. As businesses shift toward automation, you'll be ready to step into high-priority roles that offer immediate growth and long-term stability.
         benefits:
