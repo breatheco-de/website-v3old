@@ -332,7 +332,7 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia de búsqueda de empleo personalizada con acceso a redes de contratación relevantes
-      - value: {{ average_salary_cybersecurity_short | $85 }}
+      - value: {{ average_salary_cybersecurity_short | $85 }}k
         label: Salario inicial promedio
         description: Una carrera en ciberseguridad no es solo un nuevo empleo, es una nueva trayectoria de vida. Con un aumento salarial promedio del 55%, nuestros graduados alcanzan un nivel de estabilidad y crecimiento que pocas industrias pueden ofrecer.
         benefits:
