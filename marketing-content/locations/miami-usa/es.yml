@@ -295,8 +295,8 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Lo que Dicen Nuestros Estudiantes
-    subtitle: Escucha directamente de graduados que transformaron sus carreras
+    title: Testimonios de Nuestros Graduados
+    subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
       average: "4.9"
       count: 2,847
