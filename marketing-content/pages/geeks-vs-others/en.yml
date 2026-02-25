@@ -77,7 +77,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: md lg
+      desktop: md
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
