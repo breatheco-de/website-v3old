@@ -383,7 +383,7 @@ sections:
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
     paddingY:
-      desktop: md
+      desktop: md none
   - type: why_learn_ai
     variant: laptop-edge
     title: Tu Futuro Profesional, con Garantía*
