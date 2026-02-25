@@ -135,7 +135,7 @@ sections:
     background: bg-muted/30
     stacked_header: true
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: features_quad
     version: "1.0"
     variant: default
