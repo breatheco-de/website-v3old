@@ -1,3 +1,68 @@
 {
-  "groups": []
+  "groups": [
+    {
+      "id": "bind_mm2lyuum_2pb9z4",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "course_selector-0lgvpc"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "course_selector-386shs"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "course_selector-ikfusn"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "course_selector-pwsxqm"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "course_selector-kfqxlk"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "course_selector-b4343i"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "course_selector-6r40jr"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "course_selector-p4y1cf"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "course_selector-3qxv5y"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "course_selector-3pz7z8"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "course_selector-oqzfih"
+        }
+      ],
+      "createdAt": "2026-02-25T22:30:52.078Z",
+      "name": "course_selector_usa_en"
+    }
+  ]
 }
