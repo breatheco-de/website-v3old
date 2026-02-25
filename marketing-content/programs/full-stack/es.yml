@@ -346,39 +346,6 @@ sections:
       desktop: md sm
     marginY:
       desktop: none md
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Tu Futuro Profesional, con Garantía*
-    subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
-    cta:
-      text: Conocer más
-      url: /es/trabajo-garantizado
-      variant: primary
-    marginY:
-      desktop: md lg
-    paddingY:
-      desktop: none sm
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
@@ -417,6 +384,39 @@ sections:
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Tu Futuro Profesional, con Garantía*
+    subtitle: Respaldamos tu resultado profesional con un compromiso real
+    description: "Nuestra Garantía de Empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
+    cta:
+      text: Conocer más
+      url: /es/trabajo-garantizado
+      variant: primary
+    marginY:
+      desktop: md lg
+    paddingY:
+      desktop: none sm
+    background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: certificate
     title: Resultados Profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
