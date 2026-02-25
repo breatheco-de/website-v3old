@@ -69,15 +69,18 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
               <div className="flex -space-x-2">
                 {avatarIds.map((avatarId, index) => (
                   <Avatar key={index} className="h-8 w-8 border-2 border-background">
-                    <UniversalImage
-                      id={avatarId}
-                      alt={`User ${index + 1}`}
-                      className="h-full w-full"
-                      style={{ objectFit: "cover" }}
-                    />
-                    <AvatarFallback className="bg-primary/20 text-xs">
-                      {String.fromCharCode(65 + index)}
-                    </AvatarFallback>
+                    {avatarIds.length > 0 ?
+                      <UniversalImage
+                        id={avatarId}
+                        alt={`User ${index + 1}`}
+                        className="h-full w-full"
+                        style={{ objectFit: "cover" }}
+                      />
+                      :
+                      <AvatarFallback className="bg-primary/20 text-xs">
+                        {String.fromCharCode(65 + index)}
+                      </AvatarFallback>
+                    }
                   </Avatar>
                 ))}
               </div>
