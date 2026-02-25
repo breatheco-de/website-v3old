@@ -75,9 +75,9 @@ sections:
       - value: {{ global_campuses | - value: "8" }}
         label: Campuses
       - value: ~{{ global_job_placement_rate | 84 }}%
-        label: Hiring Rate
+        label: Hiring rate
       - value: {{ global_review_rating | 4.9 }}
-        label: Avg Rating
+        label: Avg rating
     marginY:
       desktop: lg
     paddingY:
