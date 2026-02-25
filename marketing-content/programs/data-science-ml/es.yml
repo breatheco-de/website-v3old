@@ -541,7 +541,7 @@ sections:
         comment: La transición de la industria musical a tech fue desafiante pero 4Geeks lo hizo posible. Ahora trabajo como desarrollador y Mentor, ayudando a otros a lograr el mismo sueño.
         outcome: +100% aumento salarial
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: md none
   - type: faq
