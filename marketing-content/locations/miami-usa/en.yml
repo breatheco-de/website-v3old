@@ -351,6 +351,7 @@ sections:
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -383,11 +384,11 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    paddingY:
-      desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
+    terms_color: hsl(var(--card))
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
