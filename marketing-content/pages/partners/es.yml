@@ -294,8 +294,7 @@ sections:
         description: Desde 2021 hemos estado trabajando en programas de desarrollo de software full-stack y en el lanzamiento del primer programa de Inteligencia Artificial y Aprendizaje Automático en toda América Latina.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - outcomes
     marginY:
