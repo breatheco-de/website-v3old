@@ -204,6 +204,7 @@ sections:
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
+    section_id: split_cards-qtsk5v
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Learn to Code with 4Geeks from Anywhere
