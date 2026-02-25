@@ -505,13 +505,13 @@ sections:
           - icon: DollarSign
             text: {{ price_full_fullstack | $10,999 }} inversión total
           - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         tags:
           - icon: ""
             text: ""
         description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
         price: {{ price_fullstack | $299 }}
-        price_info: o menos según tu plan
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
