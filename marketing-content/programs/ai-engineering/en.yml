@@ -454,20 +454,38 @@ sections:
       desktop: none sm
     background: hsl(var(--muted))
   - type: features_grid
-    version: "1.0"
-    variant: cardHeader
-    heading: Unlimited Career Support – Always Ahead of Job Market Trends
-    description: Geekforce is built into every 4Geeks program to make sure you don't just learn tech, but launch a successful career.
-    image: /attached_assets/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
-    background: bg-primary/5
-    cards:
-      - icon: Target
-        text: Receive tailored guidance aligned with your goals, context, and challenges.
-      - icon: Mentor2
-        text: Meet mentors online or in-person whenever you need support—unlimited, for life.
-      - icon: Rocket
-        text: Access proven tools and strategies to make smarter career moves.
+    variant: highlight
+    title: Enroll with a job guarantee*
+    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
+    items:
+      - icon: Star
+        title: Add the job guarantee to your payment plan
+      - icon: Users
+        title: Complete the program and follow the GeekFORCE career process
+      - icon: Award
+        title: Get hired within 9 months of graduation – or your money back
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
