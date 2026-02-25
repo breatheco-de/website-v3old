@@ -441,7 +441,7 @@ data_science_week_duration:
       value: "18 "
     - query:
         region: "latam"
-      value: "16 "
+      value: "18"
     - query:
         region: "usa-canada"
       value: "16 "
