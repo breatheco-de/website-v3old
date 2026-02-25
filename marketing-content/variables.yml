@@ -439,7 +439,7 @@ ai_engineering_week_duration:
 cybersecurity_week_duration:
   default: "16 Semanas"
 fullstack_week_duration:
-  default: "20 semanas"
+  default: "20 "
 total_scholarships:
   default: "20$M"
   conditions:
