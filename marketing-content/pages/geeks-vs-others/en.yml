@@ -156,7 +156,7 @@ sections:
         description: Partial scholarships are available for eligible students.
     background: hsl(var(--secondary))
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: split_cards
     variant: primary-left
     primary:
