@@ -89,6 +89,27 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
+  - type: syllabus
+    title: Fund Your Tech Career
+    subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
+    modules:
+      - title: Pay Upfront and Save 10%
+        description: Pay your tuition in full before the program starts and receive a 10% discount.
+      - title: Interest-Free Installments over 6 Months
+        description: Spread your tuition across 6 months with no interest. Pay the standard tuition cost in structured monthly installments.
+      - title: Income-Based Payments
+        description: Prefer to pay after you land a job? Through our partner Edly, you can start repayment once you earn at least {{ anual_income_based_payment_guarantee | $35,000 }} per year. Monthly payments adjust to your income and pause during periods of unemployment or underemployment. Cosigners are supported.
+      - title: Loans and Extended Payment Plans
+        description: We offer financing plans ranging from 1 to 5 years, depending on your credit profile, with monthly payments starting below {{ monthly_payment_minimun | $349 }}. Terms and approval are based on eligibility.
+      - title: Scholarships
+        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
+    expand_label: More info
+    collapse_label: Hide info
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
   - type: comparison_table
     version: "1.0"
     title: Your Financing Options at a Glance
