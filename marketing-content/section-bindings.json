@@ -196,6 +196,80 @@
       ],
       "createdAt": "2026-02-25T22:37:10.305Z",
       "name": "course_selector_europe_es"
+    },
+    {
+      "id": "bind_mm2m95fi_e0wrm1",
+      "component": "split_cards",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "split_cards-cuf0db"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "split_cards-t3gnli"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "split_cards-p2pgjk"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "split_cards-c0y1oi"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "split_cards-k6sx9q"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "split_cards-dk46n0"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "split_cards-88rukh"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "split_cards-8jv4hs"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "split_cards-opb6nv"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "split_cards-qtsk5v"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "split_cards-29s4xy"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "split_cards-3sq8sw"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "split_cards-mt6jvk"
+        }
+      ],
+      "createdAt": "2026-02-25T22:38:52.350Z",
+      "name": "course_selector_europe_en"
     }
   ]
 }
