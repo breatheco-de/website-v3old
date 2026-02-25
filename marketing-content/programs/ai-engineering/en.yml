@@ -130,7 +130,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 24-Week or 12-Week accelerated morning program
+          text: 24-week or 12-week accelerated morning program
         - icon: IconBriefcase
           text: Employment-first curriculum
         - icon: IconRobot
