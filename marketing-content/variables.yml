@@ -355,7 +355,7 @@ global_verified_reviews_count:
   conditions:
     - query:
         locale: "en"
-      value: "1,000"
+      value: "700"
     - query:
         locale: "es"
       value: "1.000"
