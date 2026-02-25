@@ -66,16 +66,16 @@ sections:
     description: Cada colaboración está diseñada para generar resultados medibles para organizaciones y comunidades, creando oportunidades, expandiendo el acceso a la educación tecnológica y fortaleciendo la fuerza laboral tecnológica del futuro.
     cards:
       - icon: Trophy
-        title: Becas y Financiamiento
+        title: Becas y financiamiento
         description: Elimina barreras financieras y hace que la educación en programación sea accesible para comunidades desfavorecidas.
       - icon: Wallet
-        title: Programas de Capacitación y Recapacitación
+        title: Programas de capacitación y recapacitación
         description: Invierte en tu fuerza laboral y prepara a los empleados para el futuro digital.
       - icon: Clock
-        title: Procesos de Reclutamiento y Contratación
+        title: Procesos de reclutamiento y contratación
         description: Accede directamente a desarrolladores, científicos de datos y especialistas en ciberseguridad listos para el trabajo.
       - icon: Users
-        title: Eventos y Alcance Comunitario
+        title: Eventos y alcance comunitario
         description: Colabora en hackatones, series de charlas e iniciativas de innovación que amplifican tu marca y misión.
     background: hsl(var(--muted))
     marginY:
