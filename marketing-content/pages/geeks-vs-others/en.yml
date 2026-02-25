@@ -184,7 +184,7 @@ sections:
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
-    title: Our Alumni Work at Top Global Companies
+    title: Our alumni work at top global companies
     subtitle: Thrive in tech with our worldwide network of hiring partners.
     logos:
       - src: /attached_assets/microsoft_1764719829995.png
