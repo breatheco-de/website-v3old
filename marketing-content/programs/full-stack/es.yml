@@ -468,7 +468,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg md
-    background: hsl(var(--muted))
   - type: pricing
     version: "1.0"
     variant: product
