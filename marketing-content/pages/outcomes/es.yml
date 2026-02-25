@@ -95,7 +95,7 @@ sections:
       desktop: lg
   - type: pie_charts
     version: "1.0"
-    title: Nuestra Comunidad Estudiantil de un Vistazo
+    title: Nuestra comunidad estudiantil de un vistazo
     subtitle: Un snapshot de quiénes son nuestros estudiantes por edad, género y región.
     background: hsl(var(--background))
     charts:
