@@ -47,19 +47,19 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: What Makes Us Different
+    heading: What makes us different
     cards:
       - icon: Trophy
-        title: Career-Focused Programs
+        title: Career-focused programs
         description: Hands-on, practical, and fast-paced training designed to launch real-world tech careers.
       - icon: Wallet
-        title: Hyperpersonalized Learning
+        title: Hyperpersonalized learning
         description: Rigobot provides instant 24/7 feedback as youship ensure you get the guidance you need.
       - icon: Clock
-        title: Unlimited Human Mentorship
+        title: Unlimited human mentorship
         description: Mentors and career coaches provide persoduring your program and forever after.
       - icon: Users
-        title: Future-Ready Skills
+        title: Future-ready skills
         description: Continuously updated currict tools and technologies driving the tech industry.
     background: hsl(var(--muted))
     description_with_background: false
