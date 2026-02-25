@@ -333,7 +333,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Career outcomes
+    title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
       - text: "AI Software Engineer: {{ average_salary_fullstack | $95K–$135K }}"
