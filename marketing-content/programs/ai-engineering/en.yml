@@ -213,7 +213,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why AI Engineering Now
+    title: Why AI Engineering now
     subtitle: The talent gap is your opportunity
     description: According to LinkedIn’s Jobs on the Rise 2026, AI Engineers are among the fastest-growing roles in the U.S. Demand is accelerating, and companies are actively hiring for these skills now.
     background: bg-muted/30
