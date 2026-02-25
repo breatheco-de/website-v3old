@@ -29,7 +29,7 @@ sections:
         icon: Rocket
     background: bg-gradient-to-b from-primary/5 to-background
     marginY:
-      desktop: none lg
+      desktop: md lg
   - type: features_grid
     version: "1.0"
     variant: cardHeader
