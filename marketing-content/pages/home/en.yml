@@ -50,23 +50,23 @@ sections:
     variant: detailed
     showBorder: false
     items:
-      - id: coursereport-detailed
+      - id: forbes-logo-award
         alt: Forbes Award logo
-        logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistently listed among top 5 bootcamps by Forbes
         link: https://www.coursereport.com
         linkText: Read reviews
       - id: clark-university
         alt: Clark University Logo
-        logo: /marketing-content/images/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certified by recognized universities
         link: https://www.switchup.org
         linkText: See rankings
       - id: careerkarma-detailed
         alt: Award badges
-        logo: /attached_assets/badges-new.avif
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
         link: https://careerkarma.com
