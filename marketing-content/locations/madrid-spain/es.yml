@@ -55,7 +55,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Lanza una Carrera Tech Lista para IA en Madrid
+    title: Lanza una carrera Tech lista para IA en Madrid
     subtitle: Capacítate para roles tech demandados en el ecosistema emergente de startups nº 1 de Europa. Madrid concentra el 47% de los empleos tech de España. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Madrid
     cta_buttons:
