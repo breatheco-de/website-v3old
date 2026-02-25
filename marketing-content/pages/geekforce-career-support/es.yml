@@ -293,7 +293,7 @@ sections:
     paddingY:
       desktop: sm none
   - type: testimonials_slide
-    title: Las Historias Detrás de las Estadísticas
+    title: Las historias detrás de las estadísticas
     description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
     version: v1.0
