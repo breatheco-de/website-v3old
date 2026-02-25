@@ -289,8 +289,7 @@ sections:
         description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: faq
-    version: v1.0
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - outcomes
     marginY:
