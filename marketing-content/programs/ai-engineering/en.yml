@@ -75,6 +75,64 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - type: hero
+    version: "1.0"
+    variant: course
+    title: AI Engineering
+    title_highlight: AI Enginerering
+    subtitle: Learn to design, build, and deploy complete AI systems used in real-world production.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: +7000 graduates
+    bullet_points:
+      - Transform an entire business case into a fully AI-native system, layer by layer.
+      - Integrate AI into real software, connecting intelligent models to users and data.
+      - Use modern AI tools and coding agents to build and ship software faster.
+    tutors:
+      - name: Marco Gonzalo
+        role: Main Instructor
+        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
+      - name: Rigo
+        role: AI Tutor
+        image: /attached_assets/rigobot-logo_1764707022198.webp
+    tutors_label: "Your tutors:"
+    description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
+    media:
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program introduction
+    signup_card:
+      title: Get the Full Program Overview
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
+      cta_button:
+        text: Send Me the Details
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: Already a student? Login here.
+        url: https://4geeks.com/login
+      features:
+        - icon: calendar
+          text: 24-Week or 12-Week Accelerated Morning Program
+        - icon: IconBriefcase
+          text: Employment-First Curriculum
+        - icon: IconRobot
+          text: AI-Powered Learning & Feedback
+        - icon: IconUsers
+          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+        - icon: IconUserCheck
+          text: Unlimited 1:1 Mentorship
+        - icon: book
+          text: Production-Grade Portfolio
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
   - type: modal
     version: "1.0"
     section_id: apply-modal
