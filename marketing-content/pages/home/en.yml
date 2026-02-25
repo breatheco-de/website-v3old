@@ -50,23 +50,23 @@ sections:
     variant: detailed
     showBorder: false
     items:
-      - id: coursereport-detailed
+      - id: forbes-logo-award
         alt: Forbes Award logo
-        logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistently listed among top 5 bootcamps by Forbes
         link: https://www.coursereport.com
         linkText: Read reviews
       - id: clark-university
         alt: Clark University Logo
-        logo: /marketing-content/images/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certified by recognized universities
         link: https://www.switchup.org
         linkText: See rankings
       - id: careerkarma-detailed
         alt: Award badges
-        logo: /attached_assets/badges-new.avif
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
         link: https://careerkarma.com
@@ -75,13 +75,13 @@ sections:
       desktop: none md
   - type: image_row
     images:
-      - src: /attached_assets/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
-      - src: /attached_assets/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Developer working on project
-      - src: /attached_assets/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Team collaboration session
-      - src: /attached_assets/student-4-lady-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
       heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
@@ -92,11 +92,11 @@ sections:
     mobile_height: 24rem
     gap: md
     rounded: true
+    background: hsl(var(--secondary))
     marginY:
       desktop: none
     paddingY:
       desktop: md xl
-    background: hsl(var(--secondary))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -351,6 +351,10 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
   - type: testimonials_slide
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
@@ -404,8 +408,10 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:

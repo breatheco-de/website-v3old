@@ -600,8 +600,10 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:

@@ -29,7 +29,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduates
+      count: +6000 graduates
     bullet_points:
       - Transform an entire business case into a fully AI-native system, layer by layer.
       - Integrate AI into real software, connecting intelligent models to users and data.
@@ -99,7 +99,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduates
+      count: +6000 graduates
     bullet_points:
       - Transform an entire business case into a fully AI-native system, layer by layer.
       - Integrate AI into real software, connecting intelligent models to users and data.
@@ -168,6 +168,34 @@ sections:
       - panamacity-panama
       - santiago-chile
       - quito-ecuador
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Download the curriculum
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Download
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: true
+          default: ai_engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -728,12 +756,14 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?

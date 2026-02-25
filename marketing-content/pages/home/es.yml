@@ -347,6 +347,12 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: testimonials_slide
     title: Graduados Reales, Resultados Profesionales Reales
     description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
@@ -365,3 +371,42 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
+  - type: cta_banner
+    version: "1.0"
+    title: Da el siguiente paso hacia tu carrera en tecnología
+    subtitle: Obtén precios, detalles del programa y orientación personalizada.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: {{ call_to_action_apply | Aplicar ahora }}
+      tags: website-lead
+      automations: hard
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: false
+          placeholder: Número de teléfono
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-primary
+      terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
