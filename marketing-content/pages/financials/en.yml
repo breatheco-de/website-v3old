@@ -131,7 +131,7 @@ sections:
           - "Yes"
     background: hsl(var(--background))
     marginY:
-      desktop: lg none
+      desktop: lg md
     paddingY:
       desktop: md none
   - type: course_selector
