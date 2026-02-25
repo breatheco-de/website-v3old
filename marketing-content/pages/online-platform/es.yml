@@ -92,7 +92,7 @@ sections:
       | **Métrica** | **Valor** |
       | --- | --- |
       | Graduados | 6,000+ |
-      | [Inserción laboral (en 140d)](https://4geeksacademy.com/us/career-growth/outcomes-report-2024)  {{ global_job_placement_rate | 84 }} % |
+      | [Inserción laboral (en 140d)](https://4geeksacademy.com/us/career-growth/outcomes-report-2024) | {{ global_job_placement_rate | 84 }} % |
       | Tutoriales en GitHub | 1,000+ (open-source) |
       | [Calificación en SwitchUp](https://www.switchup.org/bootcamps/4geeks-academy) | 4.9/5 |
       | Campus | 7 (USA, Spain, Germany, LATAM, etc.) |
