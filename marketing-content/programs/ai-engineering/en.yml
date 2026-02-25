@@ -444,8 +444,7 @@ sections:
     certificate_position: right
     useSolidCard: true
     paddingY:
-      mobile: lg
-      desktop: lg
+      desktop: none sm
     background: hsl(var(--muted))
   - type: pricing
     version: "1.0"
