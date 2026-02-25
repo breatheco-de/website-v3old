@@ -263,7 +263,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: 24 weeks
+        duration: {{ ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
