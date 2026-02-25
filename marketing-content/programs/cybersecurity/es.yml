@@ -515,7 +515,7 @@ sections:
     paddingY:
       desktop: md
   - type: testimonials
-    title: Éxito Profesional Comprobado
+    title: Éxito profesional comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
       average: {{ global_review_rating | 4.5 }}
