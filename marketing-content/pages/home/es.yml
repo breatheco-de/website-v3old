@@ -273,7 +273,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
         icon: Code
-        duration: 20 semanas
+        duration: 2 semanas
         label: Actualizado en 2026
         title: Desarrollo de Software Full Stack
         badges:
