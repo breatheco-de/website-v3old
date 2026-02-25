@@ -305,7 +305,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Industry certifications and career outcomes
+    title: Industry Certifications and Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
