@@ -951,6 +951,139 @@
       ],
       "createdAt": "2026-02-25T14:40:19.104Z",
       "name": "course_selector_usa_en"
+    },
+    {
+      "id": "bind_mm25f4di_mgtvtx",
+      "component": "testimonials",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 10
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 12
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-coding-florida",
+          "sectionIndex": 11
+        }
+      ],
+      "createdAt": "2026-02-25T14:47:37.446Z"
     }
   ]
 }
