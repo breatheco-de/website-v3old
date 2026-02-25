@@ -81,14 +81,14 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Hyperpersonalized Learning & Support That Lasts a Lifetime
+    title: Hyperpersonalized learning & support that lasts a lifetime
     description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
     bullets:
-      - heading: Unlimited 1:1 Mentorship
+      - heading: Unlimited 1:1 mentorship
         text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
-      - heading: AI-Powered Learning & Feedback
+      - heading: AI-Powered learning & feedback
         text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
-      - heading: Lifelong Career Support
+      - heading: Lifelong career support
         text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
     footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
