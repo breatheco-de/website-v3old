@@ -184,9 +184,9 @@ sections:
           - Sí
     background: hsl(var(--background))
     marginY:
-      desktop: lg md
-    paddingY:
       desktop: md
+    paddingY:
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -261,9 +261,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: lg md
     paddingY:
-      desktop: md none
+      desktop: none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -350,9 +350,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - bogota-colombia
       - buenosaires-argentina
@@ -439,9 +439,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none sm
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - valencia-spain
       - rome-italy
@@ -464,7 +464,7 @@ sections:
       url: /es/trabajo-garantizado
       variant: primary
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none sm
     showOnLocations:
