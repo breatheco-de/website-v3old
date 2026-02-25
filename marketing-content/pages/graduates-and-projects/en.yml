@@ -19,15 +19,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: See What Our Students Build
+    title: See what our students build
     subtitle: Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.
-    badge: Career Program
+    badge: Career program
     cta_buttons:
-      - text: Start Learning Now
+      - text: Start learning now
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: View Curriculum
+      - text: View curriculum
         url: "#apply-modal"
         variant: outline
         icon: Book
