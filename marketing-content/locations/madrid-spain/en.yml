@@ -212,16 +212,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Everything You Need to Succeed in an AI-Driven Industry
+    title: Everything you need to succeed in an AI-Driven industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
-      - heading: 1:1 Mentorship, Unlimited and for Life
+      - heading: 1:1 Mentorship, unlimited and for life
         text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
-      - heading: AI-Powered Learning Support
+      - heading: AI-Powered learning support
         text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
-      - heading: Career Support, Unlimited and for Life
+      - heading: Career Support, unlimited and for life
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
-      - heading: An Active Global Tech Community
+      - heading: An active global tech community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
     image: /attached_assets/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
