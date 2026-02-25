@@ -716,13 +716,13 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Convertirte en Ingeniero de IA?
+    title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: Aplicar ahora
       tags: website-lead
       automations: hard
       fields:
