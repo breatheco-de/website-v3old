@@ -234,7 +234,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Learn by Defending Real Systems
+    title: Learn by defending real systems
     subtitle: Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a portfolio of security projects that demonstrate your defensive and offensive capabilities.
     items:
       - title: Network Vulnerability Assessment
@@ -244,8 +244,8 @@ sections:
           - Nessus
           - Nmap
         duration: 8 HOURS
-        date: 15/01/2025
         difficulty: medium
+        date: 15/01/2025
       - title: Penetration Testing Lab
         description: Conduct authorized penetration tests on simulated environments using Metasploit. Exploit vulnerabilities, establish persistence, and document your findings following professional pentesting methodologies.
         image: pentesting
@@ -253,8 +253,8 @@ sections:
           - Metasploit
           - Pentesting
         duration: 12 HOURS
-        date: 01/02/2025
         difficulty: hard
+        date: 01/02/2025
       - title: Incident Response Simulation
         description: Analyze network traffic with Wireshark to detect and respond to security incidents. Create incident reports, timeline reconstructions, and remediation plans based on real attack patterns.
         image: incident-response
@@ -262,8 +262,8 @@ sections:
           - Wireshark
           - DFIR
         duration: 10 HOURS
-        date: 15/02/2025
         difficulty: hard
+        date: 15/02/2025
     paddingY:
       desktop: md
   - type: ai_learning
