@@ -1,379 +1,6 @@
 {
   "groups": [
     {
-      "id": "bind_mlvoeift_a9njk1",
-      "component": "cta_banner",
-      "locale": "en",
-      "members": [
-        {
-          "contentType": "page",
-          "slug": "financials",
-          "sectionIndex": 10
-        },
-        {
-          "contentType": "location",
-          "slug": "atlanta-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "austin-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "barcelona-spain",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "berlin-germany",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "bogota-colombia",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "buenosaires-argentina",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "caracas-venezuela",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "chicago-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "costa-rica",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "dallas-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "dublin-ireland",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "hamburg-germany",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "houston-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "lapaz-bolivia",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "lima-peru",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "lisbon-portugal",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "losangeles-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "madrid-spain",
-          "sectionIndex": 14
-        },
-        {
-          "contentType": "location",
-          "slug": "malaga-spain",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "mexicocity-mexico",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "miami-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "milan-italy",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "montevideo-uruguay",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "munich-germany",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "newyork-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "orlando-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "panamacity-panama",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "quito-ecuador",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "remote",
-          "sectionIndex": 14
-        },
-        {
-          "contentType": "location",
-          "slug": "rest-of-europe",
-          "sectionIndex": 14
-        },
-        {
-          "contentType": "location",
-          "slug": "rome-italy",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "santiago-chile",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "tampa-usa",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "toronto-canada",
-          "sectionIndex": 16
-        },
-        {
-          "contentType": "location",
-          "slug": "valencia-spain",
-          "sectionIndex": 16
-        }
-      ],
-      "createdAt": "2026-02-21T02:04:38.489Z",
-      "name": "cta_banner receive personalized information"
-    },
-    {
-      "id": "bind_mlvok2d7_t462nb",
-      "component": "split_cards",
-      "locale": "en",
-      "members": [
-        {
-          "contentType": "location",
-          "slug": "miami-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "atlanta-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "austin-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "barcelona-spain",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "berlin-germany",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "bogota-colombia",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "buenosaires-argentina",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "caracas-venezuela",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "chicago-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "costa-rica",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "dallas-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "dublin-ireland",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "hamburg-germany",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "houston-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "lapaz-bolivia",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "lima-peru",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "lisbon-portugal",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "losangeles-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "madrid-spain",
-          "sectionIndex": 7
-        },
-        {
-          "contentType": "location",
-          "slug": "malaga-spain",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "mexicocity-mexico",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "milan-italy",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "montevideo-uruguay",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "munich-germany",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "newyork-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "orlando-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "panamacity-panama",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "quito-ecuador",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "remote",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "rest-of-europe",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "rome-italy",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "santiago-chile",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "tampa-usa",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "toronto-canada",
-          "sectionIndex": 8
-        },
-        {
-          "contentType": "location",
-          "slug": "valencia-spain",
-          "sectionIndex": 8
-        }
-      ],
-      "createdAt": "2026-02-21T02:08:57.595Z",
-      "name": "split_card job guarantee all locations"
-    },
-    {
       "id": "bind_mlznr4yw_3ukafo",
       "component": "profiles_carousel",
       "locale": "en",
@@ -604,7 +231,7 @@
         }
       ],
       "createdAt": "2026-02-24T12:06:59.420Z",
-      "name": "course_selector_usa_es"
+      "name": "course_selector_usa_es"  
     },
     {
       "id": "bind_mm0kd94u_mlsppg",
@@ -676,9 +303,1136 @@
       "name": "course_selector_europe_es"
     },
     {
-      "id": "bind_mm0kgqdp_f4yyuw",
+      "id": "bind_mlvok2d7_t462nb",
+      "component": "split_cards",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionIndex": 8
+        }
+      ],
+      "createdAt": "2026-02-21T02:08:57.595Z",
+      "name": "split_card job guarantee all locations"
+    },
+    {
+      "id": "apply_now_sticky_footer_en",
+      "name": "apply now sticky footer",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "page",
+          "slug": "apply",
+          "sectionIndex": 3
+        },
+        {
+          "contentType": "page",
+          "slug": "awards",
+          "sectionIndex": 3
+        },
+        {
+          "contentType": "page",
+          "slug": "contact-us",
+          "sectionIndex": 2
+        },
+        {
+          "contentType": "page",
+          "slug": "cookies",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "faq",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "financials",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "page",
+          "slug": "geekforce-career-support",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "geekpal-support",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "page",
+          "slug": "geeks-vs-others",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "page",
+          "slug": "graduates-and-projects",
+          "sectionIndex": 6
+        },
+        {
+          "contentType": "page",
+          "slug": "job-guarantee",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "learnpack",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "online-platform",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "outcomes",
+          "sectionIndex": 10
+        },
+        {
+          "contentType": "page",
+          "slug": "partners",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "press",
+          "sectionIndex": 6
+        },
+        {
+          "contentType": "page",
+          "slug": "privacy-policy",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "program-comparison",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "rigobot-ai-coding-mentor",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "scholarships",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "page",
+          "slug": "terms-conditions",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "the-academy",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "testimonials",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "page",
+          "slug": "upcoming-dates",
+          "sectionIndex": 2
+        },
+        {
+          "contentType": "page",
+          "slug": "work-with-us",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 16
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionIndex": 0
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionIndex": 13
+        },
+        {
+          "contentType": "program",
+          "slug": "full-stack",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "program",
+          "slug": "data-science-ml",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "program",
+          "slug": "cybersecurity",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-for-professionals",
+          "sectionIndex": 15
+        }
+      ],
+      "createdAt": "2026-02-23T00:00:00.000Z"
+    },
+
+    {
+      "id": "apply_now_sticky_footer_es",
+      "name": "apply now sticky footer (es)",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "page",
+          "slug": "apply",
+          "sectionIndex": 2
+        },
+        {
+          "contentType": "page",
+          "slug": "awards",
+          "sectionIndex": 3
+        },
+        {
+          "contentType": "page",
+          "slug": "contact-us",
+          "sectionIndex": 2
+        },
+        {
+          "contentType": "page",
+          "slug": "cookies",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "faq",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "financials",
+          "sectionIndex": 14
+        },
+        {
+          "contentType": "page",
+          "slug": "geekforce-career-support",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "geekpal-support",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "page",
+          "slug": "geeks-vs-others",
+          "sectionIndex": 11
+        },
+        {
+          "contentType": "page",
+          "slug": "graduates-and-projects",
+          "sectionIndex": 6
+        },
+        {
+          "contentType": "page",
+          "slug": "job-guarantee",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "learnpack",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "online-platform",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "outcomes",
+          "sectionIndex": 10
+        },
+        {
+          "contentType": "page",
+          "slug": "partners",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "press",
+          "sectionIndex": 6
+        },
+        {
+          "contentType": "page",
+          "slug": "privacy-policy",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "program-comparison",
+          "sectionIndex": 3
+        },
+        {
+          "contentType": "page",
+          "slug": "rigobot-ai-coding-mentor",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "page",
+          "slug": "scholarships",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "page",
+          "slug": "terms-conditions",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "the-academy",
+          "sectionIndex": 9
+        },
+        {
+          "contentType": "page",
+          "slug": "testimonials",
+          "sectionIndex": 5
+        },
+        {
+          "contentType": "page",
+          "slug": "upcoming-dates",
+          "sectionIndex": 1
+        },
+        {
+          "contentType": "page",
+          "slug": "work-with-us",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 16
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionIndex": 0
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionIndex": 15
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionIndex": 17
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionIndex": 13
+        },
+        {
+          "contentType": "program",
+          "slug": "full-stack",
+          "sectionIndex": 14
+        },
+        {
+          "contentType": "program",
+          "slug": "data-science-ml",
+          "sectionIndex": 14
+        },
+        {
+          "contentType": "program",
+          "slug": "cybersecurity",
+          "sectionIndex": 14
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-for-professionals",
+          "sectionIndex": 14
+        }
+      ],
+      "createdAt": "2026-02-23T00:00:00.000Z"
+    },
+    {
+      "id": "bind_mlzpnf1a_mvcjup",
+      "component": "split_cards",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 7
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 8
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 8
+        }
+      ],
+      "createdAt": "2026-02-23T21:50:38.302Z"
+    },
+    {
+      "id": "bind_mlzrfrqf_674b47",
       "component": "course_selector",
       "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 3
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 4
+        }
+      ],
+      "createdAt": "2026-02-23T22:40:40.743Z",
+      "name": "course_selector_usa"
+    },
+    {
+      "id": "bind_mlzrhjen_b7esol",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionIndex": 4
+        }
+      ],
+      "createdAt": "2026-02-23T22:42:03.263Z",
+      "name": "course_selector_europe"
+    },
+    {
+      "id": "bind_mlzrm5cd_ow0lp4",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionIndex": 4
+        }
+      ],
+      "createdAt": "2026-02-23T22:45:38.317Z"
+    },
+    {
+      "id": "bind_mm0l6fy2_aw55ak",
+      "component": "course_selector",
+      "locale": "en",
       "members": [
         {
           "contentType": "location",
@@ -734,9 +1488,73 @@
           "contentType": "location",
           "slug": "quito-ecuador",
           "sectionIndex": 5
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionIndex": 5
         }
       ],
-      "createdAt": "2026-02-24T12:13:14.509Z",
+      "createdAt": "2026-02-24T12:33:14.042Z",
+      "name": "course_selector_latam_en"
+    },
+    {
+      "id": "bind_mlzruw0u_vi5xsr",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionIndex": 4
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionIndex": 4
+        }
+      ],
+      "createdAt": "2026-02-23T22:52:26.142Z",
       "name": "course_selector_latam_es"
     },
     {
@@ -807,75 +1625,6 @@
       ],
       "createdAt": "2026-02-24T12:21:58.614Z",
       "name": "course_selector_europe_en"
-    },
-    {
-      "id": "bind_mm0l6fy2_aw55ak",
-      "component": "course_selector",
-      "locale": "en",
-      "members": [
-        {
-          "contentType": "location",
-          "slug": "santiago-chile",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "bogota-colombia",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "buenosaires-argentina",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "caracas-venezuela",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "costa-rica",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "lapaz-bolivia",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "lima-peru",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "mexicocity-mexico",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "montevideo-uruguay",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "panamacity-panama",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "quito-ecuador",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
-          "slug": "remote",
-          "sectionIndex": 5
-        }
-      ],
-      "createdAt": "2026-02-24T12:33:14.042Z",
-      "name": "course_selector_latam_en"
     },
     {
       "id": "bind_mm0ljg7p_dechj4",
@@ -1232,6 +1981,6 @@
         }
       ],
       "createdAt": "2026-02-24T12:45:20.127Z"
-    }
+    } 
   ]
 }

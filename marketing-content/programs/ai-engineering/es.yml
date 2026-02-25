@@ -30,7 +30,7 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +7000 graduados
     bullet_points:
-      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel
+      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
       - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
       - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
     tutors:
@@ -749,3 +749,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

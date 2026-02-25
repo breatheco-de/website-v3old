@@ -52,7 +52,7 @@ sections:
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Humanos + IA: Acelera Tu Aprendizaje en Programación"
+    heading: "Mentores expertos + IA: Acelera Tu Aprendizaje en Programación"
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
       - title: "Nuestro Equipo de Mentores Expertos ofrece:"
@@ -97,7 +97,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: Una Comunidad Global para Impulsar tu Crecimiento
+    heading: Aprende Acompañado por una Comunidad Global
     description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
@@ -175,6 +175,42 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+  - type: footer
+    version: v1.0
+    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none 10px
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
