@@ -128,7 +128,7 @@ sections:
         title: Tiempo promedio para conseguir empleo
       - icon: GrowthChart
         value: {{ global_salary_increase | 55 }}%
-        title: Aumento salarial después de graduarse
+        title: Aumento salarial promedio después de graduarse
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
