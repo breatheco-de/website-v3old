@@ -160,7 +160,7 @@ sections:
         value: 36%
         title: projected growth rate the next decade
       - id: "3"
-        value: {{ starting_salary_datascience | $90K }}+
+        value: {{ salary_data_scientist | 22.000€ }}+
         title: Average starting salary for data scientists
   - type: syllabus
     variant: program-modules
