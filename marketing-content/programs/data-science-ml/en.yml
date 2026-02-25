@@ -151,7 +151,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why Data Science now?
+    title: Why Data Science Now?
     subtitle: Data fuels the AI revolution.
     description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
     background: hsl(var(--background))
