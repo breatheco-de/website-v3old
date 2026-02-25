@@ -351,7 +351,7 @@ sections:
     certificate_position: right
     useSolidCard: true
     paddingY:
-      desktop: md
+      desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
