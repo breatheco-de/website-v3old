@@ -165,6 +165,7 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-5z63ye
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -368,4 +369,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-
