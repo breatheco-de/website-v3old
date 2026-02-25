@@ -46,13 +46,14 @@ sections:
         text: Corporate and community partners sponsor scholarships to support emerging tech talent.
       - icon: Award
         text: A limited number of merit-based partial scholarships are awarded to qualified applicants based on commitment, potential, and program fit.
+    marginY:
+      desktop: none md
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
     version: v1.0
     heading: $20+ Million in Scholarships
     subtitle: Backed by global institutions and industry leaders, we’ve awarded over $20 million in scholarships to expand access to tech careers worldwide.
-    background: hsl(var(--muted))
     slides:
       - image_id: united_way_event
         object_position: 100% 80%

@@ -3353,6 +3353,25 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.delete("/api/github/webhook/duplicates", async (_req, res) => {
+    try {
+      const { getWebhookInfo } = await import("./sync-state");
+      const info = getWebhookInfo();
+      if (!info) {
+        return res.status(400).json({ success: false, message: "No active webhook registered — nothing to clean up." });
+      }
+      const { cleanupDuplicateWebhooks, getGitHubConfig } = await import("./github");
+      const config = getGitHubConfig();
+      if (!config) {
+        return res.status(400).json({ success: false, message: "GitHub not configured." });
+      }
+      const deleted = await cleanupDuplicateWebhooks(config, info.webhookId, info.webhookUrl);
+      res.json({ success: true, deleted: deleted.length, ids: deleted });
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: error.message || "Cleanup failed" });
+    }
+  });
+
   // Get all sync changes (local and incoming)
   app.get("/api/github/pending-changes", async (req, res) => {
     try {

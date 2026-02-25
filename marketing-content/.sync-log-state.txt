@@ -144,3 +144,12 @@
 2026-02-25T22:58:24.087Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T22:58:24.102Z [WEBHOOK] Rejected: no webhook configured in sync state
 2026-02-25T22:58:24.141Z [WEBHOOK] Rejected: no webhook configured in sync state
+2026-02-25T23:05:36.940Z [RESTART] Server started (instance=372d, checkpoint=0d6165a5, env=development, pid=4322)
+2026-02-25T23:05:37.571Z [RECONCILE] Local e10bd1c ≠ remote 32b6602, checking file hashes...
+2026-02-25T23:05:40.623Z [RECONCILE] 0/6 files match remote, 6 still differ
+2026-02-25T23:05:43.273Z [AUTO-PULL] Startup: pulled 6 incoming files: locations/mexicocity-mexico/en.yml, locations/mexicocity-mexico/es.yml, pages/financials/es.yml, pages/scholarships/en.yml, section-bindings.json, variables.yml
+2026-02-25T23:05:43.934Z [WEBHOOK] Created webhook #597999478 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T23:05:44.310Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T23:06:56.066Z [RESTART] Server started (instance=6319, checkpoint=0d6165a5, env=development, pid=4693)
+2026-02-25T23:06:56.848Z [RECONCILE] Already in sync at 32b6602
+2026-02-25T23:06:57.816Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook

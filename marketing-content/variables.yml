@@ -436,9 +436,6 @@ anual_income_based_payment_guarantee:
   default: "$35,000"
   conditions:
     - query:
-        region: "usa-canada"
-      value: "$35,000"
-    - query:
         locale: "en"
         region: "usa-canada"
       value: "$35,000"

@@ -1284,6 +1284,28 @@ async function createWebhook(config: GitHubConfig, url: string, secret: string):
   }
 }
 
+export async function cleanupDuplicateWebhooks(config: GitHubConfig, activeWebhookId: number, webhookUrl: string): Promise<number[]> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks?per_page=100`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+    if (!response.ok) return [];
+    const hooks: Array<{ id: number; config: { url: string } }> = await response.json();
+    const duplicates = hooks.filter(h => h.config.url === webhookUrl && h.id !== activeWebhookId);
+    await Promise.all(duplicates.map(h => deleteWebhook(config, h.id)));
+    return duplicates.map(h => h.id);
+  } catch {
+    return [];
+  }
+}
+
 async function deleteWebhook(config: GitHubConfig, webhookId: number): Promise<void> {
   try {
     await fetch(

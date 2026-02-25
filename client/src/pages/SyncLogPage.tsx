@@ -127,6 +127,7 @@ export default function SyncLogPage() {
 
   const [webhookRetryOpen, setWebhookRetryOpen] = useState(false);
   const [webhookRetryResult, setWebhookRetryResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [cleanupResult, setCleanupResult] = useState<{ deleted: number; ids: number[] } | null>(null);
 
   const webhookSetupMutation = useMutation({
     mutationFn: () => apiRequest("POST", "/api/github/webhook/setup").then(r => r.json()),
@@ -136,6 +137,16 @@ export default function SyncLogPage() {
     },
     onError: (err: any) => {
       setWebhookRetryResult({ success: false, message: err.message || "Request failed" });
+    },
+  });
+
+  const cleanupMutation = useMutation({
+    mutationFn: () => apiRequest("DELETE", "/api/github/webhook/duplicates").then(r => r.json()),
+    onSuccess: (data) => {
+      setCleanupResult({ deleted: data.deleted, ids: data.ids });
+    },
+    onError: (err: any) => {
+      setCleanupResult({ deleted: -1, ids: [] });
     },
   });
 
@@ -410,7 +421,7 @@ export default function SyncLogPage() {
       </div>
     </div>
 
-    <Dialog open={webhookRetryOpen} onOpenChange={(open) => { if (!open) { setWebhookRetryOpen(false); setWebhookRetryResult(null); } }}>
+    <Dialog open={webhookRetryOpen} onOpenChange={(open) => { if (!open) { setWebhookRetryOpen(false); setWebhookRetryResult(null); setCleanupResult(null); } }}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{syncInfo?.webhook.active ? "Webhook Active" : "Webhook Inactive"}</DialogTitle>
@@ -454,6 +465,15 @@ export default function SyncLogPage() {
                 </>
               )}
             </div>
+            {cleanupResult !== null && (
+              <div className="flex items-center gap-2 p-2.5 rounded-md bg-muted border text-xs text-muted-foreground">
+                <IconCheck className="h-3.5 w-3.5 flex-shrink-0 text-green-600 dark:text-green-400" />
+                {cleanupResult.deleted === 0
+                  ? "No duplicate webhooks found — already clean."
+                  : `Deleted ${cleanupResult.deleted} duplicate webhook${cleanupResult.deleted !== 1 ? "s" : ""} (#${cleanupResult.ids.join(", #")}).`
+                }
+              </div>
+            )}
           </div>
         )}
 
@@ -477,6 +497,20 @@ export default function SyncLogPage() {
           >
             {syncInfo?.webhook.active || webhookRetryResult ? "Close" : "Cancel"}
           </Button>
+          {syncInfo?.webhook.active && cleanupResult === null && (
+            <Button
+              variant="outline"
+              onClick={() => cleanupMutation.mutate()}
+              disabled={cleanupMutation.isPending}
+              data-testid="button-cleanup-webhooks"
+              className="text-destructive border-destructive/40 hover:border-destructive"
+            >
+              {cleanupMutation.isPending
+                ? <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Deleting...</>
+                : <><IconTrash className="h-4 w-4 mr-2" />Delete inactive webhooks</>
+              }
+            </Button>
+          )}
           {!syncInfo?.webhook.active && !webhookRetryResult?.success && (
             <Button
               onClick={() => webhookSetupMutation.mutate()}
