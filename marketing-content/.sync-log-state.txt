@@ -188,3 +188,11 @@
 2026-02-25T21:54:11.701Z [RECONCILE] Local 38793b0 ≠ remote cf117ec, checking file hashes...
 2026-02-25T21:54:12.527Z [RECONCILE] 1/8 files match remote, 7 still differ
 2026-02-25T21:54:16.939Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T22:04:11.175Z [RESTART] Server started (instance=b016, checkpoint=0f0a322f4, env=development, pid=82)
+2026-02-25T22:04:12.866Z [RECONCILE] Local 38793b0 ≠ remote 551fadb, checking file hashes...
+2026-02-25T22:04:14.240Z [RECONCILE] 1/11 files match remote, 10 still differ
+2026-02-25T22:04:16.414Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T22:06:10.730Z [RESTART] Server started (instance=bb14, checkpoint=c2ef683f4, env=development, pid=192)
+2026-02-25T22:06:12.224Z [RECONCILE] Local 38793b0 ≠ remote 4594644, checking file hashes...
+2026-02-25T22:06:16.723Z [RECONCILE] 2/12 files match remote, 10 still differ
+2026-02-25T22:06:17.578Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
