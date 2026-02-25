@@ -258,6 +258,29 @@ sections:
     subtitle: Collaborating with leading institutions to bring coding education worldwide
     background: hsl(var(--muted))
     slides:
+      - image_id: student_coding_laptop
+        object_position: 100% 80%
+        title: Digital Talent Scholarship and 4Geeks Academy
+        subtitle: Launched by ONCE Foundation
+        description: The ONCE Foundation, through its Digital Talent programme, promotes training in technological skills through a partial scholarship to improve the employability of people with disabilities. In collaboration with 4Geeks Academy, this scholarship provides access to intensive training programmes in programming, data science, artificial intelligence and other digital areas with high labour demand.
+        stats:
+          - value: 20%
+            label: Cost borne by the student + taxes
+          - value: "+10"
+            label: Geeks who benefited
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+          - image_id: logo-fonce
+            alt: "Image: logo-fonce"
+        press_references:
+          - text: Digital Talent
+            url: https://portalentodigital.fundaciononce.es/becas
+            source: ONCE Foundation
+        cta:
+          text: Conviértete en partner
+          url: /en/partners
+          variant: primary
       - image_id: united_way_event
         object_position: 100% 80%
         title: United Way Miami and 4Geeks Academy
