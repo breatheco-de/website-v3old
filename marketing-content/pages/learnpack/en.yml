@@ -27,19 +27,19 @@ sections:
       desktop: md
   - type: article
     content: |
-      ## Why LearnPack Matters in 2026
+      ## Why LearnPack matters in 2026
 
       In the LLM era, it’s pointless to memorize syntax. What matters is **thinking like a developer** and collaborating with AI. LearnPack turns any topic, technical or not, into an **interactive, auto-graded course** in minutes.
 
       Tell the platform a title, length, and learning goals, or add your own input (documents, videos, or just a topic), and it instantly produces a **structured syllabus** and a complete interactive course. It includes lessons, quizzes, and auto-graded exercises, no coding required. Then **Rigobot**, our 24/7 AI mentor, guides learners line by line.
 
-      ### Context and Overview
+      ### Context and overview
 
       In today’s fast-evolving digital landscape, learning platforms must adapt to meet diverse needs. LearnPack, initially launched as a coding education tool, has evolved into a versatile platform that empowers anyone to create interactive, auto-graded courses without technical expertise.
 
       Accessible via [learnpack.co](https://www.learnpack.co/), LearnPack leverages artificial intelligence to generate comprehensive courses, making education creation accessible to all. This article explores LearnPack’s evolution, its AI-driven features, and its impact on global learning, supported by the AI mentor Rigobot.
 
-      ## How Course Creation Works
+      ## How course creation works
 
       1. **Open LearnPack** at [learnpack.co](https://www.learnpack.co/) and start a new course.
       2. **Enter your course details**, including length, subject, and key topics.
@@ -58,7 +58,7 @@ sections:
       | Accessibility & i18n | Keyboard navigation, color-safe UI, EN/ES | Inclusive, bilingual learning from day one |
       | Open-Source Repository | Content available on GitHub | Reuse, adapt, and improve freely |
 
-      ## Recents Outcomes (Jan – Jun 2025)
+      ## Recents outcomes (Jan – Jun 2025)
 
       | **Metric** | **Mid-Year 2025** | **Source** |
       | --- | --- | --- |
@@ -67,7 +67,7 @@ sections:
       | Program hiring rate | 79% within 140 days | [Mid-Year Outcomes 2025](https://4geeksacademy.com/us/outcomes-2025-midyear) |
       | Median LATAM salary lift | +282% | Same report |
 
-      ## Why LearnPack Beats Generic LMS Tools
+      ## Why LearnPack beats generic LMS tools
 
       |  | **LearnPack** | Typical LMS |
       | --- | --- | --- |
@@ -77,20 +77,20 @@ sections:
       | Runs in VS Code or Cloud IDE | ✅ | ❌ |
       | 100% open-source | ✅ | ❌ |
 
-      ## Benefits for Learners
+      ## Benefits for learners
 
       - **Instant feedback** through auto-graded exercises and quizzes, no waiting on forums.
       - **Learn anywhere** with a browser-first experience that works on any device.
       - **Rigobot guidance** that adapts to your pace and grows more advanced as you improve.
 
-      ## Benefits for Educators
+      ## Benefits for educators
 
       - **No-code course creation**. Enter the subject, topics, and duration and let AI build the curriculum.
       - **Built-in analytics** showing learner progress, completion rates, and common blockers.
       - **Open-source library** with over 1,000 tutorials available to reuse or expand.
 
 
-      ## Built for the AI Era
+      ## Built for the AI era
 
       Large Language Models like Grok, GPT-4o, and Claude 3 accelerate modern workflows. LearnPack embraces them by:
 
@@ -99,7 +99,7 @@ sections:
       - Teaching a **human plus AI pair-programmer** mindset that companies already expect.
 
 
-      ## Ready to Create or Learn?
+      ## Ready to create or learn?
 
       - 🔗 Try the **AI course generator** at [learnpack.co](https://www.learnpack.co/)
       - 🔗 See Rigobot in action on the [Rigobot page](https://4geeksacademy.com/us/rigobot)
