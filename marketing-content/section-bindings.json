@@ -196,6 +196,80 @@
       ],
       "createdAt": "2026-02-25T22:41:37.549Z",
       "name": "course_selector_europe_es"
+    },
+    {
+      "id": "bind_mm2mdy6w_vvxo0t",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "course_selector-k6g4kc"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "course_selector-1vvgfp"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "course_selector-ibnftx"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "course_selector-y6y3t2"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "course_selector-wdyy1t"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "course_selector-665e66"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "course_selector-g5i9r7"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "course_selector-jpukz1"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "course_selector-kcadw5"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "course_selector-t8ms10"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "course_selector-i7pdmx"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "course_selector-5tnpy0"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "course_selector-k7l4kc"
+        }
+      ],
+      "createdAt": "2026-02-25T22:42:36.248Z",
+      "name": "course_selector_europe_en"
     }
   ]
 }
