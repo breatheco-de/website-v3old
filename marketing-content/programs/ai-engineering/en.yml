@@ -508,7 +508,7 @@ sections:
     background: hsl(var(--muted))
   - type: features_grid
     variant: highlight
-    title: Enroll with a Job Guarantee*
+    title: Enroll With a Job Guarantee*
     subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
@@ -520,6 +520,8 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: lg none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -539,8 +541,6 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-    paddingY:
-      desktop: lg none
   - type: pricing
     version: "1.0"
     variant: product
