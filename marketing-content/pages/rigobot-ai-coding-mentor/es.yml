@@ -99,7 +99,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplica Ahora
+      submit_label: Aplica ahora
       tags: website-lead
       automations: hard
       fields:
