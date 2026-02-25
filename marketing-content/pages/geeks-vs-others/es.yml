@@ -213,13 +213,11 @@ sections:
     paddingY:
       desktop: none md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - online-platform
       - certification
       - career-support
-    paddingY:
-      desktop: md
     item_overrides:
       consigo-trabajo-despus-de-completar-el-programa:
         hideOnLocations:
@@ -245,6 +243,8 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    paddingY:
+      desktop: md
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para comenzar?
