@@ -27,10 +27,10 @@ sections:
       desktop: lg none
   - type: vertical_bars_cards
     version: "1.0"
-    title: Resultados de Contratación Año tras Año
+    title: Resultados de contratación año tras año
     subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en outcomes verificados de cohortes recientes.
     metrics:
-      - title: Tasa de Colocación Laboral
+      - title: Tasa de colocación laboral
         unit: Graduados contratados en 6 meses
         description: Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación para mantener los datos precisos y comparables entre cohortes.
         years:
@@ -43,7 +43,7 @@ sections:
           - year: Mid 2025
             value: 82
             displayValue: 82%
-      - title: Aumento Salarial Promedio
+      - title: Aumento salarial promedio
         unit: Comparado con salario pre-bootcamp
         description: Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el bootcamp.
         years:
@@ -56,7 +56,7 @@ sections:
           - year: Mid 2025
             value: 15800
             displayValue: $15.8k
-      - title: Días para el Primer Empleo
+      - title: Días para el primer empleo
         unit: Tiempo promedio desde graduación hasta oferta
         description: Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
         years:
