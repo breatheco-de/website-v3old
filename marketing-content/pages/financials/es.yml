@@ -605,21 +605,6 @@ sections:
     related_features:
       - certification
       - price
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
     item_overrides:
       puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
         hideOnLocations:
@@ -634,6 +619,10 @@ sections:
           - barcelona-spain
           - berlin-germany
           - dublin-ireland
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
