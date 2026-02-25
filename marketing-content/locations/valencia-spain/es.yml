@@ -119,6 +119,27 @@ sections:
     background: gradient
     marginY:
       desktop: lg none
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/ln3bQsV1BaQ
+    right:
+      heading: Descubre el Escenario de la Programación en Valencia
+      sub_heading: Perspectivas de Alissa sobre 4GeeksAcademy
+      description: Plan de estudios alineado con la industria enfocado en aplicabilidad práctica. Aprendizaje práctico basado en proyectos para el perfeccionamiento de habilidades. Orientación profesional para navegar el dinámico sector tecnológico de Valencia. Mira a Alissa hablar sobre cómo 4Geeks ayuda a los estudiantes de Valencia a crecer en tecnología.
+      button:
+        text: Ver video completo
+        url: https://youtu.be/ln3bQsV1BaQ
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -184,27 +205,6 @@ sections:
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://youtu.be/ln3bQsV1BaQ
-    right:
-      heading: Descubre el Escenario de la Programación en Valencia
-      sub_heading: Perspectivas de Alissa sobre 4GeeksAcademy
-      description: Plan de estudios alineado con la industria enfocado en aplicabilidad práctica. Aprendizaje práctico basado en proyectos para el perfeccionamiento de habilidades. Orientación profesional para navegar el dinámico sector tecnológico de Valencia. Mira a Alissa hablar sobre cómo 4Geeks ayuda a los estudiantes de Valencia a crecer en tecnología.
-      button:
-        text: Ver video completo
-        url: https://youtu.be/ln3bQsV1BaQ
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none sm
-    paddingY:
-      desktop: none md
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"

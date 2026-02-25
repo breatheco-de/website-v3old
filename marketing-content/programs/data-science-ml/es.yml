@@ -229,7 +229,7 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md lg
+      desktop: md
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
