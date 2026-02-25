@@ -433,7 +433,7 @@ data_science_week_duration:
       value: "16 "
     - query:
         region: "usa-canada"
-      value: "16 semanas"
+      value: "16 "
 ai_engineering_week_duration:
   default: "24 "
 cybersecurity_week_duration:
