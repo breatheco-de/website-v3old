@@ -310,6 +310,18 @@ sections:
           text: Become a partner
           url: /en
           variant: outline
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: testimonials_slide
     title: Where Access Turns Into Real Careers
     description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.
