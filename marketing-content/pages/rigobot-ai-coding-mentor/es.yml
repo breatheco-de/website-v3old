@@ -32,7 +32,7 @@ sections:
 
       Imagina esto: estás trabajando en un ejercicio de JavaScript y tu loop no funciona como debería. En lugar de horas de frustración, Rigobot resalta la línea exacta, explica el error lógico y sugiere una forma más limpia de resolverlo. Es como hacer pair-programming con un profesional que nunca se cansa. ¿Lo mejor? Está integrado en cada curso de 4Geeks, así que comienzas a aprender con Rigobot desde el primer día.
 
-      ## Cómo funciona Rigobot – Ejemplo paso a paso
+      ## Cómo funciona Rigobot – ejemplo paso a paso
 
       1. **Lanza un ejercicio de [LearnPack](https://4geeksacademy.com/us/learnpack)** con un solo clic (sin configuración).
       2. **Programa como un profesional** en VS Code; Rigobot observa silenciosamente las pruebas y commits.
