@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { BannerSection as BannerSectionType } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import { useImageRegistry } from "@/components/UniversalImage";
+import UniversalImage from "@/components/UniversalImage";
 
 const MOBILE_CHAR_LIMIT = 150;
 
@@ -14,18 +14,6 @@ function truncateAtWordBoundary(text: string, limit: number): string {
   return truncated.slice(0, lastSpaceIndex);
 }
 
-function resolveImageSrc(value: string, registry: any): string | undefined {
-  if (
-    value.startsWith("/") ||
-    value.startsWith("http://") ||
-    value.startsWith("https://") ||
-    value.startsWith("data:")
-  ) {
-    return value;
-  }
-  return registry?.images?.[value]?.src;
-}
-
 interface BannerProps {
   data: BannerSectionType;
 }
@@ -34,7 +22,6 @@ export function Banner({ data }: BannerProps) {
   const { logo, avatars, title, description, cta, background = "gradient" } = data;
   const [isExpanded, setIsExpanded] = useState(false);
   const handleLinkClick = useInternalNav();
-  const { registry } = useImageRegistry();
 
   const getBackgroundStyle = () => {
     switch (background) {
@@ -61,7 +48,6 @@ export function Banner({ data }: BannerProps) {
     if (!hasLogo && !hasAvatars) return null;
 
     const totalItems = (hasLogo ? 1 : 0) + (avatars?.length || 0);
-    const resolvedLogo = logo ? resolveImageSrc(logo, registry) : undefined;
 
     return (
       <div 
@@ -69,7 +55,7 @@ export function Banner({ data }: BannerProps) {
         data-testid="banner-avatars"
       >
         <div className="flex -space-x-3">
-          {hasLogo && resolvedLogo && (
+          {hasLogo && logo && (
             <div
               className="w-14 h-14 rounded-full border-4 border-white overflow-hidden flex items-center justify-center"
               style={{ 
@@ -78,31 +64,29 @@ export function Banner({ data }: BannerProps) {
               }}
               data-testid="banner-logo"
             >
-              <img 
-                src={resolvedLogo} 
-                alt="Logo" 
-                className="w-9 h-9 object-contain"
+              <UniversalImage
+                id={logo}
+                alt="Logo"
+                className="w-9 h-9"
+                style={{ objectFit: "contain" }}
               />
             </div>
           )}
-          {avatars?.map((avatarValue, index) => {
-            const src = resolveImageSrc(avatarValue, registry);
-            if (!src) return null;
-            return (
-              <div
-                key={index}
-                className="w-14 h-14 rounded-full border-4 border-white overflow-hidden flex items-center justify-center bg-muted"
-                style={{ zIndex: totalItems - index - (hasLogo ? 1 : 0) }}
-                data-testid={`banner-avatar-${index}`}
-              >
-                <img 
-                  src={src} 
-                  alt="" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            );
-          })}
+          {avatars?.map((avatarValue, index) => (
+            <div
+              key={index}
+              className="w-14 h-14 rounded-full border-4 border-white overflow-hidden flex items-center justify-center bg-muted"
+              style={{ zIndex: totalItems - index - (hasLogo ? 1 : 0) }}
+              data-testid={`banner-avatar-${index}`}
+            >
+              <UniversalImage
+                id={avatarValue}
+                alt=""
+                className="w-full h-full"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     );
