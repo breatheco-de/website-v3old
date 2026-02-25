@@ -75,7 +75,7 @@ sections:
       desktop: none md
   - type: stats
     version: "1.0"
-    title: Resultados de Contratación por Regiones
+    title: Resultados de contratación por regiones
     subtitle: Nuestros graduados consiguen empleo y aumentan sus salarios en múltiples mercados laborales.
     background: hsl(210 100% 50% / 0.05)
     items:
