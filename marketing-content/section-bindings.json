@@ -444,11 +444,6 @@
       "members": [
         {
           "contentType": "location",
-          "slug": "madrid-spain",
-          "sectionIndex": 5
-        },
-        {
-          "contentType": "location",
           "slug": "barcelona-spain",
           "sectionIndex": 5
         },
@@ -515,7 +510,7 @@
       ],
       "createdAt": "2026-02-24T12:10:32.190Z",
       "name": "course_selector_europe_es",
-      "updatedAt": "2026-02-25T14:38:52.235Z"
+      "updatedAt": "2026-02-25T15:23:50.930Z"
     },
     {
       "id": "bind_mm0kgqdp_f4yyuw",
