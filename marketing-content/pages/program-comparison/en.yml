@@ -248,6 +248,108 @@ sections:
     footer_note: "* Program details subject to change"
     marginY:
       desktop: none
+  - type: comparison_table
+    version: "1.0"
+    title: Which Path Fits You Best?
+    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    columns:
+      - name: Category
+        highlight: true
+      - name: Full Stack Development with AI
+      - name: Data Science & Machine Learning with AI
+      - name: Cybersecurity
+    rows:
+      - feature: What It Is
+        values:
+          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
+          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
+          - Learn to protect systems, networks, and data from cyber threats.
+      - feature: Why It Matters
+        values:
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
+      - feature: What You'll Learn
+        values:
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
+          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
+      - feature: Ideal For
+        values:
+          - Creative problem-solvers who enjoy building and seeing results come to life.
+          - Analytical thinkers who love numbers, trends, and solving patterns.
+          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
+      - feature: Day-to-Day Work
+        values:
+          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
+          - Clean and analyze data, build models, create dashboards, and deliver insights.
+          - Monitor networks, test defenses, respond to incidents, and develop security policies.
+      - feature: Job Titles
+        values:
+          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
+          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
+          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
+      - feature: Average U.S. Salary
+        values:
+          - $75K to $110K
+          - $85K to $130K
+          - $80K to $120K
+      - feature: Bootcamp Schedule
+        values:
+          - Full-Time (12 weeks) or Part-Time (20 weeks).
+          - Part-Time (16 weeks).
+          - Part-Time (16 weeks).
+      - feature: Course Delivery
+        values:
+          - Online or In-Person (select cities).
+          - Online.
+          - Online.
+      - feature: Cost
+        values:
+          - $10,999 (discounts and scholarships available).
+          - $10,999 (discounts and scholarships available).
+          - $9,999 (discounts and scholarships available).
+      - feature: Payment Plans
+        values:
+          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
+      - feature: Job Guarantee
+        values:
+          - Available for additional $2,000. Included in the full time course option at no extra cost.
+          - Available for additional $2,000.
+          - Available for additional $2,000.
+      - feature: Best For You If
+        values:
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
+      - feature: Ready to start?
+        values:
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/full-stack
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/data-science-ml
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/cybersecurity
+                variant: outline
+    footer_note: "* Program details subject to change"
+    marginY:
+      desktop: none
   - type: course_selector
     version: "1.0"
     variant: solid
