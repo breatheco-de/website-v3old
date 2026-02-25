@@ -13,7 +13,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Real Career Outcomes, Backed by Data
+    title: Real career outcomes, backed by data
     subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity, the outcomes are backed by verified data.
     image:
       src: /attached_assets/outcomes_1765562850573.png
