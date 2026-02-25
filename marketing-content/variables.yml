@@ -56,7 +56,7 @@ global_review_rating:
   conditions:
     - query:
         location: "madrid-spain"
-      value: "4.8"
+      value: "4.9"
 global_review_count:
   default: "700"
   conditions:
