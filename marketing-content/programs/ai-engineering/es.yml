@@ -428,7 +428,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
-    title: Empleabilidad y Salarios Reales en Ingeniería de IA
+    title: Empleabilidad y salarios reales en Ingeniería de IA
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
       - text: "Ingeniero de Software IA: $95K–$135K"
