@@ -52,7 +52,7 @@ sections:
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Mentores expertos + IA: Acelera Tu Aprendizaje en Programación"
+    heading: "Mentores expertos + IA: Acelera tu aprendizaje en programación"
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
       - title: "Nuestro Equipo de Mentores Expertos ofrece:"
