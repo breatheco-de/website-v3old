@@ -377,6 +377,8 @@ sections:
         date: 01/03/2023
     paddingY:
       desktop: md sm
+    marginY:
+      desktop: none md
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
