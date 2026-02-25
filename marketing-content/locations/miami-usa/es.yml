@@ -456,9 +456,9 @@ sections:
           required: false
         phone:
           visible: true
-          required: false
+          required: true
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
