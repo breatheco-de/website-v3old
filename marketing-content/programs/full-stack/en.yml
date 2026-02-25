@@ -188,7 +188,7 @@ sections:
       - panamacity-panama
   - type: syllabus
     variant: program-modules
-    program_title: Full Stack with AI Program Overview
+    program_title: Full Stack with AI program overview
     program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
     tech_logos:
       - name: HTML5
