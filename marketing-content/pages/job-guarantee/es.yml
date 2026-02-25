@@ -196,7 +196,6 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
-        price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -208,7 +207,6 @@ sections:
           - icon: Brain
             text: Python, TensorFlow y SQL
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning utilizadas por equipos modernos de datos.
-        price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
@@ -220,7 +218,6 @@ sections:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
