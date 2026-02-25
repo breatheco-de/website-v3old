@@ -1121,12 +1121,12 @@ export default function MediaGallery() {
                           <IconCloud className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           <span className="text-xs text-muted-foreground">Cloud</span>
                         </div>
-                        <p className="text-xs font-mono text-muted-foreground break-all leading-relaxed">{img.cloudUrl}</p>
+                        <a href={img.cloudUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground break-all leading-relaxed hover:underline" data-testid={`link-cloud-${img.id}`}>{img.cloudUrl}</a>
                         <div className="flex items-center gap-1 pt-px">
                           <IconFolder className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           <span className="text-xs text-muted-foreground">Local</span>
                         </div>
-                        <p className="text-xs font-mono text-muted-foreground break-all leading-relaxed">{img.localPath}</p>
+                        <a href={img.localPath} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground break-all leading-relaxed hover:underline" data-testid={`link-local-${img.id}`}>{img.localPath}</a>
                       </div>
                     </div>
                   ))}
