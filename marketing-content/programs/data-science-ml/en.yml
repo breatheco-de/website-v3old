@@ -164,7 +164,7 @@ sections:
         title: Average starting salary for data scientists
   - type: syllabus
     variant: program-modules
-    program_title: Data Science and Machine Learning Program Overview
+    program_title: Data Science and Machine Learning program overview
     program_description: Master the industry-standard toolkit used by modern data teams. Go beyond simple analysis to build production-ready systems—from engineering raw data to deploying the predictive models that companies use to drive innovation and scale.
     tech_logos:
       - name: Python
