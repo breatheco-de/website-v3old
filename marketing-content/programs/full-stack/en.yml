@@ -368,9 +368,9 @@ sections:
           - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer }}"
           - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
           - text: "Backend Services Developer: {{ average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 500+
+      - value: 400+
         label: Hiring partners
-        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
