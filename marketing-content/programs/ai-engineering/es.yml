@@ -433,14 +433,14 @@ sections:
     benefits:
       - text: "Ingeniero de Software IA: $95K–$135K"
       - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
-      - text: "Ingeniero de Agentes: $105K–$155K"
+      - text: "Ingeniero de Agentes: $105K–$1{{ global_salary_increase | {{ global_salary_increase | 55 }} }}K"
       - text: "Ingeniero de Automatización de Flujos: $85K–$120K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado de 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando.
         benefits:
