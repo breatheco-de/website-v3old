@@ -39,6 +39,9 @@ global_job_placement_rate:
     - query:
         region: "usa-canada"
       value: "84"
+    - query:
+        region: "europe"
+      value: "75"
 global_salary_increase:
   default: "55"
   conditions:
