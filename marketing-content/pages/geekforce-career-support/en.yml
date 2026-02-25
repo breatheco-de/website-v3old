@@ -297,11 +297,9 @@ sections:
     title: The stories behind the stats
     description: Discover how our graduates transformed their careers
   - type: faq
-    title: Frequently Asked Questions
+    title: Frequently asked questions
     related_features:
       - career-support
-    marginY:
-      desktop: none
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:
@@ -351,6 +349,8 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    marginY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
