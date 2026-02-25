@@ -161,7 +161,7 @@ sections:
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules
-    program_title: Lo que Aprenderás en el Programa de Ciberseguridad
+    program_title: Lo que aprenderás en el programa de Ciberseguridad
     program_description: Domina el stack completo de ciberseguridad desde seguridad de redes hasta pruebas de penetración. Desarrolla habilidades defensivas y ofensivas del mundo real usando las herramientas estándar de la industria que los empleadores buscan.
     tech_logos:
       - name: Linux
