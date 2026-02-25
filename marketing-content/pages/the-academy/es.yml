@@ -95,7 +95,7 @@ sections:
       image_object_position: 10% 80%
       justify: end
     right:
-      heading: Impulsando el Ecosistema Tecnológico Global
+      heading: Impulsando el ecosistema tecnológico global
       description: En 4Geeks Academy creemos que la colaboración genera impacto real. Trabajamos con universidades, organizaciones sin fines de lucro, iniciativas de desarrollo laboral, organizaciones globales y comunidades tecnológicas locales para ampliar el acceso a educación tecnológica de alto nivel y fortalecer las oportunidades profesionales. Juntos formamos y colocamos talento diverso, cerramos la brecha de habilidades digitales y construimos la fuerza laboral tecnológica del futuro. También participamos activamente en la comunidad, colaborando en hackatones, desafíos tecnológicos y eventos de la industria que conectan talento con oportunidades y muestran las habilidades de nuestros estudiantes y graduados.
       text_align: left
     gap: "12"
