@@ -651,14 +651,9 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - full-stack
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
     item_overrides:
       cunto-dura-el-programa-full-stack:
         hideOnLocations:
@@ -673,6 +668,11 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Convertirte en Desarrollador Full Stack?
