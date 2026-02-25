@@ -243,6 +243,18 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Madrid es el Lugar para Lanzar tu Carrera Tech
