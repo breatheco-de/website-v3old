@@ -486,7 +486,7 @@ sections:
         description: Master the AI skills that companies are struggling to find talent for. As businesses shift toward automation, you'll be ready to step into high-priority roles that offer immediate growth and long-term stability.
         benefits:
           - text: "AI Software Engineer: {{ average_salary_ai_engineer | $115K–$165K }}"
-          - text: "Full-Stack AI Engineer: $125K–$185K"
+          - text: "Full-Stack AI Engineer: {{ average_salary_ai_fluent_software_developer | $125K–$185K }}"
           - text: "Agentic Systems Engineer: $140K–$210K"
           - text: "Workflow Automation Engineer: $95K–$145K"
       - value: 5,000+
