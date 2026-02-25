@@ -344,7 +344,7 @@ average_salary_ai_engineer:
       value: "$100K–$160K"
     - query:
         region: "latam"
-      value: "$20K-$60K USD"
+      value: "$40K – $75K"
     - query:
         region: "europe"
         locale: "es"
