@@ -70,7 +70,7 @@ sections:
       desktop: none sm
   - type: career_support_explain
     version: v1.0
-    heading: Geek FORCE career coaching
+    heading: Geek FORCE Career Coaching
     description: Acompañamiento profesional diseñado para ayudarte a conseguir tu primer empleo en tecnología y construir una carrera con dirección.
     background: hsl(var(--secondary))
     tabs:
