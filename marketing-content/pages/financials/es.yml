@@ -164,17 +164,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: comparison_table
     version: "1.0"
     title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
