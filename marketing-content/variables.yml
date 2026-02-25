@@ -216,6 +216,9 @@ global_salary_penetration_tester:
     - query:
         region: "europe"
       value: "18.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$35K – $65K"
 global_salary_security_engineer:
   default: "$100K–$165K"
   conditions:
