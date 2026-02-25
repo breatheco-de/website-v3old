@@ -191,7 +191,7 @@ sections:
         description: Becas parciales disponibles para estudiantes elegibles.
     background: hsl(var(--secondary))
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: Colocación Laboral
