@@ -474,10 +474,10 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: none
+      desktop: none md
     paddingY:
       mobile: lg
-      desktop: lg none
+      desktop: lg md
     background: hsl(var(--muted))
   - type: pricing
     version: "1.0"
