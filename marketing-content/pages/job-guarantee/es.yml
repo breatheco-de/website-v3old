@@ -97,8 +97,8 @@ sections:
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: 24 semanas
-        label: Actualizado en 2026
+        duration: {{ ai_engineering_week_duration | 24 }} semanas
+        label: Actualizado en 226
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
@@ -111,7 +111,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Desarollo Full Stack con IA
-        duration: 20 semanas
+        duration: {{ fullstack_week_duration | 20 }} semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -128,7 +128,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: 16 semanas
+        duration: {{ data_science_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
@@ -142,7 +142,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: 16 semanas
+        duration: {{ cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
