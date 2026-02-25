@@ -555,30 +555,49 @@ sections:
       mobile: none
       desktop: none
   - type: testimonials
-    title: Real Results from Real Graduates
-    subtitle: Join thousands who've transformed their careers
+    version: v1.0
+    title: Testimonios de Nuestros Graduados
+    subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: "4.7"
-      count: 1,294
+      average: "4.9"
+      count: 2,847
     items:
-      - name: Sarah Johnson
-        role: AI Engineer
+      - name: Maria Rodriguez
+        role: Ingeniera de Software
         company: Google
         rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfect for real-world AI applications.
-        outcome: +55% salary increase
-      - name: Michael Chen
-        role: ML Engineer
+        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
+        outcome: Contratada en 4 meses
+      - name: James Chen
+        role: Desarrollador Full Stack
+        company: Spotify
+        rating: 5
+        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
+        outcome: Aumento salarial 3x
+      - name: Sarah Williams
+        role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program!
-        outcome: Hired in 4 months
-      - name: Emily Rodriguez
-        role: AI Engineer
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        outcome: Cambio de carrera a los 35
+      - name: Carlos Mendez
+        role: Ingeniero Backend
         company: Amazon
+        rating: 4
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        outcome: Trabajo remoto conseguido
+      - name: Emily Thompson
+        role: Ingeniera DevOps
+        company: Netflix
         rating: 5
-        comment: Excellent content and great mentor support. Now I'm working on cutting-edge AI.
-        outcome: +100% salary increase
+        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
+        outcome: Aumento salarial del 50%
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
+        outcome: Promovido en 1 año
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an AI Engineer?
