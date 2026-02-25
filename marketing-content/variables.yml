@@ -230,7 +230,7 @@ average_salary_cybersecurity_short:
   conditions:
     - query:
         region: "europe"
-      value: "35.000"
+      value: "35.000€"
 salary_data_scientist:
   default: "$80K–$130K"
   conditions:
