@@ -27,7 +27,7 @@ sections:
       desktop: lg none
   - type: press_mentions
     version: v1.0
-    title: Our Awards
+    title: Our awards
     subtitle: Globally recognized for excellence in tech education
     subtitle_color: hsl(var(--primary))
     columns: 3
