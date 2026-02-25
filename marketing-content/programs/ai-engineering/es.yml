@@ -28,7 +28,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduados
+      count: +6000 graduados
     bullet_points:
       - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
       - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
