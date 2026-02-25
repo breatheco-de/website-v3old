@@ -48,6 +48,9 @@ global_salary_increase:
     - query:
         region: "usa-canada"
       value: "55"
+    - query:
+        region: "europe"
+      value: "30"
 global_review_rating:
   default: "4.9"
   conditions:
