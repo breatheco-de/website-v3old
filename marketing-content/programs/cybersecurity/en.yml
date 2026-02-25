@@ -492,9 +492,8 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
-    version: "1.0"
     variant: carousel
-    title: Who's Hiring Our Graduates?
+    title: Who's hiring our graduates?
     subtitle: Our alumni work at top companies around the world
     description: Top companies hire 4Geeks graduates, with 84% landing jobs within 6 months of graduation thanks to their skills and our personalized career support.
     logos:
