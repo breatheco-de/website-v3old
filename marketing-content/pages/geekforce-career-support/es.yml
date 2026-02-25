@@ -16,12 +16,12 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Career Coaching Ilimitado
-    subtitle: para Impulsar tu Carrera en Tecnología
+    title: Career coaching ilimitado
+    subtitle: para impulsar tu carrera en tecnología
     brand_mark:
       prefix: Geek
       highlight: FORCE
-      suffix: ':'
+      suffix: ":"
       color: chart-5
     description: Mentoría profesional ilimitada 1:1 adaptada a tu perfil. Desde tu CV y portafolio hasta entrevistas y plataformas de contratación con IA, te acompañamos para que consigas tu primer empleo en tecnología y sigas avanzando en tu carrera.
     marquee:
@@ -63,7 +63,7 @@ sections:
       gradientWidth: 60
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
-      ratio: '2:2'
+      ratio: "2:2"
     paddingY:
       desktop: none
     marginY:
@@ -209,7 +209,7 @@ sections:
         col_span: 6
         row_span: 2
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
     title: Consigue Empleo con Nuestro Proceso de Desarrollo de Carrera en 3 Pasos
     description: Nuestro proceso estructurado está diseñado para que consigas empleo — rápido.
@@ -239,7 +239,7 @@ sections:
     variant: default
     title: Garantía de Empleo* Opcional para Mayor Confianza
     subtitle: Respaldamos tu resultado profesional con un compromiso más fuerte
-    description: '<span style="font-size: 1.125rem;"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span style="font-size: 1rem;"></span></span></div>'
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Más Información
       url: /en/job-guarantee
@@ -461,7 +461,7 @@ sections:
           - quito-ecuador
           - santiago-chile
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados. Inicia tu transformación hoy mismo.
     background: hsl(var(--primary))
