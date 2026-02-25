@@ -356,6 +356,18 @@ sections:
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
     footer_note: "* Los detalles del programa están sujetos a cambios"
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
