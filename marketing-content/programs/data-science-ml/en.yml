@@ -325,7 +325,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    background: hsl(var(--muted))
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
