@@ -83,7 +83,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Impacto en Números
+    title: Impacto en números
     subtitle: Más de {{ total_scholarships | 20 }} en becas y subvenciones otorgadas
     description: Los socios de 4Geeks Academy empoderan a miles de estudiantes en todo el mundo con acceso a educación tecnológica, mentoría práctica y oportunidades profesionales que generan resultados reales.
     background: hsl(210 100% 50% / 0.05)
