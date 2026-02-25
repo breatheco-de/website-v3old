@@ -44,10 +44,10 @@ sections:
     tutors_label: "Tus tutores:"
     description: Prepárate para roles de alta demanda en ciencia de datos y machine learning a través de proyectos prácticos, mentoría ilimitada y soporte de carrera diseñado para que consigas empleo.
     signup_card:
-      title: Obtén el programa completo
+      title: Recibe el plan de estudios completo
       description: Accede al plan de estudios completo, horarios y todo lo que necesitas saber.
       cta_button:
-        text: Envíame el plan de estudios
+        text: Recibir el plan de estudios
         url: "#apply-modal"
         variant: primary
       login_link:
