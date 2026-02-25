@@ -433,7 +433,7 @@ sections:
     benefits:
       - text: "Ingeniero de Software IA: $95K–$135K"
       - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
-      - text: "Ingeniero de Agentes: $105K–$1{{ global_salary_increase | {{ global_salary_increase | 55 }} }}K"
+      - text: "Ingeniero de Agentes: $105K–$150K"
       - text: "Ingeniero de Automatización de Flujos: $85K–$120K"
     card:
       title: Ingeniero de IA
@@ -455,7 +455,7 @@ sections:
           - text: Optimiza tu CV, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: 55%
+      - value: {{ global_salary_increase | 55 }}%
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
