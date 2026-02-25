@@ -261,7 +261,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Learn by Building Real-Life Projects
+    title: Learn by building real-life projects
     subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
     items:
       - title: Build a StarWars REST API
