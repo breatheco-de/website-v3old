@@ -97,7 +97,7 @@ sections:
         program:
           visible: false
           required: true
-          default: ai-engineering
+          default: cybersecurity
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
