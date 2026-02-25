@@ -47,7 +47,7 @@ sections:
         - name: SwitchUp
           logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     paddingY:
-      desktop: none
+      desktop: none md
     marginY:
       desktop: none
   - type: features_grid
