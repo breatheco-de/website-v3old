@@ -18,7 +18,6 @@ const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
 const TemplatePage = lazy(() => import("@/pages/page"));
 const HomePage = lazy(() => import("@/pages/HomePage"));
-const OldHome = lazy(() => import("@/pages/old-home"));
 const ApplyPage = lazy(() => import("@/pages/ApplyPage"));
 const TermsPage = lazy(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
@@ -49,7 +48,6 @@ function Router() {
         <Route path="/" component={HomePage} />
         <Route path="/en/" component={HomePage} />
         <Route path="/es/" component={HomePage} />
-        <Route path="/old-home" component={OldHome} />
         <Route path="/en/career-programs/:slug">
           {(params) => <ContentTypeDetail type="program" slug={params.slug} locale="en" />}
         </Route>
