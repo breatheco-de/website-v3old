@@ -85,7 +85,7 @@ sections:
             linkedin_url: https://www.linkedin.com/in/naila-kaliyeva-a8863a181/
         media:
           - type: image
-            src: /attached_assets/image_1765318479754.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318479754.png
             alt: Raspberry Sky - Acceso satelital para todos
           - type: video
             src: OZfv9kYl0_o
@@ -104,7 +104,7 @@ sections:
             github_url: https://github.com/paocastrob
         media:
           - type: image
-            src: /attached_assets/image_1765318521904.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318521904.png
             alt: Dashboard IMS
           - type: video
             src: TTjSZ2Lud2E
@@ -121,10 +121,10 @@ sections:
             linkedin_url: https://www.linkedin.com/in/gmihov/
         media:
           - type: image
-            src: /attached_assets/image_1765318556862.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318556862.png
             alt: WonderTracker - Planea Viajes, Guarda Recuerdos
           - type: image
-            src: /attached_assets/fernando-funez_1765315920677.jpg
+            src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
             alt: Miembro del equipo WonderTracker
       - project_title: reMindful
         project_url: https://re-mindful.vercel.app/
@@ -138,7 +138,7 @@ sections:
             github_url: https://github.com/gabsssrod
         media:
           - type: image
-            src: /attached_assets/image_1765318600261.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318600261.png
             alt: reMindful - Reduce, Reusa, Recicla
           - type: video
             src: cKcZD0_1IKk
@@ -150,7 +150,7 @@ sections:
     description: 4Geeks Academy fue fundada en 2015. Lo que comenzó como un proyecto interno para entrenar desarrolladores se ha convertido en nuestra pasión. 4Geeks es hoy un Coding Bootcamp en USA que busca construir un nuevo marco para la Educación en Código. 4Geeks Academy tiene ubicaciones en 12 ciudades, 13 campus activos y más de 600 graduados.
     link_text: Leer Más
     link_url: /es/sobre-la-academia
-    image_src: /attached_assets/our-story_1765323971104.webp
+    image_src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
     image_alt: Fundadores de 4Geeks Academy
     marginY:
       desktop: none lg

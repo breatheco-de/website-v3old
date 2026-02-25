@@ -121,59 +121,59 @@ sections:
     items:
       - id: logo-switchup-best-bootcamps-2025
         alt: SwitchUp Best Bootcamps 2025
-        logo: /attached_assets/switchup-best-bootcamps-2025_1770392145139.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         logoHeight: h-10 md:h-16
       - id: excelencia-educativa
         alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         logoHeight: h-10 md:h-16
       - id: course-report-badge
         alt: Course Report Badge 2025
-        logo: /attached_assets/Course-Report-Badge-2025_1764709632231.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: h-10 md:h-16
       - id: logo-ebootcamp-top-2025
         alt: ebootcamp Top Bootcamp Programación 2025
-        logo: /attached_assets/ebootcamp-top_1_1770392737758.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
         logoHeight: h-10 md:h-16
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 80px
       - id: newsweek
         alt: Newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 en reseñas de Course Report
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         logoHeight: 64px
       - id: forbes-1
         alt: Forbes - Top Coding Bootcamp
-        logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
       - id: fortune-1
         alt: Fortune - Mejor Empresa de Educación
-        logo: /attached_assets/fortune-logo_1764709618095.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
         logoHeight: h-10 md:h-16
       - id: logo-coursereport-best-bootcamp-2025
         alt: CourseReport Best European Bootcamp 2025
-        logo: /attached_assets/CourseReport-best-bootcamp_-2025_1770392145137.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
         logoHeight: h-10 md:h-14
       - id: logo-european-excellence-education
         alt: European Excellence Education
-        logo: /attached_assets/european-excellence-education-ealde_1_1770392145138.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
         logoHeight: h-10 md:h-14
       - id: logo-forbes-advisor-2025
         alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logo: /attached_assets/Forbes-Advisor_1770392260031.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
         logoHeight: h-10 md:h-14
       - id: logo-premios-excelencia-educativa
         alt: 17 Premios Excelencia Educativa
-        logo: /attached_assets/premios-excelencia-educativa-17_1770392145139.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
         logoHeight: h-10 md:h-14
     marginY:
       mobile: md none
@@ -354,19 +354,19 @@ sections:
     items:
       - id: coursereport-detailed
         alt: Course Report Badge 2025
-        logo: /attached_assets/Course-Report-Badge-2025_1764709632231.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
         logoHeight: h-16
         description: Reconocida como una de las mejores academias tecnológicas a nivel mundial
         link: https://www.coursereport.com
         linkText: Leer reviews
       - id: logo-premios-excelencia-educativa
         alt: 17 Premios Excelencia Educativa
-        logo: /attached_assets/premios-excelencia-educativa-17_1770392145139.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
         logoHeight: h-16
         description: La mejor inversión para quienes empiezan de cero o buscan un cambio de carrera
       - id: logo-switchup-best-bootcamps-2025
         alt: SwitchUp Best Bootcamps 2025
-        logo: /attached_assets/switchup-best-bootcamps-2025_1770392145139.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         logoHeight: h-16
         description: La academia tecnológica mejor valorada, en base a reseñas verificadas de alumnos
         link: https://www.switchup.org
@@ -502,29 +502,29 @@ sections:
     title: Empresas líderes confían en nuestro talento
     subtitle: Nuestros graduados trabajan en empresas líderes de tecnología.
     logos:
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
-      - src: /attached_assets/images-removebg-preview_1767642331872.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872.png
         alt: Boats Group
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
     marginY:
       mobile: none xl

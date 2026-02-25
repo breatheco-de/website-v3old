@@ -14,7 +14,7 @@ yaml: |
     subtitle: "for the AI Era"
     description: "Get unlimited 1:1 career support designed for your unique profile and goals—for life. From resume and portfolio building to interviews and AI-driven hiring platforms."
     background_image:
-      src: "/attached_assets/ai-engineering-light_1765830844948.jpg"
+      src: "https://storage.googleapis.com/4geeks-academy-website/media/ai-engineering-light_1765830844948.jpg"
       alt: "AI Engineering Background"
 
     form:

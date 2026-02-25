@@ -29,14 +29,14 @@ sections:
       variant: primary
       icon: ""
     left_images:
-      - src: /attached_assets/community_1764717588840.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Ilustración de comunidad
-      - src: /attached_assets/caracas-graduates_1765387638222.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
         alt: Celebración de graduados en Caracas
     right_images:
-      - src: /attached_assets/fernando-funez_1765315920677.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
         alt: Testimonio de Fernando Funez
-      - src: /attached_assets/feliz-empresario-laptop_1765406479465.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
         alt: Profesional feliz con laptop
     show_arrow: true
     marginY:
@@ -51,7 +51,7 @@ sections:
     items:
       - id: coursereport-detailed
         alt: Logo del premio Forbes
-        logo: /attached_assets/forbes-logo-award_1764709625651.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistentemente listado entre los 5 mejores bootcamps por Forbes
         link: https://www.coursereport.com
@@ -65,7 +65,7 @@ sections:
         linkText: Ver rankings
       - id: careerkarma-detailed
         alt: Insignias de premios
-        logo: /attached_assets/badges-new.avif
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Elegido mejor bootcamp en 2024 y 2025 por SwitchUp, Course Report y Career Karma.
         link: https://careerkarma.com
@@ -74,13 +74,13 @@ sections:
       desktop: none md
   - type: image_row
     images:
-      - src: /attached_assets/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Estudiante aprendiendo a programar
-      - src: /attached_assets/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Desarrollador trabajando en un proyecto
-      - src: /attached_assets/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Sesión de colaboración en equipo
-      - src: /attached_assets/student-4-lady-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduada celebrando su éxito
     highlight:
       heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>"
@@ -107,7 +107,7 @@ sections:
         text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
       - heading: Currículum y Herramientas de Aprendizaje Integradas con IA
         text: Domina las últimas herramientas y flujos de trabajo de IA que los empleadores están buscando activamente.
-    image: /attached_assets/community_1764717588840.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Estudiante aprendiendo con apoyo de mentor
     video:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4

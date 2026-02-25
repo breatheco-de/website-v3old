@@ -6,7 +6,7 @@ yaml: |
     variant: cardHeader
     heading: "Unlimited Career Support – Always Ahead of Job Market Trends"
     description: "Geekforce is built into every 4Geeks program to make sure you don't just learn tech, but launch a successful career."
-    image: "/attached_assets/comunity-support_1765908983485.png"
+    image: "https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png"
     image_alt: "4Geeks Academy community support"
     background: "bg-primary/5"
     cards:

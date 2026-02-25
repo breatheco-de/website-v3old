@@ -31,33 +31,33 @@ sections:
     subtitle_color: hsl(var(--primary))
     columns: 3
     items:
-      - logo: /attached_assets/forbes-logo-award_1764709625651.webp
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         title: Mejor Bootcamp de Data Science y Machine Learning 2025
         excerpt: Nuestro bootcamp fue elegido como la mejor opción por su formato práctico para principiantes, resultados verificados y garantía de empleo.
         link_text: Ver artículo
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/#4geeks_academy_data_science_and_machine_learning_course_section
         box_color: ""
-      - logo: /attached_assets/arp-logo-certification_1765548854924.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924.png
         title: Calidad Institucional en Educación Online
         excerpt: 4Geeks Academy ha obtenido la certificación ARP, distinguiéndose como líder en educación online de programación.
         link_text: Ver sitio web
         link_url: https://arpcertificate.com/listado-de-cursos/programa-full-stack-development/
-      - logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         title: Premio Education Champion 2024
         excerpt: Reconocidos por South Florida Tech Hub por impulsar la educación tecnológica y el crecimiento profesional en la región.
         link_text: Ver artículo
         link_url: https://techhubsouthflorida.org/tech-hub-announces-the-2nd-annual-golden-palm-gala-award-2024-honorees/
-      - logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         title: Mejor Programa Educativo 2022
         excerpt: Recibimos el Premio Excelencia Educativa al Mejor Programa Educativo 2022, reconocimiento a nuestro compromiso con la calidad e innovación.
         link_text: Leer artículo
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
-      - logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         title: Reconocimiento a la Trayectoria Internacional
         excerpt: Como parte de los Premios Excelencia Educativa 2022, recibimos el galardón a la Trayectoria Internacional Destacada en el ámbito de escuelas de desarrollo de software.
         link_text: Leer artículo
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
-      - logo: /attached_assets/pee-trajectory_1765549529048.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/pee-trajectory_1765549529048.png
         title: Mejor Trayectoria Internacional
         excerpt: Premios Excelencia Educativa 2021 a la mejor escuela con trayectoria internacional. Más información disponible en el palmarés 2021.
         link_text: Leer artículo
@@ -68,68 +68,68 @@ sections:
         link_text: Ver artículo
         link_url: https://www.switchup.org/bootcamps/4geeks-academy
         box_color: ""
-      - logo: /attached_assets/switchup-best-bootcamps-2025_1770392145139.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         title: Top 5 Coding Bootcamps en SwitchUp 2025
         excerpt: SwitchUp ha reconocido a 4Geeks Academy incluyéndola en su prestigiosa lista de mejores coding bootcamps para 2025.
         link_text: Ver sitio web
         link_url: https://www.switchup.org/rankings/best-coding-bootcamps
-      - logo: /attached_assets/forbes-logo-award_1764709625651.webp
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         title: Top Bootcamps Online Full-Stack 2024
         excerpt: Hemos sido seleccionados como uno de los mejores bootcamps online de programación por Forbes.
         link_text: Ver artículo
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/#4geeks_academy_full_stack_developer_bootcamp_section
         box_color: ""
-      - logo: /attached_assets/ebootcamp-top_1765549056325.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         title: Mejor Bootcamp eBootcamp 2024
         excerpt: Fuimos nominados por eBootcamp como el mejor coding bootcamp para 2024.
         link_text: Ver artículo
         link_url: https://ebootcamp.net/top-bootcamps-programacion/
-      - logo: /attached_assets/newsweek_1764709608255.webp
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         title: Top Coding School según Newsweek
         excerpt: 4Geeks Academy fue reconocida como una de las 10 mejores coding bootcamps de Estados Unidos según Newsweek.
         link_text: Ver artículo
         link_url: https://starthubcenters.com/4geeks-academy-named-top-coding-school-2017/
-      - logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         title: Mejor Programa Internacional de Becas 2022
         excerpt: ""
         link_text: Ver artículo
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
-      - logo: /attached_assets/pee-career_1765549482702.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/pee-career_1765549482702.png
         title: Mejor Programa Educativo Orientado a la Carrera Profesional
         excerpt: Premios Excelencia Educativa 2021 al mejor programa educativo orientado a la empleabilidad especializado en Coding Bootcamps.
         link_text: Leer artículo
         link_url: https://premiosexcelenciaeducativa.org/wp-content/uploads/2016/05/PALMARE%CC%81S-EXCELENCIA-2020-1.pdf
-      - logo: /attached_assets/fortune-logo_1764709618095.webp
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
         title: Excelencia en Educación para Hispanohablantes
         excerpt: 4Geeks Academy fue reconocida por Fortune como uno de los mejores bootcamps para hispanohablantes, destacando nuestro compromiso con la educación inclusiva y accesible.
         link_text: Ver sitio web
         link_url: https://fortune.com/education/articles/best-software-engineering-bootcamps/#4Geeks-Academy
-      - logo: /attached_assets/Course-Report-Badge-2025_1764709632231.webp
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
         title: Mejor Bootcamp según Course Report 2025
         excerpt: Hemos sido seleccionados como uno de los mejores coding bootcamps a nivel global durante 3 años consecutivos.
         link_text: Ver artículo
         link_url: https://www.coursereport.com/best-coding-bootcamps
-      - logo: /attached_assets/reviews_1765549549051.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         title: 4.9 en todas las reseñas
         excerpt: Calificación de 4.9 en Course Report, SwitchUp y reseñas de Google.
         link_text: Ver artículo
         link_url: https://www.switchup.org/bootcamps/4geeks-academy
-      - logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         title: Mejor Bootcamp Presencial 2022
         excerpt: Nuestro campus en España fue reconocido con el Premio Excelencia Educativa al Mejor Bootcamp Presencial 2022.
         link_text: Leer artículo
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
-      - logo: /attached_assets/pee-innovation_1765549510015.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/pee-innovation_1765549510015.png
         title: Programa Más Innovador
         excerpt: Premios Excelencia Educativa 2021 al coding bootcamp más innovador.
         link_text: Leer artículo
         link_url: https://premiosexcelenciaeducativa.org/wp-content/uploads/2016/05/PALMARE%CC%81S-EXCELENCIA-2020-1.pdf
-      - logo: /attached_assets/ebootcamp-top_1765549056325.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         title: Mejor Bootcamp eBootcamp 2024
         excerpt: Fuimos nominados por eBootcamp como el mejor coding bootcamp para 2024.
         link_text: Ver artículo
         link_url: https://ebootcamp.net/top-bootcamps-programacion/
-      - logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         title: Mejor Programa de Coding Bootcamp 2022
         excerpt: Recibimos el Premio Excelencia Educativa al Mejor Programa de Coding Bootcamp 2022, destacando nuestro compromiso con la excelencia en educación tecnológica.
         link_text: Leer artículo

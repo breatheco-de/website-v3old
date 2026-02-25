@@ -28,7 +28,7 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: banner
     version: "1.0"
-    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
       - https://randomuser.me/api/portraits/men/2.jpg
@@ -139,7 +139,7 @@ sections:
         text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una Comunidad Tech Global Activa
         text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
-    image: /attached_assets/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:

@@ -91,12 +91,12 @@ sections:
       - madrid-spain
   - type: image_row
     images:
-      - src: /attached_assets/image_1765318600261.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318600261.png
         alt: Feature illustration
         id: image-feature-5
-      - src: /attached_assets/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Latino student working on a project
-      - src: /attached_assets/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: African student collaborating with team
     height: 20rem
     gap: lg

@@ -109,7 +109,7 @@ sections:
         text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
       - heading: AI-Integrated Curriculum and Learning Tools
         text: Master the latest AI tools and workflows that employers are actively hiring for.
-    image: /attached_assets/community_1764717588840.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Student learning with mentor support
     reverse: true
     marginY:

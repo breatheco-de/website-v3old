@@ -1,12 +1,12 @@
 type: image_row
 images:
-  - src: /attached_assets/student-1-asian.png
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
     alt: "Student learning to code"
-  - src: /attached_assets/student-2-latin.png
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
     alt: "Developer working on project"
-  - src: /attached_assets/student-3-african.png
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
     alt: "Team collaboration session"
-  - src: /attached_assets/student-4-lady-latin.png
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
     alt: "Graduate celebrating success"
 
 highlight:

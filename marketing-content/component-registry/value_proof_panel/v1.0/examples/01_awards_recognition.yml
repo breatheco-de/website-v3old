@@ -20,7 +20,7 @@
       description: "Credentials that employers trust and value"
   media:
     type: image
-    src: "/attached_assets/awards-collage.webp"
+    src: "https://storage.googleapis.com/4geeks-academy-website/media/awards-collage.webp"
     alt: "4Geeks Academy awards and recognitions"
     aspect_ratio: "4:3"
     style: rounded
