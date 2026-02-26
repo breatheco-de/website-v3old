@@ -46,7 +46,7 @@ sections:
       - icon: Award
         text: Un número limitado de becas parciales basadas en mérito se otorgan a candidatos calificados según su compromiso, potencial y afinidad con el programa.
     marginY:
-      desktop: none lg
+      desktop: none md
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
