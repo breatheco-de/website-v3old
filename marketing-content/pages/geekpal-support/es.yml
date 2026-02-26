@@ -203,6 +203,7 @@ sections:
           placeholder: Número telefónico
         program:
           visible: true
+          required: true
           default: auto
           placeholder: Selecciona un programa
       success:

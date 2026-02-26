@@ -210,6 +210,7 @@ export default function SyncLogPage() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
         <div className="flex items-center gap-3 flex-wrap">
@@ -449,5 +450,6 @@ export default function SyncLogPage() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    </>
   );
 }

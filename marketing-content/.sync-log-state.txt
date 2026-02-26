@@ -235,3 +235,24 @@
 2026-02-26T14:39:52.411Z [RECONCILE] Local 38793b0 ≠ remote b1b1f72, checking file hashes...
 2026-02-26T14:39:57.688Z [RECONCILE] 99/127 files match remote, 28 still differ
 2026-02-26T14:39:59.850Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:42:19.257Z [RESTART] Server started (instance=9756, checkpoint=5dbd5d1c9, env=development, pid=4002)
+2026-02-26T14:42:19.828Z [RECONCILE] Local 38793b0 ≠ remote 29faae7, checking file hashes...
+2026-02-26T14:42:24.123Z [RECONCILE] 98/127 files match remote, 29 still differ
+2026-02-26T14:42:26.907Z [AUTO-PULL] Startup: pulled 1 incoming files: pages/geekforce-career-support/es.yml
+2026-02-26T14:42:26.908Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T14:42:27.102Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:43:22.108Z [RESTART] Server started (instance=182f, checkpoint=5dbd5d1c9, env=development, pid=4400)
+2026-02-26T14:43:22.736Z [RECONCILE] Local 38793b0 ≠ remote e18caed, checking file hashes...
+2026-02-26T14:43:27.256Z [RECONCILE] 97/127 files match remote, 30 still differ
+2026-02-26T14:43:30.380Z [AUTO-PULL] Startup: pulled 2 incoming files: pages/job-guarantee/en.yml, pages/online-platform/es.yml
+2026-02-26T14:43:30.380Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T14:43:30.601Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:51:19.350Z [RESTART] Server started (instance=fd5f, checkpoint=5dbd5d1c9, env=development, pid=4563)
+2026-02-26T14:51:19.912Z [RECONCILE] Local 38793b0 ≠ remote 867fc7c, checking file hashes...
+2026-02-26T14:51:25.451Z [RECONCILE] 69/128 files match remote, 59 still differ
+2026-02-26T14:52:42.147Z [RESTART] Server started (instance=3b2a, checkpoint=5dbd5d1c9, env=development, pid=4844)
+2026-02-26T14:52:42.762Z [RECONCILE] Local 38793b0 ≠ remote 62d3936, checking file hashes...
+2026-02-26T14:52:47.646Z [RECONCILE] 70/128 files match remote, 58 still differ
+2026-02-26T14:52:52.982Z [RESTART] Server started (instance=2227, checkpoint=5dbd5d1c9, env=development, pid=4947)
+2026-02-26T14:52:53.621Z [RECONCILE] Local 38793b0 ≠ remote 62d3936, checking file hashes...
+2026-02-26T14:52:59.381Z [RECONCILE] 75/128 files match remote, 53 still differ

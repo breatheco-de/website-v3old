@@ -255,7 +255,7 @@ sections:
     description: "You'll qualify for the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
+        title: {{ who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete all coursework and projects
       - icon: IconBrain
@@ -330,7 +330,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
