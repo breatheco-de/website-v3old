@@ -10,7 +10,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Join a Coding Bootcamp Start a New Career.
+    title: Join a Coding Bootcamp. Start a New Career.
     subtitle: Learn to code at one of the most awarded coding bootcamps in the world. Online or in-person. No coding skills required. Join a glogal coding community and get unlimited coding and career support, for life.
     image: https://storage.googleapis.com/4geeks-academy-website/media/Rectangle_5_1766029737050.png
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
