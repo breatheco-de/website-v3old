@@ -234,7 +234,7 @@ sections:
           - Conéctate con nuestra extensa red global de socios de contratación.
     background: bg-background
     paddingY:
-      desktop: md none
+      desktop: none
   - type: whos_hiring
     variant: carousel
     title: Principales empresas tecnológicas que contratan graduados de 4Geeks
