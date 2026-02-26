@@ -99,14 +99,14 @@ sections:
       - rome-italy
       - valencia-spain
   - type: syllabus
-    title: Financia Tu Carrera en Tecnología
+    title: Financia tu carrera en tecnología
     subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
     modules:
-      - title: Paga por Adelantado y Ahorra 10%
+      - title: Paga por adelantado y ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
-      - title: Cuotas sin Intereses a 6 Meses
+      - title: Cuotas sin intereses a 6 Meses
         description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
-      - title: Pagos Basados en Ingresos
+      - title: Pagos basados en ingresos
         description: Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países, y aplican ciertas condiciones. Contáctanos para saber más.
       - title: Préstamos y Planes de Pago Extendidos
         description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde 170 USD. La aprobación y condiciones finales dependen de la entidad financiera.
