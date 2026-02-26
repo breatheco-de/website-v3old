@@ -174,7 +174,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Haciendo las carreras tech accesibles
+    heading: Volviendo accesibles las carreras en tech
     description: Las carreras tech pueden transformar vidas y las finanzas nunca deberían ser un obstáculo. Por eso ofrecemos algunas de las opciones de pago y becas más flexibles y amigables para estudiantes en la industria.
     cards:
       - icon: CurrencyDollar
