@@ -142,7 +142,7 @@ export function useDebugAuth() {
     // Get token from URL querystring or env variable
     const envToken = import.meta.env.VITE_BREATHECODE_TOKEN;
     
-    const token = urlToken || envToken;
+    const token = urlToken || envToken || localStorage.getItem(DEBUG_TOKEN_KEY);
 
     if (!token) {
       setHasToken(false);
