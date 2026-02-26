@@ -107,7 +107,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Explora Nuestros Programas
-    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología.
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
       - name: Ingeniería de IA
         icon: Brain
