@@ -393,7 +393,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
