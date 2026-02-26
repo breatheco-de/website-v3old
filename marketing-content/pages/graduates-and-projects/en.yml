@@ -64,9 +64,9 @@ sections:
           visible: true
           required: false
         program:
-          visible: false
+          visible: true
           required: true
-          default: cybersecurity
+          default: null
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: projects_showcase
