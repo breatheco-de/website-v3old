@@ -17,7 +17,7 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: Carreras Tech de Nueva Generación. Impulsadas por IA.
+    title: Aquí se construyen las carreras del futuro en IA.
     subtitle: Programas enfocados en carreras de Ingeniería de IA, Desarrollo de Software, Ciencia de Datos y Ciberseguridad. Diseñados para impulsar carreras de alto crecimiento en la tecnología actual.
     trust_bar:
       rating: {{ global_review_rating | 4.9 }}/5
