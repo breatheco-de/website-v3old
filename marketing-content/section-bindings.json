@@ -866,6 +866,70 @@
       ],
       "createdAt": "2026-02-26T14:58:05.257Z",
       "name": "sticky_cta_europe_en"
+    },
+    {
+      "id": "bind_mm3latyx_ngcz13",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "sticky_cta-ivlpae"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "sticky_cta-vqhh75"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "sticky_cta-4b60wn"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "sticky_cta-ie45qb"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "sticky_cta-ttyvb1"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "sticky_cta-s7c02c"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "sticky_cta-px3k9k"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "sticky_cta-1n8wwe"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "sticky_cta-5zwzqb"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "sticky_cta-ps72ad"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "sticky_cta-3blhix"
+        }
+      ],
+      "createdAt": "2026-02-26T14:59:57.369Z",
+      "name": "sticky_cta_usa_en"
     }
   ]
 }
