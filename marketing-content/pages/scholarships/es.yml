@@ -207,7 +207,6 @@ sections:
     version: v1.0
     heading: {{ total_scholarships | {{ total_scholarships | $20 }}+ Millones en becas
     subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "17 millones €" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
-    background: hsl(var(--muted))
     slides:
       - image_id: student_coding_laptop
         object_position: 100% 80%
