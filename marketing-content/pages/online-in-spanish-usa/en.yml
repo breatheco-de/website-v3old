@@ -11,7 +11,7 @@ sections:
     version: "1.0"
     variant: singleColumn
     title: Learn to Code in Spanish
-    subtitle: "<h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\"></h3><span style=\"font-size: 1rem;\"><h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\">All programs are taught&nbsp;<span>Online; from the USA.</span>Learning online is hard: Lucky for you, we offer: unlimited support, amazing content and lifetime career support.&nbsp;</h3><h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\">Yes, it really is available for the rest of your life.</h3></span><h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\"></h3>"
+    subtitle: "All programs are taught Online; from the USA.Learning online is hard: Lucky for you, we offer: unlimited support, amazing content and lifetime career support.  Yes, it really is available for the rest of your life."
     badge: Career Program
     cta_buttons:
       - text: Start Learning Now
