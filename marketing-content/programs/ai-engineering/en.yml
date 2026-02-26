@@ -11,6 +11,8 @@ meta:
     - /bootcamp/ai-engineering
     - /programs/ai-engineer
     - /coding-bootcamp/ai-engineering
+    - /en/coding-bootcamps/software-engineer-bootcamp
+    - /en/online-coding-bootcamp/best-online-coding-bootcamp
 schema:
   include:
     - organization
@@ -60,7 +62,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 24-Week or 12-Week Accelerated Morning Program
+          text: 24-Week or 15-Week Accelerated Morning Program
         - icon: IconBriefcase
           text: Employment-First Curriculum
         - icon: IconRobot
