@@ -59,7 +59,7 @@ sections:
     badge: Madrid Campus
     cta_buttons:
       - text: Apply Now
-        url: /apply?location=madrid-spain
+        url: /en/apply?location=madrid-spain
         variant: primary
       - text: Download Syllabus
         url: /syllabus
