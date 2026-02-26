@@ -18,11 +18,11 @@ sections:
     subtitle: Train for in-demand tech roles, including AI Engineering, in one of the Southeast's fastest-growing tech hubs. Live instruction, hands-on projects, and career support for real hiring.
     badge: Atlanta Campus
     cta_buttons:
-      - text: Apply Now
-        url: /en/apply
+      - text: Aplicar ahora
+        url: /es/apply
         variant: primary
-      - text: Get Program Details
-        url: "#cta_banner-14"
+      - text: Ver el programa
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
