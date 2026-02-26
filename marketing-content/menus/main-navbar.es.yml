@@ -180,7 +180,7 @@ navbar:
               - label: Lima, Perú
                 href: /es/ubicacion/lima-peru
               - label: Rest Of America
-                href: /es/ubicacion/resto-de-america
+                href: /es/ubicacion/remoto
     - label: PRÓXIMAS FECHAS
       href: /es/upcoming-dates
       component: SimpleLink

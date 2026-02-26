@@ -25,9 +25,6 @@ programs:
   - id: "cybersecurity"
     name_en: "Cybersecurity"
     name_es: "Ciberseguridad"
-  - id: "ai-for-professionals"
-    name_en: "AI for Professionals"
-    name_es: "IA para Profesionales"
 
 locations:
   - id: "online"
