@@ -736,7 +736,7 @@ sections:
           placeholder: Nombre Completo
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
           visible: false
