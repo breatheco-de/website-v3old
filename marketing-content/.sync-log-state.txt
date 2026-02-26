@@ -1,8 +1,3 @@
-2026-02-25T22:47:14.837Z [RECONCILE] Local 647520b ≠ remote 8e7ca73, checking file hashes...
-2026-02-25T22:47:15.305Z [RECONCILE] 0/1 files match remote, 1 still differ
-2026-02-25T22:47:18.782Z [AUTO-PULL] Startup: pulled 1 incoming files: section-bindings.json
-2026-02-25T22:47:19.005Z [WEBHOOK] Created webhook #597997715 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
-2026-02-25T22:47:19.543Z [WEBHOOK] Received ping event — webhook is active
 2026-02-25T22:48:13.650Z [WEBHOOK] Rejected: invalid HMAC signature
 2026-02-25T22:48:13.657Z [WEBHOOK] Rejected: invalid HMAC signature
 2026-02-25T22:48:13.662Z [WEBHOOK] Rejected: invalid HMAC signature
@@ -498,3 +493,8 @@
 2026-02-26T16:46:08.809Z [RESTART] Server started (instance=b05a, checkpoint=e8029692, env=development, pid=917)
 2026-02-26T16:46:09.557Z [RECONCILE] Already in sync at 60e4fd2
 2026-02-26T16:46:10.343Z [WEBHOOK] Verified: webhook #598115198 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T16:55:36.782Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-26T16:55:36.960Z [WEBHOOK] Push f1909bf by alesanchezr: no marketing-content files changed
+2026-02-26T16:55:42.964Z [WEBHOOK] Push 9f6418a by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:55:43.050Z [CONFLICT] Webhook: 1 files have local edits: locations/rest-of-europe/es.yml
+2026-02-26T16:55:43.062Z [WEBHOOK] Rejected: invalid HMAC signature
