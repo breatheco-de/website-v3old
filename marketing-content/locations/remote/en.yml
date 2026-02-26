@@ -7,7 +7,7 @@ meta:
   change_frequency: monthly
   redirects:
     - /us/coding-campus/online-coding-bootcamp
-    - /us/coding-campus/online-in-spanish-usa
+
 sections:
   - type: hero
     version: '1.0'
