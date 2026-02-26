@@ -600,6 +600,7 @@ sections:
         program:
           visible: true
           required: true
+          placeholder: Select a program
       success:
         message: Thank you! We'll be in touch soon.
       consent:
