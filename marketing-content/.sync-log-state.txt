@@ -250,3 +250,12 @@
 2026-02-26T13:51:06.621Z [RESTART] Server started (instance=401a, checkpoint=f074d75cc, env=development, pid=8452)
 2026-02-26T13:51:07.306Z [RECONCILE] Local 38793b0 ≠ remote 90c2f4f, checking file hashes...
 2026-02-26T13:51:11.981Z [RECONCILE] 73/127 files match remote, 54 still differ
+2026-02-26T13:51:15.323Z [AUTO-PULL] Startup: pulled 1 incoming files: programs/ai-engineering/en.yml
+2026-02-26T13:51:15.323Z [CONFLICT] Startup: 53 files have local conflicts, awaiting manual resolution
+2026-02-26T13:51:15.643Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T13:55:05.553Z [RESTART] Server started (instance=2714, checkpoint=86cf0ffb0, env=development, pid=8957)
+2026-02-26T13:55:06.190Z [RECONCILE] Local 38793b0 ≠ remote 782e893, checking file hashes...
+2026-02-26T13:55:10.861Z [RECONCILE] 72/127 files match remote, 55 still differ
+2026-02-26T13:55:14.370Z [AUTO-PULL] Startup: pulled 2 incoming files: programs/ai-engineering/es.yml, programs/data-science-ml/es.yml
+2026-02-26T13:55:14.371Z [CONFLICT] Startup: 53 files have local conflicts, awaiting manual resolution
+2026-02-26T13:55:14.548Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
