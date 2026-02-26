@@ -377,11 +377,11 @@ sections:
           placeholder: Nombre y Apellido
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
@@ -390,14 +390,16 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
-    terms_color: hsl(var(--card))
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     paddingY:
       desktop: md
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
+    section_id: cta_banner-fp70cw
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
