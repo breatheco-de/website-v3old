@@ -187,6 +187,11 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
   - type: awards_marquee
     version: v1.0
     speed: 40
