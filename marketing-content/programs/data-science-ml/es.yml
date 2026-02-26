@@ -91,7 +91,7 @@ sections:
           required: true
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: false
           required: true
@@ -588,7 +588,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: true
+          required: false
           placeholder: Número de teléfono
         program:
           visible: false

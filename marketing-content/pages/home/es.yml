@@ -83,8 +83,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduada celebrando su éxito
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span>"
-      text: "<span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span>"
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>"
+      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>"
       background: primary
       width: 2
     height: 31rem
@@ -325,7 +325,7 @@ sections:
     variant: laptop-edge
     title: Garantía de Empleo* Opcional para Mayor Confianza
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
-    description: "<span style=\"font-size: 1.125rem;\">Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.</span> <span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Más Información
       url: /es/garantia-de-empleo

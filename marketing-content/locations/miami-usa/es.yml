@@ -248,7 +248,7 @@ sections:
       heading: La Confianza de una Garantía de Empleo*
       description: |-
         ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-        <br><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span>
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
