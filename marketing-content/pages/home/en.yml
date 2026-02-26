@@ -398,8 +398,8 @@ sections:
           required: false
           placeholder: Phone number
         program:
-          visible: false
-          required: false
+          visible: true
+          required: true
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
