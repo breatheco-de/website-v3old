@@ -946,6 +946,208 @@
       ],
       "createdAt": "2026-02-26T20:11:40.617Z",
       "name": "sticky_cta_latam_en"
+    },
+    {
+      "id": "bind_mm3z590f_42cp0c",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "cta_banner-84re7m"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "cta_banner-mz3r3l"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "cta_banner-kunyoi"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "cta_banner-y47qgy"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "cta_banner-z8dhjh"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "cta_banner-pr6mfu"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "cta_banner-flzrib"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "cta_banner-x0qtnu"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "cta_banner-dykyov"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "cta_banner-85rbw5"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "cta_banner-u39ykd"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "cta_banner-mq984o"
+        }
+      ],
+      "createdAt": "2026-02-26T21:27:31.551Z",
+      "name": "cta_banner_latam_es"
+    },
+    {
+      "id": "bind_mm3z8aka_z8vqea",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "cta_banner-48xk9u"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "cta_banner-o6g032"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "cta_banner-m58ikp"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "cta_banner-zk7c9o"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "cta_banner-7e28z6"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "cta_banner-h0wvng"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "cta_banner-rcoafs"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "cta_banner-54ecny"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "cta_banner-qgliic"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "cta_banner-yg63h4"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "cta_banner-82lr2m"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "cta_banner-x8e88b"
+        }
+      ],
+      "createdAt": "2026-02-26T21:29:53.530Z",
+      "name": "cta_banner_latam_en"
+    },
+    {
+      "id": "bind_mm3zavgw_3nxfwx",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "cta_banner-7vc9sj"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "cta_banner-de3y0z"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "cta_banner-3l7sd8"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "cta_banner-rb6kg6"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "cta_banner-5nbf6n"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "cta_banner-cf6r7f"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "cta_banner-ks1eeo"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "cta_banner-3zwtbt"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "cta_banner-91hm50"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "cta_banner-q0pjzs"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "cta_banner-z1ta88"
+        }
+      ],
+      "createdAt": "2026-02-26T21:31:53.936Z",
+      "name": "cta_banner_usa_en"
     }
   ]
 }

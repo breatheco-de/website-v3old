@@ -11,6 +11,7 @@ import {
   IconSearch,
   IconExternalLink,
   IconTextSize,
+  IconLineHeight,
   IconEraser,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
@@ -37,9 +38,16 @@ interface ThemeFontSize {
   tailwind: string;
 }
 
+interface ThemeLineHeight {
+  id: string;
+  label: string;
+  value: string;
+}
+
 interface ThemeConfig {
   text?: ThemeColor[];
   fontSizes?: ThemeFontSize[];
+  lineHeights?: ThemeLineHeight[];
 }
 
 interface SitemapEntry {
@@ -236,6 +244,93 @@ function applyFontSize(
   savedRangeRef.current = null;
 }
 
+function applyLineHeight(
+  value: string,
+  editableRef: React.RefObject<HTMLDivElement | null>,
+  savedRangeRef: React.MutableRefObject<Range | null>,
+  onChange: (html: string) => void
+) {
+  if (!editableRef.current) return;
+  const sel = window.getSelection();
+  if (!sel) return;
+  if (savedRangeRef.current) {
+    try {
+      sel.removeAllRanges();
+      sel.addRange(savedRangeRef.current);
+    } catch {
+      savedRangeRef.current = null;
+      return;
+    }
+  }
+  if (sel.rangeCount === 0) return;
+  const range = sel.getRangeAt(0);
+  if (range.collapsed) return;
+
+  let node: Node | null = range.commonAncestorContainer;
+  if (node.nodeType === Node.TEXT_NODE) node = node.parentElement;
+  if (node?.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === "SPAN") {
+    const spanEl = node as HTMLSpanElement;
+    const wholeSpanRange = document.createRange();
+    wholeSpanRange.selectNodeContents(spanEl);
+    const sameStart = range.compareBoundaryPoints(Range.START_TO_START, wholeSpanRange) === 0;
+    const sameEnd = range.compareBoundaryPoints(Range.END_TO_END, wholeSpanRange) === 0;
+    if (sameStart && sameEnd) {
+      spanEl.style.lineHeight = value;
+      onChange(editableRef.current!.innerHTML);
+      savedRangeRef.current = null;
+      return;
+    }
+  }
+
+  const span = document.createElement("span");
+  span.style.lineHeight = value;
+
+  const fragment = range.extractContents();
+  const spans: HTMLSpanElement[] = [];
+  const walk = (n: Node) => {
+    if (n.nodeType === Node.ELEMENT_NODE && (n as Element).tagName === "SPAN") {
+      spans.push(n as HTMLSpanElement);
+    }
+    n.childNodes.forEach(walk);
+  };
+  fragment.childNodes.forEach(walk);
+  for (const s of spans) {
+    if (s.style.lineHeight) {
+      s.style.lineHeight = "";
+      if (!s.style.cssText.trim()) s.removeAttribute("style");
+    }
+  }
+
+  span.appendChild(fragment);
+  range.insertNode(span);
+
+  onChange(editableRef.current!.innerHTML);
+  savedRangeRef.current = null;
+}
+
+function markLightColorSpans(container: HTMLElement) {
+  container.querySelectorAll("span[style]").forEach((el) => {
+    const span = el as HTMLSpanElement;
+    const color = span.style.color;
+    if (!color) {
+      span.removeAttribute("data-preview-light");
+      return;
+    }
+    const computed = window.getComputedStyle(span).color;
+    const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+      const r = parseInt(match[1]);
+      const g = parseInt(match[2]);
+      const b = parseInt(match[3]);
+      if (r > 200 && g > 200 && b > 200) {
+        span.setAttribute("data-preview-light", "true");
+        return;
+      }
+    }
+    span.removeAttribute("data-preview-light");
+  });
+}
+
 export function RichTextArea({
   value,
   onChange,
@@ -251,6 +346,7 @@ export function RichTextArea({
   const savedLinkSelectionRef = useRef<Range | null>(null);
   const [colorOpen, setColorOpen] = useState(false);
   const [fontSizeOpen, setFontSizeOpen] = useState(false);
+  const [lineHeightOpen, setLineHeightOpen] = useState(false);
   const [linkHoverPopover, setLinkHoverPopover] = useState<{
     anchor: HTMLAnchorElement;
     rect: DOMRect;
@@ -302,12 +398,13 @@ export function RichTextArea({
 
   const textColors = theme?.text ?? [];
   const fontSizes = theme?.fontSizes ?? [];
+  const lineHeights = theme?.lineHeights ?? [];
 
-  // Sync value only once on mount (parent should use key to remount when section/field changes)
   useEffect(() => {
     if (!editableRef.current || initialSynced.current) return;
     initialSynced.current = true;
     editableRef.current.innerHTML = value || "";
+    markLightColorSpans(editableRef.current);
   }, [value]);
 
   const getCleanInnerHTML = useCallback(() => {
@@ -322,6 +419,7 @@ export function RichTextArea({
   const handleInput = useCallback(() => {
     if (editableRef.current) {
       onChange(getCleanInnerHTML());
+      markLightColorSpans(editableRef.current);
     }
   }, [onChange, getCleanInnerHTML]);
 
@@ -424,6 +522,9 @@ export function RichTextArea({
       editableRef.current?.focus();
       applyTextColor(cssVar, editableRef, savedSelectionRef, onChange);
       setColorOpen(false);
+      requestAnimationFrame(() => {
+        if (editableRef.current) markLightColorSpans(editableRef.current);
+      });
     },
     [onChange],
   );
@@ -434,6 +535,16 @@ export function RichTextArea({
       editableRef.current?.focus();
       applyFontSize(sizeValue, editableRef, savedSelectionRef, onChange);
       setFontSizeOpen(false);
+    },
+    [onChange],
+  );
+
+  const handleLineHeightSelect = useCallback(
+    (lhValue: string) => {
+      if (!lhValue) return;
+      editableRef.current?.focus();
+      applyLineHeight(lhValue, editableRef, savedSelectionRef, onChange);
+      setLineHeightOpen(false);
     },
     [onChange],
   );
@@ -744,6 +855,47 @@ export function RichTextArea({
             )}
           </PopoverContent>
         </Popover>
+
+        <Popover open={lineHeightOpen} onOpenChange={setLineHeightOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onMouseDown={(e) => e.preventDefault()}
+              title="Line height"
+              data-testid={testId ? `${testId}-lineheight-trigger` : undefined}
+            >
+              <IconLineHeight className="h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+            {themeLoading ? (
+              <div className="flex items-center justify-center h-12 w-32">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-0.5">
+                {lineHeights.map((lh) => (
+                  <button
+                    key={lh.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleLineHeightSelect(lh.value);
+                    }}
+                    className="flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors"
+                    data-testid={testId ? `${testId}-lineheight-${lh.id}` : undefined}
+                  >
+                    <span className="text-foreground text-sm">{lh.label}</span>
+                    <span className="text-xs text-muted-foreground">{lh.value}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </PopoverContent>
+        </Popover>
       </div>
       <div
         className="relative"
@@ -759,6 +911,7 @@ export function RichTextArea({
             "focus:ring-2 focus:ring-ring focus:ring-offset-0",
             "empty:before:content-[attr(data-placeholder)] empty:before:text-muted-foreground",
             "[&_a]:underline [&_a]:text-primary [&_a]:cursor-pointer",
+            "[&_[data-preview-light]]:!text-muted-foreground",
           )}
           style={{ minHeight }}
           onInput={handleInput}

@@ -370,11 +370,11 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
@@ -391,6 +391,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-7vc9sj
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?

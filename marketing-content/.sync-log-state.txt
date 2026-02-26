@@ -1,0 +1,393 @@
+2026-02-24T16:08:19.320Z [RESTART] Server started (instance=dde7, env=development, pid=6765)
+2026-02-24T16:10:17.977Z [RESTART] Server started (instance=7b2e, env=development, pid=7056)
+2026-02-24T16:10:19.038Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:10:20.257Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:11:22.770Z [RESTART] Server started (instance=7d5a, env=development, pid=7214)
+2026-02-24T16:11:23.741Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:11:26.697Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:13:01.380Z [RESTART] Server started (instance=783c, env=development, pid=7552)
+2026-02-24T16:13:02.098Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:13:02.968Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:17:25.465Z [RESTART] Server started (instance=6d38, env=development, pid=7941)
+2026-02-24T16:17:26.167Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:17:27.114Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:18:21.169Z [RESTART] Server started (instance=5183, env=development, pid=8097)
+2026-02-24T16:18:21.611Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:18:22.518Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:19:18.902Z [RESTART] Server started (instance=d52c, env=development, pid=8415)
+2026-02-24T16:19:20.046Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:19:21.166Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:25:06.814Z [RESTART] Server started (instance=f331, env=development, pid=9525)
+2026-02-24T16:25:07.525Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:25:08.390Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:25:56.640Z [RESTART] Server started (instance=b327, commit=e5e77b77, env=development, pid=9780)
+2026-02-24T16:25:57.692Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:25:58.916Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:26:10.948Z [RESTART] Server started (instance=b944, commit=e5e77b77, env=development, pid=10075)
+2026-02-24T16:26:11.686Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:26:12.602Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:27:06.510Z [RESTART] Server started (instance=0e60, commit=1c621b45, env=development, pid=10344)
+2026-02-24T16:27:07.316Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:27:08.494Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:28:27.012Z [RESTART] Server started (instance=4c71, commit=da3921e8, env=development, pid=10868)
+2026-02-24T16:28:27.882Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:28:29.052Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:29:43.352Z [RESTART] Server started (instance=828b, commit=e374970e, env=development, pid=11349)
+2026-02-24T16:29:44.528Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:29:45.762Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:30:13.936Z [RESTART] Server started (instance=4c61, commit=e374970e, env=development, pid=11652)
+2026-02-24T16:30:14.415Z [RECONCILE] Already in sync at 95b15b4
+2026-02-24T16:30:15.226Z [WEBHOOK] Verified: webhook #597779476 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:31:31.829Z [WEBHOOK] Push a197053 by alesanchezr: 1 marketing-content files changed
+2026-02-24T16:31:32.462Z [AUTO-PULL] Webhook: pulled 1 files from a197053: programs/ai-engineering/es.yml
+2026-02-24T16:36:04.894Z [RESTART] Server started (instance=cf1c, checkpoint=4a411e59, env=development, pid=12551)
+2026-02-24T16:36:05.316Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:36:06.139Z [WEBHOOK] Created webhook #597783775 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:36:08.792Z [WEBHOOK] Received ping event — webhook is active
+2026-02-24T16:36:49.485Z [RESTART] Server started (instance=fc82, checkpoint=4a411e59, env=development, pid=12775)
+2026-02-24T16:36:49.976Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:36:50.820Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:37:43.729Z [RESTART] Server started (instance=d5f5, checkpoint=e1781380, env=development, pid=13129)
+2026-02-24T16:37:44.420Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:37:45.286Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:38:29.479Z [RESTART] Server started (instance=ef0d, checkpoint=e1781380, env=development, pid=13311)
+2026-02-24T16:38:30.224Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:38:31.107Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:40:43.900Z [RESTART] Server started (instance=f3c9, checkpoint=404d1387, env=development, pid=14176)
+2026-02-24T16:40:44.306Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:40:45.010Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:40:55.841Z [RESTART] Server started (instance=3e0a, checkpoint=404d1387, env=development, pid=14253)
+2026-02-24T16:40:56.884Z [RECONCILE] Already in sync at a197053
+2026-02-24T16:40:57.962Z [WEBHOOK] Verified: webhook #597783775 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:43:30.688Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-24T16:43:30.834Z [WEBHOOK] Push 9730ca6 by alesanchezr: 4 marketing-content files changed
+2026-02-24T16:43:32.066Z [AUTO-PULL] Webhook: pulled 3 files from 9730ca6: locations/miami-usa/en.yml, locations/miami-usa/es.yml, programs/ai-engineering/es.yml
+2026-02-24T16:43:50.157Z [RESTART] Server started (instance=7f34, checkpoint=9730ca68, env=development, pid=256)
+2026-02-24T16:43:51.073Z [RECONCILE] Already in sync at 9730ca6
+2026-02-24T16:43:52.285Z [WEBHOOK] Created webhook #597784851 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-24T16:43:54.399Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T02:09:20.904Z [RESTART] Server started (instance=0fdd, checkpoint=56730de2, env=development, pid=205)
+2026-02-25T02:09:22.330Z [RECONCILE] Local 9730ca6 ≠ remote 1b6aba0, checking file hashes...
+2026-02-25T02:09:26.345Z [RECONCILE] 0/139 files match remote, 139 still differ
+2026-02-25T02:10:01.656Z [AUTO-PULL] Startup: pulled 139 incoming files: landings/ai-engineering-chile/promoted.yml, landings/ai-engineering-coding-florida/promoted.yml, landings/ai-engineering-es/promoted.yml, landings/ai-engineering-mexico/promoted.yml, landings/ai-engineering-spain/promoted.yml, landings/example-landing/promoted.yml, locations/atlanta-usa/en.yml, locations/atlanta-usa/es.yml, locations/austin-usa/en.yml, locations/austin-usa/es.yml, locations/barcelona-spain/en.yml, locations/barcelona-spain/es.yml, locations/berlin-germany/en.yml, locations/berlin-germany/es.yml, locations/bogota-colombia/en.yml, locations/bogota-colombia/es.yml, locations/buenosaires-argentina/en.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/en.yml, locations/caracas-venezuela/es.yml, locations/chicago-usa/en.yml, locations/chicago-usa/es.yml, locations/costa-rica/en.yml, locations/costa-rica/es.yml, locations/dallas-usa/en.yml, locations/dallas-usa/es.yml, locations/dublin-ireland/en.yml, locations/dublin-ireland/es.yml, locations/hamburg-germany/en.yml, locations/hamburg-germany/es.yml, locations/houston-usa/en.yml, locations/houston-usa/es.yml, locations/lapaz-bolivia/en.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/en.yml, locations/lima-peru/es.yml, locations/lisbon-portugal/en.yml, locations/lisbon-portugal/es.yml, locations/losangeles-usa/en.yml, locations/losangeles-usa/es.yml, locations/madrid-spain/en.yml, locations/madrid-spain/es.yml, locations/malaga-spain/en.yml, locations/malaga-spain/es.yml, locations/mexicocity-mexico/en.yml, locations/mexicocity-mexico/es.yml, locations/miami-usa/en.yml, locations/miami-usa/es.yml, locations/milan-italy/en.yml, locations/milan-italy/es.yml, locations/montevideo-uruguay/en.yml, locations/montevideo-uruguay/es.yml, locations/munich-germany/en.yml, locations/munich-germany/es.yml, locations/newyork-usa/en.yml, locations/newyork-usa/es.yml, locations/orlando-usa/en.yml, locations/orlando-usa/es.yml, locations/panamacity-panama/en.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/en.yml, locations/quito-ecuador/es.yml, locations/remote/en.yml, locations/remote/es.yml, locations/rest-of-america/en.yml, locations/rest-of-america/es.yml, locations/rest-of-europe/en.yml, locations/rest-of-europe/es.yml, locations/rome-italy/en.yml, locations/rome-italy/es.yml, locations/santiago-chile/en.yml, locations/santiago-chile/es.yml, locations/tampa-usa/en.yml, locations/tampa-usa/es.yml, locations/toronto-canada/en.yml, locations/toronto-canada/es.yml, locations/valencia-spain/en.yml, locations/valencia-spain/es.yml, pages/apply/en.yml, pages/apply/es.yml, pages/awards/en.yml, pages/awards/es.yml, pages/contact-us/en.yml, pages/contact-us/es.yml, pages/cookies/en.yml, pages/cookies/es.yml, pages/faq/en.yml, pages/faq/es.yml, pages/financials/en.yml, pages/financials/es.yml, pages/geekforce-career-support/en.yml, pages/geekforce-career-support/es.yml, pages/geekpal-support/en.yml, pages/geekpal-support/es.yml, pages/geeks-vs-others/en.yml, pages/geeks-vs-others/es.yml, pages/graduates-and-projects/en.yml, pages/graduates-and-projects/es.yml, pages/job-guarantee/en.yml, pages/job-guarantee/es.yml, pages/learnpack/en.yml, pages/learnpack/es.yml, pages/online-platform/en.yml, pages/online-platform/es.yml, pages/outcomes/en.yml, pages/outcomes/es.yml, pages/partners/en.yml, pages/partners/es.yml, pages/press/en.yml, pages/press/es.yml, pages/privacy-policy/en.yml, pages/privacy-policy/es.yml, pages/program-comparison/en.yml, pages/program-comparison/es.yml, pages/rigobot-ai-coding-mentor/en.yml, pages/rigobot-ai-coding-mentor/es.yml, pages/scholarships/en.yml, pages/scholarships/es.yml, pages/terms-conditions/en.yml, pages/terms-conditions/es.yml, pages/testimonials/en.yml, pages/testimonials/es.yml, pages/the-academy/en.yml, pages/the-academy/es.yml, pages/upcoming-dates/en.yml, pages/upcoming-dates/es.yml, pages/work-with-us/en.yml, pages/work-with-us/es.yml, programs/ai-engineering/en.yml, programs/ai-engineering/es.yml, programs/ai-for-professionals/es.yml, programs/cybersecurity/en.yml, programs/cybersecurity/es.yml, programs/data-science-ml/en.yml, programs/data-science-ml/es.yml, programs/full-stack/en.yml, programs/full-stack/es.yml, section-bindings.json, variables.yml
+2026-02-25T02:10:01.964Z [WEBHOOK] Created webhook #597848486 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:10:02.480Z [WEBHOOK] Received ping event — webhook is active
+2026-02-25T02:12:51.528Z [COMMIT] Auto-commit 58582d9 by System: image-registry.json
+2026-02-25T02:12:52.609Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T02:12:52.613Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T02:12:52.614Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-25T02:12:52.750Z [WEBHOOK] Push 58582d9 by alesanchezr: skipping auto-pull — commit was pushed by this instance
+2026-02-25T02:27:58.696Z [RESTART] Server started (instance=4249, checkpoint=8cc0a303, env=development, pid=1661)
+2026-02-25T02:27:59.068Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:27:59.812Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:29:08.126Z [RESTART] Server started (instance=11e5, checkpoint=8cc0a303, env=development, pid=2027)
+2026-02-25T02:29:08.795Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:29:09.629Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:30:16.441Z [RESTART] Server started (instance=52bb, checkpoint=8cc0a303, env=development, pid=2491)
+2026-02-25T02:30:16.807Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:30:17.855Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T02:30:37.695Z [RESTART] Server started (instance=14f6, checkpoint=8cc0a303, env=development, pid=2561)
+2026-02-25T02:30:38.357Z [RECONCILE] Already in sync at 58582d9
+2026-02-25T02:30:39.180Z [WEBHOOK] Verified: webhook #597848486 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-25T15:31:46.603Z [RESTART] Server started (instance=8878, checkpoint=4b0295b6a, env=development, pid=4196)
+2026-02-25T15:31:49.068Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:35:11.699Z [RESTART] Server started (instance=33d0, checkpoint=6122ae8ff, env=development, pid=4605)
+2026-02-25T15:35:13.028Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:36:08.984Z [RESTART] Server started (instance=a17a, checkpoint=6122ae8ff, env=development, pid=4958)
+2026-02-25T15:36:10.924Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:36:49.154Z [RESTART] Server started (instance=ceb5, checkpoint=6122ae8ff, env=development, pid=5194)
+2026-02-25T15:36:50.597Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:37:59.263Z [RESTART] Server started (instance=5c60, checkpoint=6122ae8ff, env=development, pid=5472)
+2026-02-25T15:38:01.618Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:38:53.176Z [RESTART] Server started (instance=1388, checkpoint=6122ae8ff, env=development, pid=5757)
+2026-02-25T15:38:55.124Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:39:38.316Z [RESTART] Server started (instance=3159, checkpoint=6122ae8ff, env=development, pid=6008)
+2026-02-25T15:39:42.475Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:39:59.236Z [RESTART] Server started (instance=44ac, checkpoint=6122ae8ff, env=development, pid=6167)
+2026-02-25T15:40:04.973Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:41:30.508Z [RESTART] Server started (instance=e940, checkpoint=6122ae8ff, env=development, pid=6714)
+2026-02-25T15:41:32.359Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:41:56.184Z [RESTART] Server started (instance=4f2b, checkpoint=6122ae8ff, env=development, pid=6927)
+2026-02-25T15:42:01.883Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:43:30.882Z [RESTART] Server started (instance=a29b, checkpoint=422f6b59c, env=development, pid=7798)
+2026-02-25T15:43:33.056Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:45:30.522Z [RESTART] Server started (instance=0927, checkpoint=422f6b59c, env=development, pid=144)
+2026-02-25T15:46:29.193Z [RESTART] Server started (instance=6707, checkpoint=422f6b59c, env=development, pid=386)
+2026-02-25T15:46:33.554Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:48:44.808Z [RESTART] Server started (instance=472f, checkpoint=88fc8733f, env=development, pid=807)
+2026-02-25T15:48:46.139Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:49:54.632Z [RESTART] Server started (instance=b233, checkpoint=88fc8733f, env=development, pid=1277)
+2026-02-25T15:49:56.863Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T15:50:38.773Z [RESTART] Server started (instance=7ec6, checkpoint=88fc8733f, env=development, pid=1523)
+2026-02-25T15:50:43.224Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:37:57.231Z [RESTART] Server started (instance=d04f, checkpoint=49414f70d, env=development, pid=2525)
+2026-02-25T16:37:58.283Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:53:13.111Z [RESTART] Server started (instance=8ad5, checkpoint=49414f70d, env=development, pid=2745)
+2026-02-25T16:53:19.061Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:54:58.808Z [RESTART] Server started (instance=b112, checkpoint=49414f70d, env=development, pid=3210)
+2026-02-25T16:55:00.509Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:55:33.889Z [RESTART] Server started (instance=fd14, checkpoint=49414f70d, env=development, pid=3353)
+2026-02-25T16:55:39.456Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T16:58:19.088Z [RESTART] Server started (instance=aa32, checkpoint=696de6829, env=development, pid=3964)
+2026-02-25T16:58:24.595Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:12:55.308Z [RESTART] Server started (instance=52a3, checkpoint=c23db5684, env=development, pid=6073)
+2026-02-25T17:12:59.726Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:13:21.542Z [RESTART] Server started (instance=6399, checkpoint=c23db5684, env=development, pid=6260)
+2026-02-25T17:13:26.966Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:14:09.218Z [RESTART] Server started (instance=8ddd, checkpoint=c23db5684, env=development, pid=6667)
+2026-02-25T17:14:15.928Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:22:32.383Z [RESTART] Server started (instance=41f4, checkpoint=a94f3f08a, env=development, pid=122)
+2026-02-25T17:22:35.690Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:26:13.944Z [RESTART] Server started (instance=0462, checkpoint=a94f3f08a, env=development, pid=537)
+2026-02-25T17:26:17.628Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:53:16.850Z [RESTART] Server started (instance=7551, checkpoint=cb9f527bc, env=development, pid=1867)
+2026-02-25T17:53:22.492Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:53:49.210Z [RESTART] Server started (instance=7873, checkpoint=cb9f527bc, env=development, pid=2070)
+2026-02-25T17:53:53.788Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:54:39.488Z [RESTART] Server started (instance=ecec, checkpoint=cb9f527bc, env=development, pid=153)
+2026-02-25T17:54:44.201Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:55:35.923Z [RESTART] Server started (instance=ca80, checkpoint=cb9f527bc, env=development, pid=564)
+2026-02-25T17:55:41.118Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:58:17.603Z [RESTART] Server started (instance=22c1, checkpoint=fb0b69dc9, env=development, pid=1309)
+2026-02-25T17:58:22.466Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T17:58:32.436Z [RESTART] Server started (instance=4e08, checkpoint=fb0b69dc9, env=development, pid=1362)
+2026-02-25T17:58:37.436Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:02:03.978Z [RESTART] Server started (instance=3870, checkpoint=fb0b69dc9, env=development, pid=1673)
+2026-02-25T18:02:09.013Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:10:14.848Z [RESTART] Server started (instance=f05a, checkpoint=d03ef4133, env=development, pid=2231)
+2026-02-25T18:10:20.191Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:11:33.764Z [RESTART] Server started (instance=66dd, checkpoint=d03ef4133, env=development, pid=244)
+2026-02-25T18:11:39.207Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:12:08.652Z [RESTART] Server started (instance=c862, checkpoint=d03ef4133, env=development, pid=170)
+2026-02-25T18:12:13.234Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T18:12:27.156Z [RESTART] Server started (instance=0f07, checkpoint=d03ef4133, env=development, pid=293)
+2026-02-25T18:12:32.523Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T19:49:54.214Z [RESTART] Server started (instance=91b6, checkpoint=fc1e4ba96, env=development, pid=2310)
+2026-02-25T19:49:56.653Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T19:50:30.288Z [RESTART] Server started (instance=1a13, checkpoint=fc1e4ba96, env=development, pid=2634)
+2026-02-25T19:51:00.479Z [RESTART] Server started (instance=64c4, checkpoint=fc1e4ba96, env=development, pid=375)
+2026-02-25T19:51:02.364Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:00:34.767Z [RESTART] Server started (instance=620f, checkpoint=d8ee79dd9, env=development, pid=2117)
+2026-02-25T20:00:36.861Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:02:54.253Z [RESTART] Server started (instance=8ce4, checkpoint=d8ee79dd9, env=development, pid=2505)
+2026-02-25T20:02:55.739Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:32:11.906Z [RESTART] Server started (instance=cbbf, checkpoint=51a91269c, env=development, pid=5657)
+2026-02-25T20:32:12.500Z [RECONCILE] Already in sync at f0899f1
+2026-02-25T20:32:12.915Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:38:51.696Z [RESTART] Server started (instance=be0d, checkpoint=b3234ecfa, env=development, pid=6903)
+2026-02-25T20:38:52.266Z [RECONCILE] Already in sync at f0899f1
+2026-02-25T20:38:52.683Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T20:49:23.583Z [COMMIT] pages/home/en.yml → 38793b0 by Alejandro Mauricio Jimenez Morales
+2026-02-25T21:51:37.956Z [RESTART] Server started (instance=de23, checkpoint=efcc22985, env=development, pid=8880)
+2026-02-25T21:51:38.945Z [RECONCILE] Local 38793b0 ≠ remote 4734806, checking file hashes...
+2026-02-25T21:51:40.356Z [RECONCILE] 0/6 files match remote, 6 still differ
+2026-02-25T21:51:45.655Z [AUTO-PULL] Startup: pulled 5 incoming files: pages/home/en.yml, pages/home/es.yml, programs/ai-engineering/en.yml, programs/ai-engineering/es.yml, programs/data-science-ml/en.yml
+2026-02-25T21:51:45.655Z [CONFLICT] Startup: 1 files have local conflicts, awaiting manual resolution
+2026-02-25T21:51:45.951Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T21:54:10.069Z [RESTART] Server started (instance=0a57, checkpoint=2f404c311, env=development, pid=362)
+2026-02-25T21:54:11.701Z [RECONCILE] Local 38793b0 ≠ remote cf117ec, checking file hashes...
+2026-02-25T21:54:12.527Z [RECONCILE] 1/8 files match remote, 7 still differ
+2026-02-25T21:54:16.939Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T22:04:11.175Z [RESTART] Server started (instance=b016, checkpoint=0f0a322f4, env=development, pid=82)
+2026-02-25T22:04:12.866Z [RECONCILE] Local 38793b0 ≠ remote 551fadb, checking file hashes...
+2026-02-25T22:04:14.240Z [RECONCILE] 1/11 files match remote, 10 still differ
+2026-02-25T22:04:16.414Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T22:06:10.730Z [RESTART] Server started (instance=bb14, checkpoint=c2ef683f4, env=development, pid=192)
+2026-02-25T22:06:12.224Z [RECONCILE] Local 38793b0 ≠ remote 4594644, checking file hashes...
+2026-02-25T22:06:16.723Z [RECONCILE] 2/12 files match remote, 10 still differ
+2026-02-25T22:06:17.578Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-25T22:31:26.536Z [RESTART] Server started (instance=b346, checkpoint=0f84145d7, env=development, pid=1682)
+2026-02-25T22:31:27.110Z [RECONCILE] Local 38793b0 ≠ remote bdab3bb, checking file hashes...
+2026-02-25T22:31:34.182Z [RECONCILE] 102/127 files match remote, 25 still differ
+2026-02-25T22:31:36.555Z [AUTO-PULL] Startup: pulled 2 incoming files: pages/rigobot-ai-coding-mentor/en.yml, variables.yml
+2026-02-25T22:31:36.555Z [CONFLICT] Startup: 23 files have local conflicts, awaiting manual resolution
+2026-02-25T22:31:36.772Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:08:04.872Z [RESTART] Server started (instance=a433, checkpoint=215e251ac, env=development, pid=9638)
+2026-02-26T14:08:05.480Z [RECONCILE] Local 38793b0 ≠ remote a6c33ce, checking file hashes...
+2026-02-26T14:08:09.629Z [RECONCILE] 95/127 files match remote, 32 still differ
+2026-02-26T14:08:17.283Z [RESTART] Server started (instance=b14b, checkpoint=215e251ac, env=development, pid=9709)
+2026-02-26T14:08:17.849Z [RECONCILE] Local 38793b0 ≠ remote 7882f02, checking file hashes...
+2026-02-26T14:08:22.122Z [RECONCILE] 97/127 files match remote, 30 still differ
+2026-02-26T14:08:47.198Z [RESTART] Server started (instance=072f, checkpoint=215e251ac, env=development, pid=81)
+2026-02-26T14:09:28.675Z [RESTART] Server started (instance=b66d, checkpoint=215e251ac, env=development, pid=322)
+2026-02-26T14:10:17.136Z [AUTO-PULL] Startup: pulled 99 incoming files: landings/ai-engineering-chile/promoted.yml, landings/ai-engineering-coding-florida/promoted.yml, landings/ai-engineering-en/promoted.yml, landings/ai-engineering-es/promoted.yml, landings/ai-engineering-lumi-version/promoted.yml, landings/ai-engineering-mexico/promoted.yml, landings/example-landing/promoted.yml, locations/atlanta-usa/en.yml, locations/atlanta-usa/es.yml, locations/austin-usa/en.yml, locations/austin-usa/es.yml, locations/barcelona-spain/en.yml, locations/barcelona-spain/es.yml, locations/berlin-germany/en.yml, locations/berlin-germany/es.yml, locations/bogota-colombia/en.yml, locations/bogota-colombia/es.yml, locations/buenosaires-argentina/en.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/en.yml, locations/caracas-venezuela/es.yml, locations/chicago-usa/en.yml, locations/chicago-usa/es.yml, locations/costa-rica/en.yml, locations/costa-rica/es.yml, locations/dallas-usa/en.yml, locations/dallas-usa/es.yml, locations/dublin-ireland/en.yml, locations/dublin-ireland/es.yml, locations/hamburg-germany/en.yml, locations/hamburg-germany/es.yml, locations/houston-usa/en.yml, locations/houston-usa/es.yml, locations/lapaz-bolivia/en.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/en.yml, locations/lima-peru/es.yml, locations/lisbon-portugal/en.yml, locations/lisbon-portugal/es.yml, locations/losangeles-usa/en.yml, locations/losangeles-usa/es.yml, locations/madrid-spain/es.yml, locations/malaga-spain/en.yml, locations/malaga-spain/es.yml, locations/mexicocity-mexico/en.yml, locations/mexicocity-mexico/es.yml, locations/miami-usa/en.yml, locations/miami-usa/es.yml, locations/milan-italy/en.yml, locations/milan-italy/es.yml, locations/montevideo-uruguay/en.yml, locations/montevideo-uruguay/es.yml, locations/munich-germany/en.yml, locations/munich-germany/es.yml, locations/newyork-usa/en.yml, locations/newyork-usa/es.yml, locations/orlando-usa/en.yml, locations/orlando-usa/es.yml, locations/panamacity-panama/en.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/en.yml, locations/quito-ecuador/es.yml, locations/remote/en.yml, locations/remote/es.yml, locations/rest-of-europe/en.yml, locations/rest-of-europe/es.yml, locations/rome-italy/en.yml, locations/rome-italy/es.yml, locations/santiago-chile/en.yml, locations/santiago-chile/es.yml, locations/tampa-usa/en.yml, locations/tampa-usa/es.yml, locations/toronto-canada/en.yml, locations/toronto-canada/es.yml, locations/valencia-spain/en.yml, locations/valencia-spain/es.yml, pages/geekforce-career-support/es.yml, pages/geekpal-support/es.yml, pages/graduates-and-projects/es.yml, pages/job-guarantee/en.yml, pages/learnpack/es.yml, pages/online-platform/es.yml, pages/outcomes/es.yml, pages/partners/es.yml, pages/press/es.yml, pages/rigobot-ai-coding-mentor/es.yml, pages/sample-page/en.yml, pages/scholarships/en.yml, pages/scholarships/es.yml, pages/testimonials/en.yml, pages/testimonials/es.yml, pages/the-academy/es.yml, pages/work-with-us/en.yml, pages/work-with-us/es.yml, programs/ai-for-professionals/en.yml, programs/ai-for-professionals/es.yml, programs/cybersecurity/es.yml, programs/data-science-ml/en.yml, section-bindings.json
+2026-02-26T14:10:17.136Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T14:10:17.446Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:30:32.721Z [RESTART] Server started (instance=9dfc, checkpoint=215e251ac, env=development, pid=1633)
+2026-02-26T14:30:35.282Z [RECONCILE] Local 38793b0 ≠ remote 5f3d81d, checking file hashes...
+2026-02-26T14:30:39.825Z [RECONCILE] 91/127 files match remote, 36 still differ
+2026-02-26T14:30:46.425Z [AUTO-PULL] Startup: pulled 8 incoming files: pages/geekpal-support/es.yml, pages/job-guarantee/en.yml, pages/learnpack/es.yml, pages/online-platform/es.yml, pages/outcomes/es.yml, pages/rigobot-ai-coding-mentor/es.yml, pages/scholarships/en.yml, pages/scholarships/es.yml
+2026-02-26T14:30:46.425Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T14:30:46.616Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:31:26.237Z [RESTART] Server started (instance=603e, checkpoint=215e251ac, env=development, pid=1950)
+2026-02-26T14:31:26.848Z [RECONCILE] Local 38793b0 ≠ remote 5f3d81d, checking file hashes...
+2026-02-26T14:31:31.283Z [RECONCILE] 99/127 files match remote, 28 still differ
+2026-02-26T14:31:35.594Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:32:42.126Z [RESTART] Server started (instance=ba49, checkpoint=215e251ac, env=development, pid=2568)
+2026-02-26T14:32:42.719Z [RECONCILE] Local 38793b0 ≠ remote 5f3d81d, checking file hashes...
+2026-02-26T14:32:46.707Z [RECONCILE] 99/127 files match remote, 28 still differ
+2026-02-26T14:32:49.529Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:34:01.159Z [RESTART] Server started (instance=3a68, checkpoint=215e251ac, env=development, pid=2974)
+2026-02-26T14:34:01.742Z [RECONCILE] Local 38793b0 ≠ remote 5f3d81d, checking file hashes...
+2026-02-26T14:34:06.068Z [RECONCILE] 99/127 files match remote, 28 still differ
+2026-02-26T14:34:09.383Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:39:51.528Z [RESTART] Server started (instance=d51e, checkpoint=c83636ed2, env=development, pid=3331)
+2026-02-26T14:39:52.411Z [RECONCILE] Local 38793b0 ≠ remote b1b1f72, checking file hashes...
+2026-02-26T14:39:57.688Z [RECONCILE] 99/127 files match remote, 28 still differ
+2026-02-26T14:39:59.850Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:42:19.257Z [RESTART] Server started (instance=9756, checkpoint=5dbd5d1c9, env=development, pid=4002)
+2026-02-26T14:42:19.828Z [RECONCILE] Local 38793b0 ≠ remote 29faae7, checking file hashes...
+2026-02-26T14:42:24.123Z [RECONCILE] 98/127 files match remote, 29 still differ
+2026-02-26T14:42:26.907Z [AUTO-PULL] Startup: pulled 1 incoming files: pages/geekforce-career-support/es.yml
+2026-02-26T14:42:26.908Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T14:42:27.102Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:43:22.108Z [RESTART] Server started (instance=182f, checkpoint=5dbd5d1c9, env=development, pid=4400)
+2026-02-26T14:43:22.736Z [RECONCILE] Local 38793b0 ≠ remote e18caed, checking file hashes...
+2026-02-26T14:43:27.256Z [RECONCILE] 97/127 files match remote, 30 still differ
+2026-02-26T14:43:30.380Z [AUTO-PULL] Startup: pulled 2 incoming files: pages/job-guarantee/en.yml, pages/online-platform/es.yml
+2026-02-26T14:43:30.380Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T14:43:30.601Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:51:19.350Z [RESTART] Server started (instance=fd5f, checkpoint=5dbd5d1c9, env=development, pid=4563)
+2026-02-26T14:51:19.912Z [RECONCILE] Local 38793b0 ≠ remote 867fc7c, checking file hashes...
+2026-02-26T14:51:25.451Z [RECONCILE] 69/128 files match remote, 59 still differ
+2026-02-26T14:52:42.147Z [RESTART] Server started (instance=3b2a, checkpoint=5dbd5d1c9, env=development, pid=4844)
+2026-02-26T14:52:42.762Z [RECONCILE] Local 38793b0 ≠ remote 62d3936, checking file hashes...
+2026-02-26T14:52:47.646Z [RECONCILE] 70/128 files match remote, 58 still differ
+2026-02-26T14:52:52.982Z [RESTART] Server started (instance=2227, checkpoint=5dbd5d1c9, env=development, pid=4947)
+2026-02-26T14:52:53.621Z [RECONCILE] Local 38793b0 ≠ remote 62d3936, checking file hashes...
+2026-02-26T14:52:59.381Z [RECONCILE] 75/128 files match remote, 53 still differ
+2026-02-26T15:03:02.783Z [RESTART] Server started (instance=d116, checkpoint=295f5f97a, env=development, pid=6366)
+2026-02-26T15:03:03.416Z [RECONCILE] Local 38793b0 ≠ remote d6daeab, checking file hashes...
+2026-02-26T15:03:09.726Z [RECONCILE] 65/129 files match remote, 64 still differ
+2026-02-26T15:03:23.860Z [AUTO-PULL] Startup: pulled 36 incoming files: locations/atlanta-usa/en.yml, locations/austin-usa/en.yml, locations/barcelona-spain/en.yml, locations/berlin-germany/en.yml, locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/chicago-usa/en.yml, locations/costa-rica/en.yml, locations/dallas-usa/en.yml, locations/dublin-ireland/en.yml, locations/hamburg-germany/en.yml, locations/houston-usa/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/lisbon-portugal/en.yml, locations/losangeles-usa/en.yml, locations/malaga-spain/en.yml, locations/mexicocity-mexico/en.yml, locations/miami-usa/en.yml, locations/milan-italy/en.yml, locations/montevideo-uruguay/en.yml, locations/munich-germany/en.yml, locations/newyork-usa/en.yml, locations/orlando-usa/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml, locations/remote/en.yml, locations/rest-of-america/en.yml, locations/rest-of-europe/en.yml, locations/rome-italy/en.yml, locations/santiago-chile/en.yml, locations/tampa-usa/en.yml, locations/toronto-canada/en.yml, locations/valencia-spain/en.yml, section-bindings.json
+2026-02-26T15:03:23.860Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T15:03:24.042Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T15:03:59.869Z [RESTART] Server started (instance=0c01, checkpoint=295f5f97a, env=development, pid=6810)
+2026-02-26T15:04:00.484Z [RECONCILE] Local 38793b0 ≠ remote 5d3f684, checking file hashes...
+2026-02-26T15:04:04.945Z [RECONCILE] 101/129 files match remote, 28 still differ
+2026-02-26T15:04:07.942Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T15:04:29.553Z [RESTART] Server started (instance=c6b7, checkpoint=295f5f97a, env=development, pid=7039)
+2026-02-26T15:04:30.154Z [RECONCILE] Local 38793b0 ≠ remote c7d2ce0, checking file hashes...
+2026-02-26T15:04:34.496Z [RECONCILE] 100/129 files match remote, 29 still differ
+2026-02-26T15:29:43.899Z [RESTART] Server started (instance=973a, checkpoint=2979f099b, env=development, pid=8866)
+2026-02-26T15:29:44.473Z [RECONCILE] Local 38793b0 ≠ remote 90e241f, checking file hashes...
+2026-02-26T15:29:49.408Z [RECONCILE] 51/129 files match remote, 78 still differ
+2026-02-26T15:30:00.394Z [RESTART] Server started (instance=7010, checkpoint=2979f099b, env=development, pid=9038)
+2026-02-26T15:30:00.971Z [RECONCILE] Local 38793b0 ≠ remote 7e08a51, checking file hashes...
+2026-02-26T15:30:05.180Z [RECONCILE] 69/129 files match remote, 60 still differ
+2026-02-26T15:30:18.116Z [AUTO-PULL] Startup: pulled 28 incoming files: locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/lisbon-portugal/en.yml, locations/lisbon-portugal/es.yml, locations/losangeles-usa/es.yml, locations/madrid-spain/es.yml, locations/malaga-spain/en.yml, locations/malaga-spain/es.yml, locations/mexicocity-mexico/en.yml, locations/mexicocity-mexico/es.yml, locations/miami-usa/es.yml, locations/milan-italy/en.yml, locations/milan-italy/es.yml, locations/montevideo-uruguay/en.yml, locations/munich-germany/en.yml, locations/munich-germany/es.yml, locations/newyork-usa/es.yml, locations/panamacity-panama/en.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/en.yml, locations/remote/en.yml, locations/remote/es.yml, locations/rest-of-europe/en.yml, locations/rome-italy/en.yml, locations/rome-italy/es.yml, locations/toronto-canada/es.yml, locations/valencia-spain/en.yml, locations/valencia-spain/es.yml
+2026-02-26T15:30:18.116Z [CONFLICT] Startup: 32 files have local conflicts, awaiting manual resolution
+2026-02-26T15:30:18.339Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T15:31:56.841Z [RESTART] Server started (instance=3b59, checkpoint=2f85e2055, env=development, pid=9633)
+2026-02-26T15:31:57.427Z [RECONCILE] Local 38793b0 ≠ remote f06b402, checking file hashes...
+2026-02-26T15:32:01.497Z [RECONCILE] 90/129 files match remote, 39 still differ
+2026-02-26T15:32:06.528Z [AUTO-PULL] Startup: pulled 7 incoming files: locations/bogota-colombia/es.yml, locations/caracas-venezuela/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/montevideo-uruguay/es.yml, locations/quito-ecuador/es.yml, locations/remote/es.yml
+2026-02-26T15:32:06.528Z [CONFLICT] Startup: 32 files have local conflicts, awaiting manual resolution
+2026-02-26T15:32:06.778Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T15:49:36.130Z [RESTART] Server started (instance=8c04, checkpoint=1fcd625fb, env=development, pid=9981)
+2026-02-26T15:49:36.896Z [RECONCILE] Local 38793b0 ≠ remote b116c70, checking file hashes...
+2026-02-26T15:49:44.692Z [RECONCILE] 97/129 files match remote, 32 still differ
+2026-02-26T19:12:09.075Z [RESTART] Server started (instance=e6d5, checkpoint=660d1f394, env=development, pid=2173)
+2026-02-26T19:12:10.799Z [RECONCILE] Local ae5ba32 ≠ remote 05e77df, checking file hashes...
+2026-02-26T19:12:15.370Z [RECONCILE] 16/55 files match remote, 39 still differ
+2026-02-26T19:12:15.371Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T19:12:15.606Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T19:21:25.465Z [RESTART] Server started (instance=64e8, checkpoint=da49af331, env=development, pid=3019)
+2026-02-26T19:21:26.094Z [RECONCILE] Local ae5ba32 ≠ remote 05e77df, checking file hashes...
+2026-02-26T19:21:31.198Z [RECONCILE] 16/55 files match remote, 39 still differ
+2026-02-26T19:21:31.198Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T19:21:31.593Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T19:22:48.473Z [RESTART] Server started (instance=f99a, checkpoint=da49af331, env=development, pid=3480)
+2026-02-26T19:22:49.910Z [RECONCILE] Local ae5ba32 ≠ remote 05e77df, checking file hashes...
+2026-02-26T19:22:52.774Z [RECONCILE] 16/55 files match remote, 39 still differ
+2026-02-26T19:22:52.775Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T19:22:52.973Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:06:42.049Z [RESTART] Server started (instance=cc3c, checkpoint=f629126ad, env=development, pid=4181)
+2026-02-26T20:06:42.915Z [RECONCILE] Local d4d8aa5 ≠ remote 8c4818a, checking file hashes...
+2026-02-26T20:06:43.652Z [RECONCILE] 0/15 files match remote, 15 still differ
+2026-02-26T20:06:51.241Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:07:21.291Z [RESTART] Server started (instance=5761, checkpoint=f629126ad, env=development, pid=4639)
+2026-02-26T20:07:22.001Z [RECONCILE] Local d4d8aa5 ≠ remote ab6c2df, checking file hashes...
+2026-02-26T20:07:25.991Z [RECONCILE] 0/26 files match remote, 26 still differ
+2026-02-26T20:07:25.991Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:07:26.266Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:42:27.981Z [RESTART] Server started (instance=47b7, checkpoint=f41bbe873, env=development, pid=1378)
+2026-02-26T20:42:28.992Z [RECONCILE] Local 8621141 ≠ remote a2665eb, checking file hashes...
+2026-02-26T20:42:30.197Z [RECONCILE] 0/2 files match remote, 2 still differ
+2026-02-26T20:42:30.198Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:42:30.762Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:43:17.740Z [RESTART] Server started (instance=85c8, checkpoint=f41bbe873, env=development, pid=1701)
+2026-02-26T20:43:18.469Z [RECONCILE] Local 8621141 ≠ remote a2665eb, checking file hashes...
+2026-02-26T20:43:19.412Z [RECONCILE] 0/2 files match remote, 2 still differ
+2026-02-26T20:43:19.413Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:43:22.871Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:43:58.186Z [RESTART] Server started (instance=4c71, checkpoint=f41bbe873, env=development, pid=1941)
+2026-02-26T20:43:58.946Z [RECONCILE] Local 8621141 ≠ remote a2665eb, checking file hashes...
+2026-02-26T20:44:03.398Z [RECONCILE] 0/2 files match remote, 2 still differ
+2026-02-26T20:44:03.398Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:44:03.900Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:46:25.070Z [RESTART] Server started (instance=48e4, checkpoint=1c070eb16, env=development, pid=2303)
+2026-02-26T20:46:25.941Z [RECONCILE] Local 8621141 ≠ remote a2665eb, checking file hashes...
+2026-02-26T20:46:29.241Z [RECONCILE] 0/2 files match remote, 2 still differ
+2026-02-26T20:46:29.242Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:46:29.441Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:47:37.934Z [COMMIT] Auto-commit 1d0cac1 by Alejandro Mauricio Jimenez Morales: landings/example-landing/promoted.yml
+2026-02-26T20:48:11.507Z [RESTART] Server started (instance=28ca, checkpoint=1c070eb16, env=development, pid=2356)
+2026-02-26T20:48:12.114Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:48:13.236Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:49:42.432Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:49:47.609Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:49:57.791Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:50:27.973Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:51:28.153Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:52:28.343Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:53:28.523Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:54:28.702Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:55:28.878Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:56:29.059Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:57:19.454Z [RESTART] Server started (instance=a76d, checkpoint=1c070eb16, env=development, pid=3031)
+2026-02-26T20:57:19.906Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:57:20.090Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:57:51.011Z [RESTART] Server started (instance=8379, checkpoint=1c070eb16, env=development, pid=3204)
+2026-02-26T20:57:51.494Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:57:51.678Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)

@@ -115,7 +115,7 @@ export function EditableSection({ children, section, index, sectionType, content
   const [reviewCodeYaml, setReviewCodeYaml] = useState("");
   const [reviewCodeError, setReviewCodeError] = useState<string | null>(null);
 
-  const { data: bindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
+  const { data: bindingData, refetch: refetchBindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
     queryKey: ["/api/bindings/section", contentType, slug, index, locale],
     queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}&locale=${locale || ""}`).then(r => r.json()),
     enabled: !!editMode?.isEditMode && !!contentType && !!slug,
@@ -124,6 +124,11 @@ export function EditableSection({ children, section, index, sectionType, content
   const isBound = !!bindingData?.group;
   const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
+
+  const openBindingDialog = () => {
+    refetchBindingData();
+    setBindingDialogOpen(true);
+  };
 
   const selectedVariant = variants[selectedVariantIndex] || "";
   
@@ -531,7 +536,7 @@ export function EditableSection({ children, section, index, sectionType, content
           <span className="text-xs font-medium">{sectionType}</span>
         </button>
         <button
-          onClick={(e) => { e.stopPropagation(); setBindingDialogOpen(true); }}
+          onClick={(e) => { e.stopPropagation(); openBindingDialog(); }}
           className={`p-2 rounded-md shadow-lg hover-elevate flex items-center gap-1 ${
             isBound
               ? "bg-muted text-yellow-600 dark:text-yellow-500 animate-[binding-pulse_2s_ease-in-out_infinite]"

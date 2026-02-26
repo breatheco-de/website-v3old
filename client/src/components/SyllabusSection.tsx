@@ -9,10 +9,10 @@ import { SyllabusModuleCard } from "@/components/SyllabusModuleCard";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import * as TablerIcons from "@tabler/icons-react";
 import type { ComponentType } from "react";
-import { SiGit, SiPython, SiReact, SiNodedotjs, SiOpenai, SiFlask, SiBootstrap, SiJavascript, SiHtml5, SiCss3, SiGithub, SiTailwindcss, SiPandas, SiNumpy, SiScikitlearn, SiPytorch, SiPostman, SiN8N } from "react-icons/si";
+import { SiGit, SiPython, SiReact, SiNodedotjs, SiOpenai, SiFlask, SiBootstrap, SiJavascript, SiHtml5, SiCss3, SiGithub, SiTailwindcss, SiPandas, SiNumpy, SiScikitlearn, SiPytorch, SiPostman, SiN8N, SiTensorflow, SiLinux, SiDocker, SiMongodb, SiPostgresql, SiTypescript, SiAmazonwebservices, SiDjango, SiKeras, SiJupyter, SiGooglecolab, SiSelenium, SiWireshark } from "react-icons/si";
 import { TiHtml5 } from "react-icons/ti";
 import { RiNextjsFill, RiSupabaseFill, RiClaudeFill } from "react-icons/ri";
-import { FaGitAlt } from "react-icons/fa";
+import { FaGitAlt, FaAws } from "react-icons/fa";
 import { IoLogoVercel } from "react-icons/io5";
 import { Matplotlib } from "@/components/custom-icons";
 import { RichTextContent } from "@/components/ui/rich-text-content";
@@ -240,8 +240,10 @@ const techIconMap: Record<string, ComponentType<{ className?: string }>> = {
   bootstrap: SiBootstrap,
   javascript: SiJavascript,
   html5: SiHtml5,
+  html: SiHtml5,
   tihtml5: TiHtml5,
   css3: SiCss3,
+  css: SiCss3,
   github: SiGithub,
   tailwindcss: SiTailwindcss,
   nextjs: RiNextjsFill,
@@ -255,6 +257,21 @@ const techIconMap: Record<string, ComponentType<{ className?: string }>> = {
   supabase: RiSupabaseFill,
   n8n: SiN8N,
   claude: RiClaudeFill,
+  tensorflow: SiTensorflow,
+  linux: SiLinux,
+  docker: SiDocker,
+  mongodb: SiMongodb,
+  postgresql: SiPostgresql,
+  postgres: SiPostgresql,
+  typescript: SiTypescript,
+  aws: SiAmazonwebservices,
+  amazon: FaAws,
+  django: SiDjango,
+  keras: SiKeras,
+  jupyter: SiJupyter,
+  colab: SiGooglecolab,
+  selenium: SiSelenium,
+  wireshark: SiWireshark,
 };
 
 function getTechIcon(iconName: string, className?: string) {
