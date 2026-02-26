@@ -113,8 +113,9 @@ export function useDebugAuth() {
       const cachedExpiry = localStorage.getItem(DEBUG_SESSION_EXPIRY_KEY);
       const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
       const cachedCaps = localStorage.getItem(DEBUG_CAPABILITIES_KEY);
+      const cachedUsername = localStorage.getItem(DEBUG_USERNAME_KEY);
       
-      if (cachedValidation === "true" && cachedExpiry && cachedToken) {
+      if (cachedValidation === "true" && cachedExpiry && cachedToken && cachedUsername) {
         const expiryTime = parseInt(cachedExpiry, 10);
         if (Date.now() < expiryTime) {
           setHasToken(true);
