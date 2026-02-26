@@ -17,11 +17,11 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: En Tech, A Tu Manera
+    title: En Tech, a tu manera
     subtitle: Opciones de pago flexibles para facilitar el salto a tech.
     brand_mark:
-      prefix: Financia Tu
-      highlight: Futuro
+      prefix: Financia tu
+      highlight: futuro
       color: chart-1
     description: Ofrecemos planes de pago flexibles, opciones de financiamiento y becas para que puedas enfocarte en lanzar tu carrera tech sin preocuparte por las finanzas.
     bullets:
