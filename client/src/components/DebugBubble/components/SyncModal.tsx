@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   IconBrandGithub,
   IconAlertTriangle,
@@ -12,6 +13,8 @@ import {
   IconTrash,
   IconArrowBackUp,
   IconPencil,
+  IconExternalLink,
+  IconWebhook,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -114,6 +117,16 @@ export function SyncModal({
   const [pushAllCommitMessage, setPushAllCommitMessage] = useState('');
   const [autoPushExpanded, setAutoPushExpanded] = useState(false);
   const [autoPullExpanded, setAutoPullExpanded] = useState(false);
+
+  const { data: syncInfo } = useQuery<{
+    repoUrl: string | null;
+    webhook: { active: boolean; id?: number; url?: string; createdAt?: string };
+    recentLog: string[];
+  }>({
+    queryKey: ["/api/github/sync-info"],
+    enabled: open,
+    refetchInterval: open ? 10000 : false,
+  });
 
   const localOnlyFiles = pendingChanges.filter(c => c.source === 'local');
   const nonConflictIncoming = pendingChanges.filter(c => c.source === 'incoming');
@@ -302,13 +315,46 @@ export function SyncModal({
                   {githubSyncStatus?.autoPullEnabled ? 'Auto-pull' : 'Auto-pull off'}
                 </span>
               </button>
-              {autoPullExpanded && (
+              {autoPullExpanded && !githubSyncStatus?.autoPullEnabled && (
                 <p className="text-[11px] text-muted-foreground">
-                  {githubSyncStatus?.autoPullEnabled
-                    ? 'Pulls remote changes automatically on webhook and startup.'
-                    : 'Set GITHUB_AUTO_PULL_ENABLED=true to enable webhook and startup pulls.'}
+                  Set <span className="font-mono">GITHUB_AUTO_PULL_ENABLED=true</span> to enable webhook and startup pulls.
                 </p>
               )}
+              {autoPullExpanded && githubSyncStatus?.autoPullEnabled && (() => {
+                const webhookId = syncInfo?.webhook?.id;
+                const repoUrl = syncInfo?.repoUrl || githubSyncStatus?.repoUrl?.replace(/\.git$/, '');
+                const webhookSettingsUrl = repoUrl && webhookId ? `${repoUrl}/settings/hooks/${webhookId}` : null;
+                const recentPullLogs = (syncInfo?.recentLog ?? [])
+                  .filter(l => l.includes('AUTO-PULL') || l.includes('WEBHOOK'))
+                  .slice(-3)
+                  .reverse();
+
+                return (
+                  <div className="space-y-2">
+                    <p className="text-[11px] text-muted-foreground">Pulls remote changes automatically on webhook and startup.</p>
+                    {webhookSettingsUrl && webhookId && (
+                      <a
+                        href={webhookSettingsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+                        data-testid="link-webhook-settings"
+                      >
+                        <IconWebhook className="h-3 w-3 shrink-0" />
+                        <span>Webhook #{webhookId}</span>
+                        <IconExternalLink className="h-2.5 w-2.5 shrink-0" />
+                      </a>
+                    )}
+                    {recentPullLogs.length > 0 && (
+                      <div className="space-y-0.5">
+                        {recentPullLogs.map((entry, i) => (
+                          <p key={i} className="text-[10px] font-mono text-muted-foreground truncate" title={entry}>{entry}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </Card>
           </div>
 
