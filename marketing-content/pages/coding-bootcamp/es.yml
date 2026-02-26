@@ -17,18 +17,89 @@ sections:
     paddingY:
       desktop: md none
   - type: article
-    version: v1.0
-    show_toc: false
-    max_width: md
     content: |
-      # About Our Program
+      # ¿Qué es el Coding Bootcamp de 4Geeks Academy?
 
-      We offer a comprehensive learning experience designed to transform beginners into job-ready professionals.
+      El Coding Bootcamp de 4Geeks Academy es un programa intensivo y enfocado en la empleabilidad, diseñado para ayudar a principiantes a transicionar hacia carreras en tecnología en meses, no en años.
 
-      Our curriculum is built by industry experts and updated regularly to reflect the latest trends and technologies.
+      A diferencia de una carrera tradicional en ciencias de la computación, este programa prioriza habilidades prácticas, aplicación en el mundo real y preparación laboral desde el primer día.
 
-      ## What Makes Us Different
+      Los estudiantes aprenden a construir aplicaciones listas para producción, integrar herramientas de inteligencia artificial y desarrollar proyectos de portafolio que demuestran capacidad técnica real.
 
-      Unlike traditional bootcamps, we focus on **real-world projects** and **personalized mentorship** to ensure every student succeeds.
+      ## Qué Hace Diferente Nuestro Programa
 
-      Our graduates work at companies like Google, Meta, Amazon, and hundreds of innovative startups around the world.
+      Combinamos un currículo estructurado, mentoría en vivo, herramientas de aprendizaje potenciadas por IA y acompañamiento profesional a largo plazo.
+
+      Nuestra metodología se basa en:
+
+      - Aprendizaje basado en proyectos  
+      - Programación práctica desde las primeras semanas  
+      - Integración de flujos de trabajo con IA  
+      - Mentoría personalizada 1:1  
+      - Preparación profesional integrada en el programa  
+
+      El objetivo no es solo enseñar sintaxis. El objetivo es formar profesionales capaces de resolver problemas reales y lanzar soluciones funcionales.
+
+      ## Programas Disponibles
+
+      Nuestro Coding Bootcamp incluye distintas especializaciones alineadas con el mercado tecnológico actual:
+
+      **Desarrollo Full Stack con IA**  
+      Aprende desarrollo front-end y back-end, diseño de bases de datos, integración de APIs e implementación de funcionalidades potenciadas por inteligencia artificial.
+
+      **Data Science y Machine Learning con IA**  
+      Desarrolla habilidades en Python, estadística, modelos predictivos y toma de decisiones basada en datos.
+
+      **Ciberseguridad**  
+      Aprende protección de sistemas, detección de vulnerabilidades y mejores prácticas modernas de seguridad informática.
+
+      **AI Engineering**  
+      Construye sistemas de inteligencia artificial aplicados al mundo real utilizando modelos de lenguaje, herramientas de automatización y agentes inteligentes. Aprende a integrar IA en entornos productivos y diseñar aplicaciones potenciadas por inteligencia artificial.
+
+      ## Qué Aprenderás
+
+      En todos los programas, los estudiantes desarrollan:
+
+      - Lógica de programación y resolución de problemas  
+      - Fundamentos de arquitectura de software  
+      - Gestión de bases de datos  
+      - Flujos de trabajo con Git y colaboración en equipo  
+      - Integración de APIs  
+      - Estrategias de implementación de IA  
+      - Proyectos técnicos listos para portafolio  
+
+      Cada graduado finaliza el programa con proyectos reales que puede presentar a empleadores.
+
+      ## Apoyo Profesional
+
+      La preparación profesional está integrada dentro del programa, no se deja para el final.
+
+      Los estudiantes reciben:
+
+      - Optimización de currículum  
+      - Asesoría para perfil de LinkedIn  
+      - Preparación para entrevistas técnicas  
+      - Revisión de portafolio  
+      - Mentoría continua  
+
+      Nuestro objetivo es claro: ayudar a los estudiantes a ser empleables en el mercado tecnológico actual impulsado por inteligencia artificial.
+
+      ## Para Quién Es Este Programa
+
+      Este bootcamp está diseñado para:
+
+      - Personas sin experiencia previa en programación  
+      - Profesionales que desean cambiar de carrera  
+      - Recién graduados  
+      - Personas que quieren transicionar hacia roles en IA  
+      - Emprendedores que desean construir productos tecnológicos  
+
+      No se requiere experiencia técnica previa para comenzar.
+
+      ## Conclusión
+
+      El Coding Bootcamp de 4Geeks Academy es una ruta estructurada e integrada con inteligencia artificial para iniciar una carrera en tecnología.
+
+      Combina aprendizaje práctico, mentoría, proyectos reales y acompañamiento profesional para ayudar a los estudiantes a transicionar hacia roles en desarrollo de software, ciencia de datos, ciberseguridad y AI Engineering.
+    show_toc: true
+    max_width: xl
