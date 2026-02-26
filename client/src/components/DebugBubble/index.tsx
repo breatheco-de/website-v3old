@@ -1454,7 +1454,7 @@ export function DebugBubble() {
       setSlugEsConflictReason(null);
       setCreateContentModalOpen(true);
     } else {
-      toast({ title: "No se puede duplicar", description: "Tipo de contenido no reconocido", variant: "destructive" });
+      toast({ title: "Cannot duplicate", description: "Unrecognized content type", variant: "destructive" });
     }
   };
 
@@ -1462,7 +1462,7 @@ export function DebugBubble() {
     const urlPath = new URL(url.loc).pathname;
     const contentType = getContentTypeFromPath(urlPath);
     if (!contentType) {
-      toast({ title: "No se puede eliminar", description: "Tipo de contenido no reconocido", variant: "destructive" });
+      toast({ title: "Cannot delete", description: "Unrecognized content type", variant: "destructive" });
       return;
     }
     const parts = urlPath.split('/').filter(Boolean);
@@ -1481,7 +1481,7 @@ export function DebugBubble() {
       slug = getFolderFromSlug(rawSlug, locale === 'us' ? 'en' : locale);
     }
     if (!slug) {
-      toast({ title: "No se puede eliminar", description: "No se pudo determinar el slug", variant: "destructive" });
+      toast({ title: "Cannot delete", description: "Could not determine slug", variant: "destructive" });
       return;
     }
     setDeletingPage({ slug, contentType });
@@ -1559,7 +1559,7 @@ export function DebugBubble() {
       });
       const data = await response.json();
       if (response.ok) {
-        toast({ title: "Página eliminada", description: data.message });
+        toast({ title: "Page deleted", description: data.message });
         setDeletePageModalOpen(false);
         setDeletingPage(null);
         setDeleteConfirmInput("");
@@ -1569,10 +1569,10 @@ export function DebugBubble() {
           setSitemapUrls(sitemapData);
         }
       } else {
-        toast({ title: "Error", description: data.error || "Error al eliminar", variant: "destructive" });
+        toast({ title: "Error", description: data.error || "Failed to delete", variant: "destructive" });
       }
     } catch (error) {
-      toast({ title: "Error", description: "Error de conexión", variant: "destructive" });
+      toast({ title: "Error", description: "Connection error", variant: "destructive" });
     } finally {
       setIsDeletingPage(false);
     }

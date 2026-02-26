@@ -118,7 +118,7 @@ export function CreateContentModal({
             {duplicatingPage ? (
               <>
                 <IconCopy className="h-5 w-5" />
-                Duplicando página
+                Duplicate Page
               </>
             ) : (
               <>
@@ -129,7 +129,7 @@ export function CreateContentModal({
           </DialogTitle>
           <DialogDescription>
             {duplicatingPage ? (
-              <>Estás duplicando: <strong>{duplicatingPage.label}</strong></>
+              <>Duplicating: <strong>{duplicatingPage.label}</strong></>
             ) : (
               <>Create a new page, location, program, or landing with starter YAML files.</>
             )}
@@ -628,9 +628,9 @@ export function CreateContentModal({
                   if (response.ok && data.success) {
                     const newUrl = buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en');
                     toast({
-                      title: duplicatingPage ? "Página duplicada" : "Content created",
+                      title: duplicatingPage ? "Page duplicated" : "Content created",
                       description: duplicatingPage 
-                        ? `Creada copia en ${newUrl}` 
+                        ? `Created copy at ${newUrl}` 
                         : `Created new ${createContentType} at ${newUrl}`,
                     });
                     onOpenChange(false);
@@ -680,12 +680,12 @@ export function CreateContentModal({
             {isCreatingContent ? (
               <>
                 <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
-                {duplicatingPage ? "Duplicando..." : "Creating..."}
+                {duplicatingPage ? "Duplicating..." : "Creating..."}
               </>
             ) : duplicatingPage ? (
               <>
                 <IconCopy className="h-4 w-4 mr-2" />
-                Duplicar {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
+                Duplicate {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
               </>
             ) : (
               <>
