@@ -287,7 +287,7 @@ sections:
             text: API Development
           - icon: ""
             text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        description: Build modern, production-ready web applications with AI from frontend to backend.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
