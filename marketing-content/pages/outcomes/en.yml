@@ -284,7 +284,7 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Why our graduates consistently get hired
+    title: Why our Graduates Consistently get Hired
     description: Strong outcomes come from how we teach, support, and place students into tech roles.
     bullets:
       - heading: GeekFORCE lifelong career support
