@@ -299,24 +299,24 @@ sections:
           - $80K a $120K
       - feature: Modalidad del Bootcamp
         values:
-          - Tiempo Completo (12 semanas) o Medio Tiempo (20 semanas).
-          - Medio Tiempo (16 semanas).
+          - Medio Tiempo (20 semanas).
+          - Medio Tiempo (18 semanas).
           - Medio Tiempo (16 semanas).
       - feature: Modalidad de Estudio
         values:
-          - Online o Presencial (ciudades seleccionadas).
+          - Online.
           - Online.
           - Online.
       - feature: Costo
         values:
-          - $10,999 (descuentos y becas disponibles).
-          - $10,999 (descuentos y becas disponibles).
-          - $9,999 (descuentos y becas disponibles).
+          - $2.500 (descuentos y becas disponibles).
+          - $3.250 (descuentos y becas disponibles).
+          - $2.500 (descuentos y becas disponibles).
       - feature: Planes de Pago
         values:
-          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
-          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
-          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+          - Planes mensuales, descuentos por pago anticipado y financiamientos.
+          - Planes mensuales, descuentos por pago anticipado y financiamientos.
+          - Planes mensuales, descuentos por pago anticipado y financiamientos.
       - feature: Garantía de Empleo*
         values:
           - Preguntar por disponibilidad. Condiciones Aplican.
