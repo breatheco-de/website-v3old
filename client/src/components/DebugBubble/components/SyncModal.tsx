@@ -163,7 +163,7 @@ export function SyncModal({
             GitHub Sync
           </DialogTitle>
           <DialogDescription>
-            Auto-commit keeps your content changes synced to GitHub.
+            Auto-push keeps your local content changes pushed to GitHub.
           </DialogDescription>
         </DialogHeader>
         
@@ -191,7 +191,7 @@ export function SyncModal({
                   : 'bg-muted-foreground/30'
               }`} />
               <span className="font-medium">
-                {autoCommitStatus?.isCommitting ? 'Syncing...' : autoCommitStatus?.enabled ? 'Auto-sync' : 'Auto-sync off'}
+                {autoCommitStatus?.isCommitting ? 'Pushing...' : autoCommitStatus?.enabled ? 'Auto-push' : 'Auto-push off'}
               </span>
               {autoCommitStatus?.enabled && autoCommitStatus.commitIntervalSeconds && (
                 <Popover>
@@ -244,7 +244,7 @@ export function SyncModal({
                     <PopoverContent side="bottom" align="end" className="w-72 text-xs space-y-2 z-[10001]">
                       <p className="font-medium text-foreground">Waiting for changes</p>
                       <p className="text-muted-foreground">
-                        No files are queued for sync. When you edit a file inside <span className="font-mono">marketing-content/</span>, the auto-commit system will detect the change and start a {autoCommitStatus.commitIntervalSeconds}s countdown before committing to GitHub.
+                        No files are queued for push. When you edit a file inside <span className="font-mono">marketing-content/</span>, the auto-push system will detect the change and start a {autoCommitStatus.commitIntervalSeconds}s countdown before pushing to GitHub.
                       </p>
                       <p className="text-muted-foreground">
                         Only YAML and JSON files are tracked. Changes are batched into a single commit per cycle.
@@ -278,7 +278,7 @@ export function SyncModal({
                   {isFlushing ? (
                     <IconRefresh className="h-3 w-3 animate-spin" />
                   ) : (
-                    'Sync Now'
+                    'Push now'
                   )}
                 </Button>
               )}
