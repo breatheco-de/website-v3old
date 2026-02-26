@@ -5329,76 +5329,16 @@ Important: Only include mappings where you are confident the field exists. Use d
       // If duplicating from source, copy content from source page
       if (sourceUrl) {
         try {
-          // Parse source URL to get content info
           const sourceUrlObj = new URL(sourceUrl);
           const sourcePath = sourceUrlObj.pathname;
           const pathParts = sourcePath.split("/").filter(Boolean);
-
-          // Detect source locale and slug from path
           const sourceLocale = pathParts[0] === "es" ? "es" : "en";
-          let sourceSlug = "";
-          let sourceFolder = "";
+          const sourceSlug = pathParts[pathParts.length - 1];
 
-          // Determine source folder and slug based on type
-          if (type === "page") {
-            sourceSlug =
-              pathParts.slice(1).join("-") || pathParts[pathParts.length - 1];
-            sourceFolder = path.join(
-              process.cwd(),
-              "marketing-content",
-              "pages",
-            );
-          } else if (type === "program") {
-            // Programs are under /bootcamp/ or /course/
-            sourceSlug = pathParts[pathParts.length - 1];
-            sourceFolder = path.join(
-              process.cwd(),
-              "marketing-content",
-              "programs",
-            );
-          } else if (type === "location") {
-            // Locations are under /coding-campus/
-            sourceSlug = pathParts[pathParts.length - 1];
-            sourceFolder = path.join(
-              process.cwd(),
-              "marketing-content",
-              "locations",
-            );
-          }
-
-          // Find the source folder by checking which folder contains matching content
-          const possibleFolders = fs.readdirSync(sourceFolder);
-          let foundSourceFolder = "";
-
-          for (const folder of possibleFolders) {
-            const testPath = path.join(sourceFolder, folder);
-            if (fs.statSync(testPath).isDirectory()) {
-              // Check if en.yml or es.yml contains matching slug
-              const enFile = path.join(testPath, "en.yml");
-              const esFile = path.join(testPath, "es.yml");
-
-              if (fs.existsSync(enFile)) {
-                const content = fs.readFileSync(enFile, "utf8");
-                if (
-                  content.includes(`slug: ${sourceSlug}`) ||
-                  content.includes(`slug: "${sourceSlug}"`)
-                ) {
-                  foundSourceFolder = testPath;
-                  break;
-                }
-              }
-              if (!foundSourceFolder && fs.existsSync(esFile)) {
-                const content = fs.readFileSync(esFile, "utf8");
-                if (
-                  content.includes(`slug: ${sourceSlug}`) ||
-                  content.includes(`slug: "${sourceSlug}"`)
-                ) {
-                  foundSourceFolder = testPath;
-                  break;
-                }
-              }
-            }
-          }
+          const sourceEntries = contentIndex.findBySlug(sourceSlug, { contentType: type });
+          const foundSourceFolder = sourceEntries.length > 0
+            ? path.join(process.cwd(), sourceEntries[0].folder)
+            : "";
 
           if (foundSourceFolder) {
             // Copy all files from source folder
