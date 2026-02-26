@@ -50,7 +50,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Resultados Profesionales Comprobados
+    title: Resultados profesionales comprobados
     subtitle: Alta empleabilidad. Crecimiento salarial real.
     description: "Reconocido por Forbes, 4Geeks ofrece formación accesible con resultados medibles: alta empleabilidad y crecimiento salarial real para impulsar tu carrera en tecnología."
     background: hsl(var(--sidebar-background))
