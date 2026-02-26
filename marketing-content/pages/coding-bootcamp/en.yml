@@ -12,7 +12,5 @@ sections:
     variant: simpleTwoColumn
     title: Join a Coding Bootcamp. Start a New Career.
     subtitle: Learn to code at one of the most awarded coding bootcamps in the world. Online or in-person. No coding skills required. Join a glogal coding community and get unlimited coding and career support, for life.
-    image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
-      alt: Students collaborating in a tech workspace
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Rectangle_5_1766029737050.png
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
