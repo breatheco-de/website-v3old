@@ -521,6 +521,5 @@ who_is_eligible_work_authorization:
         locale: "es"
       value: "Tener autorización de trabajo en EEUU"
     - query:
-        region: "europe"
         locale: "en"
       value: "Have authorization to work in your country of residence"
