@@ -503,7 +503,7 @@ sections:
       - toronto-canada
   - type: testimonials
     version: v1.0
-    title: Lo que Dicen Nuestros Estudiantes
+    title: Lo que dicen nuestros estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
