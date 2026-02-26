@@ -532,6 +532,420 @@
       ],
       "createdAt": "2026-02-25T22:53:44.756Z",
       "name": "split_cards_job_guarantee_latam_en"
+    },
+    {
+      "id": "bind_mm3w5pb5_xarjs2",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "sticky_cta-b7n2hw"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "sticky_cta-bycddt"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "sticky_cta-odipu7"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "sticky_cta-td3htj"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "sticky_cta-bphej4"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "sticky_cta-xls194"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "sticky_cta-p03q47"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "sticky_cta-o83jre"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "sticky_cta-uv3jvo"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "sticky_cta-69f0kj"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "sticky_cta-axxk60"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "sticky_cta-9jdpc6"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionId": "sticky_cta-hm3f6z"
+        }
+      ],
+      "createdAt": "2026-02-26T20:03:53.825Z",
+      "name": "sticky_cta_latam_es"
+    },
+    {
+      "id": "bind_mm3w9fyv_k26ii8",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "sticky_cta-o1rwxp"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "sticky_cta-nvyob2"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "sticky_cta-v8w9ic"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "sticky_cta-vu6d46"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "sticky_cta-sc68eo"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "sticky_cta-k50cp2"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "sticky_cta-hslx1f"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "sticky_cta-2ptvs0"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "sticky_cta-airkol"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "sticky_cta-3zxs2j"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "sticky_cta-1vz5mo"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "sticky_cta-spjq29"
+        }
+      ],
+      "createdAt": "2026-02-26T20:06:48.343Z",
+      "name": "sticky_cta_europe_es"
+    },
+    {
+      "id": "bind_mm3waxd2_1xvzwg",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "sticky_cta-g9otk2"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "sticky_cta-dppas5"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "sticky_cta-8o1zz6"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "sticky_cta-ynqtea"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "sticky_cta-9al5s8"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "sticky_cta-zj3mjy"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "sticky_cta-3jofd1"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "sticky_cta-7vnesj"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "sticky_cta-ows55w"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "sticky_cta-avz2b9"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "sticky_cta-yng4my"
+        }
+      ],
+      "createdAt": "2026-02-26T20:07:57.543Z",
+      "name": "sticky_cta_usa_es"
+    },
+    {
+      "id": "bind_mm3wcanc_mthrm5",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "sticky_cta-ejtisz"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "sticky_cta-w7kah9"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "sticky_cta-bve83p"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "sticky_cta-ie45qb"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "sticky_cta-ttyvb1"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "sticky_cta-s7c02c"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "sticky_cta-px3k9k"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "sticky_cta-1n8wwe"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "sticky_cta-5zwzqb"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "sticky_cta-ps72ad"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "sticky_cta-3blhix"
+        }
+      ],
+      "createdAt": "2026-02-26T20:09:01.416Z",
+      "name": "sticky_cta_usa_en"
+    },
+    {
+      "id": "bind_mm3wedid_ew4lm5",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "sticky_cta-hocsvz"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "sticky_cta-ukbrt7"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "sticky_cta-i6txjv"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "sticky_cta-z06m41"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "sticky_cta-jyoliy"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "sticky_cta-f9dm9f"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "sticky_cta-7o0pfn"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "sticky_cta-2rj95e"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "sticky_cta-wwdkzx"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "sticky_cta-q5ko74"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "sticky_cta-r9obl8"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "sticky_cta-ztotqr"
+        }
+      ],
+      "createdAt": "2026-02-26T20:10:38.437Z",
+      "name": "sticky_cta_europe_en"
+    },
+    {
+      "id": "bind_mm3wfphl_wjko4s",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "sticky_cta-z1zcgk"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "sticky_cta-o0upfb"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "sticky_cta-i8rbyu"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "sticky_cta-q4b3zn"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "sticky_cta-boqjhj"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "sticky_cta-gtrk6q"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "sticky_cta-q3mxtf"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "sticky_cta-lfdh09"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "sticky_cta-6q66lm"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "sticky_cta-ez1pbb"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "sticky_cta-i6uxdo"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionId": "sticky_cta-ni4ipw"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "sticky_cta-dmuqrq"
+        }
+      ],
+      "createdAt": "2026-02-26T20:11:40.617Z",
+      "name": "sticky_cta_latam_en"
     }
   ]
 }

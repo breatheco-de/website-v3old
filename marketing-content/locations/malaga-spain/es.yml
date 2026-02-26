@@ -396,7 +396,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -411,15 +411,19 @@ sections:
         first_name:
           visible: true
           required: true
+          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: false
+          required: true
+          placeholder: Número telefónico
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
     section_id: sticky_cta-hslx1f
