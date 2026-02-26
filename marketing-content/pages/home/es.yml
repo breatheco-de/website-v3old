@@ -53,7 +53,7 @@ sections:
         alt: Logo del premio Forbes
         logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
-        description: Consistentemente listado entre los 5 mejores bootcamps por Forbes
+        description: Nombrado entre los 5 mejores bootcamps por Forbes
         link: /es/premios
         linkText: Ver más
       - id: clark-university
@@ -96,15 +96,15 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Donde el Aprendizaje con IA Se Une a la Mentoría de por Vida
+    title: Donde el aprendizaje con IA se une a la mentoría de por vida
     description: El aprendizaje potenciado por IA se combina con mentoría ilimitada 1:1 para ayudarte a desarrollar habilidades, ganar confianza y avanzar en roles tech de alto crecimiento, más rápido e inteligente.
     bullets:
-      - heading: Aprendizaje Personalizado en Cada Nivel
+      - heading: Aprendizaje personalizado en cada nivel
         text: Grupos reducidos, acceso ilimitado a mentores y retroalimentación guiada por IA mantienen tu aprendizaje rápido, adaptativo y enfocado en lo que importa.
-      - heading: Mentoría de por Vida y Apoyo Profesional
+      - heading: Mentoría de por vida y apoyo profesional
         text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
-      - heading: Currículum y Herramientas de Aprendizaje Integradas con IA
-        text: Domina las últimas herramientas y flujos de trabajo de IA que los empleadores están buscando activamente.
+      - heading: Currículum y herramientas de aprendizaje integradas con IA
+        text: Domina las herramientas más actuales y los flujos de trabajo con IA que los empleadores están buscando.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Estudiante aprendiendo con apoyo de mentor
     video:
@@ -252,7 +252,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explora Nuestros Programas
+    heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
       - name: Ingeniería de IA
@@ -321,7 +321,7 @@ sections:
       desktop: md lg
   - type: why_learn_ai
     variant: laptop-edge
-    title: Garantía de Empleo* Opcional para Mayor Confianza
+    title: Garantía de Empleo* opcional
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
     description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
