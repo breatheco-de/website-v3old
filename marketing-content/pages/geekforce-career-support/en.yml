@@ -268,7 +268,7 @@ sections:
     paddingY:
       desktop: sm none
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
