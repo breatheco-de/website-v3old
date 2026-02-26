@@ -92,9 +92,7 @@ sections:
     background: bg-muted/30
     alignment: center
     left:
-      image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
-      image_alt: Team collaborating on a project
-      justify: center
+      video: https://youtu.be/EcqasocRKHo
     right:
       heading: Your Journey with 4Geeks Academy Online
       description: Develop Your Tech Skills from Anywhere
