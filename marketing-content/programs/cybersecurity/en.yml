@@ -576,7 +576,7 @@ sections:
     background: muted
   - type: cta_banner
     version: "1.0"
-    title: Ready to start your cybersecurity career?
+    title: Ready to Start your Cybersecurity Career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
@@ -611,12 +611,12 @@ sections:
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
