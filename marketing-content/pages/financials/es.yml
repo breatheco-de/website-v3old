@@ -507,7 +507,7 @@ sections:
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
-      count: {{ global_verified_reviews_count | 2,847 }}
+      count: {{ global_verified_reviews_count | 2,847 }}+
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
