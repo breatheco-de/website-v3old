@@ -279,7 +279,7 @@ sections:
       url: /en/job-guarantee
       variant: primary
     marginY:
-      desktop: none
+      desktop: none md
     paddingY:
       desktop: none
     background: hsl(var(--sidebar-background))
