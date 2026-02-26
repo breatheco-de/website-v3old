@@ -138,7 +138,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
       - career-support
