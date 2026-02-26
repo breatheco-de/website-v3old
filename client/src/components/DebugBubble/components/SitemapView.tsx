@@ -16,6 +16,7 @@ import {
 } from "@tabler/icons-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/hooks/use-toast";
 import type { MenuView, SitemapUrl } from "../types";
 
 export interface SitemapFolder {
@@ -62,6 +63,13 @@ export function SitemapView({
   handleDeletePage,
   handleDownloadYml,
 }: SitemapViewProps) {
+  const { toast } = useToast();
+
+  const copyUrl = async (loc: string) => {
+    await navigator.clipboard.writeText(loc);
+    toast({ title: "Copied", description: loc, duration: 2000 });
+  };
+
   return (
     <>
       <div className="px-3 py-2 border-b">
@@ -194,7 +202,7 @@ export function SitemapView({
                                 </button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end" className="w-44">
-                                <DropdownMenuItem onClick={() => navigator.clipboard.writeText(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                <DropdownMenuItem onClick={() => copyUrl(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                                   <IconClipboard className="h-3.5 w-3.5 mr-2" />
                                   Copy URL
                                 </DropdownMenuItem>
@@ -244,7 +252,7 @@ export function SitemapView({
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-44">
-                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                        <DropdownMenuItem onClick={() => copyUrl(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                           <IconClipboard className="h-3.5 w-3.5 mr-2" />
                           Copy URL
                         </DropdownMenuItem>
