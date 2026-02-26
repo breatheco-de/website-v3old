@@ -68,10 +68,10 @@ global_review_count:
   conditions:
     - query:
         locale: "es"
-      value: "700+"
+      value: "700"
     - query:
         locale: "en"
-      value: "700+"
+      value: "700"
 global_teacher_student_ratio:
   default: "1:7"
   conditions:
@@ -89,10 +89,6 @@ call_to_action_apply:
       value: "Solicita tu plaza"
     - query:
         region: "latam"
-      value: "Aplicar Ahora"
-    - query:
-        region: "usa-canada"
-        locale: "es"
       value: "Aplicar Ahora"
 price_full_datascience:
   default: "$10,999"
@@ -306,7 +302,7 @@ average_salary_ai_fluent_software_developer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$90K–$140K"
+      value: "$100K–$150K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
@@ -345,7 +341,7 @@ average_salary_ai_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$95K–$150K"
+      value: "$100K–$160K"
     - query:
         region: "latam"
       value: "$40K – $75K"
@@ -470,7 +466,7 @@ average_salary_agent_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$75 K–$115 K"
+      value: "$25K–$40K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
@@ -479,7 +475,7 @@ average_salary_workflow_automation_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$70 K–$110 K"
+      value: "$25K–$40K"
     - query:
         region: "europe"
       value: "20.000€- 30.000€"
@@ -509,20 +505,3 @@ total_scholarships:
       value: "17M€"
 number_of_hiring_partners_aprox:
   default: "400"
-who_is_eligible_work_authorization:
-  default: "Have U.S. work authorization"
-  conditions:
-    - query:
-        region: "usa-canada"
-        locale: "en"
-      value: "Have U.S. work authorization"
-    - query:
-        region: "usa-canada"
-        locale: "es"
-      value: "Tener autorización de trabajo en EEUU"
-    - query:
-        locale: "en"
-      value: "Have authorization to work in your country of residence"
-    - query:
-        locale: "es"
-      value: "Tener permiso de trabajo en tu país de residencia\""
