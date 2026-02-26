@@ -712,7 +712,7 @@ export default function PrivateRedirects() {
               <div className="relative">
                 <IconTestPipe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Test a URL — paste a path like /us/coding-bootcamp/some-article"
+                  placeholder="Test a URL — paste a full link or a path like /us/coding-bootcamp/some-article"
                   value={testRedirectUrl}
                   onChange={(e) => setTestRedirectUrl(e.target.value)}
                   className="pl-9 pr-8"
@@ -787,30 +787,38 @@ export default function PrivateRedirects() {
                   </div>
                 ) : (
                   <div className="rounded-md border p-3 space-y-1" data-testid="result-redirect-no-match">
-                    {testRedirectResult.pageExists ? (
-                      <>
+                    {(() => {
+                      let displayPath = testRedirectUrl.trim();
+                      try {
+                        if (/^https?:\/\//i.test(displayPath)) displayPath = new URL(displayPath).pathname;
+                      } catch {}
+                      displayPath = displayPath.split("?")[0].split("#")[0];
+                      if (!displayPath.startsWith("/")) displayPath = "/" + displayPath;
+                      return testRedirectResult.pageExists ? (
+                        <>
+                          <p className="text-xs text-muted-foreground">
+                            No redirect matches — this URL loads an existing page directly.
+                          </p>
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className="text-muted-foreground flex-shrink-0">Page:</span>
+                            <code className="bg-muted px-2 py-0.5 rounded truncate">{displayPath}</code>
+                            <a
+                              href={displayPath}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-0.5 rounded hover:bg-muted flex-shrink-0"
+                              data-testid="link-test-page-destination"
+                            >
+                              <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                            </a>
+                          </div>
+                        </>
+                      ) : (
                         <p className="text-xs text-muted-foreground">
-                          No redirect matches — this URL loads an existing page directly.
+                          No redirect matches and no page exists at <code className="bg-muted px-1.5 py-0.5 rounded">{displayPath}</code> — visitors would see a 404.
                         </p>
-                        <div className="flex items-center gap-2 text-xs">
-                          <span className="text-muted-foreground flex-shrink-0">Page:</span>
-                          <code className="bg-muted px-2 py-0.5 rounded truncate">{testRedirectUrl.trim().split("?")[0].split("#")[0]}</code>
-                          <a
-                            href={testRedirectUrl.trim().split("?")[0].split("#")[0]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-0.5 rounded hover:bg-muted flex-shrink-0"
-                            data-testid="link-test-page-destination"
-                          >
-                            <IconExternalLink className="h-3 w-3 text-muted-foreground" />
-                          </a>
-                        </div>
-                      </>
-                    ) : (
-                      <p className="text-xs text-muted-foreground">
-                        No redirect matches and no page exists at this URL — visitors would see a 404.
-                      </p>
-                    )}
+                      );
+                    })()}
                   </div>
                 )
               )}
