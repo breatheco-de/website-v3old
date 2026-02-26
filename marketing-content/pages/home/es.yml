@@ -115,7 +115,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: highlight
-    title: Resultados Reales para Nuestros Graduados
+    title: Resultados reales para nuestros graduados
     subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
@@ -134,7 +134,7 @@ sections:
       desktop: none md
   - type: career_support_explain
     version: v1.0
-    heading: Consigue Empleo. Con Soporte de Carrera para la Era de la IA
+    heading: Consigue empleo. Con apoyo profesional para la era de la IA
     description: Nuestro programa de apoyo profesional está diseñado para ayudarte a conseguir tu primer empleo en tecnología
     background: hsl(var(--sidebar-background))
     tabs:
@@ -143,7 +143,7 @@ sections:
         col1_subtitle: Construye un perfil atractivo para reclutadores.
         col1_description: |-
           Prepárate para procesos reales de contratación usando una combinación de herramientas de IA y coaching 1:1.
-          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
+          Rigobot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
         col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -159,7 +159,7 @@ sections:
           - icon: IconRobot
             text: Feedback 24/7 de Rigobot para auditar tu LinkedIn y currículum
           - icon: IconUsers
-            text: Sesiones de coaching y estrategia de carrera 1:1
+            text: Sesiones de coaching y estrategia profesional 1:1
           - icon: IconMicrophone
             text: Entrevistas simuladas y preparación para entrevistas técnicas
         col3_image_id: 4geeks_member

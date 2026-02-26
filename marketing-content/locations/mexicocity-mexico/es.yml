@@ -51,9 +51,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Lanza tu carrera tech preparada para la era de la IA en Santiago
-    subtitle: Capacítate para los roles tech más demandados —incluida Ingeniería en IA— dentro del dinámico hub tecnológico de Santiago. Clases en vivo, proyectos prácticos y acompañamiento profesional enfocado en tu empleabilidad real.
-    badge: Campus Santiago
+    title: Lanza una carrera tech preparada para la era de la IA en Ciudad de México
+    subtitle: Fórmate para roles tecnológicos de alta demanda, incluyendo AI Engineering, en el dinámico hub tecnológico de Ciudad de México. Clases en vivo, proyectos prácticos y acompañamiento profesional orientado a contratación real.
+    badge: Campus Mexico
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar Ahora }}
         url: /es/apply
