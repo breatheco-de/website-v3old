@@ -270,7 +270,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform an single business case into a fully AI-native system, layer by layer.
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
