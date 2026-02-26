@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Learnpack build teach learn
+    title: Learnpack Build Teach Learn
     subtitle: LearnPack transforms any topic into interactive, auto-graded courses in minutes using AI. Create comprehensive curricula with lessons, quizzes, and exercises—no coding required
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
@@ -27,19 +27,19 @@ sections:
       desktop: md
   - type: article
     content: |
-      ## Why LearnPack matters in 2026
+      ## Why LearnPack Matters in 2026
 
       In the LLM era, it’s pointless to memorize syntax. What matters is **thinking like a developer** and collaborating with AI. LearnPack turns any topic, technical or not, into an **interactive, auto-graded course** in minutes.
 
       Tell the platform a title, length, and learning goals, or add your own input (documents, videos, or just a topic), and it instantly produces a **structured syllabus** and a complete interactive course. It includes lessons, quizzes, and auto-graded exercises, no coding required. Then **Rigobot**, our 24/7 AI mentor, guides learners line by line.
 
-      ### Context and overview
+      ### Context and Overview
 
       In today’s fast-evolving digital landscape, learning platforms must adapt to meet diverse needs. LearnPack, initially launched as a coding education tool, has evolved into a versatile platform that empowers anyone to create interactive, auto-graded courses without technical expertise.
 
       Accessible via [learnpack.co](https://www.learnpack.co/), LearnPack leverages artificial intelligence to generate comprehensive courses, making education creation accessible to all. This article explores LearnPack’s evolution, its AI-driven features, and its impact on global learning, supported by the AI mentor Rigobot.
 
-      ## How course creation works
+      ## How Course Creation Works
 
       1. **Open LearnPack** at [learnpack.co](https://www.learnpack.co/) and start a new course.
       2. **Enter your course details**, including length, subject, and key topics.
@@ -58,7 +58,7 @@ sections:
       | Accessibility & i18n | Keyboard navigation, color-safe UI, EN/ES | Inclusive, bilingual learning from day one |
       | Open-source repository | Content available on GitHub | Reuse, adapt, and improve freely |
 
-      ## Recents outcomes (Jan – Jun 2025)
+      ## Recents Uutcomes (Jan – Jun 2025)
 
       | **Metric** | **Mid-Year 2025** | **Source** |
       | --- | --- | --- |
@@ -67,7 +67,7 @@ sections:
       | Program hiring rate | 79% within 140 days | [Mid-Year Outcomes 2025](https://new.4geeks.com/en/outcomes) |
       | Median LATAM salary lift | +282% | Same report |
 
-      ## Why LearnPack beats generic LMS tools
+      ## Why LearnPack Beats Generic LMS Tools
 
       |  | **LearnPack** | Typical LMS |
       | --- | --- | --- |
@@ -77,20 +77,20 @@ sections:
       | Runs in VS Code or Cloud IDE | ✅ | ❌ |
       | 100% open-source | ✅ | ❌ |
 
-      ## Benefits for learners
+      ## Benefits for Learners
 
       - **Instant feedback** through auto-graded exercises and quizzes, no waiting on forums.
       - **Learn anywhere** with a browser-first experience that works on any device.
       - **Rigobot guidance** that adapts to your pace and grows more advanced as you improve.
 
-      ## Benefits for educators
+      ## Benefits for Educators
 
       - **No-code course creation**. Enter the subject, topics, and duration and let AI build the curriculum.
       - **Built-in analytics** showing learner progress, completion rates, and common blockers.
       - **Open-source library** with over 1,000 tutorials available to reuse or expand.
 
 
-      ## Built for the AI era
+      ## Built for the AI Era
 
       Large Language Models like Grok, GPT-4o, and Claude 3 accelerate modern workflows. LearnPack embraces them by:
 
@@ -99,7 +99,7 @@ sections:
       - Teaching a **human plus AI pair-programmer** mindset that companies already expect.
 
 
-      ## Ready to create or learn?
+      ## Ready to Create or Learn?
 
       - 🔗 Try the **AI course generator** at [learnpack.co](https://www.learnpack.co/)
       - 🔗 See Rigobot in action on the [Rigobot page](https://new.4geeks.com/en/rigobot-ai-coding-mentor)
@@ -109,14 +109,14 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - learnpack
     marginY:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
+    title: Ready to Get Started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
@@ -136,7 +136,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -180,8 +180,8 @@ sections:
           visible: true
           required: false
         program:
-          visible: false
-          required: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.

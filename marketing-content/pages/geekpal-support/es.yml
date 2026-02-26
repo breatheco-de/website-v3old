@@ -98,15 +98,15 @@ sections:
   - type: community_support
     version: "1.0"
     heading: Aprende acompañado por una comunidad global
-    description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
+    description: 4Geeks es más que un programa; es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
-        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos — desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
+        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos, desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
         icon: BrandSlack
         badge: 6,000+ Miembros
         accent_color: primary
       - title: 4Geeks.com
-        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás — y saben cómo ayudarte a llegar a donde quieres ir.
+        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás y saben cómo ayudarte a llegar a donde quieres ir.
         icon: Rigobot
         accent_color: primary
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
@@ -175,17 +175,10 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none 10px
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -200,54 +193,60 @@ sections:
         first_name:
           visible: true
           required: true
+          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: false
+          required: true
+          placeholder: Número telefónico
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
   - type: cta_banner
     version: "1.0"
-    title: Da el siguiente paso hacia tu carrera en tecnología
+    title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Obtener los detalles
-      tags: website-lead
-      automations: hard
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Email
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: Nombre y Apellido
         phone:
           visible: true
           required: false
-          placeholder: Número de teléfono
+          placeholder: Teléfono
         program:
-          visible: false
+          visible: true
           required: false
           default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:

@@ -18,7 +18,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Lifetime mentorship & AI-powered coding support
+    title: Lifetime Mentorship & AI-Powered Coding Support
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
@@ -45,12 +45,12 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Advance faster, never lose momentum
+    title: Advance Faster, Never Lose Momentum
     description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Human + AI: The perfect support duo"
+    heading: "Human + AI: The Perfect Support Duo"
     description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
       - title: "Our team of expert mentors:"
@@ -95,7 +95,7 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: A global tech community to support your growth
+    heading: A Global Tech Community to Support your Growth
     description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
@@ -121,7 +121,7 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: The impact of unlimited coding mentorship
+      heading: The Impact of Unlimited Coding Mentorship
       description: Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow professionally afterward.
       justify: center
       text_align: center
@@ -131,14 +131,14 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
-    title: Real careers start here
+    title: Real Careers Start Here
     description: See how our alumni achieved their goals
     marginY:
       desktop: none
     paddingY:
       desktop: md none
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
       - career-support
@@ -175,7 +175,7 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Take the next step toward your tech career
+    title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
@@ -194,7 +194,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -237,8 +237,8 @@ sections:
           visible: true
           required: false
         program:
-          visible: false
-          required: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.

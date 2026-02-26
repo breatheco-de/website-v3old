@@ -162,3 +162,228 @@
 2026-02-25T23:11:55.836Z [WEBHOOK] Push 9357335 by alesanchezr: no marketing-content files changed
 2026-02-25T23:13:42.527Z [WEBHOOK] Push 75ec4f8 by alesanchezr: 1 marketing-content files changed
 2026-02-25T23:13:42.957Z [AUTO-PULL] Webhook: pulled 1 files from 75ec4f8: pages/financials/es.yml
+2026-02-25T23:14:07.845Z [WEBHOOK] Push 43a90ed by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:14:08.306Z [AUTO-PULL] Webhook: pulled 1 files from 43a90ed: pages/financials/es.yml
+2026-02-25T23:14:27.089Z [WEBHOOK] Push 15b69c9 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:14:27.525Z [AUTO-PULL] Webhook: pulled 1 files from 15b69c9: pages/financials/es.yml
+2026-02-25T23:14:46.310Z [WEBHOOK] Push 7ec7117 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:14:46.790Z [AUTO-PULL] Webhook: pulled 1 files from 7ec7117: pages/financials/es.yml
+2026-02-25T23:16:20.753Z [WEBHOOK] Push 1a73d1e by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:16:21.235Z [AUTO-PULL] Webhook: pulled 1 files from 1a73d1e: pages/financials/en.yml
+2026-02-25T23:17:31.404Z [WEBHOOK] Push 8e04e61 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:17:31.863Z [AUTO-PULL] Webhook: pulled 1 files from 8e04e61: pages/financials/es.yml
+2026-02-25T23:18:49.055Z [WEBHOOK] Push a8f2eb0 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:18:49.533Z [AUTO-PULL] Webhook: pulled 1 files from a8f2eb0: pages/financials/es.yml
+2026-02-25T23:19:38.624Z [WEBHOOK] Push 013d8f6 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:19:39.101Z [AUTO-PULL] Webhook: pulled 1 files from 013d8f6: pages/financials/es.yml
+2026-02-25T23:23:59.789Z [WEBHOOK] Push 091850a by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:24:00.277Z [AUTO-PULL] Webhook: pulled 1 files from 091850a: pages/financials/en.yml
+2026-02-25T23:24:09.290Z [WEBHOOK] Push 5b7e83d by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:24:09.845Z [AUTO-PULL] Webhook: pulled 1 files from 5b7e83d: pages/financials/en.yml
+2026-02-25T23:24:18.916Z [WEBHOOK] Push 25697ad by alesanchezr: no marketing-content files changed
+2026-02-25T23:27:06.337Z [WEBHOOK] Push d7d6c45 by alesanchezr: 1 marketing-content files changed
+2026-02-25T23:27:06.993Z [AUTO-PULL] Webhook: pulled 1 files from d7d6c45: pages/financials/en.yml
+2026-02-26T03:00:28.434Z [RESTART] Server started (instance=f436, checkpoint=bf5a39e5, env=development, pid=64)
+2026-02-26T03:00:29.639Z [RECONCILE] Already in sync at d7d6c45
+2026-02-26T03:00:30.705Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T03:20:14.393Z [WEBHOOK] Push 5c00c8f by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:20:15.282Z [AUTO-PULL] Webhook: pulled 1 files from 5c00c8f: pages/awards/en.yml
+2026-02-26T03:20:34.530Z [WEBHOOK] Push 55a93f2 by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:20:34.967Z [AUTO-PULL] Webhook: pulled 1 files from 55a93f2: pages/awards/en.yml
+2026-02-26T03:20:53.167Z [WEBHOOK] Push e1edb3d by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:20:53.589Z [AUTO-PULL] Webhook: pulled 1 files from e1edb3d: pages/awards/en.yml
+2026-02-26T03:21:32.285Z [WEBHOOK] Push 2733cfd by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:21:32.725Z [AUTO-PULL] Webhook: pulled 1 files from 2733cfd: pages/awards/en.yml
+2026-02-26T03:22:12.141Z [WEBHOOK] Push ce9d3de by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:22:12.595Z [AUTO-PULL] Webhook: pulled 1 files from ce9d3de: pages/awards/en.yml
+2026-02-26T03:23:10.100Z [WEBHOOK] Push 81bc6db by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:23:10.605Z [AUTO-PULL] Webhook: pulled 1 files from 81bc6db: pages/awards/en.yml
+2026-02-26T03:23:30.029Z [WEBHOOK] Push 3e4f19b by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:23:30.485Z [AUTO-PULL] Webhook: pulled 1 files from 3e4f19b: pages/awards/en.yml
+2026-02-26T03:25:21.937Z [WEBHOOK] Push 05c811f by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:25:22.408Z [AUTO-PULL] Webhook: pulled 1 files from 05c811f: pages/awards/en.yml
+2026-02-26T03:25:47.552Z [WEBHOOK] Push 11d96b3 by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:25:47.991Z [AUTO-PULL] Webhook: pulled 1 files from 11d96b3: pages/awards/en.yml
+2026-02-26T03:26:09.711Z [WEBHOOK] Push 5a33ae8 by alesanchezr: 1 marketing-content files changed
+2026-02-26T03:26:10.176Z [AUTO-PULL] Webhook: pulled 1 files from 5a33ae8: pages/awards/en.yml
+2026-02-26T14:50:47.471Z [RESTART] Server started (instance=a307, checkpoint=bf5a39e5, env=development, pid=280)
+2026-02-26T14:50:48.610Z [RECONCILE] Local 5a33ae8 ≠ remote 9209b30, checking file hashes...
+2026-02-26T14:50:52.935Z [RECONCILE] 0/64 files match remote, 64 still differ
+2026-02-26T14:51:13.362Z [AUTO-PULL] Startup: pulled 64 incoming files: landings/ai-engineering-spain/promoted.yml, locations/barcelona-spain/es.yml, locations/berlin-germany/es.yml, locations/bogota-colombia/es.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/es.yml, locations/costa-rica/es.yml, locations/dublin-ireland/es.yml, locations/hamburg-germany/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/lisbon-portugal/es.yml, locations/madrid-spain/en.yml, locations/madrid-spain/es.yml, locations/malaga-spain/es.yml, locations/mexicocity-mexico/es.yml, locations/miami-usa/es.yml, locations/milan-italy/es.yml, locations/montevideo-uruguay/es.yml, locations/munich-germany/es.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/es.yml, locations/remote/es.yml, locations/rest-of-america/es.yml, locations/rome-italy/es.yml, locations/santiago-chile/es.yml, pages/awards/en.yml, pages/awards/es.yml, pages/financials/en.yml, pages/financials/es.yml, pages/geekforce-career-support/en.yml, pages/geekforce-career-support/es.yml, pages/geekpal-support/en.yml, pages/geekpal-support/es.yml, pages/geeks-vs-others/en.yml, pages/geeks-vs-others/es.yml, pages/graduates-and-projects/en.yml, pages/home/en.yml, pages/home/es.yml, pages/job-guarantee/en.yml, pages/job-guarantee/es.yml, pages/learnpack/en.yml, pages/learnpack/es.yml, pages/online-platform/en.yml, pages/online-platform/es.yml, pages/outcomes/en.yml, pages/outcomes/es.yml, pages/partners/en.yml, pages/press/en.yml, pages/rigobot-ai-coding-mentor/en.yml, pages/rigobot-ai-coding-mentor/es.yml, pages/scholarships/en.yml, pages/scholarships/es.yml, pages/the-academy/en.yml, programs/ai-engineering/en.yml, programs/ai-engineering/es.yml, programs/cybersecurity/en.yml, programs/cybersecurity/es.yml, programs/data-science-ml/en.yml, programs/data-science-ml/es.yml, programs/full-stack/en.yml, programs/full-stack/es.yml, section-bindings.json, variables.yml
+2026-02-26T14:51:13.565Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T14:51:15.933Z [WEBHOOK] Push 867fc7c by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:51:16.348Z [AUTO-PULL] Webhook: pulled 1 files from 867fc7c: pages/financials/en.yml
+2026-02-26T14:51:37.495Z [WEBHOOK] Push e526fee by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:51:37.963Z [AUTO-PULL] Webhook: pulled 1 files from e526fee: pages/awards/en.yml
+2026-02-26T14:52:13.604Z [WEBHOOK] Push 3554c35 by alesanchezr: 11 marketing-content files changed
+2026-02-26T14:52:15.571Z [WEBHOOK] Push 62d3936 by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:52:16.034Z [AUTO-PULL] Webhook: pulled 1 files from 62d3936: section-bindings.json
+2026-02-26T14:52:16.966Z [AUTO-PULL] Webhook: pulled 11 files from 3554c35: locations/atlanta-usa/es.yml, locations/austin-usa/es.yml, locations/chicago-usa/es.yml, locations/dallas-usa/es.yml, locations/houston-usa/es.yml, locations/losangeles-usa/es.yml, locations/miami-usa/es.yml, locations/newyork-usa/es.yml, locations/orlando-usa/es.yml, locations/tampa-usa/es.yml, locations/toronto-canada/es.yml
+2026-02-26T14:53:14.182Z [WEBHOOK] Push be08c91 by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:53:14.658Z [AUTO-PULL] Webhook: pulled 1 files from be08c91: pages/geeks-vs-others/en.yml
+2026-02-26T14:53:48.551Z [WEBHOOK] Push ee12618 by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:53:49.064Z [AUTO-PULL] Webhook: pulled 1 files from ee12618: pages/graduates-and-projects/en.yml
+2026-02-26T14:54:29.760Z [WEBHOOK] Push 297dbab by alesanchezr: 13 marketing-content files changed
+2026-02-26T14:54:32.842Z [WEBHOOK] Push 9e5aa17 by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:54:33.274Z [AUTO-PULL] Webhook: pulled 1 files from 9e5aa17: section-bindings.json
+2026-02-26T14:54:33.494Z [AUTO-PULL] Webhook: pulled 13 files from 297dbab: locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/costa-rica/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/mexicocity-mexico/en.yml, locations/montevideo-uruguay/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml, locations/remote/en.yml, locations/rest-of-america/en.yml, locations/santiago-chile/en.yml
+2026-02-26T14:55:06.953Z [WEBHOOK] Push f39affe by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:55:07.458Z [AUTO-PULL] Webhook: pulled 1 files from f39affe: pages/graduates-and-projects/en.yml
+2026-02-26T14:55:28.888Z [WEBHOOK] Push 9985356 by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:55:29.409Z [AUTO-PULL] Webhook: pulled 1 files from 9985356: pages/graduates-and-projects/en.yml
+2026-02-26T14:55:41.838Z [WEBHOOK] Push 06bbb98 by alesanchezr: no marketing-content files changed
+2026-02-26T14:58:18.038Z [WEBHOOK] Push db33eb8 by alesanchezr: 12 marketing-content files changed
+2026-02-26T14:58:21.135Z [WEBHOOK] Push 5f9792f by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:58:21.583Z [AUTO-PULL] Webhook: pulled 1 files from 5f9792f: section-bindings.json
+2026-02-26T14:58:21.664Z [AUTO-PULL] Webhook: pulled 12 files from db33eb8: locations/barcelona-spain/en.yml, locations/berlin-germany/en.yml, locations/dublin-ireland/en.yml, locations/hamburg-germany/en.yml, locations/lisbon-portugal/en.yml, locations/madrid-spain/en.yml, locations/malaga-spain/en.yml, locations/milan-italy/en.yml, locations/munich-germany/en.yml, locations/rest-of-europe/en.yml, locations/rome-italy/en.yml, locations/valencia-spain/en.yml
+2026-02-26T14:59:03.343Z [WEBHOOK] Push 253d76e by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:59:03.834Z [AUTO-PULL] Webhook: pulled 1 files from 253d76e: pages/graduates-and-projects/en.yml
+2026-02-26T14:59:39.047Z [WEBHOOK] Push 5bd9bf5 by alesanchezr: 1 marketing-content files changed
+2026-02-26T14:59:39.598Z [AUTO-PULL] Webhook: pulled 1 files from 5bd9bf5: pages/graduates-and-projects/en.yml
+2026-02-26T15:00:12.608Z [WEBHOOK] Push ef0acb2 by alesanchezr: 11 marketing-content files changed
+2026-02-26T15:00:16.584Z [AUTO-PULL] Webhook: pulled 11 files from ef0acb2: locations/atlanta-usa/en.yml, locations/austin-usa/en.yml, locations/chicago-usa/en.yml, locations/dallas-usa/en.yml, locations/houston-usa/en.yml, locations/losangeles-usa/en.yml, locations/miami-usa/en.yml, locations/newyork-usa/en.yml, locations/orlando-usa/en.yml, locations/tampa-usa/en.yml, locations/toronto-canada/en.yml
+2026-02-26T15:00:16.860Z [WEBHOOK] Push 6c0bf9e by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:00:17.286Z [AUTO-PULL] Webhook: pulled 1 files from 6c0bf9e: section-bindings.json
+2026-02-26T15:01:16.951Z [WEBHOOK] Push cd7ee32 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:01:17.497Z [AUTO-PULL] Webhook: pulled 1 files from cd7ee32: pages/graduates-and-projects/en.yml
+2026-02-26T15:01:24.665Z [WEBHOOK] Push b4c38f8 by alesanchezr: no marketing-content files changed
+2026-02-26T15:01:50.398Z [WEBHOOK] Push 28c4f5b by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:01:50.962Z [AUTO-PULL] Webhook: pulled 1 files from 28c4f5b: programs/cybersecurity/en.yml
+2026-02-26T15:01:58.409Z [WEBHOOK] Push 4615c7c by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:01:58.906Z [AUTO-PULL] Webhook: pulled 1 files from 4615c7c: programs/cybersecurity/en.yml
+2026-02-26T15:02:33.149Z [WEBHOOK] Push 0dd4a32 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:02:33.640Z [AUTO-PULL] Webhook: pulled 1 files from 0dd4a32: pages/outcomes/en.yml
+2026-02-26T15:02:57.149Z [WEBHOOK] Push d6daeab by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:02:57.662Z [AUTO-PULL] Webhook: pulled 1 files from d6daeab: locations/madrid-spain/en.yml
+2026-02-26T15:03:23.055Z [WEBHOOK] Push c4e19e4 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:03:23.630Z [AUTO-PULL] Webhook: pulled 1 files from c4e19e4: pages/partners/en.yml
+2026-02-26T15:03:48.262Z [WEBHOOK] Push 5d3f684 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:03:48.770Z [AUTO-PULL] Webhook: pulled 1 files from 5d3f684: locations/madrid-spain/en.yml
+2026-02-26T15:04:23.171Z [WEBHOOK] Push c7d2ce0 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:04:23.651Z [AUTO-PULL] Webhook: pulled 1 files from c7d2ce0: locations/santiago-chile/en.yml
+2026-02-26T15:04:33.210Z [WEBHOOK] Push 3b5fcda by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:04:33.754Z [AUTO-PULL] Webhook: pulled 1 files from 3b5fcda: pages/scholarships/en.yml
+2026-02-26T15:05:04.424Z [WEBHOOK] Push 7aa7930 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:05:04.994Z [AUTO-PULL] Webhook: pulled 1 files from 7aa7930: locations/dallas-usa/en.yml
+2026-02-26T15:05:22.515Z [WEBHOOK] Push b7f6f33 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:05:23.015Z [AUTO-PULL] Webhook: pulled 1 files from b7f6f33: pages/scholarships/en.yml
+2026-02-26T15:06:13.711Z [WEBHOOK] Push a316ab5 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:06:14.376Z [AUTO-PULL] Webhook: pulled 1 files from a316ab5: pages/scholarships/en.yml
+2026-02-26T15:07:16.878Z [WEBHOOK] Push a024592 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:07:17.425Z [AUTO-PULL] Webhook: pulled 1 files from a024592: locations/remote/en.yml
+2026-02-26T15:07:55.300Z [WEBHOOK] Push e80a113 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:07:55.835Z [AUTO-PULL] Webhook: pulled 1 files from e80a113: pages/scholarships/en.yml
+2026-02-26T15:08:03.911Z [WEBHOOK] Push 26c4754 by alesanchezr: no marketing-content files changed
+2026-02-26T15:08:07.512Z [WEBHOOK] Push 504f27a by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:08:07.984Z [AUTO-PULL] Webhook: pulled 1 files from 504f27a: locations/valencia-spain/en.yml
+2026-02-26T15:08:51.880Z [WEBHOOK] Push 8398e82 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:08:52.390Z [AUTO-PULL] Webhook: pulled 1 files from 8398e82: locations/berlin-germany/en.yml
+2026-02-26T15:09:13.727Z [WEBHOOK] Push 8f8a2bc by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:09:14.194Z [AUTO-PULL] Webhook: pulled 1 files from 8f8a2bc: locations/hamburg-germany/en.yml
+2026-02-26T15:12:17.618Z [WEBHOOK] Push cad9c08 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:12:18.161Z [AUTO-PULL] Webhook: pulled 1 files from cad9c08: locations/dublin-ireland/en.yml
+2026-02-26T15:12:36.627Z [WEBHOOK] Push d162f58 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:12:37.104Z [AUTO-PULL] Webhook: pulled 1 files from d162f58: locations/rome-italy/en.yml
+2026-02-26T15:12:54.348Z [WEBHOOK] Push bd06bc4 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:12:54.815Z [AUTO-PULL] Webhook: pulled 1 files from bd06bc4: locations/barcelona-spain/en.yml
+2026-02-26T15:13:12.060Z [WEBHOOK] Push ca41084 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:13:12.650Z [AUTO-PULL] Webhook: pulled 1 files from ca41084: locations/malaga-spain/en.yml
+2026-02-26T15:13:52.618Z [WEBHOOK] Push 1885a0e by alesanchezr: no marketing-content files changed
+2026-02-26T15:14:39.768Z [WEBHOOK] Push d6a8339 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:14:40.239Z [AUTO-PULL] Webhook: pulled 1 files from d6a8339: locations/lisbon-portugal/en.yml
+2026-02-26T15:14:57.161Z [WEBHOOK] Push 406b605 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:14:57.664Z [AUTO-PULL] Webhook: pulled 1 files from 406b605: locations/munich-germany/en.yml
+2026-02-26T15:15:22.457Z [WEBHOOK] Push e78bd71 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:15:22.933Z [AUTO-PULL] Webhook: pulled 1 files from e78bd71: locations/milan-italy/en.yml
+2026-02-26T15:15:39.300Z [WEBHOOK] Push 090dcb8 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:15:39.775Z [AUTO-PULL] Webhook: pulled 1 files from 090dcb8: locations/rest-of-europe/en.yml
+2026-02-26T15:17:59.965Z [WEBHOOK] Push aded719 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:18:00.463Z [AUTO-PULL] Webhook: pulled 1 files from aded719: locations/mexicocity-mexico/en.yml
+2026-02-26T15:18:19.958Z [WEBHOOK] Push cce671f by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:18:20.487Z [AUTO-PULL] Webhook: pulled 1 files from cce671f: locations/buenosaires-argentina/en.yml
+2026-02-26T15:18:29.264Z [WEBHOOK] Push c698aee by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:18:29.749Z [AUTO-PULL] Webhook: pulled 1 files from c698aee: locations/costa-rica/en.yml
+2026-02-26T15:18:39.371Z [WEBHOOK] Push 347fd34 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:18:39.875Z [AUTO-PULL] Webhook: pulled 1 files from 347fd34: locations/panamacity-panama/en.yml
+2026-02-26T15:18:50.561Z [WEBHOOK] Push fc36e11 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:18:51.053Z [AUTO-PULL] Webhook: pulled 1 files from fc36e11: locations/lima-peru/en.yml
+2026-02-26T15:19:03.539Z [WEBHOOK] Push 0934a2f by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:19:04.100Z [AUTO-PULL] Webhook: pulled 1 files from 0934a2f: locations/bogota-colombia/en.yml
+2026-02-26T15:19:14.535Z [WEBHOOK] Push 81c5edd by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:19:15.037Z [AUTO-PULL] Webhook: pulled 1 files from 81c5edd: locations/caracas-venezuela/en.yml
+2026-02-26T15:19:22.884Z [WEBHOOK] Push 1261aab by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:19:23.316Z [AUTO-PULL] Webhook: pulled 1 files from 1261aab: locations/lapaz-bolivia/en.yml
+2026-02-26T15:19:33.383Z [WEBHOOK] Push 5ac13f4 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:19:33.920Z [AUTO-PULL] Webhook: pulled 1 files from 5ac13f4: locations/quito-ecuador/en.yml
+2026-02-26T15:19:48.546Z [WEBHOOK] Push 04bca38 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:19:49.045Z [AUTO-PULL] Webhook: pulled 1 files from 04bca38: locations/montevideo-uruguay/en.yml
+2026-02-26T15:20:02.808Z [WEBHOOK] Push c3edd7e by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:20:03.312Z [AUTO-PULL] Webhook: pulled 1 files from c3edd7e: locations/remote/en.yml
+2026-02-26T15:20:38.544Z [WEBHOOK] Push 52486cf by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:20:39.081Z [AUTO-PULL] Webhook: pulled 1 files from 52486cf: locations/miami-usa/es.yml
+2026-02-26T15:21:01.034Z [WEBHOOK] Push 621ac6c by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:21:01.530Z [AUTO-PULL] Webhook: pulled 1 files from 621ac6c: locations/dallas-usa/es.yml
+2026-02-26T15:21:10.712Z [WEBHOOK] Push 5287cbb by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:21:11.173Z [AUTO-PULL] Webhook: pulled 1 files from 5287cbb: locations/atlanta-usa/en.yml
+2026-02-26T15:21:34.080Z [WEBHOOK] Push dc05409 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:21:34.602Z [AUTO-PULL] Webhook: pulled 1 files from dc05409: locations/atlanta-usa/en.yml
+2026-02-26T15:21:52.516Z [WEBHOOK] Push 7c92b7b by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:21:53.053Z [AUTO-PULL] Webhook: pulled 1 files from 7c92b7b: locations/atlanta-usa/es.yml
+2026-02-26T15:22:06.285Z [WEBHOOK] Push 1617958 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:22:06.780Z [AUTO-PULL] Webhook: pulled 1 files from 1617958: locations/chicago-usa/es.yml
+2026-02-26T15:23:29.607Z [WEBHOOK] Push f020707 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:23:30.124Z [AUTO-PULL] Webhook: pulled 1 files from f020707: locations/losangeles-usa/es.yml
+2026-02-26T15:23:40.168Z [WEBHOOK] Push 251c663 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:23:40.720Z [AUTO-PULL] Webhook: pulled 1 files from 251c663: locations/newyork-usa/es.yml
+2026-02-26T15:23:53.800Z [WEBHOOK] Push daf5ae7 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:23:54.329Z [AUTO-PULL] Webhook: pulled 1 files from daf5ae7: locations/toronto-canada/es.yml
+2026-02-26T15:24:09.640Z [WEBHOOK] Push f071bec by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:24:10.157Z [AUTO-PULL] Webhook: pulled 1 files from f071bec: locations/austin-usa/es.yml
+2026-02-26T15:24:23.576Z [WEBHOOK] Push 2495730 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:24:24.102Z [AUTO-PULL] Webhook: pulled 1 files from 2495730: locations/houston-usa/es.yml
+2026-02-26T15:24:36.074Z [WEBHOOK] Push 8fef10a by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:24:36.663Z [AUTO-PULL] Webhook: pulled 1 files from 8fef10a: locations/remote/es.yml
+2026-02-26T15:25:00.424Z [WEBHOOK] Push b1dbc46 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:25:01.011Z [AUTO-PULL] Webhook: pulled 1 files from b1dbc46: locations/madrid-spain/es.yml
+2026-02-26T15:25:16.197Z [WEBHOOK] Push 5c20838 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:25:16.686Z [AUTO-PULL] Webhook: pulled 1 files from 5c20838: locations/valencia-spain/es.yml
+2026-02-26T15:25:36.778Z [WEBHOOK] Push 09a1970 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:25:37.265Z [AUTO-PULL] Webhook: pulled 1 files from 09a1970: locations/berlin-germany/es.yml
+2026-02-26T15:25:54.958Z [WEBHOOK] Push 03552eb by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:25:55.445Z [AUTO-PULL] Webhook: pulled 1 files from 03552eb: locations/hamburg-germany/es.yml
+2026-02-26T15:26:07.990Z [WEBHOOK] Push d07bc8a by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:26:08.486Z [AUTO-PULL] Webhook: pulled 1 files from d07bc8a: locations/dublin-ireland/es.yml
+2026-02-26T15:26:23.396Z [WEBHOOK] Push ab2f064 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:26:23.986Z [AUTO-PULL] Webhook: pulled 1 files from ab2f064: locations/rome-italy/es.yml
+2026-02-26T15:26:44.037Z [WEBHOOK] Push d50a591 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:26:44.595Z [AUTO-PULL] Webhook: pulled 1 files from d50a591: locations/barcelona-spain/es.yml
+2026-02-26T15:26:56.551Z [WEBHOOK] Push ff661f3 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:26:57.058Z [AUTO-PULL] Webhook: pulled 1 files from ff661f3: locations/malaga-spain/es.yml
+2026-02-26T15:27:14.544Z [WEBHOOK] Push 591aab0 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:27:15.031Z [AUTO-PULL] Webhook: pulled 1 files from 591aab0: locations/lisbon-portugal/es.yml
+2026-02-26T15:27:32.233Z [WEBHOOK] Push b33c4c6 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:27:32.708Z [AUTO-PULL] Webhook: pulled 1 files from b33c4c6: locations/munich-germany/es.yml
+2026-02-26T15:27:47.575Z [WEBHOOK] Push c7c4eed by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:27:48.091Z [AUTO-PULL] Webhook: pulled 1 files from c7c4eed: locations/milan-italy/es.yml
+2026-02-26T15:29:16.050Z [WEBHOOK] Push 83cc176 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:29:16.573Z [AUTO-PULL] Webhook: pulled 1 files from 83cc176: locations/mexicocity-mexico/es.yml
+2026-02-26T15:29:29.356Z [WEBHOOK] Push a07593d by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:29:29.878Z [AUTO-PULL] Webhook: pulled 1 files from a07593d: locations/buenosaires-argentina/es.yml
+2026-02-26T15:29:44.521Z [WEBHOOK] Push 90e241f by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:29:45.075Z [AUTO-PULL] Webhook: pulled 1 files from 90e241f: locations/costa-rica/es.yml
+2026-02-26T15:30:00.631Z [WEBHOOK] Push 7e08a51 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:30:01.183Z [AUTO-PULL] Webhook: pulled 1 files from 7e08a51: locations/panamacity-panama/es.yml
+2026-02-26T15:30:12.115Z [WEBHOOK] Push 735b880 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:30:12.657Z [AUTO-PULL] Webhook: pulled 1 files from 735b880: locations/lima-peru/es.yml
+2026-02-26T15:30:23.128Z [WEBHOOK] Push abde2d7 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:30:23.615Z [AUTO-PULL] Webhook: pulled 1 files from abde2d7: locations/bogota-colombia/es.yml
+2026-02-26T15:30:36.510Z [WEBHOOK] Push 4d15e6e by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:30:37.010Z [AUTO-PULL] Webhook: pulled 1 files from 4d15e6e: locations/caracas-venezuela/es.yml
+2026-02-26T15:30:58.672Z [WEBHOOK] Push 9433969 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:30:59.126Z [AUTO-PULL] Webhook: pulled 1 files from 9433969: locations/lapaz-bolivia/es.yml
+2026-02-26T15:31:11.795Z [WEBHOOK] Push 5e82f2d by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:31:12.413Z [AUTO-PULL] Webhook: pulled 1 files from 5e82f2d: locations/quito-ecuador/es.yml
+2026-02-26T15:31:24.053Z [WEBHOOK] Push 6bbea66 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:31:24.532Z [AUTO-PULL] Webhook: pulled 1 files from 6bbea66: locations/montevideo-uruguay/es.yml
+2026-02-26T15:31:41.043Z [WEBHOOK] Push f06b402 by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:31:41.572Z [AUTO-PULL] Webhook: pulled 1 files from f06b402: locations/remote/es.yml

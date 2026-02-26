@@ -18,8 +18,8 @@ sections:
       - text: Apply Now
         url: /en/apply
         variant: primary
-      - text: Get Program Details
-        url: "#cta_banner-13"
+      - text: Download Syllabus
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
@@ -356,3 +356,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-q5ko74

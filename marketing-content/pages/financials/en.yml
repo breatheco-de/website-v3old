@@ -22,7 +22,7 @@ sections:
       prefix: Finance Your
       highlight: Future
       color: chart-1
-    description: We offer affordable payment plans, financing options, and scholarships so you can focus on launching your tech career without worrying about finances.
+    description: Structured payment plans, competitive financing, and scholarships that give you immediate access to career-focused training and accelerate your path into tech with financial clarity.
     bullets:
       - text: Structured monthly payment plans
       - text: Competitive financing options
@@ -47,7 +47,7 @@ sections:
         - name: SwitchUp
           logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     paddingY:
-      desktop: none
+      desktop: none md
     marginY:
       desktop: none
   - type: features_grid
@@ -101,17 +101,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: syllabus
     title: Fund Your Tech Career
     subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
@@ -145,6 +134,39 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
+  - type: syllabus
+    title: Fund Your Tech Career
+    subtitle: Explore flexible financing options, from upfront discounted payments to income-based plans, and choose the alternative that works best for you.
+    modules:
+      - title: Pay Upfront and Save 10%
+        description: Pay your full tuition before the program begins and receive a 10% discount.
+      - title: Interest-Free Installments over 6 Months
+        description: Split your tuition into 6 interest-free monthly payments. Pay the standard tuition cost in structured monthly installments.
+      - title: Income-Based Payments
+        description: Income Share Agreement (ISA) payment plans are not available in all countries, and certain conditions apply. Contact us to learn more.
+      - title: Loans and Extended Payment Plans
+        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly payments starting at 170 USD. Final approval and terms depend on the financial institution.
+      - title: Scholarships
+        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts may vary.
+    expand_label: More information
+    collapse_label: Hide information
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: comparison_table
     version: "1.0"
     title: Your Financing Options at a Glance
@@ -583,7 +605,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true

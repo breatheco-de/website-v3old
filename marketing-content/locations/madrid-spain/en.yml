@@ -54,15 +54,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Launch an AI-Ready Tech career in Madrid
+    title: Launch an AI-Ready Tech Career in Madrid
     subtitle: Train for in-demand tech roles in Europe's
     badge: Madrid Campus
     cta_buttons:
       - text: Apply Now
-        url: /apply?location=madrid-spain
+        url: /en/apply?location=madrid-spain
         variant: primary
       - text: Download Syllabus
-        url: /syllabus
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
@@ -113,7 +113,7 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: At the heart of Spain's Tech Revolution
+    title: At the Heart of Spain's Tech Revolution
     description: Madrid has surpassed Barcelona to become Spain's
     background: gradient
     marginY:
@@ -126,7 +126,7 @@ sections:
     left:
       video: https://youtu.be/4n-ZAUPIxJI
     right:
-      heading: Why Spain's tech boom creates opportunity for new developers
+      heading: Why Spain's Tech Boom Unlocks for Local Talent
       sub_heading: Madrid leads Spain's digital transformation with 47% of all tech jobs and a rapidly growing startup ecosystem
       description: Spain's tech sector grew 5.8% in 2024, generating over 120 billion euros in turnover. Madrid attracts 85% of all foreign tech investment in the country and ranks
       button:
@@ -213,16 +213,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Everything you need to succeed in an AI-Driven industry
+    title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
-      - heading: 1:1 Mentorship, unlimited and for life
+      - heading: 1:1 Mentorship, Unlimited and for Life
         text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
-      - heading: AI-Powered learning support
+      - heading: AI-Powered Learning Support
         text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
-      - heading: Career Support, unlimited and for life
+      - heading: Career Support, Unlimited and for Life
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
-      - heading: An active global tech community
+      - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
@@ -230,7 +230,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
-    title: Proven paths to tech careers
+    title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
   - type: split_cards
@@ -246,13 +246,25 @@ sections:
         - text: {{ global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
         - text: {{ global_salary_increase | 55 }}% average salary increase in tech roles
-    marginY:
-      desktop: none xl
     background: hsl(var(--secondary))
     section_id: split_cards-cuf0db
+    marginY:
+      desktop: none xl
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - tampa-usa
+      - orlando-usa
+      - toronto-canada
   - type: why_learn_ai
     variant: laptop-edge
-    title: Why Madrid is the place to launch your tech career
+    title: Why Madrid Is a Smart Place to Launch Your Tech Career
     subtitle: Europe's
     description: "Madrid has emerged as Spain's undisputed tech capital, surpassing Barcelona for the first time in total tech companies, startups, and scaleups. With over 2,100 tech startups and an ecosystem valued at 44 billion euros, the city offers unmatched opportunity for developers entering the market.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid holds 47% of all tech jobs in Spain, with 25,000+ developer positions currently unfilled nationwide&nbsp;&nbsp;</span></li><li>Ranked #1 globally as an emerging startup ecosystem by Startup Genome, and #3 in Europe for engineering talent density&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, cybersecurity, travel tech, and enterprise software sectors&nbsp;&nbsp;</li></ul></div><div>Located in the heart of the city, our Madrid campus connects you with local employers, hiring partners, and tech events through South Summit, Google Campus Madrid, and a thriving network of accelerators and VCs.</div></div>"
   - type: mentorship
@@ -277,7 +289,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: What our students say
+    title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
       average: "4.9"
@@ -320,16 +332,11 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - certification
       - scholarships
       - content-and-syllabus
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md lg
-    background: hsl(var(--muted))
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:
@@ -451,6 +458,11 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md lg
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
@@ -529,3 +541,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-jsu3n2

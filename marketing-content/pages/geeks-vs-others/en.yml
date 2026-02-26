@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: 4Geeks Academy vs other programs
+    title: 4Geeks Academy vs Other Programs
     subtitle: See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship and lifetime career support, everything we do is designed to help you launch a thriving career.
     badge: Why 4Geeks stands out
     image:
@@ -30,7 +30,7 @@ sections:
       desktop: none md
   - type: comparison_table
     version: "1.0"
-    title: Launching successful tech careers in the AI era
+    title: Launching Successful Tech Careers in the AI Era
     subtitle: "We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:"
     columns:
       - name: Feature
@@ -81,21 +81,21 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Hyperpersonalized learning & support that lasts a lifetime
+    title: Hyperpersonalized Learning & Support that Lasts a Lifetime
     description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
     bullets:
-      - heading: Unlimited 1:1 mentorship
+      - heading: Unlimited 1:1 Mentorship
         text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
-      - heading: AI-Powered learning & feedback
+      - heading: AI-Powered Learning & Feedback
         text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
-      - heading: Lifelong career support
+      - heading: Lifelong Career Support
         text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
     footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: features_grid
     version: "1.0"
     variant: stats-cards
-    title: Graduate success by the numbers
+    title: Graduate Success by the Numbers
     subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
     use_card: true
     items:
@@ -108,10 +108,10 @@ sections:
     marginY:
       desktop: md
   - type: testimonials_slide
-    title: Real careers start here — just ask our students
+    title: Real Careers Start Here — Just Ask Our Students
     description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
   - type: value_proof_panel
-    title: Recognized globally for excellence
+    title: Recognized Globally for Excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
     evidence_items:
       - icon: Trophy
@@ -139,7 +139,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Making tech careers accessible
+    heading: Making Tech Careers Accessible
     description: Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most flexible, student-friendly payment and scholarship options in the industry.
     cards:
       - icon: CurrencyDollar
@@ -160,7 +160,7 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: Your career guaranteed
+      heading: Your Career, Guaranteed
       description: "The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.&nbsp;&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 0.875rem;\"></span></span></span></a></div>"
       badge: Results-backed promise
     secondary:
@@ -169,6 +169,8 @@ sections:
         - text: Our mentorship is unlimited and personalized
         - text: Our career support never expires
     background: muted
+    marginY:
+      desktop: none xl
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -187,12 +189,10 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-    marginY:
-      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
-    title: Our alumni work at top global companies
+    title: Our Alumni Work at Top Global Companies
     subtitle: Thrive in tech with our worldwide network of hiring partners.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
@@ -222,7 +222,7 @@ sections:
     paddingY:
       desktop: none md
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - online-platform
       - certification
@@ -256,7 +256,7 @@ sections:
       desktop: md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
+    title: Ready to Get Started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
@@ -276,7 +276,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true

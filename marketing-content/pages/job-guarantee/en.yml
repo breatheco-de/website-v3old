@@ -113,7 +113,7 @@ sections:
       - name: Full Stack Development with AI
         duration: {{ fullstack_week_duration | 20 }} weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
@@ -255,7 +255,7 @@ sections:
     description: "You'll qualify for the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
+        title: {{ who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete all coursework and projects
       - icon: IconBrain
@@ -330,7 +330,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true

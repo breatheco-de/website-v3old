@@ -100,7 +100,7 @@ sections:
 
       - 🔗 Prueba el **generador de cursos con IA** en [learnpack.co](https://www.learnpack.co/)
       - 🔗 Mira Rigobot en acción en la [página de Rigobot](https://new.4geeks.com/es/rigobot)
-      - 🔗 ¿Quieres impulsar tu carrera? Aplica al [Full Stack Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) y obtén LearnPack y Rigobot desde el primer día.
+      - 🔗 ¿Quieres impulsar tu carrera? Aplica al [Full Stack Bootcamp](https://new.4geeks.com/es/programas-de-carrera/desarrollo-full-stack) y obtén LearnPack y Rigobot desde el primer día.
 
       ¿Preguntas? Escribe a **info@4geeksacademy.com** o chatea con un asesor.
     show_toc: true
@@ -119,7 +119,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplica ahora
+      submit_label: {{ call_to_action_apply | Aplica ahora }}
       tags: website-lead
       automations: hard
       fields:
@@ -133,7 +133,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
           visible: true
@@ -155,7 +155,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -170,14 +170,18 @@ sections:
         first_name:
           visible: true
           required: true
+          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: false
+          required: true
+          placeholder: Número telefónico
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
