@@ -16,24 +16,6 @@ schema:
     - organization
     - website
 sections:
-  - type: awards_row
-    title: Recognized by Leading Publications
-    background: muted
-    link_text: See all awards
-    link_url: /en/outcomes
-    badges:
-      - name: Top Coding Bootcamp
-        source: Forbes
-        year: "2024"
-      - name: Best for Spanish Speakers
-        source: Fortune
-        year: "2024"
-      - name: Top Coding Bootcamp
-        source: Newsweek
-        year: "2024"
-      - name: Best Coding Bootcamp
-        source: Course Report
-        year: "2025"
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
