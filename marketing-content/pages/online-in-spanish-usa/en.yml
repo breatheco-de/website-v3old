@@ -86,25 +86,24 @@ sections:
       variant: primary
     background: gradient
   - type: two_column
-    version: v1.0
     proportions:
       - 5
       - 7
     background: bg-muted/30
     alignment: center
-    gap: "12"
-    reverse_on_mobile: true
     left:
       image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
       image_alt: Team collaborating on a project
       justify: center
     right:
-      heading: Why Choose Us
-      description: We provide comprehensive support for your learning journey from day one to career success.
+      heading: Your Journey with 4Geeks Academy Online
+      description: Develop Your Tech Skills from Anywhere
       bullets:
-        - text: Personalized mentorship from industry experts
-        - text: Flexible learning schedule that fits your life
-        - text: Real-world projects to build your portfolio
-        - text: Career support that lasts a lifetime
+        - text: Interactive courses focusing on essential technical skills for today's digital world
+        - text: Access to experienced instructors and a collaborative learning community
+        - text: Flexibility to study from anywhere at your own pace
+        - text: Preparation for real-world challenges and job opportunities in technology
       bullet_icon: Check
       font_size: base
+    reverse_on_mobile: true
+    gap: "12"
