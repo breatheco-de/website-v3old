@@ -341,6 +341,7 @@ sections:
       desktop: md
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-48xk9u
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
