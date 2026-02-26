@@ -136,7 +136,7 @@ sections:
       desktop: none md
   - type: career_support_explain
     version: v1.0
-    heading: Consigue empleo. Con soporte de carrera para la Era de la IA
+    heading: Consigue empleo. Con soporte de carrera para la era de la IA
     description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
     background: hsl(var(--sidebar-background))
     tabs:
