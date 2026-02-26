@@ -70,11 +70,13 @@ function parseLogEntry(line: string): ParsedEntry | null {
   const match = line.match(/^(\S+)\s+\[(\S+)\]\s+(.+)$/);
   if (!match) return null;
   const [, timestamp, category, message] = match;
-  const timeOnly = timestamp.includes("T")
-    ? timestamp.split("T")[1]?.replace("Z", "").slice(0, 8) || timestamp
+  const date = new Date(timestamp);
+  const isValidDate = !isNaN(date.getTime());
+  const timeOnly = isValidDate
+    ? date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
     : timestamp;
-  const dateOnly = timestamp.includes("T")
-    ? timestamp.split("T")[0] || ""
+  const dateOnly = isValidDate
+    ? date.toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' })
     : "";
   return { raw: line, timestamp, timeOnly, dateOnly, category, message };
 }

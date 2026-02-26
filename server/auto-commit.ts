@@ -145,7 +145,8 @@ function scheduleCommit(useBackoff = false): void {
     nextSyncAt = null;
     processQueue().catch(err => {
       console.error('[AutoCommit] Error processing queue:', err);
-      lastError = err instanceof Error ? err.message : 'Unknown error';
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      lastError = `Queue processing error: ${msg}`;
       scheduleRetry();
     });
   }, delayMs);
@@ -196,7 +197,8 @@ async function processQueue(): Promise<void> {
       hadFailure = true;
     }
   } catch (error) {
-    lastError = error instanceof Error ? error.message : 'Unknown error';
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    lastError = `Queue processing error: ${msg}`;
     console.error('[AutoCommit] Queue processing error:', error);
     hadFailure = true;
     for (const [key, val] of Array.from(snapshotChanges.entries())) {
@@ -331,7 +333,10 @@ async function commitFilesViaTreeAPI(
       `https://api.github.com/repos/${config.owner}/${config.repo}/git/ref/heads/${config.branch}`,
       { headers }
     );
-    if (!refRes.ok) return { success: false, error: `Failed to get branch ref: ${refRes.status}` };
+    if (!refRes.ok) {
+      const errText = await refRes.text().catch(() => '');
+      return { success: false, error: `Failed to get branch ref: ${refRes.status} ${errText}`.trim() };
+    }
     const refData = await refRes.json();
     const headSha = refData.object?.sha;
     if (!headSha) return { success: false, error: 'No HEAD SHA found' };
@@ -340,7 +345,10 @@ async function commitFilesViaTreeAPI(
       `https://api.github.com/repos/${config.owner}/${config.repo}/git/commits/${headSha}`,
       { headers }
     );
-    if (!commitRes.ok) return { success: false, error: `Failed to get commit: ${commitRes.status}` };
+    if (!commitRes.ok) {
+      const errText = await commitRes.text().catch(() => '');
+      return { success: false, error: `Failed to get commit: ${commitRes.status} ${errText}`.trim() };
+    }
     const commitData = await commitRes.json();
     const baseTreeSha = commitData.tree?.sha;
     if (!baseTreeSha) return { success: false, error: 'No base tree SHA found' };
@@ -359,7 +367,10 @@ async function commitFilesViaTreeAPI(
           }),
         }
       );
-      if (!blobRes.ok) return { success: false, error: `Failed to create blob for ${file.path}: ${blobRes.status}` };
+      if (!blobRes.ok) {
+        const errText = await blobRes.text().catch(() => '');
+        return { success: false, error: `Failed to create blob for ${file.path}: ${blobRes.status} ${errText}`.trim() };
+      }
       const blobData = await blobRes.json();
       treeEntries.push({ path: file.path, mode: '100644', type: 'blob', sha: blobData.sha });
     }
@@ -394,7 +405,10 @@ async function commitFilesViaTreeAPI(
         }),
       }
     );
-    if (!newCommitRes.ok) return { success: false, error: `Failed to create commit: ${newCommitRes.status}` };
+    if (!newCommitRes.ok) {
+      const errText = await newCommitRes.text().catch(() => '');
+      return { success: false, error: `Failed to create commit: ${newCommitRes.status} ${errText}`.trim() };
+    }
     const newCommitData = await newCommitRes.json();
 
     const updateRes = await fetch(
@@ -412,7 +426,8 @@ async function commitFilesViaTreeAPI(
 
     return { success: true, commitSha: newCommitData.sha };
   } catch (error) {
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    return { success: false, error: `Tree API network error: ${msg}` };
   }
 }
 
@@ -460,7 +475,8 @@ async function commitSingleFileViaContentsAPI(
     const putData = await putRes.json();
     return { success: true, commitSha: putData.commit?.sha };
   } catch (error) {
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    return { success: false, error: `Contents API network error: ${msg}` };
   }
 }
 
