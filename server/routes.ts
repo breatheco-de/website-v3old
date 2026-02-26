@@ -26,6 +26,7 @@ import {
   redirectMiddleware,
   getRedirects,
   clearRedirectCache,
+  testRedirect,
 } from "./redirects";
 import {
   getSchema,
@@ -2210,6 +2211,17 @@ Important: Only include mappings where you are confident the field exists. Use d
       console.error("[Debug] Failed to reorder redirects:", err);
       res.status(500).json({ error: "Failed to reorder redirects" });
     }
+  });
+
+  app.get("/api/debug/redirects/test", (req, res) => {
+    const url = req.query.url as string;
+    if (!url) {
+      res.status(400).json({ error: "Missing 'url' query parameter" });
+      return;
+    }
+    const locale = (req.query.locale as string) || "en";
+    const result = testRedirect(url, locale);
+    res.json(result);
   });
 
   app.patch("/api/debug/redirects/priority", (req, res) => {

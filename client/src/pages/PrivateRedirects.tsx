@@ -42,6 +42,7 @@ import {
   IconTool,
   IconChevronUp,
   IconChevronDown,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { isDebugModeActive } from "@/hooks/useDebugAuth";
@@ -113,6 +114,20 @@ export default function PrivateRedirects() {
   const [isValidating, setIsValidating] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
   const [validationExpanded, setValidationExpanded] = useState(false);
+
+  const [testRedirectUrl, setTestRedirectUrl] = useState("");
+  const [testRedirectResult, setTestRedirectResult] = useState<{
+    match: boolean;
+    from?: string;
+    resolvedTo?: string;
+    status?: number;
+    priority?: string;
+    source?: string;
+    matchType?: string;
+    captureGroups?: string[];
+  } | null>(null);
+  const [isTestingRedirect, setIsTestingRedirect] = useState(false);
+  const testRedirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [newFrom, setNewFrom] = useState("");
@@ -230,6 +245,38 @@ export default function PrivateRedirects() {
       controller.abort();
     };
   }, [newFrom, originHasUrlOrDomain, isOriginRegex]);
+
+  useEffect(() => {
+    if (testRedirectTimer.current) clearTimeout(testRedirectTimer.current);
+    const trimmed = testRedirectUrl.trim();
+    if (!trimmed) {
+      setTestRedirectResult(null);
+      setIsTestingRedirect(false);
+      return;
+    }
+    setIsTestingRedirect(true);
+    const controller = new AbortController();
+    testRedirectTimer.current = setTimeout(() => {
+      fetch(`/api/debug/redirects/test?url=${encodeURIComponent(trimmed)}`, {
+        signal: controller.signal,
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          setTestRedirectResult(data);
+          setIsTestingRedirect(false);
+        })
+        .catch(() => {
+          if (!controller.signal.aborted) {
+            setTestRedirectResult(null);
+            setIsTestingRedirect(false);
+          }
+        });
+    }, 300);
+    return () => {
+      if (testRedirectTimer.current) clearTimeout(testRedirectTimer.current);
+      controller.abort();
+    };
+  }, [testRedirectUrl]);
 
   const { data: redirectsData, isLoading } = useQuery<{
     redirects: Redirect[];
@@ -650,6 +697,103 @@ export default function PrivateRedirects() {
           </div>
         </div>
       )}
+      <div className="border-b" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}>
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex flex-col gap-3">
+            <div className="flex items-start gap-2 text-xs text-muted-foreground">
+              <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
+              <span>
+                Redirects take effect immediately — no server restart needed.
+                Browsers cache 301 redirects aggressively, so test changes in an incognito window if a redirect seems stuck.
+              </span>
+            </div>
+            <div className="space-y-2">
+              <div className="relative">
+                <IconTestPipe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Test a URL — paste a path like /us/coding-bootcamp/some-article"
+                  value={testRedirectUrl}
+                  onChange={(e) => setTestRedirectUrl(e.target.value)}
+                  className="pl-9 pr-8"
+                  data-testid="input-test-redirect-url"
+                />
+                {testRedirectUrl && (
+                  <button
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    onClick={() => setTestRedirectUrl("")}
+                    data-testid="button-clear-test-url"
+                  >
+                    <IconX className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+              {isTestingRedirect && (
+                <p className="text-xs text-muted-foreground" data-testid="status-testing-redirect">Checking...</p>
+              )}
+              {!isTestingRedirect && testRedirectResult && (
+                testRedirectResult.match ? (
+                  <div className="rounded-md border p-3 space-y-2" data-testid="result-redirect-match">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge variant="secondary" className="gap-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                        <IconCircleCheck className="h-3 w-3" />
+                        Redirect found
+                      </Badge>
+                      <Badge variant="outline" className="font-mono text-xs">
+                        {testRedirectResult.status}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        {testRedirectResult.priority}
+                      </Badge>
+                      {testRedirectResult.matchType === "regex" && (
+                        <Badge variant="outline" className="text-xs font-mono">regex</Badge>
+                      )}
+                    </div>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-muted-foreground flex-shrink-0">Rule:</span>
+                        <code className="bg-muted px-2 py-0.5 rounded truncate">{testRedirectResult.from}</code>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-muted-foreground flex-shrink-0">Destination:</span>
+                        <code className="bg-muted px-2 py-0.5 rounded truncate">{testRedirectResult.resolvedTo}</code>
+                        <a
+                          href={testRedirectResult.resolvedTo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-0.5 rounded hover:bg-muted flex-shrink-0"
+                          data-testid="link-test-redirect-destination"
+                        >
+                          <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                        </a>
+                      </div>
+                      {testRedirectResult.captureGroups && testRedirectResult.captureGroups.length > 0 && (
+                        <div className="flex items-center gap-2 text-xs flex-wrap">
+                          <span className="text-muted-foreground flex-shrink-0">Groups:</span>
+                          {testRedirectResult.captureGroups.map((g, i) => (
+                            <span key={i} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-muted text-xs">
+                              <span className="font-mono font-medium">${i + 1}</span>
+                              <span className="text-muted-foreground">=</span>
+                              <span>{g}</span>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-muted-foreground flex-shrink-0">Source:</span>
+                        <span className="text-muted-foreground">{stripContentPath(testRedirectResult.source || "")}</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-md border p-3" data-testid="result-redirect-no-match">
+                    <p className="text-xs text-muted-foreground">No redirect matches this URL — it would load normally (or 404 if no page exists).</p>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
       {showValidation && validationResult && (
         <div
           className="border-b"

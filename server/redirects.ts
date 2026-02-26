@@ -319,6 +319,96 @@ export function lookupRedirect(urlPath: string): RedirectEntry | undefined {
   return undefined;
 }
 
+export interface RedirectTestResult {
+  match: boolean;
+  from?: string;
+  to?: string | Record<string, string>;
+  resolvedTo?: string;
+  status?: number;
+  priority?: string;
+  source?: string;
+  matchType?: "exact" | "regex";
+  captureGroups?: string[];
+}
+
+function resolveTarget(entry: RedirectEntry, locale: string, captureGroups?: string[]): string {
+  let target = typeof entry.to === "string" ? entry.to : (entry.to[locale] || entry.to["en"] || Object.values(entry.to)[0] || "/");
+  if (captureGroups) {
+    for (let i = 0; i < captureGroups.length; i++) {
+      target = target.replace(new RegExp(`\\$${i + 1}`, "g"), captureGroups[i]);
+    }
+  }
+  return target;
+}
+
+function makeResult(entry: RedirectEntry, locale: string, matchType: "exact" | "regex", priority?: string, captureGroups?: string[]): RedirectTestResult {
+  return {
+    match: true,
+    from: entry.from,
+    to: entry.to,
+    resolvedTo: resolveTarget(entry, locale, captureGroups),
+    status: entry.status || 301,
+    priority: priority || entry.priority || "before",
+    source: entry.source,
+    matchType,
+    captureGroups,
+  };
+}
+
+export function testRedirect(rawInput: string, locale: string = "en"): RedirectTestResult {
+  let urlPath = rawInput;
+  try {
+    if (/^https?:\/\//i.test(urlPath)) {
+      urlPath = new URL(urlPath).pathname;
+    }
+  } catch {}
+  urlPath = urlPath.split("?")[0].split("#")[0];
+  if (!urlPath.startsWith("/")) urlPath = "/" + urlPath;
+
+  const map = getRedirectMap();
+  const normalized = normalizePath(urlPath);
+
+  const exact = map.get(normalized);
+  if (exact) return makeResult(exact, locale, "exact");
+
+  if (regexRedirectsBefore) {
+    for (const { regex, entry } of regexRedirectsBefore) {
+      const m = urlPath.match(regex);
+      if (m) return makeResult(entry, locale, "regex", undefined, m.slice(1));
+    }
+  }
+
+  if (fallbackNonCustomMap) {
+    const fbNc = fallbackNonCustomMap.get(normalized);
+    if (fbNc) return makeResult(fbNc, locale, "exact", "fallback");
+  }
+
+  if (regexRedirectsFallbackNonCustom) {
+    for (const { regex, entry } of regexRedirectsFallbackNonCustom) {
+      const m = urlPath.match(regex);
+      if (m) return makeResult(entry, locale, "regex", "fallback", m.slice(1));
+    }
+  }
+
+  const isKnown = contentIndex.isKnownUrl(urlPath);
+
+  if (!isKnown) {
+    if (fallbackMap) {
+      const fb = fallbackMap.get(normalized);
+      if (fb) return makeResult(fb, locale, "exact", "fallback");
+    }
+
+    if (regexRedirectsFallback) {
+      for (const { regex, entry } of regexRedirectsFallback) {
+        const m = urlPath.match(regex);
+        if (m) return makeResult(entry, locale, "regex", "fallback", m.slice(1));
+      }
+    }
+  }
+
+  return { match: false };
+}
+
 export function clearRedirectCache(): void {
   redirectMap = null;
   regexRedirectsBefore = null;
