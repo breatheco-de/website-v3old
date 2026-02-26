@@ -51,14 +51,14 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Lanza una Carrera Tech Lista para IA en Ciudad de México
-    subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Ciudad de México. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
-    badge: Campus Ciudad de México
+    title: Lanza tu carrera tech preparada para la era de la IA en Santiago
+    subtitle: Capacítate para los roles tech más demandados —incluida Ingeniería en IA— dentro del dinámico hub tecnológico de Santiago. Clases en vivo, proyectos prácticos y acompañamiento profesional enfocado en tu empleabilidad real.
+    badge: Campus Santiago
     cta_buttons:
-      - text: Aplicar Ahora
+      - text: {{ call_to_action_apply | Aplicar Ahora }}
         url: /es/apply
         variant: primary
-      - text: Descargar Programa
+      - text: Solicitar Programa
         url: "#cta_banner-14"
         variant: outline
     marginY:
