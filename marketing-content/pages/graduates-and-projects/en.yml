@@ -90,7 +90,7 @@ sections:
             alt: Raspberry Sky - Satellite access for everyone
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Inventory tracking"
+      - project_title: "IMS: Inventory Tracking"
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS is a Pharmacy Inventory and logistics tracking system built using Python, Javascript, React, and integration with Barcode Readers, SMS, the Twillio API, and GPS Tracking Systems. IMS holds stock quantities of all products stored and sold by the Drug Store and then tracks the vehicles that deliver those sells.
         creators:
