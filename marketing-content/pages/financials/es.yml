@@ -301,7 +301,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Inversión del Programa
+    heading: Inversión del programa
     subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
