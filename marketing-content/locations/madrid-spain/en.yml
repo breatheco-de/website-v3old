@@ -62,7 +62,7 @@ sections:
         url: /en/apply?location=madrid-spain
         variant: primary
       - text: Download Syllabus
-        url: /syllabus
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
