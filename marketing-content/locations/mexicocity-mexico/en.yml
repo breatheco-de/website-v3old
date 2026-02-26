@@ -16,10 +16,10 @@ sections:
     badge: Mexico City Campus
     cta_buttons:
       - text: Apply Now
-        url: "#bottom"
+        url: /en/apply
         variant: primary
       - text: Download Syllabus
-        url: "#syllabus-modal"
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
