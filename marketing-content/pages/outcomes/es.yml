@@ -99,7 +99,7 @@ sections:
   - type: vertical_bars_cards
     version: "1.0"
     title: Resultados de contratación año tras año
-    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en outcomes verificados de cohortes recientes.
+    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en datos verificados de cohortes recientes.
     metrics:
       - title: Tasa de colocación laboral
         unit: Graduados contratados en 6 meses
