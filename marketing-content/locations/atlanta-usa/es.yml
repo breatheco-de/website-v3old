@@ -15,11 +15,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en uno de los hubs tech de más rápido crecimiento del sureste. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Atlanta
     cta_buttons:
-      - text: Aplicar ahora
+      - text: Aplicar Ahora
         url: /es/apply
         variant: primary
-      - text: Ver el programa
-        url: "#bottom"
+      - text: Descargar Programa
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -384,7 +384,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
@@ -399,19 +399,14 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: true
-          placeholder: Número telefónico
+          required: false
         program:
-          visible: true
-          required: true
-          default: auto
-          placeholder: Selecciona un programa
+          visible: false
+          default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-u8x09l

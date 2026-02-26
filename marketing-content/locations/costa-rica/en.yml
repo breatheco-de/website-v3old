@@ -57,10 +57,10 @@ sections:
     badge: Costa Rica Campus
     cta_buttons:
       - text: Apply Now
-        url: /en/apply
+        url: "#bottom"
         variant: primary
       - text: Download Syllabus
-        url: "#bottom"
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -411,4 +411,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-nrx4rn

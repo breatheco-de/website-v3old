@@ -1,14 +1,3 @@
-2026-02-25T22:45:32.861Z [RESTART] Server started (instance=4298, checkpoint=b40ea89d, env=development, pid=277)
-2026-02-25T22:45:33.867Z [RECONCILE] Local e5b975e ≠ remote b40ea89, checking file hashes...
-2026-02-25T22:45:37.644Z [RECONCILE] All 27 files match remote, updated to b40ea89
-2026-02-25T22:45:38.132Z [WEBHOOK] Created webhook #597997543 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
-2026-02-25T22:45:39.379Z [WEBHOOK] Received ping event — webhook is active
-2026-02-25T22:45:52.636Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T22:45:52.665Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T22:45:52.694Z [WEBHOOK] Rejected: invalid HMAC signature
-2026-02-25T22:45:52.723Z [WEBHOOK] Push cdbee64 by alesanchezr: 1 marketing-content files changed
-2026-02-25T22:45:53.151Z [AUTO-PULL] Webhook: pulled 1 files from cdbee64: locations/santiago-chile/en.yml
-2026-02-25T22:46:31.889Z [RESTART] Server started (instance=8985, checkpoint=0b2dafcd, env=development, pid=624)
 2026-02-25T22:46:32.591Z [RECONCILE] Already in sync at cdbee64
 2026-02-25T22:46:33.379Z [WEBHOOK] Created webhook #597997640 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
 2026-02-25T22:46:35.406Z [WEBHOOK] Received ping event — webhook is active
@@ -431,3 +420,81 @@
 2026-02-26T15:56:09.972Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
 2026-02-26T15:56:27.182Z [WEBHOOK] Push eb03de6 by alesanchezr: 3 marketing-content files changed
 2026-02-26T15:56:28.215Z [AUTO-PULL] Webhook: pulled 3 files from eb03de6: pages/coding-bootcamp/_common.yml, pages/coding-bootcamp/en.yml, pages/coding-bootcamp/es.yml
+2026-02-26T15:56:36.763Z [RESTART] Server started (instance=abdd, checkpoint=1702a2ed, env=development, pid=631)
+2026-02-26T15:56:37.161Z [RECONCILE] Already in sync at eb03de6
+2026-02-26T15:56:37.789Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T15:58:26.343Z [WEBHOOK] Push 5fdb8cf by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:58:26.852Z [AUTO-PULL] Webhook: pulled 1 files from 5fdb8cf: pages/coding-bootcamp/en.yml
+2026-02-26T15:59:37.455Z [WEBHOOK] Push 956d9fd by alesanchezr: 1 marketing-content files changed
+2026-02-26T15:59:37.966Z [AUTO-PULL] Webhook: pulled 1 files from 956d9fd: pages/coding-bootcamp/en.yml
+2026-02-26T16:00:06.653Z [WEBHOOK] Push 23ef363 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:00:07.201Z [AUTO-PULL] Webhook: pulled 1 files from 23ef363: pages/coding-bootcamp/en.yml
+2026-02-26T16:00:19.748Z [WEBHOOK] Push 31c4f48 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:00:20.252Z [AUTO-PULL] Webhook: pulled 1 files from 31c4f48: pages/coding-bootcamp/en.yml
+2026-02-26T16:00:29.914Z [WEBHOOK] Push 149158e by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:00:30.412Z [AUTO-PULL] Webhook: pulled 1 files from 149158e: pages/coding-bootcamp/en.yml
+2026-02-26T16:00:44.044Z [WEBHOOK] Push caf2c80 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:00:44.528Z [AUTO-PULL] Webhook: pulled 1 files from caf2c80: pages/coding-bootcamp/en.yml
+2026-02-26T16:00:51.558Z [WEBHOOK] Push 6d7e86b by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:00:52.053Z [AUTO-PULL] Webhook: pulled 1 files from 6d7e86b: landings/test-example-check/promoted.yml
+2026-02-26T16:00:56.424Z [WEBHOOK] Push 9262845 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:00:56.872Z [AUTO-PULL] Webhook: pulled 1 files from 9262845: variables.yml
+2026-02-26T16:01:35.907Z [WEBHOOK] Push 4afe8ff by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:01:36.435Z [AUTO-PULL] Webhook: pulled 1 files from 4afe8ff: section-bindings.json
+2026-02-26T16:02:29.204Z [WEBHOOK] Push a05e4e7 by alesanchezr: 11 marketing-content files changed
+2026-02-26T16:02:31.167Z [WEBHOOK] Push ed6a240 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:02:31.635Z [AUTO-PULL] Webhook: pulled 1 files from ed6a240: pages/coding-bootcamp/en.yml
+2026-02-26T16:02:32.956Z [AUTO-PULL] Webhook: pulled 11 files from a05e4e7: locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/costa-rica/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/mexicocity-mexico/en.yml, locations/montevideo-uruguay/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml, locations/santiago-chile/en.yml
+2026-02-26T16:02:39.730Z [WEBHOOK] Push 647be0b by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:02:40.202Z [AUTO-PULL] Webhook: pulled 1 files from 647be0b: pages/coding-bootcamp/en.yml
+2026-02-26T16:02:54.636Z [WEBHOOK] Push f4627fe by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:02:55.114Z [AUTO-PULL] Webhook: pulled 1 files from f4627fe: pages/coding-bootcamp/en.yml
+2026-02-26T16:03:04.550Z [WEBHOOK] Push 8bfd9d3 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:03:05.085Z [AUTO-PULL] Webhook: pulled 1 files from 8bfd9d3: pages/coding-bootcamp/en.yml
+2026-02-26T16:03:22.337Z [WEBHOOK] Push 9c09ce2 by alesanchezr: 11 marketing-content files changed
+2026-02-26T16:03:25.699Z [AUTO-PULL] Webhook: pulled 11 files from 9c09ce2: locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/costa-rica/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/mexicocity-mexico/en.yml, locations/montevideo-uruguay/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml, locations/santiago-chile/en.yml
+2026-02-26T16:04:15.029Z [WEBHOOK] Push 9db6f1b by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:04:15.616Z [AUTO-PULL] Webhook: pulled 1 files from 9db6f1b: pages/coding-bootcamp/es.yml
+2026-02-26T16:05:07.943Z [WEBHOOK] Push 362e285 by alesanchezr: 11 marketing-content files changed
+2026-02-26T16:05:11.669Z [AUTO-PULL] Webhook: pulled 11 files from 362e285: locations/atlanta-usa/es.yml, locations/austin-usa/es.yml, locations/chicago-usa/es.yml, locations/dallas-usa/es.yml, locations/houston-usa/es.yml, locations/losangeles-usa/es.yml, locations/miami-usa/es.yml, locations/newyork-usa/es.yml, locations/orlando-usa/es.yml, locations/tampa-usa/es.yml, locations/toronto-canada/es.yml
+2026-02-26T16:05:19.464Z [WEBHOOK] Push 0a20d9a by alesanchezr: 11 marketing-content files changed
+2026-02-26T16:05:22.808Z [AUTO-PULL] Webhook: pulled 11 files from 0a20d9a: locations/atlanta-usa/es.yml, locations/austin-usa/es.yml, locations/chicago-usa/es.yml, locations/dallas-usa/es.yml, locations/houston-usa/es.yml, locations/losangeles-usa/es.yml, locations/miami-usa/es.yml, locations/newyork-usa/es.yml, locations/orlando-usa/es.yml, locations/tampa-usa/es.yml, locations/toronto-canada/es.yml
+2026-02-26T16:05:27.231Z [WEBHOOK] Push d595b41 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:05:27.734Z [AUTO-PULL] Webhook: pulled 1 files from d595b41: pages/coding-bootcamp/es.yml
+2026-02-26T16:05:55.571Z [WEBHOOK] Push 82afb8d by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:05:56.030Z [AUTO-PULL] Webhook: pulled 1 files from 82afb8d: pages/coding-bootcamp/es.yml
+2026-02-26T16:06:03.530Z [WEBHOOK] Push fac8733 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:06:03.994Z [AUTO-PULL] Webhook: pulled 1 files from fac8733: pages/coding-bootcamp/es.yml
+2026-02-26T16:06:12.683Z [WEBHOOK] Push ba85624 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:06:13.103Z [AUTO-PULL] Webhook: pulled 1 files from ba85624: pages/coding-bootcamp/es.yml
+2026-02-26T16:06:20.780Z [WEBHOOK] Push 5aa190d by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:06:21.305Z [AUTO-PULL] Webhook: pulled 1 files from 5aa190d: pages/coding-bootcamp/es.yml
+2026-02-26T16:08:19.227Z [WEBHOOK] Push 2f9e427 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:08:19.710Z [AUTO-PULL] Webhook: pulled 1 files from 2f9e427: pages/coding-bootcamp/es.yml
+2026-02-26T16:08:32.132Z [WEBHOOK] Push 5715aca by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:08:32.666Z [AUTO-PULL] Webhook: pulled 1 files from 5715aca: pages/coding-bootcamp/es.yml
+2026-02-26T16:08:39.401Z [WEBHOOK] Push 21d9469 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:08:39.891Z [AUTO-PULL] Webhook: pulled 1 files from 21d9469: pages/coding-bootcamp/es.yml
+2026-02-26T16:09:50.160Z [WEBHOOK] Push 810965d by alesanchezr: 11 marketing-content files changed
+2026-02-26T16:09:53.438Z [AUTO-PULL] Webhook: pulled 11 files from 810965d: locations/bogota-colombia/es.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/es.yml, locations/costa-rica/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/mexicocity-mexico/es.yml, locations/montevideo-uruguay/es.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/es.yml, locations/santiago-chile/es.yml
+2026-02-26T16:10:02.070Z [WEBHOOK] Push ade4776 by alesanchezr: 11 marketing-content files changed
+2026-02-26T16:10:05.506Z [AUTO-PULL] Webhook: pulled 11 files from ade4776: locations/bogota-colombia/es.yml, locations/buenosaires-argentina/es.yml, locations/caracas-venezuela/es.yml, locations/costa-rica/es.yml, locations/lapaz-bolivia/es.yml, locations/lima-peru/es.yml, locations/mexicocity-mexico/es.yml, locations/montevideo-uruguay/es.yml, locations/panamacity-panama/es.yml, locations/quito-ecuador/es.yml, locations/santiago-chile/es.yml
+2026-02-26T16:10:24.198Z [WEBHOOK] Push 6daa911 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:10:24.682Z [AUTO-PULL] Webhook: pulled 1 files from 6daa911: landings/ai-engineering-spain/promoted.yml
+2026-02-26T16:10:31.124Z [WEBHOOK] Push 7535d10 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:10:31.616Z [AUTO-PULL] Webhook: pulled 1 files from 7535d10: locations/atlanta-usa/en.yml
+2026-02-26T16:10:37.153Z [WEBHOOK] Push d60ffb7 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:10:37.614Z [AUTO-PULL] Webhook: pulled 1 files from d60ffb7: locations/austin-usa/en.yml
+2026-02-26T16:17:52.485Z [RESTART] Server started (instance=4dfa, checkpoint=1702a2ed, env=development, pid=1256)
+2026-02-26T16:17:55.884Z [RECONCILE] Already in sync at d60ffb7
+2026-02-26T16:17:57.657Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T16:21:56.331Z [WEBHOOK] Push 60e4fd2 by alesanchezr: 1 marketing-content files changed
+2026-02-26T16:21:56.798Z [AUTO-PULL] Webhook: pulled 1 files from 60e4fd2: pages/home/es.yml
+2026-02-26T16:33:08.588Z [RESTART] Server started (instance=26fc, checkpoint=1702a2ed, env=development, pid=179)
+2026-02-26T16:33:13.799Z [WEBHOOK] Created webhook #598115198 at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T16:33:14.587Z [WEBHOOK] Received ping event — webhook is active
+2026-02-26T16:33:57.074Z [RESTART] Server started (instance=e186, checkpoint=1702a2ed, env=development, pid=108)
+2026-02-26T16:33:58.559Z [WEBHOOK] Verified: webhook #598115198 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T16:37:03.447Z [RESTART] Server started (instance=6177, checkpoint=1702a2ed, env=development, pid=274)
+2026-02-26T16:37:03.822Z [RECONCILE] Already in sync at 60e4fd2
+2026-02-26T16:37:04.415Z [WEBHOOK] Verified: webhook #598115198 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook

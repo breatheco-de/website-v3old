@@ -54,11 +54,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la sede de gobierno de Bolivia y su hub tech en crecimiento. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus La Paz
     cta_buttons:
-      - text: {{ call_to_action_apply | Aplicar Ahora }}
-        url: /es/apply
+      - text: Aplicar Ahora
+        url: "#bottom"
         variant: primary
-      - text: Solicitar Programa
-        url: "#cta_banner-14"
+      - text: Descargar Programa
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -383,7 +383,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
@@ -398,19 +398,14 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: true
-          placeholder: Número telefónico
+          required: false
         program:
-          visible: true
-          required: true
-          default: auto
-          placeholder: Selecciona un programa
+          visible: false
+          default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-7ln7qs

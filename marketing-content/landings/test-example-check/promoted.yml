@@ -14,12 +14,10 @@ schema:
     - website
 sections:
   - type: ai_learning
-    version: "1.0"
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
+    title: Why Learn with 4Geeks? test
     description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
     features:
       - icon: Robot
         title: Learn with AI
@@ -30,6 +28,7 @@ sections:
       - icon: Users
         title: Learn with the community
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
   - type: dynamic_table
     version: "1.0"
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50

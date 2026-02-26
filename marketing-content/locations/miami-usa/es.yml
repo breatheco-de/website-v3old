@@ -64,7 +64,7 @@ sections:
         url: /es/apply
         variant: primary
       - text: Ver el programa
-        url: "#bottom"
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -210,11 +210,11 @@ sections:
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
-    background: hsl(var(--muted))
-    marginY:
-      desktop: lg
     paddingY:
       desktop: md lg
+    marginY:
+      desktop: lg
+    background: hsl(var(--muted))
     section_id: course_selector-nyglwg
   - type: two_column_accordion_card
     variant: image_background
@@ -437,7 +437,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
@@ -452,19 +452,14 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
           required: true
-          placeholder: Número telefónico
         program:
           visible: true
           required: true
-          default: auto
-          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-2nwdl9
