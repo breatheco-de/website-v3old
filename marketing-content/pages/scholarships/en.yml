@@ -530,7 +530,7 @@ sections:
       - job-guarantee
       - online-platform
     paddingY:
-      desktop: md
+      desktop: md none
     showOnLocations:
       - atlanta-usa
       - austin-usa
