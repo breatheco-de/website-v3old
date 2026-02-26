@@ -587,7 +587,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: false
