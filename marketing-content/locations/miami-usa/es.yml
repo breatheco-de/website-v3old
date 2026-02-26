@@ -64,7 +64,7 @@ sections:
         url: /es/apply
         variant: primary
       - text: Ver el programa
-        url: "#bottom"
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -467,4 +467,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-2nwdl9
+    section_id: sticky_cta-g9otk2

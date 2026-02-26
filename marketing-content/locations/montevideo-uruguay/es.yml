@@ -54,11 +54,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la capital de Uruguay y su hub tech. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Montevideo
     cta_buttons:
-      - text: {{ call_to_action_apply | Aplicar Ahora }}
-        url: /es/apply
+      - text: Aplicar Ahora
+        url: "#bottom"
         variant: primary
-      - text: Solicitar Programa
-        url: "#cta_banner-14"
+      - text: Descargar Programa
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
@@ -413,4 +413,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-ml89p4
+    section_id: sticky_cta-uv3jvo

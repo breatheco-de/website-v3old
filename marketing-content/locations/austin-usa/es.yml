@@ -15,11 +15,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la ciudad más innovadora de Texas. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Austin
     cta_buttons:
-      - text: Aplicar ahora
+      - text: Aplicar Ahora
         url: /es/apply
         variant: primary
-      - text: Ver el programa
-        url: "#bottom"
+      - text: Descargar Programa
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -414,4 +414,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-gbf0ze
+    section_id: sticky_cta-8o1zz6

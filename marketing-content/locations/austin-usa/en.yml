@@ -363,10 +363,11 @@ sections:
           required: false
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: true
           required: true
+          default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-4b60wn
+    section_id: sticky_cta-bve83p

@@ -238,9 +238,9 @@ sections:
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: 84% tasa de contratación entre graduados
+        - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: 55% aumento salarial promedio en roles tech
+        - text: {{ global_salary_increase | 55 }}% aumento salarial promedio en roles tech
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
@@ -289,7 +289,7 @@ sections:
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
       average: "4.9"
-      count: 2,847
+      count: {{ global_review_count | 2,847 }}+
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -478,4 +478,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-mhzomk
+    section_id: sticky_cta-b7n2hw

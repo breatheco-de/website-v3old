@@ -15,11 +15,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en uno de los hubs tech de más rápido crecimiento del sureste. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Atlanta
     cta_buttons:
-      - text: Aplicar ahora
+      - text: Aplicar Ahora
         url: /es/apply
         variant: primary
-      - text: Ver el programa
-        url: "#bottom"
+      - text: Descargar Programa
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -414,4 +414,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-u8x09l
+    section_id: sticky_cta-dppas5

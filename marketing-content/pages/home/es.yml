@@ -17,8 +17,8 @@ schema:
 sections:
   - type: hero
     variant: showcase
-    title: Carreras Tech de Nueva Generación. Impulsadas por IA.
-    subtitle: Programas enfocados en carreras de Ingeniería de IA, Desarrollo de Software, Ciencia de Datos y Ciberseguridad. Diseñados para impulsar carreras de alto crecimiento en la tecnología actual.
+    title: Aquí se construyen las carreras del futuro en IA
+    subtitle: La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
     trust_bar:
       rating: {{ global_review_rating | 4.9 }}/5
       rating_count: 3,000+
@@ -54,22 +54,20 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistentemente listado entre los 5 mejores bootcamps por Forbes
-        link: https://www.coursereport.com
-        linkText: Leer reseñas
+        link: /es/premios
+        linkText: Ver más
       - id: clark-university
         alt: Logo de Clark University
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certificado por universidades reconocidas
-        link: https://www.switchup.org
-        linkText: Ver rankings
       - id: careerkarma-detailed
         alt: Insignias de premios
         logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Elegido mejor bootcamp en 2024 y 2025 por SwitchUp, Course Report y Career Karma.
-        link: https://careerkarma.com
-        linkText: Saber más
+        link: /es/premios
+        linkText: Ver más
     marginY:
       desktop: none md
   - type: image_row
@@ -83,7 +81,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduada celebrando su éxito
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>"
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las carreras en tecnología no nacen de fórmulas estándar.</span></span>"
       text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>"
       background: primary
       width: 2
@@ -137,10 +135,10 @@ sections:
   - type: career_support_explain
     version: v1.0
     heading: Consigue Empleo. Con Soporte de Carrera para la Era de la IA
-    description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
+    description: Nuestro programa de apoyo profesional está diseñado para ayudarte a conseguir tu primer empleo en tecnología
     background: hsl(var(--sidebar-background))
     tabs:
-      - tab_label: Listo para Trabajar, Más Rápido
+      - tab_label: Listo para trabajar, más rápido
         layout: three_columns
         col1_subtitle: Construye un perfil atractivo para reclutadores.
         col1_description: |-
@@ -156,10 +154,10 @@ sections:
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
-        col2_heading: Estrategia de Carrera, Construida para Ti
+        col2_heading: Estrategia profesional, construida para ti
         col2_bullets:
           - icon: IconRobot
-            text: Retroalimentación 24/7 de RigoBot para auditar tu LinkedIn y currículum
+            text: Feedback 24/7 de Rigobot para auditar tu LinkedIn y currículum
           - icon: IconUsers
             text: Sesiones de coaching y estrategia de carrera 1:1
           - icon: IconMicrophone
@@ -167,7 +165,7 @@ sections:
         col3_image_id: 4geeks_member
         col3_object_fit: cover
         col3_object_position: center
-      - tab_label: Acceso a Contratación Real
+      - tab_label: Acceso real a empleo
         layout: two_column_cards
         title: Accede al mercado laboral oculto.
         left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
@@ -197,11 +195,11 @@ sections:
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
-      - tab_label: Pruebas que Convierten
+      - tab_label: Proyectos que convierten
         layout: text_and_image
         title: Proyectos que demuestran habilidad real.
         left_description: |-
-          La visibilidad atrae atención. Las pruebas cierran la brecha.
+          La visibilidad atrae atención. Tu portafolio cierra la brecha.
           Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
         left_bullets:
           - icon: IconBriefcase
@@ -213,7 +211,7 @@ sections:
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
         right_image_object_position: center
-      - tab_label: El Rol Ideal para Ti
+      - tab_label: El Rol ideal para ti
         layout: text_with_testimonials_carousel
         title: Convierte tu trayectoria en una ventaja.
         left_description: |-
@@ -235,7 +233,7 @@ sections:
             contributor_logos:
               - image_id: clark_university
             description: MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de su proyecto.
-            achievement: ¡Lanzó su startup, contrata nuevo talento tech y coordina un equipo de desarrollo completo!
+            achievement: ¡Lanzó su propia startup, contrata nuevo talento tech y coordina un equipo de desarrollo completo!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top

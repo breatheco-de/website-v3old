@@ -56,10 +56,10 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el hub tech y nearshore líder de Centroamérica. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Costa Rica
     cta_buttons:
-      - text: {{ call_to_action_apply | Aplicar Ahora }}
+      - text: Aplicar Ahora
         url: /es/apply
         variant: primary
-      - text: Solicitar Programa
+      - text: Descargar Programa
         url: "#cta_banner-14"
         variant: outline
     marginY:
@@ -415,4 +415,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-333yzs
+    section_id: sticky_cta-bphej4
