@@ -139,7 +139,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Making tech careers accessible
+    heading: Making Tech Careers Accessible
     description: Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most flexible, student-friendly payment and scholarship options in the industry.
     cards:
       - icon: CurrencyDollar
