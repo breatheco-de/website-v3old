@@ -182,7 +182,7 @@ sections:
     right:
       video: https://www.youtube.com/watch?v=X0SyWfpz1Fc
       video_ratio: "16:9"
-    title: Making Tech Careers Accessible test
+    title: Making Tech Careers Accessible
     subtitle: "Tech careers change lives, and we believe finances should never hold anyone back. That's why we've built some of the most flexible, student-friendly options in the industry:"
     benefit_items:
       - icon: CurrencyDollar
