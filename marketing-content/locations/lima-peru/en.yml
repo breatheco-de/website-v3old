@@ -365,8 +365,9 @@ sections:
           visible: true
           required: false
         program:
-          visible: false
-          required: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-q3mxtf
