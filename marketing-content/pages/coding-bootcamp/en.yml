@@ -10,18 +10,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Get into tech with our Job Guarantee
-    subtitle: Your success is our mission. Get hired within 9 months of graduation, or we will refund your tuition. Conditions apply.
+    title: Join a Coding Bootcamp. Start a New Career.
+    subtitle: Learn to code at one of the most awarded coding bootcamps in the world. Online or in-person. No coding skills required. Join a glogal coding community and get unlimited coding and career support, for life.
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
-    cta_buttons:
-      - text: Apply now
-        url: "#apply"
-        variant: primary
-        icon: Rocket
-      - text: Download Details
-        url: "#syllabus"
-        variant: outline
-        icon: Download
-    background: bg-gradient-to-b from-primary/5 to-background
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
