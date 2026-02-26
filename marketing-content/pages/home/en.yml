@@ -287,7 +287,7 @@ sections:
             text: API Development
           - icon: ""
             text: ""
-        description: Build modern, production-ready web applications with AI from frontend to backend.  "
+        description: Build modern, production-ready web applications with AI from frontend to backend, using the latest AI-powered tools.
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
