@@ -434,7 +434,7 @@ sections:
       subtitle: Certificado 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 84%
+      - value: 75%
         label: Tasa de empleabilidad
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan.
         benefits:
