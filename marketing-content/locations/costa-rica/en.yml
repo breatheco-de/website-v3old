@@ -145,7 +145,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Explore Our Programs
-    subheading: Industry-aligned training designed to launch your career in tech.
+    subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
         icon: Brain
