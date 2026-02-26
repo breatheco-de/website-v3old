@@ -96,7 +96,7 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Donde el Aprendizaje con IA Se Une a la Mentoría de por Vida
+    title: Donde el aprendizaje con IA se une a la mentoría de por vida
     description: El aprendizaje potenciado por IA se combina con mentoría ilimitada 1:1 para ayudarte a desarrollar habilidades, ganar confianza y avanzar en roles tech de alto crecimiento, más rápido e inteligente.
     bullets:
       - heading: Aprendizaje Personalizado en Cada Nivel
