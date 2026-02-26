@@ -165,7 +165,7 @@ sections:
     size: md
     form:
       variant: stacked
-      submit_label: Obtener
+      submit_label: Obtener plan de estudios
       tags: request_more_info
       automations: soft
       fields:
