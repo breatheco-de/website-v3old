@@ -12,6 +12,7 @@ import {
   IconDownload,
   IconTrash,
   IconExternalLink,
+  IconClipboard,
 } from "@tabler/icons-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -177,7 +178,7 @@ export function SitemapView({
                           >
                             <a
                               href={path}
-                              className="flex-1 text-xs text-muted-foreground cursor-pointer truncate"
+                              className="flex-1 min-w-0 text-xs text-muted-foreground cursor-pointer truncate"
                               data-testid={`link-sitemap-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                             >
                               {path.slice(folder.path.length + 1)}
@@ -185,14 +186,18 @@ export function SitemapView({
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <button
-                                  className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-muted transition-opacity"
+                                  className="flex-shrink-0 p-1 rounded bg-muted hover:bg-muted-foreground/20 transition-colors"
                                   onClick={(e) => e.stopPropagation()}
                                   data-testid={`button-url-menu-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                                 >
                                   <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
                                 </button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="w-40">
+                              <DropdownMenuContent align="end" className="w-44">
+                                <DropdownMenuItem onClick={() => navigator.clipboard.writeText(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                  <IconClipboard className="h-3.5 w-3.5 mr-2" />
+                                  Copy URL
+                                </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                                   <IconCopy className="h-3.5 w-3.5 mr-2" />
                                   Duplicate
@@ -223,7 +228,7 @@ export function SitemapView({
                   >
                     <a
                       href={path}
-                      className="flex-1 text-xs text-muted-foreground cursor-pointer truncate"
+                      className="flex-1 min-w-0 text-xs text-muted-foreground cursor-pointer truncate"
                       data-testid={`link-sitemap-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                       {path}
@@ -231,14 +236,18 @@ export function SitemapView({
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <button
-                          className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-muted transition-opacity"
+                          className="flex-shrink-0 p-1 rounded bg-muted hover:bg-muted-foreground/20 transition-colors"
                           onClick={(e) => e.stopPropagation()}
                           data-testid={`button-url-menu-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                         >
                           <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
                         </button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-40">
+                      <DropdownMenuContent align="end" className="w-44">
+                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                          <IconClipboard className="h-3.5 w-3.5 mr-2" />
+                          Copy URL
+                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                           <IconCopy className="h-3.5 w-3.5 mr-2" />
                           Duplicate
