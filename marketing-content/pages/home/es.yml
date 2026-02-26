@@ -53,7 +53,7 @@ sections:
         alt: Logo del premio Forbes
         logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
-        description: Consistentemente listado entre los 5 mejores bootcamps por Forbes
+        description: Nombrado entre los 5 mejores bootcamps por Forbes
         link: /es/premios
         linkText: Ver más
       - id: clark-university
