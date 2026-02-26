@@ -239,7 +239,7 @@ sections:
             contributor_logos:
               - image_id: clark_university
             description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She launched her startup, is hiring new tech talent, and coordinates an entire dev team!
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
