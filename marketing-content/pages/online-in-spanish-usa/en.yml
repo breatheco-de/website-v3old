@@ -11,7 +11,7 @@ sections:
     version: "1.0"
     variant: singleColumn
     title: Learn to Code in Spanish
-    subtitle: "All programs are taught Online; from the USA.Learning online is hard: Lucky for you, we offer: unlimited support, amazing content and lifetime career support.  Yes, it really is available for the rest of your life."
+    subtitle: "All programs are taught Online; from the USA.Learning online is hard: Lucky for you, we offer: unlimited support, amazing content and lifetime career support.&nbsp;<div>Yes, it really is available for the rest of your life.</div>"
     badge: Career Program
     cta_buttons:
       - text: Start Learning Now
