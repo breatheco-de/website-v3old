@@ -180,7 +180,7 @@ export function SitemapView({
                               className="flex-1 text-xs text-muted-foreground cursor-pointer truncate"
                               data-testid={`link-sitemap-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                             >
-                              {path}
+                              {path.slice(folder.path.length + 1)}
                             </a>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
