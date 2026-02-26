@@ -3,6 +3,14 @@ meta:
   description: Aplica a 4Geeks Academy y comienza tu camino para convertirte en un profesional de tecnología. Completa nuestro sencillo formulario de aplicación y nuestro equipo de admisiones te guiará en los siguientes pasos.
   robots: index, follow
 sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    badge: Bootcamps that launch careers
+    title: Empowering Talent for the AI Era
+    subtitle: 4Geeks Academy is a global tech academy with 8 campuses across the U.S., Latin America, and Europe, training the next generation of tech professionals in AI-powered Full-Stack Development, Data Science & ML, and Cybersecurity.
+    image_id: academy_header_coding
+    image_full_width: false
   - type: apply_form
     version: "1.0"
     hero:
