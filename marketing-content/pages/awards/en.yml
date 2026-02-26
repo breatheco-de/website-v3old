@@ -157,7 +157,7 @@ sections:
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
   - type: cta_banner
     version: "1.0"
-    title: Take the next step toward your tech career
+    title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
