@@ -61,15 +61,13 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certificado por universidades reconocidas
-        link: https://www.switchup.org
-        linkText: Ver rankings
       - id: careerkarma-detailed
         alt: Insignias de premios
         logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Elegido mejor bootcamp en 2024 y 2025 por SwitchUp, Course Report y Career Karma.
-        link: https://careerkarma.com
-        linkText: Saber más
+        link: /es/premios
+        linkText: Ver más
     marginY:
       desktop: none md
   - type: image_row
