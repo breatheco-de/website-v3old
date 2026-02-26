@@ -297,7 +297,7 @@ sections:
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - career-support
     item_overrides:
