@@ -550,7 +550,7 @@ sections:
       - online-platform
       - outcomes
     paddingY:
-      desktop: lg md
+      desktop: lg sm
     showOnLocations:
       - berlin-germany
       - barcelona-spain
