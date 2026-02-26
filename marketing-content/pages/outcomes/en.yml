@@ -349,7 +349,7 @@ sections:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - outcomes
     marginY:
