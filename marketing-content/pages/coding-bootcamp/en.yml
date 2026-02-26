@@ -15,4 +15,6 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/Rectangle_5_1766029737050.png
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
+      desktop: none
+    paddingY:
       desktop: md none
