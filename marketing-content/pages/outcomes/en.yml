@@ -161,7 +161,7 @@ sections:
       - valencia-spain
   - type: stats
     version: "1.0"
-    title: Hiring outcomes across regions
+    title: Hiring Outcomes Across Regions
     subtitle: Our graduates get hired and increase their salaries in multiple job markets.
     background: hsl(210 100% 50% / 0.05)
     items:
