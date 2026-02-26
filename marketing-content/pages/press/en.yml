@@ -17,8 +17,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Our Story, making News
-    badge: Press & media
+    title: Our Story, Making News
+    badge: Press & Media
     trust_bar:
       rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
