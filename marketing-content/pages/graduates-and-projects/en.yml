@@ -27,7 +27,7 @@ sections:
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: View Curriculum
+      - text: Get Program Details
         url: "#apply-modal"
         variant: outline
         icon: Book
