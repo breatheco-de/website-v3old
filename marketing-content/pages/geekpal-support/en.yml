@@ -131,7 +131,7 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
-    title: Real careers start here
+    title: Real Careers Start Here
     description: See how our alumni achieved their goals
     marginY:
       desktop: none
