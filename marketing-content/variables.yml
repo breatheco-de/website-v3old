@@ -337,7 +337,7 @@ average_salary_data_analyst:
         region: "latam"
       value: "$20K – $40K"
 average_salary_ai_engineer:
-  default: "$100K–$160K"
+  default: "$95K–$150K"
   conditions:
     - query:
         region: "usa-canada"
