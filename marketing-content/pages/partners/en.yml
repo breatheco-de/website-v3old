@@ -488,7 +488,7 @@ sections:
       desktop: md none
   - type: cta_banner
     version: "1.0"
-    title: Ready to be a Partner?
+    title: Ready to become a Partner?
     subtitle: Let’s build scalable pathways to high-growth tech careers together.
     background: hsl(var(--primary))
     variant: form
