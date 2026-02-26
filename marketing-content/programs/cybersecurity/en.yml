@@ -648,4 +648,4 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
     paddingY:
-      desktop: none md
+      desktop: none
