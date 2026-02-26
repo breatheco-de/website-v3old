@@ -303,19 +303,19 @@ sections:
           - $80K to $120K
       - feature: Bootcamp Schedule
         values:
-          - Full-Time (12 weeks) or Part-Time (20 weeks).
+          - Part-Time (20 weeks).
           - Part-Time (16 weeks).
           - Part-Time (16 weeks).
       - feature: Course Delivery
         values:
-          - Online or In-Person (select cities).
+          - Online.
           - Online.
           - Online.
       - feature: Cost
         values:
-          - $10,999 (discounts and scholarships available).
-          - $10,999 (discounts and scholarships available).
-          - $9,999 (discounts and scholarships available).
+          - $2,500 (discounts and scholarships available).
+          - $3,250 (discounts and scholarships available).
+          - $2,500 (discounts and scholarships available).
       - feature: Payment Plans
         values:
           - Monthly plans, upfront discounts, loans, and income-based options.
