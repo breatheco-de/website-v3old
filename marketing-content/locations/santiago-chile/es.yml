@@ -446,6 +446,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-84re7m
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
