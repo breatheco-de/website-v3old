@@ -98,15 +98,15 @@ sections:
   - type: community_support
     version: "1.0"
     heading: Aprende acompañado por una comunidad global
-    description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
+    description: 4Geeks es más que un programa; es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
-        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos — desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
+        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos, desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
         icon: BrandSlack
         badge: 6,000+ Miembros
         accent_color: primary
       - title: 4Geeks.com
-        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás — y saben cómo ayudarte a llegar a donde quieres ir.
+        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás y saben cómo ayudarte a llegar a donde quieres ir.
         icon: Rigobot
         accent_color: primary
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
