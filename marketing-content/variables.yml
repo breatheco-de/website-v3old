@@ -90,6 +90,10 @@ call_to_action_apply:
     - query:
         region: "latam"
       value: "Aplicar Ahora"
+    - query:
+        region: "usa-canada"
+        locale: "es"
+      value: "Aplicar Ahora"
 price_full_datascience:
   default: "$10,999"
   conditions:
