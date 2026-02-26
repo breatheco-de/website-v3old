@@ -17,10 +17,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Encuentra Tu Mejor Camino en Tecnología
+    title: Encuentra tu mejor camino en tecnología
     badge: Compara nuestros programas
     trust_bar:
-      rating: 4.8/5
+      rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
       trusted_text: Con la confianza de más de 10,000 estudiantes
     award_badges:
@@ -32,83 +32,6 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Inversión del Programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 semanas
-        label: Actualizado en 2026
-        title: Ingeniería en IA
-        badges:
-          - icon: DollarSign
-            text: {{ price_full_ai_engineering | $14,999 }} matrícula completa
-          - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
-        description: Construye y escala un negocio totalmente nativo en IA mientras aprendes sistemas y flujos de trabajo de IA listos para producción.
-        price: {{ price_ai_engineering | $349 }}
-        price_info: o menos según tu plan
-        cta_text: Descubrir programa
-        cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Full Stack Development with AI
-        icon: Code
-        duration: 20 semanas
-        label: Actualizado en 2026
-        title: Desarrollo Full Stack con IA
-        badges:
-          - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} matrícula completa
-          - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
-        tags:
-          - icon: ""
-            text: ""
-        description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
-        price: {{ price_fullstack | $299 }}
-        price_info: o menos según tu plan
-        cta_text: Ver detalles del programa
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
-        badges:
-          - icon: DollarSign
-            text: {{ price_full_datascience | $14,999 }} matrícula completa
-          - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
-        description: Domina el análisis de datos impulsado por IA y construye modelos inteligentes para resolver problemas del mundo real.
-        price: {{ price_datascience | 299$ }}
-        price_info: o menos según tu plan
-        cta_text: Descubrir programa
-        cta_url: /en/career-programs/data-science-ml
-        course_background: primary
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciberseguridad
-        badges:
-          - icon: DollarSign
-            text: {{ price_full_cybersecurity | $14,999 }} matrícula completa
-          - icon: CheckCircle
-            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
-        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ price_cybersecurity | 299$ }}
-        price_info: o menos según tu plan
-        cta_text: Descubrir programa
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none lg
   - type: comparison_table
     version: "1.0"
     title: ¿Qué Camino Se Adapta Mejor a Ti?
@@ -209,3 +132,452 @@ sections:
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
     footer_note: "* Los detalles del programa están sujetos a cambios"
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: comparison_table
+    version: "1.0"
+    title: ¿Qué camino se adapta mejor a ti?
+    subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
+    columns:
+      - name: Categoría
+        highlight: true
+      - name: Desarrollo Full Stack con IA
+      - name: Ciencia de Datos y Machine Learning con IA
+      - name: Ciberseguridad
+    rows:
+      - feature: Qué Es
+        values:
+          - Aprende a crear sitios web, aplicaciones y software desde cero con herramientas de front-end, back-end e IA.
+          - Aprende a recopilar, analizar y modelar datos usando Python, machine learning e IA.
+          - Aprende a proteger sistemas, redes y datos de amenazas cibernéticas.
+      - feature: Por Qué Es Importante
+        values:
+          - Las empresas necesitan soluciones digitales escalables. Los desarrolladores Full Stack impulsan operaciones, marketing y experiencias de cliente. Con IA, automatizan procesos y crean productos más inteligentes.
+          - Las empresas dependen de los datos para tomar decisiones. Los científicos de datos transforman datos en información valiosa, mientras que el machine learning automatiza predicciones y personaliza experiencias.
+          - Todas las empresas enfrentan riesgos digitales. Los expertos en ciberseguridad protegen datos, garantizan cumplimiento y previenen ataques costosos en un mundo digital.
+      - feature: Qué Aprenderás
+        values:
+          - HTML, CSS, JavaScript, Python, React, bases de datos, APIs, flujos de trabajo en GitHub y herramientas de IA como OpenAI/GPT, Cursor, Vercel v0.
+          - Python, SQL, estadística, visualización de datos, machine learning, herramientas de IA y técnicas de modelado del mundo real.
+          - Seguridad de redes, hacking ético, evaluación de riesgos, análisis de amenazas, respuesta a incidentes y herramientas como Wireshark y Splunk.
+      - feature: Ideal Para
+        values:
+          - Personas creativas que disfrutan construir y ver resultados hechos realidad.
+          - Personas analíticas que aman los números, tendencias y resolver patrones.
+          - Personas detallistas que disfrutan los retos, las reglas y anticiparse a amenazas.
+      - feature: Trabajo Diario
+        values:
+          - Crear y probar sitios web y aplicaciones, integrar APIs, colaborar con diseñadores y lanzar funcionalidades.
+          - Limpiar y analizar datos, construir modelos, crear dashboards y entregar insights.
+          - Monitorear redes, probar defensas, responder a incidentes y desarrollar políticas de seguridad.
+      - feature: Puestos de Trabajo
+        values:
+          - Desarrollador Full Stack, Desarrollador Front-End, Desarrollador Back-End, Ingeniero de Software en IA, Desarrollador Web.
+          - Analista de Datos, Científico de Datos, Ingeniero de Machine Learning, Analista BI.
+          - Analista de Ciberseguridad, Analista SOC, Pentester, Consultor de Seguridad.
+      - feature: Salario Promedio en Europa.
+        values:
+          - 22.000€ a 40.000€
+          - 30.000€ a 60.000€
+          - 25.000€ a 45.000€
+      - feature: Modalidad del Bootcamp
+        values:
+          - Medio Tiempo (20 semanas).
+          - Medio Tiempo (18 semanas).
+          - Medio Tiempo (16 semanas).
+      - feature: Modalidad de Estudio
+        values:
+          - Online.
+          - Online.
+          - Online.
+      - feature: Costo
+        values:
+          - 6.800€ (descuentos y becas disponibles).
+          - 7.800€ (descuentos y becas disponibles).
+          - 7.800€ (descuentos y becas disponibles).
+      - feature: Planes de Pago
+        values:
+          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+      - feature: Es Ideal Para Ti Si
+        values:
+          - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
+          - Disfrutas trabajar con datos, identificar patrones y resolver problemas reales. Ideal si quieres entrar en roles de IA o basados en datos. Un fondo en matemáticas o negocios ayuda, pero no es obligatorio.
+          - Quieres una carrera preparada para el futuro protegiendo datos y sistemas. Perfecto si disfrutas la estrategia, los retos o el cumplimiento normativo, o sueñas con trabajar en seguridad informática, fuerzas del orden o defensa.
+      - feature: ¿Listo para comenzar?
+        values:
+          - cta:
+              - text: Aplicar ahora
+                url: /es/aplica
+                variant: primary
+              - text: Más información
+                url: /es/programas-de-carrera/desarrollo-full-stack
+                variant: outline
+          - cta:
+              - text: Aplicar ahora
+                url: /es/aplica
+                variant: primary
+              - text: Más información
+                url: /es/programas-de-carrera/ciencia-de-datos-ml
+                variant: outline
+          - cta:
+              - text: Aplicar ahora
+                url: /es/aplica
+                variant: primary
+              - text: Más información
+                url: /es/programas-de-carrera/ciberseguridad
+                variant: outline
+    footer_note: "* Los detalles del programa están sujetos a cambios"
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+  - type: comparison_table
+    version: "1.0"
+    title: ¿Qué Camino Se Adapta Mejor a Ti?
+    subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
+    columns:
+      - name: Categoría
+        highlight: true
+      - name: Desarrollo Full Stack con IA
+      - name: Ciencia de Datos y Machine Learning con IA
+      - name: Ciberseguridad
+    rows:
+      - feature: Qué Es
+        values:
+          - Aprende a crear sitios web, aplicaciones y software desde cero con herramientas de front-end, back-end e IA.
+          - Aprende a recopilar, analizar y modelar datos usando Python, machine learning e IA.
+          - Aprende a proteger sistemas, redes y datos de amenazas cibernéticas.
+      - feature: Por Qué Es Importante
+        values:
+          - Las empresas necesitan soluciones digitales escalables. Los desarrolladores Full Stack impulsan operaciones, marketing y experiencias de cliente. Con IA, automatizan procesos y crean productos más inteligentes.
+          - Las empresas dependen de los datos para tomar decisiones. Los científicos de datos transforman datos en información valiosa, mientras que el machine learning automatiza predicciones y personaliza experiencias.
+          - Todas las empresas enfrentan riesgos digitales. Los expertos en ciberseguridad protegen datos, garantizan cumplimiento y previenen ataques costosos en un mundo digital.
+      - feature: Qué Aprenderás
+        values:
+          - HTML, CSS, JavaScript, Python, React, bases de datos, APIs, flujos de trabajo en GitHub y herramientas de IA como OpenAI/GPT, Cursor, Vercel v0.
+          - Python, SQL, estadística, visualización de datos, machine learning, herramientas de IA y técnicas de modelado del mundo real.
+          - Seguridad de redes, hacking ético, evaluación de riesgos, análisis de amenazas, respuesta a incidentes y herramientas como Wireshark y Splunk.
+      - feature: Ideal Para
+        values:
+          - Personas creativas que disfrutan construir y ver resultados hechos realidad.
+          - Personas analíticas que aman los números, tendencias y resolver patrones.
+          - Personas detallistas que disfrutan los retos, las reglas y anticiparse a amenazas.
+      - feature: Trabajo Diario
+        values:
+          - Crear y probar sitios web y aplicaciones, integrar APIs, colaborar con diseñadores y lanzar funcionalidades.
+          - Limpiar y analizar datos, construir modelos, crear dashboards y entregar insights.
+          - Monitorear redes, probar defensas, responder a incidentes y desarrollar políticas de seguridad.
+      - feature: Puestos de Trabajo
+        values:
+          - Desarrollador Full Stack, Desarrollador Front-End, Desarrollador Back-End, Ingeniero de Software en IA, Desarrollador Web.
+          - Analista de Datos, Científico de Datos, Ingeniero de Machine Learning, Analista BI.
+          - Analista de Ciberseguridad, Analista SOC, Pentester, Consultor de Seguridad.
+      - feature: Salario Promedio en EE.UU.
+        values:
+          - $75K a $110K
+          - $85K a $130K
+          - $80K a $120K
+      - feature: Modalidad del Bootcamp
+        values:
+          - Tiempo Completo (12 semanas) o Medio Tiempo (20 semanas).
+          - Medio Tiempo (16 semanas).
+          - Medio Tiempo (16 semanas).
+      - feature: Modalidad de Estudio
+        values:
+          - Online o Presencial (ciudades seleccionadas).
+          - Online.
+          - Online.
+      - feature: Costo
+        values:
+          - $10,999 (descuentos y becas disponibles).
+          - $10,999 (descuentos y becas disponibles).
+          - $9,999 (descuentos y becas disponibles).
+      - feature: Planes de Pago
+        values:
+          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
+      - feature: Garantía de Empleo*
+        values:
+          - Preguntar por disponibilidad. Condiciones Aplican.
+          - Preguntar por disponibilidad. Condiciones Aplican.
+          - Preguntar por disponibilidad. Condiciones Aplican.
+      - feature: Es Ideal Para Ti Si
+        values:
+          - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
+          - Disfrutas trabajar con datos, identificar patrones y resolver problemas reales. Ideal si quieres entrar en roles de IA o basados en datos. Un fondo en matemáticas o negocios ayuda, pero no es obligatorio.
+          - Quieres una carrera preparada para el futuro protegiendo datos y sistemas. Perfecto si disfrutas la estrategia, los retos o el cumplimiento normativo, o sueñas con trabajar en seguridad informática, fuerzas del orden o defensa.
+      - feature: ¿Listo para comenzar?
+        values:
+          - cta:
+              - text: Aplicar ahora
+                url: /es/aplica
+                variant: primary
+              - text: Más información
+                url: /es/programas-de-carrera/desarrollo-full-stack
+                variant: outline
+          - cta:
+              - text: Aplicar ahora
+                url: /es/aplica
+                variant: primary
+              - text: Más información
+                url: /es/programas-de-carrera/ciencia-de-datos-ml
+                variant: outline
+          - cta:
+              - text: Aplicar ahora
+                url: /es/aplica
+                variant: primary
+              - text: Más información
+                url: /es/programas-de-carrera/ciberseguridad
+                variant: outline
+    footer_note: "* Los detalles del programa están sujetos a cambios"
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Inversión del Programa
+    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería en IA
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_ai_engineering | $14,999 }} matrícula completa
+          - icon: CheckCircle
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
+        description: Construye y escala un negocio totalmente nativo en IA mientras aprendes sistemas y flujos de trabajo de IA listos para producción.
+        price: {{ price_ai_engineering | $349 }}
+        price_info: o menos según tu plan
+        cta_text: Descubrir programa
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo Full Stack con IA
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_fullstack | $10,999 }} matrícula completa
+          - icon: CheckCircle
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
+        tags:
+          - icon: ""
+            text: ""
+        description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
+        price: {{ price_fullstack | $299 }}
+        price_info: o menos según tu plan
+        cta_text: Ver detalles del programa
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_datascience | $14,999 }} matrícula completa
+          - icon: CheckCircle
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
+        description: Domina el análisis de datos impulsado por IA y construye modelos inteligentes para resolver problemas del mundo real.
+        price: {{ price_datascience | 299$ }}
+        price_info: o menos según tu plan
+        cta_text: Descubrir programa
+        cta_url: /en/career-programs/data-science-ml
+        course_background: primary
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_cybersecurity | $14,999 }} matrícula completa
+          - icon: CheckCircle
+            text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
+        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
+        price: {{ price_cybersecurity | 299$ }}
+        price_info: o menos según tu plan
+        cta_text: Descubrir programa
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none lg
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - dallas-usa
+      - chicago-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Inversión del Programa
+    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en Europa.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería en Inteligencia Artificial
+        badges:
+          - icon: DollarSign
+            text: 6.250€ precio de lanzamiento
+          - icon: CheckCircle
+            text: Oferta de primavera, hasta el 1 de mayo*
+        description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
+        price: {{ price_ai_engineering | $349 }}
+        price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        cta_text: Descubrir programa
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo Full Stack con IA
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_fullstack | $10,999 }} inversión total
+          - icon: CheckCircle
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
+        tags:
+          - icon: ""
+            text: ""
+        description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
+        price: {{ price_fullstack | $299 }}
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        cta_text: Ver detalles del programa
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 18 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning con IA
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_datascience | $14,999 }} matrícula completa
+          - icon: CheckCircle
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
+        description: Domina el análisis de datos impulsado por IA y construye modelos inteligentes para resolver problemas del mundo real.
+        price: {{ price_datascience | 299$ }}
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        cta_text: Descubrir programa
+        cta_url: /en/career-programs/data-science-ml
+        course_background: primary
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_cybersecurity | $14,999 }} inversión total
+          - icon: CheckCircle
+            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
+        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
+        price: {{ price_cybersecurity | 299$ }}
+        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        cta_text: Descubrir programa
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none lg
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain

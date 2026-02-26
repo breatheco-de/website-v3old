@@ -1,0 +1,951 @@
+{
+  "groups": [
+    {
+      "id": "bind_mm2lyuum_2pb9z4",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "course_selector-0lgvpc"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "course_selector-386shs"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "course_selector-ikfusn"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "course_selector-pwsxqm"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "course_selector-kfqxlk"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "course_selector-b4343i"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "course_selector-6r40jr"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "course_selector-p4y1cf"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "course_selector-3qxv5y"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "course_selector-3pz7z8"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "course_selector-oqzfih"
+        },
+        {
+          "contentType": "page",
+          "slug": "online-in-spanish-usa",
+          "sectionId": "course_selector-pldel6"
+        }
+      ],
+      "createdAt": "2026-02-25T22:30:52.078Z",
+      "name": "course_selector_usa_en",
+      "updatedAt": "2026-02-26T17:27:32.062Z"
+    },
+    {
+      "id": "bind_mm2m03pw_qyt2zl",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "course_selector-nyglwg"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "course_selector-h57rya"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "course_selector-ussmri"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "course_selector-qdwsqc"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "course_selector-wmgtgh"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "course_selector-1y0m0c"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "course_selector-dkw34u"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "course_selector-1984dx"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "course_selector-jwu501"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "course_selector-lnhqtu"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "course_selector-k0d6p7"
+        }
+      ],
+      "createdAt": "2026-02-25T22:31:50.228Z",
+      "name": "course_selector_usa_es"
+    },
+    {
+      "id": "bind_mm2mcowd_mf638p",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "course_selector-0yz19z"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "course_selector-7lbz78"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "course_selector-ef10qt"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "course_selector-0giqsb"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "course_selector-1tv1c5"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "course_selector-x16vga"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "course_selector-5039li"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "course_selector-nc5ay9"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "course_selector-kfb41f"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "course_selector-rgbtgl"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "course_selector-2ctw91"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "course_selector-evrfhf"
+        }
+      ],
+      "createdAt": "2026-02-25T22:41:37.549Z",
+      "name": "course_selector_europe_es"
+    },
+    {
+      "id": "bind_mm2mdy6w_vvxo0t",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "course_selector-k6g4kc"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "course_selector-1vvgfp"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "course_selector-ibnftx"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "course_selector-y6y3t2"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "course_selector-wdyy1t"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "course_selector-665e66"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "course_selector-g5i9r7"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "course_selector-jpukz1"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "course_selector-kcadw5"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "course_selector-t8ms10"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "course_selector-i7pdmx"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "course_selector-5tnpy0"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "course_selector-k7l4kc"
+        }
+      ],
+      "createdAt": "2026-02-25T22:42:36.248Z",
+      "name": "course_selector_europe_en"
+    },
+    {
+      "id": "bind_mm2mj70w_l0gbw0",
+      "component": "course_selector",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "course_selector-rjvke2"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "course_selector-rmx7hh"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "course_selector-5z63ye"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "course_selector-ikj1ag"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "course_selector-dzxl68"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "course_selector-hxkbk4"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "course_selector-i0afjm"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "course_selector-sua2q0"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "course_selector-rxd42t"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "course_selector-44cd97"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "course_selector-9nlqmk"
+        }
+      ],
+      "createdAt": "2026-02-25T22:46:40.976Z",
+      "name": "course_selector_latam_en"
+    },
+    {
+      "id": "bind_mm2mkvxz_vksnes",
+      "component": "course_selector",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "course_selector-ggfjpb"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "course_selector-p03xku"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "course_selector-znx9e5"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "course_selector-93hob9"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "course_selector-hljd7k"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "course_selector-5ymyre"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "course_selector-adw9yj"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "course_selector-hcprzg"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "course_selector-odvucq"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "course_selector-70zqdy"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "course_selector-b0dudd"
+        }
+      ],
+      "createdAt": "2026-02-25T22:47:59.927Z",
+      "name": "course_selector_latam_es"
+    },
+    {
+      "id": "bind_mm2mpubu_v66jyy",
+      "component": "split_cards",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "ciudad-de-mexico",
+          "sectionId": "split_cards-cysz0z"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "split_cards-xythwj"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "split_cards-0rwztl"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "split_cards-8rkkmy"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "split_cards-n9cmaw"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "split_cards-xflj0x"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "split_cards-x3pshr"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "split_cards-cysz0z"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "split_cards-zribzd"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "split_cards-q3zj52"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "split_cards-d8t1ky"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "split_cards-jx1sgr"
+        }
+      ],
+      "createdAt": "2026-02-25T22:51:51.114Z",
+      "name": "split_cards_job_guarantee_latam_es"
+    },
+    {
+      "id": "bind_mm2msa0k_eg52sc",
+      "component": "split_cards",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "split_cards-lyifxs"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "split_cards-88dkbg"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "split_cards-sjvykt"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "split_cards-zv6mrs"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "split_cards-h7p73e"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "split_cards-olub3e"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "split_cards-ee59dt"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "split_cards-6i4ef4"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "split_cards-kf5fre"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "split_cards-ma7z98"
+        }
+      ],
+      "createdAt": "2026-02-25T22:53:44.756Z",
+      "name": "split_cards_job_guarantee_latam_en"
+    },
+    {
+      "id": "bind_mm3w5pb5_xarjs2",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "sticky_cta-b7n2hw"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "sticky_cta-bycddt"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "sticky_cta-odipu7"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "sticky_cta-td3htj"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "sticky_cta-bphej4"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "sticky_cta-xls194"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "sticky_cta-p03q47"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "sticky_cta-o83jre"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "sticky_cta-uv3jvo"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "sticky_cta-69f0kj"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "sticky_cta-axxk60"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "sticky_cta-9jdpc6"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionId": "sticky_cta-hm3f6z"
+        }
+      ],
+      "createdAt": "2026-02-26T20:03:53.825Z",
+      "name": "sticky_cta_latam_es"
+    },
+    {
+      "id": "bind_mm3w9fyv_k26ii8",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "sticky_cta-o1rwxp"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "sticky_cta-nvyob2"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "sticky_cta-v8w9ic"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "sticky_cta-vu6d46"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "sticky_cta-sc68eo"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "sticky_cta-k50cp2"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "sticky_cta-hslx1f"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "sticky_cta-2ptvs0"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "sticky_cta-airkol"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "sticky_cta-3zxs2j"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "sticky_cta-1vz5mo"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "sticky_cta-spjq29"
+        }
+      ],
+      "createdAt": "2026-02-26T20:06:48.343Z",
+      "name": "sticky_cta_europe_es"
+    },
+    {
+      "id": "bind_mm3waxd2_1xvzwg",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "sticky_cta-g9otk2"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "sticky_cta-dppas5"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "sticky_cta-8o1zz6"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "sticky_cta-ynqtea"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "sticky_cta-9al5s8"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "sticky_cta-zj3mjy"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "sticky_cta-3jofd1"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "sticky_cta-7vnesj"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "sticky_cta-ows55w"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "sticky_cta-avz2b9"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "sticky_cta-yng4my"
+        }
+      ],
+      "createdAt": "2026-02-26T20:07:57.543Z",
+      "name": "sticky_cta_usa_es"
+    },
+    {
+      "id": "bind_mm3wcanc_mthrm5",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "sticky_cta-ejtisz"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "sticky_cta-w7kah9"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "sticky_cta-bve83p"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "sticky_cta-ie45qb"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "sticky_cta-ttyvb1"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "sticky_cta-s7c02c"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "sticky_cta-px3k9k"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "sticky_cta-1n8wwe"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "sticky_cta-5zwzqb"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "sticky_cta-ps72ad"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "sticky_cta-3blhix"
+        }
+      ],
+      "createdAt": "2026-02-26T20:09:01.416Z",
+      "name": "sticky_cta_usa_en"
+    },
+    {
+      "id": "bind_mm3wedid_ew4lm5",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "sticky_cta-hocsvz"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "sticky_cta-ukbrt7"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "sticky_cta-i6txjv"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "sticky_cta-z06m41"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "sticky_cta-jyoliy"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "sticky_cta-f9dm9f"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "sticky_cta-7o0pfn"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "sticky_cta-2rj95e"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "sticky_cta-wwdkzx"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "sticky_cta-q5ko74"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "sticky_cta-r9obl8"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "sticky_cta-ztotqr"
+        }
+      ],
+      "createdAt": "2026-02-26T20:10:38.437Z",
+      "name": "sticky_cta_europe_en"
+    },
+    {
+      "id": "bind_mm3wfphl_wjko4s",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "sticky_cta-z1zcgk"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "sticky_cta-o0upfb"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "sticky_cta-i8rbyu"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "sticky_cta-q4b3zn"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "sticky_cta-boqjhj"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "sticky_cta-gtrk6q"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "sticky_cta-q3mxtf"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "sticky_cta-lfdh09"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "sticky_cta-6q66lm"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "sticky_cta-ez1pbb"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "sticky_cta-i6uxdo"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionId": "sticky_cta-ni4ipw"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "sticky_cta-dmuqrq"
+        }
+      ],
+      "createdAt": "2026-02-26T20:11:40.617Z",
+      "name": "sticky_cta_latam_en"
+    }
+  ]
+}

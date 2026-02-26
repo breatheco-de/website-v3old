@@ -83,7 +83,7 @@ props:
     type: string
     required: false
     description: Header image URL
-    example: /attached_assets/community-image.webp
+    example: https://storage.googleapis.com/4geeks-academy-website/media/community-image.webp
   image_alt:
     type: string
     required: false

@@ -165,9 +165,18 @@ export function HeroCourse({ data }: HeroCourseProps) {
           
           {/* Media + signup column (right by default, left when reversed) */}
           <div className={cn("space-y-4", data.layout_reversed && "lg:order-1")}>
-            {data.media && (
+            {(data.video?.url?.trim() || data.media) && (
               <div className="relative rounded-lg overflow-hidden aspect-video">
-                {data.media.type === "video" ? (
+                {data.video?.url?.trim() ? (
+                  <UniversalVideo
+                    url={data.video.url}
+                    ratio={data.video.ratio || "16:9"}
+                    autoplay={data.video.autoplay !== false}
+                    muted={data.video.muted !== false}
+                    loop={data.video.loop !== false}
+                    preview_image_url={data.video.preview_image_url}
+                  />
+                ) : data.media?.type === "video" ? (
                   <UniversalVideo
                     url={data.media.src}
                     ratio="16:9"
@@ -175,13 +184,13 @@ export function HeroCourse({ data }: HeroCourseProps) {
                     muted={true}
                     loop={true}
                   />
-                ) : (
+                ) : data.media ? (
                   <img 
                     src={data.media.src} 
                     alt={data.media.alt || "Hero image"}
                     className="w-full h-full object-cover"
                   />
-                )}
+                ) : null}
               </div>
             )}
             

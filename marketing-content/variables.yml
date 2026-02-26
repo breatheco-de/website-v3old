@@ -39,18 +39,26 @@ global_job_placement_rate:
     - query:
         region: "usa-canada"
       value: "84"
+    - query:
+        region: "europe"
+      value: "75"
+    - query:
+        region: "latam"
+      value: "81"
 global_salary_increase:
   default: "55"
   conditions:
     - query:
         region: "usa-canada"
       value: "55"
+    - query:
+        region: "europe"
+      value: "30"
+    - query:
+        region: "latam"
+      value: "40"
 global_review_rating:
   default: "4.9"
-  conditions:
-    - query:
-        location: "madrid-spain"
-      value: "4.8"
 global_review_count:
   default: "700"
   conditions:
@@ -64,7 +72,7 @@ global_teacher_student_ratio:
   default: "1:7"
   conditions:
     - query:
-        location: "madrid-spain"
+        region: "europe"
       value: "1:8"
 call_to_action_apply:
   default: "Apply now"
@@ -122,7 +130,7 @@ price_cybersecurity:
       value: "$299"
     - query:
         region: "europe"
-      value: "299 €"
+      value: "200 €"
     - query:
         region: "latam"
       value: "150 USD"
@@ -179,10 +187,10 @@ global_total_alumni:
   conditions:
     - query:
         locale: "en"
-      value: "4,000"
+      value: "6,000"
     - query:
         locale: "es"
-      value: "4.000"
+      value: "6.000"
 global_salary_cybersecurity_analist:
   default: "$75K–$120K"
   conditions:
@@ -192,6 +200,9 @@ global_salary_cybersecurity_analist:
     - query:
         region: "europe"
       value: "20.000€ - 25.000€"
+    - query:
+        region: "latam"
+      value: "$30K – $55K"
 global_salary_penetration_tester:
   default: "$90K–$150K"
   conditions:
@@ -201,6 +212,9 @@ global_salary_penetration_tester:
     - query:
         region: "europe"
       value: "18.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$35K – $65K"
 global_salary_security_engineer:
   default: "$100K–$165K"
   conditions:
@@ -210,6 +224,9 @@ global_salary_security_engineer:
     - query:
         region: "europe"
       value: "22.000€- 30.000€"
+    - query:
+        region: "latam"
+      value: "$45K – $75K"
 global_salary_incident_responder:
   default: "$85K–$140K"
   conditions:
@@ -219,12 +236,18 @@ global_salary_incident_responder:
     - query:
         region: "europe"
       value: "25.000€ - 32.000€"
+    - query:
+        region: "latam"
+      value: "$40K – $70K"
 average_salary_cybersecurity_short:
-  default: "$85"
+  default: "$85K"
   conditions:
     - query:
         region: "europe"
       value: "35.000€"
+    - query:
+        region: "latam"
+      value: "35K USD"
 salary_data_scientist:
   default: "$80K–$130K"
   conditions:
@@ -236,7 +259,7 @@ salary_data_scientist:
       value: "20.000€ - 30.000€"
     - query:
         region: "latam"
-      value: "$22.500 USD"
+      value: "$35K – $65K"
 minimun_isa_salary:
   default: "17.000 €"
   conditions:
@@ -249,6 +272,9 @@ average_salary_fullstack:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$45K – $70K"
 mounthly_price_bootcamp:
   default: "200 €"
   conditions:
@@ -264,19 +290,36 @@ average_salary_machine_learning_engineer:
     - query:
         region: "europe"
       value: "22.000 € - 30.000 €"
+    - query:
+        region: "latam"
+      value: "$45K – $80K"
 average_salary_ai_fluent_software_developer:
-  default: "$100K–$150K"
+  default: "$90 K–$140 K"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$100K–$150K"
+      value: "$90 K–$140 K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$55K – $75K"
 average_salary_web_aplications_engineer:
   default: "$95K–$140K"
+  conditions:
+    - query:
+        region: "latam"
+      value: "$40K – $65K"
+    - query:
+        region: "latam"
+      value: "$40K – $65K"
 average_salary_backend_services_developer:
   default: "$100K–$150K"
+  conditions:
+    - query:
+        region: "latam"
+      value: "$50K – $75K"
 average_salary_data_analyst:
   default: "$60K–$95K"
   conditions:
@@ -286,18 +329,26 @@ average_salary_data_analyst:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
+    - query:
+        region: "latam"
+      value: "$20K – $40K"
 average_salary_ai_engineer:
-  default: "$100K–$160K"
+  default: "$95K–$150K"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$100K–$160K"
+      value: "$95K–$150K"
     - query:
         region: "latam"
-      value: "$20K-$60K USD"
+      value: "$40K – $75K"
     - query:
         region: "europe"
-      value: "30K € - 60K €"
+        locale: "es"
+      value: "30.000€ - 60.000€"
+    - query:
+        region: "europe"
+        locale: "en"
+      value: "30,000€ - 60,000€"
 average_salary_ai_specialist:
   default: "$95K–$145K"
   conditions:
@@ -349,10 +400,10 @@ global_verified_reviews_count:
   conditions:
     - query:
         locale: "en"
-      value: "1,000"
+      value: "700"
     - query:
         locale: "es"
-      value: "1.000"
+      value: "700"
 starting_salary_datascience:
   default: "$90K"
   conditions:
@@ -360,23 +411,34 @@ starting_salary_datascience:
         region: "usa-canada"
       value: "$90K"
 global_spending_cybersecurity:
-  default: "$520B"
+  default: "$520B USD"
   conditions:
     - query:
         region: "usa-canada"
       value: "$520B"
+    - query:
+        region: "europe"
+      value: "442.000 M€"
 lowest_monthly_financing_option:
   default: "$299"
   conditions:
     - query:
         region: "usa-canada"
       value: "$299"
+    - query:
+        region: "europe"
+      value: "200€"
 anual_income_based_payment_guarantee:
   default: "$35,000"
   conditions:
     - query:
+        locale: "en"
         region: "usa-canada"
       value: "$35,000"
+    - query:
+        region: "usa-canada"
+        locale: "es"
+      value: "$35.000"
 job_guarantee_price:
   default: "$2,000"
   conditions:
@@ -396,11 +458,11 @@ global_campuses:
         region: "usa-canada"
       value: "10"
 average_salary_agent_engineer:
-  default: "$25K–$40K"
+  default: "$75 K–$115 K"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$25K–$40K"
+      value: "$75 K–$115 K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
@@ -409,7 +471,33 @@ average_salary_workflow_automation_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$25K–$40K"
+      value: "$70 K–$110 K"
     - query:
         region: "europe"
       value: "20.000€- 30.000€"
+data_science_week_duration:
+  default: "16"
+  conditions:
+    - query:
+        region: "europe"
+      value: "18 "
+    - query:
+        region: "latam"
+      value: "18"
+    - query:
+        region: "usa-canada"
+      value: "16 "
+ai_engineering_week_duration:
+  default: "24 "
+cybersecurity_week_duration:
+  default: "16 "
+fullstack_week_duration:
+  default: "20 "
+total_scholarships:
+  default: "20$M"
+  conditions:
+    - query:
+        region: "europe"
+      value: "17M€"
+number_of_hiring_partners_aprox:
+  default: "400"

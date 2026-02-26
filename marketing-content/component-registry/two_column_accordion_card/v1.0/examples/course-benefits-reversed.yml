@@ -12,6 +12,6 @@ yaml: |
       text: "Access to our job placement team and alumni network to help you land your first role."
     - heading: "Money-Back Guarantee"
       text: "If you don't land a job within 6 months, we'll refund your tuition."
-  image: "/attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp"
+  image: "https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp"
   image_alt: "Graduate celebrating success"
   reverse: true

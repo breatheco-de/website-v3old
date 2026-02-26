@@ -29,7 +29,7 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     alignment: center
     left:
-      image: /attached_assets/community_1764717588840.png
+      image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
       image_alt: Equipo colaborando en un proyecto
       justify: center
     right:
@@ -91,3 +91,32 @@ sections:
       desktop: md
     paddingY:
       desktop: lg
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

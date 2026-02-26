@@ -23,7 +23,7 @@ sections:
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
-    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en 16 semanas.
+    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en {{ cybersecurity_week_duration | 16 }} semanas.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -42,19 +42,14 @@ sections:
         image: https://avatars.githubusercontent.com/u/16064310?v=4
       - name: Rigo
         role: Tutor de IA
-        image: /attached_assets/rigobot-logo_1764707022198.webp
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
-    media:
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=450&fit=crop
-      alt: Introducción al programa de ciberseguridad
     signup_card:
-      title: Obtén el Programa Completo
+      title: Obtén el programa completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
-        text: Solicitar Información
+        text: Recibe el plan de estudios completo
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -62,17 +57,17 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa Intensivo de 16 Semanas
+          text: Programa intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
         - icon: IconBriefcase
-          text: Programa Orientado a la Práctica
+          text: Programa orientado a la práctica
         - icon: IconRobot
-          text: Aprendizaje y Feedback con IA
+          text: Aprendizaje y feedback con IA
         - icon: IconUsers
           text: Relación {{ global_teacher_student_ratio | 7:1 }} de estudiantes a instructor
         - icon: IconUserCheck
-          text: Mentoría 1:1 Ilimitada
+          text: Mentoría 1:1 ilimitada
         - icon: book
-          text: Portafolio con Proyectos Reales
+          text: Portafolio con proyectos reales
     paddingY:
       desktop: md
     marginY:
@@ -80,13 +75,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Recibir el Plan de Estudios
+    description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Obtener
       tags: request_more_info
       automations: soft
       fields:
@@ -98,13 +93,13 @@ sections:
           required: true
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: true
           default: cybersecurity
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -113,35 +108,35 @@ sections:
     items:
       - id: switchup-2025
         alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: /attached_assets/switchup_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
       - id: course-report-2024
         alt: Course Report - Best Coding Bootcamp 2024
-        logo: /attached_assets/course-report_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 64px
       - id: newsweek
         alt: Newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         logoHeight: 64px
     paddingY:
       desktop: none
@@ -150,7 +145,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: La Falta de Especialistas en Ciberseguridad es tu Oportunidad
+    title: La falta de especialistas en Ciberseguridad es tu Oportunidad
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
     description: Con una brecha global significativa de talento e inversiones récord en ciberdefensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.
     background: bg-muted/30
@@ -162,11 +157,11 @@ sections:
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
       - id: "3"
-        value: 442.000 M€
+        value: {{ global_spending_cybersecurity | $520B }}
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules
-    program_title: Lo que Aprenderás en el Programa de Ciberseguridad
+    program_title: Lo que aprenderás en el programa de Ciberseguridad
     program_description: Domina el stack completo de ciberseguridad desde seguridad de redes hasta pruebas de penetración. Desarrolla habilidades defensivas y ofensivas del mundo real usando las herramientas estándar de la industria que los empleadores buscan.
     tech_logos:
       - name: Linux
@@ -239,7 +234,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Aprende Defendiendo Sistemas Reales
+    title: Aprende defendiendo sistemas reales
     subtitle: Obtén experiencia práctica con ejercicios que simulan escenarios reales de ciberseguridad. Construye un portafolio de proyectos de seguridad que demuestren tus capacidades defensivas y ofensivas.
     items:
       - title: Evaluación de Vulnerabilidades de Red
@@ -249,8 +244,8 @@ sections:
           - Nessus
           - Nmap
         duration: 8 HOURS
-        date: 15/01/2025
         difficulty: medium
+        date: 15/01/2025
       - title: Laboratorio de Pruebas de Penetración
         description: Realiza pruebas de penetración autorizadas en entornos simulados usando Metasploit. Explota vulnerabilidades, establece persistencia y documenta tus hallazgos siguiendo metodologías profesionales de pentesting.
         image: pentesting
@@ -258,8 +253,8 @@ sections:
           - Metasploit
           - Pentesting
         duration: 12 HOURS
-        date: 01/02/2025
         difficulty: hard
+        date: 01/02/2025
       - title: Simulación de Respuesta a Incidentes
         description: Analiza tráfico de red con Wireshark para detectar y responder a incidentes de seguridad. Crea reportes de incidentes, reconstrucciones de líneas de tiempo y planes de remediación basados en patrones de ataque reales.
         image: incident-response
@@ -267,14 +262,14 @@ sections:
           - Wireshark
           - DFIR
         duration: 10 HOURS
-        date: 15/02/2025
         difficulty: hard
+        date: 15/02/2025
     paddingY:
       desktop: md
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: Todo Lo que Necesitas Para Lanzar Tu Carrera en Tecnología
+    title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
@@ -308,9 +303,9 @@ sections:
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
-    title: Inserción Laboral Comprobada
+    title: Inserción laboral comprobada
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Nuestro programa te prepara para:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
@@ -345,7 +340,7 @@ sections:
           - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
           - text: "Ingeniero de Seguridad: {{ global_salary_security_engineer | $100K–$165K }}"
           - text: "Especialista en Respuesta a Incidentes: {{ global_salary_incident_responder | $85K–$140K }}"
-      - value: 500+
+      - value: {{ number_of_hiring_partners_aprox | 500 }}+
         label: Empleadores asociados
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
         benefits:
@@ -357,12 +352,45 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: md
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Tu futuro profesional, con garantía*
+    subtitle: Respaldamos tu resultado profesional con un compromiso real
+    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
+    cta:
+      text: Conocer más
+      url: /es/trabajo-garantizado
+      variant: primary
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none sm
+    background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% con el pago anticipado."
+    discount_text: "Descuento por pago completo: Ahorra 10% con el pago anticipado."
     financing_text: Financiamiento en cuotas desde
     financing_amount: {{ price_cybersecurity | 299€ }}
     tech_icons:
@@ -378,9 +406,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos en 6 cuotas sin intereses con nuestros partners.
-      - icon: IconCheck
-        text: Financia tu matrícula a través de nuestros parnerts con planes de 6 a 24 meses.
+        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 cuotas a 24 con nuestros partners.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
@@ -408,9 +434,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y Opciones de Financiamiento
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% pagando de una sola vez."
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
     financing_amount: {{ price_cybersecurity | $299 }}
     tech_icons:
@@ -427,7 +453,7 @@ sections:
       - icon: IconCheck
         text: La matrícula estándar es {{ price_full_cybersecurity | $9,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -466,30 +492,30 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: ¿Quién Contrata a Nuestros Alumnos?
+    title: ¿Quién contrata a nuestros alumnos?
     subtitle: Nuestros graduados trabajan en importantes empresas a nivel mundial
     description: Las mejores empresas contratan graduados de 4Geeks. {{ global_job_placement_rate | 84 }}% consiguen empleo dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoftmeses de graduarse.
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/kpmg-logo1_1764720019827.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/kpmg-logo1_1764720019827.png
         alt: KPMG
-      - src: /attached_assets/blackstone_1764720124773.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/blackstone_1764720124773.png
         alt: Blackstone
     paddingY:
       desktop: md
   - type: testimonials
-    title: Éxito Profesional Comprobado
+    title: Éxito profesional comprobado
     subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
       average: {{ global_review_rating | 4.5 }}
@@ -534,7 +560,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - cybersecurity
     paddingY:
@@ -542,13 +568,13 @@ sections:
     background: muted
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Convertirte en Ingeniero en Ciberseguridad?
+    title: ¿Listo para convertirte en Ingeniero en Ciberseguridad?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: {{ call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       automations: hard
       fields:
@@ -562,7 +588,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
           visible: false
@@ -573,11 +599,42 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: cybersecurity
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

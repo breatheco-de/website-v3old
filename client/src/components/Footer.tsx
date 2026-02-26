@@ -8,7 +8,10 @@ import {
   IconBrandX,
   IconBrandInstagram,
 } from "@tabler/icons-react";
-import logo from "@assets/4geeks-devs-logo_1763162063433.png";
+
+import { useImageRegistry } from "@/components/UniversalImage";
+
+const LOGO_ID = "4geeks-devs-logo-1763162063433";
 
 interface FooterColumn {
   title: string;
@@ -31,7 +34,7 @@ interface FooterConfig {
   socials: FooterSocial[];
   legal_links: FooterLegalLink[];
   copyright_text: string;
-  subscribe_text: string
+  subscribe_text: string;
 }
 
 const socialIconMap: Record<string, typeof IconBrandLinkedin> = {
@@ -45,6 +48,8 @@ export default function Footer() {
   const handleLinkClick = useInternalNav();
   const { i18n } = useTranslation();
   const locale = i18n.language || "en";
+  const { registry } = useImageRegistry();
+  const logoSrc = registry?.images?.[LOGO_ID]?.src;
 
   const [colDivisor, setColDivisor] = useState(4);
   useEffect(() => {
@@ -73,7 +78,10 @@ export default function Footer() {
   if (!config) return null;
 
   const currentYear = new Date().getFullYear();
-  const rawCopyright = (config.copyright_text || "4Geeks Academy").replace(/^\d{4}\s*/, "");
+  const rawCopyright = (config.copyright_text || "4Geeks Academy").replace(
+    /^\d{4}\s*/,
+    "",
+  );
   const copyrightText = `${currentYear} ${rawCopyright}`;
 
   return (
@@ -86,10 +94,14 @@ export default function Footer() {
             className="flex items-center h-full"
             data-testid="link-footer-home"
           >
-            <img src={logo} alt="4Geeks Academy" className="h-9" />
+            {logoSrc && (
+              <img src={logoSrc} alt="4Geeks Academy" className="h-9" />
+            )}
           </a>
           <div>
-            <p className="text-center mb-1">{config.subscribe_text || 'Subscribe for more'}</p>
+            <p className="text-center mb-1">
+              {config.subscribe_text || "Subscribe for more"}
+            </p>
             <div
               className="flex items-center justify-center gap-3"
               data-testid="footer-socials"

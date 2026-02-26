@@ -3,6 +3,7 @@ description: "A table displaying data from an external API with sortable columns
 yaml: |
   - type: dynamic_table
     version: "1.0"
+    variant: default
     endpoint: "https://breathecode.herokuapp.com/v1/admissions/public/cohort/all"
     title: Available Cohorts
     subtitle: Browse our upcoming cohorts and programs

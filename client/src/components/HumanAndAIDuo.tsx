@@ -1,12 +1,8 @@
 import { Card } from "@/components/ui/card";
 import * as TablerIcons from "@tabler/icons-react";
 import type { ComponentType, CSSProperties } from "react";
-import rigobotAvatar from "@assets/rigo-avatar_1763181725290.png";
 import { getCustomIcon } from "@/components/custom-icons";
-import student1 from "@assets/student-1-asian.png";
-import student2 from "@assets/student-2-latin.png";
-import student3 from "@assets/student-3-african.png";
-import student4 from "@assets/student-4-lady-latin.png";
+import UniversalImage from "@/components/UniversalImage";
 import type { HumanAndAIDuoSection } from "@shared/schema";
 import { UniversalVideo } from "./UniversalVideo";
 
@@ -26,10 +22,10 @@ interface StyledImageProps {
 }
 
 const defaultStudentImages: StyledImageProps[] = [
-  { src: student1, alt: "Student 1" },
-  { src: student2, alt: "Student 2" },
-  { src: student3, alt: "Student 3" },
-  { src: student4, alt: "Student 4" },
+  { src: "student_asian", alt: "Student 1" },
+  { src: "student_latin_male", alt: "Student 2" },
+  { src: "student_african", alt: "Student 3" },
+  { src: "student_latina_female", alt: "Student 4" },
 ];
 
 function getImageStyle(image: StyledImageProps): CSSProperties {
@@ -139,11 +135,11 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
       <div className={containerClass} data-testid={testId}>
         {images.map((image, index) => (
           <div key={index} className="flex-1 h-full">
-            <img
-              src={image.src}
+            <UniversalImage
+              id={image.src}
               alt={image.alt || `Image ${index + 1}`}
+              className="w-full h-full"
               style={getImageStyle(image)}
-              loading="lazy"
             />
           </div>
         ))}
@@ -180,7 +176,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                       <span className="text-primary flex-shrink-0">{getIcon(group.icon, "w-6 h-6")}</span>
                     ) : (
                       <div className="flex-shrink-0 w-6 h-6 rounded-full overflow-hidden">
-                        <img src={group.image || rigobotAvatar} alt="Support icon" className="w-full h-full object-cover" />
+                        <UniversalImage id={group.image || "rigo-avatar-1763181725290"} alt="Support icon" className="w-full h-full" style={{ objectFit: "cover" }} />
                       </div>
                     )}
                     <h4 className="font-semibold text-foreground uppercase tracking-wide text-xs">{group.title}</h4>
@@ -230,7 +226,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                       <span className="text-primary flex-shrink-0">{getIcon(group.icon, "w-7 h-7")}</span>
                     ) : (
                       <div className="flex-shrink-0 w-7 h-7 rounded-full overflow-hidden">
-                        <img src={group.image || rigobotAvatar} alt="Support icon" className="w-full h-full object-cover" />
+                        <UniversalImage id={group.image || "rigo-avatar-1763181725290"} alt="Support icon" className="w-full h-full" style={{ objectFit: "cover" }} />
                       </div>
                     )}
                     <h4 className="font-semibold text-foreground uppercase tracking-wide text-xs">{group.title}</h4>
@@ -280,7 +276,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                       <span className="text-primary flex-shrink-0">{getIcon(group.icon, "w-8 h-8")}</span>
                     ) : (
                       <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
-                        <img src={group.image || rigobotAvatar} alt="Support icon" className="w-full h-full object-cover" />
+                        <UniversalImage id={group.image || "rigo-avatar-1763181725290"} alt="Support icon" className="w-full h-full" style={{ objectFit: "cover" }} />
                       </div>
                     )}
                     <h4 className="font-semibold text-foreground uppercase tracking-wide text-xs">{group.title}</h4>

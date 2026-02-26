@@ -16,8 +16,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Nuestra Historia, Haciendo Noticias
-    badge: Prensa y Medios
+    title: Nuestra Historia, en las noticias
+    badge: Prensa y medios
     trust_bar:
       rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
@@ -33,7 +33,7 @@ sections:
       desktop: md none
   - type: press_mentions
     version: v1.0
-    title: Destacados en Prensa
+    title: Destacados en prensa
     columns: 3
     items:
       - logo: global-miami-logo
@@ -74,21 +74,21 @@ sections:
     paddingY:
       desktop: none md
   - type: value_proof_panel
-    title: Reconocidos Globalmente por la Excelencia
+    title: Reconocidos globalmente por la excelencia
     subtitle: No solo decimos que cumplimos, el reconocimiento de fuentes confiables lo demuestra.
     evidence_items:
       - icon: Trophy
-        title: Top 5 Bootcamps de Programación a Nivel Mundial
+        title: Top 5 bootcamps de programación a nivel mundial
         source: Newsweek, Forbes, SwitchUp, Course Report
       - icon: Award
-        title: Mejor Soporte al Estudiante y Mejor Valor
+        title: Mejor soporte al estudiante y mejor valor
         source: Course Report, SwitchUp
       - icon: Users
-        title: 35,000+ Graduados en Más de 20 Países
+        title: 35,000+ graduados en más de 20 países
         description: Una comunidad global de profesionales de tecnología exitosos
     media:
       type: image
-      src: /attached_assets/caracas-graduates_1765387638222.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en el aula
       aspect_ratio: "4:3"
       style: rounded
@@ -105,42 +105,41 @@ sections:
     gradientWidth: 100
     items:
       - id: switchup-2025
-        logo: /attached_assets/switchup_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         alt: SwitchUp - Best Coding Bootcamps 2025
         logoHeight: 56px
       - id: course-report-2024
-        logo: /attached_assets/course-report_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         alt: Course Report - Best Coding Bootcamp 2024
         logoHeight: 56px
       - id: tech-hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         alt: South Florida Tech Hub
         logoHeight: 56px
       - id: ebootcamp
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         alt: eBootcamp Top
         logoHeight: 56px
       - id: premios-tecnologia
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         alt: Premios Tecnologia Siglo XXI
         logoHeight: 56px
       - id: newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         alt: Newsweek
         logoHeight: 56px
       - id: reviews-coursereport
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         alt: 4.9 on Course Report Reviews
         logoHeight: 56px
       - id: excelencia-educativa
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     marginY:
       desktop: none lg
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - outcomes
       - scholarships
@@ -187,3 +186,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

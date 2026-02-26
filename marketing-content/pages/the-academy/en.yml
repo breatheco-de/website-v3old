@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Building Careers in the AI Era
+    title: Building Careers In the AI Era
     subtitle: 4Geeks Academy is an international coding bootcamp with 8 campuses across the U.S., Latin America, and Europe. We train students in AI Engineering, Data Science & Machine Learning, and Cybersecurity; with a clear path to getting hired.
     badge: 10+ years launching tech careers
     image_id: academy_header_coding
@@ -75,9 +75,9 @@ sections:
       - value: {{ global_campuses | - value: "8" }}
         label: Campuses
       - value: ~{{ global_job_placement_rate | 84 }}%
-        label: Hiring Rate
+        label: Hiring rate
       - value: {{ global_review_rating | 4.9 }}
-        label: Avg Rating
+        label: Avg rating
     marginY:
       desktop: lg
     paddingY:
@@ -89,7 +89,7 @@ sections:
     background: hsl(var(--muted))
     alignment: center
     left:
-      image: /attached_assets/crusa-forte-scholarship_1770606829241.webp
+      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa-forte-scholarship_1770606829241.webp
       image_alt: Student coding on laptop
       image_object_fit: cover
       image_object_position: 10% 80%
@@ -111,27 +111,27 @@ sections:
     items:
       - id: logo-crusa
         alt: CRUSA Foundation logo
-        logo: /attached_assets/crusa-logo_1770608198366.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/crusa-logo_1770608198366.webp
         logoHeight: 65px
       - id: logo-miami-tech-works
         alt: Miami Tech Works logo
-        logo: /attached_assets/miamitech-logo-sidetext_1770608261416.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/miamitech-logo-sidetext_1770608261416.png
         logoHeight: 65px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 56px
       - id: logo-bite-con
         alt: BITE-CON logo
-        logo: /attached_assets/bite-con_1770608313051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/bite-con_1770608313051.png
         logoHeight: 56px
       - id: logo-kosmos
         alt: Kosmos logo
-        logo: /attached_assets/kosmos-logo_1770608352885.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/kosmos-logo_1770608352885.png
         logoHeight: 56px
       - id: logo-united-way
         alt: United Way logo
-        logo: /attached_assets/united_way_mini_1770608055840.PNG
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/united_way_mini_1770608055840.PNG
         logoHeight: 56px
       - id: clark-university
         alt: Clark University Logo
@@ -139,11 +139,11 @@ sections:
         logoHeight: 56px
       - id: logo-cinde
         alt: CINDE Invest in Costa Rica logo
-        logo: /attached_assets/cinde_1770608132364.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/cinde_1770608132364.png
         logoHeight: 56px
       - id: logo-utec
         alt: UTEC Universidad Tecnológica logo
-        logo: /attached_assets/utec_1770608159144.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/utec_1770608159144.png
         logoHeight: 56px
     paddingY:
       desktop: lg none
@@ -154,29 +154,29 @@ sections:
       4Geeks graduates are hired by leading tech companies across the U.S., Latin America, and Europe. Employers consistently highlight their technical depth, practical experience, and ability to contribute from day one.
       'I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires went on to become a team leader.' - CodeNinjas
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     marginY:
       desktop: lg none
@@ -257,3 +257,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

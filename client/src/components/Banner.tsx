@@ -2,10 +2,10 @@ import { useState } from "react";
 import type { BannerSection as BannerSectionType } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { useInternalNav } from "@/hooks/useInternalNav";
-
-import rigo_avatar_1763181725290 from "@assets/rigo-avatar_1763181725290.png";
+import UniversalImage from "@/components/UniversalImage";
 
 const MOBILE_CHAR_LIMIT = 150;
+const DEFAULT_LOGO_ID = "rigo-avatar-1763181725290";
 
 function truncateAtWordBoundary(text: string, limit: number): string {
   if (text.length <= limit) return text;
@@ -41,8 +41,6 @@ export function Banner({ data }: BannerProps) {
   };
 
   const isGradient = background === "gradient";
-  const textColorClass = isGradient ? "text-white" : "text-foreground";
-  const descriptionColorClass = isGradient ? "text-white/85" : "text-muted-foreground";
 
   const renderAvatars = () => {
     const hasLogo = !!logo;
@@ -67,24 +65,26 @@ export function Banner({ data }: BannerProps) {
               }}
               data-testid="banner-logo"
             >
-              <img 
-                src={rigo_avatar_1763181725290} 
-                alt="Logo" 
-                className="w-9 h-9 object-contain"
+              <UniversalImage
+                id={typeof logo === "string" && logo.length > 0 ? logo : DEFAULT_LOGO_ID}
+                alt="Logo"
+                className="w-9 h-9"
+                style={{ objectFit: "contain" }}
               />
             </div>
           )}
-          {avatars?.map((avatarUrl, index) => (
+          {avatars?.map((avatarValue, index) => (
             <div
               key={index}
               className="w-14 h-14 rounded-full border-4 border-white overflow-hidden flex items-center justify-center bg-muted"
               style={{ zIndex: totalItems - index - (hasLogo ? 1 : 0) }}
               data-testid={`banner-avatar-${index}`}
             >
-              <img 
-                src={avatarUrl} 
-                alt="" 
-                className="w-full h-full object-cover"
+              <UniversalImage
+                id={avatarValue}
+                alt=""
+                className="w-full h-full"
+                style={{ objectFit: "cover" }}
               />
             </div>
           ))}

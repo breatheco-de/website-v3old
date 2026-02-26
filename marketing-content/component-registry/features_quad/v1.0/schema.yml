@@ -55,7 +55,7 @@ props:
     type: string
     required: false
     description: Custom preview/thumbnail image URL for the video
-    example: "/attached_assets/video-preview.jpg"
+    example: "https://storage.googleapis.com/4geeks-academy-website/media/video-preview.jpg"
   video_ratio:
     type: string
     required: false

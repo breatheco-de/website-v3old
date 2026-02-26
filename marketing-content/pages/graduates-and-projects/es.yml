@@ -18,15 +18,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Mira lo que Construyen Nuestros Estudiantes
+    title: Mira lo que construyen nuestros estudiantes
     subtitle: Explora proyectos finales de graduados de 4Geeks Academy. Apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.
-    badge: Programa Profesional
+    badge: Programa profesional
     cta_buttons:
-      - text: Comienza a Aprender Ahora
+      - text: Comienza a aprender ahora
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: Ver Currículum
+      - text: Ver currículum
         url: "#apply-modal"
         variant: outline
         icon: Book
@@ -85,11 +85,11 @@ sections:
             linkedin_url: https://www.linkedin.com/in/naila-kaliyeva-a8863a181/
         media:
           - type: image
-            src: /attached_assets/image_1765318479754.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318479754.png
             alt: Raspberry Sky - Acceso satelital para todos
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Seguimiento de Inventario"
+      - project_title: "IMS: Seguimiento de inventario"
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
         description: IMS es un sistema de inventario y logística para farmacias construido con Python, Javascript, React e integración con lectores de códigos de barras, SMS, la API de Twilio y sistemas de rastreo GPS.
         creators:
@@ -104,7 +104,7 @@ sections:
             github_url: https://github.com/paocastrob
         media:
           - type: image
-            src: /attached_assets/image_1765318521904.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318521904.png
             alt: Dashboard IMS
           - type: video
             src: TTjSZ2Lud2E
@@ -121,10 +121,10 @@ sections:
             linkedin_url: https://www.linkedin.com/in/gmihov/
         media:
           - type: image
-            src: /attached_assets/image_1765318556862.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318556862.png
             alt: WonderTracker - Planea Viajes, Guarda Recuerdos
           - type: image
-            src: /attached_assets/fernando-funez_1765315920677.jpg
+            src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
             alt: Miembro del equipo WonderTracker
       - project_title: reMindful
         project_url: https://re-mindful.vercel.app/
@@ -138,7 +138,7 @@ sections:
             github_url: https://github.com/gabsssrod
         media:
           - type: image
-            src: /attached_assets/image_1765318600261.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318600261.png
             alt: reMindful - Reduce, Reusa, Recicla
           - type: video
             src: cKcZD0_1IKk
@@ -150,14 +150,13 @@ sections:
     description: 4Geeks Academy fue fundada en 2015. Lo que comenzó como un proyecto interno para entrenar desarrolladores se ha convertido en nuestra pasión. 4Geeks es hoy un Coding Bootcamp en USA que busca construir un nuevo marco para la Educación en Código. 4Geeks Academy tiene ubicaciones en 12 ciudades, 13 campus activos y más de 600 graduados.
     link_text: Leer Más
     link_url: /es/sobre-la-academia
-    image_src: /attached_assets/our-story_1765323971104.webp
+    image_src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
     image_alt: Fundadores de 4Geeks Academy
     marginY:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - content-and-syllabus
     marginY:
@@ -203,3 +202,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

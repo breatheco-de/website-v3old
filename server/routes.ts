@@ -22,7 +22,6 @@ import {
   getSitemapUrls,
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
-import { contentIndex } from "./content-index";
 import {
   redirectMiddleware,
   getRedirects,
@@ -45,7 +44,7 @@ import {
   saveExample,
   loadAllFieldEditors,
 } from "./component-registry";
-import { editContent, getContentForEdit } from "./content-editor";
+import { editContent, editCommonContent, getContentForEdit } from "./content-editor";
 import { bindingManager } from "./bindings";
 import {
   escapeTemplateVars,
@@ -64,11 +63,9 @@ import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
 import {
-  loadContent,
-  listContentSlugs,
-  loadCommonData,
+  contentIndex,
   type ContentType,
-} from "./utils/contentLoader";
+} from "./content-index";
 import {
   getFolder,
   getType,
@@ -160,7 +157,7 @@ const careerProgramsListingSchema = z.object({
 });
 
 function loadCareerProgramsListing(locale: string) {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "page",
     slug: "career-programs",
     schema: careerProgramsListingSchema,
@@ -176,7 +173,7 @@ function loadCareerProgramsListing(locale: string) {
 }
 
 function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "program",
     slug,
     schema: careerProgramSchema,
@@ -194,7 +191,7 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
 function listCareerPrograms(
   locale: string,
 ): Array<{ slug: string; title: string }> {
-  const slugs = listContentSlugs("program");
+  const slugs = contentIndex.listContentSlugs("program");
   const programs: Array<{ slug: string; title: string }> = [];
 
   for (const slug of slugs) {
@@ -208,7 +205,7 @@ function listCareerPrograms(
 }
 
 function loadLandingPage(slug: string): LandingPage | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "landing",
     slug,
     schema: landingPageSchema,
@@ -228,13 +225,13 @@ function listLandingPages(): Array<{
   title: string;
   locale: string;
 }> {
-  const slugs = listContentSlugs("landing");
+  const slugs = contentIndex.listContentSlugs("landing");
   const landings: Array<{ slug: string; title: string; locale: string }> = [];
 
   for (const slug of slugs) {
     const landing = loadLandingPage(slug);
     if (landing) {
-      const commonData = loadCommonData("landing", slug);
+      const commonData = contentIndex.loadCommonData("landing", slug);
       const locale = (commonData?.locale as string) || "en";
       const landingSlug = landing.slug || slug;
       const landingTitle = landing.title || "";
@@ -248,7 +245,7 @@ function listLandingPages(): Array<{
 }
 
 function loadLocationPage(slug: string, locale: string): LocationPage | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "location",
     slug,
     schema: locationPageSchema,
@@ -270,7 +267,7 @@ function listLocationPages(locale: string): Array<{
   country: string;
   region: string;
 }> {
-  const slugs = listContentSlugs("location");
+  const slugs = contentIndex.listContentSlugs("location");
   const locations: Array<{
     slug: string;
     name: string;
@@ -297,7 +294,7 @@ function listLocationPages(locale: string): Array<{
 
 // Template Pages (marketing-content/pages/)
 function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
-  const result = loadContent({
+  const result = contentIndex.loadContent({
     contentType: "page",
     slug,
     schema: templatePageSchema,
@@ -315,7 +312,7 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
 function listTemplatePages(
   locale: string,
 ): Array<{ slug: string; template: string; title: string }> {
-  const slugs = listContentSlugs("page");
+  const slugs = contentIndex.listContentSlugs("page");
   const pages: Array<{ slug: string; template: string; title: string }> = [];
 
   for (const slug of slugs) {
@@ -343,10 +340,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
   mediaGallery.setContentIndex(contentIndex);
 
+  const { loadSyncLog, logSync, getInstanceId } = await import("./sync-log");
   const { loadSyncStateFromBucket } = await import("./sync-state");
-  loadSyncStateFromBucket().catch((err) => {
-    console.error("[SyncState] Failed to load from bucket on startup:", err);
-  });
+
+  await loadSyncLog();
+  const { getReplitCheckpoint, refreshGithubCommit } = await import("./sync-log");
+  logSync('RESTART', `Server started (instance=${getInstanceId()}, checkpoint=${getReplitCheckpoint()}, env=${process.env.NODE_ENV || 'development'}, pid=${process.pid})`);
+  refreshGithubCommit();
+
+  loadSyncStateFromBucket()
+    .then(async () => {
+      const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
+      await reconcileSyncStateOnStartup();
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
+      if (isAutoPullEnabled) {
+        const result = await autoPullNonConflicting();
+        if (result.pulled.length > 0) {
+          logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        }
+        if (result.conflicted.length > 0) {
+          logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
+        }
+        if (result.errors.length > 0) {
+          logSync('ERROR', `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join('; ')}`);
+          setTimeout(async () => {
+            try {
+              const retry = await autoPullNonConflicting();
+              if (retry.pulled.length > 0) {
+                logSync('AUTO-PULL', `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+              }
+              if (retry.errors.length > 0) {
+                logSync('ERROR', `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join('; ')}`);
+              }
+            } catch (e) {
+              logSync('ERROR', `Retry failed: ${e instanceof Error ? e.message : String(e)}`);
+            }
+          }, 10000);
+        }
+      } else {
+        logSync('AUTO-PULL', "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'");
+      }
+      await ensureWebhook();
+    })
+    .catch((err) => {
+      logSync('ERROR', `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`);
+      console.error("[SyncState] Failed to load/reconcile on startup:", err);
+    });
 
   app.get("/api/geo", async (req, res) => {
     try {
@@ -998,7 +1037,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       : undefined;
 
     // Get locale from _common.yml
-    const commonData = loadCommonData("landing", slug);
+    const commonData = contentIndex.loadCommonData("landing", slug);
     const locale = (commonData?.locale as string) || "en";
 
     let landing: LandingPage | null = null;
@@ -1112,7 +1151,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     // Load common data for programs and locations
-    const commonData = loadCommonData("page", "apply");
+    const commonData = contentIndex.loadCommonData("page", "apply");
 
     res.json({
       ...page,
@@ -2996,7 +3035,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       };
 
       if (getType(contentType) === "landing") {
-        const commonData = loadCommonData("landing", slug);
+        const commonData = contentIndex.loadCommonData("landing", slug);
         responseData.locations = (commonData?.locations as string[]) || [];
         responseData.availableLocations = listLocationPages(locale).map(
           (loc) => ({
@@ -3071,43 +3110,23 @@ Important: Only include mappings where you are confident the field exists. Use d
         return;
       }
 
-      const commonPath = path.join(
-        process.cwd(),
-        "marketing-content",
-        getFolder(contentType),
+      const authorName = author && typeof author === "string" ? author : undefined;
+
+      const result = editCommonContent({
+        contentType,
         slug,
-        "_common.yml",
-      );
-      if (!fs.existsSync(commonPath)) {
-        res
-          .status(404)
-          .json({ error: "_common.yml not found for this landing" });
+        operations: [
+          { action: "update_field", path: "locations", value: locations.length > 0 ? locations : null },
+        ],
+        author: authorName,
+      });
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
         return;
       }
 
-      const commonContent = fs.readFileSync(commonPath, "utf-8");
-      const commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-
-      if (locations.length === 0) {
-        delete commonData.locations;
-      } else {
-        commonData.locations = locations;
-      }
-
-      const updatedYaml = safeYamlDump(commonData, {
-        lineWidth: -1,
-        noRefs: true,
-        quotingType: '"',
-        forceQuotes: false,
-      });
-      fs.writeFileSync(commonPath, updatedYaml, "utf-8");
-
-      markFileAsModified(
-        commonPath,
-        author && typeof author === "string" ? author : undefined,
-      );
-
-      const landingDir = path.dirname(commonPath);
+      const landingDir = contentIndex.getContentFolderPath(contentType, slug);
       const variantFiles = fs
         .readdirSync(landingDir)
         .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
@@ -3131,7 +3150,7 @@ Important: Only include mappings where you are confident the field exists. Use d
             fs.writeFileSync(variantPath, variantYaml, "utf-8");
             markFileAsModified(
               variantPath,
-              author && typeof author === "string" ? author : undefined,
+              authorName,
             );
             strippedVariants.push(variantFile);
           }
@@ -3152,7 +3171,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       res.json({
         success: true,
-        locations: commonData.locations || [],
+        locations: locations.length > 0 ? locations : [],
         strippedVariants,
       });
     } catch (error) {
@@ -3189,6 +3208,198 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  // GitHub webhook endpoint - receives push events for auto-pull
+  app.post("/api/github/webhook", async (req, res) => {
+    try {
+      const { logSync } = await import("./sync-log");
+      const signature = req.headers['x-hub-signature-256'] as string;
+      if (!signature) {
+        logSync('WEBHOOK', 'Rejected: missing signature header');
+        res.status(401).json({ error: 'Missing signature' });
+        return;
+      }
+
+      const { getWebhookInfo } = await import("./sync-state");
+      const webhookInfo = getWebhookInfo();
+      if (!webhookInfo) {
+        logSync('WEBHOOK', 'Rejected: no webhook configured in sync state');
+        res.status(500).json({ error: 'No webhook configured' });
+        return;
+      }
+
+      const { verifyWebhookSignature } = await import("./github");
+      const rawBody = (req as any).rawBody;
+      const payload = rawBody ? rawBody.toString('utf-8') : JSON.stringify(req.body);
+
+      if (!verifyWebhookSignature(payload, signature, webhookInfo.webhookSecret)) {
+        logSync('WEBHOOK', 'Rejected: invalid HMAC signature');
+        res.status(401).json({ error: 'Invalid signature' });
+        return;
+      }
+
+      const event = req.headers['x-github-event'] as string;
+
+      if (event === 'ping') {
+        logSync('WEBHOOK', 'Received ping event — webhook is active');
+        res.json({ ok: true, message: 'pong' });
+        return;
+      }
+
+      if (event !== 'push') {
+        logSync('WEBHOOK', `Ignored event: ${event}`);
+        res.json({ ok: true, message: `Ignored event: ${event}` });
+        return;
+      }
+
+      const pushPayload = req.body;
+      const commitSha = pushPayload.after;
+      const pusher = pushPayload.pusher?.name || 'unknown';
+
+      const { getAutoCommitStatus } = await import("./auto-commit");
+      const { lastCommitSha } = getAutoCommitStatus();
+      if (lastCommitSha && commitSha && (commitSha === lastCommitSha || commitSha.startsWith(lastCommitSha) || lastCommitSha.startsWith(commitSha))) {
+        logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: skipping auto-pull — commit was pushed by this instance`);
+        res.json({ ok: true, message: 'Self-push, skipping auto-pull' });
+        return;
+      }
+
+      const commits = pushPayload.commits || [];
+
+      const changedFiles = new Set<string>();
+      for (const commit of commits) {
+        for (const f of (commit.added || [])) changedFiles.add(f);
+        for (const f of (commit.modified || [])) changedFiles.add(f);
+        for (const f of (commit.removed || [])) changedFiles.add(f);
+      }
+
+      const marketingFiles = Array.from(changedFiles).filter(f => f.startsWith('marketing-content/'));
+
+      if (marketingFiles.length === 0) {
+        logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: no marketing-content files changed`);
+        res.json({ ok: true, message: 'No marketing-content files changed' });
+        return;
+      }
+
+      logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`);
+
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
+      if (!isAutoPullEnabled) {
+        logSync('AUTO-PULL', `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'`);
+        res.json({ ok: true, message: 'Auto-pull disabled' });
+        return;
+      }
+
+      const { autoPullNonConflicting } = await import("./github");
+      const result = await autoPullNonConflicting(marketingFiles, commitSha);
+
+      if (result.pulled.length > 0) {
+        logSync('AUTO-PULL', `Webhook: pulled ${result.pulled.length} files from ${commitSha?.slice(0, 7)}: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+      }
+      if (result.conflicted.length > 0) {
+        logSync('CONFLICT', `Webhook: ${result.conflicted.length} files have local edits: ${result.conflicted.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+      }
+      if (result.errors.length > 0) {
+        logSync('ERROR', `Webhook pull errors: ${result.errors.join('; ')}`);
+      }
+
+      res.json({
+        ok: true,
+        pulled: result.pulled.length,
+        conflicted: result.conflicted.length,
+        errors: result.errors.length,
+      });
+    } catch (error) {
+      const { logSync } = await import("./sync-log");
+      logSync('ERROR', `Webhook handler error: ${error instanceof Error ? error.message : String(error)}`);
+      console.error('[Webhook] Error handling webhook:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Get the full sync log text
+  app.get("/api/github/sync-log", async (_req, res) => {
+    try {
+      const { getSyncLogText } = await import("./sync-log");
+      const text = getSyncLogText();
+      res.type('text/plain').send(text);
+    } catch (error) {
+      res.status(500).send('Error reading sync log');
+    }
+  });
+
+  app.delete("/api/github/sync-log", async (_req, res) => {
+    try {
+      const { clearSyncLog } = await import("./sync-log");
+      await clearSyncLog();
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: 'Error clearing sync log' });
+    }
+  });
+
+  // Get structured sync info (webhook status, instance, recent log entries)
+  app.get("/api/github/sync-info", async (_req, res) => {
+    try {
+      const { getRecentEntries, getInstanceId, getReplitCheckpoint, getGithubCommit } = await import("./sync-log");
+      const { getWebhookInfo } = await import("./sync-state");
+      const webhookInfo = getWebhookInfo();
+
+      const repoUrl = (process.env.GITHUB_REPO_URL || '').replace(/\.git$/, '');
+      res.json({
+        instanceId: getInstanceId(),
+        replitCheckpoint: getReplitCheckpoint(),
+        githubCommit: getGithubCommit(),
+        repoUrl: repoUrl || null,
+        env: process.env.NODE_ENV || 'development',
+        pid: process.pid,
+        webhook: webhookInfo ? {
+          active: true,
+          id: webhookInfo.webhookId,
+          url: webhookInfo.webhookUrl,
+          createdAt: webhookInfo.createdAt,
+        } : { active: false },
+        recentLog: getRecentEntries(20),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Error reading sync info' });
+    }
+  });
+
+  app.post("/api/github/webhook/setup", async (_req, res) => {
+    try {
+      const { ensureWebhook } = await import("./github");
+      await ensureWebhook();
+      const { getWebhookInfo } = await import("./sync-state");
+      const info = getWebhookInfo();
+      if (info) {
+        res.json({ success: true, message: `Webhook #${info.webhookId} is active at ${info.webhookUrl}` });
+      } else {
+        res.status(500).json({ success: false, message: "Webhook setup ran but no webhook was registered. Check that your GitHub token has the admin:repo_hook scope." });
+      }
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: error.message || "Webhook setup failed" });
+    }
+  });
+
+  app.delete("/api/github/webhook/duplicates", async (_req, res) => {
+    try {
+      const { getWebhookInfo } = await import("./sync-state");
+      const info = getWebhookInfo();
+      if (!info) {
+        return res.status(400).json({ success: false, message: "No active webhook registered — nothing to clean up." });
+      }
+      const { cleanupDuplicateWebhooks, getGitHubConfig } = await import("./github");
+      const config = getGitHubConfig();
+      if (!config) {
+        return res.status(400).json({ success: false, message: "GitHub not configured." });
+      }
+      const deleted = await cleanupDuplicateWebhooks(config, info.webhookId, info.webhookUrl);
+      res.json({ success: true, deleted: deleted.length, ids: deleted });
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: error.message || "Cleanup failed" });
+    }
+  });
+
   // Get all sync changes (local and incoming)
   app.get("/api/github/pending-changes", async (req, res) => {
     try {
@@ -3204,7 +3415,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Commit and push pending changes to GitHub
   app.post("/api/github/commit", async (req, res) => {
     try {
-      const { message, force, author } = req.body;
+      const { message, force, author, files } = req.body;
       if (
         !message ||
         typeof message !== "string" ||
@@ -3221,7 +3432,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       const { commitAndPush } = await import("./github");
-      const result = await commitAndPush(finalMessage, { force: !!force });
+      const result = await commitAndPush(finalMessage, { force: !!force, files: Array.isArray(files) ? files : undefined });
 
       if (result.success) {
         res.json({ success: true, commitHash: result.commitHash });
@@ -4112,7 +4323,14 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/bindings", (_req, res) => {
     try {
       const groups = bindingManager.getAll();
-      res.json({ groups });
+      const enrichedGroups = groups.map(g => ({
+        ...g,
+        members: g.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, g.locale),
+        })),
+      }));
+      res.json({ groups: enrichedGroups });
     } catch (error) {
       console.error("Error fetching bindings:", error);
       res.status(500).json({ error: "Failed to fetch bindings" });
@@ -4121,19 +4339,31 @@ Important: Only include mappings where you are confident the field exists. Use d
 
   app.get("/api/bindings/section", (req, res) => {
     try {
-      const { contentType, slug, sectionIndex } = req.query;
+      const { contentType, slug, sectionIndex, locale } = req.query;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingManager.findGroupForSection(
+      const group = bindingManager.findGroupForSectionByIndex(
         contentType as string,
         slug as string,
         parseInt(sectionIndex as string, 10),
+        locale as string || "en",
       );
-      res.json({ group: group || null });
+      if (!group) {
+        res.json({ group: null });
+        return;
+      }
+      const enrichedGroup = {
+        ...group,
+        members: group.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
+        })),
+      };
+      res.json({ group: enrichedGroup });
     } catch (error) {
       console.error("Error finding binding for section:", error);
       res.status(500).json({ error: "Failed to find binding" });
@@ -4154,6 +4384,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType: string;
         slug: string;
         sectionIndex: number;
+        sectionId?: string;
         title?: string;
         alreadyBound?: string;
         alreadyBoundGroupName?: string;
@@ -4168,57 +4399,33 @@ Important: Only include mappings where you are confident the field exists. Use d
           continue;
 
         try {
-          const typeFolder = getFolder(entryContentType);
-          const resolved = contentIndex.resolveBaseSlug(entry.slug, typeFolder);
-          const folder = path.join(
-            process.cwd(),
-            "marketing-content",
-            typeFolder,
-            resolved,
-          );
-
-          let filePath: string;
-          if (entryContentType === "landing") {
-            filePath = path.join(folder, "promoted.yml");
-          } else {
-            filePath = path.join(folder, `${normalizedLocale}.yml`);
-          }
-
-          if (!fs.existsSync(filePath)) continue;
-
-          const commonPath = path.join(folder, "_common.yml");
-          let commonData: Record<string, unknown> = {};
-          if (fs.existsSync(commonPath)) {
-            const commonRaw = fs.readFileSync(commonPath, "utf-8");
-            commonData =
-              (yaml.load(commonRaw) as Record<string, unknown>) || {};
-          }
-
-          const fileRaw = fs.readFileSync(filePath, "utf-8");
-          const localeData =
-            (yaml.load(fileRaw) as Record<string, unknown>) || {};
-          const merged = { ...commonData, ...localeData };
+          const localeForLoad = entryContentType === "landing" ? "promoted" : normalizedLocale;
+          const { data: merged } = contentIndex.loadMergedContent(entryContentType, entry.slug, localeForLoad);
+          if (!merged) continue;
           const sections = merged.sections as Record<string, unknown>[];
           if (!Array.isArray(sections)) continue;
 
           for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
             if (section && section.type === component) {
-              const existingGroup = bindingManager.findGroupForSection(
+              const existingGroup = bindingManager.findGroupForSectionByIndex(
                 entryContentType,
                 entry.slug,
                 i,
+                normalizedLocale,
               );
+              const sameLocaleGroup = existingGroup;
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
                 sectionIndex: i,
+                sectionId: (section as Record<string, unknown>).section_id as string | undefined,
                 title:
                   ((merged.meta as Record<string, unknown>)?.title as string) ||
                   entry.title ||
                   entry.slug,
-                alreadyBound: existingGroup?.id,
-                alreadyBoundGroupName: existingGroup?.name,
+                alreadyBound: sameLocaleGroup?.id,
+                alreadyBoundGroupName: sameLocaleGroup?.name,
               });
             }
           }
@@ -4266,12 +4473,24 @@ Important: Only include mappings where you are confident the field exists. Use d
           });
         return;
       }
+      const normalizedLocale = normalizeLocale(locale);
+      const resolvedMembers = members.map((m: { contentType: string; slug: string; sectionIndex: number }) => {
+        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale);
+        return { contentType: m.contentType, slug: m.slug, sectionId };
+      });
       const { name, sourceIndex } = req.body;
-      const group = bindingManager.createGroup(component, locale, members, {
+      const group = bindingManager.createGroup(component, normalizedLocale, resolvedMembers, {
         name,
         sourceIndex,
       });
-      res.json({ group });
+      const enrichedGroup = {
+        ...group,
+        members: group.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
+        })),
+      };
+      res.json({ group: enrichedGroup });
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to create binding";
@@ -4310,12 +4529,25 @@ Important: Only include mappings where you are confident the field exists. Use d
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const group = bindingManager.addMember(groupId, {
+      const group = bindingManager.getGroupById(groupId);
+      if (!group) {
+        res.status(404).json({ error: "Binding group not found" });
+        return;
+      }
+      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      const updatedGroup = bindingManager.addMember(groupId, {
         contentType,
         slug,
-        sectionIndex,
+        sectionId,
       });
-      res.json({ group });
+      const enrichedGroup = {
+        ...updatedGroup,
+        members: updatedGroup.members.map(m => ({
+          ...m,
+          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, updatedGroup.locale),
+        })),
+      };
+      res.json({ group: enrichedGroup });
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to add member";
@@ -4335,13 +4567,34 @@ Important: Only include mappings where you are confident the field exists. Use d
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
-      const result = bindingManager.removeMember(
+      const group = bindingManager.getGroupById(groupId);
+      if (!group) {
+        res.status(404).json({ error: "Binding group not found" });
+        return;
+      }
+      const sectionId = bindingManager.getSectionIdAtIndex(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      if (!sectionId) {
+        res.status(400).json({ error: `No section_id found at index ${sectionIndex} for ${contentType}/${slug}` });
+        return;
+      }
+      const result = bindingManager.removeMemberBySectionId(
         groupId,
         contentType,
         slug,
-        parseInt(sectionIndex, 10),
+        sectionId,
       );
-      res.json({ group: result });
+      if (result) {
+        const enrichedResult = {
+          ...result,
+          members: result.members.map(m => ({
+            ...m,
+            sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, result.locale),
+          })),
+        };
+        res.json({ group: enrichedResult });
+      } else {
+        res.json({ group: null });
+      }
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to remove member";
@@ -4373,8 +4626,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
-  // Content editing API
-  app.post("/api/content/edit", async (req, res) => {
+  // Content editing API (sections only — writes to locale files)
+  app.post("/api/content/edit-sections", async (req, res) => {
     try {
       // In development mode, allow without token (using X-Debug-Token or no auth)
       const isDevelopment = process.env.NODE_ENV !== "production";
@@ -4523,6 +4776,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               sIdx,
               updatedSection,
               authorName,
+              normalizedLocaleForBinding,
             );
             if (propagation.errors.length > 0) {
               bindingWarnings = propagation.errors;
@@ -4558,6 +4812,71 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
     } catch (error) {
       console.error("Content edit error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  app.post("/api/content/edit-common", async (req, res) => {
+    try {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const debugToken = req.headers["x-debug-token"] as string | undefined;
+      const authHeader = req.headers.authorization;
+
+      let token: string | null = null;
+      if (authHeader?.startsWith("Token ")) {
+        token = authHeader.slice(6);
+      } else if (debugToken) {
+        token = debugToken;
+      }
+
+      if (!isDevelopment) {
+        if (!token) {
+          res.status(401).json({ error: "Authorization required" });
+          return;
+        }
+        const capResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          {
+            method: "GET",
+            headers: { Authorization: `Token ${token}`, Academy: "4" },
+          },
+        );
+        if (capResponse.status === 401) {
+          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          return;
+        }
+        if (capResponse.status !== 200) {
+          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          return;
+        }
+      }
+
+      const { contentType, slug, operations, author: requestAuthor } = req.body;
+
+      if (!contentType || !slug || !Array.isArray(operations) || operations.length === 0) {
+        res.status(400).json({ error: "Missing required fields: contentType, slug, operations (array)" });
+        return;
+      }
+
+      const authorName = requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined;
+
+      const result = editCommonContent({
+        contentType,
+        slug,
+        operations,
+        author: authorName,
+      });
+
+      if (result.success) {
+        clearSitemapCache();
+        clearRedirectCache();
+        contentIndex.refresh();
+        res.json({ success: true });
+      } else {
+        res.status(400).json({ error: result.error });
+      }
+    } catch (error) {
+      console.error("Common content edit error:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -5078,6 +5397,9 @@ Important: Only include mappings where you are confident the field exists. Use d
                 "utf8",
               );
 
+              // Strip redirects — they must not be copied to duplicate pages
+              content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
               content = content.replace(
@@ -5523,6 +5845,9 @@ sections: []
                   "utf8",
                 );
 
+                // Strip redirects — they must not be copied to duplicate pages
+                content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+
                 // Replace slug in content
                 content = content.replace(
                   new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
@@ -5926,6 +6251,29 @@ sections: []
     }
   });
 
+  app.get("/api/image-registry/redundant", (_req, res) => {
+    try {
+      const images = mediaGallery.findRedundantImages();
+      res.json({ count: images.length, images });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to find redundant images" });
+    }
+  });
+
+  app.post("/api/image-registry/redundant/resolve", async (req, res) => {
+    try {
+      const { action, ids } = req.body as { action?: string; ids?: string[] };
+      if (action !== "delete-local" && action !== "delete-cloud") {
+        res.status(400).json({ error: "Invalid action. Must be 'delete-local' or 'delete-cloud'" });
+        return;
+      }
+      const result = await mediaGallery.resolveRedundancy(action, ids);
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to resolve redundancy" });
+    }
+  });
+
   app.post("/api/image-registry/migrate", async (req, res) => {
     try {
       const { from, to, dryRun, prefix } = req.body as {
@@ -6232,7 +6580,7 @@ sections: []
           const localeOrVariant =
             file.type === "landing" ? "promoted" : inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
-          const result = loadContent({
+          const result = contentIndex.loadContent({
             contentType: file.type,
             slug: folderSlug,
             schema: zodSchema,

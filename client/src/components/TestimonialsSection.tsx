@@ -1,9 +1,11 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { TestimonialsSection as TestimonialsSectionType } from "@shared/schema";
 import { DotsIndicator } from "@/components/DotsIndicator";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 interface LegacyTestimonial {
   id: string;
@@ -29,6 +31,63 @@ interface TestimonialItem {
   avatar?: string;
 }
 
+interface BankTestimonial {
+  student_name: string;
+  student_thumb?: string;
+  student_video?: string;
+  excerpt?: string;
+  full_text?: string;
+  content?: string;
+  short_content?: string;
+  related_features?: string[];
+  priority?: number;
+  rating?: number;
+  role?: string;
+  company?: string;
+}
+
+const ANONYMOUS_NAMES = ["anonymous", "anonimous", "anónimo", "anonimo", "anon"];
+
+function isAnonymous(name: string): boolean {
+  return ANONYMOUS_NAMES.includes(name.trim().toLowerCase());
+}
+
+function isValidBankTestimonial(t: BankTestimonial): boolean {
+  if (isAnonymous(t.student_name)) return false;
+  if (t.student_video) return false;
+  const hasText = !!(t.excerpt || t.short_content || t.content || t.full_text);
+  return hasText;
+}
+
+function mapBankToItem(t: BankTestimonial): TestimonialItem {
+  return {
+    name: t.student_name,
+    role: t.role || "",
+    rating: t.rating || 5,
+    comment: t.excerpt || t.short_content || t.content || t.full_text || "",
+    company: t.company,
+    avatar: t.student_thumb,
+  };
+}
+
+function sortBankTestimonials(testimonials: BankTestimonial[], relatedFeatures?: string[]): BankTestimonial[] {
+  return [...testimonials].sort((a, b) => {
+    const aPriority5 = (a.priority ?? 0) >= 5 ? 1 : 0;
+    const bPriority5 = (b.priority ?? 0) >= 5 ? 1 : 0;
+    if (bPriority5 !== aPriority5) return bPriority5 - aPriority5;
+
+    if (relatedFeatures && relatedFeatures.length > 0) {
+      const aFeatures = a.related_features || [];
+      const bFeatures = b.related_features || [];
+      const aMatchCount = relatedFeatures.filter((f) => aFeatures.includes(f)).length;
+      const bMatchCount = relatedFeatures.filter((f) => bFeatures.includes(f)).length;
+      if (bMatchCount !== aMatchCount) return bMatchCount - aMatchCount;
+    }
+
+    return (b.priority ?? 0) - (a.priority ?? 0);
+  });
+}
+
 function getInitials(name: string): string {
   return name
     .split(" ")
@@ -45,18 +104,44 @@ const CARD_SPACING_DESKTOP = 330;
 const CARD_WIDTH_MOBILE = 240;
 const CARD_SPACING_MOBILE = 220;
 
-const DRAG_MULTIPLIER = 0.5; // Slower drag
-const SIDE_SCALE = 0.85; // Smaller side cards
+const DRAG_MULTIPLIER = 0.52;
+const SIDE_SCALE = 0.85;
 const SIDE_OPACITY = 0.5;
 
 export function TestimonialsSection({ data, testimonials }: TestimonialsSectionProps) {
-  const items = data?.items || testimonials?.map(t => ({
+  const { i18n } = useTranslation();
+  const locale = i18n.language?.startsWith("es") ? "es" : "en";
+
+  const relatedFeatures = data?.related_features || [];
+  const limit = Math.min(data?.limit || 10, 30);
+  const useBankData = relatedFeatures.length > 0;
+
+  const { data: bankData } = useQuery<{ testimonials: BankTestimonial[] }>({
+    queryKey: ["/api/testimonials", locale],
+    staleTime: 5 * 60 * 1000,
+    enabled: useBankData,
+  });
+
+  const bankItems: TestimonialItem[] = useMemo(() => {
+    if (!useBankData || !bankData?.testimonials) return [];
+    const valid = bankData.testimonials.filter(isValidBankTestimonial);
+    const filtered = valid.filter((t) => {
+      const features = t.related_features || [];
+      return relatedFeatures.some((f) => features.includes(f));
+    });
+    const sorted = sortBankTestimonials(filtered, relatedFeatures);
+    return sorted.slice(0, limit).map(mapBankToItem);
+  }, [useBankData, bankData, relatedFeatures, limit]);
+
+  const hardcodedItems = data?.items || testimonials?.map(t => ({
     name: t.name,
     role: t.role,
     rating: t.rating,
     comment: t.comment,
     company: t.course,
   })) || [];
+
+  const items = useBankData && bankItems.length > 0 ? bankItems : hardcodedItems;
 
   const title = data?.title || "What Our Students Say";
   const subtitle = data?.subtitle;

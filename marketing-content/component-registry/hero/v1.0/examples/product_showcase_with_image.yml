@@ -24,13 +24,13 @@ yaml: |-
       review_count: "Based on 5149+ reviews"
       review_logos:
         - name: "Google"
-          logo: "/attached_assets/google_1765590146414.webp"
+          logo: "https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp"
         - name: "Course Report"
-          logo: "/attached_assets/course-report_1765590146414.webp"
+          logo: "https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp"
         - name: "SwitchUp"
-          logo: "/attached_assets/switchup_1765590146414.webp"
+          logo: "https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp"
     video:
-      url: "/attached_assets/ai-engineering_1765593572918.mp4"
+      url: "https://storage.googleapis.com/4geeks-academy-website/media/ai-engineering_1765593572918.mp4"
       ratio: "9:16"
       muted: true
       loop: true

@@ -41,19 +41,21 @@ sections:
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
-        image: /attached_assets/rigobot-logo_1764707022198.webp
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
+    video:
+      url: https://youtu.be/snI-n8Ruvxg
     media:
       type: video
       src: https://www.youtube.com/watch?v=snI-n8Ruvxg&t=27s
       thumbnail: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop
       alt: Data Science program introduction
     signup_card:
-      title: Get the Full Syllabus
-      description: Access the full program description, schedule and everything else you need to know.
+      title: Get the Full Program Overview
+      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send me the Curriculum
+        text: Send me the details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -61,17 +63,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 16-Week Intensive Program
+          text: {{ data_science_week_duration | 18 }}-week intensive program
         - icon: IconBriefcase
-          text: Employment-First Curriculum
+          text: Employment-first curriculum
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback
+          text: AI-Powered learning & feedback
         - icon: IconUsers
           text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 Mentorship
+          text: Unlimited 1:1 mentorship
         - icon: book
-          text: Real-World DS & ML Portfolio
+          text: Real-world DS & ML portfolio
     paddingY:
       desktop: md
     marginY:
@@ -79,13 +81,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Get the Full Overview
       tags: request_more_info
       automations: soft
       fields:
@@ -97,13 +99,13 @@ sections:
           required: true
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: true
           default: data-science-ml
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -112,35 +114,35 @@ sections:
     items:
       - id: switchup-2025
         alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: /attached_assets/switchup_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
       - id: course-report-2024
         alt: Course Report - Best Coding Bootcamp 2024
-        logo: /attached_assets/course-report_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 64px
       - id: newsweek
         alt: Newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         logoHeight: 64px
     marginY:
       desktop: md lg
@@ -149,7 +151,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why Data Science now?
+    title: Why Data Science Now?
     subtitle: Data fuels the AI revolution.
     description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
     background: hsl(var(--background))
@@ -158,7 +160,7 @@ sections:
         value: 36%
         title: projected growth rate the next decade
       - id: "3"
-        value: {{ starting_salary_datascience | $90K }}+
+        value: {{ salary_data_scientist | 22.000€ }}
         title: Average starting salary for data scientists
   - type: syllabus
     variant: program-modules
@@ -310,9 +312,9 @@ sections:
           - text: "Machine Learning Engineer: {{ average_salary_machine_learning_engineer | $90K–$150K }}"
           - text: "Data Analyst: {{ average_salary_data_analyst | $60K–$95K }}"
           - text: "AI Engineer: {{ average_salary_ai_engineer | $100K–$160K }}"
-      - value: 500+
+      - value: 400+
         label: Hiring Partners
-        description: Access our network of 500+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -322,15 +324,14 @@ sections:
     useSolidCard: true
     paddingY:
       mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
+      desktop: none lg
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
     subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
-        title: Add the Job Guarantee to your payment plan
+        title: Add the job guarantee to your payment plan
       - icon: Users
         title: Complete the program and follow the GeekFORCE career process
       - icon: Award
@@ -338,13 +339,32 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ price_datascience | $299 }}
     tech_icons:
       - python
@@ -403,7 +423,7 @@ sections:
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ price_datascience | Starting at €200 }}
     tech_icons:
@@ -419,15 +439,13 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
-      - icon: IconCheck
-        text: Finance your tuition through our partners with plans ranging from 6 to 24 months.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
-      text: Get More Information
+      text: Get more information
       url: /es/apply
       variant: primary
     marginY:
@@ -448,32 +466,32 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Top Companies Hiring Our Graduates
+    title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     paddingY:
       desktop: none
@@ -528,6 +546,20 @@ sections:
     title: Frequently Asked Questions
     related_features:
       - data-science
+    item_overrides:
+      how-long-does-it-take-to-complete-the-data-science-program:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
     marginY:
       desktop: none
     paddingY:
@@ -535,15 +567,15 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start your Data Science career?
+    title: Ready to Start Your Data Science Career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      automations: hard
+      submit_label: Apply now
       tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
@@ -555,7 +587,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: false
@@ -568,9 +600,41 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: false
+          default: data-science-ml
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

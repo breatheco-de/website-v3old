@@ -134,6 +134,241 @@ sections:
     footer_note: "* Program details subject to change"
     marginY:
       desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: comparison_table
+    version: "1.0"
+    title: Which path fits you best?
+    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    columns:
+      - name: Category
+        highlight: true
+      - name: Full Stack Development with AI
+      - name: Data Science & Machine Learning with AI
+      - name: Cybersecurity
+    rows:
+      - feature: What It Is
+        values:
+          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
+          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
+          - Learn to protect systems, networks, and data from cyber threats.
+      - feature: Why It Matters
+        values:
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
+      - feature: What You'll Learn
+        values:
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
+          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
+      - feature: Ideal For
+        values:
+          - Creative problem-solvers who enjoy building and seeing results come to life.
+          - Analytical thinkers who love numbers, trends, and solving patterns.
+          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
+      - feature: Day-to-Day Work
+        values:
+          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
+          - Clean and analyze data, build models, create dashboards, and deliver insights.
+          - Monitor networks, test defenses, respond to incidents, and develop security policies.
+      - feature: Job Titles
+        values:
+          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
+          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
+          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
+      - feature: Average U.S. Salary
+        values:
+          - 22.000€ to 40.000€
+          - 30.000€ to 60.000€
+          - 25.000€ to 45.000€
+      - feature: Bootcamp Schedule
+        values:
+          - Part-Time (20 weeks).
+          - Part-Time (18 weeks).
+          - Part-Time (16 weeks).
+      - feature: Course Delivery
+        values:
+          - Online.
+          - Online.
+          - Online.
+      - feature: Cost
+        values:
+          - 6.800€ (discounts and scholarships available).
+          - 7.800€ (discounts and scholarships available).
+          - 7.800€ (discounts and scholarships available).
+      - feature: Payment Plans
+        values:
+          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
+      - feature: Best For You If
+        values:
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
+      - feature: Ready to start?
+        values:
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/full-stack
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/data-science-ml
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/cybersecurity
+                variant: outline
+    footer_note: "* Program details subject to change"
+    marginY:
+      desktop: none
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+  - type: comparison_table
+    version: "1.0"
+    title: Which Path Fits You Best?
+    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    columns:
+      - name: Category
+        highlight: true
+      - name: Full Stack Development with AI
+      - name: Data Science & Machine Learning with AI
+      - name: Cybersecurity
+    rows:
+      - feature: What It Is
+        values:
+          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
+          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
+          - Learn to protect systems, networks, and data from cyber threats.
+      - feature: Why It Matters
+        values:
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
+      - feature: What You'll Learn
+        values:
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
+          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
+      - feature: Ideal For
+        values:
+          - Creative problem-solvers who enjoy building and seeing results come to life.
+          - Analytical thinkers who love numbers, trends, and solving patterns.
+          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
+      - feature: Day-to-Day Work
+        values:
+          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
+          - Clean and analyze data, build models, create dashboards, and deliver insights.
+          - Monitor networks, test defenses, respond to incidents, and develop security policies.
+      - feature: Job Titles
+        values:
+          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
+          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
+          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
+      - feature: Average U.S. Salary
+        values:
+          - $75K to $110K
+          - $85K to $130K
+          - $80K to $120K
+      - feature: Bootcamp Schedule
+        values:
+          - Full-Time (12 weeks) or Part-Time (20 weeks).
+          - Part-Time (16 weeks).
+          - Part-Time (16 weeks).
+      - feature: Course Delivery
+        values:
+          - Online or In-Person (select cities).
+          - Online.
+          - Online.
+      - feature: Cost
+        values:
+          - $10,999 (discounts and scholarships available).
+          - $10,999 (discounts and scholarships available).
+          - $9,999 (discounts and scholarships available).
+      - feature: Payment Plans
+        values:
+          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
+      - feature: Job Guarantee
+        values:
+          - Available for additional $2,000. Included in the full time course option at no extra cost.
+          - Available for additional $2,000.
+          - Available for additional $2,000.
+      - feature: Best For You If
+        values:
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
+      - feature: Ready to start?
+        values:
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/full-stack
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/data-science-ml
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/cybersecurity
+                variant: outline
+    footer_note: "* Program details subject to change"
+    marginY:
+      desktop: none
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -211,6 +446,118 @@ sections:
       desktop: none
     paddingY:
       desktop: none lg
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Program tuition
+    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: €6.250 launch price
+          - icon: CheckCircle
+            text: Spring offer, valid until May 1*
+        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+        price: {{ price_ai_engineering | $349 }}
+        price_info: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
+        cta_text: Discover program
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_fullstack | $10,999 }} full tuition
+          - icon: CheckCircle
+            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
+        tags:
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: {{ price_fullstack | $299 }}
+        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 18 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_datascience | $14,999 }} full tuition
+          - icon: CheckCircle
+            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
+        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
+        price: {{ price_datascience | 299$ }}
+        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
+        cta_text: Discover program
+        cta_url: /en/career-programs/data-science-ml
+        course_background: primary
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: DollarSign
+            text: {{ price_full_cybersecurity | $14,999 }} full tuition
+          - icon: CheckCircle
+            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
+        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
+        price: {{ price_cybersecurity | 299$ }}
+        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
+        cta_text: Discover program
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none lg
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
@@ -250,3 +597,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

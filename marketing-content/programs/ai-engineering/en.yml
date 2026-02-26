@@ -11,6 +11,8 @@ meta:
     - /bootcamp/ai-engineering
     - /programs/ai-engineer
     - /coding-bootcamp/ai-engineering
+    - /en/coding-bootcamps/software-engineer-bootcamp
+    - /en/online-coding-bootcamp/best-online-coding-bootcamp
 schema:
   include:
     - organization
@@ -29,7 +31,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +7000 graduates
+      count: +6000 graduates
     bullet_points:
       - Transform an entire business case into a fully AI-native system, layer by layer.
       - Integrate AI into real software, connecting intelligent models to users and data.
@@ -40,7 +42,7 @@ sections:
         image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
       - name: Rigo
         role: AI Tutor
-        image: /attached_assets/rigobot-logo_1764707022198.webp
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
     media:
@@ -49,10 +51,10 @@ sections:
       thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
       alt: AI Engineering program introduction
     signup_card:
-      title: Get the Full Syllabus
-      description: Access the full 10-milestone roadmap and Company Case methodology.
+      title: Get the Full Program Overview
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Send me the Curriculum
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -60,7 +62,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 24-Week or 12-Week Accelerated Morning Program
+          text: 24-Week or 15-Week Accelerated Morning Program
         - icon: IconBriefcase
           text: Employment-First Curriculum
         - icon: IconRobot
@@ -75,16 +77,109 @@ sections:
       desktop: md
     marginY:
       desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: hero
+    version: "1.0"
+    variant: course
+    title: AI Engineering
+    title_highlight: AI Enginerering
+    subtitle: Learn to design, build, and deploy complete AI systems used in real-world production.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: +6000 graduates
+    bullet_points:
+      - Transform an entire business case into a fully AI-native system, layer by layer.
+      - Integrate AI into real software, connecting intelligent models to users and data.
+      - Use modern AI tools and coding agents to build and ship software faster.
+    tutors:
+      - name: Marco Gonzalo
+        role: Main Instructor
+        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
+      - name: Rigo
+        role: AI Tutor
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Your tutors:"
+    description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
+    media:
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program introduction
+    signup_card:
+      title: Get the Full Program Overview
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
+      cta_button:
+        text: Send me the details
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: Already a student? Login here.
+        url: https://4geeks.com/login
+      features:
+        - icon: calendar
+          text: 24-week program
+        - icon: IconBriefcase
+          text: Employment-first curriculum
+        - icon: IconRobot
+          text: AI-Powered learning & feedback
+        - icon: IconUsers
+          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+        - icon: IconUserCheck
+          text: Unlimited 1:1 mentorship
+        - icon: book
+          text: Production-grade portfolio
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - caracas-venezuela
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - santiago-chile
+      - quito-ecuador
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Get the Full Overview
       tags: request_more_info
       automations: soft
       fields:
@@ -96,13 +191,13 @@ sections:
           required: true
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: true
           default: ai-engineering
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -111,35 +206,35 @@ sections:
     items:
       - id: switchup-2025
         alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: /attached_assets/switchup_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
       - id: course-report-2024
         alt: Course Report - Best Coding Bootcamp 2024
-        logo: /attached_assets/course-report_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 64px
       - id: newsweek
         alt: Newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         logoHeight: 64px
     paddingY:
       desktop: none
@@ -339,7 +434,7 @@ sections:
     paddingY:
       desktop: md
   - type: certificate
-    title: Certificate & Career Network
+    title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
       - text: "AI Software Engineer: $95K–$135K"
@@ -351,33 +446,32 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
+      - value: {{ global_job_placement_rate | 84 }}%
         label: Hiring rate
-        description: 84% of our graduates land a tech job within 6 months. Our career services team works with you until you're hired.
+        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
         benefits:
-          - text: Dedicated career coaching from day one
-          - text: Resume and LinkedIn profile optimization
-          - text: Mock interviews with industry professionals
-          - text: Direct introductions to hiring partners
+          - text: Certificate recognized by the Florida Department of Education
+          - text: End-to-end AI-engineered company in your portfolio
+          - text: Demonstrated experience with agents, workflows, and AI systems
+          - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: Most graduates secure their first role within 3-6 months of completing the program. We provide ongoing support until you land your dream job.
+        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
         benefits:
-          - text: Job search strategy and planning
-          - text: Salary negotiation coaching
-          - text: Lifetime career support access
-          - text: Alumni network with 10,000+ professionals
-      - value: 55%
-        label: Average salary increase
-        description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
+          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
+          - text: Practice for technical and behavioral interviews
+          - text: Execute a personalized job-search strategy with access to relevant hiring networks
+      - value: {{ global_salary_increase | 55 }}%
+        label: Average Salary Increase
+        description: Master the AI skills that companies are struggling to find talent for. As businesses shift toward automation, you'll be ready to step into high-priority roles that offer immediate growth and long-term stability.
         benefits:
-          - text: "AI Software Engineer: {{ average_salary_ai_engineer | $95K–$135K }}"
-          - text: "Full-Stack Engineer (AI-Fluent): {{ average_salary_ai_fluent_software_developer | $100K–$145K }}"
-          - text: "Agent Engineer: {{ average_salary_agent_engineer | $105K–$155K }}"
-          - text: "Workflow Automation Engineer: {{ average_salary_workflow_automation_engineer | $85K–$120K }}"
-      - value: 5,000+
-        label: Hiring Partners
-        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+          - text: "AI Software Engineer: {{ average_salary_ai_engineer | $115K–$165K }}"
+          - text: "Full-Stack AI Engineer: {{ average_salary_ai_fluent_software_developer | $125K–$185K }}"
+          - text: "Agentic Systems Engineer: {{ average_salary_agent_engineer | $140K–$210K }}"
+          - text: "Workflow Automation Engineer: {{ average_salary_workflow_automation_engineer | $95K–$145K }}"
+      - value: 400+
+        label: Hiring partners
+        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -385,10 +479,48 @@ sections:
           - text: Companies include Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
+    marginY:
+      mobile: none
+      desktop: none
     paddingY:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
+  - type: features_grid
+    variant: highlight
+    title: Enroll with a Job Guarantee*
+    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
+    items:
+      - icon: Star
+        title: Add the job guarantee to your payment plan
+      - icon: Users
+        title: Complete the program and follow the GeekFORCE career process
+      - icon: Award
+        title: Get hired within 9 months of graduation – or your money back
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    paddingY:
+      desktop: lg none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
@@ -422,7 +554,7 @@ sections:
       url: "#apply-modal"
       variant: primary
     marginY:
-      desktop: none md
+      desktop: lg md
     paddingY:
       desktop: none md
     showOnLocations:
@@ -453,8 +585,8 @@ sections:
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
-    financing_text: Installment financing starting from
+    discount_text: "Full payment discount: Save 10% with early payment."
+    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
     tech_icons:
       - python
@@ -471,13 +603,11 @@ sections:
       - icon: IconCheck
         text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
       - icon: IconCheck
-        text: Finance your tuition through our partners with plans ranging from 6 to 24 months.
-      - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
-      text: Get More Information
+      text: Get more information
       url: /es/apply
       variant: primary
     marginY:
@@ -579,6 +709,20 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
+    item_overrides:
+      how-long-does-the-program-take:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an AI Engineer?
@@ -587,9 +731,9 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      automations: hard
+      submit_label: Apply now
       tags: website-lead
+      automations: hard
       fields:
         email:
           visible: true
@@ -601,7 +745,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: false
@@ -614,9 +758,41 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

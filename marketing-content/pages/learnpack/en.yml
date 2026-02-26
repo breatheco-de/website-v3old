@@ -20,20 +20,20 @@ sections:
     title: Learnpack Build Teach Learn
     subtitle: LearnPack transforms any topic into interactive, auto-graded courses in minutes using AI. Create comprehensive curricula with lessons, quizzes, and exercises—no coding required
     image:
-      src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md
   - type: article
     content: |
-      ## Why LearnPack Matters in 2025
+      ## Why LearnPack Matters in 2026
 
       In the LLM era, it’s pointless to memorize syntax. What matters is **thinking like a developer** and collaborating with AI. LearnPack turns any topic, technical or not, into an **interactive, auto-graded course** in minutes.
 
       Tell the platform a title, length, and learning goals, or add your own input (documents, videos, or just a topic), and it instantly produces a **structured syllabus** and a complete interactive course. It includes lessons, quizzes, and auto-graded exercises, no coding required. Then **Rigobot**, our 24/7 AI mentor, guides learners line by line.
 
-      ### Some Context
+      ### Context and Overview
 
       In today’s fast-evolving digital landscape, learning platforms must adapt to meet diverse needs. LearnPack, initially launched as a coding education tool, has evolved into a versatile platform that empowers anyone to create interactive, auto-graded courses without technical expertise.
 
@@ -49,22 +49,22 @@ sections:
 
       ## Features
 
-      | **Feature** | **What It Does** | **Why You’ll Love It** |
+      | **Feature** | **What it does** | **Why you’ll love it** |
       | --- | --- | --- |
-      | AI Course Builder | Creates full curricula from a short brief | Launch a course in minutes, no coding or setup |
-      | Rigobot Mentor | Follows learning in real time and adapts guidance | Learn faster with teacher-style coaching |
-      | Auto-Graded Exercises & Quizzes | Instantly checks answers and code | Immediate feedback keeps motivation high |
-      | Browser-First Experience | Runs entirely online | Learn from any device, anywhere |
+      | AI course builder | Creates full curricula from a short brief | Launch a course in minutes, no coding or setup |
+      | Rigobot mentor | Follows learning in real time and adapts guidance | Learn faster with teacher-style coaching |
+      | Auto-graded exercises & quizzes | Instantly checks answers and code | Immediate feedback keeps motivation high |
+      | Browser-first experience | Runs entirely online | Learn from any device, anywhere |
       | Accessibility & i18n | Keyboard navigation, color-safe UI, EN/ES | Inclusive, bilingual learning from day one |
-      | Open-Source Repository | Content available on GitHub | Reuse, adapt, and improve freely |
+      | Open-source repository | Content available on GitHub | Reuse, adapt, and improve freely |
 
-      ## Outcomes So Far (Jan – Jun 2025)
+      ## Recents Uutcomes (Jan – Jun 2025)
 
       | **Metric** | **Mid-Year 2025** | **Source** |
       | --- | --- | --- |
       | Learners on LearnPack | 4,000+ across 6 countries | Gitpod case study |
       | VS Code Marketplace installs | 88,268 | VS Marketplace stats |
-      | Program hiring rate | 79% within 140 days | [Mid-Year Outcomes 2025](https://4geeksacademy.com/us/outcomes-2025-midyear) |
+      | Program hiring rate | 79% within 140 days | [Mid-Year Outcomes 2025](https://new.4geeks.com/en/outcomes) |
       | Median LATAM salary lift | +282% | Same report |
 
       ## Why LearnPack Beats Generic LMS Tools
@@ -102,14 +102,13 @@ sections:
       ## Ready to Create or Learn?
 
       - 🔗 Try the **AI course generator** at [learnpack.co](https://www.learnpack.co/)
-      - 🔗 See Rigobot in action on the [Rigobot page](https://4geeksacademy.com/us/rigobot)
-      - 🔗 Want a career jump-start? Apply to the [Full Stack Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) and get LearnPack and Rigobot from day one.
+      - 🔗 See Rigobot in action on the [Rigobot page](https://new.4geeks.com/en/rigobot-ai-coding-mentor)
+      - 🔗 Want a career jump-start? Apply to the [Full Stack Bootcamp](https://new.4geeks.com/en/career-programs/full-stack and get LearnPack and Rigobot from day one.
 
       Questions? Email **info@4geeksacademy.com** or chat with an advisor.
     show_toc: true
     max_width: xl
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - learnpack
@@ -117,13 +116,13 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
+    title: Ready to Get Started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Apply now
       tags: website-lead
       automations: hard
       fields:
@@ -137,7 +136,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -156,3 +155,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

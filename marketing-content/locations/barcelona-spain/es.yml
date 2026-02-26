@@ -58,45 +58,17 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el hub tech y startup líder del sur de Europa. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Barcelona
     cta_buttons:
-      - text: Aplicar Ahora
-        url: "#bottom"
+      - text: Aplicar ahora
+        url: /es/apply
         variant: primary
-      - text: Descargar Programa
-        url: "#syllabus-modal"
+      - text: Ver el programa
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-  - type: modal
-    version: "1.0"
-    section_id: syllabus-modal
-    heading: Comienza tu Aplicación
-    description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Enviar Aplicación
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: ¡Gracias! Nos pondremos en contacto contigo en 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -104,42 +76,42 @@ sections:
     gradientWidth: 100
     items:
       - id: switchup-2025
-        logo: /attached_assets/switchup_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         alt: SwitchUp - Mejores Coding Bootcamps 2025
         logoHeight: 56px
       - id: course-report-2024
-        logo: /attached_assets/course-report_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         alt: Course Report - Mejor Coding Bootcamp 2024
         logoHeight: 56px
       - id: tech-hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         alt: South Florida Tech Hub
         logoHeight: 56px
       - id: ebootcamp
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         alt: eBootcamp Top
         logoHeight: 56px
       - id: premios-tecnologia
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         alt: Premios Tecnología Siglo XXI
         logoHeight: 56px
       - id: newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         alt: Newsweek
         logoHeight: 56px
       - id: reviews-coursereport
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         alt: 4.9 en Reseñas de Course Report
         logoHeight: 56px
       - id: excelencia-educativa
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Calidad Institucional
         logoHeight: 56px
     marginY:
       desktop: lg none
   - type: banner
     version: "1.0"
-    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
       - https://randomuser.me/api/portraits/men/2.jpg
@@ -173,55 +145,70 @@ sections:
       desktop: none md
   - type: course_selector
     version: "1.0"
-    variant: default
-    heading: Programas Disponibles
-    subheading: Apoyo en la Búsqueda Laboral de Por Vida.
+    variant: solid
+    heading: Explora nuestros programas
+    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
-      - name: Full Stack Development
+      - name: Ingeniería de IA
+        icon: Brain
+        duration: 24 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
+        badges:
+          - icon: Cpu
+            text: LLMs, Agentes de IA y Automatización
+          - icon: Database
+            text: Sistemas de IA en Producción
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
+        course_background: hsl(var(--accent))
+      - name: Desarrollo Full Stack con IA
+        icon: Code
         duration: 20 semanas
         label: Actualizado en 2026
-        title: Desarrollo Full Stack de Software
+        title: Desarrollo de Software Full Stack
         badges:
           - icon: Code
-            text: React, Node.js & Python
+            text: React, Node.js y Python
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
-        price: 200 €
-        original_price: 300 €
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/full-stack
-        course_background: hsl(var(--primary) / 0.4)
-      - name: AI and Machine Learning
-        duration: 16 semanas
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        course_background: hsl(var(--destructive))
+      - name: Ciencia de Datos y ML
+        icon: ChartLine
+        duration: 18 semanas
         label: Actualizado en 2026
-        title: Data Science y Machine Learning
+        title: Ciencia de Datos y Machine Learning con IA
         badges:
-          - icon: Brain
-            text: LLMs y entrenamiento en IA Generativa
-        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
-        price: 200 €
-        original_price: 300 €
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/ai-machine-learning
-        course_background: accent
-      - name: Cybersecurity
+          - icon: BrainCircuit
+            text: Machine Learning y Modelos de IA
+          - icon: BarChart
+            text: Análisis y Visualización de Datos
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+        course_background: hsl(var(--primary))
+      - name: Ciberseguridad
+        icon: Shield
         duration: 16 semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
-          - icon: Code
-            text: Detección de amenazas y protección de sistemas
-        description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price: 200 €
-        original_price: 300 €
-        price_info: con pagos a plazos de 4Geeks
-        cta_text: Descubre el programa
-        cta_url: /es/cybersecurity
-        course_background: hsl(var(--color-pink))
+          - icon: Lock
+            text: Detección de Amenazas y Seguridad de Redes
+          - icon: Server
+            text: Seguridad en la Nube
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
+        course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-7lbz78
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -236,7 +223,7 @@ sections:
         text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una Comunidad Tech Global Activa
         text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
-    image: /attached_assets/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
@@ -248,18 +235,32 @@ sections:
   - type: split_cards
     variant: primary-left
     primary:
-      heading: La Confianza de una Garantía de Empleo
-      description: |
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula. Condiciones aplican.
+      heading: La Confianza de una Garantía de Empleo*
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: 84% tasa de contratación entre graduados
+        - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: 55% aumento salarial promedio en roles tech
-    background: hsl(var(--secondary))
+        - text: {{ global_salary_increase | 55% }}% aumento salarial promedio en roles tech
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
+    section_id: split_cards-qyl8t7
   - type: why_learn_ai
     variant: laptop-edge
     title: Por Qué Barcelona es un Lugar Inteligente para Lanzar tu Carrera Tech
@@ -343,44 +344,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-  - type: profiles_carousel
-    version: v1.0
-    heading: Conoce a los Geeks
-    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
-    image_round: false
-    profiles:
-      - image_id: alejandro_sanchez
-        name: Alejandro Sánchez
-        role: Co-Fundador y Director de Tecnología
-        linkedin_url: https://www.linkedin.com/in/alesanchezr/
-      - image_id: marcelo_ricigliano
-        name: Marcelo Ricigliano
-        role: Co-Fundador y CEO
-        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
-      - image_id: alissalandra
-        name: Alissa Landra
-        role: Campus & Growth Manager USA
-        linkedin_url: https://www.linkedin.com/in/alissalandra/
-      - image_id: victor_gomez
-        name: Victor Manuel Gómez Pérez
-        role: Regional Manager Europe
-        linkedin_url: https://www.linkedin.com/in/victormgomezp/
-      - image_id: pablo_bullor
-        name: Pablo Bullor
-        role: Program Manager LATAM
-        linkedin_url: https://www.linkedin.com/in/pablobullor/
-      - image_id: laura
-        name: Laura Magallanes
-        role: Program Manager USA
-        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
-      - image_id: valentina_ancieta
-        name: Valentina Ancieta
-        role: Workforce Development Manager USA & LATAM
-        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
-      - image_id: ariana_sanchez
-        name: Ariana Sánchez
-        role: Culture & Talent Leader
-        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -393,12 +356,77 @@ sections:
       desktop: md lg
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para Iniciar tu Carrera Tech en Barcelona?
-    subtitle: Únete a nuestra próxima cohorte y transforma tu futuro.
-    background: hsl(var(--primary))
-    cta_text: Aplicar Ahora
-    cta_url: /es/apply?location=barcelona-spain
-    marginY:
-      desktop: lg none
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre y Apellido
+        phone:
+          visible: true
+          required: false
+          placeholder: Teléfono
+        program:
+          visible: true
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    terms_color: hsl(var(--card))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre Completo
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+          placeholder: Número telefónico
+        program:
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-nvyob2

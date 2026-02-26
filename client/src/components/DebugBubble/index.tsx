@@ -66,6 +66,7 @@ import { useDebugAuth, getDebugToken, getDebugUserName } from "@/hooks/useDebugA
 import { locations } from "@/lib/locations";
 import { normalizeLocale } from "@shared/locale";
 import { LocaleFlag } from "./components/LocaleFlag";
+import { SyncStatusPopover } from "./components/SyncStatusPopover";
 import { useQuery } from "@tanstack/react-query";
 import {
   STORAGE_KEY,
@@ -307,6 +308,8 @@ export function DebugBubble() {
   const [autoCommitCountdown, setAutoCommitCountdown] = useState<number | null>(null);
   const [isFlushing, setIsFlushing] = useState(false);
   const [manualActionsOpen, setManualActionsOpen] = useState(false);
+  const [isPushingAllLocal, setIsPushingAllLocal] = useState(false);
+  const [pushAllLocalError, setPushAllLocalError] = useState<string | null>(null);
   
   // Create content modal state
   const [createContentModalOpen, setCreateContentModalOpen] = useState(false);
@@ -647,13 +650,26 @@ export function DebugBubble() {
           .then(r => r.json())
           .then(data => setAutoCommitStatus(data))
           .catch(() => {});
+        if (manualActionsOpen) {
+          setPendingChangesLoading(true);
+          fetch(`/api/github/pending-changes?_t=${Date.now()}`)
+            .then((res) => res.json())
+            .then((data: { changes: PendingChange[]; count: number }) => {
+              setPendingChanges(data.changes || []);
+              setPendingChangesLoading(false);
+            })
+            .catch(() => {
+              setPendingChanges([]);
+              setPendingChangesLoading(false);
+            });
+        }
       }
     };
     
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [commitModalOpen, autoCommitStatus?.nextSyncAt]);
+  }, [commitModalOpen, autoCommitStatus?.nextSyncAt, manualActionsOpen]);
 
   // Function to refresh sync status
   const refreshSyncStatus = () => {
@@ -729,6 +745,33 @@ export function DebugBubble() {
         setPendingChanges([]);
         setPendingChangesLoading(false);
       });
+  };
+
+  const handlePushAllLocal = async (commitMessage: string, files: string[]) => {
+    setIsPushingAllLocal(true);
+    setPushAllLocalError(null);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Token ${token}`;
+      const res = await fetch('/api/github/commit', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ message: commitMessage, files }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchPendingChanges();
+        refreshSyncStatus();
+        setPushAllLocalError(null);
+      } else {
+        setPushAllLocalError(data.error || 'Failed to push changes');
+      }
+    } catch (e) {
+      setPushAllLocalError(e instanceof Error ? e.message : 'Failed to push changes');
+    } finally {
+      setIsPushingAllLocal(false);
+    }
   };
 
   const handleFlush = async () => {
@@ -966,13 +1009,12 @@ export function DebugBubble() {
         { action: "update_field", path: "schema", value: Object.keys(schemaValue).length > 0 ? schemaValue : null },
       ];
 
-      const res = await fetch("/api/content/edit", {
+      const res = await fetch("/api/content/edit-common", {
         method: "POST",
         headers,
         body: JSON.stringify({
           contentType: apiContentType,
           slug: contentInfo.slug,
-          locale,
           author: author || undefined,
           operations,
         }),
@@ -1411,7 +1453,7 @@ export function DebugBubble() {
       setSlugEsConflictReason(null);
       setCreateContentModalOpen(true);
     } else {
-      toast({ title: "No se puede duplicar", description: "Tipo de contenido no reconocido", variant: "destructive" });
+      toast({ title: "Cannot duplicate", description: "Unrecognized content type", variant: "destructive" });
     }
   };
 
@@ -1419,7 +1461,7 @@ export function DebugBubble() {
     const urlPath = new URL(url.loc).pathname;
     const contentType = getContentTypeFromPath(urlPath);
     if (!contentType) {
-      toast({ title: "No se puede eliminar", description: "Tipo de contenido no reconocido", variant: "destructive" });
+      toast({ title: "Cannot delete", description: "Unrecognized content type", variant: "destructive" });
       return;
     }
     const parts = urlPath.split('/').filter(Boolean);
@@ -1438,7 +1480,7 @@ export function DebugBubble() {
       slug = getFolderFromSlug(rawSlug, locale === 'us' ? 'en' : locale);
     }
     if (!slug) {
-      toast({ title: "No se puede eliminar", description: "No se pudo determinar el slug", variant: "destructive" });
+      toast({ title: "Cannot delete", description: "Could not determine slug", variant: "destructive" });
       return;
     }
     setDeletingPage({ slug, contentType });
@@ -1516,7 +1558,7 @@ export function DebugBubble() {
       });
       const data = await response.json();
       if (response.ok) {
-        toast({ title: "Página eliminada", description: data.message });
+        toast({ title: "Page deleted", description: data.message });
         setDeletePageModalOpen(false);
         setDeletingPage(null);
         setDeleteConfirmInput("");
@@ -1526,10 +1568,10 @@ export function DebugBubble() {
           setSitemapUrls(sitemapData);
         }
       } else {
-        toast({ title: "Error", description: data.error || "Error al eliminar", variant: "destructive" });
+        toast({ title: "Error", description: data.error || "Failed to delete", variant: "destructive" });
       }
     } catch (error) {
-      toast({ title: "Error", description: "Error de conexión", variant: "destructive" });
+      toast({ title: "Error", description: "Connection error", variant: "destructive" });
     } finally {
       setIsDeletingPage(false);
     }
@@ -1659,7 +1701,7 @@ export function DebugBubble() {
         <PopoverContent 
           side="top" 
           align="start" 
-          className="w-80 p-0"
+          className="w-96 p-0"
           sideOffset={8}
         >
           {/* No token detected - show only warning */}
@@ -2058,6 +2100,7 @@ export function DebugBubble() {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
+                    <SyncStatusPopover>
                     {syncStatusLoading ? (
                       <IconRefresh className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
                     ) : githubSyncStatus ? (
@@ -2103,6 +2146,7 @@ export function DebugBubble() {
                     ) : (
                       <span className="text-xs text-muted-foreground">--</span>
                     )}
+                    </SyncStatusPopover>
                     <button
                       onClick={refreshSyncStatus}
                       disabled={syncStatusLoading}
@@ -2331,6 +2375,10 @@ export function DebugBubble() {
         handleIgnoreAllChanges={handleIgnoreAllChanges}
         isIgnoringAllChanges={isIgnoringAllChanges}
         fetchPendingChanges={fetchPendingChanges}
+        handlePushAllLocal={handlePushAllLocal}
+        isPushingAllLocal={isPushingAllLocal}
+        pushAllLocalError={pushAllLocalError}
+        setPushAllLocalError={setPushAllLocalError}
         manualActionsOpen={manualActionsOpen}
         setManualActionsOpen={setManualActionsOpen}
         advancedOptionsOpen={advancedOptionsOpen}

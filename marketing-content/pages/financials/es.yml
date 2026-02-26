@@ -17,11 +17,11 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: En Tech, A Tu Manera
+    title: en Tech, a tu manera
     subtitle: Opciones de pago flexibles para facilitar el salto a tech.
     brand_mark:
-      prefix: Financia Tu
-      highlight: Futuro
+      prefix: Financia tu
+      highlight: futuro
       color: chart-1
     description: Ofrecemos planes de pago flexibles, opciones de financiamiento y becas para que puedas enfocarte en lanzar tu carrera tech sin preocuparte por las finanzas.
     bullets:
@@ -29,25 +29,28 @@ sections:
       - text: Opciones de financiamiento competitivas
       - text: Oportunidades de becas para candidatos calificados
     image_id: group_original
-    form: {}
+    cta_button:
+      text: Solicita información
+      url: "#bottom"
+      variant: primary
     trust_bar:
       rating: "4.5"
       review_count: Basado en más de 5149 reseñas
       review_logos:
         - name: Google
-          logo: /attached_assets/google_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
         - name: Course Report
-          logo: /attached_assets/course-report_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         - name: SwitchUp
-          logo: /attached_assets/switchup_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     paddingY:
       desktop: none
     marginY:
-      desktop: none
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Resultados Profesionales Comprobados
+    title: Resultados profesionales comprobados
     subtitle: Alta empleabilidad. Crecimiento salarial real.
     description: "Reconocido por Forbes, 4Geeks ofrece formación accesible con resultados medibles: alta empleabilidad y crecimiento salarial real para impulsar tu carrera en tecnología."
     background: hsl(var(--sidebar-background))
@@ -59,24 +62,24 @@ sections:
       - value: 3-6 Meses
         title: Tiempo promedio para conseguir empleo
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: none
   - type: syllabus
-    title: Financia Tu Carrera Tech
+    title: Financia tu carrera tech
     subtitle: Explora caminos de financiación flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la opción que mejor se adapte a ti.
     modules:
-      - title: Pago Anticipado y Ahorra 10%
+      - title: Pago anticipado y ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
-      - title: Cuotas sin Intereses a 6 Meses
-        description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales.
-      - title: Pagos Basados en Ingresos
+      - title: Cuotas sin intereses a 6 Meses
+        description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales con nuestros partners.
+      - title: Pagos basados en ingresos
         description: ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar únicamente cuando tus ingresos anuales alcancen los {{ minimun_isa_salary | 17.000 € }}. A partir de ese momento, se aplica un porcentaje fijo de tus ingresos, adaptado a tu situación económica.
       - title: Financia tu formación con comodidad
         description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde {{ mounthly_price_bootcamp | 200 € }}. La aprobación y condiciones finales dependen de la entidad financiera.
       - title: Becas
         description: Ofrecemos becas parciales internas según perfil y promociones vigentes, así como becas a través de organizaciones colaboradoras. La disponibilidad y los importes pueden variar.
-    expand_label: Más Información
+    expand_label: Más información
     collapse_label: Ocultar información
     marginY:
       desktop: none lg
@@ -96,20 +99,53 @@ sections:
       - rome-italy
       - valencia-spain
   - type: syllabus
-    title: Financia Tu Carrera Tech
-    subtitle: Explora caminos de financiación flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la opción que mejor se adapte a ti.
+    title: Financia tu carrera en tecnología
+    subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
     modules:
-      - title: Pago Anticipado y Ahorra 10%
-        description: Paga el programa completo antes de que comience el programa y recibe un 10% de descuento.
-      - title: Cuotas sin Intereses a 6 Meses
-        description: Divide el costo del programa en 6 meses, sin intereses ni costes adicionales.
-      - title: Pagos Basados en Ingresos
-        description: Pregúntanos por opciones de pago disponibles basadas en tus ingresos.
-      - title: Financia tu formación con comodidad
-        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde {{ mounthly_price_bootcamp | 200 € }}. La aprobación y condiciones finales dependen de la entidad financiera.
+      - title: Paga por adelantado y ahorra 10%
+        description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
+      - title: Cuotas sin intereses a 6 Meses
+        description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
+      - title: Pagos basados en ingresos
+        description: Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países, y aplican ciertas condiciones. Contáctanos para saber más.
+      - title: Préstamos y planes de Pago Extendidos
+        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones finales dependen de la entidad financiera.
       - title: Becas
-        description: Ofrecemos becas parciales internas según perfil y promociones vigentes, así como becas a través de organizaciones colaboradoras. La disponibilidad y los importes pueden variar.
-    expand_label: Más Información
+        description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
+    expand_label: Más información
+    collapse_label: Ocultar información
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: syllabus
+    title: Financia Tu Carrera en Tecnología
+    subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
+    modules:
+      - title: Paga por Adelantado y Ahorra 10%
+        description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
+      - title: Cuotas sin Intereses a 6 Meses
+        description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
+      - title: Pagos Basados en Ingresos
+        description: ¿Prefieres pagar después de conseguir empleo? A través de nuestro partner Edly, puedes comenzar a pagar una vez que ganes al menos {{ anual_income_based_payment_guarantee | $35,000 }} al año. Las cuotas mensuales se ajustan a tus ingresos y se pausan en períodos de desempleo o subempleo. Se permiten codeudores.
+      - title: Préstamos y Planes de Pago Extendidos
+        description: Ofrecemos planes de financiamiento de 1 a 5 años, dependiendo de tu perfil crediticio, con pagos mensuales desde menos de {{ monthly_payment_minimun | $349 }}. Los términos y la aprobación están sujetos a elegibilidad.
+      - title: Becas
+        description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
+    expand_label: Más información
     collapse_label: Ocultar información
     marginY:
       desktop: none lg
@@ -121,24 +157,13 @@ sections:
       - austin-usa
       - chicago-usa
       - dallas-usa
-      - houston-usa
       - miami-usa
+      - houston-usa
       - losangeles-usa
       - newyork-usa
       - orlando-usa
       - tampa-usa
       - toronto-canada
-      - santiago-chile
-      - quito-ecuador
-      - panamacity-panama
-      - montevideo-uruguay
-      - mexicocity-mexico
-      - lima-peru
-      - lapaz-bolivia
-      - costa-rica
-      - caracas-venezuela
-      - buenosaires-argentina
-      - bogota-colombia
   - type: comparison_table
     version: "1.0"
     title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
@@ -155,25 +180,25 @@ sections:
       - name: Paga Cuando Ganes (ISA)
         highlight: true
     rows:
-      - feature: Descuento en Matrícula
+      - feature: Descuento en matrícula
         values:
           - 10% de descuento
           - "No"
           - "No"
           - "No"
-      - feature: Verificación de Crédito
+      - feature: Verificación de crédito
         values:
           - "No"
           - Fácil Acceso
           - Sí
           - Sí
-      - feature: Diferir Pagos
+      - feature: Aplazar pagos
         values:
           - "No"
           - "No"
           - Sí
           - Sí
-      - feature: Pagar Una Vez Contratado
+      - feature: Pagar una vez Contratado
         values:
           - "No"
           - "No"
@@ -181,89 +206,9 @@ sections:
           - Sí
     background: hsl(var(--background))
     marginY:
-      desktop: lg md
-    paddingY:
       desktop: md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-  - type: comparison_table
-    version: "1.0"
-    title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
-    subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
-    columns:
-      - name: Modalidad
-        highlight: true
-      - name: Pago Total
-        highlight: true
-      - name: Cuotas Flexibles
-        highlight: true
-      - name: Financiamiento
-        highlight: true
-      - name: Acuerdo de Ingresos Compartidos (ISA)
-        highlight: true
-    rows:
-      - feature: Descuento en Matrícula
-        values:
-          - 10% de descuento
-          - "No"
-          - "No"
-          - "No"
-      - feature: Verificación de Crédito
-        values:
-          - "No"
-          - Fácil Acceso
-          - Sí
-          - Sí
-      - feature: Diferir Pagos
-        values:
-          - "No"
-          - "No"
-          - "No"
-          - Sí
-      - feature: Pagar Una Vez Contratado
-        values:
-          - "No"
-          - "No"
-          - "No"
-          - Sí
-    background: hsl(var(--background))
-    marginY:
-      desktop: lg md
     paddingY:
-      desktop: md
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - hamburg-germany
-      - dublin-ireland
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - rome-italy
-      - munich-germany
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -338,9 +283,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: lg md
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -356,7 +301,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Inversión del Programa
+    heading: Inversión del programa
     subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
@@ -427,9 +372,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - bogota-colombia
       - buenosaires-argentina
@@ -445,7 +390,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Inversión del Programa
+    heading: Inversión del programa
     subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
@@ -485,7 +430,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: 16 semanas
+        duration: 18 semanas
         label: Actualizado en 2026
         title: Data Science y Machine Learning con IA
         badges:
@@ -516,9 +461,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none sm
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - valencia-spain
       - rome-italy
@@ -533,7 +478,7 @@ sections:
       - barcelona-spain
   - type: why_learn_ai
     variant: laptop-edge
-    title: Garantía de Empleo Opcional*
+    title: Garantía de Empleo opcional*
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
     description: "Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></div>"
     cta:
@@ -541,7 +486,7 @@ sections:
       url: /es/trabajo-garantizado
       variant: primary
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none sm
     showOnLocations:
@@ -558,11 +503,11 @@ sections:
       - toronto-canada
   - type: testimonials
     version: v1.0
-    title: Lo que Dicen Nuestros Estudiantes
+    title: Lo que dicen nuestros estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
-      count: 2,847
+      average: {{ global_review_rating | 4.9 }}
+      count: {{ global_verified_reviews_count | 2,847 }}+
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -601,71 +546,10 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
-    title: Preguntas Frecuentes
-    related_features:
-      - price
-      - certification
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - dallas-usa
-      - chicago-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-    item_overrides:
-      puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
-        hideOnLocations:
-          - santiago-chile
-          - quito-ecuador
-          - panamacity-panama
-          - montevideo-uruguay
-          - mexicocity-mexico
-          - lima-peru
-          - lapaz-bolivia
-          - costa-rica
-          - caracas-venezuela
-          - buenosaires-argentina
-          - bogota-colombia
-  - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - certification
       - price
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
     item_overrides:
       puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
         hideOnLocations:
@@ -680,7 +564,10 @@ sections:
           - barcelona-spain
           - berlin-germany
           - dublin-ireland
-<<<<<<< HEAD
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
@@ -703,11 +590,11 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
-          visible: false
-          required: false
+          visible: true
+          required: true
           default: auto
       success:
         message: ¡Gracias! Nos pondremos en contacto contigo pronto.
@@ -722,5 +609,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-=======
->>>>>>> parent of 1b1dcafe (Restored to '068a05c93907146d1827af22470c5d5c02920752')
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: true
+          default: auto
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

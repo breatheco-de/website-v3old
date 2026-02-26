@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Construyendo Carreras en la Era de la IA
+    title: Construyendo carreras en la era de la IA
     subtitle: 4Geeks Academy es un coding bootcamp internacional con 8 campus en EE. UU., Latinoamérica y Europa. Formamos estudiantes en Ingeniería en IA, Data Science & Machine Learning y Ciberseguridad — con un camino claro hacia el empleo.
     badge: 10+ años lanzando carreras en tecnología
     image_id: academy_header_coding
@@ -31,9 +31,9 @@ sections:
     variant: primary-left
     primary_width: narrow
     primary:
-      heading: Nuestra Misión y Enfoque
+      heading: Nuestra misión y enfoque
       description: "Desde 2015, 4Geeks Academy ha ayudado a miles de estudiantes a hacer la transición hacia carreras en tecnología. Nuestro modelo combina formación práctica basada en proyectos con mentorías ilimitadas 1:1, herramientas de aprendizaje impulsadas por IA y acompañamiento estructurado para la búsqueda de empleo. El objetivo es simple: brindar la profundidad técnica, experiencia práctica y estrategia profesional necesarias para conseguir trabajo — y seguir creciendo."
-      badge: Modelo Respaldado por Resultados
+      badge: Modelo respaldado por resultados
     secondary:
       benefits:
         - text: Currículo alineado con la industria e integrado con IA
@@ -47,19 +47,19 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: Qué Nos Hace Diferentes
+    heading: Qué nos hace diferentes
     cards:
       - icon: Trophy
-        title: Programas Enfocados en la Carrera
+        title: Programas enfocados en la carrera
         description: Formación práctica, intensiva y orientada al mundo real para lanzar carreras tecnológicas.
       - icon: Wallet
-        title: Aprendizaje Hiperpersonalizado
+        title: Aprendizaje hiperpersonalizado
         description: Rigobot ofrece retroalimentación instantánea 24/7 para asegurar que siempre recibas la guía que necesitas.
       - icon: Clock
-        title: Mentoría Humana Ilimitada
+        title: Mentoría humana ilimitada
         description: Mentores y coaches de carrera brindan apoyo personalizado durante el programa y para siempre.
       - icon: Users
-        title: Habilidades Preparadas para el Futuro
+        title: Habilidades preparadas para el futuro
         description: Currículo actualizado continuamente con herramientas y tecnologías que impulsan la industria tecnológica.
     background: hsl(var(--muted))
     description_with_background: false
@@ -89,13 +89,13 @@ sections:
     background: hsl(var(--muted))
     alignment: center
     left:
-      image: /attached_assets/crusa-forte-scholarship_1770606829241.webp
+      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa-forte-scholarship_1770606829241.webp
       image_alt: Estudiante programando en una laptop
       image_object_fit: cover
       image_object_position: 10% 80%
       justify: end
     right:
-      heading: Impulsando el Ecosistema Tecnológico Global
+      heading: Impulsando el ecosistema tecnológico global
       description: En 4Geeks Academy creemos que la colaboración genera impacto real. Trabajamos con universidades, organizaciones sin fines de lucro, iniciativas de desarrollo laboral, organizaciones globales y comunidades tecnológicas locales para ampliar el acceso a educación tecnológica de alto nivel y fortalecer las oportunidades profesionales. Juntos formamos y colocamos talento diverso, cerramos la brecha de habilidades digitales y construimos la fuerza laboral tecnológica del futuro. También participamos activamente en la comunidad, colaborando en hackatones, desafíos tecnológicos y eventos de la industria que conectan talento con oportunidades y muestran las habilidades de nuestros estudiantes y graduados.
       text_align: left
     gap: "12"
@@ -111,27 +111,27 @@ sections:
     items:
       - id: logo-crusa
         alt: Logo Fundación CRUSA
-        logo: /attached_assets/crusa-logo_1770608198366.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/crusa-logo_1770608198366.webp
         logoHeight: 65px
       - id: logo-miami-tech-works
         alt: Logo Miami Tech Works
-        logo: /attached_assets/miamitech-logo-sidetext_1770608261416.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/miamitech-logo-sidetext_1770608261416.png
         logoHeight: 65px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 56px
       - id: logo-bite-con
         alt: Logo BITE-CON
-        logo: /attached_assets/bite-con_1770608313051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/bite-con_1770608313051.png
         logoHeight: 56px
       - id: logo-kosmos
         alt: Logo Kosmos
-        logo: /attached_assets/kosmos-logo_1770608352885.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/kosmos-logo_1770608352885.png
         logoHeight: 56px
       - id: logo-united-way
         alt: Logo United Way
-        logo: /attached_assets/united_way_mini_1770608055840.PNG
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/united_way_mini_1770608055840.PNG
         logoHeight: 56px
       - id: clark-university
         alt: Logo Clark University
@@ -139,44 +139,44 @@ sections:
         logoHeight: 56px
       - id: logo-cinde
         alt: Logo CINDE Invest in Costa Rica
-        logo: /attached_assets/cinde_1770608132364.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/cinde_1770608132364.png
         logoHeight: 56px
       - id: logo-utec
         alt: Logo UTEC Universidad Tecnológica
-        logo: /attached_assets/utec_1770608159144.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/utec_1770608159144.png
         logoHeight: 56px
     paddingY:
       desktop: lg none
   - type: whos_hiring
     variant: carousel
-    title: Empresas que Confían en Nuestros Graduados
+    title: Empresas que confían en nuestros graduados
     description: |-
       Los graduados de 4Geeks son contratados por empresas tecnológicas líderes en EE. UU., Latinoamérica y Europa. Los empleadores destacan constantemente su profundidad técnica, experiencia práctica y capacidad de aportar valor desde el primer día.
       'Siempre me impresiona la profundidad de conocimiento de los estudiantes de 4Geeks. Una de mis contrataciones se convirtió en líder de equipo.' - CodeNinjas
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefónica
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     marginY:
       desktop: lg none
@@ -259,3 +259,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

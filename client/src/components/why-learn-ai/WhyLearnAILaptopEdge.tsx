@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { WhyLearnAISection as WhyLearnAISectionType } from "@shared/schema";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import laptopCodeEditor from "@assets/243f0f155c3d1683ecfaa1020801b365ad23092d_1769656566581.png";
+import { useImageRegistry } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
+
+const LAPTOP_IMAGE_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
 
 const MOBILE_CHAR_LIMIT = 150;
 
@@ -20,6 +22,8 @@ interface WhyLearnAILaptopEdgeProps {
 }
 
 export function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
+  const { registry } = useImageRegistry();
+  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src;
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
@@ -106,15 +110,17 @@ export function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
         )}
 
         {/* Laptop image centered below content */}
-        <div className="flex justify-center">
-          <img 
-            src={laptopCodeEditor}
-            alt="Code editor on laptop"
-            className="w-[90%] max-w-[400px] h-auto object-contain"
-            loading="lazy"
-            data-testid="img-why-learn-ai-mobile"
-          />
-        </div>
+        {laptopCodeEditor && (
+          <div className="flex justify-center">
+            <img 
+              src={laptopCodeEditor}
+              alt="Code editor on laptop"
+              className="w-[90%] max-w-[400px] h-auto object-contain"
+              loading="lazy"
+              data-testid="img-why-learn-ai-mobile"
+            />
+          </div>
+        )}
       </div>
 
       {/* ===== DESKTOP LAYOUT ===== */}
@@ -156,13 +162,15 @@ export function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
 
       {/* Laptop image - hidden on mobile only, visible from md */}
       <div className="hidden md:flex absolute md:right-[-480px] lg:right-[-400px] xl:right-[-307px] top-0 bottom-0 w-[700px] items-center pointer-events-none">
-        <img 
-          src={laptopCodeEditor}
-          alt="Code editor on laptop"
-          className="w-[90%] max-w-none h-auto object-contain object-left"
-          loading="lazy"
-          data-testid="img-why-learn-ai"
-        />
+        {laptopCodeEditor && (
+          <img 
+            src={laptopCodeEditor}
+            alt="Code editor on laptop"
+            className="w-[90%] max-w-none h-auto object-contain object-left"
+            loading="lazy"
+            data-testid="img-why-learn-ai"
+          />
+        )}
       </div>
     </section>
   );

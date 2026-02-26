@@ -181,7 +181,6 @@ const ProjectShowcase = lazy(() => import("@/components/ProjectShowcase").then(m
 const About = lazy(() => import("@/components/About").then(m => ({ default: m.About })));
 const ComparisonTable = lazy(() => import("@/components/ComparisonTable").then(m => ({ default: m.ComparisonTable })));
 const GeeksVsOthersComparison = lazy(() => import("@/components/GeeksVsOthersComparison").then(m => ({ default: m.GeeksVsOthersComparison })));
-const AwardsRow = lazy(() => import("@/components/AwardsRow"));
 const HorizontalBars = lazy(() => import("@/components/HorizontalBars").then(m => ({ default: m.HorizontalBars })));
 const VerticalBarsCards = lazy(() => import("@/components/VerticalBarsCards").then(m => ({ default: m.VerticalBarsCards })));
 const PieCharts = lazy(() => import("@/components/PieCharts").then(m => ({ default: m.PieCharts })));
@@ -215,6 +214,17 @@ import ComponentPickerModal from "@/components/editing/ComponentPickerModal";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { emitContentUpdated } from "@/lib/contentEvents";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { IconAlertTriangle, IconTrash, IconLoader2, IconLink } from "@tabler/icons-react";
 import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditModeContext";
 
 // Check if a section should be visible based on showOn and current preview breakpoint
@@ -342,7 +352,7 @@ async function sendEditOperation(
   operations: EditOperation[]
 ): Promise<{ success: boolean; error?: string }> {
   const token = getDebugToken();
-  const response = await fetch("/api/content/edit", {
+  const response = await fetch("/api/content/edit-sections", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -469,8 +479,6 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <LazySection key={index}><ComparisonTable data={section as Parameters<typeof ComparisonTable>[0]["data"]} /></LazySection>;
     case "geeks_vs_others_comparison":
       return <LazySection key={index}><GeeksVsOthersComparison data={section as Parameters<typeof GeeksVsOthersComparison>[0]["data"]} /></LazySection>;
-    case "awards_row":
-      return <LazySection key={index}><AwardsRow data={section as Parameters<typeof AwardsRow>[0]["data"]} /></LazySection>;
     case "horizontal_bars":
       return <LazySection key={index}><HorizontalBars data={section as Parameters<typeof HorizontalBars>[0]["data"]} /></LazySection>;
     case "vertical_bars_cards":
@@ -709,8 +717,24 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
     }
   }, [contentType, slug, locale, sections.length, toast]);
 
+  const [deleteDialog, setDeleteDialog] = useState<{
+    open: boolean;
+    index: number;
+    bindingGroup: { id: string; name?: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null;
+    isDeleting: boolean;
+  }>({ open: false, index: -1, bindingGroup: null, isDeleting: false });
+
   const handleDelete = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale) return;
+
+    try {
+      const res = await fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}&locale=${locale}`);
+      const data = await res.json();
+      if (data.group && data.group.members && data.group.members.length > 1) {
+        setDeleteDialog({ open: true, index, bindingGroup: data.group, isDeleting: false });
+        return;
+      }
+    } catch {}
 
     if (!window.confirm("Are you sure you want to delete this section? This cannot be undone.")) {
       return;
@@ -727,6 +751,93 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
     }
   }, [contentType, slug, locale, toast]);
+
+  const handleDeleteThisOnly = useCallback(async () => {
+    if (!contentType || !slug || !locale || !deleteDialog.bindingGroup) return;
+    setDeleteDialog(prev => ({ ...prev, isDeleting: true }));
+
+    try {
+      const group = deleteDialog.bindingGroup;
+      const token = getDebugToken();
+      await fetch(`/api/bindings/${group.id}/members?contentType=${contentType}&slug=${slug}&sectionIndex=${deleteDialog.index}`, {
+        method: "DELETE",
+        headers: token ? { "x-debug-token": token } : {},
+      });
+
+      const result = await sendEditOperation(contentType, slug, locale, [
+        { action: "remove_item", path: "sections", index: deleteDialog.index }
+      ]);
+
+      if (result.success) {
+        toast({ title: "Section deleted and unbound" });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Error deleting section", variant: "destructive" });
+    } finally {
+      setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false });
+    }
+  }, [contentType, slug, locale, deleteDialog, toast]);
+
+  const handleDeleteAllBound = useCallback(async () => {
+    if (!contentType || !slug || !locale || !deleteDialog.bindingGroup) return;
+    setDeleteDialog(prev => ({ ...prev, isDeleting: true }));
+
+    try {
+      const group = deleteDialog.bindingGroup;
+      const token = getDebugToken();
+      const siblings = group.members.filter(
+        m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === deleteDialog.index)
+      );
+
+      const siblingsByPage = new Map<string, number[]>();
+      for (const s of siblings) {
+        const key = `${s.contentType}::${s.slug}`;
+        const list = siblingsByPage.get(key) || [];
+        list.push(s.sectionIndex);
+        siblingsByPage.set(key, list);
+      }
+
+      const errors: string[] = [];
+      for (const [key, indices] of siblingsByPage) {
+        const [ct, sl] = key.split("::");
+        const sortedDesc = [...indices].sort((a, b) => b - a);
+        for (const idx of sortedDesc) {
+          const res = await sendEditOperation(ct, sl, group.locale, [
+            { action: "remove_item", path: "sections", index: idx }
+          ]);
+          if (!res.success) errors.push(`${sl} section ${idx}: ${res.error}`);
+          else emitContentUpdated({ contentType: ct, slug: sl, locale: group.locale });
+        }
+      }
+
+      await fetch(`/api/bindings/${group.id}`, {
+        method: "DELETE",
+        headers: token ? { "x-debug-token": token } : {},
+      });
+
+      const result = await sendEditOperation(contentType, slug, locale, [
+        { action: "remove_item", path: "sections", index: deleteDialog.index }
+      ]);
+
+      if (result.success) {
+        emitContentUpdated({ contentType, slug, locale });
+        toast({
+          title: `Deleted from ${siblings.length + 1} pages`,
+          description: errors.length > 0 ? `${errors.length} error(s): ${errors.join("; ")}` : undefined,
+          variant: errors.length > 0 ? "destructive" : undefined,
+        });
+      } else {
+        toast({ title: "Failed to delete current section", description: result.error, variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Error deleting bound sections", variant: "destructive" });
+    } finally {
+      setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false });
+    }
+  }, [contentType, slug, locale, deleteDialog, toast]);
 
   const handleDuplicate = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale) return;
@@ -839,5 +950,68 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
     );
   }
 
-  return content;
+  const deleteDialogSiblings = deleteDialog.bindingGroup?.members.filter(
+    m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === deleteDialog.index)
+  ) || [];
+
+  return (
+    <>
+      {content}
+      <Dialog open={deleteDialog.open} onOpenChange={(open) => { if (!open && !deleteDialog.isDeleting) setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false }); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Delete bound section
+            </DialogTitle>
+            <DialogDescription>
+              This section is part of a binding group{deleteDialog.bindingGroup?.name ? ` "${deleteDialog.bindingGroup.name}"` : ""} and is synced with {deleteDialogSiblings.length} other page{deleteDialogSiblings.length !== 1 ? "s" : ""}.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-2 max-h-[200px] overflow-auto">
+            <p className="text-xs font-medium text-muted-foreground">Bound pages:</p>
+            {deleteDialogSiblings.map((m, i) => (
+              <div key={i} className="flex items-center gap-2 text-sm">
+                <IconLink className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                <Badge variant="outline" className="text-xs shrink-0">{m.contentType}</Badge>
+                <span className="truncate">{m.slug}</span>
+                <span className="text-muted-foreground text-xs shrink-0">section {m.sectionIndex}</span>
+              </div>
+            ))}
+          </div>
+          <DialogFooter className="flex-col gap-2 sm:flex-col">
+            <Button
+              variant="outline"
+              onClick={handleDeleteThisOnly}
+              disabled={deleteDialog.isDeleting}
+              className="w-full justify-start gap-2"
+              data-testid="button-delete-this-only"
+            >
+              {deleteDialog.isDeleting ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+              Delete this section only (unbind)
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteAllBound}
+              disabled={deleteDialog.isDeleting}
+              className="w-full justify-start gap-2"
+              data-testid="button-delete-all-bound"
+            >
+              {deleteDialog.isDeleting ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+              Delete from all {deleteDialogSiblings.length + 1} pages
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false })}
+              disabled={deleteDialog.isDeleting}
+              className="w-full"
+              data-testid="button-delete-cancel"
+            >
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 }

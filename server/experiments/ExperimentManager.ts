@@ -14,9 +14,12 @@ import { experimentsFileSchema, experimentConfigSchema, type ExperimentUpdate } 
 import { hashVisitorId } from "./cookie-utils";
 import { deepMerge } from "../utils/deepMerge";
 import { getFolder } from "../content-types";
+import { gcs } from "../gcs";
 
 const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
-const STATE_FILE = path.join(process.cwd(), "experiments-state.json");
+const STATE_FILE = path.join(CONTENT_DIR, ".experiments-state.json");
+const GCS_EXPERIMENTS_STATE_KEY = "sync/experiments-state.json";
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const FLUSH_INTERVAL = 30000; // 30 seconds
 
 interface ExperimentState {
@@ -43,6 +46,7 @@ export class ExperimentManager {
 
   constructor() {
     this.loadState();
+    this.loadStateFromBucket();
     this.startFlushTimer();
   }
 
@@ -50,33 +54,85 @@ export class ExperimentManager {
     try {
       if (fs.existsSync(STATE_FILE)) {
         const data = fs.readFileSync(STATE_FILE, "utf-8");
-        const loaded = JSON.parse(data);
-        // Migrate old state format (add visitors if missing)
-        this.state = {
-          counts: loaded.counts || {},
-          visitors: loaded.visitors || {},
-          lastFlushed: loaded.lastFlushed || Date.now(),
-        };
-        
-        // Initialize in-memory Sets from persisted arrays for O(1) lookups
-        for (const [expSlug, visitorIds] of Object.entries(this.state.visitors)) {
-          visitorSets.set(expSlug, new Set(visitorIds as string[]));
-        }
-        
-        console.log("[Experiments] Loaded state:", Object.keys(this.state.counts).length, "experiments");
+        this.applyLoadedState(JSON.parse(data));
       }
     } catch (error) {
       console.error("[Experiments] Error loading state:", error);
     }
   }
 
-  private saveState(): void {
+  private applyLoadedState(loaded: any): void {
+    this.state = {
+      counts: loaded.counts || {},
+      visitors: loaded.visitors || {},
+      lastFlushed: loaded.lastFlushed || Date.now(),
+    };
+
+    visitorSets.clear();
+    for (const [expSlug, visitorIds] of Object.entries(this.state.visitors)) {
+      visitorSets.set(expSlug, new Set(visitorIds as string[]));
+    }
+
+    console.log("[Experiments] Loaded state:", Object.keys(this.state.counts).length, "experiments");
+  }
+
+  /**
+   * In production: load from GCS bucket, overriding local file.
+   * In development: skip bucket, use local file only.
+   */
+  private async loadStateFromBucket(): Promise<void> {
+    if (!IS_PRODUCTION || !gcs.available) {
+      if (!IS_PRODUCTION) console.log("[Experiments] Development mode, using local file only");
+      return;
+    }
+
+    try {
+      const exists = await gcs.exists(GCS_EXPERIMENTS_STATE_KEY);
+      if (!exists) {
+        console.log("[Experiments] No state found in bucket, using local file");
+        return;
+      }
+
+      const data = await gcs.download(GCS_EXPERIMENTS_STATE_KEY);
+      if (!data) {
+        console.log("[Experiments] Empty download from bucket, using local file");
+        return;
+      }
+
+      const loaded = JSON.parse(data.toString("utf-8"));
+      this.applyLoadedState(loaded);
+      this.saveStateLocal();
+      console.log("[Experiments] Loaded state from GCS bucket");
+    } catch (error) {
+      console.error("[Experiments] Error loading from bucket:", error);
+    }
+  }
+
+  private saveStateLocal(): void {
     try {
       this.state.lastFlushed = Date.now();
       fs.writeFileSync(STATE_FILE, JSON.stringify(this.state, null, 2));
     } catch (error) {
-      console.error("[Experiments] Error saving state:", error);
+      console.error("[Experiments] Error saving state locally:", error);
     }
+  }
+
+  private async saveStateToBucket(): Promise<void> {
+    if (!IS_PRODUCTION || !gcs.available) return;
+
+    try {
+      const content = JSON.stringify(this.state, null, 2);
+      await gcs.upload(GCS_EXPERIMENTS_STATE_KEY, Buffer.from(content, "utf-8"), "application/json");
+    } catch (error) {
+      console.error("[Experiments] Error saving to bucket:", error);
+    }
+  }
+
+  private saveState(): void {
+    this.saveStateLocal();
+    this.saveStateToBucket().catch(err => {
+      console.error("[Experiments] Background bucket save failed:", err);
+    });
   }
 
   private startFlushTimer(): void {

@@ -20,7 +20,7 @@ sections:
     title: Becas que abren puertas a carreras en tecnología
     subtitle: Explora oportunidades de becas diseñadas para apoyar tu transición hacia carreras tech de alto crecimiento.
     image:
-      src: /attached_assets/caracas-graduates_1765387638222.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
       - text: {{ call_to_action_apply | Aplica ahora }}
@@ -29,13 +29,13 @@ sections:
         icon: Rocket
     background: bg-gradient-to-b from-primary/5 to-background
     marginY:
-      desktop: none lg
+      desktop: md xl
   - type: features_grid
     version: "1.0"
     variant: cardHeader
     heading: Oportunidades de financiamiento disponibles
     description: Ofrecemos becas en programas y regiones seleccionadas para hacer que la educación en tecnología sea más accesible. Las oportunidades varían según la ubicación y el programa, e incluyen alianzas institucionales, becas patrocinadas o apoyo basado en mérito.
-    image: /attached_assets/comunity-support_1765908983485.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: Estudiantes beneficiados por oportunidades de becas
     background: bg-primary/5
     cards:
@@ -45,13 +45,14 @@ sections:
         text: Socios corporativos y comunitarios que patrocinan becas para apoyar al talento emergente en tecnología.
       - icon: Award
         text: Un número limitado de becas parciales basadas en mérito se otorgan a candidatos calificados según su compromiso, potencial y afinidad con el programa.
+    marginY:
+      desktop: none md
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
     version: v1.0
     heading: $20+ Millones en becas
     subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "$20 millones" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
-    background: hsl(var(--muted))
     slides:
       - image_id: united_way_event
         object_position: 100% 80%
@@ -177,13 +178,202 @@ sections:
           text: Conviértete en partner
           url: /en
           variant: outline
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lima-peru
+      - lapaz-bolivia
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: partnership_carousel
+    variant: split-card
+    vertical_cards: true
+    version: v1.0
+    heading: {{ total_scholarships | {{ total_scholarships | $20 }}+ Millones en becas
+    subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "17 millones €" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
+    slides:
+      - image_id: student_coding_laptop
+        object_position: 100% 80%
+        title: Beca Talento Digital y 4Geeks Academy
+        subtitle: Lanzando por la Fundación ONCE
+        description: La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con 4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
+        stats:
+          - value: 20%
+            label: Coste que asume el alumno + impuestos
+          - value: "+10"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+          - image_id: logo-fonce
+            alt: "Image: logo-fonce"
+        press_references:
+          - text: Talento Digital
+            url: https://portalentodigital.fundaciononce.es/becas
+            source: Fundación Once
+        cta:
+          text: Conviértete en partner
+          url: /en/partners
+          variant: primary
+      - image_id: united_way_event
+        object_position: 100% 80%
+        title: United Way Miami y 4Geeks Academy
+        subtitle: Lanzando el Miami Workforce Project
+        description: United Way Miami se asoció con 4Geeks Academy para lanzar el Miami Workforce Project. Este programa transformador fue creado para ofrecer educación y formación de alta calidad a los residentes del condado de Miami-Dade y es posible gracias a una donación multimillonaria de la filántropa Mackenzie Scott. Los estudiantes admitidos reciben formación en programación sin costos iniciales.
+        stats:
+          - value: $1mm
+            label: Costo total
+          - value: "100"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Miami Herald
+            url: https://www.miamiherald.com/news/business/article263937731.html
+            source: Miami Herald
+          - text: Refresh Miami
+            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
+            source: Refresh Miami
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en/partners
+          variant: primary
+      - image_id: crusa_forte_scholarship
+        object_position: 100% 80%
+        title: Costa Rica Forte y 4Geeks Academy
+        subtitle: Impulsando el desarrollo de talento en Costa Rica
+        description: En colaboración con Forte y Crusa, 4Geeks Academy se unió al modelo FORTE para impulsar el desarrollo de talento en Costa Rica. Este programa ha formado a más de 35 estudiantes en tecnologías digitales de alta demanda, enfocándose en mujeres de zonas con alto desempleo. A través del programa, las participantes reciben formación gratuita que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
+        stats:
+          - value: $50,000
+            label: Costo total
+          - value: "35"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: bid_logo
+            alt: BID logo
+          - image_id: logo_crusa
+            alt: CRUSA Foundation logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Periodico Mensaje
+            url: https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
+            source: Periodico Mensaje
+          - text: La Republica
+            url: https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
+            source: La Republica
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/FORTE%20Report.pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en
+          variant: primary
+      - image_id: costa_rica_city
+        object_position: 10% 80%
+        title: Proyecto Costa Rica-CINDE y 4Geeks
+        subtitle: Invirtiendo en el talento tecnológico de Costa Rica
+        description: En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el IDB lanzó un programa para invertir en el talento del país. Juntos estamos ayudando a aproximadamente 250 estudiantes a convertirse en desarrolladores de software calificados, abriendo puertas a mejores oportunidades laborales tras graduarse.
+        stats:
+          - value: $1.5mm
+            label: Costo total
+          - value: "212"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: logo_crusa
+            alt: CRUSA Foundation logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: Revista Summa
+            url: https://revistasumma.com/costa-rica-y-bid-lanzan-becas-para-aprender-programacion/
+            source: Revista Summa
+          - text: IDB Press
+            url: https://www.iadb.org/es/idb-blog
+            source: IDB Press
+          - text: Cultura Costa Rica
+            url: https://culturacr.net/4geeks-academy-ofrecera-becas-del-100-para-aprender-programacion/
+            source: Cultura Costa Rica
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en
+          variant: outline
+      - image_id: uruguay_city
+        object_position: 10% 80%
+        title: UTEC y 4Geeks
+        subtitle: Formando uruguayos en programación
+        description: Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, IDB y 4Geeks. El objetivo fue formar uruguayos en programación y potenciar el crecimiento impulsado por la tecnología en el país.
+        stats:
+          - value: 175k
+            label: Costo total
+          - value: "60"
+            label: Geeks beneficiados
+        institution_logos:
+          - image_id: bid_logo
+            alt: Interamerican Development Bank logo
+          - image_id: logo_utec
+            alt: UTEC logo
+          - image_id: 4geeks_academy_logo
+            alt: 4Geeks Academy logo
+        press_references:
+          - text: El País
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            source: El País
+          - text: San José Ahora
+            url: https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
+            source: San José Ahora
+          - text: Marca País
+            url: https://www.uruguayxxi.gub.uy/es/marca-pais/
+            source: Marca País
+          - text: Ver proyecto completo (PDF)
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Uruguay%20Projects.pdf
+            source: PDF
+        cta:
+          text: Conviértete en partner
+          url: /en
+          variant: outline
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: testimonials_slide
-    title: Donde el acceso se convierte en carreras reales
-    description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del 84% contratados en los primeros seis meses.
+    title: Donde el apoyo se convierte en oportunidades reales
+    description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del {{ global_job_placement_rate | 84 }}% contratados en los primeros seis meses.
   - type: horizontal_bars
     version: "1.0"
-    title: El retorno de la oportunidad
-    subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo en distintas regiones.
+    title: Aumento salarial por región
+    subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo.
     items:
       - label: LATAM
         value: 233
@@ -199,32 +389,31 @@ sections:
     title: Empresas que contratan a nuestros graduados
     subtitle: El acceso crea oportunidades. Los empleadores las convierten en verdaderas carreras tech.
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
   - type: faq
-    version: v1.0
     title: Preguntas frecuentes
     related_features:
       - scholarships
@@ -232,6 +421,243 @@ sections:
       - online-platform
     paddingY:
       desktop: lg md
+    item_overrides:
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      la-garanta-de-empleo-reembolsa-la-matrcula-completa-si-no-me-contratan:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      cmo-funciona-la-garanta-de-empleo-de-4geeks-academy:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      cunto-tiempo-tengo-para-buscar-trabajo-antes-del-reembolso:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: faq
+    title: Preguntas frecuentes
+    related_features:
+      - online-platform
+      - scholarships
+      - outcomes
+    item_overrides:
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      la-garanta-de-empleo-reembolsa-la-matrcula-completa-si-no-me-contratan:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      cmo-funciona-la-garanta-de-empleo-de-4geeks-academy:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      cunto-tiempo-tengo-para-buscar-trabajo-antes-del-reembolso:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - lisbon-portugal
+      - hamburg-germany
+      - dublin-ireland
+      - malaga-spain
+      - milan-italy
+      - madrid-spain
+      - rome-italy
+      - munich-germany
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para comenzar?
@@ -254,7 +680,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
           visible: true
@@ -273,3 +699,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

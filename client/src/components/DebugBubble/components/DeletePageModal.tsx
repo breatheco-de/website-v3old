@@ -33,14 +33,14 @@ export function DeletePageModal(props: DeletePageModalProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-destructive">Eliminar página</DialogTitle>
+          <DialogTitle className="text-destructive">Delete page</DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground pt-2">
-            Esta acción es irreversible y permanente. Si estás seguro de eliminar <span className="font-bold text-foreground">{deletingPage?.slug}</span> entonces escribe el nombre de la página acá abajo y dale click a confirmar.
+            This action is irreversible and permanent. If you are sure you want to delete <span className="font-bold text-foreground">{deletingPage?.slug}</span>, type the page name below and click confirm.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-3 py-2">
           <label className="text-sm text-muted-foreground">
-            Escribe <span className="font-mono font-bold text-foreground">{deletingPage?.slug}</span> para completar esta acción:
+            Type <span className="font-mono font-bold text-foreground">{deletingPage?.slug}</span> to complete this action:
           </label>
           <input
             value={deleteConfirmInput}
@@ -56,7 +56,7 @@ export function DeletePageModal(props: DeletePageModalProps) {
             onClick={() => onOpenChange(false)}
             data-testid="button-delete-cancel"
           >
-            Cancelar
+            Cancel
           </Button>
           <Button
             variant="destructive"
@@ -64,7 +64,7 @@ export function DeletePageModal(props: DeletePageModalProps) {
             onClick={onConfirm}
             data-testid="button-delete-confirm"
           >
-            {isDeletingPage ? "Eliminando..." : "Confirmar eliminación"}
+            {isDeletingPage ? "Deleting..." : "Confirm deletion"}
           </Button>
         </DialogFooter>
       </DialogContent>

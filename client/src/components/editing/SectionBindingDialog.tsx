@@ -11,6 +11,7 @@ import {
   IconArrowRight,
   IconTrash,
   IconX,
+  IconPlus,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,7 +41,7 @@ interface SectionBindingDialogProps {
     name?: string;
     component: string;
     locale: string;
-    members: Array<{ contentType: string; slug: string; sectionIndex: number }>;
+    members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }>;
   } | null;
   onBindingChanged: () => void;
 }
@@ -49,6 +50,7 @@ interface Candidate {
   contentType: string;
   slug: string;
   sectionIndex: number;
+  sectionId?: string;
   title?: string;
   alreadyBound?: string;
   alreadyBoundGroupName?: string;
@@ -89,7 +91,8 @@ export function SectionBindingDialog({
   const [confirmDissolve, setConfirmDissolve] = useState(false);
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [unboundTab, setUnboundTab] = useState<"join" | "create">("join");
-  const [pendingJoinGroup, setPendingJoinGroup] = useState<{ id: string; name?: string; component: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null>(null);
+  const [pendingJoinGroup, setPendingJoinGroup] = useState<{ id: string; name?: string; component: string; members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }> } | null>(null);
+  const [showAddMore, setShowAddMore] = useState(false);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -97,13 +100,14 @@ export function SectionBindingDialog({
       setConfirmLeave(false);
       setPendingJoinGroup(null);
       setUnboundTab("join");
+      setShowAddMore(false);
+      setConfirmAddMore(false);
     }
     onOpenChange(nextOpen);
   };
 
-  const candidateKey = (c: Candidate | { contentType: string; slug: string; sectionIndex: number }) =>
-    `${c.contentType}:${c.slug}:${c.sectionIndex}`;
-  const currentKey = `${contentType}:${slug}:${sectionIndex}`;
+  const candidateKey = (c: Candidate | { contentType: string; slug: string; sectionIndex: number; sectionId?: string }) =>
+    `${c.contentType}:${c.slug}:${(c as { sectionId?: string }).sectionId || c.sectionIndex}`;
 
   const { data: candidatesData, isLoading: loadingCandidates } = useQuery({
     queryKey: ["/api/bindings/candidates", component, locale],
@@ -116,7 +120,7 @@ export function SectionBindingDialog({
 
   const candidates = (candidatesData?.candidates || []) as Candidate[];
 
-  const { data: allGroupsData, isLoading: loadingGroups } = useQuery<{ groups: Array<{ id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> }> }>({
+  const { data: allGroupsData, isLoading: loadingGroups } = useQuery<{ groups: Array<{ id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }> }> }>({
     queryKey: ["/api/bindings"],
     queryFn: async () => {
       const res = await fetchWithAuth("/api/bindings");
@@ -131,8 +135,8 @@ export function SectionBindingDialog({
   }, [allGroupsData, component, locale]);
 
   const availableCandidates = useMemo(() => {
-    return candidates.filter(c => candidateKey(c) !== currentKey);
-  }, [candidates, currentKey]);
+    return candidates.filter(c => !(c.contentType === contentType && c.slug === slug && c.sectionIndex === sectionIndex));
+  }, [candidates, contentType, slug, sectionIndex]);
 
   const selectableCandidates = useMemo(() => {
     return availableCandidates.filter(c => !c.alreadyBound);
@@ -153,8 +157,25 @@ export function SectionBindingDialog({
 
   const existingMemberKeys = useMemo(() => {
     if (!existingGroup) return new Set<string>();
-    return new Set(existingGroup.members.map(m => `${m.contentType}:${m.slug}:${m.sectionIndex}`));
+    return new Set(existingGroup.members.map(m => candidateKey(m)));
   }, [existingGroup]);
+
+  const addMoreCandidates = useMemo(() => {
+    if (!existingGroup) return [];
+    return candidates.filter(c => !existingMemberKeys.has(candidateKey(c)) && !c.alreadyBound);
+  }, [candidates, existingMemberKeys, existingGroup]);
+
+  const filteredAddMoreCandidates = useMemo(() => {
+    return addMoreCandidates.filter(c => {
+      if (!search) return true;
+      const lower = search.toLowerCase();
+      return (
+        c.slug.toLowerCase().includes(lower) ||
+        c.title?.toLowerCase().includes(lower) ||
+        c.contentType.toLowerCase().includes(lower)
+      );
+    });
+  }, [addMoreCandidates, search]);
 
   const createBindingMutation = useMutation({
     mutationFn: async ({ members, name }: { members: Array<{ contentType: string; slug: string; sectionIndex: number }>; name?: string }) => {
@@ -339,6 +360,29 @@ export function SectionBindingDialog({
     });
   };
 
+  const [confirmAddMore, setConfirmAddMore] = useState(false);
+
+  const handleAddMoreToGroup = () => {
+    if (!existingGroup || selectedCandidates.size === 0) return;
+    setConfirmAddMore(true);
+  };
+
+  const handleConfirmAddMore = async () => {
+    if (!existingGroup) return;
+    const toAdd = filteredAddMoreCandidates
+      .filter(c => selectedCandidates.has(candidateKey(c)));
+    for (const c of toAdd) {
+      await addMemberMutation.mutateAsync({
+        groupId: existingGroup.id,
+        member: { contentType: c.contentType, slug: c.slug, sectionIndex: c.sectionIndex },
+      });
+    }
+    setSelectedCandidates(new Set());
+    setShowAddMore(false);
+    setConfirmAddMore(false);
+    setSearch("");
+  };
+
   const joinGroupMutation = useMutation({
     mutationFn: async ({ groupId }: { groupId: string }) => {
       const res = await fetchWithAuth(`/api/bindings/${groupId}/members`, {
@@ -422,9 +466,11 @@ export function SectionBindingDialog({
 
               <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-destination-sections">
                 <p className="text-xs text-destructive mb-1">Will be overwritten</p>
-                {selectedItems.map(c => (
-                  <p key={candidateKey(c)} className="font-medium truncate" data-testid={`text-destination-page-${c.slug}`}>{c.title || c.slug}</p>
-                ))}
+                <div className="max-h-[110px] overflow-y-auto">
+                  {selectedItems.map(c => (
+                    <p key={candidateKey(c)} className="font-medium truncate" data-testid={`text-destination-page-${c.slug}`}>{c.title || c.slug}</p>
+                  ))}
+                </div>
                 <Badge variant="outline" className="text-xs mt-1.5">{component}</Badge>
               </div>
             </div>
@@ -530,6 +576,62 @@ export function SectionBindingDialog({
     );
   }
 
+  if (confirmAddMore && existingGroup) {
+    const addMoreSelected = filteredAddMoreCandidates.filter(c => selectedCandidates.has(candidateKey(c)));
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              Confirm adding {addMoreSelected.length} section{addMoreSelected.length !== 1 ? "s" : ""} to group
+            </DialogTitle>
+          </DialogHeader>
+
+          <p className="text-sm text-muted-foreground" data-testid="text-add-more-warning">
+            The following sections will be <span className="font-medium text-destructive">overwritten</span> with the group's content:
+          </p>
+
+          <div className="space-y-1 max-h-[200px] overflow-y-auto">
+            {addMoreSelected.map(c => (
+              <div key={candidateKey(c)} className="flex items-center gap-2 text-sm py-1">
+                <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
+                <span className="truncate">{c.title || c.slug}</span>
+                <span className="text-muted-foreground text-xs">section {c.sectionIndex}</span>
+              </div>
+            ))}
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setConfirmAddMore(false)}
+              disabled={isPending}
+              data-testid="button-add-more-confirm-back"
+            >
+              Back
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmAddMore}
+              disabled={isPending}
+              data-testid="button-add-more-confirm-yes"
+            >
+              {isPending ? (
+                <>
+                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                `Add and overwrite ${addMoreSelected.length} section${addMoreSelected.length !== 1 ? "s" : ""}`
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   if (pendingJoinGroup) {
     const joinGroupDisplayName = pendingJoinGroup.name || `${pendingJoinGroup.component} binding`;
     return (
@@ -602,7 +704,7 @@ export function SectionBindingDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <IconLink className="h-5 w-5" />
-            {existingGroup ? "Section is actively binded" : "Section Bindings"}
+            {existingGroup ? "Section is actively binded" : `Section Bindings in \`${locale}\``}
           </DialogTitle>
         </DialogHeader>
 
@@ -621,6 +723,7 @@ export function SectionBindingDialog({
         </div>
 
         {existingGroup && (
+          <>
           <div className="rounded-md border border-border p-3 mb-3">
             <div className="flex items-center justify-between mb-2 gap-2">
               {editingName ? (
@@ -653,10 +756,11 @@ export function SectionBindingDialog({
                 </div>
               )}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 max-h-[132px] overflow-y-auto">
               {existingGroup.members.map(m => {
-                const key = `${m.contentType}:${m.slug}:${m.sectionIndex}`;
-                const isSelf = key === currentKey;
+                const key = candidateKey(m);
+                const isSelf = m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex;
+                const hashAnchor = m.sectionId || `${component}-${m.sectionIndex}`;
                 return (
                   <div key={key} className="flex items-center text-sm py-1">
                     <div className="flex items-center gap-2 min-w-0 flex-wrap">
@@ -665,7 +769,7 @@ export function SectionBindingDialog({
                         <span className="truncate">{m.slug}</span>
                       ) : (
                         <a
-                          href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${component}-${m.sectionIndex}`}
+                          href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${hashAnchor}`}
                           className="truncate underline cursor-pointer"
                           onClick={() => handleOpenChange(false)}
                           data-testid={`link-member-${key}`}
@@ -738,7 +842,18 @@ export function SectionBindingDialog({
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="gap-1"
+                    onClick={() => { setShowAddMore(!showAddMore); setSearch(""); setSelectedCandidates(new Set()); }}
+                    disabled={isPending || addMoreCandidates.length === 0}
+                    data-testid="button-add-more-sections"
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                    Add more sections
+                  </Button>
                   <Button
                     size="sm"
                     variant="ghost"
@@ -765,6 +880,94 @@ export function SectionBindingDialog({
               )}
             </div>
           </div>
+
+          {showAddMore && (
+            <>
+              <div className="relative mt-2">
+                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder={`Search ${addMoreCandidates.length} possible sections...`}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-8"
+                  autoFocus
+                  data-testid="input-add-more-search"
+                />
+              </div>
+
+              <ScrollArea className="flex-1 min-h-0 max-h-[250px]">
+                {loadingCandidates ? (
+                  <div className="flex items-center justify-center py-6">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : filteredAddMoreCandidates.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-6 text-sm">
+                    {addMoreCandidates.length === 0 ? "No more sections available to add" : "No matching sections found"}
+                  </div>
+                ) : (
+                  <div className="space-y-1 pr-3">
+                    {filteredAddMoreCandidates.map(c => {
+                      const key = candidateKey(c);
+                      const isSelected = selectedCandidates.has(key);
+                      return (
+                        <div
+                          key={key}
+                          className="flex items-center gap-3 p-2 rounded-md text-sm hover-elevate cursor-pointer"
+                          onClick={() => handleToggleCandidate(c)}
+                          data-testid={`add-more-candidate-${key}`}
+                        >
+                          <Checkbox
+                            checked={isSelected}
+                            onCheckedChange={() => handleToggleCandidate(c)}
+                            data-testid={`checkbox-add-more-${key}`}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
+                              <span className="truncate font-medium">{c.title || c.slug}</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {c.slug} — section {c.sectionIndex}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </ScrollArea>
+
+              {selectedCandidates.size > 0 && (
+                <DialogFooter>
+                  <Button
+                    variant="outline"
+                    onClick={() => { setShowAddMore(false); setSelectedCandidates(new Set()); setSearch(""); }}
+                    data-testid="button-add-more-cancel"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleAddMoreToGroup}
+                    disabled={isPending}
+                    data-testid="button-add-more-confirm"
+                  >
+                    {isPending ? (
+                      <>
+                        <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Adding...
+                      </>
+                    ) : (
+                      <>
+                        <IconPlus className="h-4 w-4 mr-2" />
+                        Add {selectedCandidates.size} section{selectedCandidates.size !== 1 ? "s" : ""} to group
+                      </>
+                    )}
+                  </Button>
+                </DialogFooter>
+              )}
+            </>
+          )}
+          </>
         )}
 
         {!existingGroup && (
@@ -868,7 +1071,7 @@ export function SectionBindingDialog({
                 <div className="relative">
                   <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search pages..."
+                    placeholder={`Search ${selectableCandidates.length} possible sections...`}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-8"
@@ -914,7 +1117,7 @@ export function SectionBindingDialog({
                                 <span className="truncate font-medium">{c.title || c.slug}</span>
                               </div>
                               <p className="text-xs text-muted-foreground truncate">
-                                {c.slug} — section {c.sectionIndex}
+                                {c.slug} — section {c.sectionIndex} · <span className="uppercase font-medium">{locale}</span>
                               </p>
                             </div>
                             {isBoundElsewhere && (

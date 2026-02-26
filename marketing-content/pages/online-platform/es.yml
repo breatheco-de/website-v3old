@@ -16,23 +16,23 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Dentro de la Plataforma de 4Geeks
-    subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentoría humana. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.
+    title: Dentro de la plataforma de 4Geeks
+    subtitle: Descubre la plataforma de 4Geeks Academy que combina aprendizaje impulsado por IA con mentores expertos. Aprende a programar con LearnPack, el mentor de IA Rigobot y soporte humano ilimitado.
     image:
-      src: /attached_assets/community_1764717588840.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
       alt: Estudiantes colaborando en un espacio tecnológico
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
   - type: article
     content: |
-      ## Bienvenido a Tu Plataforma de Lanzamiento Profesional en Programación
+      ## Bienvenido a tu plataforma de lanzamiento profesional en programación
 
-      ¿Te sientes abrumado por el ritmo acelerado del mundo tech? ¿Te preguntas cómo comenzar una carrera en programación cuando la IA parece estar haciendo todo? No estás solo. En 4Geeks Academy creemos que el futuro pertenece a quienes saben programar *con* la IA, no en su contra. Nuestra plataforma no es solo una herramienta de aprendizaje, es tu puerta de entrada personalizada al mundo tech, diseñada para [resultados reales, soporte real y empleos reales.](https://4geeksacademy.com/es/geekforce)
+      ¿Te sientes abrumado por el ritmo acelerado del mundo tech? ¿Te preguntas cómo comenzar una carrera en programación cuando la IA parece estar haciendo todo? No estás solo. En 4Geeks Academy creemos que el futuro pertenece a quienes saben programar *con* la IA, no en su contra. Nuestra plataforma no es solo una herramienta de aprendizaje, es tu puerta de entrada personalizada al mundo tech, diseñada para [resultados reales, soporte real y empleos reales.](https://new.4geeks.com/es/soporte-profesional-geekforce)
 
       Veamos más de cerca por qué la plataforma de 4Geeks se siente diferente a cualquier otra experiencia de bootcamp.
 
-      ## Un Dashboard Que Se Siente Como un Centro de Control
+      ## Un dashboard que se siente como un centro de control
 
       Cuando inicias sesión en la plataforma, no te lanza a un mar de pestañas y listas interminables. Te dice: **"Bienvenido, [Tu Nombre]"** y muestra tu progreso de inmediato. Tu dashboard es un centro de control dinámico que destaca:
 
@@ -44,7 +44,7 @@ sections:
 
       Todo está diseñado para ayudarte a enfocarte, planificar y mantenerte motivado. No es solo fácil de usar, es *hecho para ti*.
 
-      ## Aprende Haciendo: Modular, Interactivo y Centrado en las Personas
+      ## Aprende haciendo: modular, interactivo y centrado en las personas
 
       Sabemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en **módulos desbloqueables**:
 
@@ -55,17 +55,17 @@ sections:
 
       Tu progreso se rastrea en tiempo real, para que siempre sepas cuánto has avanzado y qué viene después.
 
-      ## Programa Como un Profesional con LearnPack y Rigobot
+      ## Programa como un profesional con LearnPack y Rigobot
 
-      Aquí es donde 4Geeks marca la diferencia. Toda la plataforma está [impulsada por **LearnPack**](https://4geeksacademy.com/us/learnpack), nuestro framework open-source que se integra perfectamente con **Visual Studio Code**. Obtienes las mismas herramientas que utilizan los desarrolladores profesionales:
+      Aquí es donde 4Geeks marca la diferencia. Toda la plataforma está [impulsada por **LearnPack**](https://new.4geeks.com/es/learnpack), nuestro framework open-source que se integra perfectamente con **Visual Studio Code**. Obtienes las mismas herramientas que utilizan los desarrolladores profesionales:
 
       - Lanzamiento con un clic mediante Gitpod o Codespaces  
       - Sin configuración local necesaria  
       - Pruebas de código en tiempo real  
 
-      Y a tu lado está [**Rigobot**](https://4geeksacademy.com/us/rigobot), tu mentor de programación impulsado por IA. Analiza tu código, encuentra errores, explica fallos y te guía en las correcciones en tiempo real, dentro de tu ventana de desarrollo. Ya sea depurando un bucle en Python o diseñando un layout responsivo, Rigobot te explica el *por qué* detrás de cada solución.
+      Y a tu lado está [**Rigobot**](https://new.4geeks.com/es/rigobot), tu mentor de programación impulsado por IA. Analiza tu código, encuentra errores, explica fallos y te guía en las correcciones en tiempo real, dentro de tu ventana de desarrollo. Ya sea depurando un bucle en Python o diseñando un layout responsivo, Rigobot te explica el *por qué* detrás de cada solución.
 
-      ## Mentoría Humana Que Nunca Desaparece
+      ## Mentoría humana que nunca desaparece
 
       Incluso la mejor IA no puede reemplazar la retroalimentación humana real. Por eso integramos mentoría ilimitada en tu experiencia:
 
@@ -75,7 +75,7 @@ sections:
 
       Ya sea revisión de código, consejos para tu portafolio o simplemente hablar sobre el síndrome del impostor, siempre hay alguien de tu lado.
 
-      ## Una Plataforma Construida para Todos, en Cualquier Lugar
+      ## Una plataforma construida para todos, en cualquier lugar
 
       Nos tomamos la accesibilidad en serio:
 
@@ -87,18 +87,18 @@ sections:
 
       Comienza a programar desde un Chromebook en Chile o una MacBook en Madrid. La experiencia es la misma: fluida, profesional e inclusiva.
 
-      ## ¿Los Resultados? Hablan por Sí Solos
+      ## ¿Los resultados? Hablan por sí solos
 
       | **Métrica** | **Valor** |
       | --- | --- |
       | Graduados | 6,000+ |
-      | [Inserción laboral (en 140d)](https://4geeksacademy.com/us/career-growth/outcomes-report-2024) | 84% |
+      | [Inserción laboral (en 140d)](https://new.4geeks.com/es/resultados) | 75 % |
       | Tutoriales en GitHub | 1,000+ (open-source) |
       | [Calificación en SwitchUp](https://www.switchup.org/bootcamps/4geeks-academy) | 4.9/5 |
       | Campus | 7 (USA, Spain, Germany, LATAM, etc.) |
       | Plataforma usada en universidades | Sí (vía Gitpod + LearnPack) |
 
-      ## Por Qué 4Geeks Se Siente Diferente
+      ## Por qué 4Geeks se siente diferente
 
       Este no es un bootcamp que te deja viendo videos solo. Es un **sistema de aprendizaje completo** construido sobre:
 
@@ -109,7 +109,7 @@ sections:
 
       Lo construimos así porque creemos que **la educación tech debe sentirse humana**, no como una máquina. Incluso mientras te entrenamos para trabajar con IA, estamos aquí para mantenerte conectado, motivado y acompañado.
 
-      ## 🚀 ¿Listo para Comenzar?
+      ## 🚀 ¿Listo para comenzar?
 
       No necesitas saberlo todo para empezar. Solo necesitas un navegador, un poco de valentía y una plataforma que te respalde.
 
@@ -119,8 +119,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - online-platform
     paddingY:
@@ -133,7 +132,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplica ahora
+      submit_label: {{ call_to_action_apply | Aplica ahora }}
       tags: website-lead
       automations: hard
       fields:
@@ -147,7 +146,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
           visible: true
@@ -166,3 +165,36 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre Completo
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+          placeholder: Número telefónico
+        program:
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

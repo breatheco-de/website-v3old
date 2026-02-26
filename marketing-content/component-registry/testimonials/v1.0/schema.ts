@@ -23,6 +23,8 @@ export const testimonialsSectionSchema = z.object({
     count: z.string(),
   }).optional(),
   items: z.array(testimonialItemSchema).optional(),
+  related_features: z.array(z.string()).optional(),
+  limit: z.number().optional(),
   filter_by_location: z.string().optional(),
 });
 

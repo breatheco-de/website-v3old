@@ -22,7 +22,7 @@ sections:
       prefix: Finance Your
       highlight: Future
       color: chart-1
-    description: We offer affordable payment plans, financing options, and scholarships so you can focus on launching your tech career without worrying about finances.
+    description: Structured payment plans, competitive financing, and scholarships that give you immediate access to career-focused training and accelerate your path into tech with financial clarity.
     bullets:
       - text: Structured monthly payment plans
       - text: Competitive financing options
@@ -41,13 +41,13 @@ sections:
       review_count: Based on 5149+ reviews
       review_logos:
         - name: Google
-          logo: /attached_assets/google_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
         - name: Course Report
-          logo: /attached_assets/course-report_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         - name: SwitchUp
-          logo: /attached_assets/switchup_1765590146414.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     paddingY:
-      desktop: none
+      desktop: none md
     marginY:
       desktop: none
   - type: features_grid
@@ -65,7 +65,7 @@ sections:
       - value: 3-6 Months
         title: Average time to get hired
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: none
   - type: syllabus
@@ -89,6 +89,84 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: syllabus
+    title: Fund Your Tech Career
+    subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
+    modules:
+      - title: Pay Upfront and Save 10%
+        description: Pay your tuition in full before the program starts and receive a 10% discount.
+      - title: Interest-Free Installments over 6 Months
+        description: Spread the cost of your tuition fee over 6 months, with no interest or additional costs, through our partners.
+      - title: Income-Based Payments
+        description: Prefer to pay after you land a job? With ISA financing from BCAS FinTECH, you only start paying once your annual income reaches {{ minimun_isa_salary | £17,000 }}. From that point onwards, a fixed percentage of your income is applied, adapted to your financial situation.
+      - title: Loans and Extended Payment Plans
+        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly instalments starting at {{ mounthly_price_bootcamp | £200 }}. Approval and final conditions are subject to the financial institution.
+      - title: Scholarships
+        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
+    expand_label: More info
+    collapse_label: Hide info
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+  - type: syllabus
+    title: Fund Your Tech Career
+    subtitle: Explore flexible financing options, from upfront discounted payments to income-based plans, and choose the alternative that works best for you.
+    modules:
+      - title: Pay Upfront and Save 10%
+        description: Pay your full tuition before the program begins and receive a 10% discount.
+      - title: Interest-Free Installments over 6 Months
+        description: Split your tuition into 6 interest-free monthly payments. Pay the standard tuition cost in structured monthly installments.
+      - title: Income-Based Payments
+        description: Income Share Agreement (ISA) payment plans are not available in all countries, and certain conditions apply. Contact us to learn more.
+      - title: Loans and Extended Payment Plans
+        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly payments starting at 170 USD. Final approval and terms depend on the financial institution.
+      - title: Scholarships
+        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts may vary.
+    expand_label: More information
+    collapse_label: Hide information
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: comparison_table
     version: "1.0"
     title: Your Financing Options at a Glance
@@ -133,7 +211,7 @@ sections:
     marginY:
       desktop: lg md
     paddingY:
-      desktop: md
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -208,9 +286,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -297,9 +375,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - bogota-colombia
       - buenosaires-argentina
@@ -386,9 +464,9 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     marginY:
-      desktop: lg
+      desktop: none
     paddingY:
-      desktop: md lg
+      desktop: none
     showOnLocations:
       - valencia-spain
       - rome-italy
@@ -411,10 +489,22 @@ sections:
       url: /en/job-guarantee
       variant: primary
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none sm
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - tampa-usa
+      - orlando-usa
+      - toronto-canada
   - type: testimonials
     version: v1.0
     title: What Our Students Say
@@ -460,7 +550,6 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - price
@@ -469,6 +558,31 @@ sections:
       desktop: lg none
     paddingY:
       desktop: none md
+    item_overrides:
+      can-i-finance-the-additional-2000-job-guarantee-fee-with-my-tuition:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - malaga-spain
+          - madrid-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
@@ -478,8 +592,8 @@ sections:
     form:
       variant: stacked
       submit_label: Get the details
-      tags: website-lead
-      automations: hard
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
@@ -491,7 +605,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -510,3 +624,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

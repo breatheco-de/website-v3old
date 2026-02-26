@@ -27,7 +27,7 @@ sections:
     title: Ingresa al mundo tech con nuestra Garantía de Empleo*
     subtitle: "&nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></span></span></span></div>"
     image:
-      src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
       - text: {{ call_to_action_apply | Aplicar ahora }}
@@ -92,13 +92,13 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Programas de Carrera con Garantía de Empleo
+    heading: Programas de carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: 24 semanas
-        label: Actualizado en 2026
+        duration: {{ ai_engineering_week_duration | 24 }} semanas
+        label: Actualizado en 226
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
@@ -111,7 +111,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Desarollo Full Stack con IA
-        duration: 20 semanas
+        duration: {{ fullstack_week_duration | 20 }} semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -128,7 +128,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: 16 semanas
+        duration: {{ data_science_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
@@ -142,7 +142,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: 16 semanas
+        duration: {{ cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
@@ -170,12 +170,12 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Programas de Carrera con Garantía de Empleo
+    heading: Programas de carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: 24 semanas
+        duration: {{ ai_engineering_week_duration | 24 }} semanas
         label: Actualizado en 2026
         title: Ingeniería en Inteligencia Artificial
         badges:
@@ -186,7 +186,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Desarollo Full Stack con IA
-        duration: 20 semanas
+        duration: {{ fullstack_week_duration | 2O }} semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -196,31 +196,28 @@ sections:
           - icon: Plus
             text: Desarrollo de APIs
         description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
-        price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: 16 semanas
+        duration: {{ data_science_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
           - icon: Brain
             text: Python, TensorFlow y SQL
         description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning utilizadas por equipos modernos de datos.
-        price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: 16 semanas
+        duration: {{ cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
         description: Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
-        price_info: con cuotas 4Geeks
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -289,7 +286,7 @@ sections:
     variant: cardHeader
     heading: Garantía de Empleo basada en resultados reales
     description: Nuestra Garantía de Empleo se basa en resultados reales de contratación y en un modelo diseñado para maximizar tu empleabilidad. Nuestro contenido, metodología y acompañamiento profesional están alineados con las exigencias del mercado tech actual para ayudarte a conseguir tu próximo empleo. Hemos ayudado a más de 6000 graduados a lanzar su nueva carrera.
-    image: /attached_assets/comunity-support_1765908983485.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: Soporte comunitario de 4Geeks Academy
     background: bg-primary/5
     cards:
@@ -349,3 +346,32 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

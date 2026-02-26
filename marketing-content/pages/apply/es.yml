@@ -1,20 +1,19 @@
 meta:
-  page_title: "Aplica Ahora - Comienza Tu Carrera Tech | 4Geeks Academy"
-  description: "Aplica a 4Geeks Academy y comienza tu camino para convertirte en un profesional de tecnología. Completa nuestro sencillo formulario de aplicación y nuestro equipo de admisiones te guiará en los siguientes pasos."
-  robots: "index, follow"
-
+  page_title: Aplica Ahora - Comienza Tu Carrera Tech | 4Geeks Academy
+  description: Aplica a 4Geeks Academy y comienza tu camino para convertirte en un profesional de tecnología. Completa nuestro sencillo formulario de aplicación y nuestro equipo de admisiones te guiará en los siguientes pasos.
+  robots: index, follow
 sections:
   - type: apply_form
     version: "1.0"
     hero:
-      title: "Tu Futuro en Tech Comienza Aquí"
-      subtitle: "Estás a un paso de tu nueva carrera en tecnología — ¡felicidades! Completa el formulario a continuación, y nuestro equipo de admisiones te guiará en los siguientes pasos."
-      note: "(Y no te preocupes — aún no te estás comprometiendo a nada, solo estamos iniciando la conversación.)"
+      title: Tu Futuro en Tech Comienza Aquí
+      subtitle: Estás a un paso de tu nueva carrera en tecnología — ¡felicidades! Completa el formulario a continuación, y nuestro equipo de admisiones te guiará en los siguientes pasos.
+      note: (Y no te preocupes — aún no te estás comprometiendo a nada, solo estamos iniciando la conversación.)
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: "APLICAR"
-      tags: "apply-page"
+      submit_label: APLICAR
+      tags: apply-page
       fields:
         region:
           visible: true
@@ -28,42 +27,67 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: "Ingresa tu nombre"
+          placeholder: Ingresa tu nombre
         last_name:
           visible: true
           required: true
-          placeholder: "Ingresa tu apellido"
+          placeholder: Ingresa tu apellido
         email:
           visible: true
           required: true
-          placeholder: "Ingresa tu correo electrónico"
+          placeholder: Ingresa tu correo electrónico
         phone:
           visible: true
           required: true
-          placeholder: "Ingresa tu número de teléfono"
+          placeholder: Ingresa tu número de teléfono
       consent:
         marketing: true
-        marketing_text: "Acepto recibir información a través de correo electrónico, WhatsApp y/u otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto, y puedes darte de baja fácilmente en cualquier momento."
+        marketing_text: Acepto recibir información a través de correo electrónico, WhatsApp y/u otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto, y puedes darte de baja fácilmente en cualquier momento.
         sms: true
         sms_usa_only: true
       show_terms: true
-      terms_url: "/terminos-condiciones"
-      privacy_url: "/politica-privacidad"
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
       turnstile:
         enabled: true
     next_steps:
-      title: "¿Qué Pasa Después?"
+      title: ¿Qué Pasa Después?
       items:
-        - title: "Confirmación instantánea"
-          description: "Te enviaremos el programa de estudios por correo electrónico de inmediato."
-        - title: "Seguimiento personalizado"
-          description: "Nuestro equipo de admisiones te contactará por mensaje y teléfono para programar una llamada rápida."
-        - title: "Pregúntanos lo que quieras"
-          description: "Programas, horarios, financiamiento, apoyo profesional — te guiaremos por tus opciones y compartiremos todos los detalles."
-        - title: "Decide con confianza"
-          description: "Tendrás toda la información que necesitas para elegir el camino correcto para ti. Y estamos aquí para ayudarte."
-      closing: "¡Ahora estás listo para tomar la mejor decisión para tu carrera!"
-
-  - type: footer
+        - title: Confirmación instantánea
+          description: Te enviaremos el programa de estudios por correo electrónico de inmediato.
+        - title: Seguimiento personalizado
+          description: Nuestro equipo de admisiones te contactará por mensaje y teléfono para programar una llamada rápida.
+        - title: Pregúntanos lo que quieras
+          description: Programas, horarios, financiamiento, apoyo profesional — te guiaremos por tus opciones y compartiremos todos los detalles.
+        - title: Decide con confianza
+          description: Tendrás toda la información que necesitas para elegir el camino correcto para ti. Y estamos aquí para ayudarte.
+      closing: ¡Ahora estás listo para tomar la mejor decisión para tu carrera!
+  - type: sticky_cta
     version: "1.0"
-    copyright_text: "2024 4Geeks. Todos los derechos reservados."
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Aplicar ahora
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

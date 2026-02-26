@@ -116,8 +116,8 @@ export function EditableSection({ children, section, index, sectionType, content
   const [reviewCodeError, setReviewCodeError] = useState<string | null>(null);
 
   const { data: bindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
-    queryKey: ["/api/bindings/section", contentType, slug, index],
-    queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}`).then(r => r.json()),
+    queryKey: ["/api/bindings/section", contentType, slug, index, locale],
+    queryFn: () => fetch(`/api/bindings/section?contentType=${contentType}&slug=${slug}&sectionIndex=${index}&locale=${locale || ""}`).then(r => r.json()),
     enabled: !!editMode?.isEditMode && !!contentType && !!slug,
     staleTime: 30_000,
   });
@@ -362,7 +362,7 @@ export function EditableSection({ children, section, index, sectionType, content
     setIsConfirming(true);
     try {
       const token = getDebugToken();
-      const res = await fetch('/api/content/edit', {
+      const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -433,7 +433,7 @@ export function EditableSection({ children, section, index, sectionType, content
       const sectionToSave = { type: sectionType, ...sectionData } as Section;
       
       const token = getDebugToken();
-      const res = await fetch('/api/content/edit', {
+      const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -16,71 +16,71 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Career Coaching Ilimitado
-    subtitle: para Impulsar tu Carrera en Tecnología
+    title: Career coaching ilimitado
+    subtitle: para impulsar tu carrera en tecnología
     brand_mark:
       prefix: Geek
       highlight: FORCE
-      suffix: ':'
+      suffix: ":"
       color: chart-5
     description: Mentoría profesional ilimitada 1:1 adaptada a tu perfil. Desde tu CV y portafolio hasta entrevistas y plataformas de contratación con IA, te acompañamos para que consigas tu primer empleo en tecnología y sigas avanzando en tu carrera.
     marquee:
       items:
         - id: logo-google-developers
           alt: Logo de Google Developers
-          logo: /attached_assets/google-developers_1764719904190.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
           logoHeight: 48px
         - id: logo-uber
           alt: Logo de Uber
-          logo: /attached_assets/uber_1764719999685.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
           logoHeight: 48px
         - id: logo-telefonica
           alt: Logo de Telefónica
-          logo: /attached_assets/telefonica_1764719987250.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
           logoHeight: 48px
         - id: logo-twilio
           alt: Logo de Twilio
-          logo: /attached_assets/twilio_1764719992371.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
           logoHeight: 48px
         - id: logo-evernote
           alt: Logo de Evernote
-          logo: /attached_assets/evernote_1764719981901.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
           logoHeight: 48px
         - id: newsweek
           alt: Newsweek
-          logo: /attached_assets/newsweek_1764709608255.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
           logoHeight: 48px
         - id: logo-microsoft
           alt: Logo de Microsoft
-          logo: /attached_assets/microsoft_1764719829995.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
           logoHeight: 48px
         - id: logo-ebay
           alt: Logo de eBay
-          logo: /attached_assets/ebay_1764719967118.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
           logoHeight: 48px
       speed: 40
       gradient: true
       gradientWidth: 60
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
-      ratio: '2:2'
+      ratio: "2:2"
     paddingY:
       desktop: none
     marginY:
       desktop: none sm
   - type: career_support_explain
     version: v1.0
-    heading: Geek FORCE Career Coaching
-    description: Acompañamiento profesional diseñado para ayudarte a conseguir tu primer empleo en tecnología y construir una carrera con dirección.
-    background: hsl(var(--secondary))
+    heading: Consigue empleo. Con soporte de carrera para la era de la IA
+    description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
+    background: hsl(var(--sidebar-background))
     tabs:
-      - tab_label: Lanza tu carrera
+      - tab_label: Listo para Trabajar, Más Rápido
         layout: three_columns
-        col1_subtitle: Construye un perfil que realmente destaque.
+        col1_subtitle: Construye un perfil atractivo para reclutadores.
         col1_description: |-
-          Prepárate para procesos reales de selección combinando herramientas con IA y coaching 1:1.
-          Juntos diseñamos una estrategia clara para posicionarte frente a reclutadores y acceder a oportunidades alineadas con tu perfil.
-        col1_tagline: Convertimos tu perfil en una ventaja competitiva.
+          Prepárate para procesos reales de contratación usando una combinación de herramientas de IA y coaching 1:1.
+          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
+        col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo
         col1_boxes:
           - icon: IconBrandLinkedin
             text: LinkedIn
@@ -90,32 +90,32 @@ sections:
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
-        col2_heading: Estrategia Profesional Personalizada
+        col2_heading: Estrategia de carrera, construida para ti
         col2_bullets:
           - icon: IconRobot
-            text: Auditoría con IA y recomendaciones prácticas para tu LinkedIn y currículum
+            text: Retroalimentación 24/7 de RigoBot para auditar tu LinkedIn y currículum
           - icon: IconUsers
-            text: Sesiones de career coaching 1:1 enfocadas en tu posicionamiento profesional
+            text: Sesiones de coaching y estrategia de carrera 1:1
           - icon: IconMicrophone
-            text: Simulaciones y preparación para entrevistas técnicas y conductuales
+            text: Entrevistas simuladas y preparación para entrevistas técnicas
         col3_image_id: 4geeks_member
         col3_object_fit: cover
         col3_object_position: center
-      - tab_label: Oportunidades Reales
+      - tab_label: Acceso a contratación real
         layout: two_column_cards
-        title: Accede a oportunidades más allá de las bolsas tradicionales.
-        left_text: Una vez que tu perfil está listo, activamos tu visibilidad. Compartimos tu perfil con empresas que buscan talento formado en 4Geeks y te conectamos con nuestra red de empleadores mediante una estrategia de networking dirigida y estratégica.
+        title: Accede al mercado laboral oculto.
+        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con empresas aliadas y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: 250+
-          label: empresas en nuestra red de empleadores
+          value: {{ number_of_hiring_partners_aprox | 250 }}+
+          label: empresas en la red de empleadores de 4Geeks
         right_bullets:
           - icon: IconUserPlus
-            text: Referencias directas a socios de contratación
+            text: Referidos directos a empresas aliadas
           - icon: IconTargetArrow
-            text: Oportunidades alineadas con tu perfil y objetivos
+            text: Ofertas laborales curadas según tu perfil
           - icon: IconMessageChatbot
             text: Coaching en networking y conversaciones con reclutadores
         right_logos:
@@ -131,31 +131,31 @@ sections:
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
-      - tab_label: Proyectos que Convencen
+      - tab_label: Pruebas que convierten
         layout: text_and_image
-        title: Demuestra tu capacidad con proyectos reales.
+        title: Proyectos que demuestran habilidad real.
         left_description: |-
-          La visibilidad abre puertas. La evidencia genera confianza.
-          Gradúate con un portafolio sólido que refleje lo que realmente sabes construir. Desde proyectos aplicados hasta un proyecto final que resuelve desafíos reales de negocio, tu trabajo se convierte en prueba concreta de tu valor profesional.
+          La visibilidad atrae atención. Las pruebas cierran la brecha.
+          Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
         left_bullets:
           - icon: IconBriefcase
-            text: Proyectos alineados con estándares actuales de la industria
+            text: Proyectos alineados con la industria y el mundo real
           - icon: IconPresentation
-            text: Proyecto final listo para presentar en procesos de selección
+            text: Un proyecto final listo para mostrar
           - icon: IconBrandGithub
             text: Optimización de GitHub y revisión profesional de código
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
         right_image_object_position: center
-      - tab_label: Tu Rol Ideal
+      - tab_label: El Rol Ideal para Ti
         layout: text_with_testimonials_carousel
-        title: Construye una carrera alineada con tus fortalezas.
+        title: Convierte tu trayectoria en una ventaja.
         left_description: |-
-          No se trata solo de conseguir una oferta, sino la adecuada.
-          Analizamos tu experiencia previa, identificamos habilidades transferibles y definimos una estrategia clara para enfocar tu búsqueda. Te acompañamos también en la negociación salarial y en tu crecimiento profesional a largo plazo.
+          Cuando las ofertas lleguen, te ayudamos a elegir y negociar con confianza.
+          Tu experiencia previa importa. Mapeamos habilidades transferibles, enfocamos tu búsqueda en los roles correctos y te apoyamos en la negociación salarial y el crecimiento a largo plazo.
         left_bullets:
           - icon: IconTransfer
-            text: Identificación y mapeo de habilidades transferibles
+            text: Mapeo de habilidades transferibles
           - icon: IconMap
             text: Hoja de ruta profesional personalizada
           - icon: IconCoin
@@ -168,14 +168,14 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: MaiLinh Tran es emprendedora y hoy lidera el desarrollo tecnológico de su propio proyecto.
-            achievement: Lanzó su startup y coordina su propio equipo técnico.
+            description: MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de su proyecto.
+            achievement: ¡Lanzó su startup, contrata nuevo talento tech y coordina un equipo de desarrollo completo!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
-            description: Martín participó en nuestro programa junto a UTEC e IDB y transformó su trayectoria profesional.
+            description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y toda una nueva vida profesional.
             achievement: Logró un aumento salarial del 100%.
           - image_id: melanie_galaretto
             image_object_fit: cover
@@ -183,10 +183,10 @@ sections:
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: Melanie construyó una carrera sólida como desarrolladora de software en su país.
+            description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
             achievement: Logró un aumento salarial del 100%.
   - type: graduates_stats
-    heading: Colocación Laboral
+    heading: Colocación laboral
     subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
     stats:
       - value: {{ global_job_placement_rate | 84 }}%
@@ -209,96 +209,272 @@ sections:
         col_span: 6
         row_span: 2
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
-    title: Consigue Empleo con Nuestro Proceso de Desarrollo de Carrera en 3 Pasos
+    title: Consigue empleo con nuestro proceso de desarrollo de carrera en 3 pasos
     description: Nuestro proceso estructurado está diseñado para que consigas empleo — rápido.
     steps:
       - icon: Optimization
-        title: Optimización de Perfil
+        title: Optimización de perfil
         bullets:
           - Perfecciona LinkedIn, GitHub y portafolio para atraer reclutadores y pasar filtros basados en IA.
           - Crea un currículum que supere los sistemas de seguimiento de candidatos (ATS) y destaque tus fortalezas.
           - Muestra tus habilidades con un portafolio listo para reclutadores.
       - icon: Interview
-        title: Preparación para Entrevistas
+        title: Preparación para entrevistas
         bullets:
           - Gana confianza con entrevistas técnicas y conductuales simuladas.
           - Practica código y resolución de problemas con ejercicios auto-calificados.
           - Desarrolla estrategias personalizadas para tus entrevistas próximas.
       - icon: JobSearch
-        title: Búsqueda Estratégica de Empleo
+        title: Búsqueda estratégica de empleo
         bullets:
           - Crea un plan de búsqueda de empleo personalizado alineado con tus metas.
           - Navega plataformas de contratación con IA, desde escáneres de currículum hasta entrevistas automatizadas.
           - Conéctate con nuestra extensa red global de socios de contratación.
     background: bg-background
     paddingY:
-      desktop: md none
+      desktop: none
+  - type: whos_hiring
+    variant: carousel
+    title: Principales empresas tecnológicas que contratan graduados de 4Geeks
+    description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefónica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+    paddingY:
+      desktop: sm none
   - type: why_learn_ai
-    variant: default
-    title: Garantía de Empleo* Opcional para Mayor Confianza
-    subtitle: Respaldamos tu resultado profesional con un compromiso más fuerte
-    description: '<span style="font-size: 1.125rem;"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span style="font-size: 1rem;"></span></span></div>'
+    variant: laptop-edge
+    title: Tu futuro profesional, con garantía*
+    subtitle: Respaldamos tu resultado profesional con un compromiso real
+    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
     cta:
-      text: Más Información
-      url: /en/job-guarantee
+      text: Conocer más
+      url: /es/trabajo-garantizado
       variant: primary
     marginY:
       desktop: md
     paddingY:
       desktop: none sm
-    background: hsl(210 100% 50% / 0.05)
-  - type: whos_hiring
-    variant: carousel
-    title: Principales Empresas Tecnológicas que Contratan Egresados de 4Geeks
-    description: Los egresados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
-    logos:
-      - src: /attached_assets/twilio_1764719992371.png
-        alt: Twilio
-      - src: /attached_assets/jooble_1764720010702.png
-        alt: Jooble
-      - src: /attached_assets/meta-logo_1764719959855.png
-        alt: Meta
-      - src: /attached_assets/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: /attached_assets/ebay_1764719967118.png
-        alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
-        alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
-        alt: Telefónica
-      - src: /attached_assets/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: /attached_assets/uber_1764719999685.png
-        alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
-        alt: Neo9
-      - src: /attached_assets/google-developers_1764719904190.png
-        alt: Google Developers
-    paddingY:
-      desktop: sm none
+    background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: testimonials_slide
-    title: Las Historias Detrás de las Estadísticas
+    title: Las historias detrás de las estadísticas
     description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - career-support
+      - job-guarantee
+      - price
+    item_overrides:
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - santiago-chile
+          - quito-ecuador
+          - panamacity-panama
+          - montevideo-uruguay
+          - mexicocity-mexico
+          - lima-peru
+          - lapaz-bolivia
+          - caracas-venezuela
+          - costa-rica
+          - buenosaires-argentina
+          - bogota-colombia
+      puedo-financiar-la-tarifa-adicional-de-2000-de-la-garanta-de-empleo-con-mi-matrc:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - milan-italy
+          - malaga-spain
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      la-garanta-de-empleo-reembolsa-la-matrcula-completa-si-no-me-contratan:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+      cmo-funciona-la-garanta-de-empleo-de-4geeks-academy:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - valencia-spain
+          - rome-italy
+          - munich-germany
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      cunto-tiempo-tengo-para-buscar-trabajo-antes-del-reembolso:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - lima-peru
+          - mexicocity-mexico
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
+      la-garanta-de-empleo-est-disponible-para-todos-los-cursos:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - milan-italy
+          - malaga-spain
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+          - bogota-colombia
+          - buenosaires-argentina
+          - caracas-venezuela
+          - costa-rica
+          - lapaz-bolivia
+          - mexicocity-mexico
+          - lima-peru
+          - montevideo-uruguay
+          - panamacity-panama
+          - quito-ecuador
+          - santiago-chile
     marginY:
       desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para comenzar?
     subtitle: Cupos limitados. Inicia tu transformación hoy mismo.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Postular Ahora
+      submit_label: Postular ahora
       tags: website-lead
       automations: hard
       fields:
@@ -331,3 +507,36 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre Completo
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+          placeholder: Número telefónico
+        program:
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

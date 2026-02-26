@@ -28,7 +28,7 @@ sections:
     title: Get Into Tech With Our Job Guarantee*
     subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
     image:
-      src: /attached_assets/generated_images/Students_collaborating_workspace_d1560810.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Get more info
@@ -97,7 +97,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: 24 weeks
+        duration: {{ ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -111,9 +111,9 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 20 }} weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
@@ -128,7 +128,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
@@ -142,7 +142,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -175,7 +175,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: 24 weeks
+        duration: {{ ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -187,7 +187,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
-        duration: 20 weeks
+        duration: {{ fullstack_week_duration | 20 }} weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -202,7 +202,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
-        duration: 16 weeks
+        duration: {{ data_science_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
@@ -214,7 +214,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: 16 weeks
+        duration: {{ cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -255,7 +255,7 @@ sections:
     description: "You'll qualify for the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
+        title: {{ who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete all coursework and projects
       - icon: IconBrain
@@ -290,7 +290,7 @@ sections:
     variant: cardHeader
     heading: Why The Job Guarantee
     description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
-    image: /attached_assets/comunity-support_1765908983485.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
@@ -330,7 +330,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -348,3 +348,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

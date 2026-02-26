@@ -111,7 +111,7 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
                 
                 {description && (
                   <p 
-                    className="text-muted-foreground mb-6"
+                    className="text-muted-foreground mb-6 pt-0 pb-5 text-[18px] leading-[1.5rem]"
                     data-testid="text-two-column-accordion-description"
                   >
                     {description}
@@ -125,7 +125,7 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
                         <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-2 md:py-4">
                           {bullet.heading}
                         </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground">
+                        <AccordionContent className="text-muted-foreground leading-[1.5rem]">
                           {bullet.text}
                         </AccordionContent>
                       </AccordionItem>

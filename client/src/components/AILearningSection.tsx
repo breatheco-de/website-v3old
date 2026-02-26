@@ -8,9 +8,8 @@ import type {
   AiLearningHighlightSection,
 } from "@shared/schema";
 import type { ComponentType } from "react";
-import rigobotLogo from "@assets/rigobot-logo_1764707022198.webp";
 import { cn } from "@/lib/utils";
-import { UniversalImage } from "@/components/UniversalImage";
+import UniversalImage from "@/components/UniversalImage";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
@@ -108,10 +107,11 @@ function extractYouTubeId(url: string): string | null {
 function getIcon(iconName: string, isRigobot: boolean = false, isLarge: boolean = false) {
   if (isRigobot) {
     return (
-      <img 
-        src={rigobotLogo} 
-        alt="Rigobot" 
-        className={isLarge ? "w-full h-full object-cover" : "w-7 h-7 object-contain"}
+      <UniversalImage
+        id="rigobot-logo-1764707022198"
+        alt="Rigobot"
+        className={isLarge ? "w-full h-full" : "w-7 h-7"}
+        style={{ objectFit: isLarge ? "cover" : "contain" }}
       />
     );
   }
@@ -324,10 +324,11 @@ function AILearningHighlight({ data }: { data: AiLearningHighlightSection }) {
           <div data-testid="highlight-block" className={data.video_position === "left" ? "lg:order-2" : ""}>
             <div className="flex items-start gap-4 mb-6">
               <div className="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                <img 
-                  src={rigobotLogo} 
-                  alt="Rigobot" 
-                  className="w-full h-full object-cover"
+                <UniversalImage
+                  id="rigobot-logo-1764707022198"
+                  alt="Rigobot"
+                  className="w-full h-full"
+                  style={{ objectFit: "cover" }}
                 />
               </div>
               <div>

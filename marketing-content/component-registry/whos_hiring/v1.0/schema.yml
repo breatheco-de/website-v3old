@@ -42,7 +42,7 @@ props:
         type: string
         required: true
         description: URL path to the logo image
-        example: /attached_assets/microsoft_1764719829995.png
+        example: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
       alt:
         type: string
         required: true

@@ -1,18 +1,12 @@
 import type { HeroSimpleStacked as HeroSimpleStackedType } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import * as TablerIcons from "@tabler/icons-react";
-import type { ComponentType } from "react";
+import { createElement } from "react";
+import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 interface HeroSimpleStackedProps {
   data: HeroSimpleStackedType;
 }
-
-const getIcon = (iconName: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
-  return IconComponent ? <IconComponent className="w-5 h-5" /> : null;
-};
 
 export function HeroSimpleStacked({ data }: HeroSimpleStackedProps) {
   const handleLinkClick = useInternalNav();
@@ -60,7 +54,7 @@ export function HeroSimpleStacked({ data }: HeroSimpleStackedProps) {
                     data-testid={`button-hero-cta-${index}`}
                   >
                     <a href={button.url} onClick={handleLinkClick} className="flex items-center gap-2">
-                      {button.icon && getIcon(button.icon)}
+                      {button.icon && (() => { const Ic = getIcon(button.icon); return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null; })()}
                       {button.text}
                     </a>
                   </Button>

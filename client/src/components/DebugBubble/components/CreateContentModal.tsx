@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   IconCopy,
   IconPlus,
@@ -5,6 +6,8 @@ import {
   IconRefresh,
   IconCheck,
   IconX,
+  IconInfoCircle,
+  IconChevronDown,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -94,6 +97,8 @@ export function CreateContentModal({
   setDuplicatingPage,
   toast,
 }: CreateContentModalProps) {
+  const [showFiles, setShowFiles] = useState(false);
+
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
       onOpenChange(openVal);
@@ -117,7 +122,7 @@ export function CreateContentModal({
             {duplicatingPage ? (
               <>
                 <IconCopy className="h-5 w-5" />
-                Duplicando página
+                Duplicate Page
               </>
             ) : (
               <>
@@ -128,7 +133,7 @@ export function CreateContentModal({
           </DialogTitle>
           <DialogDescription>
             {duplicatingPage ? (
-              <>Estás duplicando: <strong>{duplicatingPage.label}</strong></>
+              <>Duplicating: <strong>{duplicatingPage.label}</strong></>
             ) : (
               <>Create a new page, location, program, or landing with starter YAML files.</>
             )}
@@ -136,12 +141,12 @@ export function CreateContentModal({
         </DialogHeader>
         
         <div className="space-y-4 py-4">
+          {!duplicatingPage && (
           <div className="space-y-2">
             <label className="text-sm font-medium">Content Type</label>
             <div className="flex items-center gap-2">
               <Select 
                 value={createContentType} 
-                disabled={!!duplicatingPage}
                 onValueChange={(v) => {
                   setCreateContentType(v as 'location' | 'page' | 'program' | 'landing');
                   if (v !== 'landing') {
@@ -218,6 +223,7 @@ export function CreateContentModal({
               )}
             </div>
           </div>
+          )}
           
           <div className="space-y-2">
             <label className="text-sm font-medium">Title</label>
@@ -276,7 +282,19 @@ export function CreateContentModal({
               data-testid="input-content-title"
             />
           </div>
-          
+
+          {duplicatingPage && (
+            <div className="flex gap-2 p-3 rounded-md bg-muted/50 border text-xs text-muted-foreground">
+              <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground" />
+              <div>
+                <p className="font-medium text-foreground mb-1">What will not be copied:</p>
+                <ul className="space-y-0.5 list-disc list-inside">
+                  <li>Redirects — each page must define its own</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
           {createContentSlugEn && createContentType === 'landing' && (
             <div className="space-y-3 p-3 bg-muted/50 rounded-md">
               <div className="space-y-2">
@@ -350,15 +368,26 @@ export function CreateContentModal({
                   <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'This slug is already taken'}</p>
                 )}
               </div>
-              
+
               <div className="space-y-1">
-                <p className="text-xs font-medium text-muted-foreground">Files that will be created:</p>
-                <div className="space-y-0.5 font-mono text-xs text-muted-foreground">
-                  <div>marketing-content/landings/{createContentSlugEn}/</div>
-                  <div className="pl-4">├── _common.yml</div>
-                  <div className="pl-4">└── promoted.yml</div>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowFiles(v => !v)}
+                  className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
+                  data-testid="button-toggle-files"
+                >
+                  <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? '' : '-rotate-90'}`} />
+                  Files that will be created
+                </button>
+                {showFiles && (
+                  <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
+                    <div>marketing-content/landings/{createContentSlugEn}/</div>
+                    <div className="pl-4">├── _common.yml</div>
+                    <div className="pl-4">└── promoted.yml</div>
+                  </div>
+                )}
               </div>
+
             </div>
           )}
           
@@ -509,16 +538,27 @@ export function CreateContentModal({
                   <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || 'Spanish slug is taken'}</p>
                 )}
               </div>
-              
+
               <div className="space-y-1">
-                <p className="text-xs font-medium text-muted-foreground">Files that will be created:</p>
-                <div className="space-y-0.5 font-mono text-xs text-muted-foreground">
-                  <div>marketing-content/{createContentType === 'location' ? 'locations' : createContentType === 'program' ? 'programs' : 'pages'}/{createContentSlugEn}/</div>
-                  <div className="pl-4">├── _common.yml</div>
-                  <div className="pl-4">├── en.yml</div>
-                  <div className="pl-4">└── es.yml</div>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowFiles(v => !v)}
+                  className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
+                  data-testid="button-toggle-files"
+                >
+                  <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? '' : '-rotate-90'}`} />
+                  Files that will be created
+                </button>
+                {showFiles && (
+                  <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
+                    <div>marketing-content/{createContentType === 'location' ? 'locations' : createContentType === 'program' ? 'programs' : 'pages'}/{createContentSlugEn}/</div>
+                    <div className="pl-4">├── _common.yml</div>
+                    <div className="pl-4">├── en.yml</div>
+                    <div className="pl-4">└── es.yml</div>
+                  </div>
+                )}
               </div>
+
             </div>
           )}
         </div>
@@ -615,9 +655,9 @@ export function CreateContentModal({
                   if (response.ok && data.success) {
                     const newUrl = buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en');
                     toast({
-                      title: duplicatingPage ? "Página duplicada" : "Content created",
+                      title: duplicatingPage ? "Page duplicated" : "Content created",
                       description: duplicatingPage 
-                        ? `Creada copia en ${newUrl}` 
+                        ? `Created copy at ${newUrl}` 
                         : `Created new ${createContentType} at ${newUrl}`,
                     });
                     onOpenChange(false);
@@ -667,12 +707,12 @@ export function CreateContentModal({
             {isCreatingContent ? (
               <>
                 <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
-                {duplicatingPage ? "Duplicando..." : "Creating..."}
+                {duplicatingPage ? "Duplicating..." : "Creating..."}
               </>
             ) : duplicatingPage ? (
               <>
                 <IconCopy className="h-4 w-4 mr-2" />
-                Duplicar {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
+                Duplicate {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
               </>
             ) : (
               <>

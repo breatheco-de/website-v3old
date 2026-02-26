@@ -14,12 +14,19 @@ import { gcs } from './gcs';
 const SYNC_STATE_PATH = path.join(process.cwd(), 'marketing-content', '.sync-state.json');
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), 'marketing-content');
 const GCS_SYNC_STATE_KEY = 'sync/sync-state.json';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 /**
  * Load sync state from GCS bucket on startup using authenticated download.
- * Falls back to local file if GCS is unavailable.
+ * In production: loads from bucket, falls back to local file.
+ * In development: uses local file only (each dev environment has its own state).
  */
 export async function loadSyncStateFromBucket(): Promise<SyncState> {
+  if (!IS_PRODUCTION) {
+    console.log('[SyncState] Development mode, using local file only');
+    return loadSyncState();
+  }
+
   if (!gcs.available) {
     console.log('[SyncState] GCS unavailable, loading from local file');
     return loadSyncState();
@@ -51,9 +58,10 @@ export async function loadSyncStateFromBucket(): Promise<SyncState> {
 
 /**
  * Save sync state to GCS bucket for persistence across deployments.
+ * Only runs in production — development uses local file only.
  */
 async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> {
-  if (!gcs.available) return;
+  if (!IS_PRODUCTION || !gcs.available) return;
 
   try {
     const content = JSON.stringify(state, null, 2);
@@ -66,7 +74,7 @@ async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> 
 /**
  * Check if a file should be tracked by the sync system.
  * Tracks YAML and JSON files in marketing-content directory.
- * Excludes component-registry, .sync-state.json, and image directories.
+ * Excludes component-registry, dot-prefixed state files, and image directories.
  */
 export function shouldTrackFile(filePath: string): boolean {
   if (!filePath.startsWith('marketing-content/')) {
@@ -77,7 +85,8 @@ export function shouldTrackFile(filePath: string): boolean {
     return false;
   }
 
-  if (filePath.includes('.sync-state.json')) {
+  const basename = path.basename(filePath);
+  if (basename.startsWith('.') && basename.endsWith('-state.json')) {
     return false;
   }
 
@@ -112,8 +121,16 @@ export interface SyncState {
   files: Record<string, FileSyncInfo>;
 }
 
+export interface WebhookInfo {
+  webhookId: number;
+  webhookSecret: string;
+  webhookUrl: string;
+  createdAt: string;
+}
+
 export interface SyncStateWithConfig extends SyncState {
   config?: SyncConfig;
+  webhook?: WebhookInfo;
 }
 
 export interface PendingChange {
@@ -142,6 +159,12 @@ const DEFAULT_SYNC_STATE: SyncStateWithConfig = {
 
 export function computeFileSha(content: string): string {
   return crypto.createHash('sha256').update(content, 'utf8').digest('hex');
+}
+
+export function computeGitBlobSha(content: string): string {
+  const buf = Buffer.from(content, 'utf-8');
+  const header = `blob ${buf.length}\0`;
+  return crypto.createHash('sha1').update(header).update(buf).digest('hex');
 }
 
 export function getSyncConfig(): SyncConfig {
@@ -435,6 +458,7 @@ export function initializeSyncStateFromRemote(
   const existingState = loadSyncState() as SyncStateWithConfig;
   const state: SyncStateWithConfig = {
     config: existingState.config || DEFAULT_CONFIG,
+    ...(existingState.webhook ? { webhook: existingState.webhook } : {}),
     lastSyncedCommit: commitSha,
     lastSyncedAt: new Date().toISOString(),
     files: {},
@@ -467,6 +491,7 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
   const existingState = loadSyncState() as SyncStateWithConfig;
   const state: SyncStateWithConfig = {
     config: existingState.config || DEFAULT_CONFIG,
+    ...(existingState.webhook ? { webhook: existingState.webhook } : {}),
     lastSyncedCommit: commitSha,
     lastSyncedAt: new Date().toISOString(),
     files: {},
@@ -671,5 +696,22 @@ export function removeFileFromState(filePath: string): void {
   
   const state = loadSyncState();
   delete state.files[relativePath];
+  saveSyncState(state);
+}
+
+export function getWebhookInfo(): WebhookInfo | undefined {
+  const state = loadSyncState() as SyncStateWithConfig;
+  return state.webhook;
+}
+
+export function setWebhookInfo(webhook: WebhookInfo): void {
+  const state = loadSyncState() as SyncStateWithConfig;
+  state.webhook = webhook;
+  saveSyncState(state);
+}
+
+export function clearWebhookInfo(): void {
+  const state = loadSyncState() as SyncStateWithConfig;
+  delete state.webhook;
   saveSyncState(state);
 }

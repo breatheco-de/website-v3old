@@ -1,18 +1,9 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
-import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
-import { contentIndex } from "./content-index";
-import { deepMerge } from "./utils/deepMerge";
+import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { markFileAsModified } from "./sync-state";
-import { normalizeLocale } from "@shared/locale";
-import { getFolder, getType } from "./content-types";
-
-function safeYamlLoad(yamlStr: string): unknown {
-  const { escaped, map } = escapeTemplateVars(yamlStr);
-  const parsed = yaml.load(escaped);
-  return unescapeObjectVars(parsed, map);
-}
+import { contentIndex, MARKETING_CONTENT_PATH } from "./content-index";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
@@ -20,8 +11,7 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   return unescapeYamlDump(dumped, map);
 }
 
-const BINDINGS_FILE = path.join(process.cwd(), "marketing-content", "section-bindings.json");
-const CONTENT_BASE_PATH = path.join(process.cwd(), "marketing-content");
+const BINDINGS_FILE = path.join(MARKETING_CONTENT_PATH, "section-bindings.json");
 
 const EXCLUDED_PROPERTIES = new Set([
   "paddingY",
@@ -49,7 +39,7 @@ const EXCLUDED_PROPERTIES = new Set([
 export interface BindingMember {
   contentType: string;
   slug: string;
-  sectionIndex: number;
+  sectionId: string;
 }
 
 export interface BindingGroup {
@@ -70,23 +60,80 @@ function generateId(): string {
   return `bind_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function generateSectionId(componentType: string): string {
+  const suffix = Math.random().toString(36).slice(2, 8);
+  return `${componentType}-${suffix}`;
+}
+
 class BindingManager {
   private data: BindingsData = { groups: [] };
   private memberIndex: Map<string, string> = new Map();
   private loaded = false;
 
-  private memberKey(contentType: string, slug: string, sectionIndex: number): string {
-    return `${contentType}:${slug}:${sectionIndex}`;
+  private memberKey(contentType: string, slug: string, sectionId: string, locale: string): string {
+    return `${contentType}:${slug}:${sectionId}:${locale}`;
   }
 
   private rebuildIndex(): void {
     this.memberIndex.clear();
     for (const group of this.data.groups) {
       for (const member of group.members) {
-        const key = this.memberKey(member.contentType, member.slug, member.sectionIndex);
+        const key = this.memberKey(member.contentType, member.slug, member.sectionId, group.locale);
         this.memberIndex.set(key, group.id);
       }
     }
+  }
+
+  resolveSectionIndex(contentType: string, slug: string, sectionId: string, locale: string): number {
+    const { data } = this.loadPageContent(contentType, slug, locale);
+    if (!data) return -1;
+    const sections = data.sections as Record<string, unknown>[];
+    if (!Array.isArray(sections)) return -1;
+    for (let i = 0; i < sections.length; i++) {
+      const s = sections[i] as Record<string, unknown>;
+      if (s && s.section_id === sectionId) return i;
+    }
+    return -1;
+  }
+
+  ensureSectionId(contentType: string, slug: string, sectionIndex: number, locale: string): string {
+    const { data, filePath } = this.loadPageContent(contentType, slug, locale);
+    if (!data) throw new Error(`Cannot load content for ${contentType}/${slug}`);
+    const sections = data.sections as Record<string, unknown>[];
+    if (!Array.isArray(sections) || sectionIndex >= sections.length) {
+      throw new Error(`Section index ${sectionIndex} out of range for ${contentType}/${slug}`);
+    }
+    const section = sections[sectionIndex] as Record<string, unknown>;
+    if (!section) throw new Error(`Invalid section at index ${sectionIndex}`);
+
+    if (section.section_id && typeof section.section_id === "string") {
+      return section.section_id;
+    }
+
+    const componentType = (section.type as string) || "section";
+    const newId = generateSectionId(componentType);
+    section.section_id = newId;
+
+    const updatedYaml = safeYamlDump(data, {
+      lineWidth: -1,
+      noRefs: true,
+      quotingType: '"',
+      forceQuotes: false,
+    });
+    fs.writeFileSync(filePath, updatedYaml, "utf-8");
+    markFileAsModified(filePath);
+
+    return newId;
+  }
+
+  getSectionIdAtIndex(contentType: string, slug: string, sectionIndex: number, locale: string): string | null {
+    const { data } = this.loadPageContent(contentType, slug, locale);
+    if (!data) return null;
+    const sections = data.sections as Record<string, unknown>[];
+    if (!Array.isArray(sections) || sectionIndex >= sections.length) return null;
+    const section = sections[sectionIndex] as Record<string, unknown>;
+    if (!section || typeof section.section_id !== "string") return null;
+    return section.section_id;
   }
 
   load(): void {
@@ -104,9 +151,42 @@ class BindingManager {
       console.error("[BindingManager] Error loading bindings:", error);
       this.data = { groups: [] };
     }
+    this.migrateFromSectionIndex();
     this.rebuildIndex();
     this.loaded = true;
     console.log(`[BindingManager] Loaded ${this.data.groups.length} binding groups`);
+  }
+
+  private migrateFromSectionIndex(): void {
+    let migrated = 0;
+    let needsSave = false;
+
+    for (const group of this.data.groups) {
+      const newMembers: BindingMember[] = [];
+      for (const member of group.members) {
+        const legacyMember = member as unknown as { contentType: string; slug: string; sectionIndex?: number; sectionId?: string };
+        if (typeof legacyMember.sectionIndex === "number" && !legacyMember.sectionId) {
+          try {
+            const sid = this.ensureSectionId(legacyMember.contentType, legacyMember.slug, legacyMember.sectionIndex, group.locale);
+            newMembers.push({ contentType: legacyMember.contentType, slug: legacyMember.slug, sectionId: sid });
+            migrated++;
+            needsSave = true;
+          } catch (err) {
+            console.error(`[BindingManager] Migration failed for ${legacyMember.contentType}/${legacyMember.slug}[${legacyMember.sectionIndex}]:`, err);
+          }
+        } else if (legacyMember.sectionId) {
+          newMembers.push({ contentType: legacyMember.contentType, slug: legacyMember.slug, sectionId: legacyMember.sectionId });
+        }
+      }
+      group.members = newMembers;
+    }
+
+    this.data.groups = this.data.groups.filter(g => g.members.length >= 2);
+
+    if (needsSave) {
+      console.log(`[BindingManager] Migrated ${migrated} members from sectionIndex to sectionId`);
+      this.save();
+    }
   }
 
   private ensureLoaded(): void {
@@ -136,12 +216,24 @@ class BindingManager {
     return this.data.groups.find(g => g.id === groupId);
   }
 
-  findGroupForSection(contentType: string, slug: string, sectionIndex: number): BindingGroup | undefined {
+  findGroupForSection(contentType: string, slug: string, sectionId: string, locale?: string): BindingGroup | undefined {
     this.ensureLoaded();
-    const key = this.memberKey(contentType, slug, sectionIndex);
-    const groupId = this.memberIndex.get(key);
-    if (!groupId) return undefined;
-    return this.data.groups.find(g => g.id === groupId);
+    if (locale) {
+      const key = this.memberKey(contentType, slug, sectionId, locale);
+      const groupId = this.memberIndex.get(key);
+      if (!groupId) return undefined;
+      return this.data.groups.find(g => g.id === groupId);
+    }
+    return this.data.groups.find(g =>
+      g.members.some(m => m.contentType === contentType && m.slug === slug && m.sectionId === sectionId)
+    );
+  }
+
+  findGroupForSectionByIndex(contentType: string, slug: string, sectionIndex: number, locale: string): BindingGroup | undefined {
+    this.ensureLoaded();
+    const sectionId = this.getSectionIdAtIndex(contentType, slug, sectionIndex, locale);
+    if (!sectionId) return undefined;
+    return this.findGroupForSection(contentType, slug, sectionId, locale);
   }
 
   findGroupsForPage(contentType: string, slug: string): BindingGroup[] {
@@ -152,18 +244,17 @@ class BindingManager {
   }
 
   private validateMemberComponent(member: BindingMember, expectedComponent: string, locale: string): void {
-    const content = this.loadPageContent(member.contentType, member.slug, locale);
-    if (!content) {
-      throw new Error(`Cannot access content for ${member.contentType}/${member.slug}`);
+    const idx = this.resolveSectionIndex(member.contentType, member.slug, member.sectionId, locale);
+    if (idx === -1) {
+      throw new Error(`Section with id "${member.sectionId}" not found in ${member.contentType}/${member.slug}`);
     }
-    const sections = content.sections as Record<string, unknown>[];
-    if (!Array.isArray(sections) || member.sectionIndex >= sections.length) {
-      throw new Error(`Section index ${member.sectionIndex} out of range for ${member.contentType}/${member.slug}`);
-    }
-    const section = sections[member.sectionIndex];
+    const { data } = this.loadPageContent(member.contentType, member.slug, locale);
+    if (!data) throw new Error(`Cannot access content for ${member.contentType}/${member.slug}`);
+    const sections = data.sections as Record<string, unknown>[];
+    const section = sections[idx];
     if (!section || (section as Record<string, unknown>).type !== expectedComponent) {
       throw new Error(
-        `Section at ${member.contentType}/${member.slug}[${member.sectionIndex}] is type "${(section as Record<string, unknown>)?.type}", expected "${expectedComponent}"`
+        `Section "${member.sectionId}" in ${member.contentType}/${member.slug} is type "${(section as Record<string, unknown>)?.type}", expected "${expectedComponent}"`
       );
     }
   }
@@ -182,11 +273,11 @@ class BindingManager {
 
     for (const member of members) {
       this.validateMemberComponent(member, component, locale);
-      const key = this.memberKey(member.contentType, member.slug, member.sectionIndex);
+      const key = this.memberKey(member.contentType, member.slug, member.sectionId, locale);
       const existingGroupId = this.memberIndex.get(key);
       if (existingGroupId) {
         throw new Error(
-          `Section ${member.contentType}/${member.slug}[${member.sectionIndex}] is already in binding group ${existingGroupId}`
+          `Section "${member.sectionId}" in ${member.contentType}/${member.slug} is already in binding group ${existingGroupId}`
         );
       }
     }
@@ -224,30 +315,32 @@ class BindingManager {
   }
 
   private propagateFromMember(group: BindingGroup, sourceMember: BindingMember): void {
-    const sourceContent = this.loadPageContent(sourceMember.contentType, sourceMember.slug, group.locale);
-    if (!sourceContent) return;
-    const sourceSections = sourceContent.sections as Record<string, unknown>[];
-    if (!Array.isArray(sourceSections) || sourceMember.sectionIndex >= sourceSections.length) return;
-    const sourceSection = sourceSections[sourceMember.sectionIndex] as Record<string, unknown>;
+    const sourceIdx = this.resolveSectionIndex(sourceMember.contentType, sourceMember.slug, sourceMember.sectionId, group.locale);
+    if (sourceIdx === -1) return;
+    const { data: sourceData } = this.loadPageContent(sourceMember.contentType, sourceMember.slug, group.locale);
+    if (!sourceData) return;
+    const sourceSections = sourceData.sections as Record<string, unknown>[];
+    if (!Array.isArray(sourceSections) || sourceIdx >= sourceSections.length) return;
+    const sourceSection = sourceSections[sourceIdx] as Record<string, unknown>;
     if (!sourceSection) return;
 
     const siblings = group.members.filter(
-      m => !(m.contentType === sourceMember.contentType && m.slug === sourceMember.slug && m.sectionIndex === sourceMember.sectionIndex)
+      m => !(m.contentType === sourceMember.contentType && m.slug === sourceMember.slug && m.sectionId === sourceMember.sectionId)
     );
 
     for (const sibling of siblings) {
       try {
-        const filePath = this.getContentPath(sibling.contentType, sibling.slug, group.locale);
-        if (!fs.existsSync(filePath)) continue;
-        const content = this.loadPageContent(sibling.contentType, sibling.slug, group.locale);
-        if (!content) continue;
-        const sections = content.sections as Record<string, unknown>[];
-        if (!Array.isArray(sections) || sibling.sectionIndex >= sections.length) continue;
-        const existingSectionObj = sections[sibling.sectionIndex] as Record<string, unknown>;
+        const siblingIdx = this.resolveSectionIndex(sibling.contentType, sibling.slug, sibling.sectionId, group.locale);
+        if (siblingIdx === -1) continue;
+        const { data: siblingData, filePath } = this.loadPageContent(sibling.contentType, sibling.slug, group.locale);
+        if (!siblingData) continue;
+        const sections = siblingData.sections as Record<string, unknown>[];
+        if (!Array.isArray(sections) || siblingIdx >= sections.length) continue;
+        const existingSectionObj = sections[siblingIdx] as Record<string, unknown>;
         if (!existingSectionObj) continue;
 
-        sections[sibling.sectionIndex] = this.mergeContentIntoSection(existingSectionObj, sourceSection);
-        const updatedYaml = safeYamlDump(content, {
+        sections[siblingIdx] = this.mergeContentIntoSection(existingSectionObj, sourceSection);
+        const updatedYaml = safeYamlDump(siblingData, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -268,16 +361,16 @@ class BindingManager {
 
     this.validateMemberComponent(member, group.component, group.locale);
 
-    const key = this.memberKey(member.contentType, member.slug, member.sectionIndex);
+    const key = this.memberKey(member.contentType, member.slug, member.sectionId, group.locale);
     const existingGroupId = this.memberIndex.get(key);
     if (existingGroupId) {
       throw new Error(
-        `Section ${member.contentType}/${member.slug}[${member.sectionIndex}] is already in binding group ${existingGroupId}`
+        `Section "${member.sectionId}" in ${member.contentType}/${member.slug} is already in binding group ${existingGroupId}`
       );
     }
 
     const alreadyMember = group.members.some(
-      m => m.contentType === member.contentType && m.slug === member.slug && m.sectionIndex === member.sectionIndex
+      m => m.contentType === member.contentType && m.slug === member.slug && m.sectionId === member.sectionId
     );
     if (alreadyMember) {
       throw new Error("Section is already a member of this group");
@@ -289,7 +382,7 @@ class BindingManager {
     this.save();
 
     const existingMember = group.members.find(
-      m => !(m.contentType === member.contentType && m.slug === member.slug && m.sectionIndex === member.sectionIndex)
+      m => !(m.contentType === member.contentType && m.slug === member.slug && m.sectionId === member.sectionId)
     );
     if (existingMember) {
       this.propagateFromMember(
@@ -301,13 +394,13 @@ class BindingManager {
     return group;
   }
 
-  removeMember(groupId: string, contentType: string, slug: string, sectionIndex: number): BindingGroup | null {
+  removeMemberBySectionId(groupId: string, contentType: string, slug: string, sectionId: string): BindingGroup | null {
     this.ensureLoaded();
     const group = this.data.groups.find(g => g.id === groupId);
     if (!group) throw new Error(`Binding group ${groupId} not found`);
 
     group.members = group.members.filter(
-      m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex)
+      m => !(m.contentType === contentType && m.slug === slug && m.sectionId === sectionId)
     );
 
     if (group.members.length < 2) {
@@ -330,117 +423,9 @@ class BindingManager {
     this.save();
   }
 
-  updateIndicesForPage(
-    contentType: string,
-    slug: string,
-    oldIndex: number,
-    newIndex: number
-  ): void {
-    this.ensureLoaded();
-    let changed = false;
-
-    for (const group of this.data.groups) {
-      for (const member of group.members) {
-        if (member.contentType === contentType && member.slug === slug) {
-          if (member.sectionIndex === oldIndex) {
-            member.sectionIndex = newIndex;
-            changed = true;
-          }
-        }
-      }
-    }
-
-    if (changed) {
-      this.rebuildIndex();
-      this.save();
-    }
-  }
-
-  handleSectionRemoved(contentType: string, slug: string, removedIndex: number): void {
-    this.ensureLoaded();
-    let changed = false;
-
-    for (const group of this.data.groups) {
-      const memberToRemove = group.members.find(
-        m => m.contentType === contentType && m.slug === slug && m.sectionIndex === removedIndex
-      );
-
-      if (memberToRemove) {
-        group.members = group.members.filter(m => m !== memberToRemove);
-        changed = true;
-      }
-
-      for (const member of group.members) {
-        if (member.contentType === contentType && member.slug === slug && member.sectionIndex > removedIndex) {
-          member.sectionIndex--;
-          changed = true;
-        }
-      }
-    }
-
-    if (changed) {
-      this.data.groups = this.data.groups.filter(g => g.members.length >= 2);
-      this.rebuildIndex();
-      this.save();
-    }
-  }
-
-  handleSectionAdded(contentType: string, slug: string, addedIndex: number): void {
-    this.ensureLoaded();
-    let changed = false;
-
-    for (const group of this.data.groups) {
-      for (const member of group.members) {
-        if (member.contentType === contentType && member.slug === slug && member.sectionIndex >= addedIndex) {
-          member.sectionIndex++;
-          changed = true;
-        }
-      }
-    }
-
-    if (changed) {
-      this.rebuildIndex();
-      this.save();
-    }
-  }
-
-  private getContentPath(contentType: string, slug: string, locale: string): string {
-    const typeFolder = getFolder(contentType);
-    const resolved = contentIndex.resolveBaseSlug(slug, contentType);
-    const folder = path.join(CONTENT_BASE_PATH, typeFolder, resolved);
-
-    if (getType(contentType) === "landing") {
-      return path.join(folder, "promoted.yml");
-    }
-    return path.join(folder, `${locale}.yml`);
-  }
-
-  private getContentFolder(contentType: string, slug: string): string {
-    const typeFolder = getFolder(contentType);
-    const resolved = contentIndex.resolveBaseSlug(slug, contentType);
-    return path.join(CONTENT_BASE_PATH, typeFolder, resolved);
-  }
-
-  private loadPageContent(contentType: string, slug: string, locale: string): Record<string, unknown> | null {
-    try {
-      const filePath = this.getContentPath(contentType, slug, locale);
-      if (!fs.existsSync(filePath)) return null;
-
-      const contentFolder = this.getContentFolder(contentType, slug);
-      const commonPath = path.join(contentFolder, "_common.yml");
-      let commonData: Record<string, unknown> = {};
-      if (fs.existsSync(commonPath)) {
-        const commonContent = fs.readFileSync(commonPath, "utf-8");
-        commonData = safeYamlLoad(commonContent) as Record<string, unknown>;
-      }
-
-      const fileContent = fs.readFileSync(filePath, "utf-8");
-      const localeData = safeYamlLoad(fileContent) as Record<string, unknown>;
-      return deepMerge(commonData, localeData);
-    } catch (error) {
-      console.error(`[BindingManager] Error loading content for ${contentType}/${slug}:`, error);
-      return null;
-    }
+  private loadPageContent(contentType: string, slug: string, locale: string): { data: Record<string, unknown> | null; filePath: string } {
+    const { data, filePath } = contentIndex.loadLocaleData(contentType, slug, locale);
+    return { data, filePath };
   }
 
   private stripExcludedProperties(section: Record<string, unknown>): Record<string, unknown> {
@@ -474,15 +459,20 @@ class BindingManager {
     sourceSlug: string,
     sectionIndex: number,
     updatedSection: Record<string, unknown>,
-    author?: string
+    author?: string,
+    locale?: string
   ): { success: boolean; updatedFiles: string[]; errors: string[] } {
     this.ensureLoaded();
 
-    const group = this.findGroupForSection(sourceContentType, sourceSlug, sectionIndex);
+    const resolvedLocale = locale || "en";
+    const sectionId = this.getSectionIdAtIndex(sourceContentType, sourceSlug, sectionIndex, resolvedLocale);
+    if (!sectionId) return { success: true, updatedFiles: [], errors: [] };
+
+    const group = this.findGroupForSection(sourceContentType, sourceSlug, sectionId, resolvedLocale);
     if (!group) return { success: true, updatedFiles: [], errors: [] };
 
     const siblings = group.members.filter(
-      m => !(m.contentType === sourceContentType && m.slug === sourceSlug && m.sectionIndex === sectionIndex)
+      m => !(m.contentType === sourceContentType && m.slug === sourceSlug && m.sectionId === sectionId)
     );
 
     if (siblings.length === 0) return { success: true, updatedFiles: [], errors: [] };
@@ -492,43 +482,42 @@ class BindingManager {
 
     for (const sibling of siblings) {
       try {
-        const locale = group.locale;
-        const filePath = this.getContentPath(sibling.contentType, sibling.slug, locale);
-        if (!fs.existsSync(filePath)) {
-          errors.push(`File not found for ${sibling.contentType}/${sibling.slug}`);
+        const siblingIdx = this.resolveSectionIndex(sibling.contentType, sibling.slug, sibling.sectionId, group.locale);
+        if (siblingIdx === -1) {
+          errors.push(`Section "${sibling.sectionId}" not found in ${sibling.contentType}/${sibling.slug}`);
           continue;
         }
 
-        const content = this.loadPageContent(sibling.contentType, sibling.slug, locale);
-        if (!content) {
+        const { data: siblingData, filePath } = this.loadPageContent(sibling.contentType, sibling.slug, group.locale);
+        if (!siblingData) {
           errors.push(`Could not load content for ${sibling.contentType}/${sibling.slug}`);
           continue;
         }
 
-        const sections = content.sections as Record<string, unknown>[];
-        if (!Array.isArray(sections) || sibling.sectionIndex >= sections.length) {
-          errors.push(`Section index ${sibling.sectionIndex} out of range for ${sibling.contentType}/${sibling.slug}`);
+        const sections = siblingData.sections as Record<string, unknown>[];
+        if (!Array.isArray(sections) || siblingIdx >= sections.length) {
+          errors.push(`Section index ${siblingIdx} out of range for ${sibling.contentType}/${sibling.slug}`);
           continue;
         }
 
-        const existingSection = sections[sibling.sectionIndex];
+        const existingSection = sections[siblingIdx];
         if (typeof existingSection !== "object" || existingSection === null) {
-          errors.push(`Invalid section at index ${sibling.sectionIndex} for ${sibling.contentType}/${sibling.slug}`);
+          errors.push(`Invalid section at index ${siblingIdx} for ${sibling.contentType}/${sibling.slug}`);
           continue;
         }
 
         const existingSectionObj = existingSection as Record<string, unknown>;
         if (existingSectionObj.type !== updatedSection.type) {
           errors.push(
-            `Component mismatch at ${sibling.contentType}/${sibling.slug}[${sibling.sectionIndex}]: ` +
+            `Component mismatch at ${sibling.contentType}/${sibling.slug}[${siblingIdx}]: ` +
             `expected ${updatedSection.type}, found ${existingSectionObj.type}`
           );
           continue;
         }
 
-        sections[sibling.sectionIndex] = this.mergeContentIntoSection(existingSectionObj, updatedSection);
+        sections[siblingIdx] = this.mergeContentIntoSection(existingSectionObj, updatedSection);
 
-        const updatedYaml = safeYamlDump(content, {
+        const updatedYaml = safeYamlDump(siblingData, {
           lineWidth: -1,
           noRefs: true,
           quotingType: '"',
@@ -554,11 +543,13 @@ class BindingManager {
     for (const group of this.data.groups) {
       const validMembers = group.members.filter(member => {
         try {
-          const content = this.loadPageContent(member.contentType, member.slug, group.locale);
-          if (!content) return false;
-          const sections = content.sections as unknown[];
-          if (!Array.isArray(sections) || member.sectionIndex >= sections.length) return false;
-          const section = sections[member.sectionIndex] as Record<string, unknown>;
+          const idx = this.resolveSectionIndex(member.contentType, member.slug, member.sectionId, group.locale);
+          if (idx === -1) return false;
+          const { data } = this.loadPageContent(member.contentType, member.slug, group.locale);
+          if (!data) return false;
+          const sections = data.sections as unknown[];
+          if (!Array.isArray(sections) || idx >= sections.length) return false;
+          const section = sections[idx] as Record<string, unknown>;
           return section && section.type === group.component;
         } catch {
           return false;

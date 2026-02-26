@@ -52,14 +52,14 @@ sections:
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Learning Assistant
-        image: /attached_assets/rigobot-logo_1764707022198.webp
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your instructors:"
     description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
     signup_card:
-      title: Get the Full Syllabus
-      description: Request the full syllabus, program description, class schedule and everything else you need to know.
+      title: Get the full program overview
+      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
-        text: Get the Curriculum
+        text: Send me the details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -67,17 +67,17 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: IconCalendar
-          text: 20-Week Track
+          text: 20-week track
         - icon: IconCalendarBolt
-          text: 12-Week Accelerated Morning Track
+          text: 12-week accelerated morning track
         - icon: code
-          text: Interactive Coding Exercises
+          text: Interactive coding exercises
         - icon: robot
-          text: AI-Powered Feedback
+          text: AI-powered deedback
         - icon: calendar
-          text: {{ global_teacher_student_ratio | 1:7 }} teacher Student Ratio
+          text: {{ global_teacher_student_ratio | 1:7 }} teacher student ratio
         - icon: users
-          text: 1:1 Mentorship
+          text: 1:1 mentorship
     paddingY:
       desktop: md lg
     marginY:
@@ -118,35 +118,35 @@ sections:
     items:
       - id: switchup-2025
         alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: /attached_assets/switchup_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
       - id: course-report-2024
         alt: Course Report - Best Coding Bootcamp 2024
-        logo: /attached_assets/course-report_1765590146414.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: /attached_assets/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: /attached_assets/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
-        logo: /attached_assets/premios_tecnologia_sigloxxi_1765549146476.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 64px
       - id: newsweek
         alt: Newsweek
-        logo: /attached_assets/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
-        logo: /attached_assets/reviews_1765549549051.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality
-        logo: /attached_assets/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         logoHeight: 64px
     paddingY:
       mobile: md
@@ -157,9 +157,9 @@ sections:
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: Our optional Job Guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
-      text: Get More Info
+      text: Get more info
       url: /en/job-guarantee
       variant: primary
     marginY:
@@ -167,6 +167,25 @@ sections:
     paddingY:
       desktop: none sm
     background: hsl(var(--secondary))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: syllabus
     variant: program-modules
     program_title: Full Stack with AI Program Overview
@@ -312,7 +331,7 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md
+      desktop: md none
   - type: certificate
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
@@ -342,16 +361,16 @@ sections:
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
       - value: {{ global_salary_increase | 55 }}%
-        label: Average Salary Increase
+        label: Average salary increase
         description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
           - text: "Full Stack Engineer: {{ average_salary_fullstack | $95K–$150K }}+"
           - text: "AI-fluent Software Developer: {{ average_salary_ai_fluent_software_developer }}"
           - text: "Web Applications Engineer: {{ average_salary_web_aplications_engineer | $95K–$140K }}"
           - text: "Backend Services Developer: {{ average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 500+
+      - value: 400+
         label: Hiring partners
-        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -361,7 +380,7 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: none md
+      desktop: none lg
     paddingY:
       mobile: lg
       desktop: lg
@@ -371,8 +390,8 @@ sections:
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
       - openai
@@ -388,7 +407,7 @@ sections:
       - icon: IconCheck
         text: Standard tuition is {{ price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -430,7 +449,7 @@ sections:
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with early payment."
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ price_fullstack | $299 }}
     tech_icons:
@@ -446,9 +465,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
-      - icon: IconCheck
-        text: Finance your tuition through our partners with plans ranging from 6 to 24 months.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
@@ -475,32 +492,32 @@ sections:
       - rome-italy
   - type: whos_hiring
     variant: carousel
-    title: Top Companies Hiring Our Graduates
+    title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
     logos:
-      - src: /attached_assets/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: /attached_assets/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: /attached_assets/boats_1764719939123.jpg
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: /attached_assets/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: /attached_assets/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
         alt: eBay
-      - src: /attached_assets/natgeo_1764719975443.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
-      - src: /attached_assets/evernote_1764719981901.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: /attached_assets/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
         alt: Telefonica
-      - src: /attached_assets/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
-      - src: /attached_assets/uber_1764719999685.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: /attached_assets/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
         alt: Neo9
-      - src: /attached_assets/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     paddingY:
       desktop: none
@@ -560,13 +577,13 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become a Full Stack Developer?
+    title: Ready to Become an AI-Driven Full Stack Developer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
+      submit_label: Apply now
       tags: website-lead
       automations: hard
       fields:
@@ -580,7 +597,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: false
@@ -593,9 +610,41 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: full-stack
+      success:
+        message: Thanks! We'll be in touch within 24 hours.

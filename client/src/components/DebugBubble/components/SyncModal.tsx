@@ -1,3 +1,5 @@
+import { useState, useCallback, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   IconBrandGithub,
   IconAlertTriangle,
@@ -11,8 +13,12 @@ import {
   IconTrash,
   IconArrowBackUp,
   IconPencil,
+  IconExternalLink,
+  IconWebhook,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -24,6 +30,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { AutoCommitStatus, PendingChange, GitHubSyncStatus } from "../types";
@@ -57,6 +64,10 @@ export interface SyncModalProps {
   handleIgnoreAllChanges: () => Promise<void>;
   isIgnoringAllChanges: boolean;
   fetchPendingChanges: () => void;
+  handlePushAllLocal: (commitMessage: string, files: string[]) => void;
+  isPushingAllLocal: boolean;
+  pushAllLocalError: string | null;
+  setPushAllLocalError: (v: string | null) => void;
   manualActionsOpen: boolean;
   setManualActionsOpen: (v: boolean) => void;
   advancedOptionsOpen: boolean;
@@ -88,6 +99,10 @@ export function SyncModal({
   handleIgnoreAllChanges,
   isIgnoringAllChanges,
   fetchPendingChanges,
+  handlePushAllLocal,
+  isPushingAllLocal,
+  pushAllLocalError,
+  setPushAllLocalError,
   manualActionsOpen,
   setManualActionsOpen,
   advancedOptionsOpen,
@@ -95,8 +110,67 @@ export function SyncModal({
   getDebugToken,
   toast,
 }: SyncModalProps) {
+  const [bulkPullPromptFile, setBulkPullPromptFile] = useState<string | null>(null);
+  const [isBulkPulling, setIsBulkPulling] = useState(false);
+  const [skipBulkPrompt, setSkipBulkPrompt] = useState(false);
+  const [pushAllConfirmOpen, setPushAllConfirmOpen] = useState(false);
+  const [pushAllCommitMessage, setPushAllCommitMessage] = useState('');
+  const [autoPushExpanded, setAutoPushExpanded] = useState(false);
+  const [autoPullExpanded, setAutoPullExpanded] = useState(false);
+
+  const { data: syncInfo } = useQuery<{
+    repoUrl: string | null;
+    webhook: { active: boolean; id?: number; url?: string; createdAt?: string };
+    recentLog: string[];
+  }>({
+    queryKey: ["/api/github/sync-info"],
+    enabled: open,
+    refetchInterval: open ? 10000 : false,
+  });
+
+  const localOnlyFiles = pendingChanges.filter(c => c.source === 'local');
+  const nonConflictIncoming = pendingChanges.filter(c => c.source === 'incoming');
+
+  useEffect(() => {
+    if (pushAllConfirmOpen) {
+      setPushAllCommitMessage(`[Manual sync] ${localOnlyFiles.length} local file(s)`);
+    }
+  }, [pushAllConfirmOpen, localOnlyFiles.length]);
+
+  const handleDownloadClick = useCallback((file: string, source: string) => {
+    if (source === 'conflict') {
+      setConfirmPullFile(file);
+      return;
+    }
+    if (!skipBulkPrompt && nonConflictIncoming.length > 1) {
+      setBulkPullPromptFile(file);
+    } else {
+      handleFilePull(file);
+    }
+  }, [skipBulkPrompt, nonConflictIncoming.length, handleFilePull, setConfirmPullFile]);
+
+  const handleBulkPull = useCallback(async () => {
+    setIsBulkPulling(true);
+    setBulkPullPromptFile(null);
+    for (const change of nonConflictIncoming) {
+      try {
+        await handleFilePull(change.file);
+      } catch (e) {
+        // continue pulling remaining files
+      }
+    }
+    try {
+      await fetch("/api/github/sync-with-remote", { method: "POST" });
+    } catch {
+      // best-effort sync
+    }
+    fetchPendingChanges();
+    setIsBulkPulling(false);
+  }, [nonConflictIncoming, handleFilePull, fetchPendingChanges]);
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <>
+    <Dialog open={open} onOpenChange={(v) => { if (!v) setSkipBulkPrompt(false); onOpenChange(v); }}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
@@ -104,7 +178,7 @@ export function SyncModal({
             GitHub Sync
           </DialogTitle>
           <DialogDescription>
-            Auto-commit keeps your content changes synced to GitHub.
+            Auto-push keeps your local content changes pushed to GitHub.
           </DialogDescription>
         </DialogHeader>
         
@@ -124,110 +198,164 @@ export function SyncModal({
             </div>
           )}
 
-          <div className="flex items-center justify-between text-xs">
-            <div className="flex items-center gap-1.5">
-              <div className={`h-1.5 w-1.5 rounded-full ${
-                autoCommitStatus?.enabled && autoCommitStatus.githubConfigured
-                  ? autoCommitStatus.isCommitting ? 'bg-amber-500 animate-pulse' : 'bg-green-500'
-                  : 'bg-muted-foreground/30'
-              }`} />
-              <span className="font-medium">
-                {autoCommitStatus?.isCommitting ? 'Syncing...' : autoCommitStatus?.enabled ? 'Auto-sync' : 'Auto-sync off'}
-              </span>
-              {autoCommitStatus?.enabled && autoCommitStatus.commitIntervalSeconds && (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
-                      data-testid="button-edit-sync-interval"
-                    >
-                      <span>every {autoCommitStatus.commitIntervalSeconds}s</span>
-                      <IconPencil className="h-3 w-3" />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
-                    <p className="font-medium text-foreground">Change sync interval</p>
-                    <p className="text-muted-foreground">
-                      Use the API endpoint to update the interval:
-                    </p>
-                    <code className="block p-2 bg-muted rounded text-[11px] font-mono break-all whitespace-pre-wrap">
-{`POST /api/github/auto-commit/config
-{ "commitIntervalSeconds": 10 }`}
-                    </code>
-                    <p className="text-muted-foreground">
-                      Or edit <span className="font-mono">server/sync-state.ts</span> and change <span className="font-mono">commitIntervalSeconds</span> in <span className="font-mono">DEFAULT_CONFIG</span> (default: 5s).
-                    </p>
-                  </PopoverContent>
-                </Popover>
+          <div className="grid grid-cols-2 gap-2">
+            {/* Auto-push card */}
+            <Card className="p-3 space-y-2">
+              <button
+                type="button"
+                className="flex items-center gap-1.5 w-full"
+                onClick={() => setAutoPushExpanded(v => !v)}
+                data-testid="button-toggle-auto-push"
+              >
+                {autoPushExpanded ? <IconChevronDown className="h-3 w-3 text-muted-foreground shrink-0" /> : <IconChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />}
+                <div className={`h-1.5 w-1.5 rounded-full shrink-0 ${
+                  autoCommitStatus?.enabled && autoCommitStatus.githubConfigured
+                    ? autoCommitStatus.isCommitting ? 'bg-amber-500 animate-pulse' : 'bg-green-500'
+                    : 'bg-muted-foreground/30'
+                }`} />
+                <span className="text-xs font-medium">
+                  {autoCommitStatus?.isCommitting ? 'Pushing...' : autoCommitStatus?.enabled ? 'Auto-push' : 'Auto-push off'}
+                </span>
+                {autoCommitStatus?.pendingFiles ? (
+                  <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-auto">{autoCommitStatus.pendingFiles} queued</Badge>
+                ) : null}
+              </button>
+              {autoPushExpanded && !autoCommitStatus?.enabled && (
+                <p className="text-[11px] text-muted-foreground">
+                  Set <span className="font-mono">GITHUB_AUTO_COMMIT_ENABLED=true</span> to enable automatic pushes on a timed interval.
+                </p>
               )}
-              {autoCommitStatus?.pendingFiles ? (
-                <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{autoCommitStatus.pendingFiles} queued</Badge>
-              ) : null}
-            </div>
-            <div className="flex items-center gap-3 text-muted-foreground">
-              {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (() => {
-                const label = autoCommitStatus.isCommitting
-                  ? 'now...'
-                  : autoCommitCountdown !== null && autoCommitCountdown > 0
-                  ? `${autoCommitCountdown}s`
-                  : autoCommitStatus.pendingFiles > 0
-                  ? 'soon'
-                  : 'waiting for changes';
-                const isIdle = label === 'waiting for changes';
-                return isIdle ? (
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <button
-                        type="button"
-                        className="font-mono text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                        data-testid="button-sync-status-info"
-                      >
-                        {label}
-                      </button>
-                    </PopoverTrigger>
-                    <PopoverContent side="bottom" align="end" className="w-72 text-xs space-y-2 z-[10001]">
-                      <p className="font-medium text-foreground">Waiting for changes</p>
-                      <p className="text-muted-foreground">
-                        No files are queued for sync. When you edit a file inside <span className="font-mono">marketing-content/</span>, the auto-commit system will detect the change and start a {autoCommitStatus.commitIntervalSeconds}s countdown before committing to GitHub.
-                      </p>
-                      <p className="text-muted-foreground">
-                        Only YAML and JSON files are tracked. Changes are batched into a single commit per cycle.
-                      </p>
-                    </PopoverContent>
-                  </Popover>
-                ) : (
-                  <span className="font-mono">{label}</span>
+              {autoPushExpanded && autoCommitStatus?.enabled && (() => {
+                const isCommitting = autoCommitStatus.isCommitting;
+                const hasCountdown = autoCommitCountdown !== null && autoCommitCountdown > 0;
+                const hasPending = autoCommitStatus.pendingFiles > 0;
+
+                let statusText: string;
+                if (isCommitting) {
+                  statusText = 'Pushing changes to GitHub...';
+                } else if (hasCountdown) {
+                  statusText = `Pushing in ${autoCommitCountdown}s`;
+                } else if (hasPending) {
+                  statusText = 'Changes detected, push starting soon.';
+                } else {
+                  statusText = 'Waiting for changes. Edit a file in marketing-content/ to trigger a push.';
+                }
+
+                return (
+                  <div className="space-y-2">
+                    <p className="text-[11px] text-muted-foreground">{statusText}</p>
+                    <div className="flex items-center justify-between gap-1">
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                        {autoCommitStatus.commitIntervalSeconds && (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <button
+                                type="button"
+                                className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                                data-testid="button-edit-sync-interval"
+                              >
+                                <span>every {autoCommitStatus.commitIntervalSeconds}s</span>
+                                <IconPencil className="h-3 w-3" />
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
+                              <p className="font-medium text-foreground">Change push interval</p>
+                              <p className="text-muted-foreground">
+                                Edit <span className="font-mono">.sync-state.json</span> and change the <span className="font-mono">commitIntervalSeconds</span> value (default: 5s).
+                              </p>
+                              <code className="block p-2 bg-muted rounded text-[11px] font-mono break-all whitespace-pre-wrap">
+{`{ "commitIntervalSeconds": 10 }`}
+                              </code>
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                        {autoCommitStatus.lastCommitSha && githubSyncStatus?.repoUrl && (
+                          <a
+                            href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-primary hover:underline"
+                            data-testid="link-last-auto-commit"
+                          >
+                            {autoCommitStatus.lastCommitSha.substring(0, 7)}
+                          </a>
+                        )}
+                      </div>
+                      {hasPending && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-6 text-[11px] px-2 shrink-0"
+                          onClick={handleFlush}
+                          disabled={isFlushing || isCommitting}
+                          data-testid="button-flush-auto-commit"
+                        >
+                          {isFlushing ? <IconRefresh className="h-3 w-3 animate-spin" /> : 'Push now'}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 );
               })()}
-              {autoCommitStatus?.lastCommitSha && githubSyncStatus?.repoUrl && (
-                <a
-                  href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-primary hover:underline"
-                  data-testid="link-last-auto-commit"
-                >
-                  {autoCommitStatus.lastCommitSha.substring(0, 7)}
-                </a>
+            </Card>
+
+            {/* Auto-pull card */}
+            <Card className="p-3 space-y-2">
+              <button
+                type="button"
+                className="flex items-center gap-1.5 w-full"
+                onClick={() => setAutoPullExpanded(v => !v)}
+                data-testid="button-toggle-auto-pull"
+              >
+                {autoPullExpanded ? <IconChevronDown className="h-3 w-3 text-muted-foreground shrink-0" /> : <IconChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />}
+                <div className={`h-1.5 w-1.5 rounded-full shrink-0 ${
+                  githubSyncStatus?.autoPullEnabled ? 'bg-green-500' : 'bg-muted-foreground/30'
+                }`} />
+                <span className="text-xs font-medium">
+                  {githubSyncStatus?.autoPullEnabled ? 'Auto-pull' : 'Auto-pull off'}
+                </span>
+              </button>
+              {autoPullExpanded && !githubSyncStatus?.autoPullEnabled && (
+                <p className="text-[11px] text-muted-foreground">
+                  Set <span className="font-mono">GITHUB_AUTO_PULL_ENABLED=true</span> to enable webhook and startup pulls.
+                </p>
               )}
-              {autoCommitStatus?.enabled && autoCommitStatus.pendingFiles > 0 && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-6 text-xs px-2"
-                  onClick={handleFlush}
-                  disabled={isFlushing || autoCommitStatus.isCommitting}
-                  data-testid="button-flush-auto-commit"
-                >
-                  {isFlushing ? (
-                    <IconRefresh className="h-3 w-3 animate-spin" />
-                  ) : (
-                    'Sync Now'
-                  )}
-                </Button>
-              )}
-            </div>
+              {autoPullExpanded && githubSyncStatus?.autoPullEnabled && (() => {
+                const webhookId = syncInfo?.webhook?.id;
+                const repoUrl = syncInfo?.repoUrl || githubSyncStatus?.repoUrl?.replace(/\.git$/, '');
+                const webhookSettingsUrl = repoUrl && webhookId ? `${repoUrl}/settings/hooks/${webhookId}` : null;
+                const recentPullLogs = (syncInfo?.recentLog ?? [])
+                  .filter(l => l.includes('AUTO-PULL') || l.includes('WEBHOOK'))
+                  .slice(-3)
+                  .reverse();
+
+                return (
+                  <div className="space-y-2">
+                    <p className="text-[11px] text-muted-foreground">Pulls remote changes automatically on webhook and startup.</p>
+                    {webhookSettingsUrl && webhookId && (
+                      <a
+                        href={webhookSettingsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+                        data-testid="link-webhook-settings"
+                      >
+                        <IconWebhook className="h-3 w-3 shrink-0" />
+                        <span>Webhook #{webhookId}</span>
+                        <IconExternalLink className="h-2.5 w-2.5 shrink-0" />
+                      </a>
+                    )}
+                    {recentPullLogs.length > 0 && (
+                      <div className="space-y-0.5">
+                        {recentPullLogs.map((entry, i) => (
+                          <p key={i} className="text-[10px] font-mono text-muted-foreground truncate" title={entry}>{entry}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+            </Card>
           </div>
 
           {autoCommitStatus && (autoCommitStatus.pendingFilesDetails.length > 0 || autoCommitStatus.conflictedFiles.length > 0) && (
@@ -320,23 +448,48 @@ export function SyncModal({
             </div>
           )}
 
-          <div className="border-t pt-3">
-            <button
-              type="button"
-              onClick={() => {
-                setManualActionsOpen(!manualActionsOpen);
-                if (!manualActionsOpen) fetchPendingChanges();
-              }}
-              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="button-toggle-manual-actions"
-            >
-              {manualActionsOpen ? (
-                <IconChevronDown className="h-3.5 w-3.5" />
-              ) : (
-                <IconChevronRight className="h-3.5 w-3.5" />
+          <div className="pt-1">
+            <div className="flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setManualActionsOpen(!manualActionsOpen);
+                  if (!manualActionsOpen) fetchPendingChanges();
+                }}
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="button-toggle-manual-actions"
+              >
+                {manualActionsOpen ? (
+                  <IconChevronDown className="h-3.5 w-3.5" />
+                ) : (
+                  <IconChevronRight className="h-3.5 w-3.5" />
+                )}
+                Commit Queue
+                {pendingChanges.length > 0 && (
+                  <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-1">{pendingChanges.length}</Badge>
+                )}
+              </button>
+              {localOnlyFiles.length > 0 && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-6 text-xs px-2"
+                  disabled={isPushingAllLocal}
+                  onClick={(e) => { e.stopPropagation(); setPushAllLocalError(null); setPushAllConfirmOpen(true); }}
+                  data-testid="button-push-all-local"
+                >
+                  {isPushingAllLocal ? (
+                    <><IconRefresh className="h-3 w-3 animate-spin mr-1" />Pushing...</>
+                  ) : (
+                    <><IconArrowUp className="h-3 w-3 mr-1" />Push all</>
+                  )}
+                </Button>
               )}
-              Manual Actions
-            </button>
+            </div>
+
+            {pushAllLocalError && (
+              <p className="text-xs text-destructive mt-2">{pushAllLocalError}</p>
+            )}
             
             {manualActionsOpen && (
               <div className="mt-3 space-y-3">
@@ -537,14 +690,8 @@ export function SyncModal({
                                           size="icon"
                                           variant="outline"
                                           className="h-6 w-6"
-                                          onClick={() => {
-                                            if (change.source === 'conflict') {
-                                              setConfirmPullFile(change.file);
-                                            } else {
-                                              handleFilePull(change.file);
-                                            }
-                                          }}
-                                          disabled={filePulling === change.file}
+                                          onClick={() => handleDownloadClick(change.file, change.source)}
+                                          disabled={filePulling === change.file || isBulkPulling}
                                           data-testid={`button-pull-file-${index}`}
                                         >
                                           {filePulling === change.file ? (
@@ -627,5 +774,120 @@ export function SyncModal({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
+    <Dialog open={!!bulkPullPromptFile} onOpenChange={(open) => { if (!open) setBulkPullPromptFile(null); }}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <IconArrowDown className="h-5 w-5" />
+            Download Remote Files
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <p className="text-sm text-muted-foreground" data-testid="text-bulk-pull-description">
+            There {nonConflictIncoming.length === 1 ? "is" : "are"} {nonConflictIncoming.length} incoming file{nonConflictIncoming.length !== 1 ? "s" : ""} without conflicts. Would you like to download all of them?
+          </p>
+          <label className="flex items-center gap-2 cursor-pointer" data-testid="label-skip-bulk-prompt">
+            <Checkbox
+              checked={skipBulkPrompt}
+              onCheckedChange={(checked) => setSkipBulkPrompt(!!checked)}
+              data-testid="checkbox-skip-bulk-prompt"
+            />
+            <span className="text-xs text-muted-foreground">Don't ask me again in this session</span>
+          </label>
+        </div>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button
+            variant="outline"
+            onClick={() => {
+              const file = bulkPullPromptFile;
+              setBulkPullPromptFile(null);
+              if (file) handleFilePull(file);
+            }}
+            disabled={isBulkPulling}
+            data-testid="button-pull-single"
+          >
+            Only this file
+          </Button>
+          <Button
+            onClick={handleBulkPull}
+            disabled={isBulkPulling}
+            data-testid="button-pull-all"
+          >
+            {isBulkPulling ? (
+              <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Downloading...</>
+            ) : (
+              <><IconArrowDown className="h-4 w-4 mr-2" />Download all ({nonConflictIncoming.length})</>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+    <Dialog open={pushAllConfirmOpen} onOpenChange={(open) => { if (!open) setPushAllConfirmOpen(false); }}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <IconArrowUp className="h-5 w-5" />
+            Push local files to GitHub
+          </DialogTitle>
+          <DialogDescription>
+            The following {localOnlyFiles.length} local file{localOnlyFiles.length !== 1 ? "s" : ""} will be committed and pushed to the remote repository. Files with conflicts are excluded and must be resolved individually.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4 py-1">
+          <ScrollArea className="max-h-40 rounded-md border">
+            <div className="p-2 space-y-1">
+              {localOnlyFiles.map((change) => (
+                <div
+                  key={change.file}
+                  className="font-mono text-xs text-muted-foreground truncate px-1 py-0.5"
+                  title={change.file}
+                  data-testid={`text-push-confirm-file-${change.file}`}
+                >
+                  {change.file.replace('marketing-content/', '')}
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+          <div className="space-y-1.5">
+            <Label htmlFor="push-all-commit-message" className="text-sm">Commit message</Label>
+            <Input
+              id="push-all-commit-message"
+              value={pushAllCommitMessage}
+              onChange={(e) => setPushAllCommitMessage(e.target.value)}
+              placeholder="Describe what changed..."
+              data-testid="input-push-all-commit-message"
+            />
+          </div>
+        </div>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button
+            variant="outline"
+            onClick={() => setPushAllConfirmOpen(false)}
+            disabled={isPushingAllLocal}
+            data-testid="button-push-all-cancel"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              if (!pushAllCommitMessage.trim()) return;
+              setPushAllConfirmOpen(false);
+              handlePushAllLocal(pushAllCommitMessage.trim(), localOnlyFiles.map(c => c.file));
+            }}
+            disabled={isPushingAllLocal || !pushAllCommitMessage.trim()}
+            data-testid="button-push-all-confirm"
+          >
+            {isPushingAllLocal ? (
+              <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Pushing...</>
+            ) : (
+              <><IconArrowUp className="h-4 w-4 mr-2" />Push {localOnlyFiles.length} file{localOnlyFiles.length !== 1 ? "s" : ""}</>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }

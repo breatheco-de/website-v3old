@@ -13,5 +13,5 @@ yaml: |
     - heading: "Flexible Schedule"
       text: "Learn at your own pace with 24/7 access to all course materials and async support."
   footer: "Support that lasts a lifetime, not just through graduation."
-  image: "/attached_assets/community-support-2_1765406601448.webp"
+  image: "https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp"
   image_alt: "Student receiving personalized support"

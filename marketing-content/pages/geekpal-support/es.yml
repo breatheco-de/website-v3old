@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Mentoría en Programación Potenciada por IA
+    title: Mentoría en programación potenciada por IA
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
@@ -41,22 +41,22 @@ sections:
       desktop: md lg
   - type: banner
     version: "1.0"
-    logo: /attached_assets/rigobot-logo_1764707022198.webp
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Avanza sin Bloqueos. Aprende con Confianza.
+    title: Avanza sin bloqueos. Aprende con confianza.
     description: El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave. GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances de forma constante y segura.
     background: gradient
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Humanos + IA: Acelera Tu Aprendizaje en Programación"
+    heading: "Mentores expertos + IA: Acelera tu aprendizaje en programación"
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
       - title: "Nuestro Equipo de Mentores Expertos ofrece:"
-        image: /attached_assets/profile-pic6_1764775742734.webp
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada
           - text: Resolución de problemas en vivo
@@ -69,27 +69,27 @@ sections:
           - text: Soporte para debugging y resolución de problemas
           - text: Cientos de ejercicios prácticos y pruebas de programación
     images:
-      - src: /attached_assets/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Estudiante asiático aprendiendo a programar
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: /attached_assets/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Estudiante latino trabajando en un proyecto
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: /attached_assets/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Estudiante africano colaborando con su equipo
         object_fit: cover
         object_position: 50%15%
         border_radius: 0.5rem
-      - src: /attached_assets/student-4-lady-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Estudiante latina celebrando su éxito
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-    image: /attached_assets/Group_6685_(1)_1765300162049.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Mujer trabajando en laptop en un café
     background: bg-background
     paddingY:
@@ -97,19 +97,19 @@ sections:
       desktop: md none
   - type: community_support
     version: "1.0"
-    heading: Una Comunidad Global para Impulsar tu Crecimiento
-    description: 4Geeks es más que un programa — es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
+    heading: Aprende acompañado por una comunidad global
+    description: 4Geeks es más que un programa; es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
-        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos — desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
+        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos, desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
         icon: BrandSlack
         badge: 6,000+ Miembros
         accent_color: primary
       - title: 4Geeks.com
-        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás — y saben cómo ayudarte a llegar a donde quieres ir.
+        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás y saben cómo ayudarte a llegar a donde quieres ir.
         icon: Rigobot
         accent_color: primary
-    image: /attached_assets/Group-6606.webp
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
     image_alt: Comunidad global de desarrolladores 4Geeks
     background: bg-primary/5
     paddingY:
@@ -123,7 +123,7 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: Escucha a Nuestros Graduados
+      heading: Escucha a nuestros graduados
       description: Escucha a Joao hablar sobre su experiencia durante y después de nuestro bootcamp y cómo el acceso ilimitado a mentoría en programación marcó una gran diferencia en su carrera.
       justify: center
       text_align: center
@@ -133,26 +133,121 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
-    title: Carreras Reales que Comenzaron Aquí
+    title: Carreras reales que comenzaron aquí
     description: Descubre cómo nuestros estudiantes alcanzaron sus metas
     marginY:
       desktop: none
     paddingY:
       desktop: md none
   - type: faq
-    version: v1.0
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - mentors-and-teachers
       - career-support
+    item_overrides:
+      cmo-estn-estructuradas-las-clases-en-vivo:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+      consigo-trabajo-despus-de-completar-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
     marginY:
       desktop: none
     paddingY:
       desktop: none md
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre Completo
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+          placeholder: Número telefónico
+        program:
+          visible: true
+          required: true
+          default: auto
+          placeholder: Selecciona un programa
+      success:
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+  - type: cta_banner
+    version: "1.0"
+    title: ¿Listo para Iniciar tu Carrera Tech?
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Descargar Programa
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre y Apellido
+        phone:
+          visible: true
+          required: false
+          placeholder: Teléfono
+        program:
+          visible: true
+          required: false
+          default: auto
+      success:
+        message: ¡Gracias! Muy pronto te llegará el detalle del programa.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-primary
+      terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
-      desktop: none
+      desktop: lg none
     paddingY:
-      desktop: none 10px
+      desktop: md

@@ -21,13 +21,13 @@ sections:
     variant: singleColumn
     title: See What Our Students Build
     subtitle: Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.
-    badge: Career Program
+    badge: Career program
     cta_buttons:
-      - text: Start Learning Now
+      - text: Apply Now
         url: "#bottom"
         variant: primary
         icon: Rocket
-      - text: View Curriculum
+      - text: Get Program Details
         url: "#apply-modal"
         variant: outline
         icon: Book
@@ -44,13 +44,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Obtener curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Get the Full Overview
       tags: request_more_info
       automations: soft
       fields:
@@ -66,9 +66,9 @@ sections:
         program:
           visible: true
           required: true
-          default: auto
+          default: null
       success:
-        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: projects_showcase
     version: "1.0"
     items:
@@ -86,7 +86,7 @@ sections:
             linkedin_url: https://www.linkedin.com/in/naila-kaliyeva-a8863a181/
         media:
           - type: image
-            src: /attached_assets/image_1765318479754.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318479754.png
             alt: Raspberry Sky - Satellite access for everyone
           - type: video
             src: OZfv9kYl0_o
@@ -105,7 +105,7 @@ sections:
             github_url: https://github.com/paocastrob
         media:
           - type: image
-            src: /attached_assets/image_1765318521904.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318521904.png
             alt: IMS Dashboard
           - type: video
             src: TTjSZ2Lud2E
@@ -122,10 +122,10 @@ sections:
             linkedin_url: https://www.linkedin.com/in/gmihov/
         media:
           - type: image
-            src: /attached_assets/image_1765318556862.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318556862.png
             alt: WonderTracker - Plan Travel, Save Memories
           - type: image
-            src: /attached_assets/fernando-funez_1765315920677.jpg
+            src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
             alt: WonderTracker team member
       - project_title: reMindful
         project_url: https://re-mindful.vercel.app/
@@ -139,7 +139,7 @@ sections:
             github_url: https://github.com/gabsssrod
         media:
           - type: image
-            src: /attached_assets/image_1765318600261.png
+            src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318600261.png
             alt: reMindful - Reduce, Reuse, Recycle
           - type: video
             src: cKcZD0_1IKk
@@ -151,13 +151,12 @@ sections:
     description: 4Geeks Academy was founded in 2015. What started as an internal project to train more developers has now become our full-time passion. 4Geeks is today a USA based Coding Bootcamp pursuing to build a new framework for Coding Education, because coding is becoming an essentials part of our society. 4Geeks Academy has now Locations in 12 cities, 13 on-going campus, and more than 600 graduates.
     link_text: Read More
     link_url: /en/the-academy
-    image_src: /attached_assets/our-story_1765323971104.webp
+    image_src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
     image_alt: 4Geeks Academy Founders
     marginY:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    version: v1.0
     title: Frequently Asked Questions
     related_features:
       - content-and-syllabus
@@ -165,15 +164,14 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply Now
-      tags: website-lead
-      automations: hard
+      submit_label: Get the details
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -185,12 +183,11 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
           required: true
-          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -204,3 +201,33 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+  - type: sticky_cta
+    version: "1.0"
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: false
+          required: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
