@@ -526,6 +526,80 @@
       ],
       "createdAt": "2026-02-25T22:53:44.756Z",
       "name": "split_cards_job_guarantee_latam_en"
+    },
+    {
+      "id": "bind_mm3kw7w2_o6j7ee",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "sticky_cta-mhzomk"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "sticky_cta-n197cj"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "sticky_cta-fle6gx"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "sticky_cta-m1rgbu"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "sticky_cta-333yzs"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "sticky_cta-7ln7qs"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "sticky_cta-ktexs9"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "sticky_cta-u6z3yc"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "sticky_cta-ml89p4"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "sticky_cta-xktqal"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "sticky_cta-ndrv0x"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "sticky_cta-9jdpc6"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-america",
+          "sectionId": "sticky_cta-hm3f6z"
+        }
+      ],
+      "createdAt": "2026-02-26T14:48:35.570Z",
+      "name": "sticky_cta_latam_es"
     }
   ]
 }
