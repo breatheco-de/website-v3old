@@ -462,7 +462,7 @@ global_campuses:
         region: "usa-canada"
       value: "10"
 average_salary_agent_engineer:
-  default: "$25K–$40K"
+  default: "$75 K–$115 K"
   conditions:
     - query:
         region: "usa-canada"
