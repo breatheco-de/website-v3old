@@ -66,6 +66,8 @@ sections:
     subtitle: You’re one step closer to your new career in tech, congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
     marginY:
       desktop: md none
+    paddingY:
+      desktop: xl none
   - type: apply_form
     version: "1.0"
     hero:
