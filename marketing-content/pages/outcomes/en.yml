@@ -33,7 +33,7 @@ sections:
     title: Hiring Results, Year after Year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
-      - title: Job placement rate
+      - title: Job Placement Rate
         unit: Graduates hired within 6 months
         description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
         years:
@@ -46,7 +46,7 @@ sections:
           - year: Mid 2025
             value: 82
             displayValue: 82%
-      - title: Average salary increase
+      - title: Average Salary Increase
         unit: Compared to pre-bootcamp salary
         description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
         years:
@@ -59,7 +59,7 @@ sections:
           - year: Mid 2025
             value: 15800
             displayValue: $15.8k
-      - title: Days to first job
+      - title: Days to First Job
         unit: Average time from graduation to offer
         description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
         years:
