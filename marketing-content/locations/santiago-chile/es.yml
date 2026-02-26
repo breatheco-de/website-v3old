@@ -407,6 +407,7 @@ sections:
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -439,12 +440,12 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
-    terms_color: hsl(var(--card))
-    paddingY:
-      desktop: md
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
+    form_background: hsl(var(--card))
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
