@@ -101,10 +101,10 @@ sections:
     bullets:
       - heading: Aprendizaje personalizado en cada nivel
         text: Grupos reducidos, acceso ilimitado a mentores y retroalimentación guiada por IA mantienen tu aprendizaje rápido, adaptativo y enfocado en lo que importa.
-      - heading: Mentoría de por Vida y Apoyo Profesional
+      - heading: Mentoría de por vida y apoyo profesional
         text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
-      - heading: Currículum y Herramientas de Aprendizaje Integradas con IA
-        text: Domina las últimas herramientas y flujos de trabajo de IA que los empleadores están buscando activamente.
+      - heading: Currículum y herramientas de aprendizaje integradas con IA
+        text: Domina las herramientas más actuales y los flujos de trabajo con IA que los empleadores necesitan.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Estudiante aprendiendo con apoyo de mentor
     video:
