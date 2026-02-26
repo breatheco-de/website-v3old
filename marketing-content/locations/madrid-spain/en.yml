@@ -467,6 +467,7 @@ sections:
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -484,11 +485,11 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
@@ -497,13 +498,14 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
-    paddingY:
-      desktop: md
     marginY:
       desktop: none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.
