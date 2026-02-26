@@ -28,7 +28,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Programa de desarrollo Full Stack con IA
+    title: Programa de Desarrollo Full Stack con IA
     title_highlight: Full Stack Developer con IA
     subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
@@ -94,7 +94,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Programa de desarrollo Full Stack con IA
+    title: Programa de Desarrollo Full Stack con IA
     title_highlight: Full Stack Developer con IA
     subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
@@ -187,7 +187,7 @@ sections:
           required: true
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: false
           required: true
@@ -610,7 +610,7 @@ sections:
     subtitle: Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
-      count: {{ global_verified_reviews_count | 1,294 }}+
+      count: 1,294
     items:
       - name: Sarah Johnson
         role: AI Engineer
@@ -695,7 +695,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: true
+          required: false
           placeholder: Número de teléfono
         program:
           visible: false
@@ -719,7 +719,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
@@ -739,7 +739,8 @@ sections:
           required: false
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: false
           default: full-stack
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
