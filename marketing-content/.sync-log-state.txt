@@ -326,3 +326,68 @@
 2026-02-26T20:44:03.398Z [RECONCILE] 0/2 files match remote, 2 still differ
 2026-02-26T20:44:03.398Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
 2026-02-26T20:44:03.900Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:46:25.070Z [RESTART] Server started (instance=48e4, checkpoint=1c070eb16, env=development, pid=2303)
+2026-02-26T20:46:25.941Z [RECONCILE] Local 8621141 ≠ remote a2665eb, checking file hashes...
+2026-02-26T20:46:29.241Z [RECONCILE] 0/2 files match remote, 2 still differ
+2026-02-26T20:46:29.242Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:46:29.441Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:47:37.934Z [COMMIT] Auto-commit 1d0cac1 by Alejandro Mauricio Jimenez Morales: landings/example-landing/promoted.yml
+2026-02-26T20:48:11.507Z [RESTART] Server started (instance=28ca, checkpoint=1c070eb16, env=development, pid=2356)
+2026-02-26T20:48:12.114Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:48:13.236Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:49:42.432Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:49:47.609Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:49:57.791Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:50:27.973Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:51:28.153Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:52:28.343Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:53:28.523Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:54:28.702Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:55:28.878Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:56:29.059Z [ERROR] Auto-commit failed by Alejandro Mauricio Jimenez Morales: Failed to get branch ref: 401 {
+  "message": "Bad credentials",
+  "documentation_url": "https://docs.github.com/rest",
+  "status": "401"
+}
+2026-02-26T20:57:19.454Z [RESTART] Server started (instance=a76d, checkpoint=1c070eb16, env=development, pid=3031)
+2026-02-26T20:57:19.906Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:57:20.090Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:57:51.011Z [RESTART] Server started (instance=8379, checkpoint=1c070eb16, env=development, pid=3204)
+2026-02-26T20:57:51.494Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:57:51.678Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)

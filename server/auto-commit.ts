@@ -321,6 +321,15 @@ async function commitFilesViaTreeAPI(
   files: Array<{ path: string; content: string }>,
   deletedFiles: string[]
 ): Promise<{ success: boolean; commitSha?: string; error?: string }> {
+  function formatGhError(status: number, body: string): string {
+    try {
+      const parsed = JSON.parse(body);
+      if (parsed.message) return `${status} — ${parsed.message}`;
+    } catch {}
+    const trimmed = body.trim().slice(0, 200);
+    return trimmed ? `${status} — ${trimmed}` : `${status}`;
+  }
+
   const headers = {
     'Authorization': `Bearer ${config.token}`,
     'Accept': 'application/vnd.github.v3+json',
@@ -335,7 +344,7 @@ async function commitFilesViaTreeAPI(
     );
     if (!refRes.ok) {
       const errText = await refRes.text().catch(() => '');
-      return { success: false, error: `Failed to get branch ref: ${refRes.status} ${errText}`.trim() };
+      return { success: false, error: `Failed to get branch ref: ${formatGhError(refRes.status, errText)}` };
     }
     const refData = await refRes.json();
     const headSha = refData.object?.sha;
@@ -347,7 +356,7 @@ async function commitFilesViaTreeAPI(
     );
     if (!commitRes.ok) {
       const errText = await commitRes.text().catch(() => '');
-      return { success: false, error: `Failed to get commit: ${commitRes.status} ${errText}`.trim() };
+      return { success: false, error: `Failed to get commit: ${formatGhError(commitRes.status, errText)}` };
     }
     const commitData = await commitRes.json();
     const baseTreeSha = commitData.tree?.sha;
@@ -369,7 +378,7 @@ async function commitFilesViaTreeAPI(
       );
       if (!blobRes.ok) {
         const errText = await blobRes.text().catch(() => '');
-        return { success: false, error: `Failed to create blob for ${file.path}: ${blobRes.status} ${errText}`.trim() };
+        return { success: false, error: `Failed to create blob for ${file.path}: ${formatGhError(blobRes.status, errText)}` };
       }
       const blobData = await blobRes.json();
       treeEntries.push({ path: file.path, mode: '100644', type: 'blob', sha: blobData.sha });
@@ -388,8 +397,8 @@ async function commitFilesViaTreeAPI(
       }
     );
     if (!treeRes.ok) {
-      const errText = await treeRes.text();
-      return { success: false, error: `Failed to create tree: ${treeRes.status} ${errText}` };
+      const errText = await treeRes.text().catch(() => '');
+      return { success: false, error: `Failed to create tree: ${formatGhError(treeRes.status, errText)}` };
     }
     const treeData = await treeRes.json();
 
@@ -407,7 +416,7 @@ async function commitFilesViaTreeAPI(
     );
     if (!newCommitRes.ok) {
       const errText = await newCommitRes.text().catch(() => '');
-      return { success: false, error: `Failed to create commit: ${newCommitRes.status} ${errText}`.trim() };
+      return { success: false, error: `Failed to create commit: ${formatGhError(newCommitRes.status, errText)}` };
     }
     const newCommitData = await newCommitRes.json();
 
@@ -420,8 +429,8 @@ async function commitFilesViaTreeAPI(
       }
     );
     if (!updateRes.ok) {
-      const errText = await updateRes.text();
-      return { success: false, error: `Failed to update ref: ${updateRes.status} ${errText}` };
+      const errText = await updateRes.text().catch(() => '');
+      return { success: false, error: `Failed to update ref: ${formatGhError(updateRes.status, errText)}` };
     }
 
     return { success: true, commitSha: newCommitData.sha };
@@ -437,6 +446,15 @@ async function commitSingleFileViaContentsAPI(
   content: string,
   message: string
 ): Promise<{ success: boolean; commitSha?: string; error?: string }> {
+  function formatGhError(status: number, body: string): string {
+    try {
+      const parsed = JSON.parse(body);
+      if (parsed.message) return `${status} — ${parsed.message}`;
+    } catch {}
+    const trimmed = body.trim().slice(0, 200);
+    return trimmed ? `${status} — ${trimmed}` : `${status}`;
+  }
+
   const headers = {
     'Authorization': `Bearer ${config.token}`,
     'Accept': 'application/vnd.github.v3+json',
@@ -468,8 +486,8 @@ async function commitSingleFileViaContentsAPI(
     );
 
     if (!putRes.ok) {
-      const errText = await putRes.text();
-      return { success: false, error: `${putRes.status} ${errText}` };
+      const errText = await putRes.text().catch(() => '');
+      return { success: false, error: formatGhError(putRes.status, errText) };
     }
 
     const putData = await putRes.json();
