@@ -17,7 +17,7 @@ sections:
     paddingY:
       desktop: md none
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: article
     content: |
       # ¿Qué es el Coding Bootcamp de 4Geeks Academy?
