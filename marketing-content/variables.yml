@@ -341,7 +341,7 @@ average_salary_ai_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$100K–$160K"
+      value: "$95K–$150K"
     - query:
         region: "latam"
       value: "$40K – $75K"
