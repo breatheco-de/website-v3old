@@ -213,7 +213,7 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Everything you need to succeed in an AI-Driven industry
+    title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, unlimited and for life
