@@ -577,7 +577,7 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an AI-Fluent Full Stack Developer?
+    title: Ready to Become an AI-Driven Full Stack Developer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
