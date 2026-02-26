@@ -492,7 +492,7 @@ sections:
       - label: Spain
         value: 30
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: whos_hiring
     variant: carousel
     pretitle: Customer Stories
