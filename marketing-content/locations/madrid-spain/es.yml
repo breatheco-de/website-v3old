@@ -381,6 +381,7 @@ sections:
       desktop: none
     paddingY:
       desktop: md
+    section_id: cta_banner-gfclv6
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.
