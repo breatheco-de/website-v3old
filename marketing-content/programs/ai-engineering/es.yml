@@ -729,11 +729,11 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: Nombre Completo
         phone:
           visible: true
           required: false
