@@ -302,3 +302,12 @@
 2026-02-26T19:22:52.774Z [RECONCILE] 16/55 files match remote, 39 still differ
 2026-02-26T19:22:52.775Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
 2026-02-26T19:22:52.973Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:06:42.049Z [RESTART] Server started (instance=cc3c, checkpoint=f629126ad, env=development, pid=4181)
+2026-02-26T20:06:42.915Z [RECONCILE] Local d4d8aa5 ≠ remote 8c4818a, checking file hashes...
+2026-02-26T20:06:43.652Z [RECONCILE] 0/15 files match remote, 15 still differ
+2026-02-26T20:06:51.241Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T20:07:21.291Z [RESTART] Server started (instance=5761, checkpoint=f629126ad, env=development, pid=4639)
+2026-02-26T20:07:22.001Z [RECONCILE] Local d4d8aa5 ≠ remote ab6c2df, checking file hashes...
+2026-02-26T20:07:25.991Z [RECONCILE] 0/26 files match remote, 26 still differ
+2026-02-26T20:07:25.991Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T20:07:26.266Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)

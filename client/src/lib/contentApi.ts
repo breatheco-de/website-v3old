@@ -1,4 +1,4 @@
-import { getDebugToken, getDebugUserName } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import type { EditOperation } from "@shared/schema";
 
 export interface ContentEditRequest {
@@ -19,7 +19,7 @@ export interface ContentEditResponse {
 
 export async function editContent(request: ContentEditRequest): Promise<ContentEditResponse> {
   const token = getDebugToken();
-  const author = getDebugUserName() || "Unknown";
+  const author = await resolveAuthorName();
 
   const response = await fetch("/api/content/edit-sections", {
     method: "POST",

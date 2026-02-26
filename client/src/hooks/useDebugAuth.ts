@@ -90,6 +90,29 @@ export function getDebugUserName(): string {
   return localStorage.getItem(DEBUG_USERNAME_KEY) || "";
 }
 
+export async function resolveAuthorName(): Promise<string> {
+  const cached = localStorage.getItem(DEBUG_USERNAME_KEY);
+  if (cached) return cached;
+
+  const token = getDebugToken();
+  if (!token) return "Unknown";
+
+  try {
+    const response = await fetch("/api/debug/validate-token", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+    const data = await response.json();
+    if (data.valid && data.userName) {
+      localStorage.setItem(DEBUG_USERNAME_KEY, data.userName);
+      return data.userName;
+    }
+  } catch {
+  }
+  return "Unknown";
+}
+
 export function useDebugAuth() {
   const [isValidated, setIsValidated] = useState<boolean | null>(null);
   const [hasToken, setHasToken] = useState<boolean>(false);
