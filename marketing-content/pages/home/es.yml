@@ -83,7 +83,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduada celebrando su éxito
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>"
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las carreras en tecnología no nacen de fórmulas estándar.</span></span>"
       text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>"
       background: primary
       width: 2
