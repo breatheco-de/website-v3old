@@ -730,6 +730,10 @@
   -webkit-mask-repeat: no-repeat;
 }
 
+.rich-text-preview [data-preview-light] {
+  color: #999 !important;
+}
+
 /* Desktop: switch to desktop values at 768px+ */
 @media (min-width: 768px) {
   .section-wrapper {

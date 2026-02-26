@@ -99,6 +99,13 @@
     { "id": "2xl", "label": "2XL", "value": "1.5rem", "tailwind": "text-2xl" },
     { "id": "3xl", "label": "3XL", "value": "1.875rem", "tailwind": "text-3xl" }
   ],
+  "lineHeights": [
+    { "id": "tight", "label": "Tight", "value": "1.1" },
+    { "id": "snug", "label": "Snug", "value": "1.25" },
+    { "id": "normal", "label": "Normal", "value": "1.5" },
+    { "id": "relaxed", "label": "Relaxed", "value": "1.75" },
+    { "id": "loose", "label": "Loose", "value": "2" }
+  ],
   "button_variants": [
     { "id": "primary", "label": "Primary" },
     { "id": "secondary", "label": "Secondary" },
