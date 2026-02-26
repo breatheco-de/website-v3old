@@ -352,7 +352,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     .then(async () => {
       const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
       await reconcileSyncStateOnStartup();
-      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED !== 'false';
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
       if (isAutoPullEnabled) {
         const result = await autoPullNonConflicting();
         if (result.pulled.length > 0) {
@@ -378,7 +378,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }, 10000);
         }
       } else {
-        logSync('AUTO-PULL', 'Skipped startup pull — GITHUB_AUTO_PULL_ENABLED=false');
+        logSync('AUTO-PULL', "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'");
       }
       await ensureWebhook();
     })
@@ -3282,9 +3282,9 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`);
 
-      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED !== 'false';
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
       if (!isAutoPullEnabled) {
-        logSync('AUTO-PULL', `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED=false`);
+        logSync('AUTO-PULL', `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'`);
         res.json({ ok: true, message: 'Auto-pull disabled' });
         return;
       }

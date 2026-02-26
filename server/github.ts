@@ -594,8 +594,8 @@ export async function commitAndPush(
  */
 export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
   const syncEnabled = process.env.GITHUB_SYNC_ENABLED === "true";
-  const autoCommitEnabled = syncEnabled && process.env.GITHUB_AUTO_COMMIT_ENABLED !== 'false';
-  const autoPullEnabled = syncEnabled && process.env.GITHUB_AUTO_PULL_ENABLED !== 'false';
+  const autoCommitEnabled = syncEnabled && process.env.GITHUB_AUTO_COMMIT_ENABLED === 'true';
+  const autoPullEnabled = syncEnabled && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
   const config = getGitHubConfig();
   
   if (!config) {
