@@ -10,6 +10,7 @@ meta:
   redirects:
     - /home
     - /us/index
+    - /us/programs
 schema:
   include:
     - organization
@@ -55,8 +56,7 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistently listed among top 5 bootcamps by Forbes
-        link: https://www.coursereport.com
-        linkText: Read reviews
+        link: /en/awards
       - id: clark-university
         alt: Clark University Logo
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
