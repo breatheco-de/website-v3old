@@ -422,3 +422,12 @@
 2026-02-26T15:52:31.644Z [RECONCILE] 0/4 files match remote, 4 still differ
 2026-02-26T15:52:33.907Z [AUTO-PULL] Startup: pulled 4 incoming files: programs/ai-engineering/es.yml, programs/cybersecurity/en.yml, programs/data-science-ml/es.yml, programs/full-stack/es.yml
 2026-02-26T15:52:34.119Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T15:54:31.505Z [RESTART] Server started (instance=58ec, checkpoint=d7f353d6, env=development, pid=3429)
+2026-02-26T15:54:31.898Z [RECONCILE] Local 6e1aea4 ≠ remote ae5ba32, checking file hashes...
+2026-02-26T15:54:32.577Z [RECONCILE] All 1 files match remote, updated to ae5ba32
+2026-02-26T15:54:35.203Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T15:56:07.435Z [RESTART] Server started (instance=c113, checkpoint=d7f353d6, env=development, pid=382)
+2026-02-26T15:56:08.562Z [RECONCILE] Already in sync at ae5ba32
+2026-02-26T15:56:09.972Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T15:56:27.182Z [WEBHOOK] Push eb03de6 by alesanchezr: 3 marketing-content files changed
+2026-02-26T15:56:28.215Z [AUTO-PULL] Webhook: pulled 3 files from eb03de6: pages/coding-bootcamp/_common.yml, pages/coding-bootcamp/en.yml, pages/coding-bootcamp/es.yml
