@@ -504,7 +504,7 @@ async function getBranchHeadSha(config: GitHubConfig): Promise<string | null> {
  */
 export async function commitAndPush(
   message: string,
-  options?: { force?: boolean }
+  options?: { force?: boolean; files?: string[] }
 ): Promise<{ success: boolean; error?: string; commitHash?: string }> {
   const syncEnabled = process.env.GITHUB_SYNC_ENABLED === "true";
   
@@ -518,7 +518,11 @@ export async function commitAndPush(
   }
   
   try {
-    const pendingChanges = await getPendingChanges();
+    const allPendingChanges = await getPendingChanges();
+    const pendingChanges = options?.files?.length
+      ? allPendingChanges.filter(c => options.files!.includes(c.file))
+      : allPendingChanges;
+
     if (pendingChanges.length === 0) {
       return { success: false, error: "No pending changes to commit" };
     }

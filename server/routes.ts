@@ -3415,7 +3415,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Commit and push pending changes to GitHub
   app.post("/api/github/commit", async (req, res) => {
     try {
-      const { message, force, author } = req.body;
+      const { message, force, author, files } = req.body;
       if (
         !message ||
         typeof message !== "string" ||
@@ -3432,7 +3432,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       const { commitAndPush } = await import("./github");
-      const result = await commitAndPush(finalMessage, { force: !!force });
+      const result = await commitAndPush(finalMessage, { force: !!force, files: Array.isArray(files) ? files : undefined });
 
       if (result.success) {
         res.json({ success: true, commitHash: result.commitHash });
