@@ -235,7 +235,7 @@ sections:
           - Connect with our extensive network of global hiring partners.
     background: bg-background
     paddingY:
-      desktop: md none
+      desktop: none
   - type: whos_hiring
     variant: carousel
     title: Top Tech Companies Hiring 4Geeks Graduates
