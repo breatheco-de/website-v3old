@@ -67,7 +67,7 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
         logoHeight: 64px
         description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
-        link: https://careerkarma.com
+        link: /en/awards
         linkText: Learn more
     marginY:
       desktop: none md
