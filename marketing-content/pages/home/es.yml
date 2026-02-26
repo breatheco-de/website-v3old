@@ -175,7 +175,7 @@ sections:
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: 250+
+          value: {{ number_of_hiring_partners_aprox | 250 }}+
           label: empresas en la red de empleadores de 4Geeks
         right_bullets:
           - icon: IconUserPlus
