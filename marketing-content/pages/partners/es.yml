@@ -535,6 +535,8 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
