@@ -45,6 +45,8 @@ sections:
         text: Socios corporativos y comunitarios que patrocinan becas para apoyar al talento emergente en tecnología.
       - icon: Award
         text: Un número limitado de becas parciales basadas en mérito se otorgan a candidatos calificados según su compromiso, potencial y afinidad con el programa.
+    marginY:
+      desktop: none lg
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
