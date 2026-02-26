@@ -235,9 +235,6 @@ sections:
     background: bg-background
     paddingY:
       desktop: md none
-  - type: testimonials_slide
-    title: Las historias detrás de las estadísticas
-    description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: why_learn_ai
     variant: laptop-edge
     title: Tu futuro profesional, con garantía*
@@ -302,6 +299,9 @@ sections:
         alt: Google Developers
     paddingY:
       desktop: sm none
+  - type: testimonials_slide
+    title: Las historias detrás de las estadísticas
+    description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
     title: Preguntas frecuentes
     related_features:
