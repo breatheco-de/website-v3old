@@ -24,7 +24,7 @@ sections:
       highlight: FORCE
       suffix: ":"
       color: chart-5
-    description: Get unlimited 1:1 career support tailored to your goals, background, and experience, for life. From resumes and interviews to navigating AI-driven hiring, we help you succeed in today’s tech job market.
+    description: Lifetime 1:1 career support designed to launch, position, and accelerate your career in today’s AI-powered tech job market.
     marquee:
       items:
         - id: logo-google-developers
