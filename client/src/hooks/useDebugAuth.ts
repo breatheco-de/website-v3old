@@ -107,6 +107,8 @@ export function useDebugAuth() {
     // URL token always takes priority and bypasses cache (acts like manual validate)
     const forceValidate = !!urlToken || skipCache;
     
+    let revalidateWithCachedToken = false;
+
     // Check if we have a valid cached session (unless forced)
     if (!forceValidate) {
       const cachedValidation = localStorage.getItem(DEBUG_SESSION_KEY);
@@ -115,20 +117,23 @@ export function useDebugAuth() {
       const cachedCaps = localStorage.getItem(DEBUG_CAPABILITIES_KEY);
       const cachedUsername = localStorage.getItem(DEBUG_USERNAME_KEY);
       
-      if (cachedValidation === "true" && cachedExpiry && cachedToken && cachedUsername) {
+      if (cachedValidation === "true" && cachedExpiry && cachedToken) {
         const expiryTime = parseInt(cachedExpiry, 10);
         if (Date.now() < expiryTime) {
-          setHasToken(true);
-          setIsValidated(true);
-          if (cachedCaps) {
-            try {
-              setCapabilities(JSON.parse(cachedCaps));
-            } catch {
-              // Ignore
+          if (cachedUsername) {
+            setHasToken(true);
+            setIsValidated(true);
+            if (cachedCaps) {
+              try {
+                setCapabilities(JSON.parse(cachedCaps));
+              } catch {
+                // Ignore
+              }
             }
+            setIsLoading(false);
+            return;
           }
-          setIsLoading(false);
-          return;
+          revalidateWithCachedToken = true;
         }
       }
     } else {
@@ -142,7 +147,7 @@ export function useDebugAuth() {
     // Get token from URL querystring or env variable
     const envToken = import.meta.env.VITE_BREATHECODE_TOKEN;
     
-    const token = urlToken || envToken || localStorage.getItem(DEBUG_TOKEN_KEY);
+    const token = urlToken || envToken || (revalidateWithCachedToken ? localStorage.getItem(DEBUG_TOKEN_KEY) : null);
 
     if (!token) {
       setHasToken(false);
