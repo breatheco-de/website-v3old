@@ -20,7 +20,7 @@ sections:
     title: Encuentra tu mejor camino en tecnología
     badge: Compara nuestros programas
     trust_bar:
-      rating: 4.8/5
+      rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
       trusted_text: Con la confianza de más de 10,000 estudiantes
     award_badges:
