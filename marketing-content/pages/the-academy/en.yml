@@ -95,7 +95,7 @@ sections:
       image_object_position: 10% 80%
       justify: end
     right:
-      heading: Shaping the global tech ecosystem
+      heading: Shaping the Global Tech Ecosystem
       description: At 4Geeks Academy, we believe collaboration drives real impact. We work with universities, nonprofits, workforce development initiatives, global organizations, and local tech communities to expand access to top tech education and strengthen career pathways. Together, we train and place diverse talent, close the digital skills gap, and build the tech workforce of the future. We’re also active in the community, partnering on hackathons, tech challenges, and industry events that connect talent with opportunity and showcase the skills of our students and graduates.
       text_align: left
     gap: "12"
