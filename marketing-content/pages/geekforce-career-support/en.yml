@@ -264,7 +264,7 @@ sections:
       - toronto-canada
   - type: whos_hiring
     variant: carousel
-    title: Top tech companies hiring 4Geeks graduates
+    title: Top Tech Companies Hiring 4Geeks Graduates
     description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
