@@ -1426,10 +1426,10 @@ export function DebugBubble() {
     
     if (contentParts.length === 0) return null;
     
-    // Check content type based on first path segment
+    // Check content type based on first path segment (must match content-types.yml URL patterns)
     if (contentParts[0] === 'landing') return 'landing';
-    if (contentParts[0] === 'bootcamp' || contentParts[0] === 'course') return 'program';
-    if (contentParts[0] === 'coding-campus') return 'location';
+    if (contentParts[0] === 'career-programs' || contentParts[0] === 'programas-de-carrera' || contentParts[0] === 'bootcamp' || contentParts[0] === 'course') return 'program';
+    if (contentParts[0] === 'location' || contentParts[0] === 'ubicacion' || contentParts[0] === 'coding-campus') return 'location';
     
     // If has locale prefix, it's a page
     if (hasLocale) return 'page';

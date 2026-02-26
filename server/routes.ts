@@ -5333,11 +5333,10 @@ Important: Only include mappings where you are confident the field exists. Use d
           const sourcePath = sourceUrlObj.pathname;
           const pathParts = sourcePath.split("/").filter(Boolean);
           const sourceLocale = pathParts[0] === "es" ? "es" : "en";
-          const sourceSlug = pathParts[pathParts.length - 1];
 
-          const sourceEntries = contentIndex.findBySlug(sourceSlug, { contentType: type });
-          const foundSourceFolder = sourceEntries.length > 0
-            ? path.join(process.cwd(), sourceEntries[0].folder)
+          const resolved = contentIndex.resolveUrl(sourcePath);
+          const foundSourceFolder = resolved
+            ? path.join(process.cwd(), resolved.entry.folder)
             : "";
 
           if (foundSourceFolder) {
@@ -5354,14 +5353,17 @@ Important: Only include mappings where you are confident the field exists. Use d
 
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
+              const resolvedSourceSlug = resolved?.slug || oldSlug;
               content = content.replace(
                 new RegExp(`slug:\\s*["']?${oldSlug}["']?`, "g"),
                 `slug: ${file === "es.yml" ? esSlug : enSlug}`,
               );
-              content = content.replace(
-                new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
-                `slug: ${file === "es.yml" ? esSlug : enSlug}`,
-              );
+              if (resolvedSourceSlug !== oldSlug) {
+                content = content.replace(
+                  new RegExp(`slug:\\s*["']?${resolvedSourceSlug}["']?`, "g"),
+                  `slug: ${file === "es.yml" ? esSlug : enSlug}`,
+                );
+              }
 
               // Replace title if it's a locale file
               if (file === "en.yml" || file === "es.yml") {
@@ -5768,70 +5770,54 @@ sections: []
       // If duplicating from source, copy content from source landing
       if (sourceUrl) {
         try {
-          // Parse source URL to get landing slug
           const sourceUrlObj = new URL(sourceUrl);
           const sourcePath = sourceUrlObj.pathname;
-          const pathParts = sourcePath.split("/").filter(Boolean);
 
-          // Landing URLs are like /landing/example-landing or /us/landing/example-landing
-          let sourceSlug = "";
-          const landingIndex = pathParts.indexOf("landing");
-          if (landingIndex !== -1 && pathParts.length > landingIndex + 1) {
-            sourceSlug = pathParts[landingIndex + 1];
-          }
+          const resolved = contentIndex.resolveUrl(sourcePath);
+          const sourceSlug = resolved?.slug || "";
+          const sourceFolderPath = resolved
+            ? path.join(process.cwd(), resolved.entry.folder)
+            : "";
 
-          if (sourceSlug) {
-            const sourceFolderPath = path.join(
-              process.cwd(),
-              "marketing-content",
-              "landings",
-              sourceSlug,
-            );
+          if (sourceSlug && sourceFolderPath && fs.existsSync(sourceFolderPath)) {
+            const sourceFiles = fs.readdirSync(sourceFolderPath);
+            for (const file of sourceFiles) {
+              let content = fs.readFileSync(
+                path.join(sourceFolderPath, file),
+                "utf8",
+              );
 
-            if (fs.existsSync(sourceFolderPath)) {
-              // Copy all files from source folder
-              const sourceFiles = fs.readdirSync(sourceFolderPath);
-              for (const file of sourceFiles) {
-                let content = fs.readFileSync(
-                  path.join(sourceFolderPath, file),
-                  "utf8",
-                );
+              content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
 
-                // Strip redirects — they must not be copied to duplicate pages
-                content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+              content = content.replace(
+                new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
+                `slug: "${slug}"`,
+              );
 
-                // Replace slug in content
+              if (file === "_common.yml") {
                 content = content.replace(
-                  new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
-                  `slug: "${slug}"`,
-                );
-
-                // Replace title if it's _common.yml
-                if (file === "_common.yml") {
-                  content = content.replace(
-                    /title:\s*["']?.*["']?$/m,
-                    `title: "${title}"`,
-                  );
-                }
-
-                fs.writeFileSync(path.join(folderPath, file), content);
-                markFileAsModified(
-                  `marketing-content/landings/${slug}/${file}`,
+                  /title:\s*["']?.*["']?$/m,
+                  `title: "${title}"`,
                 );
               }
 
-              clearSitemapCache();
-              contentIndex.refresh();
-
-              res.json({
-                success: true,
-                slug,
-                locale: landingLocale,
-                folder: `marketing-content/landings/${slug}`,
-                duplicatedFrom: sourceUrl,
-              });
-              return;
+              fs.writeFileSync(path.join(folderPath, file), content);
+              markFileAsModified(
+                `marketing-content/landings/${slug}/${file}`,
+              );
             }
+
+            clearSitemapCache();
+            contentIndex.refresh();
+
+            res.json({
+              success: true,
+              slug,
+              locale: landingLocale,
+              folder: `marketing-content/landings/${slug}`,
+              duplicatedFrom: sourceUrl,
+            });
+            return;
           }
         } catch (dupError) {
           console.error("Error duplicating landing:", dupError);

@@ -669,7 +669,7 @@ class ContentIndex {
     return null;
   }
 
-  isKnownUrl(url: string): boolean {
+  resolveUrl(url: string): { contentType: string; slug: string; entry: ContentEntry } | null {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
 
@@ -681,17 +681,21 @@ class ContentIndex {
         if (match) {
           const slug = match[1];
           const found = this.findBySlug(slug, { contentType });
-          if (found.length > 0) return true;
+          if (found.length > 0) return { contentType, slug, entry: found[0] };
           const resolvedSlug = this.resolveBaseSlug(slug, contentType);
           if (resolvedSlug !== slug) {
             const foundResolved = this.findBySlug(resolvedSlug, { contentType });
-            if (foundResolved.length > 0) return true;
+            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0] };
           }
-          return false;
+          return null;
         }
       }
     }
-    return false;
+    return null;
+  }
+
+  isKnownUrl(url: string): boolean {
+    return this.resolveUrl(url) !== null;
   }
 
   refresh(): void {
