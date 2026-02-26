@@ -332,16 +332,11 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - certification
       - scholarships
       - content-and-syllabus
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md lg
-    background: hsl(var(--muted))
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:
@@ -463,6 +458,11 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md lg
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
