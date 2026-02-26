@@ -70,6 +70,13 @@ export function SitemapView({
     toast({ title: "Copied", description: loc, duration: 2000 });
   };
 
+  const isBlogUrl = (loc: string): boolean => {
+    const parts = new URL(loc).pathname.split('/').filter(Boolean);
+    const hasLocale = parts[0] === 'en' || parts[0] === 'es' || parts[0] === 'us';
+    const contentParts = hasLocale ? parts.slice(1) : parts;
+    return contentParts[0] === 'blog';
+  };
+
   return (
     <>
       <div className="px-3 py-2 border-b">
@@ -206,18 +213,27 @@ export function SitemapView({
                                   <IconClipboard className="h-3.5 w-3.5 mr-2" />
                                   Copy URL
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconCopy className="h-3.5 w-3.5 mr-2" />
-                                  Duplicate
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconDownload className="h-3.5 w-3.5 mr-2" />
-                                  Download YAML
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconTrash className="h-3.5 w-3.5 mr-2" />
-                                  Delete
-                                </DropdownMenuItem>
+                                {isBlogUrl(url.loc) ? (
+                                  <DropdownMenuItem onClick={() => { window.location.href = '/private/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                    <IconExternalLink className="h-3.5 w-3.5 mr-2" />
+                                    Open Blog Manager
+                                  </DropdownMenuItem>
+                                ) : (
+                                  <>
+                                    <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <IconCopy className="h-3.5 w-3.5 mr-2" />
+                                      Duplicate
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <IconDownload className="h-3.5 w-3.5 mr-2" />
+                                      Download YAML
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <IconTrash className="h-3.5 w-3.5 mr-2" />
+                                      Delete
+                                    </DropdownMenuItem>
+                                  </>
+                                )}
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </div>
@@ -256,18 +272,27 @@ export function SitemapView({
                           <IconClipboard className="h-3.5 w-3.5 mr-2" />
                           Copy URL
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                          <IconCopy className="h-3.5 w-3.5 mr-2" />
-                          Duplicate
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                          <IconDownload className="h-3.5 w-3.5 mr-2" />
-                          Download YAML
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                          <IconTrash className="h-3.5 w-3.5 mr-2" />
-                          Delete
-                        </DropdownMenuItem>
+                        {isBlogUrl(url.loc) ? (
+                          <DropdownMenuItem onClick={() => { window.location.href = '/private/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                            <IconExternalLink className="h-3.5 w-3.5 mr-2" />
+                            Open Blog Manager
+                          </DropdownMenuItem>
+                        ) : (
+                          <>
+                            <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <IconCopy className="h-3.5 w-3.5 mr-2" />
+                              Duplicate
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <IconDownload className="h-3.5 w-3.5 mr-2" />
+                              Download YAML
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <IconTrash className="h-3.5 w-3.5 mr-2" />
+                              Delete
+                            </DropdownMenuItem>
+                          </>
+                        )}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
