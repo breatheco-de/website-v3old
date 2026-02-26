@@ -246,10 +246,22 @@ sections:
         - text: {{ global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
         - text: {{ global_salary_increase | 55 }}% average salary increase in tech roles
-    marginY:
-      desktop: none xl
     background: hsl(var(--secondary))
     section_id: split_cards-cuf0db
+    marginY:
+      desktop: none xl
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - tampa-usa
+      - orlando-usa
+      - toronto-canada
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Madrid is the place to launch your tech career
