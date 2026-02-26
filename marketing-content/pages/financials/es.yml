@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: En Tech, a tu manera
+    title: en Tech, a tu manera
     subtitle: Opciones de pago flexibles para facilitar el salto a tech.
     brand_mark:
       prefix: Financia tu
