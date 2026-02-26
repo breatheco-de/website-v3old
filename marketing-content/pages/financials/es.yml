@@ -171,13 +171,13 @@ sections:
     columns:
       - name: Modalidad
         highlight: true
-      - name: Pago total
+      - name: Pago Total
         highlight: true
-      - name: Cuotas flexibles (TFC)
+      - name: Cuotas Flexibles (TFC)
         highlight: true
       - name: Financiamiento (Ascent/ Climb)
         highlight: true
-      - name: Paga cuando ganes (ISA)
+      - name: Paga Cuando Ganes (ISA)
         highlight: true
     rows:
       - feature: Descuento en matrícula
