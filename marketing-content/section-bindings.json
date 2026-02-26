@@ -946,6 +946,75 @@
       ],
       "createdAt": "2026-02-26T20:11:40.617Z",
       "name": "sticky_cta_latam_en"
+    },
+    {
+      "id": "bind_mm3z590f_42cp0c",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "cta_banner-84re7m"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "cta_banner-mz3r3l"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "cta_banner-kunyoi"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "cta_banner-y47qgy"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "cta_banner-z8dhjh"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "cta_banner-pr6mfu"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "cta_banner-flzrib"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "cta_banner-x0qtnu"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "cta_banner-dykyov"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "cta_banner-85rbw5"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "cta_banner-u39ykd"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "cta_banner-mq984o"
+        }
+      ],
+      "createdAt": "2026-02-26T21:27:31.551Z",
+      "name": "cta_banner_latam_es"
     }
   ]
 }
