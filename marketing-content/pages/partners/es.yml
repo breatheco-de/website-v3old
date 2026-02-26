@@ -502,14 +502,14 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: Iniciar Conversación
       tags: contact_us
       automations: soft
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
