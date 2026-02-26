@@ -95,7 +95,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-cards
-    title: Graduate success by the numbers
+    title: Graduate Success by the Numbers
     subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
     use_card: true
     items:
