@@ -378,7 +378,7 @@ sections:
     form:
       variant: stacked
       submit_label: Obtener los detalles
-      tags: request-more-info
+      tags: request_more_info
       automations: hard
       fields:
         email:
