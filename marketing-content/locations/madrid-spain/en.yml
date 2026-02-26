@@ -54,7 +54,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Launch an AI-Ready Tech career in Madrid
+    title: Launch an AI-Ready Tech Career in Madrid
     subtitle: Train for in-demand tech roles in Europe's
     badge: Madrid Campus
     cta_buttons:
