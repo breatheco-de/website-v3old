@@ -287,3 +287,8 @@
 2026-02-26T15:49:36.130Z [RESTART] Server started (instance=8c04, checkpoint=1fcd625fb, env=development, pid=9981)
 2026-02-26T15:49:36.896Z [RECONCILE] Local 38793b0 ≠ remote b116c70, checking file hashes...
 2026-02-26T15:49:44.692Z [RECONCILE] 97/129 files match remote, 32 still differ
+2026-02-26T19:12:09.075Z [RESTART] Server started (instance=e6d5, checkpoint=660d1f394, env=development, pid=2173)
+2026-02-26T19:12:10.799Z [RECONCILE] Local ae5ba32 ≠ remote 05e77df, checking file hashes...
+2026-02-26T19:12:15.370Z [RECONCILE] 16/55 files match remote, 39 still differ
+2026-02-26T19:12:15.371Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'
+2026-02-26T19:12:15.606Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)

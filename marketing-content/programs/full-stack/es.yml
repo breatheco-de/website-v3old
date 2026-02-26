@@ -169,13 +169,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Recibir el Plan de Estudios
+    description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Obtener
       tags: request_more_info
       automations: soft
       fields:
@@ -193,7 +193,7 @@ sections:
           required: true
           default: full-stack
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -574,8 +574,8 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: Empresas que contratan a nuestros graduados
-    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -719,7 +719,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -731,16 +731,25 @@ sections:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: false
+          required: true
+          placeholder: Número telefónico
         program:
           visible: false
           default: full-stack
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true

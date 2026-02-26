@@ -94,7 +94,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-cards
-    title: Éxito de graduados en números
+    title: El éxito de nuestros graduados en números
     subtitle: Nuestros alumnos están consiguiendo empleos, aumentando salarios y lanzando carreras tech en todo el mundo.
     use_card: true
     items:
@@ -112,7 +112,7 @@ sections:
     marginY:
       desktop: md none
   - type: value_proof_panel
-    title: Reconocidos blobalmente por excelencia
+    title: Reconocidos globalmente por excelencia
     subtitle: No solo lo decimos — el reconocimiento de fuentes confiables demuestra nuestro valor.
     evidence_items:
       - icon: Trophy
@@ -174,7 +174,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Haciendo las carreras tech accesibles
+    heading: Volviendo accesibles las carreras en tech
     description: Las carreras tech pueden transformar vidas y las finanzas nunca deberían ser un obstáculo. Por eso ofrecemos algunas de las opciones de pago y becas más flexibles y amigables para estudiantes en la industria.
     cards:
       - icon: CurrencyDollar

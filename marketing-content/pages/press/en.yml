@@ -17,8 +17,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Our Story, making News
-    badge: Press & media
+    title: Our Story, Making News
+    badge: Press & Media
     trust_bar:
       rating: {{ global_review_rating | 4.8 }}/5
       rating_count: 2,500+
@@ -85,7 +85,7 @@ sections:
     paddingY:
       desktop: none md
   - type: value_proof_panel
-    title: Recognized globally for excellence
+    title: Recognized Globally For Excellence
     subtitle: We don't just say we deliver; recognition from trusted sources proves our worth.
     evidence_items:
       - icon: Trophy
@@ -150,7 +150,7 @@ sections:
     marginY:
       desktop: none lg
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - outcomes
       - scholarships

@@ -96,6 +96,8 @@ export interface TargetingStepProps {
 export interface GitHubSyncStatus {
   configured: boolean;
   syncEnabled: boolean;
+  autoCommitEnabled?: boolean;
+  autoPullEnabled?: boolean;
   localCommit: string | null;
   remoteCommit: string | null;
   status: 'in-sync' | 'behind' | 'ahead' | 'diverged' | 'unknown' | 'not-configured' | 'invalid-credentials';

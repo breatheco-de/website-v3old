@@ -1,0 +1,410 @@
+slug: online-in-spanish-usa
+template: default
+title: online-in-spanish-usa
+meta:
+  page_title: online-in-spanish-usa | 4Geeks Academy
+  description: online-in-spanish-usa - Learn more about this topic at 4Geeks Academy.
+  redirects:
+    - /online-in-spanish-usa
+sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    title: Learn to Code in Spanish
+    subtitle: "<h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\" style=\"user-select: text; box-sizing: inherit; -webkit-font-smoothing: antialiased; margin-top: 15px; margin-bottom: 25px; padding: 0px; border-style: initial; border-color: initial; border-image: initial; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 700; font-stretch: inherit; font-size: 21px; line-height: 22.85px; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; vertical-align: baseline; width: 539.984px; letter-spacing: 0.05em;\"><span style=\"font-size: 1rem;\">All programs are taught&nbsp;<span style=\"user-select: none; box-sizing: inherit; -webkit-font-smoothing: antialiased; margin: 0px; padding: 0px; border-style: initial; border-color: initial; border-image: initial; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; vertical-align: baseline;\">Online; from the USA.</span>Learning online is hard: Lucky for you, we offer: unlimited support, amazing content and lifetime career support.&nbsp;</span></h3><h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\" style=\"user-select: text; box-sizing: inherit; -webkit-font-smoothing: antialiased; margin-top: 15px; margin-bottom: 25px; padding: 0px; border-style: initial; border-color: initial; border-image: initial; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 700; font-stretch: inherit; font-size: 21px; line-height: 22.85px; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; vertical-align: baseline; width: 539.984px; letter-spacing: 0.05em;\"><span style=\"font-size: 1rem;\">Yes, it really is available for the rest of your life.</span></h3>"
+    badge: Career Program
+    cta_buttons:
+      - text: Start Learning Now
+        url: /signup
+        variant: primary
+        icon: Rocket
+      - text: View Curriculum
+        url: /curriculum
+        variant: outline
+        icon: Book
+    trust_bar:
+      rating: 4.8/5
+      rating_count: 2,500+
+      trusted_text: Trusted by 10,000+ students
+    award_badges:
+      - name: Best Coding Bootcamp
+        source: Forbes
+        year: "2024"
+      - name: Top Tech School
+        source: Course Report
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+  - type: banner
+    version: "1.0"
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    avatars:
+      - avatar-woman-1
+      - avatar-man-2
+      - avatar-woman-3
+      - avatar-man-4
+    title: Your Tech Career Starts Here—Anywhere
+    description: No matter where you live, 4Geeks Academy gives you access to live mentorship, real-world learning, and career coaching. Our flexible schedule and future-focused curriculum help you grow from anywhere. Join thousands of graduates who've built new futures in tech.
+    cta:
+      text: Learn More
+      url: "#"
+      variant: primary
+    background: gradient
+  - type: two_column
+    proportions:
+      - 5
+      - 7
+    background: bg-muted/30
+    alignment: center
+    left:
+      video: https://youtu.be/EcqasocRKHo
+    right:
+      heading: Your Journey with 4Geeks Academy Online
+      description: Develop Your Tech Skills from Anywhere
+      bullets:
+        - text: Interactive courses focusing on essential technical skills for today's digital world
+        - text: Access to experienced instructors and a collaborative learning community
+        - text: Flexibility to study from anywhere at your own pace
+        - text: Preparation for real-world challenges and job opportunities in technology
+      bullet_icon: Check
+      font_size: base
+    reverse_on_mobile: true
+    gap: "12"
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Explore Our Programs
+    subheading: Industry-aligned training designed to launch your career in tech
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
+        badges:
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        cta_text: View Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-pldel6
+  - type: two_column_accordion_card
+    version: "1.0"
+    variant: image_background
+    title: Master AI Engineering Skills
+    description: "Our comprehensive program prepares you for the future of technology:"
+    bullets:
+      - heading: Hands-on Projects
+        text: Build real-world AI applications from day one. Work with cutting-edge tools and frameworks used by industry leaders.
+      - heading: Expert-Led Curriculum
+        text: Learn from practitioners who work with AI daily. Our curriculum is continuously updated to reflect the latest advancements.
+      - heading: Career Acceleration
+        text: Get personalized career support including resume reviews, interview prep, and direct connections to hiring partners.
+    footer: Join thousands of graduates now working at top tech companies.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
+    image_alt: Student working on AI project
+  - type: testimonials_slide
+    version: "1.0"
+    title: Real Careers Start Here — Just Ask Our Students
+    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    testimonials:
+      - name: Loretta Thompson
+        img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: United Way Miami
+        description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
+        achievement: She got a 45% increase in her salary
+      - name: Rich Akers
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark University
+        description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
+        achievement: He got a 30% increase in his salary
+      - name: MaiLinh Tran
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark University
+        description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
+        achievement: She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!
+      - name: Jorge Martín Coimbra
+        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
+        achievement: He got a 100% increase in his salary
+      - name: Jean St. Cloud
+        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark
+        description: Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the support of Clark University and is already performing as a developer and a Mentor.
+        achievement: He got a 100% increase in his salary
+      - name: Alexandra Espinoza
+        img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        status: Graduated
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Alexandra came from a total different background is been a huge revelation for her and everyone around her. She is now a successful and talented software developer in Costa Rica.
+        achievement: She got a 100% increase in her salary
+      - name: Gabriel Salazar
+        img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
+        status: Graduated
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve a new position within Microsoft where he is now working as a Software Engineer.
+        achievement: He got a 50% increase in his salary
+      - name: Laura Magallanes
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator.
+        achievement: She got a 120% increase in her salary
+      - name: Melanie Galaretto
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country.
+        achievement: She got a +100% increase in her salary
+      - name: Natia Lombardo
+        img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm.
+      - name: Luis Larraburo
+        img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
+        status: Graduated
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica.
+        achievement: He got a 50% increase in his salary
+      - name: Leandro Matonte
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
+        achievement: He got a 60% increase in his salary
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    background: muted
+    primary:
+      badge: Results-Backed Promise
+      heading: The Confidence of a Job Guarantee
+      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+    secondary:
+      benefits:
+        - text: Our curriculum is industry-aligned and AI-ready
+        - text: Our mentorship is unlimited and personalized
+        - text: Our career support never expires
+  - type: why_learn_ai
+    version: "1.0"
+    variant: laptop-edge
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+  - type: testimonials
+    version: v1.0
+    title: What Our Students Say
+    subtitle: Real stories from graduates who transformed their careers
+    rating_summary:
+      average: "4.9"
+      count: 2,847
+    items:
+      - name: Maria Rodriguez
+        role: Software Engineer
+        company: Google
+        rating: 5
+        comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
+        outcome: Hired in 4 months
+      - name: James Chen
+        role: Full Stack Developer
+        company: Spotify
+        rating: 5
+        comment: The mentorship was incredible. Having unlimited access to senior developers made all the difference.
+        outcome: 3x salary increase
+      - name: Sarah Williams
+        role: Frontend Developer
+        company: Meta
+        rating: 5
+        comment: The AI-powered learning tools helped me understand complex concepts faster than any other course I've tried.
+        outcome: Career change at 35
+      - name: Carlos Mendez
+        role: Backend Engineer
+        company: Amazon
+        rating: 4
+        comment: Practical projects and real-world scenarios prepared me better than my computer science degree.
+        outcome: Remote work achieved
+      - name: Emily Thompson
+        role: DevOps Engineer
+        company: Netflix
+        rating: 5
+        comment: The career support team helped me negotiate a 50% higher salary than I expected.
+        outcome: 50% salary boost
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
+        outcome: Promoted in 1 year
+  - type: faq
+    version: v1.0
+    title: Frequently Asked Questions
+    items:
+      - question: Do I need prior coding experience?
+        answer: No prior experience is required. Our program is designed to take you from complete beginner to job-ready developer. We start with the fundamentals and progressively build your skills.
+      - question: How long does the program take to complete?
+        answer: The full-time program takes 16 weeks, while our part-time option spans 26 weeks. Both tracks cover the same comprehensive curriculum and lead to the same career outcomes.
+      - question: What kind of job support do you provide?
+        answer: We offer lifetime career support including resume reviews, interview preparation, job placement assistance, and access to our employer network. Our career coaches work with you one-on-one until you land your first tech role.
+      - question: Can I pay in installments?
+        answer: Yes! We offer flexible payment plans with monthly installments. We also have income share agreements (ISA) where you only pay after you get hired. Financial aid and scholarships are available for qualifying students.
+      - question: What technologies will I learn?
+        answer: You'll master modern web technologies including HTML, CSS, JavaScript, React, Python, Flask, SQL databases, Git, and deployment tools. Our curriculum is continuously updated to match industry demands.
+      - question: Is this program available online?
+        answer: Yes, we offer both online and in-person options. Our online program provides the same quality instruction with live sessions, mentorship, and collaborative projects - all accessible from anywhere in the world.
+  - type: cta_banner
+    version: "1.0"
+    variant: form
+    background: bg-primary
+    title: Start Your AI Career Today
+    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
+    form:
+      variant: stacked
+      submit_label: Get Started
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+      show_terms: true
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+      success:
+        message: Thank you! We'll be in touch soon.

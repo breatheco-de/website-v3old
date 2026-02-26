@@ -760,7 +760,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -772,17 +772,25 @@ sections:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: false
+          required: true
+          placeholder: Número telefónico
         program:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true

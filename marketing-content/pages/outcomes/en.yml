@@ -13,8 +13,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Real career outcomes, backed by data
-    subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity, the outcomes are backed by verified data.
+    title: Real Career Outcomes, Backed by Data
+    subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity; the outcomes are backed by verified data.
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573.png
       alt: Student outcomes growth chart
@@ -30,10 +30,10 @@ sections:
       desktop: lg none
   - type: vertical_bars_cards
     version: "1.0"
-    title: Hiring results, year after year
+    title: Hiring Results, Year after Year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
-      - title: Job placement rate
+      - title: Job Placement Rate
         unit: Graduates hired within 6 months
         description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
         years:
@@ -46,7 +46,7 @@ sections:
           - year: Mid 2025
             value: 82
             displayValue: 82%
-      - title: Average salary increase
+      - title: Average Salary Increase
         unit: Compared to pre-bootcamp salary
         description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
         years:
@@ -59,7 +59,7 @@ sections:
           - year: Mid 2025
             value: 15800
             displayValue: $15.8k
-      - title: Days to first job
+      - title: Days to First Job
         unit: Average time from graduation to offer
         description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
         years:
@@ -101,10 +101,10 @@ sections:
       - santiago-chile
   - type: vertical_bars_cards
     version: "1.0"
-    title: Hiring results, year after year
+    title: Hiring Results, Year after Year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
-      - title: Job placement rate
+      - title: Job Placement Rate
         unit: Graduates hired within 6 months
         description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
         years:
@@ -117,7 +117,7 @@ sections:
           - year: Mid 2025
             value: 75
             displayValue: 75%
-      - title: Average salary increase
+      - title: Average Salary Increase
         unit: Compared to pre-bootcamp salary
         description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
         years:
@@ -130,7 +130,7 @@ sections:
           - year: Mid 2025
             value: 33
             displayValue: 33%
-      - title: Days to first job
+      - title: Days to First Job
         unit: Average time from graduation to offer
         description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
         years:
@@ -161,7 +161,7 @@ sections:
       - valencia-spain
   - type: stats
     version: "1.0"
-    title: Hiring outcomes across regions
+    title: Hiring Outcomes Across Regions
     subtitle: Our graduates get hired and increase their salaries in multiple job markets.
     background: hsl(210 100% 50% / 0.05)
     items:
@@ -181,7 +181,7 @@ sections:
       desktop: lg
   - type: pie_charts
     version: "1.0"
-    title: Our student body at a glance
+    title: Our Student Body at a Glance
     subtitle: A snapshot of who our students are by age, gender, and region.
     background: hsl(var(--background))
     charts:
@@ -217,7 +217,7 @@ sections:
     paddingY:
       desktop: sm none
   - type: value_proof_panel
-    title: Globally recognized for real outcomes
+    title: Globally Recognized for Real Outcomes
     subtitle: Independent organizations recognize 4Geeks for graduate results, the quality of our programs and career support.
     evidence_items:
       - icon: Trophy
@@ -284,7 +284,7 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Why our graduates consistently get hired
+    title: Why our Graduates Consistently get Hired
     description: Strong outcomes come from how we teach, support, and place students into tech roles.
     bullets:
       - heading: GeekFORCE lifelong career support
@@ -303,7 +303,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Real career results
+    title: Real Career Results
     subtitle: Alumni share how they landed roles, advanced their careers, and increased their earning power.
     rating_summary:
       average: {{ global_review_rating | 4.9 }}
@@ -349,7 +349,7 @@ sections:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - outcomes
     marginY:
@@ -358,7 +358,7 @@ sections:
       desktop: lg none
   - type: cta_banner
     version: "1.0"
-    title: Take the next step toward your tech career
+    title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
@@ -377,7 +377,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true

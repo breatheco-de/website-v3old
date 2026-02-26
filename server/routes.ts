@@ -352,12 +352,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     .then(async () => {
       const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
       await reconcileSyncStateOnStartup();
-      const result = await autoPullNonConflicting();
-      if (result.pulled.length > 0) {
-        logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
-      }
-      if (result.conflicted.length > 0) {
-        logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
+      if (isAutoPullEnabled) {
+        const result = await autoPullNonConflicting();
+        if (result.pulled.length > 0) {
+          logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        }
+        if (result.conflicted.length > 0) {
+          logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
+        }
+        if (result.errors.length > 0) {
+          logSync('ERROR', `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join('; ')}`);
+          setTimeout(async () => {
+            try {
+              const retry = await autoPullNonConflicting();
+              if (retry.pulled.length > 0) {
+                logSync('AUTO-PULL', `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+              }
+              if (retry.errors.length > 0) {
+                logSync('ERROR', `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join('; ')}`);
+              }
+            } catch (e) {
+              logSync('ERROR', `Retry failed: ${e instanceof Error ? e.message : String(e)}`);
+            }
+          }, 10000);
+        }
+      } else {
+        logSync('AUTO-PULL', "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'");
       }
       await ensureWebhook();
     })
@@ -3261,6 +3282,13 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`);
 
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
+      if (!isAutoPullEnabled) {
+        logSync('AUTO-PULL', `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'`);
+        res.json({ ok: true, message: 'Auto-pull disabled' });
+        return;
+      }
+
       const { autoPullNonConflicting } = await import("./github");
       const result = await autoPullNonConflicting(marketingFiles, commitSha);
 
@@ -3353,6 +3381,25 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.delete("/api/github/webhook/duplicates", async (_req, res) => {
+    try {
+      const { getWebhookInfo } = await import("./sync-state");
+      const info = getWebhookInfo();
+      if (!info) {
+        return res.status(400).json({ success: false, message: "No active webhook registered — nothing to clean up." });
+      }
+      const { cleanupDuplicateWebhooks, getGitHubConfig } = await import("./github");
+      const config = getGitHubConfig();
+      if (!config) {
+        return res.status(400).json({ success: false, message: "GitHub not configured." });
+      }
+      const deleted = await cleanupDuplicateWebhooks(config, info.webhookId, info.webhookUrl);
+      res.json({ success: true, deleted: deleted.length, ids: deleted });
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: error.message || "Cleanup failed" });
+    }
+  });
+
   // Get all sync changes (local and incoming)
   app.get("/api/github/pending-changes", async (req, res) => {
     try {
@@ -3368,7 +3415,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   // Commit and push pending changes to GitHub
   app.post("/api/github/commit", async (req, res) => {
     try {
-      const { message, force, author } = req.body;
+      const { message, force, author, files } = req.body;
       if (
         !message ||
         typeof message !== "string" ||
@@ -3385,7 +3432,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       const { commitAndPush } = await import("./github");
-      const result = await commitAndPush(finalMessage, { force: !!force });
+      const result = await commitAndPush(finalMessage, { force: !!force, files: Array.isArray(files) ? files : undefined });
 
       if (result.success) {
         res.json({ success: true, commitHash: result.commitHash });
@@ -5350,6 +5397,9 @@ Important: Only include mappings where you are confident the field exists. Use d
                 "utf8",
               );
 
+              // Strip redirects — they must not be copied to duplicate pages
+              content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
               content = content.replace(
@@ -5794,6 +5844,9 @@ sections: []
                   path.join(sourceFolderPath, file),
                   "utf8",
                 );
+
+                // Strip redirects — they must not be copied to duplicate pages
+                content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
 
                 // Replace slug in content
                 content = content.replace(

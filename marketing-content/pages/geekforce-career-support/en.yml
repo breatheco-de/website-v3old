@@ -16,15 +16,15 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Career development
-    subtitle: for the AI era
+    title: Career Development
+    subtitle: for the AI Era
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
       highlight: FORCE
       suffix: ":"
       color: chart-5
-    description: Get unlimited 1:1 career support tailored to your goals, background, and experience for life. From resumes and interviews to navigating AI-driven hiring, we help you succeed in today’s tech job market.
+    description: Lifetime 1:1 career support designed to launch, position, and accelerate your career in today’s AI-powered tech job market.
     marquee:
       items:
         - id: logo-google-developers
@@ -71,13 +71,13 @@ sections:
       desktop: none sm
   - type: career_support_explain
     version: v1.0
-    heading: GeekForce career support
+    heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
     background: hsl(var(--secondary))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
-        col1_subtitle: Build a recruiter-ready profile, smarter.
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
           We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
@@ -91,7 +91,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Career strategy, built around you
+        col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -104,7 +104,7 @@ sections:
         col3_object_position: center
       - tab_label: Real Hiring Access
         layout: two_column_cards
-        title: Access the hidden job market.
+        title: Access the Hidden Job Market.
         left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
@@ -134,7 +134,7 @@ sections:
             alt: KPMG
       - tab_label: Proof That Converts
         layout: text_and_image
-        title: Projects that demonstrate real skill.
+        title: Projects that Demonstrate Real Skill.
         left_description: |-
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
@@ -150,7 +150,7 @@ sections:
         right_image_object_position: center
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
-        title: Turn your background into an advantage.
+        title: Turn your Background into an Advantage.
         left_description: |-
           Once offers are on the table, we help you choose and negotiate with confidence.
           Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
@@ -187,7 +187,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: graduates_stats
-    heading: Career placement
+    heading: Career Outcomes
     subheading: We turn your education into employment. See the real-world impact of our coaching.
     stats:
       - value: {{ global_job_placement_rate | 84 }}%
@@ -212,59 +212,33 @@ sections:
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
-    title: Get hired with our 3-step career development Process
+    title: Get Hired with our 3-Step Career Development Process
     description: Our structured process is designed to get you hired fast.
     steps:
       - icon: Optimization
-        title: Profile optimization
+        title: Profile Optimization
         bullets:
           - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
           - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
           - Showcase your skills with a recruiter-ready portfolio.
       - icon: Interview
-        title: Interview preparation
+        title: Interview Preparation
         bullets:
           - Gain confidence with mock technical and behavioral interviews.
           - Practice coding and problem-solving with auto-graded exercises.
           - Develop tailored strategies for upcoming interviews.
       - icon: JobSearch
-        title: Strategic job search
+        title: Strategic Job Search
         bullets:
           - Create a personalized job search plan aligned with your goals.
           - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
           - Connect with our extensive network of global hiring partners.
     background: bg-background
     paddingY:
-      desktop: md none
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Optional job guarantee* for extra confidence
-    subtitle: Back your career outcome with a stronger commitment
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
-    cta:
-      text: Get more info
-      url: /en/job-guarantee
-      variant: primary
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: none sm
-    background: hsl(var(--sidebar-background))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
+      desktop: none
   - type: whos_hiring
     variant: carousel
-    title: Top tech companies hiring 4Geeks graduates
+    title: Top Tech Companies Hiring 4Geeks Graduates
     description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
@@ -293,11 +267,39 @@ sections:
         alt: Google Developers
     paddingY:
       desktop: sm none
+    marginY:
+      desktop: none lg
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Optional Job Guarantee* for Extra Confidence
+    subtitle: Back your career outcome with a stronger commitment
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    cta:
+      text: Get more info
+      url: /en/job-guarantee
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
+    background: hsl(var(--sidebar-background))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
-    title: The stories behind the stats
+    title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - career-support
     item_overrides:
@@ -353,7 +355,7 @@ sections:
       desktop: none
   - type: cta_banner
     version: "1.0"
-    title: Take the next step toward your tech career
+    title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
@@ -372,7 +374,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -415,8 +417,8 @@ sections:
           visible: true
           required: false
         program:
-          visible: false
-          required: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.

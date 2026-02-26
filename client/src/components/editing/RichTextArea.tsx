@@ -12,6 +12,7 @@ import {
   IconExternalLink,
   IconTextSize,
   IconLineHeight,
+  IconEraser,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -455,6 +456,24 @@ export function RichTextArea({
     [applyCommand],
   );
 
+  const handleRemoveFormatting = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (!editableRef.current) return;
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(editableRef.current);
+      sel?.removeAllRanges();
+      sel?.addRange(range);
+      document.execCommand("removeFormat");
+      editableRef.current.querySelectorAll("[style]").forEach((el) => {
+        (el as HTMLElement).removeAttribute("style");
+      });
+      onChange(editableRef.current.innerHTML);
+    },
+    [onChange],
+  );
+
   const handleLinkPopoverOpen = useCallback((open: boolean) => {
     if (open) {
       const sel = window.getSelection();
@@ -624,6 +643,18 @@ export function RichTextArea({
         >
           <IconList className="h-4 w-4" />
         </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8"
+          onMouseDown={handleRemoveFormatting}
+          title="Remove formatting"
+          data-testid={testId ? `${testId}-remove-formatting` : undefined}
+        >
+          <IconEraser className="h-4 w-4" />
+        </Button>
+
         <Popover open={linkOpen} onOpenChange={handleLinkPopoverOpen}>
           <PopoverTrigger asChild>
             <Button

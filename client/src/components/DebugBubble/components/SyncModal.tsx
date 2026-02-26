@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   IconBrandGithub,
   IconAlertTriangle,
@@ -14,6 +14,8 @@ import {
   IconPencil,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -59,6 +61,10 @@ export interface SyncModalProps {
   handleIgnoreAllChanges: () => Promise<void>;
   isIgnoringAllChanges: boolean;
   fetchPendingChanges: () => void;
+  handlePushAllLocal: (commitMessage: string, files: string[]) => void;
+  isPushingAllLocal: boolean;
+  pushAllLocalError: string | null;
+  setPushAllLocalError: (v: string | null) => void;
   manualActionsOpen: boolean;
   setManualActionsOpen: (v: boolean) => void;
   advancedOptionsOpen: boolean;
@@ -90,6 +96,10 @@ export function SyncModal({
   handleIgnoreAllChanges,
   isIgnoringAllChanges,
   fetchPendingChanges,
+  handlePushAllLocal,
+  isPushingAllLocal,
+  pushAllLocalError,
+  setPushAllLocalError,
   manualActionsOpen,
   setManualActionsOpen,
   advancedOptionsOpen,
@@ -100,8 +110,17 @@ export function SyncModal({
   const [bulkPullPromptFile, setBulkPullPromptFile] = useState<string | null>(null);
   const [isBulkPulling, setIsBulkPulling] = useState(false);
   const [skipBulkPrompt, setSkipBulkPrompt] = useState(false);
+  const [pushAllConfirmOpen, setPushAllConfirmOpen] = useState(false);
+  const [pushAllCommitMessage, setPushAllCommitMessage] = useState('');
 
+  const localOnlyFiles = pendingChanges.filter(c => c.source === 'local');
   const nonConflictIncoming = pendingChanges.filter(c => c.source === 'incoming');
+
+  useEffect(() => {
+    if (pushAllConfirmOpen) {
+      setPushAllCommitMessage(`[Manual sync] ${localOnlyFiles.length} local file(s)`);
+    }
+  }, [pushAllConfirmOpen, localOnlyFiles.length]);
 
   const handleDownloadClick = useCallback((file: string, source: string) => {
     if (source === 'conflict') {
@@ -266,6 +285,15 @@ export function SyncModal({
             </div>
           </div>
 
+          <div className="flex items-center gap-1.5 text-xs">
+            <div className={`h-1.5 w-1.5 rounded-full ${
+              githubSyncStatus?.autoPullEnabled ? 'bg-green-500' : 'bg-muted-foreground/30'
+            }`} />
+            <span className="font-medium">
+              {githubSyncStatus?.autoPullEnabled ? 'Auto-pull' : 'Auto-pull off'}
+            </span>
+          </div>
+
           {autoCommitStatus && (autoCommitStatus.pendingFilesDetails.length > 0 || autoCommitStatus.conflictedFiles.length > 0) && (
             <div className="space-y-2">
               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
@@ -357,25 +385,47 @@ export function SyncModal({
           )}
 
           <div className="border-t pt-3">
-            <button
-              type="button"
-              onClick={() => {
-                setManualActionsOpen(!manualActionsOpen);
-                if (!manualActionsOpen) fetchPendingChanges();
-              }}
-              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="button-toggle-manual-actions"
-            >
-              {manualActionsOpen ? (
-                <IconChevronDown className="h-3.5 w-3.5" />
-              ) : (
-                <IconChevronRight className="h-3.5 w-3.5" />
+            <div className="flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setManualActionsOpen(!manualActionsOpen);
+                  if (!manualActionsOpen) fetchPendingChanges();
+                }}
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="button-toggle-manual-actions"
+              >
+                {manualActionsOpen ? (
+                  <IconChevronDown className="h-3.5 w-3.5" />
+                ) : (
+                  <IconChevronRight className="h-3.5 w-3.5" />
+                )}
+                Commit Queue
+                {pendingChanges.length > 0 && (
+                  <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-1">{pendingChanges.length}</Badge>
+                )}
+              </button>
+              {localOnlyFiles.length > 0 && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-6 text-xs px-2"
+                  disabled={isPushingAllLocal}
+                  onClick={(e) => { e.stopPropagation(); setPushAllLocalError(null); setPushAllConfirmOpen(true); }}
+                  data-testid="button-push-all-local"
+                >
+                  {isPushingAllLocal ? (
+                    <><IconRefresh className="h-3 w-3 animate-spin mr-1" />Pushing...</>
+                  ) : (
+                    <><IconArrowUp className="h-3 w-3 mr-1" />Push all</>
+                  )}
+                </Button>
               )}
-              Commit Queue
-              {pendingChanges.length > 0 && (
-                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-1">{pendingChanges.length}</Badge>
-              )}
-            </button>
+            </div>
+
+            {pushAllLocalError && (
+              <p className="text-xs text-destructive mt-2">{pushAllLocalError}</p>
+            )}
             
             {manualActionsOpen && (
               <div className="mt-3 space-y-3">
@@ -704,6 +754,71 @@ export function SyncModal({
               <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Downloading...</>
             ) : (
               <><IconArrowDown className="h-4 w-4 mr-2" />Download all ({nonConflictIncoming.length})</>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+    <Dialog open={pushAllConfirmOpen} onOpenChange={(open) => { if (!open) setPushAllConfirmOpen(false); }}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <IconArrowUp className="h-5 w-5" />
+            Push local files to GitHub
+          </DialogTitle>
+          <DialogDescription>
+            The following {localOnlyFiles.length} local file{localOnlyFiles.length !== 1 ? "s" : ""} will be committed and pushed to the remote repository. Files with conflicts are excluded and must be resolved individually.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4 py-1">
+          <ScrollArea className="max-h-40 rounded-md border">
+            <div className="p-2 space-y-1">
+              {localOnlyFiles.map((change) => (
+                <div
+                  key={change.file}
+                  className="font-mono text-xs text-muted-foreground truncate px-1 py-0.5"
+                  title={change.file}
+                  data-testid={`text-push-confirm-file-${change.file}`}
+                >
+                  {change.file.replace('marketing-content/', '')}
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+          <div className="space-y-1.5">
+            <Label htmlFor="push-all-commit-message" className="text-sm">Commit message</Label>
+            <Input
+              id="push-all-commit-message"
+              value={pushAllCommitMessage}
+              onChange={(e) => setPushAllCommitMessage(e.target.value)}
+              placeholder="Describe what changed..."
+              data-testid="input-push-all-commit-message"
+            />
+          </div>
+        </div>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button
+            variant="outline"
+            onClick={() => setPushAllConfirmOpen(false)}
+            disabled={isPushingAllLocal}
+            data-testid="button-push-all-cancel"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              if (!pushAllCommitMessage.trim()) return;
+              setPushAllConfirmOpen(false);
+              handlePushAllLocal(pushAllCommitMessage.trim(), localOnlyFiles.map(c => c.file));
+            }}
+            disabled={isPushingAllLocal || !pushAllCommitMessage.trim()}
+            data-testid="button-push-all-confirm"
+          >
+            {isPushingAllLocal ? (
+              <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Pushing...</>
+            ) : (
+              <><IconArrowUp className="h-4 w-4 mr-2" />Push {localOnlyFiles.length} file{localOnlyFiles.length !== 1 ? "s" : ""}</>
             )}
           </Button>
         </DialogFooter>

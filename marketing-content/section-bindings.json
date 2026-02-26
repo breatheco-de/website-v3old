@@ -59,10 +59,16 @@
           "contentType": "location",
           "slug": "toronto-canada",
           "sectionId": "course_selector-oqzfih"
+        },
+        {
+          "contentType": "page",
+          "slug": "online-in-spanish-usa",
+          "sectionId": "course_selector-pldel6"
         }
       ],
       "createdAt": "2026-02-25T22:30:52.078Z",
-      "name": "course_selector_usa_en"
+      "name": "course_selector_usa_en",
+      "updatedAt": "2026-02-26T17:27:32.062Z"
     },
     {
       "id": "bind_mm2m03pw_qyt2zl",

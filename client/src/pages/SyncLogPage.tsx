@@ -151,6 +151,7 @@ export default function SyncLogPage() {
 
   const [webhookRetryOpen, setWebhookRetryOpen] = useState(false);
   const [webhookRetryResult, setWebhookRetryResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [cleanupResult, setCleanupResult] = useState<{ deleted: number; ids: number[] } | null>(null);
 
   const webhookSetupMutation = useMutation({
     mutationFn: () => apiRequest("POST", "/api/github/webhook/setup").then(r => r.json()),
@@ -160,6 +161,16 @@ export default function SyncLogPage() {
     },
     onError: (err: any) => {
       setWebhookRetryResult({ success: false, message: err.message || "Request failed" });
+    },
+  });
+
+  const cleanupMutation = useMutation({
+    mutationFn: () => apiRequest("DELETE", "/api/github/webhook/duplicates").then(r => r.json()),
+    onSuccess: (data) => {
+      setCleanupResult({ deleted: data.deleted, ids: data.ids });
+    },
+    onError: (err: any) => {
+      setCleanupResult({ deleted: -1, ids: [] });
     },
   });
 
@@ -279,10 +290,14 @@ export default function SyncLogPage() {
                 <span className="flex items-center gap-1.5">
                   <IconWebhook className="h-3.5 w-3.5" />
                   {syncInfo.webhook.active ? (
-                    <span className="flex items-center gap-1 text-green-600 dark:text-green-400" data-testid="text-webhook-status">
+                    <button
+                      className="flex items-center gap-1 text-green-600 dark:text-green-400 hover:underline"
+                      onClick={() => { setWebhookRetryResult(null); setWebhookRetryOpen(true); }}
+                      data-testid="button-webhook-active"
+                    >
                       <IconCheck className="h-3 w-3" />
                       Active
-                    </span>
+                    </button>
                   ) : (
                     <button
                       className="flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:underline"
@@ -430,16 +445,63 @@ export default function SyncLogPage() {
       </div>
     </div>
 
-    <Dialog open={webhookRetryOpen} onOpenChange={(open) => { if (!open) { setWebhookRetryOpen(false); setWebhookRetryResult(null); } }}>
+    <Dialog open={webhookRetryOpen} onOpenChange={(open) => { if (!open) { setWebhookRetryOpen(false); setWebhookRetryResult(null); setCleanupResult(null); } }}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Webhook Inactive</DialogTitle>
-          <DialogDescription>
-            The GitHub webhook is not currently registered. Without it, changes pushed to GitHub won't be automatically pulled into this app. Click retry to attempt registration now.
+          <DialogTitle>{syncInfo?.webhook.active ? "Webhook Active" : "Webhook Inactive"}</DialogTitle>
+          <DialogDescription asChild>
+            <div>
+              {syncInfo?.webhook.active
+                ? "The GitHub webhook is registered and receiving events. Changes pushed to GitHub are automatically synced to this app."
+                : <>
+                    The GitHub webhook is not currently registered. Without it, changes pushed to GitHub won't be automatically pulled into this app.{" "}
+                    {syncInfo?.repoUrl && (
+                      <a
+                        href={`${syncInfo.repoUrl}/settings/hooks`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-foreground hover:text-foreground/80"
+                        data-testid="link-github-webhooks"
+                      >
+                        View webhooks on GitHub
+                      </a>
+                    )}{" "}
+                    Click retry to attempt registration now.
+                  </>
+              }
+            </div>
           </DialogDescription>
         </DialogHeader>
 
-        {webhookRetryResult ? (
+        {syncInfo?.webhook.active && (
+          <div className="space-y-2 text-sm">
+            <div className="flex items-center gap-2 p-3 rounded-md bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900">
+              <IconCheck className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+              <span className="text-green-700 dark:text-green-300 font-medium">Webhook #{syncInfo.webhook.id} is active</span>
+            </div>
+            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-muted-foreground px-1">
+              <span className="font-medium text-foreground">URL</span>
+              <code className="text-xs bg-muted px-1.5 py-0.5 rounded break-all">{syncInfo.webhook.url}</code>
+              {syncInfo.webhook.createdAt && (
+                <>
+                  <span className="font-medium text-foreground">Registered</span>
+                  <span className="text-xs">{new Date(syncInfo.webhook.createdAt).toLocaleString()}</span>
+                </>
+              )}
+            </div>
+            {cleanupResult !== null && (
+              <div className="flex items-center gap-2 p-2.5 rounded-md bg-muted border text-xs text-muted-foreground">
+                <IconCheck className="h-3.5 w-3.5 flex-shrink-0 text-green-600 dark:text-green-400" />
+                {cleanupResult.deleted === 0
+                  ? "No duplicate webhooks found — already clean."
+                  : `Deleted ${cleanupResult.deleted} duplicate webhook${cleanupResult.deleted !== 1 ? "s" : ""} (#${cleanupResult.ids.join(", #")}).`
+                }
+              </div>
+            )}
+          </div>
+        )}
+
+        {!syncInfo?.webhook.active && webhookRetryResult ? (
           <div className={`flex items-start gap-2 p-3 rounded-md border text-sm ${webhookRetryResult.success ? "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900" : "bg-destructive/10 border-destructive/20"}`}>
             {webhookRetryResult.success
               ? <IconCheck className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
@@ -457,9 +519,23 @@ export default function SyncLogPage() {
             onClick={() => { setWebhookRetryOpen(false); setWebhookRetryResult(null); }}
             data-testid="button-close-webhook-retry"
           >
-            {webhookRetryResult ? "Close" : "Cancel"}
+            {syncInfo?.webhook.active || webhookRetryResult ? "Close" : "Cancel"}
           </Button>
-          {!webhookRetryResult?.success && (
+          {syncInfo?.webhook.active && cleanupResult === null && (
+            <Button
+              variant="outline"
+              onClick={() => cleanupMutation.mutate()}
+              disabled={cleanupMutation.isPending}
+              data-testid="button-cleanup-webhooks"
+              className="text-destructive border-destructive/40 hover:border-destructive"
+            >
+              {cleanupMutation.isPending
+                ? <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Deleting...</>
+                : <><IconTrash className="h-4 w-4 mr-2" />Delete inactive webhooks</>
+              }
+            </Button>
+          )}
+          {!syncInfo?.webhook.active && !webhookRetryResult?.success && (
             <Button
               onClick={() => webhookSetupMutation.mutate()}
               disabled={webhookSetupMutation.isPending}

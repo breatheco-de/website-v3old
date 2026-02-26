@@ -11,6 +11,8 @@ meta:
     - /bootcamp/ai-engineering
     - /programs/ai-engineer
     - /coding-bootcamp/ai-engineering
+    - /en/coding-bootcamps/software-engineer-bootcamp
+    - /en/online-coding-bootcamp/best-online-coding-bootcamp
 schema:
   include:
     - organization
@@ -60,7 +62,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 24-Week or 12-Week Accelerated Morning Program
+          text: 24-Week or 15-Week Accelerated Morning Program
         - icon: IconBriefcase
           text: Employment-First Curriculum
         - icon: IconRobot
@@ -171,13 +173,13 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Download the curriculum
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Download
+      submit_label: Get the Full Overview
       tags: request_more_info
       automations: soft
       fields:
@@ -189,13 +191,13 @@ sections:
           required: true
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: true
-          default: ai_engineering
+          default: ai-engineering
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -743,7 +745,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: false
@@ -758,12 +760,12 @@ sections:
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
@@ -787,7 +789,7 @@ sections:
           required: false
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: false

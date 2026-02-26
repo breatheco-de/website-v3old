@@ -458,6 +458,7 @@ export function initializeSyncStateFromRemote(
   const existingState = loadSyncState() as SyncStateWithConfig;
   const state: SyncStateWithConfig = {
     config: existingState.config || DEFAULT_CONFIG,
+    ...(existingState.webhook ? { webhook: existingState.webhook } : {}),
     lastSyncedCommit: commitSha,
     lastSyncedAt: new Date().toISOString(),
     files: {},
@@ -490,6 +491,7 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
   const existingState = loadSyncState() as SyncStateWithConfig;
   const state: SyncStateWithConfig = {
     config: existingState.config || DEFAULT_CONFIG,
+    ...(existingState.webhook ? { webhook: existingState.webhook } : {}),
     lastSyncedCommit: commitSha,
     lastSyncedAt: new Date().toISOString(),
     files: {},

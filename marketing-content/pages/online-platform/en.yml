@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Inside the 4Geeks platform
+    title: Inside the 4Geeks Platform
     subtitle: Discover the 4Geeks Academy platform that combines AI-powered learning with human mentorship. Learn to code with LearnPack, Rigobot AI mentor, and unlimited human support.
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
@@ -27,13 +27,13 @@ sections:
       desktop: md none
   - type: article
     content: |
-      ## Welcome to your coding career launchpad
+      ## Welcome to your Coding Career Launchpad
 
       Feeling overwhelmed by the fast-paced world of tech? Wondering how to start a career in coding when AI seems to be doing it all? You’re not alone. At 4Geeks Academy, we believe the future belongs to those who know how to code *with* AI allow, not against it. Our platform isn’t just a learning tool, it’s your personalized gateway into the tech world, built for [real results, real support, and real jobs.](https://new.4geeks.com/en/job-guarantee)
 
       Let’s take a closer look at why the 4Geeks platform feels like no other bootcamp experience out there.
 
-      ## A dashboard that feels like a mission control
+      ## A Dashboard that Feels Like a Mission Control
 
       When you log into the platform, it doesn’t drop you into a sea of tabs and checklists. It says: **"Welcome, [Your Name]"** and shows your progress right away. Your dashboard is a living, breathing command center that highlights:
 
@@ -47,7 +47,7 @@ sections:
 
       ---
 
-      ## Learn by doing: modular, interactive, and human-centered
+      ## Learn by Doing: Modular, Interactive, and Human-Centered
 
       We know that watching hours of video won’t make you job-ready. That’s why our platform breaks learning into **unlockable modules**:
 
@@ -58,7 +58,7 @@ sections:
 
       Your progress is tracked in real-time, so you always know how far you’ve come and what’s ahead.
 
-      ## Code like a pro with LearnPack and Rigobot
+      ## Code like a Pro with LearnPack and Rigobot
 
       This is where 4Geeks stands out. The entire platform is [powered by **LearnPack**](https://new.4geeks.com/en/learnpack), our open-source framework that integrates seamlessly with **Visual Studio Code**. You get the same tools that professional developers use:
 
@@ -68,7 +68,7 @@ sections:
 
       And right by your side is [**Rigobot**](https://new.4geeks.com/en/rigobot-ai-coding-mentor), your AI-powered coding mentor. It scans your code, finds bugs, explains errors, and guides you through fixes in real time, inside your coding window. Whether you're debugging a Python loop or styling a responsive layout, Rigobot gives you the *why* behind every solution.
 
-      ## Human mentorship that never goes away
+      ## Human Mentorship that Never Goes Away
 
       Even the best AI can’t replace real human feedback. That’s why we built unlimited mentorship into your experience:
 
@@ -78,7 +78,7 @@ sections:
 
       Whether it’s code review, portfolio advice, or just talking through your imposter syndrome, there’s always someone in your corner.
 
-      ## A platform built for everyone, everywhere
+      ## A Platform Built for Everyone, Everywhere
 
       We’re serious about accessibility:
 
@@ -90,7 +90,7 @@ sections:
 
       Start coding from a Chromebook in Chile or a MacBook in Madrid. The experience is the same: seamless, professional, and inclusive.
 
-      ## The results? They speak for themselves
+      ## The Results? They Speak for Themselves
 
       | **Metric** | **Value** |
       | --- | --- |
@@ -102,7 +102,7 @@ sections:
       | Platform used in universities | Yes (via Gitpod + LearnPack) |
 
 
-      ## Why 4Geeks feels different
+      ## Why 4Geeks Feels Different
 
       This isn’t a bootcamp that leaves you watching videos alone. It’s a **complete learning system** built on:
 
@@ -113,7 +113,7 @@ sections:
 
       We built it this way because we believe **tech education should feel human**, not like a machine. Even as we train you to work with AI, we’re here to keep you connected, motivated, and supported.
 
-      ## 🚀 Ready to start?
+      ## 🚀 Ready to Start?
 
       You don’t need to know everything to begin. All you need is a browser, a little courage, and a platform that has your back.
 
@@ -123,14 +123,14 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - online-platform
     paddingY:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to get started?
+    title: Ready to Get Started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
@@ -150,7 +150,7 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
@@ -194,8 +194,8 @@ sections:
           visible: true
           required: false
         program:
-          visible: false
-          required: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.

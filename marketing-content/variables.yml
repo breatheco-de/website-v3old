@@ -298,11 +298,11 @@ average_salary_machine_learning_engineer:
         region: "latam"
       value: "$45K – $80K"
 average_salary_ai_fluent_software_developer:
-  default: "$100K–$150K"
+  default: "$90 K–$140 K"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$100K–$150K"
+      value: "$90 K–$140 K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
@@ -337,11 +337,11 @@ average_salary_data_analyst:
         region: "latam"
       value: "$20K – $40K"
 average_salary_ai_engineer:
-  default: "$100K–$160K"
+  default: "$95K–$150K"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$100K–$160K"
+      value: "$95K–$150K"
     - query:
         region: "latam"
       value: "$40K – $75K"
@@ -462,11 +462,11 @@ global_campuses:
         region: "usa-canada"
       value: "10"
 average_salary_agent_engineer:
-  default: "$25K–$40K"
+  default: "$75 K–$115 K"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$25K–$40K"
+      value: "$75 K–$115 K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
@@ -475,7 +475,7 @@ average_salary_workflow_automation_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$25K–$40K"
+      value: "$70 K–$110 K"
     - query:
         region: "europe"
       value: "20.000€- 30.000€"

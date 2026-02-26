@@ -5,6 +5,8 @@ let redirectMap: Map<string, RedirectEntry> | null = null;
 let regexRedirectsBefore: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
 let fallbackMap: Map<string, RedirectEntry> | null = null;
 let regexRedirectsFallback: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
+let fallbackNonCustomMap: Map<string, RedirectEntry> | null = null;
+let regexRedirectsFallbackNonCustom: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
 
 export function isRegexPattern(path: string): boolean {
   return /\(.*\)|\[.*\]|\.\*|\.\+|\\d|\\w|\\s|\{\d+[,}]/.test(path);
@@ -16,9 +18,12 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
   const regexBefore: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
   const fbMap = new Map<string, RedirectEntry>();
   const regexFb: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
+  const fbNonCustomMap = new Map<string, RedirectEntry>();
+  const regexFbNonCustom: Array<{ regex: RegExp; entry: RedirectEntry }> = [];
 
   for (const entry of entries) {
     const isFallback = entry.priority === "fallback";
+    const isCustom = entry.type === "custom";
 
     if (isRegexPattern(entry.from)) {
       if (entry.from.length > 500) {
@@ -28,7 +33,11 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
       try {
         const regex = new RegExp(`^${entry.from}$`, "i");
         if (isFallback) {
-          regexFb.push({ regex, entry });
+          if (isCustom) {
+            regexFb.push({ regex, entry });
+          } else {
+            regexFbNonCustom.push({ regex, entry });
+          }
         } else {
           regexBefore.push({ regex, entry });
         }
@@ -37,8 +46,14 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
       }
     } else {
       if (isFallback) {
-        if (!fbMap.has(entry.from)) {
-          fbMap.set(entry.from, entry);
+        if (isCustom) {
+          if (!fbMap.has(entry.from)) {
+            fbMap.set(entry.from, entry);
+          }
+        } else {
+          if (!fbNonCustomMap.has(entry.from)) {
+            fbNonCustomMap.set(entry.from, entry);
+          }
         }
       } else {
         if (!map.has(entry.from)) {
@@ -51,9 +66,11 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
   regexRedirectsBefore = regexBefore;
   fallbackMap = fbMap;
   regexRedirectsFallback = regexFb;
+  fallbackNonCustomMap = fbNonCustomMap;
+  regexRedirectsFallbackNonCustom = regexFbNonCustom;
   const totalBefore = map.size + regexBefore.length;
-  const totalFallback = fbMap.size + regexFb.length;
-  console.log(`[Redirects] Loaded ${map.size} exact redirects, ${regexBefore.length} regex redirects (before), ${totalFallback} fallback redirects`);
+  const totalFallback = fbMap.size + regexFb.length + fbNonCustomMap.size + regexFbNonCustom.length;
+  console.log(`[Redirects] Loaded ${map.size} exact redirects, ${regexBefore.length} regex redirects (before), ${totalFallback} fallback redirects (${fbNonCustomMap.size + regexFbNonCustom.length} non-custom)`);
   return map;
 }
 
@@ -143,6 +160,39 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
     return;
   }
 
+  getRedirectMap();
+  const normalizedPath = normalizePath(req.path);
+
+  // Non-custom (content-defined) fallback redirects fire before the page check —
+  // they take priority over any active page at the same URL.
+  if (fallbackNonCustomMap) {
+    const entry = fallbackNonCustomMap.get(normalizedPath);
+    if (entry) {
+      const status = entry.status || 301;
+      const target = resolveRedirectTarget(entry, req);
+      const qs = getQueryString(req);
+      console.log(`[Redirects] ${status} (fallback non-custom): ${req.path} -> ${target}${qs}`);
+      res.redirect(status, target + qs);
+      return;
+    }
+  }
+
+  if (regexRedirectsFallbackNonCustom) {
+    for (const { regex, entry: regexEntry } of regexRedirectsFallbackNonCustom) {
+      const match = req.path.match(regex);
+      if (match) {
+        const captureGroups = match.slice(1);
+        const status = regexEntry.status || 301;
+        const target = resolveRedirectTarget(regexEntry, req, captureGroups);
+        const qs = getQueryString(req);
+        console.log(`[Redirects] ${status} (fallback non-custom regex): ${req.path} -> ${target}${qs}`);
+        res.redirect(status, target + qs);
+        return;
+      }
+    }
+  }
+
+  // Custom fallback redirects only fire when no real page exists at this URL.
   const cleanUrl = req.path.split("?")[0].split("#")[0];
   try {
     if (contentIndex.isKnownUrl(cleanUrl)) {
@@ -150,9 +200,6 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
       return;
     }
   } catch {}
-
-  getRedirectMap();
-  const normalizedPath = normalizePath(req.path);
 
   if (fallbackMap) {
     const entry = fallbackMap.get(normalizedPath);

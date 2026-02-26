@@ -504,7 +504,7 @@ async function getBranchHeadSha(config: GitHubConfig): Promise<string | null> {
  */
 export async function commitAndPush(
   message: string,
-  options?: { force?: boolean }
+  options?: { force?: boolean; files?: string[] }
 ): Promise<{ success: boolean; error?: string; commitHash?: string }> {
   const syncEnabled = process.env.GITHUB_SYNC_ENABLED === "true";
   
@@ -518,7 +518,11 @@ export async function commitAndPush(
   }
   
   try {
-    const pendingChanges = await getPendingChanges();
+    const allPendingChanges = await getPendingChanges();
+    const pendingChanges = options?.files?.length
+      ? allPendingChanges.filter(c => options.files!.includes(c.file))
+      : allPendingChanges;
+
     if (pendingChanges.length === 0) {
       return { success: false, error: "No pending changes to commit" };
     }
@@ -594,12 +598,16 @@ export async function commitAndPush(
  */
 export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
   const syncEnabled = process.env.GITHUB_SYNC_ENABLED === "true";
+  const autoCommitEnabled = syncEnabled && process.env.GITHUB_AUTO_COMMIT_ENABLED === 'true';
+  const autoPullEnabled = syncEnabled && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
   const config = getGitHubConfig();
   
   if (!config) {
     return {
       configured: false,
       syncEnabled,
+      autoCommitEnabled,
+      autoPullEnabled,
       localCommit: null,
       remoteCommit: null,
       status: 'not-configured',
@@ -615,6 +623,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       return {
         configured: true,
         syncEnabled,
+        autoCommitEnabled,
+        autoPullEnabled,
         localCommit,
         remoteCommit: null,
         status: 'unknown',
@@ -627,6 +637,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       return {
         configured: true,
         syncEnabled,
+        autoCommitEnabled,
+        autoPullEnabled,
         localCommit: null,
         remoteCommit,
         status: 'behind',
@@ -642,6 +654,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       return {
         configured: true,
         syncEnabled,
+        autoCommitEnabled,
+        autoPullEnabled,
         localCommit,
         remoteCommit,
         status: hasPendingChanges ? 'ahead' : 'in-sync',
@@ -654,6 +668,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
     return {
       configured: true,
       syncEnabled,
+      autoCommitEnabled,
+      autoPullEnabled,
       localCommit,
       remoteCommit,
       status: 'behind',
@@ -665,6 +681,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
     return {
       configured: true,
       syncEnabled,
+      autoCommitEnabled,
+      autoPullEnabled,
       localCommit: null,
       remoteCommit: null,
       status: 'unknown',
@@ -1281,6 +1299,28 @@ async function createWebhook(config: GitHubConfig, url: string, secret: string):
   } catch (error) {
     console.error('[Webhook] Error creating webhook:', error);
     return null;
+  }
+}
+
+export async function cleanupDuplicateWebhooks(config: GitHubConfig, activeWebhookId: number, webhookUrl: string): Promise<number[]> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks?per_page=100`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+    if (!response.ok) return [];
+    const hooks: Array<{ id: number; config: { url: string } }> = await response.json();
+    const duplicates = hooks.filter(h => h.config.url === webhookUrl && h.id !== activeWebhookId);
+    await Promise.all(duplicates.map(h => deleteWebhook(config, h.id)));
+    return duplicates.map(h => h.id);
+  } catch {
+    return [];
   }
 }
 
