@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: 4Geeks Academy vs other programs
+    title: 4Geeks Academy vs Other Programs
     subtitle: See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship and lifetime career support, everything we do is designed to help you launch a thriving career.
     badge: Why 4Geeks stands out
     image:
