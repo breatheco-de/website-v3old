@@ -509,3 +509,5 @@ total_scholarships:
       value: "17M€"
 number_of_hiring_partners_aprox:
   default: "400"
+who_is_eligible_work_authorization:
+  default: "Have U.S. work authorization"
