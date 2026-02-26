@@ -511,3 +511,8 @@ number_of_hiring_partners_aprox:
   default: "400"
 who_is_eligible_work_authorization:
   default: "Have U.S. work authorization"
+  conditions:
+    - query:
+        region: "usa-canada"
+        locale: "en"
+      value: "Have U.S. work authorization"
