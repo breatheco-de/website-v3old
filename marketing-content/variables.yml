@@ -523,3 +523,6 @@ who_is_eligible_work_authorization:
     - query:
         locale: "en"
       value: "Have authorization to work in your country of residence"
+    - query:
+        locale: "es"
+      value: "Tener permiso de trabajo en tu país de residencia\""
