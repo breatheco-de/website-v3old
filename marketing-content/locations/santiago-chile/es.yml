@@ -289,7 +289,7 @@ sections:
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
       average: "4.9"
-      count: 2,847
+      count: {{ global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
