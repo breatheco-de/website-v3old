@@ -30,7 +30,7 @@ sections:
       desktop: lg none
   - type: vertical_bars_cards
     version: "1.0"
-    title: Hiring results, year after year
+    title: Hiring Results, Year after Year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
       - title: Job placement rate
