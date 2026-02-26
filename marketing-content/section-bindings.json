@@ -946,6 +946,410 @@
       ],
       "createdAt": "2026-02-26T20:11:40.617Z",
       "name": "sticky_cta_latam_en"
+    },
+    {
+      "id": "bind_mm3z590f_42cp0c",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "cta_banner-84re7m"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "cta_banner-mz3r3l"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "cta_banner-kunyoi"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "cta_banner-y47qgy"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "cta_banner-z8dhjh"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "cta_banner-pr6mfu"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "cta_banner-flzrib"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "cta_banner-x0qtnu"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "cta_banner-dykyov"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "cta_banner-85rbw5"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "cta_banner-u39ykd"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "cta_banner-mq984o"
+        }
+      ],
+      "createdAt": "2026-02-26T21:27:31.551Z",
+      "name": "cta_banner_latam_es"
+    },
+    {
+      "id": "bind_mm3z8aka_z8vqea",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "cta_banner-48xk9u"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "cta_banner-o6g032"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "cta_banner-m58ikp"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "cta_banner-zk7c9o"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "cta_banner-7e28z6"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "cta_banner-h0wvng"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "cta_banner-rcoafs"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "cta_banner-54ecny"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "cta_banner-qgliic"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "cta_banner-yg63h4"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "cta_banner-82lr2m"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "cta_banner-x8e88b"
+        }
+      ],
+      "createdAt": "2026-02-26T21:29:53.530Z",
+      "name": "cta_banner_latam_en"
+    },
+    {
+      "id": "bind_mm3zavgw_3nxfwx",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "cta_banner-7vc9sj"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "cta_banner-de3y0z"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "cta_banner-3l7sd8"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "cta_banner-rb6kg6"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "cta_banner-5nbf6n"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "cta_banner-cf6r7f"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "cta_banner-ks1eeo"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "cta_banner-3zwtbt"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "cta_banner-91hm50"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "cta_banner-q0pjzs"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "cta_banner-z1ta88"
+        }
+      ],
+      "createdAt": "2026-02-26T21:31:53.936Z",
+      "name": "cta_banner_usa_en"
+    },
+    {
+      "id": "bind_mm3zcmg4_q9bzdp",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "cta_banner-3o0kd6"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "cta_banner-nea344"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "cta_banner-60cqd9"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "cta_banner-69yotm"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "cta_banner-x72tv2"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "cta_banner-99jxnz"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "cta_banner-4z0ml3"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "cta_banner-4y2bj6"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "cta_banner-xucd9x"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "cta_banner-w3g4zt"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "cta_banner-kopo9v"
+        }
+      ],
+      "createdAt": "2026-02-26T21:33:15.556Z",
+      "name": "cta_banner_usa_es"
+    },
+    {
+      "id": "bind_mm3zewxl_khzi5k",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "cta_banner-gfclv6"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "cta_banner-ppk30b"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "cta_banner-58w6w5"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "cta_banner-fp70cw"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "cta_banner-hc9m5b"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "cta_banner-zztawt"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "cta_banner-dbi6oc"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "cta_banner-c6ktoc"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "cta_banner-xs306e"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "cta_banner-sxkn6i"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "cta_banner-46va5k"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "cta_banner-kwh766"
+        }
+      ],
+      "createdAt": "2026-02-26T21:35:02.457Z",
+      "name": "cta_banner_europe_es"
+    },
+    {
+      "id": "bind_mm3zgzxp_65v18a",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "cta_banner-bhhrhb"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "cta_banner-4vwfan"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "cta_banner-jqknv5"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "cta_banner-qscwfy"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "cta_banner-6wr57o"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "cta_banner-ixrt69"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "cta_banner-164dx5"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "cta_banner-ffccc6"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "cta_banner-zzgtqp"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "cta_banner-pxlz4m"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "cta_banner-9xpby0"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "cta_banner-sadi14"
+        }
+      ],
+      "createdAt": "2026-02-26T21:36:39.661Z",
+      "name": "cta_banner_europe_en"
     }
   ]
 }

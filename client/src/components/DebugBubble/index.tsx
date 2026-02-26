@@ -1701,7 +1701,7 @@ export function DebugBubble() {
         <PopoverContent 
           side="top" 
           align="start" 
-          className="w-80 p-0"
+          className="w-96 p-0"
           sideOffset={8}
         >
           {/* No token detected - show only warning */}
