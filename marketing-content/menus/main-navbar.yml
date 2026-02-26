@@ -28,10 +28,6 @@ navbar:
             cta: View program
             href: /en/career-programs/full-stack
             icon: code
-        footer:
-          text: Unsure which program fits you best? See our program comparison
-          linkText: here
-          href: /en/program-comparison
     - label: WHY 4GEEKS
       href: /why-4geeks
       component: Dropdown

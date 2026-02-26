@@ -84,8 +84,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
-      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
+      text_1: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 0.75rem;\"><span>dscxfds</span></span></span></span>"
+      text_2: fdggfdgfd
       background: primary
       width: 2
     height: 31rem

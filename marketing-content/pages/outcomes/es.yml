@@ -14,8 +14,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Resultados profesionales reales, respaldados por Datos
-    subtitle: Medimos el éxito por resultados reales. Nuestros graduados son contratados en ingeniería de IA, ciencia de datos y ciberseguridad, los outcomes están verificados con datos.
+    title: Resultados profesionales reales, respaldados por datos
+    subtitle: Descubre los resultados profesionales verificados de nuestros graduados contratados en ingeniería de IA, ciencia de datos y ciberseguridad. Medimos el éxito por resultados reales.
     badge: Informe de Resultados de 4Geeks Academy
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573.png
@@ -28,7 +28,7 @@ sections:
   - type: vertical_bars_cards
     version: "1.0"
     title: Resultados de contratación año tras año
-    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en outcomes verificados de cohortes recientes.
+    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en resultados verificados de cohortes recientes.
     metrics:
       - title: Tasa de colocación laboral
         unit: Graduados contratados en 6 meses
@@ -99,7 +99,7 @@ sections:
   - type: vertical_bars_cards
     version: "1.0"
     title: Resultados de contratación año tras año
-    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en outcomes verificados de cohortes recientes.
+    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en datos verificados de cohortes recientes.
     metrics:
       - title: Tasa de colocación laboral
         unit: Graduados contratados en 6 meses
