@@ -5,6 +5,7 @@ import {
   IconRefresh,
   IconCheck,
   IconX,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -276,6 +277,18 @@ export function CreateContentModal({
               data-testid="input-content-title"
             />
           </div>
+
+          {duplicatingPage && (
+            <div className="flex gap-2 p-3 rounded-md bg-muted/50 border text-xs text-muted-foreground" data-testid="info-duplicate-exclusions">
+              <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+              <div>
+                <p className="font-medium text-foreground mb-1">What will not be copied:</p>
+                <ul className="space-y-0.5 list-disc list-inside">
+                  <li>Redirects — each page must define its own</li>
+                </ul>
+              </div>
+            </div>
+          )}
           
           {createContentSlugEn && createContentType === 'landing' && (
             <div className="space-y-3 p-3 bg-muted/50 rounded-md">

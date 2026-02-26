@@ -5385,6 +5385,9 @@ Important: Only include mappings where you are confident the field exists. Use d
                 "utf8",
               );
 
+              // Strip redirects — they must not be copied to duplicate pages
+              content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
               content = content.replace(
@@ -5829,6 +5832,9 @@ sections: []
                   path.join(sourceFolderPath, file),
                   "utf8",
                 );
+
+                // Strip redirects — they must not be copied to duplicate pages
+                content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
 
                 // Replace slug in content
                 content = content.replace(
