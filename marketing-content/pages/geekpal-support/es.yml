@@ -222,7 +222,7 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
@@ -232,8 +232,8 @@ sections:
           required: true
           placeholder: Número de teléfono
         program:
-          visible: false
-          required: false
+          visible: true
+          required: true
           default: auto
       success:
         message: ¡Gracias! Nos pondremos en contacto contigo pronto.
