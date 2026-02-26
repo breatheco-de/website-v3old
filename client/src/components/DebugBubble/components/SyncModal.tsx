@@ -212,100 +212,78 @@ export function SyncModal({
                   Set <span className="font-mono">GITHUB_AUTO_COMMIT_ENABLED=true</span> to enable automatic pushes on a timed interval.
                 </p>
               )}
-              {autoPushExpanded && autoCommitStatus?.enabled && (
-                <>
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    {autoCommitStatus?.enabled && autoCommitStatus.commitIntervalSeconds && (
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <button
-                            type="button"
-                            className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
-                            data-testid="button-edit-sync-interval"
-                          >
-                            <span>every {autoCommitStatus.commitIntervalSeconds}s</span>
-                            <IconPencil className="h-3 w-3" />
-                          </button>
-                        </PopoverTrigger>
-                        <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
-                          <p className="font-medium text-foreground">Change push interval</p>
-                          <p className="text-muted-foreground">
-                            Edit <span className="font-mono">.sync-state.json</span> and change the <span className="font-mono">commitIntervalSeconds</span> value (default: 5s).
-                          </p>
-                          <code className="block p-2 bg-muted rounded text-[11px] font-mono break-all whitespace-pre-wrap">
-{`{ "commitIntervalSeconds": 10 }`}
-                          </code>
-                        </PopoverContent>
-                      </Popover>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between gap-1">
-                    <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                      {autoCommitStatus?.enabled && autoCommitStatus.githubConfigured && (() => {
-                        const label = autoCommitStatus.isCommitting
-                          ? 'now...'
-                          : autoCommitCountdown !== null && autoCommitCountdown > 0
-                          ? `${autoCommitCountdown}s`
-                          : autoCommitStatus.pendingFiles > 0
-                          ? 'soon'
-                          : 'idle';
-                        const isIdle = label === 'idle';
-                        return isIdle ? (
+              {autoPushExpanded && autoCommitStatus?.enabled && (() => {
+                const isCommitting = autoCommitStatus.isCommitting;
+                const hasCountdown = autoCommitCountdown !== null && autoCommitCountdown > 0;
+                const hasPending = autoCommitStatus.pendingFiles > 0;
+
+                let statusText: string;
+                if (isCommitting) {
+                  statusText = 'Pushing changes to GitHub...';
+                } else if (hasCountdown) {
+                  statusText = `Pushing in ${autoCommitCountdown}s`;
+                } else if (hasPending) {
+                  statusText = 'Changes detected, push starting soon.';
+                } else {
+                  statusText = 'Waiting for changes. Edit a file in marketing-content/ to trigger a push.';
+                }
+
+                return (
+                  <div className="space-y-2">
+                    <p className="text-[11px] text-muted-foreground">{statusText}</p>
+                    <div className="flex items-center justify-between gap-1">
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                        {autoCommitStatus.commitIntervalSeconds && (
                           <Popover>
                             <PopoverTrigger asChild>
                               <button
                                 type="button"
-                                className="font-mono text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                                data-testid="button-sync-status-info"
+                                className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                                data-testid="button-edit-sync-interval"
                               >
-                                {label}
+                                <span>every {autoCommitStatus.commitIntervalSeconds}s</span>
+                                <IconPencil className="h-3 w-3" />
                               </button>
                             </PopoverTrigger>
                             <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
-                              <p className="font-medium text-foreground">Waiting for changes</p>
+                              <p className="font-medium text-foreground">Change push interval</p>
                               <p className="text-muted-foreground">
-                                No files are queued for push. When you edit a file inside <span className="font-mono">marketing-content/</span>, the auto-push system will detect the change and start a {autoCommitStatus.commitIntervalSeconds}s countdown before pushing to GitHub.
+                                Edit <span className="font-mono">.sync-state.json</span> and change the <span className="font-mono">commitIntervalSeconds</span> value (default: 5s).
                               </p>
-                              <p className="text-muted-foreground">
-                                Only YAML and JSON files are tracked. Changes are batched into a single commit per cycle.
-                              </p>
+                              <code className="block p-2 bg-muted rounded text-[11px] font-mono break-all whitespace-pre-wrap">
+{`{ "commitIntervalSeconds": 10 }`}
+                              </code>
                             </PopoverContent>
                           </Popover>
-                        ) : (
-                          <span className="font-mono">{label}</span>
-                        );
-                      })()}
-                      {autoCommitStatus?.lastCommitSha && githubSyncStatus?.repoUrl && (
-                        <a
-                          href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-primary hover:underline"
-                          data-testid="link-last-auto-commit"
+                        )}
+                        {autoCommitStatus.lastCommitSha && githubSyncStatus?.repoUrl && (
+                          <a
+                            href={`${githubSyncStatus.repoUrl.replace(/\.git$/, '')}/commit/${autoCommitStatus.lastCommitSha}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-primary hover:underline"
+                            data-testid="link-last-auto-commit"
+                          >
+                            {autoCommitStatus.lastCommitSha.substring(0, 7)}
+                          </a>
+                        )}
+                      </div>
+                      {hasPending && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-6 text-[11px] px-2 shrink-0"
+                          onClick={handleFlush}
+                          disabled={isFlushing || isCommitting}
+                          data-testid="button-flush-auto-commit"
                         >
-                          {autoCommitStatus.lastCommitSha.substring(0, 7)}
-                        </a>
+                          {isFlushing ? <IconRefresh className="h-3 w-3 animate-spin" /> : 'Push now'}
+                        </Button>
                       )}
                     </div>
-                    {autoCommitStatus?.enabled && autoCommitStatus.pendingFiles > 0 && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="h-6 text-[11px] px-2 shrink-0"
-                        onClick={handleFlush}
-                        disabled={isFlushing || autoCommitStatus.isCommitting}
-                        data-testid="button-flush-auto-commit"
-                      >
-                        {isFlushing ? (
-                          <IconRefresh className="h-3 w-3 animate-spin" />
-                        ) : (
-                          'Push now'
-                        )}
-                      </Button>
-                    )}
                   </div>
-                </>
-              )}
+                );
+              })()}
             </Card>
 
             {/* Auto-pull card */}
