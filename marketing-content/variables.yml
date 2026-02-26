@@ -475,7 +475,7 @@ average_salary_workflow_automation_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$25K–$40K"
+      value: "$70 K–$110 K"
     - query:
         region: "europe"
       value: "20.000€- 30.000€"
