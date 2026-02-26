@@ -446,7 +446,7 @@ sections:
       desktop: none md
   - type: profiles_carousel
     version: v1.0
-    heading: What our partners say about 4Geeks’ Impact
+    heading: What Our Partners Say About 4Geeks’ Impact
     image_round: true
     profiles:
       - image_id: enrique_infanzon
