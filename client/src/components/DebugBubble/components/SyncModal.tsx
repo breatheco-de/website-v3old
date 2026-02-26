@@ -274,6 +274,15 @@ export function SyncModal({
             </div>
           </div>
 
+          <div className="flex items-center gap-1.5 text-xs">
+            <div className={`h-1.5 w-1.5 rounded-full ${
+              githubSyncStatus?.autoPullEnabled ? 'bg-green-500' : 'bg-muted-foreground/30'
+            }`} />
+            <span className="font-medium">
+              {githubSyncStatus?.autoPullEnabled ? 'Auto-pull' : 'Auto-pull off'}
+            </span>
+          </div>
+
           {autoCommitStatus && (autoCommitStatus.pendingFilesDetails.length > 0 || autoCommitStatus.conflictedFiles.length > 0) && (
             <div className="space-y-2">
               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">

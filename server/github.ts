@@ -594,12 +594,16 @@ export async function commitAndPush(
  */
 export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
   const syncEnabled = process.env.GITHUB_SYNC_ENABLED === "true";
+  const autoCommitEnabled = syncEnabled && process.env.GITHUB_AUTO_COMMIT_ENABLED !== 'false';
+  const autoPullEnabled = syncEnabled && process.env.GITHUB_AUTO_PULL_ENABLED !== 'false';
   const config = getGitHubConfig();
   
   if (!config) {
     return {
       configured: false,
       syncEnabled,
+      autoCommitEnabled,
+      autoPullEnabled,
       localCommit: null,
       remoteCommit: null,
       status: 'not-configured',
@@ -615,6 +619,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       return {
         configured: true,
         syncEnabled,
+        autoCommitEnabled,
+        autoPullEnabled,
         localCommit,
         remoteCommit: null,
         status: 'unknown',
@@ -627,6 +633,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       return {
         configured: true,
         syncEnabled,
+        autoCommitEnabled,
+        autoPullEnabled,
         localCommit: null,
         remoteCommit,
         status: 'behind',
@@ -642,6 +650,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       return {
         configured: true,
         syncEnabled,
+        autoCommitEnabled,
+        autoPullEnabled,
         localCommit,
         remoteCommit,
         status: hasPendingChanges ? 'ahead' : 'in-sync',
@@ -654,6 +664,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
     return {
       configured: true,
       syncEnabled,
+      autoCommitEnabled,
+      autoPullEnabled,
       localCommit,
       remoteCommit,
       status: 'behind',
@@ -665,6 +677,8 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
     return {
       configured: true,
       syncEnabled,
+      autoCommitEnabled,
+      autoPullEnabled,
       localCommit: null,
       remoteCommit: null,
       status: 'unknown',

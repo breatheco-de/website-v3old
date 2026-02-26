@@ -352,28 +352,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     .then(async () => {
       const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
       await reconcileSyncStateOnStartup();
-      const result = await autoPullNonConflicting();
-      if (result.pulled.length > 0) {
-        logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
-      }
-      if (result.conflicted.length > 0) {
-        logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
-      }
-      if (result.errors.length > 0) {
-        logSync('ERROR', `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join('; ')}`);
-        setTimeout(async () => {
-          try {
-            const retry = await autoPullNonConflicting();
-            if (retry.pulled.length > 0) {
-              logSync('AUTO-PULL', `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED !== 'false';
+      if (isAutoPullEnabled) {
+        const result = await autoPullNonConflicting();
+        if (result.pulled.length > 0) {
+          logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        }
+        if (result.conflicted.length > 0) {
+          logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
+        }
+        if (result.errors.length > 0) {
+          logSync('ERROR', `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join('; ')}`);
+          setTimeout(async () => {
+            try {
+              const retry = await autoPullNonConflicting();
+              if (retry.pulled.length > 0) {
+                logSync('AUTO-PULL', `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+              }
+              if (retry.errors.length > 0) {
+                logSync('ERROR', `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join('; ')}`);
+              }
+            } catch (e) {
+              logSync('ERROR', `Retry failed: ${e instanceof Error ? e.message : String(e)}`);
             }
-            if (retry.errors.length > 0) {
-              logSync('ERROR', `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join('; ')}`);
-            }
-          } catch (e) {
-            logSync('ERROR', `Retry failed: ${e instanceof Error ? e.message : String(e)}`);
-          }
-        }, 10000);
+          }, 10000);
+        }
+      } else {
+        logSync('AUTO-PULL', 'Skipped startup pull — GITHUB_AUTO_PULL_ENABLED=false');
       }
       await ensureWebhook();
     })
@@ -3276,6 +3281,13 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`);
+
+      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED !== 'false';
+      if (!isAutoPullEnabled) {
+        logSync('AUTO-PULL', `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED=false`);
+        res.json({ ok: true, message: 'Auto-pull disabled' });
+        return;
+      }
 
       const { autoPullNonConflicting } = await import("./github");
       const result = await autoPullNonConflicting(marketingFiles, commitSha);

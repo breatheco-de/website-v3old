@@ -82,7 +82,7 @@ function getGitHubConfig(): GitHubConfig | null {
 }
 
 function isAutoCommitEnabled(): boolean {
-  return process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.AUTO_COMMIT_ENABLED !== 'false';
+  return process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_COMMIT_ENABLED !== 'false';
 }
 
 function isContentTypeFile(filePath: string): boolean {
