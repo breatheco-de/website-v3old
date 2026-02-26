@@ -71,13 +71,13 @@ sections:
       desktop: none sm
   - type: career_support_explain
     version: v1.0
-    heading: GeekForce career support
+    heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
     background: hsl(var(--secondary))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
-        col1_subtitle: Build a recruiter-ready profile, smarter.
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
           We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
@@ -91,7 +91,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Career strategy, built around you
+        col2_heading: Career strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -104,7 +104,7 @@ sections:
         col3_object_position: center
       - tab_label: Real Hiring Access
         layout: two_column_cards
-        title: Access the hidden job market.
+        title: Access the Hidden Job Market.
         left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
@@ -134,7 +134,7 @@ sections:
             alt: KPMG
       - tab_label: Proof That Converts
         layout: text_and_image
-        title: Projects that demonstrate real skill.
+        title: Projects that Demonstrate Real Skill.
         left_description: |-
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
