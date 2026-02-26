@@ -156,7 +156,7 @@ sections:
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
-        col2_heading: Estrategia de Carrera, Construida para Ti
+        col2_heading: Estrategia de carrera, construida para ti
         col2_bullets:
           - icon: IconRobot
             text: Retroalimentación 24/7 de RigoBot para auditar tu LinkedIn y currículum
@@ -167,7 +167,7 @@ sections:
         col3_image_id: 4geeks_member
         col3_object_fit: cover
         col3_object_position: center
-      - tab_label: Acceso a Contratación Real
+      - tab_label: Acceso a contratación real
         layout: two_column_cards
         title: Accede al mercado laboral oculto.
         left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con empresas aliadas y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
@@ -197,7 +197,7 @@ sections:
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
-      - tab_label: Pruebas que Convierten
+      - tab_label: Pruebas que convierten
         layout: text_and_image
         title: Proyectos que demuestran habilidad real.
         left_description: |-
