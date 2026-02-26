@@ -231,3 +231,7 @@
 2026-02-26T14:34:01.742Z [RECONCILE] Local 38793b0 ≠ remote 5f3d81d, checking file hashes...
 2026-02-26T14:34:06.068Z [RECONCILE] 99/127 files match remote, 28 still differ
 2026-02-26T14:34:09.383Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T14:39:51.528Z [RESTART] Server started (instance=d51e, checkpoint=c83636ed2, env=development, pid=3331)
+2026-02-26T14:39:52.411Z [RECONCILE] Local 38793b0 ≠ remote b1b1f72, checking file hashes...
+2026-02-26T14:39:57.688Z [RECONCILE] 99/127 files match remote, 28 still differ
+2026-02-26T14:39:59.850Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
