@@ -52,3 +52,8 @@
 2026-02-26T17:54:03.285Z [WEBHOOK] Push 41d1238 by alesanchezr: 1 marketing-content files changed
 2026-02-26T17:54:03.285Z [AUTO-PULL] Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED=false
 2026-02-26T17:54:03.314Z [WEBHOOK] Rejected: invalid HMAC signature
+2026-02-26T17:56:19.481Z [RESTART] Server started (instance=87e2, checkpoint=8d4212f9, env=development, pid=181)
+2026-02-26T17:56:25.961Z [RECONCILE] Local dda1cf7 ≠ remote 41d1238, checking file hashes...
+2026-02-26T17:56:26.629Z [RECONCILE] All 1 files match remote, updated to 41d1238
+2026-02-26T17:56:26.629Z [AUTO-PULL] Skipped startup pull — GITHUB_AUTO_PULL_ENABLED=false
+2026-02-26T17:56:26.785Z [WEBHOOK] Verified: webhook #598115198 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
