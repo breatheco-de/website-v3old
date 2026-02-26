@@ -113,7 +113,7 @@ sections:
       - name: Full Stack Development with AI
         duration: {{ fullstack_week_duration | 20 }} weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
