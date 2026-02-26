@@ -309,8 +309,8 @@ sections:
           - Online.
       - feature: Costo
         values:
-          - $2.500 (descuentos y becas disponibles).
-          - $3.250 (descuentos y becas disponibles).
+          - {{ price_full_fullstack | {{ price_full_cybersecurity | $2.500 }} }} (descuentos y becas disponibles).
+          - {{ price_full_datascience | $3.250 }} (descuentos y becas disponibles).
           - $2.500 (descuentos y becas disponibles).
       - feature: Planes de Pago
         values:
