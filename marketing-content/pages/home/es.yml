@@ -352,15 +352,15 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: testimonials_slide
-    title: Graduados Reales, Resultados Profesionales Reales
-    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
+    title: Historias reales de nuestros graduados
+    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y nuestro apoyo profesional.
     background: hsl(var(--card))
     marginY:
       desktop: none
     paddingY:
       desktop: none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - online-platform
       - certification
@@ -372,7 +372,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
-    subtitle: Obtén precios, detalles del programa y orientación personalizada.
+    subtitle: Recibe detalles del programa, precios, y orientación personalizada.
     background: hsl(var(--primary))
     variant: form
     form:
