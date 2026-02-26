@@ -1281,6 +1281,75 @@
       ],
       "createdAt": "2026-02-26T21:35:02.457Z",
       "name": "cta_banner_europe_es"
+    },
+    {
+      "id": "bind_mm3zgzxp_65v18a",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "cta_banner-bhhrhb"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "cta_banner-4vwfan"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "cta_banner-jqknv5"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "cta_banner-qscwfy"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "cta_banner-6wr57o"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "cta_banner-ixrt69"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "cta_banner-164dx5"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "cta_banner-ffccc6"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "cta_banner-zzgtqp"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "cta_banner-pxlz4m"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "cta_banner-9xpby0"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "cta_banner-sadi14"
+        }
+      ],
+      "createdAt": "2026-02-26T21:36:39.661Z",
+      "name": "cta_banner_europe_en"
     }
   ]
 }

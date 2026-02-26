@@ -320,11 +320,11 @@ sections:
           placeholder: First name
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Phone number
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
@@ -333,13 +333,16 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     paddingY:
       desktop: md
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
+    section_id: cta_banner-sadi14
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
