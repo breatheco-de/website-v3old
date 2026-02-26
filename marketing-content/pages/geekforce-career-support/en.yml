@@ -187,7 +187,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: graduates_stats
-    heading: Career placement
+    heading: Career Placement
     subheading: We turn your education into employment. See the real-world impact of our coaching.
     stats:
       - value: {{ global_job_placement_rate | 84 }}%
