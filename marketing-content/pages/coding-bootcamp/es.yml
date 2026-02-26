@@ -13,4 +13,4 @@ sections:
     title: Curso de programación desde cero
     subtitle: La idea de aprender a programar desde cero puede ser abrumadora. El conocimiento previo no es lo más importante para completar con éxito un curso de programación desde cero, lo más importanta es la determinación de alcanzar el éxito.
     image: https://storage.googleapis.com/4geeks-academy-website/media/Rectangle_5_1766029737050.png
-    background: bg-gradient-to-b from-primary/5 to-background
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
