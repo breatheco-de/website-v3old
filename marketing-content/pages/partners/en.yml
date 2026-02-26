@@ -99,7 +99,7 @@ sections:
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: Our global partnerships
+    heading: Our Global Partnerships
     subtitle: Collaborating with leading institutions to bring coding education worldwide
     background: hsl(var(--muted))
     slides:
