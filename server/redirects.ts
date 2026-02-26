@@ -329,6 +329,7 @@ export interface RedirectTestResult {
   source?: string;
   matchType?: "exact" | "regex";
   captureGroups?: string[];
+  pageExists?: boolean;
 }
 
 function resolveTarget(entry: RedirectEntry, locale: string, captureGroups?: string[]): string {
@@ -406,7 +407,7 @@ export function testRedirect(rawInput: string, locale: string = "en"): RedirectT
     }
   }
 
-  return { match: false };
+  return { match: false, pageExists: contentIndex.isKnownUrl(urlPath) };
 }
 
 export function clearRedirectCache(): void {

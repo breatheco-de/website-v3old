@@ -125,6 +125,7 @@ export default function PrivateRedirects() {
     source?: string;
     matchType?: string;
     captureGroups?: string[];
+    pageExists?: boolean;
   } | null>(null);
   const [isTestingRedirect, setIsTestingRedirect] = useState(false);
   const testRedirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -785,8 +786,31 @@ export default function PrivateRedirects() {
                     </div>
                   </div>
                 ) : (
-                  <div className="rounded-md border p-3" data-testid="result-redirect-no-match">
-                    <p className="text-xs text-muted-foreground">No redirect matches this URL — it would load normally (or 404 if no page exists).</p>
+                  <div className="rounded-md border p-3 space-y-1" data-testid="result-redirect-no-match">
+                    {testRedirectResult.pageExists ? (
+                      <>
+                        <p className="text-xs text-muted-foreground">
+                          No redirect matches — this URL loads an existing page directly.
+                        </p>
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="text-muted-foreground flex-shrink-0">Page:</span>
+                          <code className="bg-muted px-2 py-0.5 rounded truncate">{testRedirectUrl.trim().split("?")[0].split("#")[0]}</code>
+                          <a
+                            href={testRedirectUrl.trim().split("?")[0].split("#")[0]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-0.5 rounded hover:bg-muted flex-shrink-0"
+                            data-testid="link-test-page-destination"
+                          >
+                            <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                          </a>
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">
+                        No redirect matches and no page exists at this URL — visitors would see a 404.
+                      </p>
+                    )}
                   </div>
                 )
               )}
