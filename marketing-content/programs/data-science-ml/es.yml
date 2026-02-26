@@ -164,7 +164,7 @@ sections:
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
     variant: program-modules
-    program_title: Lo que aprenderás en el programa de ciencia de Datos & Machine Learning
+    program_title: Lo que aprenderás en el programa de Ciencia de Datos & Machine Learning
     program_description: Domina el conjunto de herramientas estándar de la industria utilizado por equipos de datos modernos. Ve más allá del análisis simple para construir sistemas listos para producción, desde la ingeniería de datos crudos hasta el despliegue de modelos predictivos que las empresas usan para impulsar la innovación y escalar.
     tech_logos:
       - name: Python
