@@ -179,7 +179,7 @@ sections:
           placeholder: Nombre Completo
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número telefónico
         program:
           visible: false
