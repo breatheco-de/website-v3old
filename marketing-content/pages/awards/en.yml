@@ -27,7 +27,7 @@ sections:
       desktop: lg none
   - type: press_mentions
     version: v1.0
-    title: Our awards
+    title: Our Awards
     subtitle: Globally recognized for excellence in tech education
     subtitle_color: hsl(var(--primary))
     columns: 3
@@ -76,7 +76,6 @@ sections:
         link_text: See article
         link_url: https://www.switchup.org/bootcamps/4geeks-academy
         box_color: ""
-        alt: ""
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         logo_height: 80
         title: Top 5 Coding Bootcamps on Switchup 2025
