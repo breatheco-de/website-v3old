@@ -68,7 +68,7 @@ global_review_count:
   conditions:
     - query:
         locale: "es"
-      value: "700"
+      value: "700+"
     - query:
         locale: "en"
       value: "700"
