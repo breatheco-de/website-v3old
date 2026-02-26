@@ -466,7 +466,7 @@ average_salary_agent_engineer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$25K–$40K"
+      value: "$75 K–$115 K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
