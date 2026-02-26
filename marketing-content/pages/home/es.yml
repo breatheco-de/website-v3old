@@ -372,7 +372,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
-    subtitle: Obtén precios, detalles del programa y orientación personalizada.
+    subtitle: Recibe detalles del programa, precios, y orientación personalizada.
     background: hsl(var(--primary))
     variant: form
     form:
