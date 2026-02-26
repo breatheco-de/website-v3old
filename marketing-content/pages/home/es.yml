@@ -143,7 +143,7 @@ sections:
         col1_subtitle: Construye un perfil atractivo para reclutadores.
         col1_description: |-
           Prepárate para procesos reales de contratación usando una combinación de herramientas de IA y coaching 1:1.
-          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
+          Rigobot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
         col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -159,7 +159,7 @@ sections:
           - icon: IconRobot
             text: Feedback 24/7 de Rigobot para auditar tu LinkedIn y currículum
           - icon: IconUsers
-            text: Sesiones de coaching y estrategia de carrera 1:1
+            text: Sesiones de coaching y estrategia profesional 1:1
           - icon: IconMicrophone
             text: Entrevistas simuladas y preparación para entrevistas técnicas
         col3_image_id: 4geeks_member
