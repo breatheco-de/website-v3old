@@ -1862,7 +1862,7 @@ export function SectionEditorPanel({
             <Button
               size="icon"
               variant="ghost"
-              onClick={() => setBindingDialogOpen(true)}
+              onClick={() => { refetchBinding(); setBindingDialogOpen(true); }}
               title={bindingGroup ? `Bound to ${boundSiblings.length} page${boundSiblings.length !== 1 ? 's' : ''} — click to manage` : "Manage bindings"}
               className="relative"
               data-testid="button-binding-header"
@@ -1917,7 +1917,7 @@ export function SectionEditorPanel({
       {boundSiblings.length > 0 && (
         <div
           className="bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800 px-4 py-2 text-xs flex items-center gap-2 cursor-pointer hover-elevate"
-          onClick={() => setBindingDialogOpen(true)}
+          onClick={() => { refetchBinding(); setBindingDialogOpen(true); }}
           data-testid="binding-banner"
         >
           <IconAlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />

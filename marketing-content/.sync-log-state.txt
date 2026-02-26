@@ -256,3 +256,16 @@
 2026-02-26T14:52:52.982Z [RESTART] Server started (instance=2227, checkpoint=5dbd5d1c9, env=development, pid=4947)
 2026-02-26T14:52:53.621Z [RECONCILE] Local 38793b0 ≠ remote 62d3936, checking file hashes...
 2026-02-26T14:52:59.381Z [RECONCILE] 75/128 files match remote, 53 still differ
+2026-02-26T15:03:02.783Z [RESTART] Server started (instance=d116, checkpoint=295f5f97a, env=development, pid=6366)
+2026-02-26T15:03:03.416Z [RECONCILE] Local 38793b0 ≠ remote d6daeab, checking file hashes...
+2026-02-26T15:03:09.726Z [RECONCILE] 65/129 files match remote, 64 still differ
+2026-02-26T15:03:23.860Z [AUTO-PULL] Startup: pulled 36 incoming files: locations/atlanta-usa/en.yml, locations/austin-usa/en.yml, locations/barcelona-spain/en.yml, locations/berlin-germany/en.yml, locations/bogota-colombia/en.yml, locations/buenosaires-argentina/en.yml, locations/caracas-venezuela/en.yml, locations/chicago-usa/en.yml, locations/costa-rica/en.yml, locations/dallas-usa/en.yml, locations/dublin-ireland/en.yml, locations/hamburg-germany/en.yml, locations/houston-usa/en.yml, locations/lapaz-bolivia/en.yml, locations/lima-peru/en.yml, locations/lisbon-portugal/en.yml, locations/losangeles-usa/en.yml, locations/malaga-spain/en.yml, locations/mexicocity-mexico/en.yml, locations/miami-usa/en.yml, locations/milan-italy/en.yml, locations/montevideo-uruguay/en.yml, locations/munich-germany/en.yml, locations/newyork-usa/en.yml, locations/orlando-usa/en.yml, locations/panamacity-panama/en.yml, locations/quito-ecuador/en.yml, locations/remote/en.yml, locations/rest-of-america/en.yml, locations/rest-of-europe/en.yml, locations/rome-italy/en.yml, locations/santiago-chile/en.yml, locations/tampa-usa/en.yml, locations/toronto-canada/en.yml, locations/valencia-spain/en.yml, section-bindings.json
+2026-02-26T15:03:23.860Z [CONFLICT] Startup: 28 files have local conflicts, awaiting manual resolution
+2026-02-26T15:03:24.042Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T15:03:59.869Z [RESTART] Server started (instance=0c01, checkpoint=295f5f97a, env=development, pid=6810)
+2026-02-26T15:04:00.484Z [RECONCILE] Local 38793b0 ≠ remote 5d3f684, checking file hashes...
+2026-02-26T15:04:04.945Z [RECONCILE] 101/129 files match remote, 28 still differ
+2026-02-26T15:04:07.942Z [ERROR] Failed to create webhook at https://357e68eb-cbca-4598-b856-f5b70ee32452-00-1xoa25wvl9vaa.kirk.replit.dev/api/github/webhook (check token permissions: needs admin:repo_hook scope)
+2026-02-26T15:04:29.553Z [RESTART] Server started (instance=c6b7, checkpoint=295f5f97a, env=development, pid=7039)
+2026-02-26T15:04:30.154Z [RECONCILE] Local 38793b0 ≠ remote c7d2ce0, checking file hashes...
+2026-02-26T15:04:34.496Z [RECONCILE] 100/129 files match remote, 29 still differ

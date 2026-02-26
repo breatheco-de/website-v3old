@@ -79,6 +79,30 @@ function parseLogEntry(line: string): ParsedEntry | null {
   return { raw: line, timestamp, timeOnly, dateOnly, category, message };
 }
 
+function renderMessageWithLinks(message: string, repoUrl: string | null | undefined) {
+  if (!repoUrl) return message;
+  const cleanRepoUrl = repoUrl.replace(/\.git$/, '');
+  const parts = message.split(/\b([0-9a-f]{7})\b/);
+  if (parts.length === 1) return message;
+  return parts.map((part, i) => {
+    if (i % 2 === 1 && /^[0-9a-f]{7}$/.test(part)) {
+      return (
+        <a
+          key={i}
+          href={`${cleanRepoUrl}/commit/${part}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:underline font-semibold"
+          data-testid={`link-commit-sha-${part}`}
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 function getCategoryColor(cat: string): string {
   switch (cat) {
     case "RESTART":
@@ -394,7 +418,7 @@ export default function SyncLogPage() {
                           [{entry.category}]
                         </span>
                         <span className="text-foreground break-all">
-                          {entry.message}
+                          {renderMessageWithLinks(entry.message, syncInfo?.repoUrl)}
                         </span>
                       </div>
                     ))}
