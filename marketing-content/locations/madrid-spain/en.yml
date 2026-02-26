@@ -230,7 +230,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
-    title: Proven paths to tech careers
+    title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
   - type: split_cards
