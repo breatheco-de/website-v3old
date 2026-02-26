@@ -1,4 +1,4 @@
-slug: home
+slug: inicio
 template: default
 title: La Plataforma de Recapacitación con IA
 meta:
@@ -25,9 +25,9 @@ sections:
       trusted_text: Miles de estudiantes confían en nosotros
     cta_button:
       text: Explora Nuestros Programas
-      url: "#course_selector-6"
+      url: '#course_selector-6'
       variant: primary
-      icon: ""
+      icon: ''
     left_images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Ilustración de comunidad
@@ -57,8 +57,8 @@ sections:
         link: https://www.coursereport.com
         linkText: Leer reseñas
       - id: clark-university
-        alt: Clark University Logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        alt: Logo de Clark University
+        logo: /marketing-content/images/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certificado por universidades reconocidas
         link: https://www.switchup.org
@@ -83,8 +83,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduada celebrando su éxito
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>"
-      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>"
+      heading: '<span style="font-size: 1.25rem;"><span style="font-size: 1.25rem;">Las Carreras Tech No Se Construyen con Soluciones Genéricas.</span></span>'
+      text: '<span style="font-size: 1.125rem;"><span><span><span style="font-size: 1.25rem;">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>'
       background: primary
       width: 2
     height: 31rem
@@ -97,15 +97,15 @@ sections:
       desktop: md none
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
-    title: Donde el aprendizaje con IA se une a la mentoría de por vida
+    version: '1.0'
+    title: Donde el Aprendizaje con IA Se Une a la Mentoría de por Vida
     description: El aprendizaje potenciado por IA se combina con mentoría ilimitada 1:1 para ayudarte a desarrollar habilidades, ganar confianza y avanzar en roles tech de alto crecimiento, más rápido e inteligente.
     bullets:
-      - heading: Aprendizaje personalizado en cada nivel
+      - heading: Aprendizaje Personalizado en Cada Nivel
         text: Grupos reducidos, acceso ilimitado a mentores y retroalimentación guiada por IA mantienen tu aprendizaje rápido, adaptativo y enfocado en lo que importa.
-      - heading: Mentoría de por vida y apoyo profesional
+      - heading: Mentoría de por Vida y Apoyo Profesional
         text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
-      - heading: Currículum y herramientas de aprendizaje integradas con IA
+      - heading: Currículum y Herramientas de Aprendizaje Integradas con IA
         text: Domina las últimas herramientas y flujos de trabajo de IA que los empleadores están buscando activamente.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Estudiante aprendiendo con apoyo de mentor
@@ -115,9 +115,9 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: highlight
-    title: Resultados reales para nuestros graduados
+    title: Resultados Reales para Nuestros Graduados
     subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
@@ -130,13 +130,13 @@ sections:
         value: {{ global_salary_increase | 55 }}%
         title: Aumento salarial promedio después de graduarse
     columns: 3
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     background: hsl(var(--secondary))
     marginY:
       desktop: none md
   - type: career_support_explain
     version: v1.0
-    heading: Consigue empleo. Con soporte de carrera para la era de la IA
+    heading: Consigue Empleo. Con Soporte de Carrera para la Era de la IA
     description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
     background: hsl(var(--sidebar-background))
     tabs:
@@ -156,7 +156,7 @@ sections:
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
-        col2_heading: Estrategia de carrera, construida para ti
+        col2_heading: Estrategia de Carrera, Construida para Ti
         col2_bullets:
           - icon: IconRobot
             text: Retroalimentación 24/7 de RigoBot para auditar tu LinkedIn y currículum
@@ -167,19 +167,19 @@ sections:
         col3_image_id: 4geeks_member
         col3_object_fit: cover
         col3_object_position: center
-      - tab_label: Acceso a contratación real
+      - tab_label: Acceso a Contratación Real
         layout: two_column_cards
         title: Accede al mercado laboral oculto.
-        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con empresas aliadas y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
+        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: {{ number_of_hiring_partners_aprox | 250 }}+
+          value: 250+
           label: empresas en la red de empleadores de 4Geeks
         right_bullets:
           - icon: IconUserPlus
-            text: Referidos directos a empresas aliadas
+            text: Referidos directos a socios de contratación
           - icon: IconTargetArrow
             text: Ofertas laborales curadas según tu perfil
           - icon: IconMessageChatbot
@@ -197,7 +197,7 @@ sections:
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
-      - tab_label: Pruebas que convierten
+      - tab_label: Pruebas que Convierten
         layout: text_and_image
         title: Proyectos que demuestran habilidad real.
         left_description: |-
@@ -252,9 +252,9 @@ sections:
             description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
             achievement: Logró un aumento salarial del 100%.
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
-    heading: Explora nuestros programas
+    heading: Explora Nuestros Programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
       - name: Ingeniería de IA
@@ -282,8 +282,8 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ""
-            text: ""
+          - icon: ''
+            text: ''
         description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
@@ -323,12 +323,12 @@ sections:
       desktop: md lg
   - type: why_learn_ai
     variant: laptop-edge
-    title: Garantía de Empleo* opcional para mayor confianza
+    title: Garantía de Empleo* Opcional para Mayor Confianza
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    description: '<span style="font-size: 1.125rem;"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span style="font-size: 1rem;"></span></span></div>'
     cta:
       text: Más Información
-      url: /es/trabajo-garantizado
+      url: /es/garantia-de-empleo
       variant: primary
     marginY:
       desktop: md
@@ -354,7 +354,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: testimonials_slide
-    title: Resultados profesionales reales
+    title: Graduados Reales, Resultados Profesionales Reales
     description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
     background: hsl(var(--card))
     marginY:
@@ -362,7 +362,7 @@ sections:
     paddingY:
       desktop: none
   - type: faq
-    title: Preguntas frecuentes
+    title: Preguntas Frecuentes
     related_features:
       - online-platform
       - certification
@@ -372,9 +372,9 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
-    subtitle: Recibe precios, detalles del programa y orientación personalizada.
+    subtitle: Obtén precios, detalles del programa y orientación personalizada.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -393,13 +393,8 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: true
+          required: false
           placeholder: Número de teléfono
-        program:
-          visible: true
-          required: true
-          default: auto
-          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
