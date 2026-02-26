@@ -15,11 +15,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Houston. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Houston
     cta_buttons:
-      - text: Aplicar Ahora
+      - text: Aplicar ahora
         url: /es/apply
         variant: primary
-      - text: Descargar Programa
-        url: "#cta_banner-14"
+      - text: Ver el programa
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
