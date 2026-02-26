@@ -372,8 +372,8 @@ sections:
     description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del {{ global_job_placement_rate | 84 }}% contratados en los primeros seis meses.
   - type: horizontal_bars
     version: "1.0"
-    title: El retorno de la oportunidad
-    subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo en distintas regiones.
+    title: Aumento salarial por región
+    subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo.
     items:
       - label: LATAM
         value: 233
