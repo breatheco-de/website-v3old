@@ -30,7 +30,7 @@ sections:
       desktop: none md
   - type: comparison_table
     version: "1.0"
-    title: Launching successful tech careers in the AI era
+    title: Launching Successful Tech Careers in the AI Era
     subtitle: "We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:"
     columns:
       - name: Feature
