@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Building careers in the AI era
+    title: Building Careers in the AI era
     subtitle: 4Geeks Academy is an international coding bootcamp with 8 campuses across the U.S., Latin America, and Europe. We train students in AI Engineering, Data Science & Machine Learning, and Cybersecurity; with a clear path to getting hired.
     badge: 10+ years launching tech careers
     image_id: academy_header_coding
