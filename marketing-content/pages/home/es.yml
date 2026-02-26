@@ -353,14 +353,14 @@ sections:
       - panamacity-panama
   - type: testimonials_slide
     title: Historias reales de nuestros graduados
-    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
+    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y nuestro apoyo profesional.
     background: hsl(var(--card))
     marginY:
       desktop: none
     paddingY:
       desktop: none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - online-platform
       - certification
