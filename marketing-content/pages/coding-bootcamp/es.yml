@@ -16,6 +16,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    marginY:
+      desktop: none md
   - type: article
     content: |
       # ¿Qué es el Coding Bootcamp de 4Geeks Academy?
