@@ -18,7 +18,7 @@ sections:
       - text: Apply Now
         url: /en/apply
         variant: primary
-      - text: Get Program Details
+      - text: Download Syllabus
         url: "#bottom"
         variant: outline
     marginY:
