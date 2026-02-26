@@ -92,7 +92,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Programas de Carrera con Garantía de Empleo
+    heading: Programas de carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
       - name: Ingeniería en IA
