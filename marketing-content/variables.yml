@@ -298,7 +298,7 @@ average_salary_machine_learning_engineer:
         region: "latam"
       value: "$45K – $80K"
 average_salary_ai_fluent_software_developer:
-  default: "$100K–$150K"
+  default: "$90 K–$140 K"
   conditions:
     - query:
         region: "usa-canada"
