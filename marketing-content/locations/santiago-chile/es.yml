@@ -240,7 +240,7 @@ sections:
       benefits:
         - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: 55% aumento salarial promedio en roles tech
+        - text: {{ global_salary_increase | 55 }}% aumento salarial promedio en roles tech
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
