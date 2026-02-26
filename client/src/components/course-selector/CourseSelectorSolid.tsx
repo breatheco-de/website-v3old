@@ -262,7 +262,7 @@ export function CourseSelectorSolid({ data }: CourseSelectorSolidProps) {
                   key={index}
                   onClick={() => handleTabClick(index)}
                   className={`
-                    relative text-left px-5 py-4 transition-colors duration-200 ms-2 my-2 rounded-s-xl
+                    relative text-left px-5 py-4 transition-colors duration-200 mx-2 md:mx-0 md:ms-2 my-2 rounded-xl md:rounded-none md:rounded-s-xl
                     flex items-center justify-between gap-2
                     ${
                       isActive

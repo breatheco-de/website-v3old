@@ -192,7 +192,18 @@ export function SyncModal({
                     GitHub is not configured. Set <code className="text-xs bg-red-100 dark:bg-red-900/50 px-1 rounded">GITHUB_TOKEN</code>, <code className="text-xs bg-red-100 dark:bg-red-900/50 px-1 rounded">GITHUB_REPO_URL</code>, and enable <code className="text-xs bg-red-100 dark:bg-red-900/50 px-1 rounded">GITHUB_SYNC_ENABLED=true</code> in environment variables.
                   </p>
                 ) : (
-                  <p className="text-red-700 dark:text-red-300">{autoCommitStatus.lastError}</p>
+                  <div className="space-y-1">
+                    <p className="text-red-700 dark:text-red-300">{autoCommitStatus.lastError}</p>
+                    <div className="flex flex-wrap items-center gap-2 text-[11px] text-red-600 dark:text-red-400">
+                      {autoCommitStatus.pendingFiles > 0 && (
+                        <span>{autoCommitStatus.pendingFiles} file{autoCommitStatus.pendingFiles !== 1 ? 's' : ''} pending</span>
+                      )}
+                      {autoCommitStatus.nextSyncAt && (() => {
+                        const secsLeft = Math.max(0, Math.round((autoCommitStatus.nextSyncAt - Date.now()) / 1000));
+                        return <span>Retrying in {secsLeft}s</span>;
+                      })()}
+                    </div>
+                  </div>
                 )}
               </div>
             </div>

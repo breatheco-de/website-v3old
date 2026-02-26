@@ -299,29 +299,24 @@ sections:
           - $80K a $120K
       - feature: Modalidad del Bootcamp
         values:
-          - Tiempo Completo (12 semanas) o Medio Tiempo (20 semanas).
-          - Medio Tiempo (16 semanas).
+          - Medio Tiempo (20 semanas).
+          - Medio Tiempo (18 semanas).
           - Medio Tiempo (16 semanas).
       - feature: Modalidad de Estudio
         values:
-          - Online o Presencial (ciudades seleccionadas).
+          - Online.
           - Online.
           - Online.
       - feature: Costo
         values:
-          - $10,999 (descuentos y becas disponibles).
-          - $10,999 (descuentos y becas disponibles).
-          - $9,999 (descuentos y becas disponibles).
+          - {{ price_full_fullstack }} (descuentos y becas disponibles).
+          - {{ price_full_datascience | $3.250 }} (descuentos y becas disponibles).
+          - {{ price_full_cybersecurity | $2.500 }} (descuentos y becas disponibles).
       - feature: Planes de Pago
         values:
-          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
-          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
-          - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
-      - feature: Garantía de Empleo*
-        values:
-          - Preguntar por disponibilidad. Condiciones Aplican.
-          - Preguntar por disponibilidad. Condiciones Aplican.
-          - Preguntar por disponibilidad. Condiciones Aplican.
+          - Planes mensuales, descuentos por pago anticipado y financiamientos.
+          - Planes mensuales, descuentos por pago anticipado y financiamientos.
+          - Planes mensuales, descuentos por pago anticipado y financiamientos.
       - feature: Es Ideal Para Ti Si
         values:
           - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
@@ -366,7 +361,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: {{ call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -378,20 +373,28 @@ sections:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
           required: false
         phone:
           visible: true
-          required: false
+          required: true
+          placeholder: Número telefónico
         program:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
   - type: course_selector
     version: "1.0"
     variant: solid

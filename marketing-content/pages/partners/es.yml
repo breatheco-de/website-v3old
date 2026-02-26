@@ -496,20 +496,20 @@ sections:
       desktop: md none
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para ser Socio?
-    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
+    title: ¿Listo para ser un aliado?
+    subtitle: Construyamos juntos rutas escalables hacia carreras tech de alto crecimiento.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Aplicar Ahora
+      submit_label: Iniciar Conversación
       tags: contact_us
       automations: soft
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu correo electrónico
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
@@ -529,12 +529,14 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información sobre cursos y promociones
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

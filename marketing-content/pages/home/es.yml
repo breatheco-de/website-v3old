@@ -372,13 +372,13 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
-    subtitle: Obtén precios, detalles del programa y orientación personalizada.
+    subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: {{ call_to_action_apply | Aplicar ahora }}
-      tags: website-lead
+      submit_label: Obtener los detalles
+      tags: request_more_info
       automations: hard
       fields:
         email:
@@ -391,17 +391,20 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
+        program:
+          visible: true
+          required: true
+          default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
       consent:
         email: true
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
-      terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
     marginY:

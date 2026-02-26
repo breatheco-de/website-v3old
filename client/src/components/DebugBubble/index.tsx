@@ -62,7 +62,7 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
-import { useDebugAuth, getDebugToken, getDebugUserName } from "@/hooks/useDebugAuth";
+import { useDebugAuth, getDebugToken, getDebugUserName, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { locations } from "@/lib/locations";
 import { normalizeLocale } from "@shared/locale";
 import { LocaleFlag } from "./components/LocaleFlag";
@@ -1002,7 +1002,7 @@ export function DebugBubble() {
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       const token = getDebugToken();
       if (token) headers["X-Debug-Token"] = token;
-      const author = getDebugUserName();
+      const author = await resolveAuthorName();
 
       const operations: Array<{ action: string; path: string; value: unknown }> = [
         { action: "update_field", path: "meta", value: existingMeta },
@@ -1136,7 +1136,7 @@ export function DebugBubble() {
     setIsCommitting(true);
     try {
       const forceCommit = syncContext?.forceCommitEnabled || false;
-      const author = getDebugUserName();
+      const author = await resolveAuthorName();
       const res = await fetch("/api/github/commit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1174,7 +1174,7 @@ export function DebugBubble() {
     
     setFileCommitting(filePath);
     try {
-      const author = getDebugUserName();
+      const author = await resolveAuthorName();
       const res = await fetch("/api/github/commit-file", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

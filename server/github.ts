@@ -1020,9 +1020,62 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
     const lastSyncedCommit = getLastSyncedCommit();
     const remoteCommit = await getBranchHeadSha(config);
 
-    if (!remoteCommit || !lastSyncedCommit || lastSyncedCommit === remoteCommit) {
-      if (lastSyncedCommit && remoteCommit) {
+    if (!remoteCommit || !lastSyncedCommit) {
+      return;
+    }
+
+    const { shouldTrackFile, computeGitBlobSha, computeFileSha, updateFileAfterPull, loadSyncState } = await import("./sync-state");
+
+    if (lastSyncedCommit === remoteCommit) {
+      const state = loadSyncState();
+      const staleFiles: string[] = [];
+
+      for (const [filePath, fileInfo] of Object.entries(state.files)) {
+        if (!shouldTrackFile(filePath) || !fileInfo.remoteSha) continue;
+
+        const fullPath = path.join(process.cwd(), filePath);
+        if (!fs.existsSync(fullPath)) {
+          staleFiles.push(filePath);
+          continue;
+        }
+
+        const localContent = fs.readFileSync(fullPath, 'utf-8');
+        const localSha = computeFileSha(localContent);
+        if (localSha !== fileInfo.remoteSha) {
+          staleFiles.push(filePath);
+        }
+      }
+
+      if (staleFiles.length === 0) {
         logSync('RECONCILE', `Already in sync at ${lastSyncedCommit.slice(0, 7)}`);
+        return;
+      }
+
+      logSync('RECONCILE', `Commits match at ${remoteCommit.slice(0, 7)} but ${staleFiles.length} local file(s) are stale (deploy snapshot), pulling from GitHub...`);
+      let pulledCount = 0;
+      const pullErrors: string[] = [];
+
+      for (const filePath of staleFiles) {
+        try {
+          const result = await pullSingleFile(filePath);
+          if (result.success) {
+            pulledCount++;
+          } else {
+            pullErrors.push(`${filePath}: ${result.error}`);
+          }
+        } catch (e) {
+          pullErrors.push(`${filePath}: ${e instanceof Error ? e.message : 'Unknown error'}`);
+        }
+      }
+
+      const { rebuildSyncStateFromLocal } = await import("./sync-state");
+      rebuildSyncStateFromLocal(remoteCommit);
+
+      if (pulledCount > 0) {
+        logSync('RECONCILE', `Pulled ${pulledCount} stale file(s) from GitHub: ${staleFiles.slice(0, 5).map(f => f.replace('marketing-content/', '')).join(', ')}${staleFiles.length > 5 ? ` (+${staleFiles.length - 5} more)` : ''}`);
+      }
+      if (pullErrors.length > 0) {
+        logSync('ERROR', `Failed to pull ${pullErrors.length} stale file(s): ${pullErrors.join('; ')}`);
       }
       return;
     }
@@ -1030,7 +1083,6 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
     logSync('RECONCILE', `Local ${lastSyncedCommit.slice(0, 7)} ≠ remote ${remoteCommit.slice(0, 7)}, checking file hashes...`);
 
     const conflictInfo = await getConflictInfo();
-    const { shouldTrackFile, computeGitBlobSha, updateFileAfterPull } = await import("./sync-state");
 
     const trackedFiles = conflictInfo.changedFiles.filter(shouldTrackFile);
     if (trackedFiles.length === 0) {

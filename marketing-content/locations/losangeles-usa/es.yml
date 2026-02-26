@@ -359,11 +359,11 @@ sections:
           placeholder: Nombre y Apellido
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
@@ -381,6 +381,7 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
+    section_id: cta_banner-4z0ml3
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
