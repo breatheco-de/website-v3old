@@ -354,7 +354,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: testimonials_slide
-    title: Graduados reales, resultados profesionales reales
+    title: Resultados profesionales reales
     description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y apoyo profesional.
     background: hsl(var(--card))
     marginY:
