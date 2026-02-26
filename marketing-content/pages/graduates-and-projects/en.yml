@@ -23,7 +23,7 @@ sections:
     subtitle: Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.
     badge: Career program
     cta_buttons:
-      - text: Start Learning Now
+      - text: Apply Now
         url: "#bottom"
         variant: primary
         icon: Rocket
