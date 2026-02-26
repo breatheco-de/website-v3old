@@ -400,7 +400,7 @@ sections:
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
     features:
       - icon: Robot
-        title: Progress Faster with AI-powered Tools
+        title: Progress faster with AI-powered tools
         description: ""
         show_rigobot_logo: true
         bullets:
