@@ -46,7 +46,7 @@ sections:
       title: Recibe el Plan de Estudios Completo
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
-        text: Recibir el Plan de Estudios
+        text: Recibir el plan de estudios
         url: "#apply-modal"
         variant: primary
       login_link:
