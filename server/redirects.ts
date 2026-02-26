@@ -5,6 +5,8 @@ let redirectMap: Map<string, RedirectEntry> | null = null;
 let regexRedirectsBefore: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
 let fallbackMap: Map<string, RedirectEntry> | null = null;
 let regexRedirectsFallback: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
+let fallbackNonCustomMap: Map<string, RedirectEntry> | null = null;
+let regexRedirectsFallbackNonCustom: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
 
 export function isRegexPattern(path: string): boolean {
   return /\(.*\)|\[.*\]|\.\*|\.\+|\\d|\\w|\\s|\{\d+[,}]/.test(path);

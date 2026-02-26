@@ -28,7 +28,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Programa de desarrollo Full Stack con IA
+    title: Programa de Desarrollo Full Stack con IA
     title_highlight: Full Stack Developer con IA
     subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
@@ -94,7 +94,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Programa de desarrollo Full Stack con IA
+    title: Programa de Desarrollo Full Stack con IA
     title_highlight: Full Stack Developer con IA
     subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
@@ -187,7 +187,7 @@ sections:
           required: true
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: false
           required: true
@@ -574,8 +574,8 @@ sections:
       - santiago-chile
   - type: whos_hiring
     variant: carousel
-    title: Empresas que contratan a nuestros graduados
-    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -610,7 +610,7 @@ sections:
     subtitle: Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
       average: {{ global_review_rating | 4.8 }}
-      count: {{ global_verified_reviews_count | 1,294 }}+
+      count: 1,294
     items:
       - name: Sarah Johnson
         role: AI Engineer
@@ -695,7 +695,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: true
+          required: false
           placeholder: Número de teléfono
         program:
           visible: false
@@ -739,7 +739,14 @@ sections:
           required: false
         phone:
           visible: true
-          required: true
+          required: false
         program:
           visible: false
           default: full-stack
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
