@@ -207,7 +207,12 @@ export function SyncModal({
                   <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-auto">{autoCommitStatus.pendingFiles} queued</Badge>
                 ) : null}
               </button>
-              {autoPushExpanded && (
+              {autoPushExpanded && !autoCommitStatus?.enabled && (
+                <p className="text-[11px] text-muted-foreground">
+                  Set <span className="font-mono">GITHUB_AUTO_COMMIT_ENABLED=true</span> to enable automatic pushes on a timed interval.
+                </p>
+              )}
+              {autoPushExpanded && autoCommitStatus?.enabled && (
                 <>
                   <div className="flex flex-wrap items-center gap-1.5">
                     {autoCommitStatus?.enabled && autoCommitStatus.commitIntervalSeconds && (
