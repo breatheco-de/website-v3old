@@ -387,3 +387,9 @@
 2026-02-26T15:31:24.532Z [AUTO-PULL] Webhook: pulled 1 files from 6bbea66: locations/montevideo-uruguay/es.yml
 2026-02-26T15:31:41.043Z [WEBHOOK] Push f06b402 by alesanchezr: 1 marketing-content files changed
 2026-02-26T15:31:41.572Z [AUTO-PULL] Webhook: pulled 1 files from f06b402: locations/remote/es.yml
+2026-02-26T15:34:35.160Z [RESTART] Server started (instance=c69f, checkpoint=6ba59309, env=development, pid=1312)
+2026-02-26T15:34:35.941Z [RECONCILE] Already in sync at f06b402
+2026-02-26T15:34:37.003Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
+2026-02-26T15:36:55.639Z [RESTART] Server started (instance=e769, checkpoint=6ba59309, env=development, pid=1622)
+2026-02-26T15:36:56.018Z [RECONCILE] Already in sync at f06b402
+2026-02-26T15:36:56.616Z [WEBHOOK] Verified: webhook #597999478 is active at https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/api/github/webhook
