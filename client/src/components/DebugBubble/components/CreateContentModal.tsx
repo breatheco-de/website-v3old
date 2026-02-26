@@ -142,12 +142,12 @@ export function CreateContentModal({
         </DialogHeader>
         
         <div className="space-y-4 py-4">
+          {!duplicatingPage && (
           <div className="space-y-2">
             <label className="text-sm font-medium">Content Type</label>
             <div className="flex items-center gap-2">
               <Select 
                 value={createContentType} 
-                disabled={!!duplicatingPage}
                 onValueChange={(v) => {
                   setCreateContentType(v as 'location' | 'page' | 'program' | 'landing');
                   if (v !== 'landing') {
@@ -224,6 +224,7 @@ export function CreateContentModal({
               )}
             </div>
           </div>
+          )}
           
           <div className="space-y-2">
             <label className="text-sm font-medium">Title</label>
