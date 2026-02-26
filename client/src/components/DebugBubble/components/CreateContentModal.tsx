@@ -98,7 +98,6 @@ export function CreateContentModal({
   toast,
 }: CreateContentModalProps) {
   const [showFiles, setShowFiles] = useState(false);
-  const [showNotCopied, setShowNotCopied] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
@@ -284,6 +283,18 @@ export function CreateContentModal({
             />
           </div>
 
+          {duplicatingPage && (
+            <div className="flex gap-2 p-3 rounded-md bg-muted/50 border text-xs text-muted-foreground">
+              <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground" />
+              <div>
+                <p className="font-medium text-foreground mb-1">What will not be copied:</p>
+                <ul className="space-y-0.5 list-disc list-inside">
+                  <li>Redirects — each page must define its own</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
           {createContentSlugEn && createContentType === 'landing' && (
             <div className="space-y-3 p-3 bg-muted/50 rounded-md">
               <div className="space-y-2">
@@ -377,25 +388,6 @@ export function CreateContentModal({
                 )}
               </div>
 
-              {duplicatingPage && (
-                <div className="space-y-1" data-testid="info-duplicate-exclusions">
-                  <button
-                    type="button"
-                    onClick={() => setShowNotCopied(v => !v)}
-                    className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
-                    data-testid="button-toggle-not-copied"
-                  >
-                    <IconChevronDown className={`h-3 w-3 transition-transform ${showNotCopied ? '' : '-rotate-90'}`} />
-                    <IconInfoCircle className="h-3 w-3" />
-                    What will not be copied
-                  </button>
-                  {showNotCopied && (
-                    <ul className="space-y-0.5 list-disc list-inside text-xs text-muted-foreground pl-4 pt-1">
-                      <li>Redirects — each page must define its own</li>
-                    </ul>
-                  )}
-                </div>
-              )}
             </div>
           )}
           
@@ -567,25 +559,6 @@ export function CreateContentModal({
                 )}
               </div>
 
-              {duplicatingPage && (
-                <div className="space-y-1" data-testid="info-duplicate-exclusions">
-                  <button
-                    type="button"
-                    onClick={() => setShowNotCopied(v => !v)}
-                    className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
-                    data-testid="button-toggle-not-copied"
-                  >
-                    <IconChevronDown className={`h-3 w-3 transition-transform ${showNotCopied ? '' : '-rotate-90'}`} />
-                    <IconInfoCircle className="h-3 w-3" />
-                    What will not be copied
-                  </button>
-                  {showNotCopied && (
-                    <ul className="space-y-0.5 list-disc list-inside text-xs text-muted-foreground pl-4 pt-1">
-                      <li>Redirects — each page must define its own</li>
-                    </ul>
-                  )}
-                </div>
-              )}
             </div>
           )}
         </div>

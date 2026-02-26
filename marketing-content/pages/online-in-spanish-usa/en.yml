@@ -1,0 +1,87 @@
+slug: online-in-spanish-usa
+template: default
+title: online-in-spanish-usa
+meta:
+  page_title: online-in-spanish-usa | 4Geeks Academy
+  description: online-in-spanish-usa - Learn more about this topic at 4Geeks Academy.
+  redirects:
+    - /online-in-spanish-usa
+sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    title: Learn to Code in Spanish
+    subtitle: "<h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\" style=\"user-select: text; box-sizing: inherit; -webkit-font-smoothing: antialiased; margin-top: 15px; margin-bottom: 25px; padding: 0px; border-style: initial; border-color: initial; border-image: initial; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 700; font-stretch: inherit; font-size: 21px; line-height: 22.85px; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; vertical-align: baseline; width: 539.984px; letter-spacing: 0.05em;\"><span style=\"font-size: 1rem;\">All programs are taught&nbsp;<span style=\"user-select: none; box-sizing: inherit; -webkit-font-smoothing: antialiased; margin: 0px; padding: 0px; border-style: initial; border-color: initial; border-image: initial; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; vertical-align: baseline;\">Online; from the USA.</span>Learning online is hard: Lucky for you, we offer: unlimited support, amazing content and lifetime career support.&nbsp;</span></h3><h3 class=\"Heading__BaseHeading-sc-mnzhkg-0 Heading__H3-sc-mnzhkg-3 disekP\" textalign=\"left\" margin=\"15px 0 25px 0\" font-size=\"21px\" lineheight=\"22.85px\" style=\"user-select: text; box-sizing: inherit; -webkit-font-smoothing: antialiased; margin-top: 15px; margin-bottom: 25px; padding: 0px; border-style: initial; border-color: initial; border-image: initial; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 700; font-stretch: inherit; font-size: 21px; line-height: 22.85px; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; vertical-align: baseline; width: 539.984px; letter-spacing: 0.05em;\"><span style=\"font-size: 1rem;\">Yes, it really is available for the rest of your life.</span></h3>"
+    badge: Career Program
+    cta_buttons:
+      - text: Start Learning Now
+        url: /signup
+        variant: primary
+        icon: Rocket
+      - text: View Curriculum
+        url: /curriculum
+        variant: outline
+        icon: Book
+    trust_bar:
+      rating: 4.8/5
+      rating_count: 2,500+
+      trusted_text: Trusted by 10,000+ students
+    award_badges:
+      - name: Best Coding Bootcamp
+        source: Forbes
+        year: "2024"
+      - name: Top Tech School
+        source: Course Report
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+  - type: banner
+    version: "1.0"
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    avatars:
+      - avatar-woman-1
+      - avatar-man-2
+      - avatar-woman-3
+      - avatar-man-4
+    title: Your Tech Career Starts Here—Anywhere
+    description: No matter where you live, 4Geeks Academy gives you access to live mentorship, real-world learning, and career coaching. Our flexible schedule and future-focused curriculum help you grow from anywhere. Join thousands of graduates who've built new futures in tech.
+    cta:
+      text: Learn More
+      url: "#"
+      variant: primary
+    background: gradient

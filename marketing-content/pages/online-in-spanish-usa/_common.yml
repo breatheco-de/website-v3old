@@ -1,0 +1,14 @@
+# Common properties shared across all language variants
+slug: "online-in-spanish-usa"
+template: "default"
+title: "online-in-spanish-usa"
+
+meta:
+  robots: "index, follow"
+  priority: 0.8
+  change_frequency: "weekly"
+
+schema:
+  include:
+    - "organization"
+    - "website"
