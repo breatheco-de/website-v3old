@@ -516,3 +516,7 @@ who_is_eligible_work_authorization:
         region: "usa-canada"
         locale: "en"
       value: "Have U.S. work authorization"
+    - query:
+        region: "usa-canada"
+        locale: "es"
+      value: "Tener autorización de trabajo en EEUU"
