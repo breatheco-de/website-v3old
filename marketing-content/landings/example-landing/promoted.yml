@@ -18,7 +18,9 @@ schema:
 sections:
   - type: testimonials_grid
     version: v1.0
-    title: What Our Students Say test
+    title: What Our Students Say
+    related_features:
+      - data-science
     subtitle: Real stories from graduates who transformed their careers
     title_color: hsl(var(--foreground))
     subtitle_color: hsl(var(--muted-foreground))
@@ -28,8 +30,6 @@ sections:
     default_comment_color: hsl(var(--muted-foreground))
     default_star_color: hsl(45 93% 47%)
     columns: 3
-    related_features:
-      - data-science
     limit: 12
     background: hsl(var(--background))
   - type: hero
@@ -138,7 +138,7 @@ sections:
       cta_variant: secondary
       sub_text: Weekly updates - Unsubscribe anytime - No spam, ever
   - type: double_cta
-    title: Choose Your Path Into Tech test
+    title: Choose Your Path Into Tech
     subtitle: Whether you're starting from scratch or leveling up, we have the right program for you.
     background: muted
     left:
@@ -153,11 +153,11 @@ sections:
           text: Industry-recognized cedsa asd as dasd adsdas dsa das dsa   as dd asrtification
       image_id: group_original
       image_object_fit: cover
-      image_object_position: 50% 10%
       image_beside_bullets: false
       cta_text: Explore Full-Stack
       cta_url: /en/full-stack
       sub_text: Next cohort starts soon - Limited spots available
+      image_object_position: 50% 10%
     right:
       heading: AI & Machine Learning
       description: Dive into the future of tech with our AI engineering program. Learn to build intelligent systems from day one.
@@ -182,7 +182,7 @@ sections:
     right:
       video: https://www.youtube.com/watch?v=X0SyWfpz1Fc
       video_ratio: "16:9"
-    title: Making Tech Careers Accessible
+    title: Making Tech Careers Accessible test
     subtitle: "Tech careers change lives, and we believe finances should never hold anyone back. That's why we've built some of the most flexible, student-friendly options in the industry:"
     benefit_items:
       - icon: CurrencyDollar
