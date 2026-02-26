@@ -171,34 +171,34 @@ sections:
     columns:
       - name: Modalidad
         highlight: true
-      - name: Pago Total
+      - name: Pago total
         highlight: true
-      - name: Cuotas Flexibles (TFC)
+      - name: Cuotas flexibles (TFC)
         highlight: true
       - name: Financiamiento (Ascent/ Climb)
         highlight: true
-      - name: Paga Cuando Ganes (ISA)
+      - name: Paga cuando ganes (ISA)
         highlight: true
     rows:
-      - feature: Descuento en Matrícula
+      - feature: Descuento en matrícula
         values:
           - 10% de descuento
           - "No"
           - "No"
           - "No"
-      - feature: Verificación de Crédito
+      - feature: Verificación de crédito
         values:
           - "No"
           - Fácil Acceso
           - Sí
           - Sí
-      - feature: Aplazar Pagos
+      - feature: Aplazar pagos
         values:
           - "No"
           - "No"
           - Sí
           - Sí
-      - feature: Pagar Una Vez Contratado
+      - feature: Pagar una vez Contratado
         values:
           - "No"
           - "No"
