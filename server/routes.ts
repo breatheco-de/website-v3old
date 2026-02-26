@@ -359,6 +359,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (result.conflicted.length > 0) {
         logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
       }
+      if (result.errors.length > 0) {
+        logSync('ERROR', `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join('; ')}`);
+        setTimeout(async () => {
+          try {
+            const retry = await autoPullNonConflicting();
+            if (retry.pulled.length > 0) {
+              logSync('AUTO-PULL', `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+            }
+            if (retry.errors.length > 0) {
+              logSync('ERROR', `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join('; ')}`);
+            }
+          } catch (e) {
+            logSync('ERROR', `Retry failed: ${e instanceof Error ? e.message : String(e)}`);
+          }
+        }, 10000);
+      }
       await ensureWebhook();
     })
     .catch((err) => {

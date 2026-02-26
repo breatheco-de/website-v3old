@@ -308,6 +308,8 @@ export function DebugBubble() {
   const [autoCommitCountdown, setAutoCommitCountdown] = useState<number | null>(null);
   const [isFlushing, setIsFlushing] = useState(false);
   const [manualActionsOpen, setManualActionsOpen] = useState(false);
+  const [isPushingAllLocal, setIsPushingAllLocal] = useState(false);
+  const [pushAllLocalError, setPushAllLocalError] = useState<string | null>(null);
   
   // Create content modal state
   const [createContentModalOpen, setCreateContentModalOpen] = useState(false);
@@ -743,6 +745,34 @@ export function DebugBubble() {
         setPendingChanges([]);
         setPendingChangesLoading(false);
       });
+  };
+
+  const handlePushAllLocal = async () => {
+    setIsPushingAllLocal(true);
+    setPushAllLocalError(null);
+    try {
+      const localCount = pendingChanges.filter(c => c.source === 'local' || c.source === 'conflict').length;
+      const token = getDebugToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Token ${token}`;
+      const res = await fetch('/api/github/commit', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ message: `[Manual sync] ${localCount} local file(s)` }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchPendingChanges();
+        refreshSyncStatus();
+        setPushAllLocalError(null);
+      } else {
+        setPushAllLocalError(data.error || 'Failed to push changes');
+      }
+    } catch (e) {
+      setPushAllLocalError(e instanceof Error ? e.message : 'Failed to push changes');
+    } finally {
+      setIsPushingAllLocal(false);
+    }
   };
 
   const handleFlush = async () => {
@@ -2346,6 +2376,10 @@ export function DebugBubble() {
         handleIgnoreAllChanges={handleIgnoreAllChanges}
         isIgnoringAllChanges={isIgnoringAllChanges}
         fetchPendingChanges={fetchPendingChanges}
+        handlePushAllLocal={handlePushAllLocal}
+        isPushingAllLocal={isPushingAllLocal}
+        pushAllLocalError={pushAllLocalError}
+        setPushAllLocalError={setPushAllLocalError}
         manualActionsOpen={manualActionsOpen}
         setManualActionsOpen={setManualActionsOpen}
         advancedOptionsOpen={advancedOptionsOpen}

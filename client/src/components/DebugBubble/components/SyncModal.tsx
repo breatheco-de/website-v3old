@@ -59,6 +59,10 @@ export interface SyncModalProps {
   handleIgnoreAllChanges: () => Promise<void>;
   isIgnoringAllChanges: boolean;
   fetchPendingChanges: () => void;
+  handlePushAllLocal: () => void;
+  isPushingAllLocal: boolean;
+  pushAllLocalError: string | null;
+  setPushAllLocalError: (v: string | null) => void;
   manualActionsOpen: boolean;
   setManualActionsOpen: (v: boolean) => void;
   advancedOptionsOpen: boolean;
@@ -90,6 +94,10 @@ export function SyncModal({
   handleIgnoreAllChanges,
   isIgnoringAllChanges,
   fetchPendingChanges,
+  handlePushAllLocal,
+  isPushingAllLocal,
+  pushAllLocalError,
+  setPushAllLocalError,
   manualActionsOpen,
   setManualActionsOpen,
   advancedOptionsOpen,
@@ -357,25 +365,47 @@ export function SyncModal({
           )}
 
           <div className="border-t pt-3">
-            <button
-              type="button"
-              onClick={() => {
-                setManualActionsOpen(!manualActionsOpen);
-                if (!manualActionsOpen) fetchPendingChanges();
-              }}
-              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="button-toggle-manual-actions"
-            >
-              {manualActionsOpen ? (
-                <IconChevronDown className="h-3.5 w-3.5" />
-              ) : (
-                <IconChevronRight className="h-3.5 w-3.5" />
+            <div className="flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setManualActionsOpen(!manualActionsOpen);
+                  if (!manualActionsOpen) fetchPendingChanges();
+                }}
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="button-toggle-manual-actions"
+              >
+                {manualActionsOpen ? (
+                  <IconChevronDown className="h-3.5 w-3.5" />
+                ) : (
+                  <IconChevronRight className="h-3.5 w-3.5" />
+                )}
+                Commit Queue
+                {pendingChanges.length > 0 && (
+                  <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-1">{pendingChanges.length}</Badge>
+                )}
+              </button>
+              {pendingChanges.some(c => c.source === 'local' || c.source === 'conflict') && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-6 text-xs px-2"
+                  disabled={isPushingAllLocal}
+                  onClick={(e) => { e.stopPropagation(); setPushAllLocalError(null); handlePushAllLocal(); }}
+                  data-testid="button-push-all-local"
+                >
+                  {isPushingAllLocal ? (
+                    <><IconRefresh className="h-3 w-3 animate-spin mr-1" />Pushing...</>
+                  ) : (
+                    <><IconArrowUp className="h-3 w-3 mr-1" />Push all</>
+                  )}
+                </Button>
               )}
-              Commit Queue
-              {pendingChanges.length > 0 && (
-                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 ml-1">{pendingChanges.length}</Badge>
-              )}
-            </button>
+            </div>
+
+            {pushAllLocalError && (
+              <p className="text-xs text-destructive mt-2">{pushAllLocalError}</p>
+            )}
             
             {manualActionsOpen && (
               <div className="mt-3 space-y-3">
