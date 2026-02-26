@@ -803,6 +803,75 @@
       ],
       "createdAt": "2026-02-26T20:09:01.416Z",
       "name": "sticky_cta_usa_en"
+    },
+    {
+      "id": "bind_mm3wedid_ew4lm5",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "sticky_cta-hocsvz"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "sticky_cta-ukbrt7"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "sticky_cta-i6txjv"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "sticky_cta-z06m41"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "sticky_cta-jyoliy"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "sticky_cta-f9dm9f"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "sticky_cta-7o0pfn"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "sticky_cta-2rj95e"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "sticky_cta-wwdkzx"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "sticky_cta-q5ko74"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "sticky_cta-r9obl8"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "sticky_cta-ztotqr"
+        }
+      ],
+      "createdAt": "2026-02-26T20:10:38.437Z",
+      "name": "sticky_cta_europe_en"
     }
   ]
 }
