@@ -71,7 +71,7 @@ global_review_count:
       value: "700+"
     - query:
         locale: "en"
-      value: "700"
+      value: "700+"
 global_teacher_student_ratio:
   default: "1:7"
   conditions:
