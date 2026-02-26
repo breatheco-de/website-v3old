@@ -24,7 +24,7 @@ sections:
       src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Students collaborating in a tech workspace
     cta_buttons:
-      - text: Apply now
+      - text: Get more info
         url: "#bottom"
         variant: primary
         icon: Rocket
