@@ -183,14 +183,18 @@ sections:
         first_name:
           visible: true
           required: true
+          placeholder: Nombre Completo
         last_name:
           visible: true
           required: false
         phone:
           visible: true
           required: true
+          placeholder: Número telefónico
         program:
           visible: true
+          required: true
           default: auto
+          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
