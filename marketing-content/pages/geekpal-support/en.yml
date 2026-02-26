@@ -18,7 +18,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Lifetime mentorship & AI-powered coding support
+    title: Lifetime Mentorship & AI-Powered Coding Support
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
