@@ -362,7 +362,7 @@ sections:
     paddingY:
       desktop: none
   - type: faq
-    title: Preguntas Frecuentes
+    title: Preguntas frecuentes
     related_features:
       - online-platform
       - certification
