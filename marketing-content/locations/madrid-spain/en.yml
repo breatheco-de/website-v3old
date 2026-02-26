@@ -289,7 +289,7 @@ sections:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: What our students say
+    title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
       average: "4.9"
