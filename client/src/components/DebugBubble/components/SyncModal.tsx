@@ -399,7 +399,7 @@ export function SyncModal({
             </div>
           )}
 
-          <div className="border-t pt-3">
+          <div className="pt-1">
             <div className="flex items-center justify-between gap-2">
               <button
                 type="button"
