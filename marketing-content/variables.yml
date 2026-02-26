@@ -59,10 +59,6 @@ global_salary_increase:
       value: "40"
 global_review_rating:
   default: "4.9"
-  conditions:
-    - query:
-        location: "madrid-spain"
-      value: "4.9"
 global_review_count:
   default: "700"
   conditions:
