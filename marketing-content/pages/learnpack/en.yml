@@ -109,7 +109,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
-    title: Frequently asked questions
+    title: Frequently Asked Questions
     related_features:
       - learnpack
     marginY:
