@@ -54,8 +54,8 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         logoHeight: 64px
         description: Consistentemente listado entre los 5 mejores bootcamps por Forbes
-        link: https://www.coursereport.com
-        linkText: Leer reseñas
+        link: /es/premios
+        linkText: Ver más
       - id: clark-university
         alt: Logo de Clark University
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
