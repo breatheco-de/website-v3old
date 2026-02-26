@@ -16,8 +16,8 @@ schema:
 sections:
   - type: hero
     variant: productShowcase
-    title: Career development
-    subtitle: for the AI era
+    title: Career Development
+    subtitle: for the AI Era
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
