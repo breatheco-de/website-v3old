@@ -362,7 +362,7 @@ sections:
     form:
       variant: stacked
       submit_label: Obtener los detalles
-      tags: website-lead
+      tags: request_more_info
       automations: hard
       fields:
         email:
