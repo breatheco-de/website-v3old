@@ -80,7 +80,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Impact in numbers
+    title: Impact in Numbers
     subtitle: Over {{ total_scholarships | $20M }} in scholarships and grants awarded
     description: 4Geeks Academy partners empower thousands of students worldwide with access to tech education, hands-on mentorship, and career opportunities that drive real results.
     background: hsl(210 100% 50% / 0.05)
@@ -88,9 +88,9 @@ sections:
       - value: {{ global_job_placement_rate | 84 }}%
         title: Job placement rate within 6 months of graduation
       - value: 5000+
-        title: Hiring partners
+        title: Hiring Partners
       - value: 6000+
-        title: Students supported worldwide
+        title: Students Supported Worldwide
     marginY:
       desktop: none lg
     paddingY:
