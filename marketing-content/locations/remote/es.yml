@@ -15,11 +15,11 @@ sections:
     subtitle: Aprende a programar desde casa con soporte 1:1 ilimitado, contenido con IA y soporte profesional de por vida. Clases en vivo y apoyo para conseguir trabajo—desde cualquier lugar.
     badge: Campus Online
     cta_buttons:
-      - text: Aplicar ahora
+      - text: {{ call_to_action_apply | Aplicar Ahora }}
         url: /es/apply
         variant: primary
-      - text: Ver el programa
-        url: "#bottom"
+      - text: Solicitar Programa
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
