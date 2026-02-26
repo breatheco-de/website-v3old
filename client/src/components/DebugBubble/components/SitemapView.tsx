@@ -153,7 +153,7 @@ export function SitemapView({
                 <div key={folder.name} className="mb-1">
                   <button
                     onClick={() => toggleFolder(folder.name)}
-                    className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm hover-elevate cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm text-left hover-elevate cursor-pointer"
                     data-testid={`button-folder-${folder.name.toLowerCase()}`}
                   >
                     {expandedFolders.has(folder.name) ? (
