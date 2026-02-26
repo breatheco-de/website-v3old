@@ -298,3 +298,16 @@ sections:
         contributor: UTEC-BID
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    background: muted
+    primary:
+      badge: Results-Backed Promise
+      heading: The Confidence of a Job Guarantee
+      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+    secondary:
+      benefits:
+        - text: Our curriculum is industry-aligned and AI-ready
+        - text: Our mentorship is unlimited and personalized
+        - text: Our career support never expires
