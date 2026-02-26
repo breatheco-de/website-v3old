@@ -496,8 +496,8 @@ sections:
       desktop: md none
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para ser Socio?
-    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
+    title: ¿Listo para ser una empresa aliada?
+    subtitle: Construyamos juntos rutas escalables hacia carreras tech de alto crecimiento.
     background: hsl(var(--primary))
     variant: form
     form:
