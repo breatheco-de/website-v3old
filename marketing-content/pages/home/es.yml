@@ -170,7 +170,7 @@ sections:
       - tab_label: Acceso a Contratación Real
         layout: two_column_cards
         title: Accede al mercado laboral oculto.
-        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
+        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con empresas aliadas y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -179,7 +179,7 @@ sections:
           label: empresas en la red de empleadores de 4Geeks
         right_bullets:
           - icon: IconUserPlus
-            text: Referidos directos a socios de contratación
+            text: Referidos directos a empresas aliadas
           - icon: IconTargetArrow
             text: Ofertas laborales curadas según tu perfil
           - icon: IconMessageChatbot
