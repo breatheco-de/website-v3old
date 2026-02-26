@@ -63,16 +63,16 @@ sections:
     description: Every collaboration is designed to drive measurable results for organizations and communities, creating opportunities, expanding access to tech education, and strengthening the future tech workforce.
     cards:
       - icon: Trophy
-        title: Scholarships & funding
+        title: Scholarships & Funding
         description: Break down financial barriers and make coding education accessible to underserved communities.
       - icon: Wallet
-        title: Reskilling & upskilling programs
+        title: Reskilling & Upskilling Programs
         description: Invest in your workforce and prepare employees for the digital-first future.
       - icon: Clock
-        title: Recruitment & hiring pipelines
+        title: Recruitment & Hiring Pipelines
         description: Gain direct access to job-ready developers, data scientists, and cybersecurity specialists.
       - icon: Users
-        title: Events & outreach
+        title: Events & Outreach
         description: Partner on hackathons, speaker series, and innovation initiatives that amplify your brand and mission.
     background: hsl(var(--muted))
     marginY:
