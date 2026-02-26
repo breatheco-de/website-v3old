@@ -279,9 +279,9 @@ sections:
       url: /en/job-guarantee
       variant: primary
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
-      desktop: none sm
+      desktop: none
     background: hsl(var(--sidebar-background))
     showOnLocations:
       - atlanta-usa
