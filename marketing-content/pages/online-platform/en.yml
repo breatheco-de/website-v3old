@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Inside the 4Geeks platform
+    title: Inside the 4Geeks Platform
     subtitle: Discover the 4Geeks Academy platform that combines AI-powered learning with human mentorship. Learn to code with LearnPack, Rigobot AI mentor, and unlimited human support.
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
