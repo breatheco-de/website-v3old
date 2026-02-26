@@ -369,7 +369,7 @@ sections:
       - valencia-spain
   - type: testimonials_slide
     title: Donde el apoyo se convierte en oportunidades reales
-    description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del 84% contratados en los primeros seis meses.
+    description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del {{ global_job_placement_rate | 84 }}% contratados en los primeros seis meses.
   - type: horizontal_bars
     version: "1.0"
     title: El retorno de la oportunidad
