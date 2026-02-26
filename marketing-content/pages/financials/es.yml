@@ -590,11 +590,11 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
-          visible: false
-          required: false
+          visible: true
+          required: true
           default: auto
       success:
         message: ¡Gracias! Nos pondremos en contacto contigo pronto.
