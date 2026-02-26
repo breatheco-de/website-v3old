@@ -179,7 +179,7 @@ sections:
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: 250+
+          value: {{ number_of_hiring_partners_aprox | 250 }}+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
