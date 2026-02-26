@@ -57,8 +57,8 @@ sections:
         link: https://www.coursereport.com
         linkText: Leer reseñas
       - id: clark-university
-        alt: Logo de Clark University
-        logo: /marketing-content/images/clark-university_1769653206336.png
+        alt: Clark University Logo
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         logoHeight: 64px
         description: Certificado por universidades reconocidas
         link: https://www.switchup.org
