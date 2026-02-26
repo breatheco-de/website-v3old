@@ -55,11 +55,11 @@ sections:
     subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el próspero hub tech de Múnich. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Múnich
     cta_buttons:
-      - text: Aplicar Ahora
-        url: "#bottom"
+      - text: Aplicar ahora
+        url: /es/apply
         variant: primary
-      - text: Descargar Programa
-        url: "#syllabus-modal"
+      - text: Ver el programa
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
