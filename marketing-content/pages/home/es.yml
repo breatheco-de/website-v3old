@@ -195,11 +195,11 @@ sections:
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
-      - tab_label: Pruebas que convierten
+      - tab_label: Proyectos que convierten
         layout: text_and_image
         title: Proyectos que demuestran habilidad real.
         left_description: |-
-          La visibilidad atrae atención. Las pruebas cierran la brecha.
+          La visibilidad atrae atención. Tu portafolio cierra la brecha.
           Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
         left_bullets:
           - icon: IconBriefcase
