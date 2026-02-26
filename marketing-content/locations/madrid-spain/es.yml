@@ -342,6 +342,7 @@ sections:
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -359,11 +360,11 @@ sections:
           placeholder: Nombre y Apellido
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
@@ -373,13 +374,13 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    terms_color: hsl(var(--card))
-    paddingY:
-      desktop: md
+      terms_className: text-primary
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. Todos los derechos reservados.

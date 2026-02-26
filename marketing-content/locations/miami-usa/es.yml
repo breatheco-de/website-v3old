@@ -395,6 +395,7 @@ sections:
     version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -412,11 +413,11 @@ sections:
           placeholder: Nombre y Apellido
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
@@ -429,11 +430,11 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    paddingY:
-      desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
+    section_id: cta_banner-3o0kd6
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

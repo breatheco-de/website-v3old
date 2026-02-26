@@ -1148,6 +1148,70 @@
       ],
       "createdAt": "2026-02-26T21:31:53.936Z",
       "name": "cta_banner_usa_en"
+    },
+    {
+      "id": "bind_mm3zcmg4_q9bzdp",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "cta_banner-3o0kd6"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "cta_banner-nea344"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "cta_banner-60cqd9"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "cta_banner-69yotm"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "cta_banner-x72tv2"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "cta_banner-99jxnz"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "cta_banner-4z0ml3"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "cta_banner-4y2bj6"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "cta_banner-xucd9x"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "cta_banner-w3g4zt"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "cta_banner-kopo9v"
+        }
+      ],
+      "createdAt": "2026-02-26T21:33:15.556Z",
+      "name": "cta_banner_usa_es"
     }
   ]
 }
