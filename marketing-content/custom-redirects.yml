@@ -1,8 +1,8 @@
 redirects:
-  - from: /us/(.*)
-    to: /en/$1
   - from: /us/([a-z\-_]+)/([a-z\-_\d]+)
     to: /en/blog/$1/$2
+  - from: /us/(.*)
+    to: /en/$1
   - from: /es/([a-z\-_]+)/([a-z\-_\d]+)
     to: /es/blog/$1/$2
     priority: fallback
