@@ -162,7 +162,7 @@ export function SitemapView({
                       <IconChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                     )}
                     <IconFolder className="h-4 w-4 text-primary flex-shrink-0" />
-                    <span className="font-medium">{folder.name}</span>
+                    <span className="font-medium flex-1 min-w-0 truncate">{folder.name}</span>
                     <span className="text-xs text-muted-foreground ml-auto">
                       {folder.urls.length}
                     </span>
