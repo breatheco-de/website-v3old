@@ -302,7 +302,7 @@ average_salary_ai_fluent_software_developer:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$100K–$150K"
+      value: "$90 K–$140 K"
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
