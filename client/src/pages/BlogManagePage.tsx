@@ -77,11 +77,9 @@ interface BlogConfig {
 
 interface DatabaseListItem {
   name: string;
-  config: {
-    name: string;
-    description?: string;
-    source: { type: string };
-  };
+  label: string;
+  description: string | null;
+  source_type: string;
 }
 
 function formatDate(dateStr: string | null | undefined): string {
@@ -413,7 +411,7 @@ function DataSourceDialog({
                       {dbList.map((db) => (
                         <SelectItem key={db.name} value={db.name}>
                           <div className="flex items-center gap-2">
-                            <span>{db.config.name || db.name}</span>
+                            <span>{db.label || db.name}</span>
                             <span className="text-muted-foreground text-xs">({db.name})</span>
                           </div>
                         </SelectItem>
@@ -426,12 +424,12 @@ function DataSourceDialog({
                   const db = dbList.find((d) => d.name === selectedDb);
                   return db ? (
                     <div className="rounded-md border p-3 space-y-1" data-testid="section-db-info">
-                      <p className="text-sm font-medium">{db.config.name || db.name}</p>
-                      {db.config.description && (
-                        <p className="text-xs text-muted-foreground">{db.config.description}</p>
+                      <p className="text-sm font-medium">{db.label || db.name}</p>
+                      {db.description && (
+                        <p className="text-xs text-muted-foreground">{db.description}</p>
                       )}
                       <div className="flex items-center gap-2 pt-1">
-                        <Badge variant="outline" className="text-xs">{db.config.source.type}</Badge>
+                        <Badge variant="outline" className="text-xs">{db.source_type}</Badge>
                       </div>
                     </div>
                   ) : null;

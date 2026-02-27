@@ -14,7 +14,7 @@ source:
       expand: cluster
     results_path: results
     auth:
-      token_env_var: BREATHECODE_ACADEMY_TOKEN
+      token_env_var: BREATHECODE_TOKEN
       prefix: Token
     headers: {}
 cache:
