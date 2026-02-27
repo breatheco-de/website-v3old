@@ -50,7 +50,7 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
     
     if (faqsData?.faqs && (hasRelatedFeatures || locationSlug)) {
       items = filterFaqsByRelatedFeatures(faqsData.faqs, {
-        relatedFeatures: hasRelatedFeatures ? data.related_features! : undefined,
+        relatedFeatures: locationSlug ? undefined : (hasRelatedFeatures ? data.related_features! : undefined),
         location: locationSlug,
         limit: 9,
         programSlug,
