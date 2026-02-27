@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { setAutoCommitCallback } from "./sync-state";
 import { queueFileChange } from "./auto-commit";
+import { databaseManager } from "./database";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
 
@@ -120,5 +121,8 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    databaseManager.warmup().catch((err) => {
+      console.error("[DatabaseManager] Warmup error:", err);
+    });
   });
 })();

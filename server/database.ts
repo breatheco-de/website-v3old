@@ -258,6 +258,35 @@ export class DatabaseManager {
     return { ...entry, from_cache: false };
   }
 
+  async warmup(): Promise<void> {
+    const names = Array.from(this.configs.keys());
+    if (names.length === 0) return;
+
+    const toWarm = names.filter((name) => {
+      const config = this.configs.get(name)!;
+      const ttl = config.cache?.ttl_hours ?? 24;
+      return !this.loadFileCache(name, ttl);
+    });
+
+    if (toWarm.length === 0) {
+      console.log(`[DatabaseManager] Warmup: all ${names.length} database(s) already cached`);
+      return;
+    }
+
+    console.log(`[DatabaseManager] Warmup: pre-fetching ${toWarm.length} database(s): ${toWarm.join(", ")}`);
+
+    for (const name of toWarm) {
+      try {
+        await this.fetchItems(name);
+        console.log(`[DatabaseManager] Warmup: "${name}" cached successfully`);
+      } catch (err) {
+        console.error(`[DatabaseManager] Warmup: failed to fetch "${name}":`, err);
+      }
+    }
+
+    console.log(`[DatabaseManager] Warmup complete`);
+  }
+
   async test(
     sourceConfig: DatabaseConfig["source"]
   ): Promise<{
