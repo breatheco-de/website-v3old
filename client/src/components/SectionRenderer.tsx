@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import { useState, useCallback, useMemo, useRef, useEffect, lazy, Suspense } from "react";
-import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn } from "@shared/schema";
+import { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
@@ -152,61 +152,58 @@ function getSectionVisibilityClasses(showOn: ShowOn | undefined): string {
       return ''; // Visible on all breakpoints
   }
 }
-// EAGER components - commonly above the fold
 import { FeaturesGrid } from "@/components/features-grid/FeaturesGrid";
 import { AwardBadges } from "@/components/AwardBadges";
 import { AwardsMarquee } from "@/components/AwardsMarquee";
 import StatsSection from "@/components/StatsSection";
-
-// LAZY components - typically below the fold, loaded on demand
-const SyllabusSection = lazy(() => import("./SyllabusSection").then(m => ({ default: m.SyllabusSection })));
-const ProjectsSection = lazy(() => import("./ProjectsSection").then(m => ({ default: m.ProjectsSection })));
-const AILearningSection = lazy(() => import("./AILearningSection").then(m => ({ default: m.AILearningSection })));
-const CertificateSection = lazy(() => import("./CertificateSection").then(m => ({ default: m.CertificateSection })));
-const WhyLearnAISection = lazy(() => import("./why-learn-ai/WhyLearnAI").then(m => ({ default: m.WhyLearnAISection })));
-const PricingSection = lazy(() => import("./PricingSection").then(m => ({ default: m.PricingSection })));
-const FAQSection = lazy(() => import("./FAQSection").then(m => ({ default: m.FAQSection })));
-const TestimonialsSection = lazy(() => import("./TestimonialsSection").then(m => ({ default: m.TestimonialsSection })));
-const WhosHiring = lazy(() => import("@/components/whos-hiring/WhosHiring").then(m => ({ default: m.WhosHiring })));
-const FooterSection = lazy(() => import("./FooterSection").then(m => ({ default: m.FooterSection })));
-const TwoColumn = lazy(() => import("@/components/TwoColumn").then(m => ({ default: m.TwoColumn })));
-const NumberedSteps = lazy(() => import("@/components/NumberedSteps"));
-const TestimonialsSlide = lazy(() => import("@/components/TestimonialsSlide"));
-const TestimonialsGrid = lazy(() => import("@/components/TestimonialsGrid").then(m => ({ default: m.TestimonialsGrid })));
-const DynamicTable = lazy(() => import("@/components/DynamicTable").then(m => ({ default: m.DynamicTable })));
-const PressMentions = lazy(() => import("@/components/PressMentions").then(m => ({ default: m.PressMentions })));
-const ProgramsListSection = lazy(() => import("./ProgramsListSection").then(m => ({ default: m.ProgramsListSection })));
-const CTABannerSection = lazy(() => import("./CTABannerSection").then(m => ({ default: m.CTABannerSection })));
-const ProjectShowcase = lazy(() => import("@/components/ProjectShowcase").then(m => ({ default: m.ProjectShowcase })));
-const About = lazy(() => import("@/components/About").then(m => ({ default: m.About })));
-const ComparisonTable = lazy(() => import("@/components/ComparisonTable").then(m => ({ default: m.ComparisonTable })));
-const GeeksVsOthersComparison = lazy(() => import("@/components/GeeksVsOthersComparison").then(m => ({ default: m.GeeksVsOthersComparison })));
-const HorizontalBars = lazy(() => import("@/components/HorizontalBars").then(m => ({ default: m.HorizontalBars })));
-const VerticalBarsCards = lazy(() => import("@/components/VerticalBarsCards").then(m => ({ default: m.VerticalBarsCards })));
-const PieCharts = lazy(() => import("@/components/PieCharts").then(m => ({ default: m.PieCharts })));
-const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.LeadForm })));
-const ApplyFormSection = lazy(() => import("@/components/ApplyFormSection").then(m => ({ default: m.ApplyFormSection })));
-const HumanAndAIDuo = lazy(() => import("@/components/HumanAndAIDuo").then(m => ({ default: m.HumanAndAIDuo })));
-const FeaturesQuad = lazy(() => import("@/components/features-quad").then(m => ({ default: m.FeaturesQuad })));
-const CommunitySupport = lazy(() => import("@/components/CommunitySupport").then(m => ({ default: m.CommunitySupport })));
-const TwoColumnAccordionCard = lazy(() => import("@/components/two-column-accordion-card/TwoColumnAccordionCard").then(m => ({ default: m.TwoColumnAccordionCard })));
-const BulletTabsShowcase = lazy(() => import("@/components/BulletTabsShowcase").then(m => ({ default: m.BulletTabsShowcase })));
-const GraduatesStats = lazy(() => import("@/components/graduates_stats").then(m => ({ default: m.GraduatesStats })));
-const ValueProofPanel = lazy(() => import("@/components/ValueProofPanel").then(m => ({ default: m.ValueProofPanel })));
-const SplitCards = lazy(() => import("@/components/SplitCards").then(m => ({ default: m.SplitCards })));
-const StickyCallToAction = lazy(() => import("@/components/StickyCallToAction").then(m => ({ default: m.StickyCallToAction })));
-const BentoCards = lazy(() => import("@/components/bento-cards/BentoCards").then(m => ({ default: m.BentoCards })));
-const Banner = lazy(() => import("@/components/Banner").then(m => ({ default: m.Banner })));
-const FaqEditor = lazy(() => import("@/components/FaqEditor").then(m => ({ default: m.FaqEditor })));
-const ImageRow = lazy(() => import("@/components/sections/ImageRow"));
-const CourseSelector = lazy(() => import("@/components/course-selector/CourseSelector").then(m => ({ default: m.CourseSelector })));
-const ArticleSection = lazy(() => import("@/components/Article").then(m => ({ default: m.Article })));
-const PartnershipCarousel = lazy(() => import("@/components/partnership-carousel/PartnershipCarousel").then(m => ({ default: m.PartnershipCarousel })));
-const CareerSupportExplain = lazy(() => import("@/components/career-support-explain/CareerSupportExplain"));
-const ProfilesCarousel = lazy(() => import("@/components/profiles-carousel/ProfilesCarousel"));
-const DoubleCTA = lazy(() => import("@/components/double-cta/DoubleCTA"));
-const Modal = lazy(() => import("@/components/Modal").then(m => ({ default: m.Modal })));
-const ContactUsInfo = lazy(() => import("@/components/contact-us-info/ContactUsInfo").then(m => ({ default: m.ContactUsInfo })));
+import { SyllabusSection } from "./SyllabusSection";
+import { ProjectsSection } from "./ProjectsSection";
+import { AILearningSection } from "./AILearningSection";
+import { CertificateSection } from "./CertificateSection";
+import { WhyLearnAISection } from "./why-learn-ai/WhyLearnAI";
+import { PricingSection } from "./PricingSection";
+import { FAQSection } from "./FAQSection";
+import { TestimonialsSection } from "./TestimonialsSection";
+import { WhosHiring } from "@/components/whos-hiring/WhosHiring";
+import { FooterSection } from "./FooterSection";
+import { TwoColumn } from "@/components/TwoColumn";
+import NumberedSteps from "@/components/NumberedSteps";
+import TestimonialsSlide from "@/components/TestimonialsSlide";
+import { TestimonialsGrid } from "@/components/TestimonialsGrid";
+import { DynamicTable } from "@/components/DynamicTable";
+import { PressMentions } from "@/components/PressMentions";
+import { ProgramsListSection } from "./ProgramsListSection";
+import { CTABannerSection } from "./CTABannerSection";
+import { ProjectShowcase } from "@/components/ProjectShowcase";
+import { About } from "@/components/About";
+import { ComparisonTable } from "@/components/ComparisonTable";
+import { GeeksVsOthersComparison } from "@/components/GeeksVsOthersComparison";
+import { HorizontalBars } from "@/components/HorizontalBars";
+import { VerticalBarsCards } from "@/components/VerticalBarsCards";
+import { PieCharts } from "@/components/PieCharts";
+import { LeadForm } from "@/components/LeadForm";
+import { ApplyFormSection } from "@/components/ApplyFormSection";
+import { HumanAndAIDuo } from "@/components/HumanAndAIDuo";
+import { FeaturesQuad } from "@/components/features-quad";
+import { CommunitySupport } from "@/components/CommunitySupport";
+import { TwoColumnAccordionCard } from "@/components/two-column-accordion-card/TwoColumnAccordionCard";
+import { BulletTabsShowcase } from "@/components/BulletTabsShowcase";
+import { GraduatesStats } from "@/components/graduates_stats";
+import { ValueProofPanel } from "@/components/ValueProofPanel";
+import { SplitCards } from "@/components/SplitCards";
+import { StickyCallToAction } from "@/components/StickyCallToAction";
+import { BentoCards } from "@/components/bento-cards/BentoCards";
+import { Banner } from "@/components/Banner";
+import { FaqEditor } from "@/components/FaqEditor";
+import ImageRow from "@/components/sections/ImageRow";
+import { CourseSelector } from "@/components/course-selector/CourseSelector";
+import { Article as ArticleSection } from "@/components/Article";
+import { PartnershipCarousel } from "@/components/partnership-carousel/PartnershipCarousel";
+import CareerSupportExplain from "@/components/career-support-explain/CareerSupportExplain";
+import ProfilesCarousel from "@/components/profiles-carousel/ProfilesCarousel";
+import DoubleCTA from "@/components/double-cta/DoubleCTA";
+import { Modal } from "@/components/Modal";
+import { ContactUsInfo } from "@/components/contact-us-info/ContactUsInfo";
 
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
@@ -260,21 +257,52 @@ function shouldShowSectionForLocation(
   return false;
 }
 
-// Loading fallback for lazy sections
-function SectionSkeleton() {
-  return (
-    <div className="w-full py-16 flex items-center justify-center">
-      <div className="animate-pulse flex flex-col items-center gap-4">
-        <div className="h-8 w-64 bg-muted rounded" />
-        <div className="h-4 w-96 bg-muted rounded" />
-        <div className="h-4 w-80 bg-muted rounded" />
-      </div>
-    </div>
-  );
+const DEFAULT_EAGER_COUNT = 3;
+
+function resolveLoadStrategy(
+  section: Section,
+  index: number,
+  settings?: PageSettings
+): "eager" | "lazy" {
+  const layout = section as SectionLayout;
+  if (layout.load) return layout.load;
+  const eagerCount = settings?.loading?.eager_count ?? DEFAULT_EAGER_COUNT;
+  return index < eagerCount ? "eager" : "lazy";
+}
+
+function DeferredSection({ children }: { children: React.ReactNode }) {
+  const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isVisible) return;
+    const el = sentinelRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  if (!isVisible) {
+    return <div ref={sentinelRef} style={{ minHeight: "100px" }} />;
+  }
+
+  return <>{children}</>;
 }
 
 interface SectionRendererProps {
   sections: Section[];
+  settings?: PageSettings;
   contentType?: "program" | "landing" | "location" | "page";
   slug?: string;
   locale?: string;
@@ -363,16 +391,10 @@ async function sendEditOperation(
   return response.json();
 }
 
-// Wrapper for lazy-loaded sections
-function LazySection({ children }: { children: React.ReactNode }) {
-  return <Suspense fallback={<SectionSkeleton />}>{children}</Suspense>;
-}
-
 export function renderSection(section: Section, index: number, landingLocations?: string[], programSlug?: string): React.ReactNode {
   const sectionType = (section as { type: string }).type;
 
   switch (sectionType) {
-    // EAGER components - no Suspense needed
     case "hero":
       return <Hero key={index} data={section as Parameters<typeof Hero>[0]["data"]} landingLocations={landingLocations} />;
     case "features_grid":
@@ -426,105 +448,103 @@ export function renderSection(section: Section, index: number, landingLocations?
         />
       );
     }
-
-    // LAZY components - wrapped in Suspense
     case "syllabus":
-      return <LazySection key={index}><SyllabusSection data={section as Parameters<typeof SyllabusSection>[0]["data"]} /></LazySection>;
+      return <SyllabusSection data={section as Parameters<typeof SyllabusSection>[0]["data"]} />;
     case "projects":
-      return <LazySection key={index}><ProjectsSection data={section as Parameters<typeof ProjectsSection>[0]["data"]} /></LazySection>;
+      return <ProjectsSection data={section as Parameters<typeof ProjectsSection>[0]["data"]} />;
     case "ai_learning":
-      return <LazySection key={index}><AILearningSection data={section as Parameters<typeof AILearningSection>[0]["data"]} /></LazySection>;
+      return <AILearningSection data={section as Parameters<typeof AILearningSection>[0]["data"]} />;
     case "certificate":
-      return <LazySection key={index}><CertificateSection data={section as Parameters<typeof CertificateSection>[0]["data"]} /></LazySection>;
+      return <CertificateSection data={section as Parameters<typeof CertificateSection>[0]["data"]} />;
     case "why_learn_ai":
-      return <LazySection key={index}><WhyLearnAISection data={section as Parameters<typeof WhyLearnAISection>[0]["data"]} /></LazySection>;
+      return <WhyLearnAISection data={section as Parameters<typeof WhyLearnAISection>[0]["data"]} />;
     case "pricing":
-      return <LazySection key={index}><PricingSection data={section as Parameters<typeof PricingSection>[0]["data"]} /></LazySection>;
+      return <PricingSection data={section as Parameters<typeof PricingSection>[0]["data"]} />;
     case "faq":
-      return <LazySection key={index}><FAQSection data={section as Parameters<typeof FAQSection>[0]["data"]} programSlug={programSlug} /></LazySection>;
+      return <FAQSection data={section as Parameters<typeof FAQSection>[0]["data"]} programSlug={programSlug} />;
     case "testimonials":
-      return <LazySection key={index}><TestimonialsSection data={section as Parameters<typeof TestimonialsSection>[0]["data"]} /></LazySection>;
+      return <TestimonialsSection data={section as Parameters<typeof TestimonialsSection>[0]["data"]} />;
     case "whos_hiring":
-      return <LazySection key={index}><WhosHiring data={section as Parameters<typeof WhosHiring>[0]["data"]} /></LazySection>;
+      return <WhosHiring data={section as Parameters<typeof WhosHiring>[0]["data"]} />;
     case "footer":
-      return <LazySection key={index}><FooterSection data={section as Parameters<typeof FooterSection>[0]["data"]} /></LazySection>;
+      return <FooterSection data={section as Parameters<typeof FooterSection>[0]["data"]} />;
     case "two_column":
-      return <LazySection key={index}><TwoColumn data={section as Parameters<typeof TwoColumn>[0]["data"]} /></LazySection>;
+      return <TwoColumn data={section as Parameters<typeof TwoColumn>[0]["data"]} />;
     case "human_and_ai_duo":
-      return <LazySection key={index}><HumanAndAIDuo data={section as Parameters<typeof HumanAndAIDuo>[0]["data"]} /></LazySection>;
+      return <HumanAndAIDuo data={section as Parameters<typeof HumanAndAIDuo>[0]["data"]} />;
     case "features_quad":
-      return <LazySection key={index}><FeaturesQuad data={section as Parameters<typeof FeaturesQuad>[0]["data"]} /></LazySection>;
+      return <FeaturesQuad data={section as Parameters<typeof FeaturesQuad>[0]["data"]} />;
     case "community_support":
-      return <LazySection key={index}><CommunitySupport data={section as Parameters<typeof CommunitySupport>[0]["data"]} /></LazySection>;
+      return <CommunitySupport data={section as Parameters<typeof CommunitySupport>[0]["data"]} />;
     case "numbered_steps":
-      return <LazySection key={index}><NumberedSteps data={section as Parameters<typeof NumberedSteps>[0]["data"]} /></LazySection>;
+      return <NumberedSteps data={section as Parameters<typeof NumberedSteps>[0]["data"]} />;
     case "testimonials_slide":
-      return <LazySection key={index}><TestimonialsSlide data={section as Parameters<typeof TestimonialsSlide>[0]["data"]} /></LazySection>;
+      return <TestimonialsSlide data={section as Parameters<typeof TestimonialsSlide>[0]["data"]} />;
     case "testimonials_grid":
-      return <LazySection key={index}><TestimonialsGrid data={section as Parameters<typeof TestimonialsGrid>[0]["data"]} /></LazySection>;
+      return <TestimonialsGrid data={section as Parameters<typeof TestimonialsGrid>[0]["data"]} />;
     case "dynamic_table":
-      return <LazySection key={index}><DynamicTable data={section as Parameters<typeof DynamicTable>[0]["data"]} /></LazySection>;
+      return <DynamicTable data={section as Parameters<typeof DynamicTable>[0]["data"]} />;
     case "press_mentions":
-      return <LazySection key={index}><PressMentions data={section as Parameters<typeof PressMentions>[0]["data"]} /></LazySection>;
+      return <PressMentions data={section as Parameters<typeof PressMentions>[0]["data"]} />;
     case "programs_list":
-      return <LazySection key={index}><ProgramsListSection data={section as Parameters<typeof ProgramsListSection>[0]["data"]} /></LazySection>;
+      return <ProgramsListSection data={section as Parameters<typeof ProgramsListSection>[0]["data"]} />;
     case "cta_banner":
-      return <LazySection key={index}><CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
+      return <CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} landingLocations={landingLocations} />;
     case "project_showcase":
     case "projects_showcase":
-      return <LazySection key={index}><ProjectShowcase data={section as Parameters<typeof ProjectShowcase>[0]["data"]} /></LazySection>;
+      return <ProjectShowcase data={section as Parameters<typeof ProjectShowcase>[0]["data"]} />;
     case "about":
-      return <LazySection key={index}><About data={section as Parameters<typeof About>[0]["data"]} /></LazySection>;
+      return <About data={section as Parameters<typeof About>[0]["data"]} />;
     case "comparison_table":
-      return <LazySection key={index}><ComparisonTable data={section as Parameters<typeof ComparisonTable>[0]["data"]} /></LazySection>;
+      return <ComparisonTable data={section as Parameters<typeof ComparisonTable>[0]["data"]} />;
     case "geeks_vs_others_comparison":
-      return <LazySection key={index}><GeeksVsOthersComparison data={section as Parameters<typeof GeeksVsOthersComparison>[0]["data"]} /></LazySection>;
+      return <GeeksVsOthersComparison data={section as Parameters<typeof GeeksVsOthersComparison>[0]["data"]} />;
     case "horizontal_bars":
-      return <LazySection key={index}><HorizontalBars data={section as Parameters<typeof HorizontalBars>[0]["data"]} /></LazySection>;
+      return <HorizontalBars data={section as Parameters<typeof HorizontalBars>[0]["data"]} />;
     case "vertical_bars_cards":
-      return <LazySection key={index}><VerticalBarsCards data={section as Parameters<typeof VerticalBarsCards>[0]["data"]} /></LazySection>;
+      return <VerticalBarsCards data={section as Parameters<typeof VerticalBarsCards>[0]["data"]} />;
     case "pie_charts":
-      return <LazySection key={index}><PieCharts data={section as Parameters<typeof PieCharts>[0]["data"]} /></LazySection>;
+      return <PieCharts data={section as Parameters<typeof PieCharts>[0]["data"]} />;
     case "lead_form":
-      return <LazySection key={index}><LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
+      return <LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} landingLocations={landingLocations} />;
     case "two_column_accordion_card":
-      return <LazySection key={index}><TwoColumnAccordionCard data={section as Parameters<typeof TwoColumnAccordionCard>[0]["data"]} /></LazySection>;
+      return <TwoColumnAccordionCard data={section as Parameters<typeof TwoColumnAccordionCard>[0]["data"]} />;
     case "bullet_tabs_showcase":
-      return <LazySection key={index}><BulletTabsShowcase data={section as Parameters<typeof BulletTabsShowcase>[0]["data"]} /></LazySection>;
+      return <BulletTabsShowcase data={section as Parameters<typeof BulletTabsShowcase>[0]["data"]} />;
     case "graduates_stats":
-      return <LazySection key={index}><GraduatesStats data={section as Parameters<typeof GraduatesStats>[0]["data"]} /></LazySection>;
+      return <GraduatesStats data={section as Parameters<typeof GraduatesStats>[0]["data"]} />;
     case "apply_form":
-      return <LazySection key={index}><ApplyFormSection data={section as Parameters<typeof ApplyFormSection>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
+      return <ApplyFormSection data={section as Parameters<typeof ApplyFormSection>[0]["data"]} landingLocations={landingLocations} />;
     case "value_proof_panel":
-      return <LazySection key={index}><ValueProofPanel data={section as Parameters<typeof ValueProofPanel>[0]["data"]} /></LazySection>;
+      return <ValueProofPanel data={section as Parameters<typeof ValueProofPanel>[0]["data"]} />;
     case "split_cards":
-      return <LazySection key={index}><SplitCards data={section as Parameters<typeof SplitCards>[0]["data"]} /></LazySection>;
+      return <SplitCards data={section as Parameters<typeof SplitCards>[0]["data"]} />;
     case "sticky_cta":
-      return <LazySection key={index}><StickyCallToAction data={section as Parameters<typeof StickyCallToAction>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
+      return <StickyCallToAction data={section as Parameters<typeof StickyCallToAction>[0]["data"]} landingLocations={landingLocations} />;
     case "bento_cards":
-      return <LazySection key={index}><BentoCards data={section as Parameters<typeof BentoCards>[0]["data"]} /></LazySection>;
+      return <BentoCards data={section as Parameters<typeof BentoCards>[0]["data"]} />;
     case "banner":
-      return <LazySection key={index}><Banner data={section as Parameters<typeof Banner>[0]["data"]} /></LazySection>;
+      return <Banner data={section as Parameters<typeof Banner>[0]["data"]} />;
     case "faq_editor":
-      return <LazySection key={index}><FaqEditor data={section as Parameters<typeof FaqEditor>[0]["data"]} /></LazySection>;
+      return <FaqEditor data={section as Parameters<typeof FaqEditor>[0]["data"]} />;
     case "image_row":
-      return <LazySection key={index}><ImageRow data={section as Parameters<typeof ImageRow>[0]["data"]} /></LazySection>;
+      return <ImageRow data={section as Parameters<typeof ImageRow>[0]["data"]} />;
     case "course_selector":
-      return <LazySection key={index}><CourseSelector data={section as Parameters<typeof CourseSelector>[0]["data"]} /></LazySection>;
+      return <CourseSelector data={section as Parameters<typeof CourseSelector>[0]["data"]} />;
     case "article":
-      return <LazySection key={index}><ArticleSection data={section as Parameters<typeof ArticleSection>[0]["data"]} /></LazySection>;
+      return <ArticleSection data={section as Parameters<typeof ArticleSection>[0]["data"]} />;
     case "partnership_carousel":
-      return <LazySection key={index}><PartnershipCarousel data={section as any} /></LazySection>;
+      return <PartnershipCarousel data={section as any} />;
     case "career_support_explain":
-      return <LazySection key={index}><CareerSupportExplain data={section as Parameters<typeof CareerSupportExplain>[0]["data"]} /></LazySection>;
+      return <CareerSupportExplain data={section as Parameters<typeof CareerSupportExplain>[0]["data"]} />;
     case "profiles_carousel":
-      return <LazySection key={index}><ProfilesCarousel data={section as Parameters<typeof ProfilesCarousel>[0]["data"]} /></LazySection>;
+      return <ProfilesCarousel data={section as Parameters<typeof ProfilesCarousel>[0]["data"]} />;
     case "double_cta":
-      return <LazySection key={index}><DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} /></LazySection>;
+      return <DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} />;
     case "modal":
-      return <LazySection key={index}><Modal data={section as unknown as Parameters<typeof Modal>[0]["data"]} landingLocations={landingLocations} /></LazySection>;
+      return <Modal data={section as unknown as Parameters<typeof Modal>[0]["data"]} landingLocations={landingLocations} />;
     case "contact_us_info":
-      return <LazySection key={index}><ContactUsInfo data={section as Parameters<typeof ContactUsInfo>[0]["data"]} /></LazySection>;
+      return <ContactUsInfo data={section as Parameters<typeof ContactUsInfo>[0]["data"]} />;
     default: {
       if (process.env.NODE_ENV === "development") {
         console.warn(`Unknown section type: ${sectionType}`);
@@ -590,7 +610,7 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   );
 }
 
-export function SectionRenderer({ sections, contentType, slug, locale, programSlug, landingLocations }: SectionRendererProps) {
+export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -677,11 +697,11 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
     const sectionType = (section as { type: string }).type;
 
     if (sectionType === "cta_banner") {
-      return <LazySection key={index}><CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} /></LazySection>;
+      return <CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} />;
     }
 
     if (sectionType === "lead_form") {
-      return <LazySection key={index}><LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} /></LazySection>;
+      return <LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} />;
     }
 
     return renderSection(section, index, landingLocations, programSlug);
@@ -883,7 +903,8 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
       {resolvedSections.map((section, index) => {
         const rawSection = sections[index];
         const sectionType = (section as { type: string }).type;
-        const renderedSection = renderSectionWithContext(section, index);
+        const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
+        const renderedContent = renderSectionWithContext(section, index);
         const layoutStyles = getSectionLayoutStyles(section);
         const showOn = (rawSection as SectionLayout).showOn;
 
@@ -891,7 +912,7 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
         const isLocationVisible = shouldShowSectionForLocation(rawSection, sessionLocationSlug, sessionLocationRegion, isEditMode);
         const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
 
-        if (!renderedSection) return null;
+        if (!renderedContent) return null;
 
         if (!isLocationVisible) return null;
 
@@ -911,6 +932,10 @@ export function SectionRenderer({ sections, contentType, slug, locale, programSl
 
 
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
+        const renderedSection = loadStrategy === "lazy"
+          ? <DeferredSection>{renderedContent}</DeferredSection>
+          : renderedContent;
+
         return (
           <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
             <EditableSection

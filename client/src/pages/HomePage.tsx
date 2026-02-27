@@ -84,6 +84,7 @@ export default function HomePage() {
       <Header />
       <SectionRenderer 
         sections={page.sections} 
+        settings={page.settings}
         contentType="page"
         slug={slug}
         locale={locale}
