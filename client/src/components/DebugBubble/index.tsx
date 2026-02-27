@@ -2074,7 +2074,7 @@ export function DebugBubble() {
                   icon={IconDatabase}
                   label="Databases"
                   onClick={() => setMenuView("databases")}
-                  indicator="chevron"
+                  indicator="arrow"
                   testId="button-databases-menu"
                 />
 
