@@ -1702,9 +1702,21 @@ export function DebugBubble() {
         <PopoverContent 
           side="top" 
           align="start" 
-          className="w-96 p-0"
+          className="debug-bubble-popover w-96 p-0 sm:w-96 sm:max-h-[85vh] max-h-[100dvh] flex flex-col"
           sideOffset={8}
         >
+          <div className="sm:hidden flex items-center justify-between p-2 border-b border-border flex-shrink-0">
+            <span className="text-sm font-semibold px-1">Debug Tools</span>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setOpen(false)}
+              data-testid="button-debug-close-mobile"
+            >
+              <IconX className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="flex-1 overflow-y-auto overflow-x-hidden">
           {/* No token detected - show only warning */}
           {noTokenDetected ? (
             <div className="p-4 pl-[8px] pr-[8px]">
@@ -2335,6 +2347,7 @@ export function DebugBubble() {
           )}
             </>
           )}
+          </div>
         </PopoverContent>
       </Popover>
       <LocationOverrideModal
