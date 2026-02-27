@@ -34,6 +34,10 @@ import {
   IconTestPipe,
   IconTrash,
   IconAlertTriangle,
+  IconSettings,
+  IconDownload,
+  IconDeviceFloppy,
+  IconEdit,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -716,13 +720,371 @@ function DatabaseList() {
   );
 }
 
+function DatabaseConfigEditor({
+  dbName,
+  config,
+  onSaved,
+}: {
+  dbName: string;
+  config: DatabaseDetail["config"];
+  onSaved: () => void;
+}) {
+  const { toast } = useToast();
+  const [, navigate] = useLocation();
+  const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const [displayName, setDisplayName] = useState(config.name);
+  const [description, setDescription] = useState(config.description || "");
+  const [endpoint, setEndpoint] = useState(config.source.api?.endpoint || "");
+  const [resultsPath, setResultsPath] = useState(config.source.api?.results_path || "");
+  const [tokenEnvVar, setTokenEnvVar] = useState(config.source.api?.auth?.token_env_var || "");
+  const [authPrefix, setAuthPrefix] = useState(config.source.api?.auth?.prefix || "Bearer");
+  const [ttlHours, setTtlHours] = useState(String(config.cache?.ttl_hours ?? 24));
+  const [params, setParams] = useState<KeyValuePair[]>(() => {
+    const p = config.source.api?.params;
+    if (!p || Object.keys(p).length === 0) return [];
+    return Object.entries(p).map(([key, value]) => ({ key, value: String(value) }));
+  });
+  const [headers, setHeaders] = useState<KeyValuePair[]>(() => {
+    const h = config.source.api?.headers;
+    if (!h || Object.keys(h).length === 0) return [];
+    return Object.entries(h).map(([key, value]) => ({ key, value }));
+  });
+  const [fieldMappingEntries, setFieldMappingEntries] = useState<KeyValuePair[]>(() => {
+    const fm = config.field_mapping;
+    if (!fm || Object.keys(fm).length === 0) return [];
+    return Object.entries(fm).map(([key, value]) => ({ key, value: value || "" }));
+  });
+
+  const [testResult, setTestResult] = useState<{
+    success: boolean;
+    item_count?: number;
+    error?: string;
+  } | null>(null);
+
+  const buildSourceConfig = () => {
+    const source: Record<string, unknown> = { type: config.source.type || "api" };
+    const api: Record<string, unknown> = { endpoint };
+    if (resultsPath) api.results_path = resultsPath;
+    if (tokenEnvVar) {
+      api.auth = { token_env_var: tokenEnvVar, prefix: authPrefix || "Bearer" };
+    }
+    const filteredParams = params.filter((p) => p.key.trim());
+    if (filteredParams.length > 0) {
+      api.params = Object.fromEntries(filteredParams.map((p) => [p.key, p.value]));
+    }
+    const filteredHeaders = headers.filter((h) => h.key.trim());
+    if (filteredHeaders.length > 0) {
+      api.headers = Object.fromEntries(filteredHeaders.map((h) => [h.key, h.value]));
+    }
+    source.api = api;
+    return source;
+  };
+
+  const handleTest = async () => {
+    setTesting(true);
+    setTestResult(null);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/test`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ source: buildSourceConfig() }),
+      });
+      const data = await res.json();
+      setTestResult(data);
+    } catch (err) {
+      setTestResult({
+        success: false,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    } finally {
+      setTesting(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const fieldMapping: Record<string, string> = {};
+      for (const entry of fieldMappingEntries) {
+        if (entry.key.trim()) {
+          fieldMapping[entry.key] = entry.value;
+        }
+      }
+
+      const updatedConfig = {
+        name: displayName,
+        description: description || undefined,
+        source: buildSourceConfig(),
+        cache: { ttl_hours: ttlHours !== "" && Number.isFinite(Number(ttlHours)) ? Number(ttlHours) : 24 },
+        field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
+      };
+
+      const res = await fetch(`/api/databases/${dbName}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedConfig),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save config");
+      }
+
+      queryClient.invalidateQueries({ queryKey: ["/api/databases", dbName] });
+      queryClient.invalidateQueries({ queryKey: ["/api/databases"] });
+      toast({ title: "Configuration saved" });
+      onSaved();
+    } catch (err) {
+      toast({
+        title: "Error saving",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}`, { method: "DELETE" });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to delete");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/databases"] });
+      toast({ title: "Database deleted" });
+      navigate("/private/databases");
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setDeleting(false);
+      setDeleteOpen(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="edit-name">Display Name</Label>
+          <Input
+            id="edit-name"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            data-testid="input-edit-display-name"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
+          <Input
+            id="edit-ttl"
+            type="number"
+            min="0"
+            value={ttlHours}
+            onChange={(e) => setTtlHours(e.target.value)}
+            className="w-24"
+            data-testid="input-edit-ttl"
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="edit-desc">Description</Label>
+        <Textarea
+          id="edit-desc"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="resize-none text-sm"
+          rows={2}
+          data-testid="input-edit-description"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="edit-endpoint">API Endpoint</Label>
+        <Input
+          id="edit-endpoint"
+          value={endpoint}
+          onChange={(e) => setEndpoint(e.target.value)}
+          data-testid="input-edit-endpoint"
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="edit-results-path">Results Path</Label>
+        <Input
+          id="edit-results-path"
+          placeholder="e.g. results, data.items"
+          value={resultsPath}
+          onChange={(e) => setResultsPath(e.target.value)}
+          data-testid="input-edit-results-path"
+        />
+        <p className="text-xs text-muted-foreground">
+          Dot-notation path to the array in the API response. Leave empty if the response is already an array.
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        <Label>Authentication</Label>
+        <div className="grid grid-cols-2 gap-2">
+          <Input
+            placeholder="ENV var name"
+            value={tokenEnvVar}
+            onChange={(e) => setTokenEnvVar(e.target.value)}
+            data-testid="input-edit-token-env"
+          />
+          <Input
+            placeholder="Prefix (Bearer, Token...)"
+            value={authPrefix}
+            onChange={(e) => setAuthPrefix(e.target.value)}
+            data-testid="input-edit-auth-prefix"
+          />
+        </div>
+      </div>
+
+      <KeyValueEditor
+        label="Query Parameters"
+        pairs={params}
+        onChange={setParams}
+        keyPlaceholder="param name"
+        valuePlaceholder="value"
+        testIdPrefix="edit-param"
+      />
+
+      <KeyValueEditor
+        label="Headers"
+        pairs={headers}
+        onChange={setHeaders}
+        keyPlaceholder="header name"
+        valuePlaceholder="value"
+        testIdPrefix="edit-header"
+      />
+
+      <KeyValueEditor
+        label="Field Mapping (normalized key → source path)"
+        pairs={fieldMappingEntries}
+        onChange={setFieldMappingEntries}
+        keyPlaceholder="normalized key"
+        valuePlaceholder="source.path"
+        testIdPrefix="edit-field-map"
+      />
+
+      <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t">
+        <div className="flex items-center gap-2 flex-wrap">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleTest}
+            disabled={testing || !endpoint.trim()}
+            data-testid="button-test-config"
+          >
+            {testing ? (
+              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            ) : (
+              <IconTestPipe className="h-3.5 w-3.5 mr-1" />
+            )}
+            Test Connection
+          </Button>
+          {testResult && (
+            <Badge variant={testResult.success ? "secondary" : "destructive"}>
+              {testResult.success ? (
+                <>
+                  <IconCheck className="h-3 w-3 mr-1" />
+                  {testResult.item_count} items found
+                </>
+              ) : (
+                <>
+                  <IconX className="h-3 w-3 mr-1" />
+                  Failed
+                </>
+              )}
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => setDeleteOpen(true)}
+            data-testid="button-delete-database"
+          >
+            <IconTrash className="h-3.5 w-3.5 mr-1" />
+            Delete
+          </Button>
+          <Button
+            size="sm"
+            onClick={handleSave}
+            disabled={saving || !displayName.trim() || !endpoint.trim()}
+            data-testid="button-save-config"
+          >
+            {saving ? (
+              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            ) : (
+              <IconDeviceFloppy className="h-3.5 w-3.5 mr-1" />
+            )}
+            Save
+          </Button>
+        </div>
+      </div>
+
+      {testResult?.error && (
+        <div className="bg-destructive/10 border border-destructive/20 rounded-md p-3 text-xs text-destructive">
+          {testResult.error}
+        </div>
+      )}
+
+      <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Database</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete "{config.name}"? This will remove the configuration and cached data. This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex items-center justify-end gap-2">
+            <Button variant="ghost" size="sm" onClick={() => setDeleteOpen(false)} data-testid="button-cancel-delete">
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={handleDelete}
+              disabled={deleting}
+              data-testid="button-confirm-delete"
+            >
+              {deleting ? (
+                <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              ) : (
+                <IconTrash className="h-3.5 w-3.5 mr-1" />
+              )}
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
 function DatabaseDetailView({ dbName }: { dbName: string }) {
+  const { toast } = useToast();
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [isFetching, setIsFetching] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
-  const { data: detail } = useQuery<DatabaseDetail>({
+  const { data: detail, refetch: refetchDetail } = useQuery<DatabaseDetail>({
     queryKey: ["/api/databases", dbName],
   });
 
@@ -732,6 +1094,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     refetch: refetchItems,
   } = useQuery<DatabaseItems>({
     queryKey: [`/api/databases/${dbName}/items`],
+    enabled: false,
   });
 
   const config = detail?.config;
@@ -780,11 +1143,42 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
   };
 
+  const handleFetchData = async () => {
+    setIsFetching(true);
+    try {
+      const result = await refetchItems();
+      if (result.error) {
+        toast({
+          title: "Fetch failed",
+          description: result.error instanceof Error ? result.error.message : String(result.error),
+          variant: "destructive",
+        });
+      } else {
+        setHasFetched(true);
+      }
+    } catch (err) {
+      toast({
+        title: "Fetch failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
       await fetch(`/api/databases/${dbName}/refresh`, { method: "POST" });
       await refetchItems();
+      setHasFetched(true);
+    } catch (err) {
+      toast({
+        title: "Refresh failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
     } finally {
       setIsRefreshing(false);
     }
@@ -814,174 +1208,233 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             <p className="text-xs text-muted-foreground truncate">{config.description}</p>
           )}
         </div>
+        <Button
+          variant={showSettings ? "default" : "outline"}
+          size="sm"
+          onClick={() => setShowSettings(!showSettings)}
+          data-testid="button-toggle-settings"
+        >
+          {showSettings ? (
+            <IconX className="h-3.5 w-3.5 mr-1" />
+          ) : (
+            <IconSettings className="h-3.5 w-3.5 mr-1" />
+          )}
+          {showSettings ? "Close Settings" : "Settings"}
+        </Button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
-          <CardContent className="pt-4 pb-3 space-y-1">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <IconApi className="h-3.5 w-3.5" />
-              <span>Source</span>
-            </div>
-            <p className="text-sm font-medium">{config?.source.type || "\u2014"}</p>
-            {config?.source.api?.endpoint && (
-              <p className="text-xs text-muted-foreground truncate" title={config.source.api.endpoint}>
-                {config.source.api.endpoint}
-              </p>
-            )}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-4 pb-3 space-y-1">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <IconTable className="h-3.5 w-3.5" />
-              <span>Items</span>
-            </div>
-            <p className="text-sm font-medium" data-testid="text-item-count">
-              {itemsData ? itemsData.raw_count : itemsLoading ? "..." : "\u2014"}
-            </p>
-            {itemsData?.from_cache && (
-              <p className="text-xs text-muted-foreground">from cache</p>
-            )}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-4 pb-3 space-y-1">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <IconClock className="h-3.5 w-3.5" />
-              <span>Last Fetched</span>
-            </div>
-            <p className="text-sm font-medium" data-testid="text-fetched-at">
-              {itemsData?.fetched_at
-                ? new Date(itemsData.fetched_at).toLocaleString()
-                : "\u2014"}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              TTL: {config?.cache?.ttl_hours ?? 24}h
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {fieldMapping && (
+      {showSettings && config ? (
         <Card>
           <CardHeader className="py-3 px-4">
-            <div className="flex items-center justify-between gap-2 flex-wrap">
-              <CardTitle className="text-sm">Field Mapping</CardTitle>
-            </div>
+            <CardTitle className="text-sm">Database Configuration</CardTitle>
           </CardHeader>
-          <CardContent className="px-4 pb-3">
-            <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(fieldMapping).map(([key, p]) => (
-                <div key={key} className="flex items-center gap-1.5 text-xs">
-                  <code className="bg-muted px-1.5 py-0.5 rounded font-medium">{key}</code>
-                  <span className="text-muted-foreground">&larr;</span>
-                  <code className="text-muted-foreground truncate">{p || "null"}</code>
-                </div>
-              ))}
-            </div>
+          <CardContent className="px-4 pb-4">
+            <DatabaseConfigEditor
+              dbName={dbName}
+              config={config}
+              onSaved={() => {
+                refetchDetail();
+                setShowSettings(false);
+              }}
+            />
           </CardContent>
         </Card>
-      )}
-
-      <Card>
-        <CardHeader className="py-3 px-4">
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <CardTitle className="text-sm">
-              Data{" "}
-              {filteredItems.length !== (itemsData?.items?.length ?? 0) && (
-                <span className="text-muted-foreground font-normal">
-                  ({filteredItems.length} of {itemsData?.items?.length ?? 0})
-                </span>
-              )}
-            </CardTitle>
-            <div className="flex items-center gap-2">
-              <div className="relative">
-                <IconSearch className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                <Input
-                  placeholder="Search..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-7 h-8 w-48 text-xs"
-                  data-testid="input-search-items"
-                />
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                data-testid="button-refresh-items"
-              >
-                <IconRefresh className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
-                Refresh
-              </Button>
-            </div>
+      ) : (
+        <>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Card>
+              <CardContent className="pt-4 pb-3 space-y-1">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <IconApi className="h-3.5 w-3.5" />
+                  <span>Source</span>
+                </div>
+                <p className="text-sm font-medium">{config?.source.type || "\u2014"}</p>
+                {config?.source.api?.endpoint && (
+                  <p className="text-xs text-muted-foreground truncate" title={config.source.api.endpoint}>
+                    {config.source.api.endpoint}
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-4 pb-3 space-y-1">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <IconTable className="h-3.5 w-3.5" />
+                  <span>Items</span>
+                </div>
+                <p className="text-sm font-medium" data-testid="text-item-count">
+                  {itemsData ? itemsData.raw_count : isFetching || itemsLoading ? "..." : "\u2014"}
+                </p>
+                {itemsData?.from_cache && (
+                  <p className="text-xs text-muted-foreground">from cache</p>
+                )}
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-4 pb-3 space-y-1">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <IconClock className="h-3.5 w-3.5" />
+                  <span>Last Fetched</span>
+                </div>
+                <p className="text-sm font-medium" data-testid="text-fetched-at">
+                  {itemsData?.fetched_at
+                    ? new Date(itemsData.fetched_at).toLocaleString()
+                    : "\u2014"}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  TTL: {config?.cache?.ttl_hours ?? 24}h
+                </p>
+              </CardContent>
+            </Card>
           </div>
-        </CardHeader>
-        <CardContent className="px-0 pb-0">
-          {itemsLoading ? (
-            <div className="flex items-center justify-center py-12">
-              <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-            </div>
-          ) : filteredItems.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-sm text-muted-foreground">
-                {search ? "No items match your search." : "No items fetched yet."}
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs" data-testid="table-database-items">
-                <thead>
-                  <tr className="border-b bg-muted/50">
-                    {columns.map((col) => (
-                      <th
-                        key={col}
-                        className="px-3 py-2 text-left font-medium text-muted-foreground cursor-pointer hover:text-foreground whitespace-nowrap"
-                        onClick={() => handleSort(col)}
-                        data-testid={`th-sort-${col}`}
-                      >
-                        <span className="inline-flex items-center gap-1">
-                          {col}
-                          {sortKey === col ? (
-                            sortDir === "asc" ? (
-                              <IconChevronUp className="h-3 w-3" />
-                            ) : (
-                              <IconChevronDown className="h-3 w-3" />
-                            )
-                          ) : (
-                            <IconArrowsSort className="h-3 w-3 opacity-30" />
-                          )}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredItems.map((item, i) => (
-                    <tr
-                      key={i}
-                      className="border-b last:border-b-0 hover:bg-muted/30"
-                      data-testid={`row-item-${i}`}
-                    >
-                      {columns.map((col) => (
-                        <td
-                          key={col}
-                          className="px-3 py-2 max-w-[200px] truncate whitespace-nowrap"
-                          title={formatCellValue(item[col])}
-                        >
-                          {formatCellValue(item[col])}
-                        </td>
-                      ))}
-                    </tr>
+
+          {fieldMapping && (
+            <Card>
+              <CardHeader className="py-3 px-4">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <CardTitle className="text-sm">Field Mapping</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="px-4 pb-3">
+                <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
+                  {Object.entries(fieldMapping).map(([key, p]) => (
+                    <div key={key} className="flex items-center gap-1.5 text-xs">
+                      <code className="bg-muted px-1.5 py-0.5 rounded font-medium">{key}</code>
+                      <span className="text-muted-foreground">&larr;</span>
+                      <code className="text-muted-foreground truncate">{p || "null"}</code>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           )}
-        </CardContent>
-      </Card>
+
+          <Card>
+            <CardHeader className="py-3 px-4">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <CardTitle className="text-sm">
+                  Data{" "}
+                  {itemsData && filteredItems.length !== (itemsData?.items?.length ?? 0) && (
+                    <span className="text-muted-foreground font-normal">
+                      ({filteredItems.length} of {itemsData?.items?.length ?? 0})
+                    </span>
+                  )}
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  {(hasFetched || itemsData) && (
+                    <div className="relative">
+                      <IconSearch className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                      <Input
+                        placeholder="Search..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="pl-7 h-8 w-48 text-xs"
+                        data-testid="input-search-items"
+                      />
+                    </div>
+                  )}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleFetchData}
+                    disabled={isFetching || itemsLoading}
+                    data-testid="button-fetch-data"
+                  >
+                    {isFetching || itemsLoading ? (
+                      <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                    ) : (
+                      <IconDownload className="h-3.5 w-3.5 mr-1" />
+                    )}
+                    Fetch Data
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                    data-testid="button-refresh-items"
+                  >
+                    <IconRefresh className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
+                    Force Refresh
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="px-0 pb-0">
+              {isFetching || itemsLoading ? (
+                <div className="flex items-center justify-center py-12">
+                  <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                </div>
+              ) : !hasFetched && !itemsData ? (
+                <div className="text-center py-12">
+                  <IconDownload className="h-8 w-8 mx-auto text-muted-foreground/40 mb-3" />
+                  <p className="text-sm text-muted-foreground mb-1">
+                    Data has not been fetched yet.
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Click "Fetch Data" to load items from the datasource, or "Force Refresh" to bypass the cache.
+                  </p>
+                </div>
+              ) : filteredItems.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-sm text-muted-foreground">
+                    {search ? "No items match your search." : "No items returned from the datasource."}
+                  </p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs" data-testid="table-database-items">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        {columns.map((col) => (
+                          <th
+                            key={col}
+                            className="px-3 py-2 text-left font-medium text-muted-foreground cursor-pointer hover:text-foreground whitespace-nowrap"
+                            onClick={() => handleSort(col)}
+                            data-testid={`th-sort-${col}`}
+                          >
+                            <span className="inline-flex items-center gap-1">
+                              {col}
+                              {sortKey === col ? (
+                                sortDir === "asc" ? (
+                                  <IconChevronUp className="h-3 w-3" />
+                                ) : (
+                                  <IconChevronDown className="h-3 w-3" />
+                                )
+                              ) : (
+                                <IconArrowsSort className="h-3 w-3 opacity-30" />
+                              )}
+                            </span>
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredItems.map((item, i) => (
+                        <tr
+                          key={i}
+                          className="border-b last:border-b-0 hover:bg-muted/30"
+                          data-testid={`row-item-${i}`}
+                        >
+                          {columns.map((col) => (
+                            <td
+                              key={col}
+                              className="px-3 py-2 max-w-[200px] truncate whitespace-nowrap"
+                              title={formatCellValue(item[col])}
+                            >
+                              {formatCellValue(item[col])}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </>
+      )}
     </div>
   );
 }
