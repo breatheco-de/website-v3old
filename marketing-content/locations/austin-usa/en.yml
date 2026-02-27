@@ -291,7 +291,9 @@ sections:
         outcome: Promoted in 1 year
   - type: faq
     title: Frequently Asked Questions
-
+    related_features:
+      - certification
+      - job-guarantee
     marginY:
       desktop: lg none
     background: hsl(var(--muted))
