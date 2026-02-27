@@ -74,8 +74,8 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
         </div>
       </div>
 
-      <ScrollArea className="h-[280px]">
-        <div className="p-2 space-y-1 overflow-hidden">
+      <ScrollArea className="h-[280px] w-full">
+        <div className="p-2 space-y-1 w-full max-w-full overflow-hidden">
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
               <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
