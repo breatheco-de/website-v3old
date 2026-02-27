@@ -41,16 +41,16 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
   
   const { data: faqsData, isLoading } = useQuery<{ faqs: FaqItem[] }>({
     queryKey: ["/api/faqs", locale],
-    enabled: hasRelatedFeatures,
+    enabled: hasRelatedFeatures || !!locationSlug,
     staleTime: 5 * 60 * 1000,
   });
   
   const faqItems = useMemo(() => {
     let items: Array<{ question: string; answer: string }> = [];
     
-    if (hasRelatedFeatures && faqsData?.faqs) {
+    if (faqsData?.faqs && (hasRelatedFeatures || locationSlug)) {
       items = filterFaqsByRelatedFeatures(faqsData.faqs, {
-        relatedFeatures: data.related_features!,
+        relatedFeatures: hasRelatedFeatures ? data.related_features! : undefined,
         location: locationSlug,
         limit: 9,
         programSlug,
@@ -76,7 +76,7 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
     return items;
   }, [hasRelatedFeatures, hasInlineItems, data.related_features, data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug]);
   
-  if (isLoading && hasRelatedFeatures) {
+  if (isLoading && (hasRelatedFeatures || locationSlug)) {
     return (
       <section data-testid="section-faq">
         <div className="max-w-6xl mx-auto px-4">
