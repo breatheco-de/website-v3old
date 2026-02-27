@@ -53,6 +53,7 @@ import {
   IconPhoto,
 } from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useSyncOptional } from "@/contexts/SyncContext";
 import { Button } from "@/components/ui/button";
 import {
@@ -219,6 +220,7 @@ export function DebugBubble() {
   const { i18n } = useTranslation();
   const { toast } = useToast();
   const [pathname, navigate] = useLocation();
+  const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
@@ -1702,20 +1704,35 @@ export function DebugBubble() {
         <PopoverContent 
           side="top" 
           align="start" 
-          className="debug-bubble-popover w-96 p-0 sm:w-96 sm:max-h-[85vh] max-h-[100dvh] flex flex-col"
-          sideOffset={8}
+          className={`p-0 flex flex-col ${isMobile ? "!border-0 !rounded-none" : "w-96 max-h-[85vh]"}`}
+          sideOffset={isMobile ? 0 : 8}
+          style={isMobile ? {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            maxWidth: '100vw',
+            height: '100dvh',
+            maxHeight: '100dvh',
+            transform: 'none',
+            borderRadius: 0,
+          } : undefined}
         >
-          <div className="sm:hidden flex items-center justify-between p-2 border-b border-border flex-shrink-0">
-            <span className="text-sm font-semibold px-1">Debug Tools</span>
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => setOpen(false)}
-              data-testid="button-debug-close-mobile"
-            >
-              <IconX className="h-4 w-4" />
-            </Button>
-          </div>
+          {isMobile && (
+            <div className="flex items-center justify-between p-2 border-b border-border flex-shrink-0">
+              <span className="text-sm font-semibold px-1">Debug Tools</span>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => setOpen(false)}
+                data-testid="button-debug-close-mobile"
+              >
+                <IconX className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
           <div className="flex-1 overflow-y-auto overflow-x-hidden">
           {/* No token detected - show only warning */}
           {noTokenDetected ? (

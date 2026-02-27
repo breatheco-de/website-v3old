@@ -764,20 +764,3 @@
   color: hsl(var(--muted-foreground));
   font-style: italic;
 }
-
-@media (max-width: 639px) {
-  .debug-bubble-popover[data-state="open"] {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    transform: none !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 100dvh !important;
-    height: 100dvh !important;
-    border-radius: 0 !important;
-    border: none !important;
-  }
-}
