@@ -219,7 +219,7 @@ export function HeroCourse({ data }: HeroCourseProps) {
                   <a href={data.signup_card.login_link.url} onClick={handleLinkClick} data-testid="link-hero-login">
                     <RichTextContent
                       html={data.signup_card.login_link.text}
-                      className="text-sm text-center text-muted-foreground mb-6"
+                      className="text-sm text-center text-muted-foreground mb-6 text-primary text-primary hover:underline"
                       data-testid="text-hero-login-link"
                     />
                   </a>
