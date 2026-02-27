@@ -632,7 +632,20 @@ function KeyValueEditor({
 }
 
 function DatabaseList() {
-  const [createOpen, setCreateOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("create") === "true") {
+        params.delete("create");
+        const newUrl = params.toString()
+          ? `${window.location.pathname}?${params.toString()}`
+          : window.location.pathname;
+        window.history.replaceState({}, "", newUrl);
+        return true;
+      }
+    }
+    return false;
+  });
   const [, navigate] = useLocation();
   const { data: databases, isLoading } = useQuery<DatabaseSummary[]>({
     queryKey: ["/api/databases"],
