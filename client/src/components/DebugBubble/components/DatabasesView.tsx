@@ -75,7 +75,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
       </div>
 
       <ScrollArea className="h-[280px]">
-        <div className="p-2 space-y-1">
+        <div className="p-2 space-y-1 overflow-hidden">
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
               <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -107,7 +107,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className="p-1 rounded hover-elevate flex-shrink-0"
+                      className="p-1 rounded flex-shrink-0"
                       data-testid={`button-database-menu-${db.name}`}
                     >
                       <IconDotsVertical className="h-3.5 w-3.5 text-muted-foreground" />
