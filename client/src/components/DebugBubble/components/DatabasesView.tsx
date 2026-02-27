@@ -88,7 +88,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
             data.map((db) => (
               <div
                 key={db.name}
-                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm hover-elevate"
+                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm"
                 data-testid={`row-database-${db.name}`}
               >
                 <a
