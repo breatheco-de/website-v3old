@@ -1421,73 +1421,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(400).json({ error: "Request body must be a JSON object" });
         return;
       }
-      if (body.data_source) {
-        const ds = body.data_source;
-        if (!ds.type || typeof ds.type !== "string") {
-          res.status(400).json({ error: "data_source.type is required" });
-          return;
-        }
-        if (ds.type === "api" && (!ds.api || !ds.api.endpoint)) {
-          res
-            .status(400)
-            .json({
-              error: "data_source.api.endpoint is required for API sources",
-            });
-          return;
-        }
-      }
-      saveBlogConfig(body);
+      const allowed: Record<string, unknown> = {};
+      if (body.database !== undefined) allowed.database = body.database;
+      if (body.url_pattern !== undefined) allowed.url_pattern = body.url_pattern;
+      if (body.categories !== undefined) allowed.categories = body.categories;
+      if (body.field_mapping !== undefined) allowed.field_mapping = body.field_mapping;
+      saveBlogConfig(allowed);
       res.json({ success: true });
-    } catch (err) {
-      res.status(500).json({ error: String(err) });
-    }
-  });
-
-  app.post("/api/blog/test-endpoint", async (req, res) => {
-    try {
-      const { endpoint, params, token_env_var, auth_prefix, headers } =
-        req.body || {};
-      if (!endpoint) {
-        res.status(400).json({ error: "endpoint is required" });
-        return;
-      }
-
-      const qs = new URLSearchParams();
-      if (params && typeof params === "object") {
-        for (const [k, v] of Object.entries(params)) {
-          qs.set(k, String(v));
-        }
-      }
-      const url = qs.toString() ? `${endpoint}?${qs.toString()}` : endpoint;
-
-      const fetchHeaders: Record<string, string> = {};
-      if (headers && typeof headers === "object") {
-        Object.assign(fetchHeaders, headers);
-      }
-      if (token_env_var) {
-        const token = process.env[token_env_var];
-        if (token) {
-          fetchHeaders["Authorization"] = auth_prefix
-            ? `${auth_prefix} ${token}`
-            : token;
-        }
-      }
-
-      const response = await fetch(url, { headers: fetchHeaders });
-      const contentType = response.headers.get("content-type") || "";
-      let body: unknown;
-      if (contentType.includes("json")) {
-        body = await response.json();
-      } else {
-        body = await response.text();
-      }
-
-      res.json({
-        status: response.status,
-        status_text: response.statusText,
-        content_type: contentType,
-        body,
-      });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }

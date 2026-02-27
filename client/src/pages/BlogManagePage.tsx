@@ -43,18 +43,11 @@ import {
   IconDatabase,
   IconDotsVertical,
   IconLink,
-  IconPencil,
-  IconPlayerPlay,
-  IconPlus,
-  IconTrash,
   IconTrashX,
   IconWand,
   IconLoader2,
   IconSettings,
-  IconTestPipe,
-  IconTransform,
   IconLayoutList,
-  IconLock,
   IconX,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
@@ -71,44 +64,24 @@ interface CacheStatus {
   post_count: number | null;
 }
 
-interface ApiSourceConfig {
-  endpoint: string;
-  params: Record<string, string | number>;
-  token_env_var: string;
-  auth_prefix: string;
-  headers: Record<string, string>;
-  academy_header?: string;
-  results_path?: string;
-}
-
 interface FieldMapping {
   [standardField: string]: string | null;
 }
 
-interface TransformConfig {
-  results_path: string;
-  pagination?: {
-    type: string;
-    has_more_field?: string | null;
-    total_field?: string | null;
-    next_field?: string | null;
-    strategy_description?: string;
-  };
-}
-
 interface BlogConfig {
-  data_source: {
-    type: string;
-    api?: ApiSourceConfig;
-  };
-  cache: {
-    ttl_hours: number;
-    file_path: string;
-  };
+  database: string;
   url_pattern: Record<string, string>;
   categories: Record<string, string>;
   field_mapping?: FieldMapping;
-  transform?: TransformConfig;
+}
+
+interface DatabaseListItem {
+  name: string;
+  config: {
+    name: string;
+    description?: string;
+    source: { type: string };
+  };
 }
 
 function formatDate(dateStr: string | null | undefined): string {
@@ -143,9 +116,8 @@ function VisibilityIcon({ visibility }: { visibility: string }) {
 }
 
 const WIZARD_STEPS = [
-  { id: "configure", label: "Configure", icon: IconSettings },
-  { id: "test", label: "Test", icon: IconTestPipe },
-  { id: "transform", label: "Transform", icon: IconTransform },
+  { id: "database", label: "Select Database", icon: IconDatabase },
+  { id: "settings", label: "Blog Settings", icon: IconSettings },
   { id: "fields", label: "Field Mapping", icon: IconLayoutList },
 ] as const;
 
@@ -171,35 +143,6 @@ function extractByPath(obj: unknown, dotPath: string): unknown {
     }
   }
   return current;
-}
-
-const PAYLOAD_SIZE_LIMIT = 80_000;
-
-function truncateForAI(payload: unknown, maxItems = 3): unknown {
-  if (Array.isArray(payload)) {
-    return payload.slice(0, maxItems).map((item) => truncateForAI(item, maxItems));
-  }
-  if (payload && typeof payload === "object") {
-    const obj = payload as Record<string, unknown>;
-    const result: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(obj)) {
-      if (Array.isArray(value)) {
-        result[key] = value.slice(0, maxItems).map((item) => truncateForAI(item, maxItems));
-      } else {
-        result[key] = value;
-      }
-    }
-    return result;
-  }
-  return payload;
-}
-
-function estimatePayloadSize(payload: unknown): number {
-  try {
-    return JSON.stringify(payload).length;
-  } catch {
-    return 0;
-  }
 }
 
 function StepIndicator({ steps, currentStep, completedSteps }: {
@@ -267,7 +210,7 @@ function DataSourceDialog({
 }) {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
-  const [step, setStep] = useState<WizardStep>("configure");
+  const [step, setStep] = useState<WizardStep>("database");
   const [completedSteps, setCompletedSteps] = useState<Set<WizardStep>>(new Set());
 
   const { data: config, isLoading } = useQuery<BlogConfig>({
@@ -275,31 +218,26 @@ function DataSourceDialog({
     enabled: open,
   });
 
-  const [sourceType, setSourceType] = useState("api");
-  const [endpoint, setEndpoint] = useState("");
-  const [queryParams, setQueryParams] = useState<Array<{ key: string; value: string }>>([]);
-  const [editingParams, setEditingParams] = useState(false);
-  const [tokenEnvVar, setTokenEnvVar] = useState("");
-  const [authType, setAuthType] = useState<"none" | "Token" | "Bearer" | "raw">("Token");
-  const [customHeaders, setCustomHeaders] = useState<Array<{ key: string; value: string }>>([]);
-  const [editingHeaders, setEditingHeaders] = useState(false);
-  const [ttlHours, setTtlHours] = useState("24");
+  const { data: databases } = useQuery<DatabaseListItem[]>({
+    queryKey: ["/api/databases"],
+    enabled: open,
+  });
 
-  const [testing, setTesting] = useState(false);
-  const [testResult, setTestResult] = useState<{ status: number; status_text: string; content_type: string; body: unknown } | null>(null);
-  const [testError, setTestError] = useState<string | null>(null);
+  const [selectedDb, setSelectedDb] = useState("");
+  const [urlPatternEn, setUrlPatternEn] = useState("/en/blog/:category/:slug");
+  const [urlPatternEs, setUrlPatternEs] = useState("/es/blog/:category/:slug");
+  const [categoryEn, setCategoryEn] = useState("blog-us");
+  const [categoryEs, setCategoryEs] = useState("blog-es");
 
-  const [aiAnalyzing, setAiAnalyzing] = useState(false);
-  const [transformConfig, setTransformConfig] = useState<TransformConfig | null>(null);
-  const [transformError, setTransformError] = useState<string | null>(null);
-  const [transformConfirmed, setTransformConfirmed] = useState(false);
-
-  const [aiMappingFields, setAiMappingFields] = useState(false);
   const [fieldMapping, setFieldMapping] = useState<FieldMapping>({});
   const [availableFields, setAvailableFields] = useState<string[]>([]);
   const [fieldMappingNotes, setFieldMappingNotes] = useState("");
   const [fieldMappingError, setFieldMappingError] = useState<string | null>(null);
   const [fieldMappingConfirmed, setFieldMappingConfirmed] = useState(false);
+  const [aiMappingFields, setAiMappingFields] = useState(false);
+
+  const [sampleItems, setSampleItems] = useState<Record<string, unknown>[]>([]);
+  const [loadingSample, setLoadingSample] = useState(false);
 
   const markComplete = (s: WizardStep) => {
     setCompletedSteps((prev) => {
@@ -311,192 +249,66 @@ function DataSourceDialog({
 
   useEffect(() => {
     if (config) {
-      setSourceType(config.data_source?.type || "api");
-      if (config.data_source?.api) {
-        const api = config.data_source.api;
-        setEndpoint(api.endpoint || "");
-        const pairs = Object.entries(api.params || {}).map(([key, value]) => ({
-          key,
-          value: String(value),
-        }));
-        setQueryParams(pairs.length > 0 ? pairs : [{ key: "", value: "" }]);
-        setEditingParams(false);
-        setTokenEnvVar(api.token_env_var || "");
-        if (!api.token_env_var) {
-          setAuthType("none");
-        } else if (api.auth_prefix === "Bearer") {
-          setAuthType("Bearer");
-        } else if (api.auth_prefix === "" || api.auth_prefix === undefined) {
-          setAuthType("raw");
-        } else {
-          setAuthType("Token");
-        }
-        const headerPairs = Object.entries(api.headers || {}).map(([key, value]) => ({
-          key,
-          value: String(value),
-        }));
-        if (headerPairs.length === 0 && api.academy_header) {
-          headerPairs.push({ key: "Academy", value: api.academy_header });
-        }
-        setCustomHeaders(headerPairs.length > 0 ? headerPairs : [{ key: "", value: "" }]);
-        setEditingHeaders(false);
-      }
-      setTtlHours(String(config.cache?.ttl_hours || 24));
+      setSelectedDb(config.database || "");
+      setUrlPatternEn(config.url_pattern?.en || "/en/blog/:category/:slug");
+      setUrlPatternEs(config.url_pattern?.es || "/es/blog/:category/:slug");
+      setCategoryEn(config.categories?.en || "blog-us");
+      setCategoryEs(config.categories?.es || "blog-es");
 
-      if (config.transform) {
-        setTransformConfig(config.transform);
-        setTransformConfirmed(true);
-      }
       if (config.field_mapping) {
         setFieldMapping(config.field_mapping);
         setFieldMappingConfirmed(true);
       }
 
-      if (config.data_source?.api?.endpoint) {
-        setCompletedSteps(new Set<WizardStep>(["configure"]));
-      }
+      const initialCompleted = new Set<WizardStep>();
+      if (config.database) initialCompleted.add("database");
+      if (config.url_pattern) initialCompleted.add("settings");
+      if (config.field_mapping && Object.keys(config.field_mapping).length > 0) initialCompleted.add("fields");
+      setCompletedSteps(initialCompleted);
     }
   }, [config]);
 
-  const queryString = useMemo(() => {
-    const parts = queryParams
-      .filter((p) => p.key.trim())
-      .map((p) => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`);
-    return parts.length > 0 ? `?${parts.join("&")}` : "";
-  }, [queryParams]);
-
-  const paramsRecord = useMemo(() => {
-    const record: Record<string, string | number> = {};
-    for (const p of queryParams) {
-      if (p.key.trim()) {
-        const num = Number(p.value);
-        record[p.key.trim()] = !isNaN(num) && p.value.trim() !== "" && /^\d+$/.test(p.value.trim()) ? num : p.value;
-      }
-    }
-    return record;
-  }, [queryParams]);
-
-  const updateParam = (index: number, field: "key" | "value", val: string) => {
-    setQueryParams((prev) => prev.map((p, i) => (i === index ? { ...p, [field]: val } : p)));
-  };
-
-  const removeParam = (index: number) => {
-    setQueryParams((prev) => {
-      const next = prev.filter((_, i) => i !== index);
-      return next.length === 0 ? [{ key: "", value: "" }] : next;
-    });
-  };
-
-  const addParam = () => {
-    setQueryParams((prev) => [...prev, { key: "", value: "" }]);
-  };
-
-  const headersPreview = useMemo(() => {
-    return customHeaders
-      .filter((h) => h.key.trim())
-      .map((h) => `${h.key}: ${h.value}`)
-      .join("\n");
-  }, [customHeaders]);
-
-  const headersRecord = useMemo(() => {
-    const record: Record<string, string> = {};
-    for (const h of customHeaders) {
-      if (h.key.trim()) {
-        record[h.key.trim()] = h.value;
-      }
-    }
-    return record;
-  }, [customHeaders]);
-
-  const updateHeader = (index: number, field: "key" | "value", val: string) => {
-    setCustomHeaders((prev) => prev.map((h, i) => (i === index ? { ...h, [field]: val } : h)));
-  };
-
-  const removeHeader = (index: number) => {
-    setCustomHeaders((prev) => {
-      const next = prev.filter((_, i) => i !== index);
-      return next.length === 0 ? [{ key: "", value: "" }] : next;
-    });
-  };
-
-  const addHeader = () => {
-    setCustomHeaders((prev) => [...prev, { key: "", value: "" }]);
-  };
-
-  const handleTest = async () => {
-    setTesting(true);
-    setTestResult(null);
-    setTestError(null);
+  const loadSampleFromDb = async (dbName: string) => {
+    if (!dbName) return;
+    setLoadingSample(true);
     try {
-      const res = await apiRequest("POST", "/api/blog/test-endpoint", {
-        endpoint,
-        params: paramsRecord,
-        token_env_var: authType === "none" ? "" : tokenEnvVar,
-        auth_prefix: authType === "none" || authType === "raw" ? "" : authType,
-        headers: headersRecord,
-      });
-      const data = await res.json();
-      setTestResult(data);
-      if (data.status < 400) {
-        markComplete("test");
+      const res = await fetch(`/api/databases/${dbName}/items`);
+      if (res.ok) {
+        const data = await res.json();
+        const items = (data.items || []).slice(0, 3) as Record<string, unknown>[];
+        setSampleItems(items);
+        if (items.length > 0) {
+          const keys = new Set<string>();
+          for (const item of items) {
+            collectFieldPaths(item, "", keys);
+          }
+          setAvailableFields(Array.from(keys).sort());
+        }
       }
-    } catch (err) {
-      setTestError(String(err));
+    } catch {
+      setSampleItems([]);
     } finally {
-      setTesting(false);
+      setLoadingSample(false);
     }
   };
-
-  const handleAnalyzeTransform = async () => {
-    if (!testResult?.body) return;
-    setAiAnalyzing(true);
-    setTransformError(null);
-    setTransformConfirmed(false);
-    try {
-      const trimmed = truncateForAI(testResult.body);
-      const res = await apiRequest("POST", "/api/blog/ai/analyze-response", {
-        sample_payload: trimmed,
-      });
-      const data = await res.json();
-      if (data.error) {
-        setTransformError(data.error);
-      } else {
-        setTransformConfig({
-          results_path: data.results_path || "",
-          pagination: data.pagination || { type: "none", strategy_description: "No pagination detected" },
-        });
-      }
-    } catch (err) {
-      setTransformError(String(err));
-    } finally {
-      setAiAnalyzing(false);
-    }
-  };
-
-  const extractedPosts = useMemo(() => {
-    if (!testResult?.body || !transformConfig) return [];
-    if (!transformConfig.results_path || !transformConfig.results_path.trim()) {
-      return Array.isArray(testResult.body) ? testResult.body : [];
-    }
-    const extracted = extractByPath(testResult.body, transformConfig.results_path);
-    return Array.isArray(extracted) ? extracted : [];
-  }, [testResult, transformConfig]);
 
   const handleAnalyzeFields = async () => {
-    if (extractedPosts.length === 0) return;
+    if (sampleItems.length === 0) return;
     setAiMappingFields(true);
     setFieldMappingError(null);
     setFieldMappingConfirmed(false);
     try {
       const res = await apiRequest("POST", "/api/blog/ai/analyze-fields", {
-        sample_posts: extractedPosts.slice(0, 3),
+        sample_posts: sampleItems.slice(0, 3),
       });
       const data = await res.json();
       if (data.error) {
         setFieldMappingError(data.error);
       } else {
         setFieldMapping(data.field_mapping || {});
-        setAvailableFields(data.available_fields || []);
+        if (data.available_fields) {
+          setAvailableFields(data.available_fields);
+        }
         setFieldMappingNotes(data.notes || "");
       }
     } catch (err) {
@@ -510,35 +322,19 @@ function DataSourceDialog({
     setSaving(true);
     try {
       const payload: BlogConfig = {
-        data_source: {
-          type: sourceType,
-          ...(sourceType === "api" && {
-            api: {
-              endpoint,
-              params: paramsRecord,
-              token_env_var: authType === "none" ? "" : tokenEnvVar,
-              auth_prefix: authType === "none" || authType === "raw" ? "" : authType,
-              results_path: transformConfig?.results_path || "",
-              headers: headersRecord,
-            },
-          }),
-        },
-        cache: {
-          ttl_hours: Number(ttlHours) || 24,
-          file_path: config?.cache?.file_path || ".cache/blog-posts.json",
-        },
-        url_pattern: config?.url_pattern || { en: "/en/blog/:slug", es: "/es/blog/:slug" },
-        categories: config?.categories || { en: "blog-us", es: "blog-es" },
-        transform: transformConfig || undefined,
+        database: selectedDb,
+        url_pattern: { en: urlPatternEn, es: urlPatternEs },
+        categories: { en: categoryEn, es: categoryEs },
         field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
       };
 
       await apiRequest("PUT", "/api/blog/config", payload);
       queryClient.invalidateQueries({ queryKey: ["/api/blog/config"] });
-      toast({ title: "Data source saved" });
+      queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });
+      toast({ title: "Blog configuration saved" });
       onOpenChange(false);
     } catch {
-      toast({ title: "Failed to save data source", variant: "destructive" });
+      toast({ title: "Failed to save configuration", variant: "destructive" });
     } finally {
       setSaving(false);
     }
@@ -546,9 +342,8 @@ function DataSourceDialog({
 
   const canGoNext = (s: WizardStep): boolean => {
     switch (s) {
-      case "configure": return sourceType === "api" && !!endpoint;
-      case "test": return !!testResult && testResult.status < 400;
-      case "transform": return transformConfirmed && !!transformConfig;
+      case "database": return !!selectedDb;
+      case "settings": return !!urlPatternEn;
       case "fields": return fieldMappingConfirmed;
       default: return false;
     }
@@ -558,7 +353,11 @@ function DataSourceDialog({
     const idx = WIZARD_STEPS.findIndex((s) => s.id === step);
     if (idx < WIZARD_STEPS.length - 1) {
       markComplete(step);
-      setStep(WIZARD_STEPS[idx + 1].id);
+      const nextStep = WIZARD_STEPS[idx + 1].id;
+      setStep(nextStep);
+      if (nextStep === "fields" && sampleItems.length === 0 && selectedDb) {
+        loadSampleFromDb(selectedDb);
+      }
     }
   };
 
@@ -572,12 +371,14 @@ function DataSourceDialog({
   const stepIndex = WIZARD_STEPS.findIndex((s) => s.id === step);
   const isLastStep = stepIndex === WIZARD_STEPS.length - 1;
 
-  const samplePost = extractedPosts[0] as Record<string, unknown> | undefined;
+  const samplePost = sampleItems[0] as Record<string, unknown> | undefined;
 
   const getFieldValue = (post: Record<string, unknown>, dotPath: string | null): unknown => {
     if (!dotPath) return null;
     return extractByPath(post, dotPath);
   };
+
+  const dbList = databases || [];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -596,337 +397,163 @@ function DataSourceDialog({
         ) : (
           <div className="space-y-4 min-h-[250px]">
 
-            {step === "configure" && (
-              <div className="space-y-4" data-testid="step-configure">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="source-type">Source Type</Label>
-                    <Select value={sourceType} onValueChange={setSourceType}>
-                      <SelectTrigger id="source-type" data-testid="select-source-type">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="api">REST API</SelectItem>
-                        <SelectItem value="rss" disabled>RSS Feed (coming soon)</SelectItem>
-                        <SelectItem value="csv" disabled>CSV File (coming soon)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="cache-ttl">Cache TTL (hours)</Label>
-                    <Input
-                      id="cache-ttl"
-                      type="number"
-                      value={ttlHours}
-                      onChange={(e) => setTtlHours(e.target.value)}
-                      placeholder="24"
-                      data-testid="input-cache-ttl"
-                    />
-                  </div>
+            {step === "database" && (
+              <div className="space-y-4" data-testid="step-database">
+                <p className="text-sm text-muted-foreground">
+                  Select the database that provides blog post data. Databases are configured and managed separately.
+                </p>
+
+                <div className="space-y-2">
+                  <Label>Database</Label>
+                  <Select value={selectedDb} onValueChange={(v) => { setSelectedDb(v); setSampleItems([]); }}>
+                    <SelectTrigger data-testid="select-database">
+                      <SelectValue placeholder="Select a database..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {dbList.map((db) => (
+                        <SelectItem key={db.name} value={db.name}>
+                          <div className="flex items-center gap-2">
+                            <span>{db.config.name || db.name}</span>
+                            <span className="text-muted-foreground text-xs">({db.name})</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
-                {sourceType === "api" && (
-                  <>
-                    <div className="space-y-2">
-                      <Label htmlFor="api-endpoint">API Endpoint</Label>
-                      <Input
-                        id="api-endpoint"
-                        value={endpoint}
-                        onChange={(e) => setEndpoint(e.target.value)}
-                        placeholder="https://api.example.com/posts"
-                        data-testid="input-api-endpoint"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <Label>Query Parameters</Label>
-                        <Button variant="ghost" size="sm" onClick={() => setEditingParams(!editingParams)} data-testid="button-toggle-params">
-                          <IconPencil className="h-3.5 w-3.5 mr-1" />
-                          {editingParams ? "Done" : "Edit"}
-                        </Button>
-                      </div>
-                      {!editingParams ? (
-                        <div className="rounded-md bg-muted px-3 py-2" data-testid="text-querystring-preview">
-                          <p className="text-xs font-mono text-muted-foreground break-all">
-                            {queryString || "(no parameters)"}
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="space-y-2">
-                          {queryParams.map((param, i) => (
-                            <div key={i} className="flex items-center gap-2">
-                              <Input value={param.key} onChange={(e) => updateParam(i, "key", e.target.value)} placeholder="key" className="flex-1 font-mono text-xs" data-testid={`input-param-key-${i}`} />
-                              <span className="text-muted-foreground text-xs">=</span>
-                              <Input value={param.value} onChange={(e) => updateParam(i, "value", e.target.value)} placeholder="value" className="flex-1 font-mono text-xs" data-testid={`input-param-value-${i}`} />
-                              <Button variant="ghost" size="icon" onClick={() => removeParam(i)} data-testid={`button-remove-param-${i}`}>
-                                <IconTrash className="h-3.5 w-3.5" />
-                              </Button>
-                            </div>
-                          ))}
-                          <Button variant="outline" size="sm" onClick={addParam} data-testid="button-add-param">
-                            <IconPlus className="h-3.5 w-3.5 mr-1" />
-                            Add Parameter
-                          </Button>
-                        </div>
+                {selectedDb && (() => {
+                  const db = dbList.find((d) => d.name === selectedDb);
+                  return db ? (
+                    <div className="rounded-md border p-3 space-y-1" data-testid="section-db-info">
+                      <p className="text-sm font-medium">{db.config.name || db.name}</p>
+                      {db.config.description && (
+                        <p className="text-xs text-muted-foreground">{db.config.description}</p>
                       )}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="space-y-2">
-                        <Label>Authentication</Label>
-                        <Select value={authType} onValueChange={(v) => setAuthType(v as "none" | "Token" | "Bearer" | "raw")}>
-                          <SelectTrigger data-testid="select-auth-type">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="none">No Authentication</SelectItem>
-                            <SelectItem value="Token">Token</SelectItem>
-                            <SelectItem value="Bearer">Bearer</SelectItem>
-                            <SelectItem value="raw">Raw Token (no prefix)</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <div className="flex items-center gap-2 pt-1">
+                        <Badge variant="outline" className="text-xs">{db.config.source.type}</Badge>
                       </div>
-                      {authType !== "none" && (
-                        <div className="space-y-2">
-                          <Label htmlFor="token-env-var">Token Env Var</Label>
-                          <Input id="token-env-var" value={tokenEnvVar} onChange={(e) => setTokenEnvVar(e.target.value)} placeholder="BLOG_API_TOKEN" data-testid="input-token-env-var" />
-                        </div>
-                      )}
                     </div>
+                  ) : null;
+                })()}
 
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <Label>Custom Headers</Label>
-                        <Button variant="ghost" size="sm" onClick={() => setEditingHeaders(!editingHeaders)} data-testid="button-toggle-headers">
-                          <IconPencil className="h-3.5 w-3.5 mr-1" />
-                          {editingHeaders ? "Done" : "Edit"}
-                        </Button>
-                      </div>
-                      {!editingHeaders ? (
-                        <div className="rounded-md bg-muted px-3 py-2" data-testid="text-headers-preview">
-                          <p className="text-xs font-mono text-muted-foreground whitespace-pre-wrap break-all">
-                            {[
-                              authType !== "none" && tokenEnvVar ? `Authorization: ${authType === "raw" ? "" : `${authType} `}\${${tokenEnvVar}}` : "",
-                              headersPreview,
-                            ].filter(Boolean).join("\n") || "(no custom headers)"}
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="space-y-2">
-                          {authType !== "none" && tokenEnvVar && (
-                            <div className="flex items-center gap-2 opacity-60">
-                              <Input value="Authorization" disabled className="flex-1 font-mono text-xs" />
-                              <span className="text-muted-foreground text-xs">:</span>
-                              <Input value={`${authType === "raw" ? "" : `${authType} `}\${${tokenEnvVar}}`} disabled className="flex-1 font-mono text-xs" />
-                              <Button variant="ghost" size="icon" disabled>
-                                <IconLock className="h-3.5 w-3.5" />
-                              </Button>
-                            </div>
-                          )}
-                          {customHeaders.map((header, i) => (
-                            <div key={i} className="flex items-center gap-2">
-                              <Input value={header.key} onChange={(e) => updateHeader(i, "key", e.target.value)} placeholder="Header-Name" className="flex-1 font-mono text-xs" data-testid={`input-header-key-${i}`} />
-                              <span className="text-muted-foreground text-xs">:</span>
-                              <Input value={header.value} onChange={(e) => updateHeader(i, "value", e.target.value)} placeholder="value" className="flex-1 font-mono text-xs" data-testid={`input-header-value-${i}`} />
-                              <Button variant="ghost" size="icon" onClick={() => removeHeader(i)} data-testid={`button-remove-header-${i}`}>
-                                <IconTrash className="h-3.5 w-3.5" />
-                              </Button>
-                            </div>
-                          ))}
-                          <Button variant="outline" size="sm" onClick={addHeader} data-testid="button-add-header">
-                            <IconPlus className="h-3.5 w-3.5 mr-1" />
-                            Add Header
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </>
+                {dbList.length === 0 && (
+                  <div className="rounded-md bg-muted px-3 py-2">
+                    <p className="text-xs text-muted-foreground">
+                      No databases found. <a href="/private/databases?create=true" className="text-primary underline" data-testid="link-create-database">Create a database</a> first.
+                    </p>
+                  </div>
+                )}
+
+                {dbList.length > 0 && (
+                  <div className="text-right">
+                    <a href="/private/databases" className="text-xs text-muted-foreground underline" data-testid="link-manage-databases">
+                      Manage databases
+                    </a>
+                  </div>
                 )}
               </div>
             )}
 
-            {step === "test" && (
-              <div className="space-y-4" data-testid="step-test">
-                <div className="rounded-md bg-muted px-3 py-2">
-                  <p className="text-xs text-muted-foreground font-mono break-all">
-                    {endpoint}{queryString}
+            {step === "settings" && (
+              <div className="space-y-4" data-testid="step-settings">
+                <p className="text-sm text-muted-foreground">
+                  Configure URL patterns and default categories for the blog.
+                </p>
+
+                <div className="space-y-2">
+                  <Label>English URL Pattern</Label>
+                  <Input
+                    value={urlPatternEn}
+                    onChange={(e) => setUrlPatternEn(e.target.value)}
+                    placeholder="/en/blog/:category/:slug"
+                    className="font-mono text-sm"
+                    data-testid="input-url-pattern-en"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Available variables: <code>:slug</code>, <code>:category</code>, <code>:locale</code>, <code>:lang</code>
                   </p>
                 </div>
 
-                <Button
-                  onClick={handleTest}
-                  disabled={testing || !endpoint}
-                  className="w-full"
-                  data-testid="button-test-endpoint"
-                >
-                  {testing ? (
-                    <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Testing endpoint...</>
-                  ) : (
-                    <><IconPlayerPlay className="h-4 w-4 mr-2" />Test Endpoint</>
-                  )}
-                </Button>
+                <div className="space-y-2">
+                  <Label>Spanish URL Pattern</Label>
+                  <Input
+                    value={urlPatternEs}
+                    onChange={(e) => setUrlPatternEs(e.target.value)}
+                    placeholder="/es/blog/:category/:slug"
+                    className="font-mono text-sm"
+                    data-testid="input-url-pattern-es"
+                  />
+                </div>
 
-                {testResult && (
+                <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Label className="text-xs">Response</Label>
-                      <Badge variant={testResult.status < 400 ? "default" : "destructive"}>
-                        {testResult.status} {testResult.status_text}
-                      </Badge>
-                    </div>
-                    <pre
-                      className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground overflow-auto max-h-[200px] whitespace-pre-wrap break-all"
-                      data-testid="text-test-response"
-                    >
-                      {typeof testResult.body === "string" ? testResult.body : JSON.stringify(testResult.body, null, 2)}
-                    </pre>
-                    {testResult.status < 400 && (
-                      <>
-                        {estimatePayloadSize(testResult.body) > PAYLOAD_SIZE_LIMIT ? (
-                          <div className="rounded-md bg-muted px-3 py-2" data-testid="text-payload-size-warning">
-                            <p className="text-xs text-muted-foreground">
-                              Large response detected ({Math.round(estimatePayloadSize(testResult.body) / 1024)} KB).
-                              The payload will be automatically trimmed before sending to AI analysis — only a few sample items are needed.
-                            </p>
-                          </div>
-                        ) : (
-                          <p className="text-xs text-muted-foreground">
-                            Test passed. Proceed to the next step for AI-powered response analysis.
-                          </p>
-                        )}
-                      </>
-                    )}
+                    <Label>Default EN Category</Label>
+                    <Input
+                      value={categoryEn}
+                      onChange={(e) => setCategoryEn(e.target.value)}
+                      placeholder="blog-us"
+                      data-testid="input-category-en"
+                    />
                   </div>
-                )}
-                {testError && (
-                  <div className="rounded-md bg-destructive/10 px-3 py-2" data-testid="text-test-error">
-                    <p className="text-xs text-destructive">{testError}</p>
+                  <div className="space-y-2">
+                    <Label>Default ES Category</Label>
+                    <Input
+                      value={categoryEs}
+                      onChange={(e) => setCategoryEs(e.target.value)}
+                      placeholder="blog-es"
+                      data-testid="input-category-es"
+                    />
                   </div>
-                )}
-              </div>
-            )}
-
-            {step === "transform" && (
-              <div className="space-y-4" data-testid="step-transform">
-                <p className="text-sm text-muted-foreground">
-                  AI will analyze the API response to determine how to extract blog posts and handle pagination.
-                </p>
-
-                <Button
-                  onClick={handleAnalyzeTransform}
-                  disabled={aiAnalyzing}
-                  className="w-full"
-                  data-testid="button-ai-analyze"
-                >
-                  {aiAnalyzing ? (
-                    <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing response...</>
-                  ) : (
-                    <><IconWand className="h-4 w-4 mr-2" />Analyze with AI</>
-                  )}
-                </Button>
-
-                {transformError && (
-                  <div className="rounded-md bg-destructive/10 px-3 py-2">
-                    <p className="text-xs text-destructive">{transformError}</p>
-                  </div>
-                )}
-
-                {transformConfig && (
-                  <div className="space-y-3 rounded-md border p-3" data-testid="section-transform-result">
-                    <Label className="text-sm font-medium">Extraction Path</Label>
-                    <div className="space-y-2">
-                      <Input
-                        value={transformConfig.results_path}
-                        onChange={(e) => {
-                          setTransformConfig({ ...transformConfig, results_path: e.target.value });
-                          setTransformConfirmed(false);
-                        }}
-                        placeholder="(direct array)"
-                        className="font-mono text-sm"
-                        data-testid="input-results-path"
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        {transformConfig.results_path
-                          ? `Posts are at "${transformConfig.results_path}" in the response`
-                          : "Response is treated as a direct array"}
-                      </p>
-                    </div>
-
-                    {(() => {
-                      const posts = extractedPosts;
-                      return (
-                        <div className="rounded-md bg-muted px-3 py-2" data-testid="text-extract-preview">
-                          {posts.length > 0 ? (
-                            <p className="text-xs text-muted-foreground">
-                              Found <span className="text-foreground font-medium">{posts.length}</span> posts
-                            </p>
-                          ) : (
-                            <p className="text-xs text-destructive">
-                              No array found at this path. Try editing the extraction path.
-                            </p>
-                          )}
-                        </div>
-                      );
-                    })()}
-
-                    {transformConfig.pagination && transformConfig.pagination.type !== "none" && (
-                      <div className="space-y-1">
-                        <Label className="text-sm font-medium">Pagination</Label>
-                        <div className="rounded-md bg-muted px-3 py-2">
-                          <p className="text-xs text-muted-foreground">
-                            <Badge variant="outline" className="mr-2">{transformConfig.pagination.type}</Badge>
-                            {transformConfig.pagination.strategy_description}
-                          </p>
-                          {transformConfig.pagination.total_field && (
-                            <p className="text-xs text-muted-foreground mt-1">
-                              Total count field: <code className="text-foreground">{transformConfig.pagination.total_field}</code>
-                            </p>
-                          )}
-                          {transformConfig.pagination.next_field && (
-                            <p className="text-xs text-muted-foreground mt-1">
-                              Next page field: <code className="text-foreground">{transformConfig.pagination.next_field}</code>
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    <Button
-                      size="sm"
-                      disabled={extractedPosts.length === 0 || transformConfirmed}
-                      onClick={() => { setTransformConfirmed(true); markComplete("transform"); }}
-                      data-testid="button-confirm-transform"
-                    >
-                      {transformConfirmed ? (
-                        <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
-                      ) : (
-                        "Confirm Transform"
-                      )}
-                    </Button>
-                  </div>
-                )}
+                </div>
               </div>
             )}
 
             {step === "fields" && (
               <div className="space-y-4" data-testid="step-fields">
                 <p className="text-sm text-muted-foreground">
-                  AI will analyze sample posts and suggest which fields map to standard blog properties.
+                  Map database fields to standard blog post properties. Use AI to auto-detect mappings from sample data.
                 </p>
 
-                <Button
-                  onClick={handleAnalyzeFields}
-                  disabled={aiMappingFields || extractedPosts.length === 0}
-                  className="w-full"
-                  data-testid="button-ai-fields"
-                >
-                  {aiMappingFields ? (
-                    <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
-                  ) : (
-                    <><IconWand className="h-4 w-4 mr-2" />Analyze Fields with AI</>
-                  )}
-                </Button>
+                {loadingSample && (
+                  <div className="flex items-center gap-2 py-2">
+                    <IconLoader2 className="h-4 w-4 animate-spin" />
+                    <span className="text-sm text-muted-foreground">Loading sample data from database...</span>
+                  </div>
+                )}
+
+                {!loadingSample && sampleItems.length > 0 && (
+                  <Button
+                    onClick={handleAnalyzeFields}
+                    disabled={aiMappingFields}
+                    className="w-full"
+                    data-testid="button-ai-fields"
+                  >
+                    {aiMappingFields ? (
+                      <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
+                    ) : (
+                      <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
+                    )}
+                  </Button>
+                )}
+
+                {!loadingSample && sampleItems.length === 0 && selectedDb && (
+                  <div className="rounded-md bg-muted px-3 py-2">
+                    <p className="text-xs text-muted-foreground">
+                      No sample data available from database "{selectedDb}". Make sure the database has been fetched at least once.
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="mt-2"
+                      onClick={() => loadSampleFromDb(selectedDb)}
+                      data-testid="button-retry-sample"
+                    >
+                      <IconRefresh className="h-3.5 w-3.5 mr-1" />
+                      Retry
+                    </Button>
+                  </div>
+                )}
 
                 {fieldMappingError && (
                   <div className="rounded-md bg-destructive/10 px-3 py-2">
@@ -960,7 +587,7 @@ function DataSourceDialog({
                                     setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
                                     setFieldMappingConfirmed(false);
                                   }}
-                                  placeholder="e.g. author.details.name or items[0].body"
+                                  placeholder="e.g. author.details.name"
                                   className="h-8 text-xs font-mono flex-1"
                                   data-testid={`input-custom-path-${standardField}`}
                                 />
@@ -1025,15 +652,6 @@ function DataSourceDialog({
                               {String(getFieldValue(samplePost, fieldMapping.description) || "")}
                             </p>
                           )}
-                          {fieldMapping.content && (() => {
-                            const raw = getFieldValue(samplePost, fieldMapping.content);
-                            const text = typeof raw === "string" ? raw.replace(/<[^>]*>/g, "").replace(/[#*_~`>\-\[\]()!]/g, "").replace(/\s+/g, " ").trim() : "";
-                            return text ? (
-                              <div className="rounded bg-muted px-2 py-1.5 mt-1" data-testid="preview-content">
-                                <p className="text-xs text-muted-foreground line-clamp-3">{text.slice(0, 280)}{text.length > 280 ? "..." : ""}</p>
-                              </div>
-                            ) : null;
-                          })()}
                           <div className="flex items-center gap-3 flex-wrap text-xs text-muted-foreground pt-1">
                             {fieldMapping.author && (
                               <span data-testid="preview-author">
@@ -1128,6 +746,17 @@ function DataSourceDialog({
       </DialogContent>
     </Dialog>
   );
+}
+
+function collectFieldPaths(obj: unknown, prefix: string, keys: Set<string>): void {
+  if (!obj || typeof obj !== "object" || Array.isArray(obj)) return;
+  for (const [k, v] of Object.entries(obj as Record<string, unknown>)) {
+    const path = prefix ? `${prefix}.${k}` : k;
+    keys.add(path);
+    if (v && typeof v === "object" && !Array.isArray(v)) {
+      collectFieldPaths(v, path, keys);
+    }
+  }
 }
 
 function resolvePostField(post: Record<string, any>, field: string): string {

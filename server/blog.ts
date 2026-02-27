@@ -1,48 +1,16 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { databaseManager } from "./database";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 const BLOG_CONFIG_PATH = path.join(MARKETING_CONTENT_PATH, "blog.yml");
 
-export interface ApiSourceConfig {
-  endpoint: string;
-  params: Record<string, string | number>;
-  token_env_var?: string;
-  auth_prefix?: string;
-  headers?: Record<string, string>;
-  academy_header?: string;
-  results_path?: string;
-}
-
 export interface BlogConfig {
-  data_source: {
-    type: string;
-    api?: ApiSourceConfig;
-    [key: string]: unknown;
-  };
-  cache: {
-    ttl_hours: number;
-    file_path: string;
-  };
+  database: string;
   url_pattern: Record<string, string>;
   categories: Record<string, string>;
-  transform?: {
-    results_path: string;
-    pagination?: {
-      type: string;
-      has_more_field?: string | null;
-      total_field?: string | null;
-      next_field?: string | null;
-      strategy_description?: string;
-    };
-  };
   field_mapping?: Record<string, string | null>;
-}
-
-interface CachedData {
-  fetched_at: number;
-  results: BlogPost[];
 }
 
 export interface BlogPost {
@@ -89,21 +57,18 @@ function loadConfig(): BlogConfig {
   const raw = fs.readFileSync(BLOG_CONFIG_PATH, "utf-8");
   const parsed = yaml.load(raw) as Record<string, unknown>;
 
-  if (parsed.data_source) {
+  if (parsed.database && typeof parsed.database === "string") {
     configCache = parsed as unknown as BlogConfig;
-  } else if (parsed.api) {
+  } else if (parsed.data_source) {
+    console.warn("[Blog] Legacy blog.yml format detected (data_source). Please migrate to database-backed format.");
     configCache = {
-      data_source: {
-        type: "api",
-        api: parsed.api as ApiSourceConfig,
-      },
-      cache: parsed.cache as BlogConfig["cache"],
-      url_pattern: parsed.url_pattern as Record<string, string>,
-      categories: parsed.categories as Record<string, string>,
+      database: "",
+      url_pattern: (parsed.url_pattern as Record<string, string>) || { en: "/en/blog/:category/:slug", es: "/es/blog/:category/:slug" },
+      categories: (parsed.categories as Record<string, string>) || { en: "blog-us", es: "blog-es" },
+      field_mapping: parsed.field_mapping as Record<string, string | null> | undefined,
     };
-    console.log("[Blog] Migrated legacy blog.yml format (flat api) to data_source wrapper in-memory");
   } else {
-    throw new Error("[Blog] blog.yml has no data_source or api configuration");
+    throw new Error("[Blog] blog.yml must specify a 'database' field referencing a database name");
   }
 
   return configCache;
@@ -113,35 +78,10 @@ export function clearConfigCache(): void {
   configCache = null;
 }
 
-function getApiConfig(): ApiSourceConfig {
-  const config = loadConfig();
-  if (config.data_source.type !== "api" || !config.data_source.api) {
-    throw new Error(`[Blog] data_source.type is "${config.data_source.type}" but no api config found`);
-  }
-  const api = config.data_source.api;
-  if (!api.token_env_var) {
-    api.token_env_var = "BLOG_API_TOKEN";
-  }
-  if (api.auth_prefix === undefined) {
-    api.auth_prefix = "Token";
-  }
-  if (!api.headers) {
-    api.headers = {};
-    if (api.academy_header) {
-      api.headers["Academy"] = api.academy_header;
-    }
-  }
-  if (!api.params) {
-    api.params = {};
-  }
-  return api;
-}
-
 const markdownCache = new Map<string, { content: string; fetched_at: number }>();
 
 export async function fetchMarkdownContent(readmeUrl: string): Promise<string> {
-  const config = loadConfig();
-  const ttlMs = config.cache.ttl_hours * 60 * 60 * 1000;
+  const ttlMs = 24 * 60 * 60 * 1000;
 
   const cached = markdownCache.get(readmeUrl);
   if (cached && Date.now() - cached.fetched_at < ttlMs) {
@@ -179,54 +119,6 @@ export function clearMarkdownCache(slug?: string): void {
 
 export function clearMarkdownCacheByUrl(readmeUrl: string): boolean {
   return markdownCache.delete(readmeUrl);
-}
-
-function getCachePath(): string {
-  const config = loadConfig();
-  return path.join(process.cwd(), config.cache.file_path);
-}
-
-function isCacheValid(): boolean {
-  const cachePath = getCachePath();
-  if (!fs.existsSync(cachePath)) return false;
-
-  try {
-    const raw = fs.readFileSync(cachePath, "utf-8");
-    const cached = JSON.parse(raw) as CachedData;
-    const config = loadConfig();
-    const ttlMs = config.cache.ttl_hours * 60 * 60 * 1000;
-    return Date.now() - cached.fetched_at < ttlMs;
-  } catch {
-    return false;
-  }
-}
-
-function readCache(): BlogPost[] | null {
-  const cachePath = getCachePath();
-  if (!fs.existsSync(cachePath)) return null;
-
-  try {
-    const raw = fs.readFileSync(cachePath, "utf-8");
-    const cached = JSON.parse(raw) as CachedData;
-    return cached.results;
-  } catch {
-    return null;
-  }
-}
-
-function writeCache(results: BlogPost[]): void {
-  const cachePath = getCachePath();
-  const dir = path.dirname(cachePath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
-  const data: CachedData = {
-    fetched_at: Date.now(),
-    results,
-  };
-
-  fs.writeFileSync(cachePath, JSON.stringify(data, null, 2), "utf-8");
 }
 
 function extractByDotPath(obj: unknown, dotPath: string): unknown {
@@ -318,106 +210,33 @@ function applyFieldMapping(rawItems: unknown[], mapping: Record<string, string |
   });
 }
 
-async function fetchFromApi(): Promise<BlogPost[]> {
+export async function getBlogPosts(forceRefresh = false): Promise<BlogPost[]> {
   const config = loadConfig();
-  const apiConfig = getApiConfig();
-  const tokenEnvVar = apiConfig.token_env_var || "BLOG_API_TOKEN";
-  const token = process.env[tokenEnvVar];
 
-  if (!token) {
-    console.warn(`[Blog] Environment variable ${tokenEnvVar} not set, cannot fetch blog posts`);
+  if (!config.database) {
+    console.warn("[Blog] No database configured in blog.yml");
     return [];
   }
 
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(apiConfig.params || {})) {
-    params.set(key, String(value));
-  }
-
-  const url = `${apiConfig.endpoint}?${params.toString()}`;
-  console.log(`[Blog] Fetching blog posts from API: ${url}`);
-
-  const fetchHeaders: Record<string, string> = {
-    ...(apiConfig.headers || {}),
-  };
-  if (token) {
-    fetchHeaders["Authorization"] = apiConfig.auth_prefix ? `${apiConfig.auth_prefix} ${token}` : token;
-  }
-
-  const response = await fetch(url, {
-    headers: fetchHeaders,
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`[Blog] API returned ${response.status}: ${errorText}`);
-  }
-
-  const data = await response.json() as unknown;
-
-  const resultsPath = config.transform?.results_path ?? apiConfig.results_path ?? "";
-
-  let rawItems: unknown[];
-
-  if (resultsPath) {
-    const extracted = extractByDotPath(data, resultsPath);
-    if (Array.isArray(extracted)) {
-      rawItems = extracted;
-      console.log(`[Blog] Extracted ${rawItems.length} posts via results_path "${resultsPath}"`);
-    } else {
-      console.warn(`[Blog] results_path "${resultsPath}" did not resolve to an array, got ${typeof extracted}`);
-      rawItems = [];
-    }
-  } else if (Array.isArray(data)) {
-    rawItems = data;
-  } else if (data && typeof data === "object" && "results" in data) {
-    const obj = data as { results?: unknown[]; count?: number };
-    rawItems = obj.results || [];
-    console.log(`[Blog] API returned ${obj.count ?? rawItems.length} total posts, fetched ${rawItems.length}`);
-  } else {
-    rawItems = [];
-  }
-
-  if (config.field_mapping && Object.keys(config.field_mapping).length > 0) {
-    const mapped = applyFieldMapping(rawItems, config.field_mapping);
-    console.log(`[Blog] Applied field mapping to ${mapped.length} posts`);
-    return mapped;
-  }
-
-  return rawItems as BlogPost[];
-}
-
-export async function getBlogPosts(forceRefresh = false): Promise<BlogPost[]> {
-  if (!forceRefresh && isCacheValid()) {
-    const cached = readCache();
-    if (cached) {
-      console.log(`[Blog] Serving ${cached.length} posts from cache`);
-      return cached;
-    }
-  }
-
-  const config = loadConfig();
-
-  if (config.data_source.type !== "api") {
-    console.warn(`[Blog] Unsupported data source type: ${config.data_source.type}`);
-    const cached = readCache();
-    return cached || [];
+  if (!databaseManager.exists(config.database)) {
+    console.warn(`[Blog] Database "${config.database}" not found`);
+    return [];
   }
 
   try {
-    const results = await fetchFromApi();
-    if (results.length > 0) {
-      writeCache(results);
-      console.log(`[Blog] Cached ${results.length} blog posts`);
+    const result = await databaseManager.fetchItems(config.database, forceRefresh);
+    const rawItems = result.items;
+
+    if (config.field_mapping && Object.keys(config.field_mapping).length > 0) {
+      const mapped = applyFieldMapping(rawItems, config.field_mapping);
+      console.log(`[Blog] Fetched ${mapped.length} posts from database "${config.database}" (cache: ${result.from_cache})`);
+      return mapped;
     }
-    return results;
+
+    console.log(`[Blog] Fetched ${rawItems.length} posts from database "${config.database}" (cache: ${result.from_cache})`);
+    return rawItems as BlogPost[];
   } catch (err) {
-    console.error("[Blog] Failed to fetch from API:", err);
-    const cached = readCache();
-    if (cached) {
-      console.log(`[Blog] Falling back to stale cache with ${cached.length} posts`);
-      return cached;
-    }
+    console.error(`[Blog] Failed to fetch from database "${config.database}":`, err);
     return [];
   }
 }
@@ -435,27 +254,35 @@ export function findBlogPostBySlug(posts: BlogPost[], slug: string, locale?: str
 }
 
 export function clearBlogCache(): { success: boolean; message: string } {
-  const cachePath = getCachePath();
+  const config = loadConfig();
   clearMarkdownCache();
-  if (fs.existsSync(cachePath)) {
-    fs.unlinkSync(cachePath);
-    return { success: true, message: "Blog cache cleared (including markdown)" };
+
+  if (config.database && databaseManager.exists(config.database)) {
+    databaseManager.fetchItems(config.database, true).catch(() => {});
+    return { success: true, message: "Blog cache cleared (database will re-fetch on next request)" };
   }
+
   return { success: true, message: "No blog cache to clear" };
 }
 
 export function getBlogCacheStatus(): { exists: boolean; age_hours: number | null; post_count: number | null } {
-  const cachePath = getCachePath();
+  const config = loadConfig();
+
+  if (!config.database || !databaseManager.exists(config.database)) {
+    return { exists: false, age_hours: null, post_count: null };
+  }
+
+  const cachePath = path.join(process.cwd(), ".cache", `db-${config.database}.json`);
   if (!fs.existsSync(cachePath)) {
     return { exists: false, age_hours: null, post_count: null };
   }
 
   try {
     const raw = fs.readFileSync(cachePath, "utf-8");
-    const cached = JSON.parse(raw) as CachedData;
-    const ageMs = Date.now() - cached.fetched_at;
+    const cached = JSON.parse(raw) as { fetched_at: string; items: unknown[] };
+    const ageMs = Date.now() - new Date(cached.fetched_at).getTime();
     const ageHours = Math.round((ageMs / (60 * 60 * 1000)) * 10) / 10;
-    return { exists: true, age_hours: ageHours, post_count: cached.results.length };
+    return { exists: true, age_hours: ageHours, post_count: cached.items.length };
   } catch {
     return { exists: false, age_hours: null, post_count: null };
   }
@@ -469,10 +296,6 @@ export function saveBlogConfig(update: Partial<BlogConfig>): void {
   const current = loadConfig();
   const merged = { ...current, ...update };
 
-  if (update.data_source) {
-    merged.data_source = { ...current.data_source, ...update.data_source };
-  }
-
   const raw = fs.readFileSync(BLOG_CONFIG_PATH, "utf-8");
   const commentLines: string[] = [];
   for (const line of raw.split("\n")) {
@@ -485,7 +308,7 @@ export function saveBlogConfig(update: Partial<BlogConfig>): void {
 
   const yamlBody = yaml.dump(merged, { lineWidth: 120, noRefs: true, sortKeys: false });
   const output = commentLines.length > 0
-    ? commentLines.join("\n") + "\n\n" + yamlBody
+    ? commentLines.join("\n") + "\n" + yamlBody
     : yamlBody;
 
   fs.writeFileSync(BLOG_CONFIG_PATH, output, "utf-8");
