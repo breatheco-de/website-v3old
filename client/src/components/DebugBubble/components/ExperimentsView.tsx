@@ -4,7 +4,6 @@ import {
   IconFlask,
   IconPlus,
 } from "@tabler/icons-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { deslugify } from "../utils/debugHelpers";
 import type { MenuView, ContentInfo, ExperimentsResponse } from "../types";
 
@@ -52,7 +51,7 @@ export function ExperimentsView({
         </div>
       </div>
       
-      <ScrollArea className="h-[280px]">
+      <div className="overflow-y-auto overflow-x-hidden max-h-[280px]">
         <div className="p-2 space-y-1">
           {experimentsLoading ? (
             <div className="flex items-center justify-center py-8">
@@ -115,7 +114,7 @@ export function ExperimentsView({
             })
           )}
         </div>
-      </ScrollArea>
+      </div>
     </>
   );
 }

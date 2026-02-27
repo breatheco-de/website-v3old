@@ -14,7 +14,6 @@ import {
   IconExternalLink,
   IconClipboard,
 } from "@tabler/icons-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import type { MenuView, SitemapUrl } from "../types";
@@ -152,7 +151,7 @@ export function SitemapView({
         </div>
       </div>
       
-      <ScrollArea className="h-[240px]">
+      <div className="overflow-y-auto overflow-x-hidden max-h-[240px]">
         <div className="p-2 space-y-1">
           {sitemapLoading ? (
             <div className="flex items-center justify-center py-8">
@@ -301,7 +300,7 @@ export function SitemapView({
             </>
           )}
         </div>
-      </ScrollArea>
+      </div>
     </>
   );
 }
