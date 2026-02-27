@@ -67,10 +67,9 @@ export function filterFaqsByRelatedFeatures(
   let filtered = [...faqs];
 
   if (location) {
-    // On location page: show "all" FAQs + FAQs for this specific location
+    // On location page: show only FAQs for this specific location
     filtered = filtered.filter((faq) => {
-      const locations = faq.locations || ["all"];
-      return locations.includes("all") || locations.includes(location);
+      return faq.locations?.includes(location);
     });
   } else {
     // On general page: only show "all" FAQs, exclude location-specific ones

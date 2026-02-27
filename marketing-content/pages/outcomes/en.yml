@@ -22,7 +22,7 @@ sections:
       - text: Download Outcomes Report
         url: "#bottom"
         variant: primary
-        icon: Rocket
+        icon: IconRocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
       desktop: none

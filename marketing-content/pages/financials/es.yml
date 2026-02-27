@@ -35,7 +35,7 @@ sections:
       variant: primary
     trust_bar:
       rating: "4.5"
-      review_count: Basado en más de 5149 reseñas
+      review_count: Basado en más de {{ global_review_count | 5149 }}+ reseñas
       review_logos:
         - name: Google
           logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
