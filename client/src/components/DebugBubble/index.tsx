@@ -2033,6 +2033,13 @@ export function DebugBubble() {
                     indicator="arrow"
                     testId="link-blog-manage"
                   />
+                  <MenuItem
+                    icon={IconDatabase}
+                    label="Databases"
+                    href="/private/databases"
+                    indicator="arrow"
+                    testId="link-databases"
+                  />
                 </ExpandableMenuItem>
                 
                 <ExpandableMenuItem

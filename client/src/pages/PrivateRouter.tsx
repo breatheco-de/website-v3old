@@ -12,6 +12,7 @@ const DiagnosticsPage = lazy(() => import("@/pages/DiagnosticsPage"));
 const PrivateRedirects = lazy(() => import("@/pages/PrivateRedirects"));
 const BlogManagePage = lazy(() => import("@/pages/BlogManagePage"));
 const SyncLogPage = lazy(() => import("@/pages/SyncLogPage"));
+const PrivateDatabases = lazy(() => import("@/pages/PrivateDatabases"));
 
 function LoadingFallback() {
   return (
@@ -38,6 +39,8 @@ export default function PrivateRouter() {
         <Route path="/private/component-showcase/:componentType" component={ComponentShowcase} />
         <Route path="/private/component-showcase/:componentType/preview" component={ComponentPreview} />
         <Route path="/private/blog" component={BlogManagePage} />
+        <Route path="/private/databases" component={PrivateDatabases} />
+        <Route path="/private/databases/:name" component={PrivateDatabases} />
         <Route path="/private/diagnostics" component={DiagnosticsPage} />
         <Route path="/private/redirects" component={PrivateRedirects} />
         <Route path="/private/media-gallery" component={MediaGallery} />
