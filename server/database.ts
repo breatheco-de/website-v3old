@@ -33,15 +33,7 @@ interface CacheEntry {
   raw_count: number;
 }
 
-const memoryCache = new Map<string, { data: CacheEntry; expires: number }>();
-
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;
-
-function validateDbName(name: string): void {
-  if (!name || !VALID_DB_NAME.test(name)) {
-    throw new Error(`Invalid database name "${name}" — only lowercase letters, digits, hyphens, and underscores allowed`);
-  }
-}
 
 function getValueByPath(obj: unknown, dotPath: string): unknown {
   const parts = dotPath.split(".");
@@ -66,70 +58,6 @@ function applyFieldMapping(
     }
   }
   return result;
-}
-
-export function listDatabases(): { name: string; config: DatabaseConfig }[] {
-  if (!fs.existsSync(DB_DIR)) return [];
-
-  const folders = fs.readdirSync(DB_DIR).filter((f) => {
-    const full = path.join(DB_DIR, f);
-    return (
-      fs.statSync(full).isDirectory() &&
-      fs.existsSync(path.join(full, "config.yml"))
-    );
-  });
-
-  return folders.map((folder) => ({
-    name: folder,
-    config: loadConfig(folder),
-  }));
-}
-
-export function loadConfig(dbName: string): DatabaseConfig {
-  validateDbName(dbName);
-  const configPath = path.join(DB_DIR, dbName, "config.yml");
-  if (!fs.existsSync(configPath)) {
-    throw new Error(`Database "${dbName}" not found`);
-  }
-  const raw = fs.readFileSync(configPath, "utf-8");
-  return yaml.load(raw) as DatabaseConfig;
-}
-
-export function saveConfig(dbName: string, config: DatabaseConfig): void {
-  validateDbName(dbName);
-  const configPath = path.join(DB_DIR, dbName, "config.yml");
-  const dir = path.dirname(configPath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-  fs.writeFileSync(configPath, yaml.dump(config, { lineWidth: 120 }));
-}
-
-function getCachePath(dbName: string): string {
-  return path.join(CACHE_DIR, `db-${dbName}.json`);
-}
-
-function loadFileCache(dbName: string, ttlHours: number): CacheEntry | null {
-  const cachePath = getCachePath(dbName);
-  if (!fs.existsSync(cachePath)) return null;
-
-  try {
-    const raw = fs.readFileSync(cachePath, "utf-8");
-    const entry = JSON.parse(raw) as CacheEntry;
-    const age =
-      (Date.now() - new Date(entry.fetched_at).getTime()) / (1000 * 60 * 60);
-    if (age > ttlHours) return null;
-    return entry;
-  } catch {
-    return null;
-  }
-}
-
-function saveFileCache(dbName: string, entry: CacheEntry): void {
-  if (!fs.existsSync(CACHE_DIR)) {
-    fs.mkdirSync(CACHE_DIR, { recursive: true });
-  }
-  fs.writeFileSync(getCachePath(dbName), JSON.stringify(entry, null, 2));
 }
 
 async function fetchFromApi(
@@ -178,80 +106,225 @@ async function fetchFromApi(
   throw new Error("API response is not an array and no results_path configured");
 }
 
-export async function fetchDatabaseItems(
-  dbName: string,
-  forceRefresh = false
-): Promise<{ items: Record<string, unknown>[]; raw_count: number; fetched_at: string; from_cache: boolean }> {
-  const config = loadConfig(dbName);
-  const ttl = config.cache?.ttl_hours ?? 24;
+export class DatabaseManager {
+  private configs = new Map<string, DatabaseConfig>();
+  private memoryCache = new Map<string, { data: CacheEntry; expires: number }>();
 
-  if (!forceRefresh) {
-    const memEntry = memoryCache.get(dbName);
-    if (memEntry && Date.now() < memEntry.expires) {
-      return { ...memEntry.data, from_cache: true };
+  constructor() {
+    this.reload();
+  }
+
+  reload(): void {
+    this.configs.clear();
+    if (!fs.existsSync(DB_DIR)) return;
+
+    const folders = fs.readdirSync(DB_DIR).filter((f) => {
+      const full = path.join(DB_DIR, f);
+      return (
+        fs.statSync(full).isDirectory() &&
+        fs.existsSync(path.join(full, "config.yml"))
+      );
+    });
+
+    for (const folder of folders) {
+      try {
+        const configPath = path.join(DB_DIR, folder, "config.yml");
+        const raw = fs.readFileSync(configPath, "utf-8");
+        this.configs.set(folder, yaml.load(raw) as DatabaseConfig);
+      } catch (err) {
+        console.error(`[DatabaseManager] Failed to load config for "${folder}":`, err);
+      }
     }
 
-    const fileEntry = loadFileCache(dbName, ttl);
-    if (fileEntry) {
-      memoryCache.set(dbName, {
-        data: fileEntry,
-        expires: Date.now() + ttl * 60 * 60 * 1000,
-      });
-      return { ...fileEntry, from_cache: true };
+    console.log(`[DatabaseManager] Loaded ${this.configs.size} database(s)`);
+  }
+
+  private validateName(name: string): void {
+    if (!name || !VALID_DB_NAME.test(name)) {
+      throw new Error(
+        `Invalid database name "${name}" — only lowercase letters, digits, hyphens, and underscores allowed`
+      );
     }
   }
 
-  let rawItems: unknown[];
-
-  if (config.source.type === "api") {
-    if (!config.source.api) throw new Error("API source config missing");
-    rawItems = await fetchFromApi(config.source.api);
-  } else {
-    throw new Error(`Unsupported source type: ${config.source.type}`);
+  list(): { name: string; config: DatabaseConfig }[] {
+    return Array.from(this.configs.entries()).map(([name, config]) => ({
+      name,
+      config,
+    }));
   }
 
-  const items = config.field_mapping
-    ? rawItems.map((item) =>
-        applyFieldMapping(
-          item as Record<string, unknown>,
-          config.field_mapping!
+  get(name: string): DatabaseConfig {
+    this.validateName(name);
+    const config = this.configs.get(name);
+    if (!config) {
+      throw new Error(`Database "${name}" not found`);
+    }
+    return config;
+  }
+
+  exists(name: string): boolean {
+    return this.configs.has(name);
+  }
+
+  create(name: string, config: DatabaseConfig): void {
+    this.validateName(name);
+    if (this.configs.has(name)) {
+      throw new Error(`Database "${name}" already exists`);
+    }
+    this.writeToDisk(name, config);
+    this.configs.set(name, config);
+  }
+
+  update(name: string, config: DatabaseConfig): void {
+    this.validateName(name);
+    this.writeToDisk(name, config);
+    this.configs.set(name, config);
+    this.memoryCache.delete(name);
+  }
+
+  delete(name: string): void {
+    this.validateName(name);
+    const dir = path.join(DB_DIR, name);
+    if (fs.existsSync(dir)) {
+      fs.rmSync(dir, { recursive: true });
+    }
+    this.configs.delete(name);
+    this.memoryCache.delete(name);
+    const cachePath = path.join(CACHE_DIR, `db-${name}.json`);
+    if (fs.existsSync(cachePath)) {
+      fs.unlinkSync(cachePath);
+    }
+  }
+
+  async fetchItems(
+    name: string,
+    forceRefresh = false
+  ): Promise<{
+    items: Record<string, unknown>[];
+    raw_count: number;
+    fetched_at: string;
+    from_cache: boolean;
+  }> {
+    const config = this.get(name);
+    const ttl = config.cache?.ttl_hours ?? 24;
+
+    if (!forceRefresh) {
+      const memEntry = this.memoryCache.get(name);
+      if (memEntry && Date.now() < memEntry.expires) {
+        return { ...memEntry.data, from_cache: true };
+      }
+
+      const fileEntry = this.loadFileCache(name, ttl);
+      if (fileEntry) {
+        this.memoryCache.set(name, {
+          data: fileEntry,
+          expires: Date.now() + ttl * 60 * 60 * 1000,
+        });
+        return { ...fileEntry, from_cache: true };
+      }
+    }
+
+    let rawItems: unknown[];
+
+    if (config.source.type === "api") {
+      if (!config.source.api) throw new Error("API source config missing");
+      rawItems = await fetchFromApi(config.source.api);
+    } else {
+      throw new Error(`Unsupported source type: ${config.source.type}`);
+    }
+
+    const items = config.field_mapping
+      ? rawItems.map((item) =>
+          applyFieldMapping(
+            item as Record<string, unknown>,
+            config.field_mapping!
+          )
         )
-      )
-    : (rawItems as Record<string, unknown>[]);
+      : (rawItems as Record<string, unknown>[]);
 
-  const entry: CacheEntry = {
-    fetched_at: new Date().toISOString(),
-    items,
-    raw_count: rawItems.length,
-  };
+    const entry: CacheEntry = {
+      fetched_at: new Date().toISOString(),
+      items,
+      raw_count: rawItems.length,
+    };
 
-  saveFileCache(dbName, entry);
-  memoryCache.set(dbName, {
-    data: entry,
-    expires: Date.now() + ttl * 60 * 60 * 1000,
-  });
+    this.saveFileCache(name, entry);
+    this.memoryCache.set(name, {
+      data: entry,
+      expires: Date.now() + ttl * 60 * 60 * 1000,
+    });
 
-  return { ...entry, from_cache: false };
-}
+    return { ...entry, from_cache: false };
+  }
 
-export async function testDatabaseSource(
-  sourceConfig: DatabaseConfig["source"]
-): Promise<{ success: boolean; item_count?: number; sample?: unknown; error?: string }> {
-  try {
-    if (sourceConfig.type === "api") {
-      if (!sourceConfig.api) throw new Error("API config missing");
-      const items = await fetchFromApi(sourceConfig.api);
+  async test(
+    sourceConfig: DatabaseConfig["source"]
+  ): Promise<{
+    success: boolean;
+    item_count?: number;
+    sample?: unknown;
+    error?: string;
+  }> {
+    try {
+      if (sourceConfig.type === "api") {
+        if (!sourceConfig.api) throw new Error("API config missing");
+        const items = await fetchFromApi(sourceConfig.api);
+        return {
+          success: true,
+          item_count: items.length,
+          sample: items[0] || null,
+        };
+      }
       return {
-        success: true,
-        item_count: items.length,
-        sample: items[0] || null,
+        success: false,
+        error: `Unsupported source type: ${sourceConfig.type}`,
+      };
+    } catch (err: unknown) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : String(err),
       };
     }
-    return { success: false, error: `Unsupported source type: ${sourceConfig.type}` };
-  } catch (err: unknown) {
-    return {
-      success: false,
-      error: err instanceof Error ? err.message : String(err),
-    };
+  }
+
+  private writeToDisk(name: string, config: DatabaseConfig): void {
+    const configPath = path.join(DB_DIR, name, "config.yml");
+    const dir = path.dirname(configPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(configPath, yaml.dump(config, { lineWidth: 120 }));
+  }
+
+  private loadFileCache(
+    dbName: string,
+    ttlHours: number
+  ): CacheEntry | null {
+    const cachePath = path.join(CACHE_DIR, `db-${dbName}.json`);
+    if (!fs.existsSync(cachePath)) return null;
+
+    try {
+      const raw = fs.readFileSync(cachePath, "utf-8");
+      const entry = JSON.parse(raw) as CacheEntry;
+      const age =
+        (Date.now() - new Date(entry.fetched_at).getTime()) / (1000 * 60 * 60);
+      if (age > ttlHours) return null;
+      return entry;
+    } catch {
+      return null;
+    }
+  }
+
+  private saveFileCache(dbName: string, entry: CacheEntry): void {
+    if (!fs.existsSync(CACHE_DIR)) {
+      fs.mkdirSync(CACHE_DIR, { recursive: true });
+    }
+    fs.writeFileSync(
+      path.join(CACHE_DIR, `db-${dbName}.json`),
+      JSON.stringify(entry, null, 2)
+    );
   }
 }
+
+export const databaseManager = new DatabaseManager();

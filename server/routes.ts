@@ -22,13 +22,7 @@ import {
   getSitemapUrls,
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
-import {
-  listDatabases,
-  loadConfig as loadDbConfig,
-  saveConfig as saveDbConfig,
-  fetchDatabaseItems,
-  testDatabaseSource,
-} from "./database";
+import { databaseManager } from "./database";
 import {
   redirectMiddleware,
   getRedirects,
@@ -1688,7 +1682,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   // ── Database routes ──────────────────────────────────────────
   app.get("/api/databases", (_req, res) => {
     try {
-      const databases = listDatabases();
+      const databases = databaseManager.list();
       res.json(
         databases.map((db) => ({
           name: db.name,
@@ -1705,9 +1699,28 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.post("/api/databases", (req, res) => {
+    try {
+      const { slug, config } = req.body;
+      if (!slug || !config || !config.name || !config.source) {
+        res.status(400).json({ error: "slug, config.name, and config.source are required" });
+        return;
+      }
+      databaseManager.create(slug, config);
+      res.json({ success: true, name: slug, config });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("already exists")) {
+        res.status(409).json({ error: msg });
+      } else {
+        res.status(400).json({ error: msg });
+      }
+    }
+  });
+
   app.get("/api/databases/:name", (req, res) => {
     try {
-      const config = loadDbConfig(req.params.name);
+      const config = databaseManager.get(req.params.name);
       res.json({ name: req.params.name, config });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -1721,7 +1734,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
   app.get("/api/databases/:name/items", async (req, res) => {
     try {
-      const result = await fetchDatabaseItems(req.params.name);
+      const result = await databaseManager.fetchItems(req.params.name);
       res.json(result);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -1735,7 +1748,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
   app.post("/api/databases/:name/refresh", async (req, res) => {
     try {
-      const result = await fetchDatabaseItems(req.params.name, true);
+      const result = await databaseManager.fetchItems(req.params.name, true);
       res.json(result);
     } catch (err: unknown) {
       res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
@@ -1749,7 +1762,16 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "Invalid config: name and source are required" });
         return;
       }
-      saveDbConfig(req.params.name, config);
+      databaseManager.update(req.params.name, config);
+      res.json({ success: true });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.delete("/api/databases/:name", (req, res) => {
+    try {
+      databaseManager.delete(req.params.name);
       res.json({ success: true });
     } catch (err: unknown) {
       res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
@@ -1763,7 +1785,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(400).json({ error: "source config required in body" });
         return;
       }
-      const result = await testDatabaseSource(source);
+      const result = await databaseManager.test(source);
       res.json(result);
     } catch (err: unknown) {
       res.status(500).json({ error: err instanceof Error ? err.message : String(err) });

@@ -1,10 +1,21 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useRoute, Link } from "wouter";
+import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   IconArrowLeft,
   IconDatabase,
@@ -17,7 +28,15 @@ import {
   IconChevronUp,
   IconChevronDown,
   IconLoader2,
+  IconPlus,
+  IconCheck,
+  IconX,
+  IconTestPipe,
+  IconTrash,
+  IconAlertTriangle,
 } from "@tabler/icons-react";
+import { queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 interface DatabaseSummary {
   name: string;
@@ -39,6 +58,7 @@ interface DatabaseDetail {
         params?: Record<string, unknown>;
         results_path?: string;
         auth?: { token_env_var?: string; prefix?: string };
+        headers?: Record<string, string>;
       };
     };
     cache?: { ttl_hours?: number };
@@ -53,60 +73,633 @@ interface DatabaseItems {
   from_cache: boolean;
 }
 
+interface KeyValuePair {
+  key: string;
+  value: string;
+}
+
+interface FieldEntry {
+  sourcePath: string;
+  normalizedKey: string;
+  enabled: boolean;
+}
+
+function flattenKeys(obj: unknown, prefix = ""): string[] {
+  if (obj == null || typeof obj !== "object" || Array.isArray(obj)) return [];
+  const paths: string[] = [];
+  for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+    const fullPath = prefix ? `${prefix}.${key}` : key;
+    if (value != null && typeof value === "object" && !Array.isArray(value)) {
+      paths.push(...flattenKeys(value, fullPath));
+    } else {
+      paths.push(fullPath);
+    }
+  }
+  return paths;
+}
+
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s_-]/g, "")
+    .replace(/[\s-]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function lastSegment(dotPath: string): string {
+  const parts = dotPath.split(".");
+  return parts[parts.length - 1];
+}
+
+function CreateDatabaseDialog({
+  open,
+  onOpenChange,
+  onCreated,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onCreated: (slug: string) => void;
+}) {
+  const { toast } = useToast();
+  const [step, setStep] = useState(1);
+  const [saving, setSaving] = useState(false);
+
+  const [displayName, setDisplayName] = useState("");
+  const [slug, setSlug] = useState("");
+  const [slugTouched, setSlugTouched] = useState(false);
+  const [description, setDescription] = useState("");
+  const [ttlHours, setTtlHours] = useState("24");
+
+  const [endpoint, setEndpoint] = useState("");
+  const [resultsPath, setResultsPath] = useState("");
+  const [tokenEnvVar, setTokenEnvVar] = useState("");
+  const [authPrefix, setAuthPrefix] = useState("Bearer");
+  const [params, setParams] = useState<KeyValuePair[]>([]);
+  const [headers, setHeaders] = useState<KeyValuePair[]>([]);
+
+  const [testing, setTesting] = useState(false);
+  const [testResult, setTestResult] = useState<{
+    success: boolean;
+    item_count?: number;
+    sample?: unknown;
+    error?: string;
+  } | null>(null);
+  const [fields, setFields] = useState<FieldEntry[]>([]);
+
+  const resetForm = useCallback(() => {
+    setStep(1);
+    setDisplayName("");
+    setSlug("");
+    setSlugTouched(false);
+    setDescription("");
+    setTtlHours("24");
+    setEndpoint("");
+    setResultsPath("");
+    setTokenEnvVar("");
+    setAuthPrefix("Bearer");
+    setParams([]);
+    setHeaders([]);
+    setTesting(false);
+    setTestResult(null);
+    setFields([]);
+    setSaving(false);
+  }, []);
+
+  const handleNameChange = (val: string) => {
+    setDisplayName(val);
+    if (!slugTouched) {
+      setSlug(slugify(val));
+    }
+  };
+
+  const buildSourceConfig = () => {
+    const source: Record<string, unknown> = { type: "api" };
+    const api: Record<string, unknown> = { endpoint };
+    if (resultsPath) api.results_path = resultsPath;
+    if (tokenEnvVar) {
+      api.auth = { token_env_var: tokenEnvVar, prefix: authPrefix || "Bearer" };
+    }
+    const filteredParams = params.filter((p) => p.key.trim());
+    if (filteredParams.length > 0) {
+      api.params = Object.fromEntries(filteredParams.map((p) => [p.key, p.value]));
+    }
+    const filteredHeaders = headers.filter((h) => h.key.trim());
+    if (filteredHeaders.length > 0) {
+      api.headers = Object.fromEntries(filteredHeaders.map((h) => [h.key, h.value]));
+    }
+    source.api = api;
+    return source;
+  };
+
+  const handleTest = async () => {
+    setTesting(true);
+    setTestResult(null);
+    try {
+      const res = await fetch(`/api/databases/_test/test`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ source: buildSourceConfig() }),
+      });
+      const data = await res.json();
+      setTestResult(data);
+      if (data.success && data.sample) {
+        const paths = flattenKeys(data.sample);
+        setFields(
+          paths.map((p) => ({
+            sourcePath: p,
+            normalizedKey: lastSegment(p),
+            enabled: true,
+          }))
+        );
+      }
+    } catch (err) {
+      setTestResult({
+        success: false,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    } finally {
+      setTesting(false);
+    }
+  };
+
+  const handleCreate = async () => {
+    setSaving(true);
+    try {
+      const fieldMapping: Record<string, string> = {};
+      for (const f of fields) {
+        if (f.enabled && f.normalizedKey.trim()) {
+          fieldMapping[f.normalizedKey] = f.sourcePath;
+        }
+      }
+
+      const config = {
+        name: displayName,
+        description: description || undefined,
+        source: buildSourceConfig(),
+        cache: { ttl_hours: ttlHours !== "" && Number.isFinite(Number(ttlHours)) ? Number(ttlHours) : 24 },
+        field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
+      };
+
+      const res = await fetch("/api/databases", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, config }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to create database");
+      }
+
+      queryClient.invalidateQueries({ queryKey: ["/api/databases"] });
+      toast({ title: "Database created", description: `"${displayName}" is ready.` });
+      onOpenChange(false);
+      resetForm();
+      onCreated(slug);
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const slugValid = /^[a-z0-9_-]+$/.test(slug);
+  const canProceedStep1 = displayName.trim() && slug.trim() && slugValid;
+  const canProceedStep2 = endpoint.trim();
+  const canCreate = fields.some((f) => f.enabled) || fields.length === 0;
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        if (!v) resetForm();
+        onOpenChange(v);
+      }}
+    >
+      <DialogContent className="sm:max-w-xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>
+            Create Database
+          </DialogTitle>
+          <DialogDescription>
+            Step {step} of 3 —{" "}
+            {step === 1 ? "Basics" : step === 2 ? "Data Source" : "Test & Map Fields"}
+          </DialogDescription>
+        </DialogHeader>
+
+        {step === 1 && (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="db-name">Display Name</Label>
+              <Input
+                id="db-name"
+                placeholder="e.g. Upcoming Cohorts"
+                value={displayName}
+                onChange={(e) => handleNameChange(e.target.value)}
+                data-testid="input-db-display-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="db-slug">Slug</Label>
+              <Input
+                id="db-slug"
+                placeholder="e.g. upcoming_cohorts"
+                value={slug}
+                onChange={(e) => {
+                  setSlug(e.target.value);
+                  setSlugTouched(true);
+                }}
+                data-testid="input-db-slug"
+              />
+              {slug && !slugValid && (
+                <p className="text-xs text-destructive">
+                  Only lowercase letters, digits, hyphens, and underscores allowed.
+                </p>
+              )}
+              {(!slug || slugValid) && (
+                <p className="text-xs text-muted-foreground">
+                  Lowercase letters, digits, hyphens, and underscores only.
+                </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="db-desc">Description (optional)</Label>
+              <Textarea
+                id="db-desc"
+                placeholder="What data does this database contain?"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="resize-none text-sm"
+                rows={2}
+                data-testid="input-db-description"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="db-ttl">Cache TTL (hours)</Label>
+              <Input
+                id="db-ttl"
+                type="number"
+                min="0"
+                value={ttlHours}
+                onChange={(e) => setTtlHours(e.target.value)}
+                className="w-24"
+                data-testid="input-db-ttl"
+              />
+            </div>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="db-endpoint">API Endpoint</Label>
+              <Input
+                id="db-endpoint"
+                placeholder="https://api.example.com/v1/items"
+                value={endpoint}
+                onChange={(e) => setEndpoint(e.target.value)}
+                data-testid="input-db-endpoint"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="db-results-path">Results Path (optional)</Label>
+              <Input
+                id="db-results-path"
+                placeholder="e.g. results, data.items"
+                value={resultsPath}
+                onChange={(e) => setResultsPath(e.target.value)}
+                data-testid="input-db-results-path"
+              />
+              <p className="text-xs text-muted-foreground">
+                Dot-notation path to the array in the API response. Leave empty if the response is already an array.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Authentication (optional)</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  placeholder="ENV var name"
+                  value={tokenEnvVar}
+                  onChange={(e) => setTokenEnvVar(e.target.value)}
+                  data-testid="input-db-token-env"
+                />
+                <Input
+                  placeholder="Prefix (Bearer, Token...)"
+                  value={authPrefix}
+                  onChange={(e) => setAuthPrefix(e.target.value)}
+                  data-testid="input-db-auth-prefix"
+                />
+              </div>
+            </div>
+
+            <KeyValueEditor
+              label="Query Parameters"
+              pairs={params}
+              onChange={setParams}
+              keyPlaceholder="param name"
+              valuePlaceholder="value"
+              testIdPrefix="param"
+            />
+
+            <KeyValueEditor
+              label="Headers"
+              pairs={headers}
+              onChange={setHeaders}
+              keyPlaceholder="header name"
+              valuePlaceholder="value"
+              testIdPrefix="header"
+            />
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 flex-wrap">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleTest}
+                disabled={testing}
+                data-testid="button-test-connection"
+              >
+                {testing ? (
+                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                ) : (
+                  <IconTestPipe className="h-3.5 w-3.5 mr-1" />
+                )}
+                Test Connection
+              </Button>
+              {testResult && (
+                <Badge variant={testResult.success ? "secondary" : "destructive"}>
+                  {testResult.success ? (
+                    <>
+                      <IconCheck className="h-3 w-3 mr-1" />
+                      {testResult.item_count} items found
+                    </>
+                  ) : (
+                    <>
+                      <IconX className="h-3 w-3 mr-1" />
+                      Failed
+                    </>
+                  )}
+                </Badge>
+              )}
+            </div>
+
+            {testResult?.error && (
+              <div className="bg-destructive/10 border border-destructive/20 rounded-md p-3 text-xs text-destructive">
+                {testResult.error}
+              </div>
+            )}
+
+            {testResult?.success && fields.length > 0 && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-sm">Field Mapping</Label>
+                  <p className="text-xs text-muted-foreground">
+                    {fields.filter((f) => f.enabled).length} of {fields.length} fields selected
+                  </p>
+                </div>
+                <div className="border rounded-md divide-y max-h-64 overflow-y-auto">
+                  {fields.map((field, i) => (
+                    <div
+                      key={field.sourcePath}
+                      className="flex items-center gap-2 px-3 py-2"
+                      data-testid={`field-mapping-${i}`}
+                    >
+                      <Switch
+                        checked={field.enabled}
+                        onCheckedChange={(checked) => {
+                          const updated = [...fields];
+                          updated[i] = { ...updated[i], enabled: checked };
+                          setFields(updated);
+                        }}
+                        data-testid={`switch-field-${i}`}
+                      />
+                      <Input
+                        value={field.normalizedKey}
+                        onChange={(e) => {
+                          const updated = [...fields];
+                          updated[i] = { ...updated[i], normalizedKey: e.target.value };
+                          setFields(updated);
+                        }}
+                        className="h-7 text-xs flex-1"
+                        disabled={!field.enabled}
+                        data-testid={`input-field-key-${i}`}
+                      />
+                      <code className="text-xs text-muted-foreground shrink-0 max-w-[200px] truncate" title={field.sourcePath}>
+                        {field.sourcePath}
+                      </code>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {testResult?.success && fields.length === 0 && (
+              <p className="text-xs text-muted-foreground">
+                No fields detected in sample. The database will store raw items without field mapping.
+              </p>
+            )}
+
+            {!testResult && (
+              <div className="text-center py-8">
+                <IconTestPipe className="h-8 w-8 mx-auto text-muted-foreground/40 mb-2" />
+                <p className="text-sm text-muted-foreground">
+                  Test the connection to preview the data and configure field mappings.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        <DialogFooter className="flex items-center justify-between gap-2 sm:justify-between">
+          <div>
+            {step > 1 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setStep(step - 1)}
+                data-testid="button-step-back"
+              >
+                Back
+              </Button>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {step < 3 && (
+              <Button
+                size="sm"
+                onClick={() => setStep(step + 1)}
+                disabled={step === 1 ? !canProceedStep1 : !canProceedStep2}
+                data-testid="button-step-next"
+              >
+                Next
+              </Button>
+            )}
+            {step === 3 && (
+              <Button
+                size="sm"
+                onClick={handleCreate}
+                disabled={saving || !canCreate}
+                data-testid="button-create-database"
+              >
+                {saving ? (
+                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                ) : (
+                  <IconPlus className="h-3.5 w-3.5 mr-1" />
+                )}
+                Create Database
+              </Button>
+            )}
+          </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function KeyValueEditor({
+  label,
+  pairs,
+  onChange,
+  keyPlaceholder,
+  valuePlaceholder,
+  testIdPrefix,
+}: {
+  label: string;
+  pairs: KeyValuePair[];
+  onChange: (pairs: KeyValuePair[]) => void;
+  keyPlaceholder: string;
+  valuePlaceholder: string;
+  testIdPrefix: string;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-2">
+        <Label className="text-sm">{label}</Label>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => onChange([...pairs, { key: "", value: "" }])}
+          data-testid={`button-add-${testIdPrefix}`}
+        >
+          <IconPlus className="h-3 w-3 mr-1" />
+          Add
+        </Button>
+      </div>
+      {pairs.map((pair, i) => (
+        <div key={i} className="flex items-center gap-2">
+          <Input
+            placeholder={keyPlaceholder}
+            value={pair.key}
+            onChange={(e) => {
+              const updated = [...pairs];
+              updated[i] = { ...updated[i], key: e.target.value };
+              onChange(updated);
+            }}
+            className="h-8 text-xs flex-1"
+            data-testid={`input-${testIdPrefix}-key-${i}`}
+          />
+          <Input
+            placeholder={valuePlaceholder}
+            value={pair.value}
+            onChange={(e) => {
+              const updated = [...pairs];
+              updated[i] = { ...updated[i], value: e.target.value };
+              onChange(updated);
+            }}
+            className="h-8 text-xs flex-1"
+            data-testid={`input-${testIdPrefix}-value-${i}`}
+          />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onChange(pairs.filter((_, j) => j !== i))}
+            data-testid={`button-remove-${testIdPrefix}-${i}`}
+          >
+            <IconTrash className="h-3 w-3" />
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function DatabaseList() {
+  const [createOpen, setCreateOpen] = useState(false);
+  const [, navigate] = useLocation();
   const { data: databases, isLoading } = useQuery<DatabaseSummary[]>({
     queryKey: ["/api/databases"],
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-      </div>
-    );
-  }
-
-  if (!databases || databases.length === 0) {
-    return (
-      <div className="text-center py-20">
-        <IconDatabase className="h-12 w-12 mx-auto text-muted-foreground/40 mb-4" />
-        <p className="text-muted-foreground">No databases configured yet.</p>
-        <p className="text-xs text-muted-foreground mt-1">
-          Create a folder under marketing-content/db/ with a config.yml file.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {databases.map((db) => (
-        <Link key={db.name} href={`/private/databases/${db.name}`}>
-          <Card className="hover-elevate cursor-pointer h-full" data-testid={`card-database-${db.name}`}>
-            <CardHeader className="pb-2">
-              <div className="flex items-center gap-2">
-                <IconDatabase className="h-4 w-4 text-primary flex-shrink-0" />
-                <CardTitle className="text-base truncate">{db.label}</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {db.description && (
-                <p className="text-xs text-muted-foreground line-clamp-2">{db.description}</p>
-              )}
-              <div className="flex items-center gap-2 flex-wrap">
-                <Badge variant="secondary" className="text-xs">
-                  <IconApi className="h-3 w-3 mr-1" />
-                  {db.source_type}
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  {db.field_count} fields
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      ))}
-    </div>
+    <>
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-3">
+          <IconDatabase className="h-6 w-6 text-primary" />
+          <h1 className="text-2xl font-bold" data-testid="text-page-title">Databases</h1>
+        </div>
+        <Button size="sm" onClick={() => setCreateOpen(true)} data-testid="button-new-database">
+          <IconPlus className="h-4 w-4 mr-1" />
+          New Database
+        </Button>
+      </div>
+
+      {isLoading ? (
+        <div className="flex items-center justify-center py-20">
+          <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        </div>
+      ) : !databases || databases.length === 0 ? (
+        <div className="text-center py-20">
+          <IconDatabase className="h-12 w-12 mx-auto text-muted-foreground/40 mb-4" />
+          <p className="text-muted-foreground">No databases configured yet.</p>
+          <p className="text-xs text-muted-foreground mt-2">
+            Click "New Database" to create your first one.
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {databases.map((db) => (
+            <Link key={db.name} href={`/private/databases/${db.name}`}>
+              <Card className="hover-elevate cursor-pointer h-full" data-testid={`card-database-${db.name}`}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <IconDatabase className="h-4 w-4 text-primary flex-shrink-0" />
+                    <CardTitle className="text-base truncate">{db.label}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {db.description && (
+                    <p className="text-xs text-muted-foreground line-clamp-2">{db.description}</p>
+                  )}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge variant="secondary" className="text-xs">
+                      <IconApi className="h-3 w-3 mr-1" />
+                      {db.source_type}
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      {db.field_count} fields
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
+
+      <CreateDatabaseDialog
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        onCreated={(slug) => navigate(`/private/databases/${slug}`)}
+      />
+    </>
   );
 }
 
@@ -185,7 +778,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   };
 
   const formatCellValue = (value: unknown): string => {
-    if (value === null || value === undefined) return "—";
+    if (value === null || value === undefined) return "\u2014";
     if (typeof value === "boolean") return value ? "Yes" : "No";
     if (typeof value === "object") return JSON.stringify(value);
     return String(value);
@@ -217,7 +810,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               <IconApi className="h-3.5 w-3.5" />
               <span>Source</span>
             </div>
-            <p className="text-sm font-medium">{config?.source.type || "—"}</p>
+            <p className="text-sm font-medium">{config?.source.type || "\u2014"}</p>
             {config?.source.api?.endpoint && (
               <p className="text-xs text-muted-foreground truncate" title={config.source.api.endpoint}>
                 {config.source.api.endpoint}
@@ -232,7 +825,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               <span>Items</span>
             </div>
             <p className="text-sm font-medium" data-testid="text-item-count">
-              {itemsData ? itemsData.raw_count : itemsLoading ? "..." : "—"}
+              {itemsData ? itemsData.raw_count : itemsLoading ? "..." : "\u2014"}
             </p>
             {itemsData?.from_cache && (
               <p className="text-xs text-muted-foreground">from cache</p>
@@ -248,7 +841,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             <p className="text-sm font-medium" data-testid="text-fetched-at">
               {itemsData?.fetched_at
                 ? new Date(itemsData.fetched_at).toLocaleString()
-                : "—"}
+                : "\u2014"}
             </p>
             <p className="text-xs text-muted-foreground">
               TTL: {config?.cache?.ttl_hours ?? 24}h
@@ -266,11 +859,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           </CardHeader>
           <CardContent className="px-4 pb-3">
             <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(fieldMapping).map(([key, path]) => (
+              {Object.entries(fieldMapping).map(([key, p]) => (
                 <div key={key} className="flex items-center gap-1.5 text-xs">
                   <code className="bg-muted px-1.5 py-0.5 rounded font-medium">{key}</code>
-                  <span className="text-muted-foreground">←</span>
-                  <code className="text-muted-foreground truncate">{path || "null"}</code>
+                  <span className="text-muted-foreground">&larr;</span>
+                  <code className="text-muted-foreground truncate">{p || "null"}</code>
                 </div>
               ))}
             </div>
@@ -386,12 +979,11 @@ export default function PrivateDatabases() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-4">
-      <div className="flex items-center gap-3">
-        <IconDatabase className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold" data-testid="text-page-title">Databases</h1>
-      </div>
-
-      {dbName ? <DatabaseDetailView dbName={dbName} /> : <DatabaseList />}
+      {dbName ? (
+        <DatabaseDetailView dbName={dbName} />
+      ) : (
+        <DatabaseList />
+      )}
     </div>
   );
 }
