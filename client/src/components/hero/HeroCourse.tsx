@@ -215,11 +215,21 @@ export function HeroCourse({ data }: HeroCourseProps) {
               </Button>
               
               {data.signup_card.login_link?.text && (
-                <RichTextContent
-                  html={data.signup_card.login_link.text}
-                  className="text-sm text-center text-muted-foreground mb-6"
-                  data-testid="text-hero-login-link"
-                />
+                data.signup_card.login_link.url ? (
+                  <a href={data.signup_card.login_link.url} onClick={handleLinkClick} data-testid="link-hero-login">
+                    <RichTextContent
+                      html={data.signup_card.login_link.text}
+                      className="text-sm text-center text-muted-foreground mb-6"
+                      data-testid="text-hero-login-link"
+                    />
+                  </a>
+                ) : (
+                  <RichTextContent
+                    html={data.signup_card.login_link.text}
+                    className="text-sm text-center text-muted-foreground mb-6"
+                    data-testid="text-hero-login-link"
+                  />
+                )
               )}
               
               {data.signup_card.features && data.signup_card.features.length > 0 && (
