@@ -7,6 +7,7 @@ import { UniversalVideo } from "@/components/UniversalVideo";
 import { getIcon } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 import { resolveTemplateFallback } from "@/lib/variable-resolver";
 
 interface HeroCourseProps {
@@ -213,17 +214,12 @@ export function HeroCourse({ data }: HeroCourseProps) {
                 </a>
               </Button>
               
-              {data.signup_card.login_link && (
-                <p className="text-sm text-center text-muted-foreground mb-6">
-                  Already have an account?{" "}
-                  <a 
-                    href={data.signup_card.login_link.url}
-                    onClick={handleLinkClick}
-                    className="text-primary hover:underline"
-                  >
-                    {data.signup_card.login_link.text}
-                  </a>
-                </p>
+              {data.signup_card.login_link?.text && (
+                <RichTextContent
+                  html={data.signup_card.login_link.text}
+                  className="text-sm text-center text-muted-foreground mb-6"
+                  data-testid="text-hero-login-link"
+                />
               )}
               
               {data.signup_card.features && data.signup_card.features.length > 0 && (
