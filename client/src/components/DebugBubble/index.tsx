@@ -88,6 +88,7 @@ import { deslugify, detectContentInfo, getPersistedMenuView } from "./utils/debu
 import { MenusView } from "./components/MenusView";
 import { ComponentsView } from "./components/ComponentsView";
 import { ExperimentsView } from "./components/ExperimentsView";
+import { DatabasesView } from "./components/DatabasesView";
 import { SitemapView } from "./components/SitemapView";
 import { LocationOverrideModal } from "./components/LocationOverrideModal";
 import { SessionModal } from "./components/SessionModal";
@@ -2033,13 +2034,6 @@ export function DebugBubble() {
                     indicator="arrow"
                     testId="link-blog-manage"
                   />
-                  <MenuItem
-                    icon={IconDatabase}
-                    label="Databases"
-                    href="/private/databases"
-                    indicator="arrow"
-                    testId="link-databases"
-                  />
                 </ExpandableMenuItem>
                 
                 <ExpandableMenuItem
@@ -2074,6 +2068,14 @@ export function DebugBubble() {
                   href="/private/media-gallery"
                   indicator="arrow"
                   testId="link-media-gallery"
+                />
+
+                <MenuItem
+                  icon={IconDatabase}
+                  label="Databases"
+                  onClick={() => setMenuView("databases")}
+                  indicator="chevron"
+                  testId="button-databases-menu"
                 />
 
                 <MenuItem
@@ -2309,6 +2311,8 @@ export function DebugBubble() {
                 </div>
               </ScrollArea>
             </>
+          ) : menuView === "databases" ? (
+              <DatabasesView setMenuView={setMenuView} />
           ) : (
               <SitemapView
                 setMenuView={setMenuView}
