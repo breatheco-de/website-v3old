@@ -4473,7 +4473,8 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.post("/api/bindings", (req, res) => {
     try {
       if (!requireEditAuth(req, res)) return;
-      const { component, locale, members } = req.body;
+      const { component, locale, members, author: bindAuthor } = req.body;
+      const bindAuthorName = bindAuthor && typeof bindAuthor === "string" ? bindAuthor : undefined;
       if (
         !component ||
         !locale ||
@@ -4489,14 +4490,14 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
       const normalizedLocale = normalizeLocale(locale);
       const resolvedMembers = members.map((m: { contentType: string; slug: string; sectionIndex: number }) => {
-        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale);
+        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale, bindAuthorName);
         return { contentType: m.contentType, slug: m.slug, sectionId };
       });
       const { name, sourceIndex } = req.body;
       const group = bindingManager.createGroup(component, normalizedLocale, resolvedMembers, {
         name,
         sourceIndex,
-      });
+      }, bindAuthorName);
       const enrichedGroup = {
         ...group,
         members: group.members.map(m => ({
@@ -4517,12 +4518,13 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { name } = req.body;
+      const { name, author: renameBindAuthor } = req.body;
+      const renameBindAuthorName = renameBindAuthor && typeof renameBindAuthor === "string" ? renameBindAuthor : undefined;
       if (name === undefined) {
         res.status(400).json({ error: "Missing name field" });
         return;
       }
-      const group = bindingManager.renameGroup(groupId, name);
+      const group = bindingManager.renameGroup(groupId, name, renameBindAuthorName);
       res.json({ group });
     } catch (error) {
       const msg =
@@ -4536,7 +4538,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { contentType, slug, sectionIndex } = req.body;
+      const { contentType, slug, sectionIndex, author: addMemberAuthor } = req.body;
+      const addMemberAuthorName = addMemberAuthor && typeof addMemberAuthor === "string" ? addMemberAuthor : undefined;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -4548,12 +4551,12 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(404).json({ error: "Binding group not found" });
         return;
       }
-      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale, addMemberAuthorName);
       const updatedGroup = bindingManager.addMember(groupId, {
         contentType,
         slug,
         sectionId,
-      });
+      }, addMemberAuthorName);
       const enrichedGroup = {
         ...updatedGroup,
         members: updatedGroup.members.map(m => ({
@@ -4574,7 +4577,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { contentType, slug, sectionIndex } = req.body;
+      const { contentType, slug, sectionIndex, author: removeMemberAuthor } = req.body;
+      const removeMemberAuthorName = removeMemberAuthor && typeof removeMemberAuthor === "string" ? removeMemberAuthor : undefined;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -4596,6 +4600,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType,
         slug,
         sectionId,
+        removeMemberAuthorName,
       );
       if (result) {
         const enrichedResult = {
@@ -4621,7 +4626,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      bindingManager.deleteGroup(groupId);
+      const { author: deleteGroupAuthor } = req.body || {};
+      const deleteGroupAuthorName = deleteGroupAuthor && typeof deleteGroupAuthor === "string" ? deleteGroupAuthor : undefined;
+      bindingManager.deleteGroup(groupId, deleteGroupAuthorName);
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting binding:", error);

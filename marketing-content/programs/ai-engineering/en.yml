@@ -1,5 +1,8 @@
 slug: ai-engineering
 title: AI Engineering
+settings:
+  loading:
+    eager_count: 3
 meta:
   page_title: AI Engineer Career Program | 4Geeks
   description: Become an AI Engineer in 20 weeks with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $95K-$135K starting salaries.
