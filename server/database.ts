@@ -60,6 +60,17 @@ function applyFieldMapping(
   return result;
 }
 
+function collectAllPaths(obj: unknown, prefix: string, keys: Set<string>): void {
+  if (obj == null || typeof obj !== "object" || Array.isArray(obj)) return;
+  for (const [k, v] of Object.entries(obj as Record<string, unknown>)) {
+    const fullPath = prefix ? `${prefix}.${k}` : k;
+    keys.add(fullPath);
+    if (v != null && typeof v === "object" && !Array.isArray(v)) {
+      collectAllPaths(v, fullPath, keys);
+    }
+  }
+}
+
 async function fetchFromApi(
   apiConfig: NonNullable<DatabaseConfig["source"]["api"]>
 ): Promise<unknown[]> {
@@ -195,6 +206,10 @@ export class DatabaseManager {
     if (fs.existsSync(cachePath)) {
       fs.unlinkSync(cachePath);
     }
+    const rawCachePath = path.join(CACHE_DIR, `db-${name}-raw.json`);
+    if (fs.existsSync(rawCachePath)) {
+      fs.unlinkSync(rawCachePath);
+    }
   }
 
   async fetchItems(
@@ -234,6 +249,15 @@ export class DatabaseManager {
       throw new Error(`Unsupported source type: ${config.source.type}`);
     }
 
+    const fetchedAt = new Date().toISOString();
+
+    const rawEntry: CacheEntry = {
+      fetched_at: fetchedAt,
+      items: rawItems as Record<string, unknown>[],
+      raw_count: rawItems.length,
+    };
+    this.saveFileCache(name, rawEntry, true);
+
     const items = config.field_mapping
       ? rawItems.map((item) =>
           applyFieldMapping(
@@ -244,7 +268,7 @@ export class DatabaseManager {
       : (rawItems as Record<string, unknown>[]);
 
     const entry: CacheEntry = {
-      fetched_at: new Date().toISOString(),
+      fetched_at: fetchedAt,
       items,
       raw_count: rawItems.length,
     };
@@ -356,16 +380,62 @@ export class DatabaseManager {
     return 0;
   }
 
+  getCacheInfo(name: string): { fetched_at: string; item_count: number } | null {
+    const memEntry = this.memoryCache.get(name);
+    if (memEntry && Date.now() < memEntry.expires) {
+      return {
+        fetched_at: memEntry.data.fetched_at,
+        item_count: memEntry.data.items.length,
+      };
+    }
+
+    const config = this.configs.get(name);
+    if (!config) return null;
+    const ttl = config.cache?.ttl_hours ?? 24;
+    const fileEntry = this.loadFileCache(name, ttl);
+    if (fileEntry) {
+      return {
+        fetched_at: fileEntry.fetched_at,
+        item_count: fileEntry.items.length,
+      };
+    }
+    return null;
+  }
+
+  getRawItems(name: string): Record<string, unknown>[] | null {
+    const config = this.configs.get(name);
+    if (!config) return null;
+    const ttl = config.cache?.ttl_hours ?? 24;
+    const rawEntry = this.loadFileCache(name, ttl, true);
+    if (rawEntry) return rawEntry.items;
+    const mappedEntry = this.loadFileCache(name, ttl);
+    if (mappedEntry) return mappedEntry.items;
+    return null;
+  }
+
+  getRawFields(name: string): string[] {
+    const rawItems = this.getRawItems(name);
+    if (!rawItems || rawItems.length === 0) return [];
+    const keys = new Set<string>();
+    const sample = rawItems.slice(0, 5);
+    for (const item of sample) {
+      collectAllPaths(item, "", keys);
+    }
+    return Array.from(keys).sort();
+  }
+
   private loadFileCache(
     dbName: string,
-    ttlHours: number
+    ttlHours: number,
+    raw = false
   ): CacheEntry | null {
-    const cachePath = path.join(CACHE_DIR, `db-${dbName}.json`);
+    const suffix = raw ? "-raw" : "";
+    const cachePath = path.join(CACHE_DIR, `db-${dbName}${suffix}.json`);
     if (!fs.existsSync(cachePath)) return null;
 
     try {
-      const raw = fs.readFileSync(cachePath, "utf-8");
-      const entry = JSON.parse(raw) as CacheEntry;
+      const content = fs.readFileSync(cachePath, "utf-8");
+      const entry = JSON.parse(content) as CacheEntry;
       const age =
         (Date.now() - new Date(entry.fetched_at).getTime()) / (1000 * 60 * 60);
       if (age > ttlHours) return null;
@@ -375,12 +445,13 @@ export class DatabaseManager {
     }
   }
 
-  private saveFileCache(dbName: string, entry: CacheEntry): void {
+  private saveFileCache(dbName: string, entry: CacheEntry, raw = false): void {
     if (!fs.existsSync(CACHE_DIR)) {
       fs.mkdirSync(CACHE_DIR, { recursive: true });
     }
+    const suffix = raw ? "-raw" : "";
     fs.writeFileSync(
-      path.join(CACHE_DIR, `db-${dbName}.json`),
+      path.join(CACHE_DIR, `db-${dbName}${suffix}.json`),
       JSON.stringify(entry, null, 2)
     );
   }

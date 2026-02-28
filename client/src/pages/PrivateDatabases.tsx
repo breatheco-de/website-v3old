@@ -9,6 +9,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -38,6 +45,9 @@ import {
   IconDownload,
   IconDeviceFloppy,
   IconEdit,
+  IconWand,
+  IconArrowRight,
+  IconTrashX,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -68,6 +78,10 @@ interface DatabaseDetail {
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
   };
+  cache_status?: {
+    fetched_at: string;
+    item_count: number;
+  } | null;
 }
 
 interface DatabaseItems {
@@ -753,11 +767,19 @@ function DatabaseConfigEditor({
     if (!h || Object.keys(h).length === 0) return [];
     return Object.entries(h).map(([key, value]) => ({ key, value }));
   });
-  const [fieldMappingEntries, setFieldMappingEntries] = useState<KeyValuePair[]>(() => {
+  const [fieldMappingEntries, setFieldMappingEntries] = useState<Record<string, string | null>>(() => {
     const fm = config.field_mapping;
-    if (!fm || Object.keys(fm).length === 0) return [];
-    return Object.entries(fm).map(([key, value]) => ({ key, value: value || "" }));
+    if (!fm || Object.keys(fm).length === 0) return {};
+    return { ...fm };
   });
+  const [newFieldKey, setNewFieldKey] = useState("");
+  const [aiAnalyzing, setAiAnalyzing] = useState(false);
+  const [aiNotes, setAiNotes] = useState<string | null>(null);
+
+  const { data: rawFieldsData } = useQuery<{ fields: string[] }>({
+    queryKey: [`/api/databases/${dbName}/raw-fields`],
+  });
+  const rawFields = rawFieldsData?.fields || [];
 
   const [testResult, setTestResult] = useState<{
     success: boolean;
@@ -805,13 +827,40 @@ function DatabaseConfigEditor({
     }
   };
 
+  const handleAnalyzeFields = async () => {
+    setAiAnalyzing(true);
+    setAiNotes(null);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/analyze-fields`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (data.error) {
+        toast({ title: "AI analysis failed", description: data.error, variant: "destructive" });
+        return;
+      }
+      if (data.field_mapping) {
+        setFieldMappingEntries(data.field_mapping);
+      }
+      if (data.notes) {
+        setAiNotes(data.notes);
+      }
+      toast({ title: "AI field mapping generated", description: `${Object.keys(data.field_mapping || {}).length} fields mapped` });
+    } catch (err) {
+      toast({ title: "AI analysis failed", description: err instanceof Error ? err.message : String(err), variant: "destructive" });
+    } finally {
+      setAiAnalyzing(false);
+    }
+  };
+
   const handleSave = async () => {
     setSaving(true);
     try {
       const fieldMapping: Record<string, string> = {};
-      for (const entry of fieldMappingEntries) {
-        if (entry.key.trim()) {
-          fieldMapping[entry.key] = entry.value;
+      for (const [key, value] of Object.entries(fieldMappingEntries)) {
+        if (key.trim() && value != null) {
+          fieldMapping[key] = value;
         }
       }
 
@@ -968,14 +1017,143 @@ function DatabaseConfigEditor({
         testIdPrefix="edit-header"
       />
 
-      <KeyValueEditor
-        label="Field Mapping (normalized key → source path)"
-        pairs={fieldMappingEntries}
-        onChange={setFieldMappingEntries}
-        keyPlaceholder="normalized key"
-        valuePlaceholder="source.path"
-        testIdPrefix="edit-field-map"
-      />
+      <div className="space-y-3 pt-2 border-t">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div>
+            <Label className="text-sm font-medium">Field Mapping (Raw API &rarr; Database)</Label>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Transform raw source fields into normalized database fields. Applied before caching.
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAnalyzeFields}
+            disabled={aiAnalyzing || rawFields.length === 0}
+            data-testid="button-ai-analyze-fields"
+          >
+            {aiAnalyzing ? (
+              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            ) : (
+              <IconWand className="h-3.5 w-3.5 mr-1" />
+            )}
+            {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
+          </Button>
+        </div>
+
+        {aiNotes && (
+          <p className="text-xs text-muted-foreground bg-muted rounded-md px-3 py-2" data-testid="text-ai-notes">
+            {aiNotes}
+          </p>
+        )}
+
+        {Object.keys(fieldMappingEntries).length > 0 && (
+          <div className="space-y-2">
+            {Object.entries(fieldMappingEntries).map(([normalizedKey, sourcePath]) => {
+              const isCustom = sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
+              const selectValue = isCustom ? "__custom__" : (sourcePath || "__none__");
+              return (
+                <div key={normalizedKey} className="flex items-center gap-2">
+                  <code className="text-xs font-medium w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={normalizedKey}>
+                    {normalizedKey}
+                  </code>
+                  <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                  {isCustom ? (
+                    <>
+                      <Input
+                        value={sourcePath || ""}
+                        onChange={(e) => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: e.target.value }))}
+                        placeholder="e.g. author.details.name"
+                        className="h-8 text-xs font-mono flex-1"
+                        data-testid={`input-custom-path-${normalizedKey}`}
+                      />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: null }))}
+                        data-testid={`button-clear-custom-${normalizedKey}`}
+                      >
+                        <IconX className="h-3.5 w-3.5" />
+                      </Button>
+                    </>
+                  ) : (
+                    <Select
+                      value={selectValue}
+                      onValueChange={(v) => {
+                        if (v === "__custom__") {
+                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: "" }));
+                        } else {
+                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: v === "__none__" ? null : v }));
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="h-8 text-xs font-mono flex-1" data-testid={`select-field-${normalizedKey}`}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none__">(not mapped)</SelectItem>
+                        {rawFields.map((f) => (
+                          <SelectItem key={f} value={f}>{f}</SelectItem>
+                        ))}
+                        <SelectItem value="__custom__">Custom path...</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setFieldMappingEntries((prev) => {
+                        const next = { ...prev };
+                        delete next[normalizedKey];
+                        return next;
+                      });
+                    }}
+                    data-testid={`button-delete-field-${normalizedKey}`}
+                  >
+                    <IconTrashX className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="flex items-center gap-2">
+          <Input
+            value={newFieldKey}
+            onChange={(e) => setNewFieldKey(e.target.value)}
+            placeholder="Add field (e.g. author_name)"
+            className="h-8 text-xs font-mono flex-1"
+            data-testid="input-new-field-key"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && newFieldKey.trim()) {
+                setFieldMappingEntries((prev) => ({ ...prev, [newFieldKey.trim()]: null }));
+                setNewFieldKey("");
+              }
+            }}
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={!newFieldKey.trim()}
+            onClick={() => {
+              setFieldMappingEntries((prev) => ({ ...prev, [newFieldKey.trim()]: null }));
+              setNewFieldKey("");
+            }}
+            data-testid="button-add-field"
+          >
+            <IconPlus className="h-3.5 w-3.5 mr-1" />
+            Add
+          </Button>
+        </div>
+
+        {rawFields.length === 0 && (
+          <p className="text-xs text-muted-foreground">
+            No raw field data available. Fetch data first to populate source field dropdowns.
+          </p>
+        )}
+      </div>
 
       <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t">
         <div className="flex items-center gap-2 flex-wrap">
@@ -1263,9 +1441,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <span>Items</span>
                 </div>
                 <p className="text-sm font-medium" data-testid="text-item-count">
-                  {itemsData ? itemsData.raw_count : isFetching || itemsLoading ? "..." : "\u2014"}
+                  {itemsData ? itemsData.raw_count : detail?.cache_status ? detail.cache_status.item_count : isFetching || itemsLoading ? "..." : "\u2014"}
                 </p>
-                {itemsData?.from_cache && (
+                {(itemsData?.from_cache || (!itemsData && detail?.cache_status)) && (
                   <p className="text-xs text-muted-foreground">from cache</p>
                 )}
               </CardContent>
@@ -1279,7 +1457,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 <p className="text-sm font-medium" data-testid="text-fetched-at">
                   {itemsData?.fetched_at
                     ? new Date(itemsData.fetched_at).toLocaleString()
-                    : "\u2014"}
+                    : detail?.cache_status?.fetched_at
+                      ? new Date(detail.cache_status.fetched_at).toLocaleString()
+                      : "\u2014"}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   TTL: {config?.cache?.ttl_hours ?? 24}h
@@ -1288,14 +1468,14 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             </Card>
           </div>
 
-          {fieldMapping && (
-            <Card>
-              <CardHeader className="py-3 px-4">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <CardTitle className="text-sm">Field Mapping</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="px-4 pb-3">
+          <Card>
+            <CardHeader className="py-3 px-4">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <CardTitle className="text-sm" data-testid="text-field-mapping-title">Field Mapping (Raw API → Database)</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-3">
+              {fieldMapping && Object.keys(fieldMapping).length > 0 ? (
                 <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
                   {Object.entries(fieldMapping).map(([key, p]) => (
                     <div key={key} className="flex items-center gap-1.5 text-xs">
@@ -1305,9 +1485,27 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              ) : (
+                <div className="border border-destructive/30 bg-destructive/5 rounded-md p-4 space-y-3" data-testid="field-mapping-error">
+                  <div className="flex items-start gap-2">
+                    <IconAlertTriangle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <p className="text-sm text-destructive">
+                      No field mapping configured. Raw source fields (potentially hundreds) will be cached as-is. Open Settings to define mappings or use AI to auto-detect them.
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowSettings(true)}
+                    data-testid="button-open-settings-mapping"
+                  >
+                    <IconSettings className="h-3.5 w-3.5 mr-1" />
+                    Open Settings
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           <Card>
             <CardHeader className="py-3 px-4">

@@ -1670,18 +1670,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const mapping = config.database.field_mapping;
       const regularMapping: Record<string, string> = {};
+      const rawFieldRefs: Record<string, string> = {};
       if (mapping) {
         for (const [key, value] of Object.entries(mapping)) {
           if (key.startsWith("_")) continue;
-          regularMapping[key] = typeof value === "object" ? value.source : value;
+          const sourcePath = typeof value === "object" ? value.source : value;
+          if (sourcePath.startsWith("raw.")) {
+            rawFieldRefs[key] = sourcePath.slice(4);
+          } else if (sourcePath.startsWith("db.")) {
+            regularMapping[key] = sourcePath.slice(3);
+          } else {
+            regularMapping[key] = sourcePath;
+          }
         }
+      }
+
+      let rawItems: Record<string, unknown>[] | null = null;
+      if (Object.keys(rawFieldRefs).length > 0) {
+        rawItems = databaseManager.getRawItems(dbName);
       }
 
       const localeFieldKey = getLocaleKey(type);
       const localeDefault = getLocaleDefault(type);
 
-      if (Object.keys(regularMapping).length > 0) {
-        items = items.map((item) => {
+      if (Object.keys(regularMapping).length > 0 || Object.keys(rawFieldRefs).length > 0) {
+        items = items.map((item, idx) => {
           const mapped: Record<string, unknown> = { ...item };
           for (const [targetField, sourcePath] of Object.entries(regularMapping)) {
             const parts = sourcePath.split(".");
@@ -1691,6 +1704,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
               current = (current as Record<string, unknown>)[part];
             }
             if (current !== undefined) mapped[targetField] = current;
+          }
+          if (rawItems && rawItems[idx]) {
+            for (const [targetField, sourcePath] of Object.entries(rawFieldRefs)) {
+              const parts = sourcePath.split(".");
+              let current: unknown = rawItems[idx];
+              for (const part of parts) {
+                if (current == null || typeof current !== "object") { current = undefined; break; }
+                current = (current as Record<string, unknown>)[part];
+              }
+              if (current !== undefined) mapped[targetField] = current;
+            }
           }
           return mapped;
         });
@@ -2111,7 +2135,12 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/databases/:name", (req, res) => {
     try {
       const config = databaseManager.get(req.params.name);
-      res.json({ name: req.params.name, config });
+      const cacheInfo = databaseManager.getCacheInfo(req.params.name);
+      res.json({
+        name: req.params.name,
+        config,
+        cache_status: cacheInfo,
+      });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes("not found")) {
@@ -2119,6 +2148,97 @@ Important: Only include mappings where you are confident the field exists. Use d
       } else {
         res.status(500).json({ error: msg });
       }
+    }
+  });
+
+  app.get("/api/databases/:name/raw-fields", (req, res) => {
+    try {
+      const fields = databaseManager.getRawFields(req.params.name);
+      res.json({ fields });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.post("/api/databases/:name/analyze-fields", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const rawItems = databaseManager.getRawItems(dbName);
+      if (!rawItems || rawItems.length === 0) {
+        res.status(400).json({ error: "No cached data available. Fetch data first." });
+        return;
+      }
+
+      const sample = rawItems.slice(0, 3);
+      const sampleKeys = Object.keys(sample[0] || {}).slice(0, 50);
+
+      const prompt = `You are analyzing raw API response data to suggest a field mapping that normalizes it into clean database fields.
+
+Here are ${sample.length} sample items from the API (showing up to 50 top-level keys):
+${JSON.stringify(sample.map(item => {
+  const filtered: Record<string, unknown> = {};
+  for (const k of sampleKeys) {
+    const val = item[k];
+    if (val !== null && val !== undefined && val !== "") {
+      filtered[k] = typeof val === "object" ? JSON.stringify(val).slice(0, 100) : val;
+    }
+  }
+  return filtered;
+}), null, 2)}
+
+Suggest a field_mapping that maps the most useful raw fields to clean, normalized keys.
+Focus on fields that are commonly needed: id, slug, title, description, status, language/locale, dates, author info, categories, tags, images, URLs.
+Skip fields that are internal IDs, computed values, or rarely useful.
+
+Return JSON with this exact structure:
+{
+  "field_mapping": {
+    "normalized_key": "source.field.path",
+    ...
+  },
+  "notes": "Brief explanation of the mapping choices"
+}
+
+Values should be dot-notation paths into the raw data (e.g., "author.name" for { author: { name: "..." } }).
+Do NOT prefix values with "raw." or "db." — just use the plain field path.
+Keep normalized keys lowercase with underscores. Aim for 10-25 of the most useful fields.`;
+
+      const openai = (await import("openai")).default;
+      const client = new openai();
+      const completion = await client.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.2,
+        max_tokens: 2000,
+      });
+
+      const result = completion.choices[0]?.message?.content || "";
+      let parsed: Record<string, unknown>;
+      try {
+        const jsonMatch = result.match(/\{[\s\S]*\}/);
+        parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : { raw: result, error: "No JSON found" };
+      } catch {
+        parsed = { raw: result, error: "Failed to parse AI response" };
+      }
+
+      if (parsed.field_mapping && typeof parsed.field_mapping === "object") {
+        const cleaned: Record<string, string> = {};
+        for (const [key, val] of Object.entries(parsed.field_mapping as Record<string, string>)) {
+          const strVal = String(val);
+          cleaned[key] = strVal.startsWith("raw.") ? strVal.slice(4) : strVal.startsWith("db.") ? strVal.slice(3) : strVal;
+        }
+        parsed.field_mapping = cleaned;
+      }
+
+      res.json(parsed);
+    } catch (err) {
+      console.error("AI analyze-fields (database) error:", err);
+      res.status(500).json({ error: String(err) });
     }
   });
 

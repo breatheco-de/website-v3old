@@ -499,7 +499,7 @@ function DataSourceDialog({
             {step === "fields" && (
               <div className="space-y-4" data-testid="step-fields">
                 <p className="text-sm text-muted-foreground">
-                  Map database fields to standard properties. Use AI to auto-detect mappings from sample data.
+                  Map database fields to content type properties. Database fields are already normalized, so you can map them directly.
                 </p>
 
                 {loadingSample && (
@@ -563,7 +563,10 @@ function DataSourceDialog({
 
                 {Object.keys(fieldMapping).length > 0 && (
                   <div className="space-y-3" data-testid="section-field-mapping">
-                    <Label className="text-sm font-medium">Field Mapping</Label>
+                    <Label className="text-sm font-medium">Field Mapping (Database → Content Type)</Label>
+                    <p className="text-xs text-muted-foreground" data-testid="text-field-mapping-note">
+                      Use <code className="font-mono bg-muted px-1 rounded">raw.fieldName</code> to reference original API fields directly, or <code className="font-mono bg-muted px-1 rounded">db.fieldName</code> (default) for normalized database fields.
+                    </p>
                     {fieldMappingNotes && (
                       <p className="text-xs text-muted-foreground">{fieldMappingNotes}</p>
                     )}
