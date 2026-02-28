@@ -79,6 +79,8 @@ import {
   getFieldMapping,
   getLookupKey,
   getLocaleKey,
+  getLocaleDefault,
+  getIndexes,
   hasDatabaseSingle,
   getContentTypeConfig,
   updateContentTypeConfig,
@@ -1660,7 +1662,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const locale = req.query.locale as string | undefined;
-      const statusFilter = req.query.status as string | undefined;
 
       const result = await databaseManager.fetchItems(dbName);
       let items = result.items as Record<string, unknown>[];
@@ -1669,11 +1670,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const regularMapping: Record<string, string> = {};
       if (mapping) {
         for (const [key, value] of Object.entries(mapping)) {
-          if (!key.startsWith("_")) {
-            regularMapping[key] = value;
-          }
+          if (key.startsWith("_")) continue;
+          regularMapping[key] = typeof value === "object" ? value.source : value;
         }
       }
+
+      const localeFieldKey = getLocaleKey(type);
+      const localeDefault = getLocaleDefault(type);
 
       if (Object.keys(regularMapping).length > 0) {
         items = items.map((item) => {
@@ -1691,21 +1694,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const localeFieldKey = mapping?._locale;
-      if (locale && localeFieldKey) {
-        const normalizedLocale = normalizeLocale(locale);
-        items = items.filter((item) => {
-          const val = String(item[localeFieldKey] || "");
-          const normalized = val === "us" ? "en" : val;
-          return normalized === normalizedLocale;
+      if (localeFieldKey) {
+        items = items.map((item) => {
+          const locVal = String(item[localeFieldKey] || "");
+          const normalized = locVal === "us" ? "en" : locVal;
+          return { ...item, [localeFieldKey]: normalized || localeDefault };
         });
       }
 
-      if (statusFilter) {
+      if (locale && localeFieldKey) {
+        const normalizedLocale = normalizeLocale(locale);
         items = items.filter((item) => {
-          const val = String(item.status || "").toLowerCase();
-          return val === statusFilter.toLowerCase();
+          const val = String(item[localeFieldKey] || localeDefault);
+          return val === normalizedLocale;
         });
+      }
+
+      const indexes = getIndexes(type);
+      for (const idx of indexes) {
+        const filterVal = req.query[idx] as string | undefined;
+        if (filterVal !== undefined && filterVal !== "") {
+          items = items.filter((item) => {
+            const val = String(item[idx] || "").toLowerCase();
+            return val === filterVal.toLowerCase();
+          });
+        }
       }
 
       const stripped = items.map((item) => {

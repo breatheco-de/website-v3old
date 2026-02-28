@@ -69,7 +69,8 @@ interface FieldMapping {
 
 interface DatabaseConfig {
   slug: string;
-  field_mapping?: Record<string, string>;
+  field_mapping?: Record<string, string | { source: string; default: string }>;
+  indexes?: string[];
 }
 
 interface ContentTypeConfig {
@@ -273,6 +274,7 @@ function DataSourceDialog({
   const [loadingSample, setLoadingSample] = useState(false);
   const [sampleDialogOpen, setSampleDialogOpen] = useState(false);
   const [deletedFields, setDeletedFields] = useState<string[]>([]);
+  const [indexedFields, setIndexedFields] = useState<string[]>([]);
 
   const markComplete = (s: WizardStep) => {
     setCompletedSteps((prev) => {
@@ -290,13 +292,15 @@ function DataSourceDialog({
         const fm: FieldMapping = {};
         for (const [k, v] of Object.entries(config.database.field_mapping)) {
           if (!k.startsWith("_")) {
-            fm[k] = v;
+            fm[k] = typeof v === "object" ? v.source : v;
           }
         }
         setFieldMapping(fm);
-        setLocaleField(config.database.field_mapping._locale || "");
+        const lm = config.database.field_mapping._locale;
+        setLocaleField(lm ? (typeof lm === "object" ? lm.source : lm) : "");
         setFieldMappingConfirmed(true);
       }
+      setIndexedFields(config.database?.indexes || []);
 
       const initialCompleted = new Set<WizardStep>();
       if (config.database?.slug) initialCompleted.add("database");
@@ -373,6 +377,7 @@ function DataSourceDialog({
         database: {
           slug: selectedDb,
           field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
+          indexes: indexedFields.length > 0 ? indexedFields : undefined,
         },
       };
 
@@ -700,6 +705,42 @@ function DataSourceDialog({
                       </p>
                     </div>
 
+                    <div className="space-y-2 pt-2 border-t">
+                      <Label className="text-xs font-medium text-muted-foreground">Indexes</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Indexed fields generate KPI cards, filter dropdowns, and table columns.
+                        {localeField ? " Locale is always indexed automatically." : ""}
+                      </p>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {localeField && (
+                          <Badge variant="default" className="text-xs cursor-default opacity-70" data-testid="badge-index-locale">
+                            <IconCheck className="h-3 w-3 mr-1" />
+                            {localeField} (locale)
+                          </Badge>
+                        )}
+                        {Object.keys(fieldMapping).filter(k => !k.startsWith("_") && k !== localeField).map((field) => {
+                          const isIndexed = indexedFields.includes(field);
+                          return (
+                            <Badge
+                              key={field}
+                              variant={isIndexed ? "default" : "outline"}
+                              className="text-xs cursor-pointer"
+                              onClick={() => {
+                                setIndexedFields((prev) =>
+                                  isIndexed ? prev.filter((f) => f !== field) : [...prev, field]
+                                );
+                                setFieldMappingConfirmed(false);
+                              }}
+                              data-testid={`badge-index-${field}`}
+                            >
+                              {isIndexed && <IconCheck className="h-3 w-3 mr-1" />}
+                              {field}
+                            </Badge>
+                          );
+                        })}
+                      </div>
+                    </div>
+
                     {samplePost && (
                       <div className="rounded-md border p-3 space-y-2" data-testid="section-sample-preview">
                         <Label className="text-xs font-medium text-muted-foreground">Sample Item Preview</Label>
@@ -1020,8 +1061,7 @@ export default function ContentTypeManagePage() {
   const label = contentType.charAt(0).toUpperCase() + contentType.slice(1);
 
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [localeFilter, setLocaleFilter] = useState<string>("all");
+  const [filters, setFilters] = useState<Record<string, string>>({});
   const [clearing, setClearing] = useState(false);
   const [dsDialogOpen, setDsDialogOpen] = useState(false);
   const [seoDialogOpen, setSeoDialogOpen] = useState(false);
@@ -1045,35 +1085,48 @@ export default function ContentTypeManagePage() {
   });
 
   const urlPatterns = typeConfig?.url_pattern || {};
-  const localeKey = typeConfig?.database?.field_mapping?._locale;
+  const localeMapping = typeConfig?.database?.field_mapping?._locale;
+  const localeKey = localeMapping
+    ? (typeof localeMapping === "object" ? localeMapping.source : localeMapping)
+    : null;
 
   const items = allItemsData?.results || [];
 
-  const kpis = useMemo(() => {
-    const total = items.length;
-    const published = items.filter((p) => p.status?.toLowerCase() === "published").length;
-    const draft = items.filter((p) => p.status?.toLowerCase() === "draft").length;
-    const other = total - published - draft;
-    const enItems = items.filter((p) => p.lang === "en" || p.lang === "us");
-    const esItems = items.filter((p) => p.lang === "es");
-    const publicItems = items.filter((p) => p.visibility?.toLowerCase() === "public").length;
-    const privateItems = total - publicItems;
+  const LOCALE_LABELS: Record<string, string> = { en: "English", es: "Spanish", pt: "Portuguese", fr: "French", de: "German", it: "Italian" };
 
-    return { total, published, draft, other, en: enItems.length, es: esItems.length, publicItems, privateItems };
-  }, [items]);
+  const allIndexFields = useMemo(() => {
+    const explicit = typeConfig?.database?.indexes || [];
+    const result = [...explicit];
+    if (localeKey && !result.includes(localeKey)) {
+      result.push(localeKey);
+    }
+    return result;
+  }, [typeConfig?.database?.indexes, localeKey]);
+
+  const indexStats = useMemo(() => {
+    const stats: Record<string, Record<string, number>> = {};
+    for (const idx of allIndexFields) {
+      const counts: Record<string, number> = {};
+      for (const item of items) {
+        const val = String(item[idx] || "").toLowerCase();
+        if (val) {
+          counts[val] = (counts[val] || 0) + 1;
+        }
+      }
+      stats[idx] = counts;
+    }
+    return stats;
+  }, [items, allIndexFields]);
 
   const filtered = useMemo(() => {
     let result = items;
 
-    if (statusFilter !== "all") {
-      result = result.filter((p) => p.status?.toLowerCase() === statusFilter);
-    }
-
-    if (localeFilter !== "all") {
-      if (localeFilter === "en") {
-        result = result.filter((p) => p.lang === "en" || p.lang === "us");
-      } else if (localeFilter === "es") {
-        result = result.filter((p) => p.lang === "es");
+    for (const [field, value] of Object.entries(filters)) {
+      if (value && value !== "all") {
+        result = result.filter((p) => {
+          const itemVal = String(p[field] || "").toLowerCase();
+          return itemVal === value.toLowerCase();
+        });
       }
     }
 
@@ -1084,12 +1137,12 @@ export default function ContentTypeManagePage() {
           p.title?.toLowerCase().includes(q) ||
           p.slug?.toLowerCase().includes(q) ||
           p.description?.toLowerCase().includes(q) ||
-          (p.author?.first_name + " " + p.author?.last_name).toLowerCase().includes(q)
+          (p.author_name ? `${p.author_name} ${p.author_last_name || ""}` : "").toLowerCase().includes(q)
       );
     }
 
     return result;
-  }, [items, statusFilter, localeFilter, search]);
+  }, [items, filters, search]);
 
   const handleClearCache = async () => {
     setClearing(true);
@@ -1105,15 +1158,7 @@ export default function ContentTypeManagePage() {
     }
   };
 
-  const statuses = useMemo(() => {
-    const set = new Set(items.map((p) => p.status?.toLowerCase()).filter(Boolean));
-    return Array.from(set).sort();
-  }, [items]);
-
-  const hasLangField = localeKey || items.some(p => p.lang);
-  const hasStatusField = items.some(p => p.status);
-  const hasAuthorField = items.some(p => p.author);
-  const hasVisibilityField = items.some(p => p.visibility);
+  const hasAuthorField = items.some(p => p.author_name || p.author);
   const hasPublishedAt = items.some(p => p.published_at);
   const hasUpdatedAt = items.some(p => p.updated_at);
 
@@ -1176,52 +1221,43 @@ export default function ContentTypeManagePage() {
               <IconArticle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold" data-testid="text-kpi-total">{allLoading ? "..." : kpis.total}</div>
+              <div className="text-2xl font-bold" data-testid="text-kpi-total">{allLoading ? "..." : items.length}</div>
             </CardContent>
           </Card>
-          {hasStatusField && (
-            <>
-              <Card data-testid="card-kpi-published">
+          {allIndexFields.map((idx) => {
+            const counts = indexStats[idx] || {};
+            const isLocale = idx === localeKey;
+            const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+            return (
+              <Card key={idx} data-testid={`card-kpi-${idx}`}>
                 <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Published</CardTitle>
-                  <IconCheck className="h-4 w-4 text-muted-foreground" />
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    {isLocale ? "Language" : idx.charAt(0).toUpperCase() + idx.slice(1)}
+                  </CardTitle>
+                  {isLocale ? (
+                    <IconWorld className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <IconLayoutList className="h-4 w-4 text-muted-foreground" />
+                  )}
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold" data-testid="text-kpi-published">{allLoading ? "..." : kpis.published}</div>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {sortedEntries.slice(0, 4).map(([val, count], i) => (
+                      <div key={val} className="flex items-center gap-3" data-testid={`text-kpi-${idx}-${val}`}>
+                        {i > 0 && <div className="h-6 w-px bg-border" />}
+                        <div>
+                          <span className="text-2xl font-bold">{allLoading ? "..." : count}</span>
+                          <span className="text-xs text-muted-foreground ml-1">
+                            {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
-              <Card data-testid="card-kpi-draft">
-                <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Drafts</CardTitle>
-                  <IconClock className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold" data-testid="text-kpi-draft">{allLoading ? "..." : kpis.draft}</div>
-                </CardContent>
-              </Card>
-            </>
-          )}
-          {hasLangField && (
-            <Card data-testid="card-kpi-locale">
-              <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">By Language</CardTitle>
-                <IconWorld className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-3">
-                  <div data-testid="text-kpi-en">
-                    <span className="text-2xl font-bold">{allLoading ? "..." : kpis.en}</span>
-                    <span className="text-xs text-muted-foreground ml-1">EN</span>
-                  </div>
-                  <div className="h-6 w-px bg-border" />
-                  <div data-testid="text-kpi-es">
-                    <span className="text-2xl font-bold">{allLoading ? "..." : kpis.es}</span>
-                    <span className="text-xs text-muted-foreground ml-1">ES</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+            );
+          })}
         </div>
 
         <Card>
@@ -1237,31 +1273,33 @@ export default function ContentTypeManagePage() {
                   data-testid="input-search"
                 />
               </div>
-              {hasStatusField && (
-                <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-[140px]" data-testid="select-status-filter">
-                    <SelectValue placeholder="Status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Statuses</SelectItem>
-                    {statuses.map((s) => (
-                      <SelectItem key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-              {hasLangField && (
-                <Select value={localeFilter} onValueChange={setLocaleFilter}>
-                  <SelectTrigger className="w-[130px]" data-testid="select-locale-filter">
-                    <SelectValue placeholder="Language" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Languages</SelectItem>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="es">Spanish</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
+              {allIndexFields.map((idx) => {
+                const isLocale = idx === localeKey;
+                const counts = indexStats[idx] || {};
+                const distinctValues = Object.keys(counts).sort();
+                if (distinctValues.length === 0) return null;
+                return (
+                  <Select
+                    key={idx}
+                    value={filters[idx] || "all"}
+                    onValueChange={(v) => setFilters((prev) => ({ ...prev, [idx]: v }))}
+                  >
+                    <SelectTrigger className="w-[140px]" data-testid={`select-filter-${idx}`}>
+                      <SelectValue placeholder={isLocale ? "Language" : idx.charAt(0).toUpperCase() + idx.slice(1)} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">
+                        All {isLocale ? "Languages" : `${idx.charAt(0).toUpperCase() + idx.slice(1)}es`}
+                      </SelectItem>
+                      {distinctValues.map((val) => (
+                        <SelectItem key={val} value={val}>
+                          {isLocale ? (LOCALE_LABELS[val] || val.toUpperCase()) : val.charAt(0).toUpperCase() + val.slice(1)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                );
+              })}
             </div>
           </CardHeader>
           <CardContent className="p-0">
@@ -1281,8 +1319,11 @@ export default function ContentTypeManagePage() {
                     <tr className="border-b bg-muted/50">
                       <th className="text-left px-4 py-3 font-medium text-muted-foreground">Title</th>
                       {hasAuthorField && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Author</th>}
-                      {hasStatusField && <th className="text-left px-4 py-3 font-medium text-muted-foreground">Status</th>}
-                      {hasLangField && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden sm:table-cell">Lang</th>}
+                      {allIndexFields.map((idx) => (
+                        <th key={idx} className="text-left px-4 py-3 font-medium text-muted-foreground">
+                          {idx === localeKey ? "Lang" : idx.charAt(0).toUpperCase() + idx.slice(1)}
+                        </th>
+                      ))}
                       {hasPublishedAt && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Published</th>}
                       {hasUpdatedAt && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Updated</th>}
                       <th className="text-right px-4 py-3 font-medium text-muted-foreground">Link</th>
@@ -1290,9 +1331,9 @@ export default function ContentTypeManagePage() {
                   </thead>
                   <tbody>
                     {filtered.map((item) => {
-                      const locale = item.lang === "es" ? "es" : "en";
-                      const pattern = locale === "es" ? (urlPatterns.es || urlPatterns.en) : (urlPatterns.en || urlPatterns.default || "");
-                      const itemUrl = pattern ? buildItemUrl(pattern, item, locale) : "";
+                      const itemLocale = localeKey ? String(item[localeKey] || "en") : "en";
+                      const pattern = itemLocale === "es" ? (urlPatterns.es || urlPatterns.en) : (urlPatterns.en || urlPatterns.default || "");
+                      const itemUrl = pattern ? buildItemUrl(pattern, item, itemLocale) : "";
                       return (
                         <tr
                           key={item.id || item.slug}
@@ -1301,9 +1342,9 @@ export default function ContentTypeManagePage() {
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
-                              {item.preview && (
+                              {(item.preview || item.image) && (
                                 <img
-                                  src={item.preview}
+                                  src={item.preview || item.image}
                                   alt=""
                                   className="w-10 h-10 rounded-md object-cover flex-shrink-0 hidden sm:block"
                                 />
@@ -1320,22 +1361,31 @@ export default function ContentTypeManagePage() {
                           </td>
                           {hasAuthorField && (
                             <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
-                              {item.author ? `${item.author.first_name || ""} ${item.author.last_name || ""}`.trim() : "—"}
+                              {item.author_name
+                                ? `${item.author_name} ${item.author_last_name || ""}`.trim()
+                                : item.author
+                                  ? `${item.author.first_name || ""} ${item.author.last_name || ""}`.trim()
+                                  : "—"}
                             </td>
                           )}
-                          {hasStatusField && (
-                            <td className="px-4 py-3">
-                              <div className="flex items-center gap-2">
-                                <StatusBadge status={item.status} />
-                                {hasVisibilityField && <VisibilityIcon visibility={item.visibility} />}
-                              </div>
-                            </td>
-                          )}
-                          {hasLangField && (
-                            <td className="px-4 py-3 hidden sm:table-cell">
-                              <Badge variant="outline">{locale.toUpperCase()}</Badge>
-                            </td>
-                          )}
+                          {allIndexFields.map((idx) => {
+                            const val = String(item[idx] || "");
+                            const isLocale = idx === localeKey;
+                            if (idx === "status") {
+                              return (
+                                <td key={idx} className="px-4 py-3">
+                                  <StatusBadge status={val} />
+                                </td>
+                              );
+                            }
+                            return (
+                              <td key={idx} className="px-4 py-3">
+                                <Badge variant="outline">
+                                  {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
+                                </Badge>
+                              </td>
+                            );
+                          })}
                           {hasPublishedAt && (
                             <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
                               {formatDate(item.published_at)}

@@ -42,6 +42,8 @@ blog:
       content_url: readme_url
       status: status
       lang: lang
+    indexes:
+      - status
   url_pattern:
     en: /en/blog/:category/:slug
     es: /es/blog/:category/:slug

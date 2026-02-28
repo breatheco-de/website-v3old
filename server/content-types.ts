@@ -4,7 +4,8 @@ import yaml from "js-yaml";
 
 export interface DatabaseConfig {
   slug: string;
-  field_mapping?: Record<string, string>;
+  field_mapping?: Record<string, string | { source: string; default: string }>;
+  indexes?: string[];
 }
 
 export interface ContentTypeEntry {
@@ -131,7 +132,7 @@ export function getFieldMapping(type: string): Record<string, string> | null {
   const filtered: Record<string, string> = {};
   for (const [key, value] of Object.entries(mapping)) {
     if (!key.startsWith("_")) {
-      filtered[key] = value;
+      filtered[key] = typeof value === "object" ? value.source : value;
     }
   }
   return Object.keys(filtered).length > 0 ? filtered : null;
@@ -141,7 +142,28 @@ export function getLocaleKey(type: string): string | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  return entry?.database?.field_mapping?._locale || null;
+  const localeConfig = entry?.database?.field_mapping?._locale;
+  if (!localeConfig) return null;
+  if (typeof localeConfig === "object") return localeConfig.source;
+  return localeConfig;
+}
+
+export function getLocaleDefault(type: string): string {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  const localeConfig = entry?.database?.field_mapping?._locale;
+  if (localeConfig && typeof localeConfig === "object" && localeConfig.default) {
+    return localeConfig.default;
+  }
+  return "en";
+}
+
+export function getIndexes(type: string): string[] {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  return entry?.database?.indexes || [];
 }
 
 export function getDatabaseConfig(type: string): DatabaseConfig | null {

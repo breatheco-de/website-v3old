@@ -48,7 +48,8 @@ export interface ContentTypeConfig {
   url_pattern: Record<string, string>;
   database?: {
     slug: string;
-    field_mapping?: Record<string, string>;
+    field_mapping?: Record<string, string | { source: string; default: string }>;
+    indexes?: string[];
   };
 }
 
