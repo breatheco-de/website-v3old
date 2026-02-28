@@ -31,6 +31,7 @@ export interface BlogPost {
   created_at: string;
   updated_at: string;
   cluster: string | null;
+  cluster_slug: string | null;
   tags: string[];
   [key: string]: unknown;
 }
@@ -38,7 +39,7 @@ export interface BlogPost {
 export function resolveUrlPattern(pattern: string, post: BlogPost, locale: string): string {
   let result = pattern.replaceAll(":locale", locale);
   result = result.replaceAll(":slug", post.slug || "");
-  result = result.replaceAll(":category", post.category?.slug || post.cluster || "");
+  result = result.replaceAll(":category", post.category?.slug || post.cluster_slug || post.cluster || "");
   result = result.replaceAll(":lang", post.lang || "");
   result = result.replaceAll(":status", post.status || "");
   result = result.replaceAll(":tags", (post.tags || []).join(","));
