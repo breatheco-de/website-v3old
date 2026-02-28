@@ -326,6 +326,36 @@ export class DatabaseManager {
     fs.writeFileSync(configPath, yaml.dump(config, { lineWidth: 120 }));
   }
 
+  getFieldCount(name: string): number {
+    const config = this.configs.get(name);
+    if (!config) return 0;
+
+    const memEntry = this.memoryCache.get(name);
+    const items = memEntry?.data?.items;
+    if (items && items.length > 0) {
+      const keys = new Set<string>();
+      for (const item of items) {
+        for (const k of Object.keys(item)) keys.add(k);
+      }
+      return keys.size;
+    }
+
+    const ttl = config.cache?.ttl_hours ?? 24;
+    const fileEntry = this.loadFileCache(name, ttl);
+    if (fileEntry && fileEntry.items.length > 0) {
+      const keys = new Set<string>();
+      for (const item of fileEntry.items) {
+        for (const k of Object.keys(item)) keys.add(k);
+      }
+      return keys.size;
+    }
+
+    if (config.field_mapping) {
+      return Object.keys(config.field_mapping).length;
+    }
+    return 0;
+  }
+
   private loadFileCache(
     dbName: string,
     ttlHours: number

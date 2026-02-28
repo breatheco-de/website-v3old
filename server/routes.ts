@@ -2081,9 +2081,7 @@ Important: Only include mappings where you are confident the field exists. Use d
           label: db.config.name,
           description: db.config.description || null,
           source_type: db.config.source.type,
-          field_count: db.config.field_mapping
-            ? Object.keys(db.config.field_mapping).length
-            : 0,
+          field_count: databaseManager.getFieldCount(db.name),
         }))
       );
     } catch (err) {
