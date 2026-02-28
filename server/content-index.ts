@@ -5,6 +5,7 @@ import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
+import { normalizeUrlPattern } from "./content-types";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -105,8 +106,14 @@ class ContentIndex {
     }
     try {
       const raw = fs.readFileSync(configPath, "utf-8");
-      const parsed = this.safeYamlLoad(raw) as Record<string, ContentTypeConfig> | null;
-      return parsed || {};
+      const parsed = this.safeYamlLoad(raw) as Record<string, any> | null;
+      if (!parsed) return {};
+      for (const config of Object.values(parsed)) {
+        if (config?.url_pattern) {
+          config.url_pattern = normalizeUrlPattern(config.url_pattern);
+        }
+      }
+      return parsed as Record<string, ContentTypeConfig>;
     } catch (err) {
       console.error("[ContentIndex] Failed to read content-types.yml:", err);
       return {};

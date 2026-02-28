@@ -201,6 +201,31 @@ export function resolveFaqItems(section: FaqSection, locale: string, locationSlu
   return [];
 }
 
+function getBaseUrl(): string {
+  if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
+  if (process.env.REPLIT_DEV_DOMAIN) return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  return "http://localhost:5000";
+}
+
+function generateHreflangTags(contentType: string, slug: string, currentLocale: string): string[] {
+  try {
+    const localeUrls = contentIndex.getLocaleUrls(slug, contentType);
+    if (!localeUrls || Object.keys(localeUrls).length < 2) return [];
+    const baseUrl = getBaseUrl();
+    const tags: string[] = [];
+    for (const [locale, urlPath] of Object.entries(localeUrls)) {
+      tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${urlPath}" />`);
+    }
+    const defaultUrl = localeUrls["en"] || localeUrls[currentLocale] || Object.values(localeUrls)[0];
+    if (defaultUrl) {
+      tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${defaultUrl}" />`);
+    }
+    return tags;
+  } catch {
+    return [];
+  }
+}
+
 export function generateSsrSchemaHtml(url: string): string {
   try {
     const route = parseRoute(url);
@@ -238,7 +263,8 @@ export function generateSsrSchemaHtml(url: string): string {
       }
     }
 
-    return scripts.join("\n");
+    const hreflangTags = generateHreflangTags(route.contentType, route.slug, route.locale);
+    return [...hreflangTags, ...scripts].join("\n");
   } catch (err) {
     console.error("[SSR-Schema] Error generating schema for", url, err);
     return "";

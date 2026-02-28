@@ -8,6 +8,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveDeep } from "@/lib/variable-manager";
 import Header from "@/components/Header";
@@ -55,7 +56,12 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
     return data as typeof page.schema;
   }, [page?.schema, page?.singleEntry, varDefinitions, varContext]);
 
-  usePageMeta(resolvedMeta);
+  const alternates = useAlternateUrls(location);
+  const metaWithAlternates = useMemo(() => {
+    if (!resolvedMeta) return undefined;
+    return { ...resolvedMeta, alternates };
+  }, [resolvedMeta, alternates]);
+  usePageMeta(metaWithAlternates);
   useSchemaOrg(resolvedSchema);
 
   const handleRefetch = useCallback(() => {

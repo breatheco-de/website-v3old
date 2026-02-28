@@ -25,24 +25,45 @@ let registry: ContentTypesRegistry | null = null;
 
 const CONFIG_PATH = path.join(process.cwd(), "marketing-content", "content-types.yml");
 
+const SUPPORTED_LOCALES = ["en", "es"];
+
+export function normalizeUrlPattern(raw: string | Record<string, string>): Record<string, string> {
+  if (typeof raw === "object" && raw !== null) return raw;
+  if (typeof raw !== "string") return {};
+  if (raw.includes(":locale")) {
+    const result: Record<string, string> = {};
+    for (const locale of SUPPORTED_LOCALES) {
+      result[locale] = raw.replaceAll(":locale", locale);
+    }
+    return result;
+  }
+  return { default: raw };
+}
+
 function loadRegistry(): ContentTypesRegistry {
   if (registry) return registry;
 
-  let parsed: Record<string, ContentTypeEntry> = {};
+  let parsed: Record<string, any> = {};
 
   if (fs.existsSync(CONFIG_PATH)) {
     try {
       const raw = fs.readFileSync(CONFIG_PATH, "utf-8");
-      parsed = (yaml.load(raw) as Record<string, ContentTypeEntry>) || {};
+      parsed = (yaml.load(raw) as Record<string, any>) || {};
     } catch (err) {
       console.error("[ContentTypes] Failed to read content-types.yml:", err);
     }
   }
 
+  for (const config of Object.values(parsed)) {
+    if (config?.url_pattern) {
+      config.url_pattern = normalizeUrlPattern(config.url_pattern);
+    }
+  }
+
   const folderToType = new Map<string, string>();
   for (const [type, config] of Object.entries(parsed)) {
-    if (config.folder) {
-      folderToType.set(config.folder, type);
+    if ((config as ContentTypeEntry).folder) {
+      folderToType.set((config as ContentTypeEntry).folder, type);
     }
   }
 

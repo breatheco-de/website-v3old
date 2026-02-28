@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -39,7 +40,12 @@ export default function HomePage() {
     },
   });
 
-  usePageMeta(page?.meta);
+  const alternates = useAlternateUrls(location);
+  const metaWithAlternates = useMemo(() => {
+    if (!page?.meta) return undefined;
+    return { ...page.meta, alternates };
+  }, [page?.meta, alternates]);
+  usePageMeta(metaWithAlternates);
   useSchemaOrg(page?.schema);
 
   const handleRefetch = useCallback(() => {

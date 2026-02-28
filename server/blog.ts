@@ -375,6 +375,16 @@ export function generateBlogSsrHtml(post: BlogPost, locale: string): string {
     `<link rel="canonical" href="${postUrl}" />`,
   ].filter(Boolean);
 
+  const altLocale = locale === "en" ? "es" : "en";
+  const altPattern = config.url_pattern[altLocale] || config.url_pattern["en"];
+  if (altPattern) {
+    const altUrl = `${baseUrl}${resolveUrlPattern(altPattern, post, altLocale)}`;
+    metaTags.push(`<link rel="alternate" hreflang="${locale}" href="${postUrl}" />`);
+    metaTags.push(`<link rel="alternate" hreflang="${altLocale}" href="${altUrl}" />`);
+    const xDefaultUrl = locale === "en" ? postUrl : altUrl;
+    metaTags.push(`<link rel="alternate" hreflang="x-default" href="${xDefaultUrl}" />`);
+  }
+
   return [...metaTags, ...scripts].join("\n");
 }
 
@@ -398,6 +408,12 @@ export function generateBlogListingSsrHtml(locale: string): string {
     `<meta name="twitter:description" content="${description}" />`,
     `<link rel="canonical" href="${url}" />`,
   ];
+
+  const altLocale = locale === "en" ? "es" : "en";
+  const altUrl = `${baseUrl}/${altLocale}/blog`;
+  metaTags.push(`<link rel="alternate" hreflang="${locale}" href="${url}" />`);
+  metaTags.push(`<link rel="alternate" hreflang="${altLocale}" href="${altUrl}" />`);
+  metaTags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}/en/blog" />`);
 
   return metaTags.join("\n");
 }

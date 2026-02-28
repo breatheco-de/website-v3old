@@ -9,6 +9,7 @@ export interface PageMeta {
   priority?: number;
   change_frequency?: string;
   redirects?: string[];
+  alternates?: Record<string, string>;
 }
 
 export function usePageMeta(meta: PageMeta | undefined) {
@@ -70,10 +71,25 @@ export function usePageMeta(meta: PageMeta | undefined) {
       link.href = meta.canonical_url;
     }
 
+    const addedHreflangLinks: HTMLLinkElement[] = [];
+    if (meta.alternates && Object.keys(meta.alternates).length > 0) {
+      document.querySelectorAll('link[rel="alternate"][data-pagemeta]').forEach(el => el.remove());
+      for (const [lang, href] of Object.entries(meta.alternates)) {
+        const link = document.createElement("link");
+        link.rel = "alternate";
+        link.hreflang = lang;
+        link.href = href;
+        link.setAttribute("data-pagemeta", "true");
+        document.head.appendChild(link);
+        addedHreflangLinks.push(link);
+      }
+    }
+
     return () => {
       document.title = originalTitle;
 
       addedElements.forEach((el) => el.remove());
+      addedHreflangLinks.forEach((el) => el.remove());
 
       modifiedElements.forEach((originalValue, element) => {
         if (originalValue) {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
@@ -8,6 +8,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -89,7 +90,12 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
     }
   }, [data?.slug, slug, effectiveLocale, config.urlPattern, setLocation]);
 
-  usePageMeta(data?.meta);
+  const alternates = useAlternateUrls(location);
+  const metaWithAlternates = useMemo(() => {
+    if (!data?.meta) return undefined;
+    return { ...data.meta, alternates };
+  }, [data?.meta, alternates]);
+  usePageMeta(metaWithAlternates);
   useSchemaOrg(data?.schema);
 
   const handleRefetch = useCallback(() => {
