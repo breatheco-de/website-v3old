@@ -128,6 +128,138 @@ function VisibilityIcon({ visibility }: { visibility: string }) {
   return <IconEyeOff className="h-4 w-4 text-muted-foreground" />;
 }
 
+function SearchableFieldSelect({
+  value,
+  onValueChange,
+  dbFields,
+  rawFields,
+  placeholder,
+  testId,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+  dbFields: string[];
+  rawFields: string[];
+  placeholder?: string;
+  testId?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  useEffect(() => {
+    if (open && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [open]);
+
+  const q = searchQuery.toLowerCase();
+  const filteredDb = q ? dbFields.filter((f) => f.toLowerCase().includes(q)) : dbFields;
+  const filteredRaw = q ? rawFields.filter((f) => f.toLowerCase().includes(q)) : rawFields;
+
+  const displayValue = value === "__none__" || !value ? (placeholder || "(not mapped)") : value;
+
+  return (
+    <div className="relative flex-1" ref={containerRef}>
+      <button
+        type="button"
+        className="flex h-8 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-xs font-mono ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        onClick={() => { setOpen(!open); setSearchQuery(""); }}
+        data-testid={testId}
+      >
+        <span className={!value || value === "__none__" ? "text-muted-foreground" : ""}>
+          {displayValue}
+        </span>
+        <IconSearch className="h-3 w-3 text-muted-foreground ml-1 flex-shrink-0" />
+      </button>
+      {open && (
+        <div className="absolute z-[10002] top-full left-0 mt-1 w-full min-w-[240px] max-h-64 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md">
+          <div className="p-1.5 border-b">
+            <Input
+              ref={inputRef}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search fields..."
+              className="h-7 text-xs"
+              data-testid={testId ? `${testId}-search` : undefined}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setOpen(false);
+              }}
+            />
+          </div>
+          <div className="overflow-y-auto max-h-48">
+            <div
+              className="px-2 py-1.5 text-xs cursor-pointer hover:bg-muted rounded-sm mx-1 my-0.5 text-muted-foreground"
+              onClick={() => { onValueChange("__none__"); setOpen(false); }}
+            >
+              (not mapped)
+            </div>
+            {filteredDb.length > 0 && (
+              <>
+                <div className="px-2 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  Database Fields
+                </div>
+                {filteredDb.map((f) => (
+                  <div
+                    key={`db-${f}`}
+                    className={`px-2 py-1.5 text-xs font-mono cursor-pointer hover:bg-muted rounded-sm mx-1 my-0.5 flex items-center gap-1.5 ${value === f || value === `db.${f}` ? "bg-muted font-medium" : ""}`}
+                    onClick={() => { onValueChange(f); setOpen(false); }}
+                  >
+                    {(value === f || value === `db.${f}`) && <IconCheck className="h-3 w-3 flex-shrink-0" />}
+                    {f}
+                  </div>
+                ))}
+              </>
+            )}
+            {filteredRaw.length > 0 && (
+              <>
+                <div className="px-2 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mt-1 border-t pt-1.5">
+                  Raw API Fields
+                </div>
+                {filteredRaw.map((f) => (
+                  <div
+                    key={`raw-${f}`}
+                    className={`px-2 py-1.5 text-xs font-mono cursor-pointer hover:bg-muted rounded-sm mx-1 my-0.5 flex items-center gap-1.5 ${value === `raw.${f}` ? "bg-muted font-medium" : ""}`}
+                    onClick={() => { onValueChange(`raw.${f}`); setOpen(false); }}
+                  >
+                    {value === `raw.${f}` && <IconCheck className="h-3 w-3 flex-shrink-0" />}
+                    <span className="text-muted-foreground">raw.</span>{f}
+                  </div>
+                ))}
+              </>
+            )}
+            {filteredDb.length === 0 && filteredRaw.length === 0 && (
+              <div className="px-2 py-3 text-xs text-muted-foreground text-center">
+                No fields match "{searchQuery}"
+              </div>
+            )}
+            <div className="border-t mx-1 mt-1 pt-0.5 mb-0.5">
+              <div
+                className="px-2 py-1.5 text-xs cursor-pointer hover:bg-muted rounded-sm text-muted-foreground"
+                onClick={() => { onValueChange("__custom__"); setOpen(false); }}
+              >
+                Custom path...
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const WIZARD_STEPS = [
   { id: "database", label: "Select Database", icon: IconDatabase },
   { id: "fields", label: "Field Mapping", icon: IconLayoutList },
@@ -262,6 +394,7 @@ function DataSourceDialog({
   const [sampleDialogOpen, setSampleDialogOpen] = useState(false);
   const [deletedFields, setDeletedFields] = useState<string[]>([]);
   const [indexedFields, setIndexedFields] = useState<string[]>([]);
+  const [rawFields, setRawFields] = useState<string[]>([]);
 
   const markComplete = (s: WizardStep) => {
     setCompletedSteps((prev) => {
@@ -309,9 +442,12 @@ function DataSourceDialog({
     if (!dbName) return;
     setLoadingSample(true);
     try {
-      const res = await fetch(`/api/databases/${dbName}/items`);
-      if (res.ok) {
-        const data = await res.json();
+      const [itemsRes, rawFieldsRes] = await Promise.all([
+        fetch(`/api/databases/${dbName}/items`),
+        fetch(`/api/databases/${dbName}/raw-fields`),
+      ]);
+      if (itemsRes.ok) {
+        const data = await itemsRes.json();
         const items = (data.items || []).slice(0, 3) as Record<string, unknown>[];
         setSampleItems(items);
         if (items.length > 0) {
@@ -321,6 +457,10 @@ function DataSourceDialog({
           }
           setAvailableFields(Array.from(keys).sort());
         }
+      }
+      if (rawFieldsRes.ok) {
+        const rawData = await rawFieldsRes.json();
+        setRawFields((rawData.fields || []).sort());
       }
     } catch {
       setSampleItems([]);
