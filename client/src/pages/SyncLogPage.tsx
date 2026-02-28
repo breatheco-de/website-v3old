@@ -139,7 +139,7 @@ function getCategoryBadgeVariant(cat: string): "default" | "secondary" | "destru
 export default function SyncLogPage() {
   const [search, setSearch] = useState("");
   const [activeCategories, setActiveCategories] = useState<Set<Category>>(
-    new Set(CATEGORIES)
+    new Set([])
   );
   const qc = useQueryClient();
 
@@ -205,7 +205,7 @@ export default function SyncLogPage() {
 
   const filtered = useMemo(() => {
     return entries.filter((e) => {
-      if (!activeCategories.has(e.category as Category)) return false;
+      if (activeCategories.size > 0 && !activeCategories.has(e.category as Category)) return false;
       if (search) {
         const q = search.toLowerCase();
         return (
@@ -358,13 +358,13 @@ export default function SyncLogPage() {
                   ) : null}
                 </Badge>
               ))}
-              {activeCategories.size < CATEGORIES.length && (
+              {activeCategories.size > 0 && (
                 <button
-                  onClick={selectAll}
+                  onClick={() => setActiveCategories(new Set([]))}
                   className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
-                  data-testid="button-show-all-categories"
+                  data-testid="button-clear-filters"
                 >
-                  Show all
+                  Clear filters
                 </button>
               )}
             </div>

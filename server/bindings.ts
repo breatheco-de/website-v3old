@@ -96,7 +96,7 @@ class BindingManager {
     return -1;
   }
 
-  ensureSectionId(contentType: string, slug: string, sectionIndex: number, locale: string): string {
+  ensureSectionId(contentType: string, slug: string, sectionIndex: number, locale: string, author?: string): string {
     const { data, filePath } = this.loadPageContent(contentType, slug, locale);
     if (!data) throw new Error(`Cannot load content for ${contentType}/${slug}`);
     const sections = data.sections as Record<string, unknown>[];
@@ -121,7 +121,7 @@ class BindingManager {
       forceQuotes: false,
     });
     fs.writeFileSync(filePath, updatedYaml, "utf-8");
-    markFileAsModified(filePath);
+    markFileAsModified(filePath, author);
 
     return newId;
   }
@@ -193,14 +193,14 @@ class BindingManager {
     if (!this.loaded) this.load();
   }
 
-  private save(): void {
+  private save(author?: string): void {
     try {
       const dir = path.dirname(BINDINGS_FILE);
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
       fs.writeFileSync(BINDINGS_FILE, JSON.stringify(this.data, null, 2), "utf-8");
-      markFileAsModified("marketing-content/section-bindings.json");
+      markFileAsModified("marketing-content/section-bindings.json", author);
     } catch (error) {
       console.error("[BindingManager] Error saving bindings:", error);
     }
@@ -263,7 +263,8 @@ class BindingManager {
     component: string,
     locale: string,
     members: BindingMember[],
-    options?: { name?: string; sourceIndex?: number }
+    options?: { name?: string; sourceIndex?: number },
+    author?: string
   ): BindingGroup {
     this.ensureLoaded();
 
@@ -295,26 +296,26 @@ class BindingManager {
 
     this.data.groups.push(group);
     this.rebuildIndex();
-    this.save();
+    this.save(author);
 
     const srcIdx = options?.sourceIndex ?? 0;
     const sourceMember = members[srcIdx] || members[0];
-    this.propagateFromMember(group, sourceMember);
+    this.propagateFromMember(group, sourceMember, author);
 
     return group;
   }
 
-  renameGroup(groupId: string, name: string): BindingGroup {
+  renameGroup(groupId: string, name: string, author?: string): BindingGroup {
     this.ensureLoaded();
     const group = this.data.groups.find(g => g.id === groupId);
     if (!group) throw new Error(`Binding group ${groupId} not found`);
     group.name = name || undefined;
     group.updatedAt = new Date().toISOString();
-    this.save();
+    this.save(author);
     return group;
   }
 
-  private propagateFromMember(group: BindingGroup, sourceMember: BindingMember): void {
+  private propagateFromMember(group: BindingGroup, sourceMember: BindingMember, author?: string): void {
     const sourceIdx = this.resolveSectionIndex(sourceMember.contentType, sourceMember.slug, sourceMember.sectionId, group.locale);
     if (sourceIdx === -1) return;
     const { data: sourceData } = this.loadPageContent(sourceMember.contentType, sourceMember.slug, group.locale);
@@ -347,14 +348,14 @@ class BindingManager {
           forceQuotes: false,
         });
         fs.writeFileSync(filePath, updatedYaml, "utf-8");
-        markFileAsModified(filePath);
+        markFileAsModified(filePath, author);
       } catch (err) {
         console.error(`[BindingManager] Error propagating to ${sibling.contentType}/${sibling.slug}:`, err);
       }
     }
   }
 
-  addMember(groupId: string, member: BindingMember): BindingGroup {
+  addMember(groupId: string, member: BindingMember, author?: string): BindingGroup {
     this.ensureLoaded();
     const group = this.data.groups.find(g => g.id === groupId);
     if (!group) throw new Error(`Binding group ${groupId} not found`);
@@ -379,7 +380,7 @@ class BindingManager {
     group.members.push(member);
     group.updatedAt = new Date().toISOString();
     this.rebuildIndex();
-    this.save();
+    this.save(author);
 
     const existingMember = group.members.find(
       m => !(m.contentType === member.contentType && m.slug === member.slug && m.sectionId === member.sectionId)
@@ -387,14 +388,15 @@ class BindingManager {
     if (existingMember) {
       this.propagateFromMember(
         { ...group, members: [existingMember, member] },
-        existingMember
+        existingMember,
+        author
       );
     }
 
     return group;
   }
 
-  removeMemberBySectionId(groupId: string, contentType: string, slug: string, sectionId: string): BindingGroup | null {
+  removeMemberBySectionId(groupId: string, contentType: string, slug: string, sectionId: string, author?: string): BindingGroup | null {
     this.ensureLoaded();
     const group = this.data.groups.find(g => g.id === groupId);
     if (!group) throw new Error(`Binding group ${groupId} not found`);
@@ -406,21 +408,21 @@ class BindingManager {
     if (group.members.length < 2) {
       this.data.groups = this.data.groups.filter(g => g.id !== groupId);
       this.rebuildIndex();
-      this.save();
+      this.save(author);
       return null;
     }
 
     group.updatedAt = new Date().toISOString();
     this.rebuildIndex();
-    this.save();
+    this.save(author);
     return group;
   }
 
-  deleteGroup(groupId: string): void {
+  deleteGroup(groupId: string, author?: string): void {
     this.ensureLoaded();
     this.data.groups = this.data.groups.filter(g => g.id !== groupId);
     this.rebuildIndex();
-    this.save();
+    this.save(author);
   }
 
   private loadPageContent(contentType: string, slug: string, locale: string): { data: Record<string, unknown> | null; filePath: string } {

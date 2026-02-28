@@ -59,7 +59,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useToast } from "@/hooks/use-toast";
 import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import { emitContentUpdated } from "@/lib/contentEvents";
@@ -342,6 +342,7 @@ export default function ComponentPickerModal({
       };
 
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const response = await fetch("/api/content/edit-sections", {
         method: "POST",
         headers: {
@@ -354,6 +355,7 @@ export default function ComponentPickerModal({
           locale,
           variant,
           version,
+          author,
           operations: [{
             action: "add_item",
             path: "sections",
@@ -473,6 +475,7 @@ export default function ComponentPickerModal({
       };
 
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const response = await fetch("/api/content/edit-sections", {
         method: "POST",
         headers: {
@@ -485,6 +488,7 @@ export default function ComponentPickerModal({
           locale,
           variant,
           version,
+          author,
           operations: [{
             action: "add_item",
             path: "sections",
