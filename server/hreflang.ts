@@ -1,0 +1,105 @@
+import { contentIndex } from "./content-index";
+import { getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
+
+export function getBaseUrl(): string {
+  if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
+  if (process.env.REPLIT_DEV_DOMAIN) return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  return "http://localhost:5000";
+}
+
+export function generateHreflangTags(
+  contentType: string,
+  slug: string,
+  currentLocale: string,
+  record?: Record<string, unknown>,
+  params?: Record<string, string>,
+): string[] {
+  try {
+    const baseUrl = getBaseUrl();
+
+    const localeUrls = contentIndex.getLocaleUrls(slug, contentType);
+    if (localeUrls && Object.keys(localeUrls).length >= 2) {
+      const tags: string[] = [];
+      for (const [locale, urlPath] of Object.entries(localeUrls)) {
+        tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${urlPath}" />`);
+      }
+      const defaultUrl = localeUrls["en"] || localeUrls[currentLocale] || Object.values(localeUrls)[0];
+      if (defaultUrl) {
+        tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${defaultUrl}" />`);
+      }
+      return tags;
+    }
+
+    const config = getContentTypeConfig(contentType);
+    if (!config?.url_pattern) return [];
+
+    const localeKeys = Object.keys(config.url_pattern).filter(k => k !== "default");
+    if (localeKeys.length < 2) return [];
+
+    const tags: string[] = [];
+    const urls: Record<string, string> = {};
+
+    for (const locale of localeKeys) {
+      const pattern = config.url_pattern[locale];
+      if (!pattern) continue;
+
+      let resolvedUrl: string;
+      if (record) {
+        resolvedUrl = resolveUrlPatternWithMapping(pattern, record, locale, null);
+      } else if (params) {
+        resolvedUrl = pattern.replace(/:([a-zA-Z_]+)/g, (_m, paramName) => {
+          if (paramName === "slug") return slug;
+          return params[paramName] || "";
+        }).replace(/\/+/g, "/");
+      } else {
+        resolvedUrl = pattern.replace(/:slug/, slug).replace(/\/+/g, "/");
+      }
+
+      urls[locale] = resolvedUrl;
+      tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${resolvedUrl}" />`);
+    }
+
+    const defaultUrl = urls["en"] || urls[currentLocale] || Object.values(urls)[0];
+    if (defaultUrl) {
+      tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${defaultUrl}" />`);
+    }
+
+    return tags;
+  } catch {
+    return [];
+  }
+}
+
+export function generateListingHreflangTags(
+  contentType: string,
+  currentLocale: string,
+): string[] {
+  try {
+    const config = getContentTypeConfig(contentType);
+    if (!config?.url_pattern) return [];
+
+    const baseUrl = getBaseUrl();
+    const localeKeys = Object.keys(config.url_pattern).filter(k => k !== "default");
+    if (localeKeys.length < 2) return [];
+
+    const tags: string[] = [];
+    const urls: Record<string, string> = {};
+
+    for (const locale of localeKeys) {
+      const pattern = config.url_pattern[locale];
+      if (!pattern) continue;
+      const listingUrl = pattern.replace(/\/:[a-zA-Z_]+/g, "").replace(/\/+$/, "") || "/";
+      urls[locale] = listingUrl;
+      tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${listingUrl}" />`);
+    }
+
+    const defaultUrl = urls["en"] || urls[currentLocale] || Object.values(urls)[0];
+    if (defaultUrl) {
+      tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${defaultUrl}" />`);
+    }
+
+    return tags;
+  } catch {
+    return [];
+  }
+}

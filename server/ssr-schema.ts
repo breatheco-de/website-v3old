@@ -5,7 +5,8 @@ import { getMergedSchemas } from "./schema-org";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
-import { getFolder, getType } from "./content-types";
+import { getFolder, getType, getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
+import { getBaseUrl, generateHreflangTags, generateListingHreflangTags } from "./hreflang";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -201,29 +202,106 @@ export function resolveFaqItems(section: FaqSection, locale: string, locationSlu
   return [];
 }
 
-function getBaseUrl(): string {
-  if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
-  if (process.env.REPLIT_DEV_DOMAIN) return `https://${process.env.REPLIT_DEV_DOMAIN}`;
-  return "http://localhost:5000";
+export function generateDatabaseSsrHtml(
+  contentType: string,
+  record: Record<string, unknown>,
+  locale: string,
+): string {
+  const baseUrl = getBaseUrl();
+  const config = getContentTypeConfig(contentType);
+  if (!config?.url_pattern) return "";
+
+  const urlPattern = config.url_pattern[locale] || config.url_pattern["en"];
+  if (!urlPattern) return "";
+
+  const recordUrl = `${baseUrl}${resolveUrlPatternWithMapping(urlPattern, record, locale, null)}`;
+  const scripts: string[] = [];
+
+  const title = ((record.title as string) || "").replace(/"/g, "&quot;");
+  const description = ((record.description as string) || (record.preview as string) || "").replace(/"/g, "&quot;");
+  const image = record.preview as string || record.image as string || "";
+  const publishedAt = (record.published_at as string) || (record.created_at as string) || "";
+  const updatedAt = (record.updated_at as string) || publishedAt;
+
+  let authorName = "4Geeks Academy";
+  if (record.author && typeof record.author === "object") {
+    const author = record.author as Record<string, unknown>;
+    authorName = `${author.first_name || ""} ${author.last_name || ""}`.trim() || "4Geeks Academy";
+  } else if (typeof record.author === "string") {
+    authorName = record.author || "4Geeks Academy";
+  }
+
+  const schemaType = contentType === "blog" ? "BlogPosting" : "WebPage";
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    headline: record.title,
+    description: record.description || record.preview || "",
+    url: recordUrl,
+    datePublished: publishedAt,
+    dateModified: updatedAt,
+    author: { "@type": "Person", name: authorName },
+    publisher: { "@type": "Organization", name: "4Geeks Academy", url: baseUrl },
+  };
+  if (image) schema.image = image;
+  if (record.tags && Array.isArray(record.tags) && record.tags.length > 0) {
+    schema.keywords = record.tags.join(", ");
+  }
+  scripts.push(`<script type="application/ld+json" data-ssr="true">${JSON.stringify(schema)}</script>`);
+
+  const ogType = contentType === "blog" ? "article" : "website";
+  const metaTags = [
+    `<title>${title} | 4Geeks Academy</title>`,
+    `<meta name="description" content="${description}" />`,
+    `<meta property="og:type" content="${ogType}" />`,
+    `<meta property="og:title" content="${title}" />`,
+    `<meta property="og:description" content="${description}" />`,
+    `<meta property="og:url" content="${recordUrl}" />`,
+    image ? `<meta property="og:image" content="${image}" />` : "",
+    `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}" />`,
+    `<meta name="twitter:title" content="${title}" />`,
+    `<meta name="twitter:description" content="${description}" />`,
+    image ? `<meta name="twitter:image" content="${image}" />` : "",
+    publishedAt ? `<meta property="article:published_time" content="${publishedAt}" />` : "",
+    updatedAt ? `<meta property="article:modified_time" content="${updatedAt}" />` : "",
+    `<meta property="article:author" content="${authorName}" />`,
+    `<link rel="canonical" href="${recordUrl}" />`,
+  ].filter(Boolean);
+
+  const hreflangTags = generateHreflangTags(contentType, record.slug as string || "", locale, record);
+  return [...hreflangTags, ...metaTags, ...scripts].join("\n");
 }
 
-function generateHreflangTags(contentType: string, slug: string, currentLocale: string): string[] {
-  try {
-    const localeUrls = contentIndex.getLocaleUrls(slug, contentType);
-    if (!localeUrls || Object.keys(localeUrls).length < 2) return [];
-    const baseUrl = getBaseUrl();
-    const tags: string[] = [];
-    for (const [locale, urlPath] of Object.entries(localeUrls)) {
-      tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${urlPath}" />`);
-    }
-    const defaultUrl = localeUrls["en"] || localeUrls[currentLocale] || Object.values(localeUrls)[0];
-    if (defaultUrl) {
-      tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${defaultUrl}" />`);
-    }
-    return tags;
-  } catch {
-    return [];
-  }
+export function generateListingSsrHtml(contentType: string, locale: string): string {
+  const baseUrl = getBaseUrl();
+  const config = getContentTypeConfig(contentType);
+  if (!config?.url_pattern) return "";
+
+  const pattern = config.url_pattern[locale] || config.url_pattern["en"];
+  if (!pattern) return "";
+
+  const listingUrl = `${baseUrl}${pattern.replace(/\/:[a-zA-Z_]+/g, "").replace(/\/+$/, "") || "/"}`;
+  const label = contentType.charAt(0).toUpperCase() + contentType.slice(1);
+  const title = `${label} | 4Geeks Academy`;
+  const description = locale === "es"
+    ? `Explora nuestro contenido de ${label.toLowerCase()} en 4Geeks Academy.`
+    : `Explore our ${label.toLowerCase()} content at 4Geeks Academy.`;
+
+  const metaTags = [
+    `<title>${title}</title>`,
+    `<meta name="description" content="${description}" />`,
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:title" content="${title}" />`,
+    `<meta property="og:description" content="${description}" />`,
+    `<meta property="og:url" content="${listingUrl}" />`,
+    `<meta name="twitter:card" content="summary" />`,
+    `<meta name="twitter:title" content="${title}" />`,
+    `<meta name="twitter:description" content="${description}" />`,
+    `<link rel="canonical" href="${listingUrl}" />`,
+  ];
+
+  const hreflangTags = generateListingHreflangTags(contentType, locale);
+  return [...hreflangTags, ...metaTags].join("\n");
 }
 
 export function generateSsrSchemaHtml(url: string): string {

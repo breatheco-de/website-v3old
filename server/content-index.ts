@@ -750,24 +750,24 @@ class ContentIndex {
     return null;
   }
 
-  resolveUrl(url: string): { contentType: string; slug: string; entry: ContentEntry; fromDatabase?: boolean; params?: Record<string, string> } | null {
+  resolveUrl(url: string): { contentType: string; slug: string; entry: ContentEntry; fromDatabase?: boolean; params?: Record<string, string>; patternLocale?: string } | null {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
 
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
       if (!config?.url_pattern) continue;
-      for (const [, pattern] of Object.entries(config.url_pattern)) {
+      for (const [localeKey, pattern] of Object.entries(config.url_pattern)) {
         const params = this.extractUrlParams(pattern, cleanUrl);
         if (params) {
           const slug = this.getLastParamValue(params, pattern);
 
           const found = this.findBySlug(slug, { contentType });
-          if (found.length > 0) return { contentType, slug, entry: found[0], params };
+          if (found.length > 0) return { contentType, slug, entry: found[0], params, patternLocale: localeKey };
 
           const resolvedSlug = this.resolveBaseSlug(slug, contentType);
           if (resolvedSlug !== slug) {
             const foundResolved = this.findBySlug(resolvedSlug, { contentType });
-            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0], params };
+            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0], params, patternLocale: localeKey };
           }
 
           if (config.database?.slug) {
@@ -777,10 +777,27 @@ class ContentIndex {
               entry: { slug, contentType, folder: `marketing-content/${config.folder}`, files: [], locales: [] },
               fromDatabase: true,
               params,
+              patternLocale: localeKey,
             };
           }
 
           return null;
+        }
+      }
+    }
+    return null;
+  }
+
+  resolveListingUrl(url: string): { contentType: string; locale: string } | null {
+    this.ensureInitialized();
+    const cleanUrl = url.split("?")[0].split("#")[0].replace(/\/$/, "");
+
+    for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
+      if (!config?.url_pattern || !config?.database?.slug) continue;
+      for (const [localeKey, pattern] of Object.entries(config.url_pattern)) {
+        const staticPrefix = pattern.replace(/\/:[^/]+.*$/, "");
+        if (staticPrefix && cleanUrl === staticPrefix) {
+          return { contentType, locale: localeKey === "default" ? "en" : localeKey };
         }
       }
     }

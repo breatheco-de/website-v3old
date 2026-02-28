@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-types";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 const CACHE_DIR = path.join(process.cwd(), ".cache");
@@ -115,6 +116,51 @@ async function fetchFromApi(
 
   if (Array.isArray(data)) return data;
   throw new Error("API response is not an array and no results_path configured");
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 200);
+}
+
+function applyContentTypeMapping(
+  items: Record<string, unknown>[],
+  mapping: Record<string, string>,
+): Record<string, unknown>[] {
+  return items.map((src, idx) => {
+    const mapped: Record<string, unknown> = { ...src };
+
+    for (const [targetKey, sourcePath] of Object.entries(mapping)) {
+      const value = getValueByPath(src, sourcePath);
+      if (value !== undefined) {
+        mapped[targetKey] = value;
+      }
+    }
+
+    if (!mapped.slug && mapped.title && typeof mapped.title === "string") {
+      mapped.slug = slugify(mapped.title);
+    }
+
+    if (mapped.category !== undefined && typeof mapped.category === "string") {
+      mapped.category = { slug: mapped.category };
+    } else if (mapped.category === undefined || mapped.category === null) {
+      if (mapping.category) {
+        mapped.category = { slug: "uncategorized" };
+      }
+    }
+
+    if (mapped.lang !== undefined) {
+      if (mapped.lang === "us") mapped.lang = "en";
+    }
+
+    if (!mapped.id) mapped.id = idx;
+
+    return mapped;
+  });
 }
 
 export class DatabaseManager {
@@ -378,6 +424,36 @@ export class DatabaseManager {
       return Object.keys(config.field_mapping).length;
     }
     return 0;
+  }
+
+  async fetchMappedItems(
+    contentType: string,
+    forceRefresh = false,
+  ): Promise<Record<string, unknown>[]> {
+    const ctConfig = getContentTypeConfig(contentType);
+    if (!ctConfig?.database?.slug) {
+      console.warn(`[DatabaseManager] No database configured for content type "${contentType}"`);
+      return [];
+    }
+
+    const dbName = ctConfig.database.slug;
+    if (!this.exists(dbName)) {
+      console.warn(`[DatabaseManager] Database "${dbName}" not found for content type "${contentType}"`);
+      return [];
+    }
+
+    try {
+      const result = await this.fetchItems(dbName, forceRefresh);
+      const rawItems = result.items;
+      const ctMapping = getFieldMapping(contentType);
+      if (!ctMapping || Object.keys(ctMapping).length === 0) {
+        return rawItems;
+      }
+      return applyContentTypeMapping(rawItems, ctMapping);
+    } catch (err) {
+      console.error(`[DatabaseManager] Failed to fetch mapped items for "${contentType}":`, err);
+      return [];
+    }
   }
 
   getCacheInfo(name: string): { fetched_at: string; item_count: number } | null {

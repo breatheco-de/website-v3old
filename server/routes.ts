@@ -95,27 +95,15 @@ import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
 import { z } from "zod";
 import {
   generateSsrSchemaHtml,
+  generateDatabaseSsrHtml,
+  generateListingSsrHtml,
   clearSsrSchemaCache,
   loadRawYaml,
   resolveFaqItems,
   buildFaqPageSchema,
   type FaqSection,
 } from "./ssr-schema";
-import {
-  getBlogPosts,
-  getBlogPostsByLocale,
-  findBlogPostBySlug,
-  clearBlogCache,
-  getBlogCacheStatus,
-  getBlogConfig,
-  clearConfigCache,
-  parseBlogRoute,
-  generateBlogSsrHtml,
-  generateBlogListingSsrHtml,
-  fetchMarkdownContent,
-  clearMarkdownCache,
-  clearMarkdownCacheByUrl,
-} from "./blog";
+import { fetchMarkdownContent, clearMarkdownCache, clearMarkdownCacheByUrl } from "./markdown";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -1420,9 +1408,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         parseInt(req.query.limit as string, 10) || 12,
         100,
       );
-      const posts = await getBlogPosts();
+      const posts = await databaseManager.fetchMappedItems("blog");
+      const localeKey = getLocaleKey("blog") || "lang";
       let filtered = locale
-        ? getBlogPostsByLocale(posts, normalizeLocale(locale))
+        ? posts.filter(p => (p as any)[localeKey] === normalizeLocale(locale))
         : posts;
 
       if (category) {
@@ -1434,7 +1423,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const categories = Array.from(
         new Set(
           (locale
-            ? getBlogPostsByLocale(posts, normalizeLocale(locale))
+            ? posts.filter(p => (p as any)[localeKey] === normalizeLocale(locale))
             : posts
           )
             .map((p: any) => p.category?.slug || "")
@@ -1480,12 +1469,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { slug } = req.params;
       const locale = req.query.locale as string | undefined;
-      const posts = await getBlogPosts();
-      const post = findBlogPostBySlug(
-        posts,
-        slug,
-        locale ? normalizeLocale(locale) : undefined,
-      );
+      const posts = await databaseManager.fetchMappedItems("blog");
+      const localeKey = getLocaleKey("blog") || "lang";
+      const normalizedLocale = locale ? normalizeLocale(locale) : undefined;
+      const post = normalizedLocale
+        ? posts.find(p => p.slug === slug && (p as any)[localeKey] === normalizedLocale)
+          || posts.find(p => p.slug === slug)
+        : posts.find(p => p.slug === slug);
 
       if (!post) {
         res.status(404).json({ error: "Blog post not found" });
@@ -1493,8 +1483,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       let content = (post as any).content || "";
-      if (!content && post.readme_url) {
-        content = await fetchMarkdownContent(post.readme_url);
+      if (!content && (post as any).readme_url) {
+        content = await fetchMarkdownContent((post as any).readme_url);
       }
 
       res.json({ ...post, content });
@@ -1505,16 +1495,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/blog/cache-status", (_req, res) => {
-    res.json(getBlogCacheStatus());
+    const dbName = getDatabaseName("blog");
+    if (!dbName) {
+      res.json({ exists: false, age_hours: null, post_count: null });
+      return;
+    }
+    const info = databaseManager.getCacheInfo(dbName);
+    res.json({
+      exists: !!info,
+      age_hours: info ? Math.round(((Date.now() - new Date(info.fetched_at).getTime()) / (60 * 60 * 1000)) * 10) / 10 : null,
+      post_count: info?.item_count ?? null,
+    });
   });
 
   app.delete("/api/blog/cache/:slug", async (req, res) => {
     try {
       const { slug } = req.params;
-      const posts = await getBlogPosts();
+      const posts = await databaseManager.fetchMappedItems("blog");
       const post = posts.find((p) => p.slug === slug);
-      if (post?.readme_url) {
-        clearMarkdownCacheByUrl(post.readme_url);
+      if ((post as any)?.readme_url) {
+        clearMarkdownCacheByUrl((post as any).readme_url);
       }
       clearMarkdownCache(slug);
       res.json({ success: true, message: `Cache cleared for "${slug}"` });
@@ -1524,16 +1524,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/debug/clear-blog-cache", (_req, res) => {
-    const result = clearBlogCache();
-    clearConfigCache();
-    res.json(result);
+  app.post("/api/debug/clear-blog-cache", async (_req, res) => {
+    const dbName = getDatabaseName("blog");
+    if (dbName && databaseManager.exists(dbName)) {
+      await databaseManager.fetchItems(dbName, true).catch(() => {});
+    }
+    clearMarkdownCache();
+    res.json({ success: true, message: "Blog cache cleared (database will re-fetch on next request)" });
   });
 
   app.get("/api/blog/config", (_req, res) => {
     try {
-      const config = getBlogConfig();
-      res.json(config);
+      const config = getContentTypeConfig("blog");
+      res.json(config || {});
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
@@ -8036,33 +8039,33 @@ sections: []
 
     let schemaHtml = "";
 
-    const blogRoute = parseBlogRoute(url);
-    if (blogRoute) {
+    const cleanUrl = url.split("?")[0].split("#")[0];
+    const resolved = contentIndex.resolveUrl(cleanUrl);
+    const isDatabaseRoute = resolved && resolved.fromDatabase;
+    const listingResolved = !isDatabaseRoute ? contentIndex.resolveListingUrl(cleanUrl) : null;
+    const isListingRoute = !!listingResolved;
+
+    if (isDatabaseRoute && resolved) {
       try {
-        const posts = await getBlogPosts();
-        const post = findBlogPostBySlug(
-          posts,
-          blogRoute.slug,
-          blogRoute.locale,
-        );
+        const posts = await databaseManager.fetchMappedItems(resolved.contentType);
+        const localeKey = getLocaleKey(resolved.contentType) || "lang";
+        const locale = resolved.patternLocale && resolved.patternLocale !== "default" ? resolved.patternLocale : "en";
+        const post = posts.find(p =>
+          p.slug === resolved.slug && (p as any)[localeKey] === locale
+        ) || posts.find(p => p.slug === resolved.slug);
         if (post) {
-          schemaHtml = generateBlogSsrHtml(post, blogRoute.locale);
+          schemaHtml = generateDatabaseSsrHtml(resolved.contentType, post, locale);
         }
       } catch (err) {
-        console.error("[SSR-Blog] Error generating blog schema for", url, err);
+        console.error("[SSR-DB] Error generating schema for", url, err);
       }
+    } else if (isListingRoute && listingResolved) {
+      schemaHtml = generateListingSsrHtml(listingResolved.contentType, listingResolved.locale);
     } else {
-      const cleanUrl = url.split("?")[0].split("#")[0];
-      const blogListingMatch = cleanUrl.match(/^\/(en|es)\/blog\/?$/);
-      if (blogListingMatch) {
-        schemaHtml = generateBlogListingSsrHtml(blogListingMatch[1]);
-      } else {
-        schemaHtml = generateSsrSchemaHtml(url);
-      }
+      schemaHtml = generateSsrSchemaHtml(url);
     }
 
-    const isBlogRoute =
-      blogRoute !== null || /^\/(en|es)\/blog\/?/.test(url.split("?")[0]);
+    const isBlogRoute = isDatabaseRoute || isListingRoute;
     if (!schemaHtml && !isBlogRoute) {
       return next();
     }
