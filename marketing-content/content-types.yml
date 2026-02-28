@@ -3,24 +3,20 @@ program:
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug
-
 location:
   folder: locations
   url_pattern:
     en: /en/location/:slug
     es: /es/ubicacion/:slug
-
 landing:
   folder: landings
   url_pattern:
     default: /landing/:slug
-
 page:
   folder: pages
   url_pattern:
     en: /en/:slug
     es: /es/:slug
-
 blog:
   folder: blog
   database:
@@ -30,20 +26,17 @@ blog:
       title: title
       slug: slug
       description: description
-      image: preview
-      author_name: author.first_name
-      author_last_name: author.last_name
-      author_avatar: author.profile.avatar_url
+      image: preview_image
       published_at: published_at
-      duration: duration
-      category: cluster.slug
-      tags: technologies
-      content: readme.decoded
-      content_url: readme_url
+      updated_at: updated_at
       status: status
-      lang: lang
+      category: cluster_slug
+      tags: tags
+      lang: language
+      content: content
     indexes:
       - status
+      - category
   url_pattern:
     en: /en/blog/:category/:slug
     es: /es/blog/:category/:slug

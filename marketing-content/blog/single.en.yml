@@ -6,12 +6,11 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    badge: Bootcamp that launch careers
+    badge: {{ single.category | Blog }}
     title: {{ single.title | Blog title }}
     subtitle: {{ single.description | blog description }}
     image:
-      src: "{{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png }}"
-      alt: "{{ single.title | Blog post image }}"
+      src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp }}
     image_full_width: false
   - type: article
     show_toc: true

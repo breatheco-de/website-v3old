@@ -1343,17 +1343,14 @@ export default function ContentTypeManagePage() {
                   )}
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center gap-3 flex-wrap">
-                    {sortedEntries.slice(0, 4).map(([val, count], i) => (
-                      <div key={val} className="flex items-center gap-3" data-testid={`text-kpi-${idx}-${val}`}>
-                        {i > 0 && <div className="h-6 w-px bg-border" />}
-                        <div>
-                          <span className="text-2xl font-bold">{allLoading ? "..." : count}</span>
-                          <span className="text-xs text-muted-foreground ml-1">
-                            {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
-                          </span>
-                        </div>
-                      </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {sortedEntries.map(([val, count]) => (
+                      <Badge key={val} variant="secondary" className="text-xs" data-testid={`text-kpi-${idx}-${val}`}>
+                        {allLoading ? "..." : count}
+                        <span className="ml-1 text-muted-foreground font-normal">
+                          {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
+                        </span>
+                      </Badge>
                     ))}
                   </div>
                 </CardContent>
