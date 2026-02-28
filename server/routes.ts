@@ -2165,6 +2165,25 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
+  app.get("/api/databases/:name/raw-sample", (req, res) => {
+    try {
+      const rawItems = databaseManager.getRawItems(req.params.name);
+      if (!rawItems || rawItems.length === 0) {
+        res.json({ items: [], count: 0 });
+        return;
+      }
+      const limit = Math.min(Number(req.query.limit) || 3, 10);
+      res.json({ items: rawItems.slice(0, limit), count: rawItems.length });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
   app.post("/api/databases/:name/analyze-fields", async (req, res) => {
     try {
       const dbName = req.params.name;

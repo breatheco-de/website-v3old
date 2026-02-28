@@ -50,6 +50,7 @@ import {
   IconTrashX,
   IconPencil,
   IconArrowsExchange,
+  IconEye,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -1061,6 +1062,24 @@ function FieldMappingEditor({
   const [aiAnalyzing, setAiAnalyzing] = useState(false);
   const [aiNotes, setAiNotes] = useState<string | null>(null);
   const [newFieldKey, setNewFieldKey] = useState("");
+  const [sampleOpen, setSampleOpen] = useState(false);
+  const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
+  const [sampleLoading, setSampleLoading] = useState(false);
+
+  const handleViewSample = async () => {
+    setSampleOpen(true);
+    if (sampleData) return;
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
 
   const [fieldMappingEntries, setFieldMappingEntries] = useState<Record<string, string | null>>(() => {
     const fm = config.field_mapping;
@@ -1155,20 +1174,32 @@ function FieldMappingEditor({
             Transform raw source fields into normalized database fields. Applied before caching.
           </p>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleAnalyzeFields}
-          disabled={aiAnalyzing || rawFields.length === 0}
-          data-testid="button-ai-analyze-fields"
-        >
-          {aiAnalyzing ? (
-            <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-          ) : (
-            <IconWand className="h-3.5 w-3.5 mr-1" />
-          )}
-          {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
-        </Button>
+        <div className="flex items-center gap-1.5">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleViewSample}
+            disabled={rawFields.length === 0}
+            data-testid="button-view-sample-data"
+          >
+            <IconEye className="h-3.5 w-3.5 mr-1" />
+            Sample Data
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAnalyzeFields}
+            disabled={aiAnalyzing || rawFields.length === 0}
+            data-testid="button-ai-analyze-fields"
+          >
+            {aiAnalyzing ? (
+              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            ) : (
+              <IconWand className="h-3.5 w-3.5 mr-1" />
+            )}
+            {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
+          </Button>
+        </div>
       </div>
 
       {aiNotes && (
@@ -1299,6 +1330,41 @@ function FieldMappingEditor({
           Save Mappings
         </Button>
       </div>
+
+      <Dialog open={sampleOpen} onOpenChange={setSampleOpen}>
+        <DialogContent className="max-w-3xl max-h-[80vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Raw API Sample Data</DialogTitle>
+            <DialogDescription>
+              {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex-1 overflow-auto">
+            {sampleLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : sampleData && sampleData.items.length > 0 ? (
+              <div className="space-y-3">
+                {sampleData.items.map((item, idx) => (
+                  <div key={idx} className="border rounded-md">
+                    <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
+                      Item {idx + 1}
+                    </div>
+                    <pre className="text-xs font-mono p-3 overflow-auto whitespace-pre-wrap break-all" data-testid={`text-sample-item-${idx}`}>
+                      {JSON.stringify(item, null, 2)}
+                    </pre>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground py-4 text-center" data-testid="text-no-sample-data">
+                No raw data available. Fetch data first.
+              </p>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
