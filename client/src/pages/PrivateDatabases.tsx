@@ -1370,6 +1370,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [activePanel, setActivePanel] = useState<"settings" | "mappings" | null>(null);
   const [hasFetched, setHasFetched] = useState(false);
+  const [dataView, setDataView] = useState<"mapped" | "raw">("mapped");
 
   const [editingName, setEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState("");
@@ -1390,21 +1391,33 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     enabled: false,
   });
 
+  const {
+    data: rawItemsData,
+    isLoading: rawItemsLoading,
+    refetch: refetchRawItems,
+  } = useQuery<DatabaseItems>({
+    queryKey: [`/api/databases/${dbName}/raw-items`],
+    enabled: false,
+  });
+
   const config = detail?.config;
   const fieldMapping = config?.field_mapping;
+
+  const activeItems = dataView === "raw" ? rawItemsData : itemsData;
+
   const columns = useMemo(() => {
-    if (fieldMapping && Object.keys(fieldMapping).length > 0) {
+    if (dataView === "mapped" && fieldMapping && Object.keys(fieldMapping).length > 0) {
       return Object.keys(fieldMapping);
     }
-    if (itemsData?.items?.[0]) {
-      return Object.keys(itemsData.items[0]);
+    if (activeItems?.items?.[0]) {
+      return Object.keys(activeItems.items[0]);
     }
     return [];
-  }, [fieldMapping, itemsData?.items]);
+  }, [dataView, fieldMapping, activeItems?.items]);
 
   const filteredItems = useMemo(() => {
-    if (!itemsData?.items) return [];
-    let items = itemsData.items;
+    if (!activeItems?.items) return [];
+    let items = activeItems.items;
 
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -1439,11 +1452,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const handleFetchData = async () => {
     setIsFetching(true);
     try {
-      const result = await refetchItems();
-      if (result.error) {
+      const [mappedResult] = await Promise.all([refetchItems(), refetchRawItems()]);
+      if (mappedResult.error) {
         toast({
           title: "Fetch failed",
-          description: result.error instanceof Error ? result.error.message : String(result.error),
+          description: mappedResult.error instanceof Error ? mappedResult.error.message : String(mappedResult.error),
           variant: "destructive",
         });
       } else {
@@ -1464,7 +1477,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     setIsRefreshing(true);
     try {
       await fetch(`/api/databases/${dbName}/refresh`, { method: "POST" });
-      await refetchItems();
+      await Promise.all([refetchItems(), refetchRawItems()]);
       setHasFetched(true);
     } catch (err) {
       toast({
@@ -1782,14 +1795,38 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           <Card>
             <CardHeader className="py-3 px-4">
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <CardTitle className="text-sm">
-                  Data{" "}
-                  {itemsData && filteredItems.length !== (itemsData?.items?.length ?? 0) && (
-                    <span className="text-muted-foreground font-normal">
-                      ({filteredItems.length} of {itemsData?.items?.length ?? 0})
-                    </span>
+                <div className="flex items-center gap-3">
+                  <CardTitle className="text-sm">
+                    Data{" "}
+                    {activeItems && filteredItems.length !== (activeItems?.items?.length ?? 0) && (
+                      <span className="text-muted-foreground font-normal">
+                        ({filteredItems.length} of {activeItems?.items?.length ?? 0})
+                      </span>
+                    )}
+                  </CardTitle>
+                  {(hasFetched || itemsData) && (
+                    <div className="flex items-center rounded-md border overflow-visible">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={`rounded-r-none border-r toggle-elevate ${dataView === "mapped" ? "toggle-elevated bg-muted" : ""}`}
+                        onClick={() => { setDataView("mapped"); setSortKey(null); setSearch(""); }}
+                        data-testid="button-view-mapped"
+                      >
+                        Mapped
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={`rounded-l-none toggle-elevate ${dataView === "raw" ? "toggle-elevated bg-muted" : ""}`}
+                        onClick={() => { setDataView("raw"); setSortKey(null); setSearch(""); }}
+                        data-testid="button-view-raw"
+                      >
+                        Raw
+                      </Button>
+                    </div>
                   )}
-                </CardTitle>
+                </div>
                 <div className="flex items-center gap-2">
                   {(hasFetched || itemsData) && (
                     <div className="relative">
@@ -1807,10 +1844,10 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     variant="outline"
                     size="sm"
                     onClick={handleFetchData}
-                    disabled={isFetching || itemsLoading}
+                    disabled={isFetching || itemsLoading || rawItemsLoading}
                     data-testid="button-fetch-data"
                   >
-                    {isFetching || itemsLoading ? (
+                    {isFetching || itemsLoading || rawItemsLoading ? (
                       <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
                     ) : (
                       <IconDownload className="h-3.5 w-3.5 mr-1" />
@@ -1831,11 +1868,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               </div>
             </CardHeader>
             <CardContent className="px-0 pb-0">
-              {isFetching || itemsLoading ? (
+              {isFetching || itemsLoading || rawItemsLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                 </div>
-              ) : !hasFetched && !itemsData ? (
+              ) : !hasFetched && !activeItems ? (
                 <div className="text-center py-12">
                   <IconDownload className="h-8 w-8 mx-auto text-muted-foreground/40 mb-3" />
                   <p className="text-sm text-muted-foreground mb-1">
