@@ -68,10 +68,10 @@ function Router() {
         {/* Blog pages */}
         <Route path="/en/blog" component={BlogListingPage} />
         <Route path="/es/blog" component={BlogListingPage} />
-        <Route path="/en/blog/:rest*">
+        <Route path="/en/blog/*">
           {() => <DatabaseSinglePage contentType="blog" />}
         </Route>
-        <Route path="/es/blog/:rest*">
+        <Route path="/es/blog/*">
           {() => <DatabaseSinglePage contentType="blog" />}
         </Route>
         <Route path="/preview-frame" component={PreviewFrame} />
