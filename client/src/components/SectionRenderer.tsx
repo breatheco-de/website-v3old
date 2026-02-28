@@ -209,7 +209,7 @@ import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
 import ComponentPickerModal from "@/components/editing/ComponentPickerModal";
 import { useToast } from "@/hooks/use-toast";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import {
   Dialog,
@@ -380,13 +380,14 @@ async function sendEditOperation(
   operations: EditOperation[]
 ): Promise<{ success: boolean; error?: string }> {
   const token = getDebugToken();
+  const author = await resolveAuthorName();
   const response = await fetch("/api/content/edit-sections", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Token ${token}` } : {}),
     },
-    body: JSON.stringify({ contentType, slug, locale, operations }),
+    body: JSON.stringify({ contentType, slug, locale, operations, author }),
   });
   return response.json();
 }

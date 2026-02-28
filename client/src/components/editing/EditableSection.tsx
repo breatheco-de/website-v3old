@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useToast } from "@/hooks/use-toast";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
@@ -367,6 +367,7 @@ export function EditableSection({ children, section, index, sectionType, content
     setIsConfirming(true);
     try {
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
@@ -381,7 +382,8 @@ export function EditableSection({ children, section, index, sectionType, content
           variant: variant || 'default',
           version: version || 1,
           sectionIndex: index,
-          sectionData: sectionToSave
+          sectionData: sectionToSave,
+          author,
         })
       });
       if (!res.ok) throw new Error('Failed to swap section');
@@ -438,6 +440,7 @@ export function EditableSection({ children, section, index, sectionType, content
       const sectionToSave = { type: sectionType, ...sectionData } as Section;
       
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
         headers: { 
@@ -452,7 +455,8 @@ export function EditableSection({ children, section, index, sectionType, content
           variant: variant || 'default',
           version: version || 1,
           sectionIndex: index,
-          sectionData: sectionToSave
+          sectionData: sectionToSave,
+          author,
         })
       });
       

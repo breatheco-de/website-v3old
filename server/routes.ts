@@ -4343,10 +4343,12 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
       }
 
-      const { filePath, content } = req.body as {
+      const { filePath, content, author: requestAuthor } = req.body as {
         filePath: string;
         content: string;
+        author?: string;
       };
+      const authorName = requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined;
 
       if (!filePath || typeof content !== "string") {
         res.status(400).json({ error: "filePath and content are required" });
@@ -4373,7 +4375,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       fs.writeFileSync(fullPath, content, "utf-8");
-      markFileAsModified(normalizedPath);
+      markFileAsModified(normalizedPath, authorName);
       clearSitemapCache();
       clearRedirectCache();
       contentIndex.refresh();
@@ -4525,7 +4527,8 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.post("/api/bindings", (req, res) => {
     try {
       if (!requireEditAuth(req, res)) return;
-      const { component, locale, members } = req.body;
+      const { component, locale, members, author: bindAuthor } = req.body;
+      const bindAuthorName = bindAuthor && typeof bindAuthor === "string" ? bindAuthor : undefined;
       if (
         !component ||
         !locale ||
@@ -4541,14 +4544,14 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
       const normalizedLocale = normalizeLocale(locale);
       const resolvedMembers = members.map((m: { contentType: string; slug: string; sectionIndex: number }) => {
-        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale);
+        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale, bindAuthorName);
         return { contentType: m.contentType, slug: m.slug, sectionId };
       });
       const { name, sourceIndex } = req.body;
       const group = bindingManager.createGroup(component, normalizedLocale, resolvedMembers, {
         name,
         sourceIndex,
-      });
+      }, bindAuthorName);
       const enrichedGroup = {
         ...group,
         members: group.members.map(m => ({
@@ -4569,12 +4572,13 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { name } = req.body;
+      const { name, author: renameBindAuthor } = req.body;
+      const renameBindAuthorName = renameBindAuthor && typeof renameBindAuthor === "string" ? renameBindAuthor : undefined;
       if (name === undefined) {
         res.status(400).json({ error: "Missing name field" });
         return;
       }
-      const group = bindingManager.renameGroup(groupId, name);
+      const group = bindingManager.renameGroup(groupId, name, renameBindAuthorName);
       res.json({ group });
     } catch (error) {
       const msg =
@@ -4588,7 +4592,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { contentType, slug, sectionIndex } = req.body;
+      const { contentType, slug, sectionIndex, author: addMemberAuthor } = req.body;
+      const addMemberAuthorName = addMemberAuthor && typeof addMemberAuthor === "string" ? addMemberAuthor : undefined;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -4600,12 +4605,12 @@ Important: Only include mappings where you are confident the field exists. Use d
         res.status(404).json({ error: "Binding group not found" });
         return;
       }
-      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale, addMemberAuthorName);
       const updatedGroup = bindingManager.addMember(groupId, {
         contentType,
         slug,
         sectionId,
-      });
+      }, addMemberAuthorName);
       const enrichedGroup = {
         ...updatedGroup,
         members: updatedGroup.members.map(m => ({
@@ -4626,7 +4631,8 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { contentType, slug, sectionIndex } = req.body;
+      const { contentType, slug, sectionIndex, author: removeMemberAuthor } = req.body;
+      const removeMemberAuthorName = removeMemberAuthor && typeof removeMemberAuthor === "string" ? removeMemberAuthor : undefined;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -4648,6 +4654,7 @@ Important: Only include mappings where you are confident the field exists. Use d
         contentType,
         slug,
         sectionId,
+        removeMemberAuthorName,
       );
       if (result) {
         const enrichedResult = {
@@ -4673,7 +4680,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      bindingManager.deleteGroup(groupId);
+      const { author: deleteGroupAuthor } = req.body || {};
+      const deleteGroupAuthorName = deleteGroupAuthor && typeof deleteGroupAuthor === "string" ? deleteGroupAuthor : undefined;
+      bindingManager.deleteGroup(groupId, deleteGroupAuthorName);
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting binding:", error);
@@ -4984,8 +4993,9 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
       }
 
-      const { contentType, folderSlug, locale, newSlug, createRedirect } =
+      const { contentType, folderSlug, locale, newSlug, createRedirect, author: renameAuthor } =
         req.body;
+      const renameAuthorName = renameAuthor && typeof renameAuthor === "string" ? renameAuthor : undefined;
 
       if (!contentType || !folderSlug || !locale || !newSlug) {
         res
@@ -5093,6 +5103,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       fs.writeFileSync(localeFilePath, updated, "utf-8");
       markFileAsModified(
         `marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`,
+        renameAuthorName,
       );
 
       contentIndex.refresh();
@@ -5310,7 +5321,8 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
       }
 
-      const { type, slugEn, slugEs, title, sourceUrl } = req.body;
+      const { type, slugEn, slugEs, title, sourceUrl, author: createAuthor } = req.body;
+      const createAuthorName = createAuthor && typeof createAuthor === "string" ? createAuthor : undefined;
 
       // Support both old format (slug) and new format (slugEn/slugEs)
       const enSlug = slugEn || req.body.slug;
@@ -5427,6 +5439,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${enSlug}/${file}`,
+                createAuthorName,
               );
             }
 
@@ -5572,17 +5585,17 @@ sections: []
       if (!fs.existsSync(path.join(folderPath, "_common.yml"))) {
         fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
         createdFiles.push("_common.yml");
-        markFileAsModified(`${relFolder}/_common.yml`);
+        markFileAsModified(`${relFolder}/_common.yml`, createAuthorName);
       }
       if (!fs.existsSync(path.join(folderPath, "en.yml"))) {
         fs.writeFileSync(path.join(folderPath, "en.yml"), enYml);
         createdFiles.push("en.yml");
-        markFileAsModified(`${relFolder}/en.yml`);
+        markFileAsModified(`${relFolder}/en.yml`, createAuthorName);
       }
       if (!fs.existsSync(path.join(folderPath, "es.yml"))) {
         fs.writeFileSync(path.join(folderPath, "es.yml"), esYml);
         createdFiles.push("es.yml");
-        markFileAsModified(`${relFolder}/es.yml`);
+        markFileAsModified(`${relFolder}/es.yml`, createAuthorName);
       }
 
       // Clear sitemap cache so the new content appears
@@ -5772,7 +5785,8 @@ sections: []
         }
       }
 
-      const { slug, locale, title, sourceUrl } = req.body;
+      const { slug, locale, title, sourceUrl, author: landingAuthor } = req.body;
+      const landingAuthorName = landingAuthor && typeof landingAuthor === "string" ? landingAuthor : undefined;
 
       if (!slug || !title) {
         res.status(400).json({ error: "Missing required fields: slug, title" });
@@ -5858,6 +5872,7 @@ sections: []
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/landings/${slug}/${file}`,
+                landingAuthorName,
               );
             }
 
@@ -5904,9 +5919,9 @@ sections: []
 
       // Write files
       fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
-      markFileAsModified(`marketing-content/landings/${slug}/_common.yml`);
+      markFileAsModified(`marketing-content/landings/${slug}/_common.yml`, landingAuthorName);
       fs.writeFileSync(path.join(folderPath, "promoted.yml"), promotedYml);
-      markFileAsModified(`marketing-content/landings/${slug}/promoted.yml`);
+      markFileAsModified(`marketing-content/landings/${slug}/promoted.yml`, landingAuthorName);
 
       clearSitemapCache();
       contentIndex.refresh();

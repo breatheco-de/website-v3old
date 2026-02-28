@@ -26,7 +26,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 
 interface SectionBindingDialogProps {
   open: boolean;
@@ -179,9 +179,10 @@ export function SectionBindingDialog({
 
   const createBindingMutation = useMutation({
     mutationFn: async ({ members, name }: { members: Array<{ contentType: string; slug: string; sectionIndex: number }>; name?: string }) => {
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth("/api/bindings", {
         method: "POST",
-        body: JSON.stringify({ component, locale, members, name: name || undefined, sourceIndex: 0 }),
+        body: JSON.stringify({ component, locale, members, name: name || undefined, sourceIndex: 0, author }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -202,9 +203,10 @@ export function SectionBindingDialog({
 
   const addMemberMutation = useMutation({
     mutationFn: async ({ groupId, member }: { groupId: string; member: { contentType: string; slug: string; sectionIndex: number } }) => {
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth(`/api/bindings/${groupId}/members`, {
         method: "POST",
-        body: JSON.stringify(member),
+        body: JSON.stringify({ ...member, author }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -226,9 +228,10 @@ export function SectionBindingDialog({
 
   const removeMemberMutation = useMutation({
     mutationFn: async ({ groupId, member }: { groupId: string; member: { contentType: string; slug: string; sectionIndex: number } }) => {
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth(`/api/bindings/${groupId}/members`, {
         method: "DELETE",
-        body: JSON.stringify(member),
+        body: JSON.stringify({ ...member, author }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -249,9 +252,10 @@ export function SectionBindingDialog({
   const unbindCurrentMutation = useMutation({
     mutationFn: async () => {
       if (!existingGroup) throw new Error("No binding to remove");
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth(`/api/bindings/${existingGroup.id}/members`, {
         method: "DELETE",
-        body: JSON.stringify({ contentType, slug, sectionIndex }),
+        body: JSON.stringify({ contentType, slug, sectionIndex, author }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -274,8 +278,10 @@ export function SectionBindingDialog({
   const dissolveGroupMutation = useMutation({
     mutationFn: async () => {
       if (!existingGroup) throw new Error("No binding group to dissolve");
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth(`/api/bindings/${existingGroup.id}`, {
         method: "DELETE",
+        body: JSON.stringify({ author }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -298,9 +304,10 @@ export function SectionBindingDialog({
 
   const renameGroupMutation = useMutation({
     mutationFn: async ({ groupId, name }: { groupId: string; name: string }) => {
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth(`/api/bindings/${groupId}`, {
         method: "PATCH",
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, author }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -385,9 +392,10 @@ export function SectionBindingDialog({
 
   const joinGroupMutation = useMutation({
     mutationFn: async ({ groupId }: { groupId: string }) => {
+      const author = await resolveAuthorName();
       const res = await fetchWithAuth(`/api/bindings/${groupId}/members`, {
         method: "POST",
-        body: JSON.stringify({ contentType, slug, sectionIndex }),
+        body: JSON.stringify({ contentType, slug, sectionIndex, author }),
       });
       if (!res.ok) {
         const data = await res.json();
