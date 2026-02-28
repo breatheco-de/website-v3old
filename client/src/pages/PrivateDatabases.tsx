@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,6 +48,8 @@ import {
   IconWand,
   IconArrowRight,
   IconTrashX,
+  IconPencil,
+  IconArrowsExchange,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -750,8 +752,6 @@ function DatabaseConfigEditor({
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const [displayName, setDisplayName] = useState(config.name);
-  const [description, setDescription] = useState(config.description || "");
   const [endpoint, setEndpoint] = useState(config.source.api?.endpoint || "");
   const [resultsPath, setResultsPath] = useState(config.source.api?.results_path || "");
   const [tokenEnvVar, setTokenEnvVar] = useState(config.source.api?.auth?.token_env_var || "");
@@ -767,19 +767,6 @@ function DatabaseConfigEditor({
     if (!h || Object.keys(h).length === 0) return [];
     return Object.entries(h).map(([key, value]) => ({ key, value }));
   });
-  const [fieldMappingEntries, setFieldMappingEntries] = useState<Record<string, string | null>>(() => {
-    const fm = config.field_mapping;
-    if (!fm || Object.keys(fm).length === 0) return {};
-    return { ...fm };
-  });
-  const [newFieldKey, setNewFieldKey] = useState("");
-  const [aiAnalyzing, setAiAnalyzing] = useState(false);
-  const [aiNotes, setAiNotes] = useState<string | null>(null);
-
-  const { data: rawFieldsData } = useQuery<{ fields: string[] }>({
-    queryKey: [`/api/databases/${dbName}/raw-fields`],
-  });
-  const rawFields = rawFieldsData?.fields || [];
 
   const [testResult, setTestResult] = useState<{
     success: boolean;
@@ -827,49 +814,15 @@ function DatabaseConfigEditor({
     }
   };
 
-  const handleAnalyzeFields = async () => {
-    setAiAnalyzing(true);
-    setAiNotes(null);
-    try {
-      const res = await fetch(`/api/databases/${dbName}/analyze-fields`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      if (data.error) {
-        toast({ title: "AI analysis failed", description: data.error, variant: "destructive" });
-        return;
-      }
-      if (data.field_mapping) {
-        setFieldMappingEntries(data.field_mapping);
-      }
-      if (data.notes) {
-        setAiNotes(data.notes);
-      }
-      toast({ title: "AI field mapping generated", description: `${Object.keys(data.field_mapping || {}).length} fields mapped` });
-    } catch (err) {
-      toast({ title: "AI analysis failed", description: err instanceof Error ? err.message : String(err), variant: "destructive" });
-    } finally {
-      setAiAnalyzing(false);
-    }
-  };
-
   const handleSave = async () => {
     setSaving(true);
     try {
-      const fieldMapping: Record<string, string> = {};
-      for (const [key, value] of Object.entries(fieldMappingEntries)) {
-        if (key.trim() && value != null) {
-          fieldMapping[key] = value;
-        }
-      }
-
       const updatedConfig = {
-        name: displayName,
-        description: description || undefined,
+        name: config.name,
+        description: config.description || undefined,
         source: buildSourceConfig(),
         cache: { ttl_hours: ttlHours !== "" && Number.isFinite(Number(ttlHours)) ? Number(ttlHours) : 24 },
-        field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
+        field_mapping: config.field_mapping || undefined,
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -925,12 +878,12 @@ function DatabaseConfigEditor({
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="edit-name">Display Name</Label>
+          <Label htmlFor="edit-endpoint">API Endpoint</Label>
           <Input
-            id="edit-name"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            data-testid="input-edit-display-name"
+            id="edit-endpoint"
+            value={endpoint}
+            onChange={(e) => setEndpoint(e.target.value)}
+            data-testid="input-edit-endpoint"
           />
         </div>
         <div className="space-y-2">
@@ -946,27 +899,7 @@ function DatabaseConfigEditor({
           />
         </div>
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="edit-desc">Description</Label>
-        <Textarea
-          id="edit-desc"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="resize-none text-sm"
-          rows={2}
-          data-testid="input-edit-description"
-        />
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="edit-endpoint">API Endpoint</Label>
-        <Input
-          id="edit-endpoint"
-          value={endpoint}
-          onChange={(e) => setEndpoint(e.target.value)}
-          data-testid="input-edit-endpoint"
-        />
-      </div>
       <div className="space-y-2">
         <Label htmlFor="edit-results-path">Results Path</Label>
         <Input
@@ -1017,144 +950,6 @@ function DatabaseConfigEditor({
         testIdPrefix="edit-header"
       />
 
-      <div className="space-y-3 pt-2 border-t">
-        <div className="flex items-center justify-between gap-2 flex-wrap">
-          <div>
-            <Label className="text-sm font-medium">Field Mapping (Raw API &rarr; Database)</Label>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Transform raw source fields into normalized database fields. Applied before caching.
-            </p>
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleAnalyzeFields}
-            disabled={aiAnalyzing || rawFields.length === 0}
-            data-testid="button-ai-analyze-fields"
-          >
-            {aiAnalyzing ? (
-              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-            ) : (
-              <IconWand className="h-3.5 w-3.5 mr-1" />
-            )}
-            {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
-          </Button>
-        </div>
-
-        {aiNotes && (
-          <p className="text-xs text-muted-foreground bg-muted rounded-md px-3 py-2" data-testid="text-ai-notes">
-            {aiNotes}
-          </p>
-        )}
-
-        {Object.keys(fieldMappingEntries).length > 0 && (
-          <div className="space-y-2">
-            {Object.entries(fieldMappingEntries).map(([normalizedKey, sourcePath]) => {
-              const isCustom = sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
-              const selectValue = isCustom ? "__custom__" : (sourcePath || "__none__");
-              return (
-                <div key={normalizedKey} className="flex items-center gap-2">
-                  <code className="text-xs font-medium w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={normalizedKey}>
-                    {normalizedKey}
-                  </code>
-                  <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                  {isCustom ? (
-                    <>
-                      <Input
-                        value={sourcePath || ""}
-                        onChange={(e) => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: e.target.value }))}
-                        placeholder="e.g. author.details.name"
-                        className="h-8 text-xs font-mono flex-1"
-                        data-testid={`input-custom-path-${normalizedKey}`}
-                      />
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: null }))}
-                        data-testid={`button-clear-custom-${normalizedKey}`}
-                      >
-                        <IconX className="h-3.5 w-3.5" />
-                      </Button>
-                    </>
-                  ) : (
-                    <Select
-                      value={selectValue}
-                      onValueChange={(v) => {
-                        if (v === "__custom__") {
-                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: "" }));
-                        } else {
-                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: v === "__none__" ? null : v }));
-                        }
-                      }}
-                    >
-                      <SelectTrigger className="h-8 text-xs font-mono flex-1" data-testid={`select-field-${normalizedKey}`}>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="__none__">(not mapped)</SelectItem>
-                        {rawFields.map((f) => (
-                          <SelectItem key={f} value={f}>{f}</SelectItem>
-                        ))}
-                        <SelectItem value="__custom__">Custom path...</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => {
-                      setFieldMappingEntries((prev) => {
-                        const next = { ...prev };
-                        delete next[normalizedKey];
-                        return next;
-                      });
-                    }}
-                    data-testid={`button-delete-field-${normalizedKey}`}
-                  >
-                    <IconTrashX className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        <div className="flex items-center gap-2">
-          <Input
-            value={newFieldKey}
-            onChange={(e) => setNewFieldKey(e.target.value)}
-            placeholder="Add field (e.g. author_name)"
-            className="h-8 text-xs font-mono flex-1"
-            data-testid="input-new-field-key"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && newFieldKey.trim()) {
-                setFieldMappingEntries((prev) => ({ ...prev, [newFieldKey.trim()]: null }));
-                setNewFieldKey("");
-              }
-            }}
-          />
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={!newFieldKey.trim()}
-            onClick={() => {
-              setFieldMappingEntries((prev) => ({ ...prev, [newFieldKey.trim()]: null }));
-              setNewFieldKey("");
-            }}
-            data-testid="button-add-field"
-          >
-            <IconPlus className="h-3.5 w-3.5 mr-1" />
-            Add
-          </Button>
-        </div>
-
-        {rawFields.length === 0 && (
-          <p className="text-xs text-muted-foreground">
-            No raw field data available. Fetch data first to populate source field dropdowns.
-          </p>
-        )}
-      </div>
-
       <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t">
         <div className="flex items-center gap-2 flex-wrap">
           <Button
@@ -1200,7 +995,7 @@ function DatabaseConfigEditor({
           <Button
             size="sm"
             onClick={handleSave}
-            disabled={saving || !displayName.trim() || !endpoint.trim()}
+            disabled={saving || !endpoint.trim()}
             data-testid="button-save-config"
           >
             {saving ? (
@@ -1252,6 +1047,262 @@ function DatabaseConfigEditor({
   );
 }
 
+function FieldMappingEditor({
+  dbName,
+  config,
+  onSaved,
+}: {
+  dbName: string;
+  config: DatabaseDetail["config"];
+  onSaved: () => void;
+}) {
+  const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+  const [aiAnalyzing, setAiAnalyzing] = useState(false);
+  const [aiNotes, setAiNotes] = useState<string | null>(null);
+  const [newFieldKey, setNewFieldKey] = useState("");
+
+  const [fieldMappingEntries, setFieldMappingEntries] = useState<Record<string, string | null>>(() => {
+    const fm = config.field_mapping;
+    if (!fm || Object.keys(fm).length === 0) return {};
+    return { ...fm };
+  });
+
+  useEffect(() => {
+    const fm = config.field_mapping;
+    setFieldMappingEntries(!fm || Object.keys(fm).length === 0 ? {} : { ...fm });
+  }, [config.field_mapping]);
+
+  const { data: rawFieldsData } = useQuery<{ fields: string[] }>({
+    queryKey: [`/api/databases/${dbName}/raw-fields`],
+  });
+  const rawFields = rawFieldsData?.fields || [];
+
+  const handleAnalyzeFields = async () => {
+    setAiAnalyzing(true);
+    setAiNotes(null);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/analyze-fields`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (data.error) {
+        toast({ title: "AI analysis failed", description: data.error, variant: "destructive" });
+        return;
+      }
+      if (data.field_mapping) {
+        setFieldMappingEntries(data.field_mapping);
+      }
+      if (data.notes) {
+        setAiNotes(data.notes);
+      }
+      toast({ title: "AI field mapping generated", description: `${Object.keys(data.field_mapping || {}).length} fields mapped` });
+    } catch (err) {
+      toast({ title: "AI analysis failed", description: err instanceof Error ? err.message : String(err), variant: "destructive" });
+    } finally {
+      setAiAnalyzing(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const fieldMapping: Record<string, string> = {};
+      for (const [key, value] of Object.entries(fieldMappingEntries)) {
+        if (key.trim() && value != null) {
+          fieldMapping[key] = value;
+        }
+      }
+
+      const updatedConfig = {
+        ...config,
+        field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
+      };
+
+      const res = await fetch(`/api/databases/${dbName}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedConfig),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save mappings");
+      }
+
+      queryClient.invalidateQueries({ queryKey: ["/api/databases", dbName] });
+      queryClient.invalidateQueries({ queryKey: ["/api/databases"] });
+      toast({ title: "Field mapping saved" });
+      onSaved();
+    } catch (err) {
+      toast({
+        title: "Error saving",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div>
+          <p className="text-sm font-medium">Field Mapping (Raw API &rarr; Database)</p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Transform raw source fields into normalized database fields. Applied before caching.
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleAnalyzeFields}
+          disabled={aiAnalyzing || rawFields.length === 0}
+          data-testid="button-ai-analyze-fields"
+        >
+          {aiAnalyzing ? (
+            <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+          ) : (
+            <IconWand className="h-3.5 w-3.5 mr-1" />
+          )}
+          {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
+        </Button>
+      </div>
+
+      {aiNotes && (
+        <p className="text-xs text-muted-foreground bg-muted rounded-md px-3 py-2" data-testid="text-ai-notes">
+          {aiNotes}
+        </p>
+      )}
+
+      {Object.keys(fieldMappingEntries).length > 0 && (
+        <div className="space-y-2">
+          {Object.entries(fieldMappingEntries).map(([normalizedKey, sourcePath]) => {
+            const isCustom = sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
+            const selectValue = isCustom ? "__custom__" : (sourcePath || "__none__");
+            return (
+              <div key={normalizedKey} className="flex items-center gap-2">
+                <code className="text-xs font-medium w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={normalizedKey}>
+                  {normalizedKey}
+                </code>
+                <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                {isCustom ? (
+                  <>
+                    <Input
+                      value={sourcePath || ""}
+                      onChange={(e) => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: e.target.value }))}
+                      placeholder="e.g. author.details.name"
+                      className="h-8 text-xs font-mono flex-1"
+                      data-testid={`input-custom-path-${normalizedKey}`}
+                    />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: null }))}
+                      data-testid={`button-clear-custom-${normalizedKey}`}
+                    >
+                      <IconX className="h-3.5 w-3.5" />
+                    </Button>
+                  </>
+                ) : (
+                  <Select
+                    value={selectValue}
+                    onValueChange={(v) => {
+                      if (v === "__custom__") {
+                        setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: "" }));
+                      } else {
+                        setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: v === "__none__" ? null : v }));
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="h-8 text-xs font-mono flex-1" data-testid={`select-field-${normalizedKey}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="__none__">(not mapped)</SelectItem>
+                      {rawFields.map((f) => (
+                        <SelectItem key={f} value={f}>{f}</SelectItem>
+                      ))}
+                      <SelectItem value="__custom__">Custom path...</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    setFieldMappingEntries((prev) => {
+                      const next = { ...prev };
+                      delete next[normalizedKey];
+                      return next;
+                    });
+                  }}
+                  data-testid={`button-delete-field-${normalizedKey}`}
+                >
+                  <IconTrashX className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="flex items-center gap-2">
+        <Input
+          value={newFieldKey}
+          onChange={(e) => setNewFieldKey(e.target.value)}
+          placeholder="Add field (e.g. author_name)"
+          className="h-8 text-xs font-mono flex-1"
+          data-testid="input-new-field-key"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && newFieldKey.trim()) {
+              setFieldMappingEntries((prev) => ({ ...prev, [newFieldKey.trim()]: null }));
+              setNewFieldKey("");
+            }
+          }}
+        />
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={!newFieldKey.trim()}
+          onClick={() => {
+            setFieldMappingEntries((prev) => ({ ...prev, [newFieldKey.trim()]: null }));
+            setNewFieldKey("");
+          }}
+          data-testid="button-add-field"
+        >
+          <IconPlus className="h-3.5 w-3.5 mr-1" />
+          Add
+        </Button>
+      </div>
+
+      {rawFields.length === 0 && (
+        <p className="text-xs text-muted-foreground">
+          No raw field data available. Fetch data first to populate source field dropdowns.
+        </p>
+      )}
+
+      <div className="flex items-center justify-end gap-2 pt-2 border-t">
+        <Button
+          size="sm"
+          onClick={handleSave}
+          disabled={saving}
+          data-testid="button-save-mappings"
+        >
+          {saving ? (
+            <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+          ) : (
+            <IconDeviceFloppy className="h-3.5 w-3.5 mr-1" />
+          )}
+          Save Mappings
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function DatabaseDetailView({ dbName }: { dbName: string }) {
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -1259,8 +1310,14 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [isFetching, setIsFetching] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
+  const [activePanel, setActivePanel] = useState<"settings" | "mappings" | null>(null);
   const [hasFetched, setHasFetched] = useState(false);
+
+  const [editingName, setEditingName] = useState(false);
+  const [editNameValue, setEditNameValue] = useState("");
+  const [editingDesc, setEditingDesc] = useState(false);
+  const [editDescValue, setEditDescValue] = useState("");
+  const [inlineSaving, setInlineSaving] = useState(false);
 
   const { data: detail, refetch: refetchDetail } = useQuery<DatabaseDetail>({
     queryKey: ["/api/databases", dbName],
@@ -1362,6 +1419,35 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
   };
 
+  const saveInlineField = async (field: "name" | "description", value: string) => {
+    setInlineSaving(true);
+    try {
+      const updatedConfig = { ...config, [field]: value || undefined };
+      const res = await fetch(`/api/databases/${dbName}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedConfig),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || `Failed to save ${field}`);
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/databases", dbName] });
+      queryClient.invalidateQueries({ queryKey: ["/api/databases"] });
+      await refetchDetail();
+      if (field === "name") setEditingName(false);
+      else setEditingDesc(false);
+    } catch (err) {
+      toast({
+        title: `Error saving ${field}`,
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setInlineSaving(false);
+    }
+  };
+
   const formatCellValue = (value: unknown): string => {
     if (value === null || value === undefined) return "\u2014";
     if (typeof value === "boolean") return value ? "Yes" : "No";
@@ -1379,32 +1465,141 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           </Button>
         </Link>
         <div className="flex-1 min-w-0">
-          <h2 className="text-lg font-semibold truncate" data-testid="text-database-name">
-            {config?.name || dbName}
-          </h2>
-          {config?.description && (
-            <p className="text-xs text-muted-foreground truncate">{config.description}</p>
-          )}
+          <div className="flex items-center gap-2 group/name">
+            {editingName ? (
+              <div className="flex items-center gap-1.5">
+                <Input
+                  value={editNameValue}
+                  onChange={(e) => setEditNameValue(e.target.value)}
+                  className="h-8 text-sm font-semibold w-64"
+                  autoFocus
+                  disabled={inlineSaving}
+                  data-testid="input-inline-name"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && editNameValue.trim()) saveInlineField("name", editNameValue.trim());
+                    if (e.key === "Escape") setEditingName(false);
+                  }}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={inlineSaving || !editNameValue.trim()}
+                  onClick={() => saveInlineField("name", editNameValue.trim())}
+                  data-testid="button-save-inline-name"
+                >
+                  {inlineSaving ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" /> : <IconCheck className="h-3.5 w-3.5" />}
+                </Button>
+                <Button variant="ghost" size="icon" onClick={() => setEditingName(false)} data-testid="button-cancel-inline-name">
+                  <IconX className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            ) : (
+              <>
+                <h2 className="text-lg font-semibold truncate" data-testid="text-database-name">
+                  {config?.name || dbName}
+                </h2>
+                <code className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded flex-shrink-0" data-testid="text-database-slug">
+                  {dbName}
+                </code>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="invisible group-hover/name:visible"
+                  onClick={() => { setEditNameValue(config?.name || dbName); setEditingName(true); }}
+                  data-testid="button-edit-name"
+                >
+                  <IconPencil className="h-3.5 w-3.5" />
+                </Button>
+              </>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 group/desc mt-0.5">
+            {editingDesc ? (
+              <div className="flex items-center gap-1.5 flex-1">
+                <Input
+                  value={editDescValue}
+                  onChange={(e) => setEditDescValue(e.target.value)}
+                  className="h-7 text-xs flex-1"
+                  placeholder="Add a description..."
+                  autoFocus
+                  disabled={inlineSaving}
+                  data-testid="input-inline-description"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") saveInlineField("description", editDescValue.trim());
+                    if (e.key === "Escape") setEditingDesc(false);
+                  }}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={inlineSaving}
+                  onClick={() => saveInlineField("description", editDescValue.trim())}
+                  data-testid="button-save-inline-desc"
+                >
+                  {inlineSaving ? <IconLoader2 className="h-3 w-3 animate-spin" /> : <IconCheck className="h-3 w-3" />}
+                </Button>
+                <Button variant="ghost" size="icon" onClick={() => setEditingDesc(false)} data-testid="button-cancel-inline-desc">
+                  <IconX className="h-3 w-3" />
+                </Button>
+              </div>
+            ) : config?.description ? (
+              <>
+                <p className="text-xs text-muted-foreground truncate" data-testid="text-database-description">{config.description}</p>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="invisible group-hover/desc:visible"
+                  onClick={() => { setEditDescValue(config.description || ""); setEditingDesc(true); }}
+                  data-testid="button-edit-description"
+                >
+                  <IconPencil className="h-3 w-3" />
+                </Button>
+              </>
+            ) : (
+              <button
+                className="text-xs text-muted-foreground/60 hover:text-muted-foreground invisible group-hover/desc:visible cursor-pointer"
+                onClick={() => { setEditDescValue(""); setEditingDesc(true); }}
+                data-testid="button-add-description"
+              >
+                + Add description
+              </button>
+            )}
+          </div>
         </div>
-        <Button
-          variant={showSettings ? "default" : "outline"}
-          size="sm"
-          onClick={() => setShowSettings(!showSettings)}
-          data-testid="button-toggle-settings"
-        >
-          {showSettings ? (
-            <IconX className="h-3.5 w-3.5 mr-1" />
-          ) : (
-            <IconSettings className="h-3.5 w-3.5 mr-1" />
-          )}
-          {showSettings ? "Close Settings" : "Settings"}
-        </Button>
+        <div className="flex items-center gap-1.5">
+          <Button
+            variant={activePanel === "settings" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActivePanel(activePanel === "settings" ? null : "settings")}
+            data-testid="button-toggle-settings"
+          >
+            {activePanel === "settings" ? (
+              <IconX className="h-3.5 w-3.5 mr-1" />
+            ) : (
+              <IconSettings className="h-3.5 w-3.5 mr-1" />
+            )}
+            Settings
+          </Button>
+          <Button
+            variant={activePanel === "mappings" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActivePanel(activePanel === "mappings" ? null : "mappings")}
+            data-testid="button-toggle-mappings"
+          >
+            {activePanel === "mappings" ? (
+              <IconX className="h-3.5 w-3.5 mr-1" />
+            ) : (
+              <IconArrowsExchange className="h-3.5 w-3.5 mr-1" />
+            )}
+            Mappings
+          </Button>
+        </div>
       </div>
 
-      {showSettings && config ? (
+      {activePanel === "settings" && config ? (
         <Card>
           <CardHeader className="py-3 px-4">
-            <CardTitle className="text-sm">Database Configuration</CardTitle>
+            <CardTitle className="text-sm">Source &amp; Cache Configuration</CardTitle>
           </CardHeader>
           <CardContent className="px-4 pb-4">
             <DatabaseConfigEditor
@@ -1412,7 +1607,23 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               config={config}
               onSaved={() => {
                 refetchDetail();
-                setShowSettings(false);
+                setActivePanel(null);
+              }}
+            />
+          </CardContent>
+        </Card>
+      ) : activePanel === "mappings" && config ? (
+        <Card>
+          <CardHeader className="py-3 px-4">
+            <CardTitle className="text-sm">Field Mapping (Raw API &rarr; Database)</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <FieldMappingEditor
+              dbName={dbName}
+              config={config}
+              onSaved={() => {
+                refetchDetail();
+                setActivePanel(null);
               }}
             />
           </CardContent>
@@ -1496,11 +1707,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowSettings(true)}
+                    onClick={() => setActivePanel("mappings")}
                     data-testid="button-open-settings-mapping"
                   >
-                    <IconSettings className="h-3.5 w-3.5 mr-1" />
-                    Open Settings
+                    <IconArrowsExchange className="h-3.5 w-3.5 mr-1" />
+                    Edit Mappings
                   </Button>
                 </div>
               )}

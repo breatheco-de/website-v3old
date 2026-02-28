@@ -2208,16 +2208,15 @@ Values should be dot-notation paths into the raw data (e.g., "author.name" for {
 Do NOT prefix values with "raw." or "db." — just use the plain field path.
 Keep normalized keys lowercase with underscores. Aim for 10-25 of the most useful fields.`;
 
-      const openai = (await import("openai")).default;
-      const client = new openai();
-      const completion = await client.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.2,
-        max_tokens: 2000,
-      });
+      const { getLLMService } = await import("./ai/LLMService");
+      const llm = getLLMService();
 
-      const result = completion.choices[0]?.message?.content || "";
+      const systemPrompt = "You are a data analyst that suggests field mappings for normalizing raw API data. Respond with valid JSON only, no markdown.";
+      const result = await llm.complete(prompt, {
+        systemPrompt,
+        temperature: 0.2,
+        maxTokens: 2000,
+      });
       let parsed: Record<string, unknown>;
       try {
         const jsonMatch = result.match(/\{[\s\S]*\}/);
