@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -1343,16 +1344,44 @@ export default function ContentTypeManagePage() {
                   )}
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-1.5">
-                    {sortedEntries.map(([val, count]) => (
-                      <Badge key={val} variant="secondary" className="text-xs" data-testid={`text-kpi-${idx}-${val}`}>
-                        {allLoading ? "..." : count}
-                        <span className="ml-1 text-muted-foreground font-normal">
-                          {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
-                        </span>
-                      </Badge>
-                    ))}
-                  </div>
+                  {(() => {
+                    const VISIBLE_COUNT = 2;
+                    const visible = sortedEntries.slice(0, VISIBLE_COUNT);
+                    const remaining = sortedEntries.length - VISIBLE_COUNT;
+                    return (
+                      <div className="flex flex-wrap gap-1.5">
+                        {visible.map(([val, count]) => (
+                          <Badge key={val} variant="secondary" className="text-xs" data-testid={`text-kpi-${idx}-${val}`}>
+                            {allLoading ? "..." : count}
+                            <span className="ml-1 text-muted-foreground font-normal">
+                              {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
+                            </span>
+                          </Badge>
+                        ))}
+                        {remaining > 0 && (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Badge variant="outline" className="text-xs cursor-pointer" data-testid={`button-view-more-${idx}`}>
+                                +{remaining} more
+                              </Badge>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto max-w-xs p-3" align="start">
+                              <div className="flex flex-wrap gap-1.5">
+                                {sortedEntries.slice(VISIBLE_COUNT).map(([val, count]) => (
+                                  <Badge key={val} variant="secondary" className="text-xs" data-testid={`text-kpi-${idx}-${val}`}>
+                                    {allLoading ? "..." : count}
+                                    <span className="ml-1 text-muted-foreground font-normal">
+                                      {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
+                                    </span>
+                                  </Badge>
+                                ))}
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </CardContent>
               </Card>
             );
