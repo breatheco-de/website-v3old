@@ -4289,10 +4289,12 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
       }
 
-      const { filePath, content } = req.body as {
+      const { filePath, content, author: requestAuthor } = req.body as {
         filePath: string;
         content: string;
+        author?: string;
       };
+      const authorName = requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined;
 
       if (!filePath || typeof content !== "string") {
         res.status(400).json({ error: "filePath and content are required" });
@@ -4319,7 +4321,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       }
 
       fs.writeFileSync(fullPath, content, "utf-8");
-      markFileAsModified(normalizedPath);
+      markFileAsModified(normalizedPath, authorName);
       clearSitemapCache();
       clearRedirectCache();
       contentIndex.refresh();
@@ -4930,8 +4932,9 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
       }
 
-      const { contentType, folderSlug, locale, newSlug, createRedirect } =
+      const { contentType, folderSlug, locale, newSlug, createRedirect, author: renameAuthor } =
         req.body;
+      const renameAuthorName = renameAuthor && typeof renameAuthor === "string" ? renameAuthor : undefined;
 
       if (!contentType || !folderSlug || !locale || !newSlug) {
         res
@@ -5039,6 +5042,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       fs.writeFileSync(localeFilePath, updated, "utf-8");
       markFileAsModified(
         `marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`,
+        renameAuthorName,
       );
 
       contentIndex.refresh();
@@ -5256,7 +5260,8 @@ Important: Only include mappings where you are confident the field exists. Use d
         }
       }
 
-      const { type, slugEn, slugEs, title, sourceUrl } = req.body;
+      const { type, slugEn, slugEs, title, sourceUrl, author: createAuthor } = req.body;
+      const createAuthorName = createAuthor && typeof createAuthor === "string" ? createAuthor : undefined;
 
       // Support both old format (slug) and new format (slugEn/slugEs)
       const enSlug = slugEn || req.body.slug;
@@ -5373,6 +5378,7 @@ Important: Only include mappings where you are confident the field exists. Use d
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${enSlug}/${file}`,
+                createAuthorName,
               );
             }
 
@@ -5518,17 +5524,17 @@ sections: []
       if (!fs.existsSync(path.join(folderPath, "_common.yml"))) {
         fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
         createdFiles.push("_common.yml");
-        markFileAsModified(`${relFolder}/_common.yml`);
+        markFileAsModified(`${relFolder}/_common.yml`, createAuthorName);
       }
       if (!fs.existsSync(path.join(folderPath, "en.yml"))) {
         fs.writeFileSync(path.join(folderPath, "en.yml"), enYml);
         createdFiles.push("en.yml");
-        markFileAsModified(`${relFolder}/en.yml`);
+        markFileAsModified(`${relFolder}/en.yml`, createAuthorName);
       }
       if (!fs.existsSync(path.join(folderPath, "es.yml"))) {
         fs.writeFileSync(path.join(folderPath, "es.yml"), esYml);
         createdFiles.push("es.yml");
-        markFileAsModified(`${relFolder}/es.yml`);
+        markFileAsModified(`${relFolder}/es.yml`, createAuthorName);
       }
 
       // Clear sitemap cache so the new content appears
@@ -5718,7 +5724,8 @@ sections: []
         }
       }
 
-      const { slug, locale, title, sourceUrl } = req.body;
+      const { slug, locale, title, sourceUrl, author: landingAuthor } = req.body;
+      const landingAuthorName = landingAuthor && typeof landingAuthor === "string" ? landingAuthor : undefined;
 
       if (!slug || !title) {
         res.status(400).json({ error: "Missing required fields: slug, title" });
@@ -5804,6 +5811,7 @@ sections: []
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/landings/${slug}/${file}`,
+                landingAuthorName,
               );
             }
 
@@ -5850,9 +5858,9 @@ sections: []
 
       // Write files
       fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
-      markFileAsModified(`marketing-content/landings/${slug}/_common.yml`);
+      markFileAsModified(`marketing-content/landings/${slug}/_common.yml`, landingAuthorName);
       fs.writeFileSync(path.join(folderPath, "promoted.yml"), promotedYml);
-      markFileAsModified(`marketing-content/landings/${slug}/promoted.yml`);
+      markFileAsModified(`marketing-content/landings/${slug}/promoted.yml`, landingAuthorName);
 
       clearSitemapCache();
       contentIndex.refresh();

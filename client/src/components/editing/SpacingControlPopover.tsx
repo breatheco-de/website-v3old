@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import type { Section, SectionLayout, ResponsiveSpacing } from "@shared/schema";
 
@@ -43,6 +43,7 @@ async function updateSectionField(
   value: ResponsiveSpacing
 ): Promise<{ success: boolean; error?: string }> {
   const token = getDebugToken();
+  const author = await resolveAuthorName();
   const response = await fetch("/api/content/edit-sections", {
     method: "POST",
     headers: {
@@ -53,6 +54,7 @@ async function updateSectionField(
       contentType,
       slug,
       locale,
+      author,
       operations: [
         {
           action: "update_field",
