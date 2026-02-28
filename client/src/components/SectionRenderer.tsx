@@ -303,23 +303,26 @@ function DeferredSection({ children }: { children: React.ReactNode }) {
 interface SectionRendererProps {
   sections: Section[];
   settings?: PageSettings;
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
   locale?: string;
   programSlug?: string;
   landingLocations?: string[];
+  isSharedTemplate?: boolean;
 }
 
 function EmptyPageState({ 
   isEditMode, 
   locale, 
   contentType, 
-  slug 
+  slug,
+  isSharedTemplate,
 }: { 
   isEditMode: boolean; 
   locale?: string; 
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
+  isSharedTemplate?: boolean;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -359,6 +362,7 @@ function EmptyPageState({
               contentType={contentType}
               slug={slug}
               locale={locale}
+              isSharedTemplate={isSharedTemplate}
             />
           )}
         </>
@@ -610,7 +614,7 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   );
 }
 
-export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations }: SectionRendererProps) {
+export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations, isSharedTemplate }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -891,6 +895,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         contentType={contentType}
         slug={slug}
         locale={locale}
+        isSharedTemplate={isSharedTemplate}
       />
       {sections.length === 0 && (
         <EmptyPageState 
@@ -898,6 +903,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           locale={locale} 
           contentType={contentType}
           slug={slug}
+          isSharedTemplate={isSharedTemplate}
         />
       )}
       {resolvedSections.map((section, index) => {
@@ -925,6 +931,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                 contentType={contentType}
                 slug={slug}
                 locale={locale}
+                isSharedTemplate={isSharedTemplate}
               />
             </div>
           );
@@ -962,6 +969,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               contentType={contentType}
               slug={slug}
               locale={locale}
+              isSharedTemplate={isSharedTemplate}
             />
           </div>
         );

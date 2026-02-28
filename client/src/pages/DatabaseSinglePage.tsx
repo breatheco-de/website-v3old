@@ -83,6 +83,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
         contentType={contentType}
         slug={slug}
         locale={locale}
+        isSharedTemplate
       />
       <Footer />
     </div>

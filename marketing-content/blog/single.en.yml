@@ -1,11 +1,18 @@
 meta:
-  page_title: "{{ single.title }} | 4Geeks Academy"
-  description: "{{ single.description }}"
-  og_image: "{{ single.image }}"
-
+  page_title: {{ single.title }} | 4Geeks Academy
+  description: {{ single.description }}
+  og_image: {{ single.image }}
 sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    badge: Bootcamps that launch careers
+    title: Empowering Talent for the AI Era
+    subtitle: 4Geeks Academy is a global tech academy with 8 campuses across the U.S., Latin America, and Europe, training the next generation of tech professionals in AI-powered Full-Stack Development, Data Science & ML, and Cybersecurity.
+    image_id: academy_header_coding
+    image_full_width: false
   - type: article
     show_toc: true
     toc_position: side
     max_width: lg
-    content: "{{ single.content }}"
+    content: {{ single.content }}

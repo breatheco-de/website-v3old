@@ -16,7 +16,7 @@ import { contentIndex, stripNullValues } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 
 interface ContentEditRequest {
-  contentType: "program" | "landing" | "location" | "page";
+  contentType: string;
   slug: string;
   locale: string;
   operations: EditOperation[];
@@ -147,7 +147,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     const validationErrors: string[] = [];
     
     // Get the appropriate schema based on content type
-    let schema: z.ZodTypeAny;
+    let schema: z.ZodTypeAny | null = null;
     switch (contentType) {
       case "landing":
         schema = landingPageSchema;
@@ -162,13 +162,17 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
         schema = locationPageSchema;
         break;
       default:
-        schema = landingPageSchema; // fallback
+        if (contentIndex.isDatabaseBacked(contentType)) {
+          schema = null;
+        } else {
+          schema = landingPageSchema;
+        }
     }
     
     // Strip null values before validation (Zod .optional() expects undefined, not null)
     const cleanedContent = stripNullValues(content);
     
-    const result = schema.safeParse(cleanedContent);
+    const result = schema ? schema.safeParse(cleanedContent) : { success: true as const };
     
     if (!result.success) {
       // Parse the error to provide user-friendly messages
@@ -329,7 +333,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
 }
 
 interface CommonEditRequest {
-  contentType: "program" | "landing" | "location" | "page";
+  contentType: string;
   slug: string;
   operations: Array<{ action: "update_field"; path: string; value: unknown }>;
   author?: string;
@@ -376,7 +380,7 @@ export function editCommonContent(request: CommonEditRequest): { success: boolea
 }
 
 export function getContentForEdit(
-  contentType: "program" | "landing" | "location",
+  contentType: string,
   slug: string,
   rawLocale: string,
   variant?: string,

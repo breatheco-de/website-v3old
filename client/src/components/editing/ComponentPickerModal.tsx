@@ -70,11 +70,12 @@ interface ComponentPickerModalProps {
   isOpen: boolean;
   onClose: () => void;
   insertIndex: number;
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
   locale?: string;
   variant?: string;
   version?: number;
+  isSharedTemplate?: boolean;
 }
 
 interface ComponentInfo {
@@ -196,6 +197,7 @@ export default function ComponentPickerModal({
   locale,
   variant,
   version,
+  isSharedTemplate,
 }: ComponentPickerModalProps) {
   const [step, setStep] = useState<"select" | "configure" | "wizard">("select");
   const [selectedComponent, setSelectedComponent] = useState<ComponentInfo | null>(null);
@@ -583,6 +585,17 @@ export default function ComponentPickerModal({
           </DialogDescription>
         </DialogHeader>
         
+        {isSharedTemplate && (
+          <div className="mx-4 mt-2 flex items-start gap-2 rounded-md border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950/50 p-2.5">
+            <svg className="h-4 w-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="text-xs text-blue-800 dark:text-blue-300" data-testid="text-shared-template-notice">
+              This {contentType} uses a shared template. Changes to sections will apply to <strong>all {contentType} entries</strong>, not just this one.
+            </p>
+          </div>
+        )}
+
         {step === "select" ? (
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="px-4 pt-2 pb-3 flex-shrink-0">

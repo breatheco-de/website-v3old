@@ -8,9 +8,10 @@ import type { Section } from "@shared/schema";
 interface AddSectionButtonProps {
   insertIndex: number;
   sections?: Section[];
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
   locale?: string;
+  isSharedTemplate?: boolean;
 }
 
 export function AddSectionButton({ 
@@ -19,6 +20,7 @@ export function AddSectionButton({
   contentType, 
   slug, 
   locale,
+  isSharedTemplate,
 }: AddSectionButtonProps) {
   const editMode = useEditModeOptional();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,6 +73,7 @@ export function AddSectionButton({
           contentType={contentType}
           slug={slug}
           locale={locale}
+          isSharedTemplate={isSharedTemplate}
         />
       )}
     </>

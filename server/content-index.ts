@@ -797,10 +797,20 @@ class ContentIndex {
     return { total: this.entries.length, byType };
   }
 
+  isDatabaseBacked(contentType: string): boolean {
+    const config = this.getContentTypeConfig(contentType);
+    return !!config?.database?.slug;
+  }
+
   getContentFolderPath(contentType: string, slug: string): string {
     const folder = this.getFolderName(contentType);
     const resolved = this.resolveBaseSlug(slug, contentType);
-    return path.join(MARKETING_CONTENT_PATH, folder, resolved);
+    const slugDir = path.join(MARKETING_CONTENT_PATH, folder, resolved);
+    if (fs.existsSync(slugDir)) return slugDir;
+    if (this.isDatabaseBacked(contentType)) {
+      return path.join(MARKETING_CONTENT_PATH, folder);
+    }
+    return slugDir;
   }
 
   getCommonFilePath(contentType: string, slug: string): string {
@@ -825,7 +835,16 @@ class ContentIndex {
       return path.join(folder, "promoted.yml");
     }
 
-    return path.join(folder, `${locale}.yml`);
+    const perSlugPath = path.join(folder, `${locale}.yml`);
+    if (fs.existsSync(perSlugPath)) return perSlugPath;
+
+    if (this.isDatabaseBacked(contentType)) {
+      const typeRoot = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType));
+      const singlePath = path.join(typeRoot, `single.${locale}.yml`);
+      if (fs.existsSync(singlePath)) return singlePath;
+    }
+
+    return perSlugPath;
   }
 
   loadLocaleData(
@@ -834,7 +853,7 @@ class ContentIndex {
     locale: string,
     variant?: string,
     version?: number
-  ): { data: Record<string, unknown> | null; filePath: string; error?: string } {
+  ): { data: Record<string, unknown> | null; filePath: string; error?: string; isSharedTemplate?: boolean } {
     try {
       const filePath = this.getContentFilePath(contentType, slug, locale, variant, version);
       if (!fs.existsSync(filePath)) {
@@ -842,7 +861,8 @@ class ContentIndex {
       }
       const raw = fs.readFileSync(filePath, "utf-8");
       const data = this.safeYamlLoad(raw) as Record<string, unknown>;
-      return { data, filePath };
+      const isSharedTemplate = path.basename(filePath).startsWith("single.");
+      return { data, filePath, isSharedTemplate };
     } catch (error) {
       return { data: null, filePath: "", error: `Error loading locale data: ${error}` };
     }
@@ -850,7 +870,11 @@ class ContentIndex {
 
   loadCommonData(contentType: ContentType, slug: string): Record<string, unknown> | null {
     const resolved = this.resolveBaseSlug(slug, contentType);
-    const commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), resolved, "_common.yml");
+    let commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), resolved, "_common.yml");
+
+    if (!fs.existsSync(commonPath) && this.isDatabaseBacked(contentType)) {
+      commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), "_common.yml");
+    }
 
     if (!fs.existsSync(commonPath)) {
       return null;
@@ -871,7 +895,7 @@ class ContentIndex {
     locale: string,
     variant?: string,
     version?: number
-  ): { data: Record<string, unknown> | null; filePath: string; error?: string } {
+  ): { data: Record<string, unknown> | null; filePath: string; error?: string; isSharedTemplate?: boolean } {
     try {
       const filePath = this.getContentFilePath(contentType, slug, locale, variant, version);
       if (!fs.existsSync(filePath)) {
@@ -893,7 +917,8 @@ class ContentIndex {
         ? deepMerge(commonData, localeData)
         : localeData;
 
-      return { data: merged, filePath };
+      const isSharedTemplate = path.basename(filePath).startsWith("single.");
+      return { data: merged, filePath, isSharedTemplate };
     } catch (error) {
       return { data: null, filePath: "", error: `Error loading merged content: ${error}` };
     }
