@@ -46,7 +46,6 @@ import {
   IconTrashX,
   IconWand,
   IconLoader2,
-  IconSettings,
   IconLayoutList,
   IconX,
 } from "@tabler/icons-react";
@@ -121,7 +120,6 @@ function VisibilityIcon({ visibility }: { visibility: string }) {
 
 const WIZARD_STEPS = [
   { id: "database", label: "Select Database", icon: IconDatabase },
-  { id: "settings", label: "URL Settings", icon: IconSettings },
   { id: "fields", label: "Field Mapping", icon: IconLayoutList },
 ] as const;
 
@@ -205,6 +203,36 @@ function StepIndicator({ steps, currentStep, completedSteps }: {
   );
 }
 
+function SampleDataDialog({
+  open,
+  onOpenChange,
+  sampleItems,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  sampleItems: Record<string, unknown>[];
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[640px] max-h-[80vh] flex flex-col">
+        <DialogHeader>
+          <DialogTitle>Sample Data ({sampleItems.length} item{sampleItems.length !== 1 ? "s" : ""})</DialogTitle>
+        </DialogHeader>
+        <div className="flex-1 overflow-y-auto rounded-md bg-muted p-3">
+          <pre className="text-xs font-mono whitespace-pre-wrap break-all" data-testid="text-sample-json">
+            {JSON.stringify(sampleItems, null, 2)}
+          </pre>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-close-sample">
+            Close
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function DataSourceDialog({
   open,
   onOpenChange,
@@ -232,7 +260,6 @@ function DataSourceDialog({
   });
 
   const [selectedDb, setSelectedDb] = useState("");
-  const [urlPattern, setUrlPattern] = useState("");
 
   const [fieldMapping, setFieldMapping] = useState<FieldMapping>({});
   const [localeField, setLocaleField] = useState("");
@@ -244,6 +271,8 @@ function DataSourceDialog({
 
   const [sampleItems, setSampleItems] = useState<Record<string, unknown>[]>([]);
   const [loadingSample, setLoadingSample] = useState(false);
+  const [sampleDialogOpen, setSampleDialogOpen] = useState(false);
+  const [deletedFields, setDeletedFields] = useState<string[]>([]);
 
   const markComplete = (s: WizardStep) => {
     setCompletedSteps((prev) => {
@@ -256,8 +285,6 @@ function DataSourceDialog({
   useEffect(() => {
     if (config) {
       setSelectedDb(config.database?.slug || "");
-      const existingPattern = config.url_pattern?.en || config.url_pattern?.default || "";
-      setUrlPattern(existingPattern.replace(/^\/(en|es)\//, "/:locale/"));
 
       if (config.database?.field_mapping) {
         const fm: FieldMapping = {};
@@ -273,7 +300,6 @@ function DataSourceDialog({
 
       const initialCompleted = new Set<WizardStep>();
       if (config.database?.slug) initialCompleted.add("database");
-      if (config.url_pattern) initialCompleted.add("settings");
       if (config.database?.field_mapping && Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0) initialCompleted.add("fields");
       setCompletedSteps(initialCompleted);
     }
@@ -308,6 +334,7 @@ function DataSourceDialog({
     setAiMappingFields(true);
     setFieldMappingError(null);
     setFieldMappingConfirmed(false);
+    setDeletedFields([]);
     try {
       const res = await apiRequest("POST", `/api/content-types/${contentType}/ai/analyze-fields`, {
         sample_posts: sampleItems.slice(0, 3),
@@ -342,18 +369,11 @@ function DataSourceDialog({
         }
       }
 
-      const derivedUrlPattern: Record<string, string> = {};
-      if (urlPattern) {
-        derivedUrlPattern.en = urlPattern.replace(/:locale/g, "en");
-        derivedUrlPattern.es = urlPattern.replace(/:locale/g, "es");
-      }
-
       const payload = {
         database: {
           slug: selectedDb,
           field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
         },
-        url_pattern: derivedUrlPattern,
       };
 
       await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
@@ -372,7 +392,6 @@ function DataSourceDialog({
   const canGoNext = (s: WizardStep): boolean => {
     switch (s) {
       case "database": return !!selectedDb;
-      case "settings": return !!urlPattern;
       case "fields": return fieldMappingConfirmed;
       default: return false;
     }
@@ -484,39 +503,6 @@ function DataSourceDialog({
               </div>
             )}
 
-            {step === "settings" && (
-              <div className="space-y-4" data-testid="step-settings">
-                <p className="text-sm text-muted-foreground">
-                  Configure the URL pattern for {contentType} items. Use <code>:locale</code> for the language prefix.
-                </p>
-
-                <div className="space-y-2">
-                  <Label>URL Pattern</Label>
-                  <Input
-                    value={urlPattern}
-                    onChange={(e) => setUrlPattern(e.target.value)}
-                    placeholder={`/:locale/${contentType}/:slug`}
-                    className="font-mono text-sm"
-                    data-testid="input-url-pattern"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Available variables: <code>:locale</code>, <code>:slug</code>, <code>:category</code>
-                  </p>
-                </div>
-
-                {urlPattern && (
-                  <div className="rounded-md bg-muted px-3 py-2 space-y-1">
-                    <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-en">
-                      EN: {urlPattern.replace(/:locale/g, "en")}
-                    </p>
-                    <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-es">
-                      ES: {urlPattern.replace(/:locale/g, "es")}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-
             {step === "fields" && (
               <div className="space-y-4" data-testid="step-fields">
                 <p className="text-sm text-muted-foreground">
@@ -530,36 +516,49 @@ function DataSourceDialog({
                   </div>
                 )}
 
-                {!loadingSample && sampleItems.length > 0 && (
-                  <Button
-                    onClick={handleAnalyzeFields}
-                    disabled={aiMappingFields}
-                    className="w-full"
-                    data-testid="button-ai-fields"
-                  >
-                    {aiMappingFields ? (
-                      <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
-                    ) : (
-                      <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
+                {!loadingSample && selectedDb && (
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {sampleItems.length > 0 && (
+                      <Button
+                        onClick={handleAnalyzeFields}
+                        disabled={aiMappingFields}
+                        className="flex-1"
+                        data-testid="button-ai-fields"
+                      >
+                        {aiMappingFields ? (
+                          <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
+                        ) : (
+                          <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
+                        )}
+                      </Button>
                     )}
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => loadSampleFromDb(selectedDb)}
+                      disabled={loadingSample}
+                      data-testid="button-refresh-sample"
+                    >
+                      <IconRefresh className="h-4 w-4" />
+                    </Button>
+                    {sampleItems.length > 0 && (
+                      <button
+                        type="button"
+                        className="text-xs text-muted-foreground underline"
+                        onClick={() => setSampleDialogOpen(true)}
+                        data-testid="link-view-sample"
+                      >
+                        View sample data ({sampleItems.length})
+                      </button>
+                    )}
+                  </div>
                 )}
 
                 {!loadingSample && sampleItems.length === 0 && selectedDb && (
                   <div className="rounded-md bg-muted px-3 py-2">
                     <p className="text-xs text-muted-foreground">
-                      No sample data available from database "{selectedDb}". Make sure the database has been fetched at least once.
+                      No sample data available from database "{selectedDb}". Click the refresh button to retry, or make sure the database has been fetched at least once.
                     </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="mt-2"
-                      onClick={() => loadSampleFromDb(selectedDb)}
-                      data-testid="button-retry-sample"
-                    >
-                      <IconRefresh className="h-3.5 w-3.5 mr-1" />
-                      Retry
-                    </Button>
                   </div>
                 )}
 
@@ -578,13 +577,12 @@ function DataSourceDialog({
 
                     <div className="space-y-2">
                       {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
-                        const isRequired = standardField === "title" || standardField === "content";
                         const isCustom = sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
                         const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
                         return (
                         <div key={standardField} className="flex items-center gap-2">
-                            <span className={`text-xs font-medium w-24 flex-shrink-0 text-right ${isRequired && !sourceField ? "text-destructive" : "text-muted-foreground"}`}>
-                              {standardField}{isRequired ? <span className="text-destructive ml-0.5">*</span> : null}
+                            <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">
+                              {standardField}
                             </span>
                             <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                             {isCustom ? (
@@ -636,10 +634,47 @@ function DataSourceDialog({
                                 </SelectContent>
                               </Select>
                             )}
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="flex-shrink-0"
+                              onClick={() => {
+                                setFieldMapping((prev) => {
+                                  const next = { ...prev };
+                                  delete next[standardField];
+                                  return next;
+                                });
+                                setDeletedFields((prev) => prev.includes(standardField) ? prev : [...prev, standardField]);
+                                setFieldMappingConfirmed(false);
+                              }}
+                              data-testid={`button-delete-field-${standardField}`}
+                            >
+                              <IconTrashX className="h-3.5 w-3.5" />
+                            </Button>
                         </div>
                         );
                       })}
                     </div>
+
+                    {deletedFields.filter((f) => !(f in fieldMapping)).length > 0 && (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs text-muted-foreground">Re-add:</span>
+                        {deletedFields.filter((f) => !(f in fieldMapping)).map((f) => (
+                          <Badge
+                            key={f}
+                            variant="outline"
+                            className="cursor-pointer text-xs"
+                            onClick={() => {
+                              setFieldMapping((prev) => ({ ...prev, [f]: null }));
+                              setFieldMappingConfirmed(false);
+                            }}
+                            data-testid={`badge-readd-${f}`}
+                          >
+                            + {f}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
 
                     <div className="space-y-2 pt-2 border-t">
                       <Label className="text-xs font-medium text-muted-foreground">Locale Field (_locale)</Label>
@@ -717,18 +752,9 @@ function DataSourceDialog({
                       </div>
                     )}
 
-                    {(() => {
-                      const missing = (["title", "content"] as const).filter((f) => !fieldMapping[f]);
-                      return missing.length > 0 ? (
-                        <p className="text-xs text-destructive" data-testid="text-required-fields-warning">
-                          Required: {missing.join(", ")} must be mapped
-                        </p>
-                      ) : null;
-                    })()}
-
                     <Button
                       size="sm"
-                      disabled={fieldMappingConfirmed || !fieldMapping.title || !fieldMapping.content}
+                      disabled={fieldMappingConfirmed || Object.values(fieldMapping).filter((v) => v != null && v !== "__none__").length === 0}
                       onClick={() => { setFieldMappingConfirmed(true); markComplete("fields"); }}
                       data-testid="button-confirm-fields"
                     >
@@ -740,6 +766,12 @@ function DataSourceDialog({
                     </Button>
                   </div>
                 )}
+
+                <SampleDataDialog
+                  open={sampleDialogOpen}
+                  onOpenChange={setSampleDialogOpen}
+                  sampleItems={sampleItems}
+                />
               </div>
             )}
 
