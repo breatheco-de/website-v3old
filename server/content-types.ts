@@ -214,3 +214,69 @@ export function updateContentTypeConfig(type: string, update: Partial<ContentTyp
 export function resetRegistry(): void {
   registry = null;
 }
+
+function extractDotPath(record: Record<string, unknown>, dotPath: string): unknown {
+  const parts = dotPath.split(".");
+  let current: unknown = record;
+  for (const part of parts) {
+    if (current == null || typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
+}
+
+function resolveFieldValue(value: unknown): string {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.join(",");
+  if (typeof value === "object" && "slug" in (value as object)) {
+    return String((value as Record<string, unknown>).slug || "");
+  }
+  return String(value);
+}
+
+export function resolveUrlPatternWithMapping(
+  pattern: string,
+  record: Record<string, unknown>,
+  locale: string,
+  fieldMapping?: Record<string, string | null> | null,
+): string {
+  let result = pattern.replaceAll(":locale", locale);
+
+  const paramMatches = result.match(/:([a-zA-Z_]+)/g) || [];
+  for (const param of paramMatches) {
+    const key = param.slice(1);
+
+    let rawValue: unknown;
+
+    if (fieldMapping && key in fieldMapping) {
+      const sourceField = fieldMapping[key];
+      if (sourceField) {
+        rawValue = extractDotPath(record, sourceField);
+      }
+    }
+
+    if (rawValue === undefined) {
+      rawValue = extractDotPath(record, key);
+    }
+
+    result = result.replaceAll(param, resolveFieldValue(rawValue));
+  }
+
+  result = result.replace(/\/\/+/g, "/");
+
+  return result;
+}
+
+export function resolveContentTypeUrl(
+  type: string,
+  record: Record<string, unknown>,
+  locale: string,
+): string | null {
+  const config = getContentTypeConfig(type);
+  if (!config?.url_pattern) return null;
+  const pattern = config.url_pattern[locale] || config.url_pattern["default"] || config.url_pattern["en"];
+  if (!pattern) return null;
+  const mapping = getFieldMapping(type);
+  return resolveUrlPatternWithMapping(pattern, record, locale, mapping);
+}

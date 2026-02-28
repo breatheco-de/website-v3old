@@ -53,13 +53,24 @@ function formatCategoryLabel(slug: string): string {
     .join(" ");
 }
 
+function resolveFieldValue(value: unknown): string {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.join(",");
+  if (typeof value === "object" && value !== null && "slug" in value) {
+    return String((value as Record<string, unknown>).slug || "");
+  }
+  return String(value);
+}
+
 function buildPostUrl(pattern: string, post: Record<string, any>, locale: string): string {
   let result = pattern.replaceAll(":locale", locale);
-  result = result.replaceAll(":slug", post.slug || "");
-  result = result.replaceAll(":category", post.category?.slug || "");
-  result = result.replaceAll(":lang", post.lang || "");
-  result = result.replaceAll(":status", post.status || "");
-  result = result.replaceAll(":tags", (post.tags || []).join(","));
+  const paramMatches = result.match(/:([a-zA-Z_]+)/g) || [];
+  for (const param of paramMatches) {
+    const key = param.slice(1);
+    result = result.replaceAll(param, resolveFieldValue(post[key]));
+  }
+  result = result.replace(/\/\/+/g, "/");
   return result;
 }
 

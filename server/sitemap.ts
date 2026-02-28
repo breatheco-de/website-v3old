@@ -1,8 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
-import { resolveUrlPattern } from "./blog";
-import { getContentTypeConfig, getLocaleKey } from "./content-types";
+import { getContentTypeConfig, getLocaleKey, getFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -424,6 +423,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
           items: Array<Record<string, unknown>>;
         };
         const urlPatterns = blogTypeConfig.url_pattern;
+        const blogFieldMapping = getFieldMapping("blog");
         for (const post of cached.items) {
           let locale = "en";
           if (localeFieldKey) {
@@ -431,7 +431,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
             locale = langVal === "us" ? "en" : langVal;
           }
           const urlPattern = urlPatterns[locale] || urlPatterns["en"];
-          const postUrl = `${getBaseUrl()}${resolveUrlPattern(urlPattern, post as any, locale)}`;
+          const postUrl = `${getBaseUrl()}${resolveUrlPatternWithMapping(urlPattern, post, locale, blogFieldMapping)}`;
           const title = String(post.title || post.slug || "");
           const updatedAt = String(post.updated_at || "");
           entries.push({

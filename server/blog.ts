@@ -4,6 +4,7 @@ import { databaseManager } from "./database";
 import {
   getContentTypeConfig,
   getLocaleKey,
+  resolveUrlPatternWithMapping,
 } from "./content-types";
 
 export interface BlogConfig {
@@ -37,13 +38,7 @@ export interface BlogPost {
 }
 
 export function resolveUrlPattern(pattern: string, post: BlogPost, locale: string): string {
-  let result = pattern.replaceAll(":locale", locale);
-  result = result.replaceAll(":slug", post.slug || "");
-  result = result.replaceAll(":category", post.category?.slug || post.cluster_slug || post.cluster || "");
-  result = result.replaceAll(":lang", post.lang || "");
-  result = result.replaceAll(":status", post.status || "");
-  result = result.replaceAll(":tags", (post.tags || []).join(","));
-  return result;
+  return resolveUrlPatternWithMapping(pattern, post as unknown as Record<string, unknown>, locale, null);
 }
 
 let configCache: BlogConfig | null = null;
