@@ -1,6 +1,6 @@
 import type { Icon } from "@tabler/icons-react";
 
-export type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus" | "databases";
+export type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus" | "databases" | "content-types";
 
 export const STORAGE_KEY = "debug-bubble-menu-view";
 

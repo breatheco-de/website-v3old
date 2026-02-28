@@ -34,6 +34,7 @@ import { ComponentsView } from "./ComponentsView";
 import { ExperimentsView } from "./ExperimentsView";
 import { MenusView } from "./MenusView";
 import { DatabasesView } from "./DatabasesView";
+import { ContentTypesView } from "./ContentTypesView";
 import { SitemapView } from "./SitemapView";
 import type {
   MenuView,
@@ -517,10 +518,10 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               />
               <MenuItem
                 icon={IconBook}
-                label="Blog"
-                href="/private/type/blog"
-                indicator="arrow"
-                testId="link-blog-manage"
+                label="Content Types"
+                onClick={() => props.setMenuView("content-types")}
+                indicator="chevron"
+                testId="button-content-types-menu"
               />
             </ExpandableMenuItem>
 
@@ -799,6 +800,8 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
         </>
       ) : props.menuView === "databases" ? (
         <DatabasesView setMenuView={props.setMenuView} />
+      ) : props.menuView === "content-types" ? (
+        <ContentTypesView setMenuView={props.setMenuView} />
       ) : (
         <SitemapView
           setMenuView={props.setMenuView}
