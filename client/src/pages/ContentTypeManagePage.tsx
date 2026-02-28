@@ -1233,18 +1233,16 @@ export default function ContentTypeManagePage() {
                   <IconFolder className="h-4 w-4 mr-1" />
                   Static Entries
                 </Button>
-                {hasDb && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`toggle-elevate ${viewMode === "db" ? "toggle-elevated" : ""}`}
-                    onClick={() => setViewMode("db")}
-                    data-testid="button-view-db"
-                  >
-                    <IconDatabase className="h-4 w-4 mr-1" />
-                    DB Entries
-                  </Button>
-                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`toggle-elevate ${viewMode === "db" ? "toggle-elevated" : ""}`}
+                  onClick={() => setViewMode("db")}
+                  data-testid="button-view-db"
+                >
+                  <IconDatabase className="h-4 w-4 mr-1" />
+                  DB Entries
+                </Button>
               </div>
               <div className="relative flex-1 min-w-[200px]">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -1367,6 +1365,22 @@ export default function ContentTypeManagePage() {
                 <div className="flex items-center justify-center py-12" data-testid="loading-items">
                   <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
                   <span className="ml-2 text-sm text-muted-foreground">Loading entries...</span>
+                </div>
+              ) : !hasDb ? (
+                <div className="text-center py-12 space-y-3" data-testid="text-no-database">
+                  <IconDatabase className="h-8 w-8 mx-auto text-muted-foreground/50" />
+                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                    You can link a database to create more {label} entries dynamically. You will be able to configure how these dynamic entries look in a template.
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setDsDialogOpen(true)}
+                    data-testid="button-link-database"
+                  >
+                    <IconDatabase className="h-4 w-4 mr-1" />
+                    Link to Database
+                  </Button>
                 </div>
               ) : filtered.length === 0 ? (
                 <div className="text-center py-12 text-muted-foreground" data-testid="text-no-results">
