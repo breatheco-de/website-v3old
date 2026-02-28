@@ -126,27 +126,6 @@ const WIZARD_STEPS = [
 
 type WizardStep = typeof WIZARD_STEPS[number]["id"];
 
-function extractByPath(obj: unknown, dotPath: string): unknown {
-  if (!dotPath || !dotPath.trim()) return undefined;
-  let current = obj;
-  const segments = dotPath.replace(/\[(\d+)\]/g, ".$1").split(".").filter(Boolean);
-  for (const key of segments) {
-    if (current == null) return undefined;
-    if (Array.isArray(current)) {
-      const idx = Number(key);
-      if (Number.isInteger(idx) && idx >= 0 && idx < current.length) {
-        current = current[idx];
-      } else {
-        return undefined;
-      }
-    } else if (typeof current === "object" && key in (current as Record<string, unknown>)) {
-      current = (current as Record<string, unknown>)[key];
-    } else {
-      return undefined;
-    }
-  }
-  return current;
-}
 
 function StepIndicator({ steps, currentStep, completedSteps }: {
   steps: typeof WIZARD_STEPS;
@@ -267,7 +246,6 @@ function DataSourceDialog({
   const [availableFields, setAvailableFields] = useState<string[]>([]);
   const [fieldMappingNotes, setFieldMappingNotes] = useState("");
   const [fieldMappingError, setFieldMappingError] = useState<string | null>(null);
-  const [fieldMappingConfirmed, setFieldMappingConfirmed] = useState(false);
   const [aiMappingFields, setAiMappingFields] = useState(false);
 
   const [sampleItems, setSampleItems] = useState<Record<string, unknown>[]>([]);
@@ -298,7 +276,6 @@ function DataSourceDialog({
         setFieldMapping(fm);
         const lm = config.database.field_mapping._locale;
         setLocaleField(lm ? (typeof lm === "object" ? lm.source : lm) : "");
-        setFieldMappingConfirmed(true);
       }
       setIndexedFields(config.database?.indexes || []);
 
@@ -308,6 +285,16 @@ function DataSourceDialog({
       setCompletedSteps(initialCompleted);
     }
   }, [config]);
+
+  useEffect(() => {
+    setCompletedSteps((prev) => {
+      const next = new Set(Array.from(prev));
+      if (selectedDb) next.add("database"); else next.delete("database");
+      const hasMappedField = Object.values(fieldMapping).some((v) => v != null && v !== "__none__");
+      if (hasMappedField) next.add("fields"); else next.delete("fields");
+      return next;
+    });
+  }, [selectedDb, fieldMapping]);
 
   const loadSampleFromDb = async (dbName: string) => {
     if (!dbName) return;
@@ -337,7 +324,6 @@ function DataSourceDialog({
     if (sampleItems.length === 0) return;
     setAiMappingFields(true);
     setFieldMappingError(null);
-    setFieldMappingConfirmed(false);
     setDeletedFields([]);
     try {
       const res = await apiRequest("POST", `/api/content-types/${contentType}/ai/analyze-fields`, {
@@ -397,7 +383,7 @@ function DataSourceDialog({
   const canGoNext = (s: WizardStep): boolean => {
     switch (s) {
       case "database": return !!selectedDb;
-      case "fields": return fieldMappingConfirmed;
+      case "fields": return Object.values(fieldMapping).some((v) => v != null && v !== "__none__");
       default: return false;
     }
   };
@@ -423,13 +409,6 @@ function DataSourceDialog({
 
   const stepIndex = WIZARD_STEPS.findIndex((s) => s.id === step);
   const isLastStep = stepIndex === WIZARD_STEPS.length - 1;
-
-  const samplePost = sampleItems[0] as Record<string, unknown> | undefined;
-
-  const getFieldValue = (post: Record<string, unknown>, dotPath: string | null): unknown => {
-    if (!dotPath) return null;
-    return extractByPath(post, dotPath);
-  };
 
   const dbList = databases || [];
 
@@ -596,7 +575,6 @@ function DataSourceDialog({
                                   value={sourceField}
                                   onChange={(e) => {
                                     setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
-                                    setFieldMappingConfirmed(false);
                                   }}
                                   placeholder="e.g. author.details.name"
                                   className="h-8 text-xs font-mono flex-1"
@@ -608,7 +586,6 @@ function DataSourceDialog({
                                   className="flex-shrink-0"
                                   onClick={() => {
                                     setFieldMapping((prev) => ({ ...prev, [standardField]: null }));
-                                    setFieldMappingConfirmed(false);
                                   }}
                                   data-testid={`button-clear-custom-${standardField}`}
                                 >
@@ -624,7 +601,6 @@ function DataSourceDialog({
                                   } else {
                                     setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
                                   }
-                                  setFieldMappingConfirmed(false);
                                 }}
                               >
                                 <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
@@ -650,7 +626,6 @@ function DataSourceDialog({
                                   return next;
                                 });
                                 setDeletedFields((prev) => prev.includes(standardField) ? prev : [...prev, standardField]);
-                                setFieldMappingConfirmed(false);
                               }}
                               data-testid={`button-delete-field-${standardField}`}
                             >
@@ -671,7 +646,6 @@ function DataSourceDialog({
                             className="cursor-pointer text-xs"
                             onClick={() => {
                               setFieldMapping((prev) => ({ ...prev, [f]: null }));
-                              setFieldMappingConfirmed(false);
                             }}
                             data-testid={`badge-readd-${f}`}
                           >
@@ -687,7 +661,6 @@ function DataSourceDialog({
                         value={localeField || "__none__"}
                         onValueChange={(v) => {
                           setLocaleField(v === "__none__" ? "" : v);
-                          setFieldMappingConfirmed(false);
                         }}
                       >
                         <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-locale-field">
@@ -729,7 +702,6 @@ function DataSourceDialog({
                                 setIndexedFields((prev) =>
                                   isIndexed ? prev.filter((f) => f !== field) : [...prev, field]
                                 );
-                                setFieldMappingConfirmed(false);
                               }}
                               data-testid={`badge-index-${field}`}
                             >
@@ -741,70 +713,6 @@ function DataSourceDialog({
                       </div>
                     </div>
 
-                    {samplePost && (
-                      <div className="rounded-md border p-3 space-y-2" data-testid="section-sample-preview">
-                        <Label className="text-xs font-medium text-muted-foreground">Sample Item Preview</Label>
-                        <div className="space-y-1">
-                          {fieldMapping.title && (
-                            <p className="text-sm font-medium truncate" data-testid="preview-title">
-                              {String(getFieldValue(samplePost, fieldMapping.title) || "—")}
-                            </p>
-                          )}
-                          {fieldMapping.slug && (
-                            <p className="text-xs font-mono text-muted-foreground truncate" data-testid="preview-slug">
-                              /{String(getFieldValue(samplePost, fieldMapping.slug) || "")}
-                            </p>
-                          )}
-                          {fieldMapping.description && (
-                            <p className="text-xs text-muted-foreground line-clamp-2" data-testid="preview-description">
-                              {String(getFieldValue(samplePost, fieldMapping.description) || "")}
-                            </p>
-                          )}
-                          <div className="flex items-center gap-3 flex-wrap text-xs text-muted-foreground pt-1">
-                            {fieldMapping.author && (
-                              <span data-testid="preview-author">
-                                {(() => {
-                                  const v = getFieldValue(samplePost, fieldMapping.author);
-                                  if (typeof v === "object" && v && "first_name" in (v as Record<string, unknown>)) {
-                                    const a = v as Record<string, unknown>;
-                                    return `${a.first_name || ""} ${a.last_name || ""}`.trim();
-                                  }
-                                  return String(v || "");
-                                })()}
-                              </span>
-                            )}
-                            {fieldMapping.published_at && (
-                              <span data-testid="preview-date">
-                                {formatDate(String(getFieldValue(samplePost, fieldMapping.published_at) || ""))}
-                              </span>
-                            )}
-                            {fieldMapping.status && (
-                              <Badge variant="outline" data-testid="preview-status">
-                                {String(getFieldValue(samplePost, fieldMapping.status) || "")}
-                              </Badge>
-                            )}
-                            {fieldMapping.lang && (
-                              <Badge variant="outline" data-testid="preview-lang">
-                                {String(getFieldValue(samplePost, fieldMapping.lang) || "").toUpperCase()}
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    <Button
-                      size="sm"
-                      disabled={fieldMappingConfirmed || Object.values(fieldMapping).filter((v) => v != null && v !== "__none__").length === 0}
-                      onClick={() => { setFieldMappingConfirmed(true); markComplete("fields"); }}
-                      data-testid="button-confirm-fields"
-                    >
-                      {fieldMappingConfirmed ? (
-                        <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
-                      ) : (
-                        "Confirm Field Mapping"
-                      )}
-                    </Button>
                   </div>
                 )}
 
@@ -832,7 +740,7 @@ function DataSourceDialog({
           {isLastStep ? (
             <Button
               onClick={handleSave}
-              disabled={saving || isLoading || !fieldMappingConfirmed}
+              disabled={saving || isLoading || !Object.values(fieldMapping).some((v) => v != null && v !== "__none__")}
               data-testid="button-save-datasource"
             >
               {saving ? "Saving..." : "Save"}
