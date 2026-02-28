@@ -20,7 +20,9 @@ sections:
     title: Top Coding Bootcamp
     subtitle: 4Geeks Academy earns top honors from Forbes, SwitchUp, Course Report and global industry leaders for our hands-on, career-focused programs.
     badge: Awards & recognitions
-    image_id: academy_header_coding
+    image:
+      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      alt: Students coding at computers in a classroom
     image_full_width: true
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:

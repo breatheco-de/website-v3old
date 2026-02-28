@@ -9,7 +9,9 @@ sections:
     badge: Bootcamp that launch careers
     title: {{ single.title | Blog title }}
     subtitle: {{ single.description | blog description }}
-    image_id: academy_header_coding
+    image:
+      src: "{{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png }}"
+      alt: "{{ single.title | Blog post image }}"
     image_full_width: false
   - type: article
     show_toc: true

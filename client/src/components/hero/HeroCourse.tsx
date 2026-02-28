@@ -8,7 +8,7 @@ import { getIcon } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import { resolveTemplateFallback } from "@/lib/variable-resolver";
+import { resolveTemplateFallback } from "@/lib/variable-manager";
 
 interface HeroCourseProps {
   data: HeroCourseType;

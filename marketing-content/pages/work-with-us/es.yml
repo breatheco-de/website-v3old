@@ -20,7 +20,9 @@ sections:
     title: Carreras en 4Geeks
     subtitle: Únete a una academia global de programación reconocida por su calidad, impacto e innovación. Forma parte de un equipo dinámico y global que ayuda a miles de estudiantes en todo el mundo a lanzar carreras en ingeniería de IA, ciencia de datos y ciberseguridad.
     badge: Oportunidades Laborales
-    image_id: academy_header_coding
+    image:
+      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      alt: Estudiantes programando en computadoras en un aula
     image_full_width: false
   - type: two_column
     proportions:

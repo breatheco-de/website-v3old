@@ -118,18 +118,34 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
 
       </div>
 
-      {data.image_id && (
+      {(data.image?.src || (data as any).image_id) && (
         <div className={data.image_full_width ? "w-full mt-8 object-cover" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
-          <UniversalImage
-            id={data.image_id}
-            alt=""
-            className={`h-auto object-cover rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
-            style={{
-              width: data.image_width || '100%',
-              ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
-            }}
-            data-testid="img-hero-single-column"
-          />
+          {data.image?.src ? (
+            <div className={`relative overflow-hidden ${data.image_full_width ? "max-h-[250px]" : ""} h-auto object-cover rounded-none`}>
+              <img
+                src={data.image.src}
+                alt={data.image.alt || ""}
+                loading="lazy"
+                className="w-full h-full object-cover"
+                style={{
+                  width: data.image_width || '100%',
+                  ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
+                }}
+                data-testid="img-hero-single-column"
+              />
+            </div>
+          ) : (
+            <UniversalImage
+              id={(data as any).image_id}
+              alt=""
+              className={`h-auto object-cover rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
+              style={{
+                width: data.image_width || '100%',
+                ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
+              }}
+              data-testid="img-hero-single-column"
+            />
+          )}
         </div>
       )}
     </section>

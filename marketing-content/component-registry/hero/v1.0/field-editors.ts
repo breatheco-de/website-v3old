@@ -40,7 +40,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "simpleTwoColumn:image": "image-with-style-picker",
   "simpleTwoColumn:subtitle": "rich-text-editor",
   "singleColumn:subtitle": "rich-text-editor",
-  "singleColumn:image_id": "image-picker",
+  "singleColumn:image.src": "image-picker",
   "course:layout_reversed": "boolean-toggle",
   "course:signup_card.login_link.text": "rich-text-editor",
   "course:video.url": "video-picker",
