@@ -232,8 +232,7 @@ function DataSourceDialog({
   });
 
   const [selectedDb, setSelectedDb] = useState("");
-  const [urlPatternEn, setUrlPatternEn] = useState("");
-  const [urlPatternEs, setUrlPatternEs] = useState("");
+  const [urlPattern, setUrlPattern] = useState("");
 
   const [fieldMapping, setFieldMapping] = useState<FieldMapping>({});
   const [localeField, setLocaleField] = useState("");
@@ -257,8 +256,8 @@ function DataSourceDialog({
   useEffect(() => {
     if (config) {
       setSelectedDb(config.database?.slug || "");
-      setUrlPatternEn(config.url_pattern?.en || config.url_pattern?.default || "");
-      setUrlPatternEs(config.url_pattern?.es || "");
+      const existingPattern = config.url_pattern?.en || config.url_pattern?.default || "";
+      setUrlPattern(existingPattern.replace(/^\/(en|es)\//, "/:locale/"));
 
       if (config.database?.field_mapping) {
         const fm: FieldMapping = {};
@@ -343,16 +342,18 @@ function DataSourceDialog({
         }
       }
 
+      const derivedUrlPattern: Record<string, string> = {};
+      if (urlPattern) {
+        derivedUrlPattern.en = urlPattern.replace(/:locale/g, "en");
+        derivedUrlPattern.es = urlPattern.replace(/:locale/g, "es");
+      }
+
       const payload = {
         database: {
           slug: selectedDb,
           field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
         },
-        url_pattern: {
-          ...(config?.url_pattern || {}),
-          en: urlPatternEn || undefined,
-          es: urlPatternEs || undefined,
-        },
+        url_pattern: derivedUrlPattern,
       };
 
       await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
@@ -371,7 +372,7 @@ function DataSourceDialog({
   const canGoNext = (s: WizardStep): boolean => {
     switch (s) {
       case "database": return !!selectedDb;
-      case "settings": return !!urlPatternEn;
+      case "settings": return !!urlPattern;
       case "fields": return fieldMappingConfirmed;
       default: return false;
     }
@@ -486,33 +487,33 @@ function DataSourceDialog({
             {step === "settings" && (
               <div className="space-y-4" data-testid="step-settings">
                 <p className="text-sm text-muted-foreground">
-                  Configure URL patterns for {contentType} items.
+                  Configure the URL pattern for {contentType} items. Use <code>:locale</code> for the language prefix.
                 </p>
 
                 <div className="space-y-2">
-                  <Label>English URL Pattern</Label>
+                  <Label>URL Pattern</Label>
                   <Input
-                    value={urlPatternEn}
-                    onChange={(e) => setUrlPatternEn(e.target.value)}
-                    placeholder={`/en/${contentType}/:slug`}
+                    value={urlPattern}
+                    onChange={(e) => setUrlPattern(e.target.value)}
+                    placeholder={`/:locale/${contentType}/:slug`}
                     className="font-mono text-sm"
-                    data-testid="input-url-pattern-en"
+                    data-testid="input-url-pattern"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Available variables: <code>:slug</code>, <code>:category</code>, <code>:locale</code>, <code>:lang</code>
+                    Available variables: <code>:locale</code>, <code>:slug</code>, <code>:category</code>
                   </p>
                 </div>
 
-                <div className="space-y-2">
-                  <Label>Spanish URL Pattern</Label>
-                  <Input
-                    value={urlPatternEs}
-                    onChange={(e) => setUrlPatternEs(e.target.value)}
-                    placeholder={`/es/${contentType}/:slug`}
-                    className="font-mono text-sm"
-                    data-testid="input-url-pattern-es"
-                  />
-                </div>
+                {urlPattern && (
+                  <div className="rounded-md bg-muted px-3 py-2 space-y-1">
+                    <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-en">
+                      EN: {urlPattern.replace(/:locale/g, "en")}
+                    </p>
+                    <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-es">
+                      ES: {urlPattern.replace(/:locale/g, "es")}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
@@ -831,32 +832,28 @@ function SeoSettingsDialog({
     enabled: open,
   });
 
-  const enPattern = config?.url_pattern?.en || config?.url_pattern?.default || "";
-  const enParts = enPattern.match(/^(\/[a-z]{2}\/[^/:]+\/?)(.*)$/) || ["", enPattern, ""];
-  const PREFIX = enParts[1] || `/en/${contentType}/`;
-
-  const [suffix, setSuffix] = useState(":slug");
+  const [pattern, setPattern] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const pattern = PREFIX + suffix;
 
   useEffect(() => {
     if (config) {
-      const full = config.url_pattern?.en || config.url_pattern?.default || "";
-      if (full.startsWith(PREFIX)) {
-        setSuffix(full.slice(PREFIX.length));
-      } else {
-        setSuffix(full.replace(/^\/(en|es)\/[^/]+\/?/, ""));
-      }
+      const existing = config.url_pattern?.en || config.url_pattern?.default || "";
+      setPattern(existing.replace(/^\/(en|es)\//, "/:locale/"));
     }
   }, [config]);
 
   const URL_SAFE_FIELDS = new Set(["slug", "category", "lang", "status", "tags"]);
 
   const mappedKeys = useMemo(() => {
-    if (!config?.database?.field_mapping) return ["slug"];
-    return Object.entries(config.database.field_mapping)
+    const keys = ["locale"];
+    if (!config?.database?.field_mapping) {
+      keys.push("slug");
+      return keys;
+    }
+    const fromMapping = Object.entries(config.database.field_mapping)
       .filter(([k, v]) => v != null && !k.startsWith("_") && URL_SAFE_FIELDS.has(k))
       .map(([k]) => k);
+    return [...keys, ...fromMapping];
   }, [config]);
 
   const usedInPattern = useMemo(() => {
@@ -865,26 +862,22 @@ function SeoSettingsDialog({
   }, [pattern]);
 
   const unknownVars = useMemo(() => {
-    return usedInPattern.filter((v) => v !== "locale" && !mappedKeys.includes(v));
+    return usedInPattern.filter((v) => !mappedKeys.includes(v));
   }, [usedInPattern, mappedKeys]);
 
-  const deriveLocalePattern = (basePattern: string, locale: string): string => {
-    return basePattern.replace(/^\/en\//, `/${locale}/`).replace(/^\/en$/, `/${locale}`);
-  };
-
-  const esPreview = deriveLocalePattern(pattern, "es");
+  const sampleItem = { slug: "sample-item", category: { slug: "general" } };
 
   const insertVariable = (varName: string) => {
     const el = inputRef.current;
     if (!el) {
-      setSuffix((prev) => prev + `:${varName}`);
+      setPattern((prev) => prev + `:${varName}`);
       return;
     }
-    const start = el.selectionStart ?? suffix.length;
-    const end = el.selectionEnd ?? suffix.length;
+    const start = el.selectionStart ?? pattern.length;
+    const end = el.selectionEnd ?? pattern.length;
     const token = `:${varName}`;
-    const next = suffix.slice(0, start) + token + suffix.slice(end);
-    setSuffix(next);
+    const next = pattern.slice(0, start) + token + pattern.slice(end);
+    setPattern(next);
     requestAnimationFrame(() => {
       el.focus();
       const pos = start + token.length;
@@ -892,16 +885,13 @@ function SeoSettingsDialog({
     });
   };
 
-  const sampleItem = { slug: "sample-item", category: { slug: "general" } };
-
   const handleSave = async () => {
     setSaving(true);
     try {
       const payload = {
         url_pattern: {
-          ...(config?.url_pattern || {}),
-          en: pattern,
-          es: deriveLocalePattern(pattern, "es"),
+          en: pattern.replace(/:locale/g, "en"),
+          es: pattern.replace(/:locale/g, "es"),
         },
       };
       await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
@@ -930,24 +920,16 @@ function SeoSettingsDialog({
         ) : (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="en-pattern" className="text-sm">URL Pattern</Label>
-              <div className="flex items-center">
-                <span className="inline-flex items-center px-3 h-9 rounded-l-md border border-r-0 bg-muted text-sm font-mono text-muted-foreground select-none" data-testid="text-url-prefix">
-                  {PREFIX}
-                </span>
-                <Input
-                  ref={inputRef}
-                  id="en-pattern"
-                  value={suffix}
-                  onChange={(e) => setSuffix(e.target.value)}
-                  placeholder=":slug"
-                  className="font-mono text-sm rounded-l-none"
-                  data-testid="input-en-pattern"
-                />
-              </div>
-              <p className="text-xs text-muted-foreground font-mono" data-testid="text-en-preview">
-                Preview: {buildItemUrl(pattern, sampleItem, "en")}
-              </p>
+              <Label htmlFor="url-pattern" className="text-sm">URL Pattern</Label>
+              <Input
+                ref={inputRef}
+                id="url-pattern"
+                value={pattern}
+                onChange={(e) => setPattern(e.target.value)}
+                placeholder={`/:locale/${contentType}/:slug`}
+                className="font-mono text-sm"
+                data-testid="input-url-pattern"
+              />
               {unknownVars.length > 0 && (
                 <p className="text-xs text-destructive" data-testid="text-unknown-vars-warning">
                   Unknown variable{unknownVars.length > 1 ? "s" : ""}: {unknownVars.map((v) => `:${v}`).join(", ")}
@@ -972,14 +954,17 @@ function SeoSettingsDialog({
               </div>
             </div>
 
-            <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="text-locale-note">
-              <p className="text-xs text-muted-foreground">
-                The <code className="text-foreground">{PREFIX}</code> prefix is locked. Other languages use the same structure automatically.
-              </p>
-              <p className="text-xs text-muted-foreground font-mono" data-testid="text-es-preview">
-                Spanish: {buildItemUrl(esPreview, sampleItem, "es")}
-              </p>
-            </div>
+            {pattern && (
+              <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="section-url-previews">
+                <Label className="text-xs text-muted-foreground">Preview</Label>
+                <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-en">
+                  EN: {buildItemUrl(pattern.replace(/:locale/g, "en"), sampleItem, "en")}
+                </p>
+                <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-es">
+                  ES: {buildItemUrl(pattern.replace(/:locale/g, "es"), sampleItem, "es")}
+                </p>
+              </div>
+            )}
           </div>
         )}
 
@@ -987,7 +972,7 @@ function SeoSettingsDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-seo">
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={saving || isLoading} data-testid="button-save-seo">
+          <Button onClick={handleSave} disabled={saving || isLoading || !pattern} data-testid="button-save-seo">
             {saving ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
