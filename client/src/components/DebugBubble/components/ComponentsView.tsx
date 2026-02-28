@@ -6,7 +6,6 @@ import {
   IconComponents,
   IconExternalLink,
 } from "@tabler/icons-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import type { MenuView } from "../types";
 
 interface ComponentsViewProps {
@@ -94,7 +93,7 @@ export function ComponentsView({
         </div>
       </div>
       
-      <ScrollArea className="h-[280px]">
+      <div className="overflow-y-auto overflow-x-hidden max-h-[280px]">
         <div className="p-2 space-y-1">
           {!componentRegistryData ? (
             <div className="flex items-center justify-center py-8">
@@ -124,7 +123,7 @@ export function ComponentsView({
             })
           )}
         </div>
-      </ScrollArea>
+      </div>
     </>
   );
 }

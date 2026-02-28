@@ -1,6 +1,9 @@
 slug: home
 template: default
 title: The AI Reskilling Platform
+settings:
+  loading:
+    eager_count: 3
 meta:
   robots: index, follow
   priority: 1

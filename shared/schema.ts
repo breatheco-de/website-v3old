@@ -761,8 +761,12 @@ export type ShowOn = z.infer<typeof showOnSchema>;
 // showOn: controls breakpoint visibility (mobile, desktop, or all)
 // showOnLocations: array of location slugs - section only visible when user's location matches one
 // showOnRegions: array of region slugs - section only visible when user's region matches one
+export const sectionLoadSchema = z.enum(["eager", "lazy"]);
+export type SectionLoad = z.infer<typeof sectionLoadSchema>;
+
 export const sectionLayoutSchema = z.object({
-  section_id: z.string().optional(), // Stable anchor ID that overrides position-based ID (e.g., "reviews" instead of "reviews-5")
+  section_id: z.string().optional(),
+  load: sectionLoadSchema.optional(),
   marginY: responsiveSpacingSchema.optional(),
   paddingY: responsiveSpacingSchema.optional(),
   background: z.string().optional(),
@@ -934,11 +938,20 @@ export const careerProgramMetaSchema = z.object({
   redirects: z.array(z.string()).optional(),
 });
 
+export const pageSettingsSchema = z.object({
+  loading: z.object({
+    eager_count: z.number().int().min(0).default(3),
+  }).optional(),
+}).optional();
+
+export type PageSettings = z.infer<typeof pageSettingsSchema>;
+
 export const careerProgramSchema = z.object({
   slug: z.string(),
   title: z.string(),
   meta: careerProgramMetaSchema,
   schema: schemaRefSchema.optional(),
+  settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
 });
 
@@ -965,6 +978,7 @@ export const landingPageSchema = z.object({
   title: z.string().optional(),
   meta: landingPageMetaSchema,
   schema: schemaRefSchema.optional(),
+  settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
   landing_locations: z.array(z.string()).optional(),
 });
@@ -1077,6 +1091,7 @@ export const locationPageSchema = z.object({
   catalog: locationCatalogSchema.optional(),
   meta: locationMetaSchema,
   schema: schemaRefSchema.optional(),
+  settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
 });
 
@@ -1102,6 +1117,7 @@ export const templatePageSchema = z.object({
   title: z.string(),
   meta: templatePageMetaSchema,
   schema: schemaRefSchema.optional(),
+  settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
 });
 

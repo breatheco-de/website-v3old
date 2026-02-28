@@ -12,12 +12,13 @@ import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import "./i18n";
 
-const ContentTypeDetail = lazy(() => import("@/pages/ContentTypeDetail"));
-const LandingDetail = lazy(() => import("@/pages/LandingDetail"));
+import ContentTypeDetail from "@/pages/ContentTypeDetail";
+import LandingDetail from "@/pages/LandingDetail";
+import TemplatePage from "@/pages/page";
+import HomePage from "@/pages/HomePage";
+
 const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
-const TemplatePage = lazy(() => import("@/pages/page"));
-const HomePage = lazy(() => import("@/pages/HomePage"));
 const ApplyPage = lazy(() => import("@/pages/ApplyPage"));
 const TermsPage = lazy(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));

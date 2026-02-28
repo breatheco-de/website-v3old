@@ -22,6 +22,7 @@ import {
   getSitemapUrls,
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
+import { databaseManager } from "./database";
 import {
   redirectMiddleware,
   getRedirects,
@@ -1420,73 +1421,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(400).json({ error: "Request body must be a JSON object" });
         return;
       }
-      if (body.data_source) {
-        const ds = body.data_source;
-        if (!ds.type || typeof ds.type !== "string") {
-          res.status(400).json({ error: "data_source.type is required" });
-          return;
-        }
-        if (ds.type === "api" && (!ds.api || !ds.api.endpoint)) {
-          res
-            .status(400)
-            .json({
-              error: "data_source.api.endpoint is required for API sources",
-            });
-          return;
-        }
-      }
-      saveBlogConfig(body);
+      const allowed: Record<string, unknown> = {};
+      if (body.database !== undefined) allowed.database = body.database;
+      if (body.url_pattern !== undefined) allowed.url_pattern = body.url_pattern;
+      if (body.categories !== undefined) allowed.categories = body.categories;
+      if (body.field_mapping !== undefined) allowed.field_mapping = body.field_mapping;
+      saveBlogConfig(allowed);
       res.json({ success: true });
-    } catch (err) {
-      res.status(500).json({ error: String(err) });
-    }
-  });
-
-  app.post("/api/blog/test-endpoint", async (req, res) => {
-    try {
-      const { endpoint, params, token_env_var, auth_prefix, headers } =
-        req.body || {};
-      if (!endpoint) {
-        res.status(400).json({ error: "endpoint is required" });
-        return;
-      }
-
-      const qs = new URLSearchParams();
-      if (params && typeof params === "object") {
-        for (const [k, v] of Object.entries(params)) {
-          qs.set(k, String(v));
-        }
-      }
-      const url = qs.toString() ? `${endpoint}?${qs.toString()}` : endpoint;
-
-      const fetchHeaders: Record<string, string> = {};
-      if (headers && typeof headers === "object") {
-        Object.assign(fetchHeaders, headers);
-      }
-      if (token_env_var) {
-        const token = process.env[token_env_var];
-        if (token) {
-          fetchHeaders["Authorization"] = auth_prefix
-            ? `${auth_prefix} ${token}`
-            : token;
-        }
-      }
-
-      const response = await fetch(url, { headers: fetchHeaders });
-      const contentType = response.headers.get("content-type") || "";
-      let body: unknown;
-      if (contentType.includes("json")) {
-        body = await response.json();
-      } else {
-        body = await response.text();
-      }
-
-      res.json({
-        status: response.status,
-        status_text: response.statusText,
-        content_type: contentType,
-        body,
-      });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
@@ -1675,6 +1616,119 @@ Important: Only include mappings where you are confident the field exists. Use d
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: String(err) });
+    }
+  });
+
+  // ── Database routes ──────────────────────────────────────────
+  app.get("/api/databases", (_req, res) => {
+    try {
+      const databases = databaseManager.list();
+      res.json(
+        databases.map((db) => ({
+          name: db.name,
+          label: db.config.name,
+          description: db.config.description || null,
+          source_type: db.config.source.type,
+          field_count: db.config.field_mapping
+            ? Object.keys(db.config.field_mapping).length
+            : 0,
+        }))
+      );
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/databases", (req, res) => {
+    try {
+      const { slug, config } = req.body;
+      if (!slug || !config || !config.name || !config.source) {
+        res.status(400).json({ error: "slug, config.name, and config.source are required" });
+        return;
+      }
+      databaseManager.create(slug, config);
+      res.json({ success: true, name: slug, config });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("already exists")) {
+        res.status(409).json({ error: msg });
+      } else {
+        res.status(400).json({ error: msg });
+      }
+    }
+  });
+
+  app.get("/api/databases/:name", (req, res) => {
+    try {
+      const config = databaseManager.get(req.params.name);
+      res.json({ name: req.params.name, config });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.get("/api/databases/:name/items", async (req, res) => {
+    try {
+      const result = await databaseManager.fetchItems(req.params.name);
+      res.json(result);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.post("/api/databases/:name/refresh", async (req, res) => {
+    try {
+      const result = await databaseManager.fetchItems(req.params.name, true);
+      res.json(result);
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.put("/api/databases/:name/config", (req, res) => {
+    try {
+      const config = req.body;
+      if (!config || !config.name || !config.source) {
+        res.status(400).json({ error: "Invalid config: name and source are required" });
+        return;
+      }
+      databaseManager.update(req.params.name, config);
+      res.json({ success: true });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.delete("/api/databases/:name", (req, res) => {
+    try {
+      databaseManager.delete(req.params.name);
+      res.json({ success: true });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.post("/api/databases/:name/test", async (req, res) => {
+    try {
+      const source = req.body?.source;
+      if (!source) {
+        res.status(400).json({ error: "source config required in body" });
+        return;
+      }
+      const result = await databaseManager.test(source);
+      res.json(result);
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
     }
   });
 

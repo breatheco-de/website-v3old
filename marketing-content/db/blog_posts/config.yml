@@ -1,0 +1,21 @@
+name: Blog Posts
+description: Blog articles from the Breathecode API for the 4Geeks Academy blog
+source:
+  type: api
+  api:
+    endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
+    params:
+      limit: 500
+      offset: 0
+      status: published
+      visibility: public
+      academy: 7
+      big: 'true'
+      expand: cluster
+    results_path: results
+    auth:
+      token_env_var: BREATHECODE_TOKEN
+      prefix: Token
+    headers: {}
+cache:
+  ttl_hours: 24

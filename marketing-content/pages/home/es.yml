@@ -1,6 +1,9 @@
 slug: inicio
 template: default
 title: La Plataforma de Recapacitación con IA
+settings:
+  loading:
+    eager_count: 3
 meta:
   robots: index, follow
   priority: 1

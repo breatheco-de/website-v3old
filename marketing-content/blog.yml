@@ -1,69 +1,26 @@
-# Blog Data Source Configuration
+# Blog Configuration
 #
-# This file controls where blog posts are fetched from.
-# The data_source.type field selects the active provider.
+# The blog system sources its data from a named database (managed via the
+# generic Database system at marketing-content/db/).
 #
-# ─── Supported data_source types ───────────────────────────────
+# ─── Fields ─────────────────────────────────────────────────────
 #
-# type: api
-#   api:
-#     endpoint: <URL>            # REST endpoint returning JSON array/object of posts
-#     params: <key: value>       # Query string parameters appended to the URL
-#     token_env_var: <name>      # Env var holding the auth token (optional)
-#     auth_prefix: <word>        # Prefix before token in Authorization header (e.g. "Token", "Bearer", or "" for none)
-#     results_path: <dotpath>    # Dot-notation path to the array of posts in the response (e.g. "results", "data.posts"). If empty, the response is treated as a direct array.
-#     headers:                   # Custom HTTP headers sent with every request (key: value pairs)
-#       X-Custom: value
-#
-# type: rss  (planned)
-#   rss:
-#     feed_url: <URL>            # RSS or Atom feed URL
-#
-# type: csv  (planned)
-#   csv:
-#     file_path: <path>          # Path to a local CSV file with blog posts
-#     delimiter: ","             # Column separator (default: comma)
-#
-# Each provider normalizes posts to a common shape:
-#   { title, slug, status, visibility, lang, author, published_at, updated_at, preview }
+# database:       Name of the database folder under marketing-content/db/
+# url_pattern:    URL pattern per locale, with :slug, :category, :locale placeholders
+# categories:     Default category slug per locale
+# field_mapping:  Maps database item fields → blog post properties
+#                 Standard blog fields: title, slug, description, image, author,
+#                 published_at, updated_at, status, category, tags, lang,
+#                 content, content_url
 # ───────────────────────────────────────────────────────────────
 
-data_source:
-  type: api
-  api:
-    endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
-    params:
-      limit: 500
-      offset: 0
-      status: published
-      visibility: public
-      academy: 7
-      big: 'true'
-      expand: cluster
-    token_env_var: BREATHECODE_ACADEMY_TOKEN
-    auth_prefix: Token
-    results_path: results
-    headers: {}
-cache:
-  ttl_hours: 24
-  file_path: .cache/blog-posts.json
+database: blog_posts
 url_pattern:
   en: /en/blog/:category/:slug
   es: /es/blog/:category/:slug
 categories:
   en: blog-us
   es: blog-es
-transform:
-  results_path: results
-  pagination:
-    type: offset
-    has_more_field: next
-    total_field: count
-    next_field: next
-    strategy_description: >-
-      The API uses offset‑based pagination. The response includes a total count (count) and navigation URLs (first,
-      previous, next, last) that contain limit and offset query parameters. To get the next page, follow the URL in the
-      'next' field; to go back, use 'previous'. Continue until 'next' is null.
 field_mapping:
   title: title
   slug: slug

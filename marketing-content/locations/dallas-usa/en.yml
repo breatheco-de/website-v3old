@@ -297,9 +297,9 @@ sections:
       - job-guarantee
     marginY:
       desktop: lg none
-    background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career

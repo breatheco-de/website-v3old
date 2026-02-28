@@ -132,6 +132,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
       <Header />
       <SectionRenderer 
         sections={data.sections || []} 
+        settings={data.settings}
         contentType={type}
         slug={slug}
         locale={effectiveLocale}
