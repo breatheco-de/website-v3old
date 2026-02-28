@@ -7,8 +7,8 @@ sections:
     version: "1.0"
     variant: singleColumn
     badge: Bootcamp that launch careers
-    title: "GeekFORCE: The Career Launch Engine You Didn't Know You Needed"
-    subtitle: 4Geeks Academy is a global tech academy with 8 campuses across the U.S., Latin America, and Europe, training the next generation of tech professionals in AI-powered Full-Stack Development, Data Science & ML, and Cybersecurity.
+    title: {{ single.title | Blog title }}
+    subtitle: {{ single.description | blog description }}
     image_id: academy_header_coding
     image_full_width: false
   - type: article

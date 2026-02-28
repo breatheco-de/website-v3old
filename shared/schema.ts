@@ -1119,6 +1119,7 @@ export const templatePageSchema = z.object({
   schema: schemaRefSchema.optional(),
   settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
+  singleEntry: z.record(z.unknown()).optional(),
 });
 
 export type TemplatePageMeta = z.infer<typeof templatePageMetaSchema>;

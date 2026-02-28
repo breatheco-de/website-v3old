@@ -7,7 +7,7 @@ import {
   resolveVariable,
   type VariableDefinition,
   type VariableContext as VarCtx,
-} from "@/lib/variable-resolver";
+} from "@/lib/variable-manager";
 import { VariableDetailModal } from "./VariableDetailModal";
 import { VariableTypeChooserModal } from "./VariableTypeChooserModal";
 import { SingleVariablePickerModal } from "./SingleVariablePickerModal";

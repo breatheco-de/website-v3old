@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
-import { resolveTemplateFallback, hasTemplateVariables } from "@/lib/variable-resolver";
+import { resolveTemplateFallback, hasTemplateVariables } from "@/lib/variable-manager";
 
 export interface StatCardProps {
   value: string;

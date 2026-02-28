@@ -418,16 +418,15 @@ async function loadDatabaseSinglePage(
     }
     const singleItem = { ...matchItem, content };
 
-    const resolved = resolveSingleVars(merged, singleItem as Record<string, unknown>) as Record<string, unknown>;
-
     const page: TemplatePage = {
-      slug: (resolved.slug as string) || slug,
-      template: (resolved.template as string) || "default",
-      title: (resolved.title as string) || (singleItem.title as string) || slug,
-      meta: (resolved.meta as TemplatePage["meta"]) || {},
-      sections: (resolved.sections as TemplatePage["sections"]) || [],
-      settings: (resolved.settings as TemplatePage["settings"]) || undefined,
-      schema: (resolved.schema as TemplatePage["schema"]) || undefined,
+      slug: (merged.slug as string) || slug,
+      template: (merged.template as string) || "default",
+      title: (merged.title as string) || (singleItem.title as string) || slug,
+      meta: (merged.meta as TemplatePage["meta"]) || {},
+      sections: (merged.sections as TemplatePage["sections"]) || [],
+      settings: (merged.settings as TemplatePage["settings"]) || undefined,
+      schema: (merged.schema as TemplatePage["schema"]) || undefined,
+      singleEntry: singleItem as Record<string, unknown>,
     };
 
     return page;

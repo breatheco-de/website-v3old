@@ -26,7 +26,7 @@ import {
   resolveVariable,
   type VariableDefinition,
   type VariableCondition,
-} from "@/lib/variable-resolver";
+} from "@/lib/variable-manager";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import { checkEditorHasUnsavedChanges, emitContentUpdated } from "@/lib/contentEvents";

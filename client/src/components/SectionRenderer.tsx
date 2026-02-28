@@ -4,7 +4,7 @@ import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, 
 import { useSession } from "@/contexts/SessionContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
-import { resolveDeep } from "@/lib/variable-resolver";
+import { resolveDeep } from "@/lib/variable-manager";
 
 // ============================================
 // Component Load Strategy Registry
@@ -309,6 +309,7 @@ interface SectionRendererProps {
   programSlug?: string;
   landingLocations?: string[];
   isSharedTemplate?: boolean;
+  singleEntry?: Record<string, unknown>;
 }
 
 function EmptyPageState({ 
@@ -614,7 +615,7 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   );
 }
 
-export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations, isSharedTemplate }: SectionRendererProps) {
+export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations, isSharedTemplate, singleEntry }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -685,17 +686,21 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   }, [contentType, slug, locale, sections, toast]);
 
   const resolvedSections = useMemo(() => {
-    if (!varDefinitions || Object.keys(varDefinitions).length === 0) {
+    const hasGlobalDefs = varDefinitions && Object.keys(varDefinitions).length > 0;
+    if (!hasGlobalDefs && !singleEntry) {
       return sections;
     }
     const { data } = resolveDeep(
       sections,
-      varDefinitions,
+      varDefinitions || {},
       varContext,
-      isEditMode ? { preserveTemplate: true } : undefined,
+      {
+        preserveTemplate: isEditMode ? true : undefined,
+        singleEntry,
+      },
     );
     return data as Section[];
-  }, [sections, isEditMode, varDefinitions, varContext]);
+  }, [sections, isEditMode, varDefinitions, varContext, singleEntry]);
 
   const renderSectionWithContext = useCallback((section: Section, index: number) => {
     const sectionType = (section as { type: string }).type;

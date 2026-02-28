@@ -8,7 +8,7 @@ import { UniversalVideo } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
-import { resolveTemplateFallback } from "@/lib/variable-resolver";
+import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { LeadForm, type LeadFormData } from "@/components/LeadForm";
 import { useInternalNav } from "@/hooks/useInternalNav";
 

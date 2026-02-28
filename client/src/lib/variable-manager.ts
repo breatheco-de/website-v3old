@@ -1,4 +1,6 @@
 const TEMPLATE_REGEX = /\{\{\s*([^|}]+?)\s*(?:\|\s*([\s\S]*?))?\s*\}\}/g;
+const SINGLE_PREFIX = "single.";
+const EXACT_SINGLE_VAR_PATTERN = /^\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}$/;
 
 export interface VariableCondition {
   query: Record<string, string>;
@@ -23,8 +25,24 @@ export interface ResolvedVariable {
   original: string;
   variableName: string;
   resolvedValue: string;
-  source: "condition" | "location" | "region" | "locale" | "default" | "inline";
+  source: "condition" | "location" | "region" | "locale" | "default" | "inline" | "single";
   defaultValue: string;
+}
+
+export interface ResolveOptions {
+  preserveTemplate?: boolean;
+  singleEntry?: Record<string, unknown>;
+}
+
+function getNestedValue(obj: Record<string, unknown>, dotPath: string): unknown {
+  const parts = dotPath.split(".");
+  let current: unknown = obj;
+  for (const part of parts) {
+    if (current === null || current === undefined) return undefined;
+    if (typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
 }
 
 export function resolveVariable(
@@ -62,19 +80,65 @@ export function resolveVariable(
   return null;
 }
 
+function resolveSingleVariable(
+  fieldPath: string,
+  singleEntry: Record<string, unknown>,
+): { value: unknown; source: "single" } | null {
+  const value = getNestedValue(singleEntry, fieldPath);
+  if (value !== undefined && value !== null) {
+    return { value, source: "single" };
+  }
+  return null;
+}
+
 export function resolveTemplateString(
   text: string,
   definitions: Record<string, VariableDefinition>,
   context: VariableContext,
-  options?: { preserveTemplate?: boolean },
+  options?: ResolveOptions,
 ): { text: string; variables: ResolvedVariable[] } {
   const variables: ResolvedVariable[] = [];
   const regex = new RegExp(TEMPLATE_REGEX.source, TEMPLATE_REGEX.flags);
   const preserveTemplate = options?.preserveTemplate ?? false;
+  const singleEntry = options?.singleEntry;
 
   const resolved = text.replace(regex, (match, expression: string, inlineDefault: string) => {
     const name = expression.trim();
     const defVal = (inlineDefault || "").trim();
+
+    if (name.startsWith(SINGLE_PREFIX)) {
+      if (!singleEntry) {
+        return match;
+      }
+      const fieldPath = name.slice(SINGLE_PREFIX.length);
+      const singleResult = resolveSingleVariable(fieldPath, singleEntry);
+
+      if (preserveTemplate) {
+        if (!singleResult && !defVal) {
+          return match;
+        }
+        const displayValue = singleResult ? String(typeof singleResult.value === "object" ? JSON.stringify(singleResult.value) : singleResult.value) : defVal;
+        variables.push({
+          original: match,
+          variableName: name,
+          resolvedValue: displayValue,
+          source: singleResult ? "single" : "inline",
+          defaultValue: defVal,
+        });
+        return `{{ ${name} | ${displayValue} }}`;
+      }
+
+      const singleValue = singleResult ? String(typeof singleResult.value === "object" ? JSON.stringify(singleResult.value) : singleResult.value) : defVal || name;
+      variables.push({
+        original: match,
+        variableName: name,
+        resolvedValue: singleValue,
+        source: singleResult ? "single" : "inline",
+        defaultValue: defVal,
+      });
+      return singleValue;
+    }
+
     const result = resolveVariable(name, definitions, context);
     const value = result?.value || defVal || name;
     const source = result?.source || "inline";
@@ -103,12 +167,34 @@ export function resolveDeep(
   data: unknown,
   definitions: Record<string, VariableDefinition>,
   context: VariableContext,
-  options?: { preserveTemplate?: boolean },
+  options?: ResolveOptions,
 ): { data: unknown; variables: ResolvedVariable[] } {
   const allVariables: ResolvedVariable[] = [];
+  const singleEntry = options?.singleEntry;
 
   function walk(value: unknown): unknown {
     if (typeof value === "string") {
+      if (singleEntry && !options?.preserveTemplate) {
+        const exactMatch = value.match(EXACT_SINGLE_VAR_PATTERN);
+        if (exactMatch) {
+          const fieldPath = exactMatch[1];
+          const fallback = exactMatch[2]?.trim();
+          const resolved = getNestedValue(singleEntry, fieldPath);
+          const resolvedValue = resolved !== undefined && resolved !== null ? resolved : (fallback !== undefined ? fallback : value);
+          const displayValue = typeof resolvedValue === "object" ? JSON.stringify(resolvedValue) : String(resolvedValue);
+
+          allVariables.push({
+            original: value,
+            variableName: `single.${fieldPath}`,
+            resolvedValue: displayValue,
+            source: resolved !== undefined && resolved !== null ? "single" : "inline",
+            defaultValue: fallback || "",
+          });
+
+          return resolvedValue;
+        }
+      }
+
       const { text, variables } = resolveTemplateString(value, definitions, context, options);
       allVariables.push(...variables);
       return text;

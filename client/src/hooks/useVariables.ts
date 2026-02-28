@@ -7,7 +7,7 @@ import {
   type VariableDefinition,
   type VariableContext,
   type ResolvedVariable,
-} from "@/lib/variable-resolver";
+} from "@/lib/variable-manager";
 
 export function useVariableDefinitions() {
   return useQuery<Record<string, VariableDefinition>>({

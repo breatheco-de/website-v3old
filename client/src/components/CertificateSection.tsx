@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import type { CertificateSection as CertificateSectionType } from "@shared/schema";
 import { CertificateDisplay } from "./CertificateDisplay";
 import { cn } from "@/lib/utils";
-import { resolveTemplateFallback, hasTemplateVariables } from "@/lib/variable-resolver";
+import { resolveTemplateFallback, hasTemplateVariables } from "@/lib/variable-manager";
 
 interface ParsedValue {
   prefix: string;

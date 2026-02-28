@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
@@ -8,6 +8,8 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
+import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
+import { resolveDeep } from "@/lib/variable-manager";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -34,8 +36,27 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
     enabled: !!slug,
   });
 
-  usePageMeta(page?.meta);
-  useSchemaOrg(page?.schema);
+  const { data: varDefinitions } = useVariableDefinitions();
+  const varContext = useVariableContext();
+
+  const resolvedMeta = useMemo(() => {
+    if (!page?.meta) return undefined;
+    const singleEntry = page.singleEntry;
+    if (!singleEntry && (!varDefinitions || Object.keys(varDefinitions).length === 0)) return page.meta;
+    const { data } = resolveDeep(page.meta, varDefinitions || {}, varContext, { singleEntry });
+    return data as typeof page.meta;
+  }, [page?.meta, page?.singleEntry, varDefinitions, varContext]);
+
+  const resolvedSchema = useMemo(() => {
+    if (!page?.schema) return undefined;
+    const singleEntry = page.singleEntry;
+    if (!singleEntry && (!varDefinitions || Object.keys(varDefinitions).length === 0)) return page.schema;
+    const { data } = resolveDeep(page.schema, varDefinitions || {}, varContext, { singleEntry });
+    return data as typeof page.schema;
+  }, [page?.schema, page?.singleEntry, varDefinitions, varContext]);
+
+  usePageMeta(resolvedMeta);
+  useSchemaOrg(resolvedSchema);
 
   const handleRefetch = useCallback(() => {
     refetch();
@@ -84,6 +105,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
         slug={slug}
         locale={locale}
         isSharedTemplate
+        singleEntry={page.singleEntry}
       />
       <Footer />
     </div>
