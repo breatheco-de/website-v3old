@@ -458,8 +458,8 @@ export function VariableDetailModal({
   );
 
   const handleCreate = useCallback(async () => {
-    const name = createName.trim().replace(/\s+/g, "_").toLowerCase();
-    if (!name) {
+    const baseName = createName.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!baseName) {
       toast({
         title: "Name required",
         description: "Please enter a name for the variable.",
@@ -467,28 +467,29 @@ export function VariableDetailModal({
       });
       return;
     }
-    if (definitions?.[name]) {
+    const fullName = baseName.startsWith("global.") ? baseName : `global.${baseName}`;
+    if (definitions?.[fullName]) {
       toast({
         title: "Already exists",
-        description: `Variable "${name}" already exists. Choose a different name.`,
+        description: `Variable "${fullName}" already exists. Choose a different name.`,
         variant: "destructive",
       });
       return;
     }
     setCreateSaving(true);
     try {
-      await apiRequest("PUT", `/api/variables/${name}`, {
+      await apiRequest("PUT", `/api/variables/${fullName}`, {
         action: "set_default",
         value: inlineDefault,
       });
       await invalidateAndRefetch();
-      const templateSyntax = `{{ ${name} | ${inlineDefault} }}`;
+      const templateSyntax = `{{ ${fullName} | ${inlineDefault} }}`;
       toast({
         title: "Variable created",
-        description: `"${name}" is ready to use.`,
+        description: `"${fullName}" is ready to use.`,
       });
-      onCreated?.(name, templateSyntax);
-      setInspectVarName(name);
+      onCreated?.(fullName, templateSyntax);
+      setInspectVarName(fullName);
       setCurrentMode("inspect");
     } catch (err) {
       toast({
@@ -533,21 +534,25 @@ export function VariableDetailModal({
         setNameAvailable(null);
         return;
       }
+      const fullName = normalized.startsWith("global.") ? normalized : `global.${normalized}`;
       nameCheckTimerRef.current = setTimeout(() => {
-        setNameAvailable(!definitions?.[normalized]);
+        setNameAvailable(!definitions?.[fullName]);
       }, 500);
     },
     [definitions],
   );
 
   const resolvedCreateValue = (() => {
-    const varName =
-      createSubMode === "existing"
-        ? existingVarName
-        : createName.trim().replace(/\s+/g, "_").toLowerCase();
-    if (!varName || !definitions?.[varName]) return inlineDefault;
-    const res = resolveVariable(varName, definitions, varContext);
-    return res?.value || inlineDefault || varName;
+    if (createSubMode === "existing") {
+      if (!existingVarName || !definitions?.[existingVarName]) return inlineDefault;
+      const res = resolveVariable(existingVarName, definitions, varContext);
+      return res?.value || inlineDefault || existingVarName;
+    }
+    const baseName = createName.trim().replace(/\s+/g, "_").toLowerCase();
+    const fullName = baseName.startsWith("global.") ? baseName : `global.${baseName}`;
+    if (!fullName || !definitions?.[fullName]) return inlineDefault;
+    const res = resolveVariable(fullName, definitions, varContext);
+    return res?.value || inlineDefault || fullName;
   })();
 
   const { data: usageData, isLoading: usageLoading } = useQuery<{ variable: string; files: string[] }>({
@@ -812,7 +817,7 @@ export function VariableDetailModal({
                   <div className="px-3 py-2 rounded-md bg-muted font-mono text-sm">
                     {"{{ "}
                     {createSubMode === "new"
-                      ? createName.trim().replace(/\s+/g, "_").toLowerCase()
+                      ? (() => { const n = createName.trim().replace(/\s+/g, "_").toLowerCase(); return n.startsWith("global.") ? n : `global.${n}`; })()
                       : existingVarName}
                     {" | "}
                     {inlineDefault}

@@ -9,6 +9,8 @@ import {
   type VariableContext as VarCtx,
 } from "@/lib/variable-resolver";
 import { VariableDetailModal } from "./VariableDetailModal";
+import { VariableTypeChooserModal } from "./VariableTypeChooserModal";
+import { SingleVariablePickerModal } from "./SingleVariablePickerModal";
 import { Button } from "@/components/ui/button";
 import { IconVariable } from "@tabler/icons-react";
 
@@ -35,6 +37,8 @@ interface VariableCreateDetail {
   sectionIndex: number;
   selectionFrom?: number;
   selectionTo?: number;
+  isSharedTemplate?: boolean;
+  contentType?: string;
 }
 
 function highlightDomVariables(
@@ -141,7 +145,7 @@ function highlightDomVariables(
   };
 }
 
-function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
+function SelectionFloatingButton({ sectionIndex, isSharedTemplate, contentType }: { sectionIndex: number; isSharedTemplate?: boolean; contentType?: string }) {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [selectedText, setSelectedText] = useState("");
   const editMode = useEditModeOptional();
@@ -238,13 +242,15 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
           sectionIndex: resolvedSectionIndex,
           selectionFrom: from,
           selectionTo: to,
+          isSharedTemplate,
+          contentType,
         },
       }),
     );
     window.getSelection()?.removeAllRanges();
     setPosition(null);
     setSelectedText("");
-  }, [selectedText, sectionIndex]);
+  }, [selectedText, sectionIndex, isSharedTemplate, contentType]);
 
   if (!position || !isEditMode) return null;
 
@@ -276,10 +282,14 @@ function SelectionFloatingButton({ sectionIndex }: { sectionIndex: number }) {
 export function VariableHighlightProvider({
   children,
   sectionIndex,
+  isSharedTemplate,
+  contentType,
 }: {
   children: ReactNode;
   variables?: unknown[];
   sectionIndex: number;
+  isSharedTemplate?: boolean;
+  contentType?: string;
 }) {
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -368,21 +378,24 @@ export function VariableHighlightProvider({
       <div ref={wrapperRef} style={{ display: "contents" }}>
         {children}
       </div>
-      <SelectionFloatingButton sectionIndex={sectionIndex} />
+      <SelectionFloatingButton sectionIndex={sectionIndex} isSharedTemplate={isSharedTemplate} contentType={contentType} />
     </VariableHighlightContext.Provider>
   );
 }
 
 export function VariableModalHost() {
   const [modalState, setModalState] = useState<{
-    open: boolean;
     variableName: string;
     inlineDefault: string;
     mode: "inspect" | "create";
     sectionIndex: number;
     selectionFrom?: number;
     selectionTo?: number;
-  }>({ open: false, variableName: "", inlineDefault: "", mode: "inspect", sectionIndex: -1 });
+    isSharedTemplate?: boolean;
+    contentType?: string;
+  }>({ variableName: "", inlineDefault: "", mode: "inspect", sectionIndex: -1 });
+
+  const [activeModal, setActiveModal] = useState<"chooser" | "global" | "single" | null>(null);
 
   const modalStateRef = useRef(modalState);
   modalStateRef.current = modalState;
@@ -391,25 +404,31 @@ export function VariableModalHost() {
     const handleClick = (e: Event) => {
       const detail = (e as CustomEvent<VariableClickDetail>).detail;
       setModalState({
-        open: true,
         variableName: detail.variableName,
         inlineDefault: detail.inlineDefault,
         mode: "inspect",
         sectionIndex: -1,
       });
+      setActiveModal("global");
     };
 
     const handleCreate = (e: Event) => {
       const detail = (e as CustomEvent<VariableCreateDetail>).detail;
       setModalState({
-        open: true,
         variableName: "",
         inlineDefault: detail.selectedText,
         mode: "create",
         sectionIndex: detail.sectionIndex,
         selectionFrom: detail.selectionFrom,
         selectionTo: detail.selectionTo,
+        isSharedTemplate: detail.isSharedTemplate,
+        contentType: detail.contentType,
       });
+      if (detail.isSharedTemplate && detail.contentType) {
+        setActiveModal("chooser");
+      } else {
+        setActiveModal("global");
+      }
     };
 
     window.addEventListener(VARIABLE_CLICK_EVENT, handleClick);
@@ -428,6 +447,7 @@ export function VariableModalHost() {
       variableName,
       mode: "inspect",
     }));
+    setActiveModal("global");
 
     if (current.sectionIndex < 0 || !current.inlineDefault) return;
 
@@ -444,15 +464,53 @@ export function VariableModalHost() {
     );
   }, []);
 
+  const handleSingleCreated = useCallback((variableName: string, templateSyntax: string) => {
+    const current = modalStateRef.current;
+    setActiveModal(null);
+
+    if (current.sectionIndex < 0 || !current.inlineDefault) return;
+
+    window.dispatchEvent(
+      new CustomEvent("variable-created-replace", {
+        detail: {
+          sectionIndex: current.sectionIndex,
+          originalText: current.inlineDefault,
+          templateSyntax,
+          selectionFrom: current.selectionFrom,
+          selectionTo: current.selectionTo,
+        },
+      }),
+    );
+  }, []);
+
+  const handleChooserChoice = useCallback((type: "global" | "single") => {
+    setActiveModal(type);
+  }, []);
+
   return (
-    <VariableDetailModal
-      open={modalState.open}
-      onOpenChange={(open) => setModalState((prev) => ({ ...prev, open }))}
-      variableName={modalState.variableName}
-      inlineDefault={modalState.inlineDefault}
-      mode={modalState.mode}
-      onCreated={handleCreated}
-    />
+    <>
+      <VariableDetailModal
+        open={activeModal === "global"}
+        onOpenChange={(open) => { if (!open) setActiveModal(null); }}
+        variableName={modalState.variableName}
+        inlineDefault={modalState.inlineDefault}
+        mode={modalState.mode}
+        onCreated={handleCreated}
+      />
+      <VariableTypeChooserModal
+        open={activeModal === "chooser"}
+        onOpenChange={(open) => { if (!open) setActiveModal(null); }}
+        contentType={modalState.contentType || ""}
+        onChoose={handleChooserChoice}
+      />
+      <SingleVariablePickerModal
+        open={activeModal === "single"}
+        onOpenChange={(open) => { if (!open) setActiveModal(null); }}
+        contentType={modalState.contentType || ""}
+        inlineDefault={modalState.inlineDefault}
+        onCreated={handleSingleCreated}
+      />
+    </>
   );
 }
 

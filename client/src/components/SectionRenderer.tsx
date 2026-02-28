@@ -959,7 +959,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}
             >
-              <VariableHighlightProvider sectionIndex={index}>
+              <VariableHighlightProvider sectionIndex={index} isSharedTemplate={isSharedTemplate} contentType={contentType}>
                 {renderedSection}
               </VariableHighlightProvider>
             </EditableSection>
