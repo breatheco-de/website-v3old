@@ -55,9 +55,9 @@ sections:
     description: "Reconocido por Forbes, 4Geeks ofrece formación accesible con resultados medibles: alta empleabilidad y crecimiento salarial real para impulsar tu carrera en tecnología."
     background: hsl(var(--sidebar-background))
     items:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         title: Tasa promedio de colocación laboral
-      - value: {{ global_salary_increase | 55 }}%
+      - value: {{ global.global_salary_increase | 55 }}%
         title: Incremento salarial promedio tras la graduación
       - value: 3-6 Meses
         title: Tiempo promedio para conseguir empleo
@@ -74,9 +74,9 @@ sections:
       - title: Cuotas sin intereses a 6 Meses
         description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales con nuestros partners.
       - title: Pagos basados en ingresos
-        description: ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar únicamente cuando tus ingresos anuales alcancen los {{ minimun_isa_salary | 17.000 € }}. A partir de ese momento, se aplica un porcentaje fijo de tus ingresos, adaptado a tu situación económica.
+        description: ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar únicamente cuando tus ingresos anuales alcancen los {{ global.minimun_isa_salary | 17.000 € }}. A partir de ese momento, se aplica un porcentaje fijo de tus ingresos, adaptado a tu situación económica.
       - title: Financia tu formación con comodidad
-        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde {{ mounthly_price_bootcamp | 200 € }}. La aprobación y condiciones finales dependen de la entidad financiera.
+        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde {{ global.mounthly_price_bootcamp | 200 € }}. La aprobación y condiciones finales dependen de la entidad financiera.
       - title: Becas
         description: Ofrecemos becas parciales internas según perfil y promociones vigentes, así como becas a través de organizaciones colaboradoras. La disponibilidad y los importes pueden variar.
     expand_label: Más información
@@ -140,9 +140,9 @@ sections:
       - title: Cuotas sin Intereses a 6 Meses
         description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
       - title: Pagos Basados en Ingresos
-        description: ¿Prefieres pagar después de conseguir empleo? A través de nuestro partner Edly, puedes comenzar a pagar una vez que ganes al menos {{ anual_income_based_payment_guarantee | $35,000 }} al año. Las cuotas mensuales se ajustan a tus ingresos y se pausan en períodos de desempleo o subempleo. Se permiten codeudores.
+        description: ¿Prefieres pagar después de conseguir empleo? A través de nuestro partner Edly, puedes comenzar a pagar una vez que ganes al menos {{ global.anual_income_based_payment_guarantee | $35,000 }} al año. Las cuotas mensuales se ajustan a tus ingresos y se pausan en períodos de desempleo o subempleo. Se permiten codeudores.
       - title: Préstamos y Planes de Pago Extendidos
-        description: Ofrecemos planes de financiamiento de 1 a 5 años, dependiendo de tu perfil crediticio, con pagos mensuales desde menos de {{ monthly_payment_minimun | $349 }}. Los términos y la aprobación están sujetos a elegibilidad.
+        description: Ofrecemos planes de financiamiento de 1 a 5 años, dependiendo de tu perfil crediticio, con pagos mensuales desde menos de {{ global.monthly_payment_minimun | $349 }}. Los términos y la aprobación están sujetos a elegibilidad.
       - title: Becas
         description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
     expand_label: Más información
@@ -506,8 +506,8 @@ sections:
     title: Lo que dicen nuestros estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
-      average: {{ global_review_rating | 4.9 }}
-      count: {{ global_verified_reviews_count | 2,847 }}+
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_verified_reviews_count | 2,847 }}+
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -613,7 +613,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

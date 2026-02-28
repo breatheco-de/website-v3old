@@ -16,7 +16,7 @@ courses:
       - icon: DollarSign
         text: APIS, automation, telemetry
     description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-    price: {{ price_ai_engineering | $349 }}
+    price: {{ global.price_ai_engineering | $349 }}
     price_info: or less depending on your plan
     cta_text: Program details
     cta_url: /en/career-programs/ai-engineering
@@ -32,7 +32,7 @@ courses:
       - icon: Plus
         text: API Development
     description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-    price: {{ price_fullstack | $299 }}
+    price: {{ global.price_fullstack | $299 }}
     original_price: $588
     price_info: with 4Geeks Installments
     cta_text: Program details
@@ -46,7 +46,7 @@ courses:
       - icon: Brain
         text: Python, TensorFlow, SQL
     description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-    price: {{ price_datascience | 299$ }}
+    price: {{ global.price_datascience | 299$ }}
     original_price: $588
     price_info: with 4Geeks Installments
     cta_text: Program details
@@ -60,7 +60,7 @@ courses:
       - icon: Code
         text: Threat detection & system protection
     description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-    price: {{ price_cybersecurity | 299$ }}
+    price: {{ global.price_cybersecurity | 299$ }}
     original_price: $588
     price_info: with 4Geeks Installments
     cta_text: Program details

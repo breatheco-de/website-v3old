@@ -206,7 +206,7 @@ sections:
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: {{ total_scholarships | $20 }}+ Million in Scholarships
+    heading: {{ global.total_scholarships | $20 }}+ Million in Scholarships
     subtitle: Backed by global institutions and industry leaders, we’ve awarded over 17 million in scholarships to expand access to tech careers worldwide.
     background: hsl(var(--muted))
     slides:

@@ -5,6 +5,8 @@ import yaml from "js-yaml";
 export interface ContentTypeEntry {
   folder: string;
   url_pattern: Record<string, string>;
+  database?: string;
+  field_mapping?: Record<string, string>;
 }
 
 interface ContentTypesRegistry {
@@ -106,6 +108,37 @@ export function getFolderMap(): Record<string, string> {
     map[type] = config.folder;
   }
   return map;
+}
+
+export function getDatabaseName(type: string): string | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  return entry?.database || null;
+}
+
+export function getFieldMapping(type: string): Record<string, string> | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  return entry?.field_mapping || null;
+}
+
+export function getLookupKey(type: string): string | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  if (!entry?.url_pattern) return null;
+  const patterns = Object.values(entry.url_pattern);
+  if (patterns.length === 0) return null;
+  const pattern = patterns[0];
+  const params = pattern.match(/:([a-zA-Z_]+)/g);
+  if (!params || params.length === 0) return null;
+  return params[params.length - 1].slice(1);
+}
+
+export function hasDatabaseSingle(type: string): boolean {
+  return !!getDatabaseName(type);
 }
 
 export function resetRegistry(): void {

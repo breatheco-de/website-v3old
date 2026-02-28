@@ -32,9 +32,9 @@ sections:
         variant: outline
         icon: Book
     trust_bar:
-      rating: {{ global_review_rating | 4.9 }}/5
+      rating: {{ global.global_review_rating | 4.9 }}/5
       rating_count: 2,500+
-      trusted_text: Trusted by {{ global_total_alumni | 10,000 }}+ students
+      trusted_text: Trusted by {{ global.global_total_alumni | 10,000 }}+ students
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes

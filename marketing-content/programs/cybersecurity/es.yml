@@ -23,7 +23,7 @@ sections:
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
-    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en {{ cybersecurity_week_duration | 16 }} semanas.
+    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en {{ global.cybersecurity_week_duration | 16 }} semanas.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -57,13 +57,13 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa intensivo de {{ cybersecurity_week_duration | 16 }} Semanas
+          text: Programa intensivo de {{ global.cybersecurity_week_duration | 16 }} Semanas
         - icon: IconBriefcase
           text: Programa orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
         - icon: IconUsers
-          text: Relación {{ global_teacher_student_ratio | 7:1 }} de estudiantes a instructor
+          text: Relación {{ global.global_teacher_student_ratio | 7:1 }} de estudiantes a instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -157,7 +157,7 @@ sections:
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
       - id: "3"
-        value: {{ global_spending_cybersecurity | $520B }}
+        value: {{ global.global_spending_cybersecurity | $520B }}
         title: Gasto global en ciberseguridad este año
   - type: syllabus
     variant: program-modules
@@ -298,7 +298,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación {{ global_teacher_student_ratio | 7:1 }} de estudiante a profesor, garantizando una atención personalizada
+          - text: Relación {{ global.global_teacher_student_ratio | 7:1 }} de estudiante a profesor, garantizando una atención personalizada
           - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
@@ -317,7 +317,7 @@ sections:
       subtitle: Certificado de 4Geeks Academy
       program_name: Especialista en Ciberseguridad
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Tasa promedio de contratación
         description: Gradúate con las habilidades y certificaciones globales que las principales empresas buscan activamente en 2026.
         benefits:
@@ -332,15 +332,15 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia de búsqueda de empleo personalizada con acceso a redes de contratación relevantes
-      - value: {{ average_salary_cybersecurity_short | $85 }}
+      - value: {{ global.average_salary_cybersecurity_short | $85 }}
         label: Salario inicial promedio
         description: Una carrera en ciberseguridad no es solo un nuevo empleo, es una nueva trayectoria de vida. Con un aumento salarial promedio del 55%, nuestros graduados alcanzan un nivel de estabilidad y crecimiento que pocas industrias pueden ofrecer.
         benefits:
-          - text: "Analista de Ciberseguridad: {{ global_salary_cybersecurity_analist | $75K–$120K }}"
-          - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
-          - text: "Ingeniero de Seguridad: {{ global_salary_security_engineer | $100K–$165K }}"
-          - text: "Especialista en Respuesta a Incidentes: {{ global_salary_incident_responder | $85K–$140K }}"
-      - value: {{ number_of_hiring_partners_aprox | 500 }}+
+          - text: "Analista de Ciberseguridad: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}"
+          - text: "Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}"
+          - text: "Ingeniero de Seguridad: {{ global.global_salary_security_engineer | $100K–$165K }}"
+          - text: "Especialista en Respuesta a Incidentes: {{ global.global_salary_incident_responder | $85K–$140K }}"
+      - value: {{ global.number_of_hiring_partners_aprox | 500 }}+
         label: Empleadores asociados
         description: Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan activamente talento en ciberseguridad.
         benefits:
@@ -392,7 +392,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% con el pago anticipado."
     financing_text: Financiamiento en cuotas desde
-    financing_amount: {{ price_cybersecurity | 299€ }}
+    financing_amount: {{ global.price_cybersecurity | 299€ }}
     tech_icons:
       - python
       - tensorflow
@@ -438,7 +438,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ price_cybersecurity | $299 }}
+    financing_amount: {{ global.price_cybersecurity | $299 }}
     tech_icons:
       - openai
       - python
@@ -451,7 +451,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es {{ price_full_cybersecurity | $9,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: La matrícula estándar es {{ global.price_full_cybersecurity | $9,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
         text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
@@ -494,7 +494,7 @@ sections:
     variant: carousel
     title: ¿Quién contrata a nuestros alumnos?
     subtitle: Nuestros graduados trabajan en importantes empresas a nivel mundial
-    description: Las mejores empresas contratan graduados de 4Geeks. {{ global_job_placement_rate | 84 }}% consiguen empleo dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
+    description: Las mejores empresas contratan graduados de 4Geeks. {{ global.global_job_placement_rate | 84 }}% consiguen empleo dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoftmeses de graduarse.
@@ -516,10 +516,10 @@ sections:
       desktop: md
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
+    subtitle: “Más de {{ global.global_total_alumni | 4,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
-      average: {{ global_review_rating | 4.5 }}
-      count: {{ global_review_count | 1,294 }}
+      average: {{ global.global_review_rating | 4.5 }}
+      count: {{ global.global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: Ingeniera de Software
@@ -574,7 +574,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: {{ call_to_action_apply | Aplicar ahora }}
+      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       automations: hard
       fields:
@@ -612,7 +612,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

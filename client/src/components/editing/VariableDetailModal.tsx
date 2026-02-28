@@ -524,7 +524,7 @@ export function VariableDetailModal({
 
   const handleNameChange = useCallback(
     (rawValue: string) => {
-      const sanitized = rawValue.replace(/[^a-zA-Z0-9_]/g, "_");
+      const sanitized = rawValue.replace(/[^a-zA-Z0-9_.]/g, "_");
       setCreateName(sanitized);
       setNameAvailable(null);
       if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
@@ -562,7 +562,7 @@ export function VariableDetailModal({
 
   const handleRenameNameChange = useCallback(
     (rawValue: string) => {
-      const sanitized = rawValue.replace(/[^a-zA-Z0-9_]/g, "_");
+      const sanitized = rawValue.replace(/[^a-zA-Z0-9_.]/g, "_");
       setRenameTo(sanitized);
       setRenameAvailable(null);
       if (renameCheckTimerRef.current) clearTimeout(renameCheckTimerRef.current);

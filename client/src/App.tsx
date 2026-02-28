@@ -24,6 +24,7 @@ const TermsPage = lazy(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
 const BlogListingPage = lazy(() => import("@/pages/BlogListingPage"));
 const BlogPostPage = lazy(() => import("@/pages/BlogPostPage"));
+const DatabaseSinglePage = lazy(() => import("@/pages/DatabaseSinglePage"));
 
 function LoadingFallback() {
   return (
@@ -67,8 +68,12 @@ function Router() {
         {/* Blog pages */}
         <Route path="/en/blog" component={BlogListingPage} />
         <Route path="/es/blog" component={BlogListingPage} />
-        <Route path="/en/blog/*" component={BlogPostPage} />
-        <Route path="/es/blog/*" component={BlogPostPage} />
+        <Route path="/en/blog/:rest*">
+          {() => <DatabaseSinglePage contentType="blog" />}
+        </Route>
+        <Route path="/es/blog/:rest*">
+          {() => <DatabaseSinglePage contentType="blog" />}
+        </Route>
         <Route path="/preview-frame" component={PreviewFrame} />
         <Route path="/private/*" component={PrivateRouter} />
         {/* Apply page - dedicated routes */}

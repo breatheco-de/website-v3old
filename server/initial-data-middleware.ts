@@ -52,7 +52,12 @@ function resolveInitialData(url: string): InitialDataPayload | null {
     const resolved = contentIndex.resolveUrl(cleanUrl);
     if (!resolved) return null;
 
-    const { contentType, slug } = resolved;
+    const { contentType, slug, fromDatabase } = resolved;
+
+    if (fromDatabase) {
+      return null;
+    }
+
     const apiPath = API_PATH_MAP[contentType];
     const schema = SCHEMA_MAP[contentType];
     if (!apiPath || !schema) return null;

@@ -1,0 +1,5 @@
+template: blog-post
+slug: "{{ single.slug }}"
+title: "{{ single.title }}"
+settings:
+  max_width: md

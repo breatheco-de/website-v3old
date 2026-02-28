@@ -1,4 +1,4 @@
-campus_phone:
+global.campus_phone:
   default: "+1 (786) 416-6640"
   conditions:
     - query:
@@ -10,7 +10,7 @@ campus_phone:
     - query:
         location: "caracas"
       value: "+58 212-555-0100"
-sample_greeting:
+global.sample_greeting:
   default: "Welcome to 4Geeks Academy"
   conditions:
     - query:
@@ -31,9 +31,9 @@ sample_greeting:
     - query:
         locale: "es"
       value: "Bienvenido a 4Geeks Academy"
-workflowlele:
+global.workflowlele:
   default: "workflows"
-global_job_placement_rate:
+global.global_job_placement_rate:
   default: "84"
   conditions:
     - query:
@@ -45,7 +45,7 @@ global_job_placement_rate:
     - query:
         region: "latam"
       value: "81"
-global_salary_increase:
+global.global_salary_increase:
   default: "55"
   conditions:
     - query:
@@ -57,9 +57,9 @@ global_salary_increase:
     - query:
         region: "latam"
       value: "40"
-global_review_rating:
+global.global_review_rating:
   default: "4.9"
-global_review_count:
+global.global_review_count:
   default: "700"
   conditions:
     - query:
@@ -68,13 +68,13 @@ global_review_count:
     - query:
         locale: "en"
       value: "700"
-global_teacher_student_ratio:
+global.global_teacher_student_ratio:
   default: "1:7"
   conditions:
     - query:
         region: "europe"
       value: "1:8"
-call_to_action_apply:
+global.call_to_action_apply:
   default: "Apply now"
   conditions:
     - query:
@@ -86,7 +86,7 @@ call_to_action_apply:
     - query:
         region: "latam"
       value: "Aplicar Ahora"
-price_full_datascience:
+global.price_full_datascience:
   default: "$10,999"
   conditions:
     - query:
@@ -98,7 +98,7 @@ price_full_datascience:
     - query:
         region: "latam"
       value: "3250 USD"
-price_ai_engineering:
+global.price_ai_engineering:
   default: "$349"
   conditions:
     - query:
@@ -110,7 +110,7 @@ price_ai_engineering:
     - query:
         region: "latam"
       value: "227 USD"
-price_full_ai_engineering:
+global.price_full_ai_engineering:
   default: "$14,999"
   conditions:
     - query:
@@ -122,7 +122,7 @@ price_full_ai_engineering:
     - query:
         region: "latam"
       value: "3500 USD"
-price_cybersecurity:
+global.price_cybersecurity:
   default: "$299"
   conditions:
     - query:
@@ -134,7 +134,7 @@ price_cybersecurity:
     - query:
         region: "latam"
       value: "150 USD"
-price_full_cybersecurity:
+global.price_full_cybersecurity:
   default: "$9,999"
   conditions:
     - query:
@@ -146,7 +146,7 @@ price_full_cybersecurity:
     - query:
         region: "latam"
       value: "2500 USD"
-price_fullstack:
+global.price_fullstack:
   default: "$299"
   conditions:
     - query:
@@ -158,7 +158,7 @@ price_fullstack:
     - query:
         region: "latam"
       value: "150 USD"
-price_full_fullstack:
+global.price_full_fullstack:
   default: "$10,999"
   conditions:
     - query:
@@ -170,7 +170,7 @@ price_full_fullstack:
     - query:
         region: "europe"
       value: "6.800 €"
-price_datascience:
+global.price_datascience:
   default: "$299"
   conditions:
     - query:
@@ -182,7 +182,7 @@ price_datascience:
     - query:
         region: "latam"
       value: "170 USD"
-global_total_alumni:
+global.global_total_alumni:
   default: "4,000"
   conditions:
     - query:
@@ -191,7 +191,7 @@ global_total_alumni:
     - query:
         locale: "es"
       value: "6.000"
-global_salary_cybersecurity_analist:
+global.global_salary_cybersecurity_analist:
   default: "$75K–$120K"
   conditions:
     - query:
@@ -203,7 +203,7 @@ global_salary_cybersecurity_analist:
     - query:
         region: "latam"
       value: "$30K – $55K"
-global_salary_penetration_tester:
+global.global_salary_penetration_tester:
   default: "$90K–$150K"
   conditions:
     - query:
@@ -215,7 +215,7 @@ global_salary_penetration_tester:
     - query:
         region: "latam"
       value: "$35K – $65K"
-global_salary_security_engineer:
+global.global_salary_security_engineer:
   default: "$100K–$165K"
   conditions:
     - query:
@@ -227,7 +227,7 @@ global_salary_security_engineer:
     - query:
         region: "latam"
       value: "$45K – $75K"
-global_salary_incident_responder:
+global.global_salary_incident_responder:
   default: "$85K–$140K"
   conditions:
     - query:
@@ -239,7 +239,7 @@ global_salary_incident_responder:
     - query:
         region: "latam"
       value: "$40K – $70K"
-average_salary_cybersecurity_short:
+global.average_salary_cybersecurity_short:
   default: "$85K"
   conditions:
     - query:
@@ -248,7 +248,7 @@ average_salary_cybersecurity_short:
     - query:
         region: "latam"
       value: "35K USD"
-salary_data_scientist:
+global.salary_data_scientist:
   default: "$80K–$130K"
   conditions:
     - query:
@@ -260,13 +260,13 @@ salary_data_scientist:
     - query:
         region: "latam"
       value: "$35K – $65K"
-minimun_isa_salary:
+global.minimun_isa_salary:
   default: "17.000 €"
   conditions:
     - query:
         region: "europe"
       value: "17.000 €"
-average_salary_fullstack:
+global.average_salary_fullstack:
   default: "$95K–$135K"
   conditions:
     - query:
@@ -275,7 +275,7 @@ average_salary_fullstack:
     - query:
         region: "latam"
       value: "$45K – $70K"
-mounthly_price_bootcamp:
+global.mounthly_price_bootcamp:
   default: "200 €"
   conditions:
     - query:
@@ -284,7 +284,7 @@ mounthly_price_bootcamp:
     - query:
         region: "latam"
       value: "170 USD"
-average_salary_machine_learning_engineer:
+global.average_salary_machine_learning_engineer:
   default: "$90K–$150K"
   conditions:
     - query:
@@ -293,7 +293,7 @@ average_salary_machine_learning_engineer:
     - query:
         region: "latam"
       value: "$45K – $80K"
-average_salary_ai_fluent_software_developer:
+global.average_salary_ai_fluent_software_developer:
   default: "$90 K–$140 K"
   conditions:
     - query:
@@ -305,7 +305,7 @@ average_salary_ai_fluent_software_developer:
     - query:
         region: "latam"
       value: "$55K – $75K"
-average_salary_web_aplications_engineer:
+global.average_salary_web_aplications_engineer:
   default: "$95K–$140K"
   conditions:
     - query:
@@ -314,13 +314,13 @@ average_salary_web_aplications_engineer:
     - query:
         region: "latam"
       value: "$40K – $65K"
-average_salary_backend_services_developer:
+global.average_salary_backend_services_developer:
   default: "$100K–$150K"
   conditions:
     - query:
         region: "latam"
       value: "$50K – $75K"
-average_salary_data_analyst:
+global.average_salary_data_analyst:
   default: "$60K–$95K"
   conditions:
     - query:
@@ -332,7 +332,7 @@ average_salary_data_analyst:
     - query:
         region: "latam"
       value: "$20K – $40K"
-average_salary_ai_engineer:
+global.average_salary_ai_engineer:
   default: "$95K–$150K"
   conditions:
     - query:
@@ -349,7 +349,7 @@ average_salary_ai_engineer:
         region: "europe"
         locale: "en"
       value: "30,000€ - 60,000€"
-average_salary_ai_specialist:
+global.average_salary_ai_specialist:
   default: "$95K–$145K"
   conditions:
     - query:
@@ -358,7 +358,7 @@ average_salary_ai_specialist:
     - query:
         region: "latam"
       value: "$25K–$60K USD"
-average_salary_ai_automation:
+global.average_salary_ai_automation:
   default: "$140K–$210K\""
   conditions:
     - query:
@@ -367,7 +367,7 @@ average_salary_ai_automation:
     - query:
         region: "latam"
       value: "$25K–$40K"
-monthly_full_stack:
+global.monthly_full_stack:
   conditions:
     - query:
         region: "latam"
@@ -375,7 +375,7 @@ monthly_full_stack:
     - query:
         region: "europe"
       value: "200  €"
-monthly_ai_eng:
+global.monthly_ai_eng:
   conditions:
     - query:
         region: "latam"
@@ -383,7 +383,7 @@ monthly_ai_eng:
     - query:
         region: "europe"
       value: "140 €"
-monthly_cyber:
+global.monthly_cyber:
   default: "$299"
   conditions:
     - query:
@@ -395,7 +395,7 @@ monthly_cyber:
     - query:
         region: "europe"
       value: "200 €"
-global_verified_reviews_count:
+global.global_verified_reviews_count:
   default: "1,000"
   conditions:
     - query:
@@ -404,13 +404,13 @@ global_verified_reviews_count:
     - query:
         locale: "es"
       value: "700"
-starting_salary_datascience:
+global.starting_salary_datascience:
   default: "$90K"
   conditions:
     - query:
         region: "usa-canada"
       value: "$90K"
-global_spending_cybersecurity:
+global.global_spending_cybersecurity:
   default: "$520B USD"
   conditions:
     - query:
@@ -419,7 +419,7 @@ global_spending_cybersecurity:
     - query:
         region: "europe"
       value: "442.000 M€"
-lowest_monthly_financing_option:
+global.lowest_monthly_financing_option:
   default: "$299"
   conditions:
     - query:
@@ -428,7 +428,7 @@ lowest_monthly_financing_option:
     - query:
         region: "europe"
       value: "200€"
-anual_income_based_payment_guarantee:
+global.anual_income_based_payment_guarantee:
   default: "$35,000"
   conditions:
     - query:
@@ -439,25 +439,25 @@ anual_income_based_payment_guarantee:
         region: "usa-canada"
         locale: "es"
       value: "$35.000"
-job_guarantee_price:
+global.job_guarantee_price:
   default: "$2,000"
   conditions:
     - query:
         region: "usa-canada"
       value: "$2,000"
-monthly_payment_minimun:
+global.monthly_payment_minimun:
   default: "$349"
   conditions:
     - query:
         region: "usa-canada"
       value: "$349"
-global_campuses:
+global.global_campuses:
   default: "10"
   conditions:
     - query:
         region: "usa-canada"
       value: "10"
-average_salary_agent_engineer:
+global.average_salary_agent_engineer:
   default: "$75 K–$115 K"
   conditions:
     - query:
@@ -466,7 +466,7 @@ average_salary_agent_engineer:
     - query:
         region: "europe"
       value: "20.000€ - 30.000€"
-average_salary_workflow_automation_engineer:
+global.average_salary_workflow_automation_engineer:
   default: "$25K–$40K"
   conditions:
     - query:
@@ -475,7 +475,7 @@ average_salary_workflow_automation_engineer:
     - query:
         region: "europe"
       value: "20.000€- 30.000€"
-data_science_week_duration:
+global.data_science_week_duration:
   default: "16"
   conditions:
     - query:
@@ -487,17 +487,17 @@ data_science_week_duration:
     - query:
         region: "usa-canada"
       value: "16 "
-ai_engineering_week_duration:
+global.ai_engineering_week_duration:
   default: "24 "
-cybersecurity_week_duration:
+global.cybersecurity_week_duration:
   default: "16 "
-fullstack_week_duration:
+global.fullstack_week_duration:
   default: "20 "
-total_scholarships:
+global.total_scholarships:
   default: "20$M"
   conditions:
     - query:
         region: "europe"
       value: "17M€"
-number_of_hiring_partners_aprox:
+global.number_of_hiring_partners_aprox:
   default: "400"

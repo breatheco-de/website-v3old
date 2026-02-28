@@ -20,7 +20,7 @@ sections:
     title: Encuentra tu mejor camino en tecnología
     badge: Compara nuestros programas
     trust_bar:
-      rating: {{ global_review_rating | 4.8 }}/5
+      rating: {{ global.global_review_rating | 4.8 }}/5
       rating_count: 2,500+
       trusted_text: Con la confianza de más de 10,000 estudiantes
     award_badges:
@@ -309,9 +309,9 @@ sections:
           - Online.
       - feature: Costo
         values:
-          - {{ price_full_fullstack }} (descuentos y becas disponibles).
-          - {{ price_full_datascience | $3.250 }} (descuentos y becas disponibles).
-          - {{ price_full_cybersecurity | $2.500 }} (descuentos y becas disponibles).
+          - {{ global.price_full_fullstack }} (descuentos y becas disponibles).
+          - {{ global.price_full_datascience | $3.250 }} (descuentos y becas disponibles).
+          - {{ global.price_full_cybersecurity | $2.500 }} (descuentos y becas disponibles).
       - feature: Planes de Pago
         values:
           - Planes mensuales, descuentos por pago anticipado y financiamientos.
@@ -361,7 +361,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
@@ -408,11 +408,11 @@ sections:
         title: Ingeniería en IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_ai_engineering | $14,999 }} matrícula completa
+            text: {{ global.price_full_ai_engineering | $14,999 }} matrícula completa
           - icon: CheckCircle
             text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         description: Construye y escala un negocio totalmente nativo en IA mientras aprendes sistemas y flujos de trabajo de IA listos para producción.
-        price: {{ price_ai_engineering | $349 }}
+        price: {{ global.price_ai_engineering | $349 }}
         price_info: o menos según tu plan
         cta_text: Descubrir programa
         cta_url: /en/career-programs/ai-engineering
@@ -424,14 +424,14 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} matrícula completa
+            text: {{ global.price_full_fullstack | $10,999 }} matrícula completa
           - icon: CheckCircle
             text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         tags:
           - icon: ""
             text: ""
         description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
-        price: {{ price_fullstack | $299 }}
+        price: {{ global.price_fullstack | $299 }}
         price_info: o menos según tu plan
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
@@ -443,11 +443,11 @@ sections:
         title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_datascience | $14,999 }} matrícula completa
+            text: {{ global.price_full_datascience | $14,999 }} matrícula completa
           - icon: CheckCircle
             text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         description: Domina el análisis de datos impulsado por IA y construye modelos inteligentes para resolver problemas del mundo real.
-        price: {{ price_datascience | 299$ }}
+        price: {{ global.price_datascience | 299$ }}
         price_info: o menos según tu plan
         cta_text: Descubrir programa
         cta_url: /en/career-programs/data-science-ml
@@ -459,11 +459,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ price_full_cybersecurity | $14,999 }} matrícula completa
+            text: {{ global.price_full_cybersecurity | $14,999 }} matrícula completa
           - icon: CheckCircle
             text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ price_cybersecurity | 299$ }}
+        price: {{ global.price_cybersecurity | 299$ }}
         price_info: o menos según tu plan
         cta_text: Descubrir programa
         cta_url: /en/career-programs/cybersecurity
@@ -512,7 +512,7 @@ sections:
           - icon: CheckCircle
             text: Oferta de primavera, hasta el 1 de mayo*
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: {{ price_ai_engineering | $349 }}
+        price: {{ global.price_ai_engineering | $349 }}
         price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Descubrir programa
         cta_url: /en/career-programs/ai-engineering
@@ -524,14 +524,14 @@ sections:
         title: Desarrollo Full Stack con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_fullstack | $10,999 }} inversión total
+            text: {{ global.price_full_fullstack | $10,999 }} inversión total
           - icon: CheckCircle
             text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         tags:
           - icon: ""
             text: ""
         description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
-        price: {{ price_fullstack | $299 }}
+        price: {{ global.price_fullstack | $299 }}
         price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
@@ -543,11 +543,11 @@ sections:
         title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: {{ price_full_datascience | $14,999 }} matrícula completa
+            text: {{ global.price_full_datascience | $14,999 }} matrícula completa
           - icon: CheckCircle
             text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         description: Domina el análisis de datos impulsado por IA y construye modelos inteligentes para resolver problemas del mundo real.
-        price: {{ price_datascience | 299$ }}
+        price: {{ global.price_datascience | 299$ }}
         price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Descubrir programa
         cta_url: /en/career-programs/data-science-ml
@@ -559,11 +559,11 @@ sections:
         title: Ciberseguridad
         badges:
           - icon: DollarSign
-            text: {{ price_full_cybersecurity | $14,999 }} inversión total
+            text: {{ global.price_full_cybersecurity | $14,999 }} inversión total
           - icon: CheckCircle
             text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: {{ price_cybersecurity | 299$ }}
+        price: {{ global.price_cybersecurity | 299$ }}
         price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Descubrir programa
         cta_url: /en/career-programs/cybersecurity

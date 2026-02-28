@@ -30,7 +30,7 @@ sections:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
-      - text: {{ call_to_action_apply | Aplicar ahora }}
+      - text: {{ global.call_to_action_apply | Aplicar ahora }}
         url: "#bottom"
         variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -44,13 +44,13 @@ sections:
     heading: Resultados que respaldan nuestra Garantía
     subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números reflejan las contrataciones reales de nuestros graduados."
     stats:
-      - value: {{ global_job_placement_rate | 84 }}
+      - value: {{ global.global_job_placement_rate | 84 }}
         unit: "%"
         label: Tasa promedio de colocación laboral
       - value: 3-6
         unit: meses
         label: Tiempo promedio para conseguir empleo
-      - value: {{ global_salary_increase | 55 }}
+      - value: {{ global.global_salary_increase | 55 }}
         unit: "%"
         label: Aumento salarial después de graduarte
     collage_images:
@@ -97,7 +97,7 @@ sections:
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: {{ ai_engineering_week_duration | 24 }} semanas
+        duration: {{ global.ai_engineering_week_duration | 24 }} semanas
         label: Actualizado en 226
         title: Ingeniería en Inteligencia Artificial
         badges:
@@ -111,7 +111,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Desarollo Full Stack con IA
-        duration: {{ fullstack_week_duration | 20 }} semanas
+        duration: {{ global.fullstack_week_duration | 20 }} semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -128,7 +128,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: {{ data_science_week_duration | 16 }} semanas
+        duration: {{ global.data_science_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
@@ -142,7 +142,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: {{ cybersecurity_week_duration | 16 }} semanas
+        duration: {{ global.cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
@@ -175,7 +175,7 @@ sections:
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: {{ ai_engineering_week_duration | 24 }} semanas
+        duration: {{ global.ai_engineering_week_duration | 24 }} semanas
         label: Actualizado en 2026
         title: Ingeniería en Inteligencia Artificial
         badges:
@@ -186,7 +186,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Desarollo Full Stack con IA
-        duration: {{ fullstack_week_duration | 2O }} semanas
+        duration: {{ global.fullstack_week_duration | 2O }} semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -200,7 +200,7 @@ sections:
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: {{ data_science_week_duration | 16 }} semanas
+        duration: {{ global.data_science_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
@@ -211,7 +211,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: {{ cybersecurity_week_duration | 16 }} semanas
+        duration: {{ global.cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:

@@ -190,9 +190,9 @@ sections:
     heading: Career Outcomes
     subheading: We turn your education into employment. See the real-world impact of our coaching.
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Job placement rate
-      - value: {{ global_salary_increase | 55 }}%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase after graduation
       - value: 3-6 months
         label: Average time to get hired

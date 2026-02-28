@@ -55,13 +55,13 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa intensivo de {{ data_science_week_duration | 18 }} Semanas
+          text: Programa intensivo de {{ global.data_science_week_duration | 18 }} Semanas
         - icon: IconBriefcase
           text: Plan de estudios orientado al empleo
         - icon: IconRobot
           text: Aprendizaje y retroalimentación con IA
         - icon: IconUsers
-          text: Ratio de {{ global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
+          text: Ratio de {{ global.global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -152,7 +152,7 @@ sections:
         value: 36%
         title: tasa de crecimiento proyectada en la próxima década
       - id: "3"
-        value: {{ salary_data_scientist | 22.000€ }}
+        value: {{ global.salary_data_scientist | 22.000€ }}
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
     variant: program-modules
@@ -266,7 +266,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Sesiones ilimitadas con mentores técnicos
-          - text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
+          - text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
           - text: Trabajo colaborativo y revisiones en grupo
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
@@ -291,7 +291,7 @@ sections:
       subtitle: Certificado de 4Geeks Academy
       program_name: Data Science & Machine Learning
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan activamente.
         benefits:
@@ -306,17 +306,17 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: {{ global_salary_increase | 55 }}%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Aumento salarial promedio
         description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: Científico de datos {{ salary_data_scientist }}
-          - text: Ingeniero de Machine Learnign {{ average_salary_machine_learning_engineer | $90K–$150K  }}
-          - text: Analista de Datos {{ average_salary_data_analyst | 20.000€-30.000€ }}
-          - text: AI Engineer {{ average_salary_ai_engineer | 22.000€-35.000€ }}
-      - value: {{ number_of_hiring_partners_aprox | 5,000 }}+
+          - text: Científico de datos {{ global.salary_data_scientist }}
+          - text: Ingeniero de Machine Learnign {{ global.average_salary_machine_learning_engineer | $90K–$150K  }}
+          - text: Analista de Datos {{ global.average_salary_data_analyst | 20.000€-30.000€ }}
+          - text: AI Engineer {{ global.average_salary_ai_engineer | 22.000€-35.000€ }}
+      - value: {{ global.number_of_hiring_partners_aprox | 5,000 }}+
         label: Empresas Asociadas
-        description: Accede a nuestra red de más de {{ number_of_hiring_partners_aprox | 5,000 }} empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
+        description: Accede a nuestra red de más de {{ global.number_of_hiring_partners_aprox | 5,000 }} empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Referencias prioritarias a empresas asociadas
@@ -367,7 +367,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
     financing_text: Financiamiento en cuotas desde
-    financing_amount: {{ price_datascience | 200€ }}
+    financing_amount: {{ global.price_datascience | 200€ }}
     tech_icons:
       - python
       - tensorflow
@@ -413,7 +413,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ price_datascience | 200€ }}
+    financing_amount: {{ global.price_datascience | 200€ }}
     tech_icons:
       - openai
       - python
@@ -426,7 +426,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es {{ price_full_datascience | $14,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: La matrícula estándar es {{ global.price_full_datascience | $14,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
         text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
@@ -498,10 +498,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: “Más de {{ global_total_alumni | 5,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
+    subtitle: “Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
-      average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 1,294 }}
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 1,294 }}
     items:
       - name: Gabriel Salazar
         role: Ingeniero de Software
@@ -612,7 +612,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

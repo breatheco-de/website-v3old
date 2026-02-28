@@ -23,7 +23,7 @@ sections:
       src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
-      - text: {{ call_to_action_apply | Aplica ahora }}
+      - text: {{ global.call_to_action_apply | Aplica ahora }}
         url: "#bottom"
         variant: primary
         icon: Rocket
@@ -205,7 +205,7 @@ sections:
     variant: split-card
     vertical_cards: true
     version: v1.0
-    heading: {{ total_scholarships | {{ total_scholarships | $20 }}+ Millones en becas
+    heading: {{ global.total_scholarships | {{ total_scholarships | $20 }}+ Millones en becas
     subtitle: Respaldados por instituciones globales y líderes de la industria, hemos otorgado más de "17 millones €" en becas para ampliar el acceso a carreras tecnológicas en todo el mundo.
     slides:
       - image_id: student_coding_laptop
@@ -369,7 +369,7 @@ sections:
       - valencia-spain
   - type: testimonials_slide
     title: Donde el apoyo se convierte en oportunidades reales
-    description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del {{ global_job_placement_rate | 84 }}% contratados en los primeros seis meses.
+    description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del {{ global.global_job_placement_rate | 84 }}% contratados en los primeros seis meses.
   - type: horizontal_bars
     version: "1.0"
     title: Aumento salarial por región

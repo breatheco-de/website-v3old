@@ -109,7 +109,7 @@ sections:
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: {{ number_of_hiring_partners_aprox | 250 }}+
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
           label: empresas en la red de empleadores de 4Geeks
         right_bullets:
           - icon: IconUserPlus
@@ -189,9 +189,9 @@ sections:
     heading: Colocación laboral
     subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Tasa de colocación laboral
-      - value: {{ global_salary_increase | 55 }}%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Aumento salarial promedio después de graduarte
       - value: 3-6 meses
         label: Tiempo promedio para conseguir empleo
@@ -511,7 +511,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

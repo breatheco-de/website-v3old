@@ -70,13 +70,13 @@ sections:
   - type: stats
     version: "1.0"
     items:
-      - value: +{{ global_total_alumni | 7000 }}
+      - value: +{{ global.global_total_alumni | 7000 }}
         label: Alumni
-      - value: {{ global_campuses | 10 }}
+      - value: {{ global.global_campuses | 10 }}
         label: Campus
-      - value: ~{{ global_job_placement_rate | 84 }}%
+      - value: ~{{ global.global_job_placement_rate | 84 }}%
         label: Tasa de Contratación
-      - value: {{ global_review_rating | 4.9 }}
+      - value: {{ global.global_review_rating | 4.9 }}
         label: Calificación Promedio
     marginY:
       desktop: lg

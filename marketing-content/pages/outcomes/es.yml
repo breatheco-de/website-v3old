@@ -303,8 +303,8 @@ sections:
     title: Resultados profesionales reales
     subtitle: Nuestros alumni comparten cómo consiguieron roles, avanzaron en sus carreras y aumentaron su poder adquisitivo.
     rating_summary:
-      average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 2,847 }}
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software

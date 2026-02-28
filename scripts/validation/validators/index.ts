@@ -16,6 +16,7 @@ import { seoDepthValidator } from "./seo-depth";
 import { schemaCompletenessValidator } from "./schema-completeness";
 import { imagesValidator } from "./images";
 import { contentQualityValidator } from "./content-quality";
+import { databaseSinglesValidator } from "./database-singles";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -29,6 +30,7 @@ export const validators: Validator[] = [
   schemaCompletenessValidator,
   imagesValidator,
   contentQualityValidator,
+  databaseSinglesValidator,
 ];
 
 export const validatorMap = new Map<string, Validator>(
@@ -65,4 +67,5 @@ export {
   schemaCompletenessValidator,
   imagesValidator,
   contentQualityValidator,
+  databaseSinglesValidator,
 };

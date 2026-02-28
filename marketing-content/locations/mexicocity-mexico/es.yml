@@ -55,7 +55,7 @@ sections:
     subtitle: Fórmate para roles tecnológicos de alta demanda, incluyendo AI Engineering, en el dinámico hub tecnológico de Ciudad de México. Clases en vivo, proyectos prácticos y acompañamiento profesional orientado a contratación real.
     badge: Campus Mexico
     cta_buttons:
-      - text: {{ call_to_action_apply | Aplicar Ahora }}
+      - text: {{ global.call_to_action_apply | Aplicar Ahora }}
         url: /es/apply
         variant: primary
       - text: Solicitar Programa
@@ -239,9 +239,9 @@ sections:
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global_job_placement_rate | 84 }}% tasa de contratación entre graduados
+        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global_salary_increase | 55% }}% aumento salarial promedio en roles tech
+        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
@@ -386,7 +386,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

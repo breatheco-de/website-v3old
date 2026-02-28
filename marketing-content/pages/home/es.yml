@@ -23,7 +23,7 @@ sections:
     title: Aquí se construyen las carreras del futuro en IA
     subtitle: La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
     trust_bar:
-      rating: {{ global_review_rating | 4.9 }}/5
+      rating: {{ global.global_review_rating | 4.9 }}/5
       rating_count: 3,000+
       trusted_text: Miles de estudiantes confían en nosotros
     cta_button:
@@ -122,13 +122,13 @@ sections:
     subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
-        value: {{ global_job_placement_rate | 84 }}%
+        value: {{ global.global_job_placement_rate | 84 }}%
         title: Tasa de colocación laboral
       - icon: Graduation
         value: 3-6 meses
         title: Tiempo promedio para conseguir empleo
       - icon: GrowthChart
-        value: {{ global_salary_increase | 55 }}%
+        value: {{ global.global_salary_increase | 55 }}%
         title: Aumento salarial promedio después de graduarse
     columns: 3
     icon_color: "#0097CD"
@@ -260,7 +260,7 @@ sections:
     courses:
       - name: Ingeniería de IA
         icon: Brain
-        duration: {{ ai_engineering_week_duration | 24 }} semanas
+        duration: {{ global.ai_engineering_week_duration | 24 }} semanas
         label: Actualizado en 2026
         title: Ingeniería de IA
         badges:
@@ -274,7 +274,7 @@ sections:
         course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
         icon: Code
-        duration: {{ fullstack_week_duration | 2O }} semanas
+        duration: {{ global.fullstack_week_duration | 2O }} semanas
         label: Actualizado en 2026
         title: Desarrollo de Software Full Stack
         badges:
@@ -291,7 +291,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: {{ data_science_week_duration | 18 }} semanas
+        duration: {{ global.data_science_week_duration | 18 }} semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning con IA
         badges:
@@ -305,7 +305,7 @@ sections:
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
         icon: Shield
-        duration: {{ cybersecurity_week_duration | 16 }} semanas
+        duration: {{ global.cybersecurity_week_duration | 16 }} semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:

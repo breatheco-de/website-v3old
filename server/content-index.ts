@@ -46,6 +46,8 @@ export type LoadContentResult<T> =
 export interface ContentTypeConfig {
   folder: string;
   url_pattern: Record<string, string>;
+  database?: string;
+  field_mapping?: Record<string, string>;
 }
 
 export interface ContentEntry {
@@ -108,15 +110,24 @@ class ContentIndex {
     }
   }
 
-  buildUrl(contentType: string, locale: string, slug: string): string {
+  buildUrl(contentType: string, locale: string, slug: string, params?: Record<string, string>): string {
     const normalized = this.normalizeType(contentType);
     const config = this.contentTypeConfigs[normalized];
     if (!config?.url_pattern) {
       return `/${locale}/${slug}`;
     }
 
-    const pattern = config.url_pattern[locale] || config.url_pattern["default"] || `/${locale}/${slug}`;
-    return pattern.replace(":slug", slug);
+    let url = config.url_pattern[locale] || config.url_pattern["default"] || `/${locale}/${slug}`;
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        url = url.replace(`:${key}`, value);
+      }
+    }
+    url = url.replace(/:([a-zA-Z_]+)/g, (_m, paramName) => {
+      if (paramName === "slug") return slug;
+      return "";
+    });
+    return url;
   }
 
   getContentTypes(): string[] {
@@ -224,6 +235,7 @@ class ContentIndex {
     }
 
     this.scanCustomRedirects(baseDir);
+    this.autoCreateSingleTemplates(baseDir);
 
     this.initialized = true;
     const imageRefCount = this.imageUsage.size;
@@ -427,6 +439,44 @@ class ContentIndex {
     }
   }
 
+  private autoCreateSingleTemplates(baseDir: string): void {
+    for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
+      if (!config.database) continue;
+
+      const folder = config.folder || contentType;
+      const typeDir = path.join(baseDir, folder);
+
+      if (!fs.existsSync(typeDir)) {
+        fs.mkdirSync(typeDir, { recursive: true });
+        console.log(`[ContentIndex] Auto-created folder: marketing-content/${folder}/`);
+      }
+
+      const commonPath = path.join(typeDir, "_common.yml");
+      if (!fs.existsSync(commonPath)) {
+        fs.writeFileSync(commonPath, "# Common data shared across all locales\n");
+        console.log(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.yml`);
+      }
+
+      const locales = Object.keys(config.url_pattern).filter(k => k !== "default");
+      if (locales.length === 0) locales.push("en");
+
+      for (const locale of locales) {
+        const singlePath = path.join(typeDir, `single.${locale}.yml`);
+        if (!fs.existsSync(singlePath)) {
+          const template = [
+            "meta:",
+            '  page_title: "{{ single.title }}"',
+            '  description: "{{ single.description }}"',
+            "sections: []",
+            "",
+          ].join("\n");
+          fs.writeFileSync(singlePath, template);
+          console.log(`[ContentIndex] Auto-created single template: marketing-content/${folder}/single.${locale}.yml`);
+        }
+      }
+    }
+  }
+
   private extractSlug(_folderPath: string, folderName: string, _files: string[]): string {
     return folderName;
   }
@@ -624,7 +674,28 @@ class ContentIndex {
     return urls;
   }
 
-  parseContentUrl(url: string): { contentType: string; slug: string; locale: string } | null {
+  private extractUrlParams(pattern: string, url: string): Record<string, string> | null {
+    const paramNames: string[] = [];
+    const regexStr = "^" + pattern.replace(/:([a-zA-Z_]+)/g, (_m, name) => {
+      paramNames.push(name);
+      return "([^/]+)";
+    }) + "$";
+    const match = url.match(new RegExp(regexStr));
+    if (!match) return null;
+    const params: Record<string, string> = {};
+    for (let i = 0; i < paramNames.length; i++) {
+      params[paramNames[i]] = match[i + 1];
+    }
+    return params;
+  }
+
+  private getLastParamValue(params: Record<string, string>, pattern: string): string {
+    const paramNames = (pattern.match(/:([a-zA-Z_]+)/g) || []).map(p => p.slice(1));
+    if (paramNames.length === 0) return "";
+    return params[paramNames[paramNames.length - 1]] || "";
+  }
+
+  parseContentUrl(url: string): { contentType: string; slug: string; locale: string; params?: Record<string, string> } | null {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
 
@@ -641,20 +712,20 @@ class ContentIndex {
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
       if (!config?.url_pattern) continue;
       for (const [locale, pattern] of Object.entries(config.url_pattern)) {
-        const regexStr = "^" + pattern.replace(":slug", "([^/]+)") + "$";
-        const match = cleanUrl.match(new RegExp(regexStr));
-        if (match) {
+        const params = this.extractUrlParams(pattern, cleanUrl);
+        if (params) {
+          const slug = this.getLastParamValue(params, pattern);
           const effectiveLocale = locale === "default" ? "en" : locale;
-          return { contentType, slug: match[1], locale: effectiveLocale };
+          return { contentType, slug, locale: effectiveLocale, params };
         }
 
         if (locale !== "default") {
           const strippedPattern = pattern.replace(/^\/(en|es)\//, "/");
           if (strippedPattern !== pattern) {
-            const strippedRegex = "^" + strippedPattern.replace(":slug", "([^/]+)") + "$";
-            const strippedMatch = cleanUrl.match(new RegExp(strippedRegex));
-            if (strippedMatch) {
-              return { contentType, slug: strippedMatch[1], locale };
+            const strippedParams = this.extractUrlParams(strippedPattern, cleanUrl);
+            if (strippedParams) {
+              const slug = this.getLastParamValue(strippedParams, strippedPattern);
+              return { contentType, slug, locale, params: strippedParams };
             }
           }
         }
@@ -669,24 +740,36 @@ class ContentIndex {
     return null;
   }
 
-  resolveUrl(url: string): { contentType: string; slug: string; entry: ContentEntry } | null {
+  resolveUrl(url: string): { contentType: string; slug: string; entry: ContentEntry; fromDatabase?: boolean; params?: Record<string, string> } | null {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
 
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
       if (!config?.url_pattern) continue;
       for (const [, pattern] of Object.entries(config.url_pattern)) {
-        const regexStr = "^" + pattern.replace(":slug", "([^/]+)") + "$";
-        const match = cleanUrl.match(new RegExp(regexStr));
-        if (match) {
-          const slug = match[1];
+        const params = this.extractUrlParams(pattern, cleanUrl);
+        if (params) {
+          const slug = this.getLastParamValue(params, pattern);
+
           const found = this.findBySlug(slug, { contentType });
-          if (found.length > 0) return { contentType, slug, entry: found[0] };
+          if (found.length > 0) return { contentType, slug, entry: found[0], params };
+
           const resolvedSlug = this.resolveBaseSlug(slug, contentType);
           if (resolvedSlug !== slug) {
             const foundResolved = this.findBySlug(resolvedSlug, { contentType });
-            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0] };
+            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0], params };
           }
+
+          if (config.database) {
+            return {
+              contentType,
+              slug,
+              entry: { slug, contentType, folder: `marketing-content/${config.folder}`, files: [], locales: [] },
+              fromDatabase: true,
+              params,
+            };
+          }
+
           return null;
         }
       }

@@ -57,13 +57,13 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
+          text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
         - icon: IconUsers
-          text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor
+          text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -121,13 +121,13 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ ai_engineering_week_duration | 24 }} semanas
+          text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas
         - icon: IconBriefcase
           text: Contenido orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
         - icon: IconUsers
-          text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor
+          text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -244,7 +244,7 @@ sections:
         value: ~30%
         title: Crecimiento anual en vacantes de IA
       - id: "3"
-        value: {{ average_salary_ai_engineer | $95K–$135K }}
+        value: {{ global.average_salary_ai_engineer | $95K–$135K }}
         title: Rango salarial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
@@ -418,7 +418,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Sesiones ilimitadas con mentores técnicos
-          - text: Proporción {{ global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
+          - text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
           - text: Trabajo colaborativo y revisiones en grupo
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
@@ -443,7 +443,7 @@ sections:
       subtitle: Certificado de 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando.
         benefits:
@@ -458,17 +458,17 @@ sections:
           - text: Optimiza tu CV, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: {{ global_salary_increase | 55 }}%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Aumento Salarial Promedio
         description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: Ingeniero de IA {{ average_salary_ai_engineer | 22.000€ - 30.000€ }}
-          - text: Ingeniero Full Stack (Fluente en IA) {{ average_salary_ai_fluent_software_developer | $100K–$145K }}
-          - text: Ingeniero de Agentes {{ average_salary_agent_engineer | $105K–$155K }}
-          - text: Ingeniero de Automatización de Flujos {{ average_salary_workflow_automation_engineer | $85K–$120K }}
-      - value: {{ number_of_hiring_partners_aprox | 500 }}+
+          - text: Ingeniero de IA {{ global.average_salary_ai_engineer | 22.000€ - 30.000€ }}
+          - text: Ingeniero Full Stack (Fluente en IA) {{ global.average_salary_ai_fluent_software_developer | $100K–$145K }}
+          - text: Ingeniero de Agentes {{ global.average_salary_agent_engineer | $105K–$155K }}
+          - text: Ingeniero de Automatización de Flujos {{ global.average_salary_workflow_automation_engineer | $85K–$120K }}
+      - value: {{ global.number_of_hiring_partners_aprox | 500 }}+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de {{ number_of_hiring_partners_aprox | 400 }} empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: Accede a nuestra red de más de {{ global.number_of_hiring_partners_aprox | 400 }} empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -489,7 +489,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ price_ai_engineering | default: '$349' }}
+    financing_amount: {{ global.price_ai_engineering | default: '$349' }}
     tech_icons:
       - openai
       - python
@@ -502,7 +502,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es {{ price_full_ai_engineering | default: '$14,999' }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: La matrícula estándar es {{ global.price_full_ai_engineering | default: '$14,999' }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
         text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
       - icon: IconCheck
@@ -548,7 +548,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
     financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
-    financing_amount: {{ price_ai_engineering | 140€ }}
+    financing_amount: {{ global.price_ai_engineering | 140€ }}
     tech_icons:
       - python
       - tensorflow
@@ -622,10 +622,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: “Más de {{ global_total_alumni | 4,000 }} graduados y {{ global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
+    subtitle: “Más de {{ global.global_total_alumni | 4,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
     rating_summary:
-      average: {{ global_review_rating | 4.8 }}
-      count: {{ global_review_count | 1,294 }}
+      average: {{ global.global_review_rating | 4.8 }}
+      count: {{ global.global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: Ingeniera de IA
@@ -725,7 +725,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: {{ call_to_action_apply | Aplicar ahora }}
+      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       automations: hard
       fields:
@@ -763,7 +763,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

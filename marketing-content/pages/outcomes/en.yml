@@ -306,8 +306,8 @@ sections:
     title: Real Career Results
     subtitle: Alumni share how they landed roles, advanced their careers, and increased their earning power.
     rating_summary:
-      average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 2,847 }}
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer

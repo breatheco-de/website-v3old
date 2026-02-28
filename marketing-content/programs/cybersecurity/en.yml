@@ -23,7 +23,7 @@ sections:
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
-    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ cybersecurity_week_duration | 16 }} weeks.
+    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ global.cybersecurity_week_duration | 16 }} weeks.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -57,13 +57,13 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: {{ cybersecurity_week_duration | 16 }}-week intensive program
+          text: {{ global.cybersecurity_week_duration | 16 }}-week intensive program
         - icon: IconBriefcase
           text: Employment-first curriculum
         - icon: IconRobot
           text: AI-Powered learning & feedback
         - icon: IconUsers
-          text: {{ global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 mentorship
         - icon: book
@@ -157,7 +157,7 @@ sections:
         value: 41%
         title: Projected job growth, outpacing most sectors
       - id: "3"
-        value: {{ global_spending_cybersecurity | $520B }}
+        value: {{ global.global_spending_cybersecurity | $520B }}
         title: Global spending on cybersecurity this year
   - type: syllabus
     variant: program-modules
@@ -317,7 +317,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: Cybersecurity Specialist
     stats:
-      - value: {{ global_job_placement_rate | 84 }}%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring Rate
         description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.
         benefits:
@@ -332,14 +332,14 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ average_salary_cybersecurity_short | $85 }}
+      - value: {{ global.average_salary_cybersecurity_short | $85 }}
         label: Average starting salary
-        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
+        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
-          - text: "Cybersecurity Analyst: {{ global_salary_cybersecurity_analist | $75K–$120K }}"
-          - text: "Penetration Tester: {{ global_salary_penetration_tester | $90K–$150K }}"
-          - text: "Security Engineer: {{ global_salary_security_engineer | $100K–$165K }}"
-          - text: "Incident Responder: {{ global_salary_incident_responder | $85K–$140K }}"
+          - text: "Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}"
+          - text: "Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}"
+          - text: "Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}"
+          - text: "Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}"
       - value: 400+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
@@ -392,7 +392,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full payment discount: Save 10% with upfront payment."
     financing_text: "Credit-based financing: starting below"
-    financing_amount: {{ price_cybersecurity | $299 }}
+    financing_amount: {{ global.price_cybersecurity | $299 }}
     tech_icons:
       - python
       - tensorflow
@@ -406,7 +406,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is {{ price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Standard tuition is {{ global.price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
@@ -452,7 +452,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
-    financing_amount: {{ price_cybersecurity | 299€ }}
+    financing_amount: {{ global.price_cybersecurity | 299€ }}
     tech_icons:
       - python
       - tensorflow
@@ -524,10 +524,10 @@ sections:
       desktop: none
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: {{ global_total_alumni | 6,500 }}+ graduates and {{ global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global.global_total_alumni | 6,500 }}+ graduates and {{ global.global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: {{ global_review_rating | 4.9 }}
-      count: {{ global_review_count | 700 }}
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     items:
       - name: Sarah Johnson
         role: Software Engineer
@@ -620,7 +620,7 @@ sections:
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ call_to_action_apply | Aplicar ahora }}
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

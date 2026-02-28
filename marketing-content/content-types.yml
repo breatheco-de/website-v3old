@@ -20,3 +20,26 @@ page:
   url_pattern:
     en: /en/:slug
     es: /es/:slug
+
+blog:
+  folder: blog
+  database: blog_posts
+  field_mapping:
+    title: title
+    slug: slug
+    description: description
+    image: preview
+    author_name: author.first_name
+    author_last_name: author.last_name
+    author_avatar: author.profile.avatar_url
+    published_at: published_at
+    duration: duration
+    category: cluster.slug
+    tags: technologies
+    content: readme.decoded
+    content_url: readme_url
+    status: status
+    lang: lang
+  url_pattern:
+    en: /en/blog/:category/:slug
+    es: /es/blog/:category/:slug

@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: "{{ sample_greeting | Welcome to 4Geeks Academy }}"
+    title: "{{ global.sample_greeting | Welcome to 4Geeks Academy }}"
     subtitle: Boost your career, harness the power of Applied AI.
     students_enrolled:
       avatars:
@@ -27,14 +27,14 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +48 students enrolled
     bullet_points:
-      - Learn "{{ workflowlele | prompt engineering }}" techniques to control AI outputs precisely
+      - Learn "{{ global.workflowlele | prompt engineering }}" techniques to control AI outputs precisely
       - Create professional images, videos, and documents using AI tools
       - Build automated workflows that save hours of repetitive work
       - Develop websites and chatbots without writing code
       - Apply AI to enhance your learning and personal development
     tutors:
       - name: Charly Chacón
-        role: "{{ sample_greeting | Main Instructor }}"
+        role: "{{ global.sample_greeting | Main Instructor }}"
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
@@ -50,7 +50,7 @@ sections:
       title: Sign up to 4Geeks Plus
       description: Subscribe and get access to hundreds of challenges, projects and courses
       cta_button:
-        text: "{{ call_to_action_apply | Apply now }}"
+        text: "{{ global.call_to_action_apply | Apply now }}"
         url: /signup
         variant: primary
       login_link:

@@ -20,9 +20,9 @@ sections:
     subtitle: Nuestros graduados comparten cómo desarrollaron habilidades demandadas, ganaron confianza y lanzaron nuevas carreras en tecnología con el apoyo de la comunidad de 4Geeks.
     badge: Testimonios de estudiantes y resultados profesionales
     trust_bar:
-      rating: {{ global_review_rating | 4.9 }}/5
+      rating: {{ global.global_review_rating | 4.9 }}/5
       rating_count: 2,500+
-      trusted_text: Con la confianza de más de {{ global_total_alumni | 10.000 }} estudiantes
+      trusted_text: Con la confianza de más de {{ global.global_total_alumni | 10.000 }} estudiantes
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes

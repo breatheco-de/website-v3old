@@ -75,7 +75,13 @@ import {
   getAllTypes,
   getAllFolders,
   getAllConfigs,
+  getDatabaseName,
+  getFieldMapping,
+  getLookupKey,
+  hasDatabaseSingle,
+  getContentTypeConfig,
 } from "./content-types";
+import { resolveSingleVars } from "./single-resolver";
 import { normalizeLocale } from "@shared/locale";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
@@ -309,6 +315,105 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
   }
 
   return result.data;
+}
+
+async function loadDatabaseSinglePage(
+  contentType: string,
+  slug: string,
+  locale: string,
+): Promise<TemplatePage | null> {
+  const dbName = getDatabaseName(contentType);
+  if (!dbName) return null;
+  const folder = getFolder(contentType);
+
+  const templateDir = path.join(process.cwd(), "marketing-content", folder);
+  const commonPath = path.join(templateDir, "_common.yml");
+  const localePath = path.join(templateDir, `single.${locale}.yml`);
+
+  if (!fs.existsSync(localePath)) {
+    console.error(`[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`);
+    return null;
+  }
+
+  let commonData: Record<string, unknown> = {};
+  if (fs.existsSync(commonPath)) {
+    const commonRaw = fs.readFileSync(commonPath, "utf-8");
+    const parsed = contentIndex.safeYamlLoad(commonRaw);
+    if (parsed) commonData = parsed;
+  }
+
+  const localeRaw = fs.readFileSync(localePath, "utf-8");
+  const localeData = contentIndex.safeYamlLoad(localeRaw);
+  if (!localeData) return null;
+
+  const merged = { ...commonData, ...localeData };
+  if (localeData.meta && commonData.meta) {
+    merged.meta = { ...(commonData.meta as Record<string, unknown>), ...(localeData.meta as Record<string, unknown>) };
+  }
+  if (localeData.sections) {
+    merged.sections = localeData.sections;
+  }
+
+  if (!databaseManager.exists(dbName)) {
+    console.error(`[DatabaseSingle] Database "${dbName}" not found`);
+    return null;
+  }
+
+  try {
+    const result = await databaseManager.fetchItems(dbName);
+    const lookupKey = getLookupKey(contentType) || "slug";
+    const fieldMapping = getFieldMapping(contentType);
+
+    let items = result.items as Record<string, unknown>[];
+
+    if (fieldMapping) {
+      items = items.map((item) => {
+        const mapped: Record<string, unknown> = { ...item };
+        for (const [targetField, sourcePath] of Object.entries(fieldMapping)) {
+          const parts = sourcePath.split(".");
+          let current: unknown = item;
+          for (const part of parts) {
+            if (current == null || typeof current !== "object") { current = undefined; break; }
+            current = (current as Record<string, unknown>)[part];
+          }
+          if (current !== undefined) mapped[targetField] = current;
+        }
+        return mapped;
+      });
+    }
+
+    const matchItem = items.find((item) => item[lookupKey] === slug);
+    if (!matchItem) {
+      console.log(`[DatabaseSingle] Item not found: ${lookupKey}=${slug} in ${dbName}`);
+      return null;
+    }
+
+    let content = (matchItem as any).content || "";
+    if (!content && (matchItem as any).content_url) {
+      content = await fetchMarkdownContent((matchItem as any).content_url as string);
+    }
+    if (!content && (matchItem as any).readme_url) {
+      content = await fetchMarkdownContent((matchItem as any).readme_url as string);
+    }
+    const singleItem = { ...matchItem, content };
+
+    const resolved = resolveSingleVars(merged, singleItem as Record<string, unknown>) as Record<string, unknown>;
+
+    const page: TemplatePage = {
+      slug: (resolved.slug as string) || slug,
+      template: (resolved.template as string) || "default",
+      title: (resolved.title as string) || (singleItem.title as string) || slug,
+      meta: (resolved.meta as TemplatePage["meta"]) || {},
+      sections: (resolved.sections as TemplatePage["sections"]) || [],
+      settings: (resolved.settings as TemplatePage["settings"]) || undefined,
+      schema: (resolved.schema as TemplatePage["schema"]) || undefined,
+    };
+
+    return page;
+  } catch (err) {
+    console.error(`[DatabaseSingle] Error loading ${contentType}/${slug}:`, err);
+    return null;
+  }
 }
 
 function listTemplatePages(
@@ -1430,6 +1535,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/database-single/:contentType/:slug", async (req, res) => {
+    try {
+      const { contentType, slug } = req.params;
+      const locale = normalizeLocale(req.query.locale as string);
+
+      if (!hasDatabaseSingle(contentType)) {
+        res.status(400).json({ error: `Content type "${contentType}" is not database-backed` });
+        return;
+      }
+
+      const page = await loadDatabaseSinglePage(contentType, slug, locale);
+      if (!page) {
+        res.status(404).json({ error: `Item not found: ${contentType}/${slug}` });
+        return;
+      }
+
+      res.json(page);
+    } catch (error) {
+      console.error("[DatabaseSingle] Error:", error);
+      res.status(500).json({ error: "Failed to load database single page" });
     }
   });
 

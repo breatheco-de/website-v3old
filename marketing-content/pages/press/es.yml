@@ -19,9 +19,9 @@ sections:
     title: Nuestra Historia, en las noticias
     badge: Prensa y medios
     trust_bar:
-      rating: {{ global_review_rating | 4.8 }}/5
+      rating: {{ global.global_review_rating | 4.8 }}/5
       rating_count: 2,500+
-      trusted_text: Más de {{ global_total_alumni | 10,000 }} estudiantes confían en nosotros
+      trusted_text: Más de {{ global.global_total_alumni | 10,000 }} estudiantes confían en nosotros
     award_badges:
       - name: Mejor Bootcamp de Programación
         source: Forbes
