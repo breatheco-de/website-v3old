@@ -1,0 +1,40 @@
+slug: blog
+template: default
+title: Blog
+
+meta:
+  page_title: "Blog | 4Geeks Academy"
+  description: "Lee las últimas noticias, tutoriales y artículos sobre programación, tecnología y educación en 4Geeks Academy."
+  robots: "index, follow"
+  priority: 0.9
+  change_frequency: daily
+
+schema:
+  include:
+    - organization
+    - website
+
+sections:
+  - type: listing_cards
+    title: "Blog"
+    sub_heading: "Artículos, tutoriales y noticias sobre programación y tecnología"
+    columns: 3
+    show_search: true
+    show_category_filter: true
+    pagination: 12
+    search_placeholder: "Buscar artículos..."
+    all_label: "Todos"
+    empty_text: "No se encontraron artículos."
+    page_info_template: "Página {page} de {totalPages} · {total} artículos"
+    dynamic_entries:
+      content_type: blog
+      sort: "-published_at"
+    item_template:
+      image: "{{ single.image_url }}"
+      title: "{{ single.title }}"
+      description: "{{ single.description }}"
+      badge: "{{ single.category }}"
+      url: "{{ single.url }}"
+      meta_left: "{{ single.author }}"
+      meta_right: "{{ single.published_at | }}"
+      cta_text: "Leer más"

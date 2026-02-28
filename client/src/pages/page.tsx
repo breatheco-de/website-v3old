@@ -14,9 +14,10 @@ import Footer from "@/components/Footer";
 
 export default function Page() {
   const [location, setLocation] = useLocation();
-  const locale = location.startsWith("/es/") ? "es" : "en";
+  const locale = location.startsWith("/es/") || location.startsWith("/es") ? "es" : "en";
   const params = useParams<{ slug: string }>();
-  const slug = params.slug || "";
+  const slugFromPath = location.split("?")[0].replace(/^\/(?:en|es)\//, "").split("/")[0] || "";
+  const slug = params.slug || slugFromPath;
 
   const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
     queryKey: ["/api/pages", slug, locale],

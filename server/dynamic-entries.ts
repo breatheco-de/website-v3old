@@ -1,0 +1,201 @@
+import { databaseManager } from "./database";
+import {
+  getLocaleKey,
+  getLocaleDefault,
+  resolveContentTypeUrl,
+} from "./content-types";
+
+const SINGLE_VAR_PATTERN = /\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}/g;
+const EXACT_SINGLE_VAR_PATTERN = /^\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}$/;
+
+function getNestedValue(obj: Record<string, unknown>, dotPath: string): unknown {
+  const parts = dotPath.split(".");
+  let current: unknown = obj;
+  for (const part of parts) {
+    if (current === null || current === undefined) return undefined;
+    if (typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
+}
+
+function resolveTemplateValue(template: unknown, item: Record<string, unknown>): unknown {
+  if (typeof template === "string") {
+    const exactMatch = template.match(EXACT_SINGLE_VAR_PATTERN);
+    if (exactMatch) {
+      const fieldPath = exactMatch[1];
+      const fallback = exactMatch[2]?.trim();
+      const value = getNestedValue(item, fieldPath);
+      if (value !== undefined && value !== null) return value;
+      if (fallback !== undefined) return fallback;
+      return "";
+    }
+
+    if (!SINGLE_VAR_PATTERN.test(template)) return template;
+    SINGLE_VAR_PATTERN.lastIndex = 0;
+
+    return template.replace(SINGLE_VAR_PATTERN, (_match, fieldPath: string, fallback?: string) => {
+      const value = getNestedValue(item, fieldPath);
+      if (value !== undefined && value !== null) {
+        if (typeof value === "object") return JSON.stringify(value);
+        return String(value);
+      }
+      if (fallback !== undefined) return fallback.trim();
+      return "";
+    });
+  }
+
+  if (Array.isArray(template)) {
+    return template.map(t => resolveTemplateValue(t, item));
+  }
+
+  if (template !== null && typeof template === "object") {
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(template as Record<string, unknown>)) {
+      result[key] = resolveTemplateValue(value, item);
+    }
+    return result;
+  }
+
+  return template;
+}
+
+function sortItems(items: Record<string, unknown>[], sortField: string): Record<string, unknown>[] {
+  const desc = sortField.startsWith("-");
+  const field = desc ? sortField.slice(1) : sortField;
+
+  return [...items].sort((a, b) => {
+    const aVal = a[field];
+    const bVal = b[field];
+    if (aVal == null && bVal == null) return 0;
+    if (aVal == null) return 1;
+    if (bVal == null) return -1;
+
+    let cmp = 0;
+    if (typeof aVal === "number" && typeof bVal === "number") {
+      cmp = aVal - bVal;
+    } else {
+      cmp = String(aVal).localeCompare(String(bVal));
+    }
+    return desc ? -cmp : cmp;
+  });
+}
+
+interface DynamicEntriesConfig {
+  content_type?: string;
+  database?: string;
+  filter?: Record<string, unknown>;
+  limit?: number;
+  sort?: string;
+}
+
+export async function resolveDynamicEntries(
+  sections: unknown[],
+  locale: string,
+): Promise<unknown[]> {
+  if (!Array.isArray(sections)) return sections;
+
+  const resolved = [];
+  for (const section of sections) {
+    if (!section || typeof section !== "object") {
+      resolved.push(section);
+      continue;
+    }
+
+    const sec = section as Record<string, unknown>;
+    const dynamicEntries = sec.dynamic_entries as DynamicEntriesConfig | undefined;
+    const itemTemplate = sec.item_template as Record<string, unknown> | undefined;
+
+    if (!dynamicEntries || (!dynamicEntries.content_type && !dynamicEntries.database)) {
+      resolved.push(section);
+      continue;
+    }
+
+    try {
+      const contentType = dynamicEntries.content_type || "";
+      let items: Record<string, unknown>[];
+
+      if (contentType) {
+        items = await databaseManager.fetchMappedItems(contentType);
+      } else if (dynamicEntries.database) {
+        const rawItems = await databaseManager.fetchItems(dynamicEntries.database);
+        items = rawItems as Record<string, unknown>[];
+      } else {
+        items = [];
+      }
+
+      if (contentType) {
+        const localeKey = getLocaleKey(contentType) || "lang";
+        const localeDefault = getLocaleDefault(contentType);
+        const normalizedLocale = locale === "us" ? "en" : locale;
+        items = items.filter(item => {
+          const itemLocale = (item as any)[localeKey] || localeDefault;
+          return itemLocale === normalizedLocale;
+        });
+      }
+
+      if (dynamicEntries.filter && typeof dynamicEntries.filter === "object") {
+        for (const [key, value] of Object.entries(dynamicEntries.filter)) {
+          items = items.filter(item => {
+            const itemVal = item[key];
+            if (itemVal && typeof itemVal === "object" && "slug" in (itemVal as any)) {
+              return (itemVal as any).slug === value;
+            }
+            return itemVal === value;
+          });
+        }
+      }
+
+      if (dynamicEntries.sort) {
+        items = sortItems(items, dynamicEntries.sort);
+      }
+
+      if (dynamicEntries.limit && dynamicEntries.limit > 0) {
+        items = items.slice(0, dynamicEntries.limit);
+      }
+
+      let resolvedItems: unknown[];
+      if (itemTemplate) {
+        resolvedItems = items.map(item => {
+          const enriched = { ...item };
+          if (contentType && !enriched._url) {
+            const url = resolveContentTypeUrl(contentType, item, locale);
+            if (url) enriched._url = url;
+          }
+          enriched.url = enriched._url || enriched.url || "";
+          return resolveTemplateValue(itemTemplate, enriched as Record<string, unknown>);
+        });
+      } else {
+        resolvedItems = items.map(item => {
+          if (contentType) {
+            const url = resolveContentTypeUrl(contentType, item, locale);
+            if (url) (item as any).url = url;
+          }
+          return item;
+        });
+      }
+
+      const hardcodedEntries = sec.hardcoded_entries as unknown[] | undefined;
+      const finalItems = [
+        ...(Array.isArray(hardcodedEntries) ? hardcodedEntries : []),
+        ...resolvedItems,
+      ];
+
+      const { dynamic_entries: _de, item_template: _it, hardcoded_entries: _he, ...rest } = sec;
+      resolved.push({
+        ...rest,
+        items: finalItems,
+        _dynamic_meta: {
+          content_type: contentType || dynamicEntries.database,
+          total: finalItems.length,
+          locale,
+        },
+      });
+    } catch (err) {
+      console.error("[DynamicEntries] Error resolving section:", err);
+      resolved.push(section);
+    }
+  }
+
+  return resolved;
+}

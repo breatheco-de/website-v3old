@@ -104,6 +104,7 @@ import {
   type FaqSection,
 } from "./ssr-schema";
 import { fetchMarkdownContent, clearMarkdownCache, clearMarkdownCacheByUrl } from "./markdown";
+import { resolveDynamicEntries } from "./dynamic-entries";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -1330,7 +1331,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/pages/:slug", (req, res) => {
+  app.get("/api/pages/:slug", async (req, res) => {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
@@ -1339,6 +1340,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (!page) {
       res.status(404).json({ error: "Template page not found" });
       return;
+    }
+
+    if (page.sections && Array.isArray(page.sections)) {
+      page.sections = await resolveDynamicEntries(page.sections, locale) as any;
     }
 
     res.json(page);

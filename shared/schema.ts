@@ -849,8 +849,55 @@ export const faqEditorSectionSchema = z.object({
 
 export type FaqEditorSection = z.infer<typeof faqEditorSectionSchema>;
 
+// ============================================
+// Listing Cards Section
+// ============================================
+const listingCardItemSchema = z.object({
+  image: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  badge: z.union([z.string(), z.object({ slug: z.string() })]).optional(),
+  url: z.string().optional(),
+  meta_left: z.unknown().optional(),
+  meta_right: z.unknown().optional(),
+  cta_text: z.string().optional(),
+}).passthrough();
+
+export const listingCardsSectionSchema = z.object({
+  type: z.literal("listing_cards"),
+  version: z.string().optional(),
+  title: z.string().optional(),
+  sub_heading: z.string().optional(),
+  columns: z.number().optional(),
+  show_search: z.boolean().optional(),
+  show_category_filter: z.boolean().optional(),
+  pagination: z.number().optional(),
+  search_placeholder: z.string().optional(),
+  all_label: z.string().optional(),
+  empty_text: z.string().optional(),
+  page_info_template: z.string().optional(),
+  items: z.array(listingCardItemSchema).optional(),
+  dynamic_entries: z.object({
+    content_type: z.string().optional(),
+    database: z.string().optional(),
+    filter: z.record(z.string(), z.unknown()).optional(),
+    limit: z.number().optional(),
+    sort: z.string().optional(),
+  }).optional(),
+  item_template: z.record(z.string(), z.unknown()).optional(),
+  hardcoded_entries: z.array(z.unknown()).optional(),
+  _dynamic_meta: z.object({
+    content_type: z.string().optional(),
+    total: z.number().optional(),
+    locale: z.string().optional(),
+  }).optional(),
+});
+
+export type ListingCardsSection = z.infer<typeof listingCardsSectionSchema>;
+
 // Base section schema union (component-specific fields)
 const baseSectionSchema = z.union([
+  listingCardsSectionSchema,
   faqEditorSectionSchema,
   heroSchema,
   featuresGridSchema,

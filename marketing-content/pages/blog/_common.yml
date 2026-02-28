@@ -1,0 +1,13 @@
+slug: "blog"
+template: "default"
+title: "Blog"
+
+meta:
+  robots: "index, follow"
+  priority: 0.9
+  change_frequency: "daily"
+
+schema:
+  include:
+    - "organization"
+    - "website"

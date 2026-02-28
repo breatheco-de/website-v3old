@@ -153,6 +153,7 @@ function getSectionVisibilityClasses(showOn: ShowOn | undefined): string {
   }
 }
 import { FeaturesGrid } from "@/components/features-grid/FeaturesGrid";
+import ListingCards from "@/components/ListingCards";
 import { AwardBadges } from "@/components/AwardBadges";
 import { AwardsMarquee } from "@/components/AwardsMarquee";
 import StatsSection from "@/components/StatsSection";
@@ -405,6 +406,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <Hero key={index} data={section as Parameters<typeof Hero>[0]["data"]} landingLocations={landingLocations} />;
     case "features_grid":
       return <FeaturesGrid key={index} data={section as Parameters<typeof FeaturesGrid>[0]["data"]} />;
+    case "listing_cards":
+      return <ListingCards key={index} data={section as any} />;
     case "stats":
       return <StatsSection key={index} data={section as Parameters<typeof StatsSection>[0]["data"]} />;
     case "award_badges": {

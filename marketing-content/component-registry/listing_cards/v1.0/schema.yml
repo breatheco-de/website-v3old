@@ -1,0 +1,70 @@
+name: listing_cards
+description: A generic card grid for listing content entries with optional search, category filtering, and pagination. Supports dynamic entries from content types or databases.
+
+variants:
+  - name: default
+    description: Standard card grid with image, title, description, badge, metadata, and CTA link
+
+dynamic_item_fields:
+  - name: image
+    type: string
+    description: Image URL for the card header
+  - name: title
+    type: string
+    required: true
+    description: Card title text
+  - name: description
+    type: string
+    description: Card description text (line-clamped to 3 lines)
+  - name: badge
+    type: string
+    description: Category or tag badge displayed above the title
+  - name: url
+    type: string
+    required: true
+    description: Link URL for the card (auto-resolved from url_pattern when using dynamic_entries)
+  - name: meta_left
+    type: string
+    description: Left-side metadata (e.g., author name)
+  - name: meta_right
+    type: string
+    description: Right-side metadata (e.g., date)
+  - name: cta_text
+    type: string
+    description: Call-to-action link text at the bottom of the card
+
+properties:
+  - name: title
+    type: string
+    description: Section heading
+  - name: sub_heading
+    type: string
+    description: Subtitle text below the heading
+  - name: columns
+    type: number
+    default: 3
+    description: Number of grid columns (1-4)
+  - name: show_search
+    type: boolean
+    default: false
+    description: Show a text search input
+  - name: show_category_filter
+    type: boolean
+    default: false
+    description: Show category filter badges derived from item badge values
+  - name: pagination
+    type: number
+    description: Items per page (omit for no pagination)
+  - name: search_placeholder
+    type: string
+    description: Placeholder text for the search input
+  - name: all_label
+    type: string
+    default: "All"
+    description: Label for the "all categories" filter badge
+  - name: empty_text
+    type: string
+    description: Text shown when no items match
+  - name: page_info_template
+    type: string
+    description: "Template for page info text. Placeholders: {page}, {totalPages}, {total}"

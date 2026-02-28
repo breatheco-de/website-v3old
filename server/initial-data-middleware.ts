@@ -6,6 +6,7 @@ import {
   careerProgramSchema,
   locationPageSchema,
 } from "@shared/schema";
+import { resolveDynamicEntries } from "./dynamic-entries";
 
 interface InitialDataPayload {
   queryKey: unknown[];
@@ -26,7 +27,7 @@ const SCHEMA_MAP: Record<string, typeof templatePageSchema> = {
   location: locationPageSchema,
 };
 
-function resolveInitialData(url: string): InitialDataPayload | null {
+async function resolveInitialData(url: string): Promise<InitialDataPayload | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
   if (cleanUrl === "/" || cleanUrl === "/en" || cleanUrl === "/en/" || cleanUrl === "/es" || cleanUrl === "/es/") {
@@ -40,9 +41,13 @@ function resolveInitialData(url: string): InitialDataPayload | null {
       localeOrVariant: locale,
     });
     if (result.success) {
+      const data = result.data as any;
+      if (data.sections && Array.isArray(data.sections)) {
+        data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+      }
       return {
         queryKey: ["/api/pages", slug, locale],
-        data: result.data,
+        data,
       };
     }
     return null;
@@ -74,9 +79,14 @@ function resolveInitialData(url: string): InitialDataPayload | null {
 
     if (!result.success) return null;
 
+    const data = result.data as any;
+    if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
+      data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+    }
+
     return {
       queryKey: [apiPath, slug, locale],
-      data: result.data,
+      data,
     };
   } catch {
     return null;
@@ -93,23 +103,33 @@ export function initialDataMiddleware(req: Request, res: Response, next: NextFun
     return next();
   }
 
+  const payloadPromise = resolveInitialData(req.originalUrl).catch(() => null);
+
   const originalEnd = res.end;
   res.end = function (this: Response, chunk?: any, ...args: any[]) {
     const contentType = res.getHeader("content-type");
     if (contentType && String(contentType).includes("text/html") && chunk) {
-      try {
-        const payload = resolveInitialData(req.originalUrl);
+      payloadPromise.then((payload) => {
         if (payload) {
-          const html = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
-          const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
-          const injected = html.replace("</body>", scriptTag + "</body>");
+          try {
+            const html = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
+            const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
+            const injected = html.replace("</body>", scriptTag + "</body>");
 
-          const newLength = Buffer.byteLength(injected, "utf-8");
-          res.setHeader("content-length", newLength);
+            const newLength = Buffer.byteLength(injected, "utf-8");
+            res.setHeader("content-length", newLength);
 
-          return originalEnd.call(this, injected, ...args);
+            originalEnd.call(this, injected, ...args);
+          } catch {
+            originalEnd.call(this, chunk, ...args);
+          }
+        } else {
+          originalEnd.call(this, chunk, ...args);
         }
-      } catch {}
+      }).catch(() => {
+        originalEnd.call(this, chunk, ...args);
+      });
+      return this;
     }
     return originalEnd.call(this, chunk, ...args);
   } as any;
