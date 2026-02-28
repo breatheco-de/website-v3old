@@ -1596,6 +1596,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           has_field_mapping: !!(config.database?.field_mapping && Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0),
           url_pattern: config.url_pattern,
           locale_key: config.database?.field_mapping?._locale || null,
+          static_entry_count: contentIndex.findByType(type).length,
         });
       }
       res.json(result);
@@ -1618,6 +1619,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         folder: config.folder,
         database: config.database || null,
         url_pattern: config.url_pattern,
+        static_entry_count: contentIndex.findByType(type).length,
       });
     } catch (err) {
       res.status(500).json({ error: String(err) });

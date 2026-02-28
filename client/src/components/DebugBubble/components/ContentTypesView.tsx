@@ -5,6 +5,7 @@ import {
   IconExternalLink,
   IconRefresh,
   IconDatabase,
+  IconFolder,
 } from "@tabler/icons-react";
 import type { MenuView } from "../types";
 
@@ -15,6 +16,7 @@ interface ContentTypeSummary {
   has_database: boolean;
   database_slug: string | null;
   has_field_mapping: boolean;
+  static_entry_count: number;
 }
 
 interface ContentTypesViewProps {
@@ -73,8 +75,11 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
                   <IconFileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium truncate">{ct.label}</div>
-                    <div className="text-xs text-muted-foreground truncate flex items-center gap-1">
-                      {ct.folder}
+                    <div className="text-xs text-muted-foreground truncate flex items-center gap-2">
+                      <span className="inline-flex items-center gap-0.5">
+                        <IconFolder className="h-3 w-3" />
+                        {ct.folder}/ · {ct.static_entry_count} static
+                      </span>
                       {ct.has_database && (
                         <span className="inline-flex items-center gap-0.5">
                           <IconDatabase className="h-3 w-3" />

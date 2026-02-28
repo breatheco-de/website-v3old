@@ -42,7 +42,9 @@ import {
   IconWorld,
   IconDatabase,
   IconDotsVertical,
+  IconFolder,
   IconLink,
+  IconPlus,
   IconTrashX,
   IconWand,
   IconLoader2,
@@ -79,6 +81,7 @@ interface ContentTypeConfig {
   folder: string;
   database: DatabaseConfig | null;
   url_pattern: Record<string, string>;
+  static_entry_count?: number;
 }
 
 interface DatabaseListItem {
@@ -416,7 +419,7 @@ function DataSourceDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[580px] max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{label} Data Source</DialogTitle>
+          <DialogTitle>Connect Database to {label}</DialogTitle>
         </DialogHeader>
 
         <StepIndicator steps={WIZARD_STEPS} currentStep={step} completedSteps={completedSteps} />
@@ -432,7 +435,7 @@ function DataSourceDialog({
             {step === "database" && (
               <div className="space-y-4" data-testid="step-database">
                 <p className="text-sm text-muted-foreground">
-                  Select the database that provides {contentType} data. Databases are configured and managed separately.
+                  Add a database as a dynamic source of {contentType} entries, alongside the existing static entries from the folder. Databases are configured and managed separately.
                 </p>
 
                 <div className="space-y-2">
@@ -1108,7 +1111,7 @@ export default function ContentTypeManagePage() {
               data-testid="button-data-source"
             >
               <IconDatabase className="h-4 w-4 mr-1" />
-              Source
+              Database
             </Button>
             <Button
               variant="outline"
@@ -1120,6 +1123,37 @@ export default function ContentTypeManagePage() {
               URLs
             </Button>
           </div>
+        </div>
+
+        <div className="flex items-center gap-3 flex-wrap" data-testid="section-sources">
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Sources</span>
+          <Badge variant="outline" className="text-xs gap-1.5" data-testid="badge-source-folder">
+            <IconFolder className="h-3 w-3" />
+            {typeConfig?.folder || contentType}/
+            <span className="text-muted-foreground">
+              {typeConfig?.static_entry_count !== undefined
+                ? `${typeConfig.static_entry_count} static ${typeConfig.static_entry_count === 1 ? "entry" : "entries"}`
+                : "..."}
+            </span>
+          </Badge>
+          {typeConfig?.database?.slug ? (
+            <Badge variant="outline" className="text-xs gap-1.5" data-testid="badge-source-database">
+              <IconDatabase className="h-3 w-3" />
+              {typeConfig.database.slug}
+              <span className="text-muted-foreground">
+                {allItemsData ? `${allItemsData.count} DB entries` : "..."}
+              </span>
+            </Badge>
+          ) : (
+            <button
+              onClick={() => setDsDialogOpen(true)}
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover-elevate rounded-md px-2 py-1"
+              data-testid="button-add-database"
+            >
+              <IconPlus className="h-3 w-3" />
+              Connect database
+            </button>
+          )}
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
