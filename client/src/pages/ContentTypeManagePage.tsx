@@ -44,7 +44,6 @@ import {
   IconDotsVertical,
   IconFolder,
   IconLink,
-  IconPlus,
   IconTrashX,
   IconWand,
   IconLoader2,
@@ -63,6 +62,13 @@ interface CacheStatus {
   exists: boolean;
   age_hours: number | null;
   post_count: number | null;
+}
+
+interface StaticEntry {
+  slug: string;
+  title: string;
+  locales: string[];
+  urls: Record<string, string>;
 }
 
 interface FieldMapping {
@@ -976,10 +982,17 @@ export default function ContentTypeManagePage() {
   const [clearing, setClearing] = useState(false);
   const [dsDialogOpen, setDsDialogOpen] = useState(false);
   const [seoDialogOpen, setSeoDialogOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<"static" | "db">("static");
 
   const { data: allItemsData, isLoading: allLoading } = useQuery<ItemsResponse>({
     queryKey: ["/api/content-types", contentType, "items"],
     queryFn: () => fetch(`/api/content-types/${contentType}/items`).then(r => r.json()),
+    staleTime: 60000,
+  });
+
+  const { data: staticEntriesData, isLoading: staticLoading } = useQuery<{ count: number; results: StaticEntry[] }>({
+    queryKey: ["/api/content-types", contentType, "static-entries"],
+    queryFn: () => fetch(`/api/content-types/${contentType}/static-entries`).then(r => r.json()),
     staleTime: 60000,
   });
 
@@ -1055,11 +1068,30 @@ export default function ContentTypeManagePage() {
     return result;
   }, [items, filters, search]);
 
+  const staticEntries = staticEntriesData?.results || [];
+  const filteredStatic = useMemo(() => {
+    if (!search.trim()) return staticEntries;
+    const q = search.toLowerCase();
+    return staticEntries.filter(
+      (e) => e.title.toLowerCase().includes(q) || e.slug.toLowerCase().includes(q)
+    );
+  }, [staticEntries, search]);
+
+  const hasDb = !!typeConfig?.database?.slug;
+  const defaultViewMode = hasDb ? "db" : "static";
+  const prevDefaultRef = useRef(defaultViewMode);
+  useEffect(() => {
+    if (prevDefaultRef.current !== defaultViewMode) {
+      prevDefaultRef.current = defaultViewMode;
+      setViewMode(defaultViewMode);
+    }
+  }, [defaultViewMode]);
+
   const handleClearCache = async () => {
     setClearing(true);
     try {
       await apiRequest("POST", `/api/content-types/${contentType}/clear-cache`);
-      toast({ title: `${label} cache cleared`, description: "Refreshing items..." });
+      toast({ title: `${label} cache cleared`, description: "Refreshing entries..." });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "items"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "cache-status"] });
     } catch {
@@ -1085,7 +1117,7 @@ export default function ContentTypeManagePage() {
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold" data-testid="text-page-title">{label} Management</h1>
             <p className="text-sm text-muted-foreground">
-              Overview of all {contentType} items and cache status
+              Overview of all {contentType} entries and cache status
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -1125,45 +1157,30 @@ export default function ContentTypeManagePage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap" data-testid="section-sources">
-          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Sources</span>
-          <Badge variant="outline" className="text-xs gap-1.5" data-testid="badge-source-folder">
-            <IconFolder className="h-3 w-3" />
-            {typeConfig?.folder || contentType}/
-            <span className="text-muted-foreground">
-              {typeConfig?.static_entry_count !== undefined
-                ? `${typeConfig.static_entry_count} static ${typeConfig.static_entry_count === 1 ? "entry" : "entries"}`
-                : "..."}
-            </span>
-          </Badge>
-          {typeConfig?.database?.slug ? (
-            <Badge variant="outline" className="text-xs gap-1.5" data-testid="badge-source-database">
-              <IconDatabase className="h-3 w-3" />
-              {typeConfig.database.slug}
-              <span className="text-muted-foreground">
-                {allItemsData ? `${allItemsData.count} DB entries` : "..."}
-              </span>
-            </Badge>
-          ) : (
-            <button
-              onClick={() => setDsDialogOpen(true)}
-              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover-elevate rounded-md px-2 py-1"
-              data-testid="button-add-database"
-            >
-              <IconPlus className="h-3 w-3" />
-              Connect database
-            </button>
-          )}
-        </div>
-
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card data-testid="card-kpi-total">
             <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Items</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Total Entries</CardTitle>
               <IconArticle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold" data-testid="text-kpi-total">{allLoading ? "..." : items.length}</div>
+              <div className="flex items-center gap-3 flex-wrap">
+                <div data-testid="text-kpi-static">
+                  <span className="text-2xl font-bold">
+                    {typeConfig?.static_entry_count !== undefined ? typeConfig.static_entry_count : "..."}
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-1">Static</span>
+                </div>
+                {typeConfig?.database?.slug && (
+                  <>
+                    <div className="h-6 w-px bg-border" />
+                    <div data-testid="text-kpi-db">
+                      <span className="text-2xl font-bold">{allLoading ? "..." : items.length}</span>
+                      <span className="text-xs text-muted-foreground ml-1">DB</span>
+                    </div>
+                  </>
+                )}
+              </div>
             </CardContent>
           </Card>
           {allIndexFields.map((idx) => {
@@ -1205,17 +1222,41 @@ export default function ContentTypeManagePage() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-1" data-testid="toggle-view-mode">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`toggle-elevate ${viewMode === "static" ? "toggle-elevated" : ""}`}
+                  onClick={() => setViewMode("static")}
+                  data-testid="button-view-static"
+                >
+                  <IconFolder className="h-4 w-4 mr-1" />
+                  Static Entries
+                </Button>
+                {hasDb && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={`toggle-elevate ${viewMode === "db" ? "toggle-elevated" : ""}`}
+                    onClick={() => setViewMode("db")}
+                    data-testid="button-view-db"
+                  >
+                    <IconDatabase className="h-4 w-4 mr-1" />
+                    DB Entries
+                  </Button>
+                )}
+              </div>
               <div className="relative flex-1 min-w-[200px]">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder={`Search ${contentType} items by title, slug, or author...`}
+                  placeholder={`Search ${contentType} entries by title or slug...`}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="pl-9"
                   data-testid="input-search"
                 />
               </div>
-              {allIndexFields.map((idx) => {
+              {viewMode === "db" && allIndexFields.map((idx) => {
                 const isLocale = idx === localeKey;
                 const counts = indexStats[idx] || {};
                 const distinctValues = Object.keys(counts).sort();
@@ -1245,151 +1286,234 @@ export default function ContentTypeManagePage() {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            {allLoading ? (
-              <div className="flex items-center justify-center py-12" data-testid="loading-items">
-                <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
-                <span className="ml-2 text-sm text-muted-foreground">Loading items...</span>
-              </div>
-            ) : filtered.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground" data-testid="text-no-results">
-                No items found
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm" data-testid="table-items">
-                  <thead>
-                    <tr className="border-b bg-muted/50">
-                      <th className="text-left px-4 py-3 font-medium text-muted-foreground">Title</th>
-                      {hasAuthorField && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Author</th>}
-                      {allIndexFields.map((idx) => (
-                        <th key={idx} className="text-left px-4 py-3 font-medium text-muted-foreground">
-                          {idx === localeKey ? "Lang" : idx.charAt(0).toUpperCase() + idx.slice(1)}
-                        </th>
-                      ))}
-                      {hasPublishedAt && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Published</th>}
-                      {hasUpdatedAt && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Updated</th>}
-                      <th className="text-right px-4 py-3 font-medium text-muted-foreground">Link</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filtered.map((item) => {
-                      const itemLocale = localeKey ? String(item[localeKey] || "en") : "en";
-                      const pattern = itemLocale === "es" ? (urlPatterns.es || urlPatterns.en) : (urlPatterns.en || urlPatterns.default || "");
-                      const itemUrl = pattern ? buildItemUrl(pattern, item, itemLocale) : "";
-                      return (
-                        <tr
-                          key={item.id || item.slug}
-                          className="border-b last:border-0 hover:bg-muted/30 transition-colors"
-                          data-testid={`row-item-${item.id || item.slug}`}
-                        >
-                          <td className="px-4 py-3">
-                            <div className="flex items-center gap-3">
-                              {(item.preview || item.image) && (
-                                <img
-                                  src={item.preview || item.image}
-                                  alt=""
-                                  className="w-10 h-10 rounded-md object-cover flex-shrink-0 hidden sm:block"
-                                />
-                              )}
+            {viewMode === "static" ? (
+              staticLoading ? (
+                <div className="flex items-center justify-center py-12" data-testid="loading-static">
+                  <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
+                  <span className="ml-2 text-sm text-muted-foreground">Loading entries...</span>
+                </div>
+              ) : filteredStatic.length === 0 ? (
+                <div className="text-center py-12 text-muted-foreground" data-testid="text-no-results">
+                  No static entries found
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm" data-testid="table-static-entries">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        <th className="text-left px-4 py-3 font-medium text-muted-foreground">Title</th>
+                        <th className="text-left px-4 py-3 font-medium text-muted-foreground">Locales</th>
+                        <th className="text-right px-4 py-3 font-medium text-muted-foreground">Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredStatic.map((entry) => {
+                        const firstUrl = entry.urls[entry.locales[0]] || Object.values(entry.urls)[0] || "";
+                        return (
+                          <tr
+                            key={entry.slug}
+                            className="border-b last:border-0 hover:bg-muted/30 transition-colors"
+                            data-testid={`row-static-${entry.slug}`}
+                          >
+                            <td className="px-4 py-3">
                               <div className="min-w-0">
-                                <div className="font-medium truncate max-w-[300px]" title={item.title} data-testid={`text-title-${item.id || item.slug}`}>
-                                  {item.title || item.slug}
+                                <div className="font-medium truncate max-w-[300px]" title={entry.title} data-testid={`text-title-${entry.slug}`}>
+                                  {entry.title}
                                 </div>
                                 <div className="text-xs text-muted-foreground truncate max-w-[300px]">
-                                  {item.slug}
+                                  {entry.slug}
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                          {hasAuthorField && (
-                            <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
-                              {item.author_name
-                                ? `${item.author_name} ${item.author_last_name || ""}`.trim()
-                                : item.author
-                                  ? `${item.author.first_name || ""} ${item.author.last_name || ""}`.trim()
-                                  : "—"}
                             </td>
-                          )}
-                          {allIndexFields.map((idx) => {
-                            const val = String(item[idx] || "");
-                            const isLocale = idx === localeKey;
-                            if (idx === "status") {
+                            <td className="px-4 py-3">
+                              <div className="flex items-center gap-1 flex-wrap">
+                                {entry.locales.map((loc) => (
+                                  <Badge key={loc} variant="outline" className="text-xs">
+                                    {loc.toUpperCase()}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </td>
+                            <td className="px-4 py-3 text-right">
+                              {Object.keys(entry.urls).length > 0 && (
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" size="icon" data-testid={`button-actions-${entry.slug}`}>
+                                      <IconDotsVertical className="h-4 w-4" />
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    {Object.entries(entry.urls).map(([loc, url]) => (
+                                      <DropdownMenuItem key={loc} asChild>
+                                        <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-${entry.slug}-${loc}`}>
+                                          <IconExternalLink className="h-4 w-4 mr-2" />
+                                          Open ({loc.toUpperCase()})
+                                        </a>
+                                      </DropdownMenuItem>
+                                    ))}
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )
+            ) : (
+              allLoading ? (
+                <div className="flex items-center justify-center py-12" data-testid="loading-items">
+                  <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
+                  <span className="ml-2 text-sm text-muted-foreground">Loading entries...</span>
+                </div>
+              ) : filtered.length === 0 ? (
+                <div className="text-center py-12 text-muted-foreground" data-testid="text-no-results">
+                  No DB entries found
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm" data-testid="table-items">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        <th className="text-left px-4 py-3 font-medium text-muted-foreground">Title</th>
+                        {hasAuthorField && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Author</th>}
+                        {allIndexFields.map((idx) => (
+                          <th key={idx} className="text-left px-4 py-3 font-medium text-muted-foreground">
+                            {idx === localeKey ? "Lang" : idx.charAt(0).toUpperCase() + idx.slice(1)}
+                          </th>
+                        ))}
+                        {hasPublishedAt && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Published</th>}
+                        {hasUpdatedAt && <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Updated</th>}
+                        <th className="text-right px-4 py-3 font-medium text-muted-foreground">Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filtered.map((item) => {
+                        const itemLocale = localeKey ? String(item[localeKey] || "en") : "en";
+                        const pattern = itemLocale === "es" ? (urlPatterns.es || urlPatterns.en) : (urlPatterns.en || urlPatterns.default || "");
+                        const itemUrl = pattern ? buildItemUrl(pattern, item, itemLocale) : "";
+                        return (
+                          <tr
+                            key={item.id || item.slug}
+                            className="border-b last:border-0 hover:bg-muted/30 transition-colors"
+                            data-testid={`row-item-${item.id || item.slug}`}
+                          >
+                            <td className="px-4 py-3">
+                              <div className="flex items-center gap-3">
+                                {(item.preview || item.image) && (
+                                  <img
+                                    src={item.preview || item.image}
+                                    alt=""
+                                    className="w-10 h-10 rounded-md object-cover flex-shrink-0 hidden sm:block"
+                                  />
+                                )}
+                                <div className="min-w-0">
+                                  <div className="font-medium truncate max-w-[300px]" title={item.title} data-testid={`text-title-${item.id || item.slug}`}>
+                                    {item.title || item.slug}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground truncate max-w-[300px]">
+                                    {item.slug}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            {hasAuthorField && (
+                              <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
+                                {item.author_name
+                                  ? `${item.author_name} ${item.author_last_name || ""}`.trim()
+                                  : item.author
+                                    ? `${item.author.first_name || ""} ${item.author.last_name || ""}`.trim()
+                                    : "—"}
+                              </td>
+                            )}
+                            {allIndexFields.map((idx) => {
+                              const val = String(item[idx] || "");
+                              const isLocale = idx === localeKey;
+                              if (idx === "status") {
+                                return (
+                                  <td key={idx} className="px-4 py-3">
+                                    <StatusBadge status={val} />
+                                  </td>
+                                );
+                              }
                               return (
                                 <td key={idx} className="px-4 py-3">
-                                  <StatusBadge status={val} />
+                                  <Badge variant="outline">
+                                    {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
+                                  </Badge>
                                 </td>
                               );
-                            }
-                            return (
-                              <td key={idx} className="px-4 py-3">
-                                <Badge variant="outline">
-                                  {isLocale ? val.toUpperCase() : val.charAt(0).toUpperCase() + val.slice(1)}
-                                </Badge>
+                            })}
+                            {hasPublishedAt && (
+                              <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
+                                {formatDate(item.published_at)}
                               </td>
-                            );
-                          })}
-                          {hasPublishedAt && (
-                            <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
-                              {formatDate(item.published_at)}
+                            )}
+                            {hasUpdatedAt && (
+                              <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
+                                {formatDate(item.updated_at)}
+                              </td>
+                            )}
+                            <td className="px-4 py-3 text-right">
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="icon" data-testid={`button-actions-${item.id || item.slug}`}>
+                                    <IconDotsVertical className="h-4 w-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  {itemUrl && (
+                                    <>
+                                      <DropdownMenuItem asChild>
+                                        <a href={itemUrl} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${item.id || item.slug}`}>
+                                          <IconExternalLink className="h-4 w-4 mr-2" />
+                                          Open in new tab
+                                        </a>
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem asChild>
+                                        <a href={itemUrl} data-testid={`link-same-tab-${item.id || item.slug}`}>
+                                          <IconArrowLeft className="h-4 w-4 mr-2 rotate-180" />
+                                          Open in this tab
+                                        </a>
+                                      </DropdownMenuItem>
+                                      <DropdownMenuSeparator />
+                                    </>
+                                  )}
+                                  <DropdownMenuItem
+                                    onClick={async () => {
+                                      try {
+                                        await apiRequest("DELETE", `/api/content-types/${contentType}/cache/${item.slug}`);
+                                        toast({ title: `Cache cleared for "${item.title || item.slug}"` });
+                                      } catch {
+                                        toast({ title: "Failed to clear cache", variant: "destructive" });
+                                      }
+                                    }}
+                                    data-testid={`button-clear-cache-${item.id || item.slug}`}
+                                  >
+                                    <IconTrashX className="h-4 w-4 mr-2" />
+                                    Clear cache
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
                             </td>
-                          )}
-                          {hasUpdatedAt && (
-                            <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
-                              {formatDate(item.updated_at)}
-                            </td>
-                          )}
-                          <td className="px-4 py-3 text-right">
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" data-testid={`button-actions-${item.id || item.slug}`}>
-                                  <IconDotsVertical className="h-4 w-4" />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                {itemUrl && (
-                                  <>
-                                    <DropdownMenuItem asChild>
-                                      <a href={itemUrl} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${item.id || item.slug}`}>
-                                        <IconExternalLink className="h-4 w-4 mr-2" />
-                                        Open in new tab
-                                      </a>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem asChild>
-                                      <a href={itemUrl} data-testid={`link-same-tab-${item.id || item.slug}`}>
-                                        <IconArrowLeft className="h-4 w-4 mr-2 rotate-180" />
-                                        Open in this tab
-                                      </a>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                  </>
-                                )}
-                                <DropdownMenuItem
-                                  onClick={async () => {
-                                    try {
-                                      await apiRequest("DELETE", `/api/content-types/${contentType}/cache/${item.slug}`);
-                                      toast({ title: `Cache cleared for "${item.title || item.slug}"` });
-                                    } catch {
-                                      toast({ title: "Failed to clear cache", variant: "destructive" });
-                                    }
-                                  }}
-                                  data-testid={`button-clear-cache-${item.id || item.slug}`}
-                                >
-                                  <IconTrashX className="h-4 w-4 mr-2" />
-                                  Clear cache
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )
+            )}
+            {viewMode === "static" && !staticLoading && filteredStatic.length > 0 && (
+              <div className="px-4 py-3 border-t text-xs text-muted-foreground" data-testid="text-showing-count">
+                Showing {filteredStatic.length} of {staticEntries.length} entries
               </div>
             )}
-            {!allLoading && filtered.length > 0 && (
+            {viewMode === "db" && !allLoading && filtered.length > 0 && (
               <div className="px-4 py-3 border-t text-xs text-muted-foreground" data-testid="text-showing-count">
-                Showing {filtered.length} of {items.length} items
+                Showing {filtered.length} of {items.length} entries
               </div>
             )}
           </CardContent>

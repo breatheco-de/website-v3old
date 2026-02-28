@@ -1735,6 +1735,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/static-entries", (req, res) => {
+    try {
+      const { type } = req.params;
+      const entries = contentIndex.findByType(type);
+      const results = entries.map((entry) => {
+        const urls = contentIndex.getLocaleUrls(entry.slug, type);
+        return {
+          slug: entry.slug,
+          title: entry.title || entry.slug,
+          locales: entry.locales.filter((l) => !l.startsWith("_") && !l.includes(".")),
+          urls,
+        };
+      });
+      res.json({ count: results.length, results });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/content-types/:type/cache-status", (req, res) => {
     try {
       const { type } = req.params;
