@@ -106,7 +106,6 @@ import {
   clearBlogCache,
   getBlogCacheStatus,
   getBlogConfig,
-  saveBlogConfig,
   clearConfigCache,
   parseBlogRoute,
   generateBlogSsrHtml,
@@ -1546,12 +1545,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(400).json({ error: "Request body must be a JSON object" });
         return;
       }
-      const allowed: Record<string, unknown> = {};
-      if (body.database !== undefined) allowed.database = body.database;
-      if (body.url_pattern !== undefined) allowed.url_pattern = body.url_pattern;
-      if (body.categories !== undefined) allowed.categories = body.categories;
-      if (body.field_mapping !== undefined) allowed.field_mapping = body.field_mapping;
-      saveBlogConfig(allowed);
+      const update: Partial<import("./content-types").ContentTypeEntry> = {};
+      if (body.url_pattern !== undefined) update.url_pattern = body.url_pattern;
+      if (body.database !== undefined) update.database = body.database;
+      updateContentTypeConfig("blog", update);
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: String(err) });

@@ -1,14 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as yaml from "js-yaml";
 import { databaseManager } from "./database";
 import {
   getContentTypeConfig,
   getLocaleKey,
 } from "./content-types";
-
-const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
-const BLOG_CONFIG_PATH = path.join(MARKETING_CONTENT_PATH, "blog.yml");
 
 export interface BlogConfig {
   database: string;
@@ -55,49 +51,28 @@ function loadConfig(): BlogConfig {
   if (configCache) return configCache;
 
   const ctConfig = getContentTypeConfig("blog");
-  if (ctConfig?.database?.slug) {
-    const mapping = ctConfig.database.field_mapping;
-    const regularMapping: Record<string, string | null> = {};
-    if (mapping) {
-      for (const [key, value] of Object.entries(mapping)) {
-        if (!key.startsWith("_")) {
-          regularMapping[key] = value;
-        }
+  if (!ctConfig?.database?.slug) {
+    throw new Error("[Blog] No blog configuration found in content-types.yml (database.slug is required)");
+  }
+
+  const mapping = ctConfig.database.field_mapping;
+  const regularMapping: Record<string, string | null> = {};
+  if (mapping) {
+    for (const [key, value] of Object.entries(mapping)) {
+      if (!key.startsWith("_")) {
+        regularMapping[key] = value;
       }
     }
-
-    const localeKey = getLocaleKey("blog");
-
-    configCache = {
-      database: ctConfig.database.slug,
-      url_pattern: ctConfig.url_pattern || { en: "/en/blog/:category/:slug", es: "/es/blog/:category/:slug" },
-      categories: localeKey ? { en: "en", es: "es" } : { en: "blog-us", es: "blog-es" },
-      field_mapping: Object.keys(regularMapping).length > 0 ? regularMapping : undefined,
-    };
-    return configCache;
   }
 
-  if (!fs.existsSync(BLOG_CONFIG_PATH)) {
-    throw new Error("[Blog] No blog configuration found in content-types.yml or blog.yml");
-  }
+  const localeKey = getLocaleKey("blog");
 
-  console.warn("[Blog] Reading from deprecated blog.yml — migrate to content-types.yml");
-  const raw = fs.readFileSync(BLOG_CONFIG_PATH, "utf-8");
-  const parsed = yaml.load(raw) as Record<string, unknown>;
-
-  if (parsed.database && typeof parsed.database === "string") {
-    configCache = parsed as unknown as BlogConfig;
-  } else if (parsed.data_source) {
-    configCache = {
-      database: "",
-      url_pattern: (parsed.url_pattern as Record<string, string>) || { en: "/en/blog/:category/:slug", es: "/es/blog/:category/:slug" },
-      categories: (parsed.categories as Record<string, string>) || { en: "blog-us", es: "blog-es" },
-      field_mapping: parsed.field_mapping as Record<string, string | null> | undefined,
-    };
-  } else {
-    throw new Error("[Blog] blog.yml must specify a 'database' field referencing a database name");
-  }
-
+  configCache = {
+    database: ctConfig.database.slug,
+    url_pattern: ctConfig.url_pattern || { en: "/en/blog/:category/:slug", es: "/es/blog/:category/:slug" },
+    categories: localeKey ? { en: "en", es: "es" } : { en: "blog-us", es: "blog-es" },
+    field_mapping: Object.keys(regularMapping).length > 0 ? regularMapping : undefined,
+  };
   return configCache;
 }
 
@@ -241,7 +216,7 @@ export async function getBlogPosts(forceRefresh = false): Promise<BlogPost[]> {
   const config = loadConfig();
 
   if (!config.database) {
-    console.warn("[Blog] No database configured in blog.yml");
+    console.warn("[Blog] No database configured in content-types.yml");
     return [];
   }
 
@@ -319,29 +294,6 @@ export function getBlogConfig(): BlogConfig {
   return loadConfig();
 }
 
-export function saveBlogConfig(update: Partial<BlogConfig>): void {
-  const current = loadConfig();
-  const merged = { ...current, ...update };
-
-  const raw = fs.readFileSync(BLOG_CONFIG_PATH, "utf-8");
-  const commentLines: string[] = [];
-  for (const line of raw.split("\n")) {
-    if (line.startsWith("#") || line.trim() === "") {
-      commentLines.push(line);
-    } else {
-      break;
-    }
-  }
-
-  const yamlBody = yaml.dump(merged, { lineWidth: 120, noRefs: true, sortKeys: false });
-  const output = commentLines.length > 0
-    ? commentLines.join("\n") + "\n" + yamlBody
-    : yamlBody;
-
-  fs.writeFileSync(BLOG_CONFIG_PATH, output, "utf-8");
-  clearConfigCache();
-  console.log("[Blog] Saved blog.yml configuration");
-}
 
 function getBaseUrl(): string {
   if (process.env.SITE_URL) {
