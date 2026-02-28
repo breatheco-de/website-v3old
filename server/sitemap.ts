@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
 import { resolveUrlPattern } from "./blog";
+import { getContentTypeConfig, getLocaleKey } from "./content-types";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -411,38 +412,34 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     locale: "es",
   });
 
-  // Blog posts from cache file (read synchronously)
+  // Blog posts from database cache file (read synchronously)
   try {
-    const blogConfigPath = path.join(BASE_CONTENT_PATH, "blog.yml");
-    if (fs.existsSync(blogConfigPath)) {
-      const rawBlogConfig = contentIndex.safeYamlLoad(fs.readFileSync(blogConfigPath, "utf-8")) as Record<string, unknown>;
-      const blogConfig = rawBlogConfig as {
-        data_source?: { type: string; api?: unknown };
-        api?: unknown;
-        cache: { file_path: string };
-        url_pattern: Record<string, string>;
-        categories: Record<string, string>;
-      };
-      const cachePath = path.join(process.cwd(), blogConfig.cache.file_path);
+    const blogTypeConfig = getContentTypeConfig("blog");
+    if (blogTypeConfig?.database?.slug) {
+      const dbName = blogTypeConfig.database.slug;
+      const localeFieldKey = getLocaleKey("blog");
+      const cachePath = path.join(process.cwd(), ".cache", `db-${dbName}.json`);
       if (fs.existsSync(cachePath)) {
         const cached = JSON.parse(fs.readFileSync(cachePath, "utf-8")) as {
-          results: Array<{
-            slug: string;
-            title: string;
-            category?: { slug: string };
-            updated_at?: string;
-          }>;
+          items: Array<Record<string, unknown>>;
         };
-        for (const post of cached.results) {
-          const locale = post.category?.slug === blogConfig.categories["es"] ? "es" : "en";
-          const urlPattern = blogConfig.url_pattern[locale] || blogConfig.url_pattern["en"];
+        const urlPatterns = blogTypeConfig.url_pattern;
+        for (const post of cached.items) {
+          let locale = "en";
+          if (localeFieldKey) {
+            const langVal = String(post[localeFieldKey] || "en");
+            locale = langVal === "us" ? "en" : langVal;
+          }
+          const urlPattern = urlPatterns[locale] || urlPatterns["en"];
           const postUrl = `${getBaseUrl()}${resolveUrlPattern(urlPattern, post as any, locale)}`;
+          const title = String(post.title || post.slug || "");
+          const updatedAt = String(post.updated_at || "");
           entries.push({
             loc: postUrl,
-            lastmod: post.updated_at ? post.updated_at.split("T")[0] : today,
+            lastmod: updatedAt ? updatedAt.split("T")[0] : today,
             changefreq: "monthly",
             priority: 0.6,
-            label: `Blog: ${post.title} (${formatLocaleLabel(locale)})`,
+            label: `Blog: ${title} (${formatLocaleLabel(locale)})`,
             type: "static",
             locale,
           });

@@ -32,6 +32,16 @@ function getNestedKeys(obj: unknown, prefix = ""): string[] {
   return keys;
 }
 
+function extractByDotPath(obj: unknown, dotPath: string): unknown {
+  let current = obj;
+  const segments = dotPath.split(".");
+  for (const key of segments) {
+    if (current == null || typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[key];
+  }
+  return current;
+}
+
 export const databaseSinglesValidator: Validator = {
   name: "database-singles",
   description: "Validates database-backed content type single templates and detects conflicts",
@@ -45,7 +55,7 @@ export const databaseSinglesValidator: Validator = {
     const warnings: ValidationIssue[] = [];
 
     const configs = getAllConfigs();
-    const dbTypes = Object.entries(configs).filter(([, config]) => config.database);
+    const dbTypes = Object.entries(configs).filter(([, config]) => config.database?.slug);
 
     if (dbTypes.length === 0) {
       return {
@@ -61,7 +71,9 @@ export const databaseSinglesValidator: Validator = {
     for (const [contentType, config] of dbTypes) {
       const folder = config.folder || contentType;
       const typeDir = path.join(MARKETING_CONTENT_PATH, folder);
-      const dbName = config.database!;
+      const dbName = config.database!.slug;
+      const fieldMapping = config.database!.field_mapping;
+      const localeFieldPath = fieldMapping?._locale || null;
 
       const locales = Object.keys(config.url_pattern).filter(k => k !== "default");
       if (locales.length === 0) locales.push("en");
@@ -108,11 +120,19 @@ export const databaseSinglesValidator: Validator = {
       const paramNames = (pattern.match(/:([a-zA-Z_]+)/g) || []).map(p => p.slice(1));
       const lookupKey = paramNames.length > 0 ? paramNames[paramNames.length - 1] : "slug";
 
-      const fieldMapping = config.field_mapping;
+      const regularMapping: Record<string, string> = {};
       if (fieldMapping) {
+        for (const [key, value] of Object.entries(fieldMapping)) {
+          if (!key.startsWith("_")) {
+            regularMapping[key] = value;
+          }
+        }
+      }
+
+      if (Object.keys(regularMapping).length > 0) {
         items = items.map((item) => {
           const mapped: Record<string, unknown> = { ...item };
-          for (const [targetField, sourcePath] of Object.entries(fieldMapping)) {
+          for (const [targetField, sourcePath] of Object.entries(regularMapping)) {
             const parts = sourcePath.split(".");
             let current: unknown = item;
             for (const part of parts) {
@@ -125,21 +145,66 @@ export const databaseSinglesValidator: Validator = {
         });
       }
 
-      const slugCounts = new Map<string, number>();
-      for (const item of items) {
-        const key = String(item[lookupKey] || "");
-        if (key) {
-          slugCounts.set(key, (slugCounts.get(key) || 0) + 1);
+      if (localeFieldPath) {
+        let missingLocaleCount = 0;
+        for (const item of items) {
+          const localeVal = extractByDotPath(item, localeFieldPath);
+          if (localeVal == null || String(localeVal).trim() === "") {
+            missingLocaleCount++;
+          }
         }
-      }
-      for (const [slug, count] of slugCounts) {
-        if (count > 1) {
+        if (missingLocaleCount > 0) {
           warnings.push({
             type: "warning",
-            code: "DUPLICATE_DATABASE_SLUG",
-            message: `Duplicate ${lookupKey}="${slug}" found ${count} times in database "${dbName}"`,
-            suggestion: `Only the first matching item will be used for ${contentType}/${slug}`,
+            code: "MISSING_LOCALE_FIELD",
+            message: `${missingLocaleCount} item(s) in database "${dbName}" are missing the locale field "${localeFieldPath}"`,
+            suggestion: `Items without a locale field will match any locale request as a fallback`,
           });
+        }
+
+        for (const locale of locales) {
+          const normalizedLocale = locale === "us" ? "en" : locale;
+          const localeItems = items.filter((item) => {
+            const val = String(item[localeFieldPath] || "");
+            const normalized = val === "us" ? "en" : val;
+            return normalized === normalizedLocale;
+          });
+
+          const slugCounts = new Map<string, number>();
+          for (const item of localeItems) {
+            const key = String(item[lookupKey] || "");
+            if (key) {
+              slugCounts.set(key, (slugCounts.get(key) || 0) + 1);
+            }
+          }
+          for (const [slug, count] of slugCounts) {
+            if (count > 1) {
+              warnings.push({
+                type: "warning",
+                code: "DUPLICATE_DATABASE_SLUG",
+                message: `Duplicate ${lookupKey}="${slug}" found ${count} times in database "${dbName}" for locale "${locale}"`,
+                suggestion: `Only the first matching item will be used for ${contentType}/${slug} (${locale})`,
+              });
+            }
+          }
+        }
+      } else {
+        const slugCounts = new Map<string, number>();
+        for (const item of items) {
+          const key = String(item[lookupKey] || "");
+          if (key) {
+            slugCounts.set(key, (slugCounts.get(key) || 0) + 1);
+          }
+        }
+        for (const [slug, count] of slugCounts) {
+          if (count > 1) {
+            warnings.push({
+              type: "warning",
+              code: "DUPLICATE_DATABASE_SLUG",
+              message: `Duplicate ${lookupKey}="${slug}" found ${count} times in database "${dbName}"`,
+              suggestion: `Only the first matching item will be used for ${contentType}/${slug}`,
+            });
+          }
         }
       }
 
@@ -149,8 +214,9 @@ export const databaseSinglesValidator: Validator = {
             .map(d => d.name)
         : [];
 
+      const allSlugs = new Set(items.map(item => String(item[lookupKey] || "")).filter(Boolean));
       for (const diskSlug of diskEntries) {
-        if (slugCounts.has(diskSlug)) {
+        if (allSlugs.has(diskSlug)) {
           warnings.push({
             type: "warning",
             code: "DISK_OVERRIDES_DATABASE",

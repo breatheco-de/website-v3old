@@ -518,7 +518,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               <MenuItem
                 icon={IconBook}
                 label="Blog"
-                href="/private/blog"
+                href="/private/type/blog"
                 indicator="arrow"
                 testId="link-blog-manage"
               />

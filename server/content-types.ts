@@ -2,11 +2,15 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 
+export interface DatabaseConfig {
+  slug: string;
+  field_mapping?: Record<string, string>;
+}
+
 export interface ContentTypeEntry {
   folder: string;
   url_pattern: Record<string, string>;
-  database?: string;
-  field_mapping?: Record<string, string>;
+  database?: DatabaseConfig;
 }
 
 interface ContentTypesRegistry {
@@ -18,15 +22,16 @@ interface ContentTypesRegistry {
 
 let registry: ContentTypesRegistry | null = null;
 
+const CONFIG_PATH = path.join(process.cwd(), "marketing-content", "content-types.yml");
+
 function loadRegistry(): ContentTypesRegistry {
   if (registry) return registry;
 
-  const configPath = path.join(process.cwd(), "marketing-content", "content-types.yml");
   let parsed: Record<string, ContentTypeEntry> = {};
 
-  if (fs.existsSync(configPath)) {
+  if (fs.existsSync(CONFIG_PATH)) {
     try {
-      const raw = fs.readFileSync(configPath, "utf-8");
+      const raw = fs.readFileSync(CONFIG_PATH, "utf-8");
       parsed = (yaml.load(raw) as Record<string, ContentTypeEntry>) || {};
     } catch (err) {
       console.error("[ContentTypes] Failed to read content-types.yml:", err);
@@ -114,14 +119,36 @@ export function getDatabaseName(type: string): string | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  return entry?.database || null;
+  return entry?.database?.slug || null;
 }
 
 export function getFieldMapping(type: string): Record<string, string> | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  return entry?.field_mapping || null;
+  const mapping = entry?.database?.field_mapping;
+  if (!mapping) return null;
+  const filtered: Record<string, string> = {};
+  for (const [key, value] of Object.entries(mapping)) {
+    if (!key.startsWith("_")) {
+      filtered[key] = value;
+    }
+  }
+  return Object.keys(filtered).length > 0 ? filtered : null;
+}
+
+export function getLocaleKey(type: string): string | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  return entry?.database?.field_mapping?._locale || null;
+}
+
+export function getDatabaseConfig(type: string): DatabaseConfig | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  return entry?.database || null;
 }
 
 export function getLookupKey(type: string): string | null {
@@ -139,6 +166,27 @@ export function getLookupKey(type: string): string | null {
 
 export function hasDatabaseSingle(type: string): boolean {
   return !!getDatabaseName(type);
+}
+
+export function updateContentTypeConfig(type: string, update: Partial<ContentTypeEntry>): void {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const existing = reg.types[singular];
+  if (!existing) {
+    throw new Error(`Content type "${type}" not found`);
+  }
+
+  const merged = { ...existing, ...update };
+  if (update.database && existing.database) {
+    merged.database = { ...existing.database, ...update.database };
+  }
+
+  const allTypes = { ...reg.types, [singular]: merged };
+
+  const yamlBody = yaml.dump(allTypes, { lineWidth: 120, noRefs: true, sortKeys: false });
+  fs.writeFileSync(CONFIG_PATH, yamlBody, "utf-8");
+  resetRegistry();
+  console.log(`[ContentTypes] Updated config for "${singular}"`);
 }
 
 export function resetRegistry(): void {

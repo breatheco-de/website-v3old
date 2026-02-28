@@ -213,7 +213,7 @@ export function SitemapView({
                                   Copy URL
                                 </DropdownMenuItem>
                                 {isBlogUrl(url.loc) ? (
-                                  <DropdownMenuItem onClick={() => { window.location.href = '/private/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                  <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                                     <IconExternalLink className="h-3.5 w-3.5 mr-2" />
                                     Open Blog Manager
                                   </DropdownMenuItem>
@@ -272,7 +272,7 @@ export function SitemapView({
                           Copy URL
                         </DropdownMenuItem>
                         {isBlogUrl(url.loc) ? (
-                          <DropdownMenuItem onClick={() => { window.location.href = '/private/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                          <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                             <IconExternalLink className="h-3.5 w-3.5 mr-2" />
                             Open Blog Manager
                           </DropdownMenuItem>

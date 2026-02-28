@@ -11,6 +11,7 @@ const PrivatePreview = lazy(() => import("@/pages/PrivatePreview"));
 const DiagnosticsPage = lazy(() => import("@/pages/DiagnosticsPage"));
 const PrivateRedirects = lazy(() => import("@/pages/PrivateRedirects"));
 const BlogManagePage = lazy(() => import("@/pages/BlogManagePage"));
+const ContentTypeManagePage = lazy(() => import("@/pages/ContentTypeManagePage"));
 const SyncLogPage = lazy(() => import("@/pages/SyncLogPage"));
 const PrivateDatabases = lazy(() => import("@/pages/PrivateDatabases"));
 
@@ -39,6 +40,7 @@ export default function PrivateRouter() {
         <Route path="/private/component-showcase/:componentType" component={ComponentShowcase} />
         <Route path="/private/component-showcase/:componentType/preview" component={ComponentPreview} />
         <Route path="/private/blog" component={BlogManagePage} />
+        <Route path="/private/type/:contentType" component={ContentTypeManagePage} />
         <Route path="/private/databases" component={PrivateDatabases} />
         <Route path="/private/databases/:name" component={PrivateDatabases} />
         <Route path="/private/diagnostics" component={DiagnosticsPage} />

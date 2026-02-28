@@ -46,8 +46,10 @@ export type LoadContentResult<T> =
 export interface ContentTypeConfig {
   folder: string;
   url_pattern: Record<string, string>;
-  database?: string;
-  field_mapping?: Record<string, string>;
+  database?: {
+    slug: string;
+    field_mapping?: Record<string, string>;
+  };
 }
 
 export interface ContentEntry {
@@ -441,7 +443,7 @@ class ContentIndex {
 
   private autoCreateSingleTemplates(baseDir: string): void {
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
-      if (!config.database) continue;
+      if (!config.database?.slug) continue;
 
       const folder = config.folder || contentType;
       const typeDir = path.join(baseDir, folder);
@@ -760,7 +762,7 @@ class ContentIndex {
             if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0], params };
           }
 
-          if (config.database) {
+          if (config.database?.slug) {
             return {
               contentType,
               slug,

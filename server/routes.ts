@@ -78,8 +78,12 @@ import {
   getDatabaseName,
   getFieldMapping,
   getLookupKey,
+  getLocaleKey,
   hasDatabaseSingle,
   getContentTypeConfig,
+  updateContentTypeConfig,
+  getDatabaseConfig,
+  getLabel,
 } from "./content-types";
 import { resolveSingleVars } from "./single-resolver";
 import { normalizeLocale } from "@shared/locale";
@@ -382,7 +386,23 @@ async function loadDatabaseSinglePage(
       });
     }
 
-    const matchItem = items.find((item) => item[lookupKey] === slug);
+    const localeKey = getLocaleKey(contentType);
+    let matchItem: Record<string, unknown> | undefined;
+
+    if (localeKey) {
+      const normalizedLocale = locale === "us" ? "en" : locale;
+      matchItem = items.find((item) => {
+        const itemLocale = String(item[localeKey] || "");
+        const normalizedItemLocale = itemLocale === "us" ? "en" : itemLocale;
+        return item[lookupKey] === slug && normalizedItemLocale === normalizedLocale;
+      });
+      if (!matchItem) {
+        matchItem = items.find((item) => item[lookupKey] === slug);
+      }
+    } else {
+      matchItem = items.find((item) => item[lookupKey] === slug);
+    }
+
     if (!matchItem) {
       console.log(`[DatabaseSingle] Item not found: ${lookupKey}=${slug} in ${dbName}`);
       return null;
@@ -1560,6 +1580,279 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to load database single page" });
     }
   });
+
+  // ── Generic Content Type API Routes ──
+
+  app.get("/api/content-types", (_req, res) => {
+    try {
+      const configs = getAllConfigs();
+      const result: Record<string, unknown>[] = [];
+      for (const [type, config] of Object.entries(configs)) {
+        result.push({
+          name: type,
+          label: getLabel(type),
+          folder: config.folder,
+          has_database: !!config.database?.slug,
+          database_slug: config.database?.slug || null,
+          has_field_mapping: !!(config.database?.field_mapping && Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0),
+          url_pattern: config.url_pattern,
+          locale_key: config.database?.field_mapping?._locale || null,
+        });
+      }
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-types/:type/config", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      res.json({
+        name: type,
+        label: getLabel(type),
+        folder: config.folder,
+        database: config.database || null,
+        url_pattern: config.url_pattern,
+      });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/content-types/:type/config", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const body = req.body;
+      if (!body || typeof body !== "object") {
+        res.status(400).json({ error: "Request body must be a JSON object" });
+        return;
+      }
+      const update: Partial<import("./content-types").ContentTypeEntry> = {};
+      if (body.url_pattern !== undefined) update.url_pattern = body.url_pattern;
+      if (body.database !== undefined) update.database = body.database;
+      updateContentTypeConfig(type, update);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-types/:type/items", async (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (!databaseManager.exists(dbName)) {
+        res.status(404).json({ error: `Database "${dbName}" not found` });
+        return;
+      }
+
+      const locale = req.query.locale as string | undefined;
+      const statusFilter = req.query.status as string | undefined;
+
+      const result = await databaseManager.fetchItems(dbName);
+      let items = result.items as Record<string, unknown>[];
+
+      const mapping = config.database.field_mapping;
+      const regularMapping: Record<string, string> = {};
+      if (mapping) {
+        for (const [key, value] of Object.entries(mapping)) {
+          if (!key.startsWith("_")) {
+            regularMapping[key] = value;
+          }
+        }
+      }
+
+      if (Object.keys(regularMapping).length > 0) {
+        items = items.map((item) => {
+          const mapped: Record<string, unknown> = { ...item };
+          for (const [targetField, sourcePath] of Object.entries(regularMapping)) {
+            const parts = sourcePath.split(".");
+            let current: unknown = item;
+            for (const part of parts) {
+              if (current == null || typeof current !== "object") { current = undefined; break; }
+              current = (current as Record<string, unknown>)[part];
+            }
+            if (current !== undefined) mapped[targetField] = current;
+          }
+          return mapped;
+        });
+      }
+
+      const localeFieldKey = mapping?._locale;
+      if (locale && localeFieldKey) {
+        const normalizedLocale = normalizeLocale(locale);
+        items = items.filter((item) => {
+          const val = String(item[localeFieldKey] || "");
+          const normalized = val === "us" ? "en" : val;
+          return normalized === normalizedLocale;
+        });
+      }
+
+      if (statusFilter) {
+        items = items.filter((item) => {
+          const val = String(item.status || "").toLowerCase();
+          return val === statusFilter.toLowerCase();
+        });
+      }
+
+      const stripped = items.map((item) => {
+        const { content, readme, ...rest } = item as Record<string, unknown>;
+        return rest;
+      });
+
+      res.json({ count: stripped.length, results: stripped });
+    } catch (err) {
+      console.error(`[ContentTypes] Error fetching items for ${req.params.type}:`, err);
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-types/:type/cache-status", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.json({ exists: false, age_hours: null, post_count: null });
+        return;
+      }
+      const dbName = config.database.slug;
+      const cachePath = path.join(process.cwd(), ".cache", `db-${dbName}.json`);
+      if (!fs.existsSync(cachePath)) {
+        res.json({ exists: false, age_hours: null, post_count: null });
+        return;
+      }
+      try {
+        const raw = fs.readFileSync(cachePath, "utf-8");
+        const cached = JSON.parse(raw) as { fetched_at: string; items: unknown[] };
+        const ageMs = Date.now() - new Date(cached.fetched_at).getTime();
+        const ageHours = Math.round((ageMs / (60 * 60 * 1000)) * 10) / 10;
+        res.json({ exists: true, age_hours: ageHours, post_count: cached.items.length });
+      } catch {
+        res.json({ exists: false, age_hours: null, post_count: null });
+      }
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/content-types/:type/clear-cache", async (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (databaseManager.exists(dbName)) {
+        await databaseManager.fetchItems(dbName, true);
+      }
+      clearMarkdownCache();
+      res.json({ success: true, message: `Cache cleared for "${type}" (database: ${dbName})` });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.delete("/api/content-types/:type/cache/:slug", async (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      clearMarkdownCache(slug);
+      res.json({ success: true, message: `Cache cleared for "${slug}"` });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/content-types/:type/ai/analyze-fields", async (req, res) => {
+    try {
+      const { sample_posts } = req.body || {};
+      if (!sample_posts || !Array.isArray(sample_posts) || sample_posts.length === 0) {
+        res.status(400).json({ error: "sample_posts array is required" });
+        return;
+      }
+
+      const { getLLMService } = await import("./ai/LLMService");
+      const llm = getLLMService();
+
+      const samples = sample_posts.slice(0, 3);
+      const truncated = JSON.stringify(samples, null, 2).slice(0, 8000);
+      const contentTypeName = req.params.type;
+
+      const systemPrompt = `You are a data analyst. Given sample data objects from an API, identify which fields map to standard content properties. Only map fields that actually exist in the data.
+
+Respond with valid JSON only, no markdown.`;
+
+      const userPrompt = `Analyze these sample "${contentTypeName}" objects and map their fields to standard properties:
+
+${truncated}
+
+Return JSON with this exact structure:
+{
+  "field_mapping": {
+    "title": "<source field name or dot.path>",
+    "slug": "<source field name or dot.path>",
+    "description": "<source field name or dot.path or null>",
+    "image": "<source field name or dot.path or null>",
+    "author": "<source field name or dot.path or null>",
+    "published_at": "<source field name or dot.path or null>",
+    "updated_at": "<source field name or dot.path or null>",
+    "status": "<source field name or dot.path or null>",
+    "category": "<source field name or dot.path or null>",
+    "tags": "<source field name or dot.path or null>",
+    "lang": "<source field name or dot.path or null>",
+    "content": "<source field name or dot.path to body/markdown/html content or null>",
+    "content_url": "<source field name or dot.path to markdown/content URL or null>"
+  },
+  "available_fields": ["<all top-level and notable nested fields found>"],
+  "notes": "<any observations about the data structure>"
+}
+
+Important: Only include mappings where you are confident the field exists. Use dot notation for nested fields (e.g. "author.name", "category.slug").`;
+
+      const result = await llm.complete(userPrompt, {
+        systemPrompt,
+        temperature: 0.1,
+        maxTokens: 1500,
+      });
+
+      let parsed;
+      try {
+        const cleaned = result.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+        parsed = JSON.parse(cleaned);
+      } catch {
+        parsed = { raw: result, error: "Failed to parse AI response" };
+      }
+
+      res.json(parsed);
+    } catch (err) {
+      console.error("AI analyze-fields error:", err);
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  // ── End Generic Content Type API Routes ──
 
   app.post("/api/blog/ai/analyze-response", async (req, res) => {
     try {
