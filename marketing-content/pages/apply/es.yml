@@ -3,6 +3,16 @@ meta:
   description: Aplica a 4Geeks Academy y comienza tu camino para convertirte en un profesional de tecnología. Completa nuestro sencillo formulario de aplicación y nuestro equipo de admisiones te guiará en los siguientes pasos.
   robots: index, follow
 sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    title: Tu futuro en tecnologia empieza ahora
+    subtitle: Estas un paso mas cerca de tu nueva careera en tecnología.<div>Completa el siguiente formulario y nuestro equipo de admisiones se pondrá en contacto contigo para los próximos pasos.</div>
+    marginY:
+      desktop: md none
+    paddingY:
+      mobile: sm none
+      desktop: lg md
   - type: apply_form
     version: "1.0"
     hero:
@@ -62,32 +72,3 @@ sections:
         - title: Decide con confianza
           description: Tendrás toda la información que necesitas para elegir el camino correcto para ti. Y estamos aquí para ayudarte.
       closing: ¡Ahora estás listo para tomar la mejor decisión para tu carrera!
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.

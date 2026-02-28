@@ -138,7 +138,9 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
         locale={effectiveLocale}
         programSlug={type === "program" ? slug : undefined}
       />
-      <Footer />
+      <div className="pb-12">
+        <Footer />
+      </div>
     </div>
   );
 }

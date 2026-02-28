@@ -224,7 +224,7 @@ export const heroCourseSchema = z.object({
     cta_button: ctaButtonSchema,
     login_link: z.object({
       text: z.string(),
-      url: z.string(),
+      url: z.string().optional(),
     }).optional(),
     features: z.array(heroCourseFeatureSchema).optional(),
   }),
