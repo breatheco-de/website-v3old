@@ -1167,39 +1167,31 @@ function FieldMappingEditor({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-2 flex-wrap">
-        <div>
-          <p className="text-sm font-medium">Field Mapping (Raw API &rarr; Database)</p>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            Transform raw source fields into normalized database fields. Applied before caching.
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleViewSample}
-            disabled={rawFields.length === 0}
-            data-testid="button-view-sample-data"
-          >
-            <IconEye className="h-3.5 w-3.5 mr-1" />
-            Sample Data
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleAnalyzeFields}
-            disabled={aiAnalyzing || rawFields.length === 0}
-            data-testid="button-ai-analyze-fields"
-          >
-            {aiAnalyzing ? (
-              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-            ) : (
-              <IconWand className="h-3.5 w-3.5 mr-1" />
-            )}
-            {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
-          </Button>
-        </div>
+      <div className="flex items-center justify-end gap-1.5">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleViewSample}
+          disabled={rawFields.length === 0}
+          data-testid="button-view-sample-data"
+        >
+          <IconEye className="h-3.5 w-3.5 mr-1" />
+          Sample Data
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleAnalyzeFields}
+          disabled={aiAnalyzing || rawFields.length === 0}
+          data-testid="button-ai-analyze-fields"
+        >
+          {aiAnalyzing ? (
+            <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+          ) : (
+            <IconWand className="h-3.5 w-3.5 mr-1" />
+          )}
+          {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
+        </Button>
       </div>
 
       {aiNotes && (
@@ -1682,6 +1674,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
         <Card>
           <CardHeader className="py-3 px-4">
             <CardTitle className="text-sm">Field Mapping (Raw API &rarr; Database)</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              Transform raw source fields into normalized database fields. Applied before caching.
+            </p>
           </CardHeader>
           <CardContent className="px-4 pb-4">
             <FieldMappingEditor

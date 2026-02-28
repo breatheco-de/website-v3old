@@ -19,3 +19,24 @@ source:
     headers: {}
 cache:
   ttl_hours: 24
+field_mapping:
+  id: id
+  slug: slug
+  title: title
+  description: description
+  status: status
+  language: lang
+  published_at: published_at
+  updated_at: updated_at
+  url: url
+  preview_image: preview
+  category_id: category.id
+  category_slug: category.slug
+  category_title: category.title
+  tags: technologies
+  seo_keywords: seo_keywords
+  cluster_id: cluster.id
+  cluster_slug: cluster.slug
+  allow_contributions: allow_contributions
+  feature: feature
+  content: readme.decoded
