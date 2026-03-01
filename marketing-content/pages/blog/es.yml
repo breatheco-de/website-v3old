@@ -25,16 +25,18 @@ sections:
     search_placeholder: "Buscar artículos..."
     all_label: "Todos"
     empty_text: "No se encontraron artículos."
-    page_info_template: "Página {page} de {totalPages} · {total} artículos"
+    page_label: "Página"
+    of_label: "de"
+    items_label: "artículos"
     dynamic_entries:
       content_type: blog
       sort: "-published_at"
-    item_template:
-      image: "{{ single.image_url }}"
-      title: "{{ single.title }}"
-      description: "{{ single.description }}"
-      badge: "{{ single.category }}"
-      url: "{{ single.url }}"
-      meta_left: "{{ single.author }}"
-      meta_right: "{{ single.published_at | }}"
-      cta_text: "Leer más"
+      item_template:
+        image: "{{ single.image_url }}"
+        title: "{{ single.title }}"
+        description: "{{ single.description }}"
+        badge: "{{ single.category }}"
+        url: "{{ single._resolved_url }}"
+        meta_left: "{{ single.author }}"
+        meta_right: "{{ single.published_at | }}"
+        cta_text: "Leer más"

@@ -22,7 +22,7 @@ dynamic_item_fields:
   - name: url
     type: string
     required: true
-    description: Link URL for the card (auto-resolved from url_pattern when using dynamic_entries)
+    description: Link URL for the card. Use {{ single._resolved_url }} for content types with a url_pattern.
   - name: meta_left
     type: string
     description: Left-side metadata (e.g., author name)
@@ -65,6 +65,15 @@ properties:
   - name: empty_text
     type: string
     description: Text shown when no items match
-  - name: page_info_template
+  - name: page_label
     type: string
-    description: "Template for page info text. Placeholders: {page}, {totalPages}, {total}"
+    default: "Page"
+    description: Label before the current page number in pagination info
+  - name: of_label
+    type: string
+    default: "of"
+    description: Label between current page and total pages in pagination info
+  - name: items_label
+    type: string
+    default: "items"
+    description: Label after the total count in pagination info

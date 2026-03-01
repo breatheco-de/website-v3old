@@ -68,6 +68,19 @@
 #     management UI: KPI cards, filter dropdowns, and table columns.
 #     Locale is always an implicit index and does not need to be listed.
 #
+# ── COMPUTED FIELDS ─────────────────────────────────────────────────────────
+#
+# When a content type has a url_pattern, the dynamic_entries resolver
+# automatically computes a _resolved_url field on each item. This field
+# contains the fully resolved URL based on the url_pattern and the item's
+# field values.
+#
+# Use it in item_template as:
+#   url: "{{ single._resolved_url }}"
+#
+# The underscore prefix signals that this is a computed field, not a raw
+# database column. Currently _resolved_url is the only computed field.
+#
 # ============================================================================
 
 program:

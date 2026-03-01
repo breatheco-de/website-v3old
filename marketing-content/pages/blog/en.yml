@@ -25,16 +25,18 @@ sections:
     search_placeholder: "Search articles..."
     all_label: "All"
     empty_text: "No articles found."
-    page_info_template: "Page {page} of {totalPages} · {total} articles"
+    page_label: "Page"
+    of_label: "of"
+    items_label: "articles"
     dynamic_entries:
       content_type: blog
       sort: "-published_at"
-    item_template:
-      image: "{{ single.image_url }}"
-      title: "{{ single.title }}"
-      description: "{{ single.description }}"
-      badge: "{{ single.category }}"
-      url: "{{ single.url }}"
-      meta_left: "{{ single.author }}"
-      meta_right: "{{ single.published_at | }}"
-      cta_text: "Read more"
+      item_template:
+        image: "{{ single.image_url }}"
+        title: "{{ single.title }}"
+        description: "{{ single.description }}"
+        badge: "{{ single.category }}"
+        url: "{{ single._resolved_url }}"
+        meta_left: "{{ single.author }}"
+        meta_right: "{{ single.published_at | }}"
+        cta_text: "Read more"

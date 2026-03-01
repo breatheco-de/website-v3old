@@ -103,8 +103,8 @@ export async function resolveDynamicEntries(
     }
 
     const sec = section as Record<string, unknown>;
-    const dynamicEntries = sec.dynamic_entries as DynamicEntriesConfig | undefined;
-    const itemTemplate = sec.item_template as Record<string, unknown> | undefined;
+    const dynamicEntries = sec.dynamic_entries as (DynamicEntriesConfig & { item_template?: Record<string, unknown>; hardcoded_entries?: unknown[] }) | undefined;
+    const itemTemplate = (dynamicEntries?.item_template || sec.item_template) as Record<string, unknown> | undefined;
 
     if (!dynamicEntries || (!dynamicEntries.content_type && !dynamicEntries.database)) {
       resolved.push(section);
@@ -158,24 +158,23 @@ export async function resolveDynamicEntries(
       if (itemTemplate) {
         resolvedItems = items.map(item => {
           const enriched = { ...item };
-          if (contentType && !enriched._url) {
+          if (contentType) {
             const url = resolveContentTypeUrl(contentType, item, locale);
-            if (url) enriched._url = url;
+            if (url) enriched._resolved_url = url;
           }
-          enriched.url = enriched._url || enriched.url || "";
           return resolveTemplateValue(itemTemplate, enriched as Record<string, unknown>);
         });
       } else {
         resolvedItems = items.map(item => {
           if (contentType) {
             const url = resolveContentTypeUrl(contentType, item, locale);
-            if (url) (item as any).url = url;
+            if (url) (item as any)._resolved_url = url;
           }
           return item;
         });
       }
 
-      const hardcodedEntries = sec.hardcoded_entries as unknown[] | undefined;
+      const hardcodedEntries = (dynamicEntries?.hardcoded_entries || sec.hardcoded_entries) as unknown[] | undefined;
       const finalItems = [
         ...(Array.isArray(hardcodedEntries) ? hardcodedEntries : []),
         ...resolvedItems,

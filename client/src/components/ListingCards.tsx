@@ -30,7 +30,10 @@ interface ListingCardsData {
   empty_text?: string;
   search_placeholder?: string;
   all_label?: string;
+  page_label?: string;
+  of_label?: string;
   page_info_template?: string;
+  items_label?: string;
   _dynamic_meta?: {
     content_type?: string;
     total?: number;
@@ -391,7 +394,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                       .replace("{page}", String(currentPage))
                       .replace("{totalPages}", String(totalPages))
                       .replace("{total}", String(totalItems))
-                  : `Page ${currentPage} of ${totalPages} · ${totalItems} items`}
+                  : <>{data.page_label || "Page"} {currentPage} {data.of_label || "of"} {totalPages} · {totalItems} {data.items_label || "items"}</>}
               </div>
             </>
           )}
