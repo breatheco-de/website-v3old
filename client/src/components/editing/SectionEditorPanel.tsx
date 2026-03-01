@@ -105,6 +105,14 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
   const dumped = yamlParser.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
 }
+
+function stripTransientDynamicKeys(section: unknown): unknown {
+  if (!section || typeof section !== "object") return section;
+  const sec = section as Record<string, unknown>;
+  if (!sec.dynamic_entries) return section;
+  const { items: _items, _dynamic_meta: _meta, ...authored } = sec;
+  return authored;
+}
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 
 const TECHNICAL_SUFFIXES = new Set(["src", "url", "id", "href"]);
@@ -700,7 +708,8 @@ export function SectionEditorPanel({
     clearUndoHistory();
     // Store the initial YAML so we can undo back to it
     try {
-      const yamlStr = safeYamlDump(section, {
+      const sectionForEditor = stripTransientDynamicKeys(section);
+      const yamlStr = safeYamlDump(sectionForEditor, {
         lineWidth: -1,
         noRefs: true,
         quotingType: '"',
@@ -1021,7 +1030,8 @@ export function SectionEditorPanel({
   // Initialize YAML content from section
   useEffect(() => {
     try {
-      const yamlStr = safeYamlDump(section, {
+      const sectionForEditor = stripTransientDynamicKeys(section);
+      const yamlStr = safeYamlDump(sectionForEditor, {
         lineWidth: -1,
         noRefs: true,
         quotingType: '"',
