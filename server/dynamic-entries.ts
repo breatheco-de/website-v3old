@@ -181,9 +181,8 @@ export async function resolveDynamicEntries(
         ...resolvedItems,
       ];
 
-      const { dynamic_entries: _de, item_template: _it, hardcoded_entries: _he, ...rest } = sec;
       resolved.push({
-        ...rest,
+        ...sec,
         items: finalItems,
         _dynamic_meta: {
           content_type: contentType || dynamicEntries.database,

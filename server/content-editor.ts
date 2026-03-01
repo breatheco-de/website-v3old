@@ -100,13 +100,24 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
       if (!Array.isArray(sections)) throw new Error("sections is not an array");
       if (operation.index < 0 || operation.index >= sections.length) throw new Error("Invalid section index");
       
-      sections[operation.index] = operation.section;
+      const sectionToSave = operation.section as Record<string, unknown>;
+      if (sectionToSave && typeof sectionToSave === "object" && sectionToSave.dynamic_entries) {
+        delete sectionToSave.items;
+        delete sectionToSave._dynamic_meta;
+      }
+      sections[operation.index] = sectionToSave;
       break;
     }
     
     case "replace_all_sections": {
       if (!Array.isArray(operation.sections)) throw new Error("sections must be an array");
-      content.sections = operation.sections;
+      content.sections = (operation.sections as Record<string, unknown>[]).map((sec) => {
+        if (sec && typeof sec === "object" && sec.dynamic_entries) {
+          const { items: _items, _dynamic_meta: _meta, ...authored } = sec;
+          return authored;
+        }
+        return sec;
+      });
       break;
     }
   }

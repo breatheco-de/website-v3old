@@ -871,7 +871,7 @@ export const listingCardsSectionSchema = z.object({
   columns: z.number().optional(),
   show_search: z.boolean().optional(),
   show_category_filter: z.boolean().optional(),
-  pagination: z.number().optional(),
+  page_size: z.number().optional(),
   search_placeholder: z.string().optional(),
   all_label: z.string().optional(),
   empty_text: z.string().optional(),

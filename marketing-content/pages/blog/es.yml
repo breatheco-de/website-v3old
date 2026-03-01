@@ -21,7 +21,7 @@ sections:
     columns: 3
     show_search: true
     show_category_filter: true
-    pagination: 12
+    page_size: 12
     search_placeholder: "Buscar artículos..."
     all_label: "Todos"
     empty_text: "No se encontraron artículos."

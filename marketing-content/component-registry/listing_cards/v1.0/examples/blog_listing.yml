@@ -4,7 +4,7 @@
   columns: 3
   show_search: true
   show_category_filter: true
-  pagination: 12
+  page_size: 12
   search_placeholder: "Search articles..."
   all_label: "All"
   empty_text: "No articles found."

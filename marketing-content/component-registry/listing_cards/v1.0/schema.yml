@@ -52,7 +52,7 @@ properties:
     type: boolean
     default: false
     description: Show category filter badges derived from item badge values
-  - name: pagination
+  - name: page_size
     type: number
     description: Items per page (omit for no pagination)
   - name: search_placeholder

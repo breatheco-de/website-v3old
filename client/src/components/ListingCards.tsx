@@ -25,7 +25,7 @@ interface ListingCardsData {
   columns?: number;
   show_search?: boolean;
   show_category_filter?: boolean;
-  pagination?: number;
+  page_size?: number;
   items?: ListingItem[];
   empty_text?: string;
   search_placeholder?: string;
@@ -76,7 +76,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
 
   const items = data.items || [];
   const columns = data.columns || 3;
-  const perPage = data.pagination || 0;
+  const perPage = data.page_size || 0;
 
   const params = new URLSearchParams(searchString);
   const currentPage = Math.max(1, parseInt(params.get("page") || "1", 10));
