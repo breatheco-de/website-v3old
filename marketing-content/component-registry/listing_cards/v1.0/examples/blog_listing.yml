@@ -19,7 +19,7 @@
     content_type: blog
     sort: "-published_at"
     item_template:
-      image: "{{ single.image_url }}"
+      image: "{{ single.image }}"
       title: "{{ single.title }}"
       description: "{{ single.description }}"
       badge: "{{ single.category }}"
