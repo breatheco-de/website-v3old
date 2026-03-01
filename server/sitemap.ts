@@ -391,26 +391,6 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     });
   }
 
-  // Blog listing pages
-  entries.push({
-    loc: `${getBaseUrl()}/en/blog`,
-    lastmod: today,
-    changefreq: "daily",
-    priority: 0.7,
-    label: "Blog (EN)",
-    type: "static",
-    locale: "en",
-  });
-  entries.push({
-    loc: `${getBaseUrl()}/es/blog`,
-    lastmod: today,
-    changefreq: "daily",
-    priority: 0.7,
-    label: "Blog (ES)",
-    type: "static",
-    locale: "es",
-  });
-
   // Blog posts from database cache file (read synchronously)
   try {
     const blogTypeConfig = getContentTypeConfig("blog");
