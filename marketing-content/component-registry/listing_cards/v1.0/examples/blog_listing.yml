@@ -1,16 +1,20 @@
 - type: listing_cards
   title: "Blog"
   sub_heading: "Articles, tutorials and news about coding and technology"
-  columns: 3
-  show_search: true
-  show_category_filter: true
-  page_size: 12
-  search_placeholder: "Search articles..."
-  all_label: "All"
-  empty_text: "No articles found."
-  page_label: "Page"
-  of_label: "of"
-  items_label: "articles"
+  layout:
+    columns: 3
+  search:
+    enabled: true
+    placeholder: "Search articles..."
+  category_filter:
+    enabled: true
+    all_label: "All"
+  pagination:
+    page_size: 12
+    page_label: "Page"
+    of_label: "of"
+    items_label: "articles"
+    empty_text: "No articles found."
   dynamic_entries:
     content_type: blog
     sort: "-published_at"

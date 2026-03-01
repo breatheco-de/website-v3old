@@ -868,6 +868,24 @@ export const listingCardsSectionSchema = z.object({
   version: z.string().optional(),
   title: z.string().optional(),
   sub_heading: z.string().optional(),
+  layout: z.object({
+    columns: z.number().optional(),
+  }).optional(),
+  search: z.object({
+    enabled: z.boolean().optional(),
+    placeholder: z.string().optional(),
+  }).optional(),
+  category_filter: z.object({
+    enabled: z.boolean().optional(),
+    all_label: z.string().optional(),
+  }).optional(),
+  pagination: z.object({
+    page_size: z.number().optional(),
+    page_label: z.string().optional(),
+    of_label: z.string().optional(),
+    items_label: z.string().optional(),
+    empty_text: z.string().optional(),
+  }).optional(),
   columns: z.number().optional(),
   show_search: z.boolean().optional(),
   show_category_filter: z.boolean().optional(),
@@ -877,7 +895,6 @@ export const listingCardsSectionSchema = z.object({
   empty_text: z.string().optional(),
   page_label: z.string().optional(),
   of_label: z.string().optional(),
-  page_info_template: z.string().optional(),
   items_label: z.string().optional(),
   items: z.array(listingCardItemSchema).optional(),
   dynamic_entries: z.object({

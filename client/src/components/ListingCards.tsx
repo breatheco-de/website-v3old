@@ -22,14 +22,33 @@ interface ListingCardsData {
   type: string;
   title?: string;
   sub_heading?: string;
+  items?: ListingItem[];
+  layout?: {
+    columns?: number;
+  };
+  search?: {
+    enabled?: boolean;
+    placeholder?: string;
+  };
+  category_filter?: {
+    enabled?: boolean;
+    all_label?: string;
+  };
+  pagination?: {
+    page_size?: number;
+    page_label?: string;
+    of_label?: string;
+    items_label?: string;
+    empty_text?: string;
+  };
+  dynamic_entries?: Record<string, unknown>;
   columns?: number;
   show_search?: boolean;
   show_category_filter?: boolean;
   page_size?: number;
-  items?: ListingItem[];
-  empty_text?: string;
   search_placeholder?: string;
   all_label?: string;
+  empty_text?: string;
   page_label?: string;
   of_label?: string;
   page_info_template?: string;
@@ -78,8 +97,16 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
   const handleLinkClick = useInternalNav();
 
   const items = data.items || [];
-  const columns = data.columns || 3;
-  const perPage = data.page_size || 0;
+  const columns = data.layout?.columns ?? data.columns ?? 3;
+  const perPage = data.pagination?.page_size ?? data.page_size ?? 0;
+  const showSearch = data.search?.enabled ?? data.show_search ?? false;
+  const searchPlaceholder = data.search?.placeholder ?? data.search_placeholder ?? "Search...";
+  const showCategoryFilter = data.category_filter?.enabled ?? data.show_category_filter ?? false;
+  const allLabel = data.category_filter?.all_label ?? data.all_label ?? "All";
+  const emptyText = data.pagination?.empty_text ?? data.empty_text ?? "No items found.";
+  const pageLabel = data.pagination?.page_label ?? data.page_label ?? "Page";
+  const ofLabel = data.pagination?.of_label ?? data.of_label ?? "of";
+  const itemsLabel = data.pagination?.items_label ?? data.items_label ?? "items";
 
   const params = new URLSearchParams(searchString);
   const currentPage = Math.max(1, parseInt(params.get("page") || "1", 10));
@@ -87,7 +114,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const categories = useMemo(() => {
-    if (!data.show_category_filter) return [];
+    if (!showCategoryFilter) return [];
     const cats = new Set<string>();
     for (const item of items) {
       const badge = typeof item.badge === "string" ? item.badge :
@@ -96,7 +123,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
       if (badge) cats.add(badge);
     }
     return Array.from(cats).sort();
-  }, [items, data.show_category_filter]);
+  }, [items, showCategoryFilter]);
 
   const filteredByCategory = useMemo(() => {
     if (!activeCategory) return items;
@@ -175,7 +202,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
 
   return (
     <div data-testid="section-listing-cards">
-      {(data.title || data.show_search || categories.length > 0) && (
+      {(data.title || showSearch || categories.length > 0) && (
         <div className="mb-10">
           {data.title && (
             <h2 className="text-4xl font-bold text-foreground mb-3" data-testid="text-listing-title">
@@ -190,11 +217,11 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
               </p>
             )}
 
-            {data.show_search && (
+            {showSearch && (
               <div className="relative max-w-md md:w-72 shrink-0">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
-                  placeholder={data.search_placeholder || "Search..."}
+                  placeholder={searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"
@@ -212,7 +239,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                 onClick={() => handleCategoryClick("")}
                 data-testid="chip-category-all"
               >
-                {data.all_label || "All"}
+                {allLabel}
               </Badge>
               {categories.map((cat) => (
                 <Badge
@@ -233,7 +260,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
       {paginatedItems.length === 0 ? (
         <div className="text-center py-16" data-testid="text-listing-empty">
           <p className="text-muted-foreground text-lg">
-            {data.empty_text || "No items found."}
+            {emptyText}
           </p>
         </div>
       ) : (
@@ -394,7 +421,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                       .replace("{page}", String(currentPage))
                       .replace("{totalPages}", String(totalPages))
                       .replace("{total}", String(totalItems))
-                  : <>{data.page_label || "Page"} {currentPage} {data.of_label || "of"} {totalPages} · {totalItems} {data.items_label || "items"}</>}
+                  : <>{pageLabel} {currentPage} {ofLabel} {totalPages} · {totalItems} {itemsLabel}</>}
               </div>
             </>
           )}

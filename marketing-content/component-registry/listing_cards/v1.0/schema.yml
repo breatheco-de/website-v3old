@@ -40,40 +40,56 @@ properties:
   - name: sub_heading
     type: string
     description: Subtitle text below the heading
-  - name: columns
-    type: number
-    default: 3
-    description: Number of grid columns (1-4)
-  - name: show_search
-    type: boolean
-    default: false
-    description: Show a text search input
-  - name: show_category_filter
-    type: boolean
-    default: false
-    description: Show category filter badges derived from item badge values
-  - name: page_size
-    type: number
-    description: Items per page (omit for no pagination)
-  - name: search_placeholder
-    type: string
-    description: Placeholder text for the search input
-  - name: all_label
-    type: string
-    default: "All"
-    description: Label for the "all categories" filter badge
-  - name: empty_text
-    type: string
-    description: Text shown when no items match
-  - name: page_label
-    type: string
-    default: "Page"
-    description: Label before the current page number in pagination info
-  - name: of_label
-    type: string
-    default: "of"
-    description: Label between current page and total pages in pagination info
-  - name: items_label
-    type: string
-    default: "items"
-    description: Label after the total count in pagination info
+  - name: layout
+    type: object
+    description: Visual grid settings
+    properties:
+      - name: columns
+        type: number
+        default: 3
+        description: Number of grid columns (1-4)
+  - name: search
+    type: object
+    description: Search input settings
+    properties:
+      - name: enabled
+        type: boolean
+        default: false
+        description: Show a text search input
+      - name: placeholder
+        type: string
+        description: Placeholder text for the search input
+  - name: category_filter
+    type: object
+    description: Category filter badge settings
+    properties:
+      - name: enabled
+        type: boolean
+        default: false
+        description: Show category filter badges derived from item badge values
+      - name: all_label
+        type: string
+        default: "All"
+        description: Label for the "all categories" filter badge
+  - name: pagination
+    type: object
+    description: Pagination settings and labels
+    properties:
+      - name: page_size
+        type: number
+        description: Items per page (omit for no pagination)
+      - name: page_label
+        type: string
+        default: "Page"
+        description: Label before the current page number
+      - name: of_label
+        type: string
+        default: "of"
+        description: Label between current page and total pages
+      - name: items_label
+        type: string
+        default: "items"
+        description: Label after the total count
+      - name: empty_text
+        type: string
+        description: Text shown when no items match
