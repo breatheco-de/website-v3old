@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -48,6 +48,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [esPattern, setEsPattern] = useState("");
   const [directory, setDirectory] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showFiles, setShowFiles] = useState(false);
   const [nameError, setNameError] = useState("");
 
   const mutation = useMutation({
@@ -66,6 +67,17 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
     },
   });
 
+  const effectiveDir = directory || name;
+
+  const filePreview = useMemo(() => {
+    if (!name) return null;
+    const dir = effectiveDir;
+    return {
+      ymlEntry: `marketing-content/content-types.yml`,
+      directory: `marketing-content/${dir}/`,
+    };
+  }, [name, effectiveDir]);
+
   function resetForm() {
     setName("");
     setShorthandPattern("");
@@ -73,6 +85,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
     setEsPattern("");
     setDirectory("");
     setShowAdvanced(false);
+    setShowFiles(false);
     setPatternMode("shorthand");
     setNameError("");
   }
@@ -192,6 +205,29 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               </div>
             )}
           </div>
+
+          {filePreview && (
+            <div className="space-y-1">
+              <button
+                type="button"
+                onClick={() => setShowFiles(v => !v)}
+                className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
+                data-testid="button-toggle-files-preview"
+              >
+                <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? '' : '-rotate-90'}`} />
+                Files that will be created
+              </button>
+              {showFiles && (
+                <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
+                  <div>{filePreview.directory}</div>
+                  <div className="pl-4">(empty directory for YAML entries)</div>
+                  <div className="mt-1 text-muted-foreground/70">Modified:</div>
+                  <div>{filePreview.ymlEntry}</div>
+                  <div className="pl-4">└── new "{name}" entry added</div>
+                </div>
+              )}
+            </div>
+          )}
 
           <DialogFooter>
             <Button
