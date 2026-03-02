@@ -167,7 +167,6 @@ sections:
       variant: stacked
       submit_label: Obtener los detalles
       tags: request_more_info
-      automations: hard
       fields:
         email:
           visible: true
