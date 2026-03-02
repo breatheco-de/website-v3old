@@ -1265,30 +1265,40 @@ export default function ContentTypeManagePage() {
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleClearCache}
-              disabled={clearing}
-              data-testid="button-clear-cache"
-            >
-              <IconRefresh className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
-              Cache
-              {cacheStatus?.exists && cacheStatus.age_hours != null && (
-                <span className="text-[10px] text-muted-foreground ml-1" data-testid="text-cache-age">
-                  ({cacheStatus.age_hours}h)
-                </span>
-              )}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setDsDialogOpen(true)}
-              data-testid="button-data-source"
-            >
-              <IconDatabase className="h-4 w-4 mr-1" />
-              Database
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  data-testid="button-data-source"
+                >
+                  <IconDatabase className="h-4 w-4 mr-1" />
+                  Database
+                  {cacheStatus?.exists && cacheStatus.age_hours != null && (
+                    <span className="text-[10px] text-muted-foreground ml-1" data-testid="text-cache-age">
+                      ({cacheStatus.age_hours}h)
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem
+                  onClick={() => setDsDialogOpen(true)}
+                  data-testid="button-manage-connection"
+                >
+                  <IconDatabase className="h-4 w-4 mr-2" />
+                  Manage Connection
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleClearCache}
+                  disabled={clearing}
+                  data-testid="button-clear-cache"
+                >
+                  <IconRefresh className={`h-4 w-4 mr-2 ${clearing ? "animate-spin" : ""}`} />
+                  Clear Cache
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button
               variant="outline"
               size="sm"
