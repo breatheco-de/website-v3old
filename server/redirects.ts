@@ -330,6 +330,7 @@ export interface RedirectTestResult {
   matchType?: "exact" | "regex";
   captureGroups?: string[];
   pageExists?: boolean;
+  destinationExists?: boolean;
 }
 
 function resolveTarget(entry: RedirectEntry, locale: string, captureGroups?: string[]): string {
@@ -343,11 +344,12 @@ function resolveTarget(entry: RedirectEntry, locale: string, captureGroups?: str
 }
 
 function makeResult(entry: RedirectEntry, locale: string, matchType: "exact" | "regex", priority?: string, captureGroups?: string[]): RedirectTestResult {
+  const resolvedTo = resolveTarget(entry, locale, captureGroups);
   return {
     match: true,
     from: entry.from,
     to: entry.to,
-    resolvedTo: resolveTarget(entry, locale, captureGroups),
+    resolvedTo,
     status: entry.status || 301,
     priority: priority || entry.priority || "before",
     source: entry.source,

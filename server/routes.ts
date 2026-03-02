@@ -2876,7 +2876,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
-  app.get("/api/debug/redirects/test", (req, res) => {
+  app.get("/api/debug/redirects/test", async (req, res) => {
     const url = req.query.url as string;
     if (!url) {
       res.status(400).json({ error: "Missing 'url' query parameter" });
@@ -2884,6 +2884,24 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
     const locale = (req.query.locale as string) || "en";
     const result = testRedirect(url, locale);
+
+    if (result.match && result.resolvedTo) {
+      const resolved = contentIndex.resolveUrl(result.resolvedTo);
+      if (!resolved) {
+        result.destinationExists = false;
+      } else if (resolved.fromDatabase) {
+        try {
+          const items = await databaseManager.fetchMappedItems(resolved.contentType);
+          const exists = items.some((item) => String(item.slug) === resolved.slug);
+          result.destinationExists = exists;
+        } catch {
+          result.destinationExists = false;
+        }
+      } else {
+        result.destinationExists = true;
+      }
+    }
+
     res.json(result);
   });
 
