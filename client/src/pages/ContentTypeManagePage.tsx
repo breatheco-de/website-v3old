@@ -387,6 +387,7 @@ function DataSourceDialog({
   const [selectedDb, setSelectedDb] = useState("");
 
   const [fieldMapping, setFieldMapping] = useState<FieldMapping>({});
+  const [slugField, setSlugField] = useState("");
   const [localeField, setLocaleField] = useState("");
   const [availableFields, setAvailableFields] = useState<string[]>([]);
   const [fieldMappingNotes, setFieldMappingNotes] = useState("");
@@ -420,6 +421,8 @@ function DataSourceDialog({
           }
         }
         setFieldMapping(fm);
+        const sm = config.database.field_mapping._slug;
+        setSlugField(sm ? (typeof sm === "object" ? sm.source : sm) : "");
         const lm = config.database.field_mapping._locale;
         setLocaleField(lm ? (typeof lm === "object" ? lm.source : lm) : "");
       }
@@ -486,7 +489,16 @@ function DataSourceDialog({
       if (data.error) {
         setFieldMappingError(data.error);
       } else {
-        setFieldMapping(data.field_mapping || {});
+        const aiMapping = data.field_mapping || {};
+        if (aiMapping._slug) {
+          setSlugField(typeof aiMapping._slug === "object" ? aiMapping._slug.source : aiMapping._slug);
+          delete aiMapping._slug;
+        }
+        if (aiMapping._locale) {
+          setLocaleField(typeof aiMapping._locale === "object" ? aiMapping._locale.source : aiMapping._locale);
+          delete aiMapping._locale;
+        }
+        setFieldMapping(aiMapping);
         if (data.available_fields) {
           setAvailableFields(data.available_fields);
         }
@@ -503,6 +515,9 @@ function DataSourceDialog({
     setSaving(true);
     try {
       const fullMapping: Record<string, string> = {};
+      if (slugField) {
+        fullMapping._slug = slugField;
+      }
       if (localeField) {
         fullMapping._locale = localeField;
       }
@@ -704,6 +719,29 @@ function DataSourceDialog({
                     <p className="text-xs text-destructive">{fieldMappingError}</p>
                   </div>
                 )}
+
+                <div className="space-y-2">
+                  <Label className="text-xs font-medium text-muted-foreground">Slug Field (_slug)</Label>
+                  <Select
+                    value={slugField || "__none__"}
+                    onValueChange={(v) => {
+                      setSlugField(v === "__none__" ? "" : v);
+                    }}
+                  >
+                    <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-slug-field">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="__none__">(none)</SelectItem>
+                      {availableFields.map((f) => (
+                        <SelectItem key={f} value={f}>{f}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Which field uniquely identifies each item (e.g., "slug", "id")
+                  </p>
+                </div>
 
                 {Object.keys(fieldMapping).length > 0 && (
                   <div className="space-y-3" data-testid="section-field-mapping">
