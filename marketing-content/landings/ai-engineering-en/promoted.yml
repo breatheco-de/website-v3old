@@ -556,7 +556,6 @@ sections:
       conversion_name: student_application
       submit_label: Apply Now
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
