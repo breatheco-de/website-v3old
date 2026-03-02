@@ -90,8 +90,7 @@ import {
   normalizeUrlPattern,
 } from "./content-types";
 import { resolveSingleVars } from "./single-resolver";
-import { normalizeLocale } from "@shared/locale";
-import { getSupportedLocales, getDefaultLocale, getLocaleEntries } from "./settings";
+import { normalizeLocale, getSupportedLocales, getDefaultLocale, getLocaleEntries } from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
-import { buildContentUrl, getFolderFromSlug, type ContentType } from "@shared/slugMappings";
+import { normalizeLocale, buildContentUrlFromPattern } from "@/lib/locale";
 import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import {
   IconBug,
@@ -51,7 +51,6 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useDebugAuth, getDebugToken, getDebugUserName, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { locations } from "@/lib/locations";
-import { normalizeLocale } from "@shared/locale";
 import { LocaleFlag } from "./components/LocaleFlag";
 import { DebugPanelContent } from "./components/DebugPanelContent";
 import { useQuery } from "@tanstack/react-query";
@@ -863,14 +862,14 @@ export function DebugBubble() {
   const handleSlugRenameClick = () => {
     if (!contentInfo.type || !contentInfo.slug || slugCheckStatus !== "available") return;
     const apiType = contentInfo.type;
-    const urlLocale = getEffectiveLocale() as "en" | "es";
+    const urlLocale = getEffectiveLocale() || "en";
     if (apiType === "landing") {
       setSlugOldUrl(`/landing/${currentLocaleSlug}`);
       setSlugNewUrl(`/landing/${newSlugValue}`);
     } else {
-      const ct = apiType as ContentType;
-      setSlugOldUrl(buildContentUrl(ct, currentLocaleSlug, urlLocale));
-      setSlugNewUrl(buildContentUrl(ct, newSlugValue, urlLocale));
+      const pattern = contentTypesMap?.[apiType]?.url_pattern;
+      setSlugOldUrl(buildContentUrlFromPattern(pattern, currentLocaleSlug, urlLocale));
+      setSlugNewUrl(buildContentUrlFromPattern(pattern, newSlugValue, urlLocale));
     }
     setSlugRedirectPrompt(true);
   };
@@ -1400,8 +1399,7 @@ export function DebugBubble() {
     } else if (contentType === 'location') {
       slug = contentParts[contentParts.length - 1];
     } else {
-      const rawSlug = contentParts.join('-') || contentParts[contentParts.length - 1];
-      slug = getFolderFromSlug(rawSlug, locale === 'us' ? 'en' : locale);
+      slug = contentParts.join('-') || contentParts[contentParts.length - 1];
     }
     if (!slug) {
       toast({ title: "Cannot delete", description: "Could not determine slug", variant: "destructive" });

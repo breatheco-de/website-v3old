@@ -90,6 +90,16 @@ export function getLocaleEntries(): LocaleEntry[] {
   return loadSettings().i18n.supported_locales;
 }
 
+export function normalizeLocale(locale: string | undefined | null): string {
+  const defaultLocale = getDefaultLocale();
+  if (!locale) return defaultLocale;
+
+  const normalized = locale.toLowerCase().split("-")[0].split("_")[0];
+  const supported = getSupportedLocales();
+  if (supported.includes(normalized)) return normalized;
+  return defaultLocale;
+}
+
 export function resetSettings(): void {
   cached = null;
 }

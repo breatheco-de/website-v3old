@@ -25,7 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { buildContentUrl, type ContentType } from "@shared/slugMappings";
+import { buildContentUrlFromPattern } from "@/lib/locale";
+import { useContentTypes } from "@/hooks/useContentTypes";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { LocaleFlag } from "./LocaleFlag";
 import type { ContentTypeValue, SlugCheckStatus, SitemapUrl } from "../types";
@@ -98,6 +99,7 @@ export function CreateContentModal({
   toast,
 }: CreateContentModalProps) {
   const [showFiles, setShowFiles] = useState(false);
+  const contentTypesMap = useContentTypes();
 
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
@@ -400,7 +402,7 @@ export function CreateContentModal({
                   {editingSlugEn ? (
                     <div className="flex-1 flex items-center gap-1">
                       <span className="text-xs font-mono text-muted-foreground">
-                        {buildContentUrl(createContentType as ContentType, '', 'en').slice(0, -1)}
+                        {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, '', 'en').slice(0, -1)}
                       </span>
                       <input
                         type="text"
@@ -439,7 +441,7 @@ export function CreateContentModal({
                       onClick={() => setEditingSlugEn(true)}
                       data-testid="url-preview-en"
                     >
-                      {buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en')}
+                      {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, 'en')}
                     </code>
                   )}
                   <button
@@ -471,7 +473,7 @@ export function CreateContentModal({
                   {editingSlugEs ? (
                     <div className="flex-1 flex items-center gap-1">
                       <span className="text-xs font-mono text-muted-foreground">
-                        {buildContentUrl(createContentType as ContentType, '', 'es').slice(0, -1)}
+                        {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, '', 'es').slice(0, -1)}
                       </span>
                       <input
                         type="text"
@@ -510,7 +512,7 @@ export function CreateContentModal({
                       onClick={() => setEditingSlugEs(true)}
                       data-testid="url-preview-es"
                     >
-                      {buildContentUrl(createContentType as ContentType, createContentSlugEs, 'es')}
+                      {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs, 'es')}
                     </code>
                   )}
                   <button
@@ -653,7 +655,8 @@ export function CreateContentModal({
                   const data = await response.json();
                   
                   if (response.ok && data.success) {
-                    const newUrl = buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en');
+                    const pattern = contentTypesMap?.[createContentType]?.url_pattern;
+                    const newUrl = buildContentUrlFromPattern(pattern, createContentSlugEn, 'en');
                     toast({
                       title: duplicatingPage ? "Page duplicated" : "Content created",
                       description: duplicatingPage 

@@ -10,7 +10,7 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
 }
 import type { EditOperation } from "@shared/schema";
 import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
-import { normalizeLocale } from "@shared/locale";
+import { normalizeLocale } from "./settings";
 import { markFileAsModified } from "./sync-state";
 import { contentIndex, stripNullValues } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";

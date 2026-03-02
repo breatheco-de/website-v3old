@@ -28,7 +28,7 @@ import {
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { normalizeLocale } from "@shared/locale";
+import { normalizeLocale } from "@/lib/locale";
 import { SyncStatusPopover } from "./SyncStatusPopover";
 import { ComponentsView } from "./ComponentsView";
 import { ExperimentsView } from "./ExperimentsView";
