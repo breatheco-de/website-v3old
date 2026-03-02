@@ -60,3 +60,8 @@ blog:
   url_pattern:
     en: /en/blog/:category/:slug
     es: /es/blog/:category/:slug
+downloadable:
+  directory: downloadable
+  url_pattern:
+    en: /en/downloadable/:slug
+    es: /es/descargable/:slug
