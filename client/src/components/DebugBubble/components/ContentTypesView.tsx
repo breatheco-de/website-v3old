@@ -134,7 +134,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
 
     let url_pattern: string | Record<string, string>;
     if (patternMode === "shorthand") {
-      url_pattern = shorthandPattern;
+      url_pattern = `/:locale${shorthandPattern}`;
     } else {
       const map: Record<string, string> = {};
       for (const lp of localePatterns) {
@@ -182,12 +182,16 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               </button>
             </div>
             {patternMode === "shorthand" ? (
-              <Input
-                placeholder="/:locale/my-type/:slug"
-                value={shorthandPattern}
-                onChange={(e) => setShorthandPattern(e.target.value)}
-                data-testid="input-url-pattern-shorthand"
-              />
+              <div className="flex items-center gap-0">
+                <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/:locale</span>
+                <Input
+                  placeholder="/my-type/:slug"
+                  value={shorthandPattern}
+                  onChange={(e) => setShorthandPattern(e.target.value)}
+                  className="rounded-l-none"
+                  data-testid="input-url-pattern-shorthand"
+                />
+              </div>
             ) : (
               <div className="space-y-2">
                 {localePatterns.map((lp, i) => (
