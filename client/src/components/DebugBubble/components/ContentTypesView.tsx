@@ -244,7 +244,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
             </button>
             {showAdvanced && (
               <div className="mt-2 space-y-2 pl-4">
-                <Label htmlFor="ct-directory">Directory</Label>
+                <Label htmlFor="ct-directory">Choose a specific directory name</Label>
                 <Input
                   id="ct-directory"
                   placeholder={name || "defaults to name"}
