@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -12,7 +13,6 @@ import {
   IconPlus,
   IconChevronDown,
   IconChevronRight,
-  IconX,
 } from "@tabler/icons-react";
 import {
   Dialog,
@@ -64,7 +64,6 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>(
     defaultLocales.map(l => ({ locale: l.code, path: "" }))
   );
-  const [newLocale, setNewLocale] = useState("");
   const [directory, setDirectory] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showFiles, setShowFiles] = useState(false);
@@ -101,7 +100,6 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
     setName("");
     setShorthandPattern("");
     setLocalePatterns(defaultLocales.map(l => ({ locale: l.code, path: "" })));
-    setNewLocale("");
     setDirectory("");
     setShowAdvanced(false);
     setShowFiles(false);
@@ -123,17 +121,6 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
 
   function updateLocalePattern(index: number, path: string) {
     setLocalePatterns(prev => prev.map((lp, i) => i === index ? { ...lp, path } : lp));
-  }
-
-  function removeLocale(index: number) {
-    setLocalePatterns(prev => prev.filter((_, i) => i !== index));
-  }
-
-  function addLocale() {
-    const loc = newLocale.trim().toLowerCase();
-    if (!loc || localePatterns.some(lp => lp.locale === loc)) return;
-    setLocalePatterns(prev => [...prev, { locale: loc, path: "" }]);
-    setNewLocale("");
   }
 
   const allLocalesFilled = localePatterns.length > 0 && localePatterns.every(lp => lp.path.trim() !== "");
@@ -210,39 +197,16 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                       className="rounded-l-none"
                       data-testid={`input-url-pattern-${lp.locale}`}
                     />
-                    {localePatterns.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeLocale(i)}
-                        className="p-1 rounded-md text-muted-foreground hover-elevate flex-shrink-0"
-                        data-testid={`button-remove-locale-${lp.locale}`}
-                      >
-                        <IconX className="h-3.5 w-3.5" />
-                      </button>
-                    )}
                   </div>
                 ))}
-                <div className="flex items-center gap-1">
-                  <Input
-                    placeholder="pt"
-                    value={newLocale}
-                    onChange={(e) => setNewLocale(e.target.value.toLowerCase().replace(/[^a-z]/g, ""))}
-                    className="w-16 flex-shrink-0"
-                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addLocale(); } }}
-                    data-testid="input-new-locale"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={addLocale}
-                    disabled={!newLocale.trim() || localePatterns.some(lp => lp.locale === newLocale.trim())}
-                    data-testid="button-add-locale"
-                  >
-                    <IconPlus className="h-3 w-3 mr-1" />
-                    Add locale
-                  </Button>
-                </div>
+                <Link
+                  href="/private/settings"
+                  className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                  data-testid="link-manage-locales"
+                >
+                  Manage locales
+                  <IconExternalLink className="h-3 w-3" />
+                </Link>
               </div>
             )}
           </div>

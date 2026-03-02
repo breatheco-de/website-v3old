@@ -14,6 +14,7 @@ const BlogManagePage = lazy(() => import("@/pages/BlogManagePage"));
 const ContentTypeManagePage = lazy(() => import("@/pages/ContentTypeManagePage"));
 const SyncLogPage = lazy(() => import("@/pages/SyncLogPage"));
 const PrivateDatabases = lazy(() => import("@/pages/PrivateDatabases"));
+const SettingsPage = lazy(() => import("@/pages/SettingsPage"));
 
 function LoadingFallback() {
   return (
@@ -49,6 +50,7 @@ export default function PrivateRouter() {
         <Route path="/private/menu-editor/:menuName" component={MenuEditor} />
         <Route path="/private/molecules-showcase" component={MoleculesShowcase} />
         <Route path="/private/preview/:contentType/:slug" component={PrivatePreview} />
+        <Route path="/private/settings" component={SettingsPage} />
         <Route path="/private/sync-log" component={SyncLogPage} />
         <Route path="/private/:contentType/:contentSlug/experiment/:experimentSlug" component={ExperimentEditor} />
       </Switch>

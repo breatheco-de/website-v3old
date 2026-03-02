@@ -90,7 +90,7 @@ import {
   normalizeUrlPattern,
 } from "./content-types";
 import { resolveSingleVars } from "./single-resolver";
-import { normalizeLocale, getSupportedLocales, getDefaultLocale, getLocaleEntries } from "./settings";
+import { normalizeLocale, getSupportedLocales, getDefaultLocale, getLocaleEntries, updateLocaleSettings } from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
@@ -1656,6 +1656,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       default_locale: getDefaultLocale(),
       supported_locales: getLocaleEntries(),
     });
+  });
+
+  app.put("/api/settings/locales", (req, res) => {
+    try {
+      const { default_locale, supported_locales } = req.body;
+      updateLocaleSettings({ default_locale, supported_locales });
+      res.json({
+        success: true,
+        default_locale: getDefaultLocale(),
+        supported_locales: getLocaleEntries(),
+      });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
   });
 
   app.get("/api/content-types/:type/config", (req, res) => {

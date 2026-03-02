@@ -22,6 +22,7 @@ import {
   IconPhoto,
   IconRefresh,
   IconRoute,
+  IconSettings,
   IconStethoscope,
   IconSun,
   IconX,
@@ -573,6 +574,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               href="/private/diagnostics"
               indicator="arrow"
               testId="link-diagnostics"
+            />
+
+            <MenuItem
+              icon={IconSettings}
+              label="Settings"
+              href="/private/settings"
+              indicator="arrow"
+              testId="link-settings"
             />
 
             {props.contentInfo.type && props.contentInfo.slug && (
