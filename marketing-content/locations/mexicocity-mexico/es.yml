@@ -47,6 +47,7 @@ meta:
   change_frequency: monthly
   redirects:
     - /es/coding-campus/bootcamp-programacion-mexicocity
+    - /es/coding-campus/bootcamp-programacion-mexico
 sections:
   - type: hero
     version: "1.0"
@@ -364,7 +365,7 @@ sections:
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
