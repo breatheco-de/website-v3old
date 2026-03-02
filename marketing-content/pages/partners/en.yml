@@ -278,7 +278,7 @@ sections:
             url: https://portalentodigital.fundaciononce.es/becas
             source: ONCE Foundation
         cta:
-          text: Conviértete en partner
+          text: Become a partner
           url: /en/partners
           variant: primary
       - image_id: united_way_event
