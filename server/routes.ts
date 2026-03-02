@@ -6683,7 +6683,7 @@ sections: []
         phone: leadData.phone || null,
         email: leadData.email,
         location: leadData.location || null,
-        course: leadData.program || null,
+        course: leadData.program ? contentIndex.resolveBaseSlug(leadData.program, "program") : null,
         consent: leadData.consent_whatsapp || false,
         sms_consent: leadData.sms_consent || false,
         consent_email: leadData.consent_email || false,
