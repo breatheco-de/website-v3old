@@ -115,7 +115,6 @@ sections:
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
-    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -148,10 +147,12 @@ sections:
       button_className: bg-primary
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+    section_id: cta_banner-9hs26r
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
