@@ -576,7 +576,7 @@ sections:
       variant: stacked
       submit_label: Aplicar Ahora
       tags: website-lead
-      automations: hard
+      automations: strong
       fields:
         email:
           visible: true
