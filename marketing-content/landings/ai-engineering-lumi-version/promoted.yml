@@ -18,7 +18,7 @@ locations:
   - mexicocity-mexico
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: ApplyFormProductShowcase
     title: Aprende de 0 a 100 las ultimas técnicas en Ingenieria de IA para el 2026
     brand_mark:
@@ -30,7 +30,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -69,7 +68,7 @@ sections:
       icon: Download
     video:
       url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
-      ratio: '9:16'
+      ratio: "9:16"
       muted: true
     paddingY:
       mobile: md none
@@ -79,7 +78,7 @@ sections:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -113,7 +112,7 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
     showOn: mobile
   - type: awards_marquee
-    version: '1.0'
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -181,7 +180,7 @@ sections:
       mobile: none lg
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender ingeniería de IA ahora?
     subtitle: Porque el mercado laboral ya lo está exigiendo.
@@ -379,7 +378,7 @@ sections:
     features:
       - icon: TrendingUp
         title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Recibe coaching 1:1 personalizado
@@ -389,11 +388,11 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Robot
         title: Avanza más rápido con herramientas potenciadas por IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
@@ -403,11 +402,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -420,12 +419,12 @@ sections:
       desktop: lg none
   - type: certificate
     title: Resultados de carrera
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: 'Ingeniero de software IA: $720K-$1.08M MXN'
-      - text: 'Ingeniero full-stack (IA): $840K-$1.32M MXN'
-      - text: 'Ingeniero de agentes: $900K-$1.40M MXN'
-      - text: 'Ingeniero de automatización de flujos: $660K-$1.00M MXN'
+      - text: "Ingeniero de software IA: $720K-$1.08M MXN"
+      - text: "Ingeniero full-stack (IA): $840K-$1.32M MXN"
+      - text: "Ingeniero de agentes: $900K-$1.40M MXN"
+      - text: "Ingeniero de automatización de flujos: $660K-$1.00M MXN"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -450,10 +449,10 @@ sections:
         label: Aumento salarial promedio
         description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: 'Ingeniero de software IA: $720K-$1.08M MXN'
-          - text: 'Ingeniero full-stack (IA): $840K-$1.32M MXN'
-          - text: 'Ingeniero de IA: $900K-$1.40M MXN'
-          - text: 'Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $660K-$1.00M MXN'
+          - text: "Ingeniero de software IA: $720K-$1.08M MXN"
+          - text: "Ingeniero full-stack (IA): $840K-$1.32M MXN"
+          - text: "Ingeniero de IA: $900K-$1.40M MXN"
+          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $660K-$1.00M MXN"
       - value: 5,000+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
@@ -471,7 +470,7 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: bullet_tabs_showcase
-    version: '1.0'
+    version: "1.0"
     heading: ¿Este programa es para ti?
     tabs:
       - label: Compromiso intensivo
@@ -535,7 +534,7 @@ sections:
     title: Resultados reales de graduados reales
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
-      average: '4.7'
+      average: "4.7"
       count: 1,294
     items:
       - name: Sara García
@@ -557,10 +556,10 @@ sections:
         comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: verticalCards
     title: Nuestro proceso de admisión
-    description: 'Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada aplicación para asegurar compromiso y alineación con el programa..'
+    description: "Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada aplicación para asegurar compromiso y alineación con el programa.."
     description_link: null
     steps:
       - icon: ClipboardList
@@ -583,7 +582,7 @@ sections:
     bullet_icon_color: text-primary
     showOn: mobile
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -632,7 +631,7 @@ sections:
       mobile: lg
       desktop: lg
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
