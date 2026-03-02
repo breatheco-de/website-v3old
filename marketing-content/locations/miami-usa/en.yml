@@ -169,7 +169,7 @@ sections:
         icon: Code
         duration: 20 weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
@@ -210,11 +210,11 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
-    background: hsl(var(--muted))
-    marginY:
-      desktop: lg
     paddingY:
       desktop: md lg
+    marginY:
+      desktop: lg
+    background: hsl(var(--muted))
     section_id: course_selector-0lgvpc
   - type: two_column_accordion_card
     variant: image_background
