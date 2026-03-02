@@ -637,7 +637,7 @@ sections:
           placeholder: Número telefónico
         program:
           visible: false
-          default: data-science-ml
+          default: datascience-ml
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
