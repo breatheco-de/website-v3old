@@ -78,7 +78,6 @@ sections:
       conversion_name: student_application
       submit_label: Submit Application
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
