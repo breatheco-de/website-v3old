@@ -21,7 +21,7 @@ sections:
     version: "1.0"
     variant: form
     background: hsl(var(--primary))
-    title: Start Your AI Career Today
+    title: {{ single.title | Start Your AI Career Today }}
     subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
     form:
       variant: stacked
