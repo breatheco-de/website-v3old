@@ -22,7 +22,6 @@ sections:
       conversion_name: student_application
       submit_label: Apply now
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
