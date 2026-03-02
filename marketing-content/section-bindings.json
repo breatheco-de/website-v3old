@@ -1346,10 +1346,16 @@
           "contentType": "location",
           "slug": "valencia-spain",
           "sectionId": "cta_banner-sadi14"
+        },
+        {
+          "contentType": "page",
+          "slug": "geekpal-support",
+          "sectionId": "cta_banner-yh5dbf"
         }
       ],
       "createdAt": "2026-02-26T21:36:39.661Z",
-      "name": "cta_banner_europe_en"
+      "name": "cta_banner_europe_en",
+      "updatedAt": "2026-03-02T19:07:05.991Z"
     },
     {
       "id": "bind_mm9c2hu5_3khqj9",

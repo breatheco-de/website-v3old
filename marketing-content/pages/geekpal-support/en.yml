@@ -175,14 +175,14 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward your Tech Career
-    subtitle: Get pricing, program details, and personalized guidance.
-    background: hsl(var(--primary))
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Receive personalized program information and next steps.
     variant: form
     form:
       variant: stacked
       submit_label: Get the details
       tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
@@ -199,6 +199,7 @@ sections:
         program:
           visible: true
           required: true
+          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -206,12 +207,16 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary
       terms_className: text-white/80
-    marginY:
-      desktop: lg none
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+    section_id: cta_banner-yh5dbf
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
