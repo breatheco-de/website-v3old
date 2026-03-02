@@ -597,7 +597,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -627,14 +626,14 @@ sections:
       show_terms: true
       button_className: bg-primary border-white
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: lg
       desktop: lg
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
   - type: footer
     version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
