@@ -1,5 +1,6 @@
 # Common properties shared across all variants
 slug: full-stack
+bc_slug: full-stack
 title: Full Stack Development
 
 meta:

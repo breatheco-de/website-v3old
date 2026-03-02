@@ -97,7 +97,7 @@ interface LeadFormProps {
 }
 
 interface FormOptions {
-  programs: Array<{ slug: string; title: string }>;
+  programs: Array<{ slug: string; title: string; bc_slug?: string }>;
   locations: Array<{ slug: string; name: string; city: string; country: string; region: string }>;
   regions: Array<{ slug: string; label: string }>;
 }
@@ -1027,7 +1027,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                       </FormControl>
                       <SelectContent>
                         {formOptions?.programs.map((program) => (
-                          <SelectItem key={program.slug} value={program.slug}>
+                          <SelectItem key={program.slug} value={program.bc_slug || program.slug}>
                             {program.title}
                           </SelectItem>
                         ))}

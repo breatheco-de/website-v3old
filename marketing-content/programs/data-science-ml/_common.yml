@@ -1,5 +1,6 @@
 # Common properties shared across all variants
 slug: data-science-ml
+bc_slug: datascience-ml
 title: Data Science and Machine Learning
 
 meta:

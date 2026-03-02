@@ -192,18 +192,29 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
 
 function listCareerPrograms(
   locale: string,
-): Array<{ slug: string; title: string }> {
+): Array<{ slug: string; title: string; bc_slug: string }> {
   const slugs = contentIndex.listContentSlugs("program");
-  const programs: Array<{ slug: string; title: string }> = [];
+  const programs: Array<{ slug: string; title: string; bc_slug: string }> = [];
 
   for (const slug of slugs) {
     const program = loadCareerProgram(slug, locale);
     if (program) {
-      programs.push({ slug: program.slug, title: program.title });
+      const commonData = contentIndex.loadCommonData("program", slug);
+      const bcSlug = (commonData?.bc_slug as string) || slug;
+      programs.push({ slug: program.slug, title: program.title, bc_slug: bcSlug });
     }
   }
 
   return programs;
+}
+
+function resolveBcSlug(programSlug: string): string {
+  const baseSlug = contentIndex.resolveBaseSlug(programSlug, "program");
+  const commonData = contentIndex.loadCommonData("program", baseSlug);
+  if (commonData?.bc_slug) {
+    return commonData.bc_slug as string;
+  }
+  return programSlug;
 }
 
 function loadLandingPage(slug: string): LandingPage | null {
@@ -6129,6 +6140,7 @@ sections: []
       } else if (type === "program") {
         commonYml = `# Common properties shared across all variants
 slug: ${enSlug}
+bc_slug: ${enSlug}
 title: ${title}
 
 meta:
@@ -6683,7 +6695,7 @@ sections: []
         phone: leadData.phone || null,
         email: leadData.email,
         location: leadData.location || null,
-        course: leadData.program ? contentIndex.resolveBaseSlug(leadData.program, "program") : null,
+        course: leadData.program ? resolveBcSlug(leadData.program) : null,
         consent: leadData.consent_whatsapp || false,
         sms_consent: leadData.sms_consent || false,
         consent_email: leadData.consent_email || false,
