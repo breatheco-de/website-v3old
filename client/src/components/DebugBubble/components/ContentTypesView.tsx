@@ -12,6 +12,7 @@ import {
   IconPlus,
   IconChevronDown,
   IconChevronRight,
+  IconX,
 } from "@tabler/icons-react";
 import {
   Dialog,
@@ -23,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SUPPORTED_LOCALES } from "@shared/locale";
 import type { MenuView } from "../types";
 
 interface ContentTypeSummary {
@@ -44,10 +46,9 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [name, setName] = useState("");
   const [patternMode, setPatternMode] = useState<"shorthand" | "per-locale">("shorthand");
   const [shorthandPattern, setShorthandPattern] = useState("");
-  const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>([
-    { locale: "en", path: "" },
-    { locale: "es", path: "" },
-  ]);
+  const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>(
+    SUPPORTED_LOCALES.map(l => ({ locale: l, path: "" }))
+  );
   const [newLocale, setNewLocale] = useState("");
   const [directory, setDirectory] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -84,7 +85,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   function resetForm() {
     setName("");
     setShorthandPattern("");
-    setLocalePatterns([{ locale: "en", path: "" }, { locale: "es", path: "" }]);
+    setLocalePatterns(SUPPORTED_LOCALES.map(l => ({ locale: l, path: "" })));
     setNewLocale("");
     setDirectory("");
     setShowAdvanced(false);
@@ -184,25 +185,48 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               />
             ) : (
               <div className="space-y-2">
-                <div className="flex items-center">
-                  <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/en</span>
+                {localePatterns.map((lp, i) => (
+                  <div key={lp.locale} className="flex items-center gap-1">
+                    <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/{lp.locale}</span>
+                    <Input
+                      placeholder="/my-type/:slug"
+                      value={lp.path}
+                      onChange={(e) => updateLocalePattern(i, e.target.value)}
+                      className="rounded-l-none"
+                      data-testid={`input-url-pattern-${lp.locale}`}
+                    />
+                    {localePatterns.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeLocale(i)}
+                        className="p-1 rounded-md text-muted-foreground hover-elevate flex-shrink-0"
+                        data-testid={`button-remove-locale-${lp.locale}`}
+                      >
+                        <IconX className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <div className="flex items-center gap-1">
                   <Input
-                    placeholder="/my-type/:slug"
-                    value={enPattern}
-                    onChange={(e) => setEnPattern(e.target.value)}
-                    className="rounded-l-none"
-                    data-testid="input-url-pattern-en"
+                    placeholder="pt"
+                    value={newLocale}
+                    onChange={(e) => setNewLocale(e.target.value.toLowerCase().replace(/[^a-z]/g, ""))}
+                    className="w-16 flex-shrink-0"
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addLocale(); } }}
+                    data-testid="input-new-locale"
                   />
-                </div>
-                <div className="flex items-center">
-                  <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/es</span>
-                  <Input
-                    placeholder="/mi-tipo/:slug"
-                    value={esPattern}
-                    onChange={(e) => setEsPattern(e.target.value)}
-                    className="rounded-l-none"
-                    data-testid="input-url-pattern-es"
-                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={addLocale}
+                    disabled={!newLocale.trim() || localePatterns.some(lp => lp.locale === newLocale.trim())}
+                    data-testid="button-add-locale"
+                  >
+                    <IconPlus className="h-3 w-3 mr-1" />
+                    Add locale
+                  </Button>
                 </div>
               </div>
             )}
@@ -269,7 +293,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
             </Button>
             <Button
               type="submit"
-              disabled={!name || !!nameError || mutation.isPending || (patternMode === "shorthand" ? !shorthandPattern : (!enPattern || !esPattern))}
+              disabled={!name || !!nameError || mutation.isPending || (patternMode === "shorthand" ? !shorthandPattern : !allLocalesFilled)}
               data-testid="button-submit-create-content-type"
             >
               {mutation.isPending ? "Creating..." : "Create"}

@@ -1,4 +1,6 @@
-export type SupportedLocale = "en" | "es";
+export const SUPPORTED_LOCALES = ["en", "es"] as const;
+
+export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export function normalizeLocale(locale: string | undefined | null): SupportedLocale {
   if (!locale) return "en";
@@ -10,5 +12,5 @@ export function normalizeLocale(locale: string | undefined | null): SupportedLoc
 }
 
 export function isValidLocale(locale: string): locale is SupportedLocale {
-  return locale === "en" || locale === "es";
+  return (SUPPORTED_LOCALES as readonly string[]).includes(locale);
 }

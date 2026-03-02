@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { SUPPORTED_LOCALES } from "@shared/locale";
 
 export interface DatabaseConfig {
   slug: string;
@@ -24,8 +25,6 @@ interface ContentTypesRegistry {
 let registry: ContentTypesRegistry | null = null;
 
 const CONFIG_PATH = path.join(process.cwd(), "marketing-content", "content-types.yml");
-
-const SUPPORTED_LOCALES = ["en", "es"];
 
 export function normalizeUrlPattern(raw: string | Record<string, string>): Record<string, string> {
   if (typeof raw === "object" && raw !== null) return raw;
