@@ -123,23 +123,47 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
     }
   }
 
-  function updateLocalePattern(index: number, path: string) {
-    setLocalePatterns(prev => prev.map((lp, i) => i === index ? { ...lp, path } : lp));
+  function normalizePathInput(raw: string): string {
+    const trimmed = raw.trim();
+    if (trimmed && !trimmed.startsWith("/")) return "/" + trimmed;
+    return trimmed;
   }
+
+  function updateLocalePattern(index: number, rawPath: string) {
+    setLocalePatterns(prev => prev.map((lp, i) => i === index ? { ...lp, path: rawPath } : lp));
+  }
+
+  function validatePattern(p: string): string {
+    if (!p) return "";
+    const normalized = normalizePathInput(p);
+    if (!normalized.includes(":slug")) return "Must include :slug";
+    return "";
+  }
+
+  const shorthandError = shorthandPattern ? validatePattern(shorthandPattern) : "";
+  const localeErrors = localePatterns.map(lp => lp.path ? validatePattern(lp.path) : "");
+  const hasLocaleErrors = localeErrors.some(e => e !== "");
 
   const allLocalesFilled = localePatterns.length > 0 && localePatterns.every(lp => lp.path.trim() !== "");
 
+  const canSubmit = !!name && !nameError &&
+    (patternMode === "shorthand"
+      ? shorthandPattern.trim() !== "" && !shorthandError
+      : allLocalesFilled && !hasLocaleErrors);
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name || nameError) return;
+    if (!canSubmit) return;
 
     let url_pattern: string | Record<string, string>;
     if (patternMode === "shorthand") {
-      url_pattern = `/:locale${shorthandPattern}`;
+      const normalized = normalizePathInput(shorthandPattern);
+      url_pattern = `/:locale${normalized}`;
     } else {
       const map: Record<string, string> = {};
       for (const lp of localePatterns) {
-        map[lp.locale] = `/${lp.locale}${lp.path}`;
+        const normalized = normalizePathInput(lp.path);
+        map[lp.locale] = `/${lp.locale}${normalized}`;
       }
       url_pattern = map;
     }
@@ -183,41 +207,47 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               </button>
             </div>
             {patternMode === "shorthand" ? (
-              <div className="flex items-center gap-0">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span
-                      className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0 cursor-help"
-                      data-testid="tooltip-trigger-locale"
-                    >
-                      /:locale
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-64 text-xs" data-testid="tooltip-content-locale">
-                    <p className="font-medium mb-1">:locale represents the language code</p>
-                    <p>Each URL will start with the locale prefix. For example: <span className="font-mono">/en{shorthandPattern || `/${name || "type"}/:slug`}</span> for English, <span className="font-mono">/es{shorthandPattern || `/${name || "type"}/:slug`}</span> for Spanish.</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Input
-                  placeholder="/my-type/:slug"
-                  value={shorthandPattern}
-                  onChange={(e) => setShorthandPattern(e.target.value)}
-                  className="rounded-l-none"
-                  data-testid="input-url-pattern-shorthand"
-                />
-              </div>
+              <>
+                <div className="flex items-center gap-0">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span
+                        className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0 cursor-help"
+                        data-testid="tooltip-trigger-locale"
+                      >
+                        /:locale
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="max-w-64 text-xs" data-testid="tooltip-content-locale">
+                      <p className="font-medium mb-1">:locale represents the language code</p>
+                      <p>Each URL will start with the locale prefix. For example: <span className="font-mono">/en{shorthandPattern || `/${name || "type"}/:slug`}</span> for English, <span className="font-mono">/es{shorthandPattern || `/${name || "type"}/:slug`}</span> for Spanish.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Input
+                    placeholder="/my-type/:slug"
+                    value={shorthandPattern}
+                    onChange={(e) => setShorthandPattern(e.target.value)}
+                    className="rounded-l-none"
+                    data-testid="input-url-pattern-shorthand"
+                  />
+                </div>
+                {shorthandError && <p className="text-xs text-destructive" data-testid="text-shorthand-error">{shorthandError}</p>}
+              </>
             ) : (
               <div className="space-y-2">
                 {localePatterns.map((lp, i) => (
-                  <div key={lp.locale} className="flex items-center gap-1">
-                    <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/{lp.locale}</span>
-                    <Input
-                      placeholder="/my-type/:slug"
-                      value={lp.path}
-                      onChange={(e) => updateLocalePattern(i, e.target.value)}
-                      className="rounded-l-none"
-                      data-testid={`input-url-pattern-${lp.locale}`}
-                    />
+                  <div key={lp.locale} className="space-y-1">
+                    <div className="flex items-center gap-1">
+                      <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/{lp.locale}</span>
+                      <Input
+                        placeholder="/my-type/:slug"
+                        value={lp.path}
+                        onChange={(e) => updateLocalePattern(i, e.target.value)}
+                        className="rounded-l-none"
+                        data-testid={`input-url-pattern-${lp.locale}`}
+                      />
+                    </div>
+                    {localeErrors[i] && <p className="text-xs text-destructive" data-testid={`text-pattern-error-${lp.locale}`}>{localeErrors[i]}</p>}
                   </div>
                 ))}
                 <Link
@@ -299,7 +329,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
             </Button>
             <Button
               type="submit"
-              disabled={!name || !!nameError || mutation.isPending || (patternMode === "shorthand" ? !shorthandPattern : !allLocalesFilled)}
+              disabled={!canSubmit || mutation.isPending}
               data-testid="button-submit-create-content-type"
             >
               {mutation.isPending ? "Creating..." : "Create"}

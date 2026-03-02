@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
-import { getContentTypeConfig, getLocaleKey, getFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
+import { getContentTypeConfig, getLocaleKey, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
 import { getSupportedLocales } from "./settings";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -404,7 +404,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
           items: Array<Record<string, unknown>>;
         };
         const urlPatterns = blogTypeConfig.url_pattern;
-        const blogFieldMapping = getFieldMapping("blog");
+        const blogFieldMapping = getFullFieldMapping("blog");
         for (const post of cached.items) {
           let locale = "en";
           if (localeFieldKey) {

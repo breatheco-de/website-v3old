@@ -1,3 +1,23 @@
+# Content Types Configuration
+# ===========================
+# Each entry defines a content type with its URL routing and optional database connection.
+#
+# Required fields:
+#   directory: folder inside marketing-content/ where YAML entries live
+#   url_pattern: URL routing pattern (must include :slug for unique entry URLs)
+#     - Per-locale object: { en: /en/path/:slug, es: /es/ruta/:slug }
+#     - Shorthand: { default: /landing/:slug } (same path for all locales)
+#
+# Optional fields:
+#   database: connects this content type to a cached API database
+#     slug: database name (matches a db config in marketing-content/db/)
+#     field_mapping: maps content concepts to database field names
+#       Underscore-prefixed fields are mandatory special fields:
+#         _locale: DB field containing the entry's language (e.g., lang)
+#         _slug: DB field containing the entry's unique identifier (e.g., slug)
+#       Other fields (no underscore): optional mappings for content display
+#     indexes: fields to index for faster lookups
+
 program:
   directory: programs
   url_pattern:
@@ -23,8 +43,8 @@ blog:
     slug: blog_posts
     field_mapping:
       _locale: lang
+      _slug: slug
       title: title
-      slug: slug
       description: description
       image: preview_image
       published_at: published_at
@@ -40,8 +60,3 @@ blog:
   url_pattern:
     en: /en/blog/:category/:slug
     es: /es/blog/:category/:slug
-downloadable:
-  directory: downloadable
-  url_pattern:
-    en: /endownloadable
-    es: /esdescargable

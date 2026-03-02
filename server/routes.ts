@@ -1631,6 +1631,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const normalizedPattern = normalizeUrlPattern(url_pattern);
+
+      const patternValues = Object.values(normalizedPattern) as string[];
+      for (const p of patternValues) {
+        if (!p.includes(":slug")) {
+          res.status(400).json({ error: "URL pattern must include :slug" });
+          return;
+        }
+        if (!p.startsWith("/")) {
+          res.status(400).json({ error: "URL pattern must start with /" });
+          return;
+        }
+      }
       const dir = directory || name;
 
       addContentType(name, {

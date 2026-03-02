@@ -5,7 +5,7 @@ import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
-import { normalizeUrlPattern } from "./content-types";
+import { normalizeUrlPattern, getAllConfigs } from "./content-types";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -247,6 +247,8 @@ class ContentIndex {
     this.scanCustomRedirects(baseDir);
     this.autoCreateSingleTemplates(baseDir);
 
+    this.warnMissingSlugMappings();
+
     this.initialized = true;
     const imageRefCount = this.imageUsage.size;
     const variableRefCount = this.variableUsage.size;
@@ -447,6 +449,20 @@ class ContentIndex {
     } catch (err) {
       console.error("[ContentIndex] Failed to read custom-redirects.yml:", err);
     }
+  }
+
+  private warnMissingSlugMappings(): void {
+    try {
+      const configs = getAllConfigs();
+      for (const [typeName, config] of Object.entries(configs)) {
+        if (config.database && !config.database.field_mapping?._slug) {
+          console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _slug in field_mapping. This is required for URL resolution.`);
+        }
+        if (config.database && !config.database.field_mapping?._locale) {
+          console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _locale in field_mapping. This is required for locale resolution.`);
+        }
+      }
+    } catch {}
   }
 
   private autoCreateSingleTemplates(baseDir: string): void {
