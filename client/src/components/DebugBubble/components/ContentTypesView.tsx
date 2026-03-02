@@ -147,7 +147,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground w-6 flex-shrink-0">EN</span>
                   <Input
-                    placeholder="/us/my-type/:slug"
+                    placeholder="/en/my-type/:slug"
                     value={enPattern}
                     onChange={(e) => setEnPattern(e.target.value)}
                     data-testid="input-url-pattern-en"
