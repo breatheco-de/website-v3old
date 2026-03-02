@@ -104,7 +104,7 @@ sections:
         program:
           visible: false
           required: true
-          default: data-science-ml
+          default: datascience-ml
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
