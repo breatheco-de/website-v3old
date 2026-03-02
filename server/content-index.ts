@@ -461,10 +461,10 @@ class ContentIndex {
         console.log(`[ContentIndex] Auto-created folder: marketing-content/${folder}/`);
       }
 
-      const commonPath = path.join(typeDir, "_common.yml");
+      const commonPath = path.join(typeDir, "_common.single.yml");
       if (!fs.existsSync(commonPath)) {
-        fs.writeFileSync(commonPath, "# Common data shared across all locales\n");
-        console.log(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.yml`);
+        fs.writeFileSync(commonPath, "# Common data shared across all single (database-backed) entries\n");
+        console.log(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.single.yml`);
       }
 
       const locales = Object.keys(config.url_pattern).filter(k => k !== "default");
@@ -897,7 +897,7 @@ class ContentIndex {
     let commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), resolved, "_common.yml");
 
     if (!fs.existsSync(commonPath) && this.isDatabaseBacked(contentType)) {
-      commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), "_common.yml");
+      commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), "_common.single.yml");
     }
 
     if (!fs.existsSync(commonPath)) {

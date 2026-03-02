@@ -90,11 +90,14 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const filePreview = useMemo(() => {
     if (!name) return null;
     const dir = effectiveDir;
+    const localeFiles = defaultLocales.map(l => l.code);
     return {
       ymlEntry: `marketing-content/content-types.yml`,
       directory: `marketing-content/${dir}/`,
+      sampleDir: `sample-${name}/`,
+      sampleFiles: ["_common.yml", ...localeFiles.map(l => `${l}.yml`)],
     };
-  }, [name, effectiveDir]);
+  }, [name, effectiveDir, defaultLocales]);
 
   function resetForm() {
     setName("");
@@ -249,10 +252,16 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                 <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? '' : '-rotate-90'}`} />
                 Files that will be created
               </button>
-              {showFiles && (
+              {showFiles && filePreview && (
                 <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
                   <div>{filePreview.directory}</div>
-                  <div className="pl-4">(empty directory for YAML entries)</div>
+                  <div className="pl-4">{filePreview.sampleDir}</div>
+                  {filePreview.sampleFiles.map((f, i) => {
+                    const isLast = i === filePreview.sampleFiles.length - 1;
+                    return (
+                      <div key={f} className="pl-8">{isLast ? "└── " : "├── "}{f}</div>
+                    );
+                  })}
                   <div className="mt-1 text-muted-foreground/70">Modified:</div>
                   <div>{filePreview.ymlEntry}</div>
                   <div className="pl-4">└── new "{name}" entry added</div>

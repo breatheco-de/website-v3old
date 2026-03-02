@@ -252,9 +252,53 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
   fs.writeFileSync(CONFIG_PATH, yamlBody, "utf-8");
 
   const dirPath = path.join(process.cwd(), "marketing-content", config.directory);
-  if (!fs.existsSync(dirPath)) {
+  const isNewDir = !fs.existsSync(dirPath);
+  if (isNewDir) {
     fs.mkdirSync(dirPath, { recursive: true });
     console.log(`[ContentTypes] Created directory: marketing-content/${config.directory}/`);
+  }
+
+  if (isNewDir) {
+    const locales = getSupportedLocales();
+    const sampleSlug = `sample-${name}`;
+    const sampleDir = path.join(dirPath, sampleSlug);
+    fs.mkdirSync(sampleDir, { recursive: true });
+
+    const titleCase = name.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+    const commonYml = [
+      `slug: ${sampleSlug}`,
+      `title: ${titleCase}`,
+      "",
+      "meta:",
+      "  robots: index, follow",
+      "  priority: 0.9",
+      "  change_frequency: weekly",
+      "",
+      "schema:",
+      "  include:",
+      "    - organization",
+      "    - website",
+      "",
+    ].join("\n");
+    fs.writeFileSync(path.join(sampleDir, "_common.yml"), commonYml);
+
+    for (const locale of locales) {
+      const localeYml = [
+        `slug: ${sampleSlug}`,
+        `title: ${titleCase}`,
+        "",
+        "meta:",
+        `  page_title: "${titleCase} | 4Geeks"`,
+        `  description: "Sample ${name} entry for ${locale} locale."`,
+        "",
+        "sections: []",
+        "",
+      ].join("\n");
+      fs.writeFileSync(path.join(sampleDir, `${locale}.yml`), localeYml);
+    }
+
+    console.log(`[ContentTypes] Created sample entry: marketing-content/${config.directory}/${sampleSlug}/ (${locales.length} locale(s))`);
   }
 
   resetRegistry();
