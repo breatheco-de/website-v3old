@@ -108,7 +108,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
 
     const url_pattern = patternMode === "shorthand"
       ? shorthandPattern
-      : { en: enPattern, es: esPattern };
+      : { en: `/en${enPattern}`, es: `/es${esPattern}` };
 
     mutation.mutate({
       name,
@@ -157,21 +157,23 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               />
             ) : (
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground w-6 flex-shrink-0">EN</span>
+                <div className="flex items-center">
+                  <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/en</span>
                   <Input
-                    placeholder="/en/my-type/:slug"
+                    placeholder="/my-type/:slug"
                     value={enPattern}
                     onChange={(e) => setEnPattern(e.target.value)}
+                    className="rounded-l-none"
                     data-testid="input-url-pattern-en"
                   />
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground w-6 flex-shrink-0">ES</span>
+                <div className="flex items-center">
+                  <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/es</span>
                   <Input
-                    placeholder="/es/mi-tipo/:slug"
+                    placeholder="/mi-tipo/:slug"
                     value={esPattern}
                     onChange={(e) => setEsPattern(e.target.value)}
+                    className="rounded-l-none"
                     data-testid="input-url-pattern-es"
                   />
                 </div>
