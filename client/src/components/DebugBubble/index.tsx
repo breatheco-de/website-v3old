@@ -254,7 +254,7 @@ export function DebugBubble() {
   
   // Delete page state
   const [deletePageModalOpen, setDeletePageModalOpen] = useState(false);
-  const [deletingPage, setDeletingPage] = useState<{ slug: string; contentType: 'location' | 'page' | 'program' | 'landing' } | null>(null);
+  const [deletingPage, setDeletingPage] = useState<{ slug: string; contentType: string; locale: string } | null>(null);
   const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
   const [isDeletingPage, setIsDeletingPage] = useState(false);
   
@@ -1405,7 +1405,7 @@ export function DebugBubble() {
       toast({ title: "Cannot delete", description: "Could not determine slug", variant: "destructive" });
       return;
     }
-    setDeletingPage({ slug, contentType });
+    setDeletingPage({ slug, contentType, locale });
     setDeleteConfirmInput("");
     setDeletePageModalOpen(true);
   };
@@ -1466,7 +1466,7 @@ export function DebugBubble() {
     }
   };
 
-  const confirmDeletePage = async () => {
+  const confirmDeletePage = async (localesToDelete: string[]) => {
     if (!deletingPage || deleteConfirmInput !== deletingPage.slug) return;
     setIsDeletingPage(true);
     try {
@@ -1476,7 +1476,12 @@ export function DebugBubble() {
       const response = await fetch("/api/content/delete", {
         method: "POST",
         headers,
-        body: JSON.stringify({ type: deletingPage.contentType, slug: deletingPage.slug, confirmSlug: deleteConfirmInput }),
+        body: JSON.stringify({
+          type: deletingPage.contentType,
+          slug: deletingPage.slug,
+          confirmSlug: deleteConfirmInput,
+          ...(localesToDelete.length > 0 ? { localesToDelete } : {}),
+        }),
       });
       const data = await response.json();
       if (response.ok) {
@@ -1803,6 +1808,7 @@ export function DebugBubble() {
         setDeleteConfirmInput={setDeleteConfirmInput}
         isDeletingPage={isDeletingPage}
         onConfirm={confirmDeletePage}
+        currentLocale={deletingPage?.locale}
       />
       <CreateContentModal
         open={createContentModalOpen}

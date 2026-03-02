@@ -46,6 +46,7 @@ import {
   IconFolder,
   IconLink,
   IconTrashX,
+  IconTrash,
   IconWand,
   IconLoader2,
   IconLayoutList,
@@ -53,6 +54,8 @@ import {
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { getDebugToken } from "@/hooks/useDebugAuth";
+import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
 
 interface ItemsResponse {
   count: number;
@@ -1127,6 +1130,10 @@ export default function ContentTypeManagePage() {
   const [dsDialogOpen, setDsDialogOpen] = useState(false);
   const [seoDialogOpen, setSeoDialogOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"static" | "db">("static");
+  const [deletingEntry, setDeletingEntry] = useState<StaticEntry | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
+  const [isDeletingEntry, setIsDeletingEntry] = useState(false);
 
   const { data: allItemsData, isLoading: allLoading } = useQuery<ItemsResponse>({
     queryKey: ["/api/content-types", contentType, "items"],
@@ -1230,6 +1237,40 @@ export default function ContentTypeManagePage() {
       setViewMode(defaultViewMode);
     }
   }, [defaultViewMode]);
+
+  const handleDeleteEntry = async (localesToDelete: string[]) => {
+    if (!deletingEntry || deleteConfirmInput !== deletingEntry.slug) return;
+    setIsDeletingEntry(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const response = await fetch("/api/content/delete", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          type: contentType,
+          slug: deletingEntry.slug,
+          confirmSlug: deleteConfirmInput,
+          ...(localesToDelete.length > 0 ? { localesToDelete } : {}),
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        toast({ title: "Entry deleted", description: data.message });
+        setDeleteModalOpen(false);
+        setDeletingEntry(null);
+        setDeleteConfirmInput("");
+        queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "static-entries"] });
+      } else {
+        toast({ title: "Error", description: data.error || "Failed to delete", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error", description: "Connection error", variant: "destructive" });
+    } finally {
+      setIsDeletingEntry(false);
+    }
+  };
 
   const handleClearCache = async () => {
     setClearing(true);
@@ -1528,6 +1569,19 @@ export default function ContentTypeManagePage() {
                                         </a>
                                       </DropdownMenuItem>
                                     ))}
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem
+                                      onClick={() => {
+                                        setDeletingEntry(entry);
+                                        setDeleteConfirmInput("");
+                                        setDeleteModalOpen(true);
+                                      }}
+                                      className="text-destructive focus:text-destructive"
+                                      data-testid={`button-delete-${entry.slug}`}
+                                    >
+                                      <IconTrash className="h-4 w-4 mr-2" />
+                                      Delete
+                                    </DropdownMenuItem>
                                   </DropdownMenuContent>
                                 </DropdownMenu>
                               )}
@@ -1715,6 +1769,22 @@ export default function ContentTypeManagePage() {
 
       <DataSourceDialog open={dsDialogOpen} onOpenChange={setDsDialogOpen} contentType={contentType} />
       <SeoSettingsDialog open={seoDialogOpen} onOpenChange={setSeoDialogOpen} contentType={contentType} />
+      <DeletePageModal
+        open={deleteModalOpen}
+        onOpenChange={(open) => {
+          setDeleteModalOpen(open);
+          if (!open) {
+            setDeletingEntry(null);
+            setDeleteConfirmInput("");
+          }
+        }}
+        deletingPage={deletingEntry ? { slug: deletingEntry.slug, contentType } : null}
+        deleteConfirmInput={deleteConfirmInput}
+        setDeleteConfirmInput={setDeleteConfirmInput}
+        isDeletingPage={isDeletingEntry}
+        onConfirm={handleDeleteEntry}
+        availableLocales={deletingEntry?.locales}
+      />
     </div>
   );
 }

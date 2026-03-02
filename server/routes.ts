@@ -6016,19 +6016,23 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         }
       }
 
-      const { type, slugEn, slugEs, title, sourceUrl, author: createAuthor } = req.body;
+      const { type, slugEn, slugEs, title, sourceUrl, author: createAuthor, skipLocales: rawSkipLocales } = req.body;
       const createAuthorName = createAuthor && typeof createAuthor === "string" ? createAuthor : undefined;
+      const skipLocales: string[] = Array.isArray(rawSkipLocales) ? rawSkipLocales.filter((l: unknown) => typeof l === "string") : [];
 
       // Support both old format (slug) and new format (slugEn/slugEs)
-      const enSlug = slugEn || req.body.slug;
-      const esSlug = slugEs || req.body.slug;
+      const skipEn = skipLocales.includes("en");
+      const skipEs = skipLocales.includes("es");
+      const enSlug = skipEn ? null : (slugEn || req.body.slug);
+      const esSlug = skipEs ? null : (slugEs || req.body.slug);
 
-      if (!type || !enSlug || !esSlug || !title) {
-        res
-          .status(400)
-          .json({
-            error: "Missing required fields: type, slugEn, slugEs, title",
-          });
+      if (!type || !title) {
+        res.status(400).json({ error: "Missing required fields: type, title" });
+        return;
+      }
+
+      if (!enSlug && !esSlug) {
+        res.status(400).json({ error: "At least one locale slug must be provided" });
         return;
       }
 
@@ -6041,9 +6045,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      // Validate slug format for both
+      // Validate slug format for provided slugs
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-      if (!slugRegex.test(enSlug)) {
+      if (enSlug && !slugRegex.test(enSlug)) {
         res
           .status(400)
           .json({
@@ -6052,7 +6056,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           });
         return;
       }
-      if (!slugRegex.test(esSlug)) {
+      if (esSlug && !slugRegex.test(esSlug)) {
         res
           .status(400)
           .json({
@@ -6062,12 +6066,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      // Use English slug for folder name (primary identifier)
+      // Use English slug for folder name (primary identifier), fall back to Spanish if EN is skipped
+      const folderSlug = enSlug || esSlug;
       const folderPath = path.join(
         process.cwd(),
         "marketing-content",
         getFolder(type),
-        enSlug,
+        folderSlug!,
       );
 
       // Check if folder already exists
@@ -6079,7 +6084,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         if (hasCommon && hasEn && hasEs) {
           res
             .status(409)
-            .json({ error: `A ${type} with slug "${enSlug}" already exists` });
+            .json({ error: `A ${type} with slug "${folderSlug}" already exists` });
           return;
         }
       }
@@ -6101,9 +6106,15 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             : "";
 
           if (foundSourceFolder) {
-            // Copy all files from source folder
+            // Copy all files from source folder, respecting skipLocales
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             for (const file of sourceFiles) {
+              // Skip locale files that are in skipLocales
+              const fileLocale = file.replace(/\.yml$/, '');
+              if (fileLocale !== '_common' && skipLocales.includes(fileLocale)) {
+                continue;
+              }
+
               let content = fs.readFileSync(
                 path.join(foundSourceFolder, file),
                 "utf8",
@@ -6115,14 +6126,15 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
               const resolvedSourceSlug = resolved?.slug || oldSlug;
+              const newSlug = file === "es.yml" ? (esSlug || folderSlug!) : (enSlug || folderSlug!);
               content = content.replace(
                 new RegExp(`slug:\\s*["']?${oldSlug}["']?`, "g"),
-                `slug: ${file === "es.yml" ? esSlug : enSlug}`,
+                `slug: ${newSlug}`,
               );
               if (resolvedSourceSlug !== oldSlug) {
                 content = content.replace(
                   new RegExp(`slug:\\s*["']?${resolvedSourceSlug}["']?`, "g"),
-                  `slug: ${file === "es.yml" ? esSlug : enSlug}`,
+                  `slug: ${newSlug}`,
                 );
               }
 
@@ -6133,7 +6145,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
-                `marketing-content/${getFolder(type)}/${enSlug}/${file}`,
+                `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
                 createAuthorName,
               );
             }
@@ -6146,7 +6158,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               slugEn: enSlug,
               slugEs: esSlug,
               type,
-              directory: `marketing-content/${getFolder(type)}/${enSlug}`,
+              directory: `marketing-content/${getFolder(type)}/${folderSlug}`,
               duplicatedFrom: sourceUrl,
             });
             return;
@@ -6164,7 +6176,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       if (type === "page") {
         commonYml = `# Common properties shared across all language variants
-slug: "${enSlug}"
+slug: "${folderSlug}"
 template: "default"
 title: "${title}"
 
@@ -6179,30 +6191,30 @@ schema:
     - "website"
 `;
 
-        enYml = `slug: ${enSlug}
+        enYml = `slug: ${enSlug || folderSlug}
 template: default
 title: ${title}
 meta:
   page_title: ${title} | 4Geeks Academy
   description: ${title} - Learn more about this topic at 4Geeks Academy.
   redirects:
-    - /${enSlug}
+    - /${enSlug || folderSlug}
 sections: []
 `;
 
-        esYml = `slug: ${esSlug}
+        esYml = `slug: ${esSlug || folderSlug}
 template: default
 title: ${title}
 meta:
   page_title: ${title} | 4Geeks Academy
   description: ${title} - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
-    - /${esSlug}
+    - /${esSlug || folderSlug}
 sections: []
 `;
       } else if (type === "program") {
         commonYml = `# Common properties shared across all variants
-slug: ${enSlug}
+slug: ${folderSlug}
 title: ${title}
 
 meta:
@@ -6216,28 +6228,28 @@ schema:
     - website
 `;
 
-        enYml = `slug: ${enSlug}
+        enYml = `slug: ${enSlug || folderSlug}
 title: ${title}
 meta:
   page_title: ${title} | 4Geeks Academy
   description: Learn ${title} at 4Geeks Academy. Become job-ready with our intensive program.
   redirects:
-    - /${enSlug}
+    - /${enSlug || folderSlug}
 sections: []
 `;
 
-        esYml = `slug: ${esSlug}
+        esYml = `slug: ${esSlug || folderSlug}
 title: ${title}
 meta:
   page_title: ${title} | 4Geeks Academy
   description: Aprende ${title} en 4Geeks Academy. Prepárate para el trabajo con nuestro programa intensivo.
   redirects:
-    - /${esSlug}
+    - /${esSlug || folderSlug}
 sections: []
 `;
       } else {
-        // location
-        commonYml = `slug: ${enSlug}
+        // location or generic type
+        commonYml = `slug: ${folderSlug}
 name: ${title}
 city: ${title}
 country: Unknown
@@ -6259,14 +6271,14 @@ schema:
     - website
 `;
 
-        enYml = `slug: ${enSlug}
+        enYml = `slug: ${enSlug || folderSlug}
 meta:
   page_title: ${title} Coding Bootcamp | 4Geeks Academy
   description: Join 4Geeks Academy in ${title}. Learn to code with our immersive bootcamp programs.
 sections: []
 `;
 
-        esYml = `slug: ${esSlug}
+        esYml = `slug: ${esSlug || folderSlug}
 meta:
   page_title: Bootcamp de Programación en ${title} | 4Geeks Academy
   description: Únete a 4Geeks Academy en ${title}. Aprende a programar con nuestros programas de bootcamp.
@@ -6276,18 +6288,18 @@ sections: []
 
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];
-      const relFolder = `marketing-content/${getFolder(type)}/${enSlug}`;
+      const relFolder = `marketing-content/${getFolder(type)}/${folderSlug}`;
       if (!fs.existsSync(path.join(folderPath, "_common.yml"))) {
         fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
         createdFiles.push("_common.yml");
         markFileAsModified(`${relFolder}/_common.yml`, createAuthorName);
       }
-      if (!fs.existsSync(path.join(folderPath, "en.yml"))) {
+      if (!skipEn && !fs.existsSync(path.join(folderPath, "en.yml"))) {
         fs.writeFileSync(path.join(folderPath, "en.yml"), enYml);
         createdFiles.push("en.yml");
         markFileAsModified(`${relFolder}/en.yml`, createAuthorName);
       }
-      if (!fs.existsSync(path.join(folderPath, "es.yml"))) {
+      if (!skipEs && !fs.existsSync(path.join(folderPath, "es.yml"))) {
         fs.writeFileSync(path.join(folderPath, "es.yml"), esYml);
         createdFiles.push("es.yml");
         markFileAsModified(`${relFolder}/es.yml`, createAuthorName);
@@ -6302,12 +6314,9 @@ sections: []
         slugEn: enSlug,
         slugEs: esSlug,
         type,
-        directory: `marketing-content/${getFolder(type)}/${enSlug}`,
-        files:
-          createdFiles.length > 0
-            ? createdFiles
-            : ["_common.yml", "en.yml", "es.yml"],
-        recovered: createdFiles.length > 0 && createdFiles.length < 3,
+        directory: `marketing-content/${getFolder(type)}/${folderSlug}`,
+        files: createdFiles,
+        skippedLocales: skipLocales.length > 0 ? skipLocales : undefined,
       });
     } catch (error) {
       console.error("Content create error:", error);
@@ -6360,7 +6369,8 @@ sections: []
         }
       }
 
-      const { type, slug, confirmSlug } = req.body;
+      const { type, slug, confirmSlug, localesToDelete: rawLocalesToDelete } = req.body;
+      const localesToDelete: string[] = Array.isArray(rawLocalesToDelete) ? rawLocalesToDelete.filter((l: unknown) => typeof l === "string") : [];
 
       if (!type || !slug || !confirmSlug) {
         res
@@ -6418,15 +6428,50 @@ sections: []
         return;
       }
 
-      fs.rmSync(folderPath, { recursive: true, force: true });
+      if (localesToDelete.length > 0) {
+        const deletedFiles: string[] = [];
+        for (const locale of localesToDelete) {
+          const localeFile = path.join(folderPath, `${locale}.yml`);
+          if (fs.existsSync(localeFile)) {
+            fs.unlinkSync(localeFile);
+            deletedFiles.push(`${locale}.yml`);
+          }
+        }
 
-      console.log(`[Content] Deleted ${type}/${slug}`);
-      contentIndex.refresh();
+        const remainingFiles = fs.readdirSync(folderPath).filter(f =>
+          f.endsWith('.yml') && !f.startsWith('_') && f !== 'experiments.yml'
+        );
 
-      res.json({
-        success: true,
-        message: `Successfully deleted ${type}/${slug}`,
-      });
+        if (remainingFiles.length === 0) {
+          fs.rmSync(folderPath, { recursive: true, force: true });
+          console.log(`[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`);
+        } else {
+          console.log(`[Content] Deleted ${deletedFiles.join(', ')} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`);
+        }
+
+        clearSitemapCache();
+        contentIndex.refresh();
+
+        res.json({
+          success: true,
+          message: remainingFiles.length === 0
+            ? `Successfully deleted ${type}/${slug}`
+            : `Deleted ${deletedFiles.join(', ')} from ${type}/${slug}`,
+          deletedFiles,
+          folderRemoved: remainingFiles.length === 0,
+        });
+      } else {
+        fs.rmSync(folderPath, { recursive: true, force: true });
+
+        console.log(`[Content] Deleted ${type}/${slug}`);
+        clearSitemapCache();
+        contentIndex.refresh();
+
+        res.json({
+          success: true,
+          message: `Successfully deleted ${type}/${slug}`,
+        });
+      }
     } catch (error) {
       console.error("Content delete error:", error);
       res.status(500).json({ error: "Internal server error" });
