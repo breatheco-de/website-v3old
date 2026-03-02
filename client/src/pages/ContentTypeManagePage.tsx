@@ -85,7 +85,7 @@ interface DatabaseConfig {
 interface ContentTypeConfig {
   name: string;
   label: string;
-  folder: string;
+  directory: string;
   database: DatabaseConfig | null;
   url_pattern: Record<string, string>;
   static_entry_count?: number;

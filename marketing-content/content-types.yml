@@ -8,7 +8,7 @@
 # ── STRUCTURE ────────────────────────────────────────────────────────────────
 #
 #   <type_name>:
-#     folder: <string>          # Filesystem folder inside marketing-content/
+#     directory: <string>       # Filesystem directory inside marketing-content/
 #     url_pattern: <pattern>    # How URLs are built (see below)
 #     database:                 # (Optional) Database backing
 #       slug: <string>          # Name of the database in marketing-content/db/
@@ -84,26 +84,26 @@
 # ============================================================================
 
 program:
-  folder: programs
+  directory: programs
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug
 location:
-  folder: locations
+  directory: locations
   url_pattern:
     en: /en/location/:slug
     es: /es/ubicacion/:slug
 landing:
-  folder: landings
+  directory: landings
   url_pattern:
     default: /landing/:slug
 page:
-  folder: pages
+  directory: pages
   url_pattern:
     en: /en/:slug
     es: /es/:slug
 blog:
-  folder: blog
+  directory: blog
   database:
     slug: blog_posts
     field_mapping:

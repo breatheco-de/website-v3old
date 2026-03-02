@@ -9,15 +9,15 @@ export interface DatabaseConfig {
 }
 
 export interface ContentTypeEntry {
-  folder: string;
+  directory: string;
   url_pattern: Record<string, string>;
   database?: DatabaseConfig;
 }
 
 interface ContentTypesRegistry {
   types: Record<string, ContentTypeEntry>;
-  folderToType: Map<string, string>;
-  allFolders: string[];
+  directoryToType: Map<string, string>;
+  allDirectories: string[];
   allTypes: string[];
 }
 
@@ -58,52 +58,60 @@ function loadRegistry(): ContentTypesRegistry {
     if (config?.url_pattern) {
       config.url_pattern = normalizeUrlPattern(config.url_pattern);
     }
+    if (config?.folder && !config.directory) {
+      config.directory = config.folder;
+      delete config.folder;
+    }
   }
 
-  const folderToType = new Map<string, string>();
+  const directoryToType = new Map<string, string>();
   for (const [type, config] of Object.entries(parsed)) {
-    if ((config as ContentTypeEntry).folder) {
-      folderToType.set((config as ContentTypeEntry).folder, type);
+    if ((config as ContentTypeEntry).directory) {
+      directoryToType.set((config as ContentTypeEntry).directory, type);
     }
   }
 
   registry = {
     types: parsed,
-    folderToType,
-    allFolders: Object.values(parsed).map(c => c.folder),
+    directoryToType,
+    allDirectories: Object.values(parsed).map(c => c.directory),
     allTypes: Object.keys(parsed),
   };
 
   return registry;
 }
 
-export function getFolder(type: string): string {
+export function getDirectory(type: string): string {
   const reg = loadRegistry();
   const entry = reg.types[type];
-  if (entry?.folder) return entry.folder;
-  if (reg.folderToType.has(type)) return type;
+  if (entry?.directory) return entry.directory;
+  if (reg.directoryToType.has(type)) return type;
   return type;
 }
 
-export function getType(folderOrType: string): string {
+export const getFolder = getDirectory;
+
+export function getType(directoryOrType: string): string {
   const reg = loadRegistry();
-  if (reg.types[folderOrType]) return folderOrType;
-  const mapped = reg.folderToType.get(folderOrType);
-  return mapped || folderOrType;
+  if (reg.types[directoryOrType]) return directoryOrType;
+  const mapped = reg.directoryToType.get(directoryOrType);
+  return mapped || directoryOrType;
 }
 
 export function isValidType(type: string): boolean {
   const reg = loadRegistry();
-  return type in reg.types || reg.folderToType.has(type);
+  return type in reg.types || reg.directoryToType.has(type);
 }
 
 export function getAllTypes(): string[] {
   return loadRegistry().allTypes;
 }
 
-export function getAllFolders(): string[] {
-  return loadRegistry().allFolders;
+export function getAllDirectories(): string[] {
+  return loadRegistry().allDirectories;
 }
+
+export const getAllFolders = getAllDirectories;
 
 export function getUrlPattern(type: string, locale: string): string | null {
   const reg = loadRegistry();
@@ -128,14 +136,16 @@ export function getLabel(type: string): string {
   return singular.charAt(0).toUpperCase() + singular.slice(1);
 }
 
-export function getFolderMap(): Record<string, string> {
+export function getDirectoryMap(): Record<string, string> {
   const reg = loadRegistry();
   const map: Record<string, string> = {};
   for (const [type, config] of Object.entries(reg.types)) {
-    map[type] = config.folder;
+    map[type] = config.directory;
   }
   return map;
 }
+
+export const getFolderMap = getDirectoryMap;
 
 export function getDatabaseName(type: string): string | null {
   const reg = loadRegistry();
@@ -230,6 +240,26 @@ export function updateContentTypeConfig(type: string, update: Partial<ContentTyp
   fs.writeFileSync(CONFIG_PATH, yamlBody, "utf-8");
   resetRegistry();
   console.log(`[ContentTypes] Updated config for "${singular}"`);
+}
+
+export function addContentType(name: string, config: ContentTypeEntry): void {
+  const reg = loadRegistry();
+  if (reg.types[name]) {
+    throw new Error(`Content type "${name}" already exists`);
+  }
+
+  const allTypes = { ...reg.types, [name]: config };
+  const yamlBody = yaml.dump(allTypes, { lineWidth: 120, noRefs: true, sortKeys: false });
+  fs.writeFileSync(CONFIG_PATH, yamlBody, "utf-8");
+
+  const dirPath = path.join(process.cwd(), "marketing-content", config.directory);
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+    console.log(`[ContentTypes] Created directory: marketing-content/${config.directory}/`);
+  }
+
+  resetRegistry();
+  console.log(`[ContentTypes] Added content type "${name}"`);
 }
 
 export function resetRegistry(): void {

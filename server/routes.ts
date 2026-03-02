@@ -84,8 +84,10 @@ import {
   hasDatabaseSingle,
   getContentTypeConfig,
   updateContentTypeConfig,
+  addContentType,
   getDatabaseConfig,
   getLabel,
+  normalizeUrlPattern,
 } from "./content-types";
 import { resolveSingleVars } from "./single-resolver";
 import { normalizeLocale } from "@shared/locale";
@@ -1597,7 +1599,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         result.push({
           name: type,
           label: getLabel(type),
-          folder: config.folder,
+          directory: config.directory,
           has_database: !!config.database?.slug,
           database_slug: config.database?.slug || null,
           has_field_mapping: !!(config.database?.field_mapping && Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0),
@@ -1612,6 +1614,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/content-types", (req, res) => {
+    try {
+      const { name, directory, url_pattern } = req.body;
+      if (!name || typeof name !== "string") {
+        res.status(400).json({ error: "Name is required" });
+        return;
+      }
+      if (!/^[a-z][a-z0-9_-]*$/.test(name)) {
+        res.status(400).json({ error: "Name must be lowercase alphanumeric (hyphens and underscores allowed)" });
+        return;
+      }
+      if (!url_pattern) {
+        res.status(400).json({ error: "URL pattern is required" });
+        return;
+      }
+
+      const normalizedPattern = normalizeUrlPattern(url_pattern);
+      const dir = directory || name;
+
+      addContentType(name, {
+        directory: dir,
+        url_pattern: normalizedPattern,
+      });
+
+      contentIndex.refresh();
+
+      res.json({
+        success: true,
+        name,
+        directory: dir,
+        url_pattern: normalizedPattern,
+      });
+    } catch (err) {
+      res.status(400).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/content-types/:type/config", (req, res) => {
     try {
       const { type } = req.params;
@@ -1623,7 +1662,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         name: type,
         label: getLabel(type),
-        folder: config.folder,
+        directory: config.directory,
         database: config.database || null,
         url_pattern: config.url_pattern,
         static_entry_count: contentIndex.findByType(type).length,
@@ -2578,7 +2617,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       const entry = entries[0];
-      const basePath = path.join(process.cwd(), entry.folder);
+      const basePath = path.join(process.cwd(), entry.directory);
 
       let targetFile: string;
       if (getType(contentType) === "landing" || allLanguages) {
@@ -2638,7 +2677,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       res.json({
         success: true,
         message: `Redirect added: ${normalizedFrom} -> ${destUrl}`,
-        file: `${entry.folder}/${targetFile}`,
+        file: `${entry.directory}/${targetFile}`,
       });
     } catch (err) {
       console.error("[Debug] Failed to add redirect:", err);
@@ -3608,11 +3647,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   });
 
   // Schema.org API endpoints
-  app.get("/api/content-types", (_req, res) => {
-    const configs = getAllConfigs();
-    res.json(configs);
-  });
-
   app.get("/api/schema", (req, res) => {
     const keys = getAvailableSchemaKeys();
     res.json({ available: keys });
@@ -4736,7 +4770,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(404).json({ error: "Folder not found" });
         return;
       }
-      res.json({ files: entry.files, folder: entry.folder });
+      res.json({ files: entry.files, directory: entry.directory });
     } catch (error) {
       console.error("Error listing folder:", error);
       res.status(500).json({ error: "Failed to list folder" });
@@ -4762,7 +4796,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (matches.length === 1) {
         const entry = matches[0];
         res.json({
-          folder: entry.folder,
+          directory: entry.directory,
           contentType: entry.contentType,
           files: entry.files,
           title: entry.title,
@@ -4771,7 +4805,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.json({
           multiple: true,
           matches: matches.map((e) => ({
-            folder: e.folder,
+            directory: e.directory,
             contentType: e.contentType,
             files: e.files,
             title: e.title,
@@ -6029,7 +6063,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
           const resolved = contentIndex.resolveUrl(sourcePath);
           const foundSourceFolder = resolved
-            ? path.join(process.cwd(), resolved.entry.folder)
+            ? path.join(process.cwd(), resolved.entry.directory)
             : "";
 
           if (foundSourceFolder) {
@@ -6078,7 +6112,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               slugEn: enSlug,
               slugEs: esSlug,
               type,
-              folder: `marketing-content/${getFolder(type)}/${enSlug}`,
+              directory: `marketing-content/${getFolder(type)}/${enSlug}`,
               duplicatedFrom: sourceUrl,
             });
             return;
@@ -6234,7 +6268,7 @@ sections: []
         slugEn: enSlug,
         slugEs: esSlug,
         type,
-        folder: `marketing-content/${getFolder(type)}/${enSlug}`,
+        directory: `marketing-content/${getFolder(type)}/${enSlug}`,
         files:
           createdFiles.length > 0
             ? createdFiles
@@ -6471,7 +6505,7 @@ sections: []
           const resolved = contentIndex.resolveUrl(sourcePath);
           const sourceSlug = resolved?.slug || "";
           const sourceFolderPath = resolved
-            ? path.join(process.cwd(), resolved.entry.folder)
+            ? path.join(process.cwd(), resolved.entry.directory)
             : "";
 
           if (sourceSlug && sourceFolderPath && fs.existsSync(sourceFolderPath)) {
@@ -6510,7 +6544,7 @@ sections: []
               success: true,
               slug,
               locale: landingLocale,
-              folder: `marketing-content/landings/${slug}`,
+              directory: `marketing-content/landings/${slug}`,
               duplicatedFrom: sourceUrl,
             });
             return;
@@ -6557,7 +6591,7 @@ sections: []
         success: true,
         slug,
         locale: landingLocale,
-        folder: `marketing-content/landings/${slug}`,
+        directory: `marketing-content/landings/${slug}`,
         files: ["_common.yml", "promoted.yml"],
       });
     } catch (error) {

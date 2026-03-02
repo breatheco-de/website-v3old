@@ -1434,7 +1434,7 @@ export function DebugBubble() {
       }
       const resolveData = await resolveRes.json();
 
-      const entries: { folder: string; files: string[]; title?: string; contentType: string }[] = resolveData.multiple
+      const entries: { directory: string; files: string[]; title?: string; contentType: string }[] = resolveData.multiple
         ? resolveData.matches
         : [resolveData];
 
@@ -1442,7 +1442,7 @@ export function DebugBubble() {
       for (const entry of entries) {
         for (const filename of entry.files) {
           try {
-            const res = await fetch(`/api/content/file?path=${encodeURIComponent(`${entry.folder}/${filename}`)}`, { headers });
+            const res = await fetch(`/api/content/file?path=${encodeURIComponent(`${entry.directory}/${filename}`)}`, { headers });
             if (!res.ok) continue;
             const text = await res.text();
             const blob = new Blob([text], { type: 'text/yaml' });
