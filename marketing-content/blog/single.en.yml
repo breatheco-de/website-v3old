@@ -16,7 +16,7 @@ sections:
     show_toc: true
     toc_position: side
     max_width: lg
-    content: hola
+    content: {{single.content}}
   - type: cta_banner
     version: "1.0"
     variant: form
