@@ -31,7 +31,6 @@ sections:
       conversion_name: student_application
       submit_label: Postular ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
