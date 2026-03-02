@@ -1350,6 +1350,91 @@
       ],
       "createdAt": "2026-02-26T21:36:39.661Z",
       "name": "cta_banner_europe_en"
+    },
+    {
+      "id": "bind_mm9c2hu5_3khqj9",
+      "component": "cta_banner",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "page",
+          "slug": "awards",
+          "sectionId": "cta_banner-iisf7q"
+        },
+        {
+          "contentType": "page",
+          "slug": "financials",
+          "sectionId": "cta_banner-bqklnj"
+        },
+        {
+          "contentType": "page",
+          "slug": "geekforce-career-support",
+          "sectionId": "cta_banner-jximhl"
+        },
+        {
+          "contentType": "page",
+          "slug": "geeks-vs-others",
+          "sectionId": "cta_banner-gmr9co"
+        },
+        {
+          "contentType": "page",
+          "slug": "graduates-and-projects",
+          "sectionId": "cta_banner-13z48a"
+        },
+        {
+          "contentType": "page",
+          "slug": "job-guarantee",
+          "sectionId": "cta_banner-qcdk0z"
+        },
+        {
+          "contentType": "page",
+          "slug": "learnpack",
+          "sectionId": "cta_banner-9hs26r"
+        },
+        {
+          "contentType": "page",
+          "slug": "online-platform",
+          "sectionId": "cta_banner-wgv8l9"
+        },
+        {
+          "contentType": "page",
+          "slug": "outcomes",
+          "sectionId": "cta_banner-l5m2ie"
+        },
+        {
+          "contentType": "page",
+          "slug": "rigobot-ai-coding-mentor",
+          "sectionId": "cta_banner-yjaogr"
+        },
+        {
+          "contentType": "page",
+          "slug": "scholarships",
+          "sectionId": "cta_banner-41yc1l"
+        },
+        {
+          "contentType": "page",
+          "slug": "testimonials",
+          "sectionId": "cta_banner-kxo25m"
+        },
+        {
+          "contentType": "page",
+          "slug": "soporte-profesional-geekforce",
+          "sectionId": "cta_banner-jximhl"
+        },
+        {
+          "contentType": "page",
+          "slug": "plataforma-online",
+          "sectionId": "cta_banner-wgv8l9"
+        },
+        {
+          "contentType": "page",
+          "slug": "geekpal-support",
+          "sectionId": "cta_banner-13uj6f"
+        }
+      ],
+      "createdAt": "2026-03-02T15:28:08.909Z",
+      "name": "why-4geeks-cta-es",
+      "updatedAt": "2026-03-02T15:43:58.195Z"
     }
   ]
 }

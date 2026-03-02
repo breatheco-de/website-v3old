@@ -11,6 +11,8 @@ meta:
     - /bootcamp/full-stack-es
     - /programas/desarrollador-fullstack
     - /cursos/full-stack
+    - /es/coding-bootcamps/desarrollador-full-stack
+    - /es/blog/coding-bootcamps/desarrollador-full-stack?utm_source=ig&utm_medium=bio&utm_campaign=bioig&utm_location=madrid-spain
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
@@ -683,7 +685,6 @@ sections:
       variant: stacked
       submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
-      automations: hard
       fields:
         email:
           visible: true
@@ -726,7 +727,6 @@ sections:
       conversion_name: student_application
       submit_label: Enviar solicitud
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true

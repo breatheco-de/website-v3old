@@ -503,8 +503,7 @@ sections:
     form:
       variant: stacked
       submit_label: Iniciar Conversación
-      tags: contact_us
-      automations: soft
+      tags: contact-us
       fields:
         email:
           visible: true
@@ -531,12 +530,12 @@ sections:
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
@@ -547,7 +546,6 @@ sections:
       conversion_name: student_application
       submit_label: Enviar solicitud
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true

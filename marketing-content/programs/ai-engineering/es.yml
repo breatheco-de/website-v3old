@@ -727,7 +727,6 @@ sections:
       variant: stacked
       submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
-      automations: hard
       fields:
         email:
           visible: true

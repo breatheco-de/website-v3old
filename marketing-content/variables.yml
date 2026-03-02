@@ -60,14 +60,14 @@ global.global_salary_increase:
 global.global_review_rating:
   default: "4.9"
 global.global_review_count:
-  default: "700"
+  default: "700+"
   conditions:
     - query:
         locale: "es"
-      value: "700"
+      value: "700+"
     - query:
         locale: "en"
-      value: "700"
+      value: "700+"
 global.global_teacher_student_ratio:
   default: "1:7"
   conditions:

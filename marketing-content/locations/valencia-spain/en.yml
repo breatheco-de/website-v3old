@@ -103,7 +103,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Explore our programs
+    heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
@@ -124,7 +124,7 @@ sections:
         icon: Code
         duration: 20 weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
