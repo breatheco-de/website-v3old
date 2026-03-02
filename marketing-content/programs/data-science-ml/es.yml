@@ -592,7 +592,7 @@ sections:
         program:
           visible: false
           required: true
-          default: data-science-ml
+          default: datascience-ml
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
