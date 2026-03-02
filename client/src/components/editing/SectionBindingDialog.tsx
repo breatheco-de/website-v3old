@@ -150,6 +150,7 @@ export function SectionBindingDialog({
         const lower = search.toLowerCase();
         return (
           c.slug.toLowerCase().includes(lower) ||
+          c.localeSlug?.toLowerCase().includes(lower) ||
           c.title?.toLowerCase().includes(lower) ||
           c.contentType.toLowerCase().includes(lower)
         );
@@ -172,6 +173,7 @@ export function SectionBindingDialog({
       const lower = search.toLowerCase();
       return (
         c.slug.toLowerCase().includes(lower) ||
+        c.localeSlug?.toLowerCase().includes(lower) ||
         c.title?.toLowerCase().includes(lower) ||
         c.contentType.toLowerCase().includes(lower)
       );
