@@ -208,15 +208,6 @@ function listCareerPrograms(
   return programs;
 }
 
-function resolveBcSlug(programSlug: string): string {
-  const baseSlug = contentIndex.resolveBaseSlug(programSlug, "program");
-  const commonData = contentIndex.loadCommonData("program", baseSlug);
-  if (commonData?.bc_slug) {
-    return commonData.bc_slug as string;
-  }
-  return programSlug;
-}
-
 function loadLandingPage(slug: string): LandingPage | null {
   const result = contentIndex.loadContent({
     contentType: "landing",
@@ -6695,7 +6686,7 @@ sections: []
         phone: leadData.phone || null,
         email: leadData.email,
         location: leadData.location || null,
-        course: leadData.program ? resolveBcSlug(leadData.program) : null,
+        course: leadData.program || null,
         consent: leadData.consent_whatsapp || false,
         sms_consent: leadData.sms_consent || false,
         consent_email: leadData.consent_email || false,
