@@ -11,7 +11,7 @@ sections:
     version: "1.0"
     variant: simpleTwoColumn
     title: AI-Native Career Programs for High-Demand Tech Roles
-    subtitle: 4Geeks Academy is a U.S.-based coding bootcamp delivering structured training in AI Engineering, Data Science, Software Development, and Cybersecurity. Learn online or in person with hands-on projects, 1:1 mentorship, and long-term career support.
+    subtitle: 4Geeks Academy is a U.S.-based coding bootcamp delivering structured, AI-native training in AI Engineering, Data Science and Machine Learning, Software Development, and Cybersecurity. Learn online or in person with hands-on projects, 1:1 mentorship, and long-term, outcome-driven career support.
     image: https://storage.googleapis.com/4geeks-academy-website/media/Rectangle_5_1766029737050.png
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
