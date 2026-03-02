@@ -60,7 +60,7 @@ global.global_salary_increase:
 global.global_review_rating:
   default: "4.9"
 global.global_review_count:
-  default: "700"
+  default: "700+"
   conditions:
     - query:
         locale: "es"
