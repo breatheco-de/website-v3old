@@ -5,7 +5,7 @@ interface ContentTypeEntry {
   url_pattern: Record<string, string>;
 }
 
-interface ContentTypeApiItem {
+export interface ContentTypeApiItem {
   name: string;
   label: string;
   directory: string;
@@ -18,11 +18,15 @@ interface ContentTypeApiItem {
 
 type ContentTypesMap = Record<string, ContentTypeEntry>;
 
-export function useContentTypes() {
-  const { data } = useQuery<ContentTypeApiItem[]>({
+export function useContentTypesRaw() {
+  return useQuery<ContentTypeApiItem[]>({
     queryKey: ["/api/content-types"],
     staleTime: Infinity,
   });
+}
+
+export function useContentTypes() {
+  const { data } = useContentTypesRaw();
 
   if (!data) return null;
 

@@ -236,7 +236,7 @@ export function DebugBubble() {
   
   // Create content modal state
   const [createContentModalOpen, setCreateContentModalOpen] = useState(false);
-  const [createContentType, setCreateContentType] = useState<'location' | 'page' | 'program' | 'landing'>('page');
+  const [createContentType, setCreateContentType] = useState<string>('page');
   const [createContentTitle, setCreateContentTitle] = useState("");
   const [createContentSlugEn, setCreateContentSlugEn] = useState("");
   const [createContentSlugEs, setCreateContentSlugEs] = useState("");

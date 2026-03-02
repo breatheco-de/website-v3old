@@ -219,4 +219,4 @@ export interface SeoLocation {
 }
 
 export type SlugCheckStatus = 'idle' | 'checking' | 'available' | 'taken';
-export type ContentTypeValue = 'location' | 'page' | 'program' | 'landing';
+export type ContentTypeValue = string;

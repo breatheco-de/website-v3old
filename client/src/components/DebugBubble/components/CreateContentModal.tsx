@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   IconCopy,
   IconPlus,
@@ -26,7 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { buildContentUrlFromPattern } from "@/lib/locale";
-import { useContentTypes } from "@/hooks/useContentTypes";
+import { useContentTypes, useContentTypesRaw } from "@/hooks/useContentTypes";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { LocaleFlag } from "./LocaleFlag";
 import type { ContentTypeValue, SlugCheckStatus, SitemapUrl } from "../types";
@@ -100,6 +100,12 @@ export function CreateContentModal({
 }: CreateContentModalProps) {
   const [showFiles, setShowFiles] = useState(false);
   const contentTypesMap = useContentTypes();
+  const { data: rawContentTypes } = useContentTypesRaw();
+
+  const creatableTypes = useMemo(() => {
+    if (!rawContentTypes) return [];
+    return rawContentTypes.filter(ct => !ct.has_database);
+  }, [rawContentTypes]);
 
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
@@ -137,7 +143,7 @@ export function CreateContentModal({
             {duplicatingPage ? (
               <>Duplicating: <strong>{duplicatingPage.label}</strong></>
             ) : (
-              <>Create a new page, location, program, or landing with starter YAML files.</>
+              <>Create a new content entry with starter YAML files.</>
             )}
           </DialogDescription>
         </DialogHeader>
@@ -150,7 +156,7 @@ export function CreateContentModal({
               <Select 
                 value={createContentType} 
                 onValueChange={(v) => {
-                  setCreateContentType(v as 'location' | 'page' | 'program' | 'landing');
+                  setCreateContentType(v);
                   if (v !== 'landing') {
                     if (createContentSlugEn) {
                       setCreateContentSlugEnStatus('checking');
@@ -190,10 +196,9 @@ export function CreateContentModal({
                   <SelectValue placeholder="Select type..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="page">Page</SelectItem>
-                  <SelectItem value="program">Program</SelectItem>
-                  <SelectItem value="location">Location</SelectItem>
-                  <SelectItem value="landing">Landing</SelectItem>
+                  {creatableTypes.map(ct => (
+                    <SelectItem key={ct.name} value={ct.name}>{ct.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               
@@ -553,7 +558,7 @@ export function CreateContentModal({
                 </button>
                 {showFiles && (
                   <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
-                    <div>marketing-content/{createContentType === 'location' ? 'locations' : createContentType === 'program' ? 'programs' : 'pages'}/{createContentSlugEn}/</div>
+                    <div>marketing-content/{contentTypesMap?.[createContentType]?.directory || createContentType}/{createContentSlugEn}/</div>
                     <div className="pl-4">├── _common.yml</div>
                     <div className="pl-4">├── en.yml</div>
                     <div className="pl-4">└── es.yml</div>
