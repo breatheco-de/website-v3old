@@ -24,7 +24,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SUPPORTED_LOCALES } from "@shared/locale";
 import type { MenuView } from "../types";
 
 interface ContentTypeSummary {
@@ -41,13 +40,29 @@ interface ContentTypesViewProps {
   setMenuView: (v: MenuView) => void;
 }
 
+interface LocaleEntry {
+  code: string;
+  label: string;
+}
+
+interface LocaleSettings {
+  default_locale: string;
+  supported_locales: LocaleEntry[];
+}
+
 function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const { toast } = useToast();
+  const { data: localeSettings } = useQuery<LocaleSettings>({
+    queryKey: ["/api/settings/locales"],
+    staleTime: Infinity,
+  });
+  const defaultLocales = localeSettings?.supported_locales ?? [{ code: "en", label: "English" }, { code: "es", label: "Spanish" }];
+
   const [name, setName] = useState("");
   const [patternMode, setPatternMode] = useState<"shorthand" | "per-locale">("shorthand");
   const [shorthandPattern, setShorthandPattern] = useState("");
   const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>(
-    SUPPORTED_LOCALES.map(l => ({ locale: l, path: "" }))
+    defaultLocales.map(l => ({ locale: l.code, path: "" }))
   );
   const [newLocale, setNewLocale] = useState("");
   const [directory, setDirectory] = useState("");
@@ -85,7 +100,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   function resetForm() {
     setName("");
     setShorthandPattern("");
-    setLocalePatterns(SUPPORTED_LOCALES.map(l => ({ locale: l, path: "" })));
+    setLocalePatterns(defaultLocales.map(l => ({ locale: l.code, path: "" })));
     setNewLocale("");
     setDirectory("");
     setShowAdvanced(false);

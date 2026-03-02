@@ -110,8 +110,8 @@ interface PageDiagnostics {
     missingFromDisk: string[];
   };
   translations: {
-    hasEnglish: boolean;
-    hasSpanish: boolean;
+    locale: string;
+    availableLocales: string[];
     counterpartUrl: string | null;
   };
   redirects: { incomingRedirects: string[] };
@@ -907,14 +907,12 @@ function PageAnalysisTab() {
               </CardHeader>
               <CardContent className="space-y-2">
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant={pageDiag.translations.hasEnglish ? "secondary" : "outline"} className="gap-1">
-                    {pageDiag.translations.hasEnglish ? <IconCheck className="h-3 w-3" /> : <IconX className="h-3 w-3" />}
-                    EN
-                  </Badge>
-                  <Badge variant={pageDiag.translations.hasSpanish ? "secondary" : "outline"} className="gap-1">
-                    {pageDiag.translations.hasSpanish ? <IconCheck className="h-3 w-3" /> : <IconX className="h-3 w-3" />}
-                    ES
-                  </Badge>
+                  {pageDiag.translations.availableLocales.map((loc) => (
+                    <Badge key={loc} variant="secondary" className="gap-1">
+                      <IconCheck className="h-3 w-3" />
+                      {loc.toUpperCase()}
+                    </Badge>
+                  ))}
                 </div>
                 {pageDiag.translations.counterpartUrl && (
                   <Link href={`/private/diagnostics?url=${encodeURIComponent(pageDiag.translations.counterpartUrl)}`}>

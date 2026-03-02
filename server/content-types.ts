@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
-import { SUPPORTED_LOCALES } from "@shared/locale";
+import { getSupportedLocales, getDefaultLocale } from "./settings";
 
 export interface DatabaseConfig {
   slug: string;
@@ -31,7 +31,7 @@ export function normalizeUrlPattern(raw: string | Record<string, string>): Recor
   if (typeof raw !== "string") return {};
   if (raw.includes(":locale")) {
     const result: Record<string, string> = {};
-    for (const locale of SUPPORTED_LOCALES) {
+    for (const locale of getSupportedLocales()) {
       result[locale] = raw.replaceAll(":locale", locale);
     }
     return result;
@@ -186,7 +186,7 @@ export function getLocaleDefault(type: string): string {
   if (localeConfig && typeof localeConfig === "object" && localeConfig.default) {
     return localeConfig.default;
   }
-  return "en";
+  return getDefaultLocale();
 }
 
 export function getIndexes(type: string): string[] {

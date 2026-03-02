@@ -91,6 +91,7 @@ import {
 } from "./content-types";
 import { resolveSingleVars } from "./single-resolver";
 import { normalizeLocale } from "@shared/locale";
+import { getSupportedLocales, getDefaultLocale, getLocaleEntries } from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
@@ -236,7 +237,7 @@ function listLandingPages(): Array<{
     const landing = loadLandingPage(slug);
     if (landing) {
       const commonData = contentIndex.loadCommonData("landing", slug);
-      const locale = (commonData?.locale as string) || "en";
+      const locale = (commonData?.locale as string) || getDefaultLocale();
       const landingSlug = landing.slug || slug;
       const landingTitle = landing.title || "";
       if (landingTitle) {
@@ -1156,7 +1157,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Get locale from _common.yml
     const commonData = contentIndex.loadCommonData("landing", slug);
-    const locale = (commonData?.locale as string) || "en";
+    const locale = (commonData?.locale as string) || getDefaultLocale();
 
     let landing: LandingPage | null = null;
     let experimentInfo: {
@@ -1649,6 +1650,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (err) {
       res.status(400).json({ error: String(err) });
     }
+  });
+
+  app.get("/api/settings/locales", (_req, res) => {
+    res.json({
+      default_locale: getDefaultLocale(),
+      supported_locales: getLocaleEntries(),
+    });
   });
 
   app.get("/api/content-types/:type/config", (req, res) => {
@@ -2921,7 +2929,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       res.status(400).json({ error: "Missing 'url' query parameter" });
       return;
     }
-    const locale = (req.query.locale as string) || "en";
+    const locale = (req.query.locale as string) || getDefaultLocale();
     const result = testRedirect(url, locale);
 
     if (result.match && result.resolvedTo) {
@@ -3042,7 +3050,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
 
     // Build filename based on locale (e.g., main-navbar.es.yml for Spanish)
-    const fileBaseName = locale && locale !== "en" ? `${name}.${locale}` : name;
+    const fileBaseName = locale && locale !== getDefaultLocale() ? `${name}.${locale}` : name;
 
     // Try both .yml and .yaml extensions
     let filePath = path.join(menusDir, `${fileBaseName}.yml`);
@@ -3482,10 +3490,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
 
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
-    const isEnglish = locale === "en";
+    const isDefaultLocale = locale === getDefaultLocale();
 
     // Build filename based on locale
-    const fileBaseName = isEnglish ? name : `${name}.${locale}`;
+    const fileBaseName = isDefaultLocale ? name : `${name}.${locale}`;
 
     let filePath = path.join(menusDir, `${fileBaseName}.yml`);
     if (!fs.existsSync(filePath)) {
@@ -3688,7 +3696,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   app.get("/api/seo-preview/:contentType/:slug", (req, res) => {
     try {
       const { contentType, slug } = req.params;
-      const locale = normalizeLocale((req.query.locale as string) || "en");
+      const locale = normalizeLocale((req.query.locale as string) || getDefaultLocale());
 
       if (!isValidType(contentType)) {
         res
@@ -4882,7 +4890,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       const contentType = req.query.contentType as string;
       const slug = req.query.slug as string;
-      const locale = (req.query.locale as string) || "en";
+      const locale = (req.query.locale as string) || getDefaultLocale();
 
       if (!contentType || !slug) {
         res.status(400).json({ error: "contentType and slug are required" });
@@ -5856,8 +5864,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     } else if (locale) {
       urlsToCheck.push(contentIndex.buildUrl(ctKey, locale, slug));
     } else {
-      urlsToCheck.push(contentIndex.buildUrl(ctKey, "en", slug));
-      urlsToCheck.push(contentIndex.buildUrl(ctKey, "es", slug));
+      for (const loc of getSupportedLocales()) {
+        urlsToCheck.push(contentIndex.buildUrl(ctKey, loc, slug));
+      }
     }
 
     const redirects = contentIndex.getRedirects();
@@ -6454,9 +6463,9 @@ sections: []
         return;
       }
 
-      const validLocales = ["en", "es"];
+      const supportedLocales = getSupportedLocales();
       const landingLocale =
-        locale && validLocales.includes(locale) ? locale : "en";
+        locale && supportedLocales.includes(locale) ? locale : getDefaultLocale();
 
       // Validate slug format
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -7366,12 +7375,11 @@ sections: []
         }
       });
 
-      const counterpartLocale = file.locale === "en" ? "es" : "en";
       const counterpartFile = context.contentFiles.find(
         (f: any) =>
           f.slug === file.slug &&
           f.type === file.type &&
-          f.locale === counterpartLocale,
+          f.locale !== file.locale,
       );
       const counterpartUrl = counterpartFile
         ? getCanonicalUrl(counterpartFile)
@@ -7633,10 +7641,11 @@ sections: []
         },
 
         translations: {
-          hasEnglish: file.locale === "en" || !!counterpartFile,
-          hasSpanish:
-            file.locale === "es" ||
-            (counterpartFile && counterpartFile.locale === "es"),
+          locale: file.locale,
+          availableLocales: [
+            file.locale,
+            ...(counterpartFile ? [counterpartFile.locale] : []),
+          ],
           counterpartUrl,
         },
 
@@ -7778,7 +7787,7 @@ sections: []
         return;
       }
 
-      const locale = req.body.locale || "en";
+      const locale = req.body.locale || getDefaultLocale();
       const analysis = await analyzeDataPayload({
         sampleData,
         availableKeys,
@@ -7825,7 +7834,7 @@ sections: []
         return;
       }
 
-      const locale = req.body.locale || "en";
+      const locale = req.body.locale || getDefaultLocale();
       const config = await generateTableFromPayload({
         sampleData,
         availableKeys,
@@ -8106,7 +8115,7 @@ sections: []
       try {
         const posts = await databaseManager.fetchMappedItems(resolved.contentType);
         const localeKey = getLocaleKey(resolved.contentType) || "lang";
-        const locale = resolved.patternLocale && resolved.patternLocale !== "default" ? resolved.patternLocale : "en";
+        const locale = resolved.patternLocale && resolved.patternLocale !== "default" ? resolved.patternLocale : getDefaultLocale();
         const post = posts.find(p =>
           p.slug === resolved.slug && (p as any)[localeKey] === locale
         ) || posts.find(p => p.slug === resolved.slug);

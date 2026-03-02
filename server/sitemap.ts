@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
 import { getContentTypeConfig, getLocaleKey, getFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
+import { getSupportedLocales } from "./settings";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -227,7 +228,7 @@ function getAvailableTemplatePages(): AvailableTemplatePage[] {
 
       for (const locale of locales) {
         // Only process locale files (en, es)
-        if (!["en", "es"].includes(locale)) continue;
+        if (!getSupportedLocales().includes(locale)) continue;
 
         const merged = loadMergedContent("page", dirSlug, locale);
         if (!merged) continue;
