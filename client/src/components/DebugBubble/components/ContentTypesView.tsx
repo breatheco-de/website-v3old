@@ -44,8 +44,11 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [name, setName] = useState("");
   const [patternMode, setPatternMode] = useState<"shorthand" | "per-locale">("shorthand");
   const [shorthandPattern, setShorthandPattern] = useState("");
-  const [enPattern, setEnPattern] = useState("");
-  const [esPattern, setEsPattern] = useState("");
+  const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>([
+    { locale: "en", path: "" },
+    { locale: "es", path: "" },
+  ]);
+  const [newLocale, setNewLocale] = useState("");
   const [directory, setDirectory] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showFiles, setShowFiles] = useState(false);
@@ -81,8 +84,8 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   function resetForm() {
     setName("");
     setShorthandPattern("");
-    setEnPattern("");
-    setEsPattern("");
+    setLocalePatterns([{ locale: "en", path: "" }, { locale: "es", path: "" }]);
+    setNewLocale("");
     setDirectory("");
     setShowAdvanced(false);
     setShowFiles(false);
@@ -102,13 +105,37 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
     }
   }
 
+  function updateLocalePattern(index: number, path: string) {
+    setLocalePatterns(prev => prev.map((lp, i) => i === index ? { ...lp, path } : lp));
+  }
+
+  function removeLocale(index: number) {
+    setLocalePatterns(prev => prev.filter((_, i) => i !== index));
+  }
+
+  function addLocale() {
+    const loc = newLocale.trim().toLowerCase();
+    if (!loc || localePatterns.some(lp => lp.locale === loc)) return;
+    setLocalePatterns(prev => [...prev, { locale: loc, path: "" }]);
+    setNewLocale("");
+  }
+
+  const allLocalesFilled = localePatterns.length > 0 && localePatterns.every(lp => lp.path.trim() !== "");
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name || nameError) return;
 
-    const url_pattern = patternMode === "shorthand"
-      ? shorthandPattern
-      : { en: `/en${enPattern}`, es: `/es${esPattern}` };
+    let url_pattern: string | Record<string, string>;
+    if (patternMode === "shorthand") {
+      url_pattern = shorthandPattern;
+    } else {
+      const map: Record<string, string> = {};
+      for (const lp of localePatterns) {
+        map[lp.locale] = `/${lp.locale}${lp.path}`;
+      }
+      url_pattern = map;
+    }
 
     mutation.mutate({
       name,
