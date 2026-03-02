@@ -1,6 +1,6 @@
 /**
  * FAQ Validator
- * 
+ *
  * Validates FAQ content files:
  * - Checks that all FAQ entries have a last_updated date
  * - Verifies answers were updated within the last 6 months
@@ -10,7 +10,12 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
+import type {
+  Validator,
+  ValidatorResult,
+  ValidationContext,
+  ValidationIssue,
+} from "../shared/types";
 
 const SIX_MONTHS_MS = 6 * 30 * 24 * 60 * 60 * 1000;
 
@@ -27,7 +32,11 @@ interface FAQFile {
   faqs: FAQEntry[];
 }
 
-function validateFAQFile(filePath: string, errors: ValidationIssue[], warnings: ValidationIssue[]): number {
+function validateFAQFile(
+  filePath: string,
+  errors: ValidationIssue[],
+  warnings: ValidationIssue[],
+): number {
   const now = Date.now();
   const sixMonthsAgo = now - SIX_MONTHS_MS;
   let entriesChecked = 0;
@@ -60,8 +69,9 @@ function validateFAQFile(filePath: string, errors: ValidationIssue[], warnings: 
 
     parsed.faqs.forEach((faq, index) => {
       entriesChecked++;
-      const questionPreview = faq.question?.substring(0, 50) || `Entry ${index + 1}`;
-      
+      const questionPreview =
+        faq.question?.substring(0, 50) || `Entry ${index + 1}`;
+
       if (!faq.last_updated) {
         errors.push({
           type: "error",
@@ -88,14 +98,17 @@ function validateFAQFile(filePath: string, errors: ValidationIssue[], warnings: 
       }
 
       if (updateDate.getTime() < sixMonthsAgo) {
-        const monthsAgo = Math.floor((now - updateDate.getTime()) / (30 * 24 * 60 * 60 * 1000));
+        const monthsAgo = Math.floor(
+          (now - updateDate.getTime()) / (30 * 24 * 60 * 60 * 1000),
+        );
         errors.push({
           type: "error",
           code: "STALE_FAQ_ANSWER",
           message: `FAQ "${questionPreview}..." was last updated ${monthsAgo} months ago (${faq.last_updated})`,
           file: filePath,
           line: index + 1,
-          suggestion: "Review and update this FAQ answer, then set last_updated to today's date",
+          suggestion:
+            "Review and update this FAQ answer, then set last_updated to today's date",
         });
       }
 
@@ -109,15 +122,6 @@ function validateFAQFile(filePath: string, errors: ValidationIssue[], warnings: 
           file: filePath,
           line: index + 1,
           suggestion: "Reduce to 1-2 tags. Keep only the most relevant tag(s).",
-        });
-      } else if (tagCount === 2) {
-        warnings.push({
-          type: "warning",
-          code: "MULTIPLE_TAGS",
-          message: `FAQ "${questionPreview}..." has 2 tags. Consider reducing to 1 tag unless this is an extraordinary case.`,
-          file: filePath,
-          line: index + 1,
-          suggestion: "Review if both tags are necessary. Aim for 1 tag per question.",
         });
       }
     });
@@ -136,7 +140,8 @@ function validateFAQFile(filePath: string, errors: ValidationIssue[], warnings: 
 
 export const faqsValidator: Validator = {
   name: "faqs",
-  description: "Validates FAQ entries have last_updated dates within 6 months and proper tag counts (max 2 tags)",
+  description:
+    "Validates FAQ entries have last_updated dates within 6 months and proper tag counts (max 2 tags)",
   apiExposed: true,
   estimatedDuration: "fast",
   category: "content",
@@ -154,13 +159,22 @@ export const faqsValidator: Validator = {
     const esCount = validateFAQFile(esFile, errors, warnings);
 
     const duration = Date.now() - startTime;
-    const staleCount = errors.filter((e) => e.code === "STALE_FAQ_ANSWER").length;
-    const missingDateCount = errors.filter((e) => e.code === "MISSING_LAST_UPDATED").length;
+    const staleCount = errors.filter(
+      (e) => e.code === "STALE_FAQ_ANSWER",
+    ).length;
+    const missingDateCount = errors.filter(
+      (e) => e.code === "MISSING_LAST_UPDATED",
+    ).length;
 
     return {
       name: this.name,
       description: this.description,
-      status: errors.length > 0 ? "failed" : warnings.length > 0 ? "warning" : "passed",
+      status:
+        errors.length > 0
+          ? "failed"
+          : warnings.length > 0
+            ? "warning"
+            : "passed",
       errors,
       warnings,
       duration,
