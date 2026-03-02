@@ -1425,11 +1425,16 @@
           "contentType": "page",
           "slug": "plataforma-online",
           "sectionId": "cta_banner-wgv8l9"
+        },
+        {
+          "contentType": "page",
+          "slug": "geekpal-support",
+          "sectionId": "cta_banner-13uj6f"
         }
       ],
       "createdAt": "2026-03-02T15:28:08.909Z",
       "name": "why-4geeks-cta-es",
-      "updatedAt": "2026-03-02T15:43:10.006Z"
+      "updatedAt": "2026-03-02T15:43:58.195Z"
     }
   ]
 }
