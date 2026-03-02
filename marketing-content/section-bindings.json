@@ -1420,10 +1420,16 @@
           "contentType": "page",
           "slug": "testimonials",
           "sectionId": "cta_banner-kxo25m"
+        },
+        {
+          "contentType": "page",
+          "slug": "soporte-profesional-geekforce",
+          "sectionId": "cta_banner-jximhl"
         }
       ],
       "createdAt": "2026-03-02T15:28:08.909Z",
-      "name": "why-4geeks-cta-es"
+      "name": "why-4geeks-cta-es",
+      "updatedAt": "2026-03-02T15:30:20.613Z"
     }
   ]
 }
