@@ -1425,11 +1425,16 @@
           "contentType": "page",
           "slug": "soporte-profesional-geekforce",
           "sectionId": "cta_banner-jximhl"
+        },
+        {
+          "contentType": "page",
+          "slug": "plataforma-online",
+          "sectionId": "cta_banner-wgv8l9"
         }
       ],
       "createdAt": "2026-03-02T15:28:08.909Z",
       "name": "why-4geeks-cta-es",
-      "updatedAt": "2026-03-02T15:30:20.613Z"
+      "updatedAt": "2026-03-02T15:42:17.566Z"
     }
   ]
 }
