@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { MenuView } from "../types";
 
 interface ContentTypeSummary {
@@ -183,7 +184,20 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
             </div>
             {patternMode === "shorthand" ? (
               <div className="flex items-center gap-0">
-                <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">/:locale</span>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span
+                      className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0 cursor-help"
+                      data-testid="tooltip-trigger-locale"
+                    >
+                      /:locale
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="max-w-64 text-xs" data-testid="tooltip-content-locale">
+                    <p className="font-medium mb-1">:locale represents the language code</p>
+                    <p>Each URL will start with the locale prefix. For example: <span className="font-mono">/en{shorthandPattern || `/${name || "type"}/:slug`}</span> for English, <span className="font-mono">/es{shorthandPattern || `/${name || "type"}/:slug`}</span> for Spanish.</p>
+                  </TooltipContent>
+                </Tooltip>
                 <Input
                   placeholder="/my-type/:slug"
                   value={shorthandPattern}
