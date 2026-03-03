@@ -1251,12 +1251,15 @@ function FieldValidationIndicator({ result }: { result: FieldValidationResult | 
   return <IconAlertTriangle className="h-3.5 w-3.5 text-destructive flex-shrink-0" data-testid="icon-validation-invalid" />;
 }
 
-function FieldValidationMessage({ result, fieldKey }: { result: FieldValidationResult | "loading" | null | undefined; fieldKey: string }) {
+function FieldValidationMessage({ result, fieldKey, source }: { result: FieldValidationResult | "loading" | null | undefined; fieldKey: string; source?: string }) {
   if (!result || result === "loading" || result.valid) return null;
+  const displaySource = source || fieldKey;
+  const allMissing = result.found === 0;
   return (
     <p className="text-[11px] text-destructive pl-[7.5rem]" data-testid={`text-validation-error-${fieldKey}`}>
-      Missing in: {result.missing.slice(0, 5).join(", ")}{result.missing.length > 5 ? ` (+${result.missing.length - 5} more)` : ""}
-      <span className="text-muted-foreground ml-1">({result.found}/{result.total} entries)</span>
+      Source property "<span className="font-mono font-medium">{displaySource}</span>" was not found in {allMissing ? "any" : "some"} content {result.total === 1 ? "entry" : "entries"}.
+      {" "}{allMissing ? "None" : `Only ${result.found}`} of {result.total} {result.total === 1 ? "entry has" : "entries have"} this property.
+      {!allMissing && <>{" "}Affected: {result.missing.slice(0, 5).join(", ")}{result.missing.length > 5 ? ` (+${result.missing.length - 5} more)` : ""}</>}
     </p>
   );
 }
@@ -1603,7 +1606,7 @@ function FieldMappingDialog({
                             <IconTrashX className="h-3.5 w-3.5" />
                           </Button>
                         </div>
-                        {!isFn && !isDbBacked && <FieldValidationMessage result={vResult} fieldKey={key} />}
+                        {!isFn && !isDbBacked && <FieldValidationMessage result={vResult} fieldKey={key} source={mappings[key]} />}
                       </div>
                     );
                   })}
@@ -1642,7 +1645,7 @@ function FieldMappingDialog({
                     <IconCheck className="h-3.5 w-3.5" />
                   </Button>
                 </div>
-                {!isDbBacked && <FieldValidationMessage result={newValueValidation} fieldKey="__new" />}
+                {!isDbBacked && <FieldValidationMessage result={newValueValidation} fieldKey="__new" source={newValue.trim() || newKey.trim()} />}
               </div>
             </div>
 
