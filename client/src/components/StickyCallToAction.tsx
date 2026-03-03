@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { IconX, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -6,6 +6,49 @@ import { useEditModeOptional } from "@/contexts/EditModeContext";
 import type { LeadFormData } from "@shared/schema";
 
 const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.LeadForm })));
+
+const INLINE_FORM_SELECTOR = "[data-hero-inline-form]";
+
+function useInlineFormVisible() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    let intersectionObserver: IntersectionObserver | null = null;
+    let mutationObserver: MutationObserver | null = null;
+
+    function observeElement(el: Element) {
+      if (intersectionObserver) intersectionObserver.disconnect();
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => setIsVisible(entry.isIntersecting),
+        { threshold: 0 }
+      );
+      intersectionObserver.observe(el);
+    }
+
+    const existing = document.querySelector(INLINE_FORM_SELECTOR);
+    if (existing) {
+      observeElement(existing);
+    }
+
+    mutationObserver = new MutationObserver(() => {
+      const el = document.querySelector(INLINE_FORM_SELECTOR);
+      if (el) {
+        observeElement(el);
+      } else {
+        if (intersectionObserver) intersectionObserver.disconnect();
+        setIsVisible(false);
+      }
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      intersectionObserver?.disconnect();
+      mutationObserver?.disconnect();
+    };
+  }, []);
+
+  return isVisible;
+}
 
 export interface StickyCtaData {
   type: "sticky_cta";
@@ -37,6 +80,7 @@ function FormSkeleton() {
 export function StickyCallToAction({ data, landingLocations }: StickyCallToActionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const isHiddenByForm = useInlineFormVisible();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
 
@@ -74,8 +118,9 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg",
-        isExpanded && "max-h-[80vh] overflow-auto"
+        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg transition-transform duration-300",
+        isExpanded && "max-h-[80vh] overflow-auto",
+        isHiddenByForm && "translate-y-full"
       )}
       data-testid="sticky-cta-bar"
     >
