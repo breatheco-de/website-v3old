@@ -623,6 +623,23 @@ class ContentIndex {
     return this.localeSlugMap.get(`${slug}:${normalized}`) || slug;
   }
 
+  getLocaleSlug(baseSlug: string, contentType: string, locale: string): string {
+    this.ensureInitialized();
+    try {
+      const normalized = this.normalizeType(contentType);
+      const folderPath = this.getContentFolderPath(normalized, baseSlug);
+      const localeFile = path.join(folderPath, `${locale}.yml`);
+      if (fs.existsSync(localeFile)) {
+        const raw = fs.readFileSync(localeFile, "utf-8");
+        const parsed = this.safeYamlLoad(raw);
+        if (parsed?.slug && typeof parsed.slug === "string") {
+          return parsed.slug;
+        }
+      }
+    } catch {}
+    return baseSlug;
+  }
+
   getLocaleUrls(slug: string, contentType: string): Record<string, string> {
     this.ensureInitialized();
     const entries = this.findBySlug(slug, { contentType });

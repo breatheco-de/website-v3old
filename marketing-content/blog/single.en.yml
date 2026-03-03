@@ -16,4 +16,4 @@ sections:
     show_toc: true
     toc_position: side
     max_width: lg
-    content: {{ single.content }}
+    content: {{single.content}}

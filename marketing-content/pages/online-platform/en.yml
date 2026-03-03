@@ -138,7 +138,6 @@ sections:
       variant: stacked
       submit_label: Apply Now
       tags: website-lead
-      automations: hard
       fields:
         email:
           visible: true

@@ -126,7 +126,7 @@ sections:
         icon: Code
         duration: 20 weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
@@ -135,7 +135,7 @@ sections:
             text: API Development
           - icon: ""
             text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))

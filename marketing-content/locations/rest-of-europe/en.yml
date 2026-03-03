@@ -9,7 +9,7 @@ meta:
     - /us/coding-campus/europe-online-coding-bootcamp
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Learn To Code in Europe
     subtitle: Learn to code in Europe from home with live instruction, unlimited mentorship, and lifetime career support. Join our European community and grow from anywhere.
@@ -19,7 +19,7 @@ sections:
         url: /en/apply
         variant: primary
       - text: Download Syllabus
-        url: '#bottom'
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
@@ -67,7 +67,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -95,15 +95,15 @@ sections:
         url: https://youtu.be/EcqasocRKHo
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
-    heading: Explore our programs
+    heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
@@ -116,7 +116,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: 'Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  '
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -124,16 +124,16 @@ sections:
         icon: Code
         duration: 20 weeks
         label: Updated in 2026
-        title: Full Stack Software Development
+        title: Full Stack Development with AI
         badges:
           - icon: Code
             text: React, Node.js & Python
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -147,7 +147,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: 'Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  '
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -161,14 +161,14 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: 'Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  '
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-i7pdmx
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
@@ -226,7 +226,7 @@ sections:
         title: Tailor-Made Career Support
         description: Customized advice, guidance, and training based on each job opportunity and your unique profile.
   - type: testimonials
-    version: '1.0'
+    version: "1.0"
     title: Europe Graduate Success Stories
     filter_by_location: rest-of-europe
     marginY:
@@ -286,7 +286,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
@@ -330,7 +330,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-pxlz4m
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

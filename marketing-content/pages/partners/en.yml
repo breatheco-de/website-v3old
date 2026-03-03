@@ -19,9 +19,7 @@ sections:
     variant: simpleTwoColumn
     title: Building the Future of Tech, Together
     subtitle: 4Geeks Academy partners with universities, nonprofits, workforce initiatives, and global organizations to expand access to tech education, place diverse talent, and bridge the digital skills gap, creating stronger career pathways and a workforce ready for the AI era.
-    image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
-      alt: Students collaborating in a tech workspace
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
     cta_buttons:
       - text: Join our partnership network
         url: "#apply-modal"
@@ -42,8 +40,8 @@ sections:
     form:
       variant: stacked
       submit_label: Submit Application
+      tags: contact-us
       automations: soft
-      tags: contact_us
       fields:
         email:
           visible: true
@@ -278,7 +276,7 @@ sections:
             url: https://portalentodigital.fundaciononce.es/becas
             source: ONCE Foundation
         cta:
-          text: Conviértete en partner
+          text: Become a partner
           url: /en/partners
           variant: primary
       - image_id: united_way_event
@@ -495,7 +493,7 @@ sections:
     form:
       variant: stacked
       submit_label: Start the Conversation
-      tags: contact_us
+      tags: contact-us
       automations: soft
       fields:
         email:

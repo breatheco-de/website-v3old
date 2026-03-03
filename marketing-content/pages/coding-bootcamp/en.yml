@@ -10,8 +10,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Join a Coding Bootcamp. Start a New Career.
-    subtitle: Learn to code at one of the most awarded coding bootcamps in the world. Online or in-person. No coding skills required. Join a glogal coding community and get unlimited coding and career support, for life.
+    title: AI-Native Career Programs for High-Demand Tech Roles
+    subtitle: 4Geeks Academy is a U.S.-based coding bootcamp delivering structured, career-focused training in AI Engineering, Data Science and Machine Learning, Software Development, and Cybersecurity. Learn online or in person with hands-on projects, 1:1 mentorship, and long-term career support.
     image: https://storage.googleapis.com/4geeks-academy-website/media/Rectangle_5_1766029737050.png
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:

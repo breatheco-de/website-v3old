@@ -46,7 +46,11 @@ import {
   saveExample,
   loadAllFieldEditors,
 } from "./component-registry";
-import { editContent, editCommonContent, getContentForEdit } from "./content-editor";
+import {
+  editContent,
+  editCommonContent,
+  getContentForEdit,
+} from "./content-editor";
 import { bindingManager } from "./bindings";
 import {
   escapeTemplateVars,
@@ -64,10 +68,7 @@ import {
 import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
-import {
-  contentIndex,
-  type ContentType,
-} from "./content-index";
+import { contentIndex, type ContentType } from "./content-index";
 import {
   getFolder,
   getType,
@@ -92,7 +93,13 @@ import {
 } from "./content-types";
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { resolveSingleVars } from "./single-resolver";
-import { normalizeLocale, getSupportedLocales, getDefaultLocale, getLocaleEntries, updateLocaleSettings } from "./settings";
+import {
+  normalizeLocale,
+  getSupportedLocales,
+  getDefaultLocale,
+  getLocaleEntries,
+  updateLocaleSettings,
+} from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
@@ -107,7 +114,11 @@ import {
   buildFaqPageSchema,
   type FaqSection,
 } from "./ssr-schema";
-import { fetchMarkdownContent, clearMarkdownCache, clearMarkdownCacheByUrl } from "./markdown";
+import {
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "./markdown";
 import { resolveDynamicEntries } from "./dynamic-entries";
 
 const BREATHECODE_HOST =
@@ -196,14 +207,20 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
 
 function listCareerPrograms(
   locale: string,
-): Array<{ slug: string; title: string }> {
+): Array<{ slug: string; title: string; bc_slug: string }> {
   const slugs = contentIndex.listContentSlugs("program");
-  const programs: Array<{ slug: string; title: string }> = [];
+  const programs: Array<{ slug: string; title: string; bc_slug: string }> = [];
 
   for (const slug of slugs) {
     const program = loadCareerProgram(slug, locale);
     if (program) {
-      programs.push({ slug: program.slug, title: program.title });
+      const commonData = contentIndex.loadCommonData("program", slug);
+      const bcSlug = (commonData?.bc_slug as string) || slug;
+      programs.push({
+        slug: program.slug,
+        title: program.title,
+        bc_slug: bcSlug,
+      });
     }
   }
 
@@ -329,7 +346,9 @@ async function loadDatabaseSinglePage(
   const localePath = path.join(templateDir, `single.${locale}.yml`);
 
   if (!fs.existsSync(localePath)) {
-    console.error(`[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`);
+    console.error(
+      `[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`,
+    );
     return null;
   }
 
@@ -346,7 +365,10 @@ async function loadDatabaseSinglePage(
 
   const merged = { ...commonData, ...localeData };
   if (localeData.meta && commonData.meta) {
-    merged.meta = { ...(commonData.meta as Record<string, unknown>), ...(localeData.meta as Record<string, unknown>) };
+    merged.meta = {
+      ...(commonData.meta as Record<string, unknown>),
+      ...(localeData.meta as Record<string, unknown>),
+    };
   }
   if (localeData.sections) {
     merged.sections = localeData.sections;
@@ -380,11 +402,17 @@ async function loadDatabaseSinglePage(
     let matchItem: Record<string, unknown> | undefined;
 
     if (localeKey) {
-      const normalizedLocale = localeSource ? applyTransformIfNeeded(localeSource, locale) : locale;
+      const normalizedLocale = localeSource
+        ? applyTransformIfNeeded(localeSource, locale)
+        : locale;
       matchItem = items.find((item) => {
         const itemLocale = String(item[localeKey] || "");
-        const normalizedItemLocale = localeSource ? applyTransformIfNeeded(localeSource, itemLocale) : itemLocale;
-        return item[lookupKey] === slug && normalizedItemLocale === normalizedLocale;
+        const normalizedItemLocale = localeSource
+          ? applyTransformIfNeeded(localeSource, itemLocale)
+          : itemLocale;
+        return (
+          item[lookupKey] === slug && normalizedItemLocale === normalizedLocale
+        );
       });
       if (!matchItem) {
         matchItem = items.find((item) => item[lookupKey] === slug);
@@ -394,16 +422,22 @@ async function loadDatabaseSinglePage(
     }
 
     if (!matchItem) {
-      console.log(`[DatabaseSingle] Item not found: ${lookupKey}=${slug} in ${dbName}`);
+      console.log(
+        `[DatabaseSingle] Item not found: ${lookupKey}=${slug} in ${dbName}`,
+      );
       return null;
     }
 
     let content = (matchItem as any).content || "";
     if (!content && (matchItem as any).content_url) {
-      content = await fetchMarkdownContent((matchItem as any).content_url as string);
+      content = await fetchMarkdownContent(
+        (matchItem as any).content_url as string,
+      );
     }
     if (!content && (matchItem as any).readme_url) {
-      content = await fetchMarkdownContent((matchItem as any).readme_url as string);
+      content = await fetchMarkdownContent(
+        (matchItem as any).readme_url as string,
+      );
     }
     const singleItem = { ...matchItem, content };
 
@@ -420,7 +454,10 @@ async function loadDatabaseSinglePage(
 
     return page;
   } catch (err) {
-    console.error(`[DatabaseSingle] Error loading ${contentType}/${slug}:`, err);
+    console.error(
+      `[DatabaseSingle] Error loading ${contentType}/${slug}:`,
+      err,
+    );
     return null;
   }
 }
@@ -460,46 +497,81 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { loadSyncStateFromBucket } = await import("./sync-state");
 
   await loadSyncLog();
-  const { getReplitCheckpoint, refreshGithubCommit } = await import("./sync-log");
-  logSync('RESTART', `Server started (instance=${getInstanceId()}, checkpoint=${getReplitCheckpoint()}, env=${process.env.NODE_ENV || 'development'}, pid=${process.pid})`);
+  const { getReplitCheckpoint, refreshGithubCommit } = await import(
+    "./sync-log"
+  );
+  logSync(
+    "RESTART",
+    `Server started (instance=${getInstanceId()}, checkpoint=${getReplitCheckpoint()}, env=${process.env.NODE_ENV || "development"}, pid=${process.pid})`,
+  );
   refreshGithubCommit();
 
   loadSyncStateFromBucket()
     .then(async () => {
-      const { reconcileSyncStateOnStartup, autoPullNonConflicting, ensureWebhook } = await import("./github");
+      const {
+        reconcileSyncStateOnStartup,
+        autoPullNonConflicting,
+        ensureWebhook,
+      } = await import("./github");
       await reconcileSyncStateOnStartup();
-      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
+      const isAutoPullEnabled =
+        process.env.GITHUB_SYNC_ENABLED === "true" &&
+        process.env.GITHUB_AUTO_PULL_ENABLED === "true";
       if (isAutoPullEnabled) {
         const result = await autoPullNonConflicting();
         if (result.pulled.length > 0) {
-          logSync('AUTO-PULL', `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+          logSync(
+            "AUTO-PULL",
+            `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
+          );
         }
         if (result.conflicted.length > 0) {
-          logSync('CONFLICT', `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`);
+          logSync(
+            "CONFLICT",
+            `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`,
+          );
         }
         if (result.errors.length > 0) {
-          logSync('ERROR', `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join('; ')}`);
+          logSync(
+            "ERROR",
+            `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join("; ")}`,
+          );
           setTimeout(async () => {
             try {
               const retry = await autoPullNonConflicting();
               if (retry.pulled.length > 0) {
-                logSync('AUTO-PULL', `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+                logSync(
+                  "AUTO-PULL",
+                  `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
+                );
               }
               if (retry.errors.length > 0) {
-                logSync('ERROR', `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join('; ')}`);
+                logSync(
+                  "ERROR",
+                  `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join("; ")}`,
+                );
               }
             } catch (e) {
-              logSync('ERROR', `Retry failed: ${e instanceof Error ? e.message : String(e)}`);
+              logSync(
+                "ERROR",
+                `Retry failed: ${e instanceof Error ? e.message : String(e)}`,
+              );
             }
           }, 10000);
         }
       } else {
-        logSync('AUTO-PULL', "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'");
+        logSync(
+          "AUTO-PULL",
+          "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'",
+        );
       }
       await ensureWebhook();
     })
     .catch((err) => {
-      logSync('ERROR', `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`);
+      logSync(
+        "ERROR",
+        `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`,
+      );
       console.error("[SyncState] Failed to load/reconcile on startup:", err);
     });
 
@@ -864,11 +936,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             !condition.query ||
             condition.value === undefined
           ) {
-            return res
-              .status(400)
-              .json({
-                error: "index and condition with query and value are required",
-              });
+            return res.status(400).json({
+              error: "index and condition with query and value are required",
+            });
           }
           variableManager.updateCondition(name, index, condition);
           break;
@@ -926,11 +996,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(400).json({ error: "level is required" });
         }
         if (!VALID_LEVELS.includes(level)) {
-          return res
-            .status(400)
-            .json({
-              error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}`,
-            });
+          return res.status(400).json({
+            error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}`,
+          });
         }
         if (level !== "default" && !key) {
           return res
@@ -989,12 +1057,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const sanitized = newName.trim().replace(/\s+/g, "_").toLowerCase();
       if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(sanitized)) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "Invalid variable name. Use letters, numbers, and underscores only.",
-          });
+        return res.status(400).json({
+          error:
+            "Invalid variable name. Use letters, numbers, and underscores only.",
+        });
       }
 
       const affectedFiles = contentIndex.getVariableUsage(oldName);
@@ -1343,7 +1409,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     if (page.sections && Array.isArray(page.sections)) {
-      page.sections = await resolveDynamicEntries(page.sections, locale) as any;
+      page.sections = (await resolveDynamicEntries(
+        page.sections,
+        locale,
+      )) as any;
     }
 
     res.json(page);
@@ -1416,7 +1485,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const posts = await databaseManager.fetchMappedItems("blog");
       const localeKey = getLocaleKey("blog") || "lang";
       let filtered = locale
-        ? posts.filter(p => (p as any)[localeKey] === normalizeLocale(locale))
+        ? posts.filter((p) => (p as any)[localeKey] === normalizeLocale(locale))
         : posts;
 
       if (category) {
@@ -1428,7 +1497,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const categories = Array.from(
         new Set(
           (locale
-            ? posts.filter(p => (p as any)[localeKey] === normalizeLocale(locale))
+            ? posts.filter(
+                (p) => (p as any)[localeKey] === normalizeLocale(locale),
+              )
             : posts
           )
             .map((p: any) => p.category?.slug || "")
@@ -1478,9 +1549,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const localeKey = getLocaleKey("blog") || "lang";
       const normalizedLocale = locale ? normalizeLocale(locale) : undefined;
       const post = normalizedLocale
-        ? posts.find(p => p.slug === slug && (p as any)[localeKey] === normalizedLocale)
-          || posts.find(p => p.slug === slug)
-        : posts.find(p => p.slug === slug);
+        ? posts.find(
+            (p) =>
+              p.slug === slug && (p as any)[localeKey] === normalizedLocale,
+          ) || posts.find((p) => p.slug === slug)
+        : posts.find((p) => p.slug === slug);
 
       if (!post) {
         res.status(404).json({ error: "Blog post not found" });
@@ -1508,7 +1581,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const info = databaseManager.getCacheInfo(dbName);
     res.json({
       exists: !!info,
-      age_hours: info ? Math.round(((Date.now() - new Date(info.fetched_at).getTime()) / (60 * 60 * 1000)) * 10) / 10 : null,
+      age_hours: info
+        ? Math.round(
+            ((Date.now() - new Date(info.fetched_at).getTime()) /
+              (60 * 60 * 1000)) *
+              10,
+          ) / 10
+        : null,
       post_count: info?.item_count ?? null,
     });
   });
@@ -1535,7 +1614,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       await databaseManager.fetchItems(dbName, true).catch(() => {});
     }
     clearMarkdownCache();
-    res.json({ success: true, message: "Blog cache cleared (database will re-fetch on next request)" });
+    res.json({
+      success: true,
+      message: "Blog cache cleared (database will re-fetch on next request)",
+    });
   });
 
   app.get("/api/blog/config", (_req, res) => {
@@ -1570,13 +1652,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const locale = normalizeLocale(req.query.locale as string);
 
       if (!hasDatabaseSingle(contentType)) {
-        res.status(400).json({ error: `Content type "${contentType}" is not database-backed` });
+        res
+          .status(400)
+          .json({
+            error: `Content type "${contentType}" is not database-backed`,
+          });
         return;
       }
 
       const page = await loadDatabaseSinglePage(contentType, slug, locale);
       if (!page) {
-        res.status(404).json({ error: `Item not found: ${contentType}/${slug}` });
+        res
+          .status(404)
+          .json({ error: `Item not found: ${contentType}/${slug}` });
         return;
       }
 
@@ -1600,7 +1688,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           directory: config.directory,
           has_database: !!config.database?.slug,
           database_slug: config.database?.slug || null,
-          has_field_mapping: !!(config.database?.field_mapping && Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0),
+          has_field_mapping: !!(
+            config.database?.field_mapping &&
+            Object.keys(config.database.field_mapping).filter(
+              (k) => !k.startsWith("_"),
+            ).length > 0
+          ),
           url_pattern: config.url_pattern,
           locale_key: config.database?.field_mapping?._locale || null,
           static_entry_count: contentIndex.findByType(type).length,
@@ -1620,7 +1713,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
       if (!/^[a-z][a-z0-9_-]*$/.test(name)) {
-        res.status(400).json({ error: "Name must be lowercase alphanumeric (hyphens and underscores allowed)" });
+        res
+          .status(400)
+          .json({
+            error:
+              "Name must be lowercase alphanumeric (hyphens and underscores allowed)",
+          });
         return;
       }
       if (!url_pattern) {
@@ -1731,7 +1829,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { type } = req.params;
       const config = getContentTypeConfig(type);
       if (!config?.database?.slug) {
-        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        res
+          .status(400)
+          .json({ error: `Content type "${type}" has no database configured` });
         return;
       }
       const dbName = config.database.slug;
@@ -1770,16 +1870,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const localeFieldKey = getLocaleKey(type);
       const localeDefault = getLocaleDefault(type);
 
-      if (Object.keys(regularMapping).length > 0 || Object.keys(rawFieldRefs).length > 0) {
+      if (
+        Object.keys(regularMapping).length > 0 ||
+        Object.keys(rawFieldRefs).length > 0
+      ) {
         items = items.map((item, idx) => {
           const mapped: Record<string, unknown> = { ...item };
-          for (const [targetField, sourcePath] of Object.entries(regularMapping)) {
+          for (const [targetField, sourcePath] of Object.entries(
+            regularMapping,
+          )) {
             const value = resolveFieldValue(sourcePath, item, targetField);
             if (value !== undefined) mapped[targetField] = value;
           }
           if (rawItems && rawItems[idx]) {
-            for (const [targetField, sourcePath] of Object.entries(rawFieldRefs)) {
-              const value = resolveFieldValue(sourcePath, rawItems[idx], targetField);
+            for (const [targetField, sourcePath] of Object.entries(
+              rawFieldRefs,
+            )) {
+              const value = resolveFieldValue(
+                sourcePath,
+                rawItems[idx],
+                targetField,
+              );
               if (value !== undefined) mapped[targetField] = value;
             }
           }
@@ -1791,7 +1902,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (localeFieldKey) {
         items = items.map((item) => {
           const locVal = String(item[localeFieldKey] || "");
-          const normalized = localeSource ? applyTransformIfNeeded(localeSource, locVal) : locVal;
+          const normalized = localeSource
+            ? applyTransformIfNeeded(localeSource, locVal)
+            : locVal;
           return { ...item, [localeFieldKey]: normalized || localeDefault };
         });
       }
@@ -1822,7 +1935,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json({ count: stripped.length, results: stripped });
     } catch (err) {
-      console.error(`[ContentTypes] Error fetching items for ${req.params.type}:`, err);
+      console.error(
+        `[ContentTypes] Error fetching items for ${req.params.type}:`,
+        err,
+      );
       res.status(500).json({ error: String(err) });
     }
   });
@@ -1836,7 +1952,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return {
           slug: entry.slug,
           title: entry.title || entry.slug,
-          locales: entry.locales.filter((l) => !l.startsWith("_") && !l.includes(".")),
+          locales: entry.locales.filter(
+            (l) => !l.startsWith("_") && !l.includes("."),
+          ),
           urls,
         };
       });
@@ -1862,10 +1980,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       try {
         const raw = fs.readFileSync(cachePath, "utf-8");
-        const cached = JSON.parse(raw) as { fetched_at: string; items: unknown[] };
+        const cached = JSON.parse(raw) as {
+          fetched_at: string;
+          items: unknown[];
+        };
         const ageMs = Date.now() - new Date(cached.fetched_at).getTime();
         const ageHours = Math.round((ageMs / (60 * 60 * 1000)) * 10) / 10;
-        res.json({ exists: true, age_hours: ageHours, post_count: cached.items.length });
+        res.json({
+          exists: true,
+          age_hours: ageHours,
+          post_count: cached.items.length,
+        });
       } catch {
         res.json({ exists: false, age_hours: null, post_count: null });
       }
@@ -1879,7 +2004,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { type } = req.params;
       const config = getContentTypeConfig(type);
       if (!config?.database?.slug) {
-        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        res
+          .status(400)
+          .json({ error: `Content type "${type}" has no database configured` });
         return;
       }
       const dbName = config.database.slug;
@@ -1887,7 +2014,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         await databaseManager.fetchItems(dbName, true);
       }
       clearMarkdownCache();
-      res.json({ success: true, message: `Cache cleared for "${type}" (database: ${dbName})` });
+      res.json({
+        success: true,
+        message: `Cache cleared for "${type}" (database: ${dbName})`,
+      });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
@@ -1898,7 +2028,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { type, slug } = req.params;
       const config = getContentTypeConfig(type);
       if (!config?.database?.slug) {
-        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        res
+          .status(400)
+          .json({ error: `Content type "${type}" has no database configured` });
         return;
       }
       clearMarkdownCache(slug);
@@ -1911,7 +2043,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/content-types/:type/ai/analyze-fields", async (req, res) => {
     try {
       const { sample_posts } = req.body || {};
-      if (!sample_posts || !Array.isArray(sample_posts) || sample_posts.length === 0) {
+      if (
+        !sample_posts ||
+        !Array.isArray(sample_posts) ||
+        sample_posts.length === 0
+      ) {
         res.status(400).json({ error: "sample_posts array is required" });
         return;
       }
@@ -1962,7 +2098,10 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       let parsed;
       try {
-        const cleaned = result.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+        const cleaned = result
+          .replace(/```json?\n?/g, "")
+          .replace(/```\n?/g, "")
+          .trim();
         parsed = JSON.parse(cleaned);
       } catch {
         parsed = { raw: result, error: "Failed to parse AI response" };
@@ -2174,7 +2313,7 @@ Important: Only include mappings where you are confident the field exists. Use d
           description: db.config.description || null,
           source_type: db.config.source.type,
           field_count: databaseManager.getFieldCount(db.name),
-        }))
+        })),
       );
     } catch (err) {
       res.status(500).json({ error: String(err) });
@@ -2185,7 +2324,9 @@ Important: Only include mappings where you are confident the field exists. Use d
     try {
       const { slug, config } = req.body;
       if (!slug || !config || !config.name || !config.source) {
-        res.status(400).json({ error: "slug, config.name, and config.source are required" });
+        res
+          .status(400)
+          .json({ error: "slug, config.name, and config.source are required" });
         return;
       }
       databaseManager.create(slug, config);
@@ -2271,7 +2412,9 @@ Important: Only include mappings where you are confident the field exists. Use d
       const dbName = req.params.name;
       const rawItems = databaseManager.getRawItems(dbName);
       if (!rawItems || rawItems.length === 0) {
-        res.status(400).json({ error: "No cached data available. Fetch data first." });
+        res
+          .status(400)
+          .json({ error: "No cached data available. Fetch data first." });
         return;
       }
 
@@ -2281,16 +2424,21 @@ Important: Only include mappings where you are confident the field exists. Use d
       const prompt = `You are analyzing raw API response data to suggest a field mapping that normalizes it into clean database fields.
 
 Here are ${sample.length} sample items from the API (showing up to 50 top-level keys):
-${JSON.stringify(sample.map(item => {
-  const filtered: Record<string, unknown> = {};
-  for (const k of sampleKeys) {
-    const val = item[k];
-    if (val !== null && val !== undefined && val !== "") {
-      filtered[k] = typeof val === "object" ? JSON.stringify(val).slice(0, 100) : val;
+${JSON.stringify(
+  sample.map((item) => {
+    const filtered: Record<string, unknown> = {};
+    for (const k of sampleKeys) {
+      const val = item[k];
+      if (val !== null && val !== undefined && val !== "") {
+        filtered[k] =
+          typeof val === "object" ? JSON.stringify(val).slice(0, 100) : val;
+      }
     }
-  }
-  return filtered;
-}), null, 2)}
+    return filtered;
+  }),
+  null,
+  2,
+)}
 
 Suggest a field_mapping that maps the most useful raw fields to clean, normalized keys.
 Focus on fields that are commonly needed: id, slug, title, description, status, language/locale, dates, author info, categories, tags, images, URLs.
@@ -2312,7 +2460,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const { getLLMService } = await import("./ai/LLMService");
       const llm = getLLMService();
 
-      const systemPrompt = "You are a data analyst that suggests field mappings for normalizing raw API data. Respond with valid JSON only, no markdown.";
+      const systemPrompt =
+        "You are a data analyst that suggests field mappings for normalizing raw API data. Respond with valid JSON only, no markdown.";
       const result = await llm.complete(prompt, {
         systemPrompt,
         temperature: 0.2,
@@ -2321,16 +2470,24 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       let parsed: Record<string, unknown>;
       try {
         const jsonMatch = result.match(/\{[\s\S]*\}/);
-        parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : { raw: result, error: "No JSON found" };
+        parsed = jsonMatch
+          ? JSON.parse(jsonMatch[0])
+          : { raw: result, error: "No JSON found" };
       } catch {
         parsed = { raw: result, error: "Failed to parse AI response" };
       }
 
       if (parsed.field_mapping && typeof parsed.field_mapping === "object") {
         const cleaned: Record<string, string> = {};
-        for (const [key, val] of Object.entries(parsed.field_mapping as Record<string, string>)) {
+        for (const [key, val] of Object.entries(
+          parsed.field_mapping as Record<string, string>,
+        )) {
           const strVal = String(val);
-          cleaned[key] = strVal.startsWith("raw.") ? strVal.slice(4) : strVal.startsWith("db.") ? strVal.slice(3) : strVal;
+          cleaned[key] = strVal.startsWith("raw.")
+            ? strVal.slice(4)
+            : strVal.startsWith("db.")
+              ? strVal.slice(3)
+              : strVal;
         }
         parsed.field_mapping = cleaned;
       }
@@ -2361,7 +2518,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const result = await databaseManager.fetchItems(req.params.name, true);
       res.json(result);
     } catch (err: unknown) {
-      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
     }
   });
 
@@ -2369,13 +2528,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       const config = req.body;
       if (!config || !config.name || !config.source) {
-        res.status(400).json({ error: "Invalid config: name and source are required" });
+        res
+          .status(400)
+          .json({ error: "Invalid config: name and source are required" });
         return;
       }
       databaseManager.update(req.params.name, config);
       res.json({ success: true });
     } catch (err: unknown) {
-      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
     }
   });
 
@@ -2384,7 +2547,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       databaseManager.delete(req.params.name);
       res.json({ success: true });
     } catch (err: unknown) {
-      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
     }
   });
 
@@ -2398,7 +2563,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const result = await databaseManager.test(source);
       res.json(result);
     } catch (err: unknown) {
-      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
     }
   });
 
@@ -2573,11 +2740,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         if (
           parsed.redirects.some((r) => r.from?.toLowerCase() === normalizedFrom)
         ) {
-          res
-            .status(409)
-            .json({
-              error: `Redirect "${normalizedFrom}" already exists in custom-redirects.yml`,
-            });
+          res.status(409).json({
+            error: `Redirect "${normalizedFrom}" already exists in custom-redirects.yml`,
+          });
           return;
         }
 
@@ -2615,11 +2780,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       // Parse destination URL to find the content entry
       const parsed = contentIndex.parseContentUrl(destUrl);
       if (!parsed) {
-        res
-          .status(400)
-          .json({
-            error: "Could not determine content type from destination URL",
-          });
+        res.status(400).json({
+          error: "Could not determine content type from destination URL",
+        });
         return;
       }
 
@@ -2630,11 +2793,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       );
       const entries = contentIndex.findBySlug(resolvedSlug, { contentType });
       if (entries.length === 0) {
-        res
-          .status(404)
-          .json({
-            error: `No content found for slug "${parsed.slug}" in ${contentType}`,
-          });
+        res.status(404).json({
+          error: `No content found for slug "${parsed.slug}" in ${contentType}`,
+        });
         return;
       }
 
@@ -2673,11 +2834,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       };
 
       if (redirects.some((r) => existingPath(r) === normalizedFrom)) {
-        res
-          .status(409)
-          .json({
-            error: `Redirect "${normalizedFrom}" already exists in ${targetFile}`,
-          });
+        res.status(409).json({
+          error: `Redirect "${normalizedFrom}" already exists in ${targetFile}`,
+        });
         return;
       }
 
@@ -2777,11 +2936,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         });
 
         if (loaded.redirects.length === originalLength) {
-          res
-            .status(404)
-            .json({
-              error: `Redirect "${normalizedFrom}" not found in custom-redirects.yml`,
-            });
+          res.status(404).json({
+            error: `Redirect "${normalizedFrom}" not found in custom-redirects.yml`,
+          });
           return;
         }
 
@@ -2846,11 +3003,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       );
 
       if ((meta.redirects as unknown[]).length === originalLength) {
-        res
-          .status(404)
-          .json({
-            error: `Redirect "${normalizedFrom}" not found in "${sourceFile}"`,
-          });
+        res.status(404).json({
+          error: `Redirect "${normalizedFrom}" not found in "${sourceFile}"`,
+        });
         return;
       }
 
@@ -2875,12 +3030,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const { redirects } = req.body;
 
       if (!Array.isArray(redirects)) {
-        res
-          .status(400)
-          .json({
-            error:
-              "'redirects' must be an array of {from, to, status?} entries",
-          });
+        res.status(400).json({
+          error: "'redirects' must be an array of {from, to, status?} entries",
+        });
         return;
       }
 
@@ -2952,8 +3104,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         result.destinationExists = false;
       } else if (resolved.fromDatabase) {
         try {
-          const items = await databaseManager.fetchMappedItems(resolved.contentType);
-          const exists = items.some((item) => String(item.slug) === resolved.slug);
+          const items = await databaseManager.fetchMappedItems(
+            resolved.contentType,
+          );
+          const exists = items.some(
+            (item) => String(item.slug) === resolved.slug,
+          );
           result.destinationExists = exists;
         } catch {
           result.destinationExists = false;
@@ -3064,7 +3220,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
 
     // Build filename based on locale (e.g., main-navbar.es.yml for Spanish)
-    const fileBaseName = locale && locale !== getDefaultLocale() ? `${name}.${locale}` : name;
+    const fileBaseName =
+      locale && locale !== getDefaultLocale() ? `${name}.${locale}` : name;
 
     // Try both .yml and .yaml extensions
     let filePath = path.join(menusDir, `${fileBaseName}.yml`);
@@ -3521,11 +3678,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     // For structure changes (icon, add/delete), use the /structure endpoint instead
     const masterFilePath = path.join(menusDir, `${name}.yml`);
     if (!fs.existsSync(masterFilePath)) {
-      res
-        .status(400)
-        .json({
-          error: "English master file not found. Cannot update translations.",
-        });
+      res.status(400).json({
+        error: "English master file not found. Cannot update translations.",
+      });
       return;
     }
 
@@ -3710,14 +3865,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   app.get("/api/seo-preview/:contentType/:slug", (req, res) => {
     try {
       const { contentType, slug } = req.params;
-      const locale = normalizeLocale((req.query.locale as string) || getDefaultLocale());
+      const locale = normalizeLocale(
+        (req.query.locale as string) || getDefaultLocale(),
+      );
 
       if (!isValidType(contentType)) {
-        res
-          .status(400)
-          .json({
-            error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}`,
-          });
+        res.status(400).json({
+          error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}`,
+        });
         return;
       }
 
@@ -3844,12 +3999,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       const { contentType, slug, locations, author } = req.body;
       if (!contentType || !slug || !Array.isArray(locations)) {
-        res
-          .status(400)
-          .json({
-            error:
-              "Missing required fields: contentType, slug, locations (array)",
-          });
+        res.status(400).json({
+          error:
+            "Missing required fields: contentType, slug, locations (array)",
+        });
         return;
       }
       if (getType(contentType) !== "landing") {
@@ -3859,13 +4012,18 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      const authorName = author && typeof author === "string" ? author : undefined;
+      const authorName =
+        author && typeof author === "string" ? author : undefined;
 
       const result = editCommonContent({
         contentType,
         slug,
         operations: [
-          { action: "update_field", path: "locations", value: locations.length > 0 ? locations : null },
+          {
+            action: "update_field",
+            path: "locations",
+            value: locations.length > 0 ? locations : null,
+          },
         ],
         author: authorName,
       });
@@ -3897,10 +4055,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               forceQuotes: false,
             });
             fs.writeFileSync(variantPath, variantYaml, "utf-8");
-            markFileAsModified(
-              variantPath,
-              authorName,
-            );
+            markFileAsModified(variantPath, authorName);
             strippedVariants.push(variantFile);
           }
         } catch (e) {
@@ -3961,54 +4116,67 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   app.post("/api/github/webhook", async (req, res) => {
     try {
       const { logSync } = await import("./sync-log");
-      const signature = req.headers['x-hub-signature-256'] as string;
+      const signature = req.headers["x-hub-signature-256"] as string;
       if (!signature) {
-        logSync('WEBHOOK', 'Rejected: missing signature header');
-        res.status(401).json({ error: 'Missing signature' });
+        logSync("WEBHOOK", "Rejected: missing signature header");
+        res.status(401).json({ error: "Missing signature" });
         return;
       }
 
       const { getWebhookInfo } = await import("./sync-state");
       const webhookInfo = getWebhookInfo();
       if (!webhookInfo) {
-        logSync('WEBHOOK', 'Rejected: no webhook configured in sync state');
-        res.status(500).json({ error: 'No webhook configured' });
+        logSync("WEBHOOK", "Rejected: no webhook configured in sync state");
+        res.status(500).json({ error: "No webhook configured" });
         return;
       }
 
       const { verifyWebhookSignature } = await import("./github");
       const rawBody = (req as any).rawBody;
-      const payload = rawBody ? rawBody.toString('utf-8') : JSON.stringify(req.body);
+      const payload = rawBody
+        ? rawBody.toString("utf-8")
+        : JSON.stringify(req.body);
 
-      if (!verifyWebhookSignature(payload, signature, webhookInfo.webhookSecret)) {
-        logSync('WEBHOOK', 'Rejected: invalid HMAC signature');
-        res.status(401).json({ error: 'Invalid signature' });
+      if (
+        !verifyWebhookSignature(payload, signature, webhookInfo.webhookSecret)
+      ) {
+        logSync("WEBHOOK", "Rejected: invalid HMAC signature");
+        res.status(401).json({ error: "Invalid signature" });
         return;
       }
 
-      const event = req.headers['x-github-event'] as string;
+      const event = req.headers["x-github-event"] as string;
 
-      if (event === 'ping') {
-        logSync('WEBHOOK', 'Received ping event — webhook is active');
-        res.json({ ok: true, message: 'pong' });
+      if (event === "ping") {
+        logSync("WEBHOOK", "Received ping event — webhook is active");
+        res.json({ ok: true, message: "pong" });
         return;
       }
 
-      if (event !== 'push') {
-        logSync('WEBHOOK', `Ignored event: ${event}`);
+      if (event !== "push") {
+        logSync("WEBHOOK", `Ignored event: ${event}`);
         res.json({ ok: true, message: `Ignored event: ${event}` });
         return;
       }
 
       const pushPayload = req.body;
       const commitSha = pushPayload.after;
-      const pusher = pushPayload.pusher?.name || 'unknown';
+      const pusher = pushPayload.pusher?.name || "unknown";
 
       const { getAutoCommitStatus } = await import("./auto-commit");
       const { lastCommitSha } = getAutoCommitStatus();
-      if (lastCommitSha && commitSha && (commitSha === lastCommitSha || commitSha.startsWith(lastCommitSha) || lastCommitSha.startsWith(commitSha))) {
-        logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: skipping auto-pull — commit was pushed by this instance`);
-        res.json({ ok: true, message: 'Self-push, skipping auto-pull' });
+      if (
+        lastCommitSha &&
+        commitSha &&
+        (commitSha === lastCommitSha ||
+          commitSha.startsWith(lastCommitSha) ||
+          lastCommitSha.startsWith(commitSha))
+      ) {
+        logSync(
+          "WEBHOOK",
+          `Push ${commitSha?.slice(0, 7)} by ${pusher}: skipping auto-pull — commit was pushed by this instance`,
+        );
+        res.json({ ok: true, message: "Self-push, skipping auto-pull" });
         return;
       }
 
@@ -4016,25 +4184,38 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       const changedFiles = new Set<string>();
       for (const commit of commits) {
-        for (const f of (commit.added || [])) changedFiles.add(f);
-        for (const f of (commit.modified || [])) changedFiles.add(f);
-        for (const f of (commit.removed || [])) changedFiles.add(f);
+        for (const f of commit.added || []) changedFiles.add(f);
+        for (const f of commit.modified || []) changedFiles.add(f);
+        for (const f of commit.removed || []) changedFiles.add(f);
       }
 
-      const marketingFiles = Array.from(changedFiles).filter(f => f.startsWith('marketing-content/'));
+      const marketingFiles = Array.from(changedFiles).filter((f) =>
+        f.startsWith("marketing-content/"),
+      );
 
       if (marketingFiles.length === 0) {
-        logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: no marketing-content files changed`);
-        res.json({ ok: true, message: 'No marketing-content files changed' });
+        logSync(
+          "WEBHOOK",
+          `Push ${commitSha?.slice(0, 7)} by ${pusher}: no marketing-content files changed`,
+        );
+        res.json({ ok: true, message: "No marketing-content files changed" });
         return;
       }
 
-      logSync('WEBHOOK', `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`);
+      logSync(
+        "WEBHOOK",
+        `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`,
+      );
 
-      const isAutoPullEnabled = process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_PULL_ENABLED === 'true';
+      const isAutoPullEnabled =
+        process.env.GITHUB_SYNC_ENABLED === "true" &&
+        process.env.GITHUB_AUTO_PULL_ENABLED === "true";
       if (!isAutoPullEnabled) {
-        logSync('AUTO-PULL', `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'`);
-        res.json({ ok: true, message: 'Auto-pull disabled' });
+        logSync(
+          "AUTO-PULL",
+          `Skipped webhook pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'`,
+        );
+        res.json({ ok: true, message: "Auto-pull disabled" });
         return;
       }
 
@@ -4042,13 +4223,19 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const result = await autoPullNonConflicting(marketingFiles, commitSha);
 
       if (result.pulled.length > 0) {
-        logSync('AUTO-PULL', `Webhook: pulled ${result.pulled.length} files from ${commitSha?.slice(0, 7)}: ${result.pulled.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        logSync(
+          "AUTO-PULL",
+          `Webhook: pulled ${result.pulled.length} files from ${commitSha?.slice(0, 7)}: ${result.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
+        );
       }
       if (result.conflicted.length > 0) {
-        logSync('CONFLICT', `Webhook: ${result.conflicted.length} files have local edits: ${result.conflicted.map(f => f.replace('marketing-content/', '')).join(', ')}`);
+        logSync(
+          "CONFLICT",
+          `Webhook: ${result.conflicted.length} files have local edits: ${result.conflicted.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
+        );
       }
       if (result.errors.length > 0) {
-        logSync('ERROR', `Webhook pull errors: ${result.errors.join('; ')}`);
+        logSync("ERROR", `Webhook pull errors: ${result.errors.join("; ")}`);
       }
 
       res.json({
@@ -4059,9 +4246,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       });
     } catch (error) {
       const { logSync } = await import("./sync-log");
-      logSync('ERROR', `Webhook handler error: ${error instanceof Error ? error.message : String(error)}`);
-      console.error('[Webhook] Error handling webhook:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      logSync(
+        "ERROR",
+        `Webhook handler error: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      console.error("[Webhook] Error handling webhook:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 
@@ -4070,9 +4260,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       const { getSyncLogText } = await import("./sync-log");
       const text = getSyncLogText();
-      res.type('text/plain').send(text);
+      res.type("text/plain").send(text);
     } catch (error) {
-      res.status(500).send('Error reading sync log');
+      res.status(500).send("Error reading sync log");
     }
   });
 
@@ -4082,35 +4272,42 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       await clearSyncLog();
       res.json({ success: true });
     } catch (error) {
-      res.status(500).json({ error: 'Error clearing sync log' });
+      res.status(500).json({ error: "Error clearing sync log" });
     }
   });
 
   // Get structured sync info (webhook status, instance, recent log entries)
   app.get("/api/github/sync-info", async (_req, res) => {
     try {
-      const { getRecentEntries, getInstanceId, getReplitCheckpoint, getGithubCommit } = await import("./sync-log");
+      const {
+        getRecentEntries,
+        getInstanceId,
+        getReplitCheckpoint,
+        getGithubCommit,
+      } = await import("./sync-log");
       const { getWebhookInfo } = await import("./sync-state");
       const webhookInfo = getWebhookInfo();
 
-      const repoUrl = (process.env.GITHUB_REPO_URL || '').replace(/\.git$/, '');
+      const repoUrl = (process.env.GITHUB_REPO_URL || "").replace(/\.git$/, "");
       res.json({
         instanceId: getInstanceId(),
         replitCheckpoint: getReplitCheckpoint(),
         githubCommit: getGithubCommit(),
         repoUrl: repoUrl || null,
-        env: process.env.NODE_ENV || 'development',
+        env: process.env.NODE_ENV || "development",
         pid: process.pid,
-        webhook: webhookInfo ? {
-          active: true,
-          id: webhookInfo.webhookId,
-          url: webhookInfo.webhookUrl,
-          createdAt: webhookInfo.createdAt,
-        } : { active: false },
+        webhook: webhookInfo
+          ? {
+              active: true,
+              id: webhookInfo.webhookId,
+              url: webhookInfo.webhookUrl,
+              createdAt: webhookInfo.createdAt,
+            }
+          : { active: false },
         recentLog: getRecentEntries(20),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Error reading sync info' });
+      res.status(500).json({ error: "Error reading sync info" });
     }
   });
 
@@ -4121,12 +4318,26 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const { getWebhookInfo } = await import("./sync-state");
       const info = getWebhookInfo();
       if (info) {
-        res.json({ success: true, message: `Webhook #${info.webhookId} is active at ${info.webhookUrl}` });
+        res.json({
+          success: true,
+          message: `Webhook #${info.webhookId} is active at ${info.webhookUrl}`,
+        });
       } else {
-        res.status(500).json({ success: false, message: "Webhook setup ran but no webhook was registered. Check that your GitHub token has the admin:repo_hook scope." });
+        res
+          .status(500)
+          .json({
+            success: false,
+            message:
+              "Webhook setup ran but no webhook was registered. Check that your GitHub token has the admin:repo_hook scope.",
+          });
       }
     } catch (error: any) {
-      res.status(500).json({ success: false, message: error.message || "Webhook setup failed" });
+      res
+        .status(500)
+        .json({
+          success: false,
+          message: error.message || "Webhook setup failed",
+        });
     }
   });
 
@@ -4135,17 +4346,32 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const { getWebhookInfo } = await import("./sync-state");
       const info = getWebhookInfo();
       if (!info) {
-        return res.status(400).json({ success: false, message: "No active webhook registered — nothing to clean up." });
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message: "No active webhook registered — nothing to clean up.",
+          });
       }
-      const { cleanupDuplicateWebhooks, getGitHubConfig } = await import("./github");
+      const { cleanupDuplicateWebhooks, getGitHubConfig } = await import(
+        "./github"
+      );
       const config = getGitHubConfig();
       if (!config) {
-        return res.status(400).json({ success: false, message: "GitHub not configured." });
+        return res
+          .status(400)
+          .json({ success: false, message: "GitHub not configured." });
       }
-      const deleted = await cleanupDuplicateWebhooks(config, info.webhookId, info.webhookUrl);
+      const deleted = await cleanupDuplicateWebhooks(
+        config,
+        info.webhookId,
+        info.webhookUrl,
+      );
       res.json({ success: true, deleted: deleted.length, ids: deleted });
     } catch (error: any) {
-      res.status(500).json({ success: false, message: error.message || "Cleanup failed" });
+      res
+        .status(500)
+        .json({ success: false, message: error.message || "Cleanup failed" });
     }
   });
 
@@ -4181,7 +4407,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       const { commitAndPush } = await import("./github");
-      const result = await commitAndPush(finalMessage, { force: !!force, files: Array.isArray(files) ? files : undefined });
+      const result = await commitAndPush(finalMessage, {
+        force: !!force,
+        files: Array.isArray(files) ? files : undefined,
+      });
 
       if (result.success) {
         res.json({ success: true, commitHash: result.commitHash });
@@ -4877,11 +5106,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         !normalizedPath.startsWith("marketing-content/") ||
         normalizedPath.includes("..")
       ) {
-        res
-          .status(403)
-          .json({
-            error: "Access denied: Only marketing-content files allowed",
-          });
+        res.status(403).json({
+          error: "Access denied: Only marketing-content files allowed",
+        });
         return;
       }
 
@@ -5026,12 +5253,19 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         }
       }
 
-      const { filePath, content, author: requestAuthor } = req.body as {
+      const {
+        filePath,
+        content,
+        author: requestAuthor,
+      } = req.body as {
         filePath: string;
         content: string;
         author?: string;
       };
-      const authorName = requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined;
+      const authorName =
+        requestAuthor && typeof requestAuthor === "string"
+          ? requestAuthor
+          : undefined;
 
       if (!filePath || typeof content !== "string") {
         res.status(400).json({ error: "filePath and content are required" });
@@ -5043,11 +5277,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         !normalizedPath.startsWith("marketing-content/") ||
         normalizedPath.includes("..")
       ) {
-        res
-          .status(403)
-          .json({
-            error: "Access denied: Only marketing-content files allowed",
-          });
+        res.status(403).json({
+          error: "Access denied: Only marketing-content files allowed",
+        });
         return;
       }
 
@@ -5074,11 +5306,21 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   app.get("/api/bindings", (_req, res) => {
     try {
       const groups = bindingManager.getAll();
-      const enrichedGroups = groups.map(g => ({
+      const enrichedGroups = groups.map((g) => ({
         ...g,
-        members: g.members.map(m => ({
+        members: g.members.map((m) => ({
           ...m,
-          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, g.locale),
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            g.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            g.locale,
+          ),
         })),
       }));
       res.json({ groups: enrichedGroups });
@@ -5097,11 +5339,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
+      const resolvedLocale = normalizeLocale((locale as string) || "en");
+      const baseSlug = contentIndex.resolveBaseSlug(
+        slug as string,
+        contentType as string,
+      );
       const group = bindingManager.findGroupForSectionByIndex(
         contentType as string,
-        slug as string,
+        baseSlug,
         parseInt(sectionIndex as string, 10),
-        locale as string || "en",
+        resolvedLocale,
       );
       if (!group) {
         res.json({ group: null });
@@ -5109,9 +5356,19 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
       const enrichedGroup = {
         ...group,
-        members: group.members.map(m => ({
+        members: group.members.map((m) => ({
           ...m,
-          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            group.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            group.locale,
+          ),
         })),
       };
       res.json({ group: enrichedGroup });
@@ -5134,6 +5391,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const candidates: Array<{
         contentType: string;
         slug: string;
+        localeSlug: string;
         sectionIndex: number;
         sectionId?: string;
         title?: string;
@@ -5150,8 +5408,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           continue;
 
         try {
-          const localeForLoad = entryContentType === "landing" ? "promoted" : normalizedLocale;
-          const { data: merged } = contentIndex.loadMergedContent(entryContentType, entry.slug, localeForLoad);
+          const localeForLoad =
+            entryContentType === "landing" ? "promoted" : normalizedLocale;
+          const { data: merged } = contentIndex.loadMergedContent(
+            entryContentType,
+            entry.slug,
+            localeForLoad,
+          );
           if (!merged) continue;
           const sections = merged.sections as Record<string, unknown>[];
           if (!Array.isArray(sections)) continue;
@@ -5169,8 +5432,15 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
+                localeSlug: contentIndex.getLocaleSlug(
+                  entry.slug,
+                  entryContentType,
+                  normalizedLocale,
+                ),
                 sectionIndex: i,
-                sectionId: (section as Record<string, unknown>).section_id as string | undefined,
+                sectionId: (section as Record<string, unknown>).section_id as
+                  | string
+                  | undefined,
                 title:
                   ((merged.meta as Record<string, unknown>)?.title as string) ||
                   entry.title ||
@@ -5211,35 +5481,66 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       if (!requireEditAuth(req, res)) return;
       const { component, locale, members, author: bindAuthor } = req.body;
-      const bindAuthorName = bindAuthor && typeof bindAuthor === "string" ? bindAuthor : undefined;
+      const bindAuthorName =
+        bindAuthor && typeof bindAuthor === "string" ? bindAuthor : undefined;
       if (
         !component ||
         !locale ||
         !Array.isArray(members) ||
         members.length < 2
       ) {
-        res
-          .status(400)
-          .json({
-            error: "Missing component, locale, or need at least 2 members",
-          });
+        res.status(400).json({
+          error: "Missing component, locale, or need at least 2 members",
+        });
         return;
       }
       const normalizedLocale = normalizeLocale(locale);
-      const resolvedMembers = members.map((m: { contentType: string; slug: string; sectionIndex: number }) => {
-        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale, bindAuthorName);
-        return { contentType: m.contentType, slug: m.slug, sectionId };
-      });
+      const resolvedMembers = members.map(
+        (m: { contentType: string; slug: string; sectionIndex: number }) => {
+          const memberBaseSlug = contentIndex.resolveBaseSlug(
+            m.slug,
+            m.contentType,
+          );
+          const sectionId = bindingManager.ensureSectionId(
+            m.contentType,
+            memberBaseSlug,
+            m.sectionIndex,
+            normalizedLocale,
+            bindAuthorName,
+          );
+          return {
+            contentType: m.contentType,
+            slug: memberBaseSlug,
+            sectionId,
+          };
+        },
+      );
       const { name, sourceIndex } = req.body;
-      const group = bindingManager.createGroup(component, normalizedLocale, resolvedMembers, {
-        name,
-        sourceIndex,
-      }, bindAuthorName);
+      const group = bindingManager.createGroup(
+        component,
+        normalizedLocale,
+        resolvedMembers,
+        {
+          name,
+          sourceIndex,
+        },
+        bindAuthorName,
+      );
       const enrichedGroup = {
         ...group,
-        members: group.members.map(m => ({
+        members: group.members.map((m) => ({
           ...m,
-          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            group.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            group.locale,
+          ),
         })),
       };
       res.json({ group: enrichedGroup });
@@ -5256,12 +5557,19 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
       const { name, author: renameBindAuthor } = req.body;
-      const renameBindAuthorName = renameBindAuthor && typeof renameBindAuthor === "string" ? renameBindAuthor : undefined;
+      const renameBindAuthorName =
+        renameBindAuthor && typeof renameBindAuthor === "string"
+          ? renameBindAuthor
+          : undefined;
       if (name === undefined) {
         res.status(400).json({ error: "Missing name field" });
         return;
       }
-      const group = bindingManager.renameGroup(groupId, name, renameBindAuthorName);
+      const group = bindingManager.renameGroup(
+        groupId,
+        name,
+        renameBindAuthorName,
+      );
       res.json({ group });
     } catch (error) {
       const msg =
@@ -5275,8 +5583,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { contentType, slug, sectionIndex, author: addMemberAuthor } = req.body;
-      const addMemberAuthorName = addMemberAuthor && typeof addMemberAuthor === "string" ? addMemberAuthor : undefined;
+      const {
+        contentType,
+        slug,
+        sectionIndex,
+        author: addMemberAuthor,
+      } = req.body;
+      const addMemberAuthorName =
+        addMemberAuthor && typeof addMemberAuthor === "string"
+          ? addMemberAuthor
+          : undefined;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -5288,17 +5604,38 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(404).json({ error: "Binding group not found" });
         return;
       }
-      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale, addMemberAuthorName);
-      const updatedGroup = bindingManager.addMember(groupId, {
+      const addBaseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const sectionId = bindingManager.ensureSectionId(
         contentType,
-        slug,
-        sectionId,
-      }, addMemberAuthorName);
+        addBaseSlug,
+        parseInt(sectionIndex as string, 10),
+        group.locale,
+        addMemberAuthorName,
+      );
+      const updatedGroup = bindingManager.addMember(
+        groupId,
+        {
+          contentType,
+          slug: addBaseSlug,
+          sectionId,
+        },
+        addMemberAuthorName,
+      );
       const enrichedGroup = {
         ...updatedGroup,
-        members: updatedGroup.members.map(m => ({
+        members: updatedGroup.members.map((m) => ({
           ...m,
-          sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, updatedGroup.locale),
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            updatedGroup.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            updatedGroup.locale,
+          ),
         })),
       };
       res.json({ group: enrichedGroup });
@@ -5314,8 +5651,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
-      const { contentType, slug, sectionIndex, author: removeMemberAuthor } = req.body;
-      const removeMemberAuthorName = removeMemberAuthor && typeof removeMemberAuthor === "string" ? removeMemberAuthor : undefined;
+      const {
+        contentType,
+        slug,
+        sectionIndex,
+        author: removeMemberAuthor,
+      } = req.body;
+      const removeMemberAuthorName =
+        removeMemberAuthor && typeof removeMemberAuthor === "string"
+          ? removeMemberAuthor
+          : undefined;
       if (!contentType || !slug || sectionIndex === undefined) {
         res
           .status(400)
@@ -5327,24 +5672,44 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(404).json({ error: "Binding group not found" });
         return;
       }
-      const sectionId = bindingManager.getSectionIdAtIndex(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      const removeBaseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const sectionId = bindingManager.getSectionIdAtIndex(
+        contentType,
+        removeBaseSlug,
+        parseInt(sectionIndex as string, 10),
+        group.locale,
+      );
       if (!sectionId) {
-        res.status(400).json({ error: `No section_id found at index ${sectionIndex} for ${contentType}/${slug}` });
+        res
+          .status(400)
+          .json({
+            error: `No section_id found at index ${sectionIndex} for ${contentType}/${removeBaseSlug}`,
+          });
         return;
       }
       const result = bindingManager.removeMemberBySectionId(
         groupId,
         contentType,
-        slug,
+        removeBaseSlug,
         sectionId,
         removeMemberAuthorName,
       );
       if (result) {
         const enrichedResult = {
           ...result,
-          members: result.members.map(m => ({
+          members: result.members.map((m) => ({
             ...m,
-            sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, result.locale),
+            localeSlug: contentIndex.getLocaleSlug(
+              m.slug,
+              m.contentType,
+              result.locale,
+            ),
+            sectionIndex: bindingManager.resolveSectionIndex(
+              m.contentType,
+              m.slug,
+              m.sectionId,
+              result.locale,
+            ),
           })),
         };
         res.json({ group: enrichedResult });
@@ -5364,7 +5729,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!requireEditAuth(req, res)) return;
       const { groupId } = req.params;
       const { author: deleteGroupAuthor } = req.body || {};
-      const deleteGroupAuthorName = deleteGroupAuthor && typeof deleteGroupAuthor === "string" ? deleteGroupAuthor : undefined;
+      const deleteGroupAuthorName =
+        deleteGroupAuthor && typeof deleteGroupAuthor === "string"
+          ? deleteGroupAuthor
+          : undefined;
       bindingManager.deleteGroup(groupId, deleteGroupAuthorName);
       res.json({ success: true });
     } catch (error) {
@@ -5600,23 +5968,40 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           },
         );
         if (capResponse.status === 401) {
-          res.status(401).json({ error: "Your session has expired. Please log in again." });
+          res
+            .status(401)
+            .json({ error: "Your session has expired. Please log in again." });
           return;
         }
         if (capResponse.status !== 200) {
-          res.status(403).json({ error: "You need webmaster capability to edit content" });
+          res
+            .status(403)
+            .json({ error: "You need webmaster capability to edit content" });
           return;
         }
       }
 
       const { contentType, slug, operations, author: requestAuthor } = req.body;
 
-      if (!contentType || !slug || !Array.isArray(operations) || operations.length === 0) {
-        res.status(400).json({ error: "Missing required fields: contentType, slug, operations (array)" });
+      if (
+        !contentType ||
+        !slug ||
+        !Array.isArray(operations) ||
+        operations.length === 0
+      ) {
+        res
+          .status(400)
+          .json({
+            error:
+              "Missing required fields: contentType, slug, operations (array)",
+          });
         return;
       }
 
-      const authorName = requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined;
+      const authorName =
+        requestAuthor && typeof requestAuthor === "string"
+          ? requestAuthor
+          : undefined;
 
       const result = editCommonContent({
         contentType,
@@ -5676,37 +6061,40 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         }
       }
 
-      const { contentType, folderSlug, locale, newSlug, createRedirect, author: renameAuthor } =
-        req.body;
-      const renameAuthorName = renameAuthor && typeof renameAuthor === "string" ? renameAuthor : undefined;
+      const {
+        contentType,
+        folderSlug,
+        locale,
+        newSlug,
+        createRedirect,
+        author: renameAuthor,
+      } = req.body;
+      const renameAuthorName =
+        renameAuthor && typeof renameAuthor === "string"
+          ? renameAuthor
+          : undefined;
 
       if (!contentType || !folderSlug || !locale || !newSlug) {
-        res
-          .status(400)
-          .json({
-            error:
-              "Missing required fields: contentType, folderSlug, locale, newSlug",
-          });
+        res.status(400).json({
+          error:
+            "Missing required fields: contentType, folderSlug, locale, newSlug",
+        });
         return;
       }
 
       if (!isValidType(contentType)) {
-        res
-          .status(400)
-          .json({
-            error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
-          });
+        res.status(400).json({
+          error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+        });
         return;
       }
 
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
       if (!slugRegex.test(newSlug)) {
-        res
-          .status(400)
-          .json({
-            error:
-              "Invalid slug format. Use lowercase letters, numbers, and hyphens only.",
-          });
+        res.status(400).json({
+          error:
+            "Invalid slug format. Use lowercase letters, numbers, and hyphens only.",
+        });
         return;
       }
 
@@ -5723,11 +6111,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       );
 
       if (!fs.existsSync(folderPath)) {
-        res
-          .status(404)
-          .json({
-            error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})`,
-          });
+        res.status(404).json({
+          error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})`,
+        });
         return;
       }
 
@@ -5826,11 +6212,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
 
     if (!isValidType(type)) {
-      res
-        .status(400)
-        .json({
-          error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
-        });
+      res.status(400).json({
+        error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+      });
       return;
     }
 
@@ -6005,15 +6389,28 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         }
       }
 
-      const { type, slugEn, slugEs, title, sourceUrl, author: createAuthor, skipLocales: rawSkipLocales } = req.body;
-      const createAuthorName = createAuthor && typeof createAuthor === "string" ? createAuthor : undefined;
-      const skipLocales: string[] = Array.isArray(rawSkipLocales) ? rawSkipLocales.filter((l: unknown) => typeof l === "string") : [];
+      const {
+        type,
+        slugEn,
+        slugEs,
+        title,
+        sourceUrl,
+        author: createAuthor,
+        skipLocales: rawSkipLocales,
+      } = req.body;
+      const createAuthorName =
+        createAuthor && typeof createAuthor === "string"
+          ? createAuthor
+          : undefined;
+      const skipLocales: string[] = Array.isArray(rawSkipLocales)
+        ? rawSkipLocales.filter((l: unknown) => typeof l === "string")
+        : [];
 
       // Support both old format (slug) and new format (slugEn/slugEs)
       const skipEn = skipLocales.includes("en");
       const skipEs = skipLocales.includes("es");
-      const enSlug = skipEn ? null : (slugEn || req.body.slug);
-      const esSlug = skipEs ? null : (slugEs || req.body.slug);
+      const enSlug = skipEn ? null : slugEn || req.body.slug;
+      const esSlug = skipEs ? null : slugEs || req.body.slug;
 
       if (!type || !title) {
         res.status(400).json({ error: "Missing required fields: type, title" });
@@ -6021,37 +6418,33 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       if (!enSlug && !esSlug) {
-        res.status(400).json({ error: "At least one locale slug must be provided" });
+        res
+          .status(400)
+          .json({ error: "At least one locale slug must be provided" });
         return;
       }
 
       if (!isValidType(type)) {
-        res
-          .status(400)
-          .json({
-            error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
-          });
+        res.status(400).json({
+          error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+        });
         return;
       }
 
       // Validate slug format for provided slugs
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
       if (enSlug && !slugRegex.test(enSlug)) {
-        res
-          .status(400)
-          .json({
-            error:
-              "Invalid English slug format. Use lowercase letters, numbers, and hyphens only.",
-          });
+        res.status(400).json({
+          error:
+            "Invalid English slug format. Use lowercase letters, numbers, and hyphens only.",
+        });
         return;
       }
       if (esSlug && !slugRegex.test(esSlug)) {
-        res
-          .status(400)
-          .json({
-            error:
-              "Invalid Spanish slug format. Use lowercase letters, numbers, and hyphens only.",
-          });
+        res.status(400).json({
+          error:
+            "Invalid Spanish slug format. Use lowercase letters, numbers, and hyphens only.",
+        });
         return;
       }
 
@@ -6073,7 +6466,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         if (hasCommon && hasEn && hasEs) {
           res
             .status(409)
-            .json({ error: `A ${type} with slug "${folderSlug}" already exists` });
+            .json({
+              error: `A ${type} with slug "${folderSlug}" already exists`,
+            });
           return;
         }
       }
@@ -6099,8 +6494,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             for (const file of sourceFiles) {
               // Skip locale files that are in skipLocales
-              const fileLocale = file.replace(/\.yml$/, '');
-              if (fileLocale !== '_common' && skipLocales.includes(fileLocale)) {
+              const fileLocale = file.replace(/\.yml$/, "");
+              if (
+                fileLocale !== "_common" &&
+                skipLocales.includes(fileLocale)
+              ) {
                 continue;
               }
 
@@ -6110,12 +6508,18 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               );
 
               // Strip redirects — they must not be copied to duplicate pages
-              content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+              content = content.replace(
+                /^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm,
+                "",
+              );
 
               // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
               const resolvedSourceSlug = resolved?.slug || oldSlug;
-              const newSlug = file === "es.yml" ? (esSlug || folderSlug!) : (enSlug || folderSlug!);
+              const newSlug =
+                file === "es.yml"
+                  ? esSlug || folderSlug!
+                  : enSlug || folderSlug!;
               content = content.replace(
                 new RegExp(`slug:\\s*["']?${oldSlug}["']?`, "g"),
                 `slug: ${newSlug}`,
@@ -6203,7 +6607,8 @@ sections: []
 `;
       } else if (type === "program") {
         commonYml = `# Common properties shared across all variants
-slug: ${folderSlug}
+slug: ${enSlug}
+bc_slug: ${enSlug}
 title: ${title}
 
 meta:
@@ -6358,8 +6763,15 @@ sections: []
         }
       }
 
-      const { type, slug, confirmSlug, localesToDelete: rawLocalesToDelete } = req.body;
-      const localesToDelete: string[] = Array.isArray(rawLocalesToDelete) ? rawLocalesToDelete.filter((l: unknown) => typeof l === "string") : [];
+      const {
+        type,
+        slug,
+        confirmSlug,
+        localesToDelete: rawLocalesToDelete,
+      } = req.body;
+      const localesToDelete: string[] = Array.isArray(rawLocalesToDelete)
+        ? rawLocalesToDelete.filter((l: unknown) => typeof l === "string")
+        : [];
 
       if (!type || !slug || !confirmSlug) {
         res
@@ -6369,20 +6781,16 @@ sections: []
       }
 
       if (slug !== confirmSlug) {
-        res
-          .status(400)
-          .json({
-            error: "Confirmation slug does not match. Deletion cancelled.",
-          });
+        res.status(400).json({
+          error: "Confirmation slug does not match. Deletion cancelled.",
+        });
         return;
       }
 
       if (!isValidType(type)) {
-        res
-          .status(400)
-          .json({
-            error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
-          });
+        res.status(400).json({
+          error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}`,
+        });
         return;
       }
 
@@ -6427,15 +6835,24 @@ sections: []
           }
         }
 
-        const remainingFiles = fs.readdirSync(folderPath).filter(f =>
-          f.endsWith('.yml') && !f.startsWith('_') && f !== 'experiments.yml'
-        );
+        const remainingFiles = fs
+          .readdirSync(folderPath)
+          .filter(
+            (f) =>
+              f.endsWith(".yml") &&
+              !f.startsWith("_") &&
+              f !== "experiments.yml",
+          );
 
         if (remainingFiles.length === 0) {
           fs.rmSync(folderPath, { recursive: true, force: true });
-          console.log(`[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`);
+          console.log(
+            `[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`,
+          );
         } else {
-          console.log(`[Content] Deleted ${deletedFiles.join(', ')} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`);
+          console.log(
+            `[Content] Deleted ${deletedFiles.join(", ")} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`,
+          );
         }
 
         clearSitemapCache();
@@ -6443,9 +6860,10 @@ sections: []
 
         res.json({
           success: true,
-          message: remainingFiles.length === 0
-            ? `Successfully deleted ${type}/${slug}`
-            : `Deleted ${deletedFiles.join(', ')} from ${type}/${slug}`,
+          message:
+            remainingFiles.length === 0
+              ? `Successfully deleted ${type}/${slug}`
+              : `Deleted ${deletedFiles.join(", ")} from ${type}/${slug}`,
           deletedFiles,
           folderRemoved: remainingFiles.length === 0,
         });
@@ -6514,8 +6932,17 @@ sections: []
         }
       }
 
-      const { slug, locale, title, sourceUrl, author: landingAuthor } = req.body;
-      const landingAuthorName = landingAuthor && typeof landingAuthor === "string" ? landingAuthor : undefined;
+      const {
+        slug,
+        locale,
+        title,
+        sourceUrl,
+        author: landingAuthor,
+      } = req.body;
+      const landingAuthorName =
+        landingAuthor && typeof landingAuthor === "string"
+          ? landingAuthor
+          : undefined;
 
       if (!slug || !title) {
         res.status(400).json({ error: "Missing required fields: slug, title" });
@@ -6524,17 +6951,17 @@ sections: []
 
       const supportedLocales = getSupportedLocales();
       const landingLocale =
-        locale && supportedLocales.includes(locale) ? locale : getDefaultLocale();
+        locale && supportedLocales.includes(locale)
+          ? locale
+          : getDefaultLocale();
 
       // Validate slug format
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
       if (!slugRegex.test(slug)) {
-        res
-          .status(400)
-          .json({
-            error:
-              "Invalid slug format. Use lowercase letters, numbers, and hyphens only.",
-          });
+        res.status(400).json({
+          error:
+            "Invalid slug format. Use lowercase letters, numbers, and hyphens only.",
+        });
         return;
       }
 
@@ -6576,7 +7003,11 @@ sections: []
             ? path.join(process.cwd(), resolved.entry.directory)
             : "";
 
-          if (sourceSlug && sourceFolderPath && fs.existsSync(sourceFolderPath)) {
+          if (
+            sourceSlug &&
+            sourceFolderPath &&
+            fs.existsSync(sourceFolderPath)
+          ) {
             const sourceFiles = fs.readdirSync(sourceFolderPath);
             for (const file of sourceFiles) {
               let content = fs.readFileSync(
@@ -6584,7 +7015,10 @@ sections: []
                 "utf8",
               );
 
-              content = content.replace(/^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm, '');
+              content = content.replace(
+                /^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm,
+                "",
+              );
 
               content = content.replace(
                 new RegExp(`slug:\\s*["']?${sourceSlug}["']?`, "g"),
@@ -6648,9 +7082,15 @@ sections: []
 
       // Write files
       fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
-      markFileAsModified(`marketing-content/landings/${slug}/_common.yml`, landingAuthorName);
+      markFileAsModified(
+        `marketing-content/landings/${slug}/_common.yml`,
+        landingAuthorName,
+      );
       fs.writeFileSync(path.join(folderPath, "promoted.yml"), promotedYml);
-      markFileAsModified(`marketing-content/landings/${slug}/promoted.yml`, landingAuthorName);
+      markFileAsModified(
+        `marketing-content/landings/${slug}/promoted.yml`,
+        landingAuthorName,
+      );
 
       clearSitemapCache();
       contentIndex.refresh();
@@ -6702,6 +7142,7 @@ sections: []
     // Get all programs for dropdown
     const programs = listCareerPrograms(locale).map((p) => ({
       slug: p.slug,
+      bc_slug: p.bc_slug,
       title: p.title,
     }));
 
@@ -6992,7 +7433,9 @@ sections: []
       const images = mediaGallery.findRedundantImages();
       res.json({ count: images.length, images });
     } catch (error: any) {
-      res.status(500).json({ error: error.message || "Failed to find redundant images" });
+      res
+        .status(500)
+        .json({ error: error.message || "Failed to find redundant images" });
     }
   });
 
@@ -7000,13 +7443,19 @@ sections: []
     try {
       const { action, ids } = req.body as { action?: string; ids?: string[] };
       if (action !== "delete-local" && action !== "delete-cloud") {
-        res.status(400).json({ error: "Invalid action. Must be 'delete-local' or 'delete-cloud'" });
+        res
+          .status(400)
+          .json({
+            error: "Invalid action. Must be 'delete-local' or 'delete-cloud'",
+          });
         return;
       }
       const result = await mediaGallery.resolveRedundancy(action, ids);
       res.json(result);
     } catch (error: any) {
-      res.status(500).json({ error: error.message || "Failed to resolve redundancy" });
+      res
+        .status(500)
+        .json({ error: error.message || "Failed to resolve redundancy" });
     }
   });
 
@@ -8167,25 +8616,40 @@ sections: []
     const cleanUrl = url.split("?")[0].split("#")[0];
     const resolved = contentIndex.resolveUrl(cleanUrl);
     const isDatabaseRoute = resolved && resolved.fromDatabase;
-    const listingResolved = !isDatabaseRoute ? contentIndex.resolveListingUrl(cleanUrl) : null;
+    const listingResolved = !isDatabaseRoute
+      ? contentIndex.resolveListingUrl(cleanUrl)
+      : null;
     const isListingRoute = !!listingResolved;
 
     if (isDatabaseRoute && resolved) {
       try {
-        const posts = await databaseManager.fetchMappedItems(resolved.contentType);
+        const posts = await databaseManager.fetchMappedItems(
+          resolved.contentType,
+        );
         const localeKey = getLocaleKey(resolved.contentType) || "lang";
-        const locale = resolved.patternLocale && resolved.patternLocale !== "default" ? resolved.patternLocale : getDefaultLocale();
-        const post = posts.find(p =>
-          p.slug === resolved.slug && (p as any)[localeKey] === locale
-        ) || posts.find(p => p.slug === resolved.slug);
+        const locale =
+          resolved.patternLocale && resolved.patternLocale !== "default"
+            ? resolved.patternLocale
+            : getDefaultLocale();
+        const post =
+          posts.find(
+            (p) => p.slug === resolved.slug && (p as any)[localeKey] === locale,
+          ) || posts.find((p) => p.slug === resolved.slug);
         if (post) {
-          schemaHtml = generateDatabaseSsrHtml(resolved.contentType, post, locale);
+          schemaHtml = generateDatabaseSsrHtml(
+            resolved.contentType,
+            post,
+            locale,
+          );
         }
       } catch (err) {
         console.error("[SSR-DB] Error generating schema for", url, err);
       }
     } else if (isListingRoute && listingResolved) {
-      schemaHtml = generateListingSsrHtml(listingResolved.contentType, listingResolved.locale);
+      schemaHtml = generateListingSsrHtml(
+        listingResolved.contentType,
+        listingResolved.locale,
+      );
     } else {
       schemaHtml = generateSsrSchemaHtml(url);
     }

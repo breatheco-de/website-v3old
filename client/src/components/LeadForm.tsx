@@ -97,7 +97,7 @@ interface LeadFormProps {
 }
 
 interface FormOptions {
-  programs: Array<{ slug: string; title: string }>;
+  programs: Array<{ slug: string; title: string; bc_slug?: string }>;
   locations: Array<{ slug: string; name: string; city: string; country: string; region: string }>;
   regions: Array<{ slug: string; label: string }>;
 }
@@ -433,7 +433,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
         location: singleLandingLocation || values.location || sessionLocation?.slug || resolveDefault("location", getFieldConfig("location").default),
         region: singleLandingRegion || values.region || sessionLocation?.region || resolveDefault("region", getFieldConfig("region").default),
         coupon: values.coupon || utm.coupon || resolveDefault("coupon", getFieldConfig("coupon").default),
-        program: values.program || programContext || resolveDefault("program", getFieldConfig("program").default),
+        program: values.program || formOptions?.programs.find(p => p.slug === programContext)?.bc_slug || programContext || resolveDefault("program", getFieldConfig("program").default),
         language: session.language,
         browser_lang: session.browserLang,
         latitude: session.geo?.latitude?.toString(),
@@ -1027,7 +1027,7 @@ export function LeadForm({ data, programContext, landingLocations, termsStyle }:
                       </FormControl>
                       <SelectContent>
                         {formOptions?.programs.map((program) => (
-                          <SelectItem key={program.slug} value={program.slug}>
+                          <SelectItem key={program.slug} value={program.bc_slug || program.slug}>
                             {program.title}
                           </SelectItem>
                         ))}
