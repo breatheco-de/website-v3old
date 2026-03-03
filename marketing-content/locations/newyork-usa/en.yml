@@ -207,9 +207,9 @@ sections:
     background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
-    title: Why New York Is a Smart Place to Launch Your Tech Career
-    subtitle: A thriving tech ecosystem with real hiring momentum
-    description: "New York's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">New York-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our New York campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
+    title: Why New York Is a Strategic Place to Build a Tech Career
+    subtitle: One of the largest and most dynamic tech ecosystems in the United States
+    description: "New York City is home to one of the largest technology ecosystems in the U.S., with a strong concentration of startups, global tech companies, and innovation-driven industries. From fintech and media technology to AI, cybersecurity, and data-driven enterprises, demand for skilled tech professionals continues to expand across the region.<br><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">New York ranks among the top U.S. cities for tech employment and startup activity.</span></li><li>Strong hiring demand across fintech, media, healthcare, AI, and enterprise technology.</li><li>Growing need for professionals trained in software development, data science, cybersecurity, and AI engineering.</li></ul></div><div>From our New York campus, students gain access to a global network, structured mentorship, and career support aligned with the demands of New York’s competitive tech job market.</div>"
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
