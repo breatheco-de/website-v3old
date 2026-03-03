@@ -75,7 +75,6 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    showOn: desktop
   - type: hero
     version: "1.0"
     variant: productShowcase
