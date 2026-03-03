@@ -192,10 +192,10 @@ sections:
     primary:
       heading: The Confidence of a Job Guarantee*
       description: |-
-        <b><span style="font-size: 1rem;"></span></b><span style="font-size: 1rem; color: hsl(var(--primary-foreground));" data-preview-light="true"><b><span></span></b></span><span style="font-size: 1.125rem;"><span style="color: hsl(var(--primary-foreground));" data-preview-light="true"><b><span>We stand behind our training.&nbsp;<span style="color: rgb(0, 7, 26);"><span><span style="color: hsl(var(--primary-foreground));">Our optional Job Guarantee is designed for students transitioning into tech</span><span style="color: hsl(var(--primary-foreground));" data-preview-light="true">:</span></span></span></span><span style="color: rgb(0, 7, 26);"><span></span></span></b><div></div></span><div><span><b><span><span>
+        <b><span style="font-size: 1rem;"></span></b><span style="font-size: 1rem; color: hsl(var(--primary-foreground));" data-preview-light="true"><b><span></span></b></span><span style="font-size: 1.25rem;"><span><span style="color: hsl(var(--primary-foreground));" data-preview-light="true"><b><span>We stand behind our training.&nbsp;<span style="color: rgb(0, 7, 26);"><span><span style="color: hsl(var(--primary-foreground));">Our optional Job Guarantee is designed for students transitioning into tech</span><span style="color: hsl(var(--primary-foreground));" data-preview-light="true">:</span></span></span></span><span style="color: rgb(0, 7, 26);"><span></span></span></b><div></div></span><div><span><b><span><span>
           <span><span>Get hired into a qualifying tech role within 9 months of graduation.
           <br>
-          Or receive a full tuition refund.</span></span></span></span></b></span></div></span><div><span style="font-size: 1.25rem;"><b><span style="font-size: 1.5rem;"><span><span><span></span></span>
+          Or receive a full tuition refund.</span></span></span></span></b></span></div></span></span><div><span style="font-size: 1.25rem;"><b><span style="font-size: 1.5rem;"><span><span><span></span></span>
           <br></span></span></b></span><br>
           <span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div>
