@@ -6597,6 +6597,7 @@ sections: []
     // Get all programs for dropdown
     const programs = listCareerPrograms(locale).map((p) => ({
       slug: p.slug,
+      bc_slug: p.bc_slug,
       title: p.title,
     }));
 
