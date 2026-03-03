@@ -24,7 +24,7 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: AI Engineering
     title_highlight: AI Enginerering
@@ -47,7 +47,7 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
+    tutors_label: "Your tutors:"
     description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
     media:
       type: video
@@ -59,7 +59,7 @@ sections:
       description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send Me the Details
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -94,7 +94,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: AI Engineering
     title_highlight: AI Enginerering
@@ -117,7 +117,7 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
+    tutors_label: "Your tutors:"
     description: Build real, production-ready systems in our comprehensive AI Engineering program, supported by unlimited mentorship and career guidance. Become the software engineer companies are actively hiring for.
     media:
       type: video
@@ -129,7 +129,7 @@ sections:
       description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send me the details
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -175,7 +175,7 @@ sections:
       - santiago-chile
       - quito-ecuador
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: apply-modal
     heading: Request Program Details
     description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
@@ -245,20 +245,20 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: Why AI Engineering Now
     subtitle: The talent gap is your opportunity
     description: According to LinkedIn’s Jobs on the Rise 2026, AI Engineers are among the fastest-growing roles in the U.S. Demand is accelerating, and companies are actively hiring for these skills now.
     background: bg-muted/30
     items:
-      - id: '1'
+      - id: "1"
         value: 800,000
         title: AI-related roles expected by 2027
-      - id: '2'
+      - id: "2"
         value: ~30%
         title: Year-over-year growth in AI job posts
-      - id: '3'
+      - id: "3"
         value: {{ global.average_salary_ai_engineer | $95K-$135K }}
         title: Average starting salary for AI Engineers
   - type: syllabus
@@ -405,7 +405,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Instant feedback from Rigobot, our custom AI tutor
@@ -415,7 +415,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -425,7 +425,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -439,12 +439,12 @@ sections:
       desktop: md
   - type: certificate
     title: Career Outcomes
-    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:'
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: 'AI Software Engineer: $95K–$135K'
-      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-      - text: 'Agent Engineer: $105K–$155K'
-      - text: 'Workflow Automation Engineer: $85K–$120K'
+      - text: "AI Software Engineer: $95K–$135K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$155K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
@@ -469,10 +469,10 @@ sections:
         label: Average Salary Increase
         description: Master the AI skills that companies are struggling to find talent for. As businesses shift toward automation, you'll be ready to step into high-priority roles that offer immediate growth and long-term stability.
         benefits:
-          - text: 'AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}'
-          - text: 'Full-Stack AI Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}'
-          - text: 'Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}'
-          - text: 'Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}'
+          - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
+          - text: "Full-Stack AI Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
+          - text: "Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}"
+          - text: "Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}"
       - value: 400+
         label: Hiring partners
         description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
@@ -493,7 +493,7 @@ sections:
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee*
-    subtitle: 'Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span></div>'
+    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
         title: Add the job guarantee to your payment plan
@@ -502,7 +502,7 @@ sections:
       - icon: Award
         title: Get hired within 9 months of graduation – or your money back
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
     paddingY:
       desktop: lg none
@@ -526,12 +526,12 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting below'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
     financing_amount: {{ global.price_ai_engineering | $349 }}
     tech_icons:
       - openai
@@ -555,7 +555,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: '#apply-modal'
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: lg md
@@ -585,11 +585,11 @@ sections:
       - santiago-chile
       - mexicocity-mexico
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
     tech_icons:
@@ -728,7 +728,7 @@ sections:
           - rome-italy
           - valencia-spain
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -737,7 +737,6 @@ sections:
       variant: stacked
       submit_label: Apply now
       tags: website-lead
-      automations: hard
       fields:
         email:
           visible: true
@@ -771,7 +770,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
