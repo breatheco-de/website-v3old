@@ -115,7 +115,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para empezar tu carrera en tech?
-    background: bg-primary
+    background: hsl(var(--primary))
     variant: default
     buttons:
       - text: Aplica ahora
