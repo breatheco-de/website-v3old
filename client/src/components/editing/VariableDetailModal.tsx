@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { locations } from "@/lib/locations";
 import { useToast } from "@/hooks/use-toast";
+import { getDebugUserName } from "@/hooks/useDebugAuth";
 import {
   useVariableDefinitions,
   useVariableContext,
@@ -585,7 +586,7 @@ export function VariableDetailModal({
 
   const renameMutation = useMutation({
     mutationFn: async (newName: string) => {
-      const res = await apiRequest("POST", `/api/variables/${effectiveVarName}/rename`, { newName });
+      const res = await apiRequest("POST", `/api/variables/${effectiveVarName}/rename`, { newName, author: getDebugUserName() });
       return res.json();
     },
     onSuccess: (data: { newName: string; updatedFiles: string[] }) => {
