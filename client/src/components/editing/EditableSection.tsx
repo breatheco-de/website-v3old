@@ -1004,17 +1004,19 @@ export function EditableSection({ children, section, index, sectionType, content
                 onToggleLink={() => setPadLinked(prev => !prev)}
                 testIdPrefix={`x-pad-${index}`}
               />
-              <XSpacingGroup
-                label="Margin"
-                leftValue={getXEffective(xMargin, xSpacingBreakpoint, "left")}
-                rightValue={getXEffective(xMargin, xSpacingBreakpoint, "right")}
-                linked={marLinked}
-                onChangeLeft={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "left", v)}
-                onChangeRight={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "right", v)}
-                onChangeBoth={(v) => updateXBoth(setXMargin, xSpacingBreakpoint, v)}
-                onToggleLink={() => setMarLinked(prev => !prev)}
-                testIdPrefix={`x-mar-${index}`}
-              />
+              {(xMaxWidth.desktop === "none" && xMaxWidth.mobile === "none") && (
+                <XSpacingGroup
+                  label="Margin"
+                  leftValue={getXEffective(xMargin, xSpacingBreakpoint, "left")}
+                  rightValue={getXEffective(xMargin, xSpacingBreakpoint, "right")}
+                  linked={marLinked}
+                  onChangeLeft={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "left", v)}
+                  onChangeRight={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "right", v)}
+                  onChangeBoth={(v) => updateXBoth(setXMargin, xSpacingBreakpoint, v)}
+                  onToggleLink={() => setMarLinked(prev => !prev)}
+                  testIdPrefix={`x-mar-${index}`}
+                />
+              )}
               <div className="flex items-center justify-end gap-2 pt-1">
                 <Button
                   variant="ghost"
