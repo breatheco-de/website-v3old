@@ -4,10 +4,7 @@ bc_slug: full-stack
 title: Full Stack Development
 
 meta:
-  robots: index, follow
   og_image: /images/programs/full-stack-og.jpg
-  priority: 0.9
-  change_frequency: weekly
 
 # AI Content Adaptation Context
 # Used by the AI system to adapt component examples to this specific content

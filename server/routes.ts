@@ -22,6 +22,7 @@ import {
   getSitemapUrls,
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
+import { deepMerge } from "./utils/deepMerge";
 import { databaseManager } from "./database";
 import {
   redirectMiddleware,
@@ -342,6 +343,7 @@ async function loadDatabaseSinglePage(
   const folder = getFolder(contentType);
 
   const templateDir = path.join(process.cwd(), "marketing-content", folder);
+  const singleCommonPath = path.join(templateDir, "_common.single.yml");
   const commonPath = path.join(templateDir, "_common.yml");
   const localePath = path.join(templateDir, `single.${locale}.yml`);
 
@@ -352,27 +354,30 @@ async function loadDatabaseSinglePage(
     return null;
   }
 
-  let commonData: Record<string, unknown> = {};
+  let baseData: Record<string, unknown> = {};
+  if (fs.existsSync(singleCommonPath)) {
+    const singleRaw = fs.readFileSync(singleCommonPath, "utf-8");
+    const parsed = contentIndex.safeYamlLoad(singleRaw);
+    if (parsed) baseData = parsed;
+  }
+
   if (fs.existsSync(commonPath)) {
     const commonRaw = fs.readFileSync(commonPath, "utf-8");
     const parsed = contentIndex.safeYamlLoad(commonRaw);
-    if (parsed) commonData = parsed;
+    if (parsed) {
+      baseData = Object.keys(baseData).length > 0
+        ? deepMerge(baseData, parsed)
+        : parsed;
+    }
   }
 
   const localeRaw = fs.readFileSync(localePath, "utf-8");
   const localeData = contentIndex.safeYamlLoad(localeRaw);
   if (!localeData) return null;
 
-  const merged = { ...commonData, ...localeData };
-  if (localeData.meta && commonData.meta) {
-    merged.meta = {
-      ...(commonData.meta as Record<string, unknown>),
-      ...(localeData.meta as Record<string, unknown>),
-    };
-  }
-  if (localeData.sections) {
-    merged.sections = localeData.sections;
-  }
+  const merged = Object.keys(baseData).length > 0
+    ? deepMerge(baseData, localeData)
+    : { ...localeData };
 
   if (!databaseManager.exists(dbName)) {
     console.error(`[DatabaseSingle] Database "${dbName}" not found`);
@@ -443,7 +448,6 @@ async function loadDatabaseSinglePage(
 
     const page: TemplatePage = {
       slug: (merged.slug as string) || slug,
-      template: (merged.template as string) || "default",
       title: (merged.title as string) || (singleItem.title as string) || slug,
       meta: (merged.meta as TemplatePage["meta"]) || {},
       sections: (merged.sections as TemplatePage["sections"]) || [],
@@ -464,16 +468,15 @@ async function loadDatabaseSinglePage(
 
 function listTemplatePages(
   locale: string,
-): Array<{ slug: string; template: string; title: string }> {
+): Array<{ slug: string; title: string }> {
   const slugs = contentIndex.listContentSlugs("page");
-  const pages: Array<{ slug: string; template: string; title: string }> = [];
+  const pages: Array<{ slug: string; title: string }> = [];
 
   for (const slug of slugs) {
     const page = loadTemplatePage(slug, locale);
     if (page) {
       pages.push({
         slug: page.slug,
-        template: page.template,
         title: page.title,
       });
     }
@@ -1819,6 +1822,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (body.database !== undefined) update.database = body.database;
       updateContentTypeConfig(type, update);
       res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-type/:name/single-defaults", (req, res) => {
+    try {
+      const { name } = req.params;
+      const folder = getFolder(name);
+      if (!folder) {
+        res.status(404).json({ error: `Content type "${name}" not found` });
+        return;
+      }
+      const filePath = path.join(process.cwd(), "marketing-content", folder, "_common.single.yml");
+      if (!fs.existsSync(filePath)) {
+        res.json({ defaults: {} });
+        return;
+      }
+      const raw = fs.readFileSync(filePath, "utf-8");
+      const parsed = contentIndex.safeYamlLoad(raw) || {};
+      res.json({ defaults: parsed });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/content-type/:name/single-defaults", (req, res) => {
+    try {
+      const { name } = req.params;
+      const folder = getFolder(name);
+      if (!folder) {
+        res.status(404).json({ error: `Content type "${name}" not found` });
+        return;
+      }
+      const body = req.body;
+      if (!body || typeof body !== "object") {
+        res.status(400).json({ error: "Request body must be a JSON object" });
+        return;
+      }
+      const filePath = path.join(process.cwd(), "marketing-content", folder, "_common.single.yml");
+      let existing: Record<string, unknown> = {};
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, "utf-8");
+        existing = contentIndex.safeYamlLoad(raw) || {};
+      }
+      const merged = deepMerge(existing, body);
+      const { escaped, map } = escapeObjectVars(merged);
+      const dumped = yaml.dump(escaped, { lineWidth: 120, noRefs: true });
+      const yamlStr = unescapeYamlDump(dumped, map);
+      fs.writeFileSync(filePath, yamlStr, "utf-8");
+      const author = (req.body as Record<string, unknown>).author as string | undefined;
+      markFileAsModified(filePath, author || "api");
+      res.json({ success: true, defaults: merged });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }

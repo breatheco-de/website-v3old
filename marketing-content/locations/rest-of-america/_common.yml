@@ -8,7 +8,6 @@ longitude: 0
 region: online
 default_language: en
 timezone: UTC
-visibility: listed
 phone: ""
 address: ""
 available_programs:

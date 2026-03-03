@@ -71,6 +71,35 @@ function parseResponsiveSpacing(value: ResponsiveSpacing | undefined): {
 
 // Default spacing when YAML doesn't specify values
 const DEFAULT_SPACING = { top: "0px", bottom: "0px" };
+const DEFAULT_SPACING_X = { left: "0px", right: "0px" };
+
+function parseResponsiveSpacingX(value: ResponsiveSpacing | undefined): {
+  mobile: { left: string; right: string };
+  desktop: { left: string; right: string };
+} | null {
+  if (!value) return null;
+
+  const mobileValue = value.mobile ?? value.desktop ?? "none";
+  const desktopValue = value.desktop ?? value.mobile ?? "none";
+
+  const parseLR = (v: string) => {
+    if (!v || v === "none") return { left: "0px", right: "0px" };
+    const parts = v.trim().split(/\s+/);
+    if (parts.length === 1) {
+      const resolved = resolveSpacingValue(parts[0]);
+      return { left: resolved, right: resolved };
+    }
+    return {
+      left: resolveSpacingValue(parts[0]),
+      right: resolveSpacingValue(parts[1] || parts[0]),
+    };
+  };
+
+  return {
+    mobile: parseLR(mobileValue),
+    desktop: parseLR(desktopValue),
+  };
+}
 
 // Semantic background tokens mapped to CSS variables
 const BACKGROUND_TOKENS: Record<string, string> = {
@@ -107,19 +136,21 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
 
   const padding = parseResponsiveSpacing(layoutSection.paddingY);
   const margin = parseResponsiveSpacing(layoutSection.marginY);
+  const paddingX = parseResponsiveSpacingX(layoutSection.paddingX);
+  const marginX = parseResponsiveSpacingX(layoutSection.marginX);
   const background = parseBackground(layoutSection.background);
 
-  // Use CSS custom properties for responsive values
-  // Global CSS will handle the media query switching via .section-wrapper class
   const styles: CSSProperties & Record<string, string> = {
-    // Apply using the responsive CSS variables set by media query in index.css
     paddingTop: 'var(--section-pt)',
     paddingBottom: 'var(--section-pb)',
     marginTop: 'var(--section-mt)',
     marginBottom: 'var(--section-mb)',
+    paddingLeft: 'var(--section-pl)',
+    paddingRight: 'var(--section-pr)',
+    marginLeft: 'var(--section-ml)',
+    marginRight: 'var(--section-mr)',
   };
 
-  // Set CSS custom properties (index signature for custom properties)
   styles['--section-pt-mobile'] = padding?.mobile.top ?? DEFAULT_SPACING.top;
   styles['--section-pb-mobile'] = padding?.mobile.bottom ?? DEFAULT_SPACING.bottom;
   styles['--section-mt-mobile'] = margin?.mobile.top ?? DEFAULT_SPACING.top;
@@ -128,6 +159,15 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
   styles['--section-pb-desktop'] = padding?.desktop.bottom ?? DEFAULT_SPACING.bottom;
   styles['--section-mt-desktop'] = margin?.desktop.top ?? DEFAULT_SPACING.top;
   styles['--section-mb-desktop'] = margin?.desktop.bottom ?? DEFAULT_SPACING.bottom;
+
+  styles['--section-pl-mobile'] = paddingX?.mobile.left ?? DEFAULT_SPACING_X.left;
+  styles['--section-pr-mobile'] = paddingX?.mobile.right ?? DEFAULT_SPACING_X.right;
+  styles['--section-ml-mobile'] = marginX?.mobile.left ?? DEFAULT_SPACING_X.left;
+  styles['--section-mr-mobile'] = marginX?.mobile.right ?? DEFAULT_SPACING_X.right;
+  styles['--section-pl-desktop'] = paddingX?.desktop.left ?? DEFAULT_SPACING_X.left;
+  styles['--section-pr-desktop'] = paddingX?.desktop.right ?? DEFAULT_SPACING_X.right;
+  styles['--section-ml-desktop'] = marginX?.desktop.left ?? DEFAULT_SPACING_X.left;
+  styles['--section-mr-desktop'] = marginX?.desktop.right ?? DEFAULT_SPACING_X.right;
 
   if (background) {
     styles.background = background;

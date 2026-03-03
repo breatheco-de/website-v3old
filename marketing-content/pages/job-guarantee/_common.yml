@@ -1,10 +1,8 @@
 # Common properties shared across all language variants
 slug: "job-guarantee"
-template: "default"
 title: "Job Guarantee"
 
 meta:
-  robots: "index, follow"
   priority: 0.9
   change_frequency: "weekly"
 
@@ -18,8 +16,3 @@ context:
     - "Address skepticism about bootcamp effectiveness"
     - "Highlight success rates and employer partnerships"
     - "Make the financial commitment feel secure"
-
-schema:
-  include:
-    - "organization"
-    - "website"

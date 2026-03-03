@@ -1,14 +1,7 @@
 # Common properties shared across all language variants
 slug: "graduates-and-projects"
-template: "default"
 title: "Graduates and Projects"
 
 meta:
-  robots: "index, follow"
   priority: 0.9
   change_frequency: "weekly"
-
-schema:
-  include:
-    - "organization"
-    - "website"

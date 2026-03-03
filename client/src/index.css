@@ -687,6 +687,10 @@
   --section-pb: var(--section-pb-mobile);
   --section-mt: var(--section-mt-mobile);
   --section-mb: var(--section-mb-mobile);
+  --section-pl: var(--section-pl-mobile);
+  --section-pr: var(--section-pr-mobile);
+  --section-ml: var(--section-ml-mobile);
+  --section-mr: var(--section-mr-mobile);
 }
 
 /* Prose preview for markdown editor modal */
@@ -737,6 +741,10 @@
     --section-pb: var(--section-pb-desktop);
     --section-mt: var(--section-mt-desktop);
     --section-mb: var(--section-mb-desktop);
+    --section-pl: var(--section-pl-desktop);
+    --section-pr: var(--section-pr-desktop);
+    --section-ml: var(--section-ml-desktop);
+    --section-mr: var(--section-mr-desktop);
   }
 }
 

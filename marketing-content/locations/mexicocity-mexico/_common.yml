@@ -8,7 +8,6 @@ longitude: -99.1332
 region: latam
 default_language: es
 timezone: America/Mexico_City
-visibility: listed
 phone: +52 55 1234 5678
 address: Paseo de la Reforma 222, 06600 CDMX
 available_programs:

@@ -1,14 +1,3 @@
 # Common properties shared across all language variants
 slug: "awards"
-template: "default"
 title: "Awards & Recognitions"
-
-meta:
-  robots: "index, follow"
-  priority: 0.8
-  change_frequency: "monthly"
-
-schema:
-  include:
-    - "organization"
-    - "website"

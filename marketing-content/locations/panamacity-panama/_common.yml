@@ -8,7 +8,6 @@ longitude: -79.5199
 region: latam
 default_language: es
 timezone: America/Panama
-visibility: listed
 phone: +507 123 4567
 address: Calle 50, Panama City
 available_programs:

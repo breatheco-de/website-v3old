@@ -4,10 +4,7 @@ bc_slug: datascience-ml
 title: Data Science and Machine Learning
 
 meta:
-  robots: "index, follow"
   og_image: "/images/programs/data-science-ml-og.jpg"
-  priority: 0.9
-  change_frequency: "weekly"
 
 schema:
   include:

@@ -8,7 +8,6 @@ longitude: -74.0721
 region: latam
 default_language: es
 timezone: America/Bogota
-visibility: listed
 phone: +57 1 234 5678
 address: "Carrera 7 #71-21, Bogota"
 available_programs:

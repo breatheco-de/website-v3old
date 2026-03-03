@@ -8,7 +8,6 @@ longitude: 9.19
 region: europe
 default_language: en
 timezone: Europe/Rome
-visibility: listed
 phone: +39 02 555 0100
 address: Via Montenapoleone 8, 20121 Milano
 available_programs:

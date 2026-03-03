@@ -1,14 +1,7 @@
 # Common properties shared across all language variants
 slug: "geekpal-support"
-template: "default"
 title: "GeekPAL Support"
 
 meta:
-  robots: "index, follow"
   priority: 0.9
   change_frequency: "weekly"
-
-schema:
-  include:
-    - "organization"
-    - "website"

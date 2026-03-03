@@ -1,14 +1,6 @@
 # Common properties shared across all language variants
 slug: "scholarships"
-template: "default"
 title: "scholarships"
 
 meta:
-  robots: "index, follow"
-  priority: 0.8
   change_frequency: "weekly"
-
-schema:
-  include:
-    - "organization"
-    - "website"

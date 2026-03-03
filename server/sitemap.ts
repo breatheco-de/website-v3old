@@ -95,7 +95,6 @@ interface AvailableLocation {
 interface AvailableTemplatePage {
   slug: string;
   locale: string;
-  template: string;
   title: string;
   meta: ContentMeta;
 }
@@ -238,7 +237,6 @@ function getAvailableTemplatePages(): AvailableTemplatePage[] {
         pages.push({
           slug: (merged.slug as string) || dirSlug,
           locale,
-          template: (merged.template as string) || dirSlug.replace(/-/g, "_"),
           title: meta.page_title || (merged.title as string) || dirSlug,
           meta,
         });

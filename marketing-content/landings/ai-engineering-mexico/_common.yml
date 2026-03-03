@@ -2,10 +2,7 @@ slug: ai-engineering-mexico
 title: Conviértete en Ingeniero de IA en 24 semanas | 4Geeks Academy México
 locale: es
 meta:
-  robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
-  priority: 0.9
-  change_frequency: weekly
 schema:
   include:
     - organization

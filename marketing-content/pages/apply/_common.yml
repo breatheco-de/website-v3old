@@ -1,16 +1,5 @@
 slug: "apply"
-template: "default"
 title: "Apply"
-
-meta:
-  robots: "index, follow"
-  priority: 0.8
-  change_frequency: "monthly"
-
-schema:
-  include:
-    - "organization"
-    - "website"
 
 programs:
   - id: "full-stack"

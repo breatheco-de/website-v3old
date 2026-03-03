@@ -2,10 +2,7 @@ slug: ai-engineering-en
 title: AI Engineering Program
 locale: en
 meta:
-  robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
-  priority: 0.9
-  change_frequency: weekly
 schema:
   include:
     - organization

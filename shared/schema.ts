@@ -769,6 +769,8 @@ export const sectionLayoutSchema = z.object({
   load: sectionLoadSchema.optional(),
   marginY: responsiveSpacingSchema.optional(),
   paddingY: responsiveSpacingSchema.optional(),
+  marginX: responsiveSpacingSchema.optional(),
+  paddingX: responsiveSpacingSchema.optional(),
   background: z.string().optional(),
   showOn: showOnSchema.optional(),
   showOnLocations: z.array(z.string()).optional(),
@@ -1182,7 +1184,6 @@ export const templatePageMetaSchema = z.object({
 
 export const templatePageSchema = z.object({
   slug: z.string(),
-  template: z.string(),
   title: z.string(),
   meta: templatePageMetaSchema,
   schema: schemaRefSchema.optional(),

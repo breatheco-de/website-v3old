@@ -1,7 +1,10 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconInfoCircle } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import type { Section, SectionLayout, ShowOn } from "@shared/schema";
+import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { getLocationBySlug } from "@/lib/locations";
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
@@ -53,6 +56,119 @@ const SectionEditorPanel = lazy(() =>
 const SectionBindingDialog = lazy(() =>
   import("./SectionBindingDialog").then(mod => ({ default: mod.SectionBindingDialog }))
 );
+
+const X_SPACING_PRESETS = [
+  { label: "None", value: "none" },
+  { label: "S", value: "sm" },
+  { label: "M", value: "md" },
+  { label: "L", value: "lg" },
+  { label: "XL", value: "xl" },
+];
+
+type XBreakpoint = "mobile" | "desktop";
+
+interface XSpacingValues {
+  mobile: { left: string | undefined; right: string | undefined };
+  desktop: { left: string; right: string };
+}
+
+function parseLR(value: string | undefined): { left: string; right: string } {
+  if (!value || value === "none") return { left: "none", right: "none" };
+  const parts = value.trim().split(/\s+/);
+  if (parts.length === 1) return { left: parts[0], right: parts[0] };
+  return { left: parts[0], right: parts[1] || parts[0] };
+}
+
+function combineLR(left: string, right: string): string {
+  const l = left || "none";
+  const r = right || "none";
+  if (l === r) return l;
+  return `${l} ${r}`;
+}
+
+function parseXSpacing(value: ResponsiveSpacing | undefined): XSpacingValues {
+  if (!value) {
+    return { mobile: { left: undefined, right: undefined }, desktop: { left: "none", right: "none" } };
+  }
+  const desktopValue = value.desktop ?? value.mobile ?? "none";
+  const desktopParsed = parseLR(desktopValue);
+  if (value.mobile === undefined) {
+    return { mobile: { left: undefined, right: undefined }, desktop: desktopParsed };
+  }
+  const mobileParsed = parseLR(value.mobile);
+  return { mobile: { left: mobileParsed.left, right: mobileParsed.right }, desktop: desktopParsed };
+}
+
+function getXEffective(values: XSpacingValues, breakpoint: XBreakpoint, pos: "left" | "right"): string {
+  if (breakpoint === "mobile") return values.mobile[pos] ?? values.desktop[pos];
+  return values.desktop[pos];
+}
+
+async function updateSectionXField(
+  contentType: string,
+  slug: string,
+  locale: string,
+  sectionIndex: number,
+  field: string,
+  value: ResponsiveSpacing
+): Promise<{ success: boolean; error?: string }> {
+  const token = getDebugToken();
+  const author = await resolveAuthorName();
+  const response = await fetch("/api/content/edit-sections", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Token ${token}` } : {}),
+    },
+    body: JSON.stringify({
+      contentType,
+      slug,
+      locale,
+      author,
+      operations: [{ action: "update_field", path: `sections.${sectionIndex}.${field}`, value }],
+    }),
+  });
+  return response.json();
+}
+
+function XSpacingPresetRow({
+  value,
+  onChange,
+  label,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  label: string;
+}) {
+  const isCustom = value && !X_SPACING_PRESETS.some((p) => p.value === value);
+  const testId = label.toLowerCase().replace(/\s/g, "-");
+  return (
+    <div className="space-y-1.5">
+      <Label className="text-xs text-muted-foreground">{label}</Label>
+      <div className="flex items-center gap-1">
+        {X_SPACING_PRESETS.map((preset) => (
+          <Button
+            key={preset.value}
+            variant={value === preset.value ? "default" : "outline"}
+            size="sm"
+            onClick={() => onChange(preset.value)}
+            data-testid={`x-spacing-preset-${testId}-${preset.value}`}
+          >
+            {preset.label}
+          </Button>
+        ))}
+        <Input
+          type="text"
+          placeholder="Custom"
+          value={isCustom ? value : ""}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-16 text-xs"
+          data-testid={`x-spacing-custom-${testId}`}
+        />
+      </div>
+    </div>
+  );
+}
 
 interface EditableSectionProps {
   children: React.ReactNode;
@@ -107,6 +223,13 @@ export function EditableSection({ children, section, index, sectionType, content
   const [adaptedSection, setAdaptedSection] = useState<Section | null>(null);
   const [hasAdapted, setHasAdapted] = useState(false);
   
+  // X-spacing popover state
+  const [xSpacingOpen, setXSpacingOpen] = useState(false);
+  const [xSpacingBreakpoint, setXSpacingBreakpoint] = useState<XBreakpoint>("desktop");
+  const [xPadding, setXPadding] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).paddingX));
+  const [xMargin, setXMargin] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).marginX));
+  const [xSaving, setXSaving] = useState(false);
+
   // YAML source modal state
   const [showYamlModal, setShowYamlModal] = useState(false);
   
@@ -483,6 +606,101 @@ export function EditableSection({ children, section, index, sectionType, content
     }
   }, [reviewCodeYaml, sectionType, contentType, slug, locale, variant, version, index, toast, pageHistory]);
   
+  const handleXSpacingOpen = useCallback((open: boolean) => {
+    setXSpacingOpen(open);
+    if (open) {
+      setXPadding(parseXSpacing((currentSection as SectionLayout).paddingX));
+      setXMargin(parseXSpacing((currentSection as SectionLayout).marginX));
+    }
+  }, [currentSection]);
+
+  const updateXValue = useCallback((
+    setter: React.Dispatch<React.SetStateAction<XSpacingValues>>,
+    breakpoint: XBreakpoint,
+    pos: "left" | "right",
+    value: string
+  ) => {
+    setter(prev => {
+      if (breakpoint === "desktop") {
+        return { ...prev, desktop: { ...prev.desktop, [pos]: value } };
+      }
+      return { ...prev, mobile: { ...prev.mobile, [pos]: value } };
+    });
+  }, []);
+
+  const toXResponsiveSpacing = useCallback((values: XSpacingValues): ResponsiveSpacing => {
+    const desktopStr = combineLR(values.desktop.left, values.desktop.right);
+    if (values.mobile.left === undefined && values.mobile.right === undefined) {
+      return { desktop: desktopStr };
+    }
+    const mobileLeft = values.mobile.left ?? values.desktop.left;
+    const mobileRight = values.mobile.right ?? values.desktop.right;
+    return { mobile: combineLR(mobileLeft, mobileRight), desktop: desktopStr };
+  }, []);
+
+  const handleApplyXSpacing = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    setXSaving(true);
+    try {
+      const ops: Promise<{ success: boolean; error?: string }>[] = [];
+      const origPadding = parseXSpacing((currentSection as SectionLayout).paddingX);
+      const origMargin = parseXSpacing((currentSection as SectionLayout).marginX);
+      const padChanged = origPadding.desktop.left !== xPadding.desktop.left ||
+        origPadding.desktop.right !== xPadding.desktop.right ||
+        origPadding.mobile.left !== xPadding.mobile.left ||
+        origPadding.mobile.right !== xPadding.mobile.right;
+      const marChanged = origMargin.desktop.left !== xMargin.desktop.left ||
+        origMargin.desktop.right !== xMargin.desktop.right ||
+        origMargin.mobile.left !== xMargin.mobile.left ||
+        origMargin.mobile.right !== xMargin.mobile.right;
+      if (padChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "paddingX", toXResponsiveSpacing(xPadding)));
+      if (marChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "marginX", toXResponsiveSpacing(xMargin)));
+      const results = await Promise.all(ops);
+      const failed = results.filter(r => !r.success);
+      if (failed.length > 0) {
+        toast({ title: "Failed to update X spacing", description: failed[0].error, variant: "destructive" });
+      } else if (ops.length > 0) {
+        toast({ title: "X spacing updated" });
+        emitContentUpdated({ contentType, slug, locale });
+        try {
+          const token = getDebugToken();
+          const defaultsResp = await fetch(`/api/content-type/${contentType}/single-defaults`, {
+            headers: token ? { Authorization: `Token ${token}` } : {},
+          });
+          if (defaultsResp.ok) {
+            const { defaults } = await defaultsResp.json();
+            const hasPadX = defaults?.section_defaults?.paddingX;
+            const hasMarX = defaults?.section_defaults?.marginX;
+            if (!hasPadX && !hasMarX && (padChanged || marChanged)) {
+              const save = window.confirm(
+                "No default X spacing is set for this content type. Save this as the default?"
+              );
+              if (save) {
+                const sectionDefaults: Record<string, unknown> = {};
+                if (padChanged) sectionDefaults.paddingX = toXResponsiveSpacing(xPadding);
+                if (marChanged) sectionDefaults.marginX = toXResponsiveSpacing(xMargin);
+                await fetch(`/api/content-type/${contentType}/single-defaults`, {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                    ...(token ? { Authorization: `Token ${token}` } : {}),
+                  },
+                  body: JSON.stringify({ section_defaults: sectionDefaults }),
+                });
+                toast({ title: "Default X spacing saved for content type" });
+              }
+            }
+          }
+        } catch {}
+      }
+      setXSpacingOpen(false);
+    } catch (error) {
+      toast({ title: "Error updating X spacing", description: String(error), variant: "destructive" });
+    } finally {
+      setXSaving(false);
+    }
+  }, [contentType, slug, locale, index, currentSection, xPadding, xMargin, toXResponsiveSpacing, toast]);
+
   const handleOpenEditor = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setIsEditorOpen(true);
@@ -600,6 +818,99 @@ export function EditableSection({ children, section, index, sectionType, content
             <IconCopy className="h-4 w-4" />
           </button>
         )}
+        <Popover open={xSpacingOpen} onOpenChange={handleXSpacingOpen}>
+          <PopoverTrigger asChild>
+            <button
+              className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
+              title="Horizontal spacing"
+              data-testid={`button-x-spacing-section-${index}`}
+            >
+              <IconSpacingHorizontal className="h-4 w-4" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto min-w-[340px] p-3" onClick={(e) => e.stopPropagation()}>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-medium">X Spacing</span>
+                <div className="flex items-center gap-1 rounded-md border p-0.5">
+                  <Button
+                    variant={xSpacingBreakpoint === "desktop" ? "default" : "ghost"}
+                    size="sm"
+                    className="h-6 px-2"
+                    onClick={() => setXSpacingBreakpoint("desktop")}
+                    data-testid={`x-spacing-bp-desktop-${index}`}
+                  >
+                    <IconDeviceDesktop className="h-3.5 w-3.5 mr-1" />
+                    <span className="text-xs">Desktop</span>
+                  </Button>
+                  <Button
+                    variant={xSpacingBreakpoint === "mobile" ? "default" : "ghost"}
+                    size="sm"
+                    className="h-6 px-2"
+                    onClick={() => setXSpacingBreakpoint("mobile")}
+                    data-testid={`x-spacing-bp-mobile-${index}`}
+                  >
+                    <IconDeviceMobile className="h-3.5 w-3.5 mr-1" />
+                    <span className="text-xs">Mobile</span>
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Padding</span>
+                <XSpacingPresetRow
+                  label="Left"
+                  value={getXEffective(xPadding, xSpacingBreakpoint, "left")}
+                  onChange={(v) => updateXValue(setXPadding, xSpacingBreakpoint, "left", v)}
+                />
+                <XSpacingPresetRow
+                  label="Right"
+                  value={getXEffective(xPadding, xSpacingBreakpoint, "right")}
+                  onChange={(v) => updateXValue(setXPadding, xSpacingBreakpoint, "right", v)}
+                />
+              </div>
+              <div className="space-y-2">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Margin</span>
+                <XSpacingPresetRow
+                  label="Left"
+                  value={getXEffective(xMargin, xSpacingBreakpoint, "left")}
+                  onChange={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "left", v)}
+                />
+                <XSpacingPresetRow
+                  label="Right"
+                  value={getXEffective(xMargin, xSpacingBreakpoint, "right")}
+                  onChange={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "right", v)}
+                />
+              </div>
+              {xSpacingBreakpoint === "mobile" && (
+                <div className="flex items-start gap-1.5 rounded border border-border/50 bg-muted/50 p-2">
+                  <IconInfoCircle className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-0.5" />
+                  <span className="text-xs text-muted-foreground">
+                    Mobile values inherit from desktop when not set.
+                  </span>
+                </div>
+              )}
+              <div className="flex items-center justify-end gap-2 pt-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setXSpacingOpen(false)}
+                  data-testid={`x-spacing-cancel-${index}`}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleApplyXSpacing}
+                  disabled={xSaving}
+                  data-testid={`x-spacing-apply-${index}`}
+                >
+                  {xSaving ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : null}
+                  Apply
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
         <Popover open={swapPopoverOpen} onOpenChange={setSwapPopoverOpen}>
           <PopoverTrigger asChild>
             <button 

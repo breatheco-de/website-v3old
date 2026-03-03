@@ -959,19 +959,29 @@ class ContentIndex {
         return { data: null, filePath, error: `Content file not found: ${filePath}` };
       }
 
+      const folder = this.getFolderName(contentType);
+      const singleCommonPath = path.join(MARKETING_CONTENT_PATH, folder, "_common.single.yml");
+      let baseData: Record<string, unknown> = {};
+      if (fs.existsSync(singleCommonPath)) {
+        const singleCommonContent = fs.readFileSync(singleCommonPath, "utf-8");
+        baseData = this.safeYamlLoad(singleCommonContent) as Record<string, unknown>;
+      }
+
       const contentFolder = this.getContentFolderPath(contentType, slug);
       const commonPath = path.join(contentFolder, "_common.yml");
-      let commonData: Record<string, unknown> = {};
       if (fs.existsSync(commonPath)) {
         const commonContent = fs.readFileSync(commonPath, "utf-8");
-        commonData = this.safeYamlLoad(commonContent) as Record<string, unknown>;
+        const commonData = this.safeYamlLoad(commonContent) as Record<string, unknown>;
+        baseData = Object.keys(baseData).length > 0
+          ? deepMerge(baseData, commonData)
+          : commonData;
       }
 
       const raw = fs.readFileSync(filePath, "utf-8");
       const localeData = this.safeYamlLoad(raw) as Record<string, unknown>;
 
-      const merged = Object.keys(commonData).length > 0
-        ? deepMerge(commonData, localeData)
+      const merged = Object.keys(baseData).length > 0
+        ? deepMerge(baseData, localeData)
         : localeData;
 
       const isSharedTemplate = path.basename(filePath).startsWith("single.");
@@ -1004,16 +1014,25 @@ class ContentIndex {
         return { success: false, error: `Required _common.yml not found: ${commonPath}` };
       }
 
-      let commonData: Record<string, unknown> = {};
+      const singleCommonPath = path.join(MARKETING_CONTENT_PATH, folder, "_common.single.yml");
+      let baseData: Record<string, unknown> = {};
+      if (fs.existsSync(singleCommonPath)) {
+        const singleCommonContent = fs.readFileSync(singleCommonPath, "utf-8");
+        baseData = this.safeYamlLoad(singleCommonContent) as Record<string, unknown>;
+      }
+
       if (fs.existsSync(commonPath)) {
         const commonContent = fs.readFileSync(commonPath, "utf8");
-        commonData = this.safeYamlLoad(commonContent) as Record<string, unknown>;
+        const commonData = this.safeYamlLoad(commonContent) as Record<string, unknown>;
+        baseData = Object.keys(baseData).length > 0
+          ? deepMerge(baseData, commonData)
+          : commonData;
       }
 
       const contentContent = fs.readFileSync(contentPath, "utf8");
       const contentData = this.safeYamlLoad(contentContent) as Record<string, unknown>;
 
-      const mergedData = deepMerge(commonData, contentData);
+      const mergedData = deepMerge(baseData, contentData);
       const cleanedData = stripNullValues(mergedData);
 
       const result = schema.safeParse(cleanedData);

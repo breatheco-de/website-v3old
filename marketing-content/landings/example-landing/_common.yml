@@ -6,12 +6,4 @@ title: "Example Landing Page"
 locale: "en"
 
 meta:
-  robots: "index, follow"
   og_image: "/images/landing-og.jpg"
-  priority: 0.9
-  change_frequency: "weekly"
-
-schema:
-  include:
-    - "organization"
-    - "website"

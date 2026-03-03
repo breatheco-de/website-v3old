@@ -8,7 +8,6 @@ longitude: -56.1645
 region: latam
 default_language: es
 timezone: America/Montevideo
-visibility: listed
 phone: +598 2 123 4567
 address: 18 de Julio 1234, Montevideo
 available_programs:

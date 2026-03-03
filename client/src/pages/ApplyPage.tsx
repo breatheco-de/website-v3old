@@ -9,7 +9,6 @@ import { FooterSection } from "@/components/FooterSection";
 
 interface ApplyPageData {
   slug: string;
-  template: string;
   title: string;
   meta: {
     robots?: string;

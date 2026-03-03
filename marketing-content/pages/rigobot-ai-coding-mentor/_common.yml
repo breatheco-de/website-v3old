@@ -1,14 +1,6 @@
 # Common properties shared across all language variants
 slug: "rigobot-ai-coding-mentor"
-template: "default"
 title: "rigobot-ai-coding-mentor"
 
 meta:
-  robots: "index, follow"
-  priority: 0.8
   change_frequency: "weekly"
-
-schema:
-  include:
-    - "organization"
-    - "website"
