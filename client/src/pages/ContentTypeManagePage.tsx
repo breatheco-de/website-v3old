@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Link, useRoute } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -53,6 +53,7 @@ import {
   IconX,
   IconCode,
   IconTransform,
+  IconAlertTriangle,
 } from "@tabler/icons-react";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
@@ -1236,6 +1237,30 @@ function buildItemUrl(pattern: string, item: Record<string, any>, locale: string
   return result;
 }
 
+type FieldValidationResult = { valid: boolean; total: number; found: number; missing: string[] };
+type ValidationState = Record<string, FieldValidationResult | "loading" | null>;
+
+function FieldValidationIndicator({ result }: { result: FieldValidationResult | "loading" | null | undefined }) {
+  if (!result) return null;
+  if (result === "loading") {
+    return <IconLoader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground flex-shrink-0" />;
+  }
+  if (result.valid) {
+    return <IconCheck className="h-3.5 w-3.5 text-green-600 dark:text-green-400 flex-shrink-0" data-testid="icon-validation-valid" />;
+  }
+  return <IconAlertTriangle className="h-3.5 w-3.5 text-destructive flex-shrink-0" data-testid="icon-validation-invalid" />;
+}
+
+function FieldValidationMessage({ result, fieldKey }: { result: FieldValidationResult | "loading" | null | undefined; fieldKey: string }) {
+  if (!result || result === "loading" || result.valid) return null;
+  return (
+    <p className="text-[11px] text-destructive pl-[7.5rem]" data-testid={`text-validation-error-${fieldKey}`}>
+      Missing in: {result.missing.slice(0, 5).join(", ")}{result.missing.length > 5 ? ` (+${result.missing.length - 5} more)` : ""}
+      <span className="text-muted-foreground ml-1">({result.found}/{result.total} entries)</span>
+    </p>
+  );
+}
+
 function FieldMappingDialog({
   open,
   onOpenChange,
@@ -1255,11 +1280,17 @@ function FieldMappingDialog({
     enabled: open,
   });
 
+  const isDbBacked = !!config?.database?.slug;
+
   const [mappings, setMappings] = useState<Record<string, string>>({});
   const [indexedFields, setIndexedFields] = useState<string[]>([]);
   const [newKey, setNewKey] = useState("");
   const [newValue, setNewValue] = useState("");
   const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
+  const [validation, setValidation] = useState<ValidationState>({});
+  const [newValueValidation, setNewValueValidation] = useState<FieldValidationResult | "loading" | null>(null);
+  const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  const requestCounters = useRef<Record<string, number>>({});
 
   useEffect(() => {
     if (!config) return;
@@ -1282,14 +1313,108 @@ function FieldMappingDialog({
     setMappings(fm);
     setTransformerModes(tmodes);
     setIndexedFields(config.indexes || []);
+    setValidation({});
+    requestCounters.current = {};
   }, [config]);
+
+  const validateSingleField = useCallback((key: string, source: string) => {
+    if (isDbBacked || !source || key.startsWith("_")) return;
+    const reqId = (requestCounters.current[key] || 0) + 1;
+    requestCounters.current[key] = reqId;
+    setValidation((prev) => ({ ...prev, [key]: "loading" }));
+    fetch(`/api/content-types/${contentType}/validate-field?source=${encodeURIComponent(source)}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((result: FieldValidationResult | null) => {
+        if (requestCounters.current[key] !== reqId) return;
+        setValidation((prev) => ({ ...prev, [key]: result }));
+      })
+      .catch(() => {
+        if (requestCounters.current[key] !== reqId) return;
+        setValidation((prev) => ({ ...prev, [key]: null }));
+      });
+  }, [contentType, isDbBacked]);
+
+  const debouncedValidate = useCallback((key: string, source: string) => {
+    if (debounceTimers.current[key]) clearTimeout(debounceTimers.current[key]);
+    debounceTimers.current[key] = setTimeout(() => validateSingleField(key, source), 500);
+  }, [validateSingleField]);
+
+  useEffect(() => {
+    if (!config || isDbBacked) return;
+    const rawMapping: Record<string, string> = {};
+    if (config.field_mapping) {
+      for (const [k, v] of Object.entries(config.field_mapping)) {
+        if (typeof v === "string" && !v.startsWith("function:") && !k.startsWith("_")) {
+          rawMapping[k] = v;
+        }
+      }
+    }
+    if (Object.keys(rawMapping).length === 0) return;
+    const bulkReqId = Date.now();
+    requestCounters.current["__bulk"] = bulkReqId;
+    fetch(`/api/content-types/${contentType}/validate-mappings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ field_mapping: rawMapping }),
+    })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data: { results: Record<string, FieldValidationResult> } | null) => {
+        if (requestCounters.current["__bulk"] !== bulkReqId || !data) return;
+        setValidation(data.results || {});
+      })
+      .catch(() => {});
+  }, [config, contentType, isDbBacked]);
+
+  const handleSourceChange = (key: string, value: string) => {
+    setMappings((prev) => ({ ...prev, [key]: value }));
+    if (!transformerModes[key] && !key.startsWith("_") && !isDbBacked) {
+      debouncedValidate(key, value);
+    }
+  };
+
+  const validateNewValue = useCallback((source: string) => {
+    if (isDbBacked || !source) {
+      setNewValueValidation(null);
+      return;
+    }
+    const reqId = (requestCounters.current["__new"] || 0) + 1;
+    requestCounters.current["__new"] = reqId;
+    setNewValueValidation("loading");
+    fetch(`/api/content-types/${contentType}/validate-field?source=${encodeURIComponent(source)}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((result: FieldValidationResult | null) => {
+        if (requestCounters.current["__new"] !== reqId) return;
+        setNewValueValidation(result);
+      })
+      .catch(() => {
+        if (requestCounters.current["__new"] !== reqId) return;
+        setNewValueValidation(null);
+      });
+  }, [contentType, isDbBacked]);
+
+  const debouncedValidateNew = useCallback((source: string) => {
+    if (debounceTimers.current["__new"]) clearTimeout(debounceTimers.current["__new"]);
+    debounceTimers.current["__new"] = setTimeout(() => validateNewValue(source), 500);
+  }, [validateNewValue]);
+
+  const handleNewValueChange = (value: string) => {
+    setNewValue(value);
+    debouncedValidateNew(value.trim() || newKey.trim());
+  };
 
   const handleAddField = () => {
     const key = newKey.trim();
     if (!key || key in mappings) return;
-    setMappings((prev) => ({ ...prev, [key]: newValue.trim() || key }));
+    const source = newValue.trim() || key;
+    setMappings((prev) => ({ ...prev, [key]: source }));
+    if (newValueValidation && newValueValidation !== "loading") {
+      setValidation((prev) => ({ ...prev, [key]: newValueValidation }));
+    } else if (!isDbBacked && !key.startsWith("_")) {
+      validateSingleField(key, source);
+    }
     setNewKey("");
     setNewValue("");
+    setNewValueValidation(null);
   };
 
   const handleSave = async () => {
@@ -1307,7 +1432,23 @@ function FieldMappingDialog({
         indexes: indexedFields.length > 0 ? indexedFields : undefined,
       };
 
-      await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
+      const res = await fetch(`/api/content-types/${contentType}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      let data: Record<string, unknown> = {};
+      try { data = await res.json(); } catch { /* non-JSON response */ }
+
+      if (!res.ok) {
+        if (data.validation && typeof data.validation === "object") {
+          setValidation((prev) => ({ ...prev, ...(data.validation as Record<string, FieldValidationResult>) }));
+        }
+        toast({ title: (data.error as string) || "Failed to save field mappings", variant: "destructive" });
+        return;
+      }
+
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "config"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "items"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
@@ -1389,62 +1530,80 @@ function FieldMappingDialog({
             <div className="space-y-2">
               <Label className="text-xs text-muted-foreground">Field Mappings</Label>
               {regularKeys.length > 0 ? (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {regularKeys.map((key) => {
                     const isFn = !!transformerModes[key];
+                    const vResult = isFn ? null : validation[key];
                     return (
-                      <div key={key} className="flex items-center gap-2">
-                        <span className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={key}>
-                          {key}
-                        </span>
-                        <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                        {isFn ? (
-                          <Textarea
-                            value={mappings[key] || ""}
-                            onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
-                            placeholder="(value, item) => value"
-                            className="text-xs font-mono min-h-[3rem] resize-y flex-1"
-                            data-testid={`textarea-transform-${key}`}
-                          />
-                        ) : (
-                          <Input
-                            value={mappings[key] || ""}
-                            onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
-                            placeholder={key}
-                            className="text-xs font-mono flex-1"
-                            data-testid={`input-mapping-${key}`}
-                          />
-                        )}
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className={`flex-shrink-0 ${isFn ? "text-primary" : ""}`}
-                          onClick={() => setTransformerModes((prev) => ({ ...prev, [key]: !prev[key] }))}
-                          data-testid={`button-toggle-transform-${key}`}
-                        >
-                          <IconCode className="h-3.5 w-3.5" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="flex-shrink-0"
-                          onClick={() => {
-                            setMappings((prev) => {
-                              const next = { ...prev };
-                              delete next[key];
-                              return next;
-                            });
-                            setTransformerModes((prev) => {
-                              const next = { ...prev };
-                              delete next[key];
-                              return next;
-                            });
-                            setIndexedFields((prev) => prev.filter((f) => f !== key));
-                          }}
-                          data-testid={`button-delete-mapping-${key}`}
-                        >
-                          <IconTrashX className="h-3.5 w-3.5" />
-                        </Button>
+                      <div key={key}>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={key}>
+                            {key}
+                          </span>
+                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          {isFn ? (
+                            <Textarea
+                              value={mappings[key] || ""}
+                              onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
+                              placeholder="(value, item) => value"
+                              className="text-xs font-mono min-h-[3rem] resize-y flex-1"
+                              data-testid={`textarea-transform-${key}`}
+                            />
+                          ) : (
+                            <Input
+                              value={mappings[key] || ""}
+                              onChange={(e) => handleSourceChange(key, e.target.value)}
+                              placeholder={key}
+                              className="text-xs font-mono flex-1"
+                              data-testid={`input-mapping-${key}`}
+                            />
+                          )}
+                          {!isFn && !isDbBacked && <FieldValidationIndicator result={vResult} />}
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className={`flex-shrink-0 ${isFn ? "text-primary" : ""}`}
+                            onClick={() => {
+                              const nowFn = !transformerModes[key];
+                              setTransformerModes((prev) => ({ ...prev, [key]: nowFn }));
+                              if (nowFn) {
+                                setValidation((prev) => { const n = { ...prev }; delete n[key]; return n; });
+                              } else if (!isDbBacked && mappings[key]) {
+                                validateSingleField(key, mappings[key]);
+                              }
+                            }}
+                            data-testid={`button-toggle-transform-${key}`}
+                          >
+                            <IconCode className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="flex-shrink-0"
+                            onClick={() => {
+                              setMappings((prev) => {
+                                const next = { ...prev };
+                                delete next[key];
+                                return next;
+                              });
+                              setTransformerModes((prev) => {
+                                const next = { ...prev };
+                                delete next[key];
+                                return next;
+                              });
+                              setValidation((prev) => {
+                                const next = { ...prev };
+                                delete next[key];
+                                return next;
+                              });
+                              setIndexedFields((prev) => prev.filter((f) => f !== key));
+                            }}
+                            data-testid={`button-delete-mapping-${key}`}
+                          >
+                            <IconTrashX className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                        {!isFn && !isDbBacked && <FieldValidationMessage result={vResult} fieldKey={key} />}
                       </div>
                     );
                   })}
@@ -1453,33 +1612,37 @@ function FieldMappingDialog({
                 <p className="text-xs text-muted-foreground py-2">No field mappings defined yet.</p>
               )}
 
-              <div className="flex items-center gap-2 pt-1">
-                <Input
-                  value={newKey}
-                  onChange={(e) => setNewKey(e.target.value)}
-                  placeholder="Field name"
-                  className="text-xs font-mono flex-1"
-                  onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
-                  data-testid="input-new-mapping-key"
-                />
-                <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                <Input
-                  value={newValue}
-                  onChange={(e) => setNewValue(e.target.value)}
-                  placeholder="Source (default: same)"
-                  className="text-xs font-mono flex-1"
-                  onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
-                  data-testid="input-new-mapping-value"
-                />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleAddField}
-                  disabled={!newKey.trim() || newKey.trim() in mappings}
-                  data-testid="button-add-mapping"
-                >
-                  <IconCheck className="h-3.5 w-3.5" />
-                </Button>
+              <div className="space-y-1 pt-1">
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={newKey}
+                    onChange={(e) => setNewKey(e.target.value)}
+                    placeholder="Field name"
+                    className="text-xs font-mono flex-1"
+                    onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
+                    data-testid="input-new-mapping-key"
+                  />
+                  <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                  <Input
+                    value={newValue}
+                    onChange={(e) => handleNewValueChange(e.target.value)}
+                    placeholder="Source (default: same)"
+                    className="text-xs font-mono flex-1"
+                    onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
+                    data-testid="input-new-mapping-value"
+                  />
+                  {!isDbBacked && (newValue.trim() || newKey.trim()) && <FieldValidationIndicator result={newValueValidation} />}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={handleAddField}
+                    disabled={!newKey.trim() || newKey.trim() in mappings}
+                    data-testid="button-add-mapping"
+                  >
+                    <IconCheck className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+                {!isDbBacked && <FieldValidationMessage result={newValueValidation} fieldKey="__new" />}
               </div>
             </div>
 

@@ -70,6 +70,7 @@ import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
 import { contentIndex, type ContentType } from "./content-index";
+import { validateFieldSource, validateFieldMapping } from "../scripts/validation/shared/fieldMappingValidator";
 import {
   getFolder,
   getType,
@@ -1835,6 +1836,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/validate-field", (req, res) => {
+    try {
+      const { type } = req.params;
+      const source = req.query.source as string;
+      if (!source) {
+        res.status(400).json({ error: "source query parameter is required" });
+        return;
+      }
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const result = validateFieldSource(type, source);
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/content-types/:type/validate-mappings", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const { field_mapping } = req.body || {};
+      if (!field_mapping || typeof field_mapping !== "object") {
+        res.status(400).json({ error: "field_mapping object is required in body" });
+        return;
+      }
+      const result = validateFieldMapping(type, field_mapping);
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.put("/api/content-types/:type/config", (req, res) => {
     try {
       const { type } = req.params;
@@ -1848,6 +1889,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(400).json({ error: "Request body must be a JSON object" });
         return;
       }
+
+      if (body.field_mapping && !config.database?.slug) {
+        const validation = validateFieldMapping(type, body.field_mapping);
+        if (!validation.allValid) {
+          const invalidFields = Object.entries(validation.results)
+            .filter(([, r]) => !r.valid)
+            .map(([k]) => k);
+          res.status(400).json({
+            error: `Some field mappings reference properties not found in all entries: ${invalidFields.join(", ")}`,
+            validation: validation.results,
+          });
+          return;
+        }
+      }
+
       const update: Partial<import("./content-types").ContentTypeEntry> = {};
       if (body.url_pattern !== undefined) update.url_pattern = body.url_pattern;
       if (body.field_mapping !== undefined) update.field_mapping = body.field_mapping;
