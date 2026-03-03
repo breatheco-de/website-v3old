@@ -11,8 +11,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: Launch an AI-Ready Tech Career in New York
-    subtitle: Train for in-demand tech roles, including AI Engineering, in New York's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
+    title: Build an AI-Ready Tech Career in New York
+    subtitle: AI-native programs in AI Engineering, Software Development, Data Science, and Cybersecurity designed for one of the most competitive tech markets in the United States. Hands-on training, structured mentorship, and career support aligned with real hiring demand.
     badge: New York Campus
     cta_buttons:
       - text: Apply Now
