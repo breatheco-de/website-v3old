@@ -1,0 +1,17 @@
+# Common properties shared across all variants
+# For landings, locale is defined here (not in filenames)
+
+slug: "full-stack-con-ia"
+title: "Full-Stack-con-ia"
+locale: "en"
+
+meta:
+  robots: "index, follow"
+  og_image: "/images/landing-og.jpg"
+  priority: 0.9
+  change_frequency: "weekly"
+
+schema:
+  include:
+    - "organization"
+    - "website"
