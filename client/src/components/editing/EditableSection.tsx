@@ -10,7 +10,7 @@ import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -283,6 +283,14 @@ export function EditableSection({ children, section, index, sectionType, content
     const m = parseXSpacing((section as SectionLayout).marginX);
     return m.desktop.left === m.desktop.right;
   });
+
+  // X-spacing default confirmation dialog state
+  const [xDefaultConfirmOpen, setXDefaultConfirmOpen] = useState(false);
+  const [xDefaultConfirmData, setXDefaultConfirmData] = useState<{
+    sectionDefaults: Record<string, unknown>;
+    token: string | null;
+    changedFields: string[];
+  } | null>(null);
 
   // YAML source modal state
   const [showYamlModal, setShowYamlModal] = useState(false);
@@ -742,23 +750,12 @@ export function EditableSection({ children, section, index, sectionType, content
             const hasPadX = defaults?.section_defaults?.paddingX;
             const hasMarX = defaults?.section_defaults?.marginX;
             if (!hasPadX && !hasMarX && (padChanged || marChanged)) {
-              const save = window.confirm(
-                "No default X spacing is set for this content type. Save this as the default?"
-              );
-              if (save) {
-                const sectionDefaults: Record<string, unknown> = {};
-                if (padChanged) sectionDefaults.paddingX = toXResponsiveSpacing(xPadding);
-                if (marChanged) sectionDefaults.marginX = toXResponsiveSpacing(xMargin);
-                await fetch(`/api/content-type/${contentType}/single-defaults`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json",
-                    ...(token ? { Authorization: `Token ${token}` } : {}),
-                  },
-                  body: JSON.stringify({ section_defaults: sectionDefaults }),
-                });
-                toast({ title: "Default X spacing saved for content type" });
-              }
+              const sectionDefaults: Record<string, unknown> = {};
+              const changedFields: string[] = [];
+              if (padChanged) { sectionDefaults.paddingX = toXResponsiveSpacing(xPadding); changedFields.push("padding"); }
+              if (marChanged) { sectionDefaults.marginX = toXResponsiveSpacing(xMargin); changedFields.push("margin"); }
+              setXDefaultConfirmData({ sectionDefaults, token, changedFields });
+              setXDefaultConfirmOpen(true);
             }
           }
         } catch {}
@@ -779,7 +776,24 @@ export function EditableSection({ children, section, index, sectionType, content
   const handleCloseEditor = useCallback(() => {
     setIsEditorOpen(false);
   }, []);
-  
+
+  const handleXDefaultConfirm = useCallback(async () => {
+    if (!xDefaultConfirmData || !contentType) return;
+    try {
+      await fetch(`/api/content-type/${contentType}/single-defaults`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...(xDefaultConfirmData.token ? { Authorization: `Token ${xDefaultConfirmData.token}` } : {}),
+        },
+        body: JSON.stringify({ section_defaults: xDefaultConfirmData.sectionDefaults }),
+      });
+      toast({ title: "Default X spacing saved for content type" });
+    } catch {}
+    setXDefaultConfirmOpen(false);
+    setXDefaultConfirmData(null);
+  }, [xDefaultConfirmData, contentType, toast]);
+
   const handleUpdate = useCallback((updatedSection: Section) => {
     setCurrentSection(updatedSection);
     setWasLocallyUpdated(true);
@@ -1298,6 +1312,26 @@ export function EditableSection({ children, section, index, sectionType, content
                 <IconCheck className="h-4 w-4 mr-2" />
               )}
               Apply Changes
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* X Spacing Default Confirmation Dialog */}
+      <Dialog open={xDefaultConfirmOpen} onOpenChange={(open) => { if (!open) { setXDefaultConfirmOpen(false); setXDefaultConfirmData(null); } }}>
+        <DialogContent className="max-w-md" onClick={(e) => e.stopPropagation()}>
+          <DialogHeader>
+            <DialogTitle>Apply as default spacing?</DialogTitle>
+            <DialogDescription>
+              Do you want to apply this spacing by default to all {contentType}&apos;s?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-2 pt-2">
+            <Button onClick={handleXDefaultConfirm} data-testid={`x-default-confirm-yes-${index}`}>
+              Yes, all {contentType}&apos;s must have this {xDefaultConfirmData?.changedFields.join(" & ")}
+            </Button>
+            <Button variant="outline" onClick={() => { setXDefaultConfirmOpen(false); setXDefaultConfirmData(null); }} data-testid={`x-default-confirm-no-${index}`}>
+              No, only this {sectionType}-{index} section
             </Button>
           </div>
         </DialogContent>
