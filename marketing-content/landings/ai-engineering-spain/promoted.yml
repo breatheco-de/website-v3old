@@ -16,7 +16,7 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: ApplyFormProductShowcase
     title: y construye sistemas reales en producción
     brand_mark:
@@ -29,7 +29,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar al programa
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -69,7 +68,7 @@ sections:
       - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     video:
       url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
-      ratio: '9:16'
+      ratio: "9:16"
       muted: true
     paddingY:
       mobile: md none
@@ -79,7 +78,7 @@ sections:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -88,7 +87,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -117,7 +115,7 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
   - type: awards_marquee
-    version: '1.0'
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -185,7 +183,7 @@ sections:
       mobile: none lg
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender Ingeniería de IA ahora?
     subtitle: Porque el mercado ya la está exigiendo.
@@ -193,7 +191,7 @@ sections:
     card_color: bg-background
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: '800.000'
+      - value: "800.000"
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
@@ -381,7 +379,7 @@ sections:
     features:
       - icon: TrendingUp
         title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Recibe coaching 1:1 personalizado
@@ -391,11 +389,11 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Robot
         title: Avanza más rápido con herramientas potenciadas por IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
@@ -405,11 +403,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -422,12 +420,12 @@ sections:
       desktop: lg none
   - type: certificate
     title: Impacto en tu carrera profesional
-    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:'
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: 'Ingeniero de software IA: $95K–$135K'
-      - text: 'Ingeniero full-stack (IA): $100K–$145K'
-      - text: 'Ingeniero de agentes: $105K–$155K'
-      - text: 'Ingeniero de automatización de flujos: $85K–$120K'
+      - text: "Ingeniero de software IA: $95K–$135K"
+      - text: "Ingeniero full-stack (IA): $100K–$145K"
+      - text: "Ingeniero de agentes: $105K–$155K"
+      - text: "Ingeniero de automatización de flujos: $85K–$120K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -452,10 +450,10 @@ sections:
         label: Aumento salarial medio
         description: Nuestros graduados ven un aumento salarial promedio del 30% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: 'AI Software Engineer: 30.000 € - 40.000 €'
-          - text: 'AI Full-Stack Engineer: 35.000 € - 50.000 €'
-          - text: 'Agent / Workflow Automation Engineer: 30.000 € - 45.000 €'
-          - text: 'AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €'
+          - text: "AI Software Engineer: 30.000 € - 40.000 €"
+          - text: "AI Full-Stack Engineer: 35.000 € - 50.000 €"
+          - text: "Agent / Workflow Automation Engineer: 30.000 € - 45.000 €"
+          - text: "AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €"
       - value: 5,000+
         label: Empresas que contratan talento
         description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
@@ -508,7 +506,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: bullet_tabs_showcase
-    version: '1.0'
+    version: "1.0"
     heading: ¿Este programa es para ti?
     tabs:
       - label: Compromiso real
@@ -564,7 +562,7 @@ sections:
         comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
   - type: numbered_steps
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
     title: Nuestro proceso de admisión
     description: Postular no significa inscribirse automáticamente. Evaluamos cada perfil para asegurar que este programa sea el adecuado para ti.
@@ -589,7 +587,7 @@ sections:
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -599,7 +597,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -629,16 +626,16 @@ sections:
       show_terms: true
       button_className: bg-primary border-white
       terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: lg
       desktop: lg
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
   - type: footer
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
