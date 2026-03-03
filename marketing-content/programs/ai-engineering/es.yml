@@ -14,6 +14,7 @@ meta:
     - /bootcamp/ai-engineering-es
     - /programas/ingeniero-ia
     - /cursos/ingenieria-ia
+    - /us/coding-bootcamps/applied-ai-course
 schema:
   include:
     - organization
@@ -21,7 +22,7 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: "1.3"
+    version: '1.3'
     variant: course
     title: Ingeniería de Inteligencia Artificial
     subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
@@ -43,14 +44,14 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus mentores:"
+    tutors_label: 'Tus mentores:'
     description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
     signup_card:
       title: Recibe el Plan de Estudios Completo
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
         text: Recibir el Plan de Estudios
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión.
@@ -85,7 +86,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
-    version: "1.3"
+    version: '1.3'
     variant: course
     title: Ingeniería de Inteligencia Artificial
     subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
@@ -107,14 +108,14 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus mentores:"
+    tutors_label: 'Tus mentores:'
     description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
     signup_card:
       title: Recibe el plan de estudios completo
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
         text: Recibir el plan de estudios
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión.
@@ -160,7 +161,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: apply-modal
     heading: Recibir el Plan de Estudios
     description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
@@ -230,26 +231,26 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
-    version: "1.2"
+    version: '1.2'
     variant: stats-text
     title: Por qué estudiar Ingeniería de IA ahora
     subtitle: El mercado laboral de inteligencia artificial está creciendo más rápido que la disponibilidad de talento cualificado.
     description: Informes de Microsoft y LinkedIn destacan que las habilidades en inteligencia artificial se han convertido en una prioridad estratégica para las empresas, impulsadas por la adopción masiva de herramientas de IA generativa. Formarte ahora te posiciona en el centro de una transformación tecnológica que está redefiniendo industrias enteras.
     background: bg-muted/30
     items:
-      - id: "1"
-        value: "800.000"
+      - id: '1'
+        value: '800.000'
         title: Roles relacionados con IA proyectados para 2027
-      - id: "2"
+      - id: '2'
         value: ~30%
         title: Crecimiento anual en vacantes de IA
-      - id: "3"
+      - id: '3'
         value: {{ global.average_salary_ai_engineer | $95K–$135K }}
         title: Rango salarial para Ingenieros de IA
   - type: syllabus
     variant: program-modules
     program_title: Plan de estudios en Ingeniería de IA
-    program_description: "Aprende aplicando nuestra Metodología de Caso de Empresa: desarrolla un sistema completo de IA a lo largo de 10 hitos, desde el planteamiento inicial hasta su despliegue en producción. En 24 semanas, construye una solución funcional que refleja los estándares y flujos de trabajo de equipos de ingeniería modernos."
+    program_description: 'Aprende aplicando nuestra Metodología de Caso de Empresa: desarrolla un sistema completo de IA a lo largo de 10 hitos, desde el planteamiento inicial hasta su despliegue en producción. En 24 semanas, construye una solución funcional que refleja los estándares y flujos de trabajo de equipos de ingeniería modernos.'
     tech_logos:
       - name: React
         icon: react
@@ -390,7 +391,7 @@ sections:
     features:
       - icon: Robot
         title: Aprende más rápido con herramientas de IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Feedback instantáneo de Rigobot, nuestro tutor de IA
@@ -400,7 +401,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Acompañamiento profesional enfocado en tech
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -414,7 +415,7 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Sesiones ilimitadas con mentores técnicos
@@ -432,12 +433,12 @@ sections:
       desktop: md none
   - type: certificate
     title: Empleabilidad y salarios reales en Ingeniería de IA
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
+    description: 'Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:'
     benefits:
-      - text: "Ingeniero de Software IA: $95K–$135K"
-      - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
-      - text: "Ingeniero de Agentes: $105K–$150K"
-      - text: "Ingeniero de Automatización de Flujos: $85K–$120K"
+      - text: 'Ingeniero de Software IA: $95K–$135K'
+      - text: 'Ingeniero Full-Stack (Fluente en IA): $100K–$145K'
+      - text: 'Ingeniero de Agentes: $105K–$150K'
+      - text: 'Ingeniero de Automatización de Flujos: $85K–$120K'
     card:
       title: Ingeniero de IA
       subtitle: Certificado de 4Geeks Academy
@@ -483,12 +484,12 @@ sections:
       desktop: lg md
     background: hsl(var(--muted))
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
-    financing_text: "Financiamiento basado en crédito: desde"
+    discount_text: 'Descuento por pago completo: Ahorra 10% pagando de una sola vez.'
+    financing_text: 'Financiamiento basado en crédito: desde'
     financing_amount: {{ global.price_ai_engineering | default: '$349' }}
     tech_icons:
       - openai
@@ -504,7 +505,7 @@ sections:
       - icon: IconCheck
         text: La matrícula estándar es {{ global.price_full_ai_engineering | default: '$14,999' }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: 'Inscríbete con Garantía de Empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked="1"><span style="font-size: 0.75rem;"><span>*No disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Aplican términos y condiciones</a>.</span></span></div>'
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -512,7 +513,7 @@ sections:
         text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
     cta:
       text: Recibir más información
-      url: "#apply-modal"
+      url: '#apply-modal'
       variant: primary
     marginY:
       desktop: none md
@@ -542,11 +543,11 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
+    discount_text: 'Descuento por Pago Completo: Ahorra 10% con pago anticipado.'
     financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
     financing_amount: {{ global.price_ai_engineering | 140€ }}
     tech_icons:
@@ -718,7 +719,7 @@ sections:
       desktop: md
     background: hsl(var(--muted))
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -760,7 +761,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
