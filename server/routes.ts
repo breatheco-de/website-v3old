@@ -1049,7 +1049,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/variables/:name/rename", (req, res) => {
     try {
       const { name: oldName } = req.params;
-      const { newName } = req.body as { newName: string };
+      const { newName, author } = req.body as { newName: string; author?: string };
+      const authorName = author && typeof author === "string" ? author : undefined;
 
       if (!newName || typeof newName !== "string") {
         return res.status(400).json({ error: "newName is required" });
@@ -1079,6 +1080,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const newContent = content.replace(pattern, `{{ ${sanitized}$1}}`);
         if (newContent !== content) {
           fs.writeFileSync(absPath, newContent, "utf-8");
+          markFileAsModified(relPath, authorName);
           updatedFiles.push(relPath);
         }
       }
@@ -2685,7 +2687,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         status: redirectStatus,
         isCustomDestination,
         priority: redirectPriority,
+        author,
       } = req.body;
+      const authorName = author && typeof author === "string" ? author : undefined;
       const statusCode =
         redirectStatus && [301, 302].includes(redirectStatus)
           ? redirectStatus
@@ -2765,6 +2769,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           noRefs: true,
         });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+        markFileAsModified(customFilePath, authorName);
 
         contentIndex.scan();
         clearRedirectCache();
@@ -2851,6 +2856,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         noRefs: true,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath, authorName);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -2869,7 +2875,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Delete a redirect (for debug tools)
   app.delete("/api/debug/redirects", (req, res) => {
     try {
-      const { from, source } = req.body;
+      const { from, source, author } = req.body;
+      const authorName = author && typeof author === "string" ? author : undefined;
 
       if (!from || !source) {
         res
@@ -2947,6 +2954,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           noRefs: true,
         });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+        markFileAsModified(customFilePath, authorName);
 
         contentIndex.scan();
         clearRedirectCache();
@@ -3011,6 +3019,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath, authorName);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -3027,7 +3036,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.patch("/api/debug/redirects/reorder", (req, res) => {
     try {
-      const { redirects } = req.body;
+      const { redirects, author } = req.body;
+      const authorName = author && typeof author === "string" ? author : undefined;
 
       if (!Array.isArray(redirects)) {
         res.status(400).json({
@@ -3075,6 +3085,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         { lineWidth: -1, noRefs: true },
       );
       fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+      markFileAsModified(customFilePath, authorName);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -3124,7 +3135,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.patch("/api/debug/redirects/priority", (req, res) => {
     try {
-      const { from, priority } = req.body;
+      const { from, priority, author } = req.body;
+      const authorName = author && typeof author === "string" ? author : undefined;
 
       if (!from || typeof from !== "string") {
         res.status(400).json({ error: "'from' is required" });
@@ -3172,6 +3184,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         { lineWidth: -1, noRefs: true },
       );
       fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+      markFileAsModified(customFilePath, authorName);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -3555,7 +3568,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Used for: reordering items, adding/deleting items, changing icons, changing hrefs
   app.put("/api/menus/:name/structure", (req, res) => {
     const { name } = req.params;
-    const { data } = req.body;
+    const { data, author } = req.body;
+    const authorName = author && typeof author === "string" ? author : undefined;
 
     if (!data) {
       res.status(400).json({ error: "Missing data in request body" });
@@ -3589,6 +3603,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         sortKeys: false,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath, authorName);
 
       const syncResults: Record<string, string> = {};
       const translationLocales = ["es", "fr", "de", "pt", "it"];
@@ -3618,6 +3633,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               sortKeys: false,
             });
             fs.writeFileSync(translationFilePath, syncedYaml, "utf-8");
+            markFileAsModified(translationFilePath, authorName);
             syncResults[targetLocale] = "synced";
           } catch (syncError) {
             console.error(
@@ -3648,7 +3664,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   app.put("/api/menus/:name/translations", (req, res) => {
     const { name } = req.params;
     const locale = req.query.locale as string;
-    const { data } = req.body;
+    const { data, author } = req.body;
+    const authorName = author && typeof author === "string" ? author : undefined;
 
     if (!data) {
       res.status(400).json({ error: "Missing data in request body" });
@@ -3713,6 +3730,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         sortKeys: false,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath, authorName);
 
       res.json({
         success: true,
