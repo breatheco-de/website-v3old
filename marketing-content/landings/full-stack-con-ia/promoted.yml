@@ -71,20 +71,17 @@ sections:
         url: /login
       features:
         - icon: book
-          text: Readings and videos
-          count: "31"
+          text: Programa de 20 semanas
         - icon: code
-          text: Interactive Exercises
-          count: "2"
+          text: +100 ejercicios interactivos de programación
         - icon: IconHome
           text: Interactive Projects
-          count: "8"
         - icon: robot
-          text: Real Time AI Feedback
+          text: Feedback con IA en tiempo real
         - icon: calendar
-          text: Workshops every week
+          text: Ratio 1:7 estudiante–profesor
         - icon: IconClock
-          text: Community Gatherings.
+          text: Mentoría personalizada 1:1
     paddingY:
       desktop: none lg
     marginY:
