@@ -41,7 +41,5 @@ sections:
         meta_left: {{ single.author }}
         meta_right: {{ single.published_at | }}
         cta_text: Read more
-    marginX:
-      desktop: none
     maxWidth:
       desktop: lg
