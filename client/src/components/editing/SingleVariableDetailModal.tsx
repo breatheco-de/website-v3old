@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +26,8 @@ interface FieldValueEntry {
   url: string | null;
 }
 
+const INITIAL_VISIBLE = 4;
+
 function formatValue(value: unknown): string {
   if (value === null || value === undefined) return "(not set)";
   if (typeof value === "string") return value;
@@ -42,6 +45,8 @@ export function SingleVariableDetailModal({
   contentType,
   currentSlug,
 }: SingleVariableDetailModalProps) {
+  const [expanded, setExpanded] = useState(false);
+
   const fieldName = variableName.startsWith("single.")
     ? variableName.slice(7)
     : variableName;
@@ -63,12 +68,14 @@ export function SingleVariableDetailModal({
   });
 
   const currentEntry = data?.entries.find((e) => e.slug === currentSlug);
-  const otherEntries = data?.entries.filter((e) => e.slug !== currentSlug) || [];
+  const allEntries = data?.entries || [];
+  const visibleEntries = expanded ? allEntries : allEntries.slice(0, INITIAL_VISIBLE);
+  const hasMore = allEntries.length > INITIAL_VISIBLE;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={(o) => { if (!o) setExpanded(false); onOpenChange(o); }}>
       <DialogContent
-        className="max-w-lg max-h-[85vh] overflow-y-auto"
+        className="max-w-lg max-h-[85vh] flex flex-col"
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
         data-testid="single-variable-detail-modal"
@@ -103,7 +110,7 @@ export function SingleVariableDetailModal({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 mt-2">
+        <div className="flex-1 min-h-0 overflow-y-auto space-y-4 mt-2">
           <div className="flex items-start gap-2 p-3 rounded-md bg-muted/50 text-sm text-muted-foreground">
             <IconInfoCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <div>
@@ -130,55 +137,59 @@ export function SingleVariableDetailModal({
               <IconLoader2 className="w-4 h-4 animate-spin mr-2" />
               Loading values...
             </div>
-          ) : data?.entries && data.entries.length > 0 ? (
-            <div className="space-y-3">
+          ) : allEntries.length > 0 ? (
+            <div className="space-y-2">
               <h4 className="text-sm font-medium text-foreground">
-                Values across {data.entries.length} {contentType} {data.entries.length === 1 ? "entry" : "entries"}
+                Values across {allEntries.length} {contentType} {allEntries.length === 1 ? "entry" : "entries"}
               </h4>
-              <div className="space-y-1.5 max-h-[40vh] overflow-y-auto">
-                {data.entries.map((entry) => {
+              <div className="flex flex-wrap gap-1.5">
+                {visibleEntries.map((entry) => {
                   const isCurrent = entry.slug === currentSlug;
+                  const label = entry.value !== null && entry.value !== undefined
+                    ? formatValue(entry.value)
+                    : "(not set)";
                   return (
-                    <div
+                    <Badge
                       key={entry.slug}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm ${
-                        isCurrent
-                          ? "bg-primary/10 border border-primary/30"
-                          : "bg-muted/50"
-                      }`}
+                      variant={isCurrent ? "default" : "secondary"}
+                      className="gap-1 max-w-full"
                       data-testid={`single-value-entry-${entry.slug}`}
                     >
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-mono text-xs text-muted-foreground">
-                            {entry.slug}
-                          </span>
-                          {isCurrent && (
-                            <Badge variant="secondary" className="text-[10px]">
-                              current page
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="mt-0.5 truncate font-medium">
-                          {entry.value !== null && entry.value !== undefined
-                            ? `"${formatValue(entry.value)}"`
-                            : <span className="text-muted-foreground/60 italic">not set</span>
-                          }
-                        </div>
-                      </div>
+                      <span className="truncate max-w-[10rem]" title={`${entry.slug}: ${label}`}>
+                        {entry.slug}
+                        <span className="text-[10px] opacity-70 ml-1">=</span>{" "}
+                        {label}
+                      </span>
+                      {isCurrent && (
+                        <span className="text-[9px] opacity-70 flex-shrink-0">
+                          (current)
+                        </span>
+                      )}
                       {entry.url && (
                         <a
                           href={entry.url}
-                          className="flex-shrink-0 text-muted-foreground/60"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex-shrink-0 opacity-60"
                           title={`Go to ${entry.url}`}
                           data-testid={`link-entry-${entry.slug}`}
                         >
-                          <IconExternalLink className="w-3.5 h-3.5" />
+                          <IconExternalLink className="w-3 h-3" />
                         </a>
                       )}
-                    </div>
+                    </Badge>
                   );
                 })}
+                {hasMore && !expanded && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setExpanded(true)}
+                    className="text-xs text-muted-foreground"
+                    data-testid="button-see-more-entries"
+                  >
+                    +{allEntries.length - INITIAL_VISIBLE} more
+                  </Button>
+                )}
               </div>
             </div>
           ) : (
@@ -186,16 +197,16 @@ export function SingleVariableDetailModal({
               No entries found for this content type.
             </p>
           )}
+        </div>
 
-          <div className="flex justify-end pt-2">
-            <Button
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              data-testid="button-close-single-detail"
-            >
-              Close
-            </Button>
-          </div>
+        <div className="flex justify-end pt-2 flex-shrink-0">
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            data-testid="button-close-single-detail"
+          >
+            Close
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
