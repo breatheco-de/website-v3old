@@ -12,7 +12,6 @@ meta:
     - /programs/cybersecurity-specialist
     - /coding-bootcamp/cybersecurity
     - /us/coding-bootcamps/cybersecurity
-    - /us/coding-bootcamps/applied-ai-course
 schema:
   include:
     - organization
