@@ -243,9 +243,9 @@ export function HeroCourse({ data }: HeroCourseProps) {
                 </p>
               )}
 
-              {data.form ? (
+              {data.signup_card.form ? (
                 <Suspense fallback={<div className="h-24 flex items-center justify-center text-muted-foreground text-sm">Loading...</div>}>
-                  <LeadForm data={data.form} />
+                  <LeadForm data={data.signup_card.form} />
                 </Suspense>
               ) : data.signup_card.cta_button ? (
                 <>
