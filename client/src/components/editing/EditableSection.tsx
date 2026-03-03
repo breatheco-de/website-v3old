@@ -64,6 +64,35 @@ const X_SPACING_PRESETS = [
   { label: "XL", value: "xl" },
 ];
 
+const MAX_WIDTH_PRESETS = [
+  { label: "None", value: "none" },
+  { label: "SM", value: "sm" },
+  { label: "MD", value: "md" },
+  { label: "LG", value: "lg" },
+  { label: "XL", value: "xl" },
+  { label: "2XL", value: "2xl" },
+  { label: "Full", value: "full" },
+];
+
+interface MaxWidthValues {
+  mobile: string;
+  desktop: string;
+}
+
+function parseMaxWidth(value: ResponsiveSpacing | undefined): MaxWidthValues {
+  if (!value) return { mobile: "none", desktop: "none" };
+  const desktop = value.desktop ?? value.mobile ?? "none";
+  const mobile = value.mobile ? value.mobile : "none";
+  return { mobile, desktop };
+}
+
+function toMaxWidthResponsiveSpacing(values: MaxWidthValues): ResponsiveSpacing {
+  if (values.mobile === "none") {
+    return { desktop: values.desktop };
+  }
+  return { mobile: values.mobile, desktop: values.desktop };
+}
+
 type XBreakpoint = "mobile" | "desktop";
 
 interface XSpacingValues {
@@ -274,6 +303,7 @@ export function EditableSection({ children, section, index, sectionType, content
   const [xSpacingBreakpoint, setXSpacingBreakpoint] = useState<XBreakpoint>("desktop");
   const [xPadding, setXPadding] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).paddingX));
   const [xMargin, setXMargin] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).marginX));
+  const [xMaxWidth, setXMaxWidth] = useState<MaxWidthValues>(() => parseMaxWidth((section as SectionLayout).maxWidth));
   const [xSaving, setXSaving] = useState(false);
   const [padLinked, setPadLinked] = useState(() => {
     const p = parseXSpacing((section as SectionLayout).paddingX);
@@ -673,8 +703,10 @@ export function EditableSection({ children, section, index, sectionType, content
     if (open) {
       const pad = parseXSpacing((currentSection as SectionLayout).paddingX);
       const mar = parseXSpacing((currentSection as SectionLayout).marginX);
+      const mw = parseMaxWidth((currentSection as SectionLayout).maxWidth);
       setXPadding(pad);
       setXMargin(mar);
+      setXMaxWidth(mw);
       setPadLinked(pad.desktop.left === pad.desktop.right);
       setMarLinked(mar.desktop.left === mar.desktop.right);
     }
@@ -723,6 +755,7 @@ export function EditableSection({ children, section, index, sectionType, content
       const ops: Promise<{ success: boolean; error?: string }>[] = [];
       const origPadding = parseXSpacing((currentSection as SectionLayout).paddingX);
       const origMargin = parseXSpacing((currentSection as SectionLayout).marginX);
+      const origMaxWidth = parseMaxWidth((currentSection as SectionLayout).maxWidth);
       const padChanged = origPadding.desktop.left !== xPadding.desktop.left ||
         origPadding.desktop.right !== xPadding.desktop.right ||
         origPadding.mobile.left !== xPadding.mobile.left ||
@@ -731,8 +764,11 @@ export function EditableSection({ children, section, index, sectionType, content
         origMargin.desktop.right !== xMargin.desktop.right ||
         origMargin.mobile.left !== xMargin.mobile.left ||
         origMargin.mobile.right !== xMargin.mobile.right;
+      const mwChanged = origMaxWidth.desktop !== xMaxWidth.desktop ||
+        origMaxWidth.mobile !== xMaxWidth.mobile;
       if (padChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "paddingX", toXResponsiveSpacing(xPadding)));
       if (marChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "marginX", toXResponsiveSpacing(xMargin)));
+      if (mwChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "maxWidth", toMaxWidthResponsiveSpacing(xMaxWidth)));
       const results = await Promise.all(ops);
       const failed = results.filter(r => !r.success);
       if (failed.length > 0) {
@@ -749,11 +785,13 @@ export function EditableSection({ children, section, index, sectionType, content
             const { defaults } = await defaultsResp.json();
             const hasPadX = defaults?.section_defaults?.paddingX;
             const hasMarX = defaults?.section_defaults?.marginX;
-            if (!hasPadX && !hasMarX && (padChanged || marChanged)) {
+            const hasMW = defaults?.section_defaults?.maxWidth;
+            if (!hasPadX && !hasMarX && !hasMW && (padChanged || marChanged || mwChanged)) {
               const sectionDefaults: Record<string, unknown> = {};
               const changedFields: string[] = [];
               if (padChanged) { sectionDefaults.paddingX = toXResponsiveSpacing(xPadding); changedFields.push("padding"); }
               if (marChanged) { sectionDefaults.marginX = toXResponsiveSpacing(xMargin); changedFields.push("margin"); }
+              if (mwChanged) { sectionDefaults.maxWidth = toMaxWidthResponsiveSpacing(xMaxWidth); changedFields.push("max width"); }
               setXDefaultConfirmData({ sectionDefaults, token, changedFields });
               setXDefaultConfirmOpen(true);
             }
@@ -766,7 +804,7 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setXSaving(false);
     }
-  }, [contentType, slug, locale, index, currentSection, xPadding, xMargin, toXResponsiveSpacing, toast]);
+  }, [contentType, slug, locale, index, currentSection, xPadding, xMargin, xMaxWidth, toXResponsiveSpacing, toast]);
 
   const handleOpenEditor = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -937,6 +975,22 @@ export function EditableSection({ children, section, index, sectionType, content
                     <IconDeviceMobile className="h-3.5 w-3.5 mr-1" />
                     <span className="text-xs">Mobile</span>
                   </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Max Width</span>
+                <div className="flex items-center gap-1">
+                  {MAX_WIDTH_PRESETS.map((preset) => (
+                    <Button
+                      key={preset.value}
+                      variant={xMaxWidth[xSpacingBreakpoint] === preset.value ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setXMaxWidth(prev => ({ ...prev, [xSpacingBreakpoint]: preset.value }))}
+                      data-testid={`x-mw-preset-${index}-${preset.value}`}
+                    >
+                      {preset.label}
+                    </Button>
+                  ))}
                 </div>
               </div>
               <XSpacingGroup

@@ -101,6 +101,37 @@ function parseResponsiveSpacingX(value: ResponsiveSpacing | undefined): {
   };
 }
 
+// Max-width presets mapped to CSS values
+const MAX_WIDTH_PRESETS: Record<string, string> = {
+  none: "none",
+  sm: "672px",
+  md: "768px",
+  lg: "896px",
+  xl: "1152px",
+  "2xl": "1280px",
+  full: "100%",
+};
+
+function resolveMaxWidthValue(val: string): string {
+  if (MAX_WIDTH_PRESETS[val]) return MAX_WIDTH_PRESETS[val];
+  return val;
+}
+
+function parseResponsiveMaxWidth(value: ResponsiveSpacing | undefined): {
+  mobile: string;
+  desktop: string;
+} | null {
+  if (!value) return null;
+
+  const mobileValue = value.mobile ?? value.desktop ?? "none";
+  const desktopValue = value.desktop ?? value.mobile ?? "none";
+
+  return {
+    mobile: resolveMaxWidthValue(mobileValue),
+    desktop: resolveMaxWidthValue(desktopValue),
+  };
+}
+
 // Semantic background tokens mapped to CSS variables
 const BACKGROUND_TOKENS: Record<string, string> = {
   background: "hsl(var(--background))",
@@ -138,6 +169,7 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
   const margin = parseResponsiveSpacing(layoutSection.marginY);
   const paddingX = parseResponsiveSpacingX(layoutSection.paddingX);
   const marginX = parseResponsiveSpacingX(layoutSection.marginX);
+  const maxWidth = parseResponsiveMaxWidth(layoutSection.maxWidth);
   const background = parseBackground(layoutSection.background);
 
   const styles: CSSProperties & Record<string, string> = {
@@ -168,6 +200,17 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
   styles['--section-pr-desktop'] = paddingX?.desktop.right ?? DEFAULT_SPACING_X.right;
   styles['--section-ml-desktop'] = marginX?.desktop.left ?? DEFAULT_SPACING_X.left;
   styles['--section-mr-desktop'] = marginX?.desktop.right ?? DEFAULT_SPACING_X.right;
+
+  styles['--section-mw-mobile'] = maxWidth?.mobile ?? "none";
+  styles['--section-mw-desktop'] = maxWidth?.desktop ?? "none";
+  styles.maxWidth = 'var(--section-mw)';
+
+  const hasMaxWidth = maxWidth && (maxWidth.mobile !== "none" || maxWidth.desktop !== "none");
+  const hasExplicitMarginX = marginX !== null;
+  if (hasMaxWidth && !hasExplicitMarginX) {
+    styles.marginLeft = 'auto';
+    styles.marginRight = 'auto';
+  }
 
   if (background) {
     styles.background = background;

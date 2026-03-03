@@ -771,6 +771,7 @@ export const sectionLayoutSchema = z.object({
   paddingY: responsiveSpacingSchema.optional(),
   marginX: responsiveSpacingSchema.optional(),
   paddingX: responsiveSpacingSchema.optional(),
+  maxWidth: responsiveSpacingSchema.optional(),
   background: z.string().optional(),
   showOn: showOnSchema.optional(),
   showOnLocations: z.array(z.string()).optional(),
