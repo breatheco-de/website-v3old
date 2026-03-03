@@ -6,8 +6,6 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  redirects:
-    - /us/next-datess
 schema:
   include:
     - organization
