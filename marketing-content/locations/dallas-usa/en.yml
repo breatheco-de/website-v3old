@@ -194,11 +194,11 @@ sections:
       description: |-
         We stand behind our training.
         <div>
-          <span style="font-size: 1.25rem;"><b><span style="font-size: 1rem;">Our optional Job Guarantee is designed for students transitioning into tech:<br>
+          <span style="font-size: 1.25rem;"><b><span style="font-size: 1.5rem;"><span>Our optional Job Guarantee is designed for students transitioning into tech:<br>
           <span><span>Get hired into a qualifying tech role within 9 months of graduation.
           <br>
           Or receive a full tuition refund.</span></span>
-          <br></span></b></span><br>
+          <br></span></span></b></span><br>
           <span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div>
       badge: Results-Backed Promise
