@@ -455,10 +455,10 @@ class ContentIndex {
     try {
       const configs = getAllConfigs();
       for (const [typeName, config] of Object.entries(configs)) {
-        if (config.database && !config.database.field_mapping?._slug) {
+        if (config.database && !config.field_mapping?._slug) {
           console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _slug in field_mapping. This is required for URL resolution.`);
         }
-        if (config.database && !config.database.field_mapping?._locale) {
+        if (config.database && !config.field_mapping?._locale) {
           console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _locale in field_mapping. This is required for locale resolution.`);
         }
       }

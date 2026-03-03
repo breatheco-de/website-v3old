@@ -1,6 +1,6 @@
 # Content Types Configuration
 # ===========================
-# Each entry defines a content type with its URL routing and optional database connection.
+# Each entry defines a content type with its URL routing, field mapping, and optional database connection.
 #
 # Required fields:
 #   directory: folder inside marketing-content/ where YAML entries live
@@ -8,59 +8,108 @@
 #     - Per-locale object: { en: /en/path/:slug, es: /es/ruta/:slug }
 #     - Shorthand: { default: /landing/:slug } (same path for all locales)
 #
-# Optional fields:
-#   database: connects this content type to a cached API database
+# field_mapping (recommended):
+#   Declares which fields are available as {{ single.* }} template variables.
+#   Each key is the variable name, each value is the source field.
+#
+#   For database-backed types:
+#     Maps content concepts to database column names.
+#     Underscore-prefixed fields are mandatory special fields:
+#       _slug: DB field containing the entry's unique identifier (e.g., slug)
+#       _locale: DB field containing the entry's language (e.g., lang)
+#     Values can also be transformation functions (base64-encoded, prefixed with "function:").
+#
+#   For non-database types:
+#     Exposes YAML keys from the merged content (_common.single.yml + _common.yml + [locale].yml)
+#     as {{ single.* }} variables usable in templates and sections.
+#     Dot-notation is supported for nested keys (e.g., page_title: meta.page_title).
+#
+#   Example usage in a section:
+#     heading: "Welcome to {{ single.title }}"
+#     description: "{{ single.description }}"
+#
+# indexes (optional):
+#   Fields to use for filtering when listing entries of this type.
+#   Works for both database and non-database content types.
+#
+# database (optional):
+#   Connects this content type to a cached API database.
 #     slug: database name (matches a db config in marketing-content/db/)
-#     field_mapping: maps content concepts to database field names
-#       Underscore-prefixed fields are mandatory special fields:
-#         _locale: DB field containing the entry's language (e.g., lang)
-#         _slug: DB field containing the entry's unique identifier (e.g., slug)
-#       Other fields (no underscore): optional mappings for content display
-#     indexes: fields to index for faster lookups
 
 program:
   directory: programs
+  field_mapping:
+    slug: slug
+    title: title
+    bc_slug: bc_slug
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug
 location:
   directory: locations
+  field_mapping:
+    slug: slug
+    name: name
+    city: city
+    country: country
+    country_code: country_code
+    region: region
+    default_language: default_language
+    phone: phone
+    address: address
+    latitude: latitude
+    longitude: longitude
+    timezone: timezone
+    available_programs: available_programs
+  indexes:
+    - region
+    - country
   url_pattern:
     en: /en/location/:slug
     es: /es/ubicacion/:slug
 landing:
   directory: landings
+  field_mapping:
+    slug: slug
+    title: title
+    locale: locale
   url_pattern:
     default: /landing/:slug
 page:
   directory: pages
+  field_mapping:
+    slug: slug
+    title: title
   url_pattern: /:locale/:slug
 blog:
   directory: blog
+  field_mapping:
+    _slug: slug
+    _locale: lang
+    title: title
+    description: description
+    image: preview_image
+    published_at: published_at
+    updated_at: updated_at
+    status: status
+    category: cluster_slug
+    tags: tags
+    lang: >-
+      function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
+    content: content
+  indexes:
+    - status
+    - category
   database:
     slug: blog_posts
-    field_mapping:
-      _slug: slug
-      _locale: lang
-      title: title
-      description: description
-      image: preview_image
-      published_at: published_at
-      updated_at: updated_at
-      status: status
-      category: cluster_slug
-      tags: tags
-      lang: >-
-        function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
-      content: content
-    indexes:
-      - status
-      - category
   url_pattern:
     en: /en/blog/:category/:slug
     es: /es/blog/:category/:slug
 downloadable:
   directory: downloadable
+  field_mapping:
+    slug: slug
+    title: title
   url_pattern:
     en: /en/downloadable/:slug
     es: /es/descargable/:slug

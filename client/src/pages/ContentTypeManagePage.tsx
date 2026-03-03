@@ -83,14 +83,14 @@ interface FieldMapping {
 
 interface DatabaseConfig {
   slug: string;
-  field_mapping?: Record<string, string | { source: string; default: string }>;
-  indexes?: string[];
 }
 
 interface ContentTypeConfig {
   name: string;
   label: string;
   directory: string;
+  field_mapping?: Record<string, string | { source: string; default: string }>;
+  indexes?: string[];
   database: DatabaseConfig | null;
   url_pattern: Record<string, string>;
   static_entry_count?: number;
@@ -422,10 +422,10 @@ function DataSourceDialog({
     if (config) {
       setSelectedDb(config.database?.slug || "");
 
-      if (config.database?.field_mapping) {
+      if (config.field_mapping) {
         const fm: FieldMapping = {};
         const modes: Record<string, boolean> = {};
-        for (const [k, v] of Object.entries(config.database.field_mapping)) {
+        for (const [k, v] of Object.entries(config.field_mapping)) {
           if (!k.startsWith("_")) {
             const raw = typeof v === "object" ? v.source : v;
             if (raw && raw.startsWith("function:")) {
@@ -443,7 +443,7 @@ function DataSourceDialog({
         setFieldMapping(fm);
         setTransformerModes(modes);
 
-        const sm = config.database.field_mapping._slug;
+        const sm = config.field_mapping._slug;
         const smVal = sm ? (typeof sm === "object" ? sm.source : sm) : "";
         if (smVal && smVal.startsWith("function:")) {
           try {
@@ -457,7 +457,7 @@ function DataSourceDialog({
           setSlugIsTransformer(false);
         }
 
-        const lm = config.database.field_mapping._locale;
+        const lm = config.field_mapping._locale;
         const lmVal = lm ? (typeof lm === "object" ? lm.source : lm) : "";
         if (lmVal && lmVal.startsWith("function:")) {
           try {
@@ -471,7 +471,7 @@ function DataSourceDialog({
           setLocaleIsTransformer(false);
         }
       }
-      setIndexedFields(config.database?.indexes || []);
+      setIndexedFields(config.indexes || []);
 
       if (config.database?.slug && sampleItems.length === 0) {
         loadSampleFromDb(config.database.slug);
@@ -482,9 +482,9 @@ function DataSourceDialog({
         initialCompleted.add("database");
         initialCompleted.add("preview");
       }
-      if (config.database?.field_mapping) {
-        const hasSlug = !!config.database.field_mapping._slug;
-        const hasRegular = Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0;
+      if (config.field_mapping) {
+        const hasSlug = !!config.field_mapping._slug;
+        const hasRegular = Object.keys(config.field_mapping).filter(k => !k.startsWith("_")).length > 0;
         if (hasSlug) initialCompleted.add("identity");
         if (hasRegular) {
           initialCompleted.add("mapping");
@@ -590,10 +590,10 @@ function DataSourceDialog({
       }
 
       const payload = {
+        field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
+        indexes: indexedFields.length > 0 ? indexedFields : undefined,
         database: {
           slug: selectedDb,
-          field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
-          indexes: indexedFields.length > 0 ? indexedFields : undefined,
         },
       };
 
@@ -1268,11 +1268,11 @@ function SeoSettingsDialog({
 
   const mappedKeys = useMemo(() => {
     const keys = ["locale"];
-    if (!config?.database?.field_mapping) {
+    if (!config?.field_mapping) {
       keys.push("slug");
       return keys;
     }
-    const fromMapping = Object.entries(config.database.field_mapping)
+    const fromMapping = Object.entries(config.field_mapping)
       .filter(([k, v]) => v != null && !k.startsWith("_") && URL_SAFE_FIELDS.has(k))
       .map(([k]) => k);
     return [...keys, ...fromMapping];
@@ -1446,11 +1446,11 @@ export default function ContentTypeManagePage() {
 
   const urlPatterns = typeConfig?.url_pattern || {};
   const localeKey = useMemo(() => {
-    const raw = typeConfig?.database?.field_mapping?._locale;
+    const raw = typeConfig?.field_mapping?._locale;
     if (!raw) return null;
     const val = typeof raw === "object" ? raw.source : raw;
     if (typeof val === "string" && val.startsWith("function:")) {
-      const fm = typeConfig?.database?.field_mapping || {};
+      const fm = typeConfig?.field_mapping || {};
       const localeLike = ["lang", "locale", "language"];
       for (const f of localeLike) {
         if (f in fm && !f.startsWith("_")) return f;
@@ -1458,20 +1458,20 @@ export default function ContentTypeManagePage() {
       return null;
     }
     return val;
-  }, [typeConfig?.database?.field_mapping]);
+  }, [typeConfig?.field_mapping]);
 
   const items = allItemsData?.results || [];
 
   const LOCALE_LABELS: Record<string, string> = { en: "English", es: "Spanish", pt: "Portuguese", fr: "French", de: "German", it: "Italian" };
 
   const allIndexFields = useMemo(() => {
-    const explicit = typeConfig?.database?.indexes || [];
+    const explicit = typeConfig?.indexes || [];
     const result = [...explicit];
     if (localeKey && !result.includes(localeKey)) {
       result.push(localeKey);
     }
     return result;
-  }, [typeConfig?.database?.indexes, localeKey]);
+  }, [typeConfig?.indexes, localeKey]);
 
   const indexStats = useMemo(() => {
     const stats: Record<string, Record<string, number>> = {};

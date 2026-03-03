@@ -183,6 +183,7 @@ export default function PrivatePreview() {
         contentType={config.singular as "program" | "landing" | "location" | "page"}
         slug={slug}
         locale={locale}
+        singleEntry={(content as any).singleEntry}
       />
       {showHeader && <Footer />}
     </div>

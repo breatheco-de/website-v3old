@@ -94,6 +94,7 @@ export default function HomePage() {
         contentType="page"
         slug={slug}
         locale={locale}
+        singleEntry={page.singleEntry}
       />
       <Footer />
     </div>

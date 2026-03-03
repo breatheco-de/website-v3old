@@ -466,6 +466,23 @@ async function loadDatabaseSinglePage(
   }
 }
 
+function buildSingleEntryFromContent(
+  contentType: string,
+  pageData: Record<string, unknown>,
+): Record<string, unknown> | undefined {
+  const mapping = getFieldMapping(contentType);
+  if (!mapping || Object.keys(mapping).length === 0) return undefined;
+
+  const entry: Record<string, unknown> = {};
+  for (const [key, source] of Object.entries(mapping)) {
+    const value = resolveFieldValue(source, pageData);
+    if (value !== undefined) {
+      entry[key] = value;
+    }
+  }
+  return Object.keys(entry).length > 0 ? entry : undefined;
+}
+
 function listTemplatePages(
   locale: string,
 ): Array<{ slug: string; title: string }> {
@@ -1202,8 +1219,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
+    const singleEntry = buildSingleEntryFromContent("program", program as unknown as Record<string, unknown>);
     res.json({
       ...program,
+      ...(singleEntry ? { singleEntry } : {}),
       _experiment: experimentInfo,
     });
   });
@@ -1268,8 +1287,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const landingLocations =
       (commonData?.locations as string[] | undefined) || undefined;
+    const singleEntry = buildSingleEntryFromContent("landing", landing as unknown as Record<string, unknown>);
     res.json({
       ...landing,
+      ...(singleEntry ? { singleEntry } : {}),
       locale,
       landing_locations: landingLocations,
       _experiment: experimentInfo,
@@ -1300,7 +1321,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    res.json(location);
+    const singleEntry = buildSingleEntryFromContent("location", location as unknown as Record<string, unknown>);
+    res.json({
+      ...location,
+      ...(singleEntry ? { singleEntry } : {}),
+    });
   });
 
   // Template Pages API
@@ -1418,6 +1443,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       )) as any;
     }
 
+    const singleEntry = buildSingleEntryFromContent("page", page as unknown as Record<string, unknown>);
+    if (singleEntry) {
+      (page as any).singleEntry = singleEntry;
+    }
     res.json(page);
   });
 
@@ -1692,13 +1721,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           has_database: !!config.database?.slug,
           database_slug: config.database?.slug || null,
           has_field_mapping: !!(
-            config.database?.field_mapping &&
-            Object.keys(config.database.field_mapping).filter(
+            config.field_mapping &&
+            Object.keys(config.field_mapping).filter(
               (k) => !k.startsWith("_"),
             ).length > 0
           ),
           url_pattern: config.url_pattern,
-          locale_key: config.database?.field_mapping?._locale || null,
+          locale_key: config.field_mapping?._locale || null,
           static_entry_count: contentIndex.findByType(type).length,
         });
       }
@@ -1795,6 +1824,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         name: type,
         label: getLabel(type),
         directory: config.directory,
+        field_mapping: config.field_mapping || null,
+        indexes: config.indexes || null,
         database: config.database || null,
         url_pattern: config.url_pattern,
         static_entry_count: contentIndex.findByType(type).length,
@@ -1819,6 +1850,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       const update: Partial<import("./content-types").ContentTypeEntry> = {};
       if (body.url_pattern !== undefined) update.url_pattern = body.url_pattern;
+      if (body.field_mapping !== undefined) update.field_mapping = body.field_mapping;
+      if (body.indexes !== undefined) update.indexes = body.indexes;
       if (body.database !== undefined) update.database = body.database;
       updateContentTypeConfig(type, update);
       res.json({ success: true });
@@ -1901,7 +1934,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const result = await databaseManager.fetchItems(dbName);
       let items = result.items as Record<string, unknown>[];
 
-      const mapping = config.database.field_mapping;
+      const mapping = config.field_mapping;
       const regularMapping: Record<string, string> = {};
       const rawFieldRefs: Record<string, string> = {};
       if (mapping) {

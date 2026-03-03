@@ -143,6 +143,7 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
         slug={slug}
         locale={effectiveLocale}
         programSlug={type === "program" ? slug : undefined}
+        singleEntry={(data as any).singleEntry}
       />
       <div className="pb-12">
         <Footer />

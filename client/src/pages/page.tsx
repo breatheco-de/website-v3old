@@ -92,6 +92,7 @@ export default function Page() {
         contentType="page"
         slug={slug}
         locale={locale}
+        singleEntry={page.singleEntry}
       />
       <Footer />
     </div>

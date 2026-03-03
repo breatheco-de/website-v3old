@@ -32,13 +32,13 @@ export function VariableTypeChooserModal({
   const { data: typeConfig } = useQuery<{
     name: string;
     label: string;
-    database: { field_mapping?: Record<string, string> } | null;
+    field_mapping?: Record<string, string>;
   }>({
     queryKey: [`/api/content-types/${contentType}/config`],
     enabled: open && !!contentType,
   });
 
-  const fieldMapping = typeConfig?.database?.field_mapping || {};
+  const fieldMapping = typeConfig?.field_mapping || {};
   const fieldNames = Object.keys(fieldMapping).filter((k) => !k.startsWith("_"));
   const sampleFields = fieldNames.slice(0, 4);
 

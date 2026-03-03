@@ -5,13 +5,13 @@ import { getSupportedLocales, getDefaultLocale } from "./settings";
 
 export interface DatabaseConfig {
   slug: string;
-  field_mapping?: Record<string, string | { source: string; default: string }>;
-  indexes?: string[];
 }
 
 export interface ContentTypeEntry {
   directory: string;
   url_pattern: Record<string, string>;
+  field_mapping?: Record<string, string | { source: string; default: string }>;
+  indexes?: string[];
   database?: DatabaseConfig;
 }
 
@@ -28,7 +28,7 @@ const CONFIG_PATH = path.join(process.cwd(), "marketing-content", "content-types
 
 const CONFIG_HEADER = `# Content Types Configuration
 # ===========================
-# Each entry defines a content type with its URL routing and optional database connection.
+# Each entry defines a content type with its URL routing, field mapping, and optional database connection.
 #
 # Required fields:
 #   directory: folder inside marketing-content/ where YAML entries live
@@ -36,15 +36,20 @@ const CONFIG_HEADER = `# Content Types Configuration
 #     - Per-locale object: { en: /en/path/:slug, es: /es/ruta/:slug }
 #     - Shorthand: { default: /landing/:slug } (same path for all locales)
 #
-# Optional fields:
-#   database: connects this content type to a cached API database
-#     slug: database name (matches a db config in marketing-content/db/)
-#     field_mapping: maps content concepts to database field names
-#       Underscore-prefixed fields are mandatory special fields:
-#         _locale: DB field containing the entry's language (e.g., lang)
-#         _slug: DB field containing the entry's unique identifier (e.g., slug)
-#       Other fields (no underscore): optional mappings for content display
-#     indexes: fields to index for faster lookups
+# field_mapping (recommended):
+#   Declares which fields are available as {{ single.* }} template variables.
+#   For database-backed types: maps content concepts to database column names.
+#     Underscore-prefixed fields are mandatory special fields:
+#       _slug: DB field containing the entry's unique identifier
+#       _locale: DB field containing the entry's language
+#   For non-database types: exposes YAML keys from merged content as {{ single.* }} variables.
+#     Dot-notation supported for nested keys (e.g., page_title: meta.page_title).
+#
+# indexes (optional):
+#   Fields for filtering when listing entries. Works for DB and non-DB types.
+#
+# database (optional):
+#   slug: database name (matches a db config in marketing-content/db/)
 `;
 
 function writeConfigWithHeader(allTypes: Record<string, ContentTypeEntry>): void {
@@ -194,7 +199,7 @@ export function getFullFieldMapping(type: string): Record<string, string> | null
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  const mapping = entry?.database?.field_mapping;
+  const mapping = entry?.field_mapping;
   if (!mapping) return null;
   const result: Record<string, string> = {};
   for (const [key, value] of Object.entries(mapping)) {
@@ -219,7 +224,7 @@ export function getSlugField(type: string): string | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  const slugConfig = entry?.database?.field_mapping?._slug;
+  const slugConfig = entry?.field_mapping?._slug;
   if (!slugConfig) return null;
   if (typeof slugConfig === "object") return slugConfig.source;
   return slugConfig;
@@ -229,11 +234,11 @@ export function getLocaleKey(type: string): string | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  const localeConfig = entry?.database?.field_mapping?._locale;
+  const localeConfig = entry?.field_mapping?._locale;
   if (!localeConfig) return null;
   const raw = typeof localeConfig === "object" ? localeConfig.source : localeConfig;
   if (raw.startsWith("function:")) {
-    const mapping = entry?.database?.field_mapping;
+    const mapping = entry?.field_mapping;
     if (mapping) {
       const localeLikeFields = ["lang", "locale", "language"];
       for (const f of localeLikeFields) {
@@ -249,7 +254,7 @@ export function getLocaleSource(type: string): string | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  const localeConfig = entry?.database?.field_mapping?._locale;
+  const localeConfig = entry?.field_mapping?._locale;
   if (!localeConfig) return null;
   if (typeof localeConfig === "object") return localeConfig.source;
   return localeConfig;
@@ -259,7 +264,7 @@ export function getLocaleDefault(type: string): string {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  const localeConfig = entry?.database?.field_mapping?._locale;
+  const localeConfig = entry?.field_mapping?._locale;
   if (localeConfig && typeof localeConfig === "object" && localeConfig.default) {
     return localeConfig.default;
   }
@@ -270,7 +275,7 @@ export function getIndexes(type: string): string[] {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
-  return entry?.database?.indexes || [];
+  return entry?.indexes || [];
 }
 
 export function getDatabaseConfig(type: string): DatabaseConfig | null {
@@ -297,6 +302,10 @@ export function hasDatabaseSingle(type: string): boolean {
   return !!getDatabaseName(type);
 }
 
+export function hasFieldMapping(type: string): boolean {
+  return !!getFieldMapping(type);
+}
+
 export function updateContentTypeConfig(type: string, update: Partial<ContentTypeEntry>): void {
   const reg = loadRegistry();
   const singular = getType(type);
@@ -314,7 +323,7 @@ export function updateContentTypeConfig(type: string, update: Partial<ContentTyp
     validateUrlPatterns(merged.url_pattern);
   }
 
-  if (merged.database && !merged.database.field_mapping?._slug) {
+  if (merged.database && !merged.field_mapping?._slug) {
     throw new Error(`Database-backed content type "${singular}" requires _slug in field_mapping`);
   }
 
@@ -332,7 +341,7 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
 
   validateUrlPatterns(config.url_pattern);
 
-  if (config.database && !config.database.field_mapping?._slug) {
+  if (config.database && !config.field_mapping?._slug) {
     throw new Error(`Database-backed content type "${name}" requires _slug in field_mapping`);
   }
 

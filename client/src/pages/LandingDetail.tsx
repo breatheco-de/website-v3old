@@ -88,6 +88,7 @@ export default function LandingDetail() {
         slug={slug}
         locale={locale}
         landingLocations={landing.landing_locations}
+        singleEntry={(landing as any).singleEntry}
       />
     </div>
   );

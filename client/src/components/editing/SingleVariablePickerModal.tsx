@@ -32,13 +32,13 @@ export function SingleVariablePickerModal({
   const { data: typeConfig } = useQuery<{
     name: string;
     label: string;
-    database: { field_mapping?: Record<string, string> } | null;
+    field_mapping?: Record<string, string>;
   }>({
     queryKey: [`/api/content-types/${contentType}/config`],
     enabled: open && !!contentType,
   });
 
-  const fieldMapping = typeConfig?.database?.field_mapping || {};
+  const fieldMapping = typeConfig?.field_mapping || {};
   const fields = useMemo(() => {
     return Object.entries(fieldMapping)
       .filter(([key]) => !key.startsWith("_"))
