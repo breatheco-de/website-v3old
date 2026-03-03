@@ -75,28 +75,6 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-  - type: hero
-    version: "1.0"
-    variant: productShowcase
-    title: Learn with Florida's Top-Rated Online AI Coding Bootcamp.
-    brand_mark:
-      prefix: Become an
-      highlight: AI Engineer
-      color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Become the professional companies can’t wait to hire.
-    video:
-      url: https://www.youtube.com/shorts/sSxJnelPJT8
-      ratio: "9:16"
-      muted: true
-      loop: false
-    paddingY:
-      mobile: md none
-      desktop: lg none
-    marginY:
-      mobile: none
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    showOn: mobile
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
