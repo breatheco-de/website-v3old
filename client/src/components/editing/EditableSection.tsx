@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } fro
 import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconInfoCircle } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -140,7 +139,6 @@ function XSpacingPresetButtons({
   onChange: (value: string) => void;
   testId: string;
 }) {
-  const isCustom = value && !X_SPACING_PRESETS.some((p) => p.value === value);
   return (
     <div className="flex items-center gap-1">
       {X_SPACING_PRESETS.map((preset) => (
@@ -154,14 +152,6 @@ function XSpacingPresetButtons({
           {preset.label}
         </Button>
       ))}
-      <Input
-        type="text"
-        placeholder="Custom"
-        value={isCustom ? value : ""}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-16 text-xs"
-        data-testid={`x-spacing-custom-${testId}`}
-      />
     </div>
   );
 }
