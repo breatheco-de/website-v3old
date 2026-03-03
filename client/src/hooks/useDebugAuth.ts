@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, createContext, useContext, createElement, type ReactNode } from "react";
 import type { Capabilities } from "@shared/schema";
 
 const DEBUG_SESSION_KEY = "debug_validated";
@@ -17,11 +17,7 @@ const DEFAULT_CAPABILITIES: Capabilities = {
   content_publish: false,
 };
 
-// Check if debug mode is active
-// In development: always true
-// In production: requires ?debug=true in URL (persisted in sessionStorage)
 export function isDebugModeActive(): boolean {
-  // Check URL for ?debug=false first - explicit override to disable
   const urlParams = new URLSearchParams(window.location.search);
   const debugParam = urlParams.get("debug");
   
@@ -31,19 +27,16 @@ export function isDebugModeActive(): boolean {
   
   const isDev = import.meta.env.DEV;
   
-  // Always active in development (unless explicitly disabled above)
   if (isDev) {
     return true;
   }
   
-  // Check sessionStorage first (persists across navigation)
   const storedDebugMode = sessionStorage.getItem(DEBUG_MODE_KEY);
   if (storedDebugMode === "true") {
     return true;
   }
   
   if (debugParam === "true") {
-    // Store in sessionStorage and clean up URL
     sessionStorage.setItem(DEBUG_MODE_KEY, "true");
     const url = new URL(window.location.href);
     url.searchParams.delete("debug");
@@ -55,7 +48,6 @@ export function isDebugModeActive(): boolean {
 }
 
 export function getDebugToken(): string | null {
-  // Check localStorage for cached token (persists across tabs)
   const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
   const cachedExpiry = localStorage.getItem(DEBUG_SESSION_EXPIRY_KEY);
   
@@ -66,7 +58,6 @@ export function getDebugToken(): string | null {
     }
   }
   
-  // Fall back to URL or env variable
   const urlParams = new URLSearchParams(window.location.search);
   const urlToken = urlParams.get("token");
   const envToken = import.meta.env.VITE_BREATHECODE_TOKEN;
@@ -81,7 +72,6 @@ export function getCachedCapabilities(): Capabilities {
       return JSON.parse(cached);
     }
   } catch {
-    // Ignore parse errors
   }
   return DEFAULT_CAPABILITIES;
 }
@@ -113,7 +103,24 @@ export async function resolveAuthorName(): Promise<string> {
   return "Unknown";
 }
 
-export function useDebugAuth() {
+interface DebugAuthValue {
+  isValidated: boolean | null;
+  hasToken: boolean;
+  isLoading: boolean;
+  isDevelopment: boolean;
+  isDebugMode: boolean;
+  capabilities: Capabilities;
+  hasCapability: (capability: keyof Capabilities) => boolean;
+  canEdit: boolean;
+  retryValidation: () => Promise<void>;
+  validateManualToken: (manualToken: string) => Promise<void>;
+  clearToken: () => void;
+  checkSession: () => Promise<{ valid: boolean; expired?: boolean; networkError?: boolean }>;
+}
+
+const DebugAuthContext = createContext<DebugAuthValue | null>(null);
+
+export function DebugAuthProvider({ children }: { children: ReactNode }) {
   const [isValidated, setIsValidated] = useState<boolean | null>(null);
   const [hasToken, setHasToken] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -123,16 +130,13 @@ export function useDebugAuth() {
   const isDebugMode = isDebugModeActive();
 
   const validateToken = useCallback(async (skipCache = false) => {
-    // Check if a token was provided via URL querystring
     const urlParams = new URLSearchParams(window.location.search);
     const urlToken = urlParams.get("token");
     
-    // URL token always takes priority and bypasses cache (acts like manual validate)
     const forceValidate = !!urlToken || skipCache;
     
     let revalidateWithCachedToken = false;
 
-    // Check if we have a valid cached session (unless forced)
     if (!forceValidate) {
       const cachedValidation = localStorage.getItem(DEBUG_SESSION_KEY);
       const cachedExpiry = localStorage.getItem(DEBUG_SESSION_EXPIRY_KEY);
@@ -150,7 +154,6 @@ export function useDebugAuth() {
               try {
                 setCapabilities(JSON.parse(cachedCaps));
               } catch {
-                // Ignore
               }
             }
             setIsLoading(false);
@@ -160,14 +163,12 @@ export function useDebugAuth() {
         }
       }
     } else {
-      // Clear cache when forced
       localStorage.removeItem(DEBUG_SESSION_KEY);
       localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
       localStorage.removeItem(DEBUG_TOKEN_KEY);
       localStorage.removeItem(DEBUG_CAPABILITIES_KEY);
     }
 
-    // Get token from URL querystring or env variable
     const envToken = import.meta.env.VITE_BREATHECODE_TOKEN;
     
     const token = urlToken || envToken || (revalidateWithCachedToken ? localStorage.getItem(DEBUG_TOKEN_KEY) : null);
@@ -194,7 +195,6 @@ export function useDebugAuth() {
 
       const data = await response.json();
       
-      // Clean up URL after fetch completes (not before) so other hook instances can read the token
       if (urlToken) {
         const url = new URL(window.location.href);
         url.searchParams.delete("token");
@@ -202,9 +202,7 @@ export function useDebugAuth() {
       }
 
       if (data.valid) {
-        // Cache the validation result, token, capabilities, and userName with real expiry from Breathecode
         localStorage.setItem(DEBUG_SESSION_KEY, "true");
-        // Use real expiry from Breathecode API, or fallback to 24 hours if not provided
         const expiryTime = data.expiresAt 
           ? new Date(data.expiresAt).getTime() 
           : Date.now() + (24 * 60 * 60 * 1000);
@@ -240,19 +238,16 @@ export function useDebugAuth() {
     validateToken(false);
   }, [validateToken]);
 
-  // Retry validation (clears cache and re-validates)
   const retryValidation = useCallback(() => {
     return validateToken(true);
   }, [validateToken]);
 
-  // Validate a manually entered token
   const validateManualToken = useCallback(async (manualToken: string) => {
     if (!manualToken.trim()) return;
     
     setHasToken(true);
     setIsLoading(true);
     
-    // Clear any existing cache
     localStorage.removeItem(DEBUG_SESSION_KEY);
     localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
     localStorage.removeItem(DEBUG_TOKEN_KEY);
@@ -272,7 +267,6 @@ export function useDebugAuth() {
       
       if (data.valid) {
         localStorage.setItem(DEBUG_SESSION_KEY, "true");
-        // Use real expiry from Breathecode API, or fallback to 24 hours if not provided
         const expiryTime = data.expiresAt 
           ? new Date(data.expiresAt).getTime() 
           : Date.now() + (24 * 60 * 60 * 1000);
@@ -299,7 +293,6 @@ export function useDebugAuth() {
     setIsLoading(false);
   }, []);
 
-  // Check session validity without clearing cache - useful for refresh button
   const checkSession = useCallback(async (): Promise<{ valid: boolean; expired?: boolean; networkError?: boolean }> => {
     const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
     
@@ -319,18 +312,15 @@ export function useDebugAuth() {
       const data = await response.json();
       
       if (data.valid) {
-        // Update expiry time if provided
         if (data.expiresAt) {
           const expiryTime = new Date(data.expiresAt).getTime();
           localStorage.setItem(DEBUG_SESSION_EXPIRY_KEY, String(expiryTime));
         }
         return { valid: true };
       } else if (data.networkError) {
-        // Network error - don't clear cache, just report error
         console.warn("Network error checking session:", data.error);
         return { valid: false, networkError: true };
       } else {
-        // Token is actually invalid or expired - clear cache
         localStorage.removeItem(DEBUG_SESSION_KEY);
         localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
         localStorage.removeItem(DEBUG_TOKEN_KEY);
@@ -342,13 +332,11 @@ export function useDebugAuth() {
         return { valid: false, expired: data.expired };
       }
     } catch (error) {
-      // Client-side network error - don't clear cache
       console.error("Session check error:", error);
       return { valid: false, networkError: true };
     }
   }, []);
 
-  // Clear token and reset to "no token" state
   const clearToken = useCallback(() => {
     localStorage.removeItem(DEBUG_SESSION_KEY);
     localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
@@ -360,28 +348,36 @@ export function useDebugAuth() {
     setCapabilities(DEFAULT_CAPABILITIES);
   }, []);
 
-  // Check if user has a specific capability
   const hasCapability = useCallback((capability: keyof Capabilities): boolean => {
     return capabilities[capability] === true;
   }, [capabilities]);
 
-  // Check if user can edit content (has any edit capability)
   const canEdit = capabilities.content_edit_text || 
                   capabilities.content_edit_structure || 
                   capabilities.content_edit_media;
 
-  return { 
-    isValidated, 
-    hasToken, 
-    isLoading, 
-    isDevelopment, 
-    isDebugMode, 
+  const value: DebugAuthValue = {
+    isValidated,
+    hasToken,
+    isLoading,
+    isDevelopment,
+    isDebugMode,
     capabilities,
     hasCapability,
     canEdit,
-    retryValidation, 
-    validateManualToken, 
+    retryValidation,
+    validateManualToken,
     clearToken,
-    checkSession
+    checkSession,
   };
+
+  return createElement(DebugAuthContext.Provider, { value }, children);
+}
+
+export function useDebugAuth(): DebugAuthValue {
+  const context = useContext(DebugAuthContext);
+  if (!context) {
+    throw new Error("useDebugAuth must be used within a DebugAuthProvider");
+  }
+  return context;
 }

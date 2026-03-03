@@ -9,6 +9,7 @@ import { DebugBubble } from "@/components/DebugBubble";
 import { VariableModalHost } from "@/components/editing/VariableHighlight";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
+import { DebugAuthProvider } from "@/hooks/useDebugAuth";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import "./i18n";
 
@@ -106,6 +107,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
+        <DebugAuthProvider>
         <TooltipProvider>
           <EditModeWrapper>
             <Toaster />
@@ -115,6 +117,7 @@ function App() {
             <VariableModalHost />
           </EditModeWrapper>
         </TooltipProvider>
+        </DebugAuthProvider>
       </SessionProvider>
     </QueryClientProvider>
   );
