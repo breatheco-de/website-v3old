@@ -30,7 +30,7 @@ sections:
     limit: 12
     background: hsl(var(--background))
   - type: hero
-    variant: course
+    variant: ApplyFormProductShowcase
     title: Programa de Desarrollo Full Stack con IA
     subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
@@ -54,35 +54,7 @@ sections:
         image: https://randomuser.me/api/portraits/lego/1.jpg
     tutors_label: "Tus Tutores:"
     description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
-    media:
-      type: video
-      src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-      thumbnail: https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop
-      alt: Course introduction video
-    signup_card:
-      title: Obtén el programa completo
-      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
-      cta_button:
-        text: Solicitar información
-        url: /signup
-        variant: primary
-      login_link:
-        text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: /login
-      features:
-        - icon: book
-          text: Programa de 20 semanas
-        - icon: code
-          text: +100 ejercicios interactivos de programación
-        - icon: IconHome
-          text: Interactive Projects
-        - icon: robot
-          text: Feedback con IA en tiempo real
-        - icon: calendar
-          text: Ratio 1:7 estudiante–profesor
-        - icon: IconClock
-          text: Mentoría personalizada 1:1
-          form: null
+    form:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
