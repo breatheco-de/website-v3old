@@ -82,6 +82,47 @@ sections:
           text: Ratio 1:7 estudiante–profesor
         - icon: IconClock
           text: Mentoría personalizada 1:1
+          form: null
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo Electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: MX
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_usa_only: false
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/ai-engineering
+      variant: outline
+      icon: Download
     paddingY:
       desktop: none lg
     marginY:
