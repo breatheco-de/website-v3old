@@ -67,7 +67,7 @@ sections:
         url: /signup
         variant: primary
       login_link:
-        text: Login here.
+        text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: /login
       features:
         - icon: book
