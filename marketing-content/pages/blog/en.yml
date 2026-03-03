@@ -42,4 +42,6 @@ sections:
         meta_right: {{ single.published_at | }}
         cta_text: Read more
     marginX:
-      desktop: xl
+      desktop: none
+    maxWidth:
+      desktop: lg

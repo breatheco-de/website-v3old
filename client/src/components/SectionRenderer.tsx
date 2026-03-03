@@ -205,9 +205,7 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
   styles['--section-mw-desktop'] = maxWidth?.desktop ?? "none";
   styles.maxWidth = 'var(--section-mw)';
 
-  const hasMaxWidth = maxWidth && (maxWidth.mobile !== "none" || maxWidth.desktop !== "none");
-  const hasExplicitMarginX = marginX !== null;
-  if (hasMaxWidth && !hasExplicitMarginX) {
+  if (maxWidth && (maxWidth.mobile !== "none" || maxWidth.desktop !== "none")) {
     styles.marginLeft = 'auto';
     styles.marginRight = 'auto';
   }
