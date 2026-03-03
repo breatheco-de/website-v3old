@@ -177,7 +177,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           }}
           render={({ field, fieldState }) => (
             <FormItem className="flex flex-col space-y-2">
-              <div className="flex flex-row items-start space-x-3">
+              <div className="flex flex-row items-start space-x-3 cursor-pointer" onClick={() => field.onChange(!field.value)}>
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -206,7 +206,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           control={form.control}
           name="consent_email"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer" onClick={() => field.onChange(!field.value)}>
               <FormControl>
                 <Checkbox
                   checked={field.value}
@@ -232,7 +232,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           control={form.control}
           name="consent_sms"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer" onClick={() => field.onChange(!field.value)}>
               <FormControl>
                 <Checkbox
                   checked={field.value}
@@ -255,7 +255,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           control={form.control}
           name="consent_whatsapp"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer" onClick={() => field.onChange(!field.value)}>
               <FormControl>
                 <Checkbox
                   checked={field.value}
