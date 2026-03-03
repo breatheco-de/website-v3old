@@ -1253,7 +1253,8 @@ function FieldValidationIndicator({ result }: { result: FieldValidationResult | 
 
 function FieldValidationMessage({ result, fieldKey, source }: { result: FieldValidationResult | "loading" | null | undefined; fieldKey: string; source?: string }) {
   if (!result || result === "loading" || result.valid) return null;
-  const displaySource = source || fieldKey;
+  const displaySource = source || (fieldKey.startsWith("__") ? "" : fieldKey);
+  if (!displaySource) return null;
   const allMissing = result.found === 0;
   return (
     <p className="text-[11px] text-destructive pl-[7.5rem]" data-testid={`text-validation-error-${fieldKey}`}>
