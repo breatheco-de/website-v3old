@@ -1,8 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
-import { getContentTypeConfig, getLocaleKey, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
+import { getContentTypeConfig, getLocaleKey, getLocaleSource, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
 import { getSupportedLocales } from "./settings";
+import { applyTransformIfNeeded } from "./transform";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -398,6 +399,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     if (blogTypeConfig?.database?.slug) {
       const dbName = blogTypeConfig.database.slug;
       const localeFieldKey = getLocaleKey("blog");
+      const localeSource = getLocaleSource("blog");
       const cachePath = path.join(process.cwd(), ".cache", `db-${dbName}.json`);
       if (fs.existsSync(cachePath)) {
         const cached = JSON.parse(fs.readFileSync(cachePath, "utf-8")) as {
@@ -409,7 +411,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
           let locale = "en";
           if (localeFieldKey) {
             const langVal = String(post[localeFieldKey] || "en");
-            locale = langVal === "us" ? "en" : langVal;
+            locale = localeSource ? applyTransformIfNeeded(localeSource, langVal) : langVal;
           }
           const urlPattern = urlPatterns[locale] || urlPatterns["en"];
           const postUrl = `${getBaseUrl()}${resolveUrlPatternWithMapping(urlPattern, post, locale, blogFieldMapping)}`;

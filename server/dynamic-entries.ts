@@ -2,8 +2,10 @@ import { databaseManager } from "./database";
 import {
   getLocaleKey,
   getLocaleDefault,
+  getLocaleSource,
   resolveContentTypeUrl,
 } from "./content-types";
+import { applyTransformIfNeeded } from "./transform";
 
 const SINGLE_VAR_PATTERN = /\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}/g;
 const EXACT_SINGLE_VAR_PATTERN = /^\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}$/;
@@ -127,9 +129,11 @@ export async function resolveDynamicEntries(
       if (contentType) {
         const localeKey = getLocaleKey(contentType) || "lang";
         const localeDefault = getLocaleDefault(contentType);
-        const normalizedLocale = locale === "us" ? "en" : locale;
+        const localeSource = getLocaleSource(contentType);
+        const normalizedLocale = localeSource ? applyTransformIfNeeded(localeSource, locale) : locale;
         items = items.filter(item => {
-          const itemLocale = (item as any)[localeKey] || localeDefault;
+          const rawItemLocale = String((item as any)[localeKey] || localeDefault);
+          const itemLocale = localeSource ? applyTransformIfNeeded(localeSource, rawItemLocale) : rawItemLocale;
           return itemLocale === normalizedLocale;
         });
       }

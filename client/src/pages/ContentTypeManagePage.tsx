@@ -51,7 +51,9 @@ import {
   IconLoader2,
   IconLayoutList,
   IconX,
+  IconCode,
 } from "@tabler/icons-react";
+import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
@@ -401,6 +403,10 @@ function DataSourceDialog({
   const [indexedFields, setIndexedFields] = useState<string[]>([]);
   const [rawFields, setRawFields] = useState<string[]>([]);
 
+  const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
+  const [localeIsTransformer, setLocaleIsTransformer] = useState(false);
+  const [slugIsTransformer, setSlugIsTransformer] = useState(false);
+
   const markComplete = (s: WizardStep) => {
     setCompletedSteps((prev) => {
       const next = new Set(Array.from(prev));
@@ -415,16 +421,52 @@ function DataSourceDialog({
 
       if (config.database?.field_mapping) {
         const fm: FieldMapping = {};
+        const modes: Record<string, boolean> = {};
         for (const [k, v] of Object.entries(config.database.field_mapping)) {
           if (!k.startsWith("_")) {
-            fm[k] = typeof v === "object" ? v.source : v;
+            const raw = typeof v === "object" ? v.source : v;
+            if (raw && raw.startsWith("function:")) {
+              try {
+                fm[k] = atob(raw.slice("function:".length));
+                modes[k] = true;
+              } catch {
+                fm[k] = raw;
+              }
+            } else {
+              fm[k] = raw;
+            }
           }
         }
         setFieldMapping(fm);
+        setTransformerModes(modes);
+
         const sm = config.database.field_mapping._slug;
-        setSlugField(sm ? (typeof sm === "object" ? sm.source : sm) : "");
+        const smVal = sm ? (typeof sm === "object" ? sm.source : sm) : "";
+        if (smVal && smVal.startsWith("function:")) {
+          try {
+            setSlugField(atob(smVal.slice("function:".length)));
+            setSlugIsTransformer(true);
+          } catch {
+            setSlugField(smVal);
+          }
+        } else {
+          setSlugField(smVal);
+          setSlugIsTransformer(false);
+        }
+
         const lm = config.database.field_mapping._locale;
-        setLocaleField(lm ? (typeof lm === "object" ? lm.source : lm) : "");
+        const lmVal = lm ? (typeof lm === "object" ? lm.source : lm) : "";
+        if (lmVal && lmVal.startsWith("function:")) {
+          try {
+            setLocaleField(atob(lmVal.slice("function:".length)));
+            setLocaleIsTransformer(true);
+          } catch {
+            setLocaleField(lmVal);
+          }
+        } else {
+          setLocaleField(lmVal);
+          setLocaleIsTransformer(false);
+        }
       }
       setIndexedFields(config.database?.indexes || []);
 
@@ -516,14 +558,14 @@ function DataSourceDialog({
     try {
       const fullMapping: Record<string, string> = {};
       if (slugField) {
-        fullMapping._slug = slugField;
+        fullMapping._slug = slugIsTransformer ? "function:" + btoa(slugField) : slugField;
       }
       if (localeField) {
-        fullMapping._locale = localeField;
+        fullMapping._locale = localeIsTransformer ? "function:" + btoa(localeField) : localeField;
       }
       for (const [k, v] of Object.entries(fieldMapping)) {
         if (v != null && v !== "__none__") {
-          fullMapping[k] = v;
+          fullMapping[k] = transformerModes[k] ? "function:" + btoa(v) : v;
         }
       }
 
@@ -721,23 +763,55 @@ function DataSourceDialog({
                 )}
 
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground">Slug Field (_slug)</Label>
-                  <Select
-                    value={slugField || "__none__"}
-                    onValueChange={(v) => {
-                      setSlugField(v === "__none__" ? "" : v);
-                    }}
-                  >
-                    <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-slug-field">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="__none__">(none)</SelectItem>
-                      {availableFields.map((f) => (
-                        <SelectItem key={f} value={f}>{f}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Label className="text-xs font-medium text-muted-foreground flex-1">Slug Field (_slug)</Label>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className={slugIsTransformer ? "text-primary" : ""}
+                      onClick={() => {
+                        if (!slugIsTransformer) {
+                          setSlugIsTransformer(true);
+                          if (!slugField) setSlugField("(value, item) => item.slug");
+                        } else {
+                          setSlugIsTransformer(false);
+                          setSlugField("");
+                        }
+                      }}
+                      data-testid="button-toggle-slug-transform"
+                    >
+                      <IconCode className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                  {slugIsTransformer ? (
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
+                      <Textarea
+                        value={slugField}
+                        onChange={(e) => setSlugField(e.target.value)}
+                        placeholder="(value, item) => item.slug"
+                        className="text-xs font-mono min-h-[3rem] resize-y"
+                        data-testid="textarea-slug-transform"
+                      />
+                    </div>
+                  ) : (
+                    <Select
+                      value={slugField || "__none__"}
+                      onValueChange={(v) => {
+                        setSlugField(v === "__none__" ? "" : v);
+                      }}
+                    >
+                      <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-slug-field">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none__">(none)</SelectItem>
+                        {availableFields.map((f) => (
+                          <SelectItem key={f} value={f}>{f}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                   <p className="text-xs text-muted-foreground">
                     Which field uniquely identifies each item (e.g., "slug", "id")
                   </p>
@@ -755,15 +829,28 @@ function DataSourceDialog({
 
                     <div className="space-y-2">
                       {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
-                        const isCustom = sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
+                        const isFnMode = !!transformerModes[standardField];
+                        const isCustom = !isFnMode && sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
                         const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
                         return (
-                        <div key={standardField} className="flex items-center gap-2">
+                        <div key={standardField} className="space-y-1">
+                          <div className="flex items-center gap-2">
                             <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">
                               {standardField}
                             </span>
                             <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                            {isCustom ? (
+                            {isFnMode ? (
+                              <div className="flex-1 space-y-1">
+                                <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
+                                <Textarea
+                                  value={sourceField || ""}
+                                  onChange={(e) => setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }))}
+                                  placeholder="(value, item) => value"
+                                  className="text-xs font-mono min-h-[3rem] resize-y"
+                                  data-testid={`textarea-transform-${standardField}`}
+                                />
+                              </div>
+                            ) : isCustom ? (
                               <>
                                 <Input
                                   value={sourceField}
@@ -812,9 +899,31 @@ function DataSourceDialog({
                             <Button
                               variant="ghost"
                               size="icon"
+                              className={`flex-shrink-0 ${isFnMode ? "text-primary" : ""}`}
+                              onClick={() => {
+                                setTransformerModes((prev) => {
+                                  const next = { ...prev, [standardField]: !prev[standardField] };
+                                  if (!next[standardField]) {
+                                    setFieldMapping((p) => ({ ...p, [standardField]: null }));
+                                  }
+                                  return next;
+                                });
+                              }}
+                              data-testid={`button-toggle-transform-${standardField}`}
+                            >
+                              <IconCode className="h-3.5 w-3.5" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
                               className="flex-shrink-0"
                               onClick={() => {
                                 setFieldMapping((prev) => {
+                                  const next = { ...prev };
+                                  delete next[standardField];
+                                  return next;
+                                });
+                                setTransformerModes((prev) => {
                                   const next = { ...prev };
                                   delete next[standardField];
                                   return next;
@@ -825,6 +934,7 @@ function DataSourceDialog({
                             >
                               <IconTrashX className="h-3.5 w-3.5" />
                             </Button>
+                          </div>
                         </div>
                         );
                       })}
@@ -850,23 +960,55 @@ function DataSourceDialog({
                     )}
 
                     <div className="space-y-2 pt-2 border-t">
-                      <Label className="text-xs font-medium text-muted-foreground">Locale Field (_locale)</Label>
-                      <Select
-                        value={localeField || "__none__"}
-                        onValueChange={(v) => {
-                          setLocaleField(v === "__none__" ? "" : v);
-                        }}
-                      >
-                        <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-locale-field">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="__none__">(none)</SelectItem>
-                          {availableFields.map((f) => (
-                            <SelectItem key={f} value={f}>{f}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <div className="flex items-center gap-2">
+                        <Label className="text-xs font-medium text-muted-foreground flex-1">Locale Field (_locale)</Label>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className={localeIsTransformer ? "text-primary" : ""}
+                          onClick={() => {
+                            if (!localeIsTransformer) {
+                              setLocaleIsTransformer(true);
+                              if (!localeField) setLocaleField("(value) => value === 'us' ? 'en' : value");
+                            } else {
+                              setLocaleIsTransformer(false);
+                              setLocaleField("");
+                            }
+                          }}
+                          data-testid="button-toggle-locale-transform"
+                        >
+                          <IconCode className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                      {localeIsTransformer ? (
+                        <div className="space-y-1">
+                          <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
+                          <Textarea
+                            value={localeField}
+                            onChange={(e) => setLocaleField(e.target.value)}
+                            placeholder="(value) => value === 'us' ? 'en' : value"
+                            className="text-xs font-mono min-h-[3rem] resize-y"
+                            data-testid="textarea-locale-transform"
+                          />
+                        </div>
+                      ) : (
+                        <Select
+                          value={localeField || "__none__"}
+                          onValueChange={(v) => {
+                            setLocaleField(v === "__none__" ? "" : v);
+                          }}
+                        >
+                          <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-locale-field">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="__none__">(none)</SelectItem>
+                            {availableFields.map((f) => (
+                              <SelectItem key={f} value={f}>{f}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
                       <p className="text-xs text-muted-foreground">
                         Which field identifies the item's language/locale (e.g., "lang", "locale")
                       </p>

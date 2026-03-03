@@ -88,7 +88,9 @@ import {
   getDatabaseConfig,
   getLabel,
   normalizeUrlPattern,
+  getLocaleSource,
 } from "./content-types";
+import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { resolveSingleVars } from "./single-resolver";
 import { normalizeLocale, getSupportedLocales, getDefaultLocale, getLocaleEntries, updateLocaleSettings } from "./settings";
 import { variableManager } from "./variable-manager";
@@ -366,26 +368,22 @@ async function loadDatabaseSinglePage(
       items = items.map((item) => {
         const mapped: Record<string, unknown> = { ...item };
         for (const [targetField, sourcePath] of Object.entries(fieldMapping)) {
-          const parts = sourcePath.split(".");
-          let current: unknown = item;
-          for (const part of parts) {
-            if (current == null || typeof current !== "object") { current = undefined; break; }
-            current = (current as Record<string, unknown>)[part];
-          }
-          if (current !== undefined) mapped[targetField] = current;
+          const value = resolveFieldValue(sourcePath, item, targetField);
+          if (value !== undefined) mapped[targetField] = value;
         }
         return mapped;
       });
     }
 
     const localeKey = getLocaleKey(contentType);
+    const localeSource = getLocaleSource(contentType);
     let matchItem: Record<string, unknown> | undefined;
 
     if (localeKey) {
-      const normalizedLocale = locale === "us" ? "en" : locale;
+      const normalizedLocale = localeSource ? applyTransformIfNeeded(localeSource, locale) : locale;
       matchItem = items.find((item) => {
         const itemLocale = String(item[localeKey] || "");
-        const normalizedItemLocale = itemLocale === "us" ? "en" : itemLocale;
+        const normalizedItemLocale = localeSource ? applyTransformIfNeeded(localeSource, itemLocale) : itemLocale;
         return item[lookupKey] === slug && normalizedItemLocale === normalizedLocale;
       });
       if (!matchItem) {
@@ -1776,33 +1774,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         items = items.map((item, idx) => {
           const mapped: Record<string, unknown> = { ...item };
           for (const [targetField, sourcePath] of Object.entries(regularMapping)) {
-            const parts = sourcePath.split(".");
-            let current: unknown = item;
-            for (const part of parts) {
-              if (current == null || typeof current !== "object") { current = undefined; break; }
-              current = (current as Record<string, unknown>)[part];
-            }
-            if (current !== undefined) mapped[targetField] = current;
+            const value = resolveFieldValue(sourcePath, item, targetField);
+            if (value !== undefined) mapped[targetField] = value;
           }
           if (rawItems && rawItems[idx]) {
             for (const [targetField, sourcePath] of Object.entries(rawFieldRefs)) {
-              const parts = sourcePath.split(".");
-              let current: unknown = rawItems[idx];
-              for (const part of parts) {
-                if (current == null || typeof current !== "object") { current = undefined; break; }
-                current = (current as Record<string, unknown>)[part];
-              }
-              if (current !== undefined) mapped[targetField] = current;
+              const value = resolveFieldValue(sourcePath, rawItems[idx], targetField);
+              if (value !== undefined) mapped[targetField] = value;
             }
           }
           return mapped;
         });
       }
 
+      const localeSource = getLocaleSource(type);
       if (localeFieldKey) {
         items = items.map((item) => {
           const locVal = String(item[localeFieldKey] || "");
-          const normalized = locVal === "us" ? "en" : locVal;
+          const normalized = localeSource ? applyTransformIfNeeded(localeSource, locVal) : locVal;
           return { ...item, [localeFieldKey]: normalized || localeDefault };
         });
       }

@@ -52,7 +52,8 @@ blog:
       status: status
       category: cluster_slug
       tags: tags
-      lang: language
+      lang: >-
+        function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
       content: content
     indexes:
       - status

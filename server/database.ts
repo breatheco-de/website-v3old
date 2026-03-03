@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-types";
+import { getValueByPath, resolveFieldValue } from "./transform";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 const CACHE_DIR = path.join(process.cwd(), ".cache");
@@ -35,16 +36,6 @@ interface CacheEntry {
 }
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;
-
-function getValueByPath(obj: unknown, dotPath: string): unknown {
-  const parts = dotPath.split(".");
-  let current: unknown = obj;
-  for (const part of parts) {
-    if (current == null || typeof current !== "object") return undefined;
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-}
 
 function applyFieldMapping(
   item: Record<string, unknown>,
@@ -135,7 +126,7 @@ function applyContentTypeMapping(
     const mapped: Record<string, unknown> = { ...src };
 
     for (const [targetKey, sourcePath] of Object.entries(mapping)) {
-      const value = getValueByPath(src, sourcePath);
+      const value = resolveFieldValue(sourcePath, src, targetKey);
       if (value !== undefined) {
         mapped[targetKey] = value;
       }
@@ -153,9 +144,6 @@ function applyContentTypeMapping(
       }
     }
 
-    if (mapped.lang !== undefined) {
-      if (mapped.lang === "us") mapped.lang = "en";
-    }
 
     if (!mapped.id) mapped.id = idx;
 

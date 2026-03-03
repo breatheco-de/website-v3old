@@ -235,6 +235,16 @@ export function getLocaleKey(type: string): string | null {
   return localeConfig;
 }
 
+export function getLocaleSource(type: string): string | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  const localeConfig = entry?.database?.field_mapping?._locale;
+  if (!localeConfig) return null;
+  if (typeof localeConfig === "object") return localeConfig.source;
+  return localeConfig;
+}
+
 export function getLocaleDefault(type: string): string {
   const reg = loadRegistry();
   const singular = getType(type);
