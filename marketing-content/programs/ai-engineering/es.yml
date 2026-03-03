@@ -14,7 +14,6 @@ meta:
     - /bootcamp/ai-engineering-es
     - /programas/ingeniero-ia
     - /cursos/ingenieria-ia
-    - /us/coding-bootcamps/applied-ai-course
 schema:
   include:
     - organization
