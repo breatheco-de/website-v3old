@@ -192,17 +192,26 @@ sections:
     primary:
       heading: The Confidence of a Job Guarantee*
       description: |-
-        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
-        </div></div>
+        We stand behind our training.
+        <div>
+          Our optional Job Guarantee is designed for students transitioning into tech.
+          <ul>
+            <li>Get hired into a qualifying tech role within 9 months of graduation</li>
+            <li>Or receive a full tuition refund</li>
+          </ul>
+          <div>
+            <span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
+          </div>
+        </div>
       badge: Results-Backed Promise
     secondary:
       benefits:
         - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
         - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
+    background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Why Dallas Is a Smart Place to Launch Your Tech Career
