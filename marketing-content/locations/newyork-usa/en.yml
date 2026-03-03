@@ -87,9 +87,9 @@ sections:
     left:
       video: https://youtu.be/EcqasocRKHo
     right:
-      heading: Launch Your Tech Career in New York
-      sub_heading: Alissa on How 4Geeks Empowers New York Learners
-      description: 4Geeks Academy offers the guidance, structure, and hands-on experience you need to succeed in New York's growing tech ecosystem. Build practical job-ready skills through project-based learning, explore tools and workflows used in today's tech careers, and get expert coaching tailored to New York's evolving job market.
+      heading: How the 4Geeks Learning Model Works
+      sub_heading: A closer look at our AI-native training approach
+      description: Our programs combine structured, project-based learning with AI-integrated tools and personalized mentorship. In this video, you’ll see how our model is designed to help students build real technical depth, stay accountable, and prepare for high-demand roles in today’s tech landscape.
     gap: "8"
     marginY:
       desktop: none sm
