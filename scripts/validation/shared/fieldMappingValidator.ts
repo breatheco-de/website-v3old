@@ -1,10 +1,16 @@
+import path from "path";
 import { contentIndex, type ContentType } from "../../../server/content-index";
+
+export interface MissingEntry {
+  slug: string;
+  files: string[];
+}
 
 export interface FieldValidationResult {
   valid: boolean;
   total: number;
   found: number;
-  missing: string[];
+  missing: MissingEntry[];
 }
 
 export interface MappingValidationResult {
@@ -22,6 +28,12 @@ export function extractByDotPath(obj: unknown, dotPath: string): unknown {
   return current;
 }
 
+const PROJECT_ROOT = process.cwd();
+
+function toRelative(absPath: string): string {
+  return path.relative(PROJECT_ROOT, absPath);
+}
+
 function isTransformerValue(value: string): boolean {
   return value.startsWith("function:");
 }
@@ -37,7 +49,7 @@ export function validateFieldSource(
   }
 
   let found = 0;
-  const missing: string[] = [];
+  const missing: MissingEntry[] = [];
 
   for (const slug of slugs) {
     const locales = contentIndex.getAvailableLocalesOrVariants(
@@ -46,7 +58,9 @@ export function validateFieldSource(
     );
     const locale = locales.includes("en") ? "en" : locales[0];
     if (!locale) {
-      missing.push(slug);
+      const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
+      const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, "en"));
+      missing.push({ slug, files: [commonPath, localePath] });
       continue;
     }
 
@@ -57,7 +71,9 @@ export function validateFieldSource(
     );
 
     if (!data) {
-      missing.push(slug);
+      const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
+      const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, locale));
+      missing.push({ slug, files: [commonPath, localePath] });
       continue;
     }
 
@@ -65,7 +81,9 @@ export function validateFieldSource(
     if (value !== undefined) {
       found++;
     } else {
-      missing.push(slug);
+      const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
+      const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, locale));
+      missing.push({ slug, files: [commonPath, localePath] });
     }
   }
 
