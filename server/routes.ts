@@ -1015,6 +1015,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const newContent = content.replace(pattern, `{{ ${sanitized}$1}}`);
         if (newContent !== content) {
           fs.writeFileSync(absPath, newContent, "utf-8");
+          markFileAsModified(relPath);
           updatedFiles.push(relPath);
         }
       }
@@ -2541,6 +2542,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           noRefs: true,
         });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+        markFileAsModified(customFilePath);
 
         contentIndex.scan();
         clearRedirectCache();
@@ -2633,6 +2635,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         noRefs: true,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -2731,6 +2734,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           noRefs: true,
         });
         fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+        markFileAsModified(customFilePath);
 
         contentIndex.scan();
         clearRedirectCache();
@@ -2797,6 +2801,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       const yamlContent = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -2864,6 +2869,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         { lineWidth: -1, noRefs: true },
       );
       fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+      markFileAsModified(customFilePath);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -2939,6 +2945,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         { lineWidth: -1, noRefs: true },
       );
       fs.writeFileSync(customFilePath, yamlContent, "utf-8");
+      markFileAsModified(customFilePath);
 
       contentIndex.scan();
       clearRedirectCache();
@@ -3355,6 +3362,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         sortKeys: false,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath);
 
       const syncResults: Record<string, string> = {};
       const translationLocales = ["es", "fr", "de", "pt", "it"];
@@ -3384,6 +3392,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               sortKeys: false,
             });
             fs.writeFileSync(translationFilePath, syncedYaml, "utf-8");
+            markFileAsModified(translationFilePath);
             syncResults[targetLocale] = "synced";
           } catch (syncError) {
             console.error(
@@ -3481,6 +3490,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         sortKeys: false,
       });
       fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath);
 
       res.json({
         success: true,
