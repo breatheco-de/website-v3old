@@ -268,7 +268,10 @@ function SearchableFieldSelect({
 
 const WIZARD_STEPS = [
   { id: "database", label: "Select Database", icon: IconDatabase },
-  { id: "fields", label: "Field Mapping", icon: IconLayoutList },
+  { id: "preview", label: "Inspect Data", icon: IconEye },
+  { id: "identity", label: "Identity Fields", icon: IconLink },
+  { id: "mapping", label: "Field Mapping", icon: IconLayoutList },
+  { id: "indexes", label: "Indexes", icon: IconArticle },
 ] as const;
 
 type WizardStep = typeof WIZARD_STEPS[number]["id"];
@@ -470,9 +473,24 @@ function DataSourceDialog({
       }
       setIndexedFields(config.database?.indexes || []);
 
+      if (config.database?.slug && sampleItems.length === 0) {
+        loadSampleFromDb(config.database.slug);
+      }
+
       const initialCompleted = new Set<WizardStep>();
-      if (config.database?.slug) initialCompleted.add("database");
-      if (config.database?.field_mapping && Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0) initialCompleted.add("fields");
+      if (config.database?.slug) {
+        initialCompleted.add("database");
+        initialCompleted.add("preview");
+      }
+      if (config.database?.field_mapping) {
+        const hasSlug = !!config.database.field_mapping._slug;
+        const hasRegular = Object.keys(config.database.field_mapping).filter(k => !k.startsWith("_")).length > 0;
+        if (hasSlug) initialCompleted.add("identity");
+        if (hasRegular) {
+          initialCompleted.add("mapping");
+          initialCompleted.add("indexes");
+        }
+      }
       setCompletedSteps(initialCompleted);
     }
   }, [config]);
@@ -481,11 +499,13 @@ function DataSourceDialog({
     setCompletedSteps((prev) => {
       const next = new Set(Array.from(prev));
       if (selectedDb) next.add("database"); else next.delete("database");
+      if (sampleItems.length > 0) next.add("preview"); else next.delete("preview");
+      if (slugField) next.add("identity"); else next.delete("identity");
       const hasMappedField = Object.values(fieldMapping).some((v) => v != null && v !== "__none__");
-      if (hasMappedField) next.add("fields"); else next.delete("fields");
+      if (hasMappedField) next.add("mapping"); else next.delete("mapping");
       return next;
     });
-  }, [selectedDb, fieldMapping]);
+  }, [selectedDb, fieldMapping, slugField, sampleItems]);
 
   const loadSampleFromDb = async (dbName: string) => {
     if (!dbName) return;
@@ -593,7 +613,10 @@ function DataSourceDialog({
   const canGoNext = (s: WizardStep): boolean => {
     switch (s) {
       case "database": return !!selectedDb;
-      case "fields": return Object.values(fieldMapping).some((v) => v != null && v !== "__none__");
+      case "preview": return true;
+      case "identity": return !!slugField;
+      case "mapping": return Object.values(fieldMapping).some((v) => v != null && v !== "__none__");
+      case "indexes": return true;
       default: return false;
     }
   };
@@ -604,7 +627,7 @@ function DataSourceDialog({
       markComplete(step);
       const nextStep = WIZARD_STEPS[idx + 1].id;
       setStep(nextStep);
-      if (nextStep === "fields" && sampleItems.length === 0 && selectedDb) {
+      if (nextStep === "preview" && sampleItems.length === 0 && selectedDb) {
         loadSampleFromDb(selectedDb);
       }
     }
@@ -642,7 +665,7 @@ function DataSourceDialog({
             {step === "database" && (
               <div className="space-y-4" data-testid="step-database">
                 <p className="text-sm text-muted-foreground">
-                  Add a database as a dynamic source of {contentType} entries, alongside the existing static entries from the folder. Databases are configured and managed separately.
+                  Choose which database provides dynamic entries for this content type. Database items will appear alongside any static YAML entries.
                 </p>
 
                 <div className="space-y-2">
@@ -697,74 +720,114 @@ function DataSourceDialog({
               </div>
             )}
 
-            {step === "fields" && (
-              <div className="space-y-4" data-testid="step-fields">
+            {step === "preview" && (
+              <div className="space-y-4" data-testid="step-preview">
                 <p className="text-sm text-muted-foreground">
-                  Map database fields to content type properties. Database fields are already normalized, so you can map them directly.
+                  Here's what we found in your database. Review the detected fields below — these will be available for mapping in the next steps. You can also auto-detect the mapping using AI.
                 </p>
 
                 {loadingSample && (
-                  <div className="flex items-center gap-2 py-2">
-                    <IconLoader2 className="h-4 w-4 animate-spin" />
+                  <div className="flex items-center justify-center gap-2 py-6">
+                    <IconLoader2 className="h-5 w-5 animate-spin" />
                     <span className="text-sm text-muted-foreground">Loading sample data from database...</span>
                   </div>
                 )}
 
-                {!loadingSample && selectedDb && (
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {sampleItems.length > 0 && (
-                      <Button
-                        onClick={handleAnalyzeFields}
-                        disabled={aiMappingFields}
-                        className="flex-1"
-                        data-testid="button-ai-fields"
-                      >
-                        {aiMappingFields ? (
-                          <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
-                        ) : (
-                          <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
-                        )}
-                      </Button>
-                    )}
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => loadSampleFromDb(selectedDb)}
-                      disabled={loadingSample}
-                      data-testid="button-refresh-sample"
-                    >
-                      <IconRefresh className="h-4 w-4" />
-                    </Button>
-                    {sampleItems.length > 0 && (
+                {!loadingSample && sampleItems.length > 0 && (
+                  <>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge variant="outline" className="text-xs" data-testid="badge-item-count">
+                        {sampleItems.length} sample item{sampleItems.length !== 1 ? "s" : ""} loaded
+                      </Badge>
                       <button
                         type="button"
                         className="text-xs text-muted-foreground underline"
                         onClick={() => setSampleDialogOpen(true)}
                         data-testid="link-view-sample"
                       >
-                        View sample data ({sampleItems.length})
+                        View raw JSON
                       </button>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => loadSampleFromDb(selectedDb)}
+                        disabled={loadingSample}
+                        data-testid="button-refresh-sample"
+                      >
+                        <IconRefresh className="h-4 w-4" />
+                      </Button>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="text-xs font-medium text-muted-foreground">Detected Fields ({availableFields.length})</Label>
+                      <div className="rounded-md border p-3 flex flex-wrap gap-1.5" data-testid="section-detected-fields">
+                        {availableFields.map((f) => (
+                          <Badge key={f} variant="outline" className="text-xs font-mono no-default-active-elevate" data-testid={`badge-field-${f}`}>
+                            {f}
+                          </Badge>
+                        ))}
+                        {availableFields.length === 0 && (
+                          <p className="text-xs text-muted-foreground">No fields detected.</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={handleAnalyzeFields}
+                      disabled={aiMappingFields}
+                      className="w-full"
+                      data-testid="button-ai-fields"
+                    >
+                      {aiMappingFields ? (
+                        <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
+                      ) : (
+                        <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
+                      )}
+                    </Button>
+
+                    {fieldMappingError && (
+                      <div className="rounded-md bg-destructive/10 px-3 py-2">
+                        <p className="text-xs text-destructive">{fieldMappingError}</p>
+                      </div>
                     )}
-                  </div>
+                  </>
                 )}
 
                 {!loadingSample && sampleItems.length === 0 && selectedDb && (
-                  <div className="rounded-md bg-muted px-3 py-2">
-                    <p className="text-xs text-muted-foreground">
-                      No sample data available from database "{selectedDb}". Click the refresh button to retry, or make sure the database has been fetched at least once.
+                  <div className="rounded-md bg-muted px-3 py-4 space-y-2 text-center">
+                    <p className="text-sm text-muted-foreground">
+                      No sample data available from database "{selectedDb}".
                     </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => loadSampleFromDb(selectedDb)}
+                      disabled={loadingSample}
+                      data-testid="button-retry-sample"
+                    >
+                      <IconRefresh className="h-4 w-4 mr-2" />
+                      Retry
+                    </Button>
                   </div>
                 )}
 
-                {fieldMappingError && (
-                  <div className="rounded-md bg-destructive/10 px-3 py-2">
-                    <p className="text-xs text-destructive">{fieldMappingError}</p>
-                  </div>
-                )}
+                <SampleDataDialog
+                  open={sampleDialogOpen}
+                  onOpenChange={setSampleDialogOpen}
+                  sampleItems={sampleItems}
+                />
+              </div>
+            )}
+
+            {step === "identity" && (
+              <div className="space-y-4" data-testid="step-identity">
+                <p className="text-sm text-muted-foreground">
+                  Every database-backed content type needs an identity. The slug field uniquely identifies each item for URL routing. The locale field identifies the item's language for multi-language support.
+                </p>
 
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label className="text-xs font-medium text-muted-foreground flex-1">Slug Field (_slug)</Label>
+                    <Badge variant="default" className="text-[10px] no-default-active-elevate">Required</Badge>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -817,246 +880,288 @@ function DataSourceDialog({
                   </p>
                 </div>
 
-                {Object.keys(fieldMapping).length > 0 && (
-                  <div className="space-y-3" data-testid="section-field-mapping">
-                    <Label className="text-sm font-medium">Field Mapping (Database → Content Type)</Label>
-                    <p className="text-xs text-muted-foreground" data-testid="text-field-mapping-note">
-                      Use <code className="font-mono bg-muted px-1 rounded">raw.fieldName</code> to reference original API fields directly, or <code className="font-mono bg-muted px-1 rounded">db.fieldName</code> (default) for normalized database fields.
-                    </p>
-                    {fieldMappingNotes && (
-                      <p className="text-xs text-muted-foreground">{fieldMappingNotes}</p>
-                    )}
-
-                    <div className="space-y-2">
-                      {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
-                        const isFnMode = !!transformerModes[standardField];
-                        const isCustom = !isFnMode && sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
-                        const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
-                        return (
-                        <div key={standardField} className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">
-                              {standardField}
-                            </span>
-                            <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                            {isFnMode ? (
-                              <div className="flex-1 space-y-1">
-                                <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
-                                <Textarea
-                                  value={sourceField || ""}
-                                  onChange={(e) => setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }))}
-                                  placeholder="(value, item) => value"
-                                  className="text-xs font-mono min-h-[3rem] resize-y"
-                                  data-testid={`textarea-transform-${standardField}`}
-                                />
-                              </div>
-                            ) : isCustom ? (
-                              <>
-                                <Input
-                                  value={sourceField}
-                                  onChange={(e) => {
-                                    setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
-                                  }}
-                                  placeholder="e.g. author.details.name"
-                                  className="h-8 text-xs font-mono flex-1"
-                                  data-testid={`input-custom-path-${standardField}`}
-                                />
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="flex-shrink-0"
-                                  onClick={() => {
-                                    setFieldMapping((prev) => ({ ...prev, [standardField]: null }));
-                                  }}
-                                  data-testid={`button-clear-custom-${standardField}`}
-                                >
-                                  <IconX className="h-3.5 w-3.5" />
-                                </Button>
-                              </>
-                            ) : (
-                              <Select
-                                value={selectValue}
-                                onValueChange={(v) => {
-                                  if (v === "__custom__") {
-                                    setFieldMapping((prev) => ({ ...prev, [standardField]: "" }));
-                                  } else {
-                                    setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
-                                  }
-                                }}
-                              >
-                                <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="__none__">(not mapped)</SelectItem>
-                                  {availableFields.map((f) => (
-                                    <SelectItem key={f} value={f}>{f}</SelectItem>
-                                  ))}
-                                  <SelectItem value="__custom__">Custom path...</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            )}
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className={`flex-shrink-0 ${isFnMode ? "text-primary" : ""}`}
-                              onClick={() => {
-                                setTransformerModes((prev) => {
-                                  const next = { ...prev, [standardField]: !prev[standardField] };
-                                  if (!next[standardField]) {
-                                    setFieldMapping((p) => ({ ...p, [standardField]: null }));
-                                  }
-                                  return next;
-                                });
-                              }}
-                              data-testid={`button-toggle-transform-${standardField}`}
-                            >
-                              <IconCode className="h-3.5 w-3.5" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="flex-shrink-0"
-                              onClick={() => {
-                                setFieldMapping((prev) => {
-                                  const next = { ...prev };
-                                  delete next[standardField];
-                                  return next;
-                                });
-                                setTransformerModes((prev) => {
-                                  const next = { ...prev };
-                                  delete next[standardField];
-                                  return next;
-                                });
-                                setDeletedFields((prev) => prev.includes(standardField) ? prev : [...prev, standardField]);
-                              }}
-                              data-testid={`button-delete-field-${standardField}`}
-                            >
-                              <IconTrashX className="h-3.5 w-3.5" />
-                            </Button>
-                          </div>
-                        </div>
-                        );
-                      })}
+                <div className="space-y-2 pt-2 border-t">
+                  <div className="flex items-center gap-2">
+                    <Label className="text-xs font-medium text-muted-foreground flex-1">Locale Field (_locale)</Label>
+                    <Badge variant="outline" className="text-[10px] no-default-active-elevate">Recommended</Badge>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className={localeIsTransformer ? "text-primary" : ""}
+                      onClick={() => {
+                        if (!localeIsTransformer) {
+                          setLocaleIsTransformer(true);
+                          if (!localeField) setLocaleField("(value) => value === 'us' ? 'en' : value");
+                        } else {
+                          setLocaleIsTransformer(false);
+                          setLocaleField("");
+                        }
+                      }}
+                      data-testid="button-toggle-locale-transform"
+                    >
+                      <IconCode className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                  {localeIsTransformer ? (
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
+                      <Textarea
+                        value={localeField}
+                        onChange={(e) => setLocaleField(e.target.value)}
+                        placeholder="(value) => value === 'us' ? 'en' : value"
+                        className="text-xs font-mono min-h-[3rem] resize-y"
+                        data-testid="textarea-locale-transform"
+                      />
                     </div>
-
-                    {deletedFields.filter((f) => !(f in fieldMapping)).length > 0 && (
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs text-muted-foreground">Re-add:</span>
-                        {deletedFields.filter((f) => !(f in fieldMapping)).map((f) => (
-                          <Badge
-                            key={f}
-                            variant="outline"
-                            className="cursor-pointer text-xs"
-                            onClick={() => {
-                              setFieldMapping((prev) => ({ ...prev, [f]: null }));
-                            }}
-                            data-testid={`badge-readd-${f}`}
-                          >
-                            + {f}
-                          </Badge>
+                  ) : (
+                    <Select
+                      value={localeField || "__none__"}
+                      onValueChange={(v) => {
+                        setLocaleField(v === "__none__" ? "" : v);
+                      }}
+                    >
+                      <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-locale-field">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none__">(none)</SelectItem>
+                        {availableFields.map((f) => (
+                          <SelectItem key={f} value={f}>{f}</SelectItem>
                         ))}
-                      </div>
-                    )}
+                      </SelectContent>
+                    </Select>
+                  )}
+                  <p className="text-xs text-muted-foreground">
+                    Which field identifies the item's language (e.g., "lang", "locale")
+                  </p>
+                </div>
 
-                    <div className="space-y-2 pt-2 border-t">
-                      <div className="flex items-center gap-2">
-                        <Label className="text-xs font-medium text-muted-foreground flex-1">Locale Field (_locale)</Label>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className={localeIsTransformer ? "text-primary" : ""}
-                          onClick={() => {
-                            if (!localeIsTransformer) {
-                              setLocaleIsTransformer(true);
-                              if (!localeField) setLocaleField("(value) => value === 'us' ? 'en' : value");
-                            } else {
-                              setLocaleIsTransformer(false);
-                              setLocaleField("");
-                            }
-                          }}
-                          data-testid="button-toggle-locale-transform"
-                        >
-                          <IconCode className="h-3.5 w-3.5" />
-                        </Button>
-                      </div>
-                      {localeIsTransformer ? (
-                        <div className="space-y-1">
-                          <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
-                          <Textarea
-                            value={localeField}
-                            onChange={(e) => setLocaleField(e.target.value)}
-                            placeholder="(value) => value === 'us' ? 'en' : value"
-                            className="text-xs font-mono min-h-[3rem] resize-y"
-                            data-testid="textarea-locale-transform"
-                          />
-                        </div>
-                      ) : (
-                        <Select
-                          value={localeField || "__none__"}
-                          onValueChange={(v) => {
-                            setLocaleField(v === "__none__" ? "" : v);
-                          }}
-                        >
-                          <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-locale-field">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="__none__">(none)</SelectItem>
-                            {availableFields.map((f) => (
-                              <SelectItem key={f} value={f}>{f}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                      <p className="text-xs text-muted-foreground">
-                        Which field identifies the item's language/locale (e.g., "lang", "locale")
-                      </p>
-                    </div>
+                {(slugIsTransformer || localeIsTransformer) && (
+                  <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="section-transform-help">
+                    <p className="text-xs font-medium text-muted-foreground">About computed fields</p>
+                    <p className="text-xs text-muted-foreground">
+                      Write a JavaScript function that receives two arguments: <code className="font-mono bg-background px-1 rounded">value</code> (the raw field value) and <code className="font-mono bg-background px-1 rounded">item</code> (the full database record). Return the normalized value.
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Example: <code className="font-mono bg-background px-1 rounded">(value, item) =&gt; value === 'us' ? 'en' : value</code>
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      Functions run in a secure sandbox — no access to files, network, or system resources. 50ms timeout.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
 
-                    <div className="space-y-2 pt-2 border-t">
-                      <Label className="text-xs font-medium text-muted-foreground">Indexes</Label>
-                      <p className="text-xs text-muted-foreground">
-                        Indexed fields generate KPI cards, filter dropdowns, and table columns.
-                        {localeField ? " Locale is always indexed automatically." : ""}
-                      </p>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {localeField && (
-                          <Badge variant="default" className="text-xs cursor-default opacity-70" data-testid="badge-index-locale">
-                            <IconCheck className="h-3 w-3 mr-1" />
-                            {localeField} (locale)
-                          </Badge>
-                        )}
-                        {Object.keys(fieldMapping).filter(k => !k.startsWith("_") && k !== localeField).map((field) => {
-                          const isIndexed = indexedFields.includes(field);
-                          return (
-                            <Badge
-                              key={field}
-                              variant={isIndexed ? "default" : "outline"}
-                              className="text-xs cursor-pointer"
-                              onClick={() => {
-                                setIndexedFields((prev) =>
-                                  isIndexed ? prev.filter((f) => f !== field) : [...prev, field]
-                                );
-                              }}
-                              data-testid={`badge-index-${field}`}
-                            >
-                              {isIndexed && <IconCheck className="h-3 w-3 mr-1" />}
-                              {field}
-                            </Badge>
-                          );
-                        })}
-                      </div>
-                    </div>
+            {step === "mapping" && (
+              <div className="space-y-4" data-testid="step-mapping">
+                <p className="text-sm text-muted-foreground">
+                  Map database fields to content type properties. Pick from detected fields, type a custom dot-path, or compute a value with a function.
+                </p>
 
+                <p className="text-xs text-muted-foreground" data-testid="text-field-mapping-note">
+                  Use <code className="font-mono bg-muted px-1 rounded">raw.fieldName</code> to reference original API fields, or <code className="font-mono bg-muted px-1 rounded">db.fieldName</code> (default) for normalized database fields.
+                </p>
+
+                {fieldMappingNotes && (
+                  <p className="text-xs text-muted-foreground">{fieldMappingNotes}</p>
+                )}
+
+                {fieldMappingError && (
+                  <div className="rounded-md bg-destructive/10 px-3 py-2">
+                    <p className="text-xs text-destructive">{fieldMappingError}</p>
                   </div>
                 )}
 
-                <SampleDataDialog
-                  open={sampleDialogOpen}
-                  onOpenChange={setSampleDialogOpen}
-                  sampleItems={sampleItems}
-                />
+                {Object.values(transformerModes).some(Boolean) && (
+                  <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="section-transform-help-mapping">
+                    <p className="text-xs font-medium text-muted-foreground">About computed fields</p>
+                    <p className="text-xs text-muted-foreground">
+                      Write a JavaScript function: <code className="font-mono bg-background px-1 rounded">(value, item) =&gt; result</code>. <code className="font-mono bg-background px-1 rounded">value</code> is the raw field value, <code className="font-mono bg-background px-1 rounded">item</code> is the full record. Runs in a secure sandbox (50ms timeout).
+                    </p>
+                  </div>
+                )}
+
+                {Object.keys(fieldMapping).length > 0 && (
+                  <div className="space-y-2">
+                    {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
+                      const isFnMode = !!transformerModes[standardField];
+                      const isCustom = !isFnMode && sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
+                      const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
+                      return (
+                      <div key={standardField} className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">
+                            {standardField}
+                          </span>
+                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          {isFnMode ? (
+                            <div className="flex-1 space-y-1">
+                              <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
+                              <Textarea
+                                value={sourceField || ""}
+                                onChange={(e) => setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }))}
+                                placeholder="(value, item) => value"
+                                className="text-xs font-mono min-h-[3rem] resize-y"
+                                data-testid={`textarea-transform-${standardField}`}
+                              />
+                            </div>
+                          ) : isCustom ? (
+                            <>
+                              <Input
+                                value={sourceField}
+                                onChange={(e) => {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
+                                }}
+                                placeholder="e.g. author.details.name"
+                                className="h-8 text-xs font-mono flex-1"
+                                data-testid={`input-custom-path-${standardField}`}
+                              />
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="flex-shrink-0"
+                                onClick={() => {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: null }));
+                                }}
+                                data-testid={`button-clear-custom-${standardField}`}
+                              >
+                                <IconX className="h-3.5 w-3.5" />
+                              </Button>
+                            </>
+                          ) : (
+                            <Select
+                              value={selectValue}
+                              onValueChange={(v) => {
+                                if (v === "__custom__") {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: "" }));
+                                } else {
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
+                                }
+                              }}
+                            >
+                              <SelectTrigger className="h-8 text-xs font-mono" data-testid={`select-field-${standardField}`}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="__none__">(not mapped)</SelectItem>
+                                {availableFields.map((f) => (
+                                  <SelectItem key={f} value={f}>{f}</SelectItem>
+                                ))}
+                                <SelectItem value="__custom__">Custom path...</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )}
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className={`flex-shrink-0 ${isFnMode ? "text-primary" : ""}`}
+                            onClick={() => {
+                              setTransformerModes((prev) => {
+                                const next = { ...prev, [standardField]: !prev[standardField] };
+                                if (!next[standardField]) {
+                                  setFieldMapping((p) => ({ ...p, [standardField]: null }));
+                                }
+                                return next;
+                              });
+                            }}
+                            data-testid={`button-toggle-transform-${standardField}`}
+                          >
+                            <IconCode className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="flex-shrink-0"
+                            onClick={() => {
+                              setFieldMapping((prev) => {
+                                const next = { ...prev };
+                                delete next[standardField];
+                                return next;
+                              });
+                              setTransformerModes((prev) => {
+                                const next = { ...prev };
+                                delete next[standardField];
+                                return next;
+                              });
+                              setDeletedFields((prev) => prev.includes(standardField) ? prev : [...prev, standardField]);
+                            }}
+                            data-testid={`button-delete-field-${standardField}`}
+                          >
+                            <IconTrashX className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                      </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {Object.keys(fieldMapping).length === 0 && (
+                  <div className="rounded-md bg-muted px-3 py-4 text-center">
+                    <p className="text-sm text-muted-foreground">
+                      No field mappings yet. Go back to the Inspect Data step and use "Auto-detect Field Mapping" to get started, or fields will be added when AI analysis runs.
+                    </p>
+                  </div>
+                )}
+
+                {deletedFields.filter((f) => !(f in fieldMapping)).length > 0 && (
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs text-muted-foreground">Re-add:</span>
+                    {deletedFields.filter((f) => !(f in fieldMapping)).map((f) => (
+                      <Badge
+                        key={f}
+                        variant="outline"
+                        className="cursor-pointer text-xs"
+                        onClick={() => {
+                          setFieldMapping((prev) => ({ ...prev, [f]: null }));
+                        }}
+                        data-testid={`badge-readd-${f}`}
+                      >
+                        + {f}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {step === "indexes" && (
+              <div className="space-y-4" data-testid="step-indexes">
+                <p className="text-sm text-muted-foreground">
+                  Indexed fields generate summary cards, filter dropdowns, and sortable columns on the management page. Click a field to toggle indexing. Locale is always indexed automatically.
+                </p>
+
+                <div className="flex items-center gap-2 flex-wrap" data-testid="section-index-badges">
+                  {localeField && (
+                    <Badge variant="default" className="text-xs cursor-default opacity-70 no-default-active-elevate" data-testid="badge-index-locale">
+                      <IconCheck className="h-3 w-3 mr-1" />
+                      {localeIsTransformer ? "locale (computed)" : localeField} (auto)
+                    </Badge>
+                  )}
+                  {Object.keys(fieldMapping).filter(k => !k.startsWith("_") && k !== localeField).map((field) => {
+                    const isIndexed = indexedFields.includes(field);
+                    return (
+                      <Badge
+                        key={field}
+                        variant={isIndexed ? "default" : "outline"}
+                        className="text-xs cursor-pointer"
+                        onClick={() => {
+                          setIndexedFields((prev) =>
+                            isIndexed ? prev.filter((f) => f !== field) : [...prev, field]
+                          );
+                        }}
+                        data-testid={`badge-index-${field}`}
+                      >
+                        {isIndexed && <IconCheck className="h-3 w-3 mr-1" />}
+                        {field}
+                      </Badge>
+                    );
+                  })}
+                  {Object.keys(fieldMapping).filter(k => !k.startsWith("_") && k !== localeField).length === 0 && !localeField && (
+                    <p className="text-xs text-muted-foreground">No mapped fields available for indexing. Go back and add field mappings first.</p>
+                  )}
+                </div>
               </div>
             )}
 
