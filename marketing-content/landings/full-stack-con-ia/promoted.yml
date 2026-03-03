@@ -119,9 +119,9 @@ sections:
     variant: default
     buttons:
       - text: Aplica ahora
-        url: /apply
-        variant: secondary
-      - text: Talk to an Advisor
+        url: "#hero-form"
+        variant: primary
+      - text: Solicitar más información
         url: /en/job-guarantee
         variant: outline
   - type: double_cta
