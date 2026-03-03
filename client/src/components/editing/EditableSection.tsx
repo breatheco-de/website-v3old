@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconInfoCircle } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -67,7 +67,7 @@ const X_SPACING_PRESETS = [
 type XBreakpoint = "mobile" | "desktop";
 
 interface XSpacingValues {
-  mobile: { left: string | undefined; right: string | undefined };
+  mobile: { left: string; right: string };
   desktop: { left: string; right: string };
 }
 
@@ -87,19 +87,16 @@ function combineLR(left: string, right: string): string {
 
 function parseXSpacing(value: ResponsiveSpacing | undefined): XSpacingValues {
   if (!value) {
-    return { mobile: { left: undefined, right: undefined }, desktop: { left: "none", right: "none" } };
+    return { mobile: { left: "none", right: "none" }, desktop: { left: "none", right: "none" } };
   }
   const desktopValue = value.desktop ?? value.mobile ?? "none";
   const desktopParsed = parseLR(desktopValue);
-  if (value.mobile === undefined) {
-    return { mobile: { left: undefined, right: undefined }, desktop: desktopParsed };
-  }
-  const mobileParsed = parseLR(value.mobile);
-  return { mobile: { left: mobileParsed.left, right: mobileParsed.right }, desktop: desktopParsed };
+  const mobileParsed = value.mobile ? parseLR(value.mobile) : { left: "none", right: "none" };
+  return { mobile: mobileParsed, desktop: desktopParsed };
 }
 
 function getXEffective(values: XSpacingValues, breakpoint: XBreakpoint, pos: "left" | "right"): string {
-  if (breakpoint === "mobile") return values.mobile[pos] ?? values.desktop[pos];
+  if (breakpoint === "mobile") return values.mobile[pos];
   return values.desktop[pos];
 }
 
@@ -704,12 +701,11 @@ export function EditableSection({ children, section, index, sectionType, content
 
   const toXResponsiveSpacing = useCallback((values: XSpacingValues): ResponsiveSpacing => {
     const desktopStr = combineLR(values.desktop.left, values.desktop.right);
-    if (values.mobile.left === undefined && values.mobile.right === undefined) {
+    const mobileStr = combineLR(values.mobile.left, values.mobile.right);
+    if (mobileStr === "none") {
       return { desktop: desktopStr };
     }
-    const mobileLeft = values.mobile.left ?? values.desktop.left;
-    const mobileRight = values.mobile.right ?? values.desktop.right;
-    return { mobile: combineLR(mobileLeft, mobileRight), desktop: desktopStr };
+    return { mobile: mobileStr, desktop: desktopStr };
   }, []);
 
   const handleApplyXSpacing = useCallback(async () => {
@@ -951,14 +947,6 @@ export function EditableSection({ children, section, index, sectionType, content
                 onToggleLink={() => setMarLinked(prev => !prev)}
                 testIdPrefix={`x-mar-${index}`}
               />
-              {xSpacingBreakpoint === "mobile" && (
-                <div className="flex items-start gap-1.5 rounded border border-border/50 bg-muted/50 p-2">
-                  <IconInfoCircle className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-0.5" />
-                  <span className="text-xs text-muted-foreground">
-                    Mobile values inherit from desktop when not set.
-                  </span>
-                </div>
-              )}
               <div className="flex items-center justify-end gap-2 pt-1">
                 <Button
                   variant="ghost"
