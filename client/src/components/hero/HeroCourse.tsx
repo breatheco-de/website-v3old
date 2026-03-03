@@ -244,9 +244,11 @@ export function HeroCourse({ data }: HeroCourseProps) {
               )}
 
               {data.signup_card.form ? (
-                <Suspense fallback={<div className="h-24 flex items-center justify-center text-muted-foreground text-sm">Loading...</div>}>
-                  <LeadForm data={data.signup_card.form} />
-                </Suspense>
+                <div data-hero-inline-form>
+                  <Suspense fallback={<div className="h-24 flex items-center justify-center text-muted-foreground text-sm">Loading...</div>}>
+                    <LeadForm data={data.signup_card.form} />
+                  </Suspense>
+                </div>
               ) : data.signup_card.cta_button ? (
                 <>
                   <Button
