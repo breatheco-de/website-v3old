@@ -37,7 +37,6 @@ interface VariableCreateDetail {
   sectionIndex: number;
   selectionFrom?: number;
   selectionTo?: number;
-  isSharedTemplate?: boolean;
   contentType?: string;
 }
 
@@ -145,7 +144,7 @@ function highlightDomVariables(
   };
 }
 
-function SelectionFloatingButton({ sectionIndex, isSharedTemplate, contentType }: { sectionIndex: number; isSharedTemplate?: boolean; contentType?: string }) {
+function SelectionFloatingButton({ sectionIndex, contentType }: { sectionIndex: number; contentType?: string }) {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [selectedText, setSelectedText] = useState("");
   const editMode = useEditModeOptional();
@@ -242,7 +241,6 @@ function SelectionFloatingButton({ sectionIndex, isSharedTemplate, contentType }
           sectionIndex: resolvedSectionIndex,
           selectionFrom: from,
           selectionTo: to,
-          isSharedTemplate,
           contentType,
         },
       }),
@@ -250,7 +248,7 @@ function SelectionFloatingButton({ sectionIndex, isSharedTemplate, contentType }
     window.getSelection()?.removeAllRanges();
     setPosition(null);
     setSelectedText("");
-  }, [selectedText, sectionIndex, isSharedTemplate, contentType]);
+  }, [selectedText, sectionIndex, contentType]);
 
   if (!position || !isEditMode) return null;
 
@@ -282,13 +280,11 @@ function SelectionFloatingButton({ sectionIndex, isSharedTemplate, contentType }
 export function VariableHighlightProvider({
   children,
   sectionIndex,
-  isSharedTemplate,
   contentType,
 }: {
   children: ReactNode;
   variables?: unknown[];
   sectionIndex: number;
-  isSharedTemplate?: boolean;
   contentType?: string;
 }) {
   const editMode = useEditModeOptional();
@@ -378,7 +374,7 @@ export function VariableHighlightProvider({
       <div ref={wrapperRef} style={{ display: "contents" }}>
         {children}
       </div>
-      <SelectionFloatingButton sectionIndex={sectionIndex} isSharedTemplate={isSharedTemplate} contentType={contentType} />
+      <SelectionFloatingButton sectionIndex={sectionIndex} contentType={contentType} />
     </VariableHighlightContext.Provider>
   );
 }
@@ -391,7 +387,6 @@ export function VariableModalHost() {
     sectionIndex: number;
     selectionFrom?: number;
     selectionTo?: number;
-    isSharedTemplate?: boolean;
     contentType?: string;
   }>({ variableName: "", inlineDefault: "", mode: "inspect", sectionIndex: -1 });
 
@@ -421,10 +416,9 @@ export function VariableModalHost() {
         sectionIndex: detail.sectionIndex,
         selectionFrom: detail.selectionFrom,
         selectionTo: detail.selectionTo,
-        isSharedTemplate: detail.isSharedTemplate,
         contentType: detail.contentType,
       });
-      if (detail.isSharedTemplate && detail.contentType) {
+      if (detail.contentType) {
         setActiveModal("chooser");
       } else {
         setActiveModal("global");

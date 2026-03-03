@@ -1260,7 +1260,7 @@ function FieldValidationMessage({ result, fieldKey, source }: { result: FieldVal
   const shown = result.missing.slice(0, 3);
   const remaining = result.missing.length - shown.length;
   return (
-    <div className="text-[11px] text-destructive pl-[7.5rem] space-y-1" data-testid={`text-validation-error-${fieldKey}`}>
+    <div className="text-[11px] text-destructive space-y-1 mt-1" data-testid={`text-validation-error-${fieldKey}`}>
       <p>
         Source property "<span className="font-mono font-medium">{displaySource}</span>" was not found in {allMissing ? "any" : "some"} content {result.total === 1 ? "entry" : "entries"}.
         {" "}{allMissing ? "None" : `Only ${result.found}`} of {result.total} {result.total === 1 ? "entry has" : "entries have"} this property.
