@@ -70,7 +70,7 @@ import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
 import { contentIndex, type ContentType } from "./content-index";
-import { validateFieldSource, validateFieldMapping } from "../scripts/validation/shared/fieldMappingValidator";
+import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../scripts/validation/shared/fieldMappingValidator";
 import {
   getFolder,
   getType,
@@ -92,6 +92,7 @@ import {
   getLabel,
   normalizeUrlPattern,
   getLocaleSource,
+  resolveContentTypeUrl,
 } from "./content-types";
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { resolveSingleVars } from "./single-resolver";
@@ -1939,6 +1940,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-types/:type/single-field-values", (req, res) => {
+    try {
+      const { type } = req.params;
+      const field = req.query.field as string;
+      const locale = (req.query.locale as string) || "en";
+      if (!field) {
+        res.status(400).json({ error: "field query parameter is required" });
+        return;
+      }
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const mapping = getFieldMapping(type);
+      const source = mapping?.[field];
+      if (!source || typeof source !== "string") {
+        res.status(404).json({ error: `Field "${field}" not found in field_mapping` });
+        return;
+      }
+
+      const slugs = contentIndex.listContentSlugs(type as ContentType);
+      const entries: Array<{ slug: string; value: unknown; url: string | null }> = [];
+      for (const slug of slugs) {
+        const locales = contentIndex.getAvailableLocalesOrVariants(type as ContentType, slug);
+        const entryLocale = locales.includes(locale) ? locale : locales[0];
+        if (!entryLocale) continue;
+        const { data } = contentIndex.loadMergedContent(type, slug, entryLocale);
+        if (!data) continue;
+        const value = extractByDotPath(data, source);
+        let url: string | null = null;
+        try {
+          url = resolveContentTypeUrl(type, data as Record<string, unknown>, entryLocale);
+        } catch {}
+        entries.push({ slug, value: value ?? null, url });
+      }
+      res.json({ field, source, entries });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }

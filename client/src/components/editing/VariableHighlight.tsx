@@ -11,6 +11,7 @@ import {
 import { VariableDetailModal } from "./VariableDetailModal";
 import { VariableTypeChooserModal } from "./VariableTypeChooserModal";
 import { SingleVariablePickerModal } from "./SingleVariablePickerModal";
+import { SingleVariableDetailModal } from "./SingleVariableDetailModal";
 import { Button } from "@/components/ui/button";
 import { IconVariable } from "@tabler/icons-react";
 
@@ -18,6 +19,7 @@ interface VariableHighlightContextValue {
   definitions: Record<string, VariableDefinition>;
   context: VarCtx;
   isEditMode: boolean;
+  contentType?: string;
 }
 
 const VariableHighlightContext = createContext<VariableHighlightContextValue | null>(null);
@@ -30,6 +32,7 @@ const VARIABLE_CREATE_EVENT = "variable-create-from-selection";
 interface VariableClickDetail {
   variableName: string;
   inlineDefault: string;
+  contentType?: string;
 }
 
 interface VariableCreateDetail {
@@ -45,6 +48,7 @@ function highlightDomVariables(
   definitions: Record<string, VariableDefinition>,
   context: VarCtx,
   isEditMode: boolean,
+  contentType?: string,
 ): (() => void) {
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
@@ -109,7 +113,7 @@ function highlightDomVariables(
           e.stopPropagation();
           window.dispatchEvent(
             new CustomEvent<VariableClickDetail>(VARIABLE_CLICK_EVENT, {
-              detail: { variableName: varName, inlineDefault },
+              detail: { variableName: varName, inlineDefault, contentType },
             }),
           );
         });
@@ -298,7 +302,8 @@ export function VariableHighlightProvider({
     definitions: definitions || {},
     context: varContext,
     isEditMode,
-  }), [definitions, varContext, isEditMode]);
+    contentType,
+  }), [definitions, varContext, isEditMode, contentType]);
 
   const rescanRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
@@ -322,6 +327,7 @@ export function VariableHighlightProvider({
           definitions,
           varContext,
           isEditMode,
+          contentType,
         );
         requestAnimationFrame(() => observeContainer());
       }, 150);
@@ -331,7 +337,7 @@ export function VariableHighlightProvider({
       subtree: true,
     });
     observerRef.current = observer;
-  }, [definitions, varContext, isEditMode]);
+  }, [definitions, varContext, isEditMode, contentType]);
 
   useLayoutEffect(() => {
     if (cleanupRef.current) {
@@ -350,6 +356,7 @@ export function VariableHighlightProvider({
       definitions,
       varContext,
       isEditMode,
+      contentType,
     );
     requestAnimationFrame(() => observeContainer());
 
@@ -379,6 +386,15 @@ export function VariableHighlightProvider({
   );
 }
 
+function extractSlugFromUrl(): string | undefined {
+  const path = window.location.pathname;
+  const segments = path.split("/").filter(Boolean);
+  if (segments.length >= 2) {
+    return segments[segments.length - 1];
+  }
+  return undefined;
+}
+
 export function VariableModalHost() {
   const [modalState, setModalState] = useState<{
     variableName: string;
@@ -390,7 +406,7 @@ export function VariableModalHost() {
     contentType?: string;
   }>({ variableName: "", inlineDefault: "", mode: "inspect", sectionIndex: -1 });
 
-  const [activeModal, setActiveModal] = useState<"chooser" | "global" | "single" | null>(null);
+  const [activeModal, setActiveModal] = useState<"chooser" | "global" | "single" | "single-detail" | null>(null);
 
   const modalStateRef = useRef(modalState);
   modalStateRef.current = modalState;
@@ -398,13 +414,15 @@ export function VariableModalHost() {
   useEffect(() => {
     const handleClick = (e: Event) => {
       const detail = (e as CustomEvent<VariableClickDetail>).detail;
+      const isSingleVar = detail.variableName.startsWith("single.");
       setModalState({
         variableName: detail.variableName,
         inlineDefault: detail.inlineDefault,
         mode: "inspect",
         sectionIndex: -1,
+        contentType: detail.contentType,
       });
-      setActiveModal("global");
+      setActiveModal(isSingleVar && detail.contentType ? "single-detail" : "global");
     };
 
     const handleCreate = (e: Event) => {
@@ -504,6 +522,14 @@ export function VariableModalHost() {
         inlineDefault={modalState.inlineDefault}
         onCreated={handleSingleCreated}
       />
+      <SingleVariableDetailModal
+        open={activeModal === "single-detail"}
+        onOpenChange={(open) => { if (!open) setActiveModal(null); }}
+        variableName={modalState.variableName}
+        inlineDefault={modalState.inlineDefault}
+        contentType={modalState.contentType || ""}
+        currentSlug={extractSlugFromUrl()}
+      />
     </>
   );
 }
@@ -521,6 +547,7 @@ export function useVariableText() {
       const definitions = ctx?.definitions || {};
       const context = ctx?.context || {};
       const isEditMode = ctx?.isEditMode ?? false;
+      const ctxContentType = ctx?.contentType;
       const hasDefs = Object.keys(definitions).length > 0;
 
       const parts: ReactNode[] = [];
@@ -567,7 +594,7 @@ export function useVariableText() {
               e.stopPropagation();
               window.dispatchEvent(
                 new CustomEvent<VariableClickDetail>(VARIABLE_CLICK_EVENT, {
-                  detail: { variableName: varName, inlineDefault },
+                  detail: { variableName: varName, inlineDefault, contentType: ctxContentType },
                 }),
               );
             }
