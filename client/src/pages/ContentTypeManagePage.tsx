@@ -52,6 +52,7 @@ import {
   IconLayoutList,
   IconX,
   IconCode,
+  IconTransform,
 } from "@tabler/icons-react";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
@@ -1235,6 +1236,303 @@ function buildItemUrl(pattern: string, item: Record<string, any>, locale: string
   return result;
 }
 
+function FieldMappingDialog({
+  open,
+  onOpenChange,
+  contentType,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  contentType: string;
+}) {
+  const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+  const label = contentType.charAt(0).toUpperCase() + contentType.slice(1);
+
+  const { data: config, isLoading } = useQuery<ContentTypeConfig>({
+    queryKey: ["/api/content-types", contentType, "config"],
+    queryFn: () => fetch(`/api/content-types/${contentType}/config`).then(r => r.json()),
+    enabled: open,
+  });
+
+  const [mappings, setMappings] = useState<Record<string, string>>({});
+  const [indexedFields, setIndexedFields] = useState<string[]>([]);
+  const [newKey, setNewKey] = useState("");
+  const [newValue, setNewValue] = useState("");
+  const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (!config) return;
+    const fm: Record<string, string> = {};
+    const tmodes: Record<string, boolean> = {};
+    if (config.field_mapping) {
+      for (const [k, v] of Object.entries(config.field_mapping)) {
+        if (typeof v === "string") {
+          if (v.startsWith("function:")) {
+            fm[k] = atob(v.slice(9));
+            tmodes[k] = true;
+          } else {
+            fm[k] = v;
+          }
+        } else if (v && typeof v === "object" && "source" in v) {
+          fm[k] = v.source;
+        }
+      }
+    }
+    setMappings(fm);
+    setTransformerModes(tmodes);
+    setIndexedFields(config.indexes || []);
+  }, [config]);
+
+  const handleAddField = () => {
+    const key = newKey.trim();
+    if (!key || key in mappings) return;
+    setMappings((prev) => ({ ...prev, [key]: newValue.trim() || key }));
+    setNewKey("");
+    setNewValue("");
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const fullMapping: Record<string, string> = {};
+      for (const [k, v] of Object.entries(mappings)) {
+        if (v) {
+          fullMapping[k] = transformerModes[k] ? "function:" + btoa(v) : v;
+        }
+      }
+
+      const payload = {
+        field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
+        indexes: indexedFields.length > 0 ? indexedFields : undefined,
+      };
+
+      await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
+      queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "config"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "items"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
+      toast({ title: `${label} field mappings saved` });
+      onOpenChange(false);
+    } catch {
+      toast({ title: "Failed to save field mappings", variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const regularKeys = Object.keys(mappings).filter((k) => !k.startsWith("_"));
+  const specialKeys = Object.keys(mappings).filter((k) => k.startsWith("_"));
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[540px] max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>{label} Field Mappings</DialogTitle>
+        </DialogHeader>
+
+        {isLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <IconLoader2 className="h-5 w-5 animate-spin" />
+            <span className="ml-2 text-sm text-muted-foreground">Loading...</span>
+          </div>
+        ) : (
+          <div className="space-y-5">
+            <p className="text-sm text-muted-foreground">
+              Field mappings define which values are available as <code className="font-mono bg-muted px-1 rounded text-xs">{"{{ single.fieldName }}"}</code> template variables in sections.
+            </p>
+
+            {Object.values(transformerModes).some(Boolean) && (
+              <div className="rounded-md bg-muted px-3 py-2">
+                <p className="text-xs text-muted-foreground">
+                  Computed fields use: <code className="font-mono bg-background px-1 rounded">(value, item) =&gt; result</code>. Runs in a secure sandbox (50ms timeout).
+                </p>
+              </div>
+            )}
+
+            {specialKeys.length > 0 && (
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Special Fields</Label>
+                {specialKeys.map((key) => (
+                  <div key={key} className="flex items-center gap-2">
+                    <Badge variant="outline" className="text-xs font-mono flex-shrink-0">{key}</Badge>
+                    <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                    {transformerModes[key] ? (
+                      <Textarea
+                        value={mappings[key] || ""}
+                        onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
+                        placeholder="(value, item) => value"
+                        className="text-xs font-mono min-h-[3rem] resize-y flex-1"
+                        data-testid={`textarea-transform-${key}`}
+                      />
+                    ) : (
+                      <Input
+                        value={mappings[key] || ""}
+                        onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
+                        className="text-xs font-mono flex-1"
+                        data-testid={`input-mapping-${key}`}
+                      />
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className={`flex-shrink-0 ${transformerModes[key] ? "text-primary" : ""}`}
+                      onClick={() => setTransformerModes((prev) => ({ ...prev, [key]: !prev[key] }))}
+                      data-testid={`button-toggle-transform-${key}`}
+                    >
+                      <IconCode className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label className="text-xs text-muted-foreground">Field Mappings</Label>
+              {regularKeys.length > 0 ? (
+                <div className="space-y-2">
+                  {regularKeys.map((key) => {
+                    const isFn = !!transformerModes[key];
+                    return (
+                      <div key={key} className="flex items-center gap-2">
+                        <span className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={key}>
+                          {key}
+                        </span>
+                        <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                        {isFn ? (
+                          <Textarea
+                            value={mappings[key] || ""}
+                            onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
+                            placeholder="(value, item) => value"
+                            className="text-xs font-mono min-h-[3rem] resize-y flex-1"
+                            data-testid={`textarea-transform-${key}`}
+                          />
+                        ) : (
+                          <Input
+                            value={mappings[key] || ""}
+                            onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
+                            placeholder={key}
+                            className="text-xs font-mono flex-1"
+                            data-testid={`input-mapping-${key}`}
+                          />
+                        )}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className={`flex-shrink-0 ${isFn ? "text-primary" : ""}`}
+                          onClick={() => setTransformerModes((prev) => ({ ...prev, [key]: !prev[key] }))}
+                          data-testid={`button-toggle-transform-${key}`}
+                        >
+                          <IconCode className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="flex-shrink-0"
+                          onClick={() => {
+                            setMappings((prev) => {
+                              const next = { ...prev };
+                              delete next[key];
+                              return next;
+                            });
+                            setTransformerModes((prev) => {
+                              const next = { ...prev };
+                              delete next[key];
+                              return next;
+                            });
+                            setIndexedFields((prev) => prev.filter((f) => f !== key));
+                          }}
+                          data-testid={`button-delete-mapping-${key}`}
+                        >
+                          <IconTrashX className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-xs text-muted-foreground py-2">No field mappings defined yet.</p>
+              )}
+
+              <div className="flex items-center gap-2 pt-1">
+                <Input
+                  value={newKey}
+                  onChange={(e) => setNewKey(e.target.value)}
+                  placeholder="Field name"
+                  className="text-xs font-mono flex-1"
+                  onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
+                  data-testid="input-new-mapping-key"
+                />
+                <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                <Input
+                  value={newValue}
+                  onChange={(e) => setNewValue(e.target.value)}
+                  placeholder="Source (default: same)"
+                  className="text-xs font-mono flex-1"
+                  onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
+                  data-testid="input-new-mapping-value"
+                />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleAddField}
+                  disabled={!newKey.trim() || newKey.trim() in mappings}
+                  data-testid="button-add-mapping"
+                >
+                  <IconCheck className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-xs text-muted-foreground">Indexes</Label>
+              <p className="text-[11px] text-muted-foreground">
+                Indexed fields generate filter dropdowns and summary cards on the management page.
+              </p>
+              <div className="flex items-center gap-2 flex-wrap" data-testid="section-index-toggles">
+                {regularKeys.map((field) => {
+                  const isIndexed = indexedFields.includes(field);
+                  return (
+                    <Badge
+                      key={field}
+                      variant={isIndexed ? "default" : "outline"}
+                      className="text-xs cursor-pointer"
+                      onClick={() => {
+                        setIndexedFields((prev) =>
+                          isIndexed ? prev.filter((f) => f !== field) : [...prev, field]
+                        );
+                      }}
+                      data-testid={`badge-index-toggle-${field}`}
+                    >
+                      {isIndexed && <IconCheck className="h-3 w-3 mr-1" />}
+                      {field}
+                    </Badge>
+                  );
+                })}
+                {regularKeys.length === 0 && (
+                  <p className="text-xs text-muted-foreground">Add field mappings first to enable indexing.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-mappings">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSave}
+            disabled={saving || isLoading}
+            data-testid="button-save-mappings"
+          >
+            {saving ? "Saving..." : "Save"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function SeoSettingsDialog({
   open,
   onOpenChange,
@@ -1414,6 +1712,7 @@ export default function ContentTypeManagePage() {
   const [clearing, setClearing] = useState(false);
   const [dsDialogOpen, setDsDialogOpen] = useState(false);
   const [seoDialogOpen, setSeoDialogOpen] = useState(false);
+  const [mappingDialogOpen, setMappingDialogOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"static" | "db">("static");
   const [deletingEntry, setDeletingEntry] = useState<StaticEntry | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -1635,6 +1934,15 @@ export default function ContentTypeManagePage() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setMappingDialogOpen(true)}
+              data-testid="button-field-mappings"
+            >
+              <IconTransform className="h-4 w-4 mr-1" />
+              Mappings
+            </Button>
             <Button
               variant="outline"
               size="sm"
@@ -2063,6 +2371,7 @@ export default function ContentTypeManagePage() {
       </div>
 
       <DataSourceDialog open={dsDialogOpen} onOpenChange={setDsDialogOpen} contentType={contentType} />
+      <FieldMappingDialog open={mappingDialogOpen} onOpenChange={setMappingDialogOpen} contentType={contentType} />
       <SeoSettingsDialog open={seoDialogOpen} onOpenChange={setSeoDialogOpen} contentType={contentType} />
       <DeletePageModal
         open={deleteModalOpen}
