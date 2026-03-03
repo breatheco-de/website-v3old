@@ -493,7 +493,7 @@ sections:
     form:
       variant: stacked
       submit_label: Start the Conversation
-      tags: contact_us
+      tags: contact-us
       automations: soft
       fields:
         email:
