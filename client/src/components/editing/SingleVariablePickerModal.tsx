@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,8 +8,15 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { IconCheck, IconSearch } from "@tabler/icons-react";
+import { IconCheck, IconSearch, IconLoader2, IconAlertTriangle } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
+
+interface FieldValidationResult {
+  valid: boolean;
+  total: number;
+  found: number;
+  missing: { slug: string; files: string[] }[];
+}
 
 interface SingleVariablePickerModalProps {
   open: boolean;
@@ -28,16 +35,20 @@ export function SingleVariablePickerModal({
 }: SingleVariablePickerModalProps) {
   const [search, setSearch] = useState("");
   const [selectedField, setSelectedField] = useState<string | null>(null);
+  const [validation, setValidation] = useState<FieldValidationResult | "loading" | null>(null);
+  const requestCounter = useRef(0);
 
   const { data: typeConfig } = useQuery<{
     name: string;
     label: string;
     field_mapping?: Record<string, string>;
+    database?: { slug?: string };
   }>({
     queryKey: [`/api/content-types/${contentType}/config`],
     enabled: open && !!contentType,
   });
 
+  const isDbBacked = !!typeConfig?.database?.slug;
   const fieldMapping = typeConfig?.field_mapping || {};
   const fields = useMemo(() => {
     return Object.entries(fieldMapping)
@@ -55,23 +66,59 @@ export function SingleVariablePickerModal({
     );
   }, [fields, search]);
 
+  const validateField = useCallback((source: string) => {
+    if (isDbBacked || !source) {
+      setValidation(null);
+      return;
+    }
+    const reqId = ++requestCounter.current;
+    setValidation("loading");
+    fetch(`/api/content-types/${contentType}/validate-field?source=${encodeURIComponent(source)}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((result: FieldValidationResult | null) => {
+        if (requestCounter.current !== reqId) return;
+        setValidation(result);
+      })
+      .catch(() => {
+        if (requestCounter.current !== reqId) return;
+        setValidation(null);
+      });
+  }, [contentType, isDbBacked]);
+
+  const handleSelectField = (key: string) => {
+    setSelectedField(key);
+    const field = fields.find((f) => f.key === key);
+    if (field) {
+      const source = field.source.startsWith("function:") ? null : field.source;
+      if (source) {
+        validateField(source);
+      } else {
+        setValidation(null);
+      }
+    }
+  };
+
   const handleUseField = () => {
     if (!selectedField) return;
     const templateSyntax = `{{ single.${selectedField} | ${inlineDefault} }}`;
     onCreated(`single.${selectedField}`, templateSyntax);
     setSelectedField(null);
     setSearch("");
+    setValidation(null);
   };
 
   const handleOpenChange = (o: boolean) => {
     if (!o) {
       setSelectedField(null);
       setSearch("");
+      setValidation(null);
     }
     onOpenChange(o);
   };
 
   const label = typeConfig?.label || contentType;
+
+  const validationWarning = !isDbBacked && validation && validation !== "loading" && !validation.valid ? validation : null;
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -114,7 +161,7 @@ export function SingleVariablePickerModal({
                       ? "bg-primary/5"
                       : "hover-elevate"
                   }`}
-                  onClick={() => setSelectedField(field.key)}
+                  onClick={() => handleSelectField(field.key)}
                   data-testid={`single-field-option-${field.key}`}
                 >
                   <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
@@ -130,10 +177,51 @@ export function SingleVariablePickerModal({
                       {field.source}
                     </span>
                   </div>
+                  {selectedField === field.key && !isDbBacked && (
+                    <div className="flex-shrink-0">
+                      {validation === "loading" && (
+                        <IconLoader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
+                      )}
+                      {validation && validation !== "loading" && validation.valid && (
+                        <IconCheck className="w-3.5 h-3.5 text-green-600" />
+                      )}
+                      {validation && validation !== "loading" && !validation.valid && (
+                        <IconAlertTriangle className="w-3.5 h-3.5 text-destructive" />
+                      )}
+                    </div>
+                  )}
                 </button>
               ))
             )}
           </div>
+
+          {validationWarning && selectedField && (
+            <div className="text-[11px] text-destructive space-y-1" data-testid="text-single-validation-warning">
+              <p>
+                Source property "<span className="font-mono font-medium">{fieldMapping[selectedField]}</span>" was not found in {validationWarning.found === 0 ? "any" : "some"} content {validationWarning.total === 1 ? "entry" : "entries"}.
+                {" "}{validationWarning.found === 0 ? "None" : `Only ${validationWarning.found}`} of {validationWarning.total} {validationWarning.total === 1 ? "entry has" : "entries have"} this property.
+              </p>
+              {validationWarning.missing.length > 0 && (
+                <>
+                  <p className="text-muted-foreground">Missing in:</p>
+                  <ul className="list-none space-y-0.5">
+                    {validationWarning.missing.slice(0, 3).map((entry) => (
+                      <li key={entry.slug}>
+                        <span className="font-medium">{entry.slug}/</span>
+                        {" "}
+                        <span className="font-mono text-muted-foreground">
+                          {entry.files.map((f) => f.replace(/^marketing-content\//, "")).join(" or ")}
+                        </span>
+                      </li>
+                    ))}
+                    {validationWarning.missing.length > 3 && (
+                      <li className="text-muted-foreground">+{validationWarning.missing.length - 3} more {validationWarning.missing.length - 3 === 1 ? "entry" : "entries"}</li>
+                    )}
+                  </ul>
+                </>
+              )}
+            </div>
+          )}
 
           {selectedField && (
             <div className="space-y-1">
