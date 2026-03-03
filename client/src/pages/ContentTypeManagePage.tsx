@@ -267,10 +267,10 @@ function SearchableFieldSelect({
 }
 
 const WIZARD_STEPS = [
-  { id: "database", label: "Select Database", icon: IconDatabase },
-  { id: "preview", label: "Inspect Data", icon: IconEye },
-  { id: "identity", label: "Identity Fields", icon: IconLink },
-  { id: "mapping", label: "Field Mapping", icon: IconLayoutList },
+  { id: "database", label: "Database", icon: IconDatabase },
+  { id: "preview", label: "Inspect", icon: IconEye },
+  { id: "identity", label: "Identity", icon: IconLink },
+  { id: "mapping", label: "Mapping", icon: IconLayoutList },
   { id: "indexes", label: "Indexes", icon: IconArticle },
 ] as const;
 
