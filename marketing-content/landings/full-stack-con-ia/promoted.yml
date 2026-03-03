@@ -88,12 +88,11 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start Your Tech Career?
-    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
+    title: ¿Listo para empezar tu carrera en tech?
     background: bg-primary
     variant: default
     buttons:
-      - text: Start Learning Now
+      - text: Aplica ahora
         url: /apply
         variant: secondary
       - text: Talk to an Advisor
