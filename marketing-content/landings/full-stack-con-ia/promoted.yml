@@ -74,6 +74,17 @@ sections:
       url: /programa/ai-engineering
       variant: outline
       icon: Download
+    video:
+      url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
+      ratio: "9:16"
+      muted: true
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     subtitle: Para programadores que quieren construir con IA.
     students_enrolled:
       avatars:
@@ -94,11 +105,6 @@ sections:
       - name: Rigo
         role: Asistente de Aprendizaje con IA
         image: https://randomuser.me/api/portraits/lego/1.jpg
-    tutors_label: "Tus Tutores:"
-    paddingY:
-      desktop: none lg
-    marginY:
-      desktop: none md
   - type: award_badges
     version: v1.0
     variant: simple
