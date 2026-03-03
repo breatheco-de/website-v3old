@@ -1445,10 +1445,20 @@ export default function ContentTypeManagePage() {
   });
 
   const urlPatterns = typeConfig?.url_pattern || {};
-  const localeMapping = typeConfig?.database?.field_mapping?._locale;
-  const localeKey = localeMapping
-    ? (typeof localeMapping === "object" ? localeMapping.source : localeMapping)
-    : null;
+  const localeKey = useMemo(() => {
+    const raw = typeConfig?.database?.field_mapping?._locale;
+    if (!raw) return null;
+    const val = typeof raw === "object" ? raw.source : raw;
+    if (typeof val === "string" && val.startsWith("function:")) {
+      const fm = typeConfig?.database?.field_mapping || {};
+      const localeLike = ["lang", "locale", "language"];
+      for (const f of localeLike) {
+        if (f in fm && !f.startsWith("_")) return f;
+      }
+      return null;
+    }
+    return val;
+  }, [typeConfig?.database?.field_mapping]);
 
   const items = allItemsData?.results || [];
 

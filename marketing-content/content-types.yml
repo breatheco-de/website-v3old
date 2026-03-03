@@ -34,16 +34,14 @@ landing:
     default: /landing/:slug
 page:
   directory: pages
-  url_pattern:
-    en: /en/:slug
-    es: /es/:slug
+  url_pattern: /:locale/:slug
 blog:
   directory: blog
   database:
     slug: blog_posts
     field_mapping:
       _slug: slug
-      _locale: function:KHZhbHVlLCBpdGVtKSA9PiB2YWx1ZSA9PT0gJ3VzJyA/ICdlbicgOiB2YWx1ZQ==
+      _locale: lang
       title: title
       description: description
       image: preview_image

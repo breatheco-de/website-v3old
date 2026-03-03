@@ -231,8 +231,18 @@ export function getLocaleKey(type: string): string | null {
   const entry = reg.types[singular];
   const localeConfig = entry?.database?.field_mapping?._locale;
   if (!localeConfig) return null;
-  if (typeof localeConfig === "object") return localeConfig.source;
-  return localeConfig;
+  const raw = typeof localeConfig === "object" ? localeConfig.source : localeConfig;
+  if (raw.startsWith("function:")) {
+    const mapping = entry?.database?.field_mapping;
+    if (mapping) {
+      const localeLikeFields = ["lang", "locale", "language"];
+      for (const f of localeLikeFields) {
+        if (f in mapping && !f.startsWith("_")) return f;
+      }
+    }
+    return null;
+  }
+  return raw;
 }
 
 export function getLocaleSource(type: string): string | null {
