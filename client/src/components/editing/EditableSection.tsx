@@ -131,41 +131,100 @@ async function updateSectionXField(
   return response.json();
 }
 
-function XSpacingPresetRow({
+function XSpacingPresetButtons({
   value,
   onChange,
-  label,
+  testId,
 }: {
   value: string;
   onChange: (value: string) => void;
-  label: string;
+  testId: string;
 }) {
   const isCustom = value && !X_SPACING_PRESETS.some((p) => p.value === value);
-  const testId = label.toLowerCase().replace(/\s/g, "-");
   return (
-    <div className="space-y-1.5">
-      <Label className="text-xs text-muted-foreground">{label}</Label>
-      <div className="flex items-center gap-1">
-        {X_SPACING_PRESETS.map((preset) => (
-          <Button
-            key={preset.value}
-            variant={value === preset.value ? "default" : "outline"}
-            size="sm"
-            onClick={() => onChange(preset.value)}
-            data-testid={`x-spacing-preset-${testId}-${preset.value}`}
-          >
-            {preset.label}
-          </Button>
-        ))}
-        <Input
-          type="text"
-          placeholder="Custom"
-          value={isCustom ? value : ""}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-16 text-xs"
-          data-testid={`x-spacing-custom-${testId}`}
-        />
+    <div className="flex items-center gap-1">
+      {X_SPACING_PRESETS.map((preset) => (
+        <Button
+          key={preset.value}
+          variant={value === preset.value ? "default" : "outline"}
+          size="sm"
+          onClick={() => onChange(preset.value)}
+          data-testid={`x-spacing-preset-${testId}-${preset.value}`}
+        >
+          {preset.label}
+        </Button>
+      ))}
+      <Input
+        type="text"
+        placeholder="Custom"
+        value={isCustom ? value : ""}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-16 text-xs"
+        data-testid={`x-spacing-custom-${testId}`}
+      />
+    </div>
+  );
+}
+
+function XSpacingGroup({
+  label,
+  leftValue,
+  rightValue,
+  linked,
+  onChangeLeft,
+  onChangeRight,
+  onChangeBoth,
+  onToggleLink,
+  testIdPrefix,
+}: {
+  label: string;
+  leftValue: string;
+  rightValue: string;
+  linked: boolean;
+  onChangeLeft: (v: string) => void;
+  onChangeRight: (v: string) => void;
+  onChangeBoth: (v: string) => void;
+  onToggleLink: () => void;
+  testIdPrefix: string;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{label}</span>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onToggleLink}
+              data-testid={`${testIdPrefix}-link-toggle`}
+            >
+              {linked ? <IconLink className="h-3.5 w-3.5" /> : <IconLinkOff className="h-3.5 w-3.5 text-muted-foreground" />}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="top">
+            <p className="text-xs">{linked ? "Left & right synced — click to set independently" : "Left & right independent — click to sync"}</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
+      {linked ? (
+        <XSpacingPresetButtons
+          value={leftValue}
+          onChange={onChangeBoth}
+          testId={`${testIdPrefix}-both`}
+        />
+      ) : (
+        <div className="space-y-1.5">
+          <div>
+            <Label className="text-xs text-muted-foreground">Left</Label>
+            <XSpacingPresetButtons value={leftValue} onChange={onChangeLeft} testId={`${testIdPrefix}-left`} />
+          </div>
+          <div>
+            <Label className="text-xs text-muted-foreground">Right</Label>
+            <XSpacingPresetButtons value={rightValue} onChange={onChangeRight} testId={`${testIdPrefix}-right`} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -229,6 +288,14 @@ export function EditableSection({ children, section, index, sectionType, content
   const [xPadding, setXPadding] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).paddingX));
   const [xMargin, setXMargin] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).marginX));
   const [xSaving, setXSaving] = useState(false);
+  const [padLinked, setPadLinked] = useState(() => {
+    const p = parseXSpacing((section as SectionLayout).paddingX);
+    return p.desktop.left === p.desktop.right;
+  });
+  const [marLinked, setMarLinked] = useState(() => {
+    const m = parseXSpacing((section as SectionLayout).marginX);
+    return m.desktop.left === m.desktop.right;
+  });
 
   // YAML source modal state
   const [showYamlModal, setShowYamlModal] = useState(false);
@@ -609,8 +676,12 @@ export function EditableSection({ children, section, index, sectionType, content
   const handleXSpacingOpen = useCallback((open: boolean) => {
     setXSpacingOpen(open);
     if (open) {
-      setXPadding(parseXSpacing((currentSection as SectionLayout).paddingX));
-      setXMargin(parseXSpacing((currentSection as SectionLayout).marginX));
+      const pad = parseXSpacing((currentSection as SectionLayout).paddingX);
+      const mar = parseXSpacing((currentSection as SectionLayout).marginX);
+      setXPadding(pad);
+      setXMargin(mar);
+      setPadLinked(pad.desktop.left === pad.desktop.right);
+      setMarLinked(mar.desktop.left === mar.desktop.right);
     }
   }, [currentSection]);
 
@@ -625,6 +696,19 @@ export function EditableSection({ children, section, index, sectionType, content
         return { ...prev, desktop: { ...prev.desktop, [pos]: value } };
       }
       return { ...prev, mobile: { ...prev.mobile, [pos]: value } };
+    });
+  }, []);
+
+  const updateXBoth = useCallback((
+    setter: React.Dispatch<React.SetStateAction<XSpacingValues>>,
+    breakpoint: XBreakpoint,
+    value: string
+  ) => {
+    setter(prev => {
+      if (breakpoint === "desktop") {
+        return { ...prev, desktop: { left: value, right: value } };
+      }
+      return { ...prev, mobile: { left: value, right: value } };
     });
   }, []);
 
@@ -855,32 +939,28 @@ export function EditableSection({ children, section, index, sectionType, content
                   </Button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Padding</span>
-                <XSpacingPresetRow
-                  label="Left"
-                  value={getXEffective(xPadding, xSpacingBreakpoint, "left")}
-                  onChange={(v) => updateXValue(setXPadding, xSpacingBreakpoint, "left", v)}
-                />
-                <XSpacingPresetRow
-                  label="Right"
-                  value={getXEffective(xPadding, xSpacingBreakpoint, "right")}
-                  onChange={(v) => updateXValue(setXPadding, xSpacingBreakpoint, "right", v)}
-                />
-              </div>
-              <div className="space-y-2">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Margin</span>
-                <XSpacingPresetRow
-                  label="Left"
-                  value={getXEffective(xMargin, xSpacingBreakpoint, "left")}
-                  onChange={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "left", v)}
-                />
-                <XSpacingPresetRow
-                  label="Right"
-                  value={getXEffective(xMargin, xSpacingBreakpoint, "right")}
-                  onChange={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "right", v)}
-                />
-              </div>
+              <XSpacingGroup
+                label="Padding"
+                leftValue={getXEffective(xPadding, xSpacingBreakpoint, "left")}
+                rightValue={getXEffective(xPadding, xSpacingBreakpoint, "right")}
+                linked={padLinked}
+                onChangeLeft={(v) => updateXValue(setXPadding, xSpacingBreakpoint, "left", v)}
+                onChangeRight={(v) => updateXValue(setXPadding, xSpacingBreakpoint, "right", v)}
+                onChangeBoth={(v) => updateXBoth(setXPadding, xSpacingBreakpoint, v)}
+                onToggleLink={() => setPadLinked(prev => !prev)}
+                testIdPrefix={`x-pad-${index}`}
+              />
+              <XSpacingGroup
+                label="Margin"
+                leftValue={getXEffective(xMargin, xSpacingBreakpoint, "left")}
+                rightValue={getXEffective(xMargin, xSpacingBreakpoint, "right")}
+                linked={marLinked}
+                onChangeLeft={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "left", v)}
+                onChangeRight={(v) => updateXValue(setXMargin, xSpacingBreakpoint, "right", v)}
+                onChangeBoth={(v) => updateXBoth(setXMargin, xSpacingBreakpoint, v)}
+                onToggleLink={() => setMarLinked(prev => !prev)}
+                testIdPrefix={`x-mar-${index}`}
+              />
               {xSpacingBreakpoint === "mobile" && (
                 <div className="flex items-start gap-1.5 rounded border border-border/50 bg-muted/50 p-2">
                   <IconInfoCircle className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-0.5" />
