@@ -90,11 +90,6 @@ sections:
       heading: Launch Your Tech Career in New York
       sub_heading: Alissa on How 4Geeks Empowers New York Learners
       description: 4Geeks Academy offers the guidance, structure, and hands-on experience you need to succeed in New York's growing tech ecosystem. Build practical job-ready skills through project-based learning, explore tools and workflows used in today's tech careers, and get expert coaching tailored to New York's evolving job market.
-      button:
-        text: Watch the full interview
-        url: https://youtu.be/EcqasocRKHo
-        variant: primary
-        icon: Rocket
     gap: "8"
     marginY:
       desktop: none sm
