@@ -1,115 +1,48 @@
-# ============================================================================
-# CONTENT TYPES CONFIGURATION
-# ============================================================================
+# Content Types Configuration
+# ===========================
+# Each entry defines a content type with its URL routing and optional database connection.
 #
-# This file defines every content type in the platform: its filesystem folder,
-# URL pattern, and optional database backing.
+# Required fields:
+#   directory: folder inside marketing-content/ where YAML entries live
+#   url_pattern: URL routing pattern (must include :slug for unique entry URLs)
+#     - Per-locale object: { en: /en/path/:slug, es: /es/ruta/:slug }
+#     - Shorthand: { default: /landing/:slug } (same path for all locales)
 #
-# ── STRUCTURE ────────────────────────────────────────────────────────────────
-#
-#   <type_name>:
-#     folder: <string>          # Filesystem folder inside marketing-content/
-#     url_pattern: <pattern>    # How URLs are built (see below)
-#     database:                 # (Optional) Database backing
-#       slug: <string>          # Name of the database in marketing-content/db/
-#       field_mapping: <map>    # Maps content-type fields to raw DB fields
-#       indexes: <list>         # Fields used for KPI cards, filters, columns
-#
-# ── URL PATTERN ──────────────────────────────────────────────────────────────
-#
-# Two formats are supported:
-#
-#   1. SHORTHAND (single string with :locale)
-#      Use when the URL structure is identical across all locales.
-#
-#        url_pattern: /:locale/blog/:category/:slug
-#
-#      At load time this expands to:
-#        { en: "/en/blog/:category/:slug", es: "/es/blog/:category/:slug" }
-#
-#   2. PER-LOCALE (object with locale keys)
-#      Use when each locale has a different URL structure.
-#
-#        url_pattern:
-#          en: /en/career-programs/:slug
-#          es: /es/programas-de-carrera/:slug
-#
-#      Special key "default" is used for locale-independent types:
-#        url_pattern:
-#          default: /landing/:slug
-#
-# Available params in patterns:
-#   :locale   - Language code (en, es). Auto-replaced from the locale key.
-#   :slug     - The item's unique identifier (always the last param).
-#   :category - Or any other name — resolved via field_mapping (see below).
-#
-# ── DATABASE ─────────────────────────────────────────────────────────────────
-#
-#   database.slug:
-#     References a database defined in marketing-content/db/<slug>/config.yml.
-#
-#   database.field_mapping:
-#     Maps content-type field names → raw database field names.
-#     Used for two purposes:
-#       A. Data transformation: applyFieldMapping converts raw records into
-#          typed objects (e.g., cluster_slug string → category.slug object).
-#       B. URL resolution: when a URL pattern contains :category, the resolver
-#          looks up field_mapping.category to find the source field (cluster_slug)
-#          in the raw database record.
-#
-#     Special key "_locale" identifies which raw field holds the language:
-#       _locale: lang              # simple form
-#       _locale:                   # object form (with default)
-#         source: lang
-#         default: en
-#
-#   database.indexes:
-#     List of mapped field names (from field_mapping) that drive the
-#     management UI: KPI cards, filter dropdowns, and table columns.
-#     Locale is always an implicit index and does not need to be listed.
-#
-# ── COMPUTED FIELDS ─────────────────────────────────────────────────────────
-#
-# When a content type has a url_pattern, the dynamic_entries resolver
-# automatically computes a _resolved_url field on each item. This field
-# contains the fully resolved URL based on the url_pattern and the item's
-# field values.
-#
-# Use it in item_template as:
-#   url: "{{ single._resolved_url }}"
-#
-# The underscore prefix signals that this is a computed field, not a raw
-# database column. Currently _resolved_url is the only computed field.
-#
-# ============================================================================
+# Optional fields:
+#   database: connects this content type to a cached API database
+#     slug: database name (matches a db config in marketing-content/db/)
+#     field_mapping: maps content concepts to database field names
+#       Underscore-prefixed fields are mandatory special fields:
+#         _locale: DB field containing the entry's language (e.g., lang)
+#         _slug: DB field containing the entry's unique identifier (e.g., slug)
+#       Other fields (no underscore): optional mappings for content display
+#     indexes: fields to index for faster lookups
 
 program:
-  folder: programs
+  directory: programs
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug
 location:
-  folder: locations
+  directory: locations
   url_pattern:
     en: /en/location/:slug
     es: /es/ubicacion/:slug
 landing:
-  folder: landings
+  directory: landings
   url_pattern:
     default: /landing/:slug
 page:
-  folder: pages
-  url_pattern:
-    en: /en/:slug
-    es: /es/:slug
+  directory: pages
+  url_pattern: /:locale/:slug
 blog:
-  folder: blog
+  directory: blog
   database:
     slug: blog_posts
     field_mapping:
+      _slug: slug
       _locale: lang
       title: title
-      slug: slug
       description: description
       image: preview_image
       published_at: published_at
@@ -117,9 +50,17 @@ blog:
       status: status
       category: cluster_slug
       tags: tags
-      lang: language
+      lang: >-
+        function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
       content: content
     indexes:
       - status
       - category
-  url_pattern: /:locale/blog/:category/:slug
+  url_pattern:
+    en: /en/blog/:category/:slug
+    es: /es/blog/:category/:slug
+downloadable:
+  directory: downloadable
+  url_pattern:
+    en: /en/downloadable/:slug
+    es: /es/descargable/:slug

@@ -69,7 +69,7 @@ export const databaseSinglesValidator: Validator = {
     }
 
     for (const [contentType, config] of dbTypes) {
-      const folder = config.folder || contentType;
+      const folder = config.directory || contentType;
       const typeDir = path.join(MARKETING_CONTENT_PATH, folder);
       const dbName = config.database!.slug;
       const fieldMapping = config.database!.field_mapping;

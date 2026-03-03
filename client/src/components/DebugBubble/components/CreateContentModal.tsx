@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   IconCopy,
   IconPlus,
@@ -8,6 +8,8 @@ import {
   IconX,
   IconInfoCircle,
   IconChevronDown,
+  IconTrash,
+  IconArrowBackUp,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { buildContentUrl, type ContentType } from "@shared/slugMappings";
+import { buildContentUrlFromPattern } from "@/lib/locale";
+import { useContentTypes, useContentTypesRaw } from "@/hooks/useContentTypes";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { LocaleFlag } from "./LocaleFlag";
 import type { ContentTypeValue, SlugCheckStatus, SitemapUrl } from "../types";
@@ -98,6 +101,14 @@ export function CreateContentModal({
   toast,
 }: CreateContentModalProps) {
   const [showFiles, setShowFiles] = useState(false);
+  const [excludedLocales, setExcludedLocales] = useState<Set<string>>(new Set());
+  const contentTypesMap = useContentTypes();
+  const { data: rawContentTypes } = useContentTypesRaw();
+
+  const creatableTypes = useMemo(() => {
+    if (!rawContentTypes) return [];
+    return rawContentTypes.filter(ct => !ct.has_database);
+  }, [rawContentTypes]);
 
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
@@ -114,6 +125,7 @@ export function CreateContentModal({
         setEditingSlugEs(false);
         setCreateContentType('page');
         setDuplicatingPage(null);
+        setExcludedLocales(new Set());
       }
     }}>
       <DialogContent className="sm:max-w-md">
@@ -135,7 +147,7 @@ export function CreateContentModal({
             {duplicatingPage ? (
               <>Duplicating: <strong>{duplicatingPage.label}</strong></>
             ) : (
-              <>Create a new page, location, program, or landing with starter YAML files.</>
+              <>Create a new content entry with starter YAML files.</>
             )}
           </DialogDescription>
         </DialogHeader>
@@ -148,7 +160,8 @@ export function CreateContentModal({
               <Select 
                 value={createContentType} 
                 onValueChange={(v) => {
-                  setCreateContentType(v as 'location' | 'page' | 'program' | 'landing');
+                  setCreateContentType(v);
+                  setExcludedLocales(new Set());
                   if (v !== 'landing') {
                     if (createContentSlugEn) {
                       setCreateContentSlugEnStatus('checking');
@@ -188,10 +201,9 @@ export function CreateContentModal({
                   <SelectValue placeholder="Select type..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="page">Page</SelectItem>
-                  <SelectItem value="program">Program</SelectItem>
-                  <SelectItem value="location">Location</SelectItem>
-                  <SelectItem value="landing">Landing</SelectItem>
+                  {creatableTypes.map(ct => (
+                    <SelectItem key={ct.name} value={ct.name}>{ct.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               
@@ -391,16 +403,38 @@ export function CreateContentModal({
             </div>
           )}
           
-          {createContentSlugEn && createContentType !== 'landing' && (
+          {createContentSlugEn && createContentType !== 'landing' && (() => {
+            const enExcluded = excludedLocales.has('en');
+            const esExcluded = excludedLocales.has('es');
+            const activeCount = 2 - excludedLocales.size;
+            const isLastActive = activeCount <= 1;
+            const toggleLocale = (locale: string) => {
+              setExcludedLocales(prev => {
+                const next = new Set(prev);
+                if (next.has(locale)) {
+                  next.delete(locale);
+                } else {
+                  next.add(locale);
+                }
+                return next;
+              });
+            };
+            const activeLocales = ['en', 'es'].filter(l => !excludedLocales.has(l));
+
+            return (
             <div className="space-y-3 p-3 bg-muted/50 rounded-md">
               <div className="space-y-2">
                 <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
                 
-                <div className="flex items-center gap-2">
-                  {editingSlugEn ? (
+                <div className={`flex items-center gap-2 transition-opacity ${enExcluded ? 'opacity-40' : ''}`}>
+                  {enExcluded ? (
+                    <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
+                      {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, 'en')}
+                    </code>
+                  ) : editingSlugEn ? (
                     <div className="flex-1 flex items-center gap-1">
                       <span className="text-xs font-mono text-muted-foreground">
-                        {buildContentUrl(createContentType as ContentType, '', 'en').slice(0, -1)}
+                        {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, '', 'en').slice(0, -1)}
                       </span>
                       <input
                         type="text"
@@ -439,39 +473,61 @@ export function CreateContentModal({
                       onClick={() => setEditingSlugEn(true)}
                       data-testid="url-preview-en"
                     >
-                      {buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en')}
+                      {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, 'en')}
                     </code>
+                  )}
+                  {!enExcluded && (
+                    <button
+                      type="button"
+                      onClick={() => setEditingSlugEn(!editingSlugEn)}
+                      className="p-1 rounded hover-elevate"
+                      title="Edit English slug"
+                      data-testid="button-edit-slug-en"
+                    >
+                      <IconPencil className="h-3 w-3 text-muted-foreground" />
+                    </button>
                   )}
                   <button
                     type="button"
-                    onClick={() => setEditingSlugEn(!editingSlugEn)}
-                    className="p-1 rounded hover-elevate"
-                    title="Edit English slug"
-                    data-testid="button-edit-slug-en"
+                    onClick={() => toggleLocale('en')}
+                    disabled={!enExcluded && isLastActive}
+                    className="p-1 rounded hover-elevate disabled:opacity-30 disabled:cursor-not-allowed"
+                    title={enExcluded ? "Restore English" : "Skip English"}
+                    data-testid="button-toggle-locale-en"
                   >
-                    <IconPencil className="h-3 w-3 text-muted-foreground" />
+                    {enExcluded ? (
+                      <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
+                    ) : (
+                      <IconTrash className="h-3 w-3 text-muted-foreground" />
+                    )}
                   </button>
-                  <div className="w-4">
-                    {createContentSlugEnStatus === 'checking' && (
-                      <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                    )}
-                    {createContentSlugEnStatus === 'available' && (
-                      <IconCheck className="h-4 w-4 text-green-600" />
-                    )}
-                    {createContentSlugEnStatus === 'taken' && (
-                      <IconX className="h-4 w-4 text-red-600" />
-                    )}
-                  </div>
+                  {!enExcluded && (
+                    <div className="w-4">
+                      {createContentSlugEnStatus === 'checking' && (
+                        <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
+                      )}
+                      {createContentSlugEnStatus === 'available' && (
+                        <IconCheck className="h-4 w-4 text-green-600" />
+                      )}
+                      {createContentSlugEnStatus === 'taken' && (
+                        <IconX className="h-4 w-4 text-red-600" />
+                      )}
+                    </div>
+                  )}
                 </div>
-                {createContentSlugEnStatus === 'taken' && (
+                {!enExcluded && createContentSlugEnStatus === 'taken' && (
                   <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || 'English slug is taken'}</p>
                 )}
                 
-                <div className="flex items-center gap-2">
-                  {editingSlugEs ? (
+                <div className={`flex items-center gap-2 transition-opacity ${esExcluded ? 'opacity-40' : ''}`}>
+                  {esExcluded ? (
+                    <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
+                      {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs || createContentSlugEn, 'es')}
+                    </code>
+                  ) : editingSlugEs ? (
                     <div className="flex-1 flex items-center gap-1">
                       <span className="text-xs font-mono text-muted-foreground">
-                        {buildContentUrl(createContentType as ContentType, '', 'es').slice(0, -1)}
+                        {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, '', 'es').slice(0, -1)}
                       </span>
                       <input
                         type="text"
@@ -510,31 +566,49 @@ export function CreateContentModal({
                       onClick={() => setEditingSlugEs(true)}
                       data-testid="url-preview-es"
                     >
-                      {buildContentUrl(createContentType as ContentType, createContentSlugEs, 'es')}
+                      {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs, 'es')}
                     </code>
+                  )}
+                  {!esExcluded && (
+                    <button
+                      type="button"
+                      onClick={() => setEditingSlugEs(!editingSlugEs)}
+                      className="p-1 rounded hover-elevate"
+                      title="Edit Spanish slug"
+                      data-testid="button-edit-slug-es"
+                    >
+                      <IconPencil className="h-3 w-3 text-muted-foreground" />
+                    </button>
                   )}
                   <button
                     type="button"
-                    onClick={() => setEditingSlugEs(!editingSlugEs)}
-                    className="p-1 rounded hover-elevate"
-                    title="Edit Spanish slug"
-                    data-testid="button-edit-slug-es"
+                    onClick={() => toggleLocale('es')}
+                    disabled={!esExcluded && isLastActive}
+                    className="p-1 rounded hover-elevate disabled:opacity-30 disabled:cursor-not-allowed"
+                    title={esExcluded ? "Restore Spanish" : "Skip Spanish"}
+                    data-testid="button-toggle-locale-es"
                   >
-                    <IconPencil className="h-3 w-3 text-muted-foreground" />
+                    {esExcluded ? (
+                      <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
+                    ) : (
+                      <IconTrash className="h-3 w-3 text-muted-foreground" />
+                    )}
                   </button>
-                  <div className="w-4">
-                    {createContentSlugEsStatus === 'checking' && (
-                      <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                    )}
-                    {createContentSlugEsStatus === 'available' && (
-                      <IconCheck className="h-4 w-4 text-green-600" />
-                    )}
-                    {createContentSlugEsStatus === 'taken' && (
-                      <IconX className="h-4 w-4 text-red-600" />
-                    )}
-                  </div>
+                  {!esExcluded && (
+                    <div className="w-4">
+                      {createContentSlugEsStatus === 'checking' && (
+                        <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
+                      )}
+                      {createContentSlugEsStatus === 'available' && (
+                        <IconCheck className="h-4 w-4 text-green-600" />
+                      )}
+                      {createContentSlugEsStatus === 'taken' && (
+                        <IconX className="h-4 w-4 text-red-600" />
+                      )}
+                    </div>
+                  )}
                 </div>
-                {createContentSlugEsStatus === 'taken' && (
+                {!esExcluded && createContentSlugEsStatus === 'taken' && (
                   <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || 'Spanish slug is taken'}</p>
                 )}
               </div>
@@ -551,16 +625,20 @@ export function CreateContentModal({
                 </button>
                 {showFiles && (
                   <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
-                    <div>marketing-content/{createContentType === 'location' ? 'locations' : createContentType === 'program' ? 'programs' : 'pages'}/{createContentSlugEn}/</div>
+                    <div>marketing-content/{contentTypesMap?.[createContentType]?.directory || createContentType}/{createContentSlugEn}/</div>
                     <div className="pl-4">├── _common.yml</div>
-                    <div className="pl-4">├── en.yml</div>
-                    <div className="pl-4">└── es.yml</div>
+                    {activeLocales.map((loc, i) => (
+                      <div key={loc} className="pl-4">
+                        {i === activeLocales.length - 1 ? '└── ' : '├── '}{loc}.yml
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
 
             </div>
-          )}
+            );
+          })()}
         </div>
 
         <DialogFooter className="gap-2 sm:gap-0">
@@ -576,9 +654,11 @@ export function CreateContentModal({
               if (createContentType === 'landing') {
                 if (!createContentSlugEn || createContentSlugEnStatus !== 'available') return;
               } else {
-                if (!createContentSlugEn || !createContentSlugEs || 
-                    createContentSlugEnStatus !== 'available' || 
-                    createContentSlugEsStatus !== 'available') return;
+                const enNeeded = !excludedLocales.has('en');
+                const esNeeded = !excludedLocales.has('es');
+                if (enNeeded && (!createContentSlugEn || createContentSlugEnStatus !== 'available')) return;
+                if (esNeeded && (!createContentSlugEs || createContentSlugEsStatus !== 'available')) return;
+                if (!enNeeded && !esNeeded) return;
               }
               
               setIsCreatingContent(true);
@@ -643,17 +723,19 @@ export function CreateContentModal({
                     },
                     body: JSON.stringify({
                       type: createContentType,
-                      slugEn: createContentSlugEn,
-                      slugEs: createContentSlugEs,
+                      slugEn: excludedLocales.has('en') ? undefined : createContentSlugEn,
+                      slugEs: excludedLocales.has('es') ? undefined : createContentSlugEs,
                       title: createContentTitle || createContentSlugEn,
                       ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
+                      ...(excludedLocales.size > 0 ? { skipLocales: Array.from(excludedLocales) } : {}),
                     }),
                   });
                   
                   const data = await response.json();
                   
                   if (response.ok && data.success) {
-                    const newUrl = buildContentUrl(createContentType as ContentType, createContentSlugEn, 'en');
+                    const pattern = contentTypesMap?.[createContentType]?.url_pattern;
+                    const newUrl = buildContentUrlFromPattern(pattern, createContentSlugEn, 'en');
                     toast({
                       title: duplicatingPage ? "Page duplicated" : "Content created",
                       description: duplicatingPage 
@@ -699,8 +781,15 @@ export function CreateContentModal({
               }
             }}
             disabled={
-              isCreatingContent || !createContentSlugEn || createContentSlugEnStatus !== 'available' ||
-              (createContentType !== 'landing' && (!createContentSlugEs || createContentSlugEsStatus !== 'available'))
+              isCreatingContent ||
+              (createContentType === 'landing'
+                ? (!createContentSlugEn || createContentSlugEnStatus !== 'available')
+                : (
+                  (!excludedLocales.has('en') && (!createContentSlugEn || createContentSlugEnStatus !== 'available')) ||
+                  (!excludedLocales.has('es') && (!createContentSlugEs || createContentSlugEsStatus !== 'available')) ||
+                  (excludedLocales.has('en') && excludedLocales.has('es'))
+                )
+              )
             }
             data-testid="button-confirm-create-content"
           >

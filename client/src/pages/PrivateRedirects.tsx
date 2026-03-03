@@ -127,6 +127,7 @@ export default function PrivateRedirects() {
     matchType?: string;
     captureGroups?: string[];
     pageExists?: boolean;
+    destinationExists?: boolean;
   } | null>(null);
   const [isTestingRedirect, setIsTestingRedirect] = useState(false);
   const testRedirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -742,9 +743,16 @@ export default function PrivateRedirects() {
                 testRedirectResult.match ? (
                   <div className="rounded-md border p-3 space-y-2" data-testid="result-redirect-match">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <Badge variant="secondary" className="gap-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                        <IconCircleCheck className="h-3 w-3" />
-                        Redirect found
+                      <Badge
+                        variant={testRedirectResult.destinationExists === false ? "destructive" : "secondary"}
+                        className={`gap-1 ${testRedirectResult.destinationExists === false ? "" : "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"}`}
+                      >
+                        {testRedirectResult.destinationExists === false ? (
+                          <IconAlertTriangle className="h-3 w-3" />
+                        ) : (
+                          <IconCircleCheck className="h-3 w-3" />
+                        )}
+                        {testRedirectResult.destinationExists === false ? "Redirect found to a 404" : "Redirect found"}
                       </Badge>
                       <Badge variant="outline" className="font-mono text-xs">
                         {testRedirectResult.status}

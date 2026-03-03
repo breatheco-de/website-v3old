@@ -17,7 +17,7 @@ function buildContentPaths(): Record<string, string> {
   const configs = getAllConfigs();
   const paths: Record<string, string> = {};
   for (const [type, config] of Object.entries(configs)) {
-    paths[type] = path.join(MARKETING_CONTENT_PATH, config.folder);
+    paths[type] = path.join(MARKETING_CONTENT_PATH, config.directory);
   }
   return paths;
 }
@@ -117,7 +117,7 @@ export function loadAllContent(): ContentFile[] {
   const files: ContentFile[] = [];
   for (const [type, config] of Object.entries(configs)) {
     files.push(...loadContentDirectory(
-      path.join(MARKETING_CONTENT_PATH, config.folder),
+      path.join(MARKETING_CONTENT_PATH, config.directory),
       type as ContentFile["type"]
     ));
   }

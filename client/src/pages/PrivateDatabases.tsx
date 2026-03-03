@@ -51,6 +51,7 @@ import {
   IconPencil,
   IconArrowsExchange,
   IconEye,
+  IconCode,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -1203,69 +1204,90 @@ function FieldMappingEditor({
       {Object.keys(fieldMappingEntries).length > 0 && (
         <div className="space-y-2">
           {Object.entries(fieldMappingEntries).map(([normalizedKey, sourcePath]) => {
-            const isCustom = sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
-            const selectValue = isCustom ? "__custom__" : (sourcePath || "__none__");
+            const isFunction = sourcePath != null && sourcePath.startsWith("function:");
+            const isCustom = !isFunction && sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
+            const selectValue = isFunction ? "__function__" : isCustom ? "__custom__" : (sourcePath || "__none__");
+            const decodedFn = isFunction ? (() => { try { return atob(sourcePath.slice("function:".length)); } catch { return sourcePath; } })() : "";
             return (
-              <div key={normalizedKey} className="flex items-center gap-2">
-                <code className="text-xs font-medium w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={normalizedKey}>
-                  {normalizedKey}
-                </code>
-                <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                {isCustom ? (
-                  <>
-                    <Input
-                      value={sourcePath || ""}
-                      onChange={(e) => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: e.target.value }))}
-                      placeholder="e.g. author.details.name"
-                      className="h-8 text-xs font-mono flex-1"
-                      data-testid={`input-custom-path-${normalizedKey}`}
-                    />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: null }))}
-                      data-testid={`button-clear-custom-${normalizedKey}`}
+              <div key={normalizedKey} className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <code className="text-xs font-medium w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={normalizedKey}>
+                    {normalizedKey}
+                  </code>
+                  <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                  {isFunction ? (
+                    <div className="flex-1 space-y-1">
+                      <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
+                      <Textarea
+                        value={decodedFn}
+                        onChange={(e) => {
+                          const encoded = "function:" + btoa(e.target.value);
+                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: encoded }));
+                        }}
+                        placeholder="(value, item) => value"
+                        className="text-xs font-mono min-h-[3rem] resize-y"
+                        data-testid={`textarea-transform-${normalizedKey}`}
+                      />
+                    </div>
+                  ) : isCustom ? (
+                    <>
+                      <Input
+                        value={sourcePath || ""}
+                        onChange={(e) => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: e.target.value }))}
+                        placeholder="e.g. author.details.name"
+                        className="h-8 text-xs font-mono flex-1"
+                        data-testid={`input-custom-path-${normalizedKey}`}
+                      />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: null }))}
+                        data-testid={`button-clear-custom-${normalizedKey}`}
+                      >
+                        <IconX className="h-3.5 w-3.5" />
+                      </Button>
+                    </>
+                  ) : (
+                    <Select
+                      value={selectValue}
+                      onValueChange={(v) => {
+                        if (v === "__function__") {
+                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: "function:" + btoa("(value, item) => value") }));
+                        } else if (v === "__custom__") {
+                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: "" }));
+                        } else {
+                          setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: v === "__none__" ? null : v }));
+                        }
+                      }}
                     >
-                      <IconX className="h-3.5 w-3.5" />
-                    </Button>
-                  </>
-                ) : (
-                  <Select
-                    value={selectValue}
-                    onValueChange={(v) => {
-                      if (v === "__custom__") {
-                        setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: "" }));
-                      } else {
-                        setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: v === "__none__" ? null : v }));
-                      }
+                      <SelectTrigger className="h-8 text-xs font-mono flex-1" data-testid={`select-field-${normalizedKey}`}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none__">(not mapped)</SelectItem>
+                        {rawFields.map((f) => (
+                          <SelectItem key={f} value={f}>{f}</SelectItem>
+                        ))}
+                        <SelectItem value="__custom__">Custom path...</SelectItem>
+                        <SelectItem value="__function__">Compute with function...</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setFieldMappingEntries((prev) => {
+                        const next = { ...prev };
+                        delete next[normalizedKey];
+                        return next;
+                      });
                     }}
+                    data-testid={`button-delete-field-${normalizedKey}`}
                   >
-                    <SelectTrigger className="h-8 text-xs font-mono flex-1" data-testid={`select-field-${normalizedKey}`}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="__none__">(not mapped)</SelectItem>
-                      {rawFields.map((f) => (
-                        <SelectItem key={f} value={f}>{f}</SelectItem>
-                      ))}
-                      <SelectItem value="__custom__">Custom path...</SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    setFieldMappingEntries((prev) => {
-                      const next = { ...prev };
-                      delete next[normalizedKey];
-                      return next;
-                    });
-                  }}
-                  data-testid={`button-delete-field-${normalizedKey}`}
-                >
-                  <IconTrashX className="h-3.5 w-3.5" />
-                </Button>
+                    <IconTrashX className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
               </div>
             );
           })}

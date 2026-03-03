@@ -5,7 +5,7 @@ import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
-import { normalizeUrlPattern } from "./content-types";
+import { normalizeUrlPattern, getAllConfigs } from "./content-types";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -45,7 +45,7 @@ export type LoadContentResult<T> =
   | { success: false; error: string };
 
 export interface ContentTypeConfig {
-  folder: string;
+  directory: string;
   url_pattern: Record<string, string>;
   database?: {
     slug: string;
@@ -57,7 +57,7 @@ export interface ContentTypeConfig {
 export interface ContentEntry {
   slug: string;
   contentType: string;
-  folder: string;
+  directory: string;
   files: string[];
   locales: string[];
   title?: string;
@@ -155,16 +155,16 @@ class ContentIndex {
     const config = this.contentTypeConfigs[typeOrFolder];
     if (config) return typeOrFolder;
     for (const [type, cfg] of Object.entries(this.contentTypeConfigs)) {
-      if (cfg.folder === typeOrFolder) return type;
+      if (cfg.directory === typeOrFolder) return type;
     }
     return typeOrFolder;
   }
 
   getFolderName(type: string): string {
     const config = this.contentTypeConfigs[type];
-    if (config?.folder) return config.folder;
+    if (config?.directory) return config.directory;
     for (const [, cfg] of Object.entries(this.contentTypeConfigs)) {
-      if (cfg.folder === type) return type;
+      if (cfg.directory === type) return type;
     }
     return type;
   }
@@ -183,7 +183,7 @@ class ContentIndex {
     this.localeSlugMap = new Map();
 
     for (const contentType of contentTypes) {
-      const diskFolder = this.contentTypeConfigs[contentType]?.folder || contentType;
+      const diskFolder = this.contentTypeConfigs[contentType]?.directory || contentType;
       const typeDir = path.join(baseDir, diskFolder);
       if (!fs.existsSync(typeDir)) continue;
 
@@ -206,7 +206,7 @@ class ContentIndex {
         const entry: ContentEntry = {
           slug,
           contentType,
-          folder: relFolder,
+          directory: relFolder,
           files,
           locales,
           title,
@@ -246,6 +246,8 @@ class ContentIndex {
 
     this.scanCustomRedirects(baseDir);
     this.autoCreateSingleTemplates(baseDir);
+
+    this.warnMissingSlugMappings();
 
     this.initialized = true;
     const imageRefCount = this.imageUsage.size;
@@ -324,7 +326,7 @@ class ContentIndex {
     const entry = matches.find(e => e.contentType === contentType);
     if (!entry) return {};
 
-    const basePath = path.join(process.cwd(), entry.folder);
+    const basePath = path.join(process.cwd(), entry.directory);
     const urls: Record<string, string> = {};
 
     for (const locale of entry.locales) {
@@ -449,11 +451,25 @@ class ContentIndex {
     }
   }
 
+  private warnMissingSlugMappings(): void {
+    try {
+      const configs = getAllConfigs();
+      for (const [typeName, config] of Object.entries(configs)) {
+        if (config.database && !config.database.field_mapping?._slug) {
+          console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _slug in field_mapping. This is required for URL resolution.`);
+        }
+        if (config.database && !config.database.field_mapping?._locale) {
+          console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _locale in field_mapping. This is required for locale resolution.`);
+        }
+      }
+    } catch {}
+  }
+
   private autoCreateSingleTemplates(baseDir: string): void {
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
       if (!config.database?.slug) continue;
 
-      const folder = config.folder || contentType;
+      const folder = config.directory || contentType;
       const typeDir = path.join(baseDir, folder);
 
       if (!fs.existsSync(typeDir)) {
@@ -461,10 +477,10 @@ class ContentIndex {
         console.log(`[ContentIndex] Auto-created folder: marketing-content/${folder}/`);
       }
 
-      const commonPath = path.join(typeDir, "_common.yml");
+      const commonPath = path.join(typeDir, "_common.single.yml");
       if (!fs.existsSync(commonPath)) {
-        fs.writeFileSync(commonPath, "# Common data shared across all locales\n");
-        console.log(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.yml`);
+        fs.writeFileSync(commonPath, "# Common data shared across all single (database-backed) entries\n");
+        console.log(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.single.yml`);
       }
 
       const locales = Object.keys(config.url_pattern).filter(k => k !== "default");
@@ -560,7 +576,7 @@ class ContentIndex {
     if (matches.length === 0) return null;
 
     for (const entry of matches) {
-      const basePath = path.join(process.cwd(), entry.folder);
+      const basePath = path.join(process.cwd(), entry.directory);
       const candidates = [
         `${locale}.yml`,
         `${locale}.yaml`,
@@ -573,7 +589,7 @@ class ContentIndex {
         if (fs.existsSync(filePath)) {
           return {
             content: fs.readFileSync(filePath, "utf-8"),
-            filePath: `${entry.folder}/${candidate}`,
+            filePath: `${entry.directory}/${candidate}`,
           };
         }
       }
@@ -586,12 +602,12 @@ class ContentIndex {
     const results: { filePath: string; content: string }[] = [];
 
     for (const entry of matches) {
-      const basePath = path.join(process.cwd(), entry.folder);
+      const basePath = path.join(process.cwd(), entry.directory);
       for (const file of entry.files) {
         const fullPath = path.join(basePath, file);
         try {
           results.push({
-            filePath: `${entry.folder}/${file}`,
+            filePath: `${entry.directory}/${file}`,
             content: fs.readFileSync(fullPath, "utf-8"),
           });
         } catch {}
@@ -630,7 +646,7 @@ class ContentIndex {
     if (entries.length === 0) return {};
 
     const entry = entries[0];
-    const basePath = path.join(process.cwd(), entry.folder);
+    const basePath = path.join(process.cwd(), entry.directory);
     const urls: Record<string, string> = {};
 
     for (const locale of entry.locales) {
@@ -727,7 +743,7 @@ class ContentIndex {
     const cleanUrl = url.split("?")[0].split("#")[0];
 
     const allTypes = Object.keys(this.contentTypeConfigs);
-    const allFolders = allTypes.map(t => this.contentTypeConfigs[t]?.folder || t);
+    const allFolders = allTypes.map(t => this.contentTypeConfigs[t]?.directory || t);
     const combined = allTypes.concat(allFolders);
     const allAccepted = combined.filter((v, i) => combined.indexOf(v) === i);
     const previewRegex = new RegExp(`^\\/private\\/preview\\/(${allAccepted.join("|")})\\/([^/?]+)`);
@@ -791,7 +807,7 @@ class ContentIndex {
             return {
               contentType,
               slug,
-              entry: { slug, contentType, folder: `marketing-content/${config.folder}`, files: [], locales: [] },
+              entry: { slug, contentType, directory: `marketing-content/${config.directory}`, files: [], locales: [] },
               fromDatabase: true,
               params,
               patternLocale: localeKey,
@@ -914,7 +930,7 @@ class ContentIndex {
     let commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), resolved, "_common.yml");
 
     if (!fs.existsSync(commonPath) && this.isDatabaseBacked(contentType)) {
-      commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), "_common.yml");
+      commonPath = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType), "_common.single.yml");
     }
 
     if (!fs.existsSync(commonPath)) {

@@ -70,18 +70,13 @@ interface VariableDetailModalProps {
   onCreated?: (variableName: string, templateSyntax: string) => void;
 }
 
-const SUPPORTED_LOCALES = [
-  { value: "en", label: "English (en)" },
-  { value: "es", label: "Spanish (es)" },
-];
-
 const QUERY_KEY_OPTIONS: { value: string; label: string }[] = [
   { value: "location", label: "Location" },
   { value: "region", label: "Region" },
   { value: "locale", label: "Locale" },
 ];
 
-function getValueOptionsForKey(queryKey: string): { value: string; label: string }[] {
+function getValueOptionsForKey(queryKey: string, localeOptions: { value: string; label: string }[]): { value: string; label: string }[] {
   if (queryKey === "location") {
     return locations
       .filter((loc) => loc.visibility === "listed")
@@ -94,7 +89,7 @@ function getValueOptionsForKey(queryKey: string): { value: string; label: string
       .map((r) => ({ value: r, label: r }));
   }
   if (queryKey === "locale") {
-    return SUPPORTED_LOCALES;
+    return localeOptions;
   }
   return [];
 }
@@ -111,12 +106,14 @@ function ConditionForm({
   onSave,
   onCancel,
   saveLabel,
+  localeOptions,
 }: {
   initialQuery?: Record<string, string>;
   initialValue?: string;
   onSave: (query: Record<string, string>, value: string) => void;
   onCancel: () => void;
   saveLabel: string;
+  localeOptions: { value: string; label: string }[];
 }) {
   const [queryPairs, setQueryPairs] = useState<{ key: string; value: string }[]>(
     initialQuery
@@ -190,7 +187,7 @@ function ConditionForm({
                   <SelectValue placeholder="Value..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {getValueOptionsForKey(pair.key).map((opt) => (
+                  {getValueOptionsForKey(pair.key, localeOptions).map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>
                       {opt.label}
                     </SelectItem>
@@ -274,6 +271,12 @@ export function VariableDetailModal({
   const { toast } = useToast();
   const { data: definitions, refetch } = useVariableDefinitions();
   const varContext = useVariableContext();
+  const { data: localeSettingsData } = useQuery<{ default_locale: string; supported_locales: { code: string; label: string }[] }>({
+    queryKey: ["/api/settings/locales"],
+    staleTime: Infinity,
+  });
+  const localeOptions = (localeSettingsData?.supported_locales ?? [{ code: "en", label: "English" }, { code: "es", label: "Spanish" }])
+    .map(l => ({ value: l.code, label: `${l.label} (${l.code})` }));
   const [activeTab, setActiveTab] = useState<"explain" | "edit" | "rename">("explain");
   const [createName, setCreateName] = useState("");
   const [createSaving, setCreateSaving] = useState(false);
@@ -1166,6 +1169,7 @@ export function VariableDetailModal({
                           onSave={(query, value) => handleUpdateCondition(i, query, value)}
                           onCancel={() => setEditingConditionIndex(null)}
                           saveLabel="Update"
+                          localeOptions={localeOptions}
                         />
                       ) : (
                         <div
@@ -1229,6 +1233,7 @@ export function VariableDetailModal({
                       onSave={handleAddCondition}
                       onCancel={() => setAddingCondition(false)}
                       saveLabel="Add"
+                      localeOptions={localeOptions}
                     />
                   )}
                 </div>

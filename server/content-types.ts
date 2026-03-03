@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { getSupportedLocales, getDefaultLocale } from "./settings";
 
 export interface DatabaseConfig {
   slug: string;
@@ -9,15 +10,15 @@ export interface DatabaseConfig {
 }
 
 export interface ContentTypeEntry {
-  folder: string;
+  directory: string;
   url_pattern: Record<string, string>;
   database?: DatabaseConfig;
 }
 
 interface ContentTypesRegistry {
   types: Record<string, ContentTypeEntry>;
-  folderToType: Map<string, string>;
-  allFolders: string[];
+  directoryToType: Map<string, string>;
+  allDirectories: string[];
   allTypes: string[];
 }
 
@@ -25,14 +26,49 @@ let registry: ContentTypesRegistry | null = null;
 
 const CONFIG_PATH = path.join(process.cwd(), "marketing-content", "content-types.yml");
 
-const SUPPORTED_LOCALES = ["en", "es"];
+const CONFIG_HEADER = `# Content Types Configuration
+# ===========================
+# Each entry defines a content type with its URL routing and optional database connection.
+#
+# Required fields:
+#   directory: folder inside marketing-content/ where YAML entries live
+#   url_pattern: URL routing pattern (must include :slug for unique entry URLs)
+#     - Per-locale object: { en: /en/path/:slug, es: /es/ruta/:slug }
+#     - Shorthand: { default: /landing/:slug } (same path for all locales)
+#
+# Optional fields:
+#   database: connects this content type to a cached API database
+#     slug: database name (matches a db config in marketing-content/db/)
+#     field_mapping: maps content concepts to database field names
+#       Underscore-prefixed fields are mandatory special fields:
+#         _locale: DB field containing the entry's language (e.g., lang)
+#         _slug: DB field containing the entry's unique identifier (e.g., slug)
+#       Other fields (no underscore): optional mappings for content display
+#     indexes: fields to index for faster lookups
+`;
+
+function writeConfigWithHeader(allTypes: Record<string, ContentTypeEntry>): void {
+  const yamlBody = yaml.dump(allTypes, { lineWidth: 120, noRefs: true, sortKeys: false });
+  fs.writeFileSync(CONFIG_PATH, CONFIG_HEADER + "\n" + yamlBody, "utf-8");
+}
+
+function validateUrlPatterns(urlPattern: Record<string, string>): void {
+  for (const [locale, pattern] of Object.entries(urlPattern)) {
+    if (!pattern.startsWith("/")) {
+      throw new Error(`URL pattern for "${locale}" must start with /`);
+    }
+    if (!pattern.includes(":slug")) {
+      throw new Error(`URL pattern for "${locale}" must include :slug`);
+    }
+  }
+}
 
 export function normalizeUrlPattern(raw: string | Record<string, string>): Record<string, string> {
   if (typeof raw === "object" && raw !== null) return raw;
   if (typeof raw !== "string") return {};
   if (raw.includes(":locale")) {
     const result: Record<string, string> = {};
-    for (const locale of SUPPORTED_LOCALES) {
+    for (const locale of getSupportedLocales()) {
       result[locale] = raw.replaceAll(":locale", locale);
     }
     return result;
@@ -58,52 +94,60 @@ function loadRegistry(): ContentTypesRegistry {
     if (config?.url_pattern) {
       config.url_pattern = normalizeUrlPattern(config.url_pattern);
     }
+    if (config?.folder && !config.directory) {
+      config.directory = config.folder;
+      delete config.folder;
+    }
   }
 
-  const folderToType = new Map<string, string>();
+  const directoryToType = new Map<string, string>();
   for (const [type, config] of Object.entries(parsed)) {
-    if ((config as ContentTypeEntry).folder) {
-      folderToType.set((config as ContentTypeEntry).folder, type);
+    if ((config as ContentTypeEntry).directory) {
+      directoryToType.set((config as ContentTypeEntry).directory, type);
     }
   }
 
   registry = {
     types: parsed,
-    folderToType,
-    allFolders: Object.values(parsed).map(c => c.folder),
+    directoryToType,
+    allDirectories: Object.values(parsed).map(c => c.directory),
     allTypes: Object.keys(parsed),
   };
 
   return registry;
 }
 
-export function getFolder(type: string): string {
+export function getDirectory(type: string): string {
   const reg = loadRegistry();
   const entry = reg.types[type];
-  if (entry?.folder) return entry.folder;
-  if (reg.folderToType.has(type)) return type;
+  if (entry?.directory) return entry.directory;
+  if (reg.directoryToType.has(type)) return type;
   return type;
 }
 
-export function getType(folderOrType: string): string {
+export const getFolder = getDirectory;
+
+export function getType(directoryOrType: string): string {
   const reg = loadRegistry();
-  if (reg.types[folderOrType]) return folderOrType;
-  const mapped = reg.folderToType.get(folderOrType);
-  return mapped || folderOrType;
+  if (reg.types[directoryOrType]) return directoryOrType;
+  const mapped = reg.directoryToType.get(directoryOrType);
+  return mapped || directoryOrType;
 }
 
 export function isValidType(type: string): boolean {
   const reg = loadRegistry();
-  return type in reg.types || reg.folderToType.has(type);
+  return type in reg.types || reg.directoryToType.has(type);
 }
 
 export function getAllTypes(): string[] {
   return loadRegistry().allTypes;
 }
 
-export function getAllFolders(): string[] {
-  return loadRegistry().allFolders;
+export function getAllDirectories(): string[] {
+  return loadRegistry().allDirectories;
 }
+
+export const getAllFolders = getAllDirectories;
 
 export function getUrlPattern(type: string, locale: string): string | null {
   const reg = loadRegistry();
@@ -128,14 +172,16 @@ export function getLabel(type: string): string {
   return singular.charAt(0).toUpperCase() + singular.slice(1);
 }
 
-export function getFolderMap(): Record<string, string> {
+export function getDirectoryMap(): Record<string, string> {
   const reg = loadRegistry();
   const map: Record<string, string> = {};
   for (const [type, config] of Object.entries(reg.types)) {
-    map[type] = config.folder;
+    map[type] = config.directory;
   }
   return map;
 }
+
+export const getFolderMap = getDirectoryMap;
 
 export function getDatabaseName(type: string): string | null {
   const reg = loadRegistry();
@@ -144,22 +190,62 @@ export function getDatabaseName(type: string): string | null {
   return entry?.database?.slug || null;
 }
 
-export function getFieldMapping(type: string): Record<string, string> | null {
+export function getFullFieldMapping(type: string): Record<string, string> | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
   const mapping = entry?.database?.field_mapping;
   if (!mapping) return null;
-  const filtered: Record<string, string> = {};
+  const result: Record<string, string> = {};
   for (const [key, value] of Object.entries(mapping)) {
+    result[key] = typeof value === "object" ? value.source : value;
+  }
+  return Object.keys(result).length > 0 ? result : null;
+}
+
+export function getFieldMapping(type: string): Record<string, string> | null {
+  const full = getFullFieldMapping(type);
+  if (!full) return null;
+  const filtered: Record<string, string> = {};
+  for (const [key, value] of Object.entries(full)) {
     if (!key.startsWith("_")) {
-      filtered[key] = typeof value === "object" ? value.source : value;
+      filtered[key] = value;
     }
   }
   return Object.keys(filtered).length > 0 ? filtered : null;
 }
 
+export function getSlugField(type: string): string | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  const slugConfig = entry?.database?.field_mapping?._slug;
+  if (!slugConfig) return null;
+  if (typeof slugConfig === "object") return slugConfig.source;
+  return slugConfig;
+}
+
 export function getLocaleKey(type: string): string | null {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  const localeConfig = entry?.database?.field_mapping?._locale;
+  if (!localeConfig) return null;
+  const raw = typeof localeConfig === "object" ? localeConfig.source : localeConfig;
+  if (raw.startsWith("function:")) {
+    const mapping = entry?.database?.field_mapping;
+    if (mapping) {
+      const localeLikeFields = ["lang", "locale", "language"];
+      for (const f of localeLikeFields) {
+        if (f in mapping && !f.startsWith("_")) return f;
+      }
+    }
+    return null;
+  }
+  return raw;
+}
+
+export function getLocaleSource(type: string): string | null {
   const reg = loadRegistry();
   const singular = getType(type);
   const entry = reg.types[singular];
@@ -177,7 +263,7 @@ export function getLocaleDefault(type: string): string {
   if (localeConfig && typeof localeConfig === "object" && localeConfig.default) {
     return localeConfig.default;
   }
-  return "en";
+  return getDefaultLocale();
 }
 
 export function getIndexes(type: string): string[] {
@@ -224,12 +310,87 @@ export function updateContentTypeConfig(type: string, update: Partial<ContentTyp
     merged.database = { ...existing.database, ...update.database };
   }
 
-  const allTypes = { ...reg.types, [singular]: merged };
+  if (merged.url_pattern) {
+    validateUrlPatterns(merged.url_pattern);
+  }
 
-  const yamlBody = yaml.dump(allTypes, { lineWidth: 120, noRefs: true, sortKeys: false });
-  fs.writeFileSync(CONFIG_PATH, yamlBody, "utf-8");
+  if (merged.database && !merged.database.field_mapping?._slug) {
+    throw new Error(`Database-backed content type "${singular}" requires _slug in field_mapping`);
+  }
+
+  const allTypes = { ...reg.types, [singular]: merged };
+  writeConfigWithHeader(allTypes);
   resetRegistry();
   console.log(`[ContentTypes] Updated config for "${singular}"`);
+}
+
+export function addContentType(name: string, config: ContentTypeEntry): void {
+  const reg = loadRegistry();
+  if (reg.types[name]) {
+    throw new Error(`Content type "${name}" already exists`);
+  }
+
+  validateUrlPatterns(config.url_pattern);
+
+  if (config.database && !config.database.field_mapping?._slug) {
+    throw new Error(`Database-backed content type "${name}" requires _slug in field_mapping`);
+  }
+
+  const allTypes = { ...reg.types, [name]: config };
+  writeConfigWithHeader(allTypes);
+
+  const dirPath = path.join(process.cwd(), "marketing-content", config.directory);
+  const isNewDir = !fs.existsSync(dirPath);
+  if (isNewDir) {
+    fs.mkdirSync(dirPath, { recursive: true });
+    console.log(`[ContentTypes] Created directory: marketing-content/${config.directory}/`);
+  }
+
+  if (isNewDir) {
+    const locales = getSupportedLocales();
+    const sampleSlug = `sample-${name}`;
+    const sampleDir = path.join(dirPath, sampleSlug);
+    fs.mkdirSync(sampleDir, { recursive: true });
+
+    const titleCase = name.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+    const commonYml = [
+      `slug: ${sampleSlug}`,
+      `title: ${titleCase}`,
+      "",
+      "meta:",
+      "  robots: index, follow",
+      "  priority: 0.9",
+      "  change_frequency: weekly",
+      "",
+      "schema:",
+      "  include:",
+      "    - organization",
+      "    - website",
+      "",
+    ].join("\n");
+    fs.writeFileSync(path.join(sampleDir, "_common.yml"), commonYml);
+
+    for (const locale of locales) {
+      const localeYml = [
+        `slug: ${sampleSlug}`,
+        `title: ${titleCase}`,
+        "",
+        "meta:",
+        `  page_title: "${titleCase} | 4Geeks"`,
+        `  description: "Sample ${name} entry for ${locale} locale."`,
+        "",
+        "sections: []",
+        "",
+      ].join("\n");
+      fs.writeFileSync(path.join(sampleDir, `${locale}.yml`), localeYml);
+    }
+
+    console.log(`[ContentTypes] Created sample entry: marketing-content/${config.directory}/${sampleSlug}/ (${locales.length} locale(s))`);
+  }
+
+  resetRegistry();
+  console.log(`[ContentTypes] Added content type "${name}"`);
 }
 
 export function resetRegistry(): void {
@@ -270,8 +431,9 @@ export function resolveUrlPatternWithMapping(
 
     let rawValue: unknown;
 
-    if (fieldMapping && key in fieldMapping) {
-      const sourceField = fieldMapping[key];
+    const mappingKey = fieldMapping && `_${key}` in fieldMapping ? `_${key}` : key;
+    if (fieldMapping && mappingKey in fieldMapping) {
+      const sourceField = fieldMapping[mappingKey];
       if (sourceField) {
         rawValue = extractDotPath(record, sourceField);
       }
@@ -298,6 +460,6 @@ export function resolveContentTypeUrl(
   if (!config?.url_pattern) return null;
   const pattern = config.url_pattern[locale] || config.url_pattern["default"] || config.url_pattern["en"];
   if (!pattern) return null;
-  const mapping = getFieldMapping(type);
+  const mapping = getFullFieldMapping(type);
   return resolveUrlPatternWithMapping(pattern, record, locale, mapping);
 }

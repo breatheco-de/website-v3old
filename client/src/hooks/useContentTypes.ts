@@ -1,33 +1,57 @@
 import { useQuery } from "@tanstack/react-query";
 
 interface ContentTypeEntry {
-  folder: string;
+  directory: string;
   url_pattern: Record<string, string>;
+}
+
+export interface ContentTypeApiItem {
+  name: string;
+  label: string;
+  directory: string;
+  url_pattern: Record<string, string>;
+  has_database: boolean;
+  database_slug: string | null;
+  has_field_mapping: boolean;
+  static_entry_count: number;
 }
 
 type ContentTypesMap = Record<string, ContentTypeEntry>;
 
-export function useContentTypes() {
-  const { data } = useQuery<ContentTypesMap>({
+export function useContentTypesRaw() {
+  return useQuery<ContentTypeApiItem[]>({
     queryKey: ["/api/content-types"],
     staleTime: Infinity,
   });
+}
 
-  return data ?? null;
+export function useContentTypes() {
+  const { data } = useContentTypesRaw();
+
+  if (!data) return null;
+
+  const map: ContentTypesMap = {};
+  for (const item of data) {
+    map[item.name] = {
+      directory: item.directory,
+      url_pattern: item.url_pattern,
+    };
+  }
+  return map;
 }
 
 export function getTypeFromFolder(configs: ContentTypesMap, folder: string): string {
   for (const [type, config] of Object.entries(configs)) {
-    if (config.folder === folder) return type;
+    if (config.directory === folder) return type;
   }
   return folder;
 }
 
 export function getFolderFromType(configs: ContentTypesMap, type: string): string {
   const config = configs[type];
-  if (config) return config.folder;
+  if (config) return config.directory;
   for (const [t, c] of Object.entries(configs)) {
-    if (c.folder === type) return type;
+    if (c.directory === type) return type;
   }
   return type;
 }
@@ -52,7 +76,7 @@ export function normalizeContentType(typeOrFolder: string, configs?: ContentType
   if (configs && configs[typeOrFolder]) return typeOrFolder;
   if (configs) {
     for (const [type, config] of Object.entries(configs)) {
-      if (config.folder === typeOrFolder) return type;
+      if (config.directory === typeOrFolder) return type;
     }
   }
   return typeOrFolder;
