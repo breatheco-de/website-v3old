@@ -192,7 +192,7 @@ sections:
     primary:
       heading: The Confidence of a Job Guarantee*
       description: |-
-        <span style="font-size: 1rem;">We stand behind our training.&nbsp;<b style="font-size: 1.25rem; color: rgb(0, 7, 26);"><span>Our optional Job Guarantee is designed for students transitioning into tech:</span></b></span><b style="font-size: 1.25rem; color: rgb(0, 7, 26);"><span style="font-size: 1.5rem;"></span></b><div><span style="font-size: 1.25rem;"><b><span style="font-size: 1.5rem;"><span>
+        <b><span style="font-size: 1rem;"></span></b><span style="font-size: 1rem; color: hsl(var(--primary-foreground));"><b><span>We stand behind our training.&nbsp;<span style="color: rgb(0, 7, 26);"><span>Our optional Job Guarantee is designed for students transitioning into tech:</span></span></span><span style="color: rgb(0, 7, 26);"><span></span></span></b><div></div></span><div><span style="font-size: 1.25rem;"><b><span style="font-size: 1.5rem;"><span>
           <span><span>Get hired into a qualifying tech role within 9 months of graduation.
           <br>
           Or receive a full tuition refund.</span></span>
