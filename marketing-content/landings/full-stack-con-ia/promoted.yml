@@ -1,4 +1,4 @@
-slug: "full-stack-con-ia"
+slug: full-stack-con-ia
 title: Example Landing Page
 locale: en
 meta:
@@ -8,7 +8,6 @@ meta:
   change_frequency: weekly
   page_title: Example Landing Page | 4Geeks
   description: This is an example landing page demonstrating the various section types and layouts available.
-
 schema:
   include:
     - organization
@@ -32,30 +31,29 @@ sections:
     background: hsl(var(--background))
   - type: hero
     variant: course
-    title: Work not harder, apply AI at Work
-    subtitle: Boost your career, harness the power of Applied AI.
+    title: Programa de Desarrollo Full Stack con IA
+    subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +48 students enrolled
+      count: Más de 1.000 estudiantes en LATAM y EE. UU.
     bullet_points:
-      - Learn prompt engineering techniques to control AI outputs precisely
-      - Create professional images, videos, and documents using AI tools
-      - Build automated workflows that save hours of repetitive work
-      - Develop websites and chatbots without writing code
-      - Apply AI to enhance your learning and personal development
+      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
+      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
+      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
+      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
     tutors:
-      - name: Charly Chacón
-        role: Main Instructor
+      - name: Instructor Experto
+        role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
-        role: AI Tutor
+        role: Asistente de Aprendizaje con IA
         image: https://randomuser.me/api/portraits/lego/1.jpg
     tutors_label: "Your tutors:"
-    description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     media:
       type: video
       src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
