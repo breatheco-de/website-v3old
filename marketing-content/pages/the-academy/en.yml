@@ -9,7 +9,6 @@ meta:
   description: The Academy - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /the-academy
-    - /us/why-4geeks
 schema:
   include:
     - organization
