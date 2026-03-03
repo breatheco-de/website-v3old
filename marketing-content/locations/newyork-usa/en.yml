@@ -74,8 +74,8 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: At the Center of New York's Tech Momentum
-    description: New York's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence. As New York continues to expand its tech sector, we connect you with local employers, tech events, and hiring partners—helping you build relationships that support your entry and long-term growth in tech.
+    title: Train for Tech Careers in One of the World’s Most Competitive Markets
+    description: New York is home to one of the largest technology job markets in the United States. Our AI-native programs and structured mentorship prepare you to compete in a fast-moving environment where software, data, cybersecurity, and AI skills are in constant demand.
     background: gradient
     marginY:
       desktop: lg none
