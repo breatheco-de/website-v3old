@@ -218,10 +218,10 @@ export const heroCourseSchema = z.object({
     thumbnail: z.string().optional(),
     alt: z.string().optional(),
   }).optional(),
+  form: leadFormDataSchema.optional(),
   signup_card: z.object({
     title: z.string(),
     description: z.string().optional(),
-    form: leadFormDataSchema.optional(),
     cta_button: ctaButtonSchema.optional(),
     login_link: z.object({
       text: z.string(),
