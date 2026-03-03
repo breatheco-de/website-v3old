@@ -194,11 +194,10 @@ sections:
       description: |-
         We stand behind our training.
         <div>
-          Our optional Job Guarantee is designed for students transitioning into tech.
-          <br><br>
-          Get hired into a qualifying tech role within 9 months of graduation.
+          Our optional Job Guarantee is designed for students transitioning into tech:<br>
+          <span style="font-size: 1.5rem;"><span><b>Get hired into a qualifying tech role within 9 months of graduation.
           <br>
-          Or receive a full tuition refund.
+          Or receive a full tuition refund.</b></span></span>
           <br><br>
           <span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div>
