@@ -507,11 +507,16 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
       const content = fs.readFileSync(fullPath, 'utf-8');
       const sha = computeFileSha(content);
       const stats = fs.statSync(fullPath);
-      
+
+      const existing = existingState.files[filePath];
+      const hadLocalChanges = existing && existing.remoteSha && existing.sha !== existing.remoteSha;
+
       state.files[filePath] = {
         sha,
         lastModified: stats.mtimeMs,
-        remoteSha: sha,
+        remoteSha: hadLocalChanges ? existing.remoteSha : sha,
+        ...(hadLocalChanges && existing.author ? { author: existing.author } : {}),
+        ...(hadLocalChanges && existing.modifiedAt ? { modifiedAt: existing.modifiedAt } : {}),
       };
     } catch (error) {
       console.error(`Error reading file ${filePath}:`, error);
