@@ -1,16 +1,15 @@
-# Common properties for AI Engineering Landing (English)
-slug: "ai-engineering-en"
-title: "AI Engineering Program"
-locale: "en"
-
+slug: ai-engineering-en
+title: AI Engineering Program
+locale: en
 meta:
-  robots: "index, follow"
-  og_image: "/images/programs/ai-engineering-og.jpg"
+  robots: index, follow
+  og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
-  change_frequency: "weekly"
-
+  change_frequency: weekly
+  redirects:
+    - /us/next-datess
 schema:
   include:
-    - "organization"
-    - "website"
-    - "courses:ai-engineering"
+    - organization
+    - website
+    - courses:ai-engineering
