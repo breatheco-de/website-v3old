@@ -429,7 +429,7 @@ sections:
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
@@ -442,11 +442,11 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-84re7m
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-84re7m
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?

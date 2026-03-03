@@ -40,8 +40,8 @@ sections:
     form:
       variant: stacked
       submit_label: Submit Application
+      tags: contact-us
       automations: soft
-      tags: contact_us
       fields:
         email:
           visible: true
@@ -493,7 +493,7 @@ sections:
     form:
       variant: stacked
       submit_label: Start the Conversation
-      tags: contact_us
+      tags: contact-us
       automations: soft
       fields:
         email:

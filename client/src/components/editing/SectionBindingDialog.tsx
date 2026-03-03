@@ -41,7 +41,7 @@ interface SectionBindingDialogProps {
     name?: string;
     component: string;
     locale: string;
-    members: Array<{ contentType: string; slug: string; sectionIndex: number; sectionId?: string }>;
+    members: Array<{ contentType: string; slug: string; localeSlug?: string; sectionIndex: number; sectionId?: string }>;
   } | null;
   onBindingChanged: () => void;
 }
@@ -49,6 +49,7 @@ interface SectionBindingDialogProps {
 interface Candidate {
   contentType: string;
   slug: string;
+  localeSlug?: string;
   sectionIndex: number;
   sectionId?: string;
   title?: string;
@@ -149,6 +150,7 @@ export function SectionBindingDialog({
         const lower = search.toLowerCase();
         return (
           c.slug.toLowerCase().includes(lower) ||
+          c.localeSlug?.toLowerCase().includes(lower) ||
           c.title?.toLowerCase().includes(lower) ||
           c.contentType.toLowerCase().includes(lower)
         );
@@ -171,6 +173,7 @@ export function SectionBindingDialog({
       const lower = search.toLowerCase();
       return (
         c.slug.toLowerCase().includes(lower) ||
+        c.localeSlug?.toLowerCase().includes(lower) ||
         c.title?.toLowerCase().includes(lower) ||
         c.contentType.toLowerCase().includes(lower)
       );
@@ -767,14 +770,15 @@ export function SectionBindingDialog({
             <div className="space-y-1 max-h-[132px] overflow-y-auto">
               {existingGroup.members.map(m => {
                 const key = candidateKey(m);
-                const isSelf = m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex;
+                const displaySlug = m.localeSlug || m.slug;
+                const isSelf = m.contentType === contentType && (m.slug === slug || m.localeSlug === slug) && m.sectionIndex === sectionIndex;
                 const hashAnchor = m.sectionId || `${component}-${m.sectionIndex}`;
                 return (
                   <div key={key} className="flex items-center text-sm py-1">
                     <div className="flex items-center gap-2 min-w-0 flex-wrap">
                       <Badge variant="outline" className="text-xs shrink-0">{m.contentType}</Badge>
                       {isSelf ? (
-                        <span className="truncate">{m.slug}</span>
+                        <span className="truncate">{displaySlug}</span>
                       ) : (
                         <a
                           href={`/private/preview/${m.contentType}/${m.slug}?locale=${locale}#${hashAnchor}`}
@@ -782,7 +786,7 @@ export function SectionBindingDialog({
                           onClick={() => handleOpenChange(false)}
                           data-testid={`link-member-${key}`}
                         >
-                          {m.slug}
+                          {displaySlug}
                         </a>
                       )}
                       <span className="text-muted-foreground text-xs">section {m.sectionIndex}</span>
@@ -932,10 +936,10 @@ export function SectionBindingDialog({
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
-                              <span className="truncate font-medium">{c.title || c.slug}</span>
+                              <span className="truncate font-medium">{(c.title && c.title !== c.slug) ? c.title : (c.localeSlug || c.slug)}</span>
                             </div>
                             <p className="text-xs text-muted-foreground truncate">
-                              {c.slug} — section {c.sectionIndex}
+                              {c.localeSlug || c.slug} — section {c.sectionIndex}
                             </p>
                           </div>
                         </div>
@@ -1041,7 +1045,7 @@ export function SectionBindingDialog({
                                 onClick={(e) => e.stopPropagation()}
                                 data-testid={`link-group-member-${m.contentType}:${m.slug}:${m.sectionIndex}`}
                               >
-                                {m.slug}
+                                {m.localeSlug || m.slug}
                               </a>
                               {" "}— section {m.sectionIndex}
                             </p>
@@ -1122,10 +1126,10 @@ export function SectionBindingDialog({
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
                                 <Badge variant="outline" className="text-xs shrink-0">{c.contentType}</Badge>
-                                <span className="truncate font-medium">{c.title || c.slug}</span>
+                                <span className="truncate font-medium">{(c.title && c.title !== c.slug) ? c.title : (c.localeSlug || c.slug)}</span>
                               </div>
                               <p className="text-xs text-muted-foreground truncate">
-                                {c.slug} — section {c.sectionIndex} · <span className="uppercase font-medium">{locale}</span>
+                                {c.localeSlug || c.slug} — section {c.sectionIndex} · <span className="uppercase font-medium">{locale}</span>
                               </p>
                             </div>
                             {isBoundElsewhere && (

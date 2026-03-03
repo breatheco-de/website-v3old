@@ -1,5 +1,6 @@
 # Common properties shared across all variants
 slug: cybersecurity
+bc_slug: cybersecurity
 title: Cybersecurity
 
 meta:

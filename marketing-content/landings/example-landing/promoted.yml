@@ -18,7 +18,7 @@ schema:
 sections:
   - type: testimonials_grid
     version: v1.0
-    title: What Our Students Say test test test test test test test test
+    title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
     title_color: hsl(var(--foreground))
     subtitle_color: hsl(var(--muted-foreground))

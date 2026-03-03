@@ -10,7 +10,7 @@ meta:
     - /es/coding-campus/online-bootcamp-programacion
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Aprende a programar desde casa
     subtitle: Aprende a programar desde casa con soporte 1:1 ilimitado, contenido con IA y soporte profesional de por vida. Clases en vivo y apoyo para conseguir trabajo—desde cualquier lugar.
@@ -20,7 +20,7 @@ sections:
         url: /es/apply
         variant: primary
       - text: Solicitar Programa
-        url: '#cta_banner-14'
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
@@ -28,7 +28,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -56,13 +56,13 @@ sections:
         url: https://youtu.be/EcqasocRKHo
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -92,8 +92,8 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ''
-            text: ''
+          - icon: ""
+            text: ""
         description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
@@ -129,7 +129,7 @@ sections:
     section_id: course_selector-rgbtgl
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
@@ -203,7 +203,7 @@ sections:
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -249,7 +249,7 @@ sections:
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -299,7 +299,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -323,7 +323,7 @@ sections:
           placeholder: Teléfono
         program:
           visible: true
-          required: false
+          required: true
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
@@ -343,7 +343,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-mq984o
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false

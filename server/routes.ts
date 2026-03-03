@@ -192,14 +192,16 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
 
 function listCareerPrograms(
   locale: string,
-): Array<{ slug: string; title: string }> {
+): Array<{ slug: string; title: string; bc_slug: string }> {
   const slugs = contentIndex.listContentSlugs("program");
-  const programs: Array<{ slug: string; title: string }> = [];
+  const programs: Array<{ slug: string; title: string; bc_slug: string }> = [];
 
   for (const slug of slugs) {
     const program = loadCareerProgram(slug, locale);
     if (program) {
-      programs.push({ slug: program.slug, title: program.title });
+      const commonData = contentIndex.loadCommonData("program", slug);
+      const bcSlug = (commonData?.bc_slug as string) || slug;
+      programs.push({ slug: program.slug, title: program.title, bc_slug: bcSlug });
     }
   }
 
@@ -5004,6 +5006,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         ...g,
         members: g.members.map(m => ({
           ...m,
+          localeSlug: contentIndex.getLocaleSlug(m.slug, m.contentType, g.locale),
           sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, g.locale),
         })),
       }));
@@ -5023,11 +5026,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           .json({ error: "Missing contentType, slug, or sectionIndex" });
         return;
       }
+      const resolvedLocale = normalizeLocale(locale as string || "en");
+      const baseSlug = contentIndex.resolveBaseSlug(slug as string, contentType as string);
       const group = bindingManager.findGroupForSectionByIndex(
         contentType as string,
-        slug as string,
+        baseSlug,
         parseInt(sectionIndex as string, 10),
-        locale as string || "en",
+        resolvedLocale,
       );
       if (!group) {
         res.json({ group: null });
@@ -5037,6 +5042,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         ...group,
         members: group.members.map(m => ({
           ...m,
+          localeSlug: contentIndex.getLocaleSlug(m.slug, m.contentType, group.locale),
           sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
         })),
       };
@@ -5060,6 +5066,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const candidates: Array<{
         contentType: string;
         slug: string;
+        localeSlug: string;
         sectionIndex: number;
         sectionId?: string;
         title?: string;
@@ -5095,6 +5102,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               candidates.push({
                 contentType: entryContentType,
                 slug: entry.slug,
+                localeSlug: contentIndex.getLocaleSlug(entry.slug, entryContentType, normalizedLocale),
                 sectionIndex: i,
                 sectionId: (section as Record<string, unknown>).section_id as string | undefined,
                 title:
@@ -5153,8 +5161,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
       const normalizedLocale = normalizeLocale(locale);
       const resolvedMembers = members.map((m: { contentType: string; slug: string; sectionIndex: number }) => {
-        const sectionId = bindingManager.ensureSectionId(m.contentType, m.slug, m.sectionIndex, normalizedLocale, bindAuthorName);
-        return { contentType: m.contentType, slug: m.slug, sectionId };
+        const memberBaseSlug = contentIndex.resolveBaseSlug(m.slug, m.contentType);
+        const sectionId = bindingManager.ensureSectionId(m.contentType, memberBaseSlug, m.sectionIndex, normalizedLocale, bindAuthorName);
+        return { contentType: m.contentType, slug: memberBaseSlug, sectionId };
       });
       const { name, sourceIndex } = req.body;
       const group = bindingManager.createGroup(component, normalizedLocale, resolvedMembers, {
@@ -5165,6 +5174,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         ...group,
         members: group.members.map(m => ({
           ...m,
+          localeSlug: contentIndex.getLocaleSlug(m.slug, m.contentType, group.locale),
           sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, group.locale),
         })),
       };
@@ -5214,16 +5224,18 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(404).json({ error: "Binding group not found" });
         return;
       }
-      const sectionId = bindingManager.ensureSectionId(contentType, slug, parseInt(sectionIndex as string, 10), group.locale, addMemberAuthorName);
+      const addBaseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const sectionId = bindingManager.ensureSectionId(contentType, addBaseSlug, parseInt(sectionIndex as string, 10), group.locale, addMemberAuthorName);
       const updatedGroup = bindingManager.addMember(groupId, {
         contentType,
-        slug,
+        slug: addBaseSlug,
         sectionId,
       }, addMemberAuthorName);
       const enrichedGroup = {
         ...updatedGroup,
         members: updatedGroup.members.map(m => ({
           ...m,
+          localeSlug: contentIndex.getLocaleSlug(m.slug, m.contentType, updatedGroup.locale),
           sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, updatedGroup.locale),
         })),
       };
@@ -5253,15 +5265,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(404).json({ error: "Binding group not found" });
         return;
       }
-      const sectionId = bindingManager.getSectionIdAtIndex(contentType, slug, parseInt(sectionIndex as string, 10), group.locale);
+      const removeBaseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const sectionId = bindingManager.getSectionIdAtIndex(contentType, removeBaseSlug, parseInt(sectionIndex as string, 10), group.locale);
       if (!sectionId) {
-        res.status(400).json({ error: `No section_id found at index ${sectionIndex} for ${contentType}/${slug}` });
+        res.status(400).json({ error: `No section_id found at index ${sectionIndex} for ${contentType}/${removeBaseSlug}` });
         return;
       }
       const result = bindingManager.removeMemberBySectionId(
         groupId,
         contentType,
-        slug,
+        removeBaseSlug,
         sectionId,
         removeMemberAuthorName,
       );
@@ -5270,6 +5283,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           ...result,
           members: result.members.map(m => ({
             ...m,
+            localeSlug: contentIndex.getLocaleSlug(m.slug, m.contentType, result.locale),
             sectionIndex: bindingManager.resolveSectionIndex(m.contentType, m.slug, m.sectionId, result.locale),
           })),
         };
@@ -6117,6 +6131,7 @@ sections: []
       } else if (type === "program") {
         commonYml = `# Common properties shared across all variants
 slug: ${enSlug}
+bc_slug: ${enSlug}
 title: ${title}
 
 meta:
@@ -6582,6 +6597,7 @@ sections: []
     // Get all programs for dropdown
     const programs = listCareerPrograms(locale).map((p) => ({
       slug: p.slug,
+      bc_slug: p.bc_slug,
       title: p.title,
     }));
 

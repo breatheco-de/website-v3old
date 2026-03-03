@@ -51,7 +51,6 @@ sections:
       variant: stacked
       submit_label: Apply Now
       tags: website-lead
-      automations: hard
       fields:
         first_name:
           visible: true

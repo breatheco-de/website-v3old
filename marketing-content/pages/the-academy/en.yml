@@ -15,7 +15,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Building Tech Careers In the AI Era
     subtitle: 4Geeks Academy is an international tech academy with campuses across the U.S., Latin America, and Europe. We deliver AI-native programs in AI Engineering, Data Science and Machine Learning, Software Development, and Cybersecurity designed to prepare professionals for high-demand roles in today’s AI-driven economy.
@@ -34,7 +34,7 @@ sections:
     primary_width: narrow
     primary:
       heading: Our Mission & Approach
-      description: "Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career support. The goal is simple: give students the technical depth, practical experience, and job-search strategy needed to get hired, and keep growing."
+      description: 'Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career support. The goal is simple: give students the technical depth, practical experience, and job-search strategy needed to get hired, and keep growing.'
       badge: Results-Backed Model
     secondary:
       benefits:
@@ -47,7 +47,7 @@ sections:
     marginY:
       desktop: lg none
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: laptopEdge
     heading: What Makes Us Different
     cards:
@@ -70,7 +70,7 @@ sections:
     paddingY:
       desktop: none
   - type: stats
-    version: "1.0"
+    version: '1.0'
     items:
       - value: +{{ global.global_total_alumni | 7000 }}
         label: Alumni
@@ -100,7 +100,7 @@ sections:
       heading: Shaping the Global Tech Ecosystem
       description: At 4Geeks Academy, we believe collaboration drives real impact. We work with universities, nonprofits, workforce development initiatives, global organizations, and local tech communities to expand access to top tech education and strengthen career pathways. Together, we train and place diverse talent, close the digital skills gap, and build the tech workforce of the future. We’re also active in the community, partnering on hackathons, tech challenges, and industry events that connect talent with opportunity and showcase the skills of our students and graduates.
       text_align: left
-    gap: "12"
+    gap: '12'
     marginY:
       desktop: md none
     paddingY:
@@ -221,7 +221,7 @@ sections:
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -260,7 +260,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

@@ -16,7 +16,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: simpleTwoColumn
     title: 4Geeks Academy vs Other Programs
     subtitle: See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship and lifetime career support, everything we do is designed to help you launch a thriving career.
@@ -30,9 +30,9 @@ sections:
     marginY:
       desktop: none md
   - type: comparison_table
-    version: '1.0'
+    version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
-    subtitle: 'We''re built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:'
+    subtitle: "We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:"
     columns:
       - name: Feature
       - name: 4Geeks Academy
@@ -81,7 +81,7 @@ sections:
       desktop: md
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Hyperpersonalized Learning & Support that Lasts a Lifetime
     description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
     bullets:
@@ -94,7 +94,7 @@ sections:
     footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-cards
     title: Graduate Success by the Numbers
     subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
@@ -131,14 +131,14 @@ sections:
       type: image
       src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
       alt: Students collaborating in classroom
-      aspect_ratio: '4:3'
+      aspect_ratio: "4:3"
       style: rounded
     background: bg-muted/30
     stacked_header: true
     marginY:
       desktop: none xl
   - type: features_quad
-    version: '1.0'
+    version: "1.0"
     variant: default
     heading: Making Tech Careers Accessible
     description: Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most flexible, student-friendly payment and scholarship options in the industry.
@@ -162,7 +162,7 @@ sections:
     variant: primary-left
     primary:
       heading: Your Career, Guaranteed
-      description: 'The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools promise "career support." At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full.&nbsp;<div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.&nbsp;&nbsp;<a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf" style="font-size: 0.875rem;"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf" style="font-size: 0.875rem;"><span style="font-size: 1rem;"><span style="font-size: 0.875rem;"><span style="font-size: 0.875rem;"></span></span></span></a></div>'
+      description: "The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.&nbsp;&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 0.875rem;\"></span></span></span></a></div>"
       badge: Results-backed promise
     secondary:
       benefits:
@@ -256,7 +256,7 @@ sections:
     paddingY:
       desktop: md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Get Started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -265,7 +265,6 @@ sections:
       variant: stacked
       submit_label: Apply now
       tags: website-lead
-      automations: hard
       fields:
         email:
           visible: true
@@ -297,7 +296,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

@@ -32,7 +32,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -90,7 +89,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
@@ -595,7 +593,6 @@ sections:
       conversion_name: student_application
       submit_label: Aplicar ahora
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
