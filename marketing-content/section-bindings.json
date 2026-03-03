@@ -1416,6 +1416,59 @@
       "createdAt": "2026-03-02T15:28:08.909Z",
       "name": "why-4geeks-cta-es",
       "updatedAt": "2026-03-02T15:43:58.195Z"
+    },
+    {
+      "id": "bind_mmaznlvf_opfq7p",
+      "component": "two_column",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "two_column-gjx3a8"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "two_column-jy5f7x"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "two_column-jcaa2h"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "two_column-w4st3p"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "two_column-vjkiek"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "two_column-h5v9nk"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "two_column-i6x1xm"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "two_column-2949k1"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "two_column-r593xv"
+        }
+      ],
+      "createdAt": "2026-03-03T19:16:11.259Z"
     }
   ]
 }

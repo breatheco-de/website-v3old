@@ -95,6 +95,7 @@ sections:
       desktop: none sm
     paddingY:
       desktop: none md
+    section_id: two_column-gjx3a8
   - type: course_selector
     version: "1.0"
     variant: solid
