@@ -584,7 +584,6 @@ sections:
       variant: stacked
       submit_label: Obtener los detalles
       tags: website-lead
-      automations: hard
       fields:
         email:
           visible: true
