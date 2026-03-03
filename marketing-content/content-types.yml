@@ -10,31 +10,18 @@
 #
 # field_mapping (recommended):
 #   Declares which fields are available as {{ single.* }} template variables.
-#   Each key is the variable name, each value is the source field.
-#
-#   For database-backed types:
-#     Maps content concepts to database column names.
+#   For database-backed types: maps content concepts to database column names.
 #     Underscore-prefixed fields are mandatory special fields:
-#       _slug: DB field containing the entry's unique identifier (e.g., slug)
-#       _locale: DB field containing the entry's language (e.g., lang)
-#     Values can also be transformation functions (base64-encoded, prefixed with "function:").
-#
-#   For non-database types:
-#     Exposes YAML keys from the merged content (_common.single.yml + _common.yml + [locale].yml)
-#     as {{ single.* }} variables usable in templates and sections.
-#     Dot-notation is supported for nested keys (e.g., page_title: meta.page_title).
-#
-#   Example usage in a section:
-#     heading: "Welcome to {{ single.title }}"
-#     description: "{{ single.description }}"
+#       _slug: DB field containing the entry's unique identifier
+#       _locale: DB field containing the entry's language
+#   For non-database types: exposes YAML keys from merged content as {{ single.* }} variables.
+#     Dot-notation supported for nested keys (e.g., page_title: meta.page_title).
 #
 # indexes (optional):
-#   Fields to use for filtering when listing entries of this type.
-#   Works for both database and non-database content types.
+#   Fields for filtering when listing entries. Works for DB and non-DB types.
 #
 # database (optional):
-#   Connects this content type to a cached API database.
-#     slug: database name (matches a db config in marketing-content/db/)
+#   slug: database name (matches a db config in marketing-content/db/)
 
 program:
   directory: programs
@@ -42,6 +29,7 @@ program:
     slug: slug
     title: title
     bc_slug: bc_slug
+    job_role: job_role
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug
@@ -80,7 +68,9 @@ page:
   field_mapping:
     slug: slug
     title: title
-  url_pattern: /:locale/:slug
+  url_pattern:
+    en: /en/:slug
+    es: /es/:slug
 blog:
   directory: blog
   field_mapping:

@@ -76,6 +76,11 @@ export interface RedirectEntry {
   priority?: "before" | "fallback";
 }
 
+export interface CommonFieldInfo {
+  common: string[];
+  partial: { key: string; count: number; total: number }[];
+}
+
 class ContentIndex {
   private entries: ContentEntry[] = [];
   private bySlug: Map<string, ContentEntry[]> = new Map();
@@ -85,6 +90,7 @@ class ContentIndex {
   private redirectEntries: RedirectEntry[] = [];
   private localeSlugMap: Map<string, string> = new Map();
   private contentTypeConfigs: Record<string, ContentTypeConfig> = {};
+  private commonFieldsCache: Map<string, CommonFieldInfo> = new Map();
   private initialized = false;
 
   private static instance: ContentIndex;
@@ -181,6 +187,7 @@ class ContentIndex {
     this.variableUsage = new Map();
     this.redirectEntries = [];
     this.localeSlugMap = new Map();
+    this.commonFieldsCache = new Map();
 
     for (const contentType of contentTypes) {
       const diskFolder = this.contentTypeConfigs[contentType]?.directory || contentType;
@@ -1091,6 +1098,80 @@ class ContentIndex {
       console.error(`Error getting locales for ${contentType}/${slug}:`, error);
       return [];
     }
+  }
+
+  private collectDotPaths(obj: unknown, prefix: string, maxDepth: number, depth: number = 0): string[] {
+    if (depth >= maxDepth || obj == null || typeof obj !== "object" || Array.isArray(obj)) {
+      return [];
+    }
+    const paths: string[] = [];
+    for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+      if (key.startsWith("_")) continue;
+      const dotPath = prefix ? `${prefix}.${key}` : key;
+      if (typeof value === "string" && (value.includes("{{") || value.startsWith("function:"))) continue;
+      paths.push(dotPath);
+      if (value != null && typeof value === "object" && !Array.isArray(value)) {
+        paths.push(...this.collectDotPaths(value, dotPath, maxDepth, depth + 1));
+      }
+    }
+    return paths;
+  }
+
+  private computeCommonFields(contentType: string): CommonFieldInfo {
+    const slugs = this.listContentSlugs(contentType as ContentType);
+    if (slugs.length === 0) {
+      return { common: [], partial: [] };
+    }
+
+    const keyCounts = new Map<string, number>();
+    let total = 0;
+
+    for (const slug of slugs) {
+      const locales = this.getAvailableLocalesOrVariants(contentType as ContentType, slug);
+      const locale = locales.includes("en") ? "en" : locales[0];
+      if (!locale) continue;
+
+      const { data } = this.loadMergedContent(contentType, slug, locale);
+      if (!data) continue;
+
+      total++;
+      const paths = this.collectDotPaths(data, "", 2);
+      for (const p of paths) {
+        keyCounts.set(p, (keyCounts.get(p) || 0) + 1);
+      }
+    }
+
+    const common: string[] = [];
+    const partial: { key: string; count: number; total: number }[] = [];
+
+    for (const [key, count] of keyCounts) {
+      if (count === total) {
+        common.push(key);
+      } else {
+        partial.push({ key, count, total });
+      }
+    }
+
+    common.sort();
+    partial.sort((a, b) => b.count - a.count || a.key.localeCompare(b.key));
+
+    return { common, partial };
+  }
+
+  getCommonFields(contentType: string): CommonFieldInfo {
+    this.ensureInitialized();
+    const normalized = this.normalizeType(contentType);
+    let cached = this.commonFieldsCache.get(normalized);
+    if (!cached) {
+      cached = this.computeCommonFields(normalized);
+      this.commonFieldsCache.set(normalized, cached);
+    }
+    return cached;
+  }
+
+  invalidateCommonFields(contentType: string): void {
+    const normalized = this.normalizeType(contentType);
+    this.commonFieldsCache.delete(normalized);
   }
 }
 

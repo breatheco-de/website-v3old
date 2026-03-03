@@ -8,14 +8,20 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { IconCheck, IconSearch, IconLoader2, IconAlertTriangle } from "@tabler/icons-react";
+import { IconCheck, IconSearch, IconLoader2, IconAlertTriangle, IconPlus, IconX } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
 
 interface FieldValidationResult {
   valid: boolean;
   total: number;
   found: number;
   missing: { slug: string; files: string[] }[];
+}
+
+interface AvailableProperties {
+  common: string[];
+  partial: { key: string; count: number; total: number }[];
 }
 
 interface SingleVariablePickerModalProps {
@@ -37,8 +43,13 @@ export function SingleVariablePickerModal({
   const [selectedField, setSelectedField] = useState<string | null>(null);
   const [validation, setValidation] = useState<FieldValidationResult | "loading" | null>(null);
   const requestCounter = useRef(0);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newFieldName, setNewFieldName] = useState("");
+  const [newFieldSource, setNewFieldSource] = useState("");
+  const [addingSaving, setAddingSaving] = useState(false);
+  const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
 
-  const { data: typeConfig } = useQuery<{
+  const { data: typeConfig, refetch: refetchConfig } = useQuery<{
     name: string;
     label: string;
     field_mapping?: Record<string, string>;
@@ -46,6 +57,12 @@ export function SingleVariablePickerModal({
   }>({
     queryKey: [`/api/content-types/${contentType}/config`],
     enabled: open && !!contentType,
+  });
+
+  const { data: availableProps } = useQuery<AvailableProperties>({
+    queryKey: [`/api/content-types/${contentType}/available-properties`, "exclude_mapped"],
+    queryFn: () => fetch(`/api/content-types/${contentType}/available-properties?exclude_mapped=true`).then(r => r.json()),
+    enabled: open && showAddForm && !!contentType,
   });
 
   const isDbBacked = !!typeConfig?.database?.slug;
@@ -65,6 +82,16 @@ export function SingleVariablePickerModal({
         f.source.toLowerCase().includes(q),
     );
   }, [fields, search]);
+
+  const filteredAvailableProps = useMemo(() => {
+    if (!availableProps) return { common: [], partial: [] };
+    const q = newFieldSource.toLowerCase().trim();
+    if (!q) return availableProps;
+    return {
+      common: availableProps.common.filter(k => k.toLowerCase().includes(q)),
+      partial: availableProps.partial.filter(p => p.key.toLowerCase().includes(q)),
+    };
+  }, [availableProps, newFieldSource]);
 
   const validateField = useCallback((source: string) => {
     if (isDbBacked || !source) {
@@ -112,13 +139,56 @@ export function SingleVariablePickerModal({
       setSelectedField(null);
       setSearch("");
       setValidation(null);
+      setShowAddForm(false);
+      setNewFieldName("");
+      setNewFieldSource("");
     }
     onOpenChange(o);
   };
 
-  const label = typeConfig?.label || contentType;
+  const handleAddField = async () => {
+    const key = newFieldName.trim();
+    const source = newFieldSource.trim() || key;
+    if (!key) return;
 
+    setAddingSaving(true);
+    try {
+      const currentMapping = { ...fieldMapping };
+      currentMapping[key] = source;
+
+      const res = await fetch(`/api/content-types/${contentType}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ field_mapping: currentMapping }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.error("Failed to add field mapping:", data);
+        setAddingSaving(false);
+        return;
+      }
+
+      queryClient.invalidateQueries({ queryKey: [`/api/content-types/${contentType}/config`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/content-types/${contentType}/available-properties`] });
+
+      await refetchConfig();
+
+      setShowAddForm(false);
+      setNewFieldName("");
+      setNewFieldSource("");
+      setSelectedField(key);
+      validateField(source);
+    } catch (err) {
+      console.error("Error adding field:", err);
+    } finally {
+      setAddingSaving(false);
+    }
+  };
+
+  const label = typeConfig?.label || contentType;
   const validationWarning = !isDbBacked && validation && validation !== "loading" && !validation.valid ? validation : null;
+  const canAdd = newFieldName.trim() && !(newFieldName.trim() in fieldMapping);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -135,16 +205,140 @@ export function SingleVariablePickerModal({
         </DialogHeader>
 
         <div className="space-y-3 mt-2">
-          <div className="relative">
-            <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search fields..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-8"
-              data-testid="input-search-single-fields"
-            />
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1">
+              <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Search fields..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-8"
+                data-testid="input-search-single-fields"
+              />
+            </div>
+            {!isDbBacked && (
+              <Button
+                variant={showAddForm ? "default" : "outline"}
+                size="icon"
+                onClick={() => {
+                  setShowAddForm(!showAddForm);
+                  if (showAddForm) {
+                    setNewFieldName("");
+                    setNewFieldSource("");
+                    setSourceDropdownOpen(false);
+                  }
+                }}
+                data-testid="button-add-new-field"
+              >
+                {showAddForm ? <IconX className="w-4 h-4" /> : <IconPlus className="w-4 h-4" />}
+              </Button>
+            )}
           </div>
+
+          {showAddForm && (
+            <div className="border rounded-md p-3 space-y-2 bg-muted/30" data-testid="add-field-form">
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground">Field name</label>
+                <Input
+                  value={newFieldName}
+                  onChange={(e) => setNewFieldName(e.target.value)}
+                  placeholder="e.g. title"
+                  className="text-sm font-mono"
+                  onKeyDown={(e) => { if (e.key === "Enter" && canAdd) handleAddField(); if (e.key === "Escape") setShowAddForm(false); }}
+                  data-testid="input-new-field-name"
+                />
+                {newFieldName.trim() && newFieldName.trim() in fieldMapping && (
+                  <p className="text-[11px] text-destructive">Field "{newFieldName.trim()}" already exists</p>
+                )}
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground">Source property</label>
+                <div className="relative">
+                  <Input
+                    value={newFieldSource}
+                    onChange={(e) => {
+                      setNewFieldSource(e.target.value);
+                      setSourceDropdownOpen(true);
+                    }}
+                    onFocus={() => setSourceDropdownOpen(true)}
+                    placeholder={newFieldName.trim() || "e.g. meta.title"}
+                    className="text-sm font-mono"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && canAdd) handleAddField();
+                      if (e.key === "Escape") {
+                        if (sourceDropdownOpen) { setSourceDropdownOpen(false); e.stopPropagation(); }
+                        else setShowAddForm(false);
+                      }
+                    }}
+                    data-testid="input-new-field-source"
+                  />
+                  {sourceDropdownOpen && availableProps && (filteredAvailableProps.common.length > 0 || filteredAvailableProps.partial.length > 0) && (
+                    <div className="absolute top-full left-0 right-0 z-50 mt-1 border rounded-md bg-popover shadow-md max-h-[180px] overflow-y-auto" data-testid="source-dropdown">
+                      {filteredAvailableProps.common.map((key) => (
+                        <button
+                          key={key}
+                          type="button"
+                          className="w-full text-left px-3 py-1.5 flex items-center gap-2 text-sm hover-elevate border-b last:border-b-0"
+                          onClick={() => {
+                            setNewFieldSource(key);
+                            setSourceDropdownOpen(false);
+                            if (!newFieldName.trim()) {
+                              const lastPart = key.split(".").pop() || key;
+                              setNewFieldName(lastPart);
+                            }
+                          }}
+                          data-testid={`source-option-${key}`}
+                        >
+                          <IconCheck className="w-3 h-3 text-green-600 flex-shrink-0" />
+                          <span className="font-mono text-xs">{key}</span>
+                          <span className="text-[10px] text-muted-foreground ml-auto">all entries</span>
+                        </button>
+                      ))}
+                      {filteredAvailableProps.partial.map((p) => (
+                        <button
+                          key={p.key}
+                          type="button"
+                          className="w-full text-left px-3 py-1.5 flex items-center gap-2 text-sm hover-elevate border-b last:border-b-0"
+                          onClick={() => {
+                            setNewFieldSource(p.key);
+                            setSourceDropdownOpen(false);
+                            if (!newFieldName.trim()) {
+                              const lastPart = p.key.split(".").pop() || p.key;
+                              setNewFieldName(lastPart);
+                            }
+                          }}
+                          data-testid={`source-option-${p.key}`}
+                        >
+                          <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                          <span className="font-mono text-xs">{p.key}</span>
+                          <span className="text-[10px] text-muted-foreground ml-auto">{p.count}/{p.total}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-end gap-2 pt-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => { setShowAddForm(false); setNewFieldName(""); setNewFieldSource(""); }}
+                  data-testid="button-cancel-add-field"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleAddField}
+                  disabled={!canAdd || addingSaving}
+                  data-testid="button-confirm-add-field"
+                >
+                  {addingSaving ? <IconLoader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : null}
+                  Add Field
+                </Button>
+              </div>
+            </div>
+          )}
 
           <div className="border rounded-md max-h-[280px] overflow-y-auto" data-testid="single-fields-list">
             {filteredFields.length === 0 ? (

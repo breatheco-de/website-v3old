@@ -1910,7 +1910,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (body.indexes !== undefined) update.indexes = body.indexes;
       if (body.database !== undefined) update.database = body.database;
       updateContentTypeConfig(type, update);
+      contentIndex.invalidateCommonFields(type);
       res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-types/:type/available-properties", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const result = contentIndex.getCommonFields(type);
+      const excludeMapped = req.query.exclude_mapped === "true";
+      if (excludeMapped && config.field_mapping) {
+        const mappedSources = new Set(
+          Object.values(config.field_mapping).map((v) =>
+            typeof v === "string" ? (v.startsWith("function:") ? null : v) : (v as { source: string }).source
+          ).filter(Boolean)
+        );
+        return res.json({
+          common: result.common.filter((k) => !mappedSources.has(k)),
+          partial: result.partial.filter((p) => !mappedSources.has(p.key)),
+        });
+      }
+      res.json(result);
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
