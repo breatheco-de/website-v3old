@@ -128,18 +128,18 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Why The Job Guarantee
-    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    heading: Real Outcomes Behind the Job Guarantee
+    description: The Job Guarantee is built on real results and a hiring-focused model. Our programs, teaching approach, and career support are structured around how people actually get hired. Over 3,500 graduates have launched careers across tech roles and industries.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Consistent hiring outcomes across our graduate community
+        text: Consistent hiring success across our graduates
       - icon: BrandStackshare
-        text: Strong and ongoing demand for skilled tech professionals
+        text: High demand for skilled tech talent
       - icon: ChalkboardTeacher
-        text: Structured training paired with hands-on, ongoing career support
+        text: Structured training + ongoing career mentorship
   - type: features_grid
     version: "1.0"
     variant: highlight
