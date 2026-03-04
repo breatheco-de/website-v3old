@@ -16,7 +16,7 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: Why Learn with 4Geeks? test
+    title: Why Learn with 4Geeks? test test
     description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
     features:
       - icon: Robot

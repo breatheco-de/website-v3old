@@ -9,6 +9,13 @@ import { cn } from "@/lib/utils";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
+import { lazy, Suspense } from "react";
+
+const LeadForm = lazy(() =>
+  import("@/components/LeadForm").then((m) => ({
+    default: m.default || m.LeadForm,
+  })),
+);
 
 interface HeroCourseProps {
   data: HeroCourseType;
@@ -240,27 +247,43 @@ export function HeroCourse({ data }: HeroCourseProps) {
                 </p>
               )}
 
-              <Button
-                className="w-full mb-3"
-                size="lg"
-                variant={
-                  data.signup_card.cta_button.variant === "outline"
-                    ? "outline"
-                    : data.signup_card.cta_button.variant === "secondary"
-                      ? "secondary"
-                      : "default"
-                }
-                data-testid="button-hero-cta"
-                asChild
-              >
-                <a
-                  href={data.signup_card.cta_button.url}
-                  onClick={handleLinkClick}
-                >
-                  {data.signup_card.cta_button.text}
-                </a>
-              </Button>
-
+              {data.signup_card.form && (
+                <div data-hero-inline-form className="mb-2">
+                  <Suspense
+                    fallback={
+                      <div className="h-24 flex items-center justify-center text-muted-foreground text-sm">
+                        Loading...
+                      </div>
+                    }
+                  >
+                    <LeadForm data={data.signup_card.form} />
+                  </Suspense>
+                </div>
+              )}
+              {data.signup_card.cta_button && (
+                <>
+                  <Button
+                    className="w-full mb-3"
+                    size="lg"
+                    variant={
+                      data.signup_card.cta_button.variant === "outline"
+                        ? "outline"
+                        : data.signup_card.cta_button.variant === "secondary"
+                          ? "secondary"
+                          : "default"
+                    }
+                    data-testid="button-hero-cta"
+                    asChild
+                  >
+                    <a
+                      href={data.signup_card.cta_button.url}
+                      onClick={handleLinkClick}
+                    >
+                      {data.signup_card.cta_button.text}
+                    </a>
+                  </Button>
+                </>
+              )}
               {data.signup_card.login_link?.text &&
                 (data.signup_card.login_link.url ? (
                   <a
@@ -281,7 +304,6 @@ export function HeroCourse({ data }: HeroCourseProps) {
                     data-testid="text-hero-login-link"
                   />
                 ))}
-
               {data.signup_card.features &&
                 data.signup_card.features.length > 0 && (
                   <div className="border-t pt-4 space-y-3">
