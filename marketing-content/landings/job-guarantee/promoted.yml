@@ -43,7 +43,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: MX
         program:
           visible: false
           default: ai-engineering
