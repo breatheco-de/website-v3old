@@ -85,7 +85,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Choose your path into a high-growth tech career
+    heading: High-Growth Tech Career, Backed by Our Job Guarantee
     subheading: Choose your path
     courses:
       - name: AI Engineering
