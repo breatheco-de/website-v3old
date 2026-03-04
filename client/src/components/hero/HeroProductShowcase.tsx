@@ -374,7 +374,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
           </div>
 
           <div className="md:col-span-2 w-full md:w-auto flex justify-center md:justify-start">
-            {video ? (
+            {video && video.url ? (
               <UniversalVideo
                 url={video.url}
                 ratio={video.ratio || "16:9"}
