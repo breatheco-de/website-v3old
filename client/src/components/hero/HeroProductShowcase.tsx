@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { LeadForm, type LeadFormData } from "@/components/LeadForm";
+import { AwardsMarquee } from "@/components/AwardsMarquee";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { Card } from "@/components/ui/card";
 
@@ -60,6 +61,8 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
   const leftImages = fullData.left_images ?? null;
   const rightImages = fullData.right_images ?? null;
   const hasDecorativeImages = (leftImages && leftImages.length > 0) || (rightImages && rightImages.length > 0);
+  const showAwardsMarquee = (fullData as any).show_awards_marquee === true;
+  const awardsMarquee = (fullData as any).awards_marquee as { items?: any[]; speed?: number; gradient?: boolean; gradientWidth?: number } | undefined;
 
   const shouldShowBackground = backgroundImage && showBackground;
 
@@ -431,6 +434,17 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                   } as LeadFormData
                 }
                 landingLocations={landingLocations}
+              />
+            </div>
+          )}
+
+          {showAwardsMarquee && awardsMarquee?.items && awardsMarquee.items.length > 0 && (
+            <div className="mt-8" data-testid="hero-awards-marquee">
+              <AwardsMarquee
+                items={awardsMarquee.items}
+                speed={awardsMarquee.speed}
+                gradient={awardsMarquee.gradient}
+                gradientWidth={awardsMarquee.gradientWidth}
               />
             </div>
           )}
