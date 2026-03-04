@@ -16,46 +16,66 @@ sections:
       desktop: lg none
     marginY:
       desktop: none md
-  - type: apply_form
+  - type: hero
     version: "1.0"
-    hero:
-      title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
-      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
+    variant: ApplyFormProductShowcase
+    title: Aprende de 0 a 100 las ultimas técnicas en Ingenieria de IA para el 2026
+    brand_mark:
+      prefix: Que no te
+      highlight: Reemplace, Dominala!
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
     form:
-      program_label: Please select one program
-      program_placeholder: Select a program
-      location_label: Select your preferred location
-      location_placeholder: Select a location
-      first_name_label: First Name
-      first_name_placeholder: Enter your first name
-      last_name_label: Last Name
-      last_name_placeholder: Enter your last name
-      email_label: Email
-      email_placeholder: Enter your email address
-      phone_label: Phone Number
-      phone_placeholder: Enter your phone number
-      consent_marketing: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
-      consent_sms: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month.
-      submit_text: APPLY
-      terms_text: By signing up, you agree to the
-      terms_link_text: Terms and Conditions
-      terms_link_url: /terms-conditions
-      privacy_text: and
-      privacy_link_text: Privacy Policy
-      privacy_link_url: /privacy-policy
-    next_steps:
-      title: What Happens Next?
-      items:
-        - title: Instant confirmation
-          description: We'll send you the syllabus by email right away.
-        - title: Personal follow-up
-          description: Our admissions team will reach out by text and phone to set up a quick call.
-        - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-        - title: Decide with confidence
-          description: You'll have all the info you need to choose the path that's right for you. And we are here to help.
-      closing: Now you're ready to make the best decision for your career!
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo Electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: MX
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_usa_only: false
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/ai-engineering
+      variant: outline
+      icon: Download
+    video:
+      url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
+      ratio: "9:16"
+      muted: true
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: graduates_stats
     version: v1.0
     variant: fullBleed
