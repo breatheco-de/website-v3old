@@ -128,7 +128,7 @@ export default function MenuSlotPlaceholder({
         >
           <IconPlus className="w-4 h-4 text-muted-foreground/50" />
           <span className="text-xs text-muted-foreground/50">
-            {label} (none)
+            Add a menu on the {position} of your page (optional)
           </span>
         </button>
       </PopoverTrigger>
