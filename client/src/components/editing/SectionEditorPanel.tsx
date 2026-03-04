@@ -659,6 +659,9 @@ export function SectionEditorPanel({
     fieldPath?: string;
     label?: string;
     currentUrl: string;
+    arrayPath?: string;
+    index?: number;
+    field?: string;
   } | null>(null);
   const [videoPickerMode, setVideoPickerMode] = useState<"browse" | "upload" | "url">("url");
   const [videoUploading, setVideoUploading] = useState(false);
@@ -5514,6 +5517,82 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (editorType === "video-picker") {
+                  const resolveNestedValue = (obj: Record<string, unknown>, path: string): string => {
+                    const parts = path.split(".");
+                    let cur: unknown = obj;
+                    for (const p of parts) {
+                      if (!cur || typeof cur !== "object") return "";
+                      cur = (cur as Record<string, unknown>)[p];
+                    }
+                    return (cur as string) || "";
+                  };
+
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium capitalize">
+                        {arrayFieldLabel.replace(/_/g, " ")} Videos
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => {
+                          const currentUrl = resolveNestedValue(item, itemField);
+                          const itemLabel =
+                            (item.title as string) ||
+                            (item.name as string) ||
+                            (item.label as string) ||
+                            `Item ${index + 1}`;
+
+                          return (
+                            <div key={index} className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setVideoPickerTarget({
+                                    arrayPath,
+                                    index,
+                                    field: itemField,
+                                    currentUrl,
+                                    label: `${itemLabel} Video`,
+                                  });
+                                  setVideoPickerOpen(true);
+                                }}
+                                className="relative w-16 h-10 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
+                                data-testid={`props-video-${arrayFieldLabel}-${index}`}
+                                title={`${itemLabel}: ${currentUrl || "no video"}`}
+                              >
+                                {currentUrl ? (
+                                  <>
+                                    <div className="w-full h-full flex items-center justify-center bg-black/10">
+                                      <IconVideo className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                      <IconVideo className="h-4 w-4 text-white" />
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <IconVideo className="h-5 w-5 text-muted-foreground" />
+                                  </div>
+                                )}
+                              </button>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-sm text-muted-foreground truncate block">
+                                  {itemLabel}
+                                </span>
+                                {currentUrl && (
+                                  <span className="text-xs text-muted-foreground/70 truncate block">
+                                    {currentUrl.split("/").pop() || currentUrl}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
                 {
                   const getItemLabel = (item: Record<string, unknown>, idx: number) =>
                     (item.tab_label as string) ||
@@ -5945,7 +6024,9 @@ export function SectionEditorPanel({
               type="button"
               variant="destructive"
               onClick={() => {
-                if (videoPickerTarget?.fieldPath) {
+                if (videoPickerTarget?.arrayPath != null && videoPickerTarget.index != null && videoPickerTarget.field) {
+                  updateArrayItemField(videoPickerTarget.arrayPath, videoPickerTarget.index, videoPickerTarget.field, "");
+                } else if (videoPickerTarget?.fieldPath) {
                   updateProperty(videoPickerTarget.fieldPath, "");
                 }
                 setVideoPickerOpen(false);
@@ -5971,7 +6052,9 @@ export function SectionEditorPanel({
               <Button
                 type="button"
                 onClick={() => {
-                  if (videoPickerTarget?.fieldPath) {
+                  if (videoPickerTarget?.arrayPath != null && videoPickerTarget.index != null && videoPickerTarget.field) {
+                    updateArrayItemField(videoPickerTarget.arrayPath, videoPickerTarget.index, videoPickerTarget.field, videoPickerTarget.currentUrl);
+                  } else if (videoPickerTarget?.fieldPath) {
                     updateProperty(videoPickerTarget.fieldPath, videoPickerTarget.currentUrl);
                   }
                   setVideoPickerOpen(false);
