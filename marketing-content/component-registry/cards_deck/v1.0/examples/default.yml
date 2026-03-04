@@ -1,0 +1,20 @@
+name: "Default Cards Deck"
+description: "Three cards with videos, brand images, and author info"
+yaml: |
+  - type: cards_deck
+    version: "1.0"
+    cards:
+      - video:
+          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        brandImage: "https://via.placeholder.com/32"
+        authorName: "Jane Smith"
+        title: "Getting Started with Web Development"
+        description: "Learn the fundamentals of HTML, CSS, and JavaScript in this comprehensive introduction to modern web development."
+      - video:
+          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        brandImage: "https://via.placeholder.com/32"
+        authorName: "John Doe"
+        title: "Advanced React Patterns"
+        description: "Explore advanced component patterns, hooks, and state management techniques for building scalable React applications."
+      - title: "Python for Data Science"
+        description: "A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization."
