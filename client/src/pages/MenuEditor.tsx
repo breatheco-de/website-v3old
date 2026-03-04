@@ -48,7 +48,10 @@ import {
   IconCode,
   IconFileCode,
   IconVariable,
+  IconInfoCircle,
 } from "@tabler/icons-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Skeleton } from "@/components/ui/skeleton";
 import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -527,6 +530,107 @@ function SortableFooterColumn({
   );
 }
 
+interface MenuUsageResponse {
+  defaultContentTypes: Array<{ name: string; position: "top" | "bottom" }>;
+  overrides: Array<{ contentType: string; slug: string; source: string; position: "top" | "bottom" }>;
+}
+
+function MenuUsageInfo({ menuName }: { menuName: string }) {
+  const { data, isLoading } = useQuery<MenuUsageResponse>({
+    queryKey: ["/api/menus", menuName, "usage"],
+    queryFn: async () => {
+      const response = await fetch(`/api/menus/${menuName}/usage`);
+      if (!response.ok) throw new Error("Failed to load usage");
+      return response.json();
+    },
+    enabled: !!menuName,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="bg-muted rounded-md p-4 mb-6" data-testid="menu-usage-skeleton">
+        <div className="flex items-start gap-3">
+          <Skeleton className="h-5 w-5 shrink-0 rounded" />
+          <Skeleton className="h-4 w-3/4" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) return null;
+
+  const { defaultContentTypes, overrides } = data;
+  const hasDefaults = defaultContentTypes.length > 0;
+  const hasOverrides = overrides.length > 0;
+
+  if (!hasDefaults && !hasOverrides) {
+    return (
+      <div className="bg-muted rounded-md p-4 mb-6 flex items-start gap-3" data-testid="menu-usage-empty">
+        <IconInfoCircle className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
+        <span className="text-sm text-muted-foreground">
+          This menu is not currently assigned to any content.
+        </span>
+      </div>
+    );
+  }
+
+  const typeNames = defaultContentTypes.map((ct) => ct.name);
+
+  return (
+    <div className="bg-muted rounded-md p-4 mb-6 flex items-start gap-3" data-testid="menu-usage-info">
+      <IconInfoCircle className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
+      <span className="text-sm text-muted-foreground">
+        {hasDefaults && (
+          <>
+            This menu is displayed in all{" "}
+            {typeNames.map((name, i) => (
+              <span key={name}>
+                {i > 0 && i < typeNames.length - 1 && ", "}
+                {i > 0 && i === typeNames.length - 1 && " and "}
+                <strong className="text-foreground">{name}s</strong>
+              </span>
+            ))}
+          </>
+        )}
+        {!hasDefaults && hasOverrides && "This menu is used in "}
+        {hasOverrides && hasDefaults && " and "}
+        {hasOverrides && (
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                className="text-primary underline underline-offset-2 hover:text-primary/80 inline"
+                data-testid="button-show-overrides"
+              >
+                {overrides.length} additional URL{overrides.length !== 1 ? "s" : ""}
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 max-h-60 overflow-auto" align="start">
+              <div className="space-y-1">
+                <p className="text-sm font-medium mb-2">Per-entry overrides</p>
+                {overrides.map((o, i) => (
+                  <div
+                    key={`${o.contentType}-${o.slug}-${o.position}-${i}`}
+                    className="flex items-center justify-between gap-2 text-xs py-1 border-b last:border-0"
+                    data-testid={`override-item-${i}`}
+                  >
+                    <span className="text-foreground truncate">
+                      {o.contentType}/{o.slug}
+                    </span>
+                    <span className="text-muted-foreground shrink-0">
+                      {o.source} ({o.position})
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
+        .
+      </span>
+    </div>
+  );
+}
+
 export default function MenuEditor() {
   const params = useParams<{ menuName: string }>();
   const [, navigate] = useLocation();
@@ -991,6 +1095,8 @@ export default function MenuEditor() {
               </CardContent>
             </Card>
           )}
+
+          <MenuUsageInfo menuName={menuName} />
 
           {menuData && isNavbarMenu && (
             <>

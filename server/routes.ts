@@ -3532,6 +3532,106 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json({ menus });
   });
 
+  app.get("/api/menus/:name/usage", (req, res) => {
+    try {
+      const { name } = req.params;
+      const configs = getAllConfigs();
+      const defaultContentTypes: { name: string; position: "top" | "bottom" | "both" }[] = [];
+      for (const [typeName, config] of Object.entries(configs)) {
+        const top = config.layout?.menu?.top === name;
+        const bottom = config.layout?.menu?.bottom === name;
+        if (top && bottom) {
+          defaultContentTypes.push({ name: typeName, position: "both" });
+        } else if (top) {
+          defaultContentTypes.push({ name: typeName, position: "top" });
+        } else if (bottom) {
+          defaultContentTypes.push({ name: typeName, position: "bottom" });
+        }
+      }
+
+      const rawOverrides = contentIndex.getMenuUsageByMenuId(name);
+      const overrides = rawOverrides.filter(o => {
+        const matchesDefault = defaultContentTypes.some(
+          d => d.name === o.contentType && (d.position === "both" || d.position === o.position)
+        );
+        if (matchesDefault && o.source === "_common.yml") return false;
+        return true;
+      });
+
+      res.json({ defaultContentTypes, overrides });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/content-types/:type/layout", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const body = req.body;
+      if (!body?.menu || typeof body.menu !== "object") {
+        res.status(400).json({ error: "Request body must include { menu: { top?: string|null, bottom?: string|null } }" });
+        return;
+      }
+
+      for (const key of ["top", "bottom"] as const) {
+        if (key in body.menu && body.menu[key] !== null && typeof body.menu[key] !== "string") {
+          res.status(400).json({ error: `menu.${key} must be a string or null` });
+          return;
+        }
+      }
+
+      const currentLayout = config.layout?.menu || { top: null, bottom: null };
+      const newMenu: { top?: string | null; bottom?: string | null } = {};
+      if ("top" in body.menu) newMenu.top = body.menu.top;
+      else newMenu.top = currentLayout.top;
+      if ("bottom" in body.menu) newMenu.bottom = body.menu.bottom;
+      else newMenu.bottom = currentLayout.bottom;
+
+      updateContentTypeConfig(type, { layout: { menu: newMenu } });
+
+      const slugs = contentIndex.listContentSlugs(type);
+      for (const slug of slugs) {
+        const commonPath = contentIndex.getCommonFilePath(type, slug);
+        if (!fs.existsSync(commonPath)) continue;
+        try {
+          const raw = fs.readFileSync(commonPath, "utf-8");
+          const parsed = yaml.load(raw) as Record<string, unknown> | null;
+          if (!parsed?.layout) continue;
+          const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
+          if (!layout.menu) continue;
+          let changed = false;
+          if ("top" in body.menu && layout.menu.top !== undefined) {
+            delete layout.menu.top;
+            changed = true;
+          }
+          if ("bottom" in body.menu && layout.menu.bottom !== undefined) {
+            delete layout.menu.bottom;
+            changed = true;
+          }
+          if (changed) {
+            if (Object.keys(layout.menu).length === 0) {
+              delete (parsed.layout as any).menu;
+            }
+            if (Object.keys(parsed.layout as any).length === 0) {
+              delete parsed.layout;
+            }
+            fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+          }
+        } catch {}
+      }
+
+      contentIndex.refresh();
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/menus/:name", (req, res) => {
     const { name } = req.params;
     const locale = req.query.locale as string | undefined;
