@@ -142,7 +142,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: none md
+      desktop: none
   - type: features_grid
     version: "1.0"
     variant: detailed
