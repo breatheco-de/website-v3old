@@ -2,6 +2,7 @@ export function normalizeLocale(locale: string | undefined | null): string {
   if (!locale) return "en";
   const normalized = locale.toLowerCase().split("-")[0].split("_")[0];
   if (normalized === "us") return "en";
+  if (!/^[a-z]{2}$/.test(normalized)) return "en";
   return normalized;
 }
 

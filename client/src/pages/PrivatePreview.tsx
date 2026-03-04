@@ -12,6 +12,8 @@ import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import LazyRender from "@/components/LazyRender";
+import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -172,12 +174,20 @@ export default function PrivatePreview() {
     );
   }
 
-  const singular = config.singular;
-  const showHeader = singular === "program" || singular === "location" || singular === "page";
+  const layoutData = (content as any).layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined;
+  const topMenuId = layoutData?.menu?.top ?? null;
+  const bottomMenuId = layoutData?.menu?.bottom ?? null;
 
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>
-      {showHeader && <Header />}
+      <MenuSlotPlaceholder
+        position="top"
+        currentMenuId={topMenuId}
+        contentType={normalizedType}
+        slug={slug!}
+        onMenuChange={() => refetch()}
+      />
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer 
         sections={content.sections} 
         contentType={config.singular}
@@ -185,7 +195,20 @@ export default function PrivatePreview() {
         locale={locale}
         singleEntry={(content as any).singleEntry}
       />
-      {showHeader && <Footer />}
+      {bottomMenuId && (
+        <LazyRender>
+          <div className="pb-12">
+            <Footer menuId={bottomMenuId} />
+          </div>
+        </LazyRender>
+      )}
+      <MenuSlotPlaceholder
+        position="bottom"
+        currentMenuId={bottomMenuId}
+        contentType={normalizedType}
+        slug={slug!}
+        onMenuChange={() => refetch()}
+      />
     </div>
   );
 }
