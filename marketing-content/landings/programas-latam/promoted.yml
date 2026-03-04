@@ -168,4 +168,4 @@ sections:
     collapsible_mobile: true
     background: hsl(var(--secondary))
     paddingY:
-      desktop: none md
+      desktop: md
