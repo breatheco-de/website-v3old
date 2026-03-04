@@ -4610,6 +4610,42 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (isSimpleField && editorType === "string-picker") {
+                  const options = variant ? variant.split(",") : [];
+                  const getSimpleStringValue = () => {
+                    if (!parsedSection) return "";
+                    const pathParts = fieldPath.split(".");
+                    let current: unknown = parsedSection;
+                    for (const part of pathParts) {
+                      if (!current || typeof current !== "object") return "";
+                      current = (current as Record<string, unknown>)[part];
+                    }
+                    return typeof current === "string" ? current : "";
+                  };
+                  const currentValue = getSimpleStringValue();
+                  const fieldLabel = getFieldLabel(fieldPath);
+                  return (
+                    <div key={fieldPath} className="space-y-2">
+                      <Label className="text-sm font-medium">{fieldLabel}</Label>
+                      <Select
+                        value={currentValue || options[0] || ""}
+                        onValueChange={(val) => updatePropertyWithValue(fieldPath, val)}
+                      >
+                        <SelectTrigger data-testid={`props-select-${fieldLabel}`}>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {options.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  );
+                }
+
                 // Handle cta-picker: "cta_buttons[]" or "features[].cta"
                 if (editorType === "cta-picker") {
                   // Match "arrayName[]" or "path.arrayName[].subField"

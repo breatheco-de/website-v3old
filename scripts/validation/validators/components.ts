@@ -17,6 +17,7 @@ const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "component-r
 interface SchemaData {
   name?: string;
   version?: string;
+  section_defaults?: Record<string, unknown>;
   variants?: Record<string, unknown>;
   props?: Record<string, unknown>;
 }
@@ -123,6 +124,29 @@ export const componentsValidator: Validator = {
             message: "Schema missing 'name' property",
             file: schemaPath,
           });
+        }
+
+        if (schemaData.section_defaults !== undefined) {
+          if (typeof schemaData.section_defaults !== "object" || Array.isArray(schemaData.section_defaults)) {
+            errors.push({
+              type: "error",
+              code: "INVALID_SECTION_DEFAULTS",
+              message: `section_defaults must be an object in ${componentType}/${version}`,
+              file: schemaPath,
+              suggestion: "section_defaults should be a key-value map, e.g. section_defaults: { load: eager }",
+            });
+          } else {
+            const loadValue = schemaData.section_defaults.load;
+            if (loadValue !== undefined && loadValue !== "eager" && loadValue !== "lazy") {
+              errors.push({
+                type: "error",
+                code: "INVALID_SECTION_DEFAULT",
+                message: `Invalid section_defaults.load value "${loadValue}" in ${componentType}/${version}. Must be "eager" or "lazy"`,
+                file: schemaPath,
+                suggestion: 'Set section_defaults.load to "eager" or "lazy", or remove it to use the default position-based strategy',
+              });
+            }
+          }
         }
 
         const examplesPath = path.join(versionPath, "examples");

@@ -1156,7 +1156,7 @@ export const locationPageSchema = z.object({
   region: z.enum(["usa-canada", "europe", "latam"]),
   default_language: z.string(),
   timezone: z.string(),
-  visibility: z.enum(["listed", "unlisted"]),
+  visibility: z.enum(["listed", "unlisted"]).optional().default("listed"),
   phone: z.string().optional(),
   address: z.string().optional(),
   available_programs: z.array(z.string()).optional(),

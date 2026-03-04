@@ -124,12 +124,13 @@ export const heroProductShowcaseSchema = z.object({
   video: videoConfigSchema.optional(),
   video_id: z.string().optional(),
   video_ratio: z.string().optional(),
-  image: z.object({
-    src: z.string(),
-    alt: z.string(),
-  }).nullish(),
-  image_id: z.string().optional(),
-  image_width: z.number().optional(),
+  image: z.union([
+    z.object({ src: z.string(), alt: z.string() }),
+    z.string(),
+  ]).nullish(),
+  image_alt: z.string().optional(),
+  image_object_fit: z.string().optional(),
+  image_object_position: z.string().optional(),
   // NOTE: Background image is only displayed on screens >= 1280px width.
   // On smaller screens, a gradient fallback is shown instead for better mobile experience.
   background_image: z.object({
@@ -140,6 +141,7 @@ export const heroProductShowcaseSchema = z.object({
   left_images: z.array(heroImageSchema).optional(),
   right_images: z.array(heroImageSchema).optional(),
   form: leadFormDataSchema.nullish(),
+  form_vertical_align: z.enum(["top", "center", "bottom"]).optional(),
   cta_button: ctaButtonSchema.nullish(),
   trust_bar: productShowcaseTrustBarSchema.nullish(),
 }).passthrough();
@@ -241,8 +243,21 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   brand_mark: brandMarkSchema.optional(),
   description: z.string().optional(),
   form: leadFormDataSchema,
+  form_vertical_align: z.enum(["top", "center", "bottom"]).optional(),
   cta_button: ctaButtonSchema.optional(),
   trust_bar: productShowcaseTrustBarSchema.optional(),
+  video: videoConfigSchema.optional(),
+  image: z.union([
+    z.object({ src: z.string(), alt: z.string() }),
+    z.string(),
+  ]).optional(),
+  image_alt: z.string().optional(),
+  image_object_fit: z.string().optional(),
+  image_object_position: z.string().optional(),
+  background_image: z.object({
+    src: z.string(),
+    alt: z.string().optional(),
+  }).optional(),
 }).passthrough();
 
 // Combined hero section schema
