@@ -105,8 +105,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Career Programs with the Job Guarantee Option
-    subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
+    heading: Start Any of These Programs with a Job Guarantee
+    subheading: Add the Job Guarantee when you enroll and train with full career accountability. If you don’t land a qualifying job, you get your tuition back. Eligibility requirements apply.
     courses:
       - name: AI Engineering
         icon: Brain
@@ -115,37 +115,22 @@ sections:
         title: AI Engineering
         badges:
           - icon: DollarSign
-            text: APIS, automation, telemetry
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+            text: AI systems, APIs & automation
+        description: Build production-ready AI systems, automation pipelines, and scalable applications designed for today’s AI-driven job market.
         price_period: " "
-        cta_text: Program details
+        cta_text: View Program
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
-      - name: Full Stack Development with AI
-        duration: {{ global.fullstack_week_duration | 20 }} weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        tags:
-          - icon: Plus
-            text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
         duration: {{ global.data_science_week_duration | 16 }} weeks
         label: Updated in 2026
-        title: Data Science and Machine Learning
+        title: Data Science & Machine Learning
         badges:
           - icon: Brain
-            text: Python, TensorFlow, SQL
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
+            text: Python, ML & SQL
+        description: Analyze real-world datasets, build predictive models, and deploy machine learning systems used by modern data teams.
         price_period: " "
-        cta_text: Program details
+        cta_text: View Program
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
@@ -154,35 +139,12 @@ sections:
         title: Cybersecurity
         badges:
           - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
+            text: Threat detection & system defense
+        description: Develop in-demand security skills to detect threats, protect systems, and operate in modern security environments.
         price_period: " "
-        cta_text: Program details
+        cta_text: View Program
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: features_grid
     version: "1.0"
     variant: cardHeader
