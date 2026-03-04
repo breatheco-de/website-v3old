@@ -71,7 +71,7 @@ sections:
     version: v1.0
     variant: fullBleed
     heading: The Results That Back Our Job Guarantee
-    subheading: "Our grads success stories reflect real hiring outcomes. Our Job Guarantee is built around one goal: succesfully launching your tech career."
+    subheading: "Our graduates' success stories reflect real hiring outcomes. Our Job Guarantee is built around one goal: succesfully launching your tech career."
     stats:
       - value: {{ global.global_job_placement_rate | 84 }}
         unit: "%"
