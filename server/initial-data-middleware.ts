@@ -7,6 +7,7 @@ import {
   locationPageSchema,
 } from "@shared/schema";
 import { resolveDynamicEntries } from "./dynamic-entries";
+import { resolveLayout } from "./content-types";
 
 interface InitialDataPayload {
   queryKey: unknown[];
@@ -45,6 +46,9 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
       if (data.sections && Array.isArray(data.sections)) {
         data.sections = await resolveDynamicEntries(data.sections, locale) as any;
       }
+      const pageRaw = contentIndex.loadMergedContent("page", slug, locale);
+      const layout = resolveLayout("page", pageRaw.data || {});
+      data.layout = layout;
       return {
         queryKey: ["/api/pages", slug, locale],
         data,
@@ -91,6 +95,9 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
       if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
         data.sections = await resolveDynamicEntries(data.sections, locale) as any;
       }
+      const rawContent = contentIndex.loadMergedContent(contentType, slug, locale);
+      const layout = resolveLayout(contentType, rawContent.data || {});
+      data.layout = layout;
 
       return {
         queryKey: [apiPath, slug, locale],
@@ -111,6 +118,9 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
     if (genericData.sections && Array.isArray(genericData.sections)) {
       genericData.sections = await resolveDynamicEntries(genericData.sections, locale) as any;
     }
+    const genericRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+    const genericLayout = resolveLayout(contentType, genericRaw.data || {});
+    genericData.layout = genericLayout;
 
     const genericApiPath = `/api/content-pages/${contentType}`;
     return {

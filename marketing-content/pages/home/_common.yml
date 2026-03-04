@@ -10,4 +10,4 @@ schema:
     - educational
 layout:
   menu:
-    top: main-footer
+    top: main-navbar
