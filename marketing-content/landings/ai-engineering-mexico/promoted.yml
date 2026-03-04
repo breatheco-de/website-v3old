@@ -69,7 +69,6 @@ sections:
       variant: outline
       icon: Download
     video:
-      url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
       ratio: "9:16"
       muted: true
     paddingY:
@@ -79,6 +78,7 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
