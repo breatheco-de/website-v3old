@@ -82,56 +82,26 @@ sections:
         text: Strong and ongoing demand for skilled tech professionals
       - icon: ChalkboardTeacher
         text: Structured training paired with hands-on, ongoing career support
-  - type: graduates_stats
-    version: v1.0
-    variant: fullBleed
-    heading: The Results That Back Our Job Guarantee
-    subheading: "Our career outcomes reflect our grads' real hiring data. Our Job Guarantee is built around one goal: succesfully launching your tech career."
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}
-        unit: "%"
-        label: Job placement rate
-      - value: 3-6
-        unit: months
-        label: Average time to get hired
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Salary increase after graduation
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 4
-        row_span: 2
-        col_start: 6
-        row_start: 1
-      - image_id: graduates_team_2
-        col_span: 3
-        row_span: 2
-        col_start: 10
-        row_start: 1
-      - image_id: graduates_coding
-        col_span: 5
-        row_span: 2
-        col_start: 4
-        row_start: 3
-      - image_id: graduates_friends
-        col_span: 4
-        row_span: 2
-        col_start: 9
-        row_start: 3
-    featured_images:
-      - image_id: graduates_celebration
-        col_span: 5
-        row_span: 2
-        col_start: 1
-        row_start: 1
-      - image_id: graduates_workspace
-        col_span: 3
-        row_span: 2
-        col_start: 1
-        row_start: 3
-    background: bg-muted/30
-    image_bordered: true
-    paddingY:
-      desktop: none
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
