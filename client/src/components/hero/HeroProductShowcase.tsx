@@ -11,6 +11,7 @@ import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { LeadForm, type LeadFormData } from "@/components/LeadForm";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { Card } from "@/components/ui/card";
 
 function parseLogoHeight(value?: string): number | undefined {
   if (!value) return undefined;
@@ -53,6 +54,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
   const imageObjectFit = (fullData as any).image_object_fit as string | undefined;
   const imageObjectPosition = (fullData as any).image_object_position as string | undefined;
   const hasMedia = !!(video?.url || imageSrc);
+  const formVerticalAlign = (fullData as any).form_vertical_align as string | undefined;
   const marquee = fullData.marquee ?? null;
   const bullets = fullData.bullets ?? null;
   const leftImages = fullData.left_images ?? null;
@@ -191,7 +193,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
 
               {data.description && (
                 <div className="relative">
-                  <p className="text-body text-foreground mt-2 mb-0 md:mb-10 max-w-xl leading-relaxed">
+                  <p className="text-body text-foreground mt-2 mb-0 md:mb-8 max-w-xl leading-relaxed">
                     {data.description}
                   </p>
                 </div>
@@ -374,7 +376,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
             </div>
           </div>
 
-          <div className="md:col-span-2 w-full md:w-auto flex justify-center md:justify-start">
+          <div className={`md:col-span-2 w-full md:w-auto flex justify-center md:justify-start ${!hasMedia && formVerticalAlign === "center" ? "items-center h-full" : !hasMedia && formVerticalAlign === "bottom" ? "items-end h-full" : "items-start"}`}>
             {video && video.url ? (
               <UniversalVideo
                 url={video.url}
@@ -399,7 +401,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 data-testid="img-hero-product"
               />
             ) : data.form ? (
-              <div className="hidden md:block w-full" data-testid="hero-form-right">
+              <Card className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg" data-testid="hero-form-right">
                 <LeadForm
                   data={
                     {
@@ -412,7 +414,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                   }
                   landingLocations={landingLocations}
                 />
-              </div>
+              </Card>
             ) : null}
           </div>
 

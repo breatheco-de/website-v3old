@@ -21,7 +21,8 @@ export type EditorType =
   | "video-picker"
   | "text-input"
   | "rich-text-editor"
-  | "boolean-toggle";
+  | "boolean-toggle"
+  | "string-picker";
 
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
@@ -47,4 +48,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "simpleTwoColumn:video.url": "video-picker",
   "ApplyFormProductShowcase:video.url": "video-picker",
   "ApplyFormProductShowcase:image": "image-with-style-picker",
+  "productShowcase:form_vertical_align": "string-picker:top,center,bottom" as EditorType,
+  "ApplyFormProductShowcase:form_vertical_align": "string-picker:top,center,bottom" as EditorType,
 };

@@ -141,6 +141,7 @@ export const heroProductShowcaseSchema = z.object({
   left_images: z.array(heroImageSchema).optional(),
   right_images: z.array(heroImageSchema).optional(),
   form: leadFormDataSchema.nullish(),
+  form_vertical_align: z.enum(["top", "center", "bottom"]).optional(),
   cta_button: ctaButtonSchema.nullish(),
   trust_bar: productShowcaseTrustBarSchema.nullish(),
 }).passthrough();
@@ -242,6 +243,7 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   brand_mark: brandMarkSchema.optional(),
   description: z.string().optional(),
   form: leadFormDataSchema,
+  form_vertical_align: z.enum(["top", "center", "bottom"]).optional(),
   cta_button: ctaButtonSchema.optional(),
   trust_bar: productShowcaseTrustBarSchema.optional(),
   video: videoConfigSchema.optional(),
