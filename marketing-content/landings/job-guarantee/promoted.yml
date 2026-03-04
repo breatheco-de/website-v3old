@@ -71,6 +71,21 @@ sections:
     version: "1.0"
     variant: default
     compact: true
+    heading: How Our Job Guarantee Works
+    cards:
+      - icon: Handshake
+        title: 1. Add the Job Guarantee When You Enroll
+      - icon: Contract
+        title: 2. Complete the Program and Build Your Portfolio
+      - icon: Briefcase
+        title: 3. Follow Our Proven Career Placement System
+      - icon: IconReportMoney
+        title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
+    background: bg-muted/30
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    compact: true
     heading: Program Benefits
     description: Everything you need to succeed in your AI engineering career.
     cards:
@@ -86,21 +101,6 @@ sections:
       - icon: Users
         title: Career Support
         description: Unlimited mentorship
-    background: bg-muted/30
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    compact: true
-    heading: How Our Job Guarantee Works
-    cards:
-      - icon: Handshake
-        title: 1. Add the Job Guarantee When You Enroll
-      - icon: Contract
-        title: 2. Complete the Program and Build Your Portfolio
-      - icon: Briefcase
-        title: 3. Follow Our Proven Career Placement System
-      - icon: IconReportMoney
-        title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
     background: bg-muted/30
   - type: course_selector
     version: "1.0"
