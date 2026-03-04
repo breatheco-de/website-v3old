@@ -388,7 +388,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
               />
             ) : imageSrc ? (
               <UniversalImage
-                src={imageSrc}
+                id={imageSrc}
                 alt={imageAlt}
                 className="w-full max-w-[500px] rounded-card shadow-card"
                 style={{
