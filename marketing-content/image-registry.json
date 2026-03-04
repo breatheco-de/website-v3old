@@ -4725,6 +4725,14 @@
       "tags": [],
       "usage_count": 0,
       "hash": "00f36365abc2d31c115fd8666785bbade511d40706f0d2a87bb56bdd3c9de5e2"
+    },
+    "geekpal-logo-new": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png",
+      "alt": "Image: geekpal-logo-new",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "10665f931e987ce0167c3843d1bc1a3aef8392ede5b86748483485a298924ce4"
     }
   }
 }
