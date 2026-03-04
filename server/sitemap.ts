@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
-import { getContentTypeConfig, getLocaleKey, getLocaleSource, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
+import { getContentTypeConfig, getLocaleKey, getLocaleSource, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping, getAllConfigs } from "./content-types";
 import { getSupportedLocales } from "./settings";
 import { applyTransformIfNeeded } from "./transform";
 
@@ -39,7 +39,8 @@ type EntryType =
   | "program"
   | "landing"
   | "location"
-  | "template_page";
+  | "template_page"
+  | string;
 
 interface CanonicalSitemapEntry {
   loc: string;
@@ -429,6 +430,48 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     }
   } catch (err) {
     console.warn("[Sitemap] Could not load blog posts for sitemap:", err);
+  }
+
+  const handledTypes = new Set(["program", "landing", "location", "page", "blog"]);
+  try {
+    const allTypeConfigs = getAllConfigs();
+    for (const [typeName, typeConfig] of Object.entries(allTypeConfigs)) {
+      if (handledTypes.has(typeName)) continue;
+      if (typeConfig.database) continue;
+
+      const slugs = contentIndex.listContentSlugs(typeName);
+      for (const slug of slugs) {
+        const locales = contentIndex.getAvailableLocalesOrVariants(typeName, slug);
+        for (const locale of locales) {
+          if (!getSupportedLocales().includes(locale)) continue;
+
+          const merged = loadMergedContent(typeName, slug, locale);
+          if (!merged) continue;
+
+          const meta = (merged.meta as ContentMeta) || {};
+          if (!shouldIndex(meta.robots)) {
+            console.log(`[Sitemap] Skipping noindex ${typeName}: ${slug} (${locale})`);
+            continue;
+          }
+
+          const url = `${getBaseUrl()}${contentIndex.buildUrl(typeName, locale, (merged.slug as string) || slug)}`;
+          const title = meta.page_title || (merged.title as string) || slug;
+          const typeLabel = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+
+          entries.push({
+            loc: url,
+            lastmod: today,
+            changefreq: meta.change_frequency || "weekly",
+            priority: meta.priority || 0.7,
+            label: `${typeLabel}: ${title} (${formatLocaleLabel(locale)})`,
+            type: typeName,
+            locale,
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("[Sitemap] Error generating dynamic content type entries:", err);
   }
 
   return entries;

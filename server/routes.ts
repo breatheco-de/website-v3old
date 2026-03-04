@@ -1454,6 +1454,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(page);
   });
 
+  app.get("/api/content-pages/:contentType/:slug", async (req, res) => {
+    const { contentType, slug } = req.params;
+    const locale = normalizeLocale(req.query.locale as string);
+
+    if (!isValidType(contentType)) {
+      res.status(404).json({ error: `Unknown content type: ${contentType}` });
+      return;
+    }
+
+    if (hasDatabaseSingle(contentType)) {
+      const page = await loadDatabaseSinglePage(contentType, slug, locale);
+      if (!page) {
+        res.status(404).json({ error: `${contentType} entry not found` });
+        return;
+      }
+      if (page.sections && Array.isArray(page.sections)) {
+        page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+      }
+      res.json(page);
+      return;
+    }
+
+    const result = contentIndex.loadContent({
+      contentType,
+      slug,
+      schema: templatePageSchema,
+      localeOrVariant: locale,
+    });
+
+    if (!result.success) {
+      res.status(404).json({ error: `${contentType} entry not found` });
+      return;
+    }
+
+    const page = result.data;
+
+    if (page.sections && Array.isArray(page.sections)) {
+      page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+    }
+
+    const singleEntry = buildSingleEntryFromContent(contentType, page as unknown as Record<string, unknown>);
+    if (singleEntry) {
+      (page as any).singleEntry = singleEntry;
+    }
+
+    res.json(page);
+  });
+
   // Dynamic sitemap with caching
   app.get("/sitemap.xml", (req, res) => {
     const xml = getSitemap();

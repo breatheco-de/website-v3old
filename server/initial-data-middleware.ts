@@ -65,28 +65,49 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
 
     const apiPath = API_PATH_MAP[contentType];
     const schema = SCHEMA_MAP[contentType];
-    if (!apiPath || !schema) return null;
-
     const locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
-    const localeOrVariant = contentType === "landing" ? "promoted" : locale;
 
-    const result = contentIndex.loadContent({
-      contentType,
-      slug,
-      schema,
-      localeOrVariant,
-    });
+    if (apiPath && schema) {
+      const localeOrVariant = contentType === "landing" ? "promoted" : locale;
 
-    if (!result.success) return null;
+      const result = contentIndex.loadContent({
+        contentType,
+        slug,
+        schema,
+        localeOrVariant,
+      });
 
-    const data = result.data as any;
-    if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
-      data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+      if (!result.success) return null;
+
+      const data = result.data as any;
+      if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
+        data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+      }
+
+      return {
+        queryKey: [apiPath, slug, locale],
+        data,
+      };
     }
 
+    const genericResult = contentIndex.loadContent({
+      contentType,
+      slug,
+      schema: templatePageSchema,
+      localeOrVariant: locale,
+    });
+
+    if (!genericResult.success) return null;
+
+    const genericData = genericResult.data as any;
+    if (genericData.sections && Array.isArray(genericData.sections)) {
+      genericData.sections = await resolveDynamicEntries(genericData.sections, locale) as any;
+    }
+
+    const genericApiPath = `/api/content-pages/${contentType}`;
     return {
-      queryKey: [apiPath, slug, locale],
-      data,
+      queryKey: [genericApiPath, slug, locale],
+      data: genericData,
     };
   } catch {
     return null;

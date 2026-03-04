@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
-import type { CareerProgram, LocationPage } from "@shared/schema";
 import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
@@ -12,69 +11,36 @@ import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export type ContentType = "program" | "location";
-
-interface ContentTypeConfig {
-  apiPath: string;
-  notFoundTitle: { en: string; es: string };
-  notFoundMessage: { en: string; es: string };
-  testIdPrefix: string;
-  urlPattern: { en: string; es: string };
-}
-
-const contentTypeConfigs: Record<ContentType, ContentTypeConfig> = {
-  program: {
-    apiPath: "/api/career-programs",
-    notFoundTitle: {
-      en: "Program not found",
-      es: "Programa no encontrado",
-    },
-    notFoundMessage: {
-      en: "The program you're looking for doesn't exist.",
-      es: "El programa que buscas no existe.",
-    },
-    testIdPrefix: "program",
-    urlPattern: {
-      en: "/en/career-programs/:slug",
-      es: "/es/programas-de-carrera/:slug",
-    },
-  },
-  location: {
-    apiPath: "/api/locations",
-    notFoundTitle: {
-      en: "Location not found",
-      es: "Ubicación no encontrada",
-    },
-    notFoundMessage: {
-      en: "The location you're looking for doesn't exist.",
-      es: "La ubicación que buscas no existe.",
-    },
-    testIdPrefix: "location",
-    urlPattern: {
-      en: "/en/location/:slug",
-      es: "/es/ubicacion/:slug",
-    },
-  },
+const LEGACY_API_PATHS: Record<string, string> = {
+  program: "/api/career-programs",
+  location: "/api/locations",
 };
 
-interface ContentTypeDetailProps {
-  type: ContentType;
-  slug: string;
-  locale: "en" | "es";
+function getApiPath(type: string): string {
+  return LEGACY_API_PATHS[type] || `/api/content-pages/${type}`;
 }
 
-type ContentData = CareerProgram | LocationPage;
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
-export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDetailProps) {
+interface ContentTypeDetailProps {
+  type: string;
+  slug: string;
+  locale: string;
+  urlPattern?: Record<string, string>;
+}
+
+export default function ContentTypeDetail({ type, slug, locale, urlPattern }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
   const [, setLocation] = useLocation();
-  const config = contentTypeConfigs[type];
-  const effectiveLocale = locale || (i18n.language as "en" | "es");
+  const effectiveLocale = locale || (i18n.language as string) || "en";
+  const apiPath = getApiPath(type);
 
-  const { data, isLoading, error, refetch } = useQuery<ContentData>({
-    queryKey: [config.apiPath, slug, effectiveLocale],
+  const { data, isLoading, error, refetch } = useQuery<Record<string, unknown>>({
+    queryKey: [apiPath, slug, effectiveLocale],
     queryFn: async () => {
-      const response = await fetch(`${config.apiPath}/${slug}?locale=${effectiveLocale}`);
+      const response = await fetch(`${apiPath}/${slug}?locale=${effectiveLocale}`);
       if (!response.ok) {
         throw new Error(`${type} not found`);
       }
@@ -84,16 +50,19 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
   });
 
   useEffect(() => {
-    if (data?.slug && data.slug !== slug) {
-      const correctUrl = config.urlPattern[effectiveLocale].replace(":slug", data.slug);
-      setLocation(correctUrl, { replace: true });
+    if (data?.slug && data.slug !== slug && urlPattern) {
+      const pattern = urlPattern[effectiveLocale] || urlPattern["en"];
+      if (pattern) {
+        const correctUrl = pattern.replace(":slug", String(data.slug));
+        setLocation(correctUrl, { replace: true });
+      }
     }
-  }, [data?.slug, slug, effectiveLocale, config.urlPattern, setLocation]);
+  }, [data?.slug, slug, effectiveLocale, urlPattern, setLocation]);
 
   const alternates = useAlternateUrls(location);
   const metaWithAlternates = useMemo(() => {
     if (!data?.meta) return undefined;
-    return { ...data.meta, alternates };
+    return { ...(data.meta as object), alternates };
   }, [data?.meta, alternates]);
   usePageMeta(metaWithAlternates);
   useSchemaOrg(data?.schema);
@@ -106,9 +75,9 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
 
   if (isLoading) {
     return (
-      <div 
+      <div
         className="min-h-screen flex items-center justify-center"
-        data-testid={`loading-${config.testIdPrefix}`}
+        data-testid={`loading-${type}`}
       >
         <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
@@ -116,17 +85,20 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
   }
 
   if (error || !data) {
+    const label = capitalize(type);
     return (
-      <div 
+      <div
         className="min-h-screen flex items-center justify-center"
-        data-testid={`error-${config.testIdPrefix}`}
+        data-testid={`error-${type}`}
       >
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-2">
-            {config.notFoundTitle[effectiveLocale]}
+            {effectiveLocale === "es" ? `${label} no encontrado` : `${label} not found`}
           </h1>
           <p className="text-muted-foreground">
-            {config.notFoundMessage[effectiveLocale]}
+            {effectiveLocale === "es"
+              ? `El ${type} que buscas no existe.`
+              : `The ${type} you're looking for doesn't exist.`}
           </p>
         </div>
       </div>
@@ -134,16 +106,16 @@ export default function ContentTypeDetail({ type, slug, locale }: ContentTypeDet
   }
 
   return (
-    <div data-testid={`page-${config.testIdPrefix}`}>
+    <div data-testid={`page-${type}`}>
       <Header />
-      <SectionRenderer 
-        sections={data.sections || []} 
+      <SectionRenderer
+        sections={(data.sections as any[]) || []}
         settings={data.settings}
         contentType={type}
         slug={slug}
         locale={effectiveLocale}
         programSlug={type === "program" ? slug : undefined}
-        singleEntry={(data as any).singleEntry}
+        singleEntry={data.singleEntry as Record<string, unknown> | undefined}
       />
       <div className="pb-12">
         <Footer />
