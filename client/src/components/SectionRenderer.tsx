@@ -1036,7 +1036,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : renderedContent;
 
         return (
-          <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
+          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={layoutStyles}>
             <EditableSection
               section={rawSection}
               index={index}
