@@ -93,13 +93,13 @@ sections:
     compact: true
     heading: How Our Job Guarantee Works
     cards:
-      - icon: ShieldCheck
+      - icon: Handshake
         title: 1. Add the Job Guarantee When You Enroll
-      - icon: BookOpen
+      - icon: Contract
         title: 2. Complete the Program and Build Your Portfolio
-      - icon: Briefcase
+      - icon: IconBriefcase
         title: 3. Follow Our Proven Career Placement System
-      - icon: Trophy
+      - icon: IconReportMoney
         title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
     background: bg-muted/30
   - type: course_selector
