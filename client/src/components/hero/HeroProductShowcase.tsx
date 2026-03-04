@@ -52,6 +52,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
   const imageAlt = typeof rawImage === "string" ? (fullData.image_alt ?? "") : (rawImage?.alt ?? "");
   const imageObjectFit = (fullData as any).image_object_fit as string | undefined;
   const imageObjectPosition = (fullData as any).image_object_position as string | undefined;
+  const hasMedia = !!(video?.url || imageSrc);
   const marquee = fullData.marquee ?? null;
   const bullets = fullData.bullets ?? null;
   const leftImages = fullData.left_images ?? null;
@@ -253,7 +254,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 </div>
               )}
 
-              {data.form && (
+              {data.form && hasMedia && (
                 <div className="hidden md:flex mt-2 mb-8 justify-center md:justify-start">
                   <LeadForm
                     data={
@@ -397,6 +398,21 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 }}
                 data-testid="img-hero-product"
               />
+            ) : data.form ? (
+              <div className="hidden md:block w-full" data-testid="hero-form-right">
+                <LeadForm
+                  data={
+                    {
+                      ...data.form,
+                      variant: data.form.variant || "stacked",
+                      consent: data.form.consent,
+                      show_terms: data.form.show_terms ?? false,
+                      className: "w-full",
+                    } as LeadFormData
+                  }
+                  landingLocations={landingLocations}
+                />
+              </div>
             ) : null}
           </div>
 
