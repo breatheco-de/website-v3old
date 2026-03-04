@@ -11,16 +11,16 @@ sections:
         source: Course Report
         name: Best Coding Bootcamp
         year: "2024"
-      - id: switchup-1
-        alt: SwitchUp - Top Bootcamp
-        logo: /images/awards/switchup.svg
+      - id: logo-switchup-best-bootcamps-2025
+        alt: SwitchUp Best Bootcamps 2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         logoHeight: 64px
         source: SwitchUp
         name: Top Bootcamp
         year: "2024"
-      - id: careerkarma-1
-        alt: Career Karma - Best Value
-        logo: /images/awards/career-karma.svg
+      - id: logo-forbes-advisor-2025
+        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
         logoHeight: 64px
         source: Career Karma
         name: Best Value
