@@ -87,26 +87,20 @@ sections:
         title: Career Support
         description: Unlimited mentorship
     background: bg-muted/30
-  - id: how_job_guarantee_01
-    type: features_quad
+  - type: features_quad
     version: "1.0"
     variant: default
     compact: true
     heading: How the Job Guarantee Works
-    description: A clear, structured path to getting hired — with the option to add full tuition protection when you enroll.
     cards:
       - icon: ShieldCheck
-        title: 1. Choose the Job Guarantee Option
-        description: When enrolling in an eligible program, you can choose to add the Job Guarantee for full tuition protection.
+        title: 1. Add the Optional Job Guarantee at Enrollment
       - icon: BookOpen
-        title: 2. Complete Your Training
-        description: Finish all required coursework, projects, and assessments while building a job-ready portfolio aligned with today’s AI-driven market.
+        title: 2. Complete All Coursework and Graduation Requirements
       - icon: Briefcase
-        title: 3. Follow the Career Roadmap
-        description: Work closely with career coaches, apply consistently, attend interviews, and follow our structured job search process.
+        title: 3. Actively Follow the Career Placement Process
       - icon: Trophy
-        title: 4. Get Hired — Or Get Refunded
-        description: Land a qualifying tech role within 9 months of graduation — or receive a 100% refund of your tuition.
+        title: 4. Get Hired Within 9 Months — Or Receive a Full Tuition Refund
     background: bg-muted/30
   - type: course_selector
     version: "1.0"
