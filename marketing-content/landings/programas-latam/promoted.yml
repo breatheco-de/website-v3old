@@ -167,3 +167,5 @@ sections:
     columns: 3
     collapsible_mobile: true
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: none md
