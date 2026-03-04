@@ -140,7 +140,7 @@ sections:
           - Actualizado continuamente para coincidir con las necesidades de la industria
           - Lento para adaptarse
     marginY:
-      desktop: none
+      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: detailed
