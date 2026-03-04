@@ -67,25 +67,26 @@ sections:
         - title: Ask us anything
           description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
       closing: Now you're ready to make the best decision for your career!
-  - type: features_quad
+  - id: how_job_guarantee_01
+    type: features_quad
     version: "1.0"
     variant: default
     compact: true
     heading: How the Job Guarantee Works
-    description: Everything you need to succeed in your AI engineering career.
+    description: A clear, structured path to getting hired — with the option to add full tuition protection when you enroll.
     cards:
+      - icon: ShieldCheck
+        title: 1. Choose the Job Guarantee Option
+        description: When enrolling in an eligible program, you can choose to add the Job Guarantee for full tuition protection.
+      - icon: BookOpen
+        title: 2. Complete Your Training
+        description: Finish all required coursework, projects, and assessments while building a job-ready portfolio aligned with today’s AI-driven market.
+      - icon: Briefcase
+        title: 3. Follow the Career Roadmap
+        description: Work closely with career coaches, apply consistently, attend interviews, and follow our structured job search process.
       - icon: Trophy
-        title: Industry Recognition
-        description: Top-ranked bootcamp
-      - icon: Wallet
-        title: Affordable Tuition
-        description: Flexible payments
-      - icon: Clock
-        title: Flexible Schedule
-        description: Part-time available
-      - icon: Users
-        title: Career Support
-        description: Unlimited mentorship
+        title: 4. Get Hired — Or Get Refunded
+        description: Land a qualifying tech role within 9 months of graduation — or receive a 100% refund of your tuition.
     background: bg-muted/30
   - type: course_selector
     version: "1.0"
