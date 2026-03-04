@@ -404,6 +404,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 data-testid="img-hero-product"
               />
             ) : data.form ? (
+      <>
               <Card className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg" data-testid="hero-form-right">
                 <LeadForm
                   data={
@@ -418,6 +419,18 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                   landingLocations={landingLocations}
                 />
               </Card>
+
+        </>
+      {showAwardsMarquee && awardsMarquee?.items && awardsMarquee.items.length > 0 && (
+        <div className="mt-8 w-full" data-testid="hero-awards-marquee">
+          <AwardsMarquee
+            items={awardsMarquee.items}
+            speed={awardsMarquee.speed}
+            gradient={awardsMarquee.gradient}
+            gradientWidth={awardsMarquee.gradientWidth}
+          />
+        </div>
+      )}
             ) : null}
           </div>
 
@@ -434,17 +447,6 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                   } as LeadFormData
                 }
                 landingLocations={landingLocations}
-              />
-            </div>
-          )}
-
-          {showAwardsMarquee && awardsMarquee?.items && awardsMarquee.items.length > 0 && (
-            <div className="mt-8" data-testid="hero-awards-marquee">
-              <AwardsMarquee
-                items={awardsMarquee.items}
-                speed={awardsMarquee.speed}
-                gradient={awardsMarquee.gradient}
-                gradientWidth={awardsMarquee.gradientWidth}
               />
             </div>
           )}
