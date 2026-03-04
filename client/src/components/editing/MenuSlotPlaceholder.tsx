@@ -127,7 +127,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid="button-apply-all"
           >
-            All {contentType}s
+            {actionLabel} from all {contentType}s
           </Button>
           <Button
             variant="outline"
@@ -135,7 +135,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid="button-apply-entry"
           >
-            Only {slug}
+            {actionLabel} only from {slug}
           </Button>
         </DialogFooter>
       </DialogContent>
