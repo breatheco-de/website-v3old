@@ -33,7 +33,7 @@ function useInlineFormVisible() {
       );
       intersectionObserver.observe(el);
     }
-
+console.log(enableTransition)
     const existing = document.querySelector(INLINE_FORM_SELECTOR);
     if (existing) {
       observeElement(existing);
