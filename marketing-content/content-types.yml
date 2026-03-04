@@ -108,3 +108,8 @@ landing-page:
   url_pattern:
     en: /en/landing-page/:slug
     es: /es/landing-page/:slug
+sampel:
+  directory: sampel
+  url_pattern:
+    en: /en/sample/:slug
+    es: /es/sample/:slug

@@ -1831,6 +1831,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       contentIndex.refresh();
+      clearSitemapCache();
 
       res.json({
         success: true,
