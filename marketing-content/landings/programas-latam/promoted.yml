@@ -108,6 +108,8 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
+    marginY:
+      desktop: none md
   - type: geeks_vs_others_comparison
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
@@ -155,4 +157,4 @@ sections:
           - None
           - Entry tests or prior coding experience
     marginY:
-      desktop: md none
+      desktop: none
