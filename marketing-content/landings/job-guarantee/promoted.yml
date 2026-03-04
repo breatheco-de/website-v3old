@@ -125,29 +125,6 @@ sections:
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: features_grid
     version: "1.0"
     variant: cardHeader
