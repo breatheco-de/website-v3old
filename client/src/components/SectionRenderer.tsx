@@ -377,6 +377,26 @@ function DeferredSection({ children }: { children: React.ReactNode }) {
     return () => observer.disconnect();
   }, [isVisible]);
 
+  useEffect(() => {
+    if (isVisible) return;
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const handleScrollTo = (e: Event) => {
+      const targetId = (e as CustomEvent<{ targetId: string }>).detail?.targetId;
+      if (!targetId) return;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const position = sentinel.compareDocumentPosition(target);
+      if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scrollToSection", handleScrollTo);
+    return () => window.removeEventListener("scrollToSection", handleScrollTo);
+  }, [isVisible]);
+
   if (!isVisible) {
     return <div ref={sentinelRef} style={{ minHeight: "100px" }} />;
   }

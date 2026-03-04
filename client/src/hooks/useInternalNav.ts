@@ -40,8 +40,13 @@ export function useInternalNav(onNavigate?: () => void) {
           if (el.dataset.sectionType === "modal") {
             window.location.hash = id;
           } else {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
-            history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`);
+            window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { targetId: id } }));
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+                history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`);
+              });
+            });
           }
         }
         onNavigate?.();
