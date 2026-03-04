@@ -164,3 +164,4 @@ sections:
         description: Desde un principio decidimos crear una comunidad de programadores de calidad con el propósito de que puedas encontrar apoyo, colaboración y oportunidades de networking que te ayudarán a alcanzar tus metas.
     columns: 3
     collapsible_mobile: true
+    background: hsl(var(--secondary))
