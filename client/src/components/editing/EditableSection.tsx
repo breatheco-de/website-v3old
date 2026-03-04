@@ -1246,7 +1246,8 @@ export function EditableSection({ children, section, index, sectionType, content
           >
             <div className="flex items-center gap-1.5">
               <IconEye className="h-3.5 w-3.5" />
-              <span>Special Visibility Conditions</span>
+              <span className="hidden md:inline">Special Visibility Conditions</span>
+              <span className="md:hidden">Visibility</span>
               {hasDeviceFilter && (
                 showOn === 'desktop' 
                   ? <IconDeviceDesktop className="h-3.5 w-3.5" /> 
