@@ -4670,7 +4670,10 @@
       "src": "https://randomuser.me/api/portraits/women/1.jpg",
       "alt": "Woman portrait avatar 1",
       "focal_point": "center",
-      "tags": ["avatar", "portrait"],
+      "tags": [
+        "avatar",
+        "portrait"
+      ],
       "usage_count": 0,
       "hash": ""
     },
@@ -4678,7 +4681,10 @@
       "src": "https://randomuser.me/api/portraits/men/2.jpg",
       "alt": "Man portrait avatar 2",
       "focal_point": "center",
-      "tags": ["avatar", "portrait"],
+      "tags": [
+        "avatar",
+        "portrait"
+      ],
       "usage_count": 0,
       "hash": ""
     },
@@ -4686,7 +4692,10 @@
       "src": "https://randomuser.me/api/portraits/women/3.jpg",
       "alt": "Woman portrait avatar 3",
       "focal_point": "center",
-      "tags": ["avatar", "portrait"],
+      "tags": [
+        "avatar",
+        "portrait"
+      ],
       "usage_count": 0,
       "hash": ""
     },
@@ -4694,7 +4703,10 @@
       "src": "https://randomuser.me/api/portraits/men/4.jpg",
       "alt": "Man portrait avatar 4",
       "focal_point": "center",
-      "tags": ["avatar", "portrait"],
+      "tags": [
+        "avatar",
+        "portrait"
+      ],
       "usage_count": 0,
       "hash": ""
     },
@@ -4705,6 +4717,14 @@
       "tags": [],
       "usage_count": 0,
       "hash": "3ca682a0c006128b46266af0a0a19a2c021ac10df9c518c82b50b2f6258401d0"
+    },
+    "geekforce-logo-new": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png",
+      "alt": "Image: geekforce-logo-new",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "00f36365abc2d31c115fd8666785bbade511d40706f0d2a87bb56bdd3c9de5e2"
     }
   }
 }
