@@ -82,26 +82,6 @@ sections:
       - icon: IconReportMoney
         title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
     background: bg-muted/30
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    compact: true
-    heading: Program Benefits
-    description: Everything you need to succeed in your AI engineering career.
-    cards:
-      - icon: Trophy
-        title: Industry Recognition
-        description: Top-ranked bootcamp
-      - icon: Wallet
-        title: Affordable Tuition
-        description: Flexible payments
-      - icon: Clock
-        title: Flexible Schedule
-        description: Part-time available
-      - icon: Users
-        title: Career Support
-        description: Unlimited mentorship
-    background: bg-muted/30
   - type: course_selector
     version: "1.0"
     variant: solid
