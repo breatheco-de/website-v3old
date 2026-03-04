@@ -120,41 +120,25 @@ sections:
         highlight: true
       - name: Industry Average / Competitors
     rows:
-      - feature: Career Support
+      - feature: Personalized Career Support
         values:
-          - Personalized support for a lifetime
-          - Limited, ending with 1st job
+          - Lifetime support until you get a job (and beyond)
+          - Limited, often expires after a few months
       - feature: "Teacher: Student Ratio"
         values:
           - "1:7"
           - 1:10+
-      - feature: AI-Powered Feedback
+      - feature: AI Feedback
         values:
-          - Personalized to your progress
+          - Personalized based on your progress
           - Generic or non-existent
-      - feature: 1-on-1 Mentoring
+      - feature: 1-on-1 Mentorship
         values:
-          - Unlimited and for a lifetime
+          - Unlimited and continuous
           - Limited sessions
       - feature: Curriculum
         values:
           - Continuously updated to match industry needs
           - Slow to adapt
-      - feature: "% Hiring Rate"
-        values:
-          - ~84% within 6 months
-          - Often Unknown
-      - feature: Community
-        values:
-          - Strong local & global network
-          - Depends on school
-      - feature: Class Format
-        values:
-          - Online, in-person
-          - Usually only one format
-      - feature: Previous Knowledge
-        values:
-          - None
-          - Entry tests or prior coding experience
     marginY:
       desktop: none
