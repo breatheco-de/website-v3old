@@ -66,8 +66,6 @@ sections:
           description: Our admissions team will reach out by text and phone to set up a quick call.
         - title: Ask us anything
           description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-        - title: Decide with confidence
-          description: You'll have all the info you need to choose the path that's right for you. And we are here to help.
       closing: Now you're ready to make the best decision for your career!
   - type: graduates_stats
     version: v1.0
