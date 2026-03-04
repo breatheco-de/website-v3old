@@ -882,7 +882,7 @@ export function EditableSection({ children, section, index, sectionType, content
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); openBindingDialog(); }}
-          className={`p-2 rounded-md shadow-lg hover-elevate flex items-center gap-1 ${
+          className={`hidden md:flex p-2 rounded-md shadow-lg hover-elevate items-center gap-1 ${
             isBound
               ? "bg-muted text-yellow-600 dark:text-yellow-500 animate-[binding-pulse_2s_ease-in-out_infinite]"
               : "bg-muted text-muted-foreground"
@@ -1052,6 +1052,16 @@ export function EditableSection({ children, section, index, sectionType, content
           </PopoverTrigger>
           <PopoverContent className="w-auto min-w-[160px] p-1" align="end" onClick={(e) => e.stopPropagation()}>
             <div className="flex flex-col">
+              <button
+                onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); openBindingDialog(); }}
+                className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md hover-elevate ${
+                  isBound ? "text-yellow-600 dark:text-yellow-500" : "text-muted-foreground"
+                }`}
+                data-testid={`button-binding-indicator-mobile-${index}`}
+              >
+                {isBound ? <IconLink className="h-4 w-4" /> : <IconLinkOff className="h-4 w-4" />}
+                {isBound ? `Bindings (${boundSiblingCount})` : "Bindings"}
+              </button>
               {onDelete && (
                 <button
                   onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); onDelete(index); }}
