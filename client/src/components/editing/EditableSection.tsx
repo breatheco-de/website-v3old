@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconDotsVertical } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -300,6 +300,7 @@ export function EditableSection({ children, section, index, sectionType, content
   
   // X-spacing popover state
   const [xSpacingOpen, setXSpacingOpen] = useState(false);
+  const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
   const [xSpacingBreakpoint, setXSpacingBreakpoint] = useState<XBreakpoint>("desktop");
   const [xPadding, setXPadding] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).paddingX));
   const [xMargin, setXMargin] = useState<XSpacingValues>(() => parseXSpacing((section as SectionLayout).marginX));
@@ -923,7 +924,7 @@ export function EditableSection({ children, section, index, sectionType, content
         {onDelete && (
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(index); }}
-            className="p-2 bg-muted text-destructive rounded-md shadow-lg hover-elevate"
+            className="hidden md:block p-2 bg-muted text-destructive rounded-md shadow-lg hover-elevate"
             data-testid={`button-delete-section-${index}`}
             title="Delete section"
           >
@@ -933,7 +934,7 @@ export function EditableSection({ children, section, index, sectionType, content
         {onDuplicate && (
           <button
             onClick={(e) => { e.stopPropagation(); onDuplicate(index); }}
-            className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
+            className="hidden md:block p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
             data-testid={`button-duplicate-section-${index}`}
             title="Duplicate section"
           >
@@ -943,7 +944,7 @@ export function EditableSection({ children, section, index, sectionType, content
         <Popover open={xSpacingOpen} onOpenChange={handleXSpacingOpen}>
           <PopoverTrigger asChild>
             <button
-              className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
+              className="sr-only md:not-sr-only md:p-2 md:bg-muted md:text-muted-foreground md:rounded-md md:shadow-lg md:hover-elevate"
               title="Horizontal spacing"
               data-testid={`button-x-spacing-section-${index}`}
             >
@@ -1036,6 +1037,49 @@ export function EditableSection({ children, section, index, sectionType, content
                   Apply
                 </Button>
               </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover open={mobileMoreOpen} onOpenChange={setMobileMoreOpen}>
+          <PopoverTrigger asChild>
+            <button
+              className="md:hidden p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
+              title="More actions"
+              data-testid={`button-section-more-${index}`}
+            >
+              <IconDotsVertical className="h-4 w-4" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto min-w-[160px] p-1" align="end" onClick={(e) => e.stopPropagation()}>
+            <div className="flex flex-col">
+              {onDelete && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); onDelete(index); }}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-destructive rounded-md hover-elevate"
+                  data-testid={`button-delete-section-mobile-${index}`}
+                >
+                  <IconTrash className="h-4 w-4" />
+                  Delete
+                </button>
+              )}
+              {onDuplicate && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); onDuplicate(index); }}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
+                  data-testid={`button-duplicate-section-mobile-${index}`}
+                >
+                  <IconCopy className="h-4 w-4" />
+                  Duplicate
+                </button>
+              )}
+              <button
+                onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); handleXSpacingOpen(true); }}
+                className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
+                data-testid={`button-x-spacing-section-mobile-${index}`}
+              >
+                <IconSpacingHorizontal className="h-4 w-4" />
+                Horizontal spacing
+              </button>
             </div>
           </PopoverContent>
         </Popover>
@@ -1203,7 +1247,7 @@ export function EditableSection({ children, section, index, sectionType, content
       {/* Section labels - top left */}
       <div 
         className={`
-          absolute top-2 left-2 z-30 flex items-center gap-1.5
+          absolute top-2 left-2 z-30 flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-1.5
           transition-opacity duration-150
           ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
         `}
