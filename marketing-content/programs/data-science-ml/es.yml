@@ -92,7 +92,7 @@ sections:
           required: true
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: true
