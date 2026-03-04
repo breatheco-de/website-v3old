@@ -140,8 +140,8 @@ sections:
       url: /programa/ai-engineering
       variant: outline
       icon: Download
-    video:
-      url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
+    image:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       ratio: "9:16"
       muted: true
     paddingY:
