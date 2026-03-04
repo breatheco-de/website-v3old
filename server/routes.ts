@@ -46,7 +46,7 @@ import {
   getExampleFilePath,
   saveExample,
   loadAllFieldEditors,
-  applyComponentLoadDefaults,
+  applyComponentSectionDefaults,
 } from "./component-registry";
 import {
   editContent,
@@ -207,7 +207,7 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
   }
 
   if (result.data.sections) {
-    applyComponentLoadDefaults(result.data.sections as unknown[]);
+    applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -248,7 +248,7 @@ function loadLandingPage(slug: string): LandingPage | null {
   }
 
   if (result.data.sections) {
-    applyComponentLoadDefaults(result.data.sections as unknown[]);
+    applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -291,7 +291,7 @@ function loadLocationPage(slug: string, locale: string): LocationPage | null {
   }
 
   if (result.data.sections) {
-    applyComponentLoadDefaults(result.data.sections as unknown[]);
+    applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -343,7 +343,7 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
   }
 
   if (result.data.sections) {
-    applyComponentLoadDefaults(result.data.sections as unknown[]);
+    applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -462,7 +462,7 @@ async function loadDatabaseSinglePage(
     const singleItem = { ...matchItem, content };
 
     const sections = (merged.sections as TemplatePage["sections"]) || [];
-    applyComponentLoadDefaults(sections as unknown[]);
+    applyComponentSectionDefaults(sections as unknown[]);
 
     const page: TemplatePage = {
       slug: (merged.slug as string) || slug,
@@ -1461,7 +1461,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         page.sections,
         locale,
       )) as any;
-      applyComponentLoadDefaults(page.sections);
+      applyComponentSectionDefaults(page.sections);
     }
 
     const singleEntry = buildSingleEntryFromContent("page", page as unknown as Record<string, unknown>);

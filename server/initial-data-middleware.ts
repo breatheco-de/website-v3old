@@ -7,7 +7,7 @@ import {
   locationPageSchema,
 } from "@shared/schema";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { applyComponentLoadDefaults } from "./component-registry";
+import { applyComponentSectionDefaults } from "./component-registry";
 
 interface InitialDataPayload {
   queryKey: unknown[];
@@ -44,7 +44,7 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
     if (result.success) {
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
-        applyComponentLoadDefaults(data.sections);
+        applyComponentSectionDefaults(data.sections);
         data.sections = await resolveDynamicEntries(data.sections, locale) as any;
       }
       return {
@@ -83,7 +83,7 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
 
     const data = result.data as any;
     if (data.sections && Array.isArray(data.sections)) {
-      applyComponentLoadDefaults(data.sections);
+      applyComponentSectionDefaults(data.sections);
     }
     if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
       data.sections = await resolveDynamicEntries(data.sections, locale) as any;

@@ -11,7 +11,7 @@ export interface ComponentSchema {
   file: string;
   description: string;
   when_to_use: string;
-  load?: "eager" | "lazy";
+  section_defaults?: Record<string, unknown>;
   props: Record<string, unknown>;
 }
 
@@ -385,27 +385,30 @@ export function saveExample(
   }
 }
 
-let _loadDefaultsCache: Record<string, "eager" | "lazy"> | null = null;
+let _sectionDefaultsCache: Record<string, Record<string, unknown>> | null = null;
 
-export function applyComponentLoadDefaults(sections: unknown[]): void {
-  const defaults = getComponentLoadDefaults();
-  if (Object.keys(defaults).length === 0) return;
+export function applyComponentSectionDefaults(sections: unknown[]): void {
+  const allDefaults = getComponentSectionDefaults();
+  if (Object.keys(allDefaults).length === 0) return;
 
   for (const section of sections) {
     if (!section || typeof section !== "object") continue;
     const s = section as Record<string, unknown>;
-    if (s.load) continue;
     const sectionType = s.type as string;
-    if (sectionType && defaults[sectionType]) {
-      s.load = defaults[sectionType];
+    if (!sectionType || !allDefaults[sectionType]) continue;
+    const defaults = allDefaults[sectionType];
+    for (const [key, value] of Object.entries(defaults)) {
+      if (!(key in s)) {
+        s[key] = value;
+      }
     }
   }
 }
 
-export function getComponentLoadDefaults(): Record<string, "eager" | "lazy"> {
-  if (_loadDefaultsCache) return _loadDefaultsCache;
+export function getComponentSectionDefaults(): Record<string, Record<string, unknown>> {
+  if (_sectionDefaultsCache) return _sectionDefaultsCache;
 
-  const defaults: Record<string, "eager" | "lazy"> = {};
+  const defaults: Record<string, Record<string, unknown>> = {};
   try {
     const components = listComponents();
     for (const componentType of components) {
@@ -413,14 +416,14 @@ export function getComponentLoadDefaults(): Record<string, "eager" | "lazy"> {
       const versions = listVersions(componentType);
       if (versions.length === 0) continue;
       const schema = loadSchema(componentType, versions[0]);
-      if (schema?.load) {
-        defaults[componentType] = schema.load;
+      if (schema?.section_defaults && typeof schema.section_defaults === "object") {
+        defaults[componentType] = schema.section_defaults;
       }
     }
   } catch (error) {
-    console.error("Error loading component load defaults:", error);
+    console.error("Error loading component section defaults:", error);
   }
 
-  _loadDefaultsCache = defaults;
+  _sectionDefaultsCache = defaults;
   return defaults;
 }

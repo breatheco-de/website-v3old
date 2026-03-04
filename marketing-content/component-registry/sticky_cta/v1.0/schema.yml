@@ -2,7 +2,8 @@ name: Sticky CTA
 version: "1.0"
 component: StickyCallToAction
 file: client/src/components/StickyCallToAction.tsx
-load: eager
+section_defaults:
+  load: eager
 description: >-
   A sticky bottom bar that follows users as they scroll. Contains a heading and
   an "Apply" button that expands to reveal a lead capture form.
