@@ -19,6 +19,8 @@ export const cardsDeckSectionSchema = z.object({
   type: z.literal("cards_deck"),
   version: z.string().optional().default("1.0"),
   variant: z.enum(["default"]).optional().describe("Layout variant"),
+  heading: z.string().optional().describe("Section heading displayed above the cards"),
+  subtitle: z.string().optional().describe("Section subtitle with rich text support, displayed below the heading"),
   cards: z.array(cardDeckItemSchema).min(1).max(6).describe("Array of cards (typically 3)"),
 });
 

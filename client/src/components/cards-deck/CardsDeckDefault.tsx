@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { UniversalVideo } from "@/components/UniversalVideo";
+import { UniversalImage } from "@/components/UniversalImage";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 export interface CardDeckItem {
   video?: {
@@ -17,6 +19,8 @@ export interface CardsDeckDefaultProps {
   data: {
     type: string;
     variant?: string;
+    heading?: string;
+    subtitle?: string;
     cards: CardDeckItem[];
   };
 }
@@ -26,6 +30,25 @@ export function CardsDeckDefault({ data }: CardsDeckDefaultProps) {
 
   return (
     <section className="max-w-6xl mx-auto px-4">
+      {(data.heading || data.subtitle) && (
+        <div className="text-center mb-8">
+          {data.heading && (
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+              data-testid="text-cards-deck-heading"
+            >
+              {data.heading}
+            </h2>
+          )}
+          {data.subtitle && (
+            <RichTextContent
+              html={data.subtitle}
+              className="text-lg text-muted-foreground max-w-3xl mx-auto [&_p]:mb-0"
+              data-testid="text-cards-deck-subtitle"
+            />
+          )}
+        </div>
+      )}
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
         data-testid="cards-deck-container"
@@ -66,16 +89,17 @@ export function CardsDeckDefault({ data }: CardsDeckDefaultProps) {
               <div className="flex flex-col gap-1 px-4">
                 {(card.brand_image || card.author_name) && (
                   <div
-                    className="flex items-start justify-between gap-2 flex-wrap pt-2"
+                    className="flex items-start justify-between gap-2 flex-wrap pt-4"
                     data-testid={`card-deck-author-row-${index}`}
                   >
                     {card.brand_image && (
-                      <img
-                        src={card.brand_image}
-                        alt=""
-                        className=" h-6 flex-shrink-0"
-                        data-testid={`card-deck-brand-image-${index}`}
-                      />
+                      <div data-testid={`card-deck-brand-image-${index}`}>
+                        <UniversalImage
+                          id={card.brand_image}
+                          alt=""
+                          className="h-6 flex-shrink-0"
+                        />
+                      </div>
                     )}
                   </div>
                 )}

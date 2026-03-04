@@ -939,6 +939,8 @@ export const cardsDeckSectionSchema = z.object({
   type: z.literal("cards_deck"),
   version: z.string().optional(),
   variant: z.string().optional(),
+  heading: z.string().optional(),
+  subtitle: z.string().optional(),
   cards: z.array(cardDeckItemSchema),
 }).passthrough();
 
