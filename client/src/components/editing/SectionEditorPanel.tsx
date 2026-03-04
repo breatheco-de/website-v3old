@@ -5518,15 +5518,20 @@ export function SectionEditorPanel({
                 }
 
                 if (editorType === "video-picker") {
-                  const resolveNestedValue = (obj: Record<string, unknown>, path: string): string => {
+                  const resolveNestedValue = (obj: Record<string, unknown>, path: string): unknown => {
                     const parts = path.split(".");
                     let cur: unknown = obj;
                     for (const p of parts) {
-                      if (!cur || typeof cur !== "object") return "";
+                      if (!cur || typeof cur !== "object") return undefined;
                       cur = (cur as Record<string, unknown>)[p];
                     }
-                    return (cur as string) || "";
+                    return cur;
                   };
+
+                  const itemFieldParts = itemField.split(".");
+                  const parentPrefix = itemFieldParts.length > 1
+                    ? itemFieldParts.slice(0, -1).join(".") + "."
+                    : "";
 
                   return (
                     <div key={fieldPath} className="space-y-3">
@@ -5535,7 +5540,12 @@ export function SectionEditorPanel({
                       </Label>
                       <div className="space-y-2">
                         {safeArrayData.map((item, index) => {
-                          const currentUrl = resolveNestedValue(item, itemField);
+                          const currentUrl = (resolveNestedValue(item, itemField) as string) || "";
+                          const currentRatio = (resolveNestedValue(item, parentPrefix + "ratio") as string) || "";
+                          const currentMuted = resolveNestedValue(item, parentPrefix + "muted");
+                          const currentAutoplay = resolveNestedValue(item, parentPrefix + "autoplay");
+                          const currentLoop = resolveNestedValue(item, parentPrefix + "loop");
+                          const currentPreviewImage = (resolveNestedValue(item, parentPrefix + "preview_image_url") as string) || "";
                           const itemLabel =
                             (item.title as string) ||
                             (item.name as string) ||
@@ -5543,49 +5553,201 @@ export function SectionEditorPanel({
                             `Item ${index + 1}`;
 
                           return (
-                            <div key={index} className="flex items-center gap-2">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setVideoPickerTarget({
-                                    arrayPath,
-                                    index,
-                                    field: itemField,
-                                    currentUrl,
-                                    label: `${itemLabel} Video`,
-                                  });
-                                  setVideoPickerOpen(true);
-                                }}
-                                className="relative w-16 h-10 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
-                                data-testid={`props-video-${arrayFieldLabel}-${index}`}
-                                title={`${itemLabel}: ${currentUrl || "no video"}`}
-                              >
-                                {currentUrl ? (
-                                  <>
-                                    <div className="w-full h-full flex items-center justify-center bg-black/10">
-                                      <IconVideo className="h-5 w-5 text-primary" />
-                                    </div>
-                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                      <IconVideo className="h-4 w-4 text-white" />
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div className="w-full h-full flex items-center justify-center">
-                                    <IconVideo className="h-5 w-5 text-muted-foreground" />
+                            <Collapsible key={index} className="border rounded-md">
+                              <CollapsibleTrigger asChild>
+                                <button
+                                  type="button"
+                                  className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
+                                  data-testid={`props-video-${arrayFieldLabel}-${index}-trigger`}
+                                >
+                                  <div className="w-10 h-10 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
+                                    <IconVideo className={`h-5 w-5 ${currentUrl ? "text-primary" : "text-muted-foreground"}`} />
                                   </div>
-                                )}
-                              </button>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-sm text-muted-foreground truncate block">
-                                  {itemLabel}
-                                </span>
-                                {currentUrl && (
-                                  <span className="text-xs text-muted-foreground/70 truncate block">
-                                    {currentUrl.split("/").pop() || currentUrl}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
+                                  <div className="flex-1 text-left min-w-0">
+                                    <span className="text-sm font-medium block">
+                                      {itemLabel}
+                                    </span>
+                                    {currentUrl && (
+                                      <span className="text-xs text-muted-foreground truncate block">
+                                        {currentUrl.split("/").pop() || currentUrl}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                </button>
+                              </CollapsibleTrigger>
+                              <CollapsibleContent>
+                                <div className="p-3 pt-0 space-y-3 border-t">
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setVideoPickerTarget({
+                                          arrayPath,
+                                          index,
+                                          field: itemField,
+                                          currentUrl,
+                                          label: `${itemLabel} Video`,
+                                        });
+                                        setVideoPickerOpen(true);
+                                      }}
+                                      className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                                      data-testid={`props-video-${arrayFieldLabel}-${index}-picker`}
+                                      title="Change video"
+                                    >
+                                      {currentUrl ? (
+                                        <>
+                                          <div className="w-full h-full flex items-center justify-center bg-muted">
+                                            <IconVideo className="h-6 w-6 text-primary" />
+                                          </div>
+                                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <IconVideo className="h-5 w-5 text-white" />
+                                          </div>
+                                        </>
+                                      ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                          <IconVideo className="h-6 w-6 text-muted-foreground" />
+                                        </div>
+                                      )}
+                                    </button>
+                                    <div className="flex-1 min-w-0">
+                                      {currentUrl ? (
+                                        <span className="text-xs text-muted-foreground break-all line-clamp-3">
+                                          {currentUrl}
+                                        </span>
+                                      ) : (
+                                        <span className="text-xs text-muted-foreground italic">
+                                          No video selected
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-1">
+                                    <div className="flex items-center gap-2">
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setImagePickerTarget({
+                                            arrayPath,
+                                            index,
+                                            srcField: parentPrefix + "preview_image_url",
+                                            currentSrc: currentPreviewImage,
+                                            currentAlt: "",
+                                          });
+                                          setImagePickerOpen(true);
+                                        }}
+                                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
+                                        data-testid={`props-video-${arrayFieldLabel}-${index}-preview-image`}
+                                        title="Change preview image"
+                                      >
+                                        {currentPreviewImage ? (
+                                          <>
+                                            <img
+                                              src={currentPreviewImage}
+                                              alt="Preview"
+                                              className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                              <IconPhoto className="h-4 w-4 text-white" />
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <div className="w-full h-full flex items-center justify-center">
+                                            <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                          </div>
+                                        )}
+                                      </button>
+                                      <div className="flex-1 min-w-0">
+                                        {currentPreviewImage ? (
+                                          <div className="flex items-center gap-1">
+                                            <span className="text-xs text-muted-foreground truncate flex-1">
+                                              {currentPreviewImage.split("/").pop() || currentPreviewImage}
+                                            </span>
+                                            <Button
+                                              size="icon"
+                                              variant="ghost"
+                                              className="h-6 w-6 flex-shrink-0"
+                                              onClick={() => updateArrayItemField(arrayPath, index, parentPrefix + "preview_image_url", "")}
+                                              data-testid={`props-video-${arrayFieldLabel}-${index}-preview-image-clear`}
+                                            >
+                                              <IconX className="h-3 w-3" />
+                                            </Button>
+                                          </div>
+                                        ) : (
+                                          <span className="text-xs text-muted-foreground italic">
+                                            No preview image selected
+                                          </span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="space-y-1">
+                                    <Label className="text-xs text-muted-foreground">
+                                      Aspect Ratio
+                                    </Label>
+                                    <Select
+                                      value={currentRatio || "16:9"}
+                                      onValueChange={(value) =>
+                                        updateArrayItemField(arrayPath, index, parentPrefix + "ratio", value)
+                                      }
+                                    >
+                                      <SelectTrigger
+                                        className="h-8 text-sm"
+                                        data-testid={`props-video-${arrayFieldLabel}-${index}-ratio`}
+                                      >
+                                        <SelectValue />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectItem value="16:9">16:9 (Landscape)</SelectItem>
+                                        <SelectItem value="9:16">9:16 (Portrait)</SelectItem>
+                                        <SelectItem value="4:3">4:3 (Classic)</SelectItem>
+                                        <SelectItem value="1:1">1:1 (Square)</SelectItem>
+                                        <SelectItem value="21:9">21:9 (Ultra-wide)</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <Label className="text-xs text-muted-foreground">
+                                      Playback Options
+                                    </Label>
+                                    <div className="grid grid-cols-1 gap-2">
+                                      <div className="flex items-center justify-between gap-2">
+                                        <Label className="text-sm">Muted</Label>
+                                        <Switch
+                                          checked={currentMuted !== false}
+                                          onCheckedChange={(checked) =>
+                                            updateArrayItemField(arrayPath, index, parentPrefix + "muted", checked)
+                                          }
+                                          data-testid={`props-video-${arrayFieldLabel}-${index}-muted`}
+                                        />
+                                      </div>
+                                      <div className="flex items-center justify-between gap-2">
+                                        <Label className="text-sm">Autoplay</Label>
+                                        <Switch
+                                          checked={currentAutoplay === true}
+                                          onCheckedChange={(checked) =>
+                                            updateArrayItemField(arrayPath, index, parentPrefix + "autoplay", checked)
+                                          }
+                                          data-testid={`props-video-${arrayFieldLabel}-${index}-autoplay`}
+                                        />
+                                      </div>
+                                      <div className="flex items-center justify-between gap-2">
+                                        <Label className="text-sm">Loop</Label>
+                                        <Switch
+                                          checked={currentLoop !== false}
+                                          onCheckedChange={(checked) =>
+                                            updateArrayItemField(arrayPath, index, parentPrefix + "loop", checked)
+                                          }
+                                          data-testid={`props-video-${arrayFieldLabel}-${index}-loop`}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </CollapsibleContent>
+                            </Collapsible>
                           );
                         })}
                       </div>
