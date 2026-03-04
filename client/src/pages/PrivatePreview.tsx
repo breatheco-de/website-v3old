@@ -92,7 +92,7 @@ export default function PrivatePreview() {
   }, [content, isLoading]);
 
   useContentAutoRefresh(
-    config?.singular as "program" | "landing" | "location" | "page",
+    config?.singular || contentType,
     slug,
     locale,
     handleRefetch
@@ -180,7 +180,7 @@ export default function PrivatePreview() {
       {showHeader && <Header />}
       <SectionRenderer 
         sections={content.sections} 
-        contentType={config.singular as "program" | "landing" | "location" | "page"}
+        contentType={config.singular}
         slug={slug}
         locale={locale}
         singleEntry={(content as any).singleEntry}

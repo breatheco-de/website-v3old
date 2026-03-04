@@ -60,7 +60,8 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const defaultLocales = localeSettings?.supported_locales ?? [{ code: "en", label: "English" }, { code: "es", label: "Spanish" }];
 
   const [name, setName] = useState("");
-  const [patternMode, setPatternMode] = useState<"shorthand" | "per-locale">("shorthand");
+  const [patternMode, setPatternMode] = useState<"non-localized" | "shorthand" | "per-locale">("shorthand");
+  const [nonLocalizedPattern, setNonLocalizedPattern] = useState("");
   const [shorthandPattern, setShorthandPattern] = useState("");
   const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>(
     defaultLocales.map(l => ({ locale: l.code, path: "" }))
@@ -91,17 +92,21 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const filePreview = useMemo(() => {
     if (!name) return null;
     const dir = effectiveDir;
-    const localeFiles = defaultLocales.map(l => l.code);
+    const defaultLocale = localeSettings?.default_locale ?? "en";
+    const localeFiles = patternMode === "non-localized"
+      ? [defaultLocale]
+      : defaultLocales.map(l => l.code);
     return {
       ymlEntry: `marketing-content/content-types.yml`,
       directory: `marketing-content/${dir}/`,
       sampleDir: `sample-${name}/`,
       sampleFiles: ["_common.yml", ...localeFiles.map(l => `${l}.yml`)],
     };
-  }, [name, effectiveDir, defaultLocales]);
+  }, [name, effectiveDir, defaultLocales, patternMode, localeSettings]);
 
   function resetForm() {
     setName("");
+    setNonLocalizedPattern("");
     setShorthandPattern("");
     setLocalePatterns(defaultLocales.map(l => ({ locale: l.code, path: "" })));
     setDirectory("");
@@ -140,6 +145,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
     return "";
   }
 
+  const nonLocalizedError = nonLocalizedPattern ? validatePattern(nonLocalizedPattern) : "";
   const shorthandError = shorthandPattern ? validatePattern(shorthandPattern) : "";
   const localeErrors = localePatterns.map(lp => lp.path ? validatePattern(lp.path) : "");
   const hasLocaleErrors = localeErrors.some(e => e !== "");
@@ -147,16 +153,21 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
   const allLocalesFilled = localePatterns.length > 0 && localePatterns.every(lp => lp.path.trim() !== "");
 
   const canSubmit = !!name && !nameError &&
-    (patternMode === "shorthand"
-      ? shorthandPattern.trim() !== "" && !shorthandError
-      : allLocalesFilled && !hasLocaleErrors);
+    (patternMode === "non-localized"
+      ? nonLocalizedPattern.trim() !== "" && !nonLocalizedError
+      : patternMode === "shorthand"
+        ? shorthandPattern.trim() !== "" && !shorthandError
+        : allLocalesFilled && !hasLocaleErrors);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
 
     let url_pattern: string | Record<string, string>;
-    if (patternMode === "shorthand") {
+    if (patternMode === "non-localized") {
+      const normalized = normalizePathInput(nonLocalizedPattern);
+      url_pattern = { default: normalized };
+    } else if (patternMode === "shorthand") {
       const normalized = normalizePathInput(shorthandPattern);
       url_pattern = `/:locale${normalized}`;
     } else {
@@ -195,18 +206,45 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label>URL Pattern</Label>
-              <button
-                type="button"
-                className="text-xs text-muted-foreground hover-elevate rounded px-1.5 py-0.5"
-                onClick={() => setPatternMode(patternMode === "shorthand" ? "per-locale" : "shorthand")}
-                data-testid="button-toggle-pattern-mode"
-              >
-                {patternMode === "shorthand" ? "Per-locale" : "Shorthand"}
-              </button>
+            <Label>URL Pattern</Label>
+            <div className="flex rounded-md border overflow-visible" data-testid="segmented-url-pattern-mode">
+              {([
+                { value: "non-localized" as const, label: "No locale prefix" },
+                { value: "shorthand" as const, label: "Same path all languages" },
+                { value: "per-locale" as const, label: "Custom per language" },
+              ]).map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  className={`flex-1 text-xs py-1.5 px-1 transition-colors ${
+                    patternMode === opt.value
+                      ? "bg-primary text-primary-foreground font-medium"
+                      : "text-muted-foreground hover-elevate"
+                  } ${opt.value === "non-localized" ? "rounded-l-md" : ""} ${opt.value === "per-locale" ? "rounded-r-md" : ""}`}
+                  onClick={() => setPatternMode(opt.value)}
+                  data-testid={`button-pattern-mode-${opt.value}`}
+                >
+                  {opt.label}
+                </button>
+              ))}
             </div>
-            {patternMode === "shorthand" ? (
+
+            {patternMode === "non-localized" && (
+              <div className="space-y-1">
+                <Input
+                  placeholder={`/${name || "my-type"}/:slug`}
+                  value={nonLocalizedPattern}
+                  onChange={(e) => setNonLocalizedPattern(e.target.value)}
+                  data-testid="input-url-pattern-non-localized"
+                />
+                {nonLocalizedError && <p className="text-xs text-destructive" data-testid="text-non-localized-error">{nonLocalizedError}</p>}
+                <p className="text-xs text-muted-foreground">
+                  A single URL for all locales, no language prefix.
+                </p>
+              </div>
+            )}
+
+            {patternMode === "shorthand" && (
               <>
                 <div className="flex items-center gap-0">
                   <Tooltip>
@@ -233,7 +271,9 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                 </div>
                 {shorthandError && <p className="text-xs text-destructive" data-testid="text-shorthand-error">{shorthandError}</p>}
               </>
-            ) : (
+            )}
+
+            {patternMode === "per-locale" && (
               <div className="space-y-2">
                 {localePatterns.map((lp, i) => (
                   <div key={lp.locale} className="space-y-1">

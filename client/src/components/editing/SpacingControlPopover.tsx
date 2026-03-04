@@ -13,7 +13,7 @@ import type { Section, SectionLayout, ResponsiveSpacing } from "@shared/schema";
 interface SpacingControlPopoverProps {
   insertIndex: number;
   sections: Section[];
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
   locale?: string;
 }

@@ -514,10 +514,8 @@ class ContentIndex {
     return folderName;
   }
 
-  private extractTitle(folderPath: string, files: string[], contentType: string): string | undefined {
-    const candidates = contentType === "landing"
-      ? ["_common.yml", "_common.yaml"]
-      : ["en.yml", "en.yaml"];
+  private extractTitle(folderPath: string, files: string[], _contentType: string): string | undefined {
+    const candidates = ["_common.yml", "_common.yaml", "en.yml", "en.yaml"];
     for (const candidate of candidates) {
       if (files.includes(candidate)) {
         try {
@@ -535,12 +533,7 @@ class ContentIndex {
     return undefined;
   }
 
-  private extractLocales(files: string[], contentType: string): string[] {
-    if (contentType === "landing") {
-      return files
-        .filter(f => f !== "_common.yml" && f !== "_common.yaml")
-        .map(f => f.replace(/\.(yml|yaml)$/, ""));
-    }
+  private extractLocales(files: string[], _contentType: string): string[] {
     return files
       .map(f => f.replace(/\.(yml|yaml)$/, ""))
       .filter(name => /^[a-z]{2}$/.test(name));
@@ -588,9 +581,7 @@ class ContentIndex {
         `${locale}.yml`,
         `${locale}.yaml`,
       ];
-      if (entry.contentType === "landing") {
-        candidates.unshift("_common.yml", "_common.yaml");
-      }
+      candidates.push("_common.yml", "_common.yaml");
       for (const candidate of candidates) {
         const filePath = path.join(basePath, candidate);
         if (fs.existsSync(filePath)) {
@@ -895,9 +886,6 @@ class ContentIndex {
       return path.join(folder, `${variant}.v${version}.${locale}.yml`);
     }
 
-    if (contentType === "landing") {
-      return path.join(folder, "promoted.yml");
-    }
 
     const perSlugPath = path.join(folder, `${locale}.yml`);
     if (fs.existsSync(perSlugPath)) return perSlugPath;

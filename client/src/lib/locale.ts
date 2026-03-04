@@ -11,7 +11,7 @@ export function buildContentUrlFromPattern(
   locale: string,
 ): string {
   if (!urlPattern) return `/${locale}/${slug}`;
-  const pattern = urlPattern[locale];
+  const pattern = urlPattern[locale] || urlPattern["default"] || urlPattern["en"];
   if (!pattern) return `/${locale}/${slug}`;
   return pattern.replace(/:slug/g, slug);
 }

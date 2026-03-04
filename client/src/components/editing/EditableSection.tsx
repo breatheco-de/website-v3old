@@ -250,7 +250,7 @@ interface EditableSectionProps {
   section: Section;
   index: number;
   sectionType: string;
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
   locale?: string;
   variant?: string;

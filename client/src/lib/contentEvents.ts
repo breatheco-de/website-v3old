@@ -1,7 +1,5 @@
-type ContentType = "program" | "landing" | "location" | "page";
-
 export interface ContentUpdatedPayload {
-  contentType: ContentType;
+  contentType: string;
   slug: string;
   locale: string;
 }

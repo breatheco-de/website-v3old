@@ -230,12 +230,13 @@ function listCareerPrograms(
   return programs;
 }
 
-function loadLandingPage(slug: string): LandingPage | null {
+function loadLandingPage(slug: string, locale?: string): LandingPage | null {
+  const effectiveLocale = locale || ((contentIndex.loadCommonData("landing", slug)?.locale as string) || getDefaultLocale());
   const result = contentIndex.loadContent({
     contentType: "landing",
     slug,
     schema: landingPageSchema,
-    localeOrVariant: "promoted",
+    localeOrVariant: effectiveLocale,
   });
 
   if (!result.success) {
@@ -255,10 +256,10 @@ function listLandingPages(): Array<{
   const landings: Array<{ slug: string; title: string; locale: string }> = [];
 
   for (const slug of slugs) {
-    const landing = loadLandingPage(slug);
+    const commonData = contentIndex.loadCommonData("landing", slug);
+    const locale = (commonData?.locale as string) || getDefaultLocale();
+    const landing = loadLandingPage(slug, locale);
     if (landing) {
-      const commonData = contentIndex.loadCommonData("landing", slug);
-      const locale = (commonData?.locale as string) || getDefaultLocale();
       const landingSlug = landing.slug || slug;
       const landingTitle = landing.title || "";
       if (landingTitle) {
@@ -1281,7 +1282,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Fall back to default content
     if (!landing) {
-      landing = loadLandingPage(slug);
+      landing = loadLandingPage(slug, locale);
     }
 
     if (!landing) {
@@ -3072,7 +3073,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const basePath = path.join(process.cwd(), entry.directory);
 
       let targetFile: string;
-      if (getType(contentType) === "landing" || allLanguages) {
+      if (allLanguages) {
         targetFile = "_common.yml";
       } else {
         targetFile = `${locale}.yml`;
@@ -5683,15 +5684,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       for (const entry of allEntries) {
         const entryContentType = entry.contentType.replace(/s$/, "");
-        if (
-          !entry.locales.includes(normalizedLocale) &&
-          entryContentType !== "landing"
-        )
+        if (!entry.locales.includes(normalizedLocale))
           continue;
 
         try {
-          const localeForLoad =
-            entryContentType === "landing" ? "promoted" : normalizedLocale;
+          const localeForLoad = normalizedLocale;
           const { data: merged } = contentIndex.loadMergedContent(
             entryContentType,
             entry.slug,
@@ -6399,7 +6396,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      const effectiveLocale = contentType === "landing" ? "promoted" : locale;
+      const effectiveLocale = contentType === "landing"
+        ? ((contentIndex.loadCommonData("landing", resolvedFolderSlug)?.locale as string) || locale)
+        : locale;
       const localeFile = [
         `${effectiveLocale}.yml`,
         `${effectiveLocale}.yaml`,
@@ -6507,26 +6506,22 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       slug,
     );
 
-    // For landings, also check that it's not a reserved name (starts with _)
-    if (type === "landing" && slug.startsWith("_")) {
+    if (slug.startsWith("_")) {
       res.json({ available: false, slug, type, reason: "Reserved prefix" });
       return;
     }
 
     const folderExists = fs.existsSync(folderPath);
 
-    if (folderExists && type !== "landing") {
+    if (folderExists) {
       const hasCommon = fs.existsSync(path.join(folderPath, "_common.yml"));
-      const hasEn = fs.existsSync(path.join(folderPath, "en.yml"));
-      const hasEs = fs.existsSync(path.join(folderPath, "es.yml"));
-      const isComplete = hasCommon && hasEn && hasEs;
-      if (isComplete) {
+      const hasLocaleFile = getSupportedLocales().some(loc =>
+        fs.existsSync(path.join(folderPath, `${loc}.yml`))
+      );
+      if (hasCommon && hasLocaleFile) {
         res.json({ available: false, slug, type, reason: "slug_taken" });
         return;
       }
-    } else if (folderExists) {
-      res.json({ available: false, slug, type, reason: "slug_taken" });
-      return;
     }
 
     const locale =
@@ -6733,6 +6728,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       // Use English slug for folder name (primary identifier), fall back to Spanish if EN is skipped
       const folderSlug = enSlug || esSlug;
+
+      const existingTypeSlugs = contentIndex.listContentSlugs(type);
+      if (existingTypeSlugs.includes(folderSlug!)) {
+        res
+          .status(409)
+          .json({
+            error: `A ${type} with slug "${folderSlug}" already exists`,
+          });
+        return;
+      }
+
       const folderPath = path.join(
         process.cwd(),
         "marketing-content",
@@ -6740,20 +6746,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         folderSlug!,
       );
 
-      // Check if folder already exists
       if (fs.existsSync(folderPath)) {
-        const hasCommon = fs.existsSync(path.join(folderPath, "_common.yml"));
-        const hasEn = fs.existsSync(path.join(folderPath, "en.yml"));
-        const hasEs = fs.existsSync(path.join(folderPath, "es.yml"));
-
-        if (hasCommon && hasEn && hasEs) {
-          res
-            .status(409)
-            .json({
-              error: `A ${type} with slug "${folderSlug}" already exists`,
-            });
-          return;
-        }
+        res
+          .status(409)
+          .json({
+            error: `A ${type} with slug "${folderSlug}" already exists`,
+          });
+        return;
       }
 
       // Create folder
@@ -7292,6 +7291,14 @@ sections: []
         return;
       }
 
+      const existingSlugs = contentIndex.listContentSlugs("landing");
+      if (existingSlugs.includes(slug)) {
+        res
+          .status(409)
+          .json({ error: `A landing with slug "${slug}" already exists` });
+        return;
+      }
+
       const folderPath = path.join(
         process.cwd(),
         "marketing-content",
@@ -7299,7 +7306,6 @@ sections: []
         slug,
       );
 
-      // Check if folder already exists
       if (fs.existsSync(folderPath)) {
         res
           .status(409)
@@ -7376,7 +7382,7 @@ sections: []
         }
       }
 
-      // Create starter YAML files for landings (_common.yml and promoted.yml)
+      // Create starter YAML files for landings (_common.yml and {locale}.yml)
       const commonYml = `slug: "${slug}"
 locale: "${landingLocale}"
 title: "${title}"
@@ -7395,7 +7401,7 @@ schema:
     - "website"
 `;
 
-      const promotedYml = `# Promoted variant - customize for marketing campaigns
+      const localeYml = `# Landing page content
 sections: []
 `;
 
@@ -7405,9 +7411,9 @@ sections: []
         `marketing-content/landings/${slug}/_common.yml`,
         landingAuthorName,
       );
-      fs.writeFileSync(path.join(folderPath, "promoted.yml"), promotedYml);
+      fs.writeFileSync(path.join(folderPath, `${landingLocale}.yml`), localeYml);
       markFileAsModified(
-        `marketing-content/landings/${slug}/promoted.yml`,
+        `marketing-content/landings/${slug}/${landingLocale}.yml`,
         landingAuthorName,
       );
 
@@ -7419,7 +7425,7 @@ sections: []
         slug,
         locale: landingLocale,
         directory: `marketing-content/landings/${slug}`,
-        files: ["_common.yml", "promoted.yml"],
+        files: ["_common.yml", `${landingLocale}.yml`],
       });
     } catch (error) {
       console.error("Landing create error:", error);
@@ -7431,13 +7437,13 @@ sections: []
     const { contentType, slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
-    if (!["program", "landing", "location"].includes(contentType)) {
+    if (!isValidType(contentType)) {
       res.status(400).json({ error: "Invalid content type" });
       return;
     }
 
     const result = getContentForEdit(
-      contentType as "program" | "landing" | "location",
+      contentType as string,
       slug,
       locale,
     );
@@ -8081,8 +8087,7 @@ sections: []
             inferredLocale =
               urlLocale || (url.startsWith("/es/") ? "es" : "en");
           }
-          const localeOrVariant =
-            file.type === "landing" ? "promoted" : inferredLocale;
+          const localeOrVariant = inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
           const result = contentIndex.loadContent({
             contentType: file.type,

@@ -176,7 +176,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
         if (contentIndex.isDatabaseBacked(contentType)) {
           schema = null;
         } else {
-          schema = landingPageSchema;
+          schema = templatePageSchema;
         }
     }
     

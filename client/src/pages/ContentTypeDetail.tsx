@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 const LEGACY_API_PATHS: Record<string, string> = {
   program: "/api/career-programs",
   location: "/api/locations",
+  landing: "/api/landings",
 };
 
 function getApiPath(type: string): string {
@@ -34,7 +35,7 @@ interface ContentTypeDetailProps {
 export default function ContentTypeDetail({ type, slug, locale, urlPattern }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
   const [, setLocation] = useLocation();
-  const effectiveLocale = locale || (i18n.language as string) || "en";
+  const effectiveLocale = (locale && locale !== "default") ? locale : (i18n.language as string) || "en";
   const apiPath = getApiPath(type);
 
   const { data, isLoading, error, refetch } = useQuery<Record<string, unknown>>({
@@ -51,7 +52,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   useEffect(() => {
     if (data?.slug && data.slug !== slug && urlPattern) {
-      const pattern = urlPattern[effectiveLocale] || urlPattern["en"];
+      const pattern = urlPattern[effectiveLocale] || urlPattern["default"] || urlPattern["en"];
       if (pattern) {
         const correctUrl = pattern.replace(":slug", String(data.slug));
         setLocation(correctUrl, { replace: true });

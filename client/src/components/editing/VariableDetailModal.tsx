@@ -602,7 +602,7 @@ export function VariableDetailModal({
         if (match) {
           const ct = normalizeContentType(match[1]);
           emitContentUpdated({
-            contentType: ct as "program" | "landing" | "location" | "page",
+            contentType: ct,
             slug: match[2],
             locale: match[3],
           });

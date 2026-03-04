@@ -18,7 +18,7 @@ interface PageHistoryContextValue {
 }
 
 interface PageContext {
-  contentType: "program" | "landing" | "location" | "page";
+  contentType: string;
   slug: string;
   locale: string;
   variant?: string;

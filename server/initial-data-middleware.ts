@@ -65,10 +65,18 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
 
     const apiPath = API_PATH_MAP[contentType];
     const schema = SCHEMA_MAP[contentType];
-    const locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+    let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+    if (resolved.params?.locale) {
+      locale = resolved.params.locale;
+    } else if (!cleanUrl.match(/^\/(en|es)\b/)) {
+      const commonData = contentIndex.loadCommonData(contentType, slug);
+      if (commonData?.locale && typeof commonData.locale === "string") {
+        locale = commonData.locale;
+      }
+    }
 
     if (apiPath && schema) {
-      const localeOrVariant = contentType === "landing" ? "promoted" : locale;
+      const localeOrVariant = locale;
 
       const result = contentIndex.loadContent({
         contentType,

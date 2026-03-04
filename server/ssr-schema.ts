@@ -5,7 +5,7 @@ import { getMergedSchemas } from "./schema-org";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
-import { getFolder, getType, getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
+import { getFolder, getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
 import { getBaseUrl, generateHreflangTags, generateListingHreflangTags } from "./hreflang";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
@@ -67,38 +67,22 @@ export function clearSsrSchemaCache(): void {
 function parseRoute(url: string): ParsedRoute | null {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
-  let match: RegExpMatchArray | null;
-
-  match = cleanUrl.match(/^\/(en|es)\/career-programs\/(.+?)$/);
-  if (!match) match = cleanUrl.match(/^\/(es)\/programas-de-carrera\/(.+?)$/);
-  if (match) {
-    const folder = contentIndex.resolveBaseSlug(match[2], "program");
-    return { contentType: "program", slug: folder, locale: match[1] };
-  }
-
-  match = cleanUrl.match(/^\/(en|es)\/location\/(.+?)$/);
-  if (!match) match = cleanUrl.match(/^\/(es)\/ubicacion\/(.+?)$/);
-  if (match) {
-    const folder = contentIndex.resolveBaseSlug(match[2], "location");
-    return { contentType: "location", slug: folder, locale: match[1] };
-  }
-
-  match = cleanUrl.match(/^\/(en|es)\/landing\/(.+?)$/);
-  if (match) {
-    const folder = contentIndex.resolveBaseSlug(match[2], "landing");
-    return { contentType: "landing", slug: folder, locale: match[1] };
-  }
-
-  match = cleanUrl.match(/^\/(en|es)\/(.+?)$/);
-  if (match) {
-    const locale = match[1];
-    const slug = match[2];
-    const folder = contentIndex.resolveBaseSlug(slug, "page");
-    return { contentType: "page", slug: folder, locale };
-  }
-
   if (cleanUrl === "/" || cleanUrl === "/en" || cleanUrl === "/en/" || cleanUrl === "/es" || cleanUrl === "/es/") {
     return null;
+  }
+
+  const resolved = contentIndex.resolveUrl(cleanUrl);
+  if (resolved && !resolved.fromDatabase) {
+    let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+    if (resolved.params?.locale) {
+      locale = resolved.params.locale;
+    } else if (!cleanUrl.match(/^\/(en|es)\b/)) {
+      const commonData = contentIndex.loadCommonData(resolved.contentType, resolved.slug);
+      if (commonData?.locale && typeof commonData.locale === "string") {
+        locale = commonData.locale;
+      }
+    }
+    return { contentType: resolved.contentType, slug: resolved.slug, locale };
   }
 
   return null;
@@ -110,9 +94,7 @@ export function loadRawYaml(contentType: string, slug: string, locale: string): 
   const contentDir = path.join(MARKETING_CONTENT_PATH, folder, resolvedSlug);
   const commonPath = path.join(contentDir, "_common.yml");
 
-  const normalized = getType(contentType);
-  const localeOrVariant = normalized === "landing" ? "promoted" : locale;
-  const contentPath = path.join(contentDir, `${localeOrVariant}.yml`);
+  const contentPath = path.join(contentDir, `${locale}.yml`);
 
   if (!fs.existsSync(contentPath)) return null;
 

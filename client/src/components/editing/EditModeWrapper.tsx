@@ -14,7 +14,7 @@ const SectionEditorPanel = lazy(() =>
 interface EditModeWrapperProps {
   children: React.ReactNode;
   sections?: Section[];
-  contentType?: "program" | "landing" | "location";
+  contentType?: string;
   slug?: string;
   locale?: string;
 }
@@ -68,7 +68,7 @@ function EditModeInner({
   useEffect(() => {
     if (pageHistory && contentType && slug && locale) {
       pageHistory.setPageContext({
-        contentType: contentType as "program" | "landing" | "location" | "page",
+        contentType: contentType || "page",
         slug,
         locale,
         onSectionsRestore: (restoredSections: Section[]) => {

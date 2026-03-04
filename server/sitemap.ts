@@ -78,13 +78,6 @@ interface AvailableProgram {
   meta: ContentMeta;
 }
 
-interface AvailableLanding {
-  slug: string;
-  locale: string;
-  title: string;
-  meta: ContentMeta;
-}
-
 interface AvailableLocation {
   slug: string;
   locale: string;
@@ -138,50 +131,6 @@ function getAvailablePrograms(): AvailableProgram[] {
     return programs;
   } catch (error) {
     console.error("Error scanning programs:", error);
-    return [];
-  }
-}
-
-function getAvailableLandings(): AvailableLanding[] {
-  try {
-    const landings: AvailableLanding[] = [];
-    const slugs = contentIndex.listContentSlugs("landing");
-
-    for (const slug of slugs) {
-      // For landings, we use "promoted" as the content file
-      // and get locale from _common.yml
-      const merged = loadMergedContent("landing", slug, "promoted");
-      if (!merged) {
-        // Fallback: try to load en.yml for backward compatibility
-        const legacyMerged = loadMergedContent("landing", slug, "en");
-        if (legacyMerged) {
-          const meta = (legacyMerged.meta as ContentMeta) || {};
-          landings.push({
-            slug: (legacyMerged.slug as string) || slug,
-            locale: "en",
-            title: meta.page_title || (legacyMerged.title as string) || slug,
-            meta,
-          });
-        }
-        continue;
-      }
-
-      // Get locale from _common.yml
-      const commonData = contentIndex.loadCommonData("landing", slug);
-      const locale = (commonData?.locale as string) || "en";
-      const meta = (merged.meta as ContentMeta) || {};
-
-      landings.push({
-        slug: (merged.slug as string) || slug,
-        locale,
-        title: meta.page_title || (merged.title as string) || slug,
-        meta,
-      });
-    }
-
-    return landings;
-  } catch (error) {
-    console.error("Error scanning landings:", error);
     return [];
   }
 }
@@ -325,29 +274,6 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     });
   }
 
-  // Dynamic landing pages (deduplicated by slug)
-  const landings = getAvailableLandings();
-  const processedLandingSlugs = new Set<string>();
-
-  for (const landing of landings) {
-    if (processedLandingSlugs.has(landing.slug)) continue;
-    if (!shouldIndex(landing.meta.robots)) {
-      console.log(`[Sitemap] Skipping noindex landing: ${landing.slug}`);
-      continue;
-    }
-
-    processedLandingSlugs.add(landing.slug);
-
-    entries.push({
-      loc: `${getBaseUrl()}${contentIndex.buildUrl("landing", landing.locale || "en", landing.slug)}`,
-      lastmod: today,
-      changefreq: landing.meta.change_frequency || "weekly",
-      priority: landing.meta.priority || 0.8,
-      label: `Landing: ${landing.title}`,
-      type: "landing",
-    });
-  }
-
   // Dynamic location pages
   const locations = getAvailableLocations();
   for (const location of locations) {
@@ -432,7 +358,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     console.warn("[Sitemap] Could not load blog posts for sitemap:", err);
   }
 
-  const handledTypes = new Set(["program", "landing", "location", "page", "blog"]);
+  const handledTypes = new Set(["program", "location", "page", "blog"]);
   try {
     const allTypeConfigs = getAllConfigs();
     for (const [typeName, typeConfig] of Object.entries(allTypeConfigs)) {

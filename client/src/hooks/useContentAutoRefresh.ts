@@ -2,10 +2,8 @@ import { useEffect } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { subscribeToContentUpdates, ContentUpdatedPayload } from "@/lib/contentEvents";
 
-type ContentType = "program" | "landing" | "location" | "page";
-
 export function useContentAutoRefresh(
-  contentType: ContentType | undefined,
+  contentType: string | undefined,
   slug: string | undefined,
   locale: string | undefined,
   refetch: () => void

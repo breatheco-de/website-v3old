@@ -602,7 +602,7 @@ export class ExperimentManager {
   /**
    * Get available variants for a content type and slug
    * Parses YAML files in the content folder following naming conventions:
-   * - {locale}.yml = "promoted" variant (e.g., en.yml, es.yml)
+   * - {locale}.yml = base/default variant (e.g., en.yml, es.yml)
    * - {variant-slug}.v{version}.{locale}.yml = named variant (e.g., salary-focus.v1.en.yml)
    */
   public getAvailableVariants(

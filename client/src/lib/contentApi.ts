@@ -2,7 +2,7 @@ import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import type { EditOperation } from "@shared/schema";
 
 export interface ContentEditRequest {
-  contentType: "program" | "landing" | "location" | "page";
+  contentType: string;
   slug: string;
   locale: string;
   operations: EditOperation[];

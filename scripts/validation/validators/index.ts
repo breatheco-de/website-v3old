@@ -17,6 +17,7 @@ import { schemaCompletenessValidator } from "./schema-completeness";
 import { imagesValidator } from "./images";
 import { contentQualityValidator } from "./content-quality";
 import { databaseSinglesValidator } from "./database-singles";
+import { slugConflictsValidator } from "./slug-conflicts";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -31,6 +32,7 @@ export const validators: Validator[] = [
   imagesValidator,
   contentQualityValidator,
   databaseSinglesValidator,
+  slugConflictsValidator,
 ];
 
 export const validatorMap = new Map<string, Validator>(
@@ -68,4 +70,5 @@ export {
   imagesValidator,
   contentQualityValidator,
   databaseSinglesValidator,
+  slugConflictsValidator,
 };

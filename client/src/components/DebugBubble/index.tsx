@@ -250,7 +250,7 @@ export function DebugBubble() {
   const [createLandingLocale, setCreateLandingLocale] = useState<'en' | 'es'>('en');
   
   // Duplicate page state
-  const [duplicatingPage, setDuplicatingPage] = useState<{ loc: string; label: string; contentType: 'location' | 'page' | 'program' | 'landing' } | null>(null);
+  const [duplicatingPage, setDuplicatingPage] = useState<{ loc: string; label: string; contentType: string } | null>(null);
   
   // Delete page state
   const [deletePageModalOpen, setDeletePageModalOpen] = useState(false);
@@ -318,7 +318,7 @@ export function DebugBubble() {
   const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
 
   // Detect current content info from URL
-  const contentInfo = useMemo(() => detectContentInfo(pathname), [pathname]);
+  const contentInfo = useMemo(() => detectContentInfo(pathname, contentTypesMap), [pathname, contentTypesMap]);
 
   useEffect(() => {
     setSlugEditorExpanded(false);
@@ -371,13 +371,15 @@ export function DebugBubble() {
     if (pathname.startsWith('/private/preview/') && contentInfo.type && contentInfo.slug) {
       const searchParams = new URLSearchParams(window.location.search);
       const locale = normalizeLocale(searchParams.get('locale') || 'en');
-      const urlMap: Record<string, Record<string, string>> = {
-        programs: { en: `/en/career-programs/${contentInfo.slug}`, es: `/es/programas-de-carrera/${contentInfo.slug}` },
-        pages: { en: `/en/${contentInfo.slug}`, es: `/es/${contentInfo.slug}` },
-        locations: { en: `/en/location/${contentInfo.slug}`, es: `/es/ubicacion/${contentInfo.slug}` },
-        landings: { en: `/landing/${contentInfo.slug}`, es: `/landing/${contentInfo.slug}` },
-      };
-      diagnosticsUrl = urlMap[contentInfo.type]?.[locale] || urlMap[contentInfo.type]?.en || null;
+      if (contentTypesMap && contentInfo.type) {
+        const ct = contentTypesMap[contentInfo.type];
+        if (ct?.url_pattern) {
+          const pattern = ct.url_pattern[locale] || ct.url_pattern['default'] || ct.url_pattern['en'];
+          if (pattern) {
+            diagnosticsUrl = pattern.replace(':slug', contentInfo.slug);
+          }
+        }
+      }
     } else if (!pathname.startsWith('/private/')) {
       diagnosticsUrl = pathname;
     }
@@ -399,7 +401,7 @@ export function DebugBubble() {
       })
       .catch(() => {})
       .finally(() => setPageDiagnosticsLoading(false));
-  }, [pathname, isDebugMode, contentInfo.type, contentInfo.slug]);
+  }, [pathname, isDebugMode, contentInfo.type, contentInfo.slug, contentTypesMap]);
 
   const pageErrorCount = useMemo(() => {
     if (!pageDiagnostics) return 0;
@@ -863,14 +865,9 @@ export function DebugBubble() {
     if (!contentInfo.type || !contentInfo.slug || slugCheckStatus !== "available") return;
     const apiType = contentInfo.type;
     const urlLocale = getEffectiveLocale() || "en";
-    if (apiType === "landing") {
-      setSlugOldUrl(`/landing/${currentLocaleSlug}`);
-      setSlugNewUrl(`/landing/${newSlugValue}`);
-    } else {
-      const pattern = contentTypesMap?.[apiType]?.url_pattern;
-      setSlugOldUrl(buildContentUrlFromPattern(pattern, currentLocaleSlug, urlLocale));
-      setSlugNewUrl(buildContentUrlFromPattern(pattern, newSlugValue, urlLocale));
-    }
+    const pattern = contentTypesMap?.[apiType]?.url_pattern;
+    setSlugOldUrl(buildContentUrlFromPattern(pattern, currentLocaleSlug, urlLocale));
+    setSlugNewUrl(buildContentUrlFromPattern(pattern, newSlugValue, urlLocale));
     setSlugRedirectPrompt(true);
   };
 
@@ -1340,33 +1337,12 @@ export function DebugBubble() {
 
   const currentLang = i18n.language === "es" ? "ES" : "EN";
 
-  // Detect content type from URL path
-  const getContentTypeFromPath = (path: string): 'page' | 'program' | 'landing' | 'location' | null => {
-    const parts = path.split('/').filter(Boolean);
-    
-    const hasLocale = parts[0] === 'en' || parts[0] === 'es' || parts[0] === 'us';
-    const contentParts = hasLocale ? parts.slice(1) : parts;
-    
-    if (contentParts.length === 0) return null;
-    
-    // Check content type based on first path segment (must match content-types.yml URL patterns)
-    if (contentParts[0] === 'landing') return 'landing';
-    if (contentParts[0] === 'career-programs' || contentParts[0] === 'programas-de-carrera' || contentParts[0] === 'bootcamp' || contentParts[0] === 'course') return 'program';
-    if (contentParts[0] === 'location' || contentParts[0] === 'ubicacion' || contentParts[0] === 'coding-campus') return 'location';
-    
-    // If has locale prefix, it's a page
-    if (hasLocale) return 'page';
-    
-    return null;
-  };
-  
-  // Handle duplicate page action
   const handleDuplicatePage = (url: SitemapUrl) => {
     const path = new URL(url.loc).pathname;
-    const contentType = getContentTypeFromPath(path);
-    if (contentType) {
-      setDuplicatingPage({ loc: url.loc, label: url.label, contentType });
-      setCreateContentType(contentType);
+    const info = detectContentInfo(path, contentTypesMap);
+    if (info.type && info.slug) {
+      setDuplicatingPage({ loc: url.loc, label: url.label, contentType: info.type });
+      setCreateContentType(info.type);
       setCreateContentTitle("");
       setCreateContentSlugEn("");
       setCreateContentSlugEs("");
@@ -1382,30 +1358,13 @@ export function DebugBubble() {
 
   const handleDeletePage = (url: SitemapUrl) => {
     const urlPath = new URL(url.loc).pathname;
-    const contentType = getContentTypeFromPath(urlPath);
-    if (!contentType) {
+    const info = detectContentInfo(urlPath, contentTypesMap);
+    if (!info.type || !info.slug) {
       toast({ title: "Cannot delete", description: "Unrecognized content type", variant: "destructive" });
       return;
     }
-    const parts = urlPath.split('/').filter(Boolean);
-    const hasLocale = parts[0] === 'en' || parts[0] === 'es' || parts[0] === 'us';
-    const locale = hasLocale ? parts[0] : 'en';
-    const contentParts = hasLocale ? parts.slice(1) : parts;
-    let slug = '';
-    if (contentType === 'landing') {
-      slug = contentParts.slice(1).join('-') || contentParts[contentParts.length - 1];
-    } else if (contentType === 'program') {
-      slug = contentParts[contentParts.length - 1];
-    } else if (contentType === 'location') {
-      slug = contentParts[contentParts.length - 1];
-    } else {
-      slug = contentParts.join('-') || contentParts[contentParts.length - 1];
-    }
-    if (!slug) {
-      toast({ title: "Cannot delete", description: "Could not determine slug", variant: "destructive" });
-      return;
-    }
-    setDeletingPage({ slug, contentType, locale });
+    const pathLocale = urlPath.startsWith('/es/') ? 'es' : urlPath.startsWith('/en/') ? 'en' : 'en';
+    setDeletingPage({ slug: info.slug, contentType: info.type, locale: pathLocale });
     setDeleteConfirmInput("");
     setDeletePageModalOpen(true);
   };
