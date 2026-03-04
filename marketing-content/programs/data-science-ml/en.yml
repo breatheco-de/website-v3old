@@ -568,9 +568,8 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start Your Data Science Career?
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
     subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -592,7 +591,7 @@ sections:
         program:
           visible: false
           required: true
-          default: datascience-ml
+          default: {{ single.bc_slug | unknown }}
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -604,10 +603,12 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+    section_id: cta_banner-6rzz4s
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
