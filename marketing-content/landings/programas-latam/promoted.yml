@@ -141,6 +141,8 @@ sections:
           - Lento para adaptarse
     marginY:
       desktop: none xl
+    paddingY:
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: detailed
