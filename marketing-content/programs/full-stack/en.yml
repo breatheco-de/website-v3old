@@ -641,10 +641,11 @@ sections:
           required: false
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: false
-          default: full-stack
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-et016q

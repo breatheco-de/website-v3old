@@ -1498,6 +1498,35 @@
       ],
       "createdAt": "2026-03-04T04:02:02.963Z",
       "name": "cta banner for programs"
+    },
+    {
+      "id": "bind_mmc6fp5x_nv8bah",
+      "component": "sticky_cta",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionId": "sticky_cta-5ry34w"
+        },
+        {
+          "contentType": "program",
+          "slug": "cybersecurity",
+          "sectionId": "sticky_cta-dl9ciq"
+        },
+        {
+          "contentType": "program",
+          "slug": "data-science-ml",
+          "sectionId": "sticky_cta-ea9lr3"
+        },
+        {
+          "contentType": "program",
+          "slug": "full-stack",
+          "sectionId": "sticky_cta-et016q"
+        }
+      ],
+      "createdAt": "2026-03-04T15:13:45.765Z",
+      "name": "sticky_cta_programs_en"
     }
   ]
 }
