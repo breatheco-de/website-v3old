@@ -1,4 +1,5 @@
 import { useParams, useLocation } from "wouter";
+import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
@@ -632,9 +633,9 @@ export default function MenuEditor() {
       // - English: structure endpoint (propagates to all translations)
       // - Other locales: translations endpoint (text-only changes)
       if (isEnglish) {
-        return apiRequest("PUT", `/api/menus/${menuName}/structure`, { data: parsedData });
+        return apiRequest("PUT", `/api/menus/${menuName}/structure`, { data: parsedData, author: getDebugUserName() });
       } else {
-        return apiRequest("PUT", `/api/menus/${menuName}/translations?locale=${locale}`, { data: parsedData });
+        return apiRequest("PUT", `/api/menus/${menuName}/translations?locale=${locale}`, { data: parsedData, author: getDebugUserName() });
       }
     },
     onSuccess: (response: any) => {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery } from "@tanstack/react-query";
 import {
   Card,
@@ -382,6 +383,7 @@ export default function PrivateRedirects() {
         status: redirectStatus,
         isCustomDestination: isCustomDestination || isRegexDestination,
         priority: redirectPriority,
+        author: getDebugUserName(),
       });
       const data = await res.json();
 
@@ -421,6 +423,7 @@ export default function PrivateRedirects() {
       const res = await apiRequest("DELETE", "/api/debug/redirects", {
         from: deletingRedirect.from,
         source: deletingRedirect.source,
+        author: getDebugUserName(),
       });
       const data = await res.json();
 
@@ -473,6 +476,7 @@ export default function PrivateRedirects() {
       const res = await apiRequest("DELETE", "/api/debug/redirects", {
         from: redirectUrl,
         source,
+        author: getDebugUserName(),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -497,6 +501,7 @@ export default function PrivateRedirects() {
         const res = await apiRequest("DELETE", "/api/debug/redirects", {
           from: redirectUrl,
           source,
+          author: getDebugUserName(),
         });
         if (!res.ok) {
           const data = await res.json();
@@ -521,6 +526,7 @@ export default function PrivateRedirects() {
       await apiRequest("PATCH", "/api/debug/redirects/priority", {
         from: redirect.from,
         priority: newPriority,
+        author: getDebugUserName(),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
     } catch {
@@ -537,6 +543,7 @@ export default function PrivateRedirects() {
     reordered.splice(toIndex, 0, moved);
     await apiRequest("PATCH", "/api/debug/redirects/reorder", {
       redirects: reordered.map((r) => ({ from: r.from, to: r.to, status: r.status, priority: r.priority })),
+      author: getDebugUserName(),
     });
     queryClient.invalidateQueries({ queryKey: ["/api/debug/redirects"] });
   };

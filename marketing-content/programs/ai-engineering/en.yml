@@ -16,7 +16,6 @@ meta:
     - /coding-bootcamp/ai-engineering
     - /en/coding-bootcamps/software-engineer-bootcamp
     - /en/online-coding-bootcamp/best-online-coding-bootcamp
-    - /en/coding-bootcamps/applied-ai-course
 schema:
   include:
     - organization

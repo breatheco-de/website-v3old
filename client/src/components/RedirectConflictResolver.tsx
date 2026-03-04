@@ -12,6 +12,7 @@ import {
 import { IconTool, IconCheck, IconX } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { getDebugUserName } from "@/hooks/useDebugAuth";
 
 export interface RedirectConflictInfo {
   redirectUrl: string;
@@ -164,6 +165,7 @@ export function RedirectConflictResolverModal({
       const res = await apiRequest("DELETE", "/api/debug/redirects", {
         from: conflict.redirectUrl,
         source: fileToRemoveFrom,
+        author: getDebugUserName(),
       });
       const result = await res.json();
       if (result.success) {

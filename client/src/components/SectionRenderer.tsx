@@ -348,6 +348,8 @@ function resolveLoadStrategy(
 ): "eager" | "lazy" {
   const layout = section as SectionLayout;
   if (layout.load) return layout.load;
+  const sectionType = (section as { type: string }).type;
+  if (sectionType === "sticky_cta") return "eager";
   const eagerCount = settings?.loading?.eager_count ?? DEFAULT_EAGER_COUNT;
   return index < eagerCount ? "eager" : "lazy";
 }
