@@ -46,4 +46,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "course:video.url": "video-picker",
   "productShowcase:video.url": "video-picker",
   "simpleTwoColumn:video.url": "video-picker",
+  "ApplyFormProductShowcase:video.url": "video-picker",
+  "ApplyFormProductShowcase:image": "image-with-style-picker",
 };

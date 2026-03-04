@@ -243,6 +243,21 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   form: leadFormDataSchema,
   cta_button: ctaButtonSchema.optional(),
   trust_bar: productShowcaseTrustBarSchema.optional(),
+  video: z.object({
+    url: z.string(),
+    title: z.string().optional(),
+    ratio: z.string().optional(),
+    mobile_ratio: z.string().optional(),
+    muted: z.boolean().optional(),
+    autoplay: z.boolean().optional(),
+    loop: z.boolean().optional(),
+    preview_image_url: z.string().optional(),
+    with_shadow_border: z.boolean().optional(),
+  }).optional(),
+  image: z.object({
+    src: z.string(),
+    alt: z.string(),
+  }).optional(),
 }).passthrough();
 
 // Combined hero section schema
