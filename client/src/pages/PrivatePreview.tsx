@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
-import { normalizeContentType } from "@/hooks/useContentTypes";
+import { normalizeContentType, useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
 import { IconLoader2, IconAlertTriangle, IconArrowLeft, IconCode } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -19,15 +19,11 @@ const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditor
 
 type ContentData = CareerProgram | LandingPage | LocationPage | TemplatePage;
 
-const contentTypeConfig: Record<string, { 
-  apiPath: string; 
-  singular: string;
-  label: string;
-}> = {
-  program: { apiPath: "career-programs", singular: "program", label: "Program" },
-  landing: { apiPath: "landings", singular: "landing", label: "Landing" },
-  location: { apiPath: "locations", singular: "location", label: "Location" },
-  page: { apiPath: "pages", singular: "page", label: "Page" },
+const STATIC_API_PATHS: Record<string, string> = {
+  program: "career-programs",
+  landing: "landings",
+  location: "locations",
+  page: "pages",
 };
 
 export default function PrivatePreview() {
@@ -41,16 +37,31 @@ export default function PrivatePreview() {
   const version = searchParams.get("version");
   const locale = searchParams.get("locale") || "en";
   
-  const normalizedType = normalizeContentType(contentType);
-  const config = contentTypeConfig[normalizedType];
-  const isValidContentType = !!config;
+  const { data: allContentTypes, isLoading: typesLoading } = useContentTypesRaw();
+
+  const normalizedType = normalizeContentType(
+    contentType,
+    allContentTypes
+      ? Object.fromEntries(allContentTypes.map(t => [t.name, { directory: t.directory, url_pattern: t.url_pattern }]))
+      : undefined
+  );
+
+  const typeInfo = allContentTypes?.find(t => t.name === normalizedType);
+  const staticApiPath = STATIC_API_PATHS[normalizedType];
+  const isValidContentType = !!typeInfo || !!staticApiPath;
+  const typeLabel = typeInfo?.label || normalizedType.charAt(0).toUpperCase() + normalizedType.slice(1);
 
   const [showRawEditor, setShowRawEditor] = useState(false);
 
   const { data: content, isLoading, error, refetch } = useQuery<ContentData>({
-    queryKey: ["/api/preview", contentType, slug, variant, version, locale],
+    queryKey: ["/api/preview", normalizedType, slug, variant, version, locale],
     queryFn: async () => {
-      let url = `/api/${config.apiPath}/${slug}?locale=${locale}`;
+      let url: string;
+      if (staticApiPath) {
+        url = `/api/${staticApiPath}/${slug}?locale=${locale}`;
+      } else {
+        url = `/api/content-pages/${normalizedType}/${slug}?locale=${locale}`;
+      }
       if (variant) url += `&force_variant=${variant}`;
       if (version) url += `&force_version=${version}`;
       const response = await apiFetch(url);
@@ -59,13 +70,13 @@ export default function PrivatePreview() {
       }
       return response.json();
     },
-    enabled: !!slug && isValidContentType,
+    enabled: !!slug && isValidContentType && !typesLoading,
   });
 
   const { data: rawFileCheck } = useQuery<{ exists: boolean }>({
-    queryKey: ["/api/content/raw-file", contentType, slug, locale],
+    queryKey: ["/api/content/raw-file", normalizedType, slug, locale],
     queryFn: async () => {
-      const res = await fetch(`/api/content/raw-file?contentType=${contentType}&slug=${slug}&locale=${locale}`);
+      const res = await fetch(`/api/content/raw-file?contentType=${normalizedType}&slug=${slug}&locale=${locale}`);
       if (!res.ok) return { exists: false };
       const data = await res.json();
       return { exists: !!data.exists };
@@ -94,11 +105,22 @@ export default function PrivatePreview() {
   }, [content, isLoading]);
 
   useContentAutoRefresh(
-    config?.singular || contentType,
+    normalizedType,
     slug,
     locale,
     handleRefetch
   );
+
+  if (typesLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" data-testid="loading-preview">
+        <div className="text-center">
+          <IconLoader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-sm text-muted-foreground">Loading preview...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isValidContentType) {
     return (
@@ -108,9 +130,6 @@ export default function PrivatePreview() {
           <h1 className="text-2xl font-bold text-foreground mb-2">Invalid Content Type</h1>
           <p className="text-muted-foreground mb-4">
             Content type "{contentType}" is not valid.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Valid types: program, landing, location, page
           </p>
         </div>
       </div>
@@ -123,7 +142,7 @@ export default function PrivatePreview() {
         <div className="text-center">
           <IconLoader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
           <p className="text-sm text-muted-foreground">
-            Loading {config.label.toLowerCase()} preview...
+            Loading {typeLabel.toLowerCase()} preview...
           </p>
         </div>
       </div>
@@ -137,7 +156,7 @@ export default function PrivatePreview() {
           <div className="text-center">
             <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              {config.label} not found
+              {typeLabel} not found
             </h1>
             <p className="text-muted-foreground mb-4">
               Could not load the requested content variant.
@@ -159,7 +178,7 @@ export default function PrivatePreview() {
         {showRawEditor && (
           <Suspense fallback={null}>
             <RawFileEditorPanel
-              contentType={contentType}
+              contentType={normalizedType}
               slug={slug}
               locale={locale}
               onClose={() => setShowRawEditor(false)}
@@ -193,7 +212,7 @@ export default function PrivatePreview() {
       </div>
       <SectionRenderer 
         sections={content.sections} 
-        contentType={config.singular}
+        contentType={normalizedType}
         slug={slug}
         locale={locale}
         singleEntry={(content as any).singleEntry}

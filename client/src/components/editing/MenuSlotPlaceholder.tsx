@@ -28,6 +28,7 @@ interface MenuSlotPlaceholderProps {
   slug: string;
   locale: string;
   onMenuChange?: (menuId: string | null) => void;
+  isSharedTemplate?: boolean;
 }
 
 export default function MenuSlotPlaceholder({
@@ -37,6 +38,7 @@ export default function MenuSlotPlaceholder({
   slug,
   locale,
   onMenuChange,
+  isSharedTemplate,
 }: MenuSlotPlaceholderProps) {
   const editMode = useEditModeOptional();
   const queryClient = useQueryClient();
@@ -61,21 +63,14 @@ export default function MenuSlotPlaceholder({
   const isRemoving = pendingAction?.menuId === null;
   const actionLabel = isRemoving ? "Remove" : (currentMenuId ? "Change" : "Add");
 
-  const handleMenuOptionClick = useCallback((menuId: string | null) => {
-    setIsOpen(false);
-    setPendingAction({ menuId });
-  }, []);
-
-  const handleApplyToAll = useCallback(async () => {
-    if (!pendingAction) return;
+  const applyToAll = useCallback(async (menuId: string | null) => {
     setIsSaving(true);
     try {
       const body: Record<string, Record<string, string | null>> = {
-        menu: { [position]: pendingAction.menuId },
+        menu: { [position]: menuId },
       };
       await apiRequest("PUT", `/api/content-types/${contentType}/layout`, body);
-      setPendingAction(null);
-      onMenuChange?.(pendingAction.menuId);
+      onMenuChange?.(menuId);
       queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
       queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
     } catch (err) {
@@ -83,7 +78,22 @@ export default function MenuSlotPlaceholder({
     } finally {
       setIsSaving(false);
     }
-  }, [pendingAction, position, contentType, onMenuChange, queryClient, toast]);
+  }, [position, contentType, onMenuChange, queryClient, toast]);
+
+  const handleMenuOptionClick = useCallback((menuId: string | null) => {
+    setIsOpen(false);
+    if (isSharedTemplate) {
+      applyToAll(menuId);
+    } else {
+      setPendingAction({ menuId });
+    }
+  }, [isSharedTemplate, applyToAll]);
+
+  const handleApplyToAll = useCallback(async () => {
+    if (!pendingAction) return;
+    await applyToAll(pendingAction.menuId);
+    setPendingAction(null);
+  }, [pendingAction, applyToAll]);
 
   const handleApplyToEntry = useCallback(async () => {
     if (!pendingAction) return;
