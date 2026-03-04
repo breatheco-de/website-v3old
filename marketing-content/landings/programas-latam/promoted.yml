@@ -118,27 +118,27 @@ sections:
       - name: Característica
       - name: 4Geeks Academy
         highlight: true
-      - name: Promedio de la Industria / Competidores
+      - name: Promedio de la industria / competidores
     rows:
-      - feature: APOYO PROFESIONAL PERSONALIZADO
+      - feature: Apoyo profesional personalizado
         values:
-          - SOPORTE DE POR VIDA HASTA QUE CONSIGAS TRABAJO (Y MÁS ALLÁ)
-          - LIMITADO, A MENUDO EXPIRA DESPUÉS DE MESES
-      - feature: PROPORCIÓN PROFESOR:ESTUDIANTE
+          - Soporte de por vida hasta que consigas trabajo (y más allá)
+          - Limitado, a menudo expira después de meses
+      - feature: Proporción profesor:estudiante
         values:
           - "1:7"
           - 1:10+
-      - feature: RETROALIMENTACIÓN CON IA
+      - feature: Retroalimentación con IA
         values:
-          - PERSONALIZADA SEGÚN TU PROGRESO
-          - GENÉRICA O INEXISTENTE
-      - feature: MENTORÍA 1 A 1
+          - Personalizada según tu progreso
+          - Genérica o inexistente
+      - feature: Mentoría 1 a 1
         values:
-          - ILIMITADA Y CONTINUA
-          - SESIONES LIMITADAS
-      - feature: PLAN DE ESTUDIOS
+          - Ilimitada y continua
+          - Sesiones limitadas
+      - feature: Plan de estudios
         values:
-          - ACTUALIZADO CONTINUAMENTE PARA COINCIDIR CON LAS NECESIDADES DE LA INDUSTRIA
-          - LENTO PARA ADAPTARSE
+          - Actualizado continuamente para coincidir con las necesidades de la industria
+          - Lento para adaptarse
     marginY:
       desktop: none
