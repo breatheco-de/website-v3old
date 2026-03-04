@@ -65,10 +65,7 @@ sections:
       url: /programa/ai-engineering
       variant: outline
       icon: Download
-    video:
-      url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
-      ratio: "9:16"
-      muted: true
+    image: /marketing-content/images/tu-imagen.png
     paddingY:
       mobile: md none
       desktop: lg none
