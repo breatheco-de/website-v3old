@@ -35,7 +35,7 @@ sections:
   - type: cards_deck
     version: "1.0"
     cards:
-      - video: null
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         brandImage: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         authorName: Hernan Garcia
         title: "\"Taking a course like this benefits us in a lot of different ways.\""
@@ -47,8 +47,10 @@ sections:
         brandImage: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         authorName: John Doe
         title: Advanced React Patterns
-        description: Explore advanced component patterns, hooks, and state management techniques for building scalable React applications.
-        alt: ""
+        description: Exploresdasdsaddsadas advanced component patterns, hooks, and state management techniques for building scalable React applications.
+        alt: Original group illustration
+        image: https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp
+        id: group-original
       - title: Python for Data Science
         description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
     background: hsl(var(--muted))
