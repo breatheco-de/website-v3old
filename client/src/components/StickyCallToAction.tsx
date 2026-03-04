@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import type { LeadFormData } from "@shared/schema";
+import { useLocation } from "wouter";
 
 const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.LeadForm })));
 
@@ -15,6 +16,7 @@ function isElementInViewport(el: Element): boolean {
 }
 
 function useInlineFormVisible() {
+  const [pathname] = useLocation();
   const initialEl = typeof document !== "undefined" ? document.querySelector(INLINE_FORM_SELECTOR) : null;
   const [isFormVisible, setIsFormVisible] = useState(() => initialEl ? isElementInViewport(initialEl) : false);
   const [enableTransition, setEnableTransition] = useState(false);
@@ -24,6 +26,9 @@ function useInlineFormVisible() {
     let mutationObserver: MutationObserver | null = null;
     let firstFired = false;
     let currentEl: Element | null = null;
+
+    setEnableTransition(false);
+    setIsFormVisible(false);
 
     function observeElement(el: Element) {
       if (intersectionObserver) intersectionObserver.disconnect();
@@ -58,7 +63,6 @@ function useInlineFormVisible() {
         if (intersectionObserver) intersectionObserver.disconnect();
         currentEl = null;
         firstFired = false;
-        setEnableTransition(false);
         setIsFormVisible(false);
       }
     });
@@ -68,7 +72,7 @@ function useInlineFormVisible() {
       intersectionObserver?.disconnect();
       mutationObserver?.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   return { isFormVisible, enableTransition };
 }
