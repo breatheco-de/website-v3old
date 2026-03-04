@@ -35,20 +35,23 @@ sections:
   - type: cards_deck
     version: "1.0"
     cards:
-      - video:
-          url: s
-        brandImage: https://via.placeholder.com/32
-        authorName: Jane Smith
-        title: Getting Started with Web Development
+      - video: null
+        brandImage: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        authorName: Hernan Garcia
+        title: "\"Taking a course like this benefits us in a lot of different ways.\""
         description: Learn the fundamentals of HTML, CSS, and JavaScript in this comprehensive introduction to modern web development.
+        alt: Rigobot AI coding tutor - Meet our internally developed AI designed to help you become a great coder
+        id: geekforce-rigobot-ai
       - video:
           url: d
-        brandImage: https://via.placeholder.com/32
+        brandImage: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         authorName: John Doe
         title: Advanced React Patterns
         description: Explore advanced component patterns, hooks, and state management techniques for building scalable React applications.
+        alt: ""
       - title: Python for Data Science
         description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+    background: hsl(var(--muted))
   - type: hero
     version: "1.0"
     variant: course
@@ -109,6 +112,8 @@ sections:
           text: 1:7 teacher student ratio
         - icon: users
           text: 1:1 mentorship
+    paddingY:
+      desktop: xl none
   - type: hero
     variant: course
     title: Work not harder, apply AI at Work
