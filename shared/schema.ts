@@ -920,6 +920,29 @@ export const listingCardsSectionSchema = z.object({
 
 export type ListingCardsSection = z.infer<typeof listingCardsSectionSchema>;
 
+// ============================================
+// Cards Deck Section
+// ============================================
+const cardDeckItemSchema = z.object({
+  video: z.object({
+    url: z.string(),
+    preview_image_url: z.string().optional(),
+  }).optional(),
+  brandImage: z.string().optional(),
+  authorName: z.string().optional(),
+  title: z.string(),
+  description: z.string(),
+}).passthrough();
+
+export const cardsDeckSectionSchema = z.object({
+  type: z.literal("cards_deck"),
+  version: z.string().optional(),
+  variant: z.string().optional(),
+  cards: z.array(cardDeckItemSchema),
+}).passthrough();
+
+export type CardsDeckSection = z.infer<typeof cardsDeckSectionSchema>;
+
 // Base section schema union (component-specific fields)
 const baseSectionSchema = z.union([
   listingCardsSectionSchema,
@@ -978,6 +1001,7 @@ const baseSectionSchema = z.union([
   doubleCTASectionSchema,
   modalSectionSchema,
   contactUsInfoSectionSchema,
+  cardsDeckSectionSchema,
 ]);
 
 // Combined section schema with layout fields
