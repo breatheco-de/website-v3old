@@ -10,6 +10,8 @@ import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LazyRender from "@/components/LazyRender";
+import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 
 const LEGACY_API_PATHS: Record<string, string> = {
   program: "/api/career-programs",
@@ -106,9 +108,20 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     );
   }
 
+  const layoutMenu = (data.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined)?.menu;
+  const topMenuId = layoutMenu?.top;
+  const bottomMenuId = layoutMenu?.bottom;
+
   return (
     <div data-testid={`page-${type}`}>
-      <Header />
+      <MenuSlotPlaceholder
+        position="top"
+        currentMenuId={topMenuId ?? null}
+        contentType={type}
+        slug={slug}
+        onMenuChange={() => refetch()}
+      />
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer
         sections={(data.sections as any[]) || []}
         settings={data.settings}
@@ -118,9 +131,20 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
         programSlug={type === "program" ? slug : undefined}
         singleEntry={data.singleEntry as Record<string, unknown> | undefined}
       />
-      <div className="pb-12">
-        <Footer />
-      </div>
+      {bottomMenuId && (
+        <LazyRender>
+          <div className="pb-12">
+            <Footer menuId={bottomMenuId} />
+          </div>
+        </LazyRender>
+      )}
+      <MenuSlotPlaceholder
+        position="bottom"
+        currentMenuId={bottomMenuId ?? null}
+        contentType={type}
+        slug={slug}
+        onMenuChange={() => refetch()}
+      />
     </div>
   );
 }

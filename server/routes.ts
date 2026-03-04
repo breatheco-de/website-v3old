@@ -93,6 +93,9 @@ import {
   normalizeUrlPattern,
   getLocaleSource,
   resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
 } from "./content-types";
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { resolveSingleVars } from "./single-resolver";
@@ -1224,10 +1227,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const singleEntry = buildSingleEntryFromContent("program", program as unknown as Record<string, unknown>);
+    const programData = program as unknown as Record<string, unknown>;
+    const programRaw = contentIndex.loadMergedContent("program", slug, locale);
+    const layout = resolveLayout("program", programRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent("program", programData);
+    const { layout: _stripLayout, ...rest } = programData;
     res.json({
-      ...program,
+      ...rest,
       ...(singleEntry ? { singleEntry } : {}),
+      layout,
       _experiment: experimentInfo,
     });
   });
@@ -1292,12 +1300,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const landingLocations =
       (commonData?.locations as string[] | undefined) || undefined;
-    const singleEntry = buildSingleEntryFromContent("landing", landing as unknown as Record<string, unknown>);
+    const landingData = landing as unknown as Record<string, unknown>;
+    const rawMerged = contentIndex.loadMergedContent("landing", slug, locale);
+    const layout = resolveLayout("landing", rawMerged.data || commonData || {});
+    const singleEntry = buildSingleEntryFromContent("landing", landingData);
+    const { layout: _stripLayout, ...restLanding } = landingData;
     res.json({
-      ...landing,
+      ...restLanding,
       ...(singleEntry ? { singleEntry } : {}),
       locale,
       landing_locations: landingLocations,
+      layout,
       _experiment: experimentInfo,
     });
   });
@@ -1326,10 +1339,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const singleEntry = buildSingleEntryFromContent("location", location as unknown as Record<string, unknown>);
+    const locationData = location as unknown as Record<string, unknown>;
+    const locationRaw = contentIndex.loadMergedContent("location", slug, locale);
+    const layout = resolveLayout("location", locationRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent("location", locationData);
+    const { layout: _stripLayout, ...restLocation } = locationData;
     res.json({
-      ...location,
+      ...restLocation,
       ...(singleEntry ? { singleEntry } : {}),
+      layout,
     });
   });
 
@@ -1351,7 +1369,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    res.json(page);
+    const cpPageData = page as unknown as Record<string, unknown>;
+    const cpRaw = contentIndex.loadMergedContent("page", "career-programs", locale);
+    const cpLayout = resolveLayout("page", cpRaw.data || {});
+    const { layout: _cpStripLayout, ...cpRest } = cpPageData;
+    res.json({ ...cpRest, layout: cpLayout });
   });
 
   // Special handler for apply page (includes programs and locations from _common.yml)
@@ -1365,13 +1387,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    // Load common data for programs and locations
     const commonData = contentIndex.loadCommonData("page", "apply");
+    const applyRaw = contentIndex.loadMergedContent("page", "apply", locale);
+    const layout = resolveLayout("page", applyRaw.data || {});
+    const { layout: _stripLayout, ...restApply } = page as unknown as Record<string, unknown>;
 
     res.json({
-      ...page,
+      ...restApply,
       programs: commonData?.programs || [],
       locations: commonData?.locations || [],
+      layout,
     });
   });
 
@@ -1448,11 +1473,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       )) as any;
     }
 
-    const singleEntry = buildSingleEntryFromContent("page", page as unknown as Record<string, unknown>);
+    const pageData = page as unknown as Record<string, unknown>;
+    const pageRaw = contentIndex.loadMergedContent("page", slug, locale);
+    const layout = resolveLayout("page", pageRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent("page", pageData);
     if (singleEntry) {
-      (page as any).singleEntry = singleEntry;
+      pageData.singleEntry = singleEntry;
     }
-    res.json(page);
+    const { layout: _stripLayout, ...restPage } = pageData;
+    res.json({ ...restPage, layout });
   });
 
   app.get("/api/content-pages/:contentType/:slug", async (req, res) => {
@@ -1473,7 +1502,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (page.sections && Array.isArray(page.sections)) {
         page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
       }
-      res.json(page);
+      const dbPageData = page as unknown as Record<string, unknown>;
+      const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+      const dbLayout = resolveLayout(contentType, dbRaw.data || {});
+      const { layout: _dbStripLayout, ...dbRest } = dbPageData;
+      res.json({ ...dbRest, layout: dbLayout });
       return;
     }
 
@@ -1495,12 +1528,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
     }
 
-    const singleEntry = buildSingleEntryFromContent(contentType, page as unknown as Record<string, unknown>);
+    const genericPageData = page as unknown as Record<string, unknown>;
+    const genericRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+    const genericLayout = resolveLayout(contentType, genericRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent(contentType, genericPageData);
     if (singleEntry) {
-      (page as any).singleEntry = singleEntry;
+      genericPageData.singleEntry = singleEntry;
     }
-
-    res.json(page);
+    const { layout: _genericStripLayout, ...genericRest } = genericPageData;
+    res.json({ ...genericRest, layout: genericLayout });
   });
 
   // Dynamic sitemap with caching
@@ -1650,7 +1686,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         content = await fetchMarkdownContent((post as any).readme_url);
       }
 
-      res.json({ ...post, content });
+      const blogLayout = resolveLayout("blog", post as unknown as Record<string, unknown>);
+      res.json({ ...post, content, layout: blogLayout });
     } catch (error) {
       console.error("[Blog] Error fetching post:", error);
       res.status(500).json({ error: "Failed to fetch blog post" });
@@ -1753,7 +1790,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      res.json(page);
+      const dbSingleRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+      const dbSingleLayout = resolveLayout(contentType, dbSingleRaw.data || (page as unknown as Record<string, unknown>));
+      const { layout: _dbSingleStripLayout, ...dbSingleRest } = page as unknown as Record<string, unknown>;
+      res.json({ ...dbSingleRest, layout: dbSingleLayout });
     } catch (error) {
       console.error("[DatabaseSingle] Error:", error);
       res.status(500).json({ error: "Failed to load database single page" });
@@ -1782,6 +1822,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           url_pattern: config.url_pattern,
           locale_key: config.field_mapping?._locale || null,
           static_entry_count: contentIndex.findByType(type).length,
+          layout: getLayout(type),
         });
       }
       res.json(result);
@@ -3491,7 +3532,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json({ menus });
   });
 
-  // Menus API - get a specific menu file (with optional locale)
   app.get("/api/menus/:name", (req, res) => {
     const { name } = req.params;
     const locale = req.query.locale as string | undefined;

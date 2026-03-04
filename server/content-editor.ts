@@ -366,7 +366,7 @@ export function editCommonContent(request: CommonEditRequest): { success: boolea
       if (op.action !== "update_field") {
         return { success: false, error: `Unsupported operation: ${op.action}` };
       }
-      if (op.value === null || op.value === undefined) {
+      if (op.value === undefined) {
         delete commonData[op.path];
       } else {
         setValueAtPath(commonData, op.path, op.value);

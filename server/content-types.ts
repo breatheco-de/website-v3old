@@ -7,12 +7,22 @@ export interface DatabaseConfig {
   slug: string;
 }
 
+export interface LayoutMenuConfig {
+  top: string | null;
+  bottom: string | null;
+}
+
+export interface LayoutConfig {
+  menu: LayoutMenuConfig;
+}
+
 export interface ContentTypeEntry {
   directory: string;
   url_pattern: Record<string, string>;
   field_mapping?: Record<string, string | { source: string; default: string }>;
   indexes?: string[];
   database?: DatabaseConfig;
+  layout?: { menu?: { top?: string | null; bottom?: string | null } };
 }
 
 interface ContentTypesRegistry {
@@ -50,6 +60,13 @@ const CONFIG_HEADER = `# Content Types Configuration
 #
 # database (optional):
 #   slug: database name (matches a db config in marketing-content/db/)
+#
+# layout (optional):
+#   menu:
+#     top: menu ID for navbar (e.g., "main-navbar") or null for no navbar
+#     bottom: menu ID for footer (e.g., "main-footer") or null for no footer
+#   System default (when absent): { menu: { top: null, bottom: null } }
+#   Per-entry override: set layout.menu.top / layout.menu.bottom in _common.yml or locale files
 `;
 
 function writeConfigWithHeader(allTypes: Record<string, ContentTypeEntry>): void {
@@ -471,4 +488,56 @@ export function resolveContentTypeUrl(
   if (!pattern) return null;
   const mapping = getFullFieldMapping(type);
   return resolveUrlPatternWithMapping(pattern, record, locale, mapping);
+}
+
+const SYSTEM_DEFAULT_LAYOUT: LayoutConfig = {
+  menu: { top: null, bottom: null },
+};
+
+export function getLayout(type: string): LayoutConfig {
+  const reg = loadRegistry();
+  const singular = getType(type);
+  const entry = reg.types[singular];
+  if (!entry?.layout?.menu) {
+    return { ...SYSTEM_DEFAULT_LAYOUT };
+  }
+  return {
+    menu: {
+      top: entry.layout.menu.top ?? null,
+      bottom: entry.layout.menu.bottom ?? null,
+    },
+  };
+}
+
+export function resolveLayout(
+  contentType: string,
+  mergedData: Record<string, unknown>,
+): LayoutConfig {
+  const typeLayout = getLayout(contentType);
+  const entryLayout = mergedData.layout as
+    | { menu?: { top?: string | null; bottom?: string | null } }
+    | undefined;
+
+  if (!entryLayout?.menu) return typeLayout;
+
+  return {
+    menu: {
+      top: "top" in (entryLayout.menu || {}) ? (entryLayout.menu!.top ?? null) : typeLayout.menu.top,
+      bottom: "bottom" in (entryLayout.menu || {}) ? (entryLayout.menu!.bottom ?? null) : typeLayout.menu.bottom,
+    },
+  };
+}
+
+export function listAvailableMenus(): string[] {
+  const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+  if (!fs.existsSync(menusDir)) return [];
+
+  const files = fs.readdirSync(menusDir);
+  const ids = new Set<string>();
+  for (const file of files) {
+    if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
+    const base = file.replace(/\.(yml|yaml)$/, "").replace(/\.[a-z]{2}$/, "");
+    ids.add(base);
+  }
+  return Array.from(ids).sort();
 }

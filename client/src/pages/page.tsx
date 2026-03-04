@@ -11,6 +11,8 @@ import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LazyRender from "@/components/LazyRender";
+import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 
 export default function Page() {
   const [location, setLocation] = useLocation();
@@ -83,9 +85,20 @@ export default function Page() {
     );
   }
 
+  const layoutMenu = (page as any).layout?.menu;
+  const topMenuId = layoutMenu?.top as string | null | undefined;
+  const bottomMenuId = layoutMenu?.bottom as string | null | undefined;
+
   return (
     <div data-testid={`page-${slug}`}>
-      <Header />
+      <MenuSlotPlaceholder
+        position="top"
+        currentMenuId={topMenuId ?? null}
+        contentType="page"
+        slug={slug}
+        onMenuChange={() => refetch()}
+      />
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer 
         sections={page.sections} 
         settings={page.settings}
@@ -94,7 +107,18 @@ export default function Page() {
         locale={locale}
         singleEntry={page.singleEntry}
       />
-      <Footer />
+      {bottomMenuId && (
+        <LazyRender>
+          <Footer menuId={bottomMenuId} />
+        </LazyRender>
+      )}
+      <MenuSlotPlaceholder
+        position="bottom"
+        currentMenuId={bottomMenuId ?? null}
+        contentType="page"
+        slug={slug}
+        onMenuChange={() => refetch()}
+      />
     </div>
   );
 }

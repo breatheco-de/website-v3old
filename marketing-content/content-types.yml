@@ -33,6 +33,10 @@ program:
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug
+  layout:
+    menu:
+      top: main-navbar
+      bottom: main-footer
 location:
   directory: locations
   field_mapping:
@@ -55,6 +59,10 @@ location:
   url_pattern:
     en: /en/location/:slug
     es: /es/ubicacion/:slug
+  layout:
+    menu:
+      top: main-navbar
+      bottom: main-footer
 landing:
   directory: landings
   field_mapping:
@@ -63,6 +71,10 @@ landing:
     locale: locale
   url_pattern:
     default: /landing/:slug
+  layout:
+    menu:
+      top: null
+      bottom: null
 page:
   directory: pages
   field_mapping:
@@ -71,6 +83,10 @@ page:
   url_pattern:
     en: /en/:slug
     es: /es/:slug
+  layout:
+    menu:
+      top: main-navbar
+      bottom: main-footer
 blog:
   directory: blog
   field_mapping:
@@ -95,6 +111,10 @@ blog:
   url_pattern:
     en: /en/blog/:category/:slug
     es: /es/blog/:category/:slug
+  layout:
+    menu:
+      top: main-navbar
+      bottom: main-footer
 downloadable:
   directory: downloadable
   field_mapping:
@@ -103,3 +123,7 @@ downloadable:
   url_pattern:
     en: /en/downloadable/:slug
     es: /es/descargable/:slug
+  layout:
+    menu:
+      top: main-navbar
+      bottom: main-footer

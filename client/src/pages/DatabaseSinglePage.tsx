@@ -13,6 +13,7 @@ import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables
 import { resolveDeep } from "@/lib/variable-manager";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LazyRender from "@/components/LazyRender";
 
 interface DatabaseSinglePageProps {
   contentType: string;
@@ -101,9 +102,13 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
     );
   }
 
+  const layoutMenu = (page as any).layout?.menu;
+  const topMenuId = layoutMenu?.top as string | null | undefined;
+  const bottomMenuId = layoutMenu?.bottom as string | null | undefined;
+
   return (
     <div data-testid={`page-${contentType}-${slug}`}>
-      <Header />
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer
         sections={page.sections}
         settings={page.settings}
@@ -113,7 +118,11 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
         isSharedTemplate
         singleEntry={page.singleEntry}
       />
-      <Footer />
+      {bottomMenuId && (
+        <LazyRender>
+          <Footer menuId={bottomMenuId} />
+        </LazyRender>
+      )}
     </div>
   );
 }
