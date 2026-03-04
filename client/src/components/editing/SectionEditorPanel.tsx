@@ -641,6 +641,8 @@ export function SectionEditorPanel({
     currentRegistryId?: string;
     // Optional tag filter (e.g., "logo" to show only logos)
     tagFilter?: string;
+    // When true, Remove clears the field instead of removing the array item
+    clearFieldOnly?: boolean;
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
@@ -5262,6 +5264,7 @@ export function SectionEditorPanel({
                                           currentSrc,
                                           currentAlt,
                                           tagFilter: variant,
+                                          clearFieldOnly: isMixedItemArray,
                                         });
                                         setImagePickerOpen(true);
                                       }}
@@ -6528,22 +6531,30 @@ export function SectionEditorPanel({
                     imagePickerTarget.arrayPath &&
                     imagePickerTarget.index !== undefined
                   ) {
-                    // Array field - remove this item
-                    const pathParts = imagePickerTarget.arrayPath.split(".");
-                    let current: Record<string, unknown> | null = parsedSection;
-                    for (let i = 0; i < pathParts.length - 1 && current; i++) {
-                      current = current[pathParts[i]] as Record<
-                        string,
-                        unknown
-                      > | null;
+                    if (imagePickerTarget.clearFieldOnly && imagePickerTarget.srcField) {
+                      updateArrayItemField(
+                        imagePickerTarget.arrayPath,
+                        imagePickerTarget.index,
+                        imagePickerTarget.srcField,
+                        "",
+                      );
+                    } else {
+                      const pathParts = imagePickerTarget.arrayPath.split(".");
+                      let current: Record<string, unknown> | null = parsedSection;
+                      for (let i = 0; i < pathParts.length - 1 && current; i++) {
+                        current = current[pathParts[i]] as Record<
+                          string,
+                          unknown
+                        > | null;
+                      }
+                      const arrayField = pathParts[pathParts.length - 1];
+                      const array =
+                        (current?.[arrayField] as Record<string, unknown>[]) ||
+                        [];
+                      const newArray = [...array];
+                      newArray.splice(imagePickerTarget.index, 1);
+                      updateArrayField(imagePickerTarget.arrayPath, newArray);
                     }
-                    const arrayField = pathParts[pathParts.length - 1];
-                    const array =
-                      (current?.[arrayField] as Record<string, unknown>[]) ||
-                      [];
-                    const newArray = [...array];
-                    newArray.splice(imagePickerTarget.index, 1);
-                    updateArrayField(imagePickerTarget.arrayPath, newArray);
                   }
                 }
                 setImagePickerOpen(false);
