@@ -58,11 +58,12 @@ function useInlineFormVisible() {
         if (intersectionObserver) intersectionObserver.disconnect();
         currentEl = null;
         firstFired = false;
+        setEnableTransition(false);
         setIsFormVisible(false);
       }
     });
     mutationObserver.observe(document.body, { childList: true, subtree: true });
-  
+
     return () => {
       intersectionObserver?.disconnect();
       mutationObserver?.disconnect();
@@ -107,7 +108,7 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
   const isEditMode = editMode?.isEditMode ?? false;
 
   const buttonLabel = data.button_label || "Apply Now";
-console.log(isHiddenByForm)
+
   if (isEditMode) {
     return (
       <div 
