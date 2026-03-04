@@ -198,34 +198,21 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-  - type: bento_cards
+  - type: features_grid
     version: "1.0"
-    title: 7 Ways Rigobot Keeps You Moving
-    subtitle: Never get stuck again
-    description: Rigobot is your AI-powered coding companion that ensures you never lose momentum. Whether you're debugging at 2am or preparing for an exam, Rigobot is there to help you push through challenges and keep learning.
-    items:
-      - icon: CodeReview
-        title: Code Review
-        description: Get instant feedback on your code quality, best practices, and potential improvements.
-      - icon: Brain
-        title: AI Mentoring
-        description: Personalized guidance that adapts to your learning style and pace.
-      - icon: School
-        title: Homework & Exam Prep
-        description: Practice problems and explanations to help you ace your assessments.
-      - icon: TrendingUp
-        title: Skill Building
-        description: Targeted exercises to strengthen weak areas and build new competencies.
-      - icon: Bug
-        title: Debugging Assistant
-        description: Step-by-step help to understand and fix errors in your code.
-      - icon: Lightbulb
-        title: Concept Explanations
-        description: Clear, patient explanations of complex programming concepts.
-      - icon: Clock
-        title: 24/7 Availability
-        description: Get help whenever you need it, no waiting for office hours.
-    background: bg-background
+    variant: cardHeader
+    heading: Why The Job Guarantee
+    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image_alt: 4Geeks Academy community support
+    background: bg-primary/5
+    cards:
+      - icon: BriefcaseFilled
+        text: Consistent hiring outcomes across our graduate community
+      - icon: BrandStackshare
+        text: Strong and ongoing demand for skilled tech professionals
+      - icon: ChalkboardTeacher
+        text: Structured training paired with hands-on, ongoing career support
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
