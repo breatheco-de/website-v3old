@@ -109,7 +109,7 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     marginY:
-      desktop: none xl
+      desktop: none lg
   - type: geeks_vs_others_comparison
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
