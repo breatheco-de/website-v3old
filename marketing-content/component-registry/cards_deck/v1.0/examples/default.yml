@@ -1,5 +1,7 @@
    type: cards_deck
    version: "1.0"
+   heading: Real Stories of Real Career Change
+   subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
    cards:
      - video:
          url: https://youtu.be/ln3bQsV1BaQ
