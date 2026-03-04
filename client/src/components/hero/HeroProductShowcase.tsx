@@ -48,8 +48,6 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
   const subtitle = fullData.subtitle ?? null;
   const video = fullData.video ?? null;
   const image = fullData.image ?? null;
-  const imageId = fullData.image_id ?? null;
-  const imageWidth = fullData.image_width ?? null;
   const marquee = fullData.marquee ?? null;
   const bullets = fullData.bullets ?? null;
   const leftImages = fullData.left_images ?? null;
@@ -384,16 +382,8 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 withShadowBorder={video.with_shadow_border}
                 className="w-[280px] md:w-full md:max-w-[400px]"
               />
-            ) : imageId ? (
-              <UniversalImage
-                id={imageId}
-                alt="Hero product"
-                className="rounded-card shadow-card mt-8"
-                style={{ width: imageWidth ? `${imageWidth}px` : 'auto', maxWidth: '100%' }}
-                data-testid="img-hero-product"
-              />
             ) : image ? (
-              <img
+              <UniversalImage
                 src={image.src}
                 alt={image.alt}
                 className="w-full max-w-[500px] rounded-card shadow-card"

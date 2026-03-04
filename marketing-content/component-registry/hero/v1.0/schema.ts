@@ -128,8 +128,6 @@ export const heroProductShowcaseSchema = z.object({
     src: z.string(),
     alt: z.string(),
   }).nullish(),
-  image_id: z.string().optional(),
-  image_width: z.number().optional(),
   // NOTE: Background image is only displayed on screens >= 1280px width.
   // On smaller screens, a gradient fallback is shown instead for better mobile experience.
   background_image: z.object({
@@ -243,20 +241,14 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   form: leadFormDataSchema,
   cta_button: ctaButtonSchema.optional(),
   trust_bar: productShowcaseTrustBarSchema.optional(),
-  video: z.object({
-    url: z.string(),
-    title: z.string().optional(),
-    ratio: z.string().optional(),
-    mobile_ratio: z.string().optional(),
-    muted: z.boolean().optional(),
-    autoplay: z.boolean().optional(),
-    loop: z.boolean().optional(),
-    preview_image_url: z.string().optional(),
-    with_shadow_border: z.boolean().optional(),
-  }).optional(),
+  video: videoConfigSchema.optional(),
   image: z.object({
     src: z.string(),
     alt: z.string(),
+  }).optional(),
+  background_image: z.object({
+    src: z.string(),
+    alt: z.string().optional(),
   }).optional(),
 }).passthrough();
 

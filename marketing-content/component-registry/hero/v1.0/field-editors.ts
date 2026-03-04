@@ -29,8 +29,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "simpleTwoColumn:cta_buttons[]": "cta-picker",
 
   // Variant-specific - prefixed with variant name
-  "productShowcase:image_id": "image-picker",
-  "productShowcase:image_width": "text-input",
+  "productShowcase:image": "image-with-style-picker",
   "productShowcase:left_images[].src": "image-picker",
   "productShowcase:right_images[].src": "image-picker",
   "productShowcase:marquee.items[].logo": "image-picker:logo",
