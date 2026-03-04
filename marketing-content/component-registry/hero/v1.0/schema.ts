@@ -144,6 +144,13 @@ export const heroProductShowcaseSchema = z.object({
   form_vertical_align: z.enum(["top", "center", "bottom"]).optional(),
   cta_button: ctaButtonSchema.nullish(),
   trust_bar: productShowcaseTrustBarSchema.nullish(),
+  show_awards_marquee: z.boolean().optional(),
+  awards_marquee: z.object({
+    items: z.array(awardsMarqueeItemSchema),
+    speed: z.number().optional(),
+    gradient: z.boolean().optional(),
+    gradientWidth: z.number().optional(),
+  }).optional(),
 }).passthrough();
 
 export const heroSimpleTwoColumnSchema = z.object({
@@ -257,6 +264,13 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   background_image: z.object({
     src: z.string(),
     alt: z.string().optional(),
+  }).optional(),
+  show_awards_marquee: z.boolean().optional(),
+  awards_marquee: z.object({
+    items: z.array(awardsMarqueeItemSchema),
+    speed: z.number().optional(),
+    gradient: z.boolean().optional(),
+    gradientWidth: z.number().optional(),
   }).optional(),
 }).passthrough();
 
