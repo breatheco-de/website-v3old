@@ -929,8 +929,8 @@ const cardDeckItemSchema = z.object({
     preview_image_url: z.string().optional(),
   }).optional(),
   image: z.string().optional(),
-  brandImage: z.string().optional(),
-  authorName: z.string().optional(),
+  brand_image: z.string().optional(),
+  author_name: z.string().optional(),
   title: z.string(),
   description: z.string(),
 }).passthrough();

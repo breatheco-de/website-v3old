@@ -7,8 +7,8 @@ export interface CardDeckItem {
     preview_image_url?: string;
   };
   image?: string;
-  brandImage?: string;
-  authorName?: string;
+  brand_image?: string;
+  author_name?: string;
   title: string;
   description: string;
 }
@@ -64,14 +64,14 @@ export function CardsDeckDefault({ data }: CardsDeckDefaultProps) {
                 </div>
               )}
               <div className="flex flex-col gap-1 px-4">
-                {(card.brandImage || card.authorName) && (
+                {(card.brand_image || card.author_name) && (
                   <div
                     className="flex items-start justify-between gap-2 flex-wrap pt-2"
                     data-testid={`card-deck-author-row-${index}`}
                   >
-                    {card.brandImage && (
+                    {card.brand_image && (
                       <img
-                        src={card.brandImage}
+                        src={card.brand_image}
                         alt=""
                         className=" h-6 flex-shrink-0"
                         data-testid={`card-deck-brand-image-${index}`}
@@ -79,12 +79,12 @@ export function CardsDeckDefault({ data }: CardsDeckDefaultProps) {
                     )}
                   </div>
                 )}
-                {card.authorName && (
+                {card.author_name && (
                   <span
                     className="text-sm text-muted-foreground pt-1 pb-2"
                     data-testid={`card-deck-author-name-${index}`}
                   >
-                    {card.authorName}
+                    {card.author_name}
                   </span>
                 )}
                 <div className="">

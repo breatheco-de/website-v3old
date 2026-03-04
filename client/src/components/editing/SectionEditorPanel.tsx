@@ -5054,7 +5054,7 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath} className="space-y-2">
                       <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel.replace(/_/g, " ")}
+                        {getFieldLabel(itemField)}
                       </Label>
                       <div className="flex flex-wrap gap-2">
                         {safeArrayData.map((item, index) => {
@@ -5177,7 +5177,7 @@ export function SectionEditorPanel({
                         <Label className="text-sm font-medium">
                           {isTabsArray
                             ? `Imágenes de Tabs (${safeArrayData.length})`
-                            : `Imágenes (${safeArrayData.length}/${MAX_IMAGES})`}
+                            : `${getFieldLabel(itemField)} (${safeArrayData.length}/${MAX_IMAGES})`}
                         </Label>
                         {!hasImages && !isTabsArray && (
                           <Button
@@ -5536,7 +5536,7 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath} className="space-y-3">
                       <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel.replace(/_/g, " ")} Videos
+                        {getFieldLabel(itemField)} Videos
                       </Label>
                       <div className="space-y-2">
                         {safeArrayData.map((item, index) => {
@@ -5864,7 +5864,7 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath} className="space-y-3">
                       <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel.replace(/_/g, " ")}
+                        {getFieldLabel(itemField)}
                       </Label>
                       <div className="space-y-2">
                         {safeArrayData.map((item, index) => renderItemEditor(item, index))}

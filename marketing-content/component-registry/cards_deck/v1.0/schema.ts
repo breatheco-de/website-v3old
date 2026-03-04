@@ -9,8 +9,8 @@ export const componentMeta = {
 export const cardDeckItemSchema = z.object({
   video: videoConfigSchema.optional().describe("Video configuration for the card"),
   image: z.string().optional().describe("Image URL — if provided, replaces the video with a static image"),
-  brandImage: z.string().optional().describe("Brand/logo image URL shown above the author name"),
-  authorName: z.string().optional().describe("Author or attribution name"),
+  brand_image: z.string().optional().describe("Brand/logo image URL shown above the author name"),
+  author_name: z.string().optional().describe("Author or attribution name"),
   title: z.string().describe("Card title"),
   description: z.string().describe("Card description text"),
 });

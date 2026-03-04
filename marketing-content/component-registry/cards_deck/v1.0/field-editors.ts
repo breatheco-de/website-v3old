@@ -11,6 +11,6 @@ export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "imag
 
 export const fieldEditors: Record<string, EditorType> = {
   "cards[].video.url": "video-picker",
-  "cards[].brandImage": "image-with-style-picker",
+  "cards[].brand_image": "image-with-style-picker",
   "cards[].image": "image-with-style-picker"
 };

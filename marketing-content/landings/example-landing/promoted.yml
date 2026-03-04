@@ -36,16 +36,16 @@ sections:
     version: "1.0"
     cards:
       - image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        brandImage: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        authorName: Hernan Garcia
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernan Garcia
         title: "\"Taking a course like this benefits us in a lot of different ways.\""
         description: Learn the fundamentals of HTML, CSS, and JavaScript in this comprehensive introduction to modern web development.
         alt: Rigobot AI coding tutor - Meet our internally developed AI designed to help you become a great coder
         id: geekforce-rigobot-ai
       - video:
           url: d
-        brandImage: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        authorName: John Doe
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: John Doe
         title: Advanced React Patterns
         description: Exploresdasdsaddsadas advanced component patterns, hooks, and state management techniques for building scalable React applications.
         alt: Original group illustration
