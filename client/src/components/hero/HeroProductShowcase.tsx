@@ -47,7 +47,11 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
   const welcomeText = fullData.welcome_text ?? null;
   const subtitle = fullData.subtitle ?? null;
   const video = fullData.video ?? null;
-  const image = fullData.image ?? null;
+  const rawImage = fullData.image ?? null;
+  const imageSrc = typeof rawImage === "string" ? rawImage : rawImage?.src ?? null;
+  const imageAlt = typeof rawImage === "string" ? (fullData.image_alt ?? "") : (rawImage?.alt ?? "");
+  const imageObjectFit = (fullData as any).image_object_fit as string | undefined;
+  const imageObjectPosition = (fullData as any).image_object_position as string | undefined;
   const marquee = fullData.marquee ?? null;
   const bullets = fullData.bullets ?? null;
   const leftImages = fullData.left_images ?? null;
@@ -382,11 +386,15 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 withShadowBorder={video.with_shadow_border}
                 className="w-[280px] md:w-full md:max-w-[400px]"
               />
-            ) : image ? (
+            ) : imageSrc ? (
               <UniversalImage
-                src={image.src}
-                alt={image.alt}
+                src={imageSrc}
+                alt={imageAlt}
                 className="w-full max-w-[500px] rounded-card shadow-card"
+                style={{
+                  ...(imageObjectFit ? { objectFit: imageObjectFit as any } : {}),
+                  ...(imageObjectPosition ? { objectPosition: imageObjectPosition } : {}),
+                }}
                 data-testid="img-hero-product"
               />
             ) : null}
