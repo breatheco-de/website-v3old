@@ -17,6 +17,7 @@ const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "component-r
 interface SchemaData {
   name?: string;
   version?: string;
+  load?: string;
   variants?: Record<string, unknown>;
   props?: Record<string, unknown>;
 }
@@ -122,6 +123,16 @@ export const componentsValidator: Validator = {
             code: "MISSING_SCHEMA_NAME",
             message: "Schema missing 'name' property",
             file: schemaPath,
+          });
+        }
+
+        if (schemaData.load !== undefined && schemaData.load !== "eager" && schemaData.load !== "lazy") {
+          errors.push({
+            type: "error",
+            code: "INVALID_LOAD_VALUE",
+            message: `Invalid load value "${schemaData.load}" in ${componentType}/${version}. Must be "eager" or "lazy"`,
+            file: schemaPath,
+            suggestion: 'Set load to "eager" or "lazy", or remove it to use the default position-based strategy',
           });
         }
 

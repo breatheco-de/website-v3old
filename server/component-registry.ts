@@ -11,6 +11,7 @@ export interface ComponentSchema {
   file: string;
   description: string;
   when_to_use: string;
+  load?: "eager" | "lazy";
   props: Record<string, unknown>;
 }
 
@@ -382,4 +383,44 @@ export function saveExample(
     console.error(`Error saving example for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
   }
+}
+
+let _loadDefaultsCache: Record<string, "eager" | "lazy"> | null = null;
+
+export function applyComponentLoadDefaults(sections: unknown[]): void {
+  const defaults = getComponentLoadDefaults();
+  if (Object.keys(defaults).length === 0) return;
+
+  for (const section of sections) {
+    if (!section || typeof section !== "object") continue;
+    const s = section as Record<string, unknown>;
+    if (s.load) continue;
+    const sectionType = s.type as string;
+    if (sectionType && defaults[sectionType]) {
+      s.load = defaults[sectionType];
+    }
+  }
+}
+
+export function getComponentLoadDefaults(): Record<string, "eager" | "lazy"> {
+  if (_loadDefaultsCache) return _loadDefaultsCache;
+
+  const defaults: Record<string, "eager" | "lazy"> = {};
+  try {
+    const components = listComponents();
+    for (const componentType of components) {
+      if (componentType === "_common") continue;
+      const versions = listVersions(componentType);
+      if (versions.length === 0) continue;
+      const schema = loadSchema(componentType, versions[0]);
+      if (schema?.load) {
+        defaults[componentType] = schema.load;
+      }
+    }
+  } catch (error) {
+    console.error("Error loading component load defaults:", error);
+  }
+
+  _loadDefaultsCache = defaults;
+  return defaults;
 }

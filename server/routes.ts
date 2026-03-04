@@ -46,6 +46,7 @@ import {
   getExampleFilePath,
   saveExample,
   loadAllFieldEditors,
+  applyComponentLoadDefaults,
 } from "./component-registry";
 import {
   editContent,
@@ -205,6 +206,9 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
     return null;
   }
 
+  if (result.data.sections) {
+    applyComponentLoadDefaults(result.data.sections as unknown[]);
+  }
   return result.data;
 }
 
@@ -243,6 +247,9 @@ function loadLandingPage(slug: string): LandingPage | null {
     return null;
   }
 
+  if (result.data.sections) {
+    applyComponentLoadDefaults(result.data.sections as unknown[]);
+  }
   return result.data;
 }
 
@@ -283,6 +290,9 @@ function loadLocationPage(slug: string, locale: string): LocationPage | null {
     return null;
   }
 
+  if (result.data.sections) {
+    applyComponentLoadDefaults(result.data.sections as unknown[]);
+  }
   return result.data;
 }
 
@@ -332,6 +342,9 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
     return null;
   }
 
+  if (result.data.sections) {
+    applyComponentLoadDefaults(result.data.sections as unknown[]);
+  }
   return result.data;
 }
 
@@ -448,11 +461,14 @@ async function loadDatabaseSinglePage(
     }
     const singleItem = { ...matchItem, content };
 
+    const sections = (merged.sections as TemplatePage["sections"]) || [];
+    applyComponentLoadDefaults(sections as unknown[]);
+
     const page: TemplatePage = {
       slug: (merged.slug as string) || slug,
       title: (merged.title as string) || (singleItem.title as string) || slug,
       meta: (merged.meta as TemplatePage["meta"]) || {},
-      sections: (merged.sections as TemplatePage["sections"]) || [],
+      sections,
       settings: (merged.settings as TemplatePage["settings"]) || undefined,
       schema: (merged.schema as TemplatePage["schema"]) || undefined,
       singleEntry: singleItem as Record<string, unknown>,
@@ -1445,6 +1461,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         page.sections,
         locale,
       )) as any;
+      applyComponentLoadDefaults(page.sections);
     }
 
     const singleEntry = buildSingleEntryFromContent("page", page as unknown as Record<string, unknown>);
