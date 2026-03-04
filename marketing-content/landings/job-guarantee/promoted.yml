@@ -86,7 +86,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Choose your path into a high-growth tech career
-    subheading: Programs Backed by the Job Guarantee
+    subheading: Choose your path
     courses:
       - name: AI Engineering
         icon: Brain
