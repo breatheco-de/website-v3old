@@ -1233,21 +1233,35 @@ export function EditableSection({ children, section, index, sectionType, content
         
         const countryCodes = hasLocationFilter ? getUniqueCountryCodes(showOnLocations) : [];
         
+        const flagRows: string[][] = [];
+        for (let i = 0; i < countryCodes.length; i += 6) {
+          flagRows.push(countryCodes.slice(i, i + 6));
+        }
+        
         return (
           <div 
-            className="absolute top-12 right-2 z-30 flex items-center gap-1.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
+            className="absolute top-12 right-2 z-30 flex flex-col items-end gap-0.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
             title="Special Visibility Conditions"
             data-testid={`badge-visibility-${index}`}
           >
-            <IconEye className="h-3.5 w-3.5" />
-            <span>Special Visibility Conditions</span>
-            {hasDeviceFilter && (
-              showOn === 'desktop' 
-                ? <IconDeviceDesktop className="h-3.5 w-3.5" /> 
-                : <IconDeviceMobile className="h-3.5 w-3.5" />
-            )}
-            {countryCodes.map((code) => (
-              <CountryFlag key={code} code={code} />
+            <div className="flex items-center gap-1.5">
+              <IconEye className="h-3.5 w-3.5" />
+              <span>Special Visibility Conditions</span>
+              {hasDeviceFilter && (
+                showOn === 'desktop' 
+                  ? <IconDeviceDesktop className="h-3.5 w-3.5" /> 
+                  : <IconDeviceMobile className="h-3.5 w-3.5" />
+              )}
+              {flagRows.length > 0 && flagRows[0].map((code) => (
+                <CountryFlag key={code} code={code} />
+              ))}
+            </div>
+            {flagRows.slice(1).map((row, ri) => (
+              <div key={ri} className="flex items-center gap-1.5">
+                {row.map((code) => (
+                  <CountryFlag key={code} code={code} />
+                ))}
+              </div>
             ))}
           </div>
         );
