@@ -57,7 +57,6 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-    form_vertical_align: top
     cta_button:
       text: Descargar programa
       url: /programa/ai-engineering
@@ -67,6 +66,10 @@ sections:
       - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
       - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
       - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+    video:
+      url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
+      ratio: "9:16"
+      muted: true
     paddingY:
       mobile: md none
       desktop: lg none
