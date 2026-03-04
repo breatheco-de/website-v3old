@@ -46,7 +46,7 @@ sections:
           required: true
           default_country: ES
         program:
-          visible: false
+          visible: true
           default: ai-engineering
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
@@ -61,14 +61,14 @@ sections:
       url: /programa/ai-engineering
       variant: outline
       icon: Download
-    bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     video:
       url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
       ratio: "9:16"
       muted: true
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     paddingY:
       mobile: md none
       desktop: lg none
