@@ -102,26 +102,6 @@ sections:
         title: Career Support
         description: Unlimited mentorship
     background: bg-muted/30
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
-    items:
-      - icon: Briefcase
-        value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
-      - icon: Graduation
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: GrowthChart
-        value: {{ global.global_salary_increase | 55 }}%
-        title: Average salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    marginY:
-      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -203,6 +183,26 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
