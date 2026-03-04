@@ -1,0 +1,15 @@
+slug: "es-programa-de-desarrollo-full-stack-con-ia"
+title: "ES Programa de Desarrollo Full Stack con IA"
+locale: es
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+  page_title: Conviértete en Ingeniero de IA en 24 Semanas (España) | 4Geeks Academy
+  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - madrid-spain
