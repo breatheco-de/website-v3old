@@ -35,24 +35,11 @@ sections:
   - type: cards_deck
     version: "1.0"
     cards:
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Hernan Garcia
-        title: "\"Taking a course like this benefits us in a lot of different ways.\""
-        description: Learn the fundamentals of HTML, CSS, and JavaScript in this comprehensive introduction to modern web development.
-        alt: Rigobot AI coding tutor - Meet our internally developed AI designed to help you become a great coder
-        id: geekforce-rigobot-ai
-      - video:
-          url: d
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: John Doe
-        title: Advanced React Patterns
-        description: Exploresdasdsaddsadas advanced component patterns, hooks, and state management techniques for building scalable React applications.
-        alt: Original group illustration
-        image: https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp
-        id: group-original
       - title: Python for Data Science
         description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
+        alt: Community support image
+        id: community-support
     background: hsl(var(--muted))
   - type: hero
     version: "1.0"

@@ -5128,6 +5128,11 @@ export function SectionEditorPanel({
                   const isTabsArray =
                     arrayPath === "tabs" || arrayPath.endsWith(".tabs");
 
+                  // Detect if array items have non-image fields (e.g. cards with title, description, video).
+                  // In that case, delete should clear the image field instead of removing the whole item.
+                  const imageRelatedKeys = new Set(["src", "alt", "object_fit", "object_position", "border_radius", "width", "height", "max_width", "max_height", "opacity", "filter", "image_id", "image_object_fit", "image_object_position", itemField]);
+                  const isMixedItemArray = safeArrayData.length > 0 && Object.keys(safeArrayData[0]).some(k => !imageRelatedKeys.has(k));
+
                   // For tabs: use image_object_fit/image_object_position (schema naming)
                   // For images: use object_fit/object_position
                   const objectFitField = isTabsArray
@@ -5305,9 +5310,13 @@ export function SectionEditorPanel({
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        onClick={() =>
-                                          removeArrayItem(arrayPath, index)
-                                        }
+                                        onClick={() => {
+                                          if (isMixedItemArray) {
+                                            updateArrayItemField(arrayPath, index, itemField, "");
+                                          } else {
+                                            removeArrayItem(arrayPath, index);
+                                          }
+                                        }}
                                         className="text-muted-foreground hover:text-destructive"
                                         data-testid={`props-image-style-${index}-delete`}
                                         title="Eliminar imagen"
