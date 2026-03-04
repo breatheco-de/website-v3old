@@ -67,31 +67,53 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
 
     const apiPath = API_PATH_MAP[contentType];
     const schema = SCHEMA_MAP[contentType];
-    if (!apiPath || !schema) return null;
-
     const locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
-    const localeOrVariant = contentType === "landing" ? "promoted" : locale;
 
-    const result = contentIndex.loadContent({
+    if (apiPath && schema) {
+      const localeOrVariant = contentType === "landing" ? "promoted" : locale;
+
+      const result = contentIndex.loadContent({
+        contentType,
+        slug,
+        schema,
+        localeOrVariant,
+      });
+
+      if (!result.success) return null;
+
+      const data = result.data as any;
+      if (data.sections && Array.isArray(data.sections)) {
+        applyComponentSectionDefaults(data.sections);
+      }
+      if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
+        data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+      }
+
+      return {
+        queryKey: [apiPath, slug, locale],
+        data,
+      };
+    }
+
+    const genericResult = contentIndex.loadContent({
       contentType,
       slug,
-      schema,
-      localeOrVariant,
+      schema: templatePageSchema,
+      localeOrVariant: locale,
     });
 
-    if (!result.success) return null;
+    if (!genericResult.success) return null;
 
-    const data = result.data as any;
-    if (data.sections && Array.isArray(data.sections)) {
-      applyComponentSectionDefaults(data.sections);
-    }
-    if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
-      data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+    const genericData = genericResult.data as any;
+    if (genericData.sections && Array.isArray(genericData.sections)) {
+      applyComponentSectionDefaults(genericData.sections);
+      genericData.sections = await resolveDynamicEntries(genericData.sections, locale) as any;
     }
 
+    const genericApiPath = `/api/content-pages/${contentType}`;
     return {
-      queryKey: [apiPath, slug, locale],
-      data,
+      queryKey: [genericApiPath, slug, locale],
+      data: genericData,
     };
   } catch {
     return null;
