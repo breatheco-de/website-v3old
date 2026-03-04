@@ -11,7 +11,11 @@ import { RichTextContent } from "@/components/ui/rich-text-content";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { lazy, Suspense } from "react";
 
-const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.default || m.LeadForm })));
+const LeadForm = lazy(() =>
+  import("@/components/LeadForm").then((m) => ({
+    default: m.default || m.LeadForm,
+  })),
+);
 
 interface HeroCourseProps {
   data: HeroCourseType;
@@ -243,13 +247,20 @@ export function HeroCourse({ data }: HeroCourseProps) {
                 </p>
               )}
 
-              {data.signup_card.form ? (
-                <div data-hero-inline-form>
-                  <Suspense fallback={<div className="h-24 flex items-center justify-center text-muted-foreground text-sm">Loading...</div>}>
+              {data.signup_card.form && (
+                <div data-hero-inline-form className="mb-2">
+                  <Suspense
+                    fallback={
+                      <div className="h-24 flex items-center justify-center text-muted-foreground text-sm">
+                        Loading...
+                      </div>
+                    }
+                  >
                     <LeadForm data={data.signup_card.form} />
                   </Suspense>
                 </div>
-              ) : data.signup_card.cta_button ? (
+              )}
+              {data.signup_card.cta_button && (
                 <>
                   <Button
                     className="w-full mb-3"
@@ -271,30 +282,28 @@ export function HeroCourse({ data }: HeroCourseProps) {
                       {data.signup_card.cta_button.text}
                     </a>
                   </Button>
-
-                  {data.signup_card.login_link?.text &&
-                    (data.signup_card.login_link.url ? (
-                      <a
-                        href={data.signup_card.login_link.url}
-                        onClick={handleLinkClick}
-                        data-testid="link-hero-login"
-                      >
-                        <RichTextContent
-                          html={data.signup_card.login_link.text}
-                          className="text-sm text-center text-muted-foreground mb-6 text-primary text-primary hover:underline"
-                          data-testid="text-hero-login-link"
-                        />
-                      </a>
-                    ) : (
-                      <RichTextContent
-                        html={data.signup_card.login_link.text}
-                        className="text-sm text-center text-muted-foreground mb-6"
-                        data-testid="text-hero-login-link"
-                      />
-                    ))}
                 </>
-              ) : null}
-
+              )}
+              {data.signup_card.login_link?.text &&
+                (data.signup_card.login_link.url ? (
+                  <a
+                    href={data.signup_card.login_link.url}
+                    onClick={handleLinkClick}
+                    data-testid="link-hero-login"
+                  >
+                    <RichTextContent
+                      html={data.signup_card.login_link.text}
+                      className="text-sm text-center text-muted-foreground mb-6 text-primary text-primary hover:underline"
+                      data-testid="text-hero-login-link"
+                    />
+                  </a>
+                ) : (
+                  <RichTextContent
+                    html={data.signup_card.login_link.text}
+                    className="text-sm text-center text-muted-foreground mb-6"
+                    data-testid="text-hero-login-link"
+                  />
+                ))}
               {data.signup_card.features &&
                 data.signup_card.features.length > 0 && (
                   <div className="border-t pt-4 space-y-3">
