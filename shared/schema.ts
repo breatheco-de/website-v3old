@@ -1025,7 +1025,7 @@ export const careerProgramSchema = z.object({
   schema: schemaRefSchema.optional(),
   settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
-});
+}).passthrough();
 
 export type CareerProgramMeta = z.output<typeof careerProgramMetaSchema>;
 export type CareerProgram = z.output<typeof careerProgramSchema>;
@@ -1053,7 +1053,7 @@ export const landingPageSchema = z.object({
   settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
   landing_locations: z.array(z.string()).optional(),
-});
+}).passthrough();
 
 export type LandingPageMeta = z.infer<typeof landingPageMetaSchema>;
 export type LandingPage = z.infer<typeof landingPageSchema>;
@@ -1165,7 +1165,7 @@ export const locationPageSchema = z.object({
   schema: schemaRefSchema.optional(),
   settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
-});
+}).passthrough();
 
 export type LocationMeta = z.infer<typeof locationMetaSchema>;
 export type LocationPage = z.infer<typeof locationPageSchema>;
@@ -1191,7 +1191,7 @@ export const templatePageSchema = z.object({
   settings: pageSettingsSchema,
   sections: z.array(sectionSchema),
   singleEntry: z.record(z.unknown()).optional(),
-});
+}).passthrough();
 
 export type TemplatePageMeta = z.infer<typeof templatePageMetaSchema>;
 export type TemplatePage = z.infer<typeof templatePageSchema>;

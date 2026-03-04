@@ -298,7 +298,7 @@ export function loadAllFieldEditors(): AllFieldEditors {
               const [, fieldPath, editorType] = entryMatch;
               // Parse base type (e.g., "color-picker:background" -> "color-picker")
               const baseType = editorType.split(":")[0];
-              if (["icon-picker", "color-picker", "image-picker", "image-with-style-picker", "link-picker", "rich-text-editor", "markdown", "boolean-toggle", "variant-picker", "video-picker", "cta-picker"].includes(baseType)) {
+              if (["icon-picker", "color-picker", "image-picker", "image-with-style-picker", "link-picker", "rich-text-editor", "markdown", "boolean-toggle", "variant-picker", "video-picker", "cta-picker", "string-picker"].includes(baseType)) {
                 entries[fieldPath] = editorType as EditorType;
               }
             }

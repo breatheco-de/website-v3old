@@ -129,7 +129,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
   const currentFile = activeFile === "locale" ? localeFile : commonFile;
 
   return (
-    <div className="fixed right-0 top-0 bottom-0 w-[520px] bg-background border-l shadow-xl z-[9999] flex flex-col" data-testid="raw-file-editor-panel">
+    <div className="fixed right-0 top-0 bottom-0 w-full sm:w-[520px] bg-background border-l shadow-xl z-[9999] flex flex-col" data-testid="raw-file-editor-panel">
       <div className="flex items-center justify-between p-4 border-b">
         <div className="min-w-0 flex-1">
           <h2 className="font-semibold" data-testid="text-editor-title">Edit Raw YAML</h2>

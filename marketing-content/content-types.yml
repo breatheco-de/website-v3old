@@ -103,3 +103,8 @@ downloadable:
   url_pattern:
     en: /en/downloadable/:slug
     es: /es/descargable/:slug
+landing-page:
+  directory: landing-page
+  url_pattern:
+    en: /en/landing-page/:slug
+    es: /es/landing-page/:slug

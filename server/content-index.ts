@@ -5,7 +5,7 @@ import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
-import { normalizeUrlPattern, getAllConfigs } from "./content-types";
+import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -1172,6 +1172,179 @@ class ContentIndex {
   invalidateCommonFields(contentType: string): void {
     const normalized = this.normalizeType(contentType);
     this.commonFieldsCache.delete(normalized);
+  }
+
+  duplicateWithTypeChange(opts: {
+    sourceDir: string;
+    sourceType: string;
+    targetType: string;
+    targetDir: string;
+    newSlugs: { en?: string; es?: string };
+    title: string;
+    skipLocales: string[];
+  }): { copiedFiles: string[]; strippedFields: string[]; replacedVars: number } {
+    this.ensureInitialized();
+
+    const { sourceDir, sourceType, targetType, targetDir, newSlugs, title, skipLocales } = opts;
+
+    const sourceFieldMapping = getFieldMapping(sourceType) || {};
+    const targetFieldMapping = getFieldMapping(targetType) || {};
+
+    const sourceKeys = Object.keys(sourceFieldMapping);
+    const targetKeySet: Record<string, boolean> = {};
+    for (const k of Object.keys(targetFieldMapping)) targetKeySet[k] = true;
+    const universalKeys: Record<string, boolean> = { slug: true, title: true };
+    const keysToStrip = sourceKeys.filter(k => !targetKeySet[k] && !universalKeys[k]);
+
+    const sourceSlug = path.basename(sourceDir);
+    const mergedByLocale: Record<string, Record<string, unknown>> = {};
+    const locales = ["en", "es"];
+    for (const locale of locales) {
+      if (skipLocales.includes(locale)) continue;
+      const { data } = this.loadMergedContent(sourceType, sourceSlug, locale);
+      if (data) {
+        mergedByLocale[locale] = data;
+      }
+    }
+
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+
+    const copiedFiles: string[] = [];
+    const strippedFields: string[] = [...keysToStrip];
+    let replacedVars = 0;
+
+    const absSourceDir = path.isAbsolute(sourceDir) ? sourceDir : path.join(process.cwd(), sourceDir);
+    if (!fs.existsSync(absSourceDir)) {
+      return { copiedFiles, strippedFields, replacedVars };
+    }
+
+    const sourceFiles = fs.readdirSync(absSourceDir).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
+
+    for (const file of sourceFiles) {
+      if (file === "_common.single.yml" || file.startsWith("single.")) continue;
+
+      const fileLocale = file.replace(/\.(yml|yaml)$/, "");
+      if (fileLocale !== "_common" && skipLocales.includes(fileLocale)) continue;
+
+      const sourceFilePath = path.join(absSourceDir, file);
+      let raw = fs.readFileSync(sourceFilePath, "utf-8");
+
+      const locale = fileLocale === "_common" ? "en" : fileLocale;
+      const mergedData = mergedByLocale[locale] || mergedByLocale["en"] || {};
+
+      const varResult = this.replaceTemplateVars(raw, mergedData, sourceFieldMapping);
+      raw = varResult.content;
+      replacedVars += varResult.count;
+
+      const parsed = this.safeYamlLoad(raw);
+      if (parsed) {
+        for (const key of keysToStrip) {
+          delete parsed[key];
+        }
+
+        delete parsed.redirects;
+        if (parsed.meta && typeof parsed.meta === "object") {
+          delete (parsed.meta as Record<string, unknown>).redirects;
+        }
+
+        this.stripSectionIds(parsed);
+
+        if (fileLocale === "_common") {
+          if (newSlugs.en) parsed.slug = newSlugs.en;
+          parsed.title = title;
+        } else if (newSlugs[fileLocale as keyof typeof newSlugs]) {
+          parsed.slug = newSlugs[fileLocale as keyof typeof newSlugs];
+        }
+
+        const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
+        if (!fs.existsSync(absTargetDir)) {
+          fs.mkdirSync(absTargetDir, { recursive: true });
+        }
+        const outputPath = path.join(absTargetDir, file);
+        const yamlStr = yaml.dump(parsed, { lineWidth: 120, noRefs: true, sortKeys: false });
+        fs.writeFileSync(outputPath, yamlStr, "utf-8");
+        copiedFiles.push(file);
+      }
+    }
+
+    return { copiedFiles, strippedFields, replacedVars };
+  }
+
+  private replaceTemplateVars(
+    content: string,
+    mergedData: Record<string, unknown>,
+    fieldMapping: Record<string, string>
+  ): { content: string; count: number } {
+    let count = 0;
+
+    const dynamicEntriesRegex = /dynamic_entries\s*:[\s\S]*?item_template\s*:[\s\S]*?(?=\n\S|\n\s*-\s+type\s*:|\s*$)/g;
+    const dynamicRanges: { start: number; end: number }[] = [];
+    let dynMatch: RegExpExecArray | null;
+    while ((dynMatch = dynamicEntriesRegex.exec(content)) !== null) {
+      dynamicRanges.push({ start: dynMatch.index, end: dynMatch.index + dynMatch[0].length });
+    }
+
+    const isInDynamicRange = (pos: number): boolean => {
+      for (const range of dynamicRanges) {
+        if (pos >= range.start && pos < range.end) return true;
+      }
+      return false;
+    };
+
+    const singleVarRegex = /\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_]*)\s*(?:\|\s*([^}]*))?\s*\}\}/g;
+    let result = "";
+    let lastIndex = 0;
+    let varMatch: RegExpExecArray | null;
+
+    while ((varMatch = singleVarRegex.exec(content)) !== null) {
+      if (isInDynamicRange(varMatch.index)) continue;
+
+      const fieldName = varMatch[1];
+      const fallback = varMatch[2]?.trim();
+
+      let replacement: string | undefined;
+      if (fallback !== undefined && fallback !== "") {
+        replacement = fallback;
+      } else {
+        const mappedKey = fieldMapping[fieldName] || fieldName;
+        const value = this.extractDotPathValue(mergedData, mappedKey);
+        if (value !== undefined && value !== null) {
+          replacement = String(value);
+        }
+      }
+
+      if (replacement !== undefined) {
+        result += content.slice(lastIndex, varMatch.index) + replacement;
+        lastIndex = varMatch.index + varMatch[0].length;
+        count++;
+      }
+    }
+
+    result += content.slice(lastIndex);
+    return { content: result, count };
+  }
+
+  private extractDotPathValue(obj: Record<string, unknown>, dotPath: string): unknown {
+    const parts = dotPath.split(".");
+    let current: unknown = obj;
+    for (const part of parts) {
+      if (current == null || typeof current !== "object") return undefined;
+      current = (current as Record<string, unknown>)[part];
+    }
+    return current;
+  }
+
+  private stripSectionIds(parsed: Record<string, unknown>): void {
+    const sections = parsed.sections;
+    if (Array.isArray(sections)) {
+      for (const section of sections) {
+        if (section && typeof section === "object") {
+          delete (section as Record<string, unknown>).section_id;
+        }
+      }
+    }
   }
 }
 

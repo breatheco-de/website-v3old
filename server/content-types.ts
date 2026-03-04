@@ -347,6 +347,7 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
 
   const allTypes = { ...reg.types, [name]: config };
   writeConfigWithHeader(allTypes);
+  registry = null;
 
   const dirPath = path.join(process.cwd(), "marketing-content", config.directory);
   const isNewDir = !fs.existsSync(dirPath);

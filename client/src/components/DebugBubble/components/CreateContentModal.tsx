@@ -10,6 +10,7 @@ import {
   IconChevronDown,
   IconTrash,
   IconArrowBackUp,
+  IconAlertTriangle,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -102,13 +103,23 @@ export function CreateContentModal({
 }: CreateContentModalProps) {
   const [showFiles, setShowFiles] = useState(false);
   const [excludedLocales, setExcludedLocales] = useState<Set<string>>(new Set());
+  const [showTypeChangeDetails, setShowTypeChangeDetails] = useState(false);
   const contentTypesMap = useContentTypes();
   const { data: rawContentTypes } = useContentTypesRaw();
 
+  const isTypeChanged = !!(duplicatingPage && createContentType !== duplicatingPage.contentType);
+
   const creatableTypes = useMemo(() => {
     if (!rawContentTypes) return [];
-    return rawContentTypes.filter(ct => !ct.has_database);
-  }, [rawContentTypes]);
+    const nonDb = rawContentTypes.filter(ct => !ct.has_database);
+    if (duplicatingPage) {
+      if (duplicatingPage.contentType === 'landing') {
+        return nonDb.filter(ct => ct.name === 'landing');
+      }
+      return nonDb.filter(ct => ct.name !== 'landing');
+    }
+    return nonDb;
+  }, [rawContentTypes, duplicatingPage]);
 
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
@@ -126,6 +137,7 @@ export function CreateContentModal({
         setCreateContentType('page');
         setDuplicatingPage(null);
         setExcludedLocales(new Set());
+        setShowTypeChangeDetails(false);
       }
     }}>
       <DialogContent className="sm:max-w-md">
@@ -153,7 +165,6 @@ export function CreateContentModal({
         </DialogHeader>
         
         <div className="space-y-4 py-4">
-          {!duplicatingPage && (
           <div className="space-y-2">
             <label className="text-sm font-medium">Content Type</label>
             <div className="flex items-center gap-2">
@@ -235,6 +246,27 @@ export function CreateContentModal({
               )}
             </div>
           </div>
+
+          {isTypeChanged && (
+            <div className="flex gap-2 p-3 rounded-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs" data-testid="warning-type-change">
+              <IconAlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-amber-600 dark:text-amber-400" />
+              <div className="space-y-1">
+                <p className="text-amber-800 dark:text-amber-200">
+                  This will change the content type from <strong>{duplicatingPage!.contentType}</strong> to <strong>{createContentType}</strong>.
+                </p>
+                <p className="text-amber-700 dark:text-amber-300">
+                  Some content-type-specific data will be automatically converted.
+                </p>
+                <button
+                  type="button"
+                  className="text-amber-700 dark:text-amber-300 underline hover:no-underline font-medium"
+                  onClick={() => setShowTypeChangeDetails(true)}
+                  data-testid="button-read-more-type-change"
+                >
+                  Read more
+                </button>
+              </div>
+            </div>
           )}
           
           <div className="space-y-2">
@@ -728,6 +760,7 @@ export function CreateContentModal({
                       title: createContentTitle || createContentSlugEn,
                       ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
                       ...(excludedLocales.size > 0 ? { skipLocales: Array.from(excludedLocales) } : {}),
+                      ...(isTypeChanged ? { changeContentType: true } : {}),
                     }),
                   });
                   
@@ -812,6 +845,63 @@ export function CreateContentModal({
           </Button>
         </DialogFooter>
       </DialogContent>
+
+      <Dialog open={showTypeChangeDetails} onOpenChange={setShowTypeChangeDetails}>
+        <DialogContent className="sm:max-w-lg" data-testid="modal-type-change-details">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IconAlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              Content Type Conversion Details
+            </DialogTitle>
+            <DialogDescription>
+              What happens when you change the content type during duplication.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-2 text-sm text-muted-foreground">
+            <div className="space-y-1">
+              <p className="font-medium text-foreground">Template variables resolved</p>
+              <p>
+                <code className="text-xs bg-muted px-1 py-0.5 rounded">{"{{ single.* }}"}</code> template variables will be replaced with their actual or fallback values, hardcoded directly into the YAML content.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-medium text-foreground">Source-specific properties removed</p>
+              <p>
+                Properties unique to the source content type (from its <code className="text-xs bg-muted px-1 py-0.5 rounded">field_mapping</code>) that don't exist in the target type will be removed from <code className="text-xs bg-muted px-1 py-0.5 rounded">_common.yml</code>.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-medium text-foreground">Section bindings removed</p>
+              <p>
+                All section bindings will be removed. Each section starts unbound in the new entry.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-medium text-foreground">Listing components preserved</p>
+              <p>
+                Listing components (<code className="text-xs bg-muted px-1 py-0.5 rounded">dynamic_entries</code>) and their <code className="text-xs bg-muted px-1 py-0.5 rounded">{"{{ single.* }}"}</code> template references will be preserved as-is.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-medium text-foreground">Redirects not copied</p>
+              <p>
+                Redirects from the source entry will not be carried over to the duplicate.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-medium text-foreground">New URL pattern</p>
+              <p>
+                The entry will be created under the target content type's directory with the target's URL pattern.
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowTypeChangeDetails(false)} data-testid="button-close-type-change-details">
+              Got it
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Dialog>
   );
 }

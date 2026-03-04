@@ -1471,6 +1471,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(page);
   });
 
+  app.get("/api/content-pages/:contentType/:slug", async (req, res) => {
+    const { contentType, slug } = req.params;
+    const locale = normalizeLocale(req.query.locale as string);
+
+    if (!isValidType(contentType)) {
+      res.status(404).json({ error: `Unknown content type: ${contentType}` });
+      return;
+    }
+
+    if (hasDatabaseSingle(contentType)) {
+      const page = await loadDatabaseSinglePage(contentType, slug, locale);
+      if (!page) {
+        res.status(404).json({ error: `${contentType} entry not found` });
+        return;
+      }
+      if (page.sections && Array.isArray(page.sections)) {
+        page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+      }
+      res.json(page);
+      return;
+    }
+
+    const result = contentIndex.loadContent({
+      contentType,
+      slug,
+      schema: templatePageSchema,
+      localeOrVariant: locale,
+    });
+
+    if (!result.success) {
+      res.status(404).json({ error: `${contentType} entry not found` });
+      return;
+    }
+
+    const page = result.data;
+
+    if (page.sections && Array.isArray(page.sections)) {
+      page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+    }
+
+    const singleEntry = buildSingleEntryFromContent(contentType, page as unknown as Record<string, unknown>);
+    if (singleEntry) {
+      (page as any).singleEntry = singleEntry;
+    }
+
+    res.json(page);
+  });
+
   // Dynamic sitemap with caching
   app.get("/sitemap.xml", (req, res) => {
     const xml = getSitemap();
@@ -1800,6 +1848,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       contentIndex.refresh();
+      clearSitemapCache();
 
       res.json({
         success: true,
@@ -6646,6 +6695,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         slugEs,
         title,
         sourceUrl,
+        changeContentType,
         author: createAuthor,
         skipLocales: rawSkipLocales,
       } = req.body;
@@ -6741,10 +6791,49 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             : "";
 
           if (foundSourceFolder) {
-            // Copy all files from source folder, respecting skipLocales
+            if (changeContentType && resolved && resolved.contentType !== type) {
+              const result = contentIndex.duplicateWithTypeChange({
+                sourceDir: foundSourceFolder,
+                sourceType: resolved.contentType,
+                targetType: type,
+                targetDir: folderPath,
+                newSlugs: { en: enSlug || undefined, es: esSlug || undefined },
+                title: title || folderSlug!,
+                skipLocales,
+              });
+
+              for (const file of result.copiedFiles) {
+                markFileAsModified(
+                  `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
+                  createAuthorName,
+                );
+              }
+
+              clearSitemapCache();
+              contentIndex.refresh();
+
+              res.json({
+                success: true,
+                slugEn: enSlug,
+                slugEs: esSlug,
+                type,
+                directory: `marketing-content/${getFolder(type)}/${folderSlug}`,
+                duplicatedFrom: sourceUrl,
+                typeChanged: true,
+                conversion: {
+                  from: resolved.contentType,
+                  to: type,
+                  copiedFiles: result.copiedFiles,
+                  strippedFields: result.strippedFields,
+                  replacedVars: result.replacedVars,
+                },
+              });
+              return;
+            }
+
+            // Same-type duplication: copy files directly
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             for (const file of sourceFiles) {
-              // Skip locale files that are in skipLocales
               const fileLocale = file.replace(/\.yml$/, "");
               if (
                 fileLocale !== "_common" &&
@@ -6758,13 +6847,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 "utf8",
               );
 
-              // Strip redirects — they must not be copied to duplicate pages
               content = content.replace(
                 /^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm,
                 "",
               );
 
-              // Replace slug in content
               const oldSlug = path.basename(foundSourceFolder);
               const resolvedSourceSlug = resolved?.slug || oldSlug;
               const newSlug =
@@ -6782,7 +6869,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 );
               }
 
-              // Replace title if it's a locale file
               if (file === "en.yml" || file === "es.yml") {
                 content = content.replace(/title:\s*.*$/m, `title: ${title}`);
               }

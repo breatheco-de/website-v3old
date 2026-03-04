@@ -79,17 +79,12 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: APPLY
-      tags: apply-page
+      tags: website-lead
       fields:
-        region:
+        email:
           visible: true
           required: true
-        location:
-          visible: true
-          required: true
-        program:
-          visible: true
-          required: true
+          placeholder: Enter your email address
         first_name:
           visible: true
           required: true
@@ -98,22 +93,27 @@ sections:
           visible: true
           required: true
           placeholder: Enter your last name
-        email:
-          visible: true
-          required: true
-          placeholder: Enter your email address
         phone:
           visible: true
           required: true
           placeholder: Enter your phone number
-      consent:
-        marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
-        sms: true
-        sms_usa_only: true
-      show_terms: true
+        program:
+          visible: true
+          required: true
+        region:
+          visible: true
+          required: true
+        location:
+          visible: true
+          required: true
       terms_url: /terms-conditions
       privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
       turnstile:
         enabled: true
     next_steps:
