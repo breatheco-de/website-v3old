@@ -1,18 +1,56 @@
 sections:
-  - type: ai_learning
+  - type: hero
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    variant: ApplyFormProductShowcase
+    title: Construye sistemas reales, listos para producción.
+    brand_mark:
+      prefix: Conviértete en
+      highlight: Ingeniero de IA
+      color: primary
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Postular ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo Electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: CL
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        sms: false
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/ai-engineering
+      variant: outline
+      icon: Download
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
