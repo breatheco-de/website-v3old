@@ -1,8 +1,9 @@
 import { useState, useCallback } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconMenu2, IconX, IconPlus } from "@tabler/icons-react";
+import { IconMenu2, IconPlus, IconPencil, IconArrowsExchange, IconTrash } from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { editCommonContent } from "@/lib/contentApi";
+import { useLocation } from "wouter";
 import {
   Popover,
   PopoverContent,
@@ -15,6 +16,7 @@ interface MenuSlotPlaceholderProps {
   currentMenuId: string | null | undefined;
   contentType: string;
   slug: string;
+  locale: string;
   onMenuChange?: (menuId: string | null) => void;
 }
 
@@ -23,10 +25,12 @@ export default function MenuSlotPlaceholder({
   currentMenuId,
   contentType,
   slug,
+  locale,
   onMenuChange,
 }: MenuSlotPlaceholderProps) {
   const editMode = useEditModeOptional();
   const queryClient = useQueryClient();
+  const [, navigate] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -63,29 +67,32 @@ export default function MenuSlotPlaceholder({
 
   if (!editMode?.isEditMode) return null;
 
-  const label = position === "top" ? "Top menu" : "Bottom menu";
-
   if (currentMenuId) {
+    const positionClasses = position === "top" ? "bottom-2 right-2" : "top-2 right-2";
+
     return (
       <div
-        className="flex items-center justify-center gap-2 py-1 bg-blue-500/10 border border-dashed border-blue-400/40"
+        className={`absolute z-30 flex items-center gap-1 transition-opacity duration-150 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${positionClasses}`}
         data-testid={`menu-slot-${position}-assigned`}
       >
-        <IconMenu2 className="w-3.5 h-3.5 text-blue-500" />
-        <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-          {label}: {currentMenuId}
-        </span>
+        <button
+          className="p-2 bg-primary text-primary-foreground rounded-md shadow-lg hover-elevate flex items-center gap-1.5 cursor-pointer"
+          onClick={() => navigate(`/private/menu-editor/${currentMenuId}?locale=${locale}`)}
+          disabled={isSaving}
+          data-testid={`button-edit-menu-${position}`}
+        >
+          <IconPencil className="w-3.5 h-3.5" />
+          <span className="text-xs font-medium">{currentMenuId}</span>
+        </button>
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
-            <Button
-              size="icon"
-              variant="ghost"
-              className="toggle-elevate"
+            <button
+              className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate cursor-pointer"
               disabled={isSaving}
               data-testid={`button-change-menu-${position}`}
             >
-              <IconMenu2 className="w-3.5 h-3.5" />
-            </Button>
+              <IconArrowsExchange className="w-3.5 h-3.5" />
+            </button>
           </PopoverTrigger>
           <PopoverContent className="w-48 p-1" align="center">
             <div className="flex flex-col">
@@ -105,15 +112,14 @@ export default function MenuSlotPlaceholder({
             </div>
           </PopoverContent>
         </Popover>
-        <Button
-          size="icon"
-          variant="ghost"
+        <button
+          className="p-2 bg-muted text-destructive rounded-md shadow-lg hover-elevate cursor-pointer"
           onClick={() => handleMenuSelect(null)}
           disabled={isSaving}
           data-testid={`button-clear-menu-${position}`}
         >
-          <IconX className="w-3.5 h-3.5" />
-        </Button>
+          <IconTrash className="w-3.5 h-3.5" />
+        </button>
       </div>
     );
   }

@@ -16,7 +16,7 @@ import "./i18n";
 
 import ContentTypeDetail from "@/pages/ContentTypeDetail";
 import TemplatePage from "@/pages/page";
-import HomePage from "@/pages/HomePage";
+
 
 const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
@@ -116,9 +116,9 @@ function Router() {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Switch>
-        <Route path="/" component={HomePage} />
-        <Route path="/en/" component={HomePage} />
-        <Route path="/es/" component={HomePage} />
+        <Route path="/" component={TemplatePage} />
+        <Route path="/en/" component={TemplatePage} />
+        <Route path="/es/" component={TemplatePage} />
         <Route path="/en/career-programs/:slug">
           {(params) => <ContentTypeDetail type="program" slug={params.slug} locale="en" />}
         </Route>

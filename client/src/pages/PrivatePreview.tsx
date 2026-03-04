@@ -180,14 +180,17 @@ export default function PrivatePreview() {
 
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>
-      <MenuSlotPlaceholder
-        position="top"
-        currentMenuId={topMenuId}
-        contentType={normalizedType}
-        slug={slug!}
-        onMenuChange={() => refetch()}
-      />
-      {topMenuId && <Header menuId={topMenuId} />}
+      <div className="group relative">
+        <MenuSlotPlaceholder
+          position="top"
+          currentMenuId={topMenuId}
+          contentType={normalizedType}
+          slug={slug!}
+          locale={locale}
+          onMenuChange={() => refetch()}
+        />
+        {topMenuId && <Header menuId={topMenuId} />}
+      </div>
       <SectionRenderer 
         sections={content.sections} 
         contentType={config.singular}
@@ -195,20 +198,23 @@ export default function PrivatePreview() {
         locale={locale}
         singleEntry={(content as any).singleEntry}
       />
-      {bottomMenuId && (
-        <LazyRender>
-          <div className="pb-12">
-            <Footer menuId={bottomMenuId} />
-          </div>
-        </LazyRender>
-      )}
-      <MenuSlotPlaceholder
-        position="bottom"
-        currentMenuId={bottomMenuId}
-        contentType={normalizedType}
-        slug={slug!}
-        onMenuChange={() => refetch()}
-      />
+      <div className="group relative">
+        {bottomMenuId && (
+          <LazyRender>
+            <div className="pb-12">
+              <Footer menuId={bottomMenuId} />
+            </div>
+          </LazyRender>
+        )}
+        <MenuSlotPlaceholder
+          position="bottom"
+          currentMenuId={bottomMenuId}
+          contentType={normalizedType}
+          slug={slug!}
+          locale={locale}
+          onMenuChange={() => refetch()}
+        />
+      </div>
     </div>
   );
 }

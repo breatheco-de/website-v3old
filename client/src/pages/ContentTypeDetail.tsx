@@ -36,7 +36,7 @@ interface ContentTypeDetailProps {
 
 export default function ContentTypeDetail({ type, slug, locale, urlPattern }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
-  const [, setLocation] = useLocation();
+  const [currentLocation, setLocation] = useLocation();
   const effectiveLocale = (locale && locale !== "default") ? locale : (i18n.language as string) || "en";
   const apiPath = getApiPath(type);
 
@@ -62,7 +62,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     }
   }, [data?.slug, slug, effectiveLocale, urlPattern, setLocation]);
 
-  const alternates = useAlternateUrls(location);
+  const alternates = useAlternateUrls(currentLocation);
   const metaWithAlternates = useMemo(() => {
     if (!data?.meta) return undefined;
     return { ...(data.meta as object), alternates };
@@ -114,14 +114,17 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   return (
     <div data-testid={`page-${type}`}>
-      <MenuSlotPlaceholder
-        position="top"
-        currentMenuId={topMenuId ?? null}
-        contentType={type}
-        slug={slug}
-        onMenuChange={() => refetch()}
-      />
-      {topMenuId && <Header menuId={topMenuId} />}
+      <div className="group relative">
+        <MenuSlotPlaceholder
+          position="top"
+          currentMenuId={topMenuId ?? null}
+          contentType={type}
+          slug={slug}
+          locale={effectiveLocale}
+          onMenuChange={() => refetch()}
+        />
+        {topMenuId && <Header menuId={topMenuId} />}
+      </div>
       <SectionRenderer
         sections={(data.sections as any[]) || []}
         settings={data.settings}
@@ -131,20 +134,23 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
         programSlug={type === "program" ? slug : undefined}
         singleEntry={data.singleEntry as Record<string, unknown> | undefined}
       />
-      {bottomMenuId && (
-        <LazyRender>
-          <div className="pb-12">
-            <Footer menuId={bottomMenuId} />
-          </div>
-        </LazyRender>
-      )}
-      <MenuSlotPlaceholder
-        position="bottom"
-        currentMenuId={bottomMenuId ?? null}
-        contentType={type}
-        slug={slug}
-        onMenuChange={() => refetch()}
-      />
+      <div className="group relative">
+        {bottomMenuId && (
+          <LazyRender>
+            <div className="pb-12">
+              <Footer menuId={bottomMenuId} />
+            </div>
+          </LazyRender>
+        )}
+        <MenuSlotPlaceholder
+          position="bottom"
+          currentMenuId={bottomMenuId ?? null}
+          contentType={type}
+          slug={slug}
+          locale={effectiveLocale}
+          onMenuChange={() => refetch()}
+        />
+      </div>
     </div>
   );
 }
