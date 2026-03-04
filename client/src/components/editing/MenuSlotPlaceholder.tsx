@@ -116,8 +116,8 @@ export default function MenuSlotPlaceholder({
           </DialogTitle>
           <DialogDescription data-testid="text-menu-scope-description">
             {isRemoving
-              ? `Remove the ${position} menu from all ${contentType}s or only this entry?`
-              : `Apply the ${position} menu "${pendingAction?.menuId}" to all ${contentType}s or only this entry?`}
+              ? <>Remove the {position} menu from all <strong>{contentType}s</strong> or only from the <strong>{slug}</strong> {contentType}?</>
+              : <>Add <strong>{pendingAction?.menuId}</strong> as the {position} menu to all <strong>{contentType}s</strong> or only to the <strong>{slug}</strong> {contentType}?</>}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex flex-col gap-2 sm:flex-row">
@@ -127,7 +127,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid="button-apply-all"
           >
-            Apply to all {contentType}s
+            All {contentType}s
           </Button>
           <Button
             variant="outline"
@@ -135,7 +135,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid="button-apply-entry"
           >
-            Apply to this entry only
+            Only {slug}
           </Button>
         </DialogFooter>
       </DialogContent>
