@@ -72,7 +72,7 @@ export default function MenuSlotPlaceholder({
 
     return (
       <div
-        className={`absolute z-30 flex items-center gap-1 transition-opacity duration-150 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${positionClasses}`}
+        className={`absolute z-[60] flex items-center gap-1 transition-opacity duration-150 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ${positionClasses}`}
         data-testid={`menu-slot-${position}-assigned`}
       >
         <button
