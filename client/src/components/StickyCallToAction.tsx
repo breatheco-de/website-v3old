@@ -9,17 +9,28 @@ const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default
 
 const INLINE_FORM_SELECTOR = "[data-hero-inline-form]";
 
+function isElementInViewport(el: Element): boolean {
+  const rect = el.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight;
+}
+
 function useInlineFormVisible() {
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const initialEl = typeof document !== "undefined" ? document.querySelector(INLINE_FORM_SELECTOR) : null;
+  const [isFormVisible, setIsFormVisible] = useState(() => initialEl ? isElementInViewport(initialEl) : false);
   const [enableTransition, setEnableTransition] = useState(false);
 
   useEffect(() => {
     let intersectionObserver: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
     let firstFired = false;
+    let currentEl: Element | null = null;
 
     function observeElement(el: Element) {
       if (intersectionObserver) intersectionObserver.disconnect();
+      firstFired = false;
+      setEnableTransition(false);
+      setIsFormVisible(isElementInViewport(el));
+      currentEl = el;
       intersectionObserver = new IntersectionObserver(
         ([entry]) => {
           setIsFormVisible(entry.isIntersecting);
@@ -33,7 +44,7 @@ function useInlineFormVisible() {
       );
       intersectionObserver.observe(el);
     }
-console.log(enableTransition)
+
     const existing = document.querySelector(INLINE_FORM_SELECTOR);
     if (existing) {
       observeElement(existing);
@@ -41,10 +52,13 @@ console.log(enableTransition)
 
     mutationObserver = new MutationObserver(() => {
       const el = document.querySelector(INLINE_FORM_SELECTOR);
-      if (el) {
+      if (el && el !== currentEl) {
         observeElement(el);
-      } else {
+      } else if (!el && currentEl) {
         if (intersectionObserver) intersectionObserver.disconnect();
+        currentEl = null;
+        firstFired = false;
+        setEnableTransition(false);
         setIsFormVisible(false);
       }
     });
