@@ -91,16 +91,16 @@ sections:
     version: "1.0"
     variant: default
     compact: true
-    heading: How the Job Guarantee Works
+    heading: How Our Job Guarantee Works
     cards:
       - icon: ShieldCheck
-        title: 1. Add the Optional Job Guarantee at Enrollment
+        title: 1. Choose the Job Guarantee When You Enroll
       - icon: BookOpen
-        title: 2. Complete All Coursework and Graduation Requirements
+        title: 2. Complete the Program and Build Your Portfolio
       - icon: Briefcase
-        title: 3. Actively Follow the Career Placement Process
+        title: 3. Follow Our Proven Career Placement System
       - icon: Trophy
-        title: 4. Get Hired Within 9 Months — Or Receive a Full Tuition Refund
+        title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
     background: bg-muted/30
   - type: course_selector
     version: "1.0"
