@@ -1,0 +1,21 @@
+experiments:
+  - slug: colorful
+    status: planned
+    description: colorful
+    variants:
+      - slug: promoted
+        version: 1
+        allocation: 50
+      - slug: colorful
+        version: 1
+        allocation: 50
+    targeting:
+      regions:
+        - latam
+      countries:
+        - US
+      locations:
+        - austin-usa
+      devices:
+        - desktop
+    max_visitors: 1000
