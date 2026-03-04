@@ -19,7 +19,7 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
@@ -43,14 +43,14 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
+    tutors_label: "Your tutors:"
     description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
     signup_card:
       title: Get the Full Program Overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send me the details
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -72,8 +72,45 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - type: sticky_cta
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+          placeholder: Número telefónico
+        program:
+          visible: false
+          default: cybersecurity
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: apply-modal
     heading: Request Program Details
     description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
@@ -100,6 +137,23 @@ sections:
           default: cybersecurity
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: Cybersecurity Talent Is in High Demand
+    subtitle: Enter a mission-critical field with long-term growth and strong earning potential.
+    description: A growing global talent gap and record-breaking investment in digital security have created unprecedented demand for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move directly into high-impact, high-paying roles.
+    background: bg-muted/30
+    items:
+      - id: "1"
+        value: 4.8M
+        title: Unfilled cybersecurity roles worldwide
+      - id: "2"
+        value: 41%
+        title: Projected job growth, outpacing most sectors
+      - id: "3"
+        value: {{ global.global_spending_cybersecurity | $520B }}
+        title: Global spending on cybersecurity this year
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -142,23 +196,6 @@ sections:
       desktop: none
     marginY:
       desktop: none lg
-  - type: features_grid
-    version: '1.0'
-    variant: stats-text
-    title: Cybersecurity Talent Is in High Demand
-    subtitle: Enter a mission-critical field with long-term growth and strong earning potential.
-    description: A growing global talent gap and record-breaking investment in digital security have created unprecedented demand for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move directly into high-impact, high-paying roles.
-    background: bg-muted/30
-    items:
-      - id: '1'
-        value: 4.8M
-        title: Unfilled cybersecurity roles worldwide
-      - id: '2'
-        value: 41%
-        title: Projected job growth, outpacing most sectors
-      - id: '3'
-        value: {{ global.global_spending_cybersecurity | $520B }}
-        title: Global spending on cybersecurity this year
   - type: syllabus
     variant: program-modules
     program_title: Cybersecurity Program Overview
@@ -274,7 +311,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -284,7 +321,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -294,7 +331,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -306,7 +343,7 @@ sections:
       desktop: md none
   - type: certificate
     title: Industry Certifications and Career Outcomes
-    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:'
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
       - text: CEH (Certified Ethical Hacker) pathway
@@ -336,10 +373,10 @@ sections:
         label: Average starting salary
         description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
-          - text: 'Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}'
-          - text: 'Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}'
-          - text: 'Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}'
-          - text: 'Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}'
+          - text: "Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}"
+          - text: "Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}"
+          - text: "Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}"
+          - text: "Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}"
       - value: 400+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
@@ -386,12 +423,12 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full payment discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-based financing: starting below'
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
     financing_amount: {{ global.price_cybersecurity | $299 }}
     tech_icons:
       - python
@@ -416,7 +453,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: '#apply-modal'
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: none md
@@ -446,11 +483,11 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ global.price_cybersecurity | 299€ }}
     tech_icons:
@@ -575,7 +612,7 @@ sections:
       desktop: md
     background: muted
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to start your cybersecurity career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -616,40 +653,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: sticky_cta
-    version: '1.0'
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: true
-          placeholder: Número telefónico
-        program:
-          visible: false
-          default: cybersecurity
-      success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
