@@ -10,16 +10,25 @@ const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default
 const INLINE_FORM_SELECTOR = "[data-hero-inline-form]";
 
 function useInlineFormVisible() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [enableTransition, setEnableTransition] = useState(false);
 
   useEffect(() => {
     let intersectionObserver: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
+    let firstFired = false;
 
     function observeElement(el: Element) {
       if (intersectionObserver) intersectionObserver.disconnect();
       intersectionObserver = new IntersectionObserver(
-        ([entry]) => setIsVisible(entry.isIntersecting),
+        ([entry]) => {
+          setIsFormVisible(entry.isIntersecting);
+          if (!firstFired) {
+            firstFired = true;
+          } else {
+            setEnableTransition(true);
+          }
+        },
         { threshold: 0 }
       );
       intersectionObserver.observe(el);
@@ -36,7 +45,7 @@ function useInlineFormVisible() {
         observeElement(el);
       } else {
         if (intersectionObserver) intersectionObserver.disconnect();
-        setIsVisible(false);
+        setIsFormVisible(false);
       }
     });
     mutationObserver.observe(document.body, { childList: true, subtree: true });
@@ -47,7 +56,7 @@ function useInlineFormVisible() {
     };
   }, []);
 
-  return isVisible;
+  return { isFormVisible, enableTransition };
 }
 
 export interface StickyCtaData {
@@ -80,7 +89,7 @@ function FormSkeleton() {
 export function StickyCallToAction({ data, landingLocations }: StickyCallToActionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
-  const isHiddenByForm = useInlineFormVisible();
+  const { isFormVisible: isHiddenByForm, enableTransition } = useInlineFormVisible();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
 
@@ -118,7 +127,8 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg transition-transform duration-300",
+        "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg",
+        enableTransition && "transition-transform duration-300",
         isExpanded && "max-h-[80vh] overflow-auto",
         isHiddenByForm && "translate-y-full"
       )}
