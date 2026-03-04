@@ -38,13 +38,19 @@ function publicUrlToPreviewUrl(
 
   for (const [typeName, ct] of sortedTypes) {
     for (const [locale, pattern] of Object.entries(ct.url_pattern)) {
-      const regexStr = '^' + pattern.replace(/:slug/g, '([^/]+)') + '\\/?$';
+      let slugGroupIndex = 1;
+      let paramIndex = 0;
+      const regexStr = '^' + pattern.replace(/:([a-zA-Z_]+)/g, (_m, name) => {
+        paramIndex++;
+        if (name === 'slug') slugGroupIndex = paramIndex;
+        return '([^/]+)';
+      }) + '\\/?$';
       try {
         const regex = new RegExp(regexStr);
         const match = pathname.match(regex);
         if (match) {
           const effectiveLocale = pattern.match(/^\/(en|es)\//) ? locale : pathLocale;
-          return `/private/preview/${ct.directory}/${match[1]}?locale=${effectiveLocale}`;
+          return `/private/preview/${ct.directory}/${match[slugGroupIndex]}?locale=${effectiveLocale}`;
         }
       } catch {}
     }
