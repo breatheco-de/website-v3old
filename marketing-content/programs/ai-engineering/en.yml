@@ -796,7 +796,6 @@ sections:
         program:
           visible: false
           required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          default: {{ single.bc_slug | unknown }}
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-5ry34w
