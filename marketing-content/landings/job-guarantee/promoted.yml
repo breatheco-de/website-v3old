@@ -1,2 +1,27 @@
-# Promoted variant - customize for marketing campaigns
-sections: []
+sections:
+  - type: award_badges
+    version: v1.0
+    variant: simple
+    showBorder: true
+    items:
+      - id: coursereport-1
+        logo: /images/awards/course-report.svg
+        alt: Course Report - Best Coding Bootcamp
+        logoHeight: 64px
+        source: Course Report
+        name: Best Coding Bootcamp
+        year: "2024"
+      - id: switchup-1
+        logo: /images/awards/switchup.svg
+        alt: SwitchUp - Top Bootcamp
+        logoHeight: 64px
+        source: SwitchUp
+        name: Top Bootcamp
+        year: "2024"
+      - id: careerkarma-1
+        logo: /images/awards/career-karma.svg
+        alt: Career Karma - Best Value
+        logoHeight: 64px
+        source: Career Karma
+        name: Best Value
+        year: "2024"
