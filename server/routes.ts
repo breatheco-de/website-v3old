@@ -4340,6 +4340,141 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json({ success: true, message: "Schema cache cleared" });
   });
 
+  app.get("/api/brand-context", (req, res) => {
+    try {
+      const filePath = path.join(process.cwd(), "marketing-content", "brand-context.yml");
+      if (!fs.existsSync(filePath)) {
+        res.status(404).json({ error: "brand-context.yml not found" });
+        return;
+      }
+      const raw = fs.readFileSync(filePath, "utf-8");
+      const parsed = yaml.load(raw);
+      res.json(parsed);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to read brand-context.yml", message: String(err) });
+    }
+  });
+
+  app.get("/api/seo/overview", (req, res) => {
+    try {
+      const entries = contentIndex.listAll();
+      const seoEntries = contentIndex.getAllSeoEntries();
+
+      const intentDistribution: Record<string, Record<string, number>> = {};
+      const clusterMap = new Map<string, string[]>();
+      const orphanPages: { slug: string; contentType: string; intent: string; filePath: string }[] = [];
+      const featureCoverage: Record<string, number> = {};
+      const faqCoverage: { slug: string; contentType: string; locale: string; faqCount: number }[] = [];
+      const schemaCoverage: Record<string, number> = {};
+
+      let totalPages = 0;
+      let withPillar = 0;
+      let withIntent = 0;
+      let withFocusFeatures = 0;
+      let withFaq = 0;
+      let withSchema = 0;
+
+      const highPriorityTypes = new Set(["programs", "landings", "landing"]);
+
+      for (const entry of entries) {
+        const ct = entry.contentType;
+        for (const locale of entry.locales) {
+          if (locale.startsWith("_") || locale.includes(".")) continue;
+          totalPages++;
+
+          const merged = contentIndex.loadMergedContent(ct, entry.slug, locale);
+          if (!merged.data) continue;
+          const data = merged.data as Record<string, unknown>;
+
+          const seo = data.seo as Record<string, unknown> | undefined;
+          const schema = data.schema as { include?: string[] } | undefined;
+          const sections = data.sections as { type?: string }[] | undefined;
+
+          const intent = (seo?.intent as string) || "unknown";
+          const pillar = typeof seo?.pillar === "string" && seo.pillar ? seo.pillar : undefined;
+          const focusFeatures = Array.isArray(seo?.focus_features)
+            ? (seo!.focus_features as string[]).filter((f) => typeof f === "string")
+            : [];
+
+          if (!intentDistribution[ct]) intentDistribution[ct] = {};
+          intentDistribution[ct][intent] = (intentDistribution[ct][intent] || 0) + 1;
+
+          if (seo?.intent) withIntent++;
+
+          if (pillar) {
+            withPillar++;
+            const cluster = clusterMap.get(pillar) || [];
+            if (!cluster.includes(entry.slug)) cluster.push(entry.slug);
+            clusterMap.set(pillar, cluster);
+          } else if (highPriorityTypes.has(ct)) {
+            orphanPages.push({
+              slug: entry.slug,
+              contentType: ct,
+              intent,
+              filePath: merged.filePath,
+            });
+          }
+
+          if (focusFeatures.length > 0) {
+            withFocusFeatures++;
+            for (const f of focusFeatures) {
+              featureCoverage[f] = (featureCoverage[f] || 0) + 1;
+            }
+          }
+
+          if (schema?.include && schema.include.length > 0) {
+            withSchema++;
+            for (const schemaType of schema.include) {
+              schemaCoverage[schemaType] = (schemaCoverage[schemaType] || 0) + 1;
+            }
+          }
+
+          if (Array.isArray(sections)) {
+            const faqSections = sections.filter((s) => s?.type === "faq");
+            if (faqSections.length > 0) {
+              withFaq++;
+              faqCoverage.push({
+                slug: entry.slug,
+                contentType: ct,
+                locale,
+                faqCount: faqSections.length,
+              });
+            }
+          }
+        }
+      }
+
+      const clusters = Array.from(clusterMap.entries()).map(([pillarUrl, clusterSlugs]) => ({
+        pillarUrl,
+        clusterSlugs,
+        clusterCount: clusterSlugs.length,
+      }));
+
+      const uniqueOrphans = orphanPages.filter(
+        (o, i, arr) => arr.findIndex((x) => x.slug === o.slug && x.contentType === o.contentType) === i,
+      );
+
+      res.json({
+        intentDistribution,
+        clusters,
+        orphanPages: uniqueOrphans,
+        featureCoverage,
+        faqCoverage,
+        schemaCoverage,
+        totals: {
+          totalPages,
+          withPillar,
+          withIntent,
+          withFocusFeatures,
+          withFaq,
+          withSchema,
+        },
+      });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to build SEO overview", message: String(err) });
+    }
+  });
+
   app.get("/api/seo-preview/:contentType/:slug", (req, res) => {
     try {
       const { contentType, slug } = req.params;

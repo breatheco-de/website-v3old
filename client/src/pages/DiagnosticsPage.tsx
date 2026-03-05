@@ -43,6 +43,7 @@ import {
   IconLoader2,
   IconSparkles,
   IconClipboard,
+  IconTargetArrow,
 } from "@tabler/icons-react";
 import {
   DropdownMenu,
@@ -1184,10 +1185,18 @@ export default function DiagnosticsPage() {
                 </h1>
               </div>
             </div>
-            <TabsList data-testid="tabs-diagnostics">
-              <TabsTrigger value="global-health" data-testid="tab-global-health">Global Health</TabsTrigger>
-              <TabsTrigger value="page-analysis" data-testid="tab-page-analysis">Page Analysis</TabsTrigger>
-            </TabsList>
+            <div className="flex items-center gap-2">
+              <Link href="/private/diagnostics/seo-geo">
+                <Button variant="outline" size="sm" data-testid="button-seo-geo">
+                  <IconTargetArrow className="h-3.5 w-3.5" />
+                  SEO &amp; GEO
+                </Button>
+              </Link>
+              <TabsList data-testid="tabs-diagnostics">
+                <TabsTrigger value="global-health" data-testid="tab-global-health">Global Health</TabsTrigger>
+                <TabsTrigger value="page-analysis" data-testid="tab-page-analysis">Page Analysis</TabsTrigger>
+              </TabsList>
+            </div>
           </div>
           <TabsContent value="global-health">
             <GlobalHealthTab />

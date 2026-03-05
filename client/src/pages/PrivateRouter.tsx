@@ -15,6 +15,7 @@ const ContentTypeManagePage = lazy(() => import("@/pages/ContentTypeManagePage")
 const SyncLogPage = lazy(() => import("@/pages/SyncLogPage"));
 const PrivateDatabases = lazy(() => import("@/pages/PrivateDatabases"));
 const SettingsPage = lazy(() => import("@/pages/SettingsPage"));
+const SeoGeoPage = lazy(() => import("@/pages/SeoGeoPage"));
 
 function LoadingFallback() {
   return (
@@ -44,6 +45,7 @@ export default function PrivateRouter() {
         <Route path="/private/type/:contentType" component={ContentTypeManagePage} />
         <Route path="/private/databases" component={PrivateDatabases} />
         <Route path="/private/databases/:name" component={PrivateDatabases} />
+        <Route path="/private/diagnostics/seo-geo" component={SeoGeoPage} />
         <Route path="/private/diagnostics" component={DiagnosticsPage} />
         <Route path="/private/redirects" component={PrivateRedirects} />
         <Route path="/private/media-gallery" component={MediaGallery} />
