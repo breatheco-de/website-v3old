@@ -185,17 +185,17 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: Who's Eligible?
-    description: "You'll qualify for the Job Guarantee if you:"
+    heading: Who Can Add the Job Guarantee?
+    description: "You can enroll in the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+        title: Have U.S. work authorization
       - icon: IconCircleDashedCheck
-        title: Complete all coursework and projects
+        title: Complete all coursework
       - icon: IconBrain
         title: Pass our logic test
       - icon: IconArrowGuideFilled
-        title: Follow our career development process
+        title: Follow our career plan
     background: hsl(var(--muted))
     marginY:
       desktop: none md
