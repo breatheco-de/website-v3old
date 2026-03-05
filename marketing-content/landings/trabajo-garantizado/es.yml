@@ -345,7 +345,7 @@ sections:
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
     marginY:
-      desktop: none md
+      desktop: none
   - type: testimonials_slide
     title: Las historias detrás de las estadísticas
     description: Respaldamos los resultados que obtienen nuestros graduados. Conozca a algunos de los estudiantes que transformaron sus carreras gracias a nuestros programas.
