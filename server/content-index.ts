@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
-import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
+import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlDump } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
 
@@ -1338,7 +1338,7 @@ class ContentIndex {
         this.stripSectionIds(parsed);
 
         if (fileLocale === "_common") {
-          if (newSlugs.en) parsed.slug = newSlugs.en;
+          parsed.slug = newSlugs.en || newSlugs.es || path.basename(targetDir);
           parsed.title = title;
         } else if (newSlugs[fileLocale as keyof typeof newSlugs]) {
           parsed.slug = newSlugs[fileLocale as keyof typeof newSlugs];
@@ -1350,7 +1350,9 @@ class ContentIndex {
           fs.mkdirSync(absTargetDir, { recursive: true });
         }
         const outputPath = path.join(absTargetDir, file);
-        const yamlStr = yaml.dump(parsed, { lineWidth: 120, noRefs: true, sortKeys: false });
+        const { escaped, map } = escapeObjectVars(parsed);
+        const dumped = yaml.dump(escaped, { lineWidth: 120, noRefs: true, sortKeys: false });
+        const yamlStr = unescapeYamlDump(dumped, map);
         fs.writeFileSync(outputPath, yamlStr, "utf-8");
         copiedFiles.push(file);
       }
