@@ -121,9 +121,9 @@ sections:
       - 7
     background: bg-muted/30
     alignment: center
-    left:
-      justify: center
     right:
+      justify: center
+    left:
       heading: ¡Desde Cero Hasta Tu Primer Empleo!
       description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
       bullets:
