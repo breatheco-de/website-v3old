@@ -2,36 +2,37 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    title: Saca el máximo de tu potencial en 4Geeks Academy
     brand_mark:
-      prefix: Become an
-      highlight: AI Engineer
+      prefix: Saca el máximo de tu
+      highlight: potencial en 4Geeks Academy
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional
     bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+      - text: Aprende a resolver problemas de manera efectiva
+      - text: Desarrolla habilidades de aprendizaje autodidacta
+      - text: Accede a mentorías personalizadas ilimitadas y de por vida
+      - text: Forma parte de una comunidad internacional de más de 5,000 personas
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply now
+      submit_label: Solicita más información
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre completo
         last_name:
           visible: true
           required: true
-          placeholder: Last name
+          placeholder: Apellido
         phone:
           visible: true
           required: true
@@ -39,14 +40,14 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox! Your syllabus is on the way.
+        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
