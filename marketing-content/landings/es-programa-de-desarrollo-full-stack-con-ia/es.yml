@@ -222,147 +222,81 @@ sections:
     program_description: >-
       Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás
       soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
+    variant: program-modules
+    program_title: Full Stack with AI Program Overview
+    program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
     tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: Claude
-        icon: claude
-      - name: Python
-        icon: python
-      - name: Pandas
-        icon: pandas
-      - name: NumPy
-        icon: numpy
-      - name: Scikit-learn
-        icon: scikitlearn
-      - name: PyTorch
-        icon: pytorch
-      - name: Matplotlib
-        icon: matplotlib
+      - name: HTML5
+        icon: html
+      - name: CSS3
+        icon: css
+      - name: JavaScript
+        icon: javascript
       - name: React
         icon: react
-      - name: Next.js
-        icon: nextjs
-      - name: Tailwind CSS
-        icon: tailwindcss
-      - name: Node.js
-        icon: nodejs
-      - name: Vercel
-        icon: vercel
-      - name: Supabase
-        icon: supabase
+      - name: Python
+        icon: python
       - name: Git
         icon: git
-      - name: GitHub
-        icon: github
-      - name: Postman
-        icon: postman
-      - name: n8n
-        icon: n8n
     module_cards:
-      - title: Prework con enfoque en IA
-        duration: Hito 0
+      - title: Introduction To HTML And CSS
+        duration: Weeks 1-2
         objectives:
-          - Fundamentos YAML/JSON
-          - Control de versiones con Git
-          - Bases de JavaScript
-          - Fundamentos de internet
-          - Agentes de código
-        icon: IconRocket
-      - title: Fundamentos web
-        duration: Hito 1
-        objectives:
-          - HTML, CSS, Tailwind
-          - Mejores prácticas de accesibilidad
-          - Técnicas de maquetado
-        projects: Construye la primera página web de la empresa
-        icon: IconWorld
-      - title: Fundamentos de programación
-        duration: Hito 2
-        objectives:
-          - Algoritmos y estructuras de datos
-          - Stateflow vs controlflow
-          - Dominio de JavaScript
-        projects: Implementa pequeñas funcionalidades para la empresa
+          - Create web structures with semantic HTML
+          - Style pages with modern CSS techniques
+          - Build visually appealing and accessible websites
+        projects: Build responsive landing pages from scratch
+        orientation: vertical
         icon: IconCode
-      - title: UI con IA
-        duration: Hito 3
+      - title: JavaScript
+        duration: Weeks 3-5
         objectives:
-          - Prompting de visión a especificación
-          - Generación de componentes con IA
-        projects: Reconstruye la UI de la empresa con IA
-        icon: IconSparkles
-      - title: Fundamentos de React
-        duration: Hito 4
+          - Master variables, functions, and loops
+          - DOM manipulation for interactive pages
+          - Modern ES6+ features and async programming
+        projects: Create dynamic, interactive web applications
+        orientation: vertical
+        icon: IconBrandJavascript
+      - title: React
+        duration: Weeks 6-9
         objectives:
-          - Arquitectura SPA
-          - Props, state y effects
-          - Técnicas de depuración
-        projects: Construye el frontend interactivo de la empresa
+          - Build component-based user interfaces
+          - State management with hooks
+          - Routing and best practices for scalable apps
+        projects: Build modern single-page applications
+        orientation: vertical
         icon: IconBrandReact
-      - title: Backend para frontends con IA
-        duration: Hito 5
+      - title: Python
+        duration: Weeks 10-12
         objectives:
-          - APIs y bases de datos
-          - Serialización y autenticación
-          - Funciones serverless
-        projects: Crea el backend de la empresa
-        icon: IconServer
-      - title: Telemetría y pipelines de datos
-        duration: Hito 6
+          - Core programming concepts and data structures
+          - Object-oriented programming principles
+          - Web development and automation skills
+        projects: Create backend services and automation scripts
+        orientation: vertical
+        icon: IconBrandPython
+      - title: Creating APIs
+        duration: Weeks 13-15
         objectives:
-          - Recopilar, transformar, agregar y reportar
-        projects: Construye la telemetría de la empresa
-        icon: IconChartLine
-      - title: RAG y memoria
-        duration: Hito 7
+          - Design and build RESTful APIs
+          - Authentication and database integration
+          - API documentation and best practices
+        projects: Build a full REST API with Flask/Express
+        orientation: vertical
+        icon: IconApi
+      - title: Agile Methodologies
+        duration: Week 16
         objectives:
-          - Chunking y embeddings
-          - Búsqueda vectorial
-        projects: Añade la capa de conocimiento de la empresa
-        icon: IconBrain
-      - title: Ingeniería de agentes
-        duration: Hito 8
-        objectives:
-          - Reglas y memoria
-          - Llamadas a herramientas
-          - Planificación multi-agente
-        projects: Construye los agentes de la empresa
-        icon: IconRobot
-      - title: Generación de flujos agenticos
-        duration: Hito 9
-        objectives:
-          - Usar LLMs para analizar el caso de la empresa
-          - Generar y validar flujos internos
-          - Implementar pipelines de automatización
-        projects: Serverless, colas, cronjobs o n8n
-        icon: IconSitemap
-      - title: Sistemas en tiempo real
-        duration: Hito 10
-        objectives:
-          - Streaming y sockets
-          - Patrones pub/sub
-        projects: Habilita interacciones en tiempo real para datos, clientes, IA o empleados
-        icon: IconBolt
-      - title: Empresa transformada por IA
-        duration: Capstone
-        objectives:
-          - Frontend generado por IA
-          - API y autenticación
-          - Pipeline de telemetría y reportes
-          - Automatización de flujos (generada por agentes)
-          - Capa de conocimiento RAG
-          - Agentes con llamadas a herramientas
-          - Capa de comunicación en tiempo real
-        projects: Entrega la transformación completa de la empresa que elegiste
-        orientation: horizontal
-        icon: IconTrophy
-    marginY:
-      mobile: none
-      desktop: none
+          - Scrum, Kanban, and agile frameworks
+          - Sprint planning and daily standups
+          - Effective collaboration in dev teams
+        projects: Work in agile teams on group projects
+        orientation: vertical
+        icon: IconUsers
     paddingY:
       mobile: lg none
       desktop: lg md
+      desktop: md
     section_id: syllabus-2ly5ws
   - type: award_badges
     version: v1.0
