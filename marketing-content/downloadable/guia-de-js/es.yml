@@ -154,4 +154,4 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
-    background: hsl(var(--sidebar-background))
+    background: hsl(210 100% 50% / 0.05)
