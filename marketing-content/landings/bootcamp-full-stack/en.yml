@@ -26,8 +26,8 @@ sections:
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
-      prefix: Saca el máximo de tu
-      highlight: potencial
+      prefix: Conviértete en un
+      highlight: Desarrollador Full Stack
       color: primary
     description: Programas para convertirte en un experto en programación y complementar tu perfil profesional
     bullets:
