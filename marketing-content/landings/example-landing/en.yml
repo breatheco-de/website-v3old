@@ -115,8 +115,6 @@ sections:
       - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
       - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
       - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
-    video_id: "-2ZvlgDnltc"
-    video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
@@ -188,7 +186,6 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
-    video_title: GeekForce Career Support
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
