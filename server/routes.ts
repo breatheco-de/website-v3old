@@ -2103,6 +2103,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/entry-fields", (req, res) => {
+    try {
+      const { type } = req.params;
+      const slugParam = req.query.slug as string | undefined;
+      const localeParam = req.query.locale as string | undefined;
+
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+
+      const fieldMapping = config.field_mapping ?? {};
+      const fieldKeys = Object.keys(fieldMapping).filter((k) => !k.startsWith("_"));
+
+      const slugs = contentIndex.listContentSlugs(type as ContentType);
+      if (slugs.length === 0) {
+        res.json({ slug: null, title: null, fields: {}, computed: [] });
+        return;
+      }
+
+      const targetSlug = slugParam && slugs.includes(slugParam) ? slugParam : slugs[0];
+      const availableLocales = contentIndex.getAvailableLocalesOrVariants(type as ContentType, targetSlug);
+      const entryLocale = localeParam && availableLocales.includes(localeParam) ? localeParam : availableLocales[0];
+      if (!entryLocale) {
+        res.json({ slug: null, title: null, fields: {}, computed: [] });
+        return;
+      }
+
+      const { data } = contentIndex.loadMergedContent(type, targetSlug, entryLocale);
+      if (!data) {
+        res.json({ slug: null, title: null, fields: {}, computed: [] });
+        return;
+      }
+
+      const fields: Record<string, string | null> = {};
+      const computed: string[] = [];
+
+      for (const key of fieldKeys) {
+        const rawMapping = fieldMapping[key];
+        const mappingValue =
+          typeof rawMapping === "string"
+            ? rawMapping
+            : typeof rawMapping === "object" && rawMapping !== null
+            ? (rawMapping as { source: string }).source
+            : null;
+
+        if (typeof mappingValue === "string" && mappingValue.startsWith("function:")) {
+          computed.push(key);
+          const fallback = extractByDotPath(data, key);
+          fields[key] = fallback != null ? String(fallback) : null;
+        } else if (typeof mappingValue === "string") {
+          const value = extractByDotPath(data, mappingValue);
+          fields[key] = value != null ? String(value) : null;
+        } else {
+          fields[key] = null;
+        }
+      }
+
+      const titleRaw = extractByDotPath(data, "title");
+      const title = titleRaw != null ? String(titleRaw) : null;
+
+      res.json({ slug: targetSlug, title, fields, computed });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/content-type/:name/single-defaults", (req, res) => {
     try {
       const { name } = req.params;
