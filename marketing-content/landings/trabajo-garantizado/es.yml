@@ -221,8 +221,8 @@ sections:
   - type: graduates_stats
     version: v1.0
     variant: fullBleed
-    heading: Results That Back Our Job Guarantee
-    subheading: "These numbers reflect real graduates and real hires. Our Job Guarantee is built around one outcome: succesfully launching your tech career."
+    heading: Resultados que respaldan nuestra garantía de empleo
+    subheading: Nuestra garantía de empleo se basa en un único objetivo. Lanzar con éxito tu carrera profesional en el sector tecnológico.
     stats:
       - value: __TPL__
         unit: "%"
