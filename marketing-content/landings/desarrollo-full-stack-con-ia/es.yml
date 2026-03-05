@@ -203,40 +203,80 @@ sections:
     marginY:
       desktop: none lg
     section_id: awards_marquee-cz908y
-  - type: geeks_vs_others_comparison
-    version: "1.0"
-    title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
-    columns:
-      - name: Característica
-      - name: 4Geeks Academy
-        highlight: true
-      - name: Promedio de la industria / competidores
-    rows:
-      - feature: Apoyo profesional personalizado
-        values:
-          - Soporte de por vida hasta que consigas trabajo (y más allá)
-          - Limitado, a menudo expira después de meses
-      - feature: Proporción profesor:estudiante
-        values:
-          - "1:7"
-          - 1:10+
-      - feature: Retroalimentación con IA
-        values:
-          - Personalizada según tu progreso
-          - Genérica o inexistente
-      - feature: Mentoría 1 a 1
-        values:
-          - Ilimitada y continua
-          - Sesiones limitadas
-      - feature: Plan de estudios
-        values:
-          - Actualizado continuamente para coincidir con las necesidades de la industria
-          - Lento para adaptarse
-    marginY:
-      desktop: none xl
+  - type: syllabus
+    variant: program-modules
+    program_title: Lo que aprenderás en el programa Full Stack
+    program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
+    tech_logos:
+      - name: HTML5
+        icon: html
+      - name: CSS3
+        icon: css
+      - name: JavaScript
+        icon: javascript
+      - name: React
+        icon: react
+      - name: Python
+        icon: python
+      - name: Git
+        icon: git
+    module_cards:
+      - title: Introducción a HTML y CSS
+        duration: Semanas 1-2
+        objectives:
+          - Crear estructuras web con HTML semántico
+          - Estilizar páginas con técnicas modernas de CSS
+          - Construir sitios web visualmente atractivos y accesibles
+        projects: Construye páginas de aterrizaje responsivas desde cero
+        orientation: vertical
+        icon: IconCode
+      - title: JavaScript
+        duration: Semanas 3-5
+        objectives:
+          - Dominar variables, funciones y bucles
+          - Manipulación del DOM para páginas interactivas
+          - Características modernas de ES6+ y programación asíncrona
+        projects: Crea aplicaciones web dinámicas e interactivas
+        orientation: vertical
+        icon: IconBrandJavascript
+      - title: React
+        duration: Semanas 6-9
+        objectives:
+          - Construir interfaces de usuario basadas en componentes
+          - Gestión de estado con hooks
+          - Enrutamiento y mejores prácticas para apps escalables
+        projects: Construye aplicaciones modernas de página única
+        orientation: vertical
+        icon: IconBrandReact
+      - title: Python
+        duration: Semanas 10-12
+        objectives:
+          - Conceptos fundamentales de programación y estructuras de datos
+          - Principios de programación orientada a objetos
+          - Desarrollo web y habilidades de automatización
+        projects: Crea servicios backend y scripts de automatización
+        orientation: vertical
+        icon: IconBrandPython
+      - title: Creación de APIs
+        duration: Semanas 13-15
+        objectives:
+          - Diseñar y construir APIs RESTful
+          - Autenticación e integración de bases de datos
+          - Documentación de APIs y mejores prácticas
+        projects: Construye una API REST completa con Flask/Express
+        orientation: vertical
+        icon: IconApi
+      - title: Metodologías Ágiles
+        duration: Semana 16
+        objectives:
+          - Scrum, Kanban y frameworks ágiles
+          - Planificación de sprints y reuniones diarias
+          - Colaboración efectiva en equipos de desarrollo
+        projects: Trabaja en equipos ágiles en proyectos grupales
+        orientation: vertical
+        icon: IconUsers
     paddingY:
-      desktop: none
-    section_id: geeks_vs_others_comparison-bdczjl
+      desktop: md
   - type: features_grid
     version: "1.0"
     variant: detailed
