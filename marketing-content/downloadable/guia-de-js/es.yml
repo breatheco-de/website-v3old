@@ -163,31 +163,27 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
-      tags: website-lead
+      submit_label: Descargar la Guía Gratis
+      tags: request_downloadable
       fields:
         email:
           visible: true
           required: true
-          placeholder: Your email address
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre Completo
         phone:
           visible: true
           required: true
           placeholder: Phone number
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | unknown }}
       success:
-        message: Thank you! We'll be in touch soon.
+        message: ¡Gracias! En unos minutos recibirás la guía.
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information about courses and promotions
+        marketing_text: Al completar este formulario acepto que mi información será utilizada para enviarme información comercial sobre 4Geeks Academy y que podría resultar una relación comercial a partir de esto. Revisa nuestra Política de Privacidad
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
