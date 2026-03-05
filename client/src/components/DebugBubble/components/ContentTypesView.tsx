@@ -324,7 +324,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                   data-testid="input-content-type-directory"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Folder inside marketing-content/ for YAML files.
+                  Your new content type will be located at: <span className="font-mono">marketing-content/{directory || name || "folder_name"}</span>, you will find all content and YAML files inside.
                 </p>
               </div>
             )}
