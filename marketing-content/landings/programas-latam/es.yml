@@ -345,7 +345,7 @@ sections:
       desktop: lg
   - type: whos_hiring
     variant: carousel
-    pretitle: Customer Stories
+    pretitle: ""
     title: Empresas que contratan a nuestros estudiantes
     subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
