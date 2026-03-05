@@ -417,6 +417,65 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Matrícula y opciones de financiamiento
+    subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
+    financing_text: "Financiamiento basado en crédito: desde"
+    financing_amount: {{ global.price_fullstack | $299 }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    features_title: Elige la opción que mejor se adapte a ti.
+    features:
+      - icon: IconCheck
+        text: La matrícula estándar es {{ global.price_full_fullstack | $10,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+      - icon: IconCheck
+        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+      - icon: IconCheck
+        text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+    cta:
+      text: Recibir más información
+      url: "#apply-modal"
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - newyork-usa
+      - losangeles-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: whos_hiring
     version: v1.0
     variant: carousel
