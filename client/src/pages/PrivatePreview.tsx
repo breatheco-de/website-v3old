@@ -104,6 +104,16 @@ export default function PrivatePreview() {
     });
   }, [content, isLoading]);
 
+  useEffect(() => {
+    if (!content || isLoading) return;
+    const contentLocale = (content as Record<string, unknown>).locale;
+    if (typeof contentLocale === "string" && contentLocale && contentLocale !== locale) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("locale", contentLocale);
+      window.history.replaceState(null, "", url.pathname + url.search + url.hash);
+    }
+  }, [content, isLoading, locale]);
+
   useContentAutoRefresh(
     normalizedType,
     slug,
