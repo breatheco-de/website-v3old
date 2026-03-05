@@ -1426,6 +1426,7 @@ class ContentIndex {
     if (Array.isArray(sections)) {
       for (const section of sections) {
         if (section && typeof section === "object") {
+          if ((section as Record<string, unknown>).type === "modal") continue;
           delete (section as Record<string, unknown>).section_id;
         }
       }
