@@ -4,7 +4,7 @@ import { storage } from "./storage";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import { execSync as _execSync } from "child_process";
+import { execSync as _execSync, execFile } from "child_process";
 import {
   careerProgramSchema,
   landingPageSchema,
@@ -1969,7 +1969,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(404).json({ error: "Migration script not found." });
       return;
     }
-    const { execFile } = require("child_process") as typeof import("child_process");
     execFile(
       "npx",
       ["tsx", fullPath],
