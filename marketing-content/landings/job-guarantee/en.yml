@@ -294,8 +294,8 @@ sections:
       desktop: none
   - type: cta_banner
     version: "1.0"
-    title: Take the Next Step Toward a High-Growth Tech Career
-    subtitle: Apply now to a program designed to give you AI-ready skills, hands-on experience, and lifelong support.
+    title: Start Your Tech Career with the Confidence of a Job Guarantee
+    subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.
     background: hsl(var(--primary))
     variant: form
     form:
