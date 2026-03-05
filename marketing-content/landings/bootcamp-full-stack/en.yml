@@ -111,39 +111,6 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Enroll with a Job Guarantee* for Extra Confidence
-    subtitle: Back your career outcome with a stronger commitment
-    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
-    cta:
-      text: Get more info
-      url: /en/job-guarantee
-      variant: primary
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
   - type: syllabus
     variant: program-modules
     program_title: Full Stack with AI Program Overview
