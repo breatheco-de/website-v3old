@@ -1,11 +1,11 @@
 sections:
   - type: why_learn_ai
-    version: "1.0"
     variant: laptop-edge
-    title: Why Should I Learn to Build and Code with AI?
-    subtitle: Software Development as You Know It Will Cease to Exist
-    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    title: ¡Desde Cero Hasta Tu Primer Empleo!
+    subtitle: Aprende a Programar y Abre las Puertas a un Mundo de Oportunidades
+    description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
     cta:
-      text: Join now!
+      text: Obtener más información
       url: /signup
       variant: primary
+    background: hsl(var(--secondary))
