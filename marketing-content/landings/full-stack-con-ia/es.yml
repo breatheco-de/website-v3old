@@ -4,15 +4,15 @@ sections:
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
-      prefix: Saca el máximo de tu
-      highlight: potencial
+      prefix: Desarrollo
+      highlight: Full Stack con IA
       color: primary
-    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional
+    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva
-      - text: Desarrolla habilidades de aprendizaje autodidacta
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida
-      - text: Forma parte de una comunidad internacional de más de 5,000 personas
+      - text: Domina frontend moderno con HTML, CSS, JavaScript y React
+      - text: Construye sistemas backend escalable con Python, APIs y bases de datos
+      - text: Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
+      - text: Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
     form:
       variant: stacked
       conversion_name: student_application
