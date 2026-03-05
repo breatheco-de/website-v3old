@@ -463,64 +463,62 @@ sections:
         role: Career Coach
         image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
-  - type: testimonials_grid
-    version: v1.0
-    title: What Our Students Say
-    subtitle: Real stories from graduates who transformed their careers
-    default_box_color: hsl(var(--muted))
-    columns: 3
-    items:
-      - name: James Dugarddd
-        role: Full Stack Developerr
-        company: LinkedIn
-        comment: Thanks to 4Geeks Academy's bootcamp and fefefetheir job guarantee program, I was able to change careers and enter the tech industry without a college degree. The mentorship and ongoing support were key, and after graduating they helped me find my first job in tech.
-        rating: 4
-        avatar: https://storage.googleapis.com/4geeks-academy-website/media/1614626903622_1_(1)_1767038293575.png
-        linkedin_url: https://www.linkedin.com/in/luis-miguel-del-valle-149a1a224/
-        box_color: hsl(var(--primary))
-        name_color: hsl(var(--secondary))
-        role_color: hsl(var(--secondary))
-        comment_color: hsl(var(--secondary))
-        star_color: hsl(var(--accent))
-        media:
-          url: https://www.youtube.com/watch?v=G6FuWd4wNd8&list=RDG6FuWd4wNd8&start_radio=1
-          type: video
-          ratio: "16:9"
-      - name: Joshua Bravo
-        role: Full Stack Developer
-        company: Regcheq
-        comment: I used to be a kitchen assistant and accountant, but now I'm a full stack developer at a startup thanks to 4Geeks.
-        rating: 5
-        linkedin_url: https://linkedin.com/in/example
-        box_color: hsl(var(--destructive))
-      - name: Ana Romero
-        role: Full Stack Developer
-        comment: I wasted no time after graduating from high school and enrolled in 4Geeks Academy. It has been an excellent experience so far. I love their close-knit community that is always there to lend a helping hand.
-        rating: 5
-      - name: Alan Gaston Sosa
-        role: Junior JavaScript Developer
-        comment: Before joining the academy, I always liked graphic design and photography. While working as a delivery driver, I realized how much I liked technology and the flexibility of these areas, whether remote or on schedule. I recommend and have recommended 4Geeks Academy.
-        rating: 5
-        linkedin_url: https://linkedin.com/in/example
-        box_color: hsl(var(--primary))
-      - name: Olson Dimache
-        role: Senior Software Engineer II
-        company: Domino Data Labs
-        comment: Just give it a try, you'll learn because the 4Geeks system nudges you in that direction. 4Geeks is the best choice for a career change and learning how to program.
-        rating: 5
-        linkedin_url: https://linkedin.com/in/example
-        media:
-          url: https://example.com/photo.jpg
-          type: image
-      - name: James Dugard
-        role: Full Stack Developer
-        comment: Thanks to 4Geeks Academy's bootcamp and their job guarantee program, I was able to change careers and enter the tech industry without a college degree. The mentorship and ongoing support were key, and after graduating they helped me find my first job in tech.
-        rating: 5
-        box_color: hsl(var(--accent))
-        media:
-          url: https://www.youtube.com/watch?v=example
-          type: video
-          ratio: "16:9"
+  - type: hero
+    version: "1.0"
+    variant: ApplyFormProductShowcase
+    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    brand_mark:
+      prefix: Become an
+      highlight: AI Engineer
+      color: primary
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    cta_button:
+      text: Download Syllabus
+      url: /syllabus/ai-engineering
+      variant: outline
+      icon: Download
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: press_mentions
     version: v1.0
     title: Destacados en Prensa
