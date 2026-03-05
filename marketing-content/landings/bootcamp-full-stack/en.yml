@@ -31,10 +31,9 @@ sections:
       color: primary
     description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva
-      - text: Desarrolla habilidades de aprendizaje autodidacta
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida
-      - text: Forma parte de una comunidad internacional de más de 5,000 personas
+      - text: Aprende a programar desde cero hasta ser un profesional
+      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida.
+      - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
     form:
       variant: stacked
       conversion_name: student_application
