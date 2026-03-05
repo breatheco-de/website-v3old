@@ -127,21 +127,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
   - type: features_grid
     version: "1.0"
-    variant: cardHeader
-    heading: Real Outcomes Behind the Job Guarantee
-    description: The Job Guarantee is built on real results and a hiring-focused model. Our programs, teaching approach, and career support are structured around how people actually get hired. Over 6,000 graduates have launched succesful careers across tech roles and industries.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
-    background: bg-primary/5
-    cards:
-      - icon: BriefcaseFilled
-        text: Consistent hiring success across our graduates
-      - icon: BrandStackshare
-        text: High demand for skilled tech talent
-      - icon: ChalkboardTeacher
-        text: Structured training + ongoing career mentorship
-  - type: features_grid
-    version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
     subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
@@ -160,6 +145,21 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none md
+  - type: features_grid
+    version: "1.0"
+    variant: cardHeader
+    heading: Real Outcomes Behind the Job Guarantee
+    description: The Job Guarantee is built on real results and a hiring-focused model. Our programs, teaching approach, and career support are structured around how people actually get hired. Over 6,000 graduates have launched succesful careers across tech roles and industries.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image_alt: 4Geeks Academy community support
+    background: bg-primary/5
+    cards:
+      - icon: BriefcaseFilled
+        text: Consistent hiring success across our graduates
+      - icon: BrandStackshare
+        text: High demand for skilled tech talent
+      - icon: ChalkboardTeacher
+        text: Structured training + ongoing career mentorship
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
