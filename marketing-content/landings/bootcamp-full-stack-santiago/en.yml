@@ -398,15 +398,6 @@ sections:
         outcome: Primer trabajo en tech
     paddingY:
       desktop: md
-  - type: faq
-    title: Frequently Asked Questions
-    related_features:
-      - full-stack
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
