@@ -236,7 +236,7 @@ function FunctionCodePopover({ rawCode }: { rawCode: string }) {
           <IconInfoCircle className="w-3.5 h-3.5" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-3" align="end">
+      <PopoverContent className="w-80 p-3 z-[10001]" align="end">
         <p className="text-[10px] text-muted-foreground mb-2 font-medium uppercase tracking-wide">
           Calculated by
         </p>
@@ -936,7 +936,7 @@ export function CreateContentModal({
                     Show example
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-64 p-3 space-y-2" align="end">
+                <PopoverContent className="w-64 p-3 space-y-2 z-[10001]" align="end">
                   {exampleLoading ? (
                     <div className="flex items-center gap-2 py-1">
                       <IconRefresh className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
