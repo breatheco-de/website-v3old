@@ -124,9 +124,9 @@ sections:
       video: https://www.youtube.com/watch?v=OtJvrNwQw9E&t=1s
       justify: center
     right:
-      heading: Descubre por qué 4Geeks Academy es tu mejor opción para aprender JavaScript
+      heading: Descubre por qué 4Geeks Academy es tu mejor opción para aprender HTML, CSS y mucho más
       sub_heading: ""
-      description: La guía de JavaScript que te ofrecemos es solo una pequeña muestra de todo lo que nuestro Bootcamp de Programación tiene para ofrecer. Con nuestro programa completo, podrás aprender a desarrollar aplicaciones web complejas, analizar datos y convertirte en un profesional altamente capacitado en el mundo de la tecnología. Ya sea que aspires a convertirte en un Full Stack Developer o un Data Analyst, 4Geeks está listo para llevarte de la mano para que puedas convertirte en un profesional de la programación.
+      description: En 4Geeks Academy, te brindamos las herramientas y el apoyo que necesitas para convertirte en un desarrollador web exitoso. Nuestra metodología de aprendizaje efectiva, basada en proyectos y práctica constante, te permitirá dominar HTML y CSS de manera rápida y efectiva.
       button:
         text: Descarga la Guía Gratis
         url: "#cta_banner"
