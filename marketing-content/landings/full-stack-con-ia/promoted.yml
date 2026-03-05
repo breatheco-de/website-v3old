@@ -1,4 +1,4 @@
-slug: example-landing
+slug: full-stack-con-ia
 title: Example Landing Page
 locale: en
 meta:
@@ -8,9 +8,6 @@ meta:
   change_frequency: weekly
   page_title: Example Landing Page | 4Geeks
   description: This is an example landing page demonstrating the various section types and layouts available.
-  redirects:
-    - /example/landing
-    - /demo/landing-page
 schema:
   include:
     - organization
@@ -33,137 +30,114 @@ sections:
     limit: 12
     background: hsl(var(--background))
   - type: hero
-    version: "1.0"
-    variant: course
-    title: Full Stack Development with AI Program
-    title_highlight: Full Stack Developer with AI
-    subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: 1,000+ students enrolled across LATAM and the U.S.
-    bullet_points:
-      - Master modern frontend development with HTML, CSS, JavaScript, and React
-      - Build scalable backend systems with Python, APIs, and database architecture
-      - Integrate AI tools and workflows into real-world web applications
-      - Unlimited career support, 1:1 mentorship, and access to an optional Job Guarantee
-    tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Learning Assistant
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your instructors:"
-    description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
-    signup_card:
-      title: Get the full program overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
-      form:
-        variant: stacked
-        submit_label: Send me the details
-        fields:
-          email:
-            visible: true
-            required: true
-          first_name:
-            visible: true
-            required: true
-          phone:
-            visible: true
-            required: true
-          program:
-            visible: false
-            required: true
-            default: full-stack
-      features:
-        - icon: IconCalendar
-          text: 20-week track
-        - icon: IconCalendarBolt
-          text: 12-week accelerated morning track
-        - icon: code
-          text: Interactive coding exercises
-        - icon: robot
-          text: AI-powered feedback
-        - icon: calendar
-          text: 1:7 teacher student ratio
-        - icon: users
-          text: 1:1 mentorship
-  - type: hero
-    variant: course
-    title: Work not harder, apply AI at Work
-    subtitle: Boost your career, harness the power of Applied AI.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: +48 students enrolled
-    bullet_points:
-      - Learn prompt engineering techniques to control AI outputs precisely
-      - Create professional images, videos, and documents using AI tools
-      - Build automated workflows that save hours of repetitive work
-      - Develop websites and chatbots without writing code
-      - Apply AI to enhance your learning and personal development
-    tutors:
-      - name: Charly Chacón
-        role: Main Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Tutor
-        image: https://randomuser.me/api/portraits/lego/1.jpg
-    tutors_label: "Your tutors:"
-    description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
-    media:
-      type: video
-      src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-      thumbnail: https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=450&fit=crop
-      alt: Course introduction video
-    signup_card:
-      title: Sign up to 4Geeks Plus
-      description: Subscribe and get access to hundreds of challenges, projects, and courses.
-      cta_button:
-        text: Join now from $39/mo.
-        url: /signup
-        variant: primary
-      login_link:
-        text: Login here.
-        url: /login
-      features:
-        - icon: book
-          text: Readings and videos
-          count: "31"
-        - icon: code
-          text: Interactive Exercises
-          count: "2"
-        - icon: IconHome
-          text: Interactive Projects
-          count: "8"
-        - icon: robot
-          text: Real Time AI Feedback
-        - icon: calendar
-          text: Workshops every week
-        - icon: IconClock
-          text: Community Gatherings.
+    variant: ApplyFormProductShowcase
+    title: Programa de Desarrollo Full Stack con IA
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo Electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: MX
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_usa_only: false
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/ai-engineering
+      variant: outline
+      icon: Download
+    image: data:image/jpeg;base64,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
     paddingY:
-      desktop: none lg
+      mobile: md none
+      desktop: lg none
     marginY:
-      desktop: none md
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    subtitle: Para programadores que quieren construir con IA.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: Más de 1.000 estudiantes en LATAM y EE. UU.
+    bullet_points:
+      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
+      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
+      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
+      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
+    tutors:
+      - name: Instructor Experto
+        role: Instructor Principal
+        image: https://randomuser.me/api/portraits/men/10.jpg
+      - name: Rigo
+        role: Asistente de Aprendizaje con IA
+        image: https://randomuser.me/api/portraits/lego/1.jpg
+  - type: award_badges
+    version: v1.0
+    variant: simple
+    showBorder: true
+    items:
+      - id: coursereport-1
+        logo: /images/awards/course-report.svg
+        alt: Course Report - Best Coding Bootcamp
+        logoHeight: 64px
+        source: Course Report
+        name: Best Coding Bootcamp
+        year: "2024"
+      - id: switchup-1
+        logo: /images/awards/switchup.svg
+        alt: SwitchUp - Top Bootcamp
+        logoHeight: 64px
+        source: SwitchUp
+        name: Top Bootcamp
+        year: "2024"
+      - id: careerkarma-1
+        logo: /images/awards/career-karma.svg
+        alt: Career Karma - Best Value
+        logoHeight: 64px
+        source: Career Karma
+        name: Best Value
+        year: "2024"
   - type: cta_banner
     version: "1.0"
-    title: Ready to Start Your Tech Career?
-    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
-    background: bg-primary
+    title: ¿Listo para empezar tu carrera en tech?
+    background: hsl(var(--primary))
     variant: default
     buttons:
-      - text: Start Learning Now
-        url: /apply
-        variant: secondary
-      - text: Talk to an Advisor
+      - text: Aplica ahora
+        url: "#hero-form"
+        variant: primary
+      - text: Solicitar más información
         url: /en/job-guarantee
         variant: outline
   - type: double_cta

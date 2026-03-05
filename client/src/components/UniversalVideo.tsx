@@ -24,13 +24,13 @@ interface UniversalVideoProps extends Omit<VideoConfig, 'with_shadow_border'> {
 
 const isLocalVideo = (url: string): boolean => {
   const localExtensions = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
-  const lowerUrl = url.toLowerCase();
-  return localExtensions.some(ext => lowerUrl.endsWith(ext)) || 
-         (url.startsWith("/") && !url.includes("youtube") && !url.includes("vimeo"));
+  const lowerUrl = url?.toLowerCase();
+  return localExtensions.some(ext => lowerUrl?.endsWith(ext)) || 
+         (url?.startsWith("/") && !url?.includes("youtube") && !url?.includes("vimeo"));
 };
 
 const isYouTubeUrl = (url: string): boolean => {
-  return url.includes("youtube.com") || url.includes("youtu.be");
+  return url?.includes("youtube.com") || url?.includes("youtu.be");
 };
 
 const extractYouTubeId = (url: string): string | null => {
@@ -40,7 +40,7 @@ const extractYouTubeId = (url: string): string | null => {
   ];
   
   for (const pattern of patterns) {
-    const match = url.match(pattern);
+    const match = url?.match(pattern);
     if (match && match[1]) {
       return match[1];
     }
@@ -197,7 +197,7 @@ export function UniversalVideo({
             className="absolute inset-0 w-full h-full object-cover"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              if (youtubeId && thumbnailUrl.includes('maxresdefault')) {
+              if (youtubeId && thumbnailUrl?.includes('maxresdefault')) {
                 target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
               }
             }}

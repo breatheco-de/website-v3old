@@ -1804,14 +1804,15 @@ export function SectionEditorPanel({
   const MAX_WIDTH_RATIO = 0.8;
 
   const [panelWidth, setPanelWidth] = useState(() => {
+    const screenCap = typeof window !== 'undefined' ? window.innerWidth : DEFAULT_WIDTH;
     try {
       const stored = sessionStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = parseInt(stored, 10);
-        if (!isNaN(parsed) && parsed >= MIN_WIDTH) return parsed;
+        if (!isNaN(parsed) && parsed >= MIN_WIDTH) return Math.min(parsed, screenCap);
       }
     } catch {}
-    return DEFAULT_WIDTH;
+    return Math.min(DEFAULT_WIDTH, screenCap);
   });
   const isDraggingRef = useRef(false);
   const dragStartXRef = useRef(0);
@@ -1852,7 +1853,7 @@ export function SectionEditorPanel({
   return (
     <div
       className="fixed right-0 top-0 bottom-0 bg-background border-l shadow-xl z-[9999] flex flex-col"
-      style={{ width: `${panelWidth}px` }}
+      style={{ width: `${Math.min(panelWidth, typeof window !== 'undefined' ? window.innerWidth : panelWidth)}px` }}
     >
       <div
         className="absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize z-10 hover:bg-primary/20 active:bg-primary/30 transition-colors"
@@ -4605,6 +4606,42 @@ export function SectionEditorPanel({
                           data-testid={`props-toggle-${fieldLabel}`}
                         />
                       </div>
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "string-picker") {
+                  const options = variant ? variant.split(",") : [];
+                  const getSimpleStringValue = () => {
+                    if (!parsedSection) return "";
+                    const pathParts = fieldPath.split(".");
+                    let current: unknown = parsedSection;
+                    for (const part of pathParts) {
+                      if (!current || typeof current !== "object") return "";
+                      current = (current as Record<string, unknown>)[part];
+                    }
+                    return typeof current === "string" ? current : "";
+                  };
+                  const currentValue = getSimpleStringValue();
+                  const fieldLabel = getFieldLabel(fieldPath);
+                  return (
+                    <div key={fieldPath} className="space-y-2">
+                      <Label className="text-sm font-medium">{fieldLabel}</Label>
+                      <Select
+                        value={currentValue || options[0] || ""}
+                        onValueChange={(val) => updatePropertyWithValue(fieldPath, val)}
+                      >
+                        <SelectTrigger data-testid={`props-select-${fieldLabel}`}>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {options.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   );
                 }

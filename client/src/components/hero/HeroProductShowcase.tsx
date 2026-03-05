@@ -11,6 +11,7 @@ import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { LeadForm, type LeadFormData } from "@/components/LeadForm";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { Card } from "@/components/ui/card";
 
 function parseLogoHeight(value?: string): number | undefined {
   if (!value) return undefined;
@@ -47,9 +48,13 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
   const welcomeText = fullData.welcome_text ?? null;
   const subtitle = fullData.subtitle ?? null;
   const video = fullData.video ?? null;
-  const image = fullData.image ?? null;
-  const imageId = fullData.image_id ?? null;
-  const imageWidth = fullData.image_width ?? null;
+  const rawImage = fullData.image ?? null;
+  const imageSrc = typeof rawImage === "string" ? rawImage : rawImage?.src ?? null;
+  const imageAlt = typeof rawImage === "string" ? (fullData.image_alt ?? "") : (rawImage?.alt ?? "");
+  const imageObjectFit = (fullData as any).image_object_fit as string | undefined;
+  const imageObjectPosition = (fullData as any).image_object_position as string | undefined;
+  const hasMedia = !!(video?.url || imageSrc);
+  const formVerticalAlign = (fullData as any).form_vertical_align as string | undefined;
   const marquee = fullData.marquee ?? null;
   const bullets = fullData.bullets ?? null;
   const leftImages = fullData.left_images ?? null;
@@ -188,7 +193,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
 
               {data.description && (
                 <div className="relative">
-                  <p className="text-body text-foreground mt-2 mb-0 md:mb-10 max-w-xl leading-relaxed">
+                  <p className="text-body text-foreground mt-2 mb-0 md:mb-8 max-w-xl leading-relaxed">
                     {data.description}
                   </p>
                 </div>
@@ -251,7 +256,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 </div>
               )}
 
-              {data.form && (
+              {data.form && hasMedia && (
                 <div className="hidden md:flex mt-2 mb-8 justify-center md:justify-start">
                   <LeadForm
                     data={
@@ -371,8 +376,8 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
             </div>
           </div>
 
-          <div className="md:col-span-2 w-full md:w-auto flex justify-center md:justify-start">
-            {video ? (
+          <div className={`md:col-span-2 w-full md:w-auto flex justify-center md:justify-start ${!hasMedia && formVerticalAlign === "center" ? "items-center h-full" : !hasMedia && formVerticalAlign === "bottom" ? "items-end h-full" : "items-start"}`}>
+            {video && video.url ? (
               <UniversalVideo
                 url={video.url}
                 ratio={video.ratio || "16:9"}
@@ -384,21 +389,32 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 withShadowBorder={video.with_shadow_border}
                 className="w-[280px] md:w-full md:max-w-[400px]"
               />
-            ) : imageId ? (
+            ) : imageSrc ? (
               <UniversalImage
-                id={imageId}
-                alt="Hero product"
-                className="rounded-card shadow-card mt-8"
-                style={{ width: imageWidth ? `${imageWidth}px` : 'auto', maxWidth: '100%' }}
-                data-testid="img-hero-product"
-              />
-            ) : image ? (
-              <img
-                src={image.src}
-                alt={image.alt}
+                id={imageSrc}
+                alt={imageAlt}
                 className="w-full max-w-[500px] rounded-card shadow-card"
+                style={{
+                  ...(imageObjectFit ? { objectFit: imageObjectFit as any } : {}),
+                  ...(imageObjectPosition ? { objectPosition: imageObjectPosition } : {}),
+                }}
                 data-testid="img-hero-product"
               />
+            ) : data.form ? (
+              <Card className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg" data-testid="hero-form-right">
+                <LeadForm
+                  data={
+                    {
+                      ...data.form,
+                      variant: data.form.variant || "stacked",
+                      consent: data.form.consent,
+                      show_terms: data.form.show_terms ?? false,
+                      className: "w-full",
+                    } as LeadFormData
+                  }
+                  landingLocations={landingLocations}
+                />
+              </Card>
             ) : null}
           </div>
 

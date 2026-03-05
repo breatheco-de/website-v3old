@@ -87,19 +87,15 @@ sections:
     left:
       video: https://youtu.be/EcqasocRKHo
     right:
-      heading: Unveiling Chicago's Coding Landscape
-      sub_heading: Whether you're starting fresh or upskilling, 4Geeks Academy gives you the tools to succeed in Chicago's diverse tech environment
-      description: Hear from Alissa on how 4Geeks helps Chicago students launch tech careers. With unlimited mentorship, an AI-aligned curriculum, and a project-based approach, you'll be career-ready in 20 weeks or less. Work on industry-informed projects that reflect Chicago's market, build coding skills employers in the region are hiring for, and receive ongoing mentorship and career guidance from experts.
-      button:
-        text: Watch the full interview
-        url: https://youtu.be/EcqasocRKHo
-        variant: primary
-        icon: Rocket
+      heading: How the 4Geeks Learning Model Works
+      sub_heading: A closer look at our AI-native training approach
+      description: Our programs combine structured, project-based learning with AI-integrated tools and personalized mentorship. In this video, you’ll see how our model is designed to help students build real technical depth, stay accountable, and prepare for high-demand roles in today’s tech landscape.
     gap: "8"
-    marginY:
-      desktop: none sm
     paddingY:
       desktop: none md
+    marginY:
+      desktop: none sm
+    section_id: two_column-w4st3p
   - type: course_selector
     version: "1.0"
     variant: solid

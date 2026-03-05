@@ -1,0 +1,228 @@
+sections:
+  - type: hero
+    version: "1.0"
+    variant: simpleTwoColumn
+    title: Get Into Tech With Our Job Guarantee*
+    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
+    image:
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+      alt: Students collaborating in a tech workspace
+    cta_buttons:
+      - text: Get more info
+        url: "#bottom"
+        variant: primary
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: lg none
+    marginY:
+      desktop: none md
+  - type: apply_form
+    version: "1.0"
+    hero:
+      title: Your Future in Tech Starts Here
+      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
+      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo Electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_usa_only: false
+      show_terms: true
+    next_steps:
+      title: What Happens Next?
+      items:
+        - title: Instant confirmation
+          description: We'll send you the syllabus by email right away.
+        - title: Personal follow-up
+          description: Our admissions team will reach out by text and phone to set up a quick call.
+        - title: Ask us anything
+          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
+      closing: Now you're ready to make the best decision for your career!
+  - type: features_grid
+    version: "1.0"
+    variant: cardHeader
+    heading: Why The Job Guarantee
+    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image_alt: 4Geeks Academy community support
+    background: bg-primary/5
+    cards:
+      - icon: BriefcaseFilled
+        text: Consistent hiring outcomes across our graduate community
+      - icon: BrandStackshare
+        text: Strong and ongoing demand for skilled tech professionals
+      - icon: ChalkboardTeacher
+        text: Structured training paired with hands-on, ongoing career support
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    items:
+      - icon: Briefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none md
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Career Programs with the Job Guarantee Option
+    subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: APIS, automation, telemetry
+        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        duration: {{ global.fullstack_week_duration | 20 }} weeks
+        label: Updated in 2026
+        title: Full Stack Software Development
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        tags:
+          - icon: Plus
+            text: API Development
+        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science and Machine Learning
+        duration: {{ global.data_science_week_duration | 16 }} weeks
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Brain
+            text: Python, TensorFlow, SQL
+        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-machine-learning
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Code
+            text: Threat detection & system protection
+        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: Where AI-Powered Learning Meets Lifelong Mentorship
+    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
+    bullets:
+      - heading: Personalized Learning at Every Level
+        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
+      - heading: Lifelong Mentorship & Career Support
+        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
+      - heading: AI-Integrated Curriculum and Learning Tools
+        text: Master the latest AI tools and workflows that employers are actively hiring for.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
+    image_alt: Student learning with mentor support
+    video:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
+    reverse: true
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none
+  - type: features_quad
+    version: "1.0"
+    variant: laptopEdge
+    heading: Who's Eligible?
+    description: "You'll qualify for the Job Guarantee if you:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete all coursework and projects
+      - icon: IconBrain
+        title: Pass our logic test
+      - icon: IconArrowGuideFilled
+        title: Follow our career development process
+    background: hsl(var(--muted))
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
+  - type: testimonials_slide
+    title: The Stories Behind the Stats
+    description: Discover how our graduates transformed their careers

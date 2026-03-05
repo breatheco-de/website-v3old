@@ -768,6 +768,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-afj5t3
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
@@ -795,6 +796,6 @@ sections:
         program:
           visible: false
           required: false
-          default: ai-engineering
+          default: {{ single.bc_slug | unknown }}
       success:
         message: Thanks! We'll be in touch within 24 hours.

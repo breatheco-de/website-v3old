@@ -348,8 +348,6 @@ function resolveLoadStrategy(
 ): "eager" | "lazy" {
   const layout = section as SectionLayout;
   if (layout.load) return layout.load;
-  const sectionType = (section as { type: string }).type;
-  if (sectionType === "sticky_cta") return "eager";
   const eagerCount = settings?.loading?.eager_count ?? DEFAULT_EAGER_COUNT;
   return index < eagerCount ? "eager" : "lazy";
 }
@@ -375,6 +373,26 @@ function DeferredSection({ children }: { children: React.ReactNode }) {
 
     observer.observe(el);
     return () => observer.disconnect();
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (isVisible) return;
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const handleScrollTo = (e: Event) => {
+      const targetId = (e as CustomEvent<{ targetId: string }>).detail?.targetId;
+      if (!targetId) return;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const position = sentinel.compareDocumentPosition(target);
+      if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scrollToSection", handleScrollTo);
+    return () => window.removeEventListener("scrollToSection", handleScrollTo);
   }, [isVisible]);
 
   if (!isVisible) {
@@ -1036,7 +1054,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : renderedContent;
 
         return (
-          <div key={index} id={sectionId} className={`section-wrapper ${visibilityClasses}`.trim()} style={layoutStyles}>
+          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={layoutStyles}>
             <EditableSection
               section={rawSection}
               index={index}

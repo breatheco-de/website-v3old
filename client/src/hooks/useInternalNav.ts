@@ -32,6 +32,27 @@ export function useInternalNav(onNavigate?: () => void) {
         return;
       }
 
+      if (href.startsWith("#")) {
+        e.preventDefault();
+        const id = href.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          if (el.dataset.sectionType === "modal") {
+            window.location.hash = id;
+          } else {
+            window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { targetId: id } }));
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+                history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`);
+              });
+            });
+          }
+        }
+        onNavigate?.();
+        return;
+      }
+
       if (isInternalHref(href)) {
         e.preventDefault();
         setLocation(href);

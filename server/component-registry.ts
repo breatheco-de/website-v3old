@@ -11,6 +11,7 @@ export interface ComponentSchema {
   file: string;
   description: string;
   when_to_use: string;
+  section_defaults?: Record<string, unknown>;
   props: Record<string, unknown>;
 }
 
@@ -297,7 +298,7 @@ export function loadAllFieldEditors(): AllFieldEditors {
               const [, fieldPath, editorType] = entryMatch;
               // Parse base type (e.g., "color-picker:background" -> "color-picker")
               const baseType = editorType.split(":")[0];
-              if (["icon-picker", "color-picker", "image-picker", "image-with-style-picker", "link-picker", "rich-text-editor", "markdown", "boolean-toggle", "variant-picker", "video-picker", "cta-picker"].includes(baseType)) {
+              if (["icon-picker", "color-picker", "image-picker", "image-with-style-picker", "link-picker", "rich-text-editor", "markdown", "boolean-toggle", "variant-picker", "video-picker", "cta-picker", "string-picker"].includes(baseType)) {
                 entries[fieldPath] = editorType as EditorType;
               }
             }
@@ -382,4 +383,47 @@ export function saveExample(
     console.error(`Error saving example for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
   }
+}
+
+let _sectionDefaultsCache: Record<string, Record<string, unknown>> | null = null;
+
+export function applyComponentSectionDefaults(sections: unknown[]): void {
+  const allDefaults = getComponentSectionDefaults();
+  if (Object.keys(allDefaults).length === 0) return;
+
+  for (const section of sections) {
+    if (!section || typeof section !== "object") continue;
+    const s = section as Record<string, unknown>;
+    const sectionType = s.type as string;
+    if (!sectionType || !allDefaults[sectionType]) continue;
+    const defaults = allDefaults[sectionType];
+    for (const [key, value] of Object.entries(defaults)) {
+      if (!(key in s)) {
+        s[key] = value;
+      }
+    }
+  }
+}
+
+export function getComponentSectionDefaults(): Record<string, Record<string, unknown>> {
+  if (_sectionDefaultsCache) return _sectionDefaultsCache;
+
+  const defaults: Record<string, Record<string, unknown>> = {};
+  try {
+    const components = listComponents();
+    for (const componentType of components) {
+      if (componentType === "_common") continue;
+      const versions = listVersions(componentType);
+      if (versions.length === 0) continue;
+      const schema = loadSchema(componentType, versions[0]);
+      if (schema?.section_defaults && typeof schema.section_defaults === "object") {
+        defaults[componentType] = schema.section_defaults;
+      }
+    }
+  } catch (error) {
+    console.error("Error loading component section defaults:", error);
+  }
+
+  _sectionDefaultsCache = defaults;
+  return defaults;
 }

@@ -21,7 +21,8 @@ export type EditorType =
   | "video-picker"
   | "text-input"
   | "rich-text-editor"
-  | "boolean-toggle";
+  | "boolean-toggle"
+  | "string-picker";
 
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
@@ -29,8 +30,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "simpleTwoColumn:cta_buttons[]": "cta-picker",
 
   // Variant-specific - prefixed with variant name
-  "productShowcase:image_id": "image-picker",
-  "productShowcase:image_width": "text-input",
+  "productShowcase:image": "image-with-style-picker",
   "productShowcase:left_images[].src": "image-picker",
   "productShowcase:right_images[].src": "image-picker",
   "productShowcase:marquee.items[].logo": "image-picker:logo",
@@ -46,4 +46,8 @@ export const fieldEditors: Record<string, EditorType> = {
   "course:video.url": "video-picker",
   "productShowcase:video.url": "video-picker",
   "simpleTwoColumn:video.url": "video-picker",
+  "ApplyFormProductShowcase:video.url": "video-picker",
+  "ApplyFormProductShowcase:image": "image-with-style-picker",
+  "productShowcase:form_vertical_align": "string-picker:top,center,bottom" as EditorType,
+  "ApplyFormProductShowcase:form_vertical_align": "string-picker:top,center,bottom" as EditorType,
 };

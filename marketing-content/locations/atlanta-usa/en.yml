@@ -90,19 +90,15 @@ sections:
     left:
       video: https://youtu.be/EcqasocRKHo
     right:
-      heading: Unlock Atlanta's Tech Potential
-      sub_heading: Hear from Alissa on how 4Geeks helps Atlanta students thrive in tech
-      description: At 4Geeks Academy, we offer unlimited mentorship, flexible learning, and expert career support to help you break into Atlanta's fast-growing tech scene. Our hands-on, AI-driven curriculum is designed to build practical, job-ready skills—from industry-relevant tools used by Atlanta employers to personalized coaching for the local tech job market.
-      button:
-        text: Watch the full interview
-        url: https://youtu.be/EcqasocRKHo
-        variant: primary
-        icon: Rocket
+      heading: How the 4Geeks Learning Model Works
+      sub_heading: A closer look at our AI-native training approach
+      description: Our programs combine structured, project-based learning with AI-integrated tools and personalized mentorship. In this video, you’ll see how our model is designed to help students build real technical depth, stay accountable, and prepare for high-demand roles in today’s tech landscape.
     gap: "8"
-    marginY:
-      desktop: none sm
     paddingY:
       desktop: none md
+    marginY:
+      desktop: none sm
+    section_id: two_column-jy5f7x
   - type: course_selector
     version: "1.0"
     variant: solid

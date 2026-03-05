@@ -1,11 +1,81 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { IconX, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import type { LeadFormData } from "@shared/schema";
+import { useLocation } from "wouter";
 
 const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.LeadForm })));
+
+const INLINE_FORM_SELECTOR = "[data-hero-inline-form]";
+
+function isElementInViewport(el: Element): boolean {
+  const rect = el.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight;
+}
+
+function useInlineFormVisible() {
+  const [pathname] = useLocation();
+  const initialEl = typeof document !== "undefined" ? document.querySelector(INLINE_FORM_SELECTOR) : null;
+  const [isFormVisible, setIsFormVisible] = useState(() => initialEl ? isElementInViewport(initialEl) : false);
+  const [enableTransition, setEnableTransition] = useState(false);
+
+  useEffect(() => {
+    let intersectionObserver: IntersectionObserver | null = null;
+    let mutationObserver: MutationObserver | null = null;
+    let firstFired = false;
+    let currentEl: Element | null = null;
+
+    setEnableTransition(false);
+    setIsFormVisible(false);
+
+    function observeElement(el: Element) {
+      if (intersectionObserver) intersectionObserver.disconnect();
+      firstFired = false;
+      setEnableTransition(false);
+      setIsFormVisible(isElementInViewport(el));
+      currentEl = el;
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          setIsFormVisible(entry.isIntersecting);
+          if (!firstFired) {
+            firstFired = true;
+          } else {
+            setEnableTransition(true);
+          }
+        },
+        { threshold: 0 }
+      );
+      intersectionObserver.observe(el);
+    }
+
+    const existing = document.querySelector(INLINE_FORM_SELECTOR);
+    if (existing) {
+      observeElement(existing);
+    }
+
+    mutationObserver = new MutationObserver(() => {
+      const el = document.querySelector(INLINE_FORM_SELECTOR);
+      if (el && el !== currentEl) {
+        observeElement(el);
+      } else if (!el && currentEl) {
+        if (intersectionObserver) intersectionObserver.disconnect();
+        currentEl = null;
+        firstFired = false;
+        setIsFormVisible(false);
+      }
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      intersectionObserver?.disconnect();
+      mutationObserver?.disconnect();
+    };
+  }, [pathname]);
+
+  return { isFormVisible, enableTransition };
+}
 
 export interface StickyCtaData {
   type: "sticky_cta";
@@ -37,6 +107,7 @@ function FormSkeleton() {
 export function StickyCallToAction({ data, landingLocations }: StickyCallToActionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const { isFormVisible: isHiddenByForm, enableTransition } = useInlineFormVisible();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
 
@@ -75,7 +146,9 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
     <div
       className={cn(
         "fixed bottom-0 left-0 right-0 z-50 bg-card border-t shadow-lg",
-        isExpanded && "max-h-[80vh] overflow-auto"
+        enableTransition && "transition-transform duration-300",
+        isExpanded && "max-h-[80vh] overflow-auto",
+        isHiddenByForm && "translate-y-full"
       )}
       data-testid="sticky-cta-bar"
     >
