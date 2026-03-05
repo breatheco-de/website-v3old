@@ -266,7 +266,7 @@ sections:
       desktop: none lg
   - type: cards_deck
     version: "1.0"
-    heading: Historias reales de cambios reales de carrera
+    heading: Historias reales de cambios de carrera
     subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
     cards:
       - video:
