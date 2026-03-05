@@ -19,4 +19,4 @@ schema:
     - courses:full-stack
 layout:
   menu:
-    top: main-navbar
+    top: null
