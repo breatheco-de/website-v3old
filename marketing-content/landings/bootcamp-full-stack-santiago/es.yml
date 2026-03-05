@@ -122,7 +122,7 @@ sections:
     background: bg-muted/30
     alignment: center
     left:
-      heading: JavaScript y PythonDesde Cero Hasta Tu Primer Empleo!
+      heading: JavaScript y Python
       description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
       font_size: base
     right:
