@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,6 +52,11 @@ import {
   IconArrowsExchange,
   IconEye,
   IconCode,
+  IconUpload,
+  IconFile,
+  IconCloudUpload,
+  IconLink,
+  IconServer,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -63,6 +68,8 @@ interface DatabaseSummary {
   source_type: string;
   field_count: number;
 }
+
+type SourceType = "api" | "local" | "remote";
 
 interface DatabaseDetail {
   name: string;
@@ -78,6 +85,14 @@ interface DatabaseDetail {
         auth?: { token_env_var?: string; prefix?: string };
         headers?: Record<string, string>;
       };
+      local?: {
+        filename: string;
+        results_path?: string;
+      };
+      remote?: {
+        url: string;
+        results_path?: string;
+      };
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
@@ -86,6 +101,14 @@ interface DatabaseDetail {
     fetched_at: string;
     item_count: number;
   } | null;
+}
+
+interface DatasetFile {
+  id: string;
+  filename: string;
+  dbSlug: string;
+  provider: "local";
+  path: string;
 }
 
 interface DatabaseItems {
@@ -128,6 +151,248 @@ function slugify(name: string): string {
     .replace(/^_+|_+$/g, "");
 }
 
+function DatasetPickerDialog({
+  open,
+  onOpenChange,
+  slug,
+  onSelected,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  slug: string;
+  onSelected: (result: { provider: "local"; filename: string; path: string }) => void;
+}) {
+  const { toast } = useToast();
+  const [mode, setMode] = useState<"browse" | "upload">("browse");
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<DatasetFile | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { data: datasetsData, isLoading: loadingDatasets } = useQuery<{ datasets: DatasetFile[] }>({
+    queryKey: ["/api/databases/datasets"],
+    enabled: open && mode === "browse",
+  });
+
+  const datasets = datasetsData?.datasets || [];
+  const filtered = datasets.filter(
+    (d) =>
+      !search ||
+      d.filename.toLowerCase().includes(search.toLowerCase()) ||
+      d.dbSlug.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleUpload = async (files: FileList) => {
+    const file = files[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("slug", slug || "datasets");
+      const res = await fetch("/api/databases/upload-dataset", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+      toast({ title: "File uploaded", description: data.filename });
+      onSelected({ provider: "local", filename: data.filename, path: data.path });
+      onOpenChange(false);
+    } catch (err) {
+      toast({
+        title: "Upload failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        onOpenChange(v);
+        if (!v) {
+          setSearch("");
+          setSelected(null);
+          setMode("browse");
+        }
+      }}
+    >
+      <DialogContent className="sm:max-w-xl max-h-[80vh] flex flex-col">
+        <DialogHeader>
+          <DialogTitle>Pick Dataset File</DialogTitle>
+          <DialogDescription>
+            Browse existing dataset files or upload a new one.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex-1 overflow-hidden flex flex-col gap-4 py-2">
+          <div className="flex rounded-md border overflow-visible">
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              className={`flex-1 rounded-none toggle-elevate ${mode === "browse" ? "toggle-elevated bg-muted" : ""}`}
+              onClick={() => setMode("browse")}
+              data-testid="button-dataset-picker-browse"
+            >
+              <IconSearch className="h-4 w-4 mr-1.5" />
+              Browse
+            </Button>
+            <div className="w-px bg-border" />
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              className={`flex-1 rounded-none toggle-elevate ${mode === "upload" ? "toggle-elevated bg-muted" : ""}`}
+              onClick={() => setMode("upload")}
+              data-testid="button-dataset-picker-upload"
+            >
+              <IconUpload className="h-4 w-4 mr-1.5" />
+              Upload
+            </Button>
+          </div>
+
+          {mode === "browse" ? (
+            <>
+              <div className="relative">
+                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search files..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-10"
+                  data-testid="input-dataset-search"
+                />
+              </div>
+              <div className="flex-1 overflow-y-auto min-h-0">
+                {loadingDatasets ? (
+                  <div className="flex items-center justify-center py-8">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : filtered.length === 0 ? (
+                  <div className="text-center py-8 space-y-2">
+                    <IconFile className="h-8 w-8 mx-auto text-muted-foreground/40" />
+                    <p className="text-sm text-muted-foreground">No dataset files found</p>
+                    <p className="text-xs text-muted-foreground">
+                      Switch to Upload to add a new file, or place files in{" "}
+                      <code className="bg-muted px-1 rounded">marketing-content/db/</code>
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-1">
+                    {filtered.map((d) => (
+                      <button
+                        key={d.id}
+                        type="button"
+                        onClick={() => setSelected(d)}
+                        className={`w-full text-left flex items-center gap-3 px-3 py-2 rounded-md border-2 transition-colors ${
+                          selected?.id === d.id
+                            ? "border-primary bg-primary/5"
+                            : "border-transparent hover:border-muted-foreground/30 hover:bg-muted/50"
+                        }`}
+                        data-testid={`dataset-file-${d.id}`}
+                      >
+                        <IconFile className="h-4 w-4 text-muted-foreground shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-medium truncate">{d.filename}</p>
+                          <p className="text-xs text-muted-foreground truncate">{d.path}</p>
+                        </div>
+                        <Badge variant="secondary" className="text-xs shrink-0">
+                          <IconServer className="h-3 w-3 mr-1" />
+                          local
+                        </Badge>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center min-h-[200px]">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".json,.csv,.yaml,.yml"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files?.length) handleUpload(e.target.files);
+                  e.target.value = "";
+                }}
+                data-testid="input-dataset-file-upload"
+              />
+              <div
+                className={`w-full rounded-md border-2 border-dashed p-8 text-center transition-colors cursor-pointer ${
+                  dragOver
+                    ? "border-primary bg-primary/5"
+                    : "border-muted-foreground/30 hover:border-muted-foreground/50"
+                }`}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOver(false);
+                  if (e.dataTransfer.files.length) handleUpload(e.dataTransfer.files);
+                }}
+                onClick={() => fileInputRef.current?.click()}
+                data-testid="dropzone-dataset-upload"
+              >
+                {uploading ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground">Uploading...</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2">
+                    <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                    <p className="text-sm font-medium">Drop a file here or click to browse</p>
+                    <p className="text-xs text-muted-foreground">JSON, CSV, YAML (max 50 MB)</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Saves to marketing-content/db/{slug || "<slug>"}/
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <DialogFooter className="flex-row gap-2 sm:justify-between">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            data-testid="button-dataset-picker-cancel"
+          >
+            Cancel
+          </Button>
+          {mode === "browse" && (
+            <Button
+              type="button"
+              disabled={!selected}
+              onClick={() => {
+                if (selected) {
+                  onSelected({ provider: "local", filename: selected.filename, path: selected.path });
+                  onOpenChange(false);
+                }
+              }}
+              data-testid="button-dataset-picker-select"
+            >
+              <IconCheck className="h-4 w-4 mr-2" />
+              Select
+            </Button>
+          )}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function lastSegment(dotPath: string): string {
   const parts = dotPath.split(".");
   return parts[parts.length - 1];
@@ -152,12 +417,16 @@ function CreateDatabaseDialog({
   const [description, setDescription] = useState("");
   const [ttlHours, setTtlHours] = useState("24");
 
+  const [sourceType, setSourceType] = useState<SourceType>("api");
   const [endpoint, setEndpoint] = useState("");
   const [resultsPath, setResultsPath] = useState("");
   const [tokenEnvVar, setTokenEnvVar] = useState("");
   const [authPrefix, setAuthPrefix] = useState("Bearer");
   const [params, setParams] = useState<KeyValuePair[]>([]);
   const [headers, setHeaders] = useState<KeyValuePair[]>([]);
+  const [localFilename, setLocalFilename] = useState("");
+  const [remoteUrl, setRemoteUrl] = useState("");
+  const [datasetPickerOpen, setDatasetPickerOpen] = useState(false);
 
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<{
@@ -175,12 +444,16 @@ function CreateDatabaseDialog({
     setSlugTouched(false);
     setDescription("");
     setTtlHours("24");
+    setSourceType("api");
     setEndpoint("");
     setResultsPath("");
     setTokenEnvVar("");
     setAuthPrefix("Bearer");
     setParams([]);
     setHeaders([]);
+    setLocalFilename("");
+    setRemoteUrl("");
+    setDatasetPickerOpen(false);
     setTesting(false);
     setTestResult(null);
     setFields([]);
@@ -195,6 +468,24 @@ function CreateDatabaseDialog({
   };
 
   const buildSourceConfig = () => {
+    if (sourceType === "local") {
+      return {
+        type: "local",
+        local: {
+          filename: localFilename,
+          ...(resultsPath ? { results_path: resultsPath } : {}),
+        },
+      };
+    }
+    if (sourceType === "remote") {
+      return {
+        type: "remote",
+        remote: {
+          url: remoteUrl,
+          ...(resultsPath ? { results_path: resultsPath } : {}),
+        },
+      };
+    }
     const source: Record<string, unknown> = { type: "api" };
     const api: Record<string, unknown> = { endpoint };
     if (resultsPath) api.results_path = resultsPath;
@@ -220,7 +511,7 @@ function CreateDatabaseDialog({
       const res = await fetch(`/api/databases/_test/test`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source: buildSourceConfig() }),
+        body: JSON.stringify({ source: buildSourceConfig(), slug }),
       });
       const data = await res.json();
       setTestResult(data);
@@ -291,7 +582,12 @@ function CreateDatabaseDialog({
 
   const slugValid = /^[a-z0-9_-]+$/.test(slug);
   const canProceedStep1 = displayName.trim() && slug.trim() && slugValid;
-  const canProceedStep2 = endpoint.trim();
+  const canProceedStep2 =
+    sourceType === "api"
+      ? endpoint.trim().length > 0
+      : sourceType === "local"
+      ? localFilename.trim().length > 0
+      : remoteUrl.trim().length > 0;
   const canCreate = fields.some((f) => f.enabled) || fields.length === 0;
 
   return (
@@ -378,64 +674,189 @@ function CreateDatabaseDialog({
         {step === 2 && (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="db-endpoint">API Endpoint</Label>
-              <Input
-                id="db-endpoint"
-                placeholder="https://api.example.com/v1/items"
-                value={endpoint}
-                onChange={(e) => setEndpoint(e.target.value)}
-                data-testid="input-db-endpoint"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="db-results-path">Results Path (optional)</Label>
-              <Input
-                id="db-results-path"
-                placeholder="e.g. results, data.items"
-                value={resultsPath}
-                onChange={(e) => setResultsPath(e.target.value)}
-                data-testid="input-db-results-path"
-              />
-              <p className="text-xs text-muted-foreground">
-                Dot-notation path to the array in the API response. Leave empty if the response is already an array.
-              </p>
+              <Label htmlFor="db-source-type">Source Type</Label>
+              <Select value={sourceType} onValueChange={(v) => { setSourceType(v as SourceType); setResultsPath(""); }}>
+                <SelectTrigger id="db-source-type" data-testid="select-db-source-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="api">
+                    <div className="flex items-center gap-2">
+                      <IconApi className="h-4 w-4" />
+                      API Endpoint
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="local">
+                    <div className="flex items-center gap-2">
+                      <IconServer className="h-4 w-4" />
+                      Local File
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="remote">
+                    <div className="flex items-center gap-2">
+                      <IconLink className="h-4 w-4" />
+                      Remote File
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label>Authentication (optional)</Label>
-              <div className="grid grid-cols-2 gap-2">
-                <Input
-                  placeholder="ENV var name"
-                  value={tokenEnvVar}
-                  onChange={(e) => setTokenEnvVar(e.target.value)}
-                  data-testid="input-db-token-env"
+            {sourceType === "api" && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="db-endpoint">Endpoint URL</Label>
+                  <Input
+                    id="db-endpoint"
+                    placeholder="https://api.example.com/v1/items"
+                    value={endpoint}
+                    onChange={(e) => setEndpoint(e.target.value)}
+                    data-testid="input-db-endpoint"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="db-results-path">Results Path (optional)</Label>
+                  <Input
+                    id="db-results-path"
+                    placeholder="e.g. results, data.items"
+                    value={resultsPath}
+                    onChange={(e) => setResultsPath(e.target.value)}
+                    data-testid="input-db-results-path"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Dot-notation path to the array in the API response. Leave empty if the response is already an array.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label>Authentication (optional)</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Input
+                      placeholder="ENV var name"
+                      value={tokenEnvVar}
+                      onChange={(e) => setTokenEnvVar(e.target.value)}
+                      data-testid="input-db-token-env"
+                    />
+                    <Input
+                      placeholder="Prefix (Bearer, Token...)"
+                      value={authPrefix}
+                      onChange={(e) => setAuthPrefix(e.target.value)}
+                      data-testid="input-db-auth-prefix"
+                    />
+                  </div>
+                </div>
+                <KeyValueEditor
+                  label="Query Parameters"
+                  pairs={params}
+                  onChange={setParams}
+                  keyPlaceholder="param name"
+                  valuePlaceholder="value"
+                  testIdPrefix="param"
                 />
-                <Input
-                  placeholder="Prefix (Bearer, Token...)"
-                  value={authPrefix}
-                  onChange={(e) => setAuthPrefix(e.target.value)}
-                  data-testid="input-db-auth-prefix"
+                <KeyValueEditor
+                  label="Headers"
+                  pairs={headers}
+                  onChange={setHeaders}
+                  keyPlaceholder="header name"
+                  valuePlaceholder="value"
+                  testIdPrefix="header"
                 />
-              </div>
-            </div>
+              </>
+            )}
 
-            <KeyValueEditor
-              label="Query Parameters"
-              pairs={params}
-              onChange={setParams}
-              keyPlaceholder="param name"
-              valuePlaceholder="value"
-              testIdPrefix="param"
-            />
+            {sourceType === "local" && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="db-local-filename">Filename</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="db-local-filename"
+                      placeholder="e.g. products.json, data.csv"
+                      value={localFilename}
+                      onChange={(e) => setLocalFilename(e.target.value)}
+                      data-testid="input-db-local-filename"
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setDatasetPickerOpen(true)}
+                      data-testid="button-db-pick-file-local"
+                    >
+                      <IconFile className="h-4 w-4 mr-1.5" />
+                      Pick File
+                    </Button>
+                  </div>
+                  <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
+                    <p className="font-medium text-foreground">Where to place the file</p>
+                    <p>
+                      Put your file at{" "}
+                      <code className="bg-muted px-1 rounded">
+                        marketing-content/db/{slug || "<slug>"}/<span className="text-foreground">{localFilename || "your-file.json"}</span>
+                      </code>{" "}
+                      before syncing.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="db-local-results-path">Results Path (optional)</Label>
+                  <Input
+                    id="db-local-results-path"
+                    placeholder="e.g. results, data.items"
+                    value={resultsPath}
+                    onChange={(e) => setResultsPath(e.target.value)}
+                    data-testid="input-db-local-results-path"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    For JSON files: dot-notation path to the array. Leave empty if the file is already an array.
+                  </p>
+                </div>
+              </>
+            )}
 
-            <KeyValueEditor
-              label="Headers"
-              pairs={headers}
-              onChange={setHeaders}
-              keyPlaceholder="header name"
-              valuePlaceholder="value"
-              testIdPrefix="header"
-            />
+            {sourceType === "remote" && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="db-remote-url">Remote URL</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="db-remote-url"
+                      placeholder="https://example.com/data.json"
+                      value={remoteUrl}
+                      onChange={(e) => setRemoteUrl(e.target.value)}
+                      data-testid="input-db-remote-url"
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setDatasetPickerOpen(true)}
+                      data-testid="button-db-pick-file-remote"
+                    >
+                      <IconFile className="h-4 w-4 mr-1.5" />
+                      Pick File
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Direct URL to a JSON, CSV, or YAML file. Use "Pick File" to browse or upload a file from storage.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="db-remote-results-path">Results Path (optional)</Label>
+                  <Input
+                    id="db-remote-results-path"
+                    placeholder="e.g. results, data.items"
+                    value={resultsPath}
+                    onChange={(e) => setResultsPath(e.target.value)}
+                    data-testid="input-db-remote-results-path"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Dot-notation path to the array. Leave empty if the response is already an array.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -582,6 +1003,16 @@ function CreateDatabaseDialog({
           </div>
         </DialogFooter>
       </DialogContent>
+
+      <DatasetPickerDialog
+        open={datasetPickerOpen}
+        onOpenChange={setDatasetPickerOpen}
+        slug={slug}
+        onSelected={(result) => {
+          setLocalFilename(result.filename);
+          setSourceType("local");
+        }}
+      />
     </Dialog>
   );
 }
@@ -715,7 +1146,13 @@ function DatabaseList() {
                   )}
                   <div className="flex items-center gap-2 flex-wrap">
                     <Badge variant="secondary" className="text-xs">
-                      <IconApi className="h-3 w-3 mr-1" />
+                      {db.source_type === "local" ? (
+                        <IconServer className="h-3 w-3 mr-1" />
+                      ) : db.source_type === "remote" ? (
+                        <IconLink className="h-3 w-3 mr-1" />
+                      ) : (
+                        <IconApi className="h-3 w-3 mr-1" />
+                      )}
                       {db.source_type}
                     </Badge>
                     <Badge variant="outline" className="text-xs">
@@ -754,8 +1191,18 @@ function DatabaseConfigEditor({
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
+  const [sourceType, setSourceType] = useState<SourceType>(() => {
+    const t = config.source.type;
+    if (t === "local" || t === "remote") return t;
+    return "api";
+  });
   const [endpoint, setEndpoint] = useState(config.source.api?.endpoint || "");
-  const [resultsPath, setResultsPath] = useState(config.source.api?.results_path || "");
+  const [resultsPath, setResultsPath] = useState(
+    config.source.api?.results_path ||
+    config.source.local?.results_path ||
+    config.source.remote?.results_path ||
+    ""
+  );
   const [tokenEnvVar, setTokenEnvVar] = useState(config.source.api?.auth?.token_env_var || "");
   const [authPrefix, setAuthPrefix] = useState(config.source.api?.auth?.prefix || "Bearer");
   const [ttlHours, setTtlHours] = useState(String(config.cache?.ttl_hours ?? 24));
@@ -769,6 +1216,9 @@ function DatabaseConfigEditor({
     if (!h || Object.keys(h).length === 0) return [];
     return Object.entries(h).map(([key, value]) => ({ key, value }));
   });
+  const [localFilename, setLocalFilename] = useState(config.source.local?.filename || "");
+  const [remoteUrl, setRemoteUrl] = useState(config.source.remote?.url || "");
+  const [datasetPickerOpen, setDatasetPickerOpen] = useState(false);
 
   const [testResult, setTestResult] = useState<{
     success: boolean;
@@ -776,8 +1226,33 @@ function DatabaseConfigEditor({
     error?: string;
   } | null>(null);
 
+  const canSave =
+    sourceType === "api"
+      ? endpoint.trim().length > 0
+      : sourceType === "local"
+      ? localFilename.trim().length > 0
+      : remoteUrl.trim().length > 0;
+
   const buildSourceConfig = () => {
-    const source: Record<string, unknown> = { type: config.source.type || "api" };
+    if (sourceType === "local") {
+      return {
+        type: "local",
+        local: {
+          filename: localFilename,
+          ...(resultsPath ? { results_path: resultsPath } : {}),
+        },
+      };
+    }
+    if (sourceType === "remote") {
+      return {
+        type: "remote",
+        remote: {
+          url: remoteUrl,
+          ...(resultsPath ? { results_path: resultsPath } : {}),
+        },
+      };
+    }
+    const source: Record<string, unknown> = { type: "api" };
     const api: Record<string, unknown> = { endpoint };
     if (resultsPath) api.results_path = resultsPath;
     if (tokenEnvVar) {
@@ -880,13 +1355,32 @@ function DatabaseConfigEditor({
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="edit-endpoint">API Endpoint</Label>
-          <Input
-            id="edit-endpoint"
-            value={endpoint}
-            onChange={(e) => setEndpoint(e.target.value)}
-            data-testid="input-edit-endpoint"
-          />
+          <Label htmlFor="edit-source-type">Source Type</Label>
+          <Select value={sourceType} onValueChange={(v) => { setSourceType(v as SourceType); setResultsPath(""); }}>
+            <SelectTrigger id="edit-source-type" data-testid="select-edit-source-type">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="api">
+                <div className="flex items-center gap-2">
+                  <IconApi className="h-4 w-4" />
+                  API Endpoint
+                </div>
+              </SelectItem>
+              <SelectItem value="local">
+                <div className="flex items-center gap-2">
+                  <IconServer className="h-4 w-4" />
+                  Local File
+                </div>
+              </SelectItem>
+              <SelectItem value="remote">
+                <div className="flex items-center gap-2">
+                  <IconLink className="h-4 w-4" />
+                  Remote File
+                </div>
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-y-2">
           <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
@@ -902,55 +1396,157 @@ function DatabaseConfigEditor({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="edit-results-path">Results Path</Label>
-        <Input
-          id="edit-results-path"
-          placeholder="e.g. results, data.items"
-          value={resultsPath}
-          onChange={(e) => setResultsPath(e.target.value)}
-          data-testid="input-edit-results-path"
-        />
-        <p className="text-xs text-muted-foreground">
-          Dot-notation path to the array in the API response. Leave empty if the response is already an array.
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <Label>Authentication</Label>
-        <div className="grid grid-cols-2 gap-2">
-          <Input
-            placeholder="ENV var name"
-            value={tokenEnvVar}
-            onChange={(e) => setTokenEnvVar(e.target.value)}
-            data-testid="input-edit-token-env"
+      {sourceType === "api" && (
+        <>
+          <div className="space-y-2">
+            <Label htmlFor="edit-endpoint">Endpoint URL</Label>
+            <Input
+              id="edit-endpoint"
+              value={endpoint}
+              onChange={(e) => setEndpoint(e.target.value)}
+              data-testid="input-edit-endpoint"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="edit-results-path">Results Path (optional)</Label>
+            <Input
+              id="edit-results-path"
+              placeholder="e.g. results, data.items"
+              value={resultsPath}
+              onChange={(e) => setResultsPath(e.target.value)}
+              data-testid="input-edit-results-path"
+            />
+            <p className="text-xs text-muted-foreground">
+              Dot-notation path to the array in the API response. Leave empty if the response is already an array.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label>Authentication</Label>
+            <div className="grid grid-cols-2 gap-2">
+              <Input
+                placeholder="ENV var name"
+                value={tokenEnvVar}
+                onChange={(e) => setTokenEnvVar(e.target.value)}
+                data-testid="input-edit-token-env"
+              />
+              <Input
+                placeholder="Prefix (Bearer, Token...)"
+                value={authPrefix}
+                onChange={(e) => setAuthPrefix(e.target.value)}
+                data-testid="input-edit-auth-prefix"
+              />
+            </div>
+          </div>
+          <KeyValueEditor
+            label="Query Parameters"
+            pairs={params}
+            onChange={setParams}
+            keyPlaceholder="param name"
+            valuePlaceholder="value"
+            testIdPrefix="edit-param"
           />
-          <Input
-            placeholder="Prefix (Bearer, Token...)"
-            value={authPrefix}
-            onChange={(e) => setAuthPrefix(e.target.value)}
-            data-testid="input-edit-auth-prefix"
+          <KeyValueEditor
+            label="Headers"
+            pairs={headers}
+            onChange={setHeaders}
+            keyPlaceholder="header name"
+            valuePlaceholder="value"
+            testIdPrefix="edit-header"
           />
-        </div>
-      </div>
+        </>
+      )}
 
-      <KeyValueEditor
-        label="Query Parameters"
-        pairs={params}
-        onChange={setParams}
-        keyPlaceholder="param name"
-        valuePlaceholder="value"
-        testIdPrefix="edit-param"
-      />
+      {sourceType === "local" && (
+        <>
+          <div className="space-y-2">
+            <Label htmlFor="edit-local-filename">Filename</Label>
+            <div className="flex gap-2">
+              <Input
+                id="edit-local-filename"
+                placeholder="e.g. products.json, data.csv"
+                value={localFilename}
+                onChange={(e) => setLocalFilename(e.target.value)}
+                data-testid="input-edit-local-filename"
+                className="flex-1"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setDatasetPickerOpen(true)}
+                data-testid="button-edit-pick-file"
+              >
+                <IconFile className="h-4 w-4 mr-1.5" />
+                Pick File
+              </Button>
+            </div>
+            <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
+              <p className="font-medium text-foreground">Where to place the file</p>
+              <p>
+                Put your file at{" "}
+                <code className="bg-muted px-1 rounded">
+                  marketing-content/db/{dbName}/{localFilename || "your-file.json"}
+                </code>{" "}
+                before syncing.
+              </p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="edit-local-results-path">Results Path (optional)</Label>
+            <Input
+              id="edit-local-results-path"
+              placeholder="e.g. results, data.items"
+              value={resultsPath}
+              onChange={(e) => setResultsPath(e.target.value)}
+              data-testid="input-edit-local-results-path"
+            />
+            <p className="text-xs text-muted-foreground">
+              For JSON files: dot-notation path to the array. Leave empty if the file is already an array.
+            </p>
+          </div>
+        </>
+      )}
 
-      <KeyValueEditor
-        label="Headers"
-        pairs={headers}
-        onChange={setHeaders}
-        keyPlaceholder="header name"
-        valuePlaceholder="value"
-        testIdPrefix="edit-header"
-      />
+      {sourceType === "remote" && (
+        <>
+          <div className="space-y-2">
+            <Label htmlFor="edit-remote-url">Remote URL</Label>
+            <div className="flex gap-2">
+              <Input
+                id="edit-remote-url"
+                placeholder="https://example.com/data.json"
+                value={remoteUrl}
+                onChange={(e) => setRemoteUrl(e.target.value)}
+                data-testid="input-edit-remote-url"
+                className="flex-1"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setDatasetPickerOpen(true)}
+                data-testid="button-edit-pick-file-remote"
+              >
+                <IconFile className="h-4 w-4 mr-1.5" />
+                Pick File
+              </Button>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="edit-remote-results-path">Results Path (optional)</Label>
+            <Input
+              id="edit-remote-results-path"
+              placeholder="e.g. results, data.items"
+              value={resultsPath}
+              onChange={(e) => setResultsPath(e.target.value)}
+              data-testid="input-edit-remote-results-path"
+            />
+            <p className="text-xs text-muted-foreground">
+              Dot-notation path to the array. Leave empty if the response is already an array.
+            </p>
+          </div>
+        </>
+      )}
 
       <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t">
         <div className="flex items-center gap-2 flex-wrap">
@@ -958,7 +1554,7 @@ function DatabaseConfigEditor({
             variant="outline"
             size="sm"
             onClick={handleTest}
-            disabled={testing || !endpoint.trim()}
+            disabled={testing || !canSave}
             data-testid="button-test-config"
           >
             {testing ? (
@@ -997,7 +1593,7 @@ function DatabaseConfigEditor({
           <Button
             size="sm"
             onClick={handleSave}
-            disabled={saving || !endpoint.trim()}
+            disabled={saving || !canSave}
             data-testid="button-save-config"
           >
             {saving ? (
@@ -1015,6 +1611,16 @@ function DatabaseConfigEditor({
           {testResult.error}
         </div>
       )}
+
+      <DatasetPickerDialog
+        open={datasetPickerOpen}
+        onOpenChange={setDatasetPickerOpen}
+        slug={dbName}
+        onSelected={(result) => {
+          setLocalFilename(result.filename);
+          setSourceType("local");
+        }}
+      />
 
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <DialogContent>

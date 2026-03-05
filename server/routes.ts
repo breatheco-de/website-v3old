@@ -2923,7 +2923,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(400).json({ error: "source config required in body" });
         return;
       }
-      const result = await databaseManager.test(source);
+      const dbSlug = req.params.name === "_test" ? req.body?.slug : req.params.name;
+      const result = await databaseManager.test(source, dbSlug);
       res.json(result);
     } catch (err: unknown) {
       res
@@ -2931,6 +2932,104 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         .json({ error: err instanceof Error ? err.message : String(err) });
     }
   });
+
+  // ── Dataset file management routes ───────────────────────────
+
+  const DATASET_EXTENSIONS_SET = new Set([".json", ".csv", ".yaml", ".yml"]);
+
+  app.get("/api/databases/datasets", async (req, res) => {
+    try {
+      const results: {
+        id: string;
+        filename: string;
+        dbSlug: string;
+        provider: "local";
+        path: string;
+      }[] = [];
+
+      if (fs.existsSync(path.join(process.cwd(), "marketing-content", "db"))) {
+        const dbDir = path.join(process.cwd(), "marketing-content", "db");
+        const slugDirs = fs.readdirSync(dbDir).filter((f) => {
+          return fs.statSync(path.join(dbDir, f)).isDirectory();
+        });
+        for (const slug of slugDirs) {
+          const slugDir = path.join(dbDir, slug);
+          const files = fs.readdirSync(slugDir).filter((f) => {
+            const ext = path.extname(f).toLowerCase();
+            return DATASET_EXTENSIONS_SET.has(ext) && f !== "config.yml";
+          });
+          for (const file of files) {
+            results.push({
+              id: `${slug}/${file}`,
+              filename: file,
+              dbSlug: slug,
+              provider: "local",
+              path: `marketing-content/db/${slug}/${file}`,
+            });
+          }
+        }
+      }
+
+      res.json({ datasets: results });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  const datasetUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 50 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (DATASET_EXTENSIONS_SET.has(ext)) {
+        cb(null, true);
+      } else {
+        cb(new Error(`Unsupported file type: ${ext}. Allowed: .json, .csv, .yaml, .yml`));
+      }
+    },
+  });
+
+  app.post(
+    "/api/databases/upload-dataset",
+    datasetUpload.single("file"),
+    async (req, res) => {
+      try {
+        const file = (req as any).file;
+        if (!file) {
+          res.status(400).json({ error: "No file provided" });
+          return;
+        }
+        const slug = (req.body?.slug as string) || "";
+        if (!slug || !/^[a-z0-9_-]+$/.test(slug)) {
+          res.status(400).json({ error: "A valid database slug is required" });
+          return;
+        }
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (!DATASET_EXTENSIONS_SET.has(ext)) {
+          res.status(400).json({ error: `Unsupported file type: ${ext}` });
+          return;
+        }
+
+        const targetDir = path.join(process.cwd(), "marketing-content", "db", slug);
+        if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true });
+        }
+
+        const filename = file.originalname;
+        const targetPath = path.join(targetDir, filename);
+        fs.writeFileSync(targetPath, file.buffer);
+
+        res.json({
+          provider: "local",
+          filename,
+          slug,
+          path: `marketing-content/db/${slug}/${filename}`,
+        });
+      } catch (error: any) {
+        res.status(500).json({ error: error.message || "Upload failed" });
+      }
+    }
+  );
 
   // Clear sitemap cache (requires token validation)
   app.post("/api/debug/clear-sitemap-cache", async (req, res) => {

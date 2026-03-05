@@ -11,7 +11,7 @@ export interface DatabaseConfig {
   name: string;
   description?: string;
   source: {
-    type: "api" | "csv" | "yaml";
+    type: "api" | "csv" | "yaml" | "local" | "remote";
     api?: {
       endpoint: string;
       params?: Record<string, unknown>;
@@ -21,6 +21,14 @@ export interface DatabaseConfig {
         prefix?: string;
       };
       headers?: Record<string, string>;
+    };
+    local?: {
+      filename: string;
+      results_path?: string;
+    };
+    remote?: {
+      url: string;
+      results_path?: string;
     };
   };
   cache?: {
@@ -60,6 +68,84 @@ function collectAllPaths(obj: unknown, prefix: string, keys: Set<string>): void 
     if (v != null && typeof v === "object" && !Array.isArray(v)) {
       collectAllPaths(v, fullPath, keys);
     }
+  }
+}
+
+const DATASET_EXTENSIONS = [".json", ".csv", ".yaml", ".yml"];
+
+function parseFileContent(content: string, ext: string, resultsPath?: string): unknown[] {
+  let data: unknown;
+  if (ext === ".json") {
+    data = JSON.parse(content);
+  } else if (ext === ".yaml" || ext === ".yml") {
+    data = yaml.load(content);
+  } else if (ext === ".csv") {
+    const lines = content.trim().split("\n");
+    if (lines.length < 2) return [];
+    const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
+    data = lines.slice(1).map((line) => {
+      const vals = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
+      const row: Record<string, unknown> = {};
+      headers.forEach((h, i) => { row[h] = vals[i] ?? ""; });
+      return row;
+    });
+  } else {
+    throw new Error(`Unsupported file extension: ${ext}`);
+  }
+
+  if (resultsPath) {
+    const items = getValueByPath(data, resultsPath);
+    if (!Array.isArray(items)) {
+      throw new Error(`results_path "${resultsPath}" did not resolve to an array`);
+    }
+    return items;
+  }
+  if (Array.isArray(data)) return data;
+  throw new Error("File content is not an array and no results_path configured");
+}
+
+async function fetchFromLocal(
+  dbSlug: string,
+  localConfig: NonNullable<DatabaseConfig["source"]["local"]>
+): Promise<unknown[]> {
+  const filePath = path.join(DB_DIR, dbSlug, localConfig.filename);
+  if (!fs.existsSync(filePath)) {
+    throw new Error(
+      `Local file not found: marketing-content/db/${dbSlug}/${localConfig.filename}`
+    );
+  }
+  const content = fs.readFileSync(filePath, "utf-8");
+  const ext = path.extname(localConfig.filename).toLowerCase();
+  if (!DATASET_EXTENSIONS.includes(ext)) {
+    throw new Error(`Unsupported file extension "${ext}". Allowed: ${DATASET_EXTENSIONS.join(", ")}`);
+  }
+  return parseFileContent(content, ext, localConfig.results_path);
+}
+
+async function fetchFromRemote(
+  remoteConfig: NonNullable<DatabaseConfig["source"]["remote"]>
+): Promise<unknown[]> {
+  const response = await fetch(remoteConfig.url);
+  if (!response.ok) {
+    throw new Error(`Remote URL returned ${response.status}: ${await response.text().catch(() => "")}`);
+  }
+  const contentType = response.headers.get("content-type") || "";
+  const url = new URL(remoteConfig.url);
+  const ext = path.extname(url.pathname).toLowerCase() || ".json";
+
+  let content: string;
+  if (ext === ".json" || contentType.includes("json")) {
+    content = await response.text();
+    return parseFileContent(content, ".json", remoteConfig.results_path);
+  } else if (ext === ".yaml" || ext === ".yml" || contentType.includes("yaml")) {
+    content = await response.text();
+    return parseFileContent(content, ".yaml", remoteConfig.results_path);
+  } else if (ext === ".csv" || contentType.includes("csv")) {
+    content = await response.text();
+    return parseFileContent(content, ".csv", remoteConfig.results_path);
+  } else {
+    content = await response.text();
+    return parseFileContent(content, ".json", remoteConfig.results_path);
   }
 }
 
@@ -279,6 +365,12 @@ export class DatabaseManager {
     if (config.source.type === "api") {
       if (!config.source.api) throw new Error("API source config missing");
       rawItems = await fetchFromApi(config.source.api);
+    } else if (config.source.type === "local") {
+      if (!config.source.local) throw new Error("Local source config missing");
+      rawItems = await fetchFromLocal(name, config.source.local);
+    } else if (config.source.type === "remote") {
+      if (!config.source.remote) throw new Error("Remote source config missing");
+      rawItems = await fetchFromRemote(config.source.remote);
     } else {
       throw new Error(`Unsupported source type: ${config.source.type}`);
     }
@@ -346,7 +438,8 @@ export class DatabaseManager {
   }
 
   async test(
-    sourceConfig: DatabaseConfig["source"]
+    sourceConfig: DatabaseConfig["source"],
+    dbSlug?: string
   ): Promise<{
     success: boolean;
     item_count?: number;
@@ -354,18 +447,27 @@ export class DatabaseManager {
     error?: string;
   }> {
     try {
+      let items: unknown[];
       if (sourceConfig.type === "api") {
         if (!sourceConfig.api) throw new Error("API config missing");
-        const items = await fetchFromApi(sourceConfig.api);
+        items = await fetchFromApi(sourceConfig.api);
+      } else if (sourceConfig.type === "local") {
+        if (!sourceConfig.local) throw new Error("Local source config missing");
+        if (!dbSlug) throw new Error("Database slug required for local source testing");
+        items = await fetchFromLocal(dbSlug, sourceConfig.local);
+      } else if (sourceConfig.type === "remote") {
+        if (!sourceConfig.remote) throw new Error("Remote source config missing");
+        items = await fetchFromRemote(sourceConfig.remote);
+      } else {
         return {
-          success: true,
-          item_count: items.length,
-          sample: items[0] || null,
+          success: false,
+          error: `Unsupported source type: ${sourceConfig.type}`,
         };
       }
       return {
-        success: false,
-        error: `Unsupported source type: ${sourceConfig.type}`,
+        success: true,
+        item_count: items.length,
+        sample: items[0] || null,
       };
     } catch (err: unknown) {
       return {
