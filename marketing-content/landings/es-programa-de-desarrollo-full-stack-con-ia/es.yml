@@ -183,22 +183,79 @@ sections:
       mobile: none lg
       desktop: none lg
   - type: syllabus
-    version: "1.0"
-    title: Get Job-Ready with Our Syllabus!
-    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
-    modules:
+    variant: program-modules
+    program_title: Full Stack with AI Program Overview
+    program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
+    tech_logos:
+      - name: HTML5
+        icon: html
+      - name: CSS3
+        icon: css
+      - name: JavaScript
+        icon: javascript
+      - name: React
+        icon: react
+      - name: Python
+        icon: python
+      - name: Git
+        icon: git
+    module_cards:
       - title: Introduction To HTML And CSS
-        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
-      - title: JavaScript Fundamentals
-        description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
-      - title: React Development
-        description: Build modern user interfaces with React, learning component architecture, state management, and hooks.
-      - title: Backend with Python
-        description: Create server-side applications using Python and Flask, handling routing, databases, and REST APIs.
-      - title: Databases & SQL
-        description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
-      - title: API Development
-        description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
+        duration: Weeks 1-2
+        objectives:
+          - Create web structures with semantic HTML
+          - Style pages with modern CSS techniques
+          - Build visually appealing and accessible websites
+        projects: Build responsive landing pages from scratch
+        orientation: vertical
+        icon: IconCode
+      - title: JavaScript
+        duration: Weeks 3-5
+        objectives:
+          - Master variables, functions, and loops
+          - DOM manipulation for interactive pages
+          - Modern ES6+ features and async programming
+        projects: Create dynamic, interactive web applications
+        orientation: vertical
+        icon: IconBrandJavascript
+      - title: React
+        duration: Weeks 6-9
+        objectives:
+          - Build component-based user interfaces
+          - State management with hooks
+          - Routing and best practices for scalable apps
+        projects: Build modern single-page applications
+        orientation: vertical
+        icon: IconBrandReact
+      - title: Python
+        duration: Weeks 10-12
+        objectives:
+          - Core programming concepts and data structures
+          - Object-oriented programming principles
+          - Web development and automation skills
+        projects: Create backend services and automation scripts
+        orientation: vertical
+        icon: IconBrandPython
+      - title: Creating APIs
+        duration: Weeks 13-15
+        objectives:
+          - Design and build RESTful APIs
+          - Authentication and database integration
+          - API documentation and best practices
+        projects: Build a full REST API with Flask/Express
+        orientation: vertical
+        icon: IconApi
+      - title: Agile Methodologies
+        duration: Week 16
+        objectives:
+          - Scrum, Kanban, and agile frameworks
+          - Sprint planning and daily standups
+          - Effective collaboration in dev teams
+        projects: Work in agile teams on group projects
+        orientation: vertical
+        icon: IconUsers
+    paddingY:
+      desktop: md
   - type: syllabus
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
