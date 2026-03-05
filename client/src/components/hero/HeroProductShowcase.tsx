@@ -247,6 +247,16 @@ export function HeroProductShowcase({
                 </div>
               )}
 
+              {data.footer && (
+                <div className="relative mt-4 max-w-xl">
+                  <RichTextContent
+                    html={data.footer}
+                    className="text-sm text-muted-foreground leading-relaxed [&_p]:mb-0"
+                    data-testid="text-hero-footer"
+                  />
+                </div>
+              )}
+
               {marquee && marquee.items && marquee.items.length > 0 && (
                 <div
                   className="w-full max-w-xl mt-6 md:mb-8 overflow-hidden"

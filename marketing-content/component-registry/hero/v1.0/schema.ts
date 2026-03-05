@@ -119,6 +119,7 @@ export const heroProductShowcaseSchema = z.object({
   description: z.string().optional(),
   // Bullet points render below description (optional)
   bullets: z.array(bulletItemSchema).nullish(),
+  footer: z.string().optional(),
   // Embedded marquee renders below description (optional)
   marquee: embeddedMarqueeSchema.nullish(),
   video: videoConfigSchema.optional(),
@@ -249,6 +250,7 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   title: z.string(),
   brand_mark: brandMarkSchema.optional(),
   description: z.string().optional(),
+  footer: z.string().optional(),
   form: leadFormDataSchema,
   form_vertical_align: z.enum(["top", "center", "bottom"]).optional(),
   cta_button: ctaButtonSchema.optional(),
