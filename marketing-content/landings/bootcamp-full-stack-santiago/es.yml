@@ -4,14 +4,14 @@ sections:
     variant: productShowcase
     title: Thrive in Today’s Tech and Shape Tomorrow’s.
     brand_mark:
-      prefix: Become an
-      highlight: AI Engineer
+      prefix: Conviértete en un
+      highlight: Desarrollador Full Stack
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    description: Construye tu camino
     bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+      - text: Aprende a programar desde cero hasta ser un profesional.
+      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida.
+      - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses.
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
