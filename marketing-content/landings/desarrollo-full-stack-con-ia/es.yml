@@ -1,13 +1,15 @@
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
       prefix: Desarrollo
       highlight: Full Stack con IA
       color: primary
-    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
+    description: >-
+      Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por
+      IA, mentoría personalizada y resultados profesionales comprobados.
     bullets:
       - text: Domina frontend moderno con HTML, CSS, JavaScript y React
       - text: Construye sistemas backend escalable con Python, APIs y bases de datos
@@ -38,14 +40,23 @@ sections:
           visible: false
           default: full-stack
       success:
-        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+        message: >-
+          Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a
+          través de un correo electrónico.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        marketing_text: >-
+          Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos,
+          cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja
+          fácilmente en cualquier momento.
+        sms_text: >-
+          Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden
+          aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta
+          4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja
+          fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
@@ -133,14 +144,21 @@ sections:
       desktop: none sm
     paddingY:
       desktop: none sm
+    section_id: awards_marquee-ib4yb0
   - type: why_learn_ai
     variant: laptop-edge
     title: Tu futuro profesional, con garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
+    description: >-
+      Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si
+      no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el
+      reembolso total de tu matrícula.&nbsp;<div><span style="font-size: 0.875rem;">*No aplica para todos los mercados,
+      países o estados donde opera 4Geeks. <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+      aplican</a></span></div>
     cta:
       text: Empieza a aprender ahora
-      url: "#hero-form"
+      url: '#hero-form'
       variant: primary
     marginY:
       desktop: md sm
@@ -166,10 +184,13 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    section_id: why_learn_ai-8sksqo
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
-    program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
+    program_description: >-
+      Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para
+      producción usando las tecnologías más demandadas que los empleadores buscan.
     tech_logos:
       - name: HTML5
         icon: html
@@ -240,12 +261,18 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
+    section_id: syllabus-azlm90
   - type: projects
     title: Aprende construyendo proyectos reales
-    subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
+    subtitle: >-
+      Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo
+      que trabajarás:
     items:
       - title: Construye una API REST de StarWars
-        description: La API del Blog de StarWars te permitirá practicar la construcción de una API REST usando frameworks ligeros como Express (para node) o Flask (para python) con SQLAlchemy ORM y el lenguaje Python, mientras construyes un blog divertido. Ideal para juniors que buscan practicar desarrollo de APIs en Python.
+        description: >-
+          La API del Blog de StarWars te permitirá practicar la construcción de una API REST usando frameworks ligeros
+          como Express (para node) o Flask (para python) con SQLAlchemy ORM y el lenguaje Python, mientras construyes un
+          blog divertido. Ideal para juniors que buscan practicar desarrollo de APIs en Python.
         image: star-wars
         tags:
           - REST
@@ -253,7 +280,9 @@ sections:
         difficulty: easy
         date: 15/11/2022
       - title: Sistema de Autenticación con JWT
-        description: Crea un sistema de autenticación completo con tokens JWT, frontend en React y backend en Python. Aprende mejores prácticas de seguridad y patrones de gestión de sesiones utilizados en aplicaciones de producción.
+        description: >-
+          Crea un sistema de autenticación completo con tokens JWT, frontend en React y backend en Python. Aprende
+          mejores prácticas de seguridad y patrones de gestión de sesiones utilizados en aplicaciones de producción.
         image: authentication
         tags:
           - Security
@@ -262,7 +291,9 @@ sections:
         difficulty: medium
         date: 20/01/2023
       - title: Proyecto Final Full-Stack
-        description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
+        description: >-
+          Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask,
+          SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
         image: final-project
         tags:
           - Full-Stack
@@ -274,6 +305,7 @@ sections:
       desktop: none md
     paddingY:
       desktop: md sm
+    section_id: projects-6nx1yx
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
@@ -282,7 +314,7 @@ sections:
     features:
       - icon: Robot
         title: Progresa más rápido con herramientas de IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
@@ -292,7 +324,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -302,7 +334,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -312,22 +344,27 @@ sections:
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md none
+    section_id: ai_learning-9g2eb8
   - type: certificate
     title: Resultados profesionales
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
+    description: >-
+      Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
+      Florida. Accede a roles bien remunerados:
     benefits:
-      - text: "AI Software Engineer: {{ global.average_salary_ai_fluent_software_developer | $20K–$30K }}"
-      - text: "Full-Stack Engineer (AI-Fluent): {{ global.average_salary_ai_engineer | $20K–$35K }}"
-      - text: "Agent Engineer: {{ global.average_salary_agent_engineer | $25K–$40K }}"
-      - text: {{ global.average_salary_workflow_automation_engineer | $25K–$40K }}
+      - text: 'AI Software Engineer: __TPL__'
+      - text: 'Full-Stack Engineer (AI-Fluent): __TPL__'
+      - text: 'Agent Engineer: __TPL__'
+      - text: __TPL__
     card:
       title: AI Engineer
       subtitle: Certificado 4Geeks Academy
       program_name: AI Engineering
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: __TPL__%
         label: Tasa de contratación
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando activamente.
+        description: >-
+          Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando
+          activamente.
         benefits:
           - text: Certificado reconocido por el Departamento de Educación de Florida
           - text: Empresa de ingeniería de IA de principio a fin en tu portafolio
@@ -335,22 +372,31 @@ sections:
           - text: Perfil profesional optimizado y estrategia de búsqueda de empleo
       - value: 3-6 meses
         label: Tiempo para ser contratado
-        description: Consigue tu primer rol en 3 a 6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
+        description: >-
+          Consigue tu primer rol en 3 a 6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo
+          profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
         benefits:
-          - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
+          - text: >-
+              Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en
+              IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: {{ global.global_salary_increase | 55 }}%
+      - value: __TPL__%
         label: Aumento Salarial Promedio
-        description: Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
+        description: >-
+          Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se
+          orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento
+          inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
-          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
+          - text: 'Full Stack Engineer: __TPL__+'
+          - text: 'AI-fluent Software Developer: __TPL__'
+          - text: 'Web Applications Engineer: __TPL__'
+          - text: 'Backend Services Developer: __TPL__ '
       - value: 500+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: >-
+          Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de
+          selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de de empleo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -363,14 +409,15 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
+    section_id: certificate-3exfs1
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
-    financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ global.price_fullstack | $299 }}
+    discount_text: 'Descuento por pago completo: Ahorra 10% pagando de una sola vez.'
+    financing_text: 'Financiamiento basado en crédito: desde'
+    financing_amount: __TPL__
     tech_icons:
       - openai
       - python
@@ -383,9 +430,16 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es {{ global.price_full_fullstack | $10,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: >-
+          La matrícula estándar es __TPL__. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin
+          intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: >-
+          Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses
+          posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked="1"><span style="font-size:
+          0.75rem;"><span>*No disponible en todas las regiones. <a
+          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Aplican
+          términos y condiciones</a>.</span></span></div>
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -393,7 +447,7 @@ sections:
         text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
     cta:
       text: Recibir más información
-      url: "#hero-form"
+      url: '#hero-form'
       variant: primary
     marginY:
       desktop: none md
@@ -422,6 +476,7 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: pricing-162ld2
   - type: whos_hiring
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
@@ -455,51 +510,65 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+    section_id: whos_hiring-x0s0v7
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
+    subtitle: Más de __TPL__ graduados y __TPL__+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
-      average: {{ global.global_review_rating | 4.8 }}
+      average: __TPL__
       count: 1,294
     items:
       - name: Sarah Johnson
         role: AI Engineer
         company: Google
         rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo está perfectamente estructurado para aplicaciones de IA del mundo real.
+        comment: >-
+          Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo
+          está perfectamente estructurado para aplicaciones de IA del mundo real.
         outcome: +55% aumento salarial
       - name: Michael Chen
         role: ML Engineer
         company: Meta
         rating: 5
-        comment: La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el apoyo profesional fueron invaluables.
+        comment: >-
+          La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el
+          apoyo profesional fueron invaluables.
         outcome: Contratado en 4 meses
       - name: Emily Rodriguez
         role: AI Engineer
         company: Amazon
         rating: 5
-        comment: Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora trabajo en IA de vanguardia.
+        comment: >-
+          Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora
+          trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
       - name: David Kim
         role: AI Developer
         company: Startup
         rating: 5
-        comment: De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos prácticos marcaron la diferencia.
+        comment: >-
+          De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos
+          prácticos marcaron la diferencia.
         outcome: Cambio de carrera exitoso
       - name: Jessica Martinez
         role: AI Engineer
         company: Spotify
         rating: 4
-        comment: Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre están disponibles para ayudar.
+        comment: >-
+          Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre
+          están disponibles para ayudar.
         outcome: +45% aumento salarial
       - name: Ryan Thompson
         role: ML Engineer
         company: Tech Startup
         rating: 5
-        comment: La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y excelente orientación profesional en todo momento.
+        comment: >-
+          La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y
+          excelente orientación profesional en todo momento.
         outcome: Primer trabajo en tech
     paddingY:
       desktop: md
+    section_id: testimonials-gkilgo
   - type: faq
     title: Preguntas frecuentes
     related_features:
@@ -523,10 +592,13 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
+    section_id: faq-p3zotp
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Rellena el formulario y obtén más información
-    subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+    subtitle: >-
+      Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a
+      través de un correo electrónico.
     background: hsl(var(--primary))
     variant: form
     form:

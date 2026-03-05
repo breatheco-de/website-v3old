@@ -252,7 +252,13 @@ sections:
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Confidently step into your next tech role
-    description: "<span style=\"font-size: 1.125rem;\">The Job Guarantee shows how much we stand behind our students: if you don’t land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund. It reflects the confidence 4Geeks has in our hands-on projects, AI-powered guidance, and unlimited mentorship — going further than most programs, which stop at basic support.<div><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div></span>"
+    description: >-
+      <span style="font-size: 1.125rem;">The Job Guarantee shows how much we stand behind our students: if you don’t
+      land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund. It reflects the
+      confidence 4Geeks has in our hands-on projects, AI-powered guidance, and unlimited mentorship — going further than
+      most programs, which stop at basic support.<div><span style="font-size: 0.875rem;">*Not available in all regions.
+      <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
+      style="color: hsl(var(--primary));">Terms and conditions apply.</a></span></div></span>
     cta:
       text: Get More Info
       url: /en/job-guarantee
@@ -274,6 +280,7 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: why_learn_ai-wxbuh3
   - type: testimonials_slide
     title: Real Careers Start Here
     description: >-
@@ -407,7 +414,7 @@ sections:
       desktop: none md
     section_id: whos_hiring-vyd58o
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward a High-Growth Tech Career
     subtitle: Apply now to a program designed to give you AI-ready skills, hands-on experience, and lifelong support.
     background: hsl(var(--primary))
@@ -448,6 +455,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
+    section_id: cta_banner-a80141
   - type: faq
     title: Frequently Asked Questions
     related_features:
