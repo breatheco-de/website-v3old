@@ -121,8 +121,6 @@ sections:
       - 7
     background: bg-muted/30
     alignment: center
-    right:
-      justify: center
     left:
       heading: ¡Desde Cero Hasta Tu Primer Empleo!
       description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
@@ -132,6 +130,9 @@ sections:
         - text: Mentorías y career support de por vida
       bullet_icon: Check
       font_size: base
+    right:
+      justify: center
+      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
     reverse_on_mobile: true
     gap: "12"
   - type: course_selector
