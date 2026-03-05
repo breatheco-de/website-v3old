@@ -175,35 +175,6 @@ sections:
         projects: Launch your capstone project
         orientation: horizontal
         icon: IconStack2
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Descubre tu potencial en 4Geeks Academy
-    subheading: Programas para convertirte en un experto en programación y complementar tu perfil profesional
-    courses:
-      - name: Desarrollo Full Stack con IA
-        icon: Code
-        duration: 20 semanas
-        label: Actualizado en 2026
-        title: Desarrollo de Software Full Stack
-        badges:
-          - icon: Code
-            text: React, Node.js y Python
-        tags:
-          - icon: Plus
-            text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
-        course_background: hsl(var(--destructive))
-    background: hsl(var(--muted))
-    section_id: course_selector-nyglwg
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: none
   - type: geeks_vs_others_comparison
     version: "1.0"
     title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
