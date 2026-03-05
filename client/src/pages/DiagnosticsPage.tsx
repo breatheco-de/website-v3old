@@ -934,25 +934,6 @@ function PageAnalysisTab() {
             </InfoPopover>
           </div>
 
-          {pageDiag.emptyFields.length > 0 && (
-            <Card style={{ borderRadius: "0.8rem" }}>
-              <CardHeader className="flex flex-row items-center gap-2 pb-2">
-                <IconAlertTriangle className="h-4 w-4 text-chart-2" />
-                <CardTitle className="text-sm">Empty Fields</CardTitle>
-                <InfoPopover testId="info-empty-fields">
-                  <p>Scans every key in the page's YAML for the names <code className="bg-muted px-1 rounded text-foreground">title</code>, <code className="bg-muted px-1 rounded text-foreground">heading</code>, <code className="bg-muted px-1 rounded text-foreground">description</code>, <code className="bg-muted px-1 rounded text-foreground">subtitle</code>, and <code className="bg-muted px-1 rounded text-foreground">tagline</code> whose value is an empty string.</p>
-                  <p>This is informational only — empty fields can be intentional depending on the section design and do not affect the Content score.</p>
-                </InfoPopover>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-1">
-                  {pageDiag.emptyFields.map((f) => (
-                    <Badge key={f} variant="outline" className="text-xs font-mono">{f}</Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
 
           {pageDiag.schemaValidation && !pageDiag.schemaValidation.valid && (
             <Card style={{ borderRadius: "0.8rem" }} data-testid="card-schema-validation">
