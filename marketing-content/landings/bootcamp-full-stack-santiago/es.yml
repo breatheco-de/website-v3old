@@ -54,6 +54,29 @@ sections:
     marginY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 5
+      - 7
+    background: bg-muted/30
+    alignment: center
+    gap: "12"
+    reverse_on_mobile: true
+    left:
+      image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
+      image_alt: Team collaborating on a project
+      justify: center
+    right:
+      heading: Why Choose Us
+      description: We provide comprehensive support for your learning journey from day one to career success.
+      bullets:
+        - text: Personalized mentorship from industry experts
+        - text: Flexible learning schedule that fits your life
+        - text: Real-world projects to build your portfolio
+        - text: Career support that lasts a lifetime
+      bullet_icon: Check
+      font_size: base
   - type: awards_marquee
     version: v1.0
     speed: 40
