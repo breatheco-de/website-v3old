@@ -162,7 +162,7 @@ sections:
     alignment: center
     left:
       heading: ¡Desde Cero Hasta Tu Primer Empleo!
-      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
+      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
       bullets:
         - text: No se requiere experiencia previa
         - text: Horario part-time adaptable a tu vida actual
