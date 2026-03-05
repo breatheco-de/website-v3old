@@ -2,8 +2,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Start a High-Growth Tech Career With Extra Confidence
-    subtitle: Build the skills companies are hiring for and add the Job Guarantee for extra confidence.<br><br> <ul style='margin-top:8px;'> <li>84% of graduates land a tech job</li> <li>Get hired within 9 months or receive a full refund</li> <li>Career support designed to get you hired</li> <li>AI-native skills companies are actively hiring for</li> </ul> <div style='font-size:0.75rem;margin-top:10px;'>*Not available in all regions. <a href='https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf'>Terms and conditions apply.</a></div>
+    title: Launch a High-Growth Tech Career With Extra Confidence
+    subtitle: Build the skills companies are hiring for and add the Job Guarantee for extra confidence.<br><br> <ul style='margin-top:8px;'> <li>84% of graduates land a tech job</li> <li>Get hired within 9 months or receive a full refund</li> <li>1:1 career coaching and employer network access</li> </ul> <div style='margin-top:10px;'>Join 6000+ students who have already completed our programs.</div> <div style='font-size:0.75rem;margin-top:10px;'>*Not available in all regions. <a href='https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf'>Terms and conditions apply.</a></div>
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
