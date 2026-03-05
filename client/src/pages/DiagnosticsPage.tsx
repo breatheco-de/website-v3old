@@ -335,7 +335,7 @@ function GlobalHealthTab() {
 
   const saveReportMutation = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest("POST", "/api/validation/save-report");
+      const res = await apiRequest("POST", "/api/validation/save-report", {});
       return (await res.json()) as { ok: boolean; path: string; timestamp: string; summary: RunResult["summary"] };
     },
     onSuccess: (data) => {
