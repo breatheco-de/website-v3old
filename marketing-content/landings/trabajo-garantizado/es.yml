@@ -177,6 +177,22 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+  - type: article
+    version: v1.0
+    show_toc: false
+    max_width: md
+    content: |
+      # About Our Program
+
+      We offer a comprehensive learning experience designed to transform beginners into job-ready professionals.
+
+      Our curriculum is built by industry experts and updated regularly to reflect the latest trends and technologies.
+
+      ## What Makes Us Different
+
+      Unlike traditional bootcamps, we focus on **real-world projects** and **personalized mentorship** to ensure every student succeeds.
+
+      Our graduates work at companies like Google, Meta, Amazon, and hundreds of innovative startups around the world.
   - type: awards_marquee
     version: v1.0
     speed: 40
