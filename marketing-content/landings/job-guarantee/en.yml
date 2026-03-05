@@ -100,7 +100,7 @@ sections:
       - icon: ChecklistVerify
         title: 3. Follow Our Proven Career Placement System
       - icon: Briefcase
-        title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
+        title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
   - type: course_selector
     version: "1.0"
