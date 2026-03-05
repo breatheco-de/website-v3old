@@ -125,7 +125,6 @@ sections:
       url: /signup
       variant: primary
   - type: syllabus
-    version: "1.0"
     variant: program-modules
     program_title: What You'll Build
     program_description: From day one, you'll work on real projects that prepare you for a career in tech.
