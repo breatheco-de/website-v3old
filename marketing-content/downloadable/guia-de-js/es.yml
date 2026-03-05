@@ -12,11 +12,11 @@ sections:
     subtitle: ""
     description: JavaScript es el lenguaje clave para crear experiencias web interactivas y dinámicas. Con esta guía gratuita de 4Geeks Academy, aprenderás los fundamentos de JavaScript y estarás en camino de convertirte en un desarrollador web completo.
     signup_card:
-      title: Get the full program overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      title: Descargar Guía
+      description: En breves minutos, después de haber completado el formulario, en tu correo electrónico habrás recibido la guía de JavaScript, donde tendrás los conceptos básicos para empezar a aprender programación web.
       form:
         variant: stacked
-        submit_label: Send me the details
+        submit_label: Descargar la Guía Gratis
         fields:
           email:
             visible: true
