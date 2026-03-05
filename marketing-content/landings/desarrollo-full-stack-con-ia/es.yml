@@ -353,22 +353,22 @@ sections:
           - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
           - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
           - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 500+
+      - value: 400+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de de empleo
           - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-3exfs1
     marginY:
       mobile: none
       desktop: none md
     paddingY:
       mobile: lg
       desktop: md
-    section_id: certificate-3exfs1
   - type: pricing
     version: "1.0"
     variant: product
