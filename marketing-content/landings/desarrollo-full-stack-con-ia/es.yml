@@ -86,10 +86,10 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: none
+      desktop: none sm
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: md none
+      desktop: md sm
     section_id: hero-u2i0eb
   - type: awards_marquee
     version: v1.0
