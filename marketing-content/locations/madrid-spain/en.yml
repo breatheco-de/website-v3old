@@ -131,7 +131,7 @@ sections:
       description: Spain's tech sector grew 5.8% in 2024, generating over 120 billion euros in turnover. Madrid attracts 85% of all foreign tech investment in the country and ranks
       button:
         text: Learn more about our programs
-        url: /en/full-stack
+        url: /en/career-programs/ai-engineering
         variant: primary
         icon: Rocket
     gap: "8"
