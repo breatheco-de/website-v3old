@@ -79,7 +79,7 @@ function addMissingSectionIds(rawText: string): { patched: string; idsAdded: num
 }
 
 const MARKETING_CONTENT = path.join(process.cwd(), "marketing-content");
-const files = walkDir(MARKETING_CONTENT);
+const files = walkDir(MARKETING_CONTENT).filter(f => !f.includes("/component-registry/"));
 
 let totalFilesChanged = 0;
 let totalIdsAdded = 0;
