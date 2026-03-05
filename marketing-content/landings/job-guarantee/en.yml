@@ -201,7 +201,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: none
+      desktop: none lg
   - type: numbered_steps
     variant: default
     title: Get Hired Faster With GeekForce
