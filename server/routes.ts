@@ -7492,7 +7492,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               return;
             }
 
-            // Same-type duplication: copy files directly
+            // Same-type duplication: parse YAML, modify fields, serialize back
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             for (const file of sourceFiles) {
               const fileLocale = file.replace(/\.yml$/, "");
@@ -7503,55 +7503,43 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 continue;
               }
 
-              let content = fs.readFileSync(
+              const raw = fs.readFileSync(
                 path.join(foundSourceFolder, file),
                 "utf8",
               );
 
-              content = content.replace(
-                /^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm,
-                "",
-              );
+              const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
+              if (!parsed) {
+                fs.writeFileSync(path.join(folderPath, file), raw);
+                markFileAsModified(
+                  `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
+                  createAuthorName,
+                );
+                continue;
+              }
 
-              const oldSlug = path.basename(foundSourceFolder);
-              const resolvedSourceSlug = resolved?.slug || oldSlug;
+              delete parsed.redirects;
+              if (parsed.meta && typeof parsed.meta === "object") {
+                delete (parsed.meta as Record<string, unknown>).redirects;
+              }
+
               const newSlug =
                 file === "es.yml"
                   ? esSlug || folderSlug!
                   : enSlug || folderSlug!;
-              content = content.replace(
-                new RegExp(`slug:\\s*["']?${oldSlug}["']?`, "g"),
-                `slug: ${newSlug}`,
-              );
-              if (resolvedSourceSlug !== oldSlug) {
-                content = content.replace(
-                  new RegExp(`slug:\\s*["']?${resolvedSourceSlug}["']?`, "g"),
-                  `slug: ${newSlug}`,
-                );
-              }
+              parsed.slug = newSlug;
 
-              if (file === "en.yml" || file === "es.yml") {
-                const fileLocale = file.replace(/\.yml$/, "");
-                const localeTitle = localeTitles[fileLocale] || title;
-                if (/^title:/m.test(content)) {
-                  content = content.replace(/^title:\s*.*$/m, `title: "${localeTitle}"`);
-                } else {
-                  content = content.replace(/^(slug:.*$)/m, `$1\ntitle: "${localeTitle}"`);
-                }
-              }
-
-              // Replace unique mapped field values in _common.yml
               if (file === "_common.yml") {
-                content = content.replace(/^title:\s*.*$/m, `title: "${title}"`);
+                parsed.title = title;
                 for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
                   if (fieldName === "slug" || fieldName === "title") continue;
-                  content = content.replace(
-                    new RegExp(`^(${fieldName}:\\s*)["']?[^\\n"']*["']?`, "m"),
-                    `$1${newValue}`,
-                  );
+                  parsed[fieldName] = newValue;
                 }
+              } else if (file === "en.yml" || file === "es.yml") {
+                parsed.title = localeTitles[fileLocale] || title;
               }
 
+              const content = safeYamlDump(parsed, { lineWidth: 120, noRefs: true, sortKeys: false });
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
@@ -7601,34 +7589,32 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         getSupportedLocales().find((l) => !skipLocales.includes(l)) ??
         getDefaultLocale();
 
-      // _common.yml: one line per mapped field, user-supplied unique values take priority
-      const commonLines: string[] = [
-        `# Common properties for ${type}: ${title}`,
-      ];
+      // _common.yml: build object from field_mapping, then serialize
+      const commonObj: Record<string, unknown> = {};
       for (const key of fieldKeys) {
         if (key === "slug") {
-          commonLines.push(`slug: ${folderSlug}`);
+          commonObj.slug = folderSlug;
         } else if (key === "title") {
-          commonLines.push(`title: "${title}"`);
+          commonObj.title = title;
         } else if (key === "locale") {
-          commonLines.push(`locale: "${activeLocale}"`);
+          commonObj.locale = activeLocale;
         } else if (uniqueFieldValues[key] !== undefined) {
-          commonLines.push(`${key}: "${uniqueFieldValues[key]}"`);
+          commonObj[key] = uniqueFieldValues[key];
         } else {
-          commonLines.push(`${key}: ""`);
+          commonObj[key] = "";
         }
       }
-      const commonYml = commonLines.join("\n") + "\n";
+      const commonYml = yaml.dump(commonObj, { lineWidth: 120, noRefs: true, sortKeys: false });
 
       // Locale files: minimal starter — _common.single.yml provides meta/schema defaults
-      const makeLocaleYml = (slug: string, loc: string) => {
+      const makeLocaleObj = (slug: string, loc: string) => {
+        const obj: Record<string, unknown> = { slug, sections: [] };
         const localeTitle = localeTitles[loc];
-        return localeTitle
-          ? `slug: ${slug}\ntitle: "${localeTitle}"\nsections: []\n`
-          : `slug: ${slug}\nsections: []\n`;
+        if (localeTitle) obj.title = localeTitle;
+        return obj;
       };
-      const enYml = makeLocaleYml(enSlug || folderSlug!, "en");
-      const esYml = makeLocaleYml(esSlug || folderSlug!, "es");
+      const enYml = yaml.dump(makeLocaleObj(enSlug || folderSlug!, "en"), { lineWidth: 120, noRefs: true, sortKeys: false });
+      const esYml = yaml.dump(makeLocaleObj(esSlug || folderSlug!, "es"), { lineWidth: 120, noRefs: true, sortKeys: false });
 
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];
