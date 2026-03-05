@@ -222,20 +222,20 @@ sections:
       desktop: none md
     paddingY:
       desktop: md
-  - type: split_cards
-    variant: primary-left
-    primary:
-      heading: Your Career, Guaranteed
-      description: "The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.&nbsp;&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 0.875rem;\"></span></span></span></a></div>"
-      badge: Results-backed promise
-    secondary:
-      benefits:
-        - text: Our curriculum is industry-aligned and AI-ready
-        - text: Our mentorship is unlimited and personalized
-        - text: Our career support never expires
-    background: muted
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Optional Job Guarantee* for Extra Confidence
+    subtitle: A confidence boost that backs your journey
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>The Job Guarantee gives you peace of mind: if you don’t land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund. It reflects the confidence 4Geeks has in our hands-on projects, AI-powered guidance, and lifelong mentorship — helping you move forward where many programs stop at basic support.<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span>"
+    cta:
+      text: Get More Info
+      url: /en/job-guarantee
+      variant: primary
     marginY:
-      desktop: none xl
+      desktop: none md
+    paddingY:
+      desktop: none
+    background: hsl(var(--sidebar-background))
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -248,12 +248,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
   - type: testimonials_slide
     title: Real Careers Start Here
     description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
