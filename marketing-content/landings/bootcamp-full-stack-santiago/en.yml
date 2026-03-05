@@ -293,32 +293,32 @@ sections:
       desktop: md sm
   - type: cards_deck
     version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    heading: Historias reales de cambios de carrera
+    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
         image: ""
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         author_name: Hernán García
-        title: "\"I got offers from companies I wasn't expecting\""
-        description: Hernán landed a job in tech within one month of starting his job search.
+        title: "\"Recibí ofertas de empresas que no esperaba\""
+        description: Hernán consiguió un trabajo en tecnología dentro de un mes de comenzar su búsqueda laboral.
         alt: Geekforce
       - video:
           url: https://youtu.be/MBXqEnhodx0
         image: ""
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Joao Henrique
-        title: "\"You'll always have support from the Academy\""
-        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
+        title: "\"Siempre tendrás el apoyo de la academia\""
+        description: Joao comparte su experiencia recibiendo mentoría de programación como estudiante, después de graduarse y en su trabajo actual.
         alt: Geekpal
       - video:
           url: https://youtu.be/oeX_ocy6zv4
         image: ""
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Jonathan Ferragut
-        title: "\"Taking a course like this benefits us in a lot of different ways\""
-        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
+        title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
+        description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
   - type: certificate
     title: Career Outcomes
