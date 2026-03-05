@@ -14,8 +14,12 @@ address: Carrer de Balmes 200, 08006 Barcelona
 available_programs:
   - full-stack
 context:
-  when_to_use: For Barcelona and Catalonia visitors or those interested in tech opportunities in Southern Europe's leading startup hub.
-  target_audience: Local Barcelona residents, international tech professionals, and career changers seeking roles in a dynamic tech ecosystem.
+  when_to_use: >-
+    For Barcelona and Catalonia visitors or those interested in tech opportunities in Southern Europe's leading startup
+    hub.
+  target_audience: >-
+    Local Barcelona residents, international tech professionals, and career changers seeking roles in a dynamic tech
+    ecosystem.
   goals:
     - Highlight Barcelona's dynamic tech ecosystem and leading startup hub status
     - Emphasize immersive, hands-on coding education and talent cultivation
@@ -35,15 +39,17 @@ schema:
   overrides:
     organization:
       address:
-        "@type": PostalAddress
+        '@type': PostalAddress
         streetAddress: Carrer de Balmes 200
         addressLocality: Barcelona
         addressRegion: Catalonia
-        postalCode: "08006"
+        postalCode: '08006'
         addressCountry: ES
 meta:
   page_title: 4Geeks Academy Barcelona | Bootcamp de Programación en España
-  description: Únete al bootcamp de programación 4Geeks en Barcelona. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
+  description: >-
+    Únete al bootcamp de programación 4Geeks en Barcelona. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con
+    mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/barcelona-og.jpg
   priority: 0.8
@@ -52,23 +58,26 @@ meta:
     - /es/coding-campus/bootcamp-programacion-barcelona-espana
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Barcelona
-    subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el hub tech y startup líder del sur de Europa. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
+    subtitle: >-
+      Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el hub tech y startup líder del sur de
+      Europa. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Barcelona
     cta_buttons:
       - text: Aplicar ahora
         url: /es/apply
         variant: primary
       - text: Ver el programa
-        url: "#bottom"
+        url: '#bottom'
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    section_id: hero-iqhwwh
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -109,8 +118,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
+    section_id: awards_marquee-1nbg79
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -118,10 +128,16 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: En el Centro del Impulso Tech de Barcelona
-    description: Barcelona tiene un ecosistema tecnológico dinámico y es un centro líder para las startups. La ciudad ha presenciado un rápido crecimiento de la necesidad de conocimientos en programación a medida que la tecnología desempeña un papel cada vez más integral en diversas industrias. Los bootcamps de programación han surgido como una fuerza impulsora detrás de la promoción del talento en Barcelona. Desde nuestro campus en Barcelona, conectamos a estudiantes con empleadores locales, eventos tech y el próspero panorama tecnológico de la ciudad.
+    description: >-
+      Barcelona tiene un ecosistema tecnológico dinámico y es un centro líder para las startups. La ciudad ha
+      presenciado un rápido crecimiento de la necesidad de conocimientos en programación a medida que la tecnología
+      desempeña un papel cada vez más integral en diversas industrias. Los bootcamps de programación han surgido como
+      una fuerza impulsora detrás de la promoción del talento en Barcelona. Desde nuestro campus en Barcelona,
+      conectamos a estudiantes con empleadores locales, eventos tech y el próspero panorama tecnológico de la ciudad.
     background: gradient
     marginY:
       desktop: lg none
+    section_id: banner-02fua0
   - type: two_column
     proportions:
       - 6
@@ -132,19 +148,23 @@ sections:
     right:
       heading: La Experiencia de Mattia en 4Geeks Academy
       sub_heading: Desarrolla tus Habilidades en Tecnología desde Barcelona
-      description: Mattia comparte su experiencia con 4Geeks Academy en Barcelona—cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad colaborativa de aprendizaje, y preparación para desafíos del mundo real y oportunidades laborales en tecnología.
+      description: >-
+        Mattia comparte su experiencia con 4Geeks Academy en Barcelona—cursos interactivos enfocados en habilidades
+        técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad
+        colaborativa de aprendizaje, y preparación para desafíos del mundo real y oportunidades laborales en tecnología.
       button:
         text: Ver la entrevista completa
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
+    section_id: two_column-94evwr
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -159,7 +179,9 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        description: >-
+          Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de
+          despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
@@ -174,9 +196,11 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+          - icon: ''
+            text: ''
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con
+          herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
@@ -190,7 +214,9 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        description: >-
+          Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones
+          impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -204,47 +230,68 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        description: >-
+          Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas
+          modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-7lbz78
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
       - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
+        text: >-
+          Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados
+          durante el programa y continúa recibiendo soporte mucho después de graduarte.
       - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
+        text: >-
+          Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y
+          mejora continuamente con guía adaptada a tu camino de aprendizaje.
       - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
+        text: >-
+          Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y
+          posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+        text: >-
+          Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte
+          oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-pdrxol
   - type: testimonials_slide
     title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    description: >-
+      Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching
+      experto llevan a resultados reales.
     background: bg-sidebar
+    section_id: testimonials_slide-snncu8
   - type: split_cards
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: |-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
+      description: >-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de
+        Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras
+        muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un
+        rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif;
+        white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
+        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+        aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
+        - text: __TPL__% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
+        - text: __TPL__% aumento salarial promedio en roles tech
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -265,7 +312,18 @@ sections:
     variant: laptop-edge
     title: Por Qué Barcelona es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech dinámico y hub líder para startups
-    description: "Barcelona tiene un ecosistema tecnológico dinámico y es un centro líder para las startups. La ciudad ha presenciado un rápido crecimiento de la necesidad de conocimientos en programación a medida que la tecnología desempeña un papel cada vez más integral en diversas industrias. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Los bootcamps de programación han surgido como una fuerza impulsora detrás de la promoción del talento en Barcelona</span></li><li>Educación en programación inmersiva y práctica para personas ansiosas por aprender a programar y dejar su huella en el próspero panorama tecnológico de la ciudad</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, edtech y tech sostenible</li></ul></div><div>Desde nuestro campus en Barcelona, te conectamos con empleadores locales, eventos tech y el próspero panorama tecnológico de la ciudad—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
+    description: >-
+      Barcelona tiene un ecosistema tecnológico dinámico y es un centro líder para las startups. La ciudad ha
+      presenciado un rápido crecimiento de la necesidad de conocimientos en programación a medida que la tecnología
+      desempeña un papel cada vez más integral en diversas industrias. Es un mercado con demanda real de talento
+      técnico.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Los bootcamps de
+      programación han surgido como una fuerza impulsora detrás de la promoción del talento en
+      Barcelona</span></li><li>Educación en programación inmersiva y práctica para personas ansiosas por aprender a
+      programar y dejar su huella en el próspero panorama tecnológico de la ciudad</li><li>Fuerte demanda de habilidades
+      en software, IA y datos en sectores como fintech, edtech y tech sostenible</li></ul></div><div>Desde nuestro
+      campus en Barcelona, te conectamos con empleadores locales, eventos tech y el próspero panorama tecnológico de la
+      ciudad—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>
+    section_id: why_learn_ai-5f9dhj
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -273,13 +331,20 @@ sections:
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
+        description: >-
+          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
+          profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
+        description: >-
+          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
+          contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+        description: >-
+          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
+          entienden tu journey.
+    section_id: mentorship-oxs4l1
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -287,25 +352,33 @@ sections:
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
+        description: >-
+          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
+          profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
+        description: >-
+          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
+          contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+        description: >-
+          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
+          entienden tu journey.
+    section_id: mentorship-e2bhho
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Barcelona
     filter_by_location: barcelona-spain
     marginY:
       desktop: none lg
+    section_id: testimonials-1e9o1u
   - type: testimonials
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -324,13 +397,17 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        comment: >-
+          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
+          cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        comment: >-
+          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
+          computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -344,6 +421,7 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+    section_id: testimonials-vyjehj
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -354,8 +432,9 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    section_id: faq-jwxdu0
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -386,7 +465,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -399,9 +480,9 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-ppk30b
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: __TPL__
     show_dismiss: false
     form:
       variant: inline

@@ -14,16 +14,20 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Construyendo el futuro de la tecnología, juntos
-    subtitle: 4Geeks Academy se asocia con universidades, organizaciones sin fines de lucro, iniciativas laborales y organizaciones globales para ampliar el acceso a la educación tecnológica, colocar talento diverso y cerrar la brecha de habilidades digitales, creando caminos profesionales más fuertes y una fuerza laboral lista para la era de la IA.
+    subtitle: >-
+      4Geeks Academy se asocia con universidades, organizaciones sin fines de lucro, iniciativas laborales y
+      organizaciones globales para ampliar el acceso a la educación tecnológica, colocar talento diverso y cerrar la
+      brecha de habilidades digitales, creando caminos profesionales más fuertes y una fuerza laboral lista para la era
+      de la IA.
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
       - text: Únete a nuestra red de alianzas
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: primary
         icon: Rocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -31,8 +35,9 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
+    section_id: hero-jm0vbs
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: apply-modal
     heading: Obtener curriculum
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -60,44 +65,55 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: ¿Por qué asociarse con 4Geeks?
-    description: Cada colaboración está diseñada para generar resultados medibles para organizaciones y comunidades, creando oportunidades, expandiendo el acceso a la educación tecnológica y fortaleciendo la fuerza laboral tecnológica del futuro.
+    description: >-
+      Cada colaboración está diseñada para generar resultados medibles para organizaciones y comunidades, creando
+      oportunidades, expandiendo el acceso a la educación tecnológica y fortaleciendo la fuerza laboral tecnológica del
+      futuro.
     cards:
       - icon: Trophy
         title: Becas y financiamiento
-        description: Elimina barreras financieras y hace que la educación en programación sea accesible para comunidades desfavorecidas.
+        description: >-
+          Elimina barreras financieras y hace que la educación en programación sea accesible para comunidades
+          desfavorecidas.
       - icon: Wallet
         title: Programas de capacitación y recapacitación
         description: Invierte en tu fuerza laboral y prepara a los empleados para el futuro digital.
       - icon: Clock
         title: Procesos de reclutamiento y contratación
-        description: Accede directamente a desarrolladores, científicos de datos y especialistas en ciberseguridad listos para el trabajo.
+        description: >-
+          Accede directamente a desarrolladores, científicos de datos y especialistas en ciberseguridad listos para el
+          trabajo.
       - icon: Users
         title: Eventos y alcance comunitario
         description: Colabora en hackatones, series de charlas e iniciativas de innovación que amplifican tu marca y misión.
     background: hsl(var(--muted))
     marginY:
       desktop: none lg
+    section_id: features_quad-gfp76k
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: Impacto en números
-    subtitle: Más de {{ global.total_scholarships | 20 }} en becas y subvenciones otorgadas
-    description: Los socios de 4Geeks Academy empoderan a miles de estudiantes en todo el mundo con acceso a educación tecnológica, mentoría práctica y oportunidades profesionales que generan resultados reales.
+    subtitle: Más de __TPL__ en becas y subvenciones otorgadas
+    description: >-
+      Los socios de 4Geeks Academy empoderan a miles de estudiantes en todo el mundo con acceso a educación tecnológica,
+      mentoría práctica y oportunidades profesionales que generan resultados reales.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: __TPL__%
         title: Tasa de contratación en 6 meses tras graduarse
       - value: 5K+
         title: Socios contratantes
-      - value: {{ global.global_total_alumni | 4000 }}
+      - value: __TPL__
         title: Estudiantes apoyados en todo el mundo
     marginY:
       desktop: none lg
     paddingY:
       desktop: none
+    section_id: features_grid-gta6gr
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
@@ -110,41 +126,50 @@ sections:
         object_position: 100% 80%
         title: United Way Miami y 4Geeks Academy
         subtitle: Lanzamiento del Proyecto de Fuerza Laboral de Miami
-        description: United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos recibirán capacitación en programación sin costos iniciales.
+        description: >-
+          United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este
+          programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del
+          condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos
+          recibirán capacitación en programación sin costos iniciales.
         stats:
           - value: $1mm
             label: Costo total
-          - value: "100"
+          - value: '100'
             label: Beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Miami Herald
-            url: "#"
+            url: '#'
             source: Miami Herald
           - text: Refresh Miami
-            url: "#"
+            url: '#'
             source: Refresh Miami
           - text: Social Finance
-            url: "#"
+            url: '#'
             source: Social Finance
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks Academy
         subtitle: Impulsando el desarrollo del talento en Costa Rica
-        description: En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
+        description: >-
+          En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el
+          desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías
+          digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben
+          capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al
+          crecimiento económico del país.
         stats:
           - value: $50,000
             label: Costo total
-          - value: "35"
+          - value: '35'
             label: Beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -155,27 +180,31 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Periódico Mensaje
-            url: "#"
+            url: '#'
             source: Periódico Mensaje
           - text: La República
-            url: "#"
+            url: '#'
             source: La República
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
         title: Costa Rica-CINDE y 4Geeks
         subtitle: Invirtiendo en talento tecnológico en Costa Rica
-        description: En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el BID lanzó un programa para invertir en talento costarricense. Juntos estamos ayudando a unos 250 estudiantes a convertirse en desarrolladores de software capacitados, abriendo puertas a mejores oportunidades laborales tras graduarse.
+        description: >-
+          En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el
+          BID lanzó un programa para invertir en talento costarricense. Juntos estamos ayudando a unos 250 estudiantes a
+          convertirse en desarrolladores de software capacitados, abriendo puertas a mejores oportunidades laborales
+          tras graduarse.
         stats:
           - value: $1.5mm
             label: Costo total
-          - value: "212"
+          - value: '212'
             label: Beneficiados
         institution_logos:
           - image_id: logo_crusa
@@ -184,30 +213,32 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Revista Summa
-            url: "#"
+            url: '#'
             source: Revista Summa
           - text: IDB Press
-            url: "#"
+            url: '#'
             source: IDB Press
           - text: Cultura Costa Rica
-            url: "#"
+            url: '#'
             source: Cultura Costa Rica
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
         title: UTEC y 4Geeks
         subtitle: Capacitando uruguayos en programación
-        description: Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, BID y 4Geeks. El objetivo era capacitar a uruguayos en programación y aprovechar el crecimiento impulsado por la tecnología en el país.
+        description: >-
+          Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, BID y 4Geeks. El objetivo era capacitar a
+          uruguayos en programación y aprovechar el crecimiento impulsado por la tecnología en el país.
         stats:
           - value: 175k
             label: Costo total
-          - value: "60"
+          - value: '60'
             label: Beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -218,20 +249,20 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: El País
-            url: "#"
+            url: '#'
             source: El País
           - text: San José Ahora
-            url: "#"
+            url: '#'
             source: San José Ahora
           - text: Marca País
-            url: "#"
+            url: '#'
             source: Marca País
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: outline
     showOnLocations:
       - atlanta-usa
@@ -256,6 +287,7 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: partnership_carousel-cz1tz4
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
@@ -268,17 +300,21 @@ sections:
         object_position: 100% 80%
         title: Beca talento digital y 4Geeks Academy
         subtitle: Lanzando la Fundación ONCE
-        description: La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con 4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
+        description: >-
+          La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas
+          a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con
+          4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de
+          datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
         stats:
           - value: 20%
             label: Coste que asume el alumno + impuestos
-          - value: "+10"
+          - value: '+10'
             label: Geeks beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
           - image_id: logo-fonce
-            alt: "Image: logo-fonce"
+            alt: 'Image: logo-fonce'
         press_references:
           - text: Talento Digital
             url: https://portalentodigital.fundaciononce.es/becas
@@ -291,41 +327,50 @@ sections:
         object_position: 100% 80%
         title: United Way Miami y 4Geeks Academy
         subtitle: Lanzamiento del Proyecto de Fuerza Laboral de Miami
-        description: United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos recibirán capacitación en programación sin costos iniciales.
+        description: >-
+          United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este
+          programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del
+          condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos
+          recibirán capacitación en programación sin costos iniciales.
         stats:
           - value: $1mm
             label: Costo total
-          - value: "100"
+          - value: '100'
             label: Beneficiados
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Miami Herald
-            url: "#"
+            url: '#'
             source: Miami Herald
           - text: Refresh Miami
-            url: "#"
+            url: '#'
             source: Refresh Miami
           - text: Social Finance
-            url: "#"
+            url: '#'
             source: Social Finance
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks Academy
         subtitle: Impulsando el desarrollo del talento en Costa Rica
-        description: En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
+        description: >-
+          En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el
+          desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías
+          digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben
+          capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al
+          crecimiento económico del país.
         stats:
           - value: $50,000
             label: Costo total
-          - value: "35"
+          - value: '35'
             label: Beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -336,27 +381,31 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Periódico Mensaje
-            url: "#"
+            url: '#'
             source: Periódico Mensaje
           - text: La República
-            url: "#"
+            url: '#'
             source: La República
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
         title: Costa Rica-CINDE y 4Geeks
         subtitle: Invirtiendo en talento tecnológico en Costa Rica
-        description: En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el BID lanzó un programa para invertir en talento costarricense. Juntos estamos ayudando a unos 250 estudiantes a convertirse en desarrolladores de software capacitados, abriendo puertas a mejores oportunidades laborales tras graduarse.
+        description: >-
+          En colaboración con el Ministerio de Ciencia, Tecnología, Telecomunicaciones e Innovación de Costa Rica, el
+          BID lanzó un programa para invertir en talento costarricense. Juntos estamos ayudando a unos 250 estudiantes a
+          convertirse en desarrolladores de software capacitados, abriendo puertas a mejores oportunidades laborales
+          tras graduarse.
         stats:
           - value: $1.5mm
             label: Costo total
-          - value: "212"
+          - value: '212'
             label: Beneficiados
         institution_logos:
           - image_id: logo_crusa
@@ -365,30 +414,32 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: Revista Summa
-            url: "#"
+            url: '#'
             source: Revista Summa
           - text: IDB Press
-            url: "#"
+            url: '#'
             source: IDB Press
           - text: Cultura Costa Rica
-            url: "#"
+            url: '#'
             source: Cultura Costa Rica
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
         title: UTEC y 4Geeks
         subtitle: Capacitando uruguayos en programación
-        description: Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, BID y 4Geeks. El objetivo era capacitar a uruguayos en programación y aprovechar el crecimiento impulsado por la tecnología en el país.
+        description: >-
+          Este proyecto fue posible gracias a un esfuerzo conjunto entre UTEC, BID y 4Geeks. El objetivo era capacitar a
+          uruguayos en programación y aprovechar el crecimiento impulsado por la tecnología en el país.
         stats:
           - value: 175k
             label: Costo total
-          - value: "60"
+          - value: '60'
             label: Beneficiados
         institution_logos:
           - image_id: bid_logo
@@ -399,20 +450,20 @@ sections:
             alt: Logo de 4Geeks Academy
         press_references:
           - text: El País
-            url: "#"
+            url: '#'
             source: El País
           - text: San José Ahora
-            url: "#"
+            url: '#'
             source: San José Ahora
           - text: Marca País
-            url: "#"
+            url: '#'
             source: Marca País
           - text: Ver proyecto completo (PDF)
-            url: "#"
+            url: '#'
             source: PDF
         cta:
           text: Saber más
-          url: "#"
+          url: '#'
           variant: outline
     showOnLocations:
       - barcelona-spain
@@ -426,6 +477,7 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
+    section_id: partnership_carousel-oesyof
   - type: two_column
     proportions:
       - 5
@@ -449,9 +501,10 @@ sections:
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: "12"
+    gap: '12'
     marginY:
       desktop: none md
+    section_id: two_column-1cn0ow
   - type: profiles_carousel
     version: v1.0
     heading: Lo que dicen nuestros socios sobre el impacto de 4Geeks
@@ -460,32 +513,45 @@ sections:
       - image_id: enrique_infanzon
         name: Enrique Infanzón
         role: Decano de Educación Continua @ Miami Dade College
-        description: 4Geeks ha sido un gran socio para nosotros durante los últimos 7 años. Hemos lanzado programas de desarrollo web, full-stack y de IA con éxito y ya hemos ayudado a más de 400 estudiantes.
+        description: >-
+          4Geeks ha sido un gran socio para nosotros durante los últimos 7 años. Hemos lanzado programas de desarrollo
+          web, full-stack y de IA con éxito y ya hemos ayudado a más de 400 estudiantes.
         linkedin_url: https://www.linkedin.com/in/enriqueinfanzon
       - image_id: antonio_delgado
         name: Antonio Delgado
         role: Vicepresidente de Innovación y Tecnología @ Miami Dade College
-        description: Recientemente lanzamos la Coalición de Tecnología de Miami y 4Geeks vuelve a demostrar con su programa y dedicación que se puede confiar en su experiencia y calidad.
+        description: >-
+          Recientemente lanzamos la Coalición de Tecnología de Miami y 4Geeks vuelve a demostrar con su programa y
+          dedicación que se puede confiar en su experiencia y calidad.
         linkedin_url: https://www.linkedin.com/in/antoniodelgadofornaguera
       - name: Vanessa Benavides
         role: Vicepresidenta @ United Way Miami
-        description: Junto con 4Geeks lanzamos con éxito el Proyecto de Fuerza Laboral de Miami para beneficiar a los residentes del condado de Miami-Dade y generamos un gran impacto positivo.
+        description: >-
+          Junto con 4Geeks lanzamos con éxito el Proyecto de Fuerza Laboral de Miami para beneficiar a los residentes
+          del condado de Miami-Dade y generamos un gran impacto positivo.
         linkedin_url: https://www.linkedin.com/in/vanessa-benavides-2a78849/
       - image_id: dug_jones
         name: Dug Jones
         role: Director de Programas para Subvenciones de Fuerza Laboral @ Clark University
-        description: Tenemos una sólida alianza centrada en brindar becas parciales para estudiantes desempleados o subempleados, y hemos superado con creces las expectativas iniciales.
+        description: >-
+          Tenemos una sólida alianza centrada en brindar becas parciales para estudiantes desempleados o subempleados, y
+          hemos superado con creces las expectativas iniciales.
         linkedin_url: https://www.linkedin.com/in/dugjones/
       - image_id: juancarlos_navarro
         name: Juan Carlos Navarro
         role: Líder Principal de Ciencia y Tecnología @ IDB
-        description: 4Geeks ha sido galardonada por el IDB como la Escuela de Programación designada para brindar programas de alta calidad en Costa Rica y Uruguay.
+        description: >-
+          4Geeks ha sido galardonada por el IDB como la Escuela de Programación designada para brindar programas de alta
+          calidad en Costa Rica y Uruguay.
         linkedin_url: https://www.linkedin.com/in/juan-carlos-navarro-08948a8/
       - image_id: anahi_lacava
         name: Anahí Lacava
         role: Líder del Proyecto Bootcamp en Habilidades Digitales @ UTEC
-        description: Desde 2021 hemos estado trabajando en programas de desarrollo de software full-stack y en el lanzamiento del primer programa de Inteligencia Artificial y Aprendizaje Automático en toda América Latina.
+        description: >-
+          Desde 2021 hemos estado trabajando en programas de desarrollo de software full-stack y en el lanzamiento del
+          primer programa de Inteligencia Artificial y Aprendizaje Automático en toda América Latina.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
+    section_id: profiles_carousel-az38p3
   - type: faq
     title: Preguntas frecuentes
     related_features:
@@ -494,8 +560,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
+    section_id: faq-ecqzkn
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para ser un aliado?
     subtitle: Construyamos juntos rutas escalables hacia carreras tech de alto crecimiento.
     background: hsl(var(--primary))
@@ -536,8 +603,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-u9yy8o
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -564,3 +632,4 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-mmb5po

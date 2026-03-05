@@ -10,12 +10,14 @@ default_language: es
 timezone: America/Bogota
 visibility: listed
 phone: +57 1 234 5678
-address: "Carrera 7 #71-21, Bogota"
+address: 'Carrera 7 #71-21, Bogota'
 available_programs:
   - full-stack
 context:
   when_to_use: For Bogotá and Colombia visitors or those interested in tech opportunities in Colombia's growing tech scene.
-  target_audience: Local professionals, entrepreneurs, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
+  target_audience: >-
+    Local professionals, entrepreneurs, and Latin American residents seeking a coding bootcamp with global recognition
+    and job-focused training.
   goals:
     - Position Bogotá as Colombia's leading tech hub
     - Emphasize bilingual (English/Spanish) and hybrid programs
@@ -35,13 +37,15 @@ schema:
   overrides:
     organization:
       address:
-        "@type": PostalAddress
-        streetAddress: "Carrera 7 #71-21"
+        '@type': PostalAddress
+        streetAddress: 'Carrera 7 #71-21'
         addressLocality: Bogotá
         addressCountry: CO
 meta:
   page_title: 4Geeks Academy Bogotá | Bootcamp de Programación en Colombia
-  description: Únete al bootcamp de programación 4Geeks en Bogotá. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
+  description: >-
+    Únete al bootcamp de programación 4Geeks en Bogotá. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con
+    mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/bogota-og.jpg
   priority: 0.8
@@ -50,23 +54,26 @@ meta:
     - /es/coding-campus/bootcamp-programacion-colombia
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Bogotá
-    subtitle: Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la capital y mayor hub tech de Colombia. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
+    subtitle: >-
+      Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la capital y mayor hub tech de Colombia.
+      Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Bogotá
     cta_buttons:
       - text: Aplicar Ahora
         url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: "#cta_banner-mz3r3l"
+        url: '#cta_banner-mz3r3l'
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    section_id: hero-cul51k
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -107,8 +114,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
+    section_id: awards_marquee-vfhgdo
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -116,10 +124,14 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: En el Centro del Impulso Tech de Bogotá
-    description: Bogotá es la capital de Colombia y un hub tech en crecimiento. Desde nuestro campus en Bogotá, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.
+    description: >-
+      Bogotá es la capital de Colombia y un hub tech en crecimiento. Desde nuestro campus en Bogotá, te conectamos con
+      empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y
+      crecimiento a largo plazo en tech.
     background: gradient
     marginY:
       desktop: lg none
+    section_id: banner-f3898o
   - type: two_column
     proportions:
       - 6
@@ -130,19 +142,24 @@ sections:
     right:
       heading: Perspectivas de 4Geeks Academy en Bogotá
       sub_heading: Explorando el Panorama Tecnológico y las Oportunidades Educativas en Bogotá
-      description: Liliana destaca el papel fundamental de las redes en la industria tecnológica colombiana y cómo 4Geeks Academy se integra en este entorno. Nuestros graduados tienen una tasa de colocación laboral del 95% dentro de los seis meses posteriores a la graduación. Hemos capacitado a más de 10,000 estudiantes, brindándoles las habilidades necesarias para triunfar en el campo de la tecnología.
+      description: >-
+        Liliana destaca el papel fundamental de las redes en la industria tecnológica colombiana y cómo 4Geeks Academy
+        se integra en este entorno. Nuestros graduados tienen una tasa de colocación laboral del 95% dentro de los seis
+        meses posteriores a la graduación. Hemos capacitado a más de 10,000 estudiantes, brindándoles las habilidades
+        necesarias para triunfar en el campo de la tecnología.
       button:
         text: Ver video completo
         url: https://www.youtube.com/watch?v=aZrQNvyniLo
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
+    section_id: two_column-00d7oe
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Explora Nuestros Programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -157,7 +174,9 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        description: >-
+          Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de
+          despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
@@ -172,9 +191,11 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+          - icon: ''
+            text: ''
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con
+          herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
@@ -188,7 +209,9 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        description: >-
+          Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones
+          impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -202,47 +225,68 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        description: >-
+          Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas
+          modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-p03xku
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
       - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
+        text: >-
+          Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados
+          durante el programa y continúa recibiendo soporte mucho después de graduarte.
       - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
+        text: >-
+          Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y
+          mejora continuamente con guía adaptada a tu camino de aprendizaje.
       - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
+        text: >-
+          Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y
+          posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+        text: >-
+          Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte
+          oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-rpwbzp
   - type: testimonials_slide
     title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    description: >-
+      Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching
+      experto llevan a resultados reales.
     background: bg-sidebar
+    section_id: testimonials_slide-5wjno3
   - type: split_cards
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: |-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
+      description: >-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de
+        Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras
+        muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un
+        rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif;
+        white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
+        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+        aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
+        - text: __TPL__% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
+        - text: __TPL__% aumento salarial promedio en roles tech
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
@@ -251,7 +295,16 @@ sections:
     variant: laptop-edge
     title: Por Qué Bogotá es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Una comunidad tech próspera con impulso de contratación real
-    description: "Bogotá, la capital de Colombia, ha estado creciendo en su escena tecnológica, atrayendo a empresas e innovadores emprendedores. La codificación desempeña un papel vital en el ecosistema tecnológico de Bogotá.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Alta demanda de habilidades en codificación en todos los sectores</span></li><li>Numerosos bootcamps, escuelas y programas de capacitación para apoyar tu desarrollo profesional</li><li>Comunidad tecnológica próspera e infraestructura de apoyo para aspirantes a codificar</li></ul></div><div>Desde nuestro campus en Bogotá, te conectamos con empleadores locales, eventos tech y un ecosistema en crecimiento para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
+    description: >-
+      Bogotá, la capital de Colombia, ha estado creciendo en su escena tecnológica, atrayendo a empresas e innovadores
+      emprendedores. La codificación desempeña un papel vital en el ecosistema tecnológico de
+      Bogotá.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Alta demanda de habilidades
+      en codificación en todos los sectores</span></li><li>Numerosos bootcamps, escuelas y programas de capacitación
+      para apoyar tu desarrollo profesional</li><li>Comunidad tecnológica próspera e infraestructura de apoyo para
+      aspirantes a codificar</li></ul></div><div>Desde nuestro campus en Bogotá, te conectamos con empleadores locales,
+      eventos tech y un ecosistema en crecimiento para que construyas relaciones que apoyen tu entrada y crecimiento a
+      largo plazo en tech.</div></div>
+    section_id: why_learn_ai-zhkn2t
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -259,13 +312,20 @@ sections:
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
+        description: >-
+          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
+          profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
+        description: >-
+          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
+          contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+        description: >-
+          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
+          entienden tu journey.
+    section_id: mentorship-5zaeaj
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -273,25 +333,33 @@ sections:
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
+        description: >-
+          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
+          profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
+        description: >-
+          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
+          contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+        description: >-
+          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
+          entienden tu journey.
+    section_id: mentorship-p4y09e
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Historias de Éxito de Graduados de Bogotá
     filter_by_location: bogota-colombia
     marginY:
       desktop: none lg
+    section_id: testimonials-00jtbn
   - type: testimonials
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -310,13 +378,17 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        comment: >-
+          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
+          cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        comment: >-
+          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
+          computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -330,6 +402,7 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+    section_id: testimonials-67bsd9
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -340,8 +413,9 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    section_id: faq-e53p85
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -372,7 +446,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -385,9 +461,9 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-mz3r3l
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: __TPL__
     show_dismiss: false
     form:
       variant: inline

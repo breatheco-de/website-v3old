@@ -6,11 +6,17 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Trabajo Garantizado | 4Geeks Academy
-  description: Ingresa al mundo tech con nuestra Garantía de Empleo. Consigue trabajo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.
+  description: >-
+    Ingresa al mundo tech con nuestra Garantía de Empleo. Consigue trabajo en 9 meses después de graduarte o te
+    devolvemos el 100% de tu matrícula.
   redirects: []
 context:
-  when_to_use: Para visitantes escépticos sobre los resultados de bootcamps o que necesitan seguridad sobre su inversión en carrera.
-  target_audience: Cambiadores de carrera aversos al riesgo que necesitan garantías fuertes antes de comprometerse con una inversión educativa.
+  when_to_use: >-
+    Para visitantes escépticos sobre los resultados de bootcamps o que necesitan seguridad sobre su inversión en
+    carrera.
+  target_audience: >-
+    Cambiadores de carrera aversos al riesgo que necesitan garantías fuertes antes de comprometerse con una inversión
+    educativa.
   goals:
     - Construir confianza con términos transparentes de la garantía
     - Abordar escepticismo sobre la efectividad de los bootcamps
@@ -22,36 +28,46 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Ingresa al mundo tech con nuestra Garantía de Empleo*
-    subtitle: "&nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></span></span></span></div>"
+    subtitle: >-
+      &nbsp;Diseñada para darte confianza extra al invertir en tu carrera. Consigue empleo en 9 meses después de
+      graduarte o te devolvemos el 100% de tu matrícula.&nbsp;<div bis_skin_checked="1"><span style="font-size:
+      1rem;"><span><span style="font-size: 0.875rem;"><span>*No aplica para todos los mercados, países o estados donde
+      opera 4Geeks. <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+      aplican.</a></span></span></span></span></div>
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+      src: >-
+        https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Estudiantes colaborando en un espacio de trabajo tech
     cta_buttons:
-      - text: {{ global.call_to_action_apply | Aplicar ahora }}
-        url: "#bottom"
+      - text: __TPL__
+        url: '#bottom'
         variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
     marginY:
       desktop: none md
+    section_id: hero-legdp4
   - type: graduates_stats
     version: v1.0
     variant: fullBleed
     heading: Resultados que respaldan nuestra Garantía
-    subheading: "Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números reflejan las contrataciones reales de nuestros graduados."
+    subheading: >-
+      Nuestra Garantía de Empleo se basa en un solo resultado: lanzar carreras en tech de forma éxitosa. Estos números
+      reflejan las contrataciones reales de nuestros graduados.
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}
-        unit: "%"
+      - value: __TPL__
+        unit: '%'
         label: Tasa promedio de colocación laboral
       - value: 3-6
         unit: meses
         label: Tiempo promedio para conseguir empleo
-      - value: {{ global.global_salary_increase | 55 }}
-        unit: "%"
+      - value: __TPL__
+        unit: '%'
         label: Aumento salarial después de graduarte
     collage_images:
       - image_id: graduates_team_1
@@ -89,29 +105,32 @@ sections:
     image_bordered: true
     paddingY:
       desktop: none
+    section_id: graduates_stats-u8w8rn
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Programas de carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: {{ global.ai_engineering_week_duration | 24 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 226
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
             text: APIs, automatización y telemetría
-        description: Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo de IA listos para producción.
+        description: >-
+          Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo
+          de IA listos para producción.
         price: $2000
-        price_period: " "
+        price_period: ' '
         price_info: Para agregar la garantía de empleo
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Desarollo Full Stack con IA
-        duration: {{ global.fullstack_week_duration | 20 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -120,37 +139,43 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con
+          herramientas y frameworks estándar de la industria.
         price: $2000
-        price_period: " "
+        price_period: ' '
         price_info: Para agregar la garantía de empleo
         cta_text: Ver programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: {{ global.data_science_week_duration | 16 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
           - icon: Brain
             text: Python, TensorFlow y SQL
-        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning utilizadas por equipos modernos de datos.
+        description: >-
+          Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine
+          learning utilizadas por equipos modernos de datos.
         price: $2000
-        price_period: " "
+        price_period: ' '
         price_info: Para agregar la garantía de empleo
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: {{ global.cybersecurity_week_duration | 16 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
-        description: Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
+        description: >-
+          Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad
+          alineadas con estándares de la industria.
         price: $2000
-        price_period: " "
+        price_period: ' '
         price_info: Para agregar la garantía de empleo
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
@@ -167,26 +192,29 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: course_selector-s6z6iy
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Programas de carrera con Garantía de Empleo
     subheading: Ofrecemos la opción de agregar la Garantía de Empleo para brindarte un nivel adicional de seguridad.
     courses:
       - name: Ingeniería en IA
         icon: Brain
-        duration: {{ global.ai_engineering_week_duration | 24 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
             text: APIs, automatización y telemetría
-        description: Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo de IA listos para producción.
+        description: >-
+          Construye y escala un negocio nativo en IA. Aprende a desarrollar e implementar sistemas y flujos de trabajo
+          de IA listos para producción.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Desarollo Full Stack con IA
-        duration: {{ global.fullstack_week_duration | 2O }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Desarrollo Full Stack con IA
         badges:
@@ -195,29 +223,35 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con herramientas y frameworks estándar de la industria.
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción con
+          herramientas y frameworks estándar de la industria.
         cta_text: Ver programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos & Machine Learning
-        duration: {{ global.data_science_week_duration | 16 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning
         badges:
           - icon: Brain
             text: Python, TensorFlow y SQL
-        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning utilizadas por equipos modernos de datos.
+        description: >-
+          Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine
+          learning utilizadas por equipos modernos de datos.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        duration: {{ global.cybersecurity_week_duration | 16 }} semanas
+        duration: __TPL__ semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
-        description: Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
+        description: >-
+          Desarrolla las habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad
+          alineadas con estándares de la industria.
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -244,11 +278,12 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: course_selector-tz75gb
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: laptopEdge
     heading: ¿Quién es elegible?
-    description: "Calificas para la Garantía de Empleo si:"
+    description: 'Calificas para la Garantía de Empleo si:'
     cards:
       - icon: IconBriefcaseFilled
         title: Tienes autorización para trabajar en tu país de residencia.
@@ -263,17 +298,22 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+    section_id: features_quad-abmlon
   - type: numbered_steps
-    version: "1.0"
+    version: '1.0'
     variant: bubbleText
     title: Cómo funciona el reembolso
-    description: "Lo hemos hecho simple: si completas todos los pasos requeridos y no consigues un empleo calificado en 9 meses después de graduarte, te devolvemos el 100% de tu matrícula."
+    description: >-
+      Lo hemos hecho simple: si completas todos los pasos requeridos y no consigues un empleo calificado en 9 meses
+      después de graduarte, te devolvemos el 100% de tu matrícula.
     description_link:
       text: Condiciones aplican.
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
     steps:
       - icon: Optimization
-        text: Notifícanos si no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la graduación.
+        text: >-
+          Notifícanos si no fuiste contratado en ningún rol calificado dentro de los 9 meses posteriores a la
+          graduación.
         title: Notificación
       - icon: Interview
         text: Nuestro equipo verifica exhaustivamente que cumpliste todos los requisitos de la Garantía de Empleo.
@@ -281,11 +321,16 @@ sections:
       - icon: JobSearch
         text: Recibirás tu reembolso completo dentro de los 30 días siguientes a la aprobación de tu solicitud.
         title: Reembolso completo
+    section_id: numbered_steps-680ulk
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: cardHeader
     heading: Garantía de Empleo basada en resultados reales
-    description: Nuestra Garantía de Empleo se basa en resultados reales de contratación y en un modelo diseñado para maximizar tu empleabilidad. Nuestro contenido, metodología y acompañamiento profesional están alineados con las exigencias del mercado tech actual para ayudarte a conseguir tu próximo empleo. Hemos ayudado a más de 6000 graduados a lanzar su nueva carrera.
+    description: >-
+      Nuestra Garantía de Empleo se basa en resultados reales de contratación y en un modelo diseñado para maximizar tu
+      empleabilidad. Nuestro contenido, metodología y acompañamiento profesional están alineados con las exigencias del
+      mercado tech actual para ayudarte a conseguir tu próximo empleo. Hemos ayudado a más de 6000 graduados a lanzar su
+      nueva carrera.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: Soporte comunitario de 4Geeks Academy
     background: bg-primary/5
@@ -296,8 +341,9 @@ sections:
         text: Alta demanda de talento tech calificado
       - icon: ChalkboardTeacher
         text: Formación estructurada con acompañamiento práctico y continuo
+    section_id: features_grid-7lporc
   - type: faq
-    version: "1.0"
+    version: '1.0'
     title: Preguntas frecuentes sobre la Garantía de Empleo
     related_features:
       - job-guarantee
@@ -305,8 +351,9 @@ sections:
       desktop: none
     marginY:
       desktop: lg none
+    section_id: faq-5lon20
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -336,7 +383,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -348,7 +397,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-qcdk0z
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -376,3 +425,4 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-gh9mvi

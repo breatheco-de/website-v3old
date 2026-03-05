@@ -15,7 +15,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: en Tech, a tu manera
     subtitle: Opciones de pago flexibles para facilitar el salto a tech.
@@ -23,7 +23,9 @@ sections:
       prefix: Financia tu
       highlight: futuro
       color: chart-1
-    description: Ofrecemos planes de pago flexibles, opciones de financiamiento y becas para que puedas enfocarte en lanzar tu carrera tech sin preocuparte por las finanzas.
+    description: >-
+      Ofrecemos planes de pago flexibles, opciones de financiamiento y becas para que puedas enfocarte en lanzar tu
+      carrera tech sin preocuparte por las finanzas.
     bullets:
       - text: Planes de pago mensual estructurados
       - text: Opciones de financiamiento competitivas
@@ -31,11 +33,11 @@ sections:
     image_id: group_original
     cta_button:
       text: Solicita información
-      url: "#bottom"
+      url: '#bottom'
       variant: primary
     trust_bar:
-      rating: "4.5"
-      review_count: Basado en más de {{ global_review_count | 5149 }}+ reseñas
+      rating: '4.5'
+      review_count: Basado en más de __TPL__+ reseñas
       review_logos:
         - name: Google
           logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
@@ -47,17 +49,20 @@ sections:
       desktop: none
     marginY:
       desktop: none md
+    section_id: hero-vu8543
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: Resultados profesionales comprobados
     subtitle: Alta empleabilidad. Crecimiento salarial real.
-    description: "Reconocido por Forbes, 4Geeks ofrece formación accesible con resultados medibles: alta empleabilidad y crecimiento salarial real para impulsar tu carrera en tecnología."
+    description: >-
+      Reconocido por Forbes, 4Geeks ofrece formación accesible con resultados medibles: alta empleabilidad y crecimiento
+      salarial real para impulsar tu carrera en tecnología.
     background: hsl(var(--sidebar-background))
     items:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: __TPL__%
         title: Tasa promedio de colocación laboral
-      - value: {{ global.global_salary_increase | 55 }}%
+      - value: __TPL__%
         title: Incremento salarial promedio tras la graduación
       - value: 3-6 Meses
         title: Tiempo promedio para conseguir empleo
@@ -65,20 +70,30 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+    section_id: features_grid-x1e4zc
   - type: syllabus
     title: Financia tu carrera tech
-    subtitle: Explora caminos de financiación flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la opción que mejor se adapte a ti.
+    subtitle: >-
+      Explora caminos de financiación flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la
+      opción que mejor se adapte a ti.
     modules:
       - title: Pago anticipado y ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
       - title: Cuotas sin intereses a 6 Meses
         description: Divide el coste de tu matrícula en 6 meses, sin intereses ni costes adicionales con nuestros partners.
       - title: Pagos basados en ingresos
-        description: ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar únicamente cuando tus ingresos anuales alcancen los {{ global.minimun_isa_salary | 17.000 € }}. A partir de ese momento, se aplica un porcentaje fijo de tus ingresos, adaptado a tu situación económica.
+        description: >-
+          ¿Prefieres pagar cuando ya estés trabajando? Con la financiación ISA de BCAS FinTECH, comienzas a pagar
+          únicamente cuando tus ingresos anuales alcancen los __TPL__. A partir de ese momento, se aplica un porcentaje
+          fijo de tus ingresos, adaptado a tu situación económica.
       - title: Financia tu formación con comodidad
-        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde {{ global.mounthly_price_bootcamp | 200 € }}. La aprobación y condiciones finales dependen de la entidad financiera.
+        description: >-
+          Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio, con cuotas mensuales desde
+          __TPL__. La aprobación y condiciones finales dependen de la entidad financiera.
       - title: Becas
-        description: Ofrecemos becas parciales internas según perfil y promociones vigentes, así como becas a través de organizaciones colaboradoras. La disponibilidad y los importes pueden variar.
+        description: >-
+          Ofrecemos becas parciales internas según perfil y promociones vigentes, así como becas a través de
+          organizaciones colaboradoras. La disponibilidad y los importes pueden variar.
     expand_label: Más información
     collapse_label: Ocultar información
     marginY:
@@ -98,20 +113,31 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
+    section_id: syllabus-9r7g8a
   - type: syllabus
     title: Financia tu carrera en tecnología
-    subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
+    subtitle: >-
+      Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en
+      ingresos, y elige la alternativa que mejor funcione para ti.
     modules:
       - title: Paga por adelantado y ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
       - title: Cuotas sin intereses a 6 Meses
-        description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
+        description: >-
+          Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales
+          estructuradas.
       - title: Pagos basados en ingresos
-        description: Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países, y aplican ciertas condiciones. Contáctanos para saber más.
+        description: >-
+          Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países,
+          y aplican ciertas condiciones. Contáctanos para saber más.
       - title: Préstamos y planes de Pago Extendidos
-        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones finales dependen de la entidad financiera.
+        description: >-
+          Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones
+          finales dependen de la entidad financiera.
       - title: Becas
-        description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
+        description: >-
+          Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y
+          organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
     expand_label: Más información
     collapse_label: Ocultar información
     marginY:
@@ -131,20 +157,32 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: syllabus-0kd0wb
   - type: syllabus
     title: Financia Tu Carrera en Tecnología
-    subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
+    subtitle: >-
+      Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en
+      ingresos, y elige la alternativa que mejor funcione para ti.
     modules:
       - title: Paga por Adelantado y Ahorra 10%
         description: Paga la matrícula completa antes de que comience el programa y recibe un 10% de descuento.
       - title: Cuotas sin Intereses a 6 Meses
-        description: Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales estructuradas.
+        description: >-
+          Distribuye el pago de tu matrícula en 6 meses sin intereses. Paga el costo estándar en cuotas mensuales
+          estructuradas.
       - title: Pagos Basados en Ingresos
-        description: ¿Prefieres pagar después de conseguir empleo? A través de nuestro partner Edly, puedes comenzar a pagar una vez que ganes al menos {{ global.anual_income_based_payment_guarantee | $35,000 }} al año. Las cuotas mensuales se ajustan a tus ingresos y se pausan en períodos de desempleo o subempleo. Se permiten codeudores.
+        description: >-
+          ¿Prefieres pagar después de conseguir empleo? A través de nuestro partner Edly, puedes comenzar a pagar una
+          vez que ganes al menos __TPL__ al año. Las cuotas mensuales se ajustan a tus ingresos y se pausan en períodos
+          de desempleo o subempleo. Se permiten codeudores.
       - title: Préstamos y Planes de Pago Extendidos
-        description: Ofrecemos planes de financiamiento de 1 a 5 años, dependiendo de tu perfil crediticio, con pagos mensuales desde menos de {{ global.monthly_payment_minimun | $349 }}. Los términos y la aprobación están sujetos a elegibilidad.
+        description: >-
+          Ofrecemos planes de financiamiento de 1 a 5 años, dependiendo de tu perfil crediticio, con pagos mensuales
+          desde menos de __TPL__. Los términos y la aprobación están sujetos a elegibilidad.
       - title: Becas
-        description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
+        description: >-
+          Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y
+          organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
     expand_label: Más información
     collapse_label: Ocultar información
     marginY:
@@ -164,8 +202,9 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: syllabus-v8nhv0
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
     subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
     columns:
@@ -183,37 +222,44 @@ sections:
       - feature: Descuento en matrícula
         values:
           - 10% de descuento
-          - "No"
-          - "No"
-          - "No"
+          - 'No'
+          - 'No'
+          - 'No'
       - feature: Verificación de crédito
         values:
-          - "No"
+          - 'No'
           - Fácil Acceso
           - Sí
           - Sí
       - feature: Aplazar pagos
         values:
-          - "No"
-          - "No"
+          - 'No'
+          - 'No'
           - Sí
           - Sí
       - feature: Pagar una vez Contratado
         values:
-          - "No"
-          - "No"
-          - "No"
+          - 'No'
+          - 'No'
+          - 'No'
           - Sí
     background: hsl(var(--background))
     marginY:
       desktop: md
     paddingY:
       desktop: md none
+    section_id: comparison_table-lm8kfb
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Inversión del Programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: >-
+      <span style="font-size: 1.125rem;">Consulta la inversión y las opciones de financiamiento disponibles para cada
+      programa.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible
+      en todas las regiones.<span style="color: hsl(var(--primary));"> <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican
+      términos y condiciones.</a></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
     courses:
       - name: AI Engineering
         icon: Brain
@@ -224,8 +270,12 @@ sections:
           - icon: DollarSign
             text: $14,999 inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
-        description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
+            text: >-
+              Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y
+              Garantía de Empleo opcional*
+        description: >-
+          Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo
+          listos para producción.
         price: $349
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
@@ -240,11 +290,15 @@ sections:
           - icon: DollarSign
             text: $10,999 inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+            text: >-
+              Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y
+              Garantía de Empleo opcional*
         tags:
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
+          - icon: ''
+            text: ''
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con
+          herramientas estándar de la industria.
         price: $299
         price_info: o menos según tu plan de pago
         cta_text: Ver detalles del programa
@@ -259,7 +313,9 @@ sections:
           - icon: DollarSign
             text: $10,999 inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
+            text: >-
+              Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y
+              Garantía de Empleo opcional*
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
         price: 299$
         price_info: o menos según tu plan de pago
@@ -275,8 +331,12 @@ sections:
           - icon: DollarSign
             text: $9,999 inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y Garantía de Empleo opcional*
-        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
+            text: >-
+              Elegible para 10% de descuento por pago anticipado, cuotas sin interés, financiamiento extendido y
+              Garantía de Empleo opcional*
+        description: >-
+          Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y
+          ejercicios aplicados.
         price: $299
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
@@ -298,11 +358,18 @@ sections:
       - orlando-usa
       - newyork-usa
       - toronto-canada
+    section_id: course_selector-g1u7op
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Inversión del programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: >-
+      <span style="font-size: 1.125rem;">Consulta la inversión y las opciones de financiamiento disponibles para cada
+      programa.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible
+      en todas las regiones.<span style="color: hsl(var(--primary));"> <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican
+      términos y condiciones.</a></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
     courses:
       - name: AI Engineering
         icon: Brain
@@ -314,7 +381,9 @@ sections:
             text: 3500 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
-        description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
+        description: >-
+          Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo
+          listos para producción.
         price: 227 USD
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
@@ -331,9 +400,11 @@ sections:
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         tags:
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
+          - icon: ''
+            text: ''
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con
+          herramientas estándar de la industria.
         price: 150 USD
         price_info: o menos según tu plan de pago
         cta_text: Ver detalles del programa
@@ -365,7 +436,9 @@ sections:
             text: 2500 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
-        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
+        description: >-
+          Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y
+          ejercicios aplicados.
         price: 150 USD
         price_info: o menos según tu plan de pago
         cta_text: Ver programa
@@ -387,11 +460,18 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: course_selector-nw28tv
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Inversión del programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la inversión y las opciones de financiamiento disponibles para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: >-
+      <span style="font-size: 1.125rem;">Consulta la inversión y las opciones de financiamiento disponibles para cada
+      programa.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible
+      en todas las regiones.<span style="color: hsl(var(--primary));"> <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican
+      términos y condiciones.</a></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
     courses:
       - name: AI Engineering
         icon: Brain
@@ -403,9 +483,13 @@ sections:
             text: 6.250€ precio de lanzamiento
           - icon: CheckCircle
             text: Oferta de primavera, hasta el 1 de mayo*
-        description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
+        description: >-
+          Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo
+          listos para producción.
         price: 140 €
-        price_info: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        price_info: >-
+          Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y
+          sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -418,13 +502,19 @@ sections:
           - icon: DollarSign
             text: 6.800€ inversión total
           - icon: CheckCircle
-            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
+            text: >-
+              Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el
+              paso.*
         tags:
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
+          - icon: ''
+            text: ''
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con
+          herramientas estándar de la industria.
         price: Desde 200 €
-        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        price_info: >-
+          Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y
+          sujeta a aprobación por la entidad financiera.*
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -437,10 +527,14 @@ sections:
           - icon: DollarSign
             text: 7.800€ inversión total"
           - icon: CheckCircle
-            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
+            text: >-
+              Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el
+              paso.*
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
         price: Desde 200€
-        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        price_info: >-
+          Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y
+          sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
         course_background: primary
@@ -453,10 +547,16 @@ sections:
           - icon: DollarSign
             text: 7.800€ inversión total
           - icon: CheckCircle
-            text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
-        description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
+            text: >-
+              Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el
+              paso.*
+        description: >-
+          Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y
+          ejercicios aplicados.
         price: Desde 200€
-        price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+        price_info: >-
+          Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y
+          sujeta a aprobación por la entidad financiera.*
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -476,11 +576,17 @@ sections:
       - dublin-ireland
       - berlin-germany
       - barcelona-spain
+    section_id: course_selector-i9wpjy
   - type: why_learn_ai
     variant: laptop-edge
     title: Garantía de Empleo opcional*
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
-    description: "Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></div>"
+    description: >-
+      Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9
+      meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style="font-size:
+      0.875rem;">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+      aplican.</a></span></div>
     cta:
       text: Más Información
       url: /es/trabajo-garantizado
@@ -501,13 +607,14 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: why_learn_ai-on6rj7
   - type: testimonials
     version: v1.0
     title: Lo que dicen nuestros estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
     rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_verified_reviews_count | 2,847 }}+
+      average: __TPL__
+      count: __TPL__+
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -525,13 +632,17 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        comment: >-
+          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
+          cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        comment: >-
+          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
+          computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -545,6 +656,7 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+    section_id: testimonials-88htt7
   - type: faq
     title: Preguntas frecuentes
     related_features:
@@ -568,8 +680,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: none md
+    section_id: faq-4oa4x8
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -599,7 +712,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -611,9 +726,9 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-bqklnj
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: __TPL__
     show_dismiss: false
     form:
       variant: inline
@@ -638,3 +753,4 @@ sections:
           default: auto
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-txqjir

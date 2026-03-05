@@ -6,7 +6,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Proyectos de Graduados y Alumni | 4Geeks Academy
-  description: "Explora proyectos finales de graduados de 4Geeks Academy: apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni."
+  description: >-
+    Explora proyectos finales de graduados de 4Geeks Academy: apps reales y soluciones que muestran las habilidades,
+    creatividad y talento listo para el mercado de nuestros alumni.
   redirects:
     - /es/alumnos-y-proyectos
     - /es/graduados
@@ -16,32 +18,35 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Mira lo que construyen nuestros estudiantes
-    subtitle: Explora proyectos finales de graduados de 4Geeks Academy. Apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni.
+    subtitle: >-
+      Explora proyectos finales de graduados de 4Geeks Academy. Apps reales y soluciones que muestran las habilidades,
+      creatividad y talento listo para el mercado de nuestros alumni.
     badge: Programa profesional
     cta_buttons:
       - text: Comienza a aprender ahora
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
         icon: Rocket
       - text: Ver currículum
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: outline
         icon: Book
     trust_bar:
-      rating: {{ global.global_review_rating | 4.9 }}/5
+      rating: __TPL__/5
       rating_count: 2,500+
-      trusted_text: Confiado por más de {{ global.global_total_alumni | 10.000 }} estudiantes
+      trusted_text: Confiado por más de __TPL__ estudiantes
     award_badges:
       - name: Mejor Bootcamp de Programación
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Escuela Top de Tecnología
         source: Course Report
+    section_id: hero-htlkzb
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: apply-modal
     heading: Recibir el Plan de Estudios
     description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
@@ -69,11 +74,13 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: projects_showcase
-    version: "1.0"
+    version: '1.0'
     items:
       - project_title: Raspberry Sky
         project_url: https://sattelite-beta.vercel.app/
-        description: Una plataforma capaz de recibir información (viento, temperatura, geolocalización, etc.) de cohetes lanzados al espacio. También permite enviar tu propio cohete, rastrearlo y recibir mensajes de él.
+        description: >-
+          Una plataforma capaz de recibir información (viento, temperatura, geolocalización, etc.) de cohetes lanzados
+          al espacio. También permite enviar tu propio cohete, rastrearlo y recibir mensajes de él.
         creators:
           - name: Luis Rivera
             role: QA Analyst
@@ -89,9 +96,11 @@ sections:
             alt: Raspberry Sky - Acceso satelital para todos
           - type: video
             src: OZfv9kYl0_o
-      - project_title: "IMS: Seguimiento de inventario"
+      - project_title: 'IMS: Seguimiento de inventario'
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
-        description: IMS es un sistema de inventario y logística para farmacias construido con Python, Javascript, React e integración con lectores de códigos de barras, SMS, la API de Twilio y sistemas de rastreo GPS.
+        description: >-
+          IMS es un sistema de inventario y logística para farmacias construido con Python, Javascript, React e
+          integración con lectores de códigos de barras, SMS, la API de Twilio y sistemas de rastreo GPS.
         creators:
           - name: Jonathan Perez
             role: Business Administration
@@ -110,7 +119,9 @@ sections:
             src: TTjSZ2Lud2E
       - project_title: WonderTracker
         project_url: https://wandertrackerfront-end-gmihov001.vercel.app/
-        description: Una plataforma que mantiene tu información de viaje y documentos guardados en un sistema totalmente seguro. Permite rastrear lugares visitados y guardar información importante.
+        description: >-
+          Una plataforma que mantiene tu información de viaje y documentos guardados en un sistema totalmente seguro.
+          Permite rastrear lugares visitados y guardar información importante.
         creators:
           - name: Fernando Funes
             role: Web Developer
@@ -128,7 +139,9 @@ sections:
             alt: Miembro del equipo WonderTracker
       - project_title: reMindful
         project_url: https://re-mindful.vercel.app/
-        description: Conciencia sobre reciclaje considerando todos los pasos necesarios. Una app que integra software y hardware para pesar plástico, vidrio o basura en un contenedor y su impacto en el reciclaje y el medio ambiente.
+        description: >-
+          Conciencia sobre reciclaje considerando todos los pasos necesarios. Una app que integra software y hardware
+          para pesar plástico, vidrio o basura en un contenedor y su impacto en el reciclaje y el medio ambiente.
         creators:
           - name: Jordan Aguiriano
             role: Web Developer
@@ -143,11 +156,15 @@ sections:
           - type: video
             src: cKcZD0_1IKk
     background: hsl(210 100% 50% / 0.05)
+    section_id: projects_showcase-whj7u0
   - type: about
-    version: "1.0"
+    version: '1.0'
     height: 420px
     title: Más Sobre 4Geeks Academy
-    description: 4Geeks Academy fue fundada en 2015. Lo que comenzó como un proyecto interno para entrenar desarrolladores se ha convertido en nuestra pasión. 4Geeks es hoy un Coding Bootcamp en USA que busca construir un nuevo marco para la Educación en Código. 4Geeks Academy tiene ubicaciones en 12 ciudades, 13 campus activos y más de 600 graduados.
+    description: >-
+      4Geeks Academy fue fundada en 2015. Lo que comenzó como un proyecto interno para entrenar desarrolladores se ha
+      convertido en nuestra pasión. 4Geeks es hoy un Coding Bootcamp en USA que busca construir un nuevo marco para la
+      Educación en Código. 4Geeks Academy tiene ubicaciones en 12 ciudades, 13 campus activos y más de 600 graduados.
     link_text: Leer Más
     link_url: /es/sobre-la-academia
     image_src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
@@ -155,14 +172,16 @@ sections:
     marginY:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
+    section_id: about-bvkaqq
   - type: faq
     title: Preguntas frecuentes
     related_features:
       - content-and-syllabus
     marginY:
       desktop: none md
+    section_id: faq-ipauts
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -192,7 +211,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -204,7 +225,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-13z48a
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -232,3 +253,4 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-32l479

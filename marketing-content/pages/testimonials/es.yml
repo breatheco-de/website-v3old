@@ -14,19 +14,21 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Reseñas reales de graduados de 4Geeks Academy
-    subtitle: Nuestros graduados comparten cómo desarrollaron habilidades demandadas, ganaron confianza y lanzaron nuevas carreras en tecnología con el apoyo de la comunidad de 4Geeks.
+    subtitle: >-
+      Nuestros graduados comparten cómo desarrollaron habilidades demandadas, ganaron confianza y lanzaron nuevas
+      carreras en tecnología con el apoyo de la comunidad de 4Geeks.
     badge: Testimonios de estudiantes y resultados profesionales
     trust_bar:
-      rating: {{ global.global_review_rating | 4.9 }}/5
+      rating: __TPL__/5
       rating_count: 2,500+
-      trusted_text: Con la confianza de más de {{ global.global_total_alumni | 10.000 }} estudiantes
+      trusted_text: Con la confianza de más de __TPL__ estudiantes
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Top Tech School
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -34,6 +36,7 @@ sections:
       desktop: md none
     marginY:
       desktop: none md
+    section_id: hero-21rn0v
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -74,10 +77,13 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: md none
+    section_id: awards_marquee-qwcfyk
   - type: testimonials_grid
     version: v1.0
     title: Lo que dicen nuestros estudiantes
-    subtitle: Alumni de 4Geeks comparten sus experiencias, logros profesionales y cómo el programa les ayudó a entrar en la industria tecnológica.
+    subtitle: >-
+      Alumni de 4Geeks comparten sus experiencias, logros profesionales y cómo el programa les ayudó a entrar en la
+      industria tecnológica.
     title_color: hsl(var(--foreground))
     subtitle_color: hsl(var(--muted-foreground))
     default_box_color: hsl(var(--muted))
@@ -87,6 +93,7 @@ sections:
     default_star_color: hsl(45 93% 47%)
     columns: 3
     background: hsl(var(--background))
+    section_id: testimonials_grid-wocekd
   - type: faq
     version: v1.0
     title: Preguntas frecuentes
@@ -94,8 +101,9 @@ sections:
       - outcomes
     marginY:
       desktop: none md
+    section_id: faq-cumj8r
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -125,7 +133,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -137,7 +147,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-kxo25m
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -165,3 +175,4 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-csl419

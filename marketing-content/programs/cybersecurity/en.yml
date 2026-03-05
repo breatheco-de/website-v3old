@@ -6,7 +6,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Cybersecurity Bootcamp | 4Geeks
-  description: Launch a high-paying career in cybersecurity. Learn to defend systems and respond to real-world cyber threats with a hands-on, AI-integrated curriculum—designed by leading cybersecurity experts.
+  description: >-
+    Launch a high-paying career in cybersecurity. Learn to defend systems and respond to real-world cyber threats with a
+    hands-on, AI-integrated curriculum—designed by leading cybersecurity experts.
   redirects:
     - /bootcamp/cybersecurity
     - /programs/cybersecurity-specialist
@@ -19,11 +21,11 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
-    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ global.cybersecurity_week_duration | 16 }} weeks.
+    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in __TPL__ weeks.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -43,27 +45,31 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your tutors:"
-    description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
+    tutors_label: 'Your tutors:'
+    description: >-
+      Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact
+      cybersecurity roles in any industry.
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: >-
+        Receive the complete syllabus, program structure, schedule options, tuition details, and career support
+        framework.
       cta_button:
         text: Send me the details
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: {{ global.cybersecurity_week_duration | 16 }}-week intensive program
+          text: __TPL__-week intensive program
         - icon: IconBriefcase
           text: Employment-first curriculum
         - icon: IconRobot
           text: AI-Powered learning & feedback
         - icon: IconUsers
-          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+          text: __TPL__ Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 mentorship
         - icon: book
@@ -72,10 +78,13 @@ sections:
       desktop: md
     marginY:
       desktop: none
+    section_id: hero-2gmtq7
   - type: modal
-    version: "1.0"
+    version: '1.0'
     heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
+    description: >-
+      Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and
+      support framework.
     show_close: true
     size: md
     form:
@@ -96,7 +105,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: __TPL__
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
@@ -142,27 +151,34 @@ sections:
       desktop: none
     marginY:
       desktop: none lg
+    section_id: awards_marquee-bx0vuy
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: Cybersecurity Talent Is in High Demand
     subtitle: Enter a mission-critical field with long-term growth and strong earning potential.
-    description: A growing global talent gap and record-breaking investment in digital security have created unprecedented demand for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move directly into high-impact, high-paying roles.
+    description: >-
+      A growing global talent gap and record-breaking investment in digital security have created unprecedented demand
+      for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move
+      directly into high-impact, high-paying roles.
     background: bg-muted/30
     items:
-      - id: "1"
+      - id: '1'
         value: 4.8M
         title: Unfilled cybersecurity roles worldwide
-      - id: "2"
+      - id: '2'
         value: 41%
         title: Projected job growth, outpacing most sectors
-      - id: "3"
-        value: {{ global.global_spending_cybersecurity | $520B }}
+      - id: '3'
+        value: __TPL__
         title: Global spending on cybersecurity this year
+    section_id: features_grid-dxwtvz
   - type: syllabus
     variant: program-modules
     program_title: Cybersecurity Program Overview
-    program_description: Master the complete cybersecurity stack from network security to penetration testing. Build real-world defensive and offensive skills using the industry-standard tools employers are looking for.
+    program_description: >-
+      Master the complete cybersecurity stack from network security to penetration testing. Build real-world defensive
+      and offensive skills using the industry-standard tools employers are looking for.
     tech_logos:
       - name: Linux
         icon: linux
@@ -233,12 +249,17 @@ sections:
         icon: IconClipboardCheck
     paddingY:
       desktop: md
+    section_id: syllabus-925r5b
   - type: projects
     title: Learn by Defending Real Systems
-    subtitle: Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a portfolio of security projects that demonstrate your defensive and offensive capabilities.
+    subtitle: >-
+      Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a
+      portfolio of security projects that demonstrate your defensive and offensive capabilities.
     items:
       - title: Network Vulnerability Assessment
-        description: Use Nessus and Nmap to scan networks, identify vulnerabilities, and create comprehensive security reports. Learn to prioritize risks and recommend remediation strategies for enterprise environments.
+        description: >-
+          Use Nessus and Nmap to scan networks, identify vulnerabilities, and create comprehensive security reports.
+          Learn to prioritize risks and recommend remediation strategies for enterprise environments.
         image: network-security
         tags:
           - Nessus
@@ -247,7 +268,9 @@ sections:
         difficulty: medium
         date: 15/01/2025
       - title: Penetration Testing Lab
-        description: Conduct authorized penetration tests on simulated environments using Metasploit. Exploit vulnerabilities, establish persistence, and document your findings following professional pentesting methodologies.
+        description: >-
+          Conduct authorized penetration tests on simulated environments using Metasploit. Exploit vulnerabilities,
+          establish persistence, and document your findings following professional pentesting methodologies.
         image: pentesting
         tags:
           - Metasploit
@@ -256,7 +279,9 @@ sections:
         difficulty: hard
         date: 01/02/2025
       - title: Incident Response Simulation
-        description: Analyze network traffic with Wireshark to detect and respond to security incidents. Create incident reports, timeline reconstructions, and remediation plans based on real attack patterns.
+        description: >-
+          Analyze network traffic with Wireshark to detect and respond to security incidents. Create incident reports,
+          timeline reconstructions, and remediation plans based on real attack patterns.
         image: incident-response
         tags:
           - Wireshark
@@ -266,6 +291,7 @@ sections:
         date: 15/02/2025
     paddingY:
       desktop: md
+    section_id: projects-jwvly8
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -274,7 +300,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -284,7 +310,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -294,7 +320,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -304,9 +330,12 @@ sections:
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md none
+    section_id: ai_learning-x6w1fi
   - type: certificate
     title: Industry Certifications and Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
+    description: >-
+      Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program
+      prepares you for:
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
       - text: CEH (Certified Ethical Hacker) pathway
@@ -317,7 +346,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: Cybersecurity Specialist
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: __TPL__%
         label: Hiring Rate
         description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.
         benefits:
@@ -327,22 +356,28 @@ sections:
           - text: Real-world labs with Nmap & Metasploit
       - value: 3-6 months
         label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
+        description: >-
+          Land your first role within 3–6 months of graduation. With our structured 3-step career development process,
+          your skills turn into job offers fast.
         benefits:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.average_salary_cybersecurity_short | $85 }}
+      - value: __TPL__
         label: Average starting salary
-        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
+        description: >-
+          A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of
+          __TPL__%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
-          - text: "Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}"
-          - text: "Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}"
-          - text: "Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}"
-          - text: "Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}"
+          - text: 'Cybersecurity Analyst: __TPL__'
+          - text: 'Penetration Tester: __TPL__'
+          - text: 'Security Engineer: __TPL__'
+          - text: 'Incident Responder: __TPL__'
       - value: 400+
         label: Hiring Partners
-        description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
+        description: >-
+          Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively
+          seeking cybersecurity talent.
         benefits:
           - text: Direct referrals to partner companies
           - text: Exclusive job board access
@@ -352,11 +387,15 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: none md
+    section_id: certificate-10xpo6
   - type: why_learn_ai
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    description: >-
+      Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role
+      within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a
+      href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
       text: Get more info
       url: /en/job-guarantee
@@ -385,14 +424,15 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    section_id: why_learn_ai-1zysrw
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full payment discount: Save 10% with upfront payment."
-    financing_text: "Credit-based financing: starting below"
-    financing_amount: {{ global.price_cybersecurity | $299 }}
+    discount_text: 'Full payment discount: Save 10% with upfront payment.'
+    financing_text: 'Credit-based financing: starting below'
+    financing_amount: __TPL__
     tech_icons:
       - python
       - tensorflow
@@ -406,9 +446,15 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is {{ global.price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: >-
+          Standard tuition is __TPL__. Pay upfront and receive a 10% discount, or spread payments interest-free over 6
+          months.
       - icon: IconCheck
-        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: >-
+          Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money
+          back.&nbsp;<div>*Not available in all regions. <a
+          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
+          conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -416,7 +462,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: "#apply-modal"
+      url: '#apply-modal'
       variant: primary
     marginY:
       desktop: none md
@@ -445,14 +491,15 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: pricing-nmicxv
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full payment discount: Save 10% with early payment."
+    discount_text: 'Full payment discount: Save 10% with early payment.'
     financing_text: Installment financing starting from
-    financing_amount: {{ global.price_cybersecurity | 299€ }}
+    financing_amount: __TPL__
     tech_icons:
       - python
       - tensorflow
@@ -466,11 +513,15 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
+        text: >-
+          Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24
+          installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
+        text: >-
+          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
+          your fees.
     cta:
       text: Get more information
       url: /es/apply
@@ -491,6 +542,7 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+    section_id: pricing-d1cwvc
   - type: whos_hiring
     variant: carousel
     title: Top Companies Hiring Our Graduates
@@ -522,51 +574,65 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
+    section_id: whos_hiring-4bo24l
   - type: testimonials
     title: Real Students. Real Careers.
-    subtitle: {{ global.global_total_alumni | 6,500 }}+ graduates and {{ global.global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
+    subtitle: __TPL__+ graduates and __TPL__ verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
+      average: __TPL__
+      count: __TPL__
     items:
       - name: Sarah Johnson
         role: Software Engineer
         company: Google
         rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world applications.
+        comment: >-
+          This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum
+          is perfectly structured for real-world applications.
         outcome: +55% salary increase
       - name: Michael Chen
         role: Data Analyst
         company: Meta
         rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
+        comment: >-
+          Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career
+          support were invaluable.
         outcome: Hired in 4 months
       - name: Emily Rodriguez
         role: Security Analyst
         company: Amazon
         rating: 5
-        comment: Excellent content and great support from mentors. The hands-on labs were challenging but rewarding, and now I'm working on enterprise security.
+        comment: >-
+          Excellent content and great support from mentors. The hands-on labs were challenging but rewarding, and now
+          I'm working on enterprise security.
         outcome: +100% salary increase
       - name: David Kim
         role: Penetration Tester
         company: Security Startup
         rating: 5
-        comment: From IT support to penetration testing in 4 months. The structured curriculum and hands-on projects made all the difference.
+        comment: >-
+          From IT support to penetration testing in 4 months. The structured curriculum and hands-on projects made all
+          the difference.
         outcome: Career change success
       - name: Jessica Martinez
         role: SOC Analyst
         company: Fortune 500
         rating: 4
-        comment: Great course with practical, real-world scenarios. The community is supportive and the instructors are always available to help.
+        comment: >-
+          Great course with practical, real-world scenarios. The community is supportive and the instructors are always
+          available to help.
         outcome: +45% salary increase
       - name: Ryan Thompson
         role: Security Engineer
         company: Tech Startup
         rating: 5
-        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
+        comment: >-
+          The best online learning experience I've had. Clear explanations, practical exercises, and excellent career
+          guidance throughout.
         outcome: Landed first security job
     paddingY:
       desktop: md
+    section_id: testimonials-6umllb
   - type: faq
     title: Frequently Asked Questions
     related_features:
@@ -574,9 +640,10 @@ sections:
     paddingY:
       desktop: md
     background: muted
+    section_id: faq-am87zr
   - type: cta_banner
-    version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    version: '1.0'
+    title: Ready to Become an __TPL__?
     subtitle: Limited spots available. Start your transformation today.
     variant: form
     form:
@@ -599,7 +666,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: __TPL__
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -618,7 +685,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-5edlct
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -644,7 +711,7 @@ sections:
         program:
           visible: false
           required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          default: __TPL__
       success:
         message: Thanks! We'll be in touch within 24 hours.
     section_id: sticky_cta-dl9ciq

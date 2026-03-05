@@ -15,19 +15,21 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Real Reviews from 4Geeks Academy Graduates
-    subtitle: Our graduates share how they built in-demand skills, gained confidence, and launched new careers in tech with the support of the 4Geeks community.
+    subtitle: >-
+      Our graduates share how they built in-demand skills, gained confidence, and launched new careers in tech with the
+      support of the 4Geeks community.
     badge: Student Testimonials & Career Outcomes
     trust_bar:
-      rating: {{ global.global_review_rating | 4.9 }}/5
+      rating: __TPL__/5
       rating_count: 2,500+
-      trusted_text: Trusted by {{ global.global_total_alumni | 10,000 }}+ students
+      trusted_text: Trusted by __TPL__+ students
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Top Tech School
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -35,6 +37,7 @@ sections:
       desktop: md none
     marginY:
       desktop: none md
+    section_id: hero-ch3r4v
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -75,6 +78,7 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: md none
+    section_id: awards_marquee-v4s6g5
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
@@ -88,6 +92,7 @@ sections:
     default_star_color: hsl(45 93% 47%)
     columns: 3
     background: hsl(var(--background))
+    section_id: testimonials_grid-fwe7od
   - type: faq
     version: v1.0
     title: Frequently Asked Questions
@@ -95,8 +100,9 @@ sections:
       - outcomes
     marginY:
       desktop: none md
+    section_id: faq-zkzeww
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -134,8 +140,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-s3c8ka
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -164,3 +171,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-790cj6

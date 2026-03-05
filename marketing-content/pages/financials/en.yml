@@ -14,7 +14,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: In Tech, Your Way
     subtitle: Flexible payment options designed for real career growth.
@@ -22,19 +22,21 @@ sections:
       prefix: Finance Your
       highlight: Future
       color: chart-1
-    description: Structured payment plans, competitive financing, and scholarships that give you immediate access to career-focused training and accelerate your path into tech with financial clarity.
+    description: >-
+      Structured payment plans, competitive financing, and scholarships that give you immediate access to career-focused
+      training and accelerate your path into tech with financial clarity.
     bullets:
       - text: Structured monthly payment plans
       - text: Competitive financing options
       - text: Scholarship opportunities for qualified candidates
     video:
       url: https://www.youtube.com/shorts/hvMLx6jX0EY?feature=share
-      ratio: "3:4"
+      ratio: '3:4'
       muted: true
       loop: true
     cta_button:
       text: Get more info
-      url: "#bottom"
+      url: '#bottom'
       variant: primary
     trust_bar:
       rating: 4.5"
@@ -50,17 +52,20 @@ sections:
       desktop: none md
     marginY:
       desktop: none
+    section_id: hero-7gs05d
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: Proven Career Outcomes
     subtitle: Strong hiring results. Real salary growth.
-    description: Recognized by Forbes as a Best Online Bootcamp, including recognition for students on a budget, 4Geeks combines accessible tuition with proven career outcomes that help you launch your tech career with confidence.
+    description: >-
+      Recognized by Forbes as a Best Online Bootcamp, including recognition for students on a budget, 4Geeks combines
+      accessible tuition with proven career outcomes that help you launch your tech career with confidence.
     background: hsl(var(--sidebar-background))
     items:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: __TPL__%
         title: Job placement rate
-      - value: {{ global.global_salary_increase | 55 }}%
+      - value: __TPL__%
         title: Salary increase after graduation
       - value: 3-6 Months
         title: Average time to get hired
@@ -68,20 +73,32 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+    section_id: features_grid-gl0rwp
   - type: syllabus
     title: Fund Your Tech Career
-    subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
+    subtitle: >-
+      Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for
+      you.
     modules:
       - title: Pay Upfront and Save 10%
         description: Pay your tuition in full before the program starts and receive a 10% discount.
       - title: Interest-Free Installments over 6 Months
-        description: Spread your tuition across 6 months with no interest. Pay the standard tuition cost in structured monthly installments.
+        description: >-
+          Spread your tuition across 6 months with no interest. Pay the standard tuition cost in structured monthly
+          installments.
       - title: Income-Based Payments
-        description: Prefer to pay after you land a job? Through our partner Edly, you can start repayment once you earn at least {{ global.anual_income_based_payment_guarantee | $35,000 }} per year. Monthly payments adjust to your income and pause during periods of unemployment or underemployment. Cosigners are supported.
+        description: >-
+          Prefer to pay after you land a job? Through our partner Edly, you can start repayment once you earn at least
+          __TPL__ per year. Monthly payments adjust to your income and pause during periods of unemployment or
+          underemployment. Cosigners are supported.
       - title: Loans and Extended Payment Plans
-        description: We offer financing plans ranging from 1 to 5 years, depending on your credit profile, with monthly payments starting below {{ global.monthly_payment_minimun | $349 }}. Terms and approval are based on eligibility.
+        description: >-
+          We offer financing plans ranging from 1 to 5 years, depending on your credit profile, with monthly payments
+          starting below __TPL__. Terms and approval are based on eligibility.
       - title: Scholarships
-        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
+        description: >-
+          Partial scholarships are available for qualified applicants through select programs and partner organizations.
+          Availability and award amounts vary.
     expand_label: More info
     collapse_label: Hide info
     marginY:
@@ -101,20 +118,30 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: syllabus-kjl4u8
   - type: syllabus
     title: Fund Your Tech Career
-    subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
+    subtitle: >-
+      Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for
+      you.
     modules:
       - title: Pay Upfront and Save 10%
         description: Pay your tuition in full before the program starts and receive a 10% discount.
       - title: Interest-Free Installments over 6 Months
         description: Spread the cost of your tuition fee over 6 months, with no interest or additional costs, through our partners.
       - title: Income-Based Payments
-        description: Prefer to pay after you land a job? With ISA financing from BCAS FinTECH, you only start paying once your annual income reaches {{ global.minimun_isa_salary | £17,000 }}. From that point onwards, a fixed percentage of your income is applied, adapted to your financial situation.
+        description: >-
+          Prefer to pay after you land a job? With ISA financing from BCAS FinTECH, you only start paying once your
+          annual income reaches __TPL__. From that point onwards, a fixed percentage of your income is applied, adapted
+          to your financial situation.
       - title: Loans and Extended Payment Plans
-        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly instalments starting at {{ global.mounthly_price_bootcamp | £200 }}. Approval and final conditions are subject to the financial institution.
+        description: >-
+          We offer financing options of up to 24 months, depending on your credit profile, with monthly instalments
+          starting at __TPL__. Approval and final conditions are subject to the financial institution.
       - title: Scholarships
-        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts vary.
+        description: >-
+          Partial scholarships are available for qualified applicants through select programs and partner organizations.
+          Availability and award amounts vary.
     expand_label: More info
     collapse_label: Hide info
     marginY:
@@ -134,20 +161,31 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
+    section_id: syllabus-o3m29v
   - type: syllabus
     title: Fund Your Tech Career
-    subtitle: Explore flexible financing options, from upfront discounted payments to income-based plans, and choose the alternative that works best for you.
+    subtitle: >-
+      Explore flexible financing options, from upfront discounted payments to income-based plans, and choose the
+      alternative that works best for you.
     modules:
       - title: Pay Upfront and Save 10%
         description: Pay your full tuition before the program begins and receive a 10% discount.
       - title: Interest-Free Installments over 6 Months
-        description: Split your tuition into 6 interest-free monthly payments. Pay the standard tuition cost in structured monthly installments.
+        description: >-
+          Split your tuition into 6 interest-free monthly payments. Pay the standard tuition cost in structured monthly
+          installments.
       - title: Income-Based Payments
-        description: Income Share Agreement (ISA) payment plans are not available in all countries, and certain conditions apply. Contact us to learn more.
+        description: >-
+          Income Share Agreement (ISA) payment plans are not available in all countries, and certain conditions apply.
+          Contact us to learn more.
       - title: Loans and Extended Payment Plans
-        description: We offer financing options of up to 24 months, depending on your credit profile, with monthly payments starting at 170 USD. Final approval and terms depend on the financial institution.
+        description: >-
+          We offer financing options of up to 24 months, depending on your credit profile, with monthly payments
+          starting at 170 USD. Final approval and terms depend on the financial institution.
       - title: Scholarships
-        description: Partial scholarships are available for qualified applicants through select programs and partner organizations. Availability and award amounts may vary.
+        description: >-
+          Partial scholarships are available for qualified applicants through select programs and partner organizations.
+          Availability and award amounts may vary.
     expand_label: More information
     collapse_label: Hide information
     marginY:
@@ -167,8 +205,9 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: syllabus-acjtnm
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: Your Financing Options at a Glance
     subtitle: Understand the key benefits and requirements of each path so you can choose with confidence.
     columns:
@@ -186,37 +225,44 @@ sections:
       - feature: Tuition Discount
         values:
           - 10% off
-          - "No"
-          - "No"
-          - "No"
+          - 'No'
+          - 'No'
+          - 'No'
       - feature: Credit Check Required
         values:
-          - "No"
+          - 'No'
           - Low barrier
-          - "Yes"
-          - "Yes"
+          - 'Yes'
+          - 'Yes'
       - feature: Payment Deferral After Graduation
         values:
-          - "No"
-          - "No"
-          - "Yes"
-          - "Yes"
+          - 'No'
+          - 'No'
+          - 'Yes'
+          - 'Yes'
       - feature: Pay Only After You’re Hired
         values:
-          - "No"
-          - "No"
-          - "No"
-          - "Yes"
+          - 'No'
+          - 'No'
+          - 'No'
+          - 'Yes'
     background: hsl(var(--background))
     marginY:
       desktop: lg md
     paddingY:
       desktop: md none
+    section_id: comparison_table-08867b
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: >-
+      <span style="font-size: 1.125rem;">See tuition and funding options for each
+      program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
+      regions.<span style="color: hsl(var(--primary));"> <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
+      conditions apply.</a></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
     courses:
       - name: AI Engineering
         icon: Brain
@@ -227,7 +273,9 @@ sections:
           - icon: DollarSign
             text: $14,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
+            text: >-
+              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
+              Guarantee*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
         price: $349
         price_info: or less depending on your plan
@@ -243,11 +291,15 @@ sections:
           - icon: DollarSign
             text: $10,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
+            text: >-
+              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
+              Guarantee*
         tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+          - icon: ''
+            text: ''
+        description: >-
+          Master modern web development from frontend to backend and build production-ready applications using
+          industry-standard tools.  
         price: $299
         price_info: or less depending on your plan
         cta_text: View Program Details
@@ -262,7 +314,9 @@ sections:
           - icon: DollarSign
             text: $10,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
+            text: >-
+              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
+              Guarantee*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
         price: $299
         price_info: or less depending on your plan
@@ -278,7 +332,9 @@ sections:
           - icon: DollarSign
             text: $9,999 full tuition
           - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
+            text: >-
+              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
+              Guarantee*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
         price: $299
         price_info: or less depending on your plan
@@ -301,11 +357,18 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    section_id: course_selector-tvtjvo
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: >-
+      <span style="font-size: 1.125rem;">See tuition and funding options for each
+      program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
+      regions.<span style="color: hsl(var(--primary));"> <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
+      conditions apply.</a></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
     courses:
       - name: AI Engineering
         icon: Brain
@@ -334,9 +397,11 @@ sections:
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount and up to 6 interest-free installments.
         tags:
-          - icon: ""
-            text: ""
-        description: Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.
+          - icon: ''
+            text: ''
+        description: >-
+          Master modern web development from frontend to backend and build production-ready applications using
+          industry-standard tools.
         price: $150
         price_info: or less depending on your plan
         cta_text: View Program Details
@@ -390,11 +455,18 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: course_selector-yvk9q6
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: >-
+      <span style="font-size: 1.125rem;">See tuition and funding options for each
+      program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
+      regions.<span style="color: hsl(var(--primary));"> <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
+      conditions apply.</a></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
     courses:
       - name: AI Engineering
         icon: Brain
@@ -408,7 +480,9 @@ sections:
             text: Spring offer, valid until May 1*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
         price: €140
-        price_info: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
+        price_info: >-
+          Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and
+          subject to lender approval.*
         cta_text: Discover program
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -421,13 +495,19 @@ sections:
           - icon: DollarSign
             text: €6,800 full tuition
           - icon: CheckCircle
-            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
+            text: >-
+              Explore available scholarships based on your profile and financing options that can help you take the next
+              step.*
         tags:
-          - icon: ""
-            text: ""
-        description: Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.
+          - icon: ''
+            text: ''
+        description: >-
+          Master modern web development from frontend to backend and build production-ready applications using
+          industry-standard tools.
         price: From €200
-        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
+        price_info: >-
+          Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to
+          lender approval.*
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -440,10 +520,14 @@ sections:
           - icon: DollarSign
             text: €7,800 full tuition
           - icon: CheckCircle
-            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
+            text: >-
+              Explore available scholarships based on your profile and financing options that can help you take the next
+              step.*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
         price: From €200
-        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
+        price_info: >-
+          Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to
+          lender approval.*
         cta_text: Discover program
         cta_url: /en/career-programs/data-science-ml
         course_background: primary
@@ -456,10 +540,14 @@ sections:
           - icon: DollarSign
             text: €7,800 full tuition
           - icon: CheckCircle
-            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
+            text: >-
+              Explore available scholarships based on your profile and financing options that can help you take the next
+              step.*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
         price: From €200
-        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
+        price_info: >-
+          Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to
+          lender approval.*
         cta_text: Discover program
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -479,11 +567,20 @@ sections:
       - dublin-ireland
       - berlin-germany
       - barcelona-spain
+    section_id: course_selector-2ms4e5
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional {{ global.job_guarantee_price | $2,000 }}, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    description: >-
+      <span style="font-size: 1.125rem;"><span><span>For an additional __TPL__, you can add our Job Guarantee. If you
+      don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition
+      refund.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
+      regions. <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"><span
+      style="color: hsl(var(--primary));">Terms and conditions
+      apply.</span></a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span
+      style="font-size: 1rem;"></span></span></div>
     cta:
       text: Get More Info
       url: /en/job-guarantee
@@ -505,13 +602,14 @@ sections:
       - tampa-usa
       - orlando-usa
       - toronto-canada
+    section_id: why_learn_ai-63m5rp
   - type: testimonials
     version: v1.0
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
     rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 2,847 }}
+      average: __TPL__
+      count: __TPL__
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -549,6 +647,7 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
+    section_id: testimonials-pwxel6
   - type: faq
     title: Frequently Asked Questions
     related_features:
@@ -583,8 +682,9 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    section_id: faq-ffcm64
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     background: hsl(var(--primary))
@@ -624,8 +724,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-sqmld4
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -654,3 +755,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-3e3otq

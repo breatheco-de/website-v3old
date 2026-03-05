@@ -7,7 +7,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Programa de Ciencia de Datos y Machine Learning | 4Geeks
-  description: Aprende ciencia de datos y machine learning a tu propio ritmo con herramientas potenciadas por IA, mentoría ilimitada y una comunidad global. Domina Python, TensorFlow y modelado predictivo.
+  description: >-
+    Aprende ciencia de datos y machine learning a tu propio ritmo con herramientas potenciadas por IA, mentoría
+    ilimitada y una comunidad global. Domina Python, TensorFlow y modelado predictivo.
   redirects:
     - /bootcamp/ciencia-de-datos
     - /programas/datascience-machine-learning
@@ -19,11 +21,13 @@ schema:
     - courses:data-science
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: course
     title: Ciencia de Datos y Machine Learning
     title_highlight: Ciencia de Datos
-    subtitle: Domina las habilidades que impulsan la revolución de la IA. Aprende a analizar datos y construir modelos que impulsan decisiones en el mundo real.
+    subtitle: >-
+      Domina las habilidades que impulsan la revolución de la IA. Aprende a analizar datos y construir modelos que
+      impulsan decisiones en el mundo real.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -42,27 +46,29 @@ sections:
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus tutores:"
-    description: Prepárate para roles de alta demanda en ciencia de datos y machine learning a través de proyectos prácticos, mentoría ilimitada y soporte de carrera diseñado para que consigas empleo.
+    tutors_label: 'Tus tutores:'
+    description: >-
+      Prepárate para roles de alta demanda en ciencia de datos y machine learning a través de proyectos prácticos,
+      mentoría ilimitada y soporte de carrera diseñado para que consigas empleo.
     signup_card:
       title: Recibe el plan de estudios completo
       description: Accede al plan de estudios completo, horarios y todo lo que necesitas saber.
       cta_button:
         text: Recibir el plan de estudios
-        url: "#apply-modal"
+        url: '#apply-modal'
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
-          text: Programa intensivo de {{ global.data_science_week_duration | 18 }} Semanas
+          text: Programa intensivo de __TPL__ Semanas
         - icon: IconBriefcase
           text: Plan de estudios orientado al empleo
         - icon: IconRobot
           text: Aprendizaje y retroalimentación con IA
         - icon: IconUsers
-          text: Ratio de {{ global.global_teacher_student_ratio | 8:1 }} Estudiante-Instructor
+          text: Ratio de __TPL__ Estudiante-Instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -73,8 +79,9 @@ sections:
       desktop: none
     video:
       url: https://youtu.be/QlJpTqXCAFw?is=CLYXW9MtMyxQZLJU
+    section_id: hero-jlzfrx
   - type: modal
-    version: "1.0"
+    version: '1.0'
     section_id: apply-modal
     heading: Recibir el Plan de Estudios
     description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
@@ -143,24 +150,34 @@ sections:
       desktop: md lg
     paddingY:
       desktop: none
+    section_id: awards_marquee-6oxolr
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text
     title: ¿Por qué Ciencia de Datos ahora?
     subtitle: Los datos son el combustible de la revolución de la IA.
-    description: A medida que las empresas avanzan hacia operaciones autónomas, la demanda de expertos capaces de convertir información en inteligencia predictiva nunca ha sido mayor. La Ciencia de Datos y el Machine Learning no se tratan solo de analizar el pasado, sino de construir los sistemas que predicen el futuro. Aprovechando herramientas modernas de IA, los profesionales de datos de hoy generan los insights que están transformando cada industria. Domina las habilidades que se mantienen en demanda, sin importar cómo cambie el panorama tecnológico.
+    description: >-
+      A medida que las empresas avanzan hacia operaciones autónomas, la demanda de expertos capaces de convertir
+      información en inteligencia predictiva nunca ha sido mayor. La Ciencia de Datos y el Machine Learning no se tratan
+      solo de analizar el pasado, sino de construir los sistemas que predicen el futuro. Aprovechando herramientas
+      modernas de IA, los profesionales de datos de hoy generan los insights que están transformando cada industria.
+      Domina las habilidades que se mantienen en demanda, sin importar cómo cambie el panorama tecnológico.
     background: hsl(var(--background))
     items:
-      - id: "1"
+      - id: '1'
         value: 36%
         title: tasa de crecimiento proyectada en la próxima década
-      - id: "3"
-        value: {{ global.salary_data_scientist | 22.000€ }}
+      - id: '3'
+        value: __TPL__
         title: Salario inicial promedio para científicos de datos
+    section_id: features_grid-w5522p
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa de ciencia de Datos & Machine Learning
-    program_description: Domina el conjunto de herramientas estándar de la industria utilizado por equipos de datos modernos. Ve más allá del análisis simple para construir sistemas listos para producción, desde la ingeniería de datos crudos hasta el despliegue de modelos predictivos que las empresas usan para impulsar la innovación y escalar.
+    program_description: >-
+      Domina el conjunto de herramientas estándar de la industria utilizado por equipos de datos modernos. Ve más allá
+      del análisis simple para construir sistemas listos para producción, desde la ingeniería de datos crudos hasta el
+      despliegue de modelos predictivos que las empresas usan para impulsar la innovación y escalar.
     tech_logos:
       - name: Python
         icon: python
@@ -233,15 +250,18 @@ sections:
       desktop: md none
     paddingY:
       desktop: md
+    section_id: syllabus-wr3sk5
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: El Modelo de aprendizaje 4Geeks
-    description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
+    description: >-
+      Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y
+      resultados medibles.
     features:
       - icon: Robot
         title: Aprende más rápido con herramientas de IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Feedback instantáneo de Rigobot, nuestro tutor de IA
@@ -251,7 +271,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Acompañamiento profesional diseñado para lanzar tu carrera
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Coaching personalizado 1:1
@@ -265,11 +285,11 @@ sections:
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Sesiones ilimitadas con mentores técnicos
-          - text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
+          - text: Proporción __TPL__ de estudiante–profesor para una orientación personalizada
           - text: Trabajo colaborativo y revisiones en grupo
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
@@ -281,9 +301,12 @@ sections:
       desktop: md none
     paddingY:
       desktop: md none
+    section_id: ai_learning-kbf2uv
   - type: certificate
     title: Resultados profesionales
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
+    description: >-
+      Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
+      Florida. Accede a roles bien remunerados:
     benefits:
       - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
       - text: Data Scientist
@@ -294,7 +317,7 @@ sections:
       subtitle: Certificado de 4Geeks Academy
       program_name: Data Science & Machine Learning
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: __TPL__%
         label: Tasa de contratación
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan activamente.
         benefits:
@@ -304,22 +327,30 @@ sections:
           - text: Perfil profesional optimizado y estrategia de búsqueda de empleo
       - value: 3-6 meses
         label: Tiempo para conseguir empleo
-        description: Consigue tu primer rol en 3–6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
+        description: >-
+          Consigue tu primer rol en 3–6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo
+          profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
         benefits:
-          - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
+          - text: >-
+              Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados
+              en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: {{ global.global_salary_increase | 55 }}%
+      - value: __TPL__%
         label: Aumento salarial promedio
-        description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
+        description: >-
+          Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento
+          inmediato y estabilidad a largo plazo.
         benefits:
-          - text: Científico de datos {{ global.salary_data_scientist }}
-          - text: Ingeniero de Machine Learnign {{ global.average_salary_machine_learning_engineer | $90K–$150K  }}
-          - text: Analista de Datos {{ global.average_salary_data_analyst | 20.000€-30.000€ }}
-          - text: AI Engineer {{ global.average_salary_ai_engineer | 22.000€-35.000€ }}
-      - value: {{ global.number_of_hiring_partners_aprox | 5,000 }}+
+          - text: Científico de datos __TPL__
+          - text: Ingeniero de Machine Learnign __TPL__
+          - text: Analista de Datos __TPL__
+          - text: AI Engineer __TPL__
+      - value: __TPL__+
         label: Empresas Asociadas
-        description: Accede a nuestra red de más de {{ global.number_of_hiring_partners_aprox | 5,000 }} empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
+        description: >-
+          Accede a nuestra red de más de __TPL__ empresas asociadas que buscan activamente talento en ciencia de datos.
+          Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Referencias prioritarias a empresas asociadas
@@ -330,10 +361,15 @@ sections:
     paddingY:
       mobile: lg
       desktop: none lg
+    section_id: certificate-x5e6qd
   - type: features_grid
     variant: highlight
     title: Inscríbete con Garantía de Empleo*
-    subtitle: "¿Necesitas mayor tranquilidad? Agrega nuestra Garantía de Empleo opcional para mayor seguridad.<div><span style=\"font-size: 0.75rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a>.</span></span></div>"
+    subtitle: >-
+      ¿Necesitas mayor tranquilidad? Agrega nuestra Garantía de Empleo opcional para mayor seguridad.<div><span
+      style="font-size: 0.75rem;"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+      aplican</a>.</span></span></div>
     items:
       - icon: Star
         title: Agrega la Garantía de Empleo a tu plan de pago
@@ -342,7 +378,7 @@ sections:
       - icon: Award
         title: Consigue empleo en 9 meses después de graduarte o te devolvemos tu dinero
     columns: 3
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
@@ -363,14 +399,15 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    section_id: features_grid-1gd8mw
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
+    discount_text: 'Descuento por pago completo: Ahorra 10% con pago anticipado.'
     financing_text: Financiamiento en cuotas desde
-    financing_amount: {{ global.price_datascience | 200€ }}
+    financing_amount: __TPL__
     tech_icons:
       - python
       - tensorflow
@@ -384,11 +421,15 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 a 24 cuotas con nuestros partners.
+        text: >-
+          Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 a 24
+          cuotas con nuestros partners.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
-        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
+        text: >-
+          Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte
+          en tu futuro, no en tus tarifas.
     cta:
       text: Obtener más información
       url: /es/apply
@@ -409,14 +450,15 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+    section_id: pricing-6r6wue
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
-    financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ global.price_datascience | 200€ }}
+    discount_text: 'Descuento por pago completo: Ahorra 10% pagando de una sola vez.'
+    financing_text: 'Financiamiento basado en crédito: desde'
+    financing_amount: __TPL__
     tech_icons:
       - openai
       - python
@@ -429,9 +471,16 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: La matrícula estándar es {{ global.price_full_datascience | $14,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: >-
+          La matrícula estándar es __TPL__. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin
+          intereses en 6 meses.
       - icon: IconCheck
-        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+        text: >-
+          Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses
+          posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked="1"><span style="font-size:
+          0.75rem;"><span>*No disponible en todas las regiones. <a
+          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Aplican
+          términos y condiciones</a>.</span></span></div>
       - icon: IconCheck
         text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
         use_rigobot_icon: true
@@ -439,7 +488,7 @@ sections:
         text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
     cta:
       text: Recibir más información
-      url: "#apply-modal"
+      url: '#apply-modal'
       variant: primary
     marginY:
       desktop: none md
@@ -468,6 +517,7 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: pricing-240zru
   - type: whos_hiring
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
@@ -499,53 +549,67 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
+    section_id: whos_hiring-7ts6hv
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: “Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
+    subtitle: “Más de __TPL__ graduados y __TPL__+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 1,294 }}
+      average: __TPL__
+      count: __TPL__
     items:
       - name: Gabriel Salazar
         role: Ingeniero de Software
         company: Microsoft
         rating: 5
-        comment: Ya era especialista de soporte en Microsoft y después de completar el programa logré una nueva posición donde ahora trabajo como Ingeniero de Software.
+        comment: >-
+          Ya era especialista de soporte en Microsoft y después de completar el programa logré una nueva posición donde
+          ahora trabajo como Ingeniero de Software.
         outcome: +50% aumento salarial
       - name: Laura Magallanes
         role: Coordinadora de Programa
         company: 4Geeks
         rating: 5
-        comment: De un pequeño pueblo en Uruguay sin experiencia en programación, ahora soy una mujer jefa de hogar, Instructora y Coordinadora de Programa. Este curso cambió mi vida.
+        comment: >-
+          De un pequeño pueblo en Uruguay sin experiencia en programación, ahora soy una mujer jefa de hogar,
+          Instructora y Coordinadora de Programa. Este curso cambió mi vida.
         outcome: +120% aumento salarial
       - name: Alexandra Espinoza
         role: Desarrolladora de Software
         company: Tech Startup
         rating: 5
-        comment: Venir de un trasfondo totalmente diferente ha sido una gran revelación para mí y todos a mi alrededor. Ahora soy una desarrolladora de software exitosa y talentosa en Costa Rica.
+        comment: >-
+          Venir de un trasfondo totalmente diferente ha sido una gran revelación para mí y todos a mi alrededor. Ahora
+          soy una desarrolladora de software exitosa y talentosa en Costa Rica.
         outcome: +100% aumento salarial
       - name: Loretta Thompson
         role: Analista de Datos
         company: United Way Miami
         rating: 5
-        comment: Me uní en 2022 y me gradué en 2023. Ya encontré trabajo en los siguientes meses y completé todo el círculo de habilidades+trabajo que todos queremos lograr.
+        comment: >-
+          Me uní en 2022 y me gradué en 2023. Ya encontré trabajo en los siguientes meses y completé todo el círculo de
+          habilidades+trabajo que todos queremos lograr.
         outcome: +45% aumento salarial
       - name: Melanie Galaretto
         role: Desarrolladora de Software
         company: Tech Firm
         rating: 5
-        comment: Soy una joven profesional que sueña con lograr una vida que ahora poseo. Soy una desarrolladora de software ingeniosa y comprometida trabajando para una empresa en mi país.
+        comment: >-
+          Soy una joven profesional que sueña con lograr una vida que ahora poseo. Soy una desarrolladora de software
+          ingeniosa y comprometida trabajando para una empresa en mi país.
         outcome: +100% aumento salarial
       - name: Jean St. Cloud
         role: Desarrollador y Mentor
         company: Clark University
         rating: 4
-        comment: La transición de la industria musical a tech fue desafiante pero 4Geeks lo hizo posible. Ahora trabajo como desarrollador y Mentor, ayudando a otros a lograr el mismo sueño.
+        comment: >-
+          La transición de la industria musical a tech fue desafiante pero 4Geeks lo hizo posible. Ahora trabajo como
+          desarrollador y Mentor, ayudando a otros a lograr el mismo sueño.
         outcome: +100% aumento salarial
     marginY:
       desktop: md lg
     paddingY:
       desktop: md none
+    section_id: testimonials-q929xd
   - type: faq
     title: Preguntas frecuentes
     related_features:
@@ -569,8 +633,9 @@ sections:
     paddingY:
       desktop: sm md
     background: hsl(var(--muted))
+    section_id: faq-1fjtnp
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para iniciar tu carrera en Ciencia de Datos?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -601,7 +666,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -611,10 +678,11 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-iahx6n
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: __TPL__
     show_dismiss: false
     form:
       variant: inline
@@ -646,5 +714,8 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
+    section_id: sticky_cta-g1rrxu

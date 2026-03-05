@@ -6,10 +6,16 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Full Stack Developer Career Program | 4Geeks
-  description: Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $65K+ starting salaries.
+  description: >-
+    Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career
+    with $65K+ starting salaries.
 context:
-  when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
-  target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
+  when_to_use: >-
+    For visitors interested in becoming web developers, learning both frontend and backend technologies, or
+    transitioning into software development careers.
+  target_audience: >-
+    Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development
+    skills.
   goals:
     - Highlight the practical, project-based learning approach
     - Emphasize job-ready skills and career outcomes
@@ -22,17 +28,21 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
       prefix: Conviértete en un
       highlight: Desarrollador Full Stack
       color: primary
-    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    description: >-
+      Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva
+      generación de roles de desarollo web impulsados por inteligencia artificial.
     bullets:
       - text: Aprende a programar desde cero hasta ser un profesional
-      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida
+      - text: >-
+          ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de
+          por vida
       - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
     form:
       variant: stacked
@@ -59,14 +69,23 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+        message: >-
+          Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a
+          través de un correo electrónico.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        marketing_text: >-
+          Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos,
+          cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja
+          fácilmente en cualquier momento.
+        sms_text: >-
+          Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden
+          aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta
+          4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja
+          fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
@@ -111,6 +130,7 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    section_id: hero-2v82a9
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -154,6 +174,7 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
+    section_id: awards_marquee-abgn6z
   - type: two_column
     proportions:
       - 5
@@ -162,7 +183,9 @@ sections:
     alignment: center
     left:
       heading: ¡Desde Cero Hasta Tu Primer Empleo!
-      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
+      description: >-
+        Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo
+        20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
       bullets:
         - text: No se requiere experiencia previa
         - text: Horario part-time adaptable a tu vida actual
@@ -174,11 +197,14 @@ sections:
       image_alt: Team collaborating on a project
       justify: center
     reverse_on_mobile: true
-    gap: "12"
+    gap: '12'
+    section_id: two_column-wdarhv
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
-    program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
+    program_description: >-
+      Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para
+      producción usando las tecnologías más demandadas que los empleadores buscan.
     tech_logos:
       - name: HTML5
         icon: html
@@ -249,35 +275,41 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
+    section_id: syllabus-vr2u4r
   - type: cards_deck
-    version: "1.0"
+    version: '1.0'
     heading: Historias reales de cambios de carrera
-    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
+    subtitle: >-
+      Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo
+      algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
+        image: ''
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         author_name: Hernán García
-        title: "\"Recibí ofertas de empresas que no esperaba\""
+        title: '"Recibí ofertas de empresas que no esperaba"'
         description: Hernán consiguió un trabajo en tecnología dentro de un mes de comenzar su búsqueda laboral.
         alt: Geekforce
       - video:
           url: https://youtu.be/MBXqEnhodx0
-        image: ""
+        image: ''
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Joao Henrique
-        title: "\"Siempre tendrás el apoyo de la academia\""
-        description: Joao comparte su experiencia recibiendo mentoría de programación como estudiante, después de graduarse y en su trabajo actual.
+        title: '"Siempre tendrás el apoyo de la academia"'
+        description: >-
+          Joao comparte su experiencia recibiendo mentoría de programación como estudiante, después de graduarse y en su
+          trabajo actual.
         alt: Geekpal
       - video:
           url: https://youtu.be/oeX_ocy6zv4
-        image: ""
+        image: ''
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Jonathan Ferragut
-        title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
+        title: '"Tomar un curso como este nos beneficia de muchas maneras"'
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
+    section_id: cards_deck-lbla4e
   - type: whos_hiring
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
@@ -311,60 +343,74 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+    section_id: whos_hiring-buw0mf
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
+    subtitle: Más de __TPL__ graduados y __TPL__+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
-      average: {{ global.global_review_rating | 4.8 }}
+      average: __TPL__
       count: 700+
     items:
       - name: Sarah Johnson
         role: AI Engineer
         company: Google
         rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo está perfectamente estructurado para aplicaciones de IA del mundo real.
+        comment: >-
+          Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo
+          está perfectamente estructurado para aplicaciones de IA del mundo real.
         outcome: +55% aumento salarial
       - name: Michael Chen
         role: ML Engineer
         company: Meta
         rating: 5
-        comment: La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el apoyo profesional fueron invaluables.
+        comment: >-
+          La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el
+          apoyo profesional fueron invaluables.
         outcome: Contratado en 4 meses
       - name: Emily Rodriguez
         role: AI Engineer
         company: Amazon
         rating: 5
-        comment: Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora trabajo en IA de vanguardia.
+        comment: >-
+          Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora
+          trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
       - name: David Kim
         role: AI Developer
         company: Startup
         rating: 5
-        comment: De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos prácticos marcaron la diferencia.
+        comment: >-
+          De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos
+          prácticos marcaron la diferencia.
         outcome: Cambio de carrera exitoso
       - name: Jessica Martinez
         role: AI Engineer
         company: Spotify
         rating: 4
-        comment: Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre están disponibles para ayudar.
+        comment: >-
+          Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre
+          están disponibles para ayudar.
         outcome: +45% aumento salarial
       - name: Ryan Thompson
         role: ML Engineer
         company: Tech Startup
         rating: 5
-        comment: La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y excelente orientación profesional en todo momento.
+        comment: >-
+          La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y
+          excelente orientación profesional en todo momento.
         outcome: Primer trabajo en tech
     paddingY:
       desktop: md
+    section_id: testimonials-ylax4y
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para convertirte en Desarrollador Full Stack?
     subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
+      submit_label: __TPL__
       tags: website-lead
       fields:
         email:
@@ -388,7 +434,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -398,10 +446,11 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-k7jp41
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: __TPL__
     show_dismiss: false
     form:
       variant: inline
@@ -432,6 +481,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
+    section_id: sticky_cta-jtdfr0

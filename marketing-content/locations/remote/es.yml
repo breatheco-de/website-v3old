@@ -1,7 +1,9 @@
 slug: remoto
 meta:
   page_title: 4Geeks Academy | Bootcamp de Programación Remoto
-  description: Aprende a programar desde cualquier lugar con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte profesional de por vida. Full Stack, Data Science o Ciberseguridad—garantía de empleo disponible.
+  description: >-
+    Aprende a programar desde cualquier lugar con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte
+    profesional de por vida. Full Stack, Data Science o Ciberseguridad—garantía de empleo disponible.
   robots: index, follow
   og_image: /images/locations/remote-og.jpg
   priority: 0.8
@@ -10,25 +12,28 @@ meta:
     - /es/coding-campus/online-bootcamp-programacion
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Aprende a programar desde casa
-    subtitle: Aprende a programar desde casa con soporte 1:1 ilimitado, contenido con IA y soporte profesional de por vida. Clases en vivo y apoyo para conseguir trabajo—desde cualquier lugar.
+    subtitle: >-
+      Aprende a programar desde casa con soporte 1:1 ilimitado, contenido con IA y soporte profesional de por vida.
+      Clases en vivo y apoyo para conseguir trabajo—desde cualquier lugar.
     badge: Campus Online
     cta_buttons:
-      - text: {{ global.call_to_action_apply | Aplicar Ahora }}
+      - text: __TPL__
         url: /es/apply
         variant: primary
       - text: Solicitar Programa
-        url: "#cta_banner-mq984o"
+        url: '#cta_banner-mq984o'
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    section_id: hero-xsh8l8
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -36,10 +41,14 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Tu Carrera Tech Empieza Aquí—Donde Sea
-    description: No importa dónde vivas, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional. Nuestro horario flexible y plan de estudios enfocado en el futuro te ayudan a crecer desde cualquier lugar. Únete a miles de graduados que han construido nuevos futuros en tech.
+    description: >-
+      No importa dónde vivas, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional.
+      Nuestro horario flexible y plan de estudios enfocado en el futuro te ayudan a crecer desde cualquier lugar. Únete
+      a miles de graduados que han construido nuevos futuros en tech.
     background: gradient
     marginY:
       desktop: lg none
+    section_id: banner-ughvd7
   - type: two_column
     proportions:
       - 6
@@ -50,19 +59,23 @@ sections:
     right:
       heading: Tu Carrera Tech Empieza Aquí—En Cualquier Lugar
       sub_heading: Alissa explica por qué 4Geeks es una gran opción para estudiantes en todo Estados Unidos
-      description: No importa dónde estés, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional. Desarrolla habilidades alineadas con IA mediante instrucción guiada, trabaja en proyectos prácticos y recibe soporte profesional experto adaptado a tus metas.
+      description: >-
+        No importa dónde estés, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional.
+        Desarrolla habilidades alineadas con IA mediante instrucción guiada, trabaja en proyectos prácticos y recibe
+        soporte profesional experto adaptado a tus metas.
       button:
         text: Ver la entrevista completa
         url: https://youtu.be/EcqasocRKHo
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
+    section_id: two_column-83uder
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -77,7 +90,9 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+        description: >-
+          Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de
+          despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
@@ -92,9 +107,11 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
+          - icon: ''
+            text: ''
+        description: >-
+          Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con
+          herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
@@ -108,7 +125,9 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+        description: >-
+          Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones
+          impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -122,47 +141,68 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+        description: >-
+          Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas
+          modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-rgbtgl
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
       - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Nuestros mentores expertos están disponibles en línea, listos para ayudarte desde el día uno y para siempre.
+        text: >-
+          Obtén orientación técnica personalizada cuando la necesites. Nuestros mentores expertos están disponibles en
+          línea, listos para ayudarte desde el día uno y para siempre.
       - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
+        text: >-
+          Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y
+          mejora continuamente con guía adaptada a tu camino de aprendizaje.
       - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
+        text: >-
+          Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y
+          posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+        text: >-
+          Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte
+          oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-y3ybck
   - type: testimonials_slide
     title: Caminos Probados hacia Carreras Tech
-    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    description: >-
+      Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching
+      experto llevan a resultados reales.
     background: bg-sidebar
+    section_id: testimonials_slide-id7v6g
   - type: split_cards
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: |-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
+      description: >-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de
+        Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras
+        muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un
+        rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif;
+        white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
+        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
+        aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
+        - text: __TPL__% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
+        - text: __TPL__% aumento salarial promedio en roles tech
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -183,7 +223,12 @@ sections:
     variant: laptop-edge
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
-    description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
+    description: >-
+      Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1
+      ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en
+      streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto,
+      tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
+    section_id: why_learn_ai-ay1sn4
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -191,19 +236,26 @@ sections:
     cards:
       - icon: user
         title: Mentoría 1:1 Bajo Demanda
-        description: Obtén soporte 1:1 para todas tus necesidades de código. Nuestros mentores expertos responden en 15 minutos o menos—nunca te quedas atascado.
+        description: >-
+          Obtén soporte 1:1 para todas tus necesidades de código. Nuestros mentores expertos responden en 15 minutos o
+          menos—nunca te quedas atascado.
       - icon: users
         title: Coaching de Carrera
-        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación. Soporte a la medida para tu perfil y ofertas laborales.
+        description: >-
+          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
+          contratación. Soporte a la medida para tu perfil y ofertas laborales.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+        description: >-
+          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
+          entienden tu journey.
+    section_id: mentorship-8p4k3f
   - type: testimonials
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -222,13 +274,17 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        comment: >-
+          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
+          cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        comment: >-
+          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
+          computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -244,12 +300,13 @@ sections:
         outcome: Promovido en 1 año
     marginY:
       desktop: none lg
+    section_id: testimonials-2zauxa
   - type: testimonials
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -268,13 +325,17 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        comment: >-
+          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
+          cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        comment: >-
+          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
+          computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -288,6 +349,7 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+    section_id: testimonials-z1h8i4
   - type: faq
     title: Preguntas Frecuentes
     related_features:
@@ -298,8 +360,9 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    section_id: faq-zzyer1
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -330,7 +393,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -343,9 +408,9 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-mq984o
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: __TPL__
     show_dismiss: false
     form:
       variant: inline

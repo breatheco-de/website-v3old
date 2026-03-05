@@ -24,35 +24,46 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Get Into Tech With Our Job Guarantee*
-    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
+    subtitle: >-
+      &nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or
+      we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked="1"><span style="font-size:
+      0.75rem;"><span><span>*Not available in all regions.&nbsp;<a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"><span><span><span><span>Terms
+      and conditions apply.</span></span></span></span></a></span></span></span><a
+      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"><span
+      style="font-size: 1rem;"><span><span style="font-size: 0.875rem;"><span></span></span></span></span></a></div>
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+      src: >-
+        https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Get more info
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
     marginY:
       desktop: none md
+    section_id: hero-e69bee
   - type: graduates_stats
     version: v1.0
     variant: fullBleed
     heading: Results That Back Our Job Guarantee
-    subheading: "These numbers reflect real graduates and real hires. Our Job Guarantee is built around one outcome: succesfully launching your tech career."
+    subheading: >-
+      These numbers reflect real graduates and real hires. Our Job Guarantee is built around one outcome: succesfully
+      launching your tech career.
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}
-        unit: "%"
+      - value: __TPL__
+        unit: '%'
         label: Job placement rate
       - value: 3-6
         unit: months
         label: Average time to get hired
-      - value: {{ global.global_salary_increase | 55 }}%
+      - value: __TPL__%
         label: Salary increase after graduation
     collage_images:
       - image_id: graduates_team_1
@@ -90,27 +101,28 @@ sections:
     image_bordered: true
     paddingY:
       desktop: none
+    section_id: graduates_stats-rdqav1
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Career Programs with the Job Guarantee Option
     subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
+        duration: __TPL__ weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
           - icon: DollarSign
             text: APIS, automation, telemetry
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price_period: " "
+        price_period: ' '
         cta_text: Program details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
-        duration: {{ global.fullstack_week_duration | 20 }} weeks
+        duration: __TPL__ weeks
         label: Updated in 2026
         title: Full Stack Software Development
         badges:
@@ -119,32 +131,38 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price_period: " "
+        description: >-
+          Master modern web development from frontend to backend. Build production-ready applications using
+          industry-standard tools and frameworks.
+        price_period: ' '
         cta_text: Program details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science and Machine Learning
-        duration: {{ global.data_science_week_duration | 16 }} weeks
+        duration: __TPL__ weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
           - icon: Brain
             text: Python, TensorFlow, SQL
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price_period: " "
+        description: >-
+          Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used
+          by modern data teams.
+        price_period: ' '
         cta_text: Program details
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
+        duration: __TPL__ weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
           - icon: Code
             text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price_period: " "
+        description: >-
+          Develop the skills to identify threats, secure systems, and support security operations aligned with industry
+          standards.
+        price_period: ' '
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -171,14 +189,15 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: course_selector-92t02r
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: laptopEdge
     heading: Who's Eligible?
-    description: "You'll qualify for the Job Guarantee if you:"
+    description: 'You''ll qualify for the Job Guarantee if you:'
     cards:
       - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+        title: __TPL__
       - icon: IconCircleDashedCheck
         title: Complete all coursework and projects
       - icon: IconBrain
@@ -190,11 +209,14 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+    section_id: features_quad-loz8eb
   - type: numbered_steps
-    version: "1.0"
+    version: '1.0'
     variant: bubbleText
     title: How the Refund Works
-    description: "We've made it simple: if you complete all the required steps, and you don't land a qualifying job within 9 months after graduation, we'll refund 100% of your tuition."
+    description: >-
+      We've made it simple: if you complete all the required steps, and you don't land a qualifying job within 9 months
+      after graduation, we'll refund 100% of your tuition.
     description_link:
       text: Conditions apply.
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
@@ -208,11 +230,15 @@ sections:
       - icon: JobSearch
         text: You will receive your full refund within 30 days from the date your request is approved.
         title: Full Refund
+    section_id: numbered_steps-2ramas
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: cardHeader
     heading: Why The Job Guarantee
-    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    description: >-
+      The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and
+      career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve
+      helped more than 3,500 graduates launch their tech careers across roles and industries.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
@@ -223,8 +249,9 @@ sections:
         text: Strong and ongoing demand for skilled tech professionals
       - icon: ChalkboardTeacher
         text: Structured training paired with hands-on, ongoing career support
+    section_id: features_grid-aay8s3
   - type: faq
-    version: "1.0"
+    version: '1.0'
     title: Frequently Asked Questions about the Job Guarantee
     related_features:
       - job-guarantee
@@ -232,8 +259,9 @@ sections:
       desktop: none
     marginY:
       desktop: lg none
+    section_id: faq-1o208y
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -271,8 +299,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-63cdpc
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -301,3 +330,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-6wt8wr

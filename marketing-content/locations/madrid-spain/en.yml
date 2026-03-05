@@ -14,8 +14,12 @@ address: Calle de Alcalá 54, 28014 Madrid
 available_programs:
   - full-stack
 context:
-  when_to_use: For Madrid-area visitors or those interested in tech opportunities in Spain's largest and fastest-growing tech ecosystem.
-  target_audience: Local Madrid residents, professionals seeking career transitions into tech, Latin American expats in Spain, and EU citizens attracted by Spain's digital nomad visa and startup-friendly policies.
+  when_to_use: >-
+    For Madrid-area visitors or those interested in tech opportunities in Spain's largest and fastest-growing tech
+    ecosystem.
+  target_audience: >-
+    Local Madrid residents, professionals seeking career transitions into tech, Latin American expats in Spain, and EU
+    citizens attracted by Spain's digital nomad visa and startup-friendly policies.
   goals:
     - Position Madrid as Europe's
     - Emphasize bilingual (Spanish/English) support and international community
@@ -36,14 +40,16 @@ schema:
   overrides:
     organization:
       address:
-        "@type": PostalAddress
+        '@type': PostalAddress
         streetAddress: Calle de Alcalá 54
         addressLocality: Madrid
-        postalCode: "28014"
+        postalCode: '28014'
         addressCountry: ES
 meta:
   page_title: 4Geeks Academy Madrid | Coding Bootcamp in Spain
-  description: Join 4Geeks Madrid coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and career support in Europe's top emerging tech ecosystem.
+  description: >-
+    Join 4Geeks Madrid coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and
+    career support in Europe's top emerging tech ecosystem.
   robots: index, follow
   og_image: /images/locations/madrid-og.jpg
   priority: 0.8
@@ -52,7 +58,7 @@ meta:
     - /us/coding-campus/coding-bootcamp-madrid
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Madrid
     subtitle: Train for in-demand tech roles in Europe's
@@ -62,13 +68,14 @@ sections:
         url: /en/apply?location=madrid-spain
         variant: primary
       - text: Download Syllabus
-        url: "#bottom"
+        url: '#bottom'
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    section_id: hero-b0brvz
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -105,8 +112,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
+    section_id: awards_marquee-e9nrfw
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -118,6 +126,7 @@ sections:
     background: gradient
     marginY:
       desktop: lg none
+    section_id: banner-dlnst6
   - type: two_column
     proportions:
       - 6
@@ -128,19 +137,22 @@ sections:
     right:
       heading: Why Spain's Tech Boom Unlocks for Local Talent
       sub_heading: Madrid leads Spain's digital transformation with 47% of all tech jobs and a rapidly growing startup ecosystem
-      description: Spain's tech sector grew 5.8% in 2024, generating over 120 billion euros in turnover. Madrid attracts 85% of all foreign tech investment in the country and ranks
+      description: >-
+        Spain's tech sector grew 5.8% in 2024, generating over 120 billion euros in turnover. Madrid attracts 85% of all
+        foreign tech investment in the country and ranks
       button:
         text: Learn more about our programs
         url: /en/career-programs/ai-engineering
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
+    section_id: two_column-plxvrn
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -155,7 +167,9 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
+        description: >-
+          Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment
+          strategies.  
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -170,9 +184,11 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+          - icon: ''
+            text: ''
+        description: >-
+          Master modern web development from frontend to backend and build production-ready applications using
+          industry-standard tools.  
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -186,7 +202,9 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
+        description: >-
+          Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world
+          problems.  
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -200,7 +218,9 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
+        description: >-
+          Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity
+          threats.  
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -212,40 +232,58 @@ sections:
     section_id: course_selector-k6g4kc
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
+        text: >-
+          Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the
+          program and continue receiving support long after you graduate.
       - heading: AI-Powered Learning Support
-        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
+        text: >-
+          Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve
+          continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
-        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
+        text: >-
+          Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning
+          to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
-        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
+        text: >-
+          Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and
+          stay connected to a global network well beyond graduation.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-nkgv4a
   - type: testimonials_slide
     title: Proven Paths to Tech Careers
-    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    description: >-
+      These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real
+      outcomes.
     background: bg-sidebar
+    section_id: testimonials_slide-jtdlor
   - type: split_cards
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
-      description: |-
-        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
+      description: >-
+        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job
+        Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk
+        about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or
+        receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a
+        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
+        conditions apply.</a></span>
+
         </div></div>
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
+        - text: __TPL__% hiring rate among graduates
         - text: 3–6 months average time to get hired
-        - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
+        - text: __TPL__% average salary increase in tech roles
     background: hsl(var(--secondary))
     section_id: split_cards-cuf0db
     marginY:
@@ -266,7 +304,18 @@ sections:
     variant: laptop-edge
     title: Why Madrid Is a Smart Place to Launch Your Tech Career
     subtitle: Europe's
-    description: "Madrid has emerged as Spain's undisputed tech capital, surpassing Barcelona for the first time in total tech companies, startups, and scaleups. With over 2,100 tech startups and an ecosystem valued at 44 billion euros, the city offers unmatched opportunity for developers entering the market.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid holds 47% of all tech jobs in Spain, with 25,000+ developer positions currently unfilled nationwide&nbsp;&nbsp;</span></li><li>Ranked #1 globally as an emerging startup ecosystem by Startup Genome, and #3 in Europe for engineering talent density&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, cybersecurity, travel tech, and enterprise software sectors&nbsp;&nbsp;</li></ul></div><div>Located in the heart of the city, our Madrid campus connects you with local employers, hiring partners, and tech events through South Summit, Google Campus Madrid, and a thriving network of accelerators and VCs.</div></div>"
+    description: >-
+      Madrid has emerged as Spain's undisputed tech capital, surpassing Barcelona for the first time in total tech
+      companies, startups, and scaleups. With over 2,100 tech startups and an ecosystem valued at 44 billion euros, the
+      city offers unmatched opportunity for developers entering the market.<br><div><div><ul><li><span style="font-size:
+      0.875rem; color: rgb(0, 7, 26);">Madrid holds 47% of all tech jobs in Spain, with 25,000+ developer positions
+      currently unfilled nationwide&nbsp;&nbsp;</span></li><li>Ranked #1 globally as an emerging startup ecosystem by
+      Startup Genome, and #3 in Europe for engineering talent density&nbsp;&nbsp;</li><li>Strong demand for software,
+      AI, and data skills across fintech, cybersecurity, travel tech, and enterprise software
+      sectors&nbsp;&nbsp;</li></ul></div><div>Located in the heart of the city, our Madrid campus connects you with
+      local employers, hiring partners, and tech events through South Summit, Google Campus Madrid, and a thriving
+      network of accelerators and VCs.</div></div>
+    section_id: why_learn_ai-0jgpa6
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -281,18 +330,20 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-mf6xpj
   - type: testimonials
-    version: "1.0"
+    version: '1.0'
     title: Madrid Graduate Success Stories
     filter_by_location: madrid-spain
     marginY:
       desktop: none lg
+    section_id: testimonials-8uwkog
   - type: testimonials
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -331,6 +382,7 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
+    section_id: testimonials-lv7ujm
   - type: faq
     title: Frequently Asked Questions
     related_features:
@@ -463,8 +515,9 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(var(--muted))
+    section_id: faq-jl4mjj
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     background: hsl(var(--primary))
@@ -508,7 +561,7 @@ sections:
     terms_color: hsl(var(--primary))
     section_id: cta_banner-bhhrhb
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
