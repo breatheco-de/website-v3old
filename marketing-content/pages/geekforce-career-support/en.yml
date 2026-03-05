@@ -6,9 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: GeekForce Career Support | 4Geeks Academy
-  description: >-
-    Get unlimited 1:1 career support designed for your unique profile and goals, for life. From resume and portfolio
-    building to interviews and AI-driven hiring platforms.
+  description: Get unlimited 1:1 career support designed for your unique profile and goals, for life. From resume and portfolio building to interviews and AI-driven hiring platforms.
   redirects:
     - /geekforce-career-support
 schema:
@@ -17,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-2jeslk
     variant: productShowcase
     title: Career Development
     subtitle: for the AI Era
@@ -24,11 +23,9 @@ sections:
     brand_mark:
       prefix: Geek
       highlight: FORCE
-      suffix: ':'
+      suffix: ":"
       color: chart-5
-    description: >-
-      Lifetime 1:1 career support designed to launch, position, and accelerate your career in today’s AI-powered tech
-      job market.
+    description: Lifetime 1:1 career support designed to launch, position, and accelerate your career in today’s AI-powered tech job market.
     marquee:
       items:
         - id: logo-google-developers
@@ -68,13 +65,13 @@ sections:
       gradientWidth: 60
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
-      ratio: '2:2'
+      ratio: "2:2"
     paddingY:
       desktop: none
     marginY:
       desktop: none sm
-    section_id: hero-2jeslk
   - type: career_support_explain
+    section_id: career_support_explain-0c1gr4
     version: v1.0
     heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
@@ -83,11 +80,9 @@ sections:
       - tab_label: Job-Ready, Faster
         layout: three_columns
         col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
-        col1_description: >-
+        col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-
-          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies
-          actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -112,10 +107,7 @@ sections:
       - tab_label: Real Hiring Access
         layout: two_column_cards
         title: Access the Hidden Job Market.
-        left_text: >-
-          Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and
-          decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a
-          targeted networking strategy.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -145,11 +137,9 @@ sections:
       - tab_label: Proof That Converts
         layout: text_and_image
         title: Projects that Demonstrate Real Skill.
-        left_description: >-
+        left_description: |-
           Visibility gets attention. Proof closes the gap.
-
-          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that
-          solves real business problems, your work becomes clear evidence of your ability.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
           - icon: IconBriefcase
             text: Industry-aligned, real-world projects
@@ -163,11 +153,9 @@ sections:
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
         title: Turn your Background into an Advantage.
-        left_description: >-
+        left_description: |-
           Once offers are on the table, we help you choose and negotiate with confidence.
-
-          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and
-          support you through salary negotiation and long-term growth.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
         left_bullets:
           - icon: IconTransfer
             text: Transferable skills mapping
@@ -183,18 +171,14 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: >-
-              MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her
-              endeavor.
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
             achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
-            description: >-
-              Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a
-              career he is passionate about, and a whole new professional life.
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
@@ -202,18 +186,16 @@ sections:
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: >-
-              Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and
-              committed software developer working at a software company in her home country.
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-0c1gr4
   - type: graduates_stats
+    section_id: graduates_stats-cnxqbb
     heading: Career Outcomes
     subheading: We turn your education into employment. See the real-world impact of our coaching.
     stats:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Job placement rate
-      - value: __TPL__%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase after graduation
       - value: 3-6 months
         label: Average time to get hired
@@ -230,9 +212,9 @@ sections:
       - image_id: graduates_friends
         col_span: 6
         row_span: 2
-    section_id: graduates_stats-cnxqbb
   - type: numbered_steps
-    version: '1.0'
+    section_id: numbered_steps-2brbw1
+    version: "1.0"
     variant: bubbleText
     title: Get Hired with our 3-Step Career Development Process
     description: Our structured process is designed to get you hired fast.
@@ -258,13 +240,11 @@ sections:
     background: bg-background
     paddingY:
       desktop: none
-    section_id: numbered_steps-2brbw1
   - type: whos_hiring
+    section_id: whos_hiring-9qd159
     variant: carousel
     title: Top Tech Companies Hiring 4Geeks Graduates
-    description: >-
-      4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software
-      development, data science, and cybersecurity.
+    description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
         alt: Twilio
@@ -294,20 +274,12 @@ sections:
       desktop: sm none
     marginY:
       desktop: none lg
-    section_id: whos_hiring-9qd159
   - type: why_learn_ai
+    section_id: why_learn_ai-8djag6
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: >-
-      <span style="font-size: 1.125rem;"><span><span>For an additional $2,000, you can add our Job Guarantee. If you
-      don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition
-      refund.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
-      regions. <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"><span
-      style="color: hsl(var(--primary));">Terms and conditions
-      apply.</span></a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span
-      style="font-size: 1rem;"></span></span></div>
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get more info
       url: /en/job-guarantee
@@ -329,12 +301,12 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-    section_id: why_learn_ai-8djag6
   - type: testimonials_slide
+    section_id: testimonials_slide-7jjh6e
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
-    section_id: testimonials_slide-7jjh6e
   - type: faq
+    section_id: faq-kf5oiw
     title: Frequently Asked Questions
     related_features:
       - career-support
@@ -389,9 +361,9 @@ sections:
           - santiago-chile
     marginY:
       desktop: none
-    section_id: faq-kf5oiw
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-22d9ft
+    version: "1.0"
     title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -429,9 +401,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-22d9ft
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-0hqt25
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -460,4 +432,3 @@ sections:
           default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-0hqt25

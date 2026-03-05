@@ -6,9 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Graduate Projects & Alumni | 4Geeks Academy
-  description: >-
-    Explore final projects from 4Geeks Academy graduates: real apps and solutions that showcase the skills, creativity,
-    and career-ready talent of our bootcamp alumni.
+  description: "Explore final projects from 4Geeks Academy graduates: real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni."
   redirects:
     - /graduates-and-projects
     - /us/graduates
@@ -19,40 +17,36 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-s6n3ah
+    version: "1.0"
     variant: singleColumn
     title: See What Our Students Build
-    subtitle: >-
-      Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills,
-      creativity, and career-ready talent of our bootcamp alumni.
+    subtitle: Explore final projects from 4Geeks Academy graduates. Real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni.
     badge: Career program
     cta_buttons:
       - text: Apply Now
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
         icon: Rocket
       - text: Get Program Details
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: outline
         icon: Book
     trust_bar:
-      rating: __TPL__/5
+      rating: {{ global.global_review_rating | 4.9 }}/5
       rating_count: 2,500+
-      trusted_text: Trusted by __TPL__+ students
+      trusted_text: Trusted by {{ global.global_total_alumni | 10,000 }}+ students
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: '2024'
+        year: "2024"
       - name: Top Tech School
         source: Course Report
-    section_id: hero-s6n3ah
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: apply-modal
     heading: Request Program Details
-    description: >-
-      Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and
-      support framework.
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
@@ -77,14 +71,12 @@ sections:
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: projects_showcase
-    version: '1.0'
+    section_id: projects_showcase-upoo68
+    version: "1.0"
     items:
       - project_title: Raspberry Sky
         project_url: https://sattelite-beta.vercel.app/
-        description: >-
-          A platform capable of receiving information (wind, temperature, geolocation, etc) from rockets being launched
-          to outer space. The platform also lets you make arrangements to send your own rocket, track it and receive
-          messages from it.
+        description: A platform capable of receiving information (wind, temperature, geolocation, etc) from rockets being launched to outer space. The platform also lets you make arrangements to send your own rocket, track it and receive messages from it.
         creators:
           - name: Luis Rivera
             role: QA Analyst
@@ -100,12 +92,9 @@ sections:
             alt: Raspberry Sky - Satellite access for everyone
           - type: video
             src: OZfv9kYl0_o
-      - project_title: 'IMS: Inventory Tracking'
+      - project_title: "IMS: Inventory Tracking"
         project_url: https://ims-frontend.vercel.app/react-hello-webapp/private/dashboard
-        description: >-
-          IMS is a Pharmacy Inventory and logistics tracking system built using Python, Javascript, React, and
-          integration with Barcode Readers, SMS, the Twillio API, and GPS Tracking Systems. IMS holds stock quantities
-          of all products stored and sold by the Drug Store and then tracks the vehicles that deliver those sells.
+        description: IMS is a Pharmacy Inventory and logistics tracking system built using Python, Javascript, React, and integration with Barcode Readers, SMS, the Twillio API, and GPS Tracking Systems. IMS holds stock quantities of all products stored and sold by the Drug Store and then tracks the vehicles that deliver those sells.
         creators:
           - name: Jonathan Perez
             role: Business Administration
@@ -124,10 +113,7 @@ sections:
             src: TTjSZ2Lud2E
       - project_title: WonderTracker
         project_url: https://wandertrackerfront-end-gmihov001.vercel.app/
-        description: >-
-          A platform capable of keeping your travel information and documents saved in an absolute secure system. It
-          also lets you track places where you have been, and gather information that you thought was important to save
-          for as long as you want - all in just one place.
+        description: A platform capable of keeping your travel information and documents saved in an absolute secure system. It also lets you track places where you have been, and gather information that you thought was important to save for as long as you want - all in just one place.
         creators:
           - name: Fernando Funes
             role: Web Developer
@@ -145,11 +131,7 @@ sections:
             alt: WonderTracker team member
       - project_title: reMindful
         project_url: https://re-mindful.vercel.app/
-        description: >-
-          Generating awareness about recycling and considering all the steps that need to be covered. They have created
-          an application that integrates both software and hardware that allows to weigh the amount of plastic, glass or
-          garbage there is within a container and how much it will affect both the recycling process as well as the
-          environment.
+        description: Generating awareness about recycling and considering all the steps that need to be covered. They have created an application that integrates both software and hardware that allows to weigh the amount of plastic, glass or garbage there is within a container and how much it will affect both the recycling process as well as the environment.
         creators:
           - name: Jordan Aguiriano
             role: Web Developer
@@ -164,16 +146,12 @@ sections:
           - type: video
             src: cKcZD0_1IKk
     background: hsl(210 100% 50% / 0.05)
-    section_id: projects_showcase-upoo68
   - type: about
-    version: '1.0'
+    section_id: about-4uyzlk
+    version: "1.0"
     height: 420px
     title: More About 4Geeks Academy
-    description: >-
-      4Geeks Academy was founded in 2015. What started as an internal project to train more developers has now become
-      our full-time passion. 4Geeks is today a USA based Coding Bootcamp pursuing to build a new framework for Coding
-      Education, because coding is becoming an essentials part of our society. 4Geeks Academy has now Locations in 12
-      cities, 13 on-going campus, and more than 600 graduates.
+    description: 4Geeks Academy was founded in 2015. What started as an internal project to train more developers has now become our full-time passion. 4Geeks is today a USA based Coding Bootcamp pursuing to build a new framework for Coding Education, because coding is becoming an essentials part of our society. 4Geeks Academy has now Locations in 12 cities, 13 on-going campus, and more than 600 graduates.
     link_text: Read More
     link_url: /en/the-academy
     image_src: https://storage.googleapis.com/4geeks-academy-website/media/our-story_1765323971104.webp
@@ -181,16 +159,16 @@ sections:
     marginY:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
-    section_id: about-4uyzlk
   - type: faq
+    section_id: faq-60p6ip
     title: Frequently Asked Questions
     related_features:
       - content-and-syllabus
     marginY:
       desktop: none md
-    section_id: faq-60p6ip
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-8vt1ih
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -228,9 +206,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-8vt1ih
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-xnj64l
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -259,4 +237,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-xnj64l

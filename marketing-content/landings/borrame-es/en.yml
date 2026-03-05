@@ -16,11 +16,14 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
+    section_id: hero-5xli78
     version: '1.0'
     variant: course
     title: Become a Cybersecurity Specialist
     title_highlight: Cybersecurity Specialist
-    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in __TPL__ weeks.
+    subtitle: >-
+      Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{
+      global.cybersecurity_week_duration | 16 }} weeks.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -58,13 +61,13 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: __TPL__-week intensive program
+          text: '{{ global.cybersecurity_week_duration | 16 }}-week intensive program'
         - icon: IconBriefcase
           text: Employment-first curriculum
         - icon: IconRobot
           text: AI-Powered learning & feedback
         - icon: IconUsers
-          text: __TPL__ Student-to-Instructor Ratio
+          text: '{{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio'
         - icon: IconUserCheck
           text: Unlimited 1:1 mentorship
         - icon: book
@@ -73,7 +76,6 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    section_id: hero-5xli78
   - type: modal
     version: '1.0'
     heading: Request Program Details
@@ -105,6 +107,7 @@ sections:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
   - type: awards_marquee
+    section_id: awards_marquee-870gz2
     version: v1.0
     speed: 40
     gradient: true
@@ -146,8 +149,8 @@ sections:
       desktop: none
     marginY:
       desktop: none lg
-    section_id: awards_marquee-870gz2
   - type: features_grid
+    section_id: features_grid-e05kml
     version: '1.0'
     variant: stats-text
     title: Cybersecurity Talent Is in High Demand
@@ -165,10 +168,10 @@ sections:
         value: 41%
         title: Projected job growth, outpacing most sectors
       - id: '3'
-        value: __TPL__
+        value: '{{ global.global_spending_cybersecurity | $520B }}'
         title: Global spending on cybersecurity this year
-    section_id: features_grid-e05kml
   - type: syllabus
+    section_id: syllabus-8howbf
     variant: program-modules
     program_title: Cybersecurity Program Overview
     program_description: >-
@@ -244,8 +247,8 @@ sections:
         icon: IconClipboardCheck
     paddingY:
       desktop: md
-    section_id: syllabus-8howbf
   - type: projects
+    section_id: projects-jhw1xt
     title: Learn by Defending Real Systems
     subtitle: >-
       Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a
@@ -286,8 +289,8 @@ sections:
         date: 15/02/2025
     paddingY:
       desktop: md
-    section_id: projects-jhw1xt
   - type: ai_learning
+    section_id: ai_learning-o1c23u
     variant: feature-tabs
     badge: Why 4Geeks?
     title: How You'll Learn at 4Geeks
@@ -325,8 +328,8 @@ sections:
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md none
-    section_id: ai_learning-o1c23u
   - type: certificate
+    section_id: certificate-n0tg0c
     title: Industry Certifications and Career Outcomes
     description: >-
       Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program
@@ -341,7 +344,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: Cybersecurity Specialist
     stats:
-      - value: __TPL__%
+      - value: '{{ global.global_job_placement_rate | 84 }}%'
         label: Hiring Rate
         description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.
         benefits:
@@ -358,16 +361,17 @@ sections:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: __TPL__
+      - value: '{{ global.average_salary_cybersecurity_short | $85 }}'
         label: Average starting salary
         description: >-
-          A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of
-          __TPL__%, our graduates unlock a level of stability and growth that few other industries can offer.
+          A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{
+          global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other
+          industries can offer.
         benefits:
-          - text: 'Cybersecurity Analyst: __TPL__'
-          - text: 'Penetration Tester: __TPL__'
-          - text: 'Security Engineer: __TPL__'
-          - text: 'Incident Responder: __TPL__'
+          - text: 'Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}'
+          - text: 'Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}'
+          - text: 'Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}'
+          - text: 'Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}'
       - value: 400+
         label: Hiring Partners
         description: >-
@@ -382,8 +386,8 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: none md
-    section_id: certificate-n0tg0c
   - type: why_learn_ai
+    section_id: why_learn_ai-pomu44
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
@@ -419,15 +423,15 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-    section_id: why_learn_ai-pomu44
   - type: pricing
+    section_id: pricing-rchdm4
     version: '1.0'
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: 'Full payment discount: Save 10% with upfront payment.'
     financing_text: 'Credit-based financing: starting below'
-    financing_amount: __TPL__
+    financing_amount: '{{ global.price_cybersecurity | $299 }}'
     tech_icons:
       - python
       - tensorflow
@@ -442,8 +446,8 @@ sections:
     features:
       - icon: IconCheck
         text: >-
-          Standard tuition is __TPL__. Pay upfront and receive a 10% discount, or spread payments interest-free over 6
-          months.
+          Standard tuition is {{ global.price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or
+          spread payments interest-free over 6 months.
       - icon: IconCheck
         text: >-
           Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money
@@ -486,15 +490,15 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: pricing-rchdm4
   - type: pricing
+    section_id: pricing-h3khsz
     version: '1.0'
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: 'Full payment discount: Save 10% with early payment.'
     financing_text: Installment financing starting from
-    financing_amount: __TPL__
+    financing_amount: '{{ global.price_cybersecurity | 299€ }}'
     tech_icons:
       - python
       - tensorflow
@@ -537,8 +541,8 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    section_id: pricing-h3khsz
   - type: whos_hiring
+    section_id: whos_hiring-2z1u0k
     variant: carousel
     title: Top Companies Hiring Our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
@@ -569,13 +573,15 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
-    section_id: whos_hiring-2z1u0k
   - type: testimonials
+    section_id: testimonials-ra2gga
     title: Real Students. Real Careers.
-    subtitle: __TPL__+ graduates and __TPL__ verified reviews prove our programs deliver life-changing results.
+    subtitle: >-
+      {{ global.global_total_alumni | 6,500 }}+ graduates and {{ global.global_verified_reviews_count | 700 }} verified
+      reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: '{{ global.global_review_rating | 4.9 }}'
+      count: '{{ global.global_review_count | 700 }}'
     items:
       - name: Sarah Johnson
         role: Software Engineer
@@ -627,16 +633,16 @@ sections:
         outcome: Landed first security job
     paddingY:
       desktop: md
-    section_id: testimonials-ra2gga
   - type: faq
+    section_id: faq-4ygknj
     title: Frequently Asked Questions
     related_features:
       - cybersecurity
     paddingY:
       desktop: md
     background: muted
-    section_id: faq-4ygknj
   - type: cta_banner
+    section_id: cta_banner-a6u5cl
     version: '1.0'
     title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
@@ -678,8 +684,8 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
-    section_id: cta_banner-a6u5cl
   - type: sticky_cta
+    section_id: sticky_cta-7ddu6z
     version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
@@ -709,4 +715,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-7ddu6z

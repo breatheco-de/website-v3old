@@ -15,11 +15,10 @@ schema:
     - website
 sections:
   - type: comparison_table
-    version: '1.0'
+    section_id: comparison_table-7id0o1
+    version: "1.0"
     title: Which Path Fits You Best?
-    subtitle: >-
-      Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will
-      equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
     columns:
       - name: Category
         highlight: true
@@ -34,24 +33,14 @@ sections:
           - Learn to protect systems, networks, and data from cyber threats.
       - feature: Why It Matters
         values:
-          - >-
-            Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer
-            experiences. With AI, they automate processes and build smarter products.
-          - >-
-            Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine
-            learning automates predictions and personalizes experiences.
-          - >-
-            Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly
-            attacks in today's digital-first world.
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
       - feature: What You'll Learn
         values:
-          - >-
-            HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT,
-            Cursor, Vercel v0.
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
           - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
-          - >-
-            Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like
-            Wireshark and Splunk.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
       - feature: Ideal For
         values:
           - Creative problem-solvers who enjoy building and seeing results come to life.
@@ -99,15 +88,9 @@ sections:
           - Available for additional $2,000.
       - feature: Best For You If
         values:
-          - >-
-            You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered
-            software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.
-          - >-
-            You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break
-            into AI or data-driven roles. A math or business background helps, but is not required.
-          - >-
-            You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or
-            compliance work, or dream of working in IT security, law enforcement, or defense.
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
         values:
           - cta:
@@ -131,7 +114,7 @@ sections:
               - text: Learn More
                 url: /en/career-programs/cybersecurity
                 variant: outline
-    footer_note: '* Program details subject to change'
+    footer_note: "* Program details subject to change"
     marginY:
       desktop: none
     showOnLocations:
@@ -146,32 +129,30 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-    section_id: comparison_table-7id0o1
   - type: hero
-    version: '1.0'
+    section_id: hero-fzh5wv
+    version: "1.0"
     variant: singleColumn
     title: Find Your Best Path Into Tech
     badge: Compare our programs
     trust_bar:
-      rating: __TPL__/5
+      rating: {{ global.global_review_rating | 4.8 }}/5
       rating_count: 2,500+
-      trusted_text: Trusted by __TPL__+ students
+      trusted_text: Trusted by {{ global.global_total_alumni | 10,000 }}+ students
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: '2024'
+        year: "2024"
       - name: Top Tech School
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-    section_id: hero-fzh5wv
   - type: comparison_table
-    version: '1.0'
+    section_id: comparison_table-yc3tsf
+    version: "1.0"
     title: Which path fits you best?
-    subtitle: >-
-      Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will
-      equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
     columns:
       - name: Category
         highlight: true
@@ -186,24 +167,14 @@ sections:
           - Learn to protect systems, networks, and data from cyber threats.
       - feature: Why It Matters
         values:
-          - >-
-            Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer
-            experiences. With AI, they automate processes and build smarter products.
-          - >-
-            Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine
-            learning automates predictions and personalizes experiences.
-          - >-
-            Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly
-            attacks in today's digital-first world.
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
       - feature: What You'll Learn
         values:
-          - >-
-            HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT,
-            Cursor, Vercel v0.
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
           - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
-          - >-
-            Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like
-            Wireshark and Splunk.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
       - feature: Ideal For
         values:
           - Creative problem-solvers who enjoy building and seeing results come to life.
@@ -246,15 +217,9 @@ sections:
           - Monthly plans, upfront discounts, loans, and income-based options.
       - feature: Best For You If
         values:
-          - >-
-            You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered
-            software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.
-          - >-
-            You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break
-            into AI or data-driven roles. A math or business background helps, but is not required.
-          - >-
-            You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or
-            compliance work, or dream of working in IT security, law enforcement, or defense.
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
         values:
           - cta:
@@ -278,7 +243,7 @@ sections:
               - text: Learn More
                 url: /en/career-programs/cybersecurity
                 variant: outline
-    footer_note: '* Program details subject to change'
+    footer_note: "* Program details subject to change"
     marginY:
       desktop: none
     showOnLocations:
@@ -293,13 +258,11 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
-    section_id: comparison_table-yc3tsf
   - type: comparison_table
-    version: '1.0'
+    section_id: comparison_table-0yx5qx
+    version: "1.0"
     title: Which Path Fits You Best?
-    subtitle: >-
-      Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will
-      equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
     columns:
       - name: Category
         highlight: true
@@ -314,24 +277,14 @@ sections:
           - Learn to protect systems, networks, and data from cyber threats.
       - feature: Why It Matters
         values:
-          - >-
-            Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer
-            experiences. With AI, they automate processes and build smarter products.
-          - >-
-            Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine
-            learning automates predictions and personalizes experiences.
-          - >-
-            Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly
-            attacks in today's digital-first world.
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
       - feature: What You'll Learn
         values:
-          - >-
-            HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT,
-            Cursor, Vercel v0.
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
           - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
-          - >-
-            Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like
-            Wireshark and Splunk.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
       - feature: Ideal For
         values:
           - Creative problem-solvers who enjoy building and seeing results come to life.
@@ -374,15 +327,9 @@ sections:
           - Monthly plans, upfront discounts, and loans.
       - feature: Best For You If
         values:
-          - >-
-            You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered
-            software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.
-          - >-
-            You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break
-            into AI or data-driven roles. A math or business background helps, but is not required.
-          - >-
-            You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or
-            compliance work, or dream of working in IT security, law enforcement, or defense.
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
         values:
           - cta:
@@ -406,7 +353,7 @@ sections:
               - text: Learn More
                 url: /en/career-programs/cybersecurity
                 variant: outline
-    footer_note: '* Program details subject to change'
+    footer_note: "* Program details subject to change"
     marginY:
       desktop: none
     showOnLocations:
@@ -421,18 +368,12 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: comparison_table-0yx5qx
   - type: course_selector
-    version: '1.0'
+    section_id: course_selector-w8db5w
+    version: "1.0"
     variant: solid
     heading: Program Tuition
-    subheading: >-
-      <span style="font-size: 1.125rem;">See tuition and funding options for each
-      program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
-      regions.<span style="color: hsl(var(--primary));"> <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-      conditions apply.</a></span><a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
+    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
@@ -441,13 +382,11 @@ sections:
         title: AI Engineering
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_ai_engineering | $14,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
-              Guarantee*
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: __TPL__
+        price: {{ global.price_ai_engineering | $349 }}
         price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/career-programs/ai-engineering
@@ -459,18 +398,14 @@ sections:
         title: Full Stack Software Development
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_fullstack | $10,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
-              Guarantee*
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
-          - icon: ''
-            text: ''
-        description: >-
-          Master modern web development from frontend to backend and build production-ready applications using
-          industry-standard tools.  
-        price: __TPL__
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: {{ global.price_fullstack | $299 }}
         price_info: or less depending on your plan
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
@@ -482,13 +417,11 @@ sections:
         title: Data Science & Machine Learning with AI
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_datascience | $14,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
-              Guarantee*
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: __TPL__
+        price: {{ global.price_datascience | 299$ }}
         price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/career-programs/data-science-ml
@@ -500,13 +433,11 @@ sections:
         title: Cybersecurity
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_cybersecurity | $14,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job
-              Guarantee*
+            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: __TPL__
+        price: {{ global.price_cybersecurity | 299$ }}
         price_info: or less depending on your plan
         cta_text: Discover program
         cta_url: /en/career-programs/cybersecurity
@@ -538,18 +469,12 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: course_selector-w8db5w
   - type: course_selector
-    version: '1.0'
+    section_id: course_selector-qbqdzx
+    version: "1.0"
     variant: solid
     heading: Program tuition
-    subheading: >-
-      <span style="font-size: 1.125rem;">See tuition and funding options for each
-      program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
-      regions.<span style="color: hsl(var(--primary));"> <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-      conditions apply.</a></span><a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>
+    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
@@ -562,10 +487,8 @@ sections:
           - icon: CheckCircle
             text: Spring offer, valid until May 1*
         description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: __TPL__
-        price_info: >-
-          Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and
-          subject to lender approval.*
+        price: {{ global.price_ai_engineering | $349 }}
+        price_info: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
         cta_text: Discover program
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
@@ -576,21 +499,15 @@ sections:
         title: Full Stack Software Development
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_fullstack | $10,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Explore available scholarships based on your profile and financing options that can help you take the next
-              step.*
+            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
         tags:
-          - icon: ''
-            text: ''
-        description: >-
-          Master modern web development from frontend to backend and build production-ready applications using
-          industry-standard tools.  
-        price: __TPL__
-        price_info: >-
-          Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to
-          lender approval.*
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+        price: {{ global.price_fullstack | $299 }}
+        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -601,16 +518,12 @@ sections:
         title: Data Science & Machine Learning with AI
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_datascience | $14,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Explore available scholarships based on your profile and financing options that can help you take the next
-              step.*
+            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
         description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: __TPL__
-        price_info: >-
-          Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to
-          lender approval.*
+        price: {{ global.price_datascience | 299$ }}
+        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
         cta_text: Discover program
         cta_url: /en/career-programs/data-science-ml
         course_background: primary
@@ -621,16 +534,12 @@ sections:
         title: Cybersecurity
         badges:
           - icon: DollarSign
-            text: __TPL__ full tuition
+            text: {{ global.price_full_cybersecurity | $14,999 }} full tuition
           - icon: CheckCircle
-            text: >-
-              Explore available scholarships based on your profile and financing options that can help you take the next
-              step.*
+            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
         description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: __TPL__
-        price_info: >-
-          Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to
-          lender approval.*
+        price: {{ global.price_cybersecurity | 299$ }}
+        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
         cta_text: Discover program
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -650,9 +559,9 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
-    section_id: course_selector-qbqdzx
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-uhjj0i
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -690,9 +599,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-uhjj0i
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-c53354
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -721,4 +630,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-c53354

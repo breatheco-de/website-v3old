@@ -6,9 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Full Stack Developer Career Program | 4Geeks
-  description: >-
-    Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career
-    with $65K+ starting salaries.
+  description: Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $65K+ starting salaries.
   redirects:
     - /bootcamp/full-stack
     - /programs/fullstack-developer
@@ -17,12 +15,8 @@ meta:
     - /us/coding-bootcamps/full-time-full-stack-developer
     - /us/coding-bootcamps/full-stack-developer-at-your-own-pace
 context:
-  when_to_use: >-
-    For visitors interested in becoming web developers, learning both frontend and backend technologies, or
-    transitioning into software development careers.
-  target_audience: >-
-    Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development
-    skills.
+  when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
+  target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
   goals:
     - Highlight the practical, project-based learning approach
     - Emphasize job-ready skills and career outcomes
@@ -35,13 +29,12 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-xtjvqb
+    version: "1.0"
     variant: course
     title: Full Stack Development with AI Program
     title_highlight: Full Stack Developer with AI
-    subtitle: >-
-      Train for high-demand software development roles with an AI-powered full stack curriculum, personalized
-      mentorship, and proven career outcomes.
+    subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -61,18 +54,14 @@ sections:
       - name: Rigo
         role: AI Learning Assistant
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your instructors:'
-    description: >-
-      Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent
-      full stack development roles.
+    tutors_label: "Your instructors:"
+    description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
     signup_card:
       title: Get the full program overview
-      description: >-
-        Receive the complete syllabus, program structure, schedule options, tuition details, and career support
-        framework.
+      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send me the details
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -87,20 +76,17 @@ sections:
         - icon: robot
           text: AI-powered deedback
         - icon: calendar
-          text: __TPL__ teacher student ratio
+          text: {{ global.global_teacher_student_ratio | 1:7 }} teacher student ratio
         - icon: users
           text: 1:1 mentorship
     paddingY:
       desktop: md lg
     marginY:
       desktop: none
-    section_id: hero-xtjvqb
   - type: modal
-    version: '1.0'
+    version: "1.0"
     heading: Request Program Details
-    description: >-
-      Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and
-      support framework.
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
@@ -121,11 +107,12 @@ sections:
         program:
           visible: false
           required: true
-          default: __TPL__
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
   - type: awards_marquee
+    section_id: awards_marquee-e9yo1z
     version: v1.0
     speed: 40
     gradient: true
@@ -168,15 +155,12 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
-    section_id: awards_marquee-e9yo1z
   - type: why_learn_ai
+    section_id: why_learn_ai-mc14hf
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: >-
-      Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role
-      within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a
-      href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
     cta:
       text: Get more info
       url: /en/job-guarantee
@@ -205,13 +189,11 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-    section_id: why_learn_ai-mc14hf
   - type: syllabus
+    section_id: syllabus-l0x9pc
     variant: program-modules
     program_title: Full Stack with AI Program Overview
-    program_description: >-
-      Learn to build modern, production-ready web applications by mastering frontend and backend development alongside
-      AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
+    program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
     tech_logos:
       - name: HTML5
         icon: html
@@ -282,16 +264,13 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
-    section_id: syllabus-l0x9pc
   - type: projects
+    section_id: projects-t6l1tn
     title: Learn by Building Real-Life Projects
     subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
     items:
       - title: Build a StarWars REST API
-        description: >-
-          The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express
-          (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal
-          for juniors looking to practice API development in python.
+        description: The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal for juniors looking to practice API development in python.
         image: star-wars
         tags:
           - REST
@@ -299,9 +278,7 @@ sections:
         difficulty: easy
         date: 15/11/2022
       - title: Authentication System with JWT
-        description: >-
-          Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security
-          best practices and session management patterns used in production applications.
+        description: Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security best practices and session management patterns used in production applications.
         image: authentication
         tags:
           - Security
@@ -310,9 +287,7 @@ sections:
         difficulty: medium
         date: 20/01/2023
       - title: Full-Stack Final Project
-        description: >-
-          Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask,
-          SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
+        description: Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask, SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
         image: final-project
         tags:
           - Full-Stack
@@ -322,8 +297,8 @@ sections:
         date: 01/03/2023
     paddingY:
       desktop: md sm
-    section_id: projects-t6l1tn
   - type: ai_learning
+    section_id: ai_learning-g0ac0c
     variant: feature-tabs
     badge: Why 4Geeks?
     title: How You’ll Learn at 4Geeks
@@ -331,7 +306,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Instant feedback from Rigobot, our custom AI tutor
@@ -341,7 +316,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -351,7 +326,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -363,23 +338,21 @@ sections:
       desktop: md none
     paddingY:
       desktop: md none
-    section_id: ai_learning-g0ac0c
   - type: certificate
+    section_id: certificate-zonx2z
     title: Career Outcomes
-    description: >-
-      Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access
-      high-paying roles:
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: 'AI Software Engineer: __TPL__'
-      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-      - text: 'Agent Engineer: $105K–$150K'
-      - text: 'Workflow Automation Engineer: $85K–$120K'
+      - text: "AI Software Engineer: {{ global.average_salary_fullstack | $95K–$135K }}"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$150K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
         benefits:
@@ -389,28 +362,22 @@ sections:
           - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: >-
-          Land your first role within 3–6 months of graduation. With our structured 3-step career development process,
-          your skills turn into job offers fast.
+        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
         benefits:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: __TPL__%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
-        description: >-
-          Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as
-          you enter the field.
+        description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
         benefits:
-          - text: 'Full Stack Engineer: __TPL__+'
-          - text: 'AI-fluent Software Developer: __TPL__'
-          - text: 'Web Applications Engineer: __TPL__'
-          - text: 'Backend Services Developer: __TPL__ '
+          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
+          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
+          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
+          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
       - value: 400+
         label: Hiring partners
-        description: >-
-          Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and
-          priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -425,15 +392,15 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-    section_id: certificate-zonx2z
   - type: pricing
-    version: '1.0'
+    section_id: pricing-u39opr
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full payment discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-based financing: starting below'
-    financing_amount: __TPL__
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
+    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -446,15 +413,9 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Standard tuition is __TPL__. Pay upfront and receive a 10% discount, or spread payments interest-free over 6
-          months.
+        text: Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: >-
-          Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money
-          back.&nbsp;<div>*Not available in all regions. <a
-          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-          conditions apply</a>.</div>
+        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -462,7 +423,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: '#apply-modal'
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: none md
@@ -491,15 +452,15 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: pricing-u39opr
   - type: pricing
-    version: '1.0'
+    section_id: pricing-s08m5p
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
-    financing_amount: __TPL__
+    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -513,15 +474,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24
-          installments through our partners.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
-        text: >-
-          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
-          your fees.
+        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
       text: Get More Information
       url: /es/apply
@@ -542,8 +499,8 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    section_id: pricing-s08m5p
   - type: whos_hiring
+    section_id: whos_hiring-uwrrq5
     variant: carousel
     title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
@@ -574,66 +531,54 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
-    section_id: whos_hiring-uwrrq5
   - type: testimonials
+    section_id: testimonials-6j5dka
     title: Real Students. Real Careers.
-    subtitle: __TPL__+ graduates and __TPL__+ verified reviews prove our programs deliver life-changing results.
+    subtitle: {{ global.global_total_alumni | 4,000 }}+ graduates and {{ global.global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: {{ global.global_review_rating | 4.8 }}
+      count: {{ global.global_review_count | 1,294 }}
     items:
       - name: Sarah Johnson
         role: AI Engineer
         company: Google
         rating: 5
-        comment: >-
-          This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum
-          is perfectly structured for real-world AI applications.
+        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world AI applications.
         outcome: +55% salary increase
       - name: Michael Chen
         role: ML Engineer
         company: Meta
         rating: 5
-        comment: >-
-          Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career
-          support were invaluable.
+        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
         outcome: Hired in 4 months
       - name: Emily Rodriguez
         role: AI Engineer
         company: Amazon
         rating: 5
-        comment: >-
-          Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm
-          working on cutting-edge AI.
+        comment: Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm working on cutting-edge AI.
         outcome: +100% salary increase
       - name: David Kim
         role: AI Developer
         company: Startup
         rating: 5
-        comment: >-
-          From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects
-          made all the difference.
+        comment: From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects made all the difference.
         outcome: Career change success
       - name: Jessica Martinez
         role: AI Engineer
         company: Spotify
         rating: 4
-        comment: >-
-          Great course with practical, real-world projects. The community is supportive and the instructors are always
-          available to help.
+        comment: Great course with practical, real-world projects. The community is supportive and the instructors are always available to help.
         outcome: +45% salary increase
       - name: Ryan Thompson
         role: ML Engineer
         company: Tech Startup
         rating: 5
-        comment: >-
-          The best online learning experience I've had. Clear explanations, practical exercises, and excellent career
-          guidance throughout.
+        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
         outcome: Landed first tech job
     paddingY:
       desktop: md
-    section_id: testimonials-6j5dka
   - type: faq
+    section_id: faq-wtxzwj
     title: Frequently Asked Questions
     related_features:
       - full-stack
@@ -642,10 +587,9 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
-    section_id: faq-wtxzwj
   - type: cta_banner
-    version: '1.0'
-    title: Ready to Become an __TPL__?
+    version: "1.0"
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
     subtitle: Limited spots available. Start your transformation today.
     variant: form
     form:
@@ -668,7 +612,7 @@ sections:
         program:
           visible: false
           required: true
-          default: __TPL__
+          default: {{ single.bc_slug | unknown }}
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -687,7 +631,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-yno9xp
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -713,7 +657,7 @@ sections:
         program:
           visible: false
           required: false
-          default: __TPL__
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Thanks! We'll be in touch within 24 hours.
     section_id: sticky_cta-et016q

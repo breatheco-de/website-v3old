@@ -1,8 +1,6 @@
 meta:
   page_title: 4Geeks Academy | Rest of Europe Coding Bootcamp
-  description: >-
-    Learn to code in Europe from home with 4Geeks Academy. Unlimited 1:1 support, AI-powered learning, and lifetime
-    career support. Full Stack, Data Science, or Cybersecurity.
+  description: Learn to code in Europe from home with 4Geeks Academy. Unlimited 1:1 support, AI-powered learning, and lifetime career support. Full Stack, Data Science, or Cybersecurity.
   robots: index, follow
   og_image: /images/locations/rest-of-europe-og.jpg
   priority: 0.8
@@ -11,27 +9,26 @@ meta:
     - /us/coding-campus/europe-online-coding-bootcamp
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-mykuka
+    version: "1.0"
     variant: singleColumn
     title: Learn To Code in Europe
-    subtitle: >-
-      Learn to code in Europe from home with live instruction, unlimited mentorship, and lifetime career support. Join
-      our European community and grow from anywhere.
+    subtitle: Learn to code in Europe from home with live instruction, unlimited mentorship, and lifetime career support. Join our European community and grow from anywhere.
     badge: Europe
     cta_buttons:
       - text: Apply Now
         url: /en/apply
         variant: primary
       - text: Download Syllabus
-        url: '#bottom'
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-mykuka
   - type: awards_marquee
+    section_id: awards_marquee-f1xw0i
     version: v1.0
     speed: 40
     gradient: true
@@ -71,9 +68,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-f1xw0i
   - type: banner
-    version: '1.0'
+    section_id: banner-6091oe
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -81,15 +78,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Your Tech Journey with 4Geeks Academy in Europe
-    description: >-
-      Develop your technology skills from anywhere in Europe. Interactive courses focused on essential technical skills
-      for today's digital world, access to experienced instructors and a collaborative learning community, and
-      preparation for real-world challenges and tech job opportunities across the region.
+    description: Develop your technology skills from anywhere in Europe. Interactive courses focused on essential technical skills for today's digital world, access to experienced instructors and a collaborative learning community, and preparation for real-world challenges and tech job opportunities across the region.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-6091oe
   - type: two_column
+    section_id: two_column-f0kx0l
     proportions:
       - 6
       - 6
@@ -99,23 +93,19 @@ sections:
     right:
       heading: Your Tech Journey with 4Geeks Academy in Europe
       sub_heading: Develop Your Technology Skills from Anywhere
-      description: >-
-        Interactive courses focused on essential technical skills for the digital world, access to experienced
-        instructors and a collaborative community, and preparation for real-world challenges and tech opportunities
-        across Europe.
+      description: Interactive courses focused on essential technical skills for the digital world, access to experienced instructors and a collaborative community, and preparation for real-world challenges and tech opportunities across Europe.
       button:
         text: Watch the full interview
         url: https://youtu.be/EcqasocRKHo
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-f0kx0l
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -130,9 +120,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: >-
-          Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment
-          strategies.  
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -147,11 +135,9 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: >-
-          Master modern web development from frontend to backend and build production-ready applications using
-          industry-standard tools.  
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -165,9 +151,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: >-
-          Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world
-          problems.  
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -181,111 +165,89 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: >-
-          Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity
-          threats.  
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-i7pdmx
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-eecppy
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: >-
-          Get personalized technical guidance whenever you need it. Our expert mentors are available online, ready to
-          help you from day one to forever—including for job-related coding questions.
+        text: Get personalized technical guidance whenever you need it. Our expert mentors are available online, ready to help you from day one to forever—including for job-related coding questions.
       - heading: AI-Powered Learning Support
-        text: >-
-          Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve
-          continuously with guidance tailored to your learning path.
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
-        text: >-
-          Receive expert, personalized career coaching focused on getting you hired. Tailor-made advice and training for
-          your unique profile and specific job offers.
+        text: Receive expert, personalized career coaching focused on getting you hired. Tailor-made advice and training for your unique profile and specific job offers.
       - heading: An Active Global Tech Community
-        text: >-
-          When you learn online with 4Geeks in Europe, you get access to our full platform and any of our locations
-          worldwide.
+        text: When you learn online with 4Geeks in Europe, you get access to our full platform and any of our locations worldwide.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-eecppy
   - type: testimonials_slide
-    title: Proven Paths to Tech Careers
-    description: >-
-      These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real
-      outcomes.
-    background: bg-sidebar
     section_id: testimonials_slide-dzbu7t
+    title: Proven Paths to Tech Careers
+    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    background: bg-sidebar
   - type: split_cards
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
-      description: >-
-        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job
-        Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk
-        about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or
-        receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-        conditions apply.</a></span>
-
+      description: |-
+        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div></div>
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: __TPL__% hiring rate among graduates
+        - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
-        - text: __TPL__% average salary increase in tech roles
+        - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
     section_id: split_cards-29s4xy
   - type: why_learn_ai
+    section_id: why_learn_ai-vbagri
     variant: laptop-edge
     title: Why Learn to Code with 4Geeks in Europe
     subtitle: All programs are taught online, hybrid, or in person
-    description: >-
-      Learning to code online is challenging—but not alone. Join our European community and get support to learn and to
-      land a job for life. When you learn with 4Geeks online in Europe, you get access to our full platform and any of
-      our locations worldwide.
-    section_id: why_learn_ai-vbagri
+    description: Learning to code online is challenging—but not alone. Join our European community and get support to learn and to land a job for life. When you learn with 4Geeks online in Europe, you get access to our full platform and any of our locations worldwide.
   - type: mentorship
+    section_id: mentorship-izc4ar
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
     cards:
       - icon: user
         title: All the Mentorship You Need
-        description: >-
-          Online and in person, for the rest of your life—including for job-related coding questions. Instructors
-          typically respond within 15 minutes.
+        description: Online and in person, for the rest of your life—including for job-related coding questions. Instructors typically respond within 15 minutes.
       - icon: users
         title: 1:9 Instructor-to-Student Ratio
         description: You'll find more instructors at 4Geeks than the industry average. Get the attention you need to succeed.
       - icon: headset
         title: Tailor-Made Career Support
         description: Customized advice, guidance, and training based on each job opportunity and your unique profile.
-    section_id: mentorship-izc4ar
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-kyhytz
+    version: "1.0"
     title: Europe Graduate Success Stories
     filter_by_location: rest-of-europe
     marginY:
       desktop: none lg
-    section_id: testimonials-kyhytz
   - type: testimonials
+    section_id: testimonials-7rry6o
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -323,8 +285,8 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
-    section_id: testimonials-7rry6o
   - type: faq
+    section_id: faq-wctzq1
     title: Frequently Asked Questions
     related_features:
       - certification
@@ -334,9 +296,8 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    section_id: faq-wctzq1
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
@@ -380,7 +341,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-pxlz4m
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

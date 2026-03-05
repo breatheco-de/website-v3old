@@ -16,11 +16,14 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
+    section_id: hero-whapx0
     version: '1.0'
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
     title_highlight: Especialista en Ciberseguridad
-    subtitle: Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en __TPL__ semanas.
+    subtitle: >-
+      Defiende sistemas, responde a amenazas digitales y lanza una éxitosa carrera en ciberseguridad en {{
+      global.cybersecurity_week_duration | 16 }} semanas.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -56,13 +59,13 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa intensivo de __TPL__ Semanas
+          text: Programa intensivo de {{ global.cybersecurity_week_duration | 16 }} Semanas
         - icon: IconBriefcase
           text: Programa orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
         - icon: IconUsers
-          text: Relación __TPL__ de estudiantes a instructor
+          text: Relación {{ global.global_teacher_student_ratio | 7:1 }} de estudiantes a instructor
         - icon: IconUserCheck
           text: Mentoría 1:1 ilimitada
         - icon: book
@@ -71,7 +74,6 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    section_id: hero-whapx0
   - type: modal
     version: '1.0'
     section_id: apply-modal
@@ -101,6 +103,7 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
+    section_id: awards_marquee-lsrqku
     version: v1.0
     speed: 40
     gradient: true
@@ -142,8 +145,8 @@ sections:
       desktop: none
     marginY:
       desktop: none lg
-    section_id: awards_marquee-lsrqku
   - type: features_grid
+    section_id: features_grid-hepe2s
     version: '1.0'
     variant: stats-text
     title: La falta de especialistas en Ciberseguridad es tu Oportunidad
@@ -161,10 +164,10 @@ sections:
         value: 41%
         title: Crecimiento laboral proyectado, superando a la mayoría de los sectores
       - id: '3'
-        value: __TPL__
+        value: '{{ global.global_spending_cybersecurity | $520B }}'
         title: Gasto global en ciberseguridad este año
-    section_id: features_grid-hepe2s
   - type: syllabus
+    section_id: syllabus-4bbu8w
     variant: program-modules
     program_title: Lo que aprenderás en el programa de Ciberseguridad
     program_description: >-
@@ -241,8 +244,8 @@ sections:
         icon: IconClipboardCheck
     paddingY:
       desktop: md
-    section_id: syllabus-4bbu8w
   - type: projects
+    section_id: projects-7s8cab
     title: Aprende defendiendo sistemas reales
     subtitle: >-
       Obtén experiencia práctica con ejercicios que simulan escenarios reales de ciberseguridad. Construye un portafolio
@@ -283,8 +286,8 @@ sections:
         date: 15/02/2025
     paddingY:
       desktop: md
-    section_id: projects-7s8cab
   - type: ai_learning
+    section_id: ai_learning-rloshl
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: Todo lo que necesitas para lanzar tu carrera en tecnología
@@ -316,14 +319,16 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación __TPL__ de estudiante a profesor, garantizando una atención personalizada
+          - text: >-
+              Relación {{ global.global_teacher_student_ratio | 7:1 }} de estudiante a profesor, garantizando una
+              atención personalizada
           - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md none
-    section_id: ai_learning-rloshl
   - type: certificate
+    section_id: certificate-9cx6tr
     title: Inserción laboral comprobada
     description: >-
       Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
@@ -338,7 +343,7 @@ sections:
       subtitle: Certificado de 4Geeks Academy
       program_name: Especialista en Ciberseguridad
     stats:
-      - value: __TPL__%
+      - value: '{{ global.global_job_placement_rate | 84 }}%'
         label: Tasa promedio de contratación
         description: >-
           Gradúate con las habilidades y certificaciones globales que las principales empresas buscan activamente en
@@ -359,18 +364,18 @@ sections:
               en IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia de búsqueda de empleo personalizada con acceso a redes de contratación relevantes
-      - value: __TPL__
+      - value: '{{ global.average_salary_cybersecurity_short | $85 }}'
         label: Salario inicial promedio
         description: >-
           Una carrera en ciberseguridad no es solo un nuevo empleo, es una nueva trayectoria de vida. Con un aumento
           salarial promedio del 55%, nuestros graduados alcanzan un nivel de estabilidad y crecimiento que pocas
           industrias pueden ofrecer.
         benefits:
-          - text: 'Analista de Ciberseguridad: __TPL__'
-          - text: 'Penetration Tester: __TPL__'
-          - text: 'Ingeniero de Seguridad: __TPL__'
-          - text: 'Especialista en Respuesta a Incidentes: __TPL__'
-      - value: __TPL__+
+          - text: 'Analista de Ciberseguridad: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}'
+          - text: 'Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}'
+          - text: 'Ingeniero de Seguridad: {{ global.global_salary_security_engineer | $100K–$165K }}'
+          - text: 'Especialista en Respuesta a Incidentes: {{ global.global_salary_incident_responder | $85K–$140K }}'
+      - value: '{{ global.number_of_hiring_partners_aprox | 500 }}+'
         label: Empleadores asociados
         description: >-
           Nuestra extensa red incluye empresas Fortune 500, agencias gubernamentales y startups innovadoras que buscan
@@ -384,8 +389,8 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: md
-    section_id: certificate-9cx6tr
   - type: why_learn_ai
+    section_id: why_learn_ai-7xea4d
     variant: laptop-edge
     title: Tu futuro profesional, con garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
@@ -424,15 +429,15 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-    section_id: why_learn_ai-7xea4d
   - type: pricing
+    section_id: pricing-xs1v8u
     version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: 'Descuento por pago completo: Ahorra 10% con el pago anticipado.'
     financing_text: Financiamiento en cuotas desde
-    financing_amount: __TPL__
+    financing_amount: '{{ global.price_cybersecurity | 299€ }}'
     tech_icons:
       - python
       - tensorflow
@@ -475,15 +480,15 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    section_id: pricing-xs1v8u
   - type: pricing
+    section_id: pricing-ox87sr
     version: '1.0'
     variant: product
     title: Matrícula y opciones de financiamiento
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: 'Descuento por pago completo: Ahorra 10% pagando de una sola vez.'
     financing_text: 'Financiamiento basado en crédito: desde'
-    financing_amount: __TPL__
+    financing_amount: '{{ global.price_cybersecurity | $299 }}'
     tech_icons:
       - openai
       - python
@@ -497,8 +502,8 @@ sections:
     features:
       - icon: IconCheck
         text: >-
-          La matrícula estándar es __TPL__. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin
-          intereses en 6 meses.
+          La matrícula estándar es {{ global.price_full_cybersecurity | $9,999 }}. Paga de una sola vez y recibe un 10%
+          de descuento, o divide los pagos sin intereses en 6 meses.
       - icon: IconCheck
         text: >-
           Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses
@@ -542,14 +547,15 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: pricing-ox87sr
   - type: whos_hiring
+    section_id: whos_hiring-6ewfed
     variant: carousel
     title: ¿Quién contrata a nuestros alumnos?
     subtitle: Nuestros graduados trabajan en importantes empresas a nivel mundial
     description: >-
-      Las mejores empresas contratan graduados de 4Geeks. __TPL__% consiguen empleo dentro de los 6 meses de graduarse
-      gracias a sus habilidades comprobadas y nuestro método de desarrollo profesional.
+      Las mejores empresas contratan graduados de 4Geeks. {{ global.global_job_placement_rate | 84 }}% consiguen empleo
+      dentro de los 6 meses de graduarse gracias a sus habilidades comprobadas y nuestro método de desarrollo
+      profesional.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoftmeses de graduarse.
@@ -569,13 +575,15 @@ sections:
         alt: Blackstone
     paddingY:
       desktop: md
-    section_id: whos_hiring-6ewfed
   - type: testimonials
+    section_id: testimonials-zusyvs
     title: Éxito profesional comprobado
-    subtitle: “Más de __TPL__ graduados y __TPL__+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
+    subtitle: >-
+      “Más de {{ global.global_total_alumni | 4,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+
+      reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: '{{ global.global_review_rating | 4.5 }}'
+      count: '{{ global.global_review_count | 1,294 }}'
     items:
       - name: Sarah Johnson
         role: Ingeniera de Software
@@ -627,16 +635,16 @@ sections:
         outcome: Primer empleo en seguridad
     paddingY:
       desktop: md
-    section_id: testimonials-zusyvs
   - type: faq
+    section_id: faq-2li5mm
     title: Preguntas frecuentes
     related_features:
       - cybersecurity
     paddingY:
       desktop: md
     background: muted
-    section_id: faq-2li5mm
   - type: cta_banner
+    section_id: cta_banner-g4bqsw
     version: '1.0'
     title: ¿Listo para convertirte en Ingeniero en Ciberseguridad?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
@@ -644,7 +652,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: __TPL__
+      submit_label: '{{ global.call_to_action_apply | Aplicar ahora }}'
       tags: website-lead
       fields:
         email:
@@ -680,11 +688,11 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-g4bqsw
   - type: sticky_cta
+    section_id: sticky_cta-r1r9ak
     version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: __TPL__
+    button_label: '{{ global.call_to_action_apply | Aplicar ahora }}'
     show_dismiss: false
     form:
       variant: inline
@@ -710,4 +718,3 @@ sections:
           default: cybersecurity
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-r1r9ak

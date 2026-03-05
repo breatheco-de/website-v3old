@@ -118,11 +118,11 @@ sections:
     subtitle: Our alumni land jobs fast, boost their salaries, and launch tech careers that last.
     use_card: true
     items:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         title: Graduates Hired
       - value: 3-6 months
         title: Time to Get Hired
-      - value: __TPL__%
+      - value: {{ global.global_salary_increase | 55 }}%
         title: Salary Boost
     marginY:
       desktop: md
@@ -159,7 +159,7 @@ sections:
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: __TPL__ weeks
+        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -171,7 +171,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Data Science and Machine Learning
-        duration: __TPL__ weeks
+        duration: {{ global.data_science_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
@@ -183,7 +183,7 @@ sections:
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: __TPL__ weeks
+        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -213,7 +213,7 @@ sections:
           - Limited support
       - feature: Teacher-to-student ratio
         values:
-          - __TPL__
+          - {{ global.global_teacher_student_ratio | 1:7 }}
           - Usually 1:10+
       - feature: AI-powered feedback
         values:
@@ -229,7 +229,7 @@ sections:
           - Updates vary
       - feature: Hiring rate
         values:
-          - ~__TPL__% within 6 months
+          - ~{{ global.global_job_placement_rate | 84 }}% within 6 months
           - Mostly unreported
       - feature: Community
         values:
@@ -327,7 +327,7 @@ sections:
         description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
       - icon: CreditCard
         title: Flexible financing
-        description: Financing options start from __TPL__/month, so you can learn without financial stress.
+        description: Financing options start from {{ global.lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
       - icon: Coin
         title: Income-based payment
         description: Start learning now and only pay once you’re earning in tech.

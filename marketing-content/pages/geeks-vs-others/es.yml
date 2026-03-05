@@ -51,7 +51,7 @@ sections:
           - Limitado o de corto plazo
       - feature: Ratio Profesor-estudiante
         values:
-          - __TPL__
+          - {{ global.global_teacher_student_ratio | 1:7 }}
           - Usualmente 1:10 o más
       - feature: Feedback impulsado por IA
         values:
@@ -67,7 +67,7 @@ sections:
           - Actualizaciones varían según el proveedor
       - feature: Tasa de contratación
         values:
-          - ~__TPL__% en 6 meses
+          - ~{{ global.global_job_placement_rate | 84 }}% en 6 meses
           - Varía; mayormente no reportada
       - feature: Comunidad
         values:
@@ -117,11 +117,11 @@ sections:
     subtitle: Nuestros alumnos están consiguiendo empleos, aumentando salarios y lanzando carreras tech en todo el mundo.
     use_card: true
     items:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         title: Tasa de colocación laboral
       - value: 3-6 meses
         title: Tiempo promedio para conseguir empleo
-      - value: __TPL__%
+      - value: {{ global.global_salary_increase | 55 }}%
         title: Aumento salarial después de graduarte
     marginY:
       desktop: lg none
@@ -129,7 +129,7 @@ sections:
   - type: testimonials_slide
     title: Carreras reales comienzan aquí — solo pregúntale a nuestros estudiantes
     description: >-
-      Con el __TPL__% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje
+      Con el {{ global.global_job_placement_rate | 84 }}% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje
       práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
     marginY:
       desktop: md none
@@ -214,7 +214,7 @@ sections:
         description: Entre las matrículas más asequibles de cualquier programa top-ranked (reconocido por Forbes).
       - icon: CreditCard
         title: Financiamiento flexible
-        description: Opciones de financiamiento desde __TPL__/mes, para que aprendas sin estrés financiero.
+        description: Opciones de financiamiento desde {{ global.lowest_monthly_financing_option | $299 }}/mes, para que aprendas sin estrés financiero.
       - icon: Coin
         title: Pago basado en ingresos
         description: Comienza a aprender ahora y solo paga una vez que estés ganando en tech.

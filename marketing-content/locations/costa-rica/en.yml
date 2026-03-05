@@ -15,9 +15,7 @@ available_programs:
   - full-stack
 context:
   when_to_use: For Costa Rica and Central America visitors or those interested in tech and nearshore opportunities in the region.
-  target_audience: >-
-    Local professionals, nearshore talent, and Latin American residents seeking a coding bootcamp with global
-    recognition and job-focused training.
+  target_audience: Local professionals, nearshore talent, and Latin American residents seeking a coding bootcamp with global recognition and job-focused training.
   goals:
     - Position Costa Rica as Central America's leading tech and nearshore hub
     - Emphasize bilingual (English/Spanish) and remote-friendly programs
@@ -37,15 +35,13 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: Avenida Central
         addressLocality: San José
         addressCountry: CR
 meta:
   page_title: 4Geeks Academy Costa Rica | Coding Bootcamp in San Jose
-  description: >-
-    Join 4Geeks Costa Rica coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship
-    and job guarantee.
+  description: Join 4Geeks Costa Rica coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and job guarantee.
   robots: index, follow
   og_image: /images/locations/costarica-og.jpg
   priority: 0.8
@@ -54,27 +50,26 @@ meta:
     - /us/coding-campus/coding-bootcamp-costa-rica
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-pgqafz
+    version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Costa Rica
-    subtitle: >-
-      Train for in-demand tech roles, including AI Engineering, in Central America's leading tech and nearshore hub.
-      Live instruction, hands-on projects, and career support for real hiring.
+    subtitle: Train for in-demand tech roles, including AI Engineering, in Central America's leading tech and nearshore hub. Live instruction, hands-on projects, and career support for real hiring.
     badge: Costa Rica Campus
     cta_buttons:
       - text: Apply Now
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
       - text: Download Syllabus
-        url: '#syllabus-modal'
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-pgqafz
   - type: awards_marquee
+    section_id: awards_marquee-rxl74t
     version: v1.0
     speed: 40
     gradient: true
@@ -114,9 +109,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-rxl74t
   - type: banner
-    version: '1.0'
+    section_id: banner-4n64f6
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -124,16 +119,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: At the Center of Costa Rica's Tech Momentum
-    description: >-
-      Costa Rica is Central America's leading tech and nearshore hub, and 4Geeks Academy is at the center of its growth.
-      From our Costa Rica campus, we connect students with local employers, regional opportunities, and a thriving
-      ecosystem of startups, incubators, and tech events—helping you build relationships that support your entry and
-      long-term growth in tech.
+    description: Costa Rica is Central America's leading tech and nearshore hub, and 4Geeks Academy is at the center of its growth. From our Costa Rica campus, we connect students with local employers, regional opportunities, and a thriving ecosystem of startups, incubators, and tech events—helping you build relationships that support your entry and long-term growth in tech.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-4n64f6
   - type: two_column
+    section_id: two_column-5vn1bk
     proportions:
       - 6
       - 6
@@ -143,23 +134,19 @@ sections:
     right:
       heading: Insights from Hernán García on 4Geeks Academy in Costa Rica
       sub_heading: Empowering tech journeys and innovations in Central America
-      description: >-
-        Hernán García reflects on 4Geeks Academy's programs and their impact on Costa Rica's tech industry. Learn about
-        our teaching methodologies, career outcomes, and how we're shaping tech careers and fostering innovation in the
-        region.
+      description: Hernán García reflects on 4Geeks Academy's programs and their impact on Costa Rica's tech industry. Learn about our teaching methodologies, career outcomes, and how we're shaping tech careers and fostering innovation in the region.
       button:
         text: Watch the full interview
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-5vn1bk
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -174,9 +161,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: >-
-          Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment
-          strategies.  
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -191,11 +176,9 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: >-
-          Master modern web development from frontend to backend and build production-ready applications using
-          industry-standard tools.  
+          - icon: ""
+            text: ""
+        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -209,9 +192,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: >-
-          Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world
-          problems.  
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -225,101 +206,61 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: >-
-          Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity
-          threats.  
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-dzxl68
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-f2gdll
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: >-
-          Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the
-          program and continue receiving support long after you graduate.
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
       - heading: AI-Powered Learning Support
-        text: >-
-          Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve
-          continuously with guidance tailored to your learning path.
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
-        text: >-
-          Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning
-          to interviews and negotiation, support evolves with your goals and experience.
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
-        text: >-
-          Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and
-          stay connected to a global network well beyond graduation.
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-f2gdll
   - type: testimonials_slide
-    title: Proven Paths to Tech Careers
-    description: >-
-      These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real
-      outcomes.
-    background: bg-sidebar
     section_id: testimonials_slide-lcbefq
+    title: Proven Paths to Tech Careers
+    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    background: bg-sidebar
   - type: split_cards
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
-      description: >-
-        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job
-        Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk
-        about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or
-        receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-        conditions apply.</a></span>
-
+      description: |-
+        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div></div>
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: __TPL__% hiring rate among graduates
+        - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
-        - text: __TPL__% average salary increase in tech roles
+        - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
     section_id: split_cards-h7p73e
   - type: why_learn_ai
+    section_id: why_learn_ai-unydig
     variant: laptop-edge
     title: Why Costa Rica Is a Smart Place to Launch Your Tech Career
     subtitle: Central America's leading tech ecosystem with strong nearshore demand
-    description: >-
-      Costa Rica offers a supportive environment for startups and entrepreneurs, with a well-educated workforce and
-      strong demand for technical talent. It's a market with real opportunities for
-      developers.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Leading nearshore hub
-      for US companies, with high demand for software, AI, and data skills</span></li><li>Incubators, accelerators, and
-      co-working spaces provide support and networking for tech professionals</li><li>Universities and coding bootcamps
-      nurture programming skills to bridge the tech talent gap</li></ul></div><div>From our Costa Rica campus, we
-      connect you with local employers, regional opportunities, and a thriving ecosystem of startups and tech events—so
-      you build relationships that support your entry and long-term growth in tech.</div></div>
-    section_id: why_learn_ai-unydig
+    description: "Costa Rica offers a supportive environment for startups and entrepreneurs, with a well-educated workforce and strong demand for technical talent. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Leading nearshore hub for US companies, with high demand for software, AI, and data skills</span></li><li>Incubators, accelerators, and co-working spaces provide support and networking for tech professionals</li><li>Universities and coding bootcamps nurture programming skills to bridge the tech talent gap</li></ul></div><div>From our Costa Rica campus, we connect you with local employers, regional opportunities, and a thriving ecosystem of startups and tech events—so you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
-    version: v1.0
-    title: Mentorship & Support
-    subtitle: You're never alone in your learning journey
-    cards:
-      - icon: user
-        title: 1-on-1 Mentorship
-        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
-      - icon: users
-        title: Career Coaching
-        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
-      - icon: headset
-        title: 24/7 Community Support
-        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-671fas
-  - type: mentorship
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -333,21 +274,36 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+  - type: mentorship
     section_id: mentorship-gdintf
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-ssquyg
+    version: "1.0"
     title: Costa Rica Graduate Success Stories
     filter_by_location: costa-rica
     marginY:
       desktop: none lg
-    section_id: testimonials-ssquyg
   - type: testimonials
+    section_id: testimonials-u27uzt
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -385,8 +341,8 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
-    section_id: testimonials-u27uzt
   - type: faq
+    section_id: faq-lvpfpq
     title: Frequently Asked Questions
     related_features:
       - certification
@@ -396,9 +352,8 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    section_id: faq-lvpfpq
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
@@ -442,7 +397,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-7e28z6
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

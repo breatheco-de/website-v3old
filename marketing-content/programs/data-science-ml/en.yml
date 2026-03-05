@@ -6,9 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Data Science and Machine Learning Career Program | 4Geeks
-  description: >-
-    Learn data science and machine learning at your own pace with AI-powered tools, unlimited mentorship, and a global
-    community. Master Python, TensorFlow, and predictive modeling.
+  description: Learn data science and machine learning at your own pace with AI-powered tools, unlimited mentorship, and a global community. Master Python, TensorFlow, and predictive modeling.
   redirects:
     - /bootcamp/data-science
     - /programs/datascience-machine-learning
@@ -22,13 +20,12 @@ schema:
     - courses:data-science
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-5v636o
+    version: "1.0"
     variant: course
     title: Data Science and Machine Learning
     title_highlight: Data Science
-    subtitle: >-
-      Master the skills powering the AI revolution. Learn to analyze data and build models that drive real-world
-      decisions.
+    subtitle: Master the skills powering the AI revolution. Learn to analyze data and build models that drive real-world decisions.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -47,10 +44,8 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
-    description: >-
-      Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited
-      mentorship, and career support that's built to get you hired.
+    tutors_label: "Your tutors:"
+    description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
     video:
       url: https://youtu.be/snI-n8Ruvxg
     media:
@@ -60,25 +55,23 @@ sections:
       alt: Data Science program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: >-
-        Receive the complete syllabus, program structure, schedule options, tuition details, and career support
-        framework.
+      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send me the details
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: __TPL__-week intensive program
+          text: {{ global.data_science_week_duration | 18 }}-week intensive program
         - icon: IconBriefcase
           text: Employment-first curriculum
         - icon: IconRobot
           text: AI-Powered learning & feedback
         - icon: IconUsers
-          text: __TPL__ Student-to-Instructor Ratio
+          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 mentorship
         - icon: book
@@ -87,13 +80,10 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    section_id: hero-5v636o
   - type: modal
-    version: '1.0'
+    version: "1.0"
     heading: Request Program Details
-    description: >-
-      Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and
-      support framework.
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
@@ -114,11 +104,12 @@ sections:
         program:
           visible: false
           required: true
-          default: __TPL__
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
   - type: awards_marquee
+    section_id: awards_marquee-izbzaa
     version: v1.0
     speed: 40
     gradient: true
@@ -160,33 +151,26 @@ sections:
       desktop: md lg
     paddingY:
       desktop: none
-    section_id: awards_marquee-izbzaa
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-35e8wc
+    version: "1.0"
     variant: stats-text
     title: Why Data Science Now?
     subtitle: Data fuels the AI revolution.
-    description: >-
-      As companies shift toward autonomous operations, the demand for experts who can turn raw information into
-      predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the
-      past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals
-      are delivering the insights that are transforming every industry.
+    description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
     background: hsl(var(--background))
     items:
-      - id: '1'
+      - id: "1"
         value: 36%
         title: projected growth rate the next decade
-      - id: '3'
-        value: __TPL__
+      - id: "3"
+        value: {{ global.salary_data_scientist | 22.000€ }}
         title: Average starting salary for data scientists
-    section_id: features_grid-35e8wc
   - type: syllabus
+    section_id: syllabus-skzl68
     variant: program-modules
     program_title: Data Science and Machine Learning Program Overview
-    program_description: >-
-      Master the industry-standard toolkit used by modern data teams. Go beyond simple analysis to build
-      production-ready systems—from engineering raw data to deploying the predictive models that companies use to drive
-      innovation and scale.
+    program_description: Master the industry-standard toolkit used by modern data teams. Go beyond simple analysis to build production-ready systems—from engineering raw data to deploying the predictive models that companies use to drive innovation and scale.
     tech_logos:
       - name: Python
         icon: python
@@ -259,8 +243,8 @@ sections:
       desktop: md none
     paddingY:
       desktop: md lg
-    section_id: syllabus-skzl68
   - type: ai_learning
+    section_id: ai_learning-gseumb
     variant: feature-tabs
     badge: Why 4Geeks?
     title: How You’ll Learn at 4Geeks
@@ -268,7 +252,7 @@ sections:
     features:
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -278,7 +262,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
@@ -288,33 +272,31 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
-          - text: __TPL__ student–teacher ratio for personalized guidance
+          - text: {{ global.global_teacher_student_ratio | 7:1 }} student–teacher ratio for personalized guidance
           - text: Peer collaboration through Slack channels and weekly check-ins
           - text: Dedicated Slack channels for coding support, job boards, and career advice
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md none
-    section_id: ai_learning-gseumb
   - type: certificate
+    section_id: certificate-nsji8x
     title: Career Outcomes
-    description: >-
-      Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access
-      high-paying roles:
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: 'Data Scientist: __TPL__ }} }} }}'
-      - text: 'Machine Learning Engineer: __TPL__'
-      - text: 'Data Analyst: __TPL__'
-      - text: 'AI Engineer: __TPL__'
+      - text: "Data Scientist: {{ global.salary_data_scientist | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | $80K–$130K }} }} }} }}"
+      - text: "Machine Learning Engineer: {{ global.average_salary_machine_learning_engineer }}"
+      - text: "Data Analyst: {{ global.average_salary_data_analyst | $60K–$95K }}"
+      - text: "AI Engineer: {{ global.average_salary_ai_engineer | $100K–$160K }}"
     card:
       title: Data Scientist
       subtitle: 4Geeks Academy Certificate
       program_name: Data Science & Machine Learning
     stats:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
         benefits:
@@ -324,28 +306,22 @@ sections:
           - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: >-
-          Land your first role within 3–6 months of graduation. With our structured 3-step career development process,
-          your skills turn into job offers fast.
+        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
         benefits:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: __TPL__%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
-        description: >-
-          Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth
-          and long-term stability.
+        description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
         benefits:
-          - text: 'Data Scientist: __TPL__'
-          - text: 'Machine Learning Engineer: __TPL__'
-          - text: 'Data Analyst: __TPL__'
-          - text: 'AI Engineer: __TPL__'
+          - text: "Data Scientist: {{ global.salary_data_scientist | $80K–$130K }}"
+          - text: "Machine Learning Engineer: {{ global.average_salary_machine_learning_engineer | $90K–$150K }}"
+          - text: "Data Analyst: {{ global.average_salary_data_analyst | $60K–$95K }}"
+          - text: "AI Engineer: {{ global.average_salary_ai_engineer | $100K–$160K }}"
       - value: 400+
         label: Hiring Partners
-        description: >-
-          Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job
-          opportunities and priority referrals.
+        description: Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -356,15 +332,11 @@ sections:
     paddingY:
       mobile: lg
       desktop: none lg
-    section_id: certificate-nsji8x
   - type: features_grid
+    section_id: features_grid-s3hije
     variant: highlight
     title: Enroll with a Job Guarantee*
-    subtitle: >-
-      Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style="font-size:
-      0.875rem;">*The Job Guarantee is not available in all regions. <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-      conditions apply.</a></span></div>
+    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
         title: Add the job guarantee to your payment plan
@@ -373,7 +345,7 @@ sections:
       - icon: Award
         title: Get hired within 9 months of graduation – or your money back
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
@@ -394,15 +366,15 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-    section_id: features_grid-s3hije
   - type: pricing
-    version: '1.0'
+    section_id: pricing-sb335o
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full payment discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-based financing: starting below'
-    financing_amount: __TPL__
+    discount_text: "Full payment discount: Save 10% with upfront payment."
+    financing_text: "Credit-based financing: starting below"
+    financing_amount: {{ global.price_datascience | $299 }}
     tech_icons:
       - python
       - tensorflow
@@ -416,15 +388,9 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Standard tuition is __TPL__. Pay upfront and receive a 10% discount, or spread payments interest-free over 6
-          months.
+        text: Standard tuition is {{ global.price_full_datascience | $6900 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: >-
-          Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money
-          back.&nbsp;<div>*Not available in all regions. <a
-          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-          conditions apply</a>.</div>
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -432,7 +398,7 @@ sections:
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
     cta:
       text: Get more info
-      url: '#apply-modal'
+      url: "#apply-modal"
       variant: primary
     marginY:
       desktop: none md
@@ -461,15 +427,15 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: pricing-sb335o
   - type: pricing
-    version: '1.0'
+    section_id: pricing-jkomcz
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
+    discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
-    financing_amount: __TPL__
+    financing_amount: {{ global.price_datascience | Starting at €200 }}
     tech_icons:
       - python
       - tensorflow
@@ -483,15 +449,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24
-          installments through our partners.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
-        text: >-
-          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
-          your fees.
+        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
       text: Get more information
       url: /es/apply
@@ -512,8 +474,8 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    section_id: pricing-jkomcz
   - type: whos_hiring
+    section_id: whos_hiring-hl63dc
     variant: carousel
     title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
@@ -544,68 +506,56 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
-    section_id: whos_hiring-hl63dc
   - type: testimonials
+    section_id: testimonials-50frx2
     title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. More than __TPL__ verified reviews prove it
+    subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700+ }}
     items:
       - name: Gabriel Salazar
         role: Software Engineer
         company: Microsoft
         rating: 5
-        comment: >-
-          I was already a support specialist at Microsoft and after completing the program I was able to achieve a new
-          position where I'm now working as a Software Engineer.
+        comment: I was already a support specialist at Microsoft and after completing the program I was able to achieve a new position where I'm now working as a Software Engineer.
         outcome: +50% salary increase
       - name: Laura Magallanes
         role: Program Coordinator
         company: 4Geeks
         rating: 5
-        comment: >-
-          From a little town in Uruguay with no experience in coding, I'm now a woman head of household, an Instructor
-          and a Program Coordinator. This course changed my life.
+        comment: From a little town in Uruguay with no experience in coding, I'm now a woman head of household, an Instructor and a Program Coordinator. This course changed my life.
         outcome: +120% salary increase
       - name: Alexandra Espinoza
         role: Software Developer
         company: Tech Startup
         rating: 5
-        comment: >-
-          Coming from a totally different background has been a huge revelation for me and everyone around me. I'm now a
-          successful and talented software developer in Costa Rica.
+        comment: Coming from a totally different background has been a huge revelation for me and everyone around me. I'm now a successful and talented software developer in Costa Rica.
         outcome: +100% salary increase
       - name: Loretta Thompson
         role: Data Analyst
         company: United Way Miami
         rating: 5
-        comment: >-
-          I joined in 2022 and graduated in 2023. I already found a job within the next few months and have fulfilled
-          the whole circle of skills+job that we all want to complete!
+        comment: I joined in 2022 and graduated in 2023. I already found a job within the next few months and have fulfilled the whole circle of skills+job that we all want to complete!
         outcome: +45% salary increase
       - name: Melanie Galaretto
         role: Software Developer
         company: Tech Firm
         rating: 5
-        comment: >-
-          I'm a young professional who is dreaming of achieving a life that now I own. I'm a resourceful and committed
-          software developer working for a firm in my home country.
+        comment: I'm a young professional who is dreaming of achieving a life that now I own. I'm a resourceful and committed software developer working for a firm in my home country.
         outcome: +100% salary increase
       - name: Jean St. Cloud
         role: Developer & Mentor
         company: Clark University
         rating: 4
-        comment: >-
-          Transitioning from the music industry into tech was challenging but 4Geeks made it possible. Now I'm
-          performing as a developer and a Mentor, helping others achieve the same dream.
+        comment: Transitioning from the music industry into tech was challenging but 4Geeks made it possible. Now I'm performing as a developer and a Mentor, helping others achieve the same dream.
         outcome: +100% salary increase
     marginY:
       desktop: md
     paddingY:
       desktop: md none
-    section_id: testimonials-50frx2
   - type: faq
+    section_id: faq-qv66bg
     title: Frequently Asked Questions
     related_features:
       - data-science
@@ -628,10 +578,9 @@ sections:
     paddingY:
       desktop: sm md
     background: hsl(var(--muted))
-    section_id: faq-qv66bg
   - type: cta_banner
-    version: '1.0'
-    title: Ready to Become an __TPL__?
+    version: "1.0"
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
     subtitle: Limited spots available. Start your transformation today.
     variant: form
     form:
@@ -654,7 +603,7 @@ sections:
         program:
           visible: false
           required: true
-          default: __TPL__
+          default: {{ single.bc_slug | unknown }}
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -673,7 +622,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-6rzz4s
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -699,7 +648,7 @@ sections:
         program:
           visible: false
           required: false
-          default: __TPL__
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Thanks! We'll be in touch within 24 hours.
     section_id: sticky_cta-ea9lr3

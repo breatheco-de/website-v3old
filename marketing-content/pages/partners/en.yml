@@ -15,17 +15,15 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-v0luhj
+    version: "1.0"
     variant: simpleTwoColumn
     title: Building the Future of Tech, Together
-    subtitle: >-
-      4Geeks Academy partners with universities, nonprofits, workforce initiatives, and global organizations to expand
-      access to tech education, place diverse talent, and bridge the digital skills gap, creating stronger career
-      pathways and a workforce ready for the AI era.
+    subtitle: 4Geeks Academy partners with universities, nonprofits, workforce initiatives, and global organizations to expand access to tech education, place diverse talent, and bridge the digital skills gap, creating stronger career pathways and a workforce ready for the AI era.
     image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
     cta_buttons:
       - text: Join our partnership network
-        url: '#apply-modal'
+        url: "#apply-modal"
         variant: primary
         icon: Rocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -33,9 +31,8 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
-    section_id: hero-v0luhj
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: apply-modal
     heading: Start Your Application
     description: Fill out the form below and we'll get back to you within 24 hours.
@@ -59,12 +56,11 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: features_quad
-    version: '1.0'
+    section_id: features_quad-3xz42k
+    version: "1.0"
     variant: default
     heading: Why Partner with 4Geeks?
-    description: >-
-      Every collaboration is designed to drive measurable results for organizations and communities, creating
-      opportunities, expanding access to tech education, and strengthening the future tech workforce.
+    description: Every collaboration is designed to drive measurable results for organizations and communities, creating opportunities, expanding access to tech education, and strengthening the future tech workforce.
     cards:
       - icon: Trophy
         title: Scholarships & Funding
@@ -81,18 +77,16 @@ sections:
     background: hsl(var(--muted))
     marginY:
       desktop: none md
-    section_id: features_quad-3xz42k
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-e2gon2
+    version: "1.0"
     variant: stats-text
     title: Impact in Numbers
-    subtitle: Over __TPL__ in scholarships and grants awarded
-    description: >-
-      4Geeks Academy partners empower thousands of students worldwide with access to tech education, hands-on
-      mentorship, and career opportunities that drive real results.
+    subtitle: Over {{ global.total_scholarships | $20M }} in scholarships and grants awarded
+    description: 4Geeks Academy partners empower thousands of students worldwide with access to tech education, hands-on mentorship, and career opportunities that drive real results.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         title: Job placement rate within 6 months of graduation
       - value: 5000+
         title: Hiring Partners
@@ -102,8 +96,8 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
-    section_id: features_grid-e2gon2
   - type: partnership_carousel
+    section_id: partnership_carousel-6rsg7m
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -115,15 +109,11 @@ sections:
         object_position: 100% 80%
         title: United Way Miami and 4Geeks Academy
         subtitle: Launching the Miami Workforce Project
-        description: >-
-          United Way Miami has partnered with 4Geeks Academy to launch the Miami Workforce Project. This transformative
-          program was created to provide top-quality education and training to Miami-Dade County residents and is made
-          possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding
-          training with no upfront costs.
+        description: United Way Miami has partnered with 4Geeks Academy to launch the Miami Workforce Project. This transformative program was created to provide top-quality education and training to Miami-Dade County residents and is made possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding training with no upfront costs.
         stats:
           - value: $1mm
             label: Total cost
-          - value: '100'
+          - value: "100"
             label: Geeks benefited
         institution_logos:
           - image_id: 4geeks_academy_logo
@@ -133,29 +123,24 @@ sections:
             url: https://www.miamiherald.com/news/business/article263937731.html
             source: Miami Herald
           - text: Refresh Miami
-            url: >-
-              https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
+            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
             source: Refresh Miami
           - text: See full project (PDF)
             url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
         title: Costa Rica Forte and 4Geeks Academy
         subtitle: Boosting talent development in Costa Rica
-        description: >-
-          In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent
-          development in Costa Rica. This program has trained over 35 students in high-demand digital technologies,
-          focusing on women from areas with high unemployment. Through the program, participants receive free training,
-          enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
+        description: In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent development in Costa Rica. This program has trained over 35 students in high-demand digital technologies, focusing on women from areas with high unemployment. Through the program, participants receive free training, enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
         stats:
           - value: $50,000
             label: Total cost
-          - value: '35'
+          - value: "35"
             label: Geeks benefited
         institution_logos:
           - image_id: bid_logo
@@ -166,32 +151,27 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Periodico Mensaje
-            url: >-
-              https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
+            url: https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
             source: Periodico Mensaje
           - text: La Republica
-            url: >-
-              https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
+            url: https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
             source: La Republica
           - text: See full project (PDF)
             url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/FORTE%20Report.pdf
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
         title: Costa Rica-CINDE and 4Geeks Project
         subtitle: Investing in Costa Rica's tech talent
-        description: >-
-          In collaboration with the Ministry for Science, Technology, Telecommunication and Innovation of Costa Rica,
-          the IDB launched a program to invest in Costa Rica's talent. Together, we're helping around 250 students
-          become skilled software developers, opening doors to better job opportunities after graduation.
+        description: In collaboration with the Ministry for Science, Technology, Telecommunication and Innovation of Costa Rica, the IDB launched a program to invest in Costa Rica's talent. Together, we're helping around 250 students become skilled software developers, opening doors to better job opportunities after graduation.
         stats:
           - value: $1.5mm
             label: Total cost
-          - value: '212'
+          - value: "212"
             label: Geeks benefited
         institution_logos:
           - image_id: logo_crusa
@@ -209,24 +189,21 @@ sections:
             url: https://culturacr.net/4geeks-academy-ofrecera-becas-del-100-para-aprender-programacion/
             source: Cultura Costa Rica
           - text: See full project (PDF)
-            url: >-
-              https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
         title: UTEC and 4Geeks
         subtitle: Training Uruguayans in coding
-        description: >-
-          This project was possible thanks to a combined effort between UTEC, IDB, and 4Geeks. The goal was to train
-          Uruguayans in coding and leverage tech-driven growth in the country.
+        description: This project was possible thanks to a combined effort between UTEC, IDB, and 4Geeks. The goal was to train Uruguayans in coding and leverage tech-driven growth in the country.
         stats:
           - value: 175k
             label: Total cost
-          - value: '60'
+          - value: "60"
             label: Geeks benefited
         institution_logos:
           - image_id: bid_logo
@@ -237,12 +214,10 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: El País
-            url: >-
-              https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
             source: El País
           - text: San José Ahora
-            url: >-
-              https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
+            url: https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
             source: San José Ahora
           - text: Marca País
             url: https://www.uruguayxxi.gub.uy/es/marca-pais/
@@ -252,7 +227,7 @@ sections:
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: outline
     showOnLocations:
       - atlanta-usa
@@ -277,8 +252,8 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: partnership_carousel-6rsg7m
   - type: partnership_carousel
+    section_id: partnership_carousel-b1gy7q
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -290,21 +265,17 @@ sections:
         object_position: 100% 80%
         title: Digital Talent Scholarship and 4Geeks Academy
         subtitle: Launched by ONCE Foundation
-        description: >-
-          The ONCE Foundation, through its Digital Talent programme, promotes training in technological skills through a
-          partial scholarship to improve the employability of people with disabilities. In collaboration with 4Geeks
-          Academy, this scholarship provides access to intensive training programmes in programming, data science,
-          artificial intelligence and other digital areas with high labour demand.
+        description: The ONCE Foundation, through its Digital Talent programme, promotes training in technological skills through a partial scholarship to improve the employability of people with disabilities. In collaboration with 4Geeks Academy, this scholarship provides access to intensive training programmes in programming, data science, artificial intelligence and other digital areas with high labour demand.
         stats:
           - value: 20%
             label: Cost borne by the student + taxes
-          - value: '+10'
+          - value: "+10"
             label: Geeks who benefited
         institution_logos:
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
           - image_id: logo-fonce
-            alt: 'Image: logo-fonce'
+            alt: "Image: logo-fonce"
         press_references:
           - text: Digital Talent
             url: https://portalentodigital.fundaciononce.es/becas
@@ -317,15 +288,11 @@ sections:
         object_position: 100% 80%
         title: United Way Miami and 4Geeks Academy
         subtitle: Launching the Miami Workforce Project
-        description: >-
-          United Way Miami has partnered with 4Geeks Academy to launch the Miami Workforce Project. This transformative
-          program was created to provide top-quality education and training to Miami-Dade County residents and is made
-          possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding
-          training with no upfront costs.
+        description: United Way Miami has partnered with 4Geeks Academy to launch the Miami Workforce Project. This transformative program was created to provide top-quality education and training to Miami-Dade County residents and is made possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding training with no upfront costs.
         stats:
           - value: $1mm
             label: Total cost
-          - value: '100'
+          - value: "100"
             label: Geeks benefited
         institution_logos:
           - image_id: 4geeks_academy_logo
@@ -335,29 +302,24 @@ sections:
             url: https://www.miamiherald.com/news/business/article263937731.html
             source: Miami Herald
           - text: Refresh Miami
-            url: >-
-              https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
+            url: https://refreshmiami.com/news/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
             source: Refresh Miami
           - text: See full project (PDF)
             url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/UWM%20facts%20.pdf
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
         title: Costa Rica Forte and 4Geeks Academy
         subtitle: Boosting talent development in Costa Rica
-        description: >-
-          In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent
-          development in Costa Rica. This program has trained over 35 students in high-demand digital technologies,
-          focusing on women from areas with high unemployment. Through the program, participants receive free training,
-          enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
+        description: In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent development in Costa Rica. This program has trained over 35 students in high-demand digital technologies, focusing on women from areas with high unemployment. Through the program, participants receive free training, enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
         stats:
           - value: $50,000
             label: Total cost
-          - value: '35'
+          - value: "35"
             label: Geeks benefited
         institution_logos:
           - image_id: bid_logo
@@ -368,32 +330,27 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: Periodico Mensaje
-            url: >-
-              https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
+            url: https://www.periodicomensaje.com/educacion/11609-mas-de-100-mujeres-concluyeron-formacion-en-tecnologias-digitales-gracias-a-la-alianza-crusa-forte
             source: Periodico Mensaje
           - text: La Republica
-            url: >-
-              https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
+            url: https://www.larepublica.net/noticia/mas-de-100-mujeres-se-formaron-en-tecnologias-digitales-para-aumentar-sus-oportunidades-de-empleo
             source: La Republica
           - text: See full project (PDF)
             url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/FORTE%20Report.pdf
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: primary
       - image_id: costa_rica_city
         object_position: 10% 80%
         title: Costa Rica-CINDE and 4Geeks Project
         subtitle: Investing in Costa Rica's tech talent
-        description: >-
-          In collaboration with the Ministry for Science, Technology, Telecommunication and Innovation of Costa Rica,
-          the IDB launched a program to invest in Costa Rica's talent. Together, we're helping around 250 students
-          become skilled software developers, opening doors to better job opportunities after graduation.
+        description: In collaboration with the Ministry for Science, Technology, Telecommunication and Innovation of Costa Rica, the IDB launched a program to invest in Costa Rica's talent. Together, we're helping around 250 students become skilled software developers, opening doors to better job opportunities after graduation.
         stats:
           - value: $1.5mm
             label: Total cost
-          - value: '212'
+          - value: "212"
             label: Geeks benefited
         institution_logos:
           - image_id: logo_crusa
@@ -411,24 +368,21 @@ sections:
             url: https://culturacr.net/4geeks-academy-ofrecera-becas-del-100-para-aprender-programacion/
             source: Cultura Costa Rica
           - text: See full project (PDF)
-            url: >-
-              https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: outline
       - image_id: uruguay_city
         object_position: 10% 80%
         title: UTEC and 4Geeks
         subtitle: Training Uruguayans in coding
-        description: >-
-          This project was possible thanks to a combined effort between UTEC, IDB, and 4Geeks. The goal was to train
-          Uruguayans in coding and leverage tech-driven growth in the country.
+        description: This project was possible thanks to a combined effort between UTEC, IDB, and 4Geeks. The goal was to train Uruguayans in coding and leverage tech-driven growth in the country.
         stats:
           - value: 175k
             label: Total cost
-          - value: '60'
+          - value: "60"
             label: Geeks benefited
         institution_logos:
           - image_id: bid_logo
@@ -439,12 +393,10 @@ sections:
             alt: 4Geeks Academy logo
         press_references:
           - text: El País
-            url: >-
-              https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
+            url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/Costa%20Rica%20CINDE%20and%204Geeks%20(1).pdf
             source: El País
           - text: San José Ahora
-            url: >-
-              https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
+            url: https://sanjoseahora.com.uy/2022/03/31/utec-san-jose-brindara-un-nuevo-bootcamp-sobre-machine-learning-e-inteligencia-artificial/
             source: San José Ahora
           - text: Marca País
             url: https://www.uruguayxxi.gub.uy/es/marca-pais/
@@ -454,7 +406,7 @@ sections:
             source: PDF
         cta:
           text: Become a partner
-          url: '#bottom'
+          url: "#bottom"
           variant: outline
     showOnLocations:
       - barcelona-spain
@@ -468,8 +420,8 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
-    section_id: partnership_carousel-b1gy7q
   - type: two_column
+    section_id: two_column-zzexug
     proportions:
       - 5
       - 7
@@ -493,11 +445,11 @@ sections:
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: '12'
+    gap: "12"
     marginY:
       desktop: none md
-    section_id: two_column-zzexug
   - type: profiles_carousel
+    section_id: profiles_carousel-a02sxf
     version: v1.0
     heading: What Our Partners Say About 4Geeks’ Impact
     image_round: true
@@ -505,46 +457,34 @@ sections:
       - image_id: enrique_infanzon
         name: Enrique Infanzon
         role: Dean Continuing Education @ Miami Dade College
-        description: >-
-          4Geeks has been a great partner of us for the last 7 years. We have launched full-stack, web development, and
-          AI programs successfully and we have helped more than 400 students already.
+        description: 4Geeks has been a great partner of us for the last 7 years. We have launched full-stack, web development, and AI programs successfully and we have helped more than 400 students already.
         linkedin_url: https://www.linkedin.com/in/enriqueinfanzon
       - image_id: antonio_delgado
         name: Antonio Delgado
         role: VP of Innovation and Technology @ Miami Dade College
-        description: >-
-          We have recently launched the Miami Tech Coalition and 4Geeks is again showing up with a program and
-          dedication that allows everyone involved to rely on their experience and program quality.
+        description: We have recently launched the Miami Tech Coalition and 4Geeks is again showing up with a program and dedication that allows everyone involved to rely on their experience and program quality.
         linkedin_url: https://www.linkedin.com/in/antoniodelgadofornaguera
       - name: Vanessa Benavides
         role: Vice-President @ United Way Miami
-        description: >-
-          Together with 4Geeks we have successfully launched the Miami Workforce Project for the benefit of Miami-Dade
-          County residents and we have created a great and positive impact.
+        description: Together with 4Geeks we have successfully launched the Miami Workforce Project for the benefit of Miami-Dade County residents and we have created a great and positive impact.
         linkedin_url: https://www.linkedin.com/in/vanessa-benavides-2a78849/
       - image_id: dug_jones
         name: Dug Jones
         role: Program Director for Workforce Grants @ Clark University
-        description: >-
-          We have a solid partnership focused on providing partial scholarships for students unemployed or
-          underemployed, and we have exceeded by far the expectation we set at the beginning.
+        description: We have a solid partnership focused on providing partial scholarships for students unemployed or underemployed, and we have exceeded by far the expectation we set at the beginning.
         linkedin_url: https://www.linkedin.com/in/dugjones/
       - image_id: juancarlos_navarro
         name: Juan Carlos Navarro
         role: Principal Leader of Science and Technology @ IDB
-        description: >-
-          4Geeks has been awarded by the IDB as the Coding School designated to carry on the responsibility of providing
-          top-quality coding programs in Costa Rica and Uruguay.
+        description: 4Geeks has been awarded by the IDB as the Coding School designated to carry on the responsibility of providing top-quality coding programs in Costa Rica and Uruguay.
         linkedin_url: https://www.linkedin.com/in/juan-carlos-navarro-08948a8/
       - image_id: anahi_lacava
         name: Anahí Lacava
         role: Bootcamp Project Leader in Digital Skills @ UTEC
-        description: >-
-          Since 2021 we have been working on full-stack software development programs and on the launch of the first
-          Artificial Intelligence and Machine Learning program in all of Latin America.
+        description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
-    section_id: profiles_carousel-a02sxf
   - type: faq
+    section_id: faq-fg81m3
     title: Frequently Asked Questions
     related_features:
       - outcomes
@@ -552,9 +492,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
-    section_id: faq-fg81m3
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-mfg8td
+    version: "1.0"
     title: Ready to become a Partner?
     subtitle: Let’s build scalable pathways to high-growth tech careers together.
     background: hsl(var(--primary))
@@ -594,9 +534,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-mfg8td
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-lvc7ra
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -625,4 +565,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-lvc7ra

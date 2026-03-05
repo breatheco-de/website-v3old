@@ -14,18 +14,12 @@ address: Calle de Alcalá 54, 28014 Madrid
 available_programs:
   - full-stack
 context:
-  when_to_use: >-
-    Para visitantes del área de Madrid o interesados en oportunidades tech en el mayor y más dinámico ecosistema
-    tecnológico de España.
-  target_audience: >-
-    Residentes locales de Madrid, profesionales buscando transición al sector tech, expatriados latinoamericanos en
-    España y ciudadanos de la UE atraídos por el visado nómada digital y las políticas favorables a startups.
+  when_to_use: Para visitantes del área de Madrid o interesados en oportunidades tech en el mayor y más dinámico ecosistema tecnológico de España.
+  target_audience: Residentes locales de Madrid, profesionales buscando transición al sector tech, expatriados latinoamericanos en España y ciudadanos de la UE atraídos por el visado nómada digital y las políticas favorables a startups.
   goals:
     - Posicionar a Madrid como hub tech de Europa
     - Enfatizar soporte bilingüe (español/inglés) y comunidad internacional
-    - >-
-      Destacar las más de 25.000 plazas de desarrollador sin cubrir y la fuerte demanda de contratación en fintech, IA y
-      ciberseguridad
+    - Destacar las más de 25.000 plazas de desarrollador sin cubrir y la fuerte demanda de contratación en fintech, IA y ciberseguridad
     - Mostrar el rol de Madrid como puerta entre los mercados tech europeos y latinoamericanos
 catalog:
   admission_advisors:
@@ -42,16 +36,14 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: Calle de Alcalá 54
         addressLocality: Madrid
-        postalCode: '28014'
+        postalCode: "28014"
         addressCountry: ES
 meta:
   page_title: 4Geeks Academy Madrid | Bootcamp de Programación en España
-  description: >-
-    Únete al bootcamp de programación 4Geeks en Madrid. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con
-    mentoría ilimitada y garantía de empleo.
+  description: Únete al bootcamp de programación 4Geeks en Madrid. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/madrid-og.jpg
   priority: 0.8
@@ -61,28 +53,26 @@ meta:
     - /es/coding-campus/bootcamp-programacion-madrid
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-y4y0k6
+    version: "1.0"
     variant: singleColumn
     title: Lanza una carrera Tech lista para IA en Madrid
-    subtitle: >-
-      Capacítate para roles tech demandados en el ecosistema emergente de startups nº 1 de Europa. Madrid concentra el
-      47% de los empleos tech de España. Instrucción en vivo, proyectos prácticos y soporte profesional para
-      contrataciones reales.
+    subtitle: Capacítate para roles tech demandados en el ecosistema emergente de startups nº 1 de Europa. Madrid concentra el 47% de los empleos tech de España. Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
     badge: Campus Madrid
     cta_buttons:
       - text: Aplicar ahora
         url: /es/apply
         variant: primary
       - text: Ver el programa
-        url: '#bottom'
+        url: "#bottom"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-y4y0k6
   - type: awards_marquee
+    section_id: awards_marquee-gjw3mg
     version: v1.0
     speed: 40
     gradient: true
@@ -118,9 +108,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-gjw3mg
   - type: banner
-    version: '1.0'
+    section_id: banner-o4mfct
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -132,8 +122,8 @@ sections:
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-o4mfct
   - type: two_column
+    section_id: two_column-3t8cjs
     proportions:
       - 6
       - 6
@@ -142,26 +132,20 @@ sections:
       video: https://youtu.be/4n-ZAUPIxJI
     right:
       heading: Por qué el boom tech de España crea oportunidad para nuevos desarrolladores
-      sub_heading: >-
-        Madrid lidera la transformación digital de España con el 47% de todos los empleos tech y un ecosistema de
-        startups en rápido crecimiento
-      description: >-
-        El sector tech de España creció un 5,8% en 2024, generando más de 120.000 millones de euros en facturación.
-        Madrid atrae el 85% de toda la inversión tecnológica extranjera del país y destaca entre los principales
-        ecosistemas de startups europeos.
+      sub_heading: Madrid lidera la transformación digital de España con el 47% de todos los empleos tech y un ecosistema de startups en rápido crecimiento
+      description: El sector tech de España creció un 5,8% en 2024, generando más de 120.000 millones de euros en facturación. Madrid atrae el 85% de toda la inversión tecnológica extranjera del país y destaca entre los principales ecosistemas de startups europeos.
       button:
         text: Conoce nuestros programas
         url: /es/programas-de-carrera/ingenieria-ia
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-3t8cjs
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -176,9 +160,7 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: >-
-          Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de
-          despliegue en el mundo real.
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
@@ -193,11 +175,9 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ''
-            text: ''
-        description: >-
-          Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con
-          herramientas estándar de la industria.
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
@@ -211,9 +191,7 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: >-
-          Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones
-          impulsadas por IA para problemas del mundo real.
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -227,68 +205,49 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: >-
-          Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas
-          modernas de ciberseguridad.
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-0yz19z
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-2xah19
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que necesitas para triunfar en una industria impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
       - heading: Mentoría 1:1 ilimitada y de por Vida
-        text: >-
-          Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados
-          durante el programa y continúa recibiendo soporte mucho después de graduarte.
+        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
       - heading: Soporte de aprendizaje impulsado por IA
-        text: >-
-          Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y
-          mejora continuamente con guía adaptada a tu camino de aprendizaje.
+        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
       - heading: Soporte profesional ilimitado y de por vida
-        text: >-
-          Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y
-          posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
+        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
       - heading: Una comunidad tech global activa
-        text: >-
-          Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte
-          oportunidades y mantente conectado a una red global mucho más allá de la graduación.
+        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-2xah19
   - type: testimonials_slide
-    title: Caminos probados hacia carreras tech
-    description: >-
-      Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching
-      experto llevan a resultados reales.
-    background: bg-sidebar
     section_id: testimonials_slide-j4b9ms
+    title: Caminos probados hacia carreras tech
+    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    background: bg-sidebar
   - type: split_cards
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: >-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de
-        Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras
-        muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un
-        rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif;
-        white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
-        aplican.</a></span><!--EndFragment-->
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: __TPL__% tasa de contratación entre graduados
+        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: __TPL__% aumento salarial promedio en roles tech
+        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
@@ -306,56 +265,40 @@ sections:
       - toronto-canada
     section_id: split_cards-cysz0z
   - type: why_learn_ai
+    section_id: why_learn_ai-bjamed
     variant: laptop-edge
     title: Por qué Madrid es el lugar para lanzar tu carrera tech
     subtitle: El ecosistema emergente de startups nº 1 de Europa
-    description: >-
-      Madrid se ha consolidado como la capital tech indiscutible de España, superando a Barcelona por primera vez en
-      número total de empresas tech, startups y scaleups. Con más de 2.100 startups tech y un ecosistema valorado en
-      44.000 millones de euros, la ciudad ofrece oportunidades únicas para desarrolladores que entran al
-      mercado.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Madrid concentra el 47% de
-      todos los empleos tech de España, con más de 25.000 plazas de desarrollador sin cubrir en todo el
-      país&nbsp;&nbsp;</span></li><li>Ocupa el puesto nº 1 globalmente como ecosistema emergente de startups según
-      Startup Genome, y nº 3 en Europa en densidad de talento de ingeniería&nbsp;&nbsp;</li><li>Fuerte demanda de
-      habilidades en software, IA y datos en fintech, ciberseguridad, travel tech y software
-      empresarial&nbsp;&nbsp;</li></ul></div><div>Ubicado en el corazón de la ciudad, nuestro campus de Madrid te
-      conecta con empleadores locales, socios de contratación y eventos tech a través de South Summit, Google Campus
-      Madrid y una red vibrante de aceleradoras y fondos de inversión.</div></div>
-    section_id: why_learn_ai-bjamed
+    description: "Madrid se ha consolidado como la capital tech indiscutible de España, superando a Barcelona por primera vez en número total de empresas tech, startups y scaleups. Con más de 2.100 startups tech y un ecosistema valorado en 44.000 millones de euros, la ciudad ofrece oportunidades únicas para desarrolladores que entran al mercado.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid concentra el 47% de todos los empleos tech de España, con más de 25.000 plazas de desarrollador sin cubrir en todo el país&nbsp;&nbsp;</span></li><li>Ocupa el puesto nº 1 globalmente como ecosistema emergente de startups según Startup Genome, y nº 3 en Europa en densidad de talento de ingeniería&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en fintech, ciberseguridad, travel tech y software empresarial&nbsp;&nbsp;</li></ul></div><div>Ubicado en el corazón de la ciudad, nuestro campus de Madrid te conecta con empleadores locales, socios de contratación y eventos tech a través de South Summit, Google Campus Madrid y una red vibrante de aceleradoras y fondos de inversión.</div></div>"
   - type: mentorship
+    section_id: mentorship-fn5mxe
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: >-
-          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
-          profesionalmente.
+        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: >-
-          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
-          contratación.
+        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: >-
-          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
-          entienden tu journey.
-    section_id: mentorship-fn5mxe
+        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-78wcrv
+    version: "1.0"
     title: Historias de Éxito de Graduados de Madrid
     filter_by_location: madrid-spain
     marginY:
       desktop: none lg
-    section_id: testimonials-78wcrv
   - type: testimonials
+    section_id: testimonials-3stg1o
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -374,17 +317,13 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -398,8 +337,8 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-3stg1o
   - type: faq
+    section_id: faq-9w7vzc
     title: Preguntas frecuentes
     related_features:
       - certification
@@ -410,9 +349,8 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(var(--muted))
-    section_id: faq-9w7vzc
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
@@ -444,9 +382,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -458,9 +394,9 @@ sections:
       desktop: md
     section_id: cta_banner-gfclv6
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: __TPL__
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

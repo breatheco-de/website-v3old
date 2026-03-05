@@ -1,22 +1,21 @@
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-ckjuxp
+    version: "1.0"
     variant: productShowcase
     title: Tech Career with Extra Confidence.
     brand_mark:
       prefix: Launch a
       highlight: High-Growth
       color: primary
-    description: >-
-      Build the skills companies are hiring for and add the Job Guarantee* for extra confidence. *Not available in all
-      regions. Terms and conditions apply.
+    description: Build the skills companies are hiring for and add the Job Guarantee* for extra confidence. *Not available in all regions. Terms and conditions apply.
     bullets:
       - text: 84% of graduates land a tech job
       - text: Get hired within 9 months or receive a full refund
       - text: 1:1 career coaching and priority acess to employer network
       - text: Join 6000+ graduates who have launched careers with us
-    video_id: '-2ZvlgDnltc'
-    video_ratio: '9:12'
+    video_id: "-2ZvlgDnltc"
+    video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
@@ -48,14 +47,8 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
-          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
-          moment.
-        sms_text: >-
-          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
-          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
-          per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
@@ -95,9 +88,9 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
     video_title: GeekForce Career Support
-    section_id: hero-ckjuxp
   - type: features_quad
-    version: '1.0'
+    section_id: features_quad-ge4f63
+    version: "1.0"
     variant: default
     compact: true
     heading: How Our Job Guarantee Works
@@ -111,85 +104,78 @@ sections:
       - icon: Briefcase
         title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
-    section_id: features_quad-ge4f63
   - type: course_selector
-    version: '1.0'
+    section_id: course_selector-x9c6qg
+    version: "1.0"
     variant: solid
     heading: High-Growth Tech Careers, Backed by Our Job Guarantee
     subheading: Choose your path
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: __TPL__ weeks
+        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
           - icon: DollarSign
             text: APIs, automation, telemetry
         description: Build production-ready AI systems and learn to design, deploy, and scale AI-driven products.
-        price_period: ' '
+        price_period: " "
         cta_text: Program details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Data Science and Machine Learning
-        duration: __TPL__ weeks
+        duration: {{ global.data_science_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Data Science and Machine Learning
         badges:
           - icon: Brain
             text: Python, TensorFlow, SQL
         description: Analyze real-world data, build predictive models, and apply machine learning techniques used by modern teams.
-        price_period: ' '
+        price_period: " "
         cta_text: Program details
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
       - name: Cybersecurity
-        duration: __TPL__ weeks
+        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
           - icon: Code
             text: Threat detection & system protection
-        description: >-
-          Develop the skills to identify threats, secure systems, and support security operations in today’s digital
-          economy.
-        price_period: ' '
+        description: Develop the skills to identify threats, secure systems, and support security operations in today’s digital economy.
+        price_period: " "
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-x9c6qg
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-mchky5
+    version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
-    subtitle: >-
-      4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and
-      cybersecurity, landing jobs and increasing earning potential.
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
     items:
       - icon: Briefcase
-        value: __TPL__%
+        value: {{ global.global_job_placement_rate | 84 }}%
         title: Job placement rate
       - icon: Graduation
         value: 3-6 months
         title: Average time to get hired
       - icon: GrowthChart
-        value: __TPL__%
+        value: {{ global.global_salary_increase | 55 }}%
         title: Average salary increase after graduation
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
     marginY:
       desktop: none md
-    section_id: features_grid-mchky5
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-h4gehz
+    version: "1.0"
     variant: cardHeader
     heading: Confidence You Can Rely On
-    description: >
-      Our students get hired, and our high placement and retention rates prove it. At 4Geeks, you develop the AI-native,
-      hands-on skills companies are actively looking for, all backed by the growth mindset that will set you apart. With
-      an industry-aligned curriculum and unlimited 1:1 mentorship, you’re prepared for in-demand roles — and employers
-      notice.
+    description: |
+      Our students get hired, and our high placement and retention rates prove it. At 4Geeks, you develop the AI-native, hands-on skills companies are actively looking for, all backed by the growth mindset that will set you apart. With an industry-aligned curriculum and unlimited 1:1 mentorship, you’re prepared for in-demand roles — and employers notice.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy career support
     background: bg-primary/5
@@ -200,23 +186,17 @@ sections:
         text: AI-Native Training Employers Are Hiring For
       - icon: ChalkboardTeacher
         text: Structured, Personalized Learning Method
-    section_id: features_grid-h4gehz
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-s6gzio
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: AI-Powered Learning. Expert Mentorship. Real Career Support.
-    description: >-
-      Our AI-powered learning, paired with unlimited 1:1 mentorship and career support, helps you build in-demand
-      skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
+    description: Our AI-powered learning, paired with unlimited 1:1 mentorship and career support, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
     bullets:
       - heading: Personalized Learning With Expert Support
-        text: >-
-          Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast,
-          adaptive, and focused on what matters.
+        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
       - heading: Lifelong Mentorship & Career Support
-        text: >-
-          Work 1:1 with mentors and career coaches who guide your portfolio, interview preparation, and job search
-          strategy until you land your first tech role.
+        text: Work 1:1 with mentors and career coaches who guide your portfolio, interview preparation, and job search strategy until you land your first tech role.
       - heading: AI-Integrated Curriculum and Learning Tools
         text: Master the latest AI tools and workflows that employers are actively hiring for.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
@@ -228,42 +208,32 @@ sections:
       desktop: none md
     paddingY:
       desktop: none md
-    section_id: two_column_accordion_card-s6gzio
   - type: numbered_steps
+    section_id: numbered_steps-646rz5
     variant: default
     title: Get Hired Faster With GeekForce
-    description: >-
-      Our 3-step Career Acceleration System combines proven strategies, personalized guidance, and direct access to
-      hiring companies to help you land a tech role quickly.
+    description: Our 3-step Career Acceleration System combines proven strategies, personalized guidance, and direct access to hiring companies to help you land a tech role quickly.
     description_link:
       text: See terms
       url: /terms-and-conditions
     steps:
       - icon: School
-        text: >-
-          Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, and graduate with a recruiter-ready
-          portfolio.
+        text: Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, and graduate with a recruiter-ready portfolio.
       - icon: Briefcase
-        text: >-
-          Master technical and behavioral interviews, practice coding exercises, and develop winning strategies for
-          upcoming opportunities.
+        text: Master technical and behavioral interviews, practice coding exercises, and develop winning strategies for upcoming opportunities.
       - icon: Cash
-        text: >-
-          Follow a tailored job search plan, leverage AI-driven hiring tools, and connect with top hiring companies to
-          land your role.
+        text: Follow a tailored job search plan, leverage AI-driven hiring tools, and connect with top hiring companies to land your role.
     background: hsl(var(--secondary))
     bullet_icon: Check
     bullet_icon_color: text-green-600
     paddingY:
       desktop: lg none
-    section_id: numbered_steps-646rz5
   - type: testimonials_slide
-    title: The Stories Behind the Stats
-    description: >-
-      We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through
-      our programs.
     section_id: testimonials_slide-1gorsq
+    title: The Stories Behind the Stats
+    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
   - type: whos_hiring
+    section_id: whos_hiring-mj9qyi
     variant: carousel
     title: Where 4Geeks Graduates Work
     subtitle: Our alumni have joined leading companies across tech, media, and startups worldwide.
@@ -293,14 +263,12 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     background: hsl(var(--sidebar-background))
-    section_id: whos_hiring-mj9qyi
   - type: numbered_steps
-    version: '1.0'
+    section_id: numbered_steps-sgeuhk
+    version: "1.0"
     variant: bubbleText
     title: What Happens If You Don’t Get Hired
-    description: >-
-      If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9
-      months of graduation, 4Geeks will refund 100% of your tuition.
+    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition.
     description_link:
       text: Terms and conditions apply.
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
@@ -315,15 +283,15 @@ sections:
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
     background: hsl(var(--sidebar-background))
-    section_id: numbered_steps-sgeuhk
   - type: features_quad
-    version: '1.0'
+    section_id: features_quad-ms7uox
+    version: "1.0"
     variant: laptopEdge
     heading: Who Can Add the Job Guarantee?
-    description: 'You can enroll in the Job Guarantee if you:'
+    description: "You can enroll in the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: __TPL__
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete all coursework
       - icon: IconBrain
@@ -335,9 +303,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-    section_id: features_quad-ms7uox
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-deasu1
+    version: "1.0"
     title: Start Your Tech Career with the Confidence of a Job Guarantee
     subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.
     background: hsl(var(--primary))
@@ -378,4 +346,3 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    section_id: cta_banner-deasu1

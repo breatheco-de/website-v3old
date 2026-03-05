@@ -351,16 +351,16 @@ sections:
       Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
       Florida. Accede a roles bien remunerados:
     benefits:
-      - text: 'AI Software Engineer: __TPL__'
-      - text: 'Full-Stack Engineer (AI-Fluent): __TPL__'
-      - text: 'Agent Engineer: __TPL__'
-      - text: __TPL__
+      - text: 'AI Software Engineer: {{ global.average_salary_ai_fluent_software_developer | $20K–$30K }}'
+      - text: 'Full-Stack Engineer (AI-Fluent): {{ global.average_salary_ai_engineer | $20K–$35K }}'
+      - text: 'Agent Engineer: {{ global.average_salary_agent_engineer | $25K–$40K }}'
+      - text: {{ global.average_salary_workflow_automation_engineer | $25K–$40K }}
     card:
       title: AI Engineer
       subtitle: Certificado 4Geeks Academy
       program_name: AI Engineering
     stats:
-      - value: __TPL__%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Tasa de contratación
         description: >-
           Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando
@@ -381,17 +381,17 @@ sections:
               IA
           - text: Practica para entrevistas técnicas y conductuales
           - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: __TPL__%
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Aumento Salarial Promedio
         description: >-
           Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se
           orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento
           inmediato y estabilidad a largo plazo.
         benefits:
-          - text: 'Full Stack Engineer: __TPL__+'
-          - text: 'AI-fluent Software Developer: __TPL__'
-          - text: 'Web Applications Engineer: __TPL__'
-          - text: 'Backend Services Developer: __TPL__ '
+          - text: 'Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+'
+          - text: 'AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}'
+          - text: 'Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}'
+          - text: 'Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} '
       - value: 500+
         label: Empresas que contratan nuestro talento
         description: >-
@@ -417,7 +417,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: 'Descuento por pago completo: Ahorra 10% pagando de una sola vez.'
     financing_text: 'Financiamiento basado en crédito: desde'
-    financing_amount: __TPL__
+    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -431,7 +431,7 @@ sections:
     features:
       - icon: IconCheck
         text: >-
-          La matrícula estándar es __TPL__. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin
+          La matrícula estándar es {{ global.price_full_fullstack | $10,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin
           intereses en 6 meses.
       - icon: IconCheck
         text: >-
@@ -513,9 +513,9 @@ sections:
     section_id: whos_hiring-x0s0v7
   - type: testimonials
     title: Éxito profesional comprobado
-    subtitle: Más de __TPL__ graduados y __TPL__+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
+    subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
-      average: __TPL__
+      average: {{ global.global_review_rating | 4.8 }}
       count: 1,294
     items:
       - name: Sarah Johnson

@@ -1,21 +1,21 @@
 meta:
-  page_title: __TPL__ | 4Geeks Academy
-  description: __TPL__
-  og_image: __TPL__
+  page_title: {{ single.title }} | 4Geeks Academy
+  description: {{ single.description }}
+  og_image: {{ single.image }}
 sections:
   - type: hero
-    version: '1.0'
-    variant: singleColumn
-    badge: __TPL__
-    title: __TPL__
-    subtitle: __TPL__
-    image:
-      src: __TPL__
-    image_full_width: false
     section_id: hero-cweekr
+    version: "1.0"
+    variant: singleColumn
+    badge: {{ single.category | Blog }}
+    title: {{ single.title | Blog title }}
+    subtitle: {{ single.description | blog description }}
+    image:
+      src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp }}
+    image_full_width: false
   - type: article
+    section_id: article-2i1h11
     show_toc: true
     toc_position: side
     max_width: lg
-    content: __TPL__
-    section_id: article-2i1h11
+    content: {{single.content}}

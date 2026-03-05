@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-b1u5fa
     version: '1.0'
     variant: simpleTwoColumn
     title: 4Geeks Academy vs otros programas
@@ -31,8 +32,8 @@ sections:
       desktop: lg
     marginY:
       desktop: none md
-    section_id: hero-b1u5fa
   - type: comparison_table
+    section_id: comparison_table-wbwrkm
     version: '1.0'
     title: Lanzando carreras tech exitosas en la era de la IA
     subtitle: >-
@@ -50,7 +51,7 @@ sections:
           - Limitado o de corto plazo
       - feature: Ratio Profesor-estudiante
         values:
-          - __TPL__
+          - '{{ global.global_teacher_student_ratio | 1:7 }}'
           - Usualmente 1:10 o más
       - feature: Feedback impulsado por IA
         values:
@@ -66,7 +67,7 @@ sections:
           - Actualizaciones varían según el proveedor
       - feature: Tasa de contratación
         values:
-          - ~__TPL__% en 6 meses
+          - ~{{ global.global_job_placement_rate | 84 }}% en 6 meses
           - Varía; mayormente no reportada
       - feature: Comunidad
         values:
@@ -84,8 +85,8 @@ sections:
       desktop: none md
     paddingY:
       desktop: md lg
-    section_id: comparison_table-wbwrkm
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-sg4i2g
     variant: image_background
     version: '1.0'
     title: Aprendizaje hiperpersonalizado y soporte que dura toda la vida
@@ -108,32 +109,32 @@ sections:
     footer: Más de 10,000 graduados han lanzado carreras tech exitosas con 4Geeks.
     image: >-
       https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
-    section_id: two_column_accordion_card-sg4i2g
   - type: features_grid
+    section_id: features_grid-nd23b0
     version: '1.0'
     variant: stats-cards
     title: El éxito de nuestros graduados en números
     subtitle: Nuestros alumnos están consiguiendo empleos, aumentando salarios y lanzando carreras tech en todo el mundo.
     use_card: true
     items:
-      - value: __TPL__%
+      - value: '{{ global.global_job_placement_rate | 84 }}%'
         title: Tasa de colocación laboral
       - value: 3-6 meses
         title: Tiempo promedio para conseguir empleo
-      - value: __TPL__%
+      - value: '{{ global.global_salary_increase | 55 }}%'
         title: Aumento salarial después de graduarte
     marginY:
       desktop: lg none
-    section_id: features_grid-nd23b0
   - type: testimonials_slide
+    section_id: testimonials_slide-g4d2yh
     title: Carreras reales comienzan aquí — solo pregúntale a nuestros estudiantes
     description: >-
-      Con el __TPL__% de nuestros graduados contratados en seis meses, sus historias muestran cómo el aprendizaje
-      práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
+      Con el {{ global.global_job_placement_rate | 84 }}% de nuestros graduados contratados en seis meses, sus historias
+      muestran cómo el aprendizaje práctico, la mentoría personalizada y el soporte profesional lanzan carreras en tech.
     marginY:
       desktop: md none
-    section_id: testimonials_slide-g4d2yh
   - type: value_proof_panel
+    section_id: value_proof_panel-pzc0ad
     title: Reconocidos globalmente por excelencia
     subtitle: No solo lo decimos — el reconocimiento de fuentes confiables demuestra nuestro valor.
     evidence_items:
@@ -161,8 +162,8 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none sm
-    section_id: value_proof_panel-pzc0ad
   - type: split_cards
+    section_id: split_cards-ycyuyk
     variant: primary-left
     primary:
       heading: Tu Carrera – garantizada
@@ -199,8 +200,8 @@ sections:
       - panamacity-panama
     marginY:
       desktop: none xl
-    section_id: split_cards-ycyuyk
   - type: features_quad
+    section_id: features_quad-87mmmd
     version: '1.0'
     variant: default
     heading: Volviendo accesibles las carreras en tech
@@ -213,7 +214,9 @@ sections:
         description: Entre las matrículas más asequibles de cualquier programa top-ranked (reconocido por Forbes).
       - icon: CreditCard
         title: Financiamiento flexible
-        description: Opciones de financiamiento desde __TPL__/mes, para que aprendas sin estrés financiero.
+        description: >-
+          Opciones de financiamiento desde {{ global.lowest_monthly_financing_option | $299 }}/mes, para que aprendas
+          sin estrés financiero.
       - icon: Coin
         title: Pago basado en ingresos
         description: Comienza a aprender ahora y solo paga una vez que estés ganando en tech.
@@ -223,8 +226,8 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    section_id: features_quad-87mmmd
   - type: whos_hiring
+    section_id: whos_hiring-03xiph
     variant: carousel
     pretitle: Colocación Laboral
     title: Nuestros alumnos trabajan en las mejores empresas globales
@@ -256,8 +259,8 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none md
-    section_id: whos_hiring-03xiph
   - type: faq
+    section_id: faq-m9tad1
     title: Preguntas frecuentes
     related_features:
       - online-platform
@@ -290,8 +293,8 @@ sections:
           - santiago-chile
     paddingY:
       desktop: md
-    section_id: faq-m9tad1
   - type: cta_banner
+    section_id: cta_banner-pis71n
     version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
@@ -334,8 +337,8 @@ sections:
     marginY:
       desktop: lg none
     background: hsl(var(--primary))
-    section_id: cta_banner-pis71n
   - type: sticky_cta
+    section_id: sticky_cta-qk9epo
     version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
@@ -363,4 +366,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-qk9epo
