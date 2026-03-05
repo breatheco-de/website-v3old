@@ -15,7 +15,6 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    section_id: hero-83a7ov
     version: "1.0"
     variant: ApplyFormProductShowcase
     title: Mentoría personalizada y resultados profesionales comprobados.
@@ -63,9 +62,10 @@ sections:
       variant: outline
       icon: Download
     video:
-      url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
+      url: https://www.youtube.com/shorts/fpEreznybs8
       ratio: "9:16"
       muted: true
+    section_id: hero-83a7ov
     bullets:
       - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
       - text: Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos.
