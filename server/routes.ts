@@ -144,6 +144,24 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   return unescapeYamlDump(dumped, map);
 }
 
+function coerceToOriginalType(newValue: string, originalValue: unknown): unknown {
+  if (typeof originalValue === "number") {
+    const n = Number(newValue);
+    return Number.isNaN(n) ? newValue : n;
+  }
+  if (typeof originalValue === "boolean") {
+    return newValue === "true";
+  }
+  return newValue;
+}
+
+function coerceStringValue(value: string): unknown {
+  if (/^-?\d+(\.\d+)?$/.test(value)) return Number(value);
+  if (value === "true") return true;
+  if (value === "false") return false;
+  return value;
+}
+
 // Schema for career-programs listing page (custom page type)
 const careerProgramsListingSchema = z.object({
   slug: z.string(),
@@ -7533,7 +7551,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 parsed.title = title;
                 for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
                   if (fieldName === "slug" || fieldName === "title") continue;
-                  parsed[fieldName] = newValue;
+                  parsed[fieldName] = coerceToOriginalType(newValue, parsed[fieldName]);
                 }
               } else if (file === "en.yml" || file === "es.yml") {
                 parsed.title = localeTitles[fileLocale] || title;
@@ -7599,7 +7617,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         } else if (key === "locale") {
           commonObj.locale = activeLocale;
         } else if (uniqueFieldValues[key] !== undefined) {
-          commonObj[key] = uniqueFieldValues[key];
+          commonObj[key] = coerceStringValue(uniqueFieldValues[key]);
         } else {
           commonObj[key] = "";
         }
