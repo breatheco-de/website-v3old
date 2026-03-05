@@ -349,6 +349,10 @@ sections:
   - type: testimonials_slide
     title: Las historias detrás de las estadísticas
     description: Respaldamos los resultados que obtienen nuestros graduados. Conozca a algunos de los estudiantes que transformaron sus carreras gracias a nuestros programas.
+    marginY:
+      desktop: sm none
+    paddingY:
+      desktop: sm none
   - type: whos_hiring
     variant: carousel
     pretitle: null
