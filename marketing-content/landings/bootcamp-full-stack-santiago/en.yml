@@ -260,35 +260,37 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    title: Learn by Building Real-Life Projects
-    subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
+    title: Aprende construyendo proyectos reales
+    subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
-      - title: Build a StarWars REST API
-        description: The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal for juniors looking to practice API development in python.
+      - title: Construye una API REST de StarWars
+        description: La API del Blog de StarWars te permitirá practicar la construcción de una API REST usando frameworks ligeros como Express (para node) o Flask (para python) con SQLAlchemy ORM y el lenguaje Python, mientras construyes un blog divertido. Ideal para juniors que buscan practicar desarrollo de APIs en Python.
         image: star-wars
         tags:
           - REST
-        duration: 8 HOURS
+        duration: 8 HORAS
         difficulty: easy
         date: 15/11/2022
-      - title: Authentication System with JWT
-        description: Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security best practices and session management patterns used in production applications.
+      - title: Sistema de Autenticación con JWT
+        description: Crea un sistema de autenticación completo con tokens JWT, frontend en React y backend en Python. Aprende mejores prácticas de seguridad y patrones de gestión de sesiones utilizados en aplicaciones de producción.
         image: authentication
         tags:
           - Security
           - JWT
-        duration: 6 HOURS
+        duration: 6 HORAS
         difficulty: medium
         date: 20/01/2023
-      - title: Full-Stack Final Project
-        description: Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask, SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
+      - title: Proyecto Final Full-Stack
+        description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
         image: final-project
         tags:
           - Full-Stack
           - Capstone
-        duration: 40 HOURS
+        duration: 40 HORAS
         difficulty: hard
         date: 01/03/2023
+    marginY:
+      desktop: none md
     paddingY:
       desktop: md sm
   - type: cards_deck
