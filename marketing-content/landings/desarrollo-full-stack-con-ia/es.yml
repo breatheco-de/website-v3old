@@ -363,40 +363,65 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-  - type: whos_hiring
-    version: v1.0
-    variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
-        alt: Jooble
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Matrícula y opciones de financiamiento
+    subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
+    financing_text: "Financiamiento basado en crédito: desde"
+    financing_amount: {{ global.price_fullstack | $299 }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    features_title: Elige la opción que mejor se adapte a ti.
+    features:
+      - icon: IconCheck
+        text: La matrícula estándar es {{ global.price_full_fullstack | $10,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+      - icon: IconCheck
+        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
+      - icon: IconCheck
+        text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+    cta:
+      text: Recibir más información
+      url: "#apply-modal"
+      variant: primary
     marginY:
-      desktop: none lg
-    section_id: whos_hiring-1trdnb
+      desktop: none md
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - newyork-usa
+      - losangeles-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
