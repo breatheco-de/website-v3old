@@ -225,32 +225,6 @@ sections:
   - type: testimonials_slide
     title: Real Careers Start Here
     description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
-  - type: value_proof_panel
-    title: Global Recognition You Can Trust
-    subtitle: Awards, media praise, and alumni success back our results.
-    evidence_items:
-      - icon: Trophy
-        title: Top 5 Coding Bootcamps
-        source: Newsweek, Forbes, SwitchUp, Course Report
-      - icon: Award
-        title: Best Value & Student Support
-        source: Course Report, SwitchUp
-      - icon: Users
-        title: 35,000+ Graduates Worldwide
-        description: Thriving tech alumni community
-      - icon: Certificate
-        title: Industry-Recognized Certificates
-        description: Credentials employers trust
-    media:
-      type: image
-      src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
-      alt: Students collaborating in classroom
-      aspect_ratio: "4:3"
-      style: rounded
-    background: bg-muted/30
-    stacked_header: true
-    marginY:
-      desktop: none xl
   - type: split_cards
     variant: primary-left
     primary:
@@ -283,6 +257,32 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+  - type: value_proof_panel
+    title: Global Recognition You Can Trust
+    subtitle: Awards, media praise, and alumni success back our results.
+    evidence_items:
+      - icon: Trophy
+        title: Top 5 Coding Bootcamps
+        source: Newsweek, Forbes, SwitchUp, Course Report
+      - icon: Award
+        title: Best Value & Student Support
+        source: Course Report, SwitchUp
+      - icon: Users
+        title: 35,000+ Graduates Worldwide
+        description: Thriving tech alumni community
+      - icon: Certificate
+        title: Industry-Recognized Certificates
+        description: Credentials employers trust
+    media:
+      type: image
+      src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
+      alt: Students collaborating in classroom
+      aspect_ratio: "4:3"
+      style: rounded
+    background: bg-muted/30
+    stacked_header: true
+    marginY:
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
