@@ -88,8 +88,10 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: md none
+      desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
