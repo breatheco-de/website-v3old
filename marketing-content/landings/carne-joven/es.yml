@@ -284,6 +284,8 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
+    marginY:
+      desktop: none md
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
