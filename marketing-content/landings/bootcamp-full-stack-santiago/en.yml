@@ -175,16 +175,6 @@ sections:
       justify: center
     reverse_on_mobile: true
     gap: "12"
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: JavaScript y Python
-    subtitle: ""
-    description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
-    background: hsl(210 100% 50% / 0.05)
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
