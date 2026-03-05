@@ -13,22 +13,6 @@ schema:
     - organization
     - website
 sections:
-  - type: testimonials_grid
-    version: v1.0
-    title: What Our Students Say
-    subtitle: Real stories from graduates who transformed their careers
-    title_color: hsl(var(--foreground))
-    subtitle_color: hsl(var(--muted-foreground))
-    default_box_color: hsl(var(--muted))
-    default_name_color: hsl(var(--foreground))
-    default_role_color: hsl(var(--muted-foreground))
-    default_comment_color: hsl(var(--muted-foreground))
-    default_star_color: hsl(45 93% 47%)
-    columns: 3
-    related_features:
-      - data-science
-    limit: 12
-    background: hsl(var(--background))
   - type: hero
     variant: ApplyFormProductShowcase
     title: Programa de Desarrollo Full Stack con IA
