@@ -214,6 +214,24 @@ sections:
   - type: testimonials_slide
     title: The Stories Behind the Stats
     description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: What Happens If You Don’t Get Hired
+    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        text: Let us know if you haven’t been hired into a qualifying role within 9 months after graduation.
+        title: Notify Us
+      - icon: Interview
+        text: Our team verifies that all Job Guarantee requirements were completed during the program and job search period.
+        title: Requirement Review
+      - icon: JobSearch
+        text: Once approved, you'll receive your full tuition refund within 30 days.
+        title: Full Refund
   - type: cta_banner
     version: "1.0"
     variant: form
@@ -241,24 +259,6 @@ sections:
           placeholder: Last name
       success:
         message: Thank you! We'll be in touch soon.
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: What Happens If You Don’t Get Hired
-    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition.
-    description_link:
-      text: Terms and conditions apply.
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    steps:
-      - icon: Optimization
-        text: Let us know if you haven’t been hired into a qualifying role within 9 months after graduation.
-        title: Notify Us
-      - icon: Interview
-        text: Our team verifies that all Job Guarantee requirements were completed during the program and job search period.
-        title: Requirement Review
-      - icon: JobSearch
-        text: Once approved, you'll receive your full tuition refund within 30 days.
-        title: Full Refund
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
