@@ -350,11 +350,10 @@ sections:
     title: Las historias detrás de las estadísticas
     description: Respaldamos los resultados que obtienen nuestros graduados. Conozca a algunos de los estudiantes que transformaron sus carreras gracias a nuestros programas.
   - type: whos_hiring
-    version: v1.0
     variant: carousel
     pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    title: Nuestros graduados trabajan para empresas líderes
+    subtitle: Descubre cómo 4Geeks ayuda a graduados de todos los ámbitos a acelerar su crecimiento profesional.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -380,9 +379,9 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-1trdnb
     marginY:
       desktop: none lg
-    section_id: whos_hiring-1trdnb
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
