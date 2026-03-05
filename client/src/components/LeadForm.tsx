@@ -177,7 +177,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           }}
           render={({ field, fieldState }) => (
             <FormItem className="flex flex-col space-y-2">
-              <div className="flex flex-row items-start space-x-3 cursor-pointer" onClick={() => field.onChange(!field.value)}>
+              <label className="flex flex-row items-start space-x-3 cursor-pointer">
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -186,11 +186,11 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <Label className="text-xs text-muted-foreground cursor-pointer">
+                  <span className="text-xs text-muted-foreground cursor-pointer">
                     {consent.marketing_text || defaultMarketingText}
-                  </Label>
+                  </span>
                 </div>
-              </div>
+              </label>
               {fieldState.error && (
                 <p className="text-sm text-destructive" data-testid="text-consent-error">
                   {fieldState.error.message}
@@ -206,22 +206,24 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           control={form.control}
           name="consent_email"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer" onClick={() => field.onChange(!field.value)}>
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  data-testid="checkbox-consent-email"
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <Label className="text-xs text-muted-foreground cursor-pointer">
-                  {locale === "es"
-                    ? "Acepto recibir información por correo electrónico sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-                    : "I agree to receive information via email about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
-                  }
-                </Label>
-              </div>
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <label className="flex flex-row items-start space-x-3 cursor-pointer">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    data-testid="checkbox-consent-email"
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <span className="text-xs text-muted-foreground cursor-pointer">
+                    {locale === "es"
+                      ? "Acepto recibir información por correo electrónico sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
+                      : "I agree to receive information via email about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
+                    }
+                  </span>
+                </div>
+              </label>
             </FormItem>
           )}
         />
@@ -232,19 +234,21 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           control={form.control}
           name="consent_sms"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer" onClick={() => field.onChange(!field.value)}>
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  data-testid="checkbox-consent-sms"
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <Label className="text-xs text-muted-foreground cursor-pointer">
-                  {consent.sms_text || defaultSmsText}
-                </Label>
-              </div>
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <label className="flex flex-row items-start space-x-3 cursor-pointer">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    data-testid="checkbox-consent-sms"
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <span className="text-xs text-muted-foreground cursor-pointer">
+                    {consent.sms_text || defaultSmsText}
+                  </span>
+                </div>
+              </label>
             </FormItem>
           )}
         />
@@ -255,22 +259,24 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
           control={form.control}
           name="consent_whatsapp"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer" onClick={() => field.onChange(!field.value)}>
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  data-testid="checkbox-consent-whatsapp"
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <Label className="text-xs text-muted-foreground cursor-pointer">
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <label className="flex flex-row items-start space-x-3 cursor-pointer">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    data-testid="checkbox-consent-whatsapp"
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <span className="text-xs text-muted-foreground cursor-pointer">
                   {locale === "es"
                     ? "Acepto recibir información a través de WhatsApp sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
                     : "I agree to receive information via WhatsApp about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
                   }
-                </Label>
+                </span>
               </div>
+            </label>
             </FormItem>
           )}
         />
