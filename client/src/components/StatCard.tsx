@@ -162,7 +162,7 @@ export function StatCard({
   
   const content = (
     <div className={`font-inter ${isHorizontalMobile ? "flex items-center gap-4 sm:block" : ""}`}>
-      <div className={`font-bold text-primary text-4xl md:${valueSizeClass} shrink-0`}>
+      <div className={`font-bold text-primary lg:${valueSizeClass} shrink-0`}>
         {isTemplate ? (
           value
         ) : animate ? (
