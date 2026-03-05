@@ -17,7 +17,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply now
+      submit_label: Solicitar Información
       tags: website-lead
       fields:
         email:
@@ -27,25 +27,25 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
-          placeholder: Last name
+          placeholder: Apellido
         phone:
           visible: true
           required: true
         program:
           visible: false
-          default: ai-engineering
+          default: full-stack
       success:
-        message: Check your inbox! Your syllabus is on the way.
+        message: ¡Gracias por tu solicitud! En pocos minutos te llegará un correo con la información
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
-        sms: true
+        sms: false
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
         sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
