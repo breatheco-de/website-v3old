@@ -148,23 +148,24 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Real Outcomes Behind the Job Guarantee
-    description: The Job Guarantee is built on real results and a hiring-focused model. Our programs, teaching approach, and career support are structured around how people actually get hired. Over 6,000 graduates have launched succesful careers across tech roles and industries.
+    heading: Confidence You Can Rely On
+    description: |
+      Our students get hired, and our high placement and retention rates prove it. At 4Geeks, you develop the AI-native, hands-on skills companies are actively looking for, all backed by the growth mindset that will set you apart. With an industry-aligned curriculum and unlimited 1:1 mentorship, you’re prepared for in-demand roles — and employers notice.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
+    image_alt: 4Geeks Academy career support
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Consistent hiring success across our graduates
-      - icon: BrandStackshare
-        text: High demand for skilled tech talent
+        text: Career Support with Proven Track Record
+      - icon: Brain
+        text: AI-Native Training Employers Are Hiring For
       - icon: ChalkboardTeacher
-        text: Structured training + ongoing career mentorship
+        text: Structured, Personalized Learning Method
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
     title: Where AI-Powered Learning Meets Lifelong Mentorship
-    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
+    description: Our AI-powered learning, paired with unlimited 1:1 mentorship, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
     bullets:
       - heading: Personalized Learning at Every Level
         text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
@@ -181,25 +182,43 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
+  - type: testimonials_slide
+    title: The Stories Behind the Stats
+    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: What Happens If You Don’t Get Hired
+    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        text: Let us know if you haven’t been hired into a qualifying role within 9 months after graduation.
+        title: Notify Us
+      - icon: Interview
+        text: Our team verifies that all Job Guarantee requirements were completed during the program and job search period.
+        title: Requirement Review
+      - icon: JobSearch
+        text: Once approved, you'll receive your full tuition refund within 30 days.
+        title: Full Refund
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: Who's Eligible?
-    description: "You'll qualify for the Job Guarantee if you:"
+    heading: Who Can Add the Job Guarantee?
+    description: "You can enroll in the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+        title: Have U.S. work authorization
       - icon: IconCircleDashedCheck
-        title: Complete all coursework and projects
+        title: Complete all coursework
       - icon: IconBrain
         title: Pass our logic test
       - icon: IconArrowGuideFilled
-        title: Follow our career development process
+        title: Follow our career plan
     background: hsl(var(--muted))
     marginY:
       desktop: none md
     paddingY:
       desktop: none
-  - type: testimonials_slide
-    title: The Stories Behind the Stats
-    description: Discover how our graduates transformed their careers
