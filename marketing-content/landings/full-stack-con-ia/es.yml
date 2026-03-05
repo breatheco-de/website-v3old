@@ -358,52 +358,52 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-  - type: testimonials
-    version: v1.0
-    title: Testimonios de Nuestros Graduados
-    subtitle: Experiencias que respaldan nuestros resultados.
-    rating_summary:
-      average: "4.9"
-      count: 700+
-    items:
-      - name: Maria Rodriguez
-        role: Ingeniera de Software
-        company: Google
-        rating: 5
-        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
-        outcome: Contratada en 4 meses
-      - name: James Chen
-        role: Desarrollador Full Stack
-        company: Spotify
-        rating: 5
-        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
-        outcome: Aumento salarial 3x
-      - name: Sarah Williams
-        role: Desarrolladora Frontend
-        company: Meta
-        rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
-        outcome: Cambio de carrera a los 35
-      - name: Carlos Mendez
-        role: Ingeniero Backend
-        company: Amazon
-        rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
-        outcome: Trabajo remoto conseguido
-      - name: Emily Thompson
-        role: Ingeniera DevOps
-        company: Netflix
-        rating: 5
-        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
-        outcome: Aumento salarial del 50%
-      - name: David Kim
-        role: Tech Lead
-        company: Uber
-        rating: 5
-        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
-        outcome: Promovido en 1 año
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Matrícula y opciones de financiamiento
+    subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
+    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
+    financing_text: Financiamiento en cuotas desde
+    financing_amount: {{ global.price_fullstack | $299 }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    static_icons: true
+    features_title: Elige la opción que mejor se adapte a ti.
+    features:
+      - icon: IconCheck
+        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 a 24 cuotas con nuestros partners.
+      - icon: IconCheck
+        text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
+      - icon: IconCheck
+        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
+    cta:
+      text: Obtener más información
+      url: /es/apply
+      variant: primary
     marginY:
-      desktop: lg
+      desktop: none md
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - barcelona-spain
+      - madrid-spain
+      - malaga-spain
+      - valencia-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - milan-italy
+      - munich-germany
+      - rome-italy
   - type: whos_hiring
     version: v1.0
     variant: carousel
