@@ -229,32 +229,22 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: Get Hired with our 3-Step Career Development Process
-    description: Our structured process is designed to get you hired fast.
+    title: Your Job Guarantee Path
+    description: We stand behind your success. Follow these steps and, if you don’t secure a qualifying tech role within 180 days of graduation, you’ll receive a full tuition refund (conditions apply).
+    description_link:
+      text: See terms
+      url: /terms-and-conditions
     steps:
-      - icon: Optimization
-        title: Profile Optimization
-        bullets:
-          - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
-          - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
-          - Showcase your skills with a recruiter-ready portfolio.
-      - icon: Interview
-        title: Interview Preparation
-        bullets:
-          - Gain confidence with mock technical and behavioral interviews.
-          - Practice coding and problem-solving with auto-graded exercises.
-          - Develop tailored strategies for upcoming interviews.
-      - icon: JobSearch
-        title: Strategic Job Search
-        bullets:
-          - Create a personalized job search plan aligned with your goals.
-          - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
-          - Connect with our extensive network of global hiring partners.
-    background: bg-background
-    paddingY:
-      desktop: none
+      - icon: School
+        text: Complete the intensive 4Geeks Academy bootcamp and graduate.
+      - icon: Briefcase
+        text: Engage with our career services, apply actively, and attend all coaching sessions.
+      - icon: Cash
+        text: If you haven’t landed a qualifying job within 180 days, request your full tuition refund.
+    background: bg-muted/30
+    bullet_icon: Check
+    bullet_icon_color: text-green-600
+    variant: default
   - type: whos_hiring
     variant: carousel
     title: Where 4Geeks Graduates Work
