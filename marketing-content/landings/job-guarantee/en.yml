@@ -3,7 +3,7 @@ sections:
     version: "1.0"
     variant: simpleTwoColumn
     title: Start a Tech Career Backed by a Job Guarantee
-    subtitle: Train for the skills companies are hiring for. If you don’t land a qualifying job within 9 months of graduating, you get your tuition back. <ul style='margin-top:12px; margin-bottom:12px; padding-left:18px;'> <li>AI-native training built for today’s tech jobs</li> <li>Unlimited 1:1 mentorship and career guidance</li> <li>Proven hiring outcomes across 3,500+ graduates</li> <li>Full tuition refund if you’re not hired</li> </ul> <div> <span style='font-size:0.75rem;'>*Not available in all regions.  <a href='https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf'> Terms and conditions apply. </a></span> </div>
+    subtitle: Train for the skills companies are hiring for. If you don’t land a qualifying job within 9 months of graduating, you get your tuition back. <ul style='margin-top:12px; margin-bottom:12px; padding-left:18px;'> <li>AI-native training built for today’s tech jobs</li> <li>Unlimited 1:1 mentorship and career guidance</li> <li>Proven hiring outcomes across 6,000+ graduates</li> <li>Full tuition refund if you’re not hired</li> </ul> <div> <span style='font-size:0.75rem;'>*Not available in all regions.  <a href='https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf'> Terms and conditions apply. </a></span> </div>
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
