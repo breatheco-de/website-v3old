@@ -39,18 +39,18 @@ sections:
     proportions:
       - 7
       - 5
+    background: hsl(210 100% 50% / 0.05)
     alignment: center
     left:
       image: https://storage.googleapis.com/4geeks-academy-website/media/unsplash_QckxruozjRg_1765395521123.png
       image_alt: Student coding on laptop
       justify: end
     right:
-      heading: Guía de JavaScript, descubre por qué JS es una Habilidad indispensable para un programador web
+      heading: Guía de HTML y CSS, aprende lo necesario sobre etiquetas HTML y su estructura
       sub_heading: ""
-      description: JavaScript es un lenguaje de programación versátil que se utiliza para crear una amplia gama de aplicaciones web, desde interfaces interactivas hasta juegos en línea y aplicaciones web complejas.
+      description: Actualmente la demanda de desarrolladores web calificados se está disparando. Las empresas de todos los tamaños confían en la web para llegar a sus clientes y necesitan profesionales capacitados para crear y mantener sus sitios web.
       text_align: left
     gap: "12"
-    background: hsl(210 100% 50% / 0.05)
     paddingY:
       desktop: lg
   - type: awards_marquee
