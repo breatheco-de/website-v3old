@@ -418,11 +418,9 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: whos_hiring
-    version: v1.0
     variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -449,7 +447,9 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     marginY:
-      desktop: none lg
+      desktop: none md
+    paddingY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
