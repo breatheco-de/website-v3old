@@ -320,59 +320,6 @@ sections:
         title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
-  - type: certificate
-    title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
-    benefits:
-      - text: "AI Software Engineer: {{ global.average_salary_fullstack | $95K–$135K }}"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$150K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
-    card:
-      title: AI Engineer
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI Engineering
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: Career focused portfolio
-          - text: Demonstrated experience with AI workflows
-          - text: Optimized professional profile and job-search strategy
-      - value: 3-6 months
-        label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
-        benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Average salary increase
-        description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
-        benefits:
-          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
-          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 400+
-        label: Hiring partners
-        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
-    marginY:
-      mobile: none
-      desktop: none lg
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
   - type: whos_hiring
     variant: carousel
     title: Top Companies Hiring our Graduates
