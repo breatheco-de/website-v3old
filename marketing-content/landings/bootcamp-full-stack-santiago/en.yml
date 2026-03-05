@@ -184,7 +184,7 @@ sections:
       desktop: md
     paddingY:
       desktop: none sm
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
