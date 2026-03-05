@@ -9,6 +9,7 @@ meta:
   description: program comparison - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /program-comparison
+    - /compare-programs
 schema:
   include:
     - organization
@@ -327,7 +328,7 @@ sections:
           - Monthly plans, upfront discounts, and loans.
       - feature: Best For You If
         values:
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - 'You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.'
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
@@ -373,7 +374,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
