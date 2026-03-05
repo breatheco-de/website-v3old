@@ -129,7 +129,7 @@ sections:
       description: La guía de JavaScript que te ofrecemos es solo una pequeña muestra de todo lo que nuestro Bootcamp de Programación tiene para ofrecer. Con nuestro programa completo, podrás aprender a desarrollar aplicaciones web complejas, analizar datos y convertirte en un profesional altamente capacitado en el mundo de la tecnología. Ya sea que aspires a convertirte en un Full Stack Developer o un Data Analyst, 4Geeks está listo para llevarte de la mano para que puedas convertirte en un profesional de la programación.
       button:
         text: Descarga la Guía Gratis
-        url: bottom
+        url: "#cta-banner"
         variant: primary
         icon: Rocket
     gap: "8"
