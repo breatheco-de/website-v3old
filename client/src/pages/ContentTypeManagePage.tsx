@@ -1779,7 +1779,7 @@ function FieldMappingDialog({
             <div className="space-y-2" data-testid="section-unique-toggles">
               <Label className="text-xs text-muted-foreground font-medium">Unique Fields</Label>
               <p className="text-[11px] text-muted-foreground">
-                Unique fields must get a new value when this content is duplicated. The creation modal will prompt for each.
+                Unique fields must have a distinct value across entries. When duplicating, the creation modal will prompt for new values. The same value can appear across different locales of the same entry.
               </p>
               <div className="flex items-center gap-2 flex-wrap">
                 <Badge
