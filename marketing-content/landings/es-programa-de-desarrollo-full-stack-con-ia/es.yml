@@ -114,23 +114,6 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-  - type: syllabus
-    version: "1.0"
-    title: Get Job-Ready with Our Syllabus!
-    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
-    modules:
-      - title: Introduction To HTML And CSS
-        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
-      - title: JavaScript Fundamentals
-        description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
-      - title: React Development
-        description: Build modern user interfaces with React, learning component architecture, state management, and hooks.
-      - title: Backend with Python
-        description: Create server-side applications using Python and Flask, handling routing, databases, and REST APIs.
-      - title: Databases & SQL
-        description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
-      - title: API Development
-        description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
   - type: awards_marquee
     version: "1.0"
     speed: 40
@@ -199,6 +182,23 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+  - type: syllabus
+    version: "1.0"
+    title: Get Job-Ready with Our Syllabus!
+    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
+    modules:
+      - title: Introduction To HTML And CSS
+        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
+      - title: JavaScript Fundamentals
+        description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
+      - title: React Development
+        description: Build modern user interfaces with React, learning component architecture, state management, and hooks.
+      - title: Backend with Python
+        description: Create server-side applications using Python and Flask, handling routing, databases, and REST APIs.
+      - title: Databases & SQL
+        description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
+      - title: API Development
+        description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
   - type: syllabus
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
