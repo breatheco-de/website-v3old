@@ -787,26 +787,12 @@ export function CreateContentModal({
                                   .replace(/-+/g, "-")
                                   .replace(/^-|-$/g, "");
                                 setCreateContentSlugEn(slug);
-                                setCreateContentSlugEs(slug);
-                                setLocaleTitles((prev) => {
-                                  const next = { ...prev };
-                                  for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc0)) {
-                                    if (!manualTitleLocales.has(l)) next[l] = title;
-                                  }
-                                  return next;
-                                });
                                 if (slug) {
                                   setCreateContentSlugEnStatus("checking");
-                                  setCreateContentSlugEsStatus("checking");
                                   checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
-                                  if (!excludedLocales.has(loc1)) {
-                                    checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
-                                  }
                                 } else {
                                   setCreateContentSlugEnStatus("idle");
-                                  setCreateContentSlugEsStatus("idle");
                                   setSlugEnConflictReason(null);
-                                  setSlugEsConflictReason(null);
                                 }
                               }}
                               placeholder="Title"
