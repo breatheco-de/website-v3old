@@ -175,7 +175,7 @@ sections:
   - type: comparison_table
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
-    subtitle: "We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:"
+    subtitle: AI-ready skills and lifelong support — how 4Geeks delivers results.
     columns:
       - name: Feature
       - name: 4Geeks Academy
@@ -185,39 +185,39 @@ sections:
       - feature: Career support
         values:
           - Personalized, lifelong guidance
-          - Limited or short-term support
+          - Limited support
       - feature: Teacher-to-student ratio
         values:
           - {{ global.global_teacher_student_ratio | 1:7 }}
           - Usually 1:10+
       - feature: AI-powered feedback
         values:
-          - Personalized to your learning progress
+          - Personalized to your learning
           - Rarely available
       - feature: 1-on-1 mentoring
         values:
           - Unlimited, lifelong access
-          - Mostly limited sessions
+          - Limited sessions
       - feature: Curriculum
         values:
-          - Continuously updated to fit market needs
-          - Updates vary by provider
+          - Continuously market-updated
+          - Updates vary
       - feature: Hiring rate
         values:
           - ~{{ global.global_job_placement_rate | 84 }}% within 6 months
-          - Varies; mostly unreported
+          - Mostly unreported
       - feature: Community
         values:
           - Strong local & global network
-          - Depends on school
+          - Varies by school
       - feature: Class format
         values:
-          - Online & in-person options
-          - Usually one format only
+          - Online & in-person
+          - One format only
       - feature: Prior experience
         values:
           - No experience required
-          - Most require prior skills or assessments
+          - Usually required
     marginY:
       desktop: none md
     paddingY:
