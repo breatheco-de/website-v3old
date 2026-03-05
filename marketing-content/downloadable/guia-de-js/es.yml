@@ -35,9 +35,9 @@ sections:
             default: full-stack
     background: hsl(210 100% 50% / 0.05)
     marginY:
-      desktop: none
-    paddingY:
       desktop: none lg
+    paddingY:
+      desktop: none
   - type: two_column
     proportions:
       - 7
