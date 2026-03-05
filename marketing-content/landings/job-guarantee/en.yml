@@ -189,7 +189,7 @@ sections:
     version: "1.0"
     variant: bubbleText
     title: What Happens If You Don’t Get Hired
-    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition."
+    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition.
     description_link:
       text: Terms and conditions apply.
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
