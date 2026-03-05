@@ -229,22 +229,22 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
-    title: Your Job Guarantee Path
-    description: We stand behind your success. Follow these steps and, if you don’t secure a qualifying tech role within 180 days of graduation, you’ll receive a full tuition refund (conditions apply).
+    variant: default
+    title: Get Hired Faster With GeekForce
+    description: Our 3-step Career Acceleration System combines proven strategies, personalized guidance, and direct access to hiring companies to help you land a tech role quickly.
     description_link:
       text: See terms
       url: /terms-and-conditions
     steps:
       - icon: School
-        text: Complete the intensive 4Geeks Academy bootcamp and graduate.
+        text: Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, and graduate with a recruiter-ready portfolio.
       - icon: Briefcase
-        text: Engage with our career services, apply actively, and attend all coaching sessions.
+        text: Master technical and behavioral interviews, practice coding exercises, and develop winning strategies for upcoming opportunities.
       - icon: Cash
-        text: If you haven’t landed a qualifying job within 180 days, request your full tuition refund.
+        text: Follow a tailored job search plan, leverage AI-driven hiring tools, and connect with top hiring companies to land your role.
     background: bg-muted/30
     bullet_icon: Check
     bullet_icon_color: text-green-600
-    variant: default
   - type: whos_hiring
     variant: carousel
     title: Where 4Geeks Graduates Work
