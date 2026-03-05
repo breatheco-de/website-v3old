@@ -132,7 +132,6 @@ sections:
         - text: Mentorías y career support de por vida
       bullet_icon: Check
       font_size: base
-      image: https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635.webp
     reverse_on_mobile: true
     gap: "12"
   - type: course_selector
