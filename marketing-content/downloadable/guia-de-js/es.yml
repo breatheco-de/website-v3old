@@ -30,10 +30,13 @@ sections:
           phone:
             visible: true
             required: true
-          program:
-            visible: false
-            required: true
-            default: full-stack
+        success: null
+        message: ¡Gracias! En unos minutos recibirás la guía.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Al completar este formulario acepto que mi información será utilizada para enviarme información comercial sobre 4Geeks Academy y que podría resultar una relación comercial a partir de esto. Revisa nuestra Política de Privacidad
+      show_terms: true
     background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none lg
