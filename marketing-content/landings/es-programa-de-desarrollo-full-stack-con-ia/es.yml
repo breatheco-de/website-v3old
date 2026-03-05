@@ -22,7 +22,7 @@ sections:
       prefix: Programa de Desarrollo
       highlight: Full Stack con IA
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA.
     form:
       variant: stacked
       conversion_name: student_application
