@@ -13,6 +13,7 @@ import { LeadForm, type LeadFormData } from "@/components/LeadForm";
 import { AwardsMarquee } from "@/components/AwardsMarquee";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { Card } from "@/components/ui/card";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 function parseLogoHeight(value?: string): number | undefined {
   if (!value) return undefined;
@@ -216,9 +217,11 @@ export function HeroProductShowcase({
 
               {data.description && (
                 <div className="relative">
-                  <p className="text-body text-foreground mt-2 mb-0 md:mb-8 max-w-xl leading-relaxed">
-                    {data.description}
-                  </p>
+                  <RichTextContent
+                    html={data.description}
+                    className="text-body text-foreground mt-2 mb-0 md:mb-8 max-w-xl leading-relaxed [&_p]:mb-0"
+                    data-testid="text-hero-description"
+                  />
                 </div>
               )}
 
