@@ -2334,15 +2334,22 @@ export default function ContentTypeManagePage() {
                             </td>
                             <td className="px-4 py-3">
                               <div className="flex items-center gap-1 flex-wrap">
-                                {entry.locales.map((loc) => (
-                                  <Badge key={loc} variant="outline" className="text-xs">
-                                    {loc.toUpperCase()}
-                                  </Badge>
-                                ))}
+                                {entry.locales.length === 0 ? (
+                                  <span className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400" title="Legacy format — click actions to migrate">
+                                    <IconAlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
+                                    Legacy
+                                  </span>
+                                ) : (
+                                  entry.locales.map((loc) => (
+                                    <Badge key={loc} variant="outline" className="text-xs">
+                                      {loc.toUpperCase()}
+                                    </Badge>
+                                  ))
+                                )}
                               </div>
                             </td>
                             <td className="px-4 py-3 text-right">
-                              {Object.keys(entry.urls).length > 0 && (
+                              {(Object.keys(entry.urls).length > 0 || entry.locales.length === 0) && (
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon" data-testid={`button-actions-${entry.slug}`}>
@@ -2358,7 +2365,25 @@ export default function ContentTypeManagePage() {
                                         </a>
                                       </DropdownMenuItem>
                                     ))}
-                                    <DropdownMenuSeparator />
+                                    {entry.locales.length === 0 && (
+                                      <DropdownMenuItem
+                                        onClick={async () => {
+                                          try {
+                                            const result = await apiRequest("POST", `/api/content-types/${contentType}/entries/${entry.slug}/migrate-legacy`);
+                                            const data = await result.json();
+                                            toast({ title: `Migrated — entry now uses ${data.locale}.yml` });
+                                            queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "static-entries"] });
+                                          } catch {
+                                            toast({ title: "Migration failed", variant: "destructive" });
+                                          }
+                                        }}
+                                        data-testid={`button-migrate-${entry.slug}`}
+                                      >
+                                        <IconTransform className="h-4 w-4 mr-2" />
+                                        Migrate to standard format
+                                      </DropdownMenuItem>
+                                    )}
+                                    {(Object.keys(entry.urls).length > 0 || entry.locales.length === 0) && <DropdownMenuSeparator />}
                                     <DropdownMenuItem
                                       onClick={() => {
                                         setDeletingEntry(entry);

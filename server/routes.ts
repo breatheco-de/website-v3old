@@ -2366,6 +2366,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/content-types/:type/entries/:slug/migrate-legacy", async (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(400).json({ error: `Unknown content type "${type}"` });
+        return;
+      }
+      const dir = path.join(process.cwd(), "marketing-content", config.directory, slug);
+      const promotedPath = path.join(dir, "promoted.yml");
+      if (!fs.existsSync(promotedPath)) {
+        res.status(400).json({ error: "Not a legacy entry — promoted.yml not found" });
+        return;
+      }
+      const commonPath = path.join(dir, "_common.yml");
+      let locale = "en";
+      if (fs.existsSync(commonPath)) {
+        const commonData = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown> | null;
+        if (commonData?.locale && typeof commonData.locale === "string") {
+          locale = commonData.locale.trim().replace(/^["']|["']$/g, "");
+        }
+      }
+      const destPath = path.join(dir, `${locale}.yml`);
+      if (fs.existsSync(destPath)) {
+        res.status(409).json({ error: `Already migrated — ${locale}.yml already exists` });
+        return;
+      }
+      fs.renameSync(promotedPath, destPath);
+      contentIndex.refresh();
+      clearSitemapCache();
+      res.json({ success: true, locale, newFile: `${locale}.yml` });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.post("/api/content-types/:type/ai/analyze-fields", async (req, res) => {
     try {
       const { sample_posts } = req.body || {};
