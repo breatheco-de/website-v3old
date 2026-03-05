@@ -81,16 +81,16 @@ sections:
       - 6
       - 6
     alignment: center
-    right:
-      video: "-2ZvlgDnltc"
-      justify: center
     left:
-      heading: See It In Action
-      sub_heading: Watch how our platform transforms careers
-      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      heading: La guía de Javascript te ayudará a dar tus primeros pasos hacía la programación.
+      sub_heading: Desde los conceptos básicos hasta tener una idea más clara de como aprender Javascript
+      description: Empieza aprendiendo a incluir un script de JavaScript en HTML, luego continua con los conceptos básicos, variables, tipos de datos, funciones, eventos y muchos más con nuestra guía
       button:
-        text: Start Free Trial
+        text: Descargar la guía
         url: /signup
         variant: primary
         icon: Rocket
+    right:
+      video: "-2ZvlgDnltc"
+      justify: center
     gap: "8"
