@@ -1,45 +1,41 @@
 sections:
   - type: hero
-    section_id: hero-u2i0eb
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
+    title: Bootcamp de Programación de 4Geeks Academy y Carné Joven
     brand_mark:
-      prefix: Saca el máximo de tu
-      highlight: potencial
+      prefix: Obtén
+      highlight: 50% de descuento
       color: primary
-    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional
+    description: Completa el formulario y en menos de 5 minutos tendrás toda la información del bootcamp y opciones de financiamiento en tu correo.
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva
-      - text: Desarrolla habilidades de aprendizaje autodidacta
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida
-      - text: Forma parte de una comunidad internacional de más de 5,000 personas
+      - text: Obtén un 50% de descuento en el bootcamp de programación de 4Geeks Academy
+      - text: Disfruta de tutorías personalizadas y acceso a una comunidad de más de 6,000 profesionales
+      - text: Aprende a programar y adquiere competencias esenciales para tu carrera
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicita más información
+      submit_label: Solicita tu plaza
       tags: website-lead
       fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
           placeholder: Nombre completo
-        last_name:
+        email:
           visible: true
           required: true
-          placeholder: Apellido
+          placeholder: Correo electrónico
         phone:
           visible: true
           required: true
+        last_name:
+          visible: false
         program:
           visible: false
           default: ai-engineering
       success:
-        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+        message: Una vez completado el formulario, recibirás en tu correo toda la información del curso y las opciones de financiamiento disponibles.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
@@ -85,6 +81,7 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
+    section_id: hero-u2i0eb
     video_title: GeekForce Career Support
     marginY:
       desktop: none
