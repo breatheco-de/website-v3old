@@ -184,7 +184,7 @@ sections:
       desktop: none
   - type: testimonials_slide
     title: The Stories Behind the Stats
-    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through 4Geeks programs.
+    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
