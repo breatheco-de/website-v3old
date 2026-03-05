@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { execSync as _execSync } from "child_process";
 import {
   careerProgramSchema,
   landingPageSchema,
@@ -4652,6 +4653,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         logSync(
           "WEBHOOK",
           `Push ${commitSha?.slice(0, 7)} by ${pusher}: skipping auto-pull — commit was pushed by this instance`,
+          pusher,
         );
         res.json({ ok: true, message: "Self-push, skipping auto-pull" });
         return;
@@ -4674,6 +4676,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         logSync(
           "WEBHOOK",
           `Push ${commitSha?.slice(0, 7)} by ${pusher}: no marketing-content files changed`,
+          pusher,
         );
         res.json({ ok: true, message: "No marketing-content files changed" });
         return;
@@ -4682,6 +4685,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       logSync(
         "WEBHOOK",
         `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`,
+        pusher,
       );
 
       const isAutoPullEnabled =
@@ -4735,6 +4739,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Get the full sync log text
   app.get("/api/github/sync-log", async (_req, res) => {
     try {
+      const { getSyncLogEntries } = await import("./sync-log");
+      const entries = getSyncLogEntries();
+      res.json({ entries });
+      return;
+    } catch (error) {
+      res.status(500).json({ error: "Error reading sync log" });
+    }
+  });
+
+  app.get("/api/github/sync-log-text", async (_req, res) => {
+    try {
       const { getSyncLogText } = await import("./sync-log");
       const text = getSyncLogText();
       res.type("text/plain").send(text);
@@ -4743,13 +4758,95 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
-  app.delete("/api/github/sync-log", async (_req, res) => {
+  app.delete("/api/github/sync-log", async (req, res) => {
     try {
-      const { clearSyncLog } = await import("./sync-log");
-      await clearSyncLog();
+      const mode = req.query.mode as string | undefined;
+      if (mode === "2days") {
+        const { clearSyncLogOlderThan } = await import("./sync-log");
+        await clearSyncLogOlderThan(Date.now() - 2 * 24 * 60 * 60 * 1000);
+      } else {
+        const { clearSyncLog } = await import("./sync-log");
+        await clearSyncLog();
+      }
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: "Error clearing sync log" });
+    }
+  });
+
+  app.get("/api/git/file-history", (req, res) => {
+    try {
+      const exec = _execSync;
+      const filePath = req.query.file as string;
+      const limit = Math.min(parseInt(String(req.query.limit || "20"), 10) || 20, 50);
+      if (!filePath || typeof filePath !== "string") {
+        res.status(400).json({ error: "file query param required" });
+        return;
+      }
+      if (/[;&|`$<>]/.test(filePath)) {
+        res.status(400).json({ error: "Invalid file path" });
+        return;
+      }
+      let raw: string;
+      try {
+        raw = exec(
+          `git log --follow --pretty=format:"%H|%aI|%an|%s" -n ${limit} -- "${filePath}"`,
+          { encoding: "utf-8", cwd: process.cwd() }
+        ) as string;
+      } catch {
+        res.json({ entries: [] });
+        return;
+      }
+      const entries = raw
+        .split("\n")
+        .filter(l => l.trim())
+        .map(line => {
+          const idx1 = line.indexOf("|");
+          const idx2 = line.indexOf("|", idx1 + 1);
+          const idx3 = line.indexOf("|", idx2 + 1);
+          return {
+            sha: line.slice(0, idx1),
+            date: line.slice(idx1 + 1, idx2),
+            author: line.slice(idx2 + 1, idx3),
+            subject: line.slice(idx3 + 1),
+          };
+        });
+      res.json({ entries });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/git/file-at", (req, res) => {
+    try {
+      const exec = _execSync;
+      const filePath = req.query.file as string;
+      const sha = req.query.sha as string;
+      if (!filePath || !sha) {
+        res.status(400).json({ error: "file and sha query params required" });
+        return;
+      }
+      if (!/^[a-f0-9]{7,40}$/.test(sha)) {
+        res.status(400).json({ error: "Invalid SHA format" });
+        return;
+      }
+      if (/[;&|`$<>]/.test(filePath)) {
+        res.status(400).json({ error: "Invalid file path" });
+        return;
+      }
+      let content: string;
+      try {
+        content = exec(`git show "${sha}:${filePath}"`, {
+          encoding: "utf-8",
+          cwd: process.cwd(),
+        }) as string;
+      } catch {
+        res.status(404).json({ error: "File not found at that revision" });
+        return;
+      }
+      res.type("text/plain").send(content);
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
     }
   });
 
@@ -6383,6 +6480,19 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             if (propagation.updatedFiles.length > 0) {
               contentIndex.refresh();
             }
+
+            // Audit log: EDIT entry with section context
+            try {
+              const { logSync: _logSyncEdit } = await import("./sync-log");
+              const sectionType = (updatedSection as Record<string, unknown>).type as string || `section-${sIdx}`;
+              const affectedCount = propagation.updatedFiles.length;
+              const editMsg = `${sectionType} section updated on ${slug}/${locale}${affectedCount > 0 ? ` → propagated to ${affectedCount} bound page(s)` : ""}`;
+              const editMeta: Record<string, unknown> = { contentType, slug, locale, sectionIndex: sIdx, sectionType };
+              if (affectedCount > 0) {
+                editMeta.affectedPages = propagation.updatedFiles.map(f => f.replace("marketing-content/", ""));
+              }
+              _logSyncEdit("EDIT", editMsg, authorName, editMeta);
+            } catch { /* non-fatal */ }
           }
         }
 
