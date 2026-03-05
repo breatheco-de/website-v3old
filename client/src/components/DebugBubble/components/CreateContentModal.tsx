@@ -319,23 +319,30 @@ export function CreateContentModal({
 
   useEffect(() => {
     if (duplicatingPage) {
-      let sourceLocale: string | null = null;
-      for (const loc of supportedLocales) {
-        if (duplicatingPage.loc.includes(`/${loc.code}/`)) {
-          sourceLocale = loc.code;
-          break;
+      const urlPattern = contentTypesMap?.[createContentType]?.url_pattern;
+      const isAgnostic = !!urlPattern?.["default"] && !urlPattern?.[loc0] && !urlPattern?.[loc1];
+
+      if (isAgnostic) {
+        let sourceLocale: string | null = null;
+        for (const loc of supportedLocales) {
+          if (duplicatingPage.loc.includes(`/${loc.code}/`)) {
+            sourceLocale = loc.code;
+            break;
+          }
         }
-      }
-      if (sourceLocale) {
-        const others = supportedLocales.map((l) => l.code).filter((c) => c !== sourceLocale);
-        setExcludedLocales(new Set(others));
+        if (sourceLocale) {
+          const others = supportedLocales.map((l) => l.code).filter((c) => c !== sourceLocale);
+          setExcludedLocales(new Set(others));
+        } else {
+          setExcludedLocales(new Set());
+        }
       } else {
         setExcludedLocales(new Set());
       }
     } else {
       setExcludedLocales(new Set());
     }
-  }, [duplicatingPage, localeSettings]);
+  }, [duplicatingPage, localeSettings, contentTypesMap, createContentType]);
 
   const isTypeChanged = !!(duplicatingPage && createContentType !== duplicatingPage.contentType);
 
@@ -691,18 +698,6 @@ export function CreateContentModal({
                   >
                     Read more
                   </button>
-                </div>
-              </div>
-            )}
-
-            {duplicatingPage && !isTypeChanged && (
-              <div className="flex gap-2 p-3 rounded-md bg-muted/50 border text-xs text-muted-foreground">
-                <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground" />
-                <div>
-                  <p className="font-medium text-foreground mb-1">What will not be copied:</p>
-                  <ul className="space-y-0.5 list-disc list-inside">
-                    <li>Redirects — each page must define its own</li>
-                  </ul>
                 </div>
               </div>
             )}
