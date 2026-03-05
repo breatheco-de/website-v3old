@@ -1338,8 +1338,16 @@ class ContentIndex {
         this.stripSectionIds(parsed);
 
         if (fileLocale === "_common") {
-          parsed.slug = newSlugs.en || newSlugs.es || path.basename(targetDir);
+          parsed.slug = Object.values(newSlugs).find(Boolean) || path.basename(targetDir);
           parsed.title = title;
+          for (const targetKey of Object.keys(targetFieldMapping)) {
+            if (!parsed[targetKey] && !sourceKeys.includes(targetKey)) {
+              if (targetKey === "locale") {
+                const activeLocales = locales.filter(l => !skipLocales.includes(l));
+                parsed.locale = activeLocales[0] || "en";
+              }
+            }
+          }
         } else if (newSlugs[fileLocale as keyof typeof newSlugs]) {
           parsed.slug = newSlugs[fileLocale as keyof typeof newSlugs];
           parsed.title = localeTitles?.[fileLocale] ?? title;
