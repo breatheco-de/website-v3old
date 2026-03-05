@@ -112,7 +112,7 @@ sections:
       justify: center
     gap: "8"
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: none
   - type: two_column
