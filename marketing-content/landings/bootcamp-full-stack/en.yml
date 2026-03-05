@@ -109,7 +109,7 @@ sections:
     video_title: GeekForce Career Support
     marginY:
       desktop: none
-    background: hsl(210 100% 50% / 0.05)
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
   - type: why_learn_ai
