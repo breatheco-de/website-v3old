@@ -76,6 +76,15 @@ export interface RedirectEntry {
   priority?: "before" | "fallback";
 }
 
+export interface SeoEntry {
+  slug: string;
+  contentType: string;
+  intent?: string;
+  pillar?: string;
+  focusFeatures?: string[];
+  file: string;
+}
+
 export interface CommonFieldInfo {
   common: string[];
   partial: { key: string; count: number; total: number }[];
@@ -92,6 +101,8 @@ class ContentIndex {
   private contentTypeConfigs: Record<string, ContentTypeConfig> = {};
   private commonFieldsCache: Map<string, CommonFieldInfo> = new Map();
   private menuUsage: Map<string, { contentType: string; slug: string; source: string; position: "top" | "bottom" }[]> = new Map();
+  private seoIndex: Map<string, SeoEntry> = new Map();
+  private clusterIndex: Map<string, string[]> = new Map();
   private initialized = false;
 
   private static instance: ContentIndex;
@@ -190,6 +201,8 @@ class ContentIndex {
     this.localeSlugMap = new Map();
     this.commonFieldsCache = new Map();
     this.menuUsage = new Map();
+    this.seoIndex = new Map();
+    this.clusterIndex = new Map();
 
     for (const contentType of contentTypes) {
       const diskFolder = this.contentTypeConfigs[contentType]?.directory || contentType;
@@ -239,6 +252,9 @@ class ContentIndex {
             this.extractImageReferences(parsed, relFilePath);
             this.extractMenuReferences(parsed, contentType, folderName, file);
             const locale = file.replace(/\.(yml|yaml)$/, "");
+            if (locale !== "_common" && !locale.startsWith("_")) {
+              this.extractSeoData(parsed, slug, contentType, relFilePath);
+            }
             if (parsed && this.contentTypeHasRedirects(contentType)) {
               const localeSlugForRedirect = (parsed.slug && typeof parsed.slug === "string") ? parsed.slug : slug;
               this.extractRedirects(parsed, slug, locale, contentType, relFilePath, localeSlugForRedirect);
@@ -263,7 +279,8 @@ class ContentIndex {
     const imageRefCount = this.imageUsage.size;
     const variableRefCount = this.variableUsage.size;
     const menuRefCount = this.menuUsage.size;
-    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${menuRefCount} menu references tracked, ${this.redirectEntries.length} redirects`);
+    const seoEntryCount = this.seoIndex.size;
+    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${menuRefCount} menu references tracked, ${this.redirectEntries.length} redirects, ${seoEntryCount} seo entries tracked`);
   }
 
   safeYamlLoad(raw: string): Record<string, unknown> | null {
@@ -332,6 +349,53 @@ class ContentIndex {
   getAllMenuUsage(): Map<string, { contentType: string; slug: string; source: string; position: "top" | "bottom" }[]> {
     this.ensureInitialized();
     return this.menuUsage;
+  }
+
+  private extractSeoData(parsed: Record<string, unknown> | null, slug: string, contentType: string, filePath: string): void {
+    if (!parsed) return;
+    const seo = parsed.seo as Record<string, unknown> | undefined;
+    if (!seo || typeof seo !== "object") return;
+
+    const intent = typeof seo.intent === "string" ? seo.intent : undefined;
+    const pillar = typeof seo.pillar === "string" && seo.pillar ? seo.pillar : undefined;
+    const focusFeatures = Array.isArray(seo.focus_features)
+      ? (seo.focus_features as unknown[]).filter((f): f is string => typeof f === "string")
+      : undefined;
+
+    const key = `${slug}:${contentType}`;
+    const existing = this.seoIndex.get(key);
+    const entry: SeoEntry = {
+      slug,
+      contentType,
+      intent: intent ?? existing?.intent,
+      pillar: pillar ?? existing?.pillar,
+      focusFeatures: focusFeatures ?? existing?.focusFeatures,
+      file: filePath,
+    };
+    this.seoIndex.set(key, entry);
+
+    if (pillar) {
+      const cluster = this.clusterIndex.get(pillar) || [];
+      if (!cluster.includes(slug)) {
+        cluster.push(slug);
+        this.clusterIndex.set(pillar, cluster);
+      }
+    }
+  }
+
+  getSeoEntry(slug: string, contentType: string): SeoEntry | undefined {
+    this.ensureInitialized();
+    return this.seoIndex.get(`${slug}:${contentType}`);
+  }
+
+  getCluster(pillarUrl: string): string[] {
+    this.ensureInitialized();
+    return this.clusterIndex.get(pillarUrl) || [];
+  }
+
+  getAllSeoEntries(): SeoEntry[] {
+    this.ensureInitialized();
+    return Array.from(this.seoIndex.values());
   }
 
   private extractImageReferences(obj: unknown, filePath: string): void {

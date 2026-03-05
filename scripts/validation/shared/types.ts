@@ -52,11 +52,18 @@ export interface SchemaRef {
   overrides?: Record<string, Record<string, unknown>>;
 }
 
+export interface ContentSeo {
+  intent?: string;
+  pillar?: string;
+  focus_features?: string[];
+}
+
 export interface ContentFile {
   slug: string;
   title: string;
   meta?: ContentMeta;
   schema?: SchemaRef;
+  seo?: ContentSeo;
   type: string;
   locale: string;
   filePath: string;

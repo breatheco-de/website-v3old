@@ -6,11 +6,50 @@
  * File paths are absolute so the LLM can read or edit files directly.
  */
 
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
 import type { ValidationRunResult, ValidatorResult } from "../shared/types";
 
-const SYSTEM_CONTEXT = `You are a content engineer working inside a YAML-based CMS repository.
+interface SeoConfig {
+  intents: Record<string, { label: string; description: string }>;
+  focus_features: Record<string, { label: string; description: string }>;
+}
 
-## Repository context
+function loadSeoConfig(): SeoConfig | null {
+  const configPath = path.join(process.cwd(), "marketing-content", "seo-config.yml");
+  if (!fs.existsSync(configPath)) return null;
+  try {
+    return yaml.load(fs.readFileSync(configPath, "utf-8")) as SeoConfig;
+  } catch {
+    return null;
+  }
+}
+
+function getPersona(validatorNames: string[]): string {
+  const names = validatorNames.map((n) => n.toLowerCase());
+  const hasSeo = names.some((n) => n.includes("seo"));
+  const hasRedirect = names.some((n) => n.includes("redirect"));
+  const hasSchema = names.some((n) => n.includes("schema") || n.includes("component"));
+
+  const categories = [hasSeo, hasRedirect, hasSchema].filter(Boolean).length;
+
+  if (categories > 1) {
+    return "You are a developer maintaining a YAML-based CMS repository for a coding school.";
+  }
+  if (hasSeo) {
+    return "You are an SEO strategist and content specialist working on a YAML-based CMS for a coding bootcamp. You understand funnel stages (awareness → consideration → transaction → post-enrollment), topic clusters, pillar pages, and on-page SEO best practices.";
+  }
+  if (hasRedirect) {
+    return "You are a backend developer responsible for URL routing and redirect management in a YAML-based CMS repository.";
+  }
+  if (hasSchema) {
+    return "You are a frontend developer working on structured data (schema.org) and component configuration in a YAML-based CMS repository.";
+  }
+  return "You are a developer maintaining a YAML-based CMS repository for a coding school.";
+}
+
+const REPO_CONTEXT = `## Repository context
 - Content root: /home/runner/workspace/marketing-content/
 - Files use YAML format (.yml)
 - Merge chain (each level overrides the parent):
@@ -18,6 +57,35 @@ const SYSTEM_CONTEXT = `You are a content engineer working inside a YAML-based C
 - Editing rule: fix the most specific locale file unless the change should
   apply to all locales, in which case edit _common.yml instead.
 - Never modify _common.single.yml unless explicitly instructed.`;
+
+function buildSeoContextBlock(): string {
+  const config = loadSeoConfig();
+  if (!config) return "";
+
+  const lines: string[] = ["## SEO content model (for this repository)"];
+
+  lines.push("\n### Funnel intent stages");
+  lines.push("Each page declares `seo.intent` — the funnel stage it targets:");
+  for (const [key, val] of Object.entries(config.intents)) {
+    lines.push(`- \`${key}\` (${val.label}): ${val.description}`);
+  }
+
+  lines.push("\n### Topic clusters");
+  lines.push(
+    "Pages declare `seo.pillar` — the URL of the main authority page on this topic. " +
+    "All pages sharing the same pillar form a cluster. The pillar page is the highest-priority " +
+    "page for the topic; cluster pages elaborate and link back to it. " +
+    "A page with no pillar is an orphan — it belongs to no cluster."
+  );
+
+  lines.push("\n### Valid focus features");
+  lines.push("Pages can declare `seo.focus_features` — an array of keys from this list:");
+  for (const [key, val] of Object.entries(config.focus_features)) {
+    lines.push(`- \`${key}\`: ${val.description}`);
+  }
+
+  return lines.join("\n");
+}
 
 const TASK_INSTRUCTION = `## Your task
 For every error listed above:
@@ -68,25 +136,50 @@ export function formatAsLlmPrompt(result: ValidationRunResult): string {
     0,
   );
 
+  const validatorNames = result.validators.map((v) => v.name);
+  const persona = getPersona(validatorNames);
+
+  const hasSeoIntent = validatorNames.includes("seo-intent");
+
   const sections: string[] = [
-    SYSTEM_CONTEXT,
+    persona,
+    REPO_CONTEXT,
+  ];
+
+  if (hasSeoIntent) {
+    const seoBlock = buildSeoContextBlock();
+    if (seoBlock) sections.push(seoBlock);
+  }
+
+  sections.push(
     `## Run summary\n- Validators run: ${result.validators.length}\n- Failed: ${result.summary.failed}\n- Warnings: ${result.summary.warnings}\n- Total issues: ${totalIssues}`,
     ...failing.map(formatValidatorBlock),
     TASK_INSTRUCTION,
-  ];
+  );
 
   return sections.join("\n\n---\n\n");
 }
 
 export function formatSingleValidatorAsLlmPrompt(v: ValidatorResult): string {
   const totalIssues = v.errors.length + v.warnings.length;
+  const persona = getPersona([v.name]);
+  const hasSeoIntent = v.name === "seo-intent";
 
   const sections: string[] = [
-    SYSTEM_CONTEXT,
+    persona,
+    REPO_CONTEXT,
+  ];
+
+  if (hasSeoIntent) {
+    const seoBlock = buildSeoContextBlock();
+    if (seoBlock) sections.push(seoBlock);
+  }
+
+  sections.push(
     `## Run summary\n- Validator: ${v.name}\n- Errors: ${v.errors.length}\n- Warnings: ${v.warnings.length}\n- Total issues: ${totalIssues}`,
     formatValidatorBlock(v),
     TASK_INSTRUCTION,
-  ];
+  );
 
   return sections.join("\n\n---\n\n");
 }

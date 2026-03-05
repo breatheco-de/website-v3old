@@ -18,6 +18,7 @@ import { imagesValidator } from "./images";
 import { contentQualityValidator } from "./content-quality";
 import { databaseSinglesValidator } from "./database-singles";
 import { slugConflictsValidator } from "./slug-conflicts";
+import { seoIntentValidator } from "./seo-intent";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -33,6 +34,7 @@ export const validators: Validator[] = [
   contentQualityValidator,
   databaseSinglesValidator,
   slugConflictsValidator,
+  seoIntentValidator,
 ];
 
 export const validatorMap = new Map<string, Validator>(
@@ -71,4 +73,5 @@ export {
   contentQualityValidator,
   databaseSinglesValidator,
   slugConflictsValidator,
+  seoIntentValidator,
 };

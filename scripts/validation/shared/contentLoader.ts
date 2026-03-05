@@ -32,6 +32,7 @@ export function loadAllContent(): ContentFile[] {
         title: ((data.title || data.name || entry.title || entry.slug) as string) || entry.slug,
         meta: data.meta as ContentFile["meta"],
         schema: data.schema as ContentFile["schema"],
+        seo: data.seo as ContentFile["seo"],
         type: entry.contentType,
         locale,
         filePath: result.filePath,

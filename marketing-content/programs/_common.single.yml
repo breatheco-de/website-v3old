@@ -6,3 +6,7 @@ schema:
   include:
     - organization
     - website
+seo:
+  intent: transaction
+  pillar: null
+  focus_features: []
