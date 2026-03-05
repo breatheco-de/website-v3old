@@ -9,16 +9,8 @@ sections:
     variant: course
     title: ¡Descarga gratis la Guía de JavaScript!
     title_highlight: ""
-    subtitle: JavaScript es el lenguaje clave para crear experiencias web interactivas y dinámicas. Con esta guía gratuita de 4Geeks Academy, aprenderás los fundamentos de JavaScript y estarás en camino de convertirte en un desarrollador web completo.
-    tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Learning Assistant
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your instructors:"
-    description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
+    subtitle: ""
+    description: JavaScript es el lenguaje clave para crear experiencias web interactivas y dinámicas. Con esta guía gratuita de 4Geeks Academy, aprenderás los fundamentos de JavaScript y estarás en camino de convertirte en un desarrollador web completo.
     signup_card:
       title: Get the full program overview
       description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
