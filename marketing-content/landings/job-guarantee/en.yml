@@ -101,7 +101,7 @@ sections:
         title: 3. Follow Our Proven Career Placement System
       - icon: IconReportMoney
         title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
-    background: bg-muted/30
+    background: hsl(210 100% 50% / 0.05)
   - type: course_selector
     version: "1.0"
     variant: solid
