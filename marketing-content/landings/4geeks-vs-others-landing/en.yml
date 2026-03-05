@@ -248,6 +248,32 @@ sections:
     paddingY:
       desktop: md
     section_id: comparison_table-on1k8s
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Optional Job Guarantee* for Extra Confidence
+    subtitle: Confidently step into your next tech role
+    description: "<span style=\"font-size: 1.125rem;\">The Job Guarantee shows how much we stand behind our students: if you don’t land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund. It reflects the confidence 4Geeks has in our hands-on projects, AI-powered guidance, and unlimited mentorship — going further than most programs, which stop at basic support.<div><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div></span>"
+    cta:
+      text: Get More Info
+      url: /en/job-guarantee
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: Real Careers Start Here
     description: >-
@@ -272,7 +298,7 @@ sections:
         description: Credentials employers trust
     media:
       type: image
-      src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
+      src: https://old.4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
       alt: Students collaborating in classroom
       aspect_ratio: '4:3'
       style: rounded
@@ -351,7 +377,7 @@ sections:
     variant: carousel
     pretitle: Job Placement
     title: Our Alumni Work at Top Global Companies
-    subtitle: Thrive in tech with our worldwide network of hiring partners.
+    subtitle: 4Geeks graduates are thriving worldwide with our network of hiring partners.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -380,6 +406,48 @@ sections:
     paddingY:
       desktop: none md
     section_id: whos_hiring-vyd58o
+  - type: cta_banner
+    version: "1.0"
+    title: Take the Next Step Toward a High-Growth Tech Career
+    subtitle: Apply now to a program designed to give you AI-ready skills, hands-on experience, and lifelong support.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply Now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: lg
+      desktop: lg
   - type: faq
     title: Frequently Asked Questions
     related_features:

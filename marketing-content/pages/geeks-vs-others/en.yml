@@ -151,7 +151,7 @@ sections:
         description: Credentials that employers trust and value
     media:
       type: image
-      src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
+      src: https://old.4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
       alt: Students collaborating in classroom
       aspect_ratio: '4:3'
       style: rounded
