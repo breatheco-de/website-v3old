@@ -25,6 +25,7 @@
 
 program:
   directory: programs
+  unique_fields: [slug, bc_slug]
   field_mapping:
     slug: slug
     title: title

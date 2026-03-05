@@ -1837,6 +1837,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
               (k) => !k.startsWith("_"),
             ).length > 0
           ),
+          unique_fields: config.unique_fields ?? ["slug"],
+          field_mapping_keys: Object.keys(config.field_mapping ?? {}).filter(
+            (k) => !k.startsWith("_"),
+          ),
           url_pattern: config.url_pattern,
           locale_key: config.field_mapping?._locale || null,
           static_entry_count: contentIndex.findByType(type).length,
@@ -7240,6 +7244,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         changeContentType,
         author: createAuthor,
         skipLocales: rawSkipLocales,
+        uniqueFieldValues: rawUniqueFieldValues,
       } = req.body;
       const createAuthorName =
         createAuthor && typeof createAuthor === "string"
@@ -7248,6 +7253,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const skipLocales: string[] = Array.isArray(rawSkipLocales)
         ? rawSkipLocales.filter((l: unknown) => typeof l === "string")
         : [];
+      const uniqueFieldValues: Record<string, string> =
+        rawUniqueFieldValues && typeof rawUniqueFieldValues === "object"
+          ? Object.fromEntries(
+              Object.entries(rawUniqueFieldValues).filter(
+                ([, v]) => typeof v === "string",
+              ),
+            )
+          : {};
 
       // Support both old format (slug) and new format (slugEn/slugEs)
       const skipEn = skipLocales.includes("en");
@@ -7419,6 +7432,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 content = content.replace(/title:\s*.*$/m, `title: ${title}`);
               }
 
+              // Replace unique mapped field values in _common.yml
+              if (file === "_common.yml") {
+                for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
+                  if (fieldName === "slug" || fieldName === "title") continue;
+                  content = content.replace(
+                    new RegExp(`^(${fieldName}:\\s*)["']?[^\\n"']*["']?`, "m"),
+                    `$1${newValue}`,
+                  );
+                }
+              }
+
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
@@ -7445,123 +7469,40 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         }
       }
 
-      // Create starter YAML files based on type
-      let commonYml: string;
-      let enYml: string;
-      let esYml: string;
+      // Build starter YAML files from field_mapping (no hardcoded per-type templates)
+      const typeConfig = getContentTypeConfig(type);
+      const fieldMappingRaw = typeConfig?.field_mapping ?? {};
+      const fieldKeys = Object.keys(fieldMappingRaw).filter(
+        (k) => !k.startsWith("_"),
+      );
 
-      if (type === "page") {
-        commonYml = `# Common properties shared across all language variants
-slug: "${folderSlug}"
-template: "default"
-title: "${title}"
+      // Active locale for types that carry a locale field (e.g. landing)
+      const activeLocale =
+        getSupportedLocales().find((l) => !skipLocales.includes(l)) ??
+        getDefaultLocale();
 
-meta:
-  robots: "index, follow"
-  priority: 0.8
-  change_frequency: "weekly"
-
-schema:
-  include:
-    - "organization"
-    - "website"
-`;
-
-        enYml = `slug: ${enSlug || folderSlug}
-template: default
-title: ${title}
-meta:
-  page_title: ${title} | 4Geeks Academy
-  description: ${title} - Learn more about this topic at 4Geeks Academy.
-  redirects:
-    - /${enSlug || folderSlug}
-sections: []
-`;
-
-        esYml = `slug: ${esSlug || folderSlug}
-template: default
-title: ${title}
-meta:
-  page_title: ${title} | 4Geeks Academy
-  description: ${title} - Aprende más sobre este tema en 4Geeks Academy.
-  redirects:
-    - /${esSlug || folderSlug}
-sections: []
-`;
-      } else if (type === "program") {
-        commonYml = `# Common properties shared across all variants
-slug: ${enSlug}
-bc_slug: ${enSlug}
-title: ${title}
-
-meta:
-  robots: index, follow
-  priority: 0.9
-  change_frequency: weekly
-
-schema:
-  include:
-    - organization
-    - website
-`;
-
-        enYml = `slug: ${enSlug || folderSlug}
-title: ${title}
-meta:
-  page_title: ${title} | 4Geeks Academy
-  description: Learn ${title} at 4Geeks Academy. Become job-ready with our intensive program.
-  redirects:
-    - /${enSlug || folderSlug}
-sections: []
-`;
-
-        esYml = `slug: ${esSlug || folderSlug}
-title: ${title}
-meta:
-  page_title: ${title} | 4Geeks Academy
-  description: Aprende ${title} en 4Geeks Academy. Prepárate para el trabajo con nuestro programa intensivo.
-  redirects:
-    - /${esSlug || folderSlug}
-sections: []
-`;
-      } else {
-        // location or generic type
-        commonYml = `slug: ${folderSlug}
-name: ${title}
-city: ${title}
-country: Unknown
-country_code: XX
-latitude: 0
-longitude: 0
-region: online
-default_language: en
-timezone: UTC
-visibility: listed
-phone: ""
-address: ""
-available_programs:
-  - "full-stack"
-
-schema:
-  include:
-    - organization
-    - website
-`;
-
-        enYml = `slug: ${enSlug || folderSlug}
-meta:
-  page_title: ${title} Coding Bootcamp | 4Geeks Academy
-  description: Join 4Geeks Academy in ${title}. Learn to code with our immersive bootcamp programs.
-sections: []
-`;
-
-        esYml = `slug: ${esSlug || folderSlug}
-meta:
-  page_title: Bootcamp de Programación en ${title} | 4Geeks Academy
-  description: Únete a 4Geeks Academy en ${title}. Aprende a programar con nuestros programas de bootcamp.
-sections: []
-`;
+      // _common.yml: one line per mapped field, user-supplied unique values take priority
+      const commonLines: string[] = [
+        `# Common properties for ${type}: ${title}`,
+      ];
+      for (const key of fieldKeys) {
+        if (key === "slug") {
+          commonLines.push(`slug: ${folderSlug}`);
+        } else if (key === "title") {
+          commonLines.push(`title: "${title}"`);
+        } else if (key === "locale") {
+          commonLines.push(`locale: "${activeLocale}"`);
+        } else if (uniqueFieldValues[key] !== undefined) {
+          commonLines.push(`${key}: "${uniqueFieldValues[key]}"`);
+        } else {
+          commonLines.push(`${key}: ""`);
+        }
       }
+      const commonYml = commonLines.join("\n") + "\n";
+
+      // Locale files: minimal starter — _common.single.yml provides meta/schema defaults
+      const enYml = `slug: ${enSlug || folderSlug}\nsections: []\n`;
+      const esYml = `slug: ${esSlug || folderSlug}\nsections: []\n`;
 
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];

@@ -247,7 +247,6 @@ export function DebugBubble() {
   const [editingSlugEn, setEditingSlugEn] = useState(false);
   const [editingSlugEs, setEditingSlugEs] = useState(false);
   const [isCreatingContent, setIsCreatingContent] = useState(false);
-  const [createLandingLocale, setCreateLandingLocale] = useState<'en' | 'es'>('en');
   
   // Duplicate page state
   const [duplicatingPage, setDuplicatingPage] = useState<{ loc: string; label: string; contentType: string } | null>(null);
@@ -1797,8 +1796,6 @@ export function DebugBubble() {
         setEditingSlugEs={setEditingSlugEs}
         isCreatingContent={isCreatingContent}
         setIsCreatingContent={setIsCreatingContent}
-        createLandingLocale={createLandingLocale}
-        setCreateLandingLocale={setCreateLandingLocale}
         setSitemapUrls={setSitemapUrls}
         setSitemapLoading={setSitemapLoading}
         setDuplicatingPage={setDuplicatingPage}

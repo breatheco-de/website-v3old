@@ -19,6 +19,7 @@ export interface LayoutConfig {
 export interface ContentTypeEntry {
   directory: string;
   url_pattern: Record<string, string>;
+  unique_fields?: string[];
   field_mapping?: Record<string, string | { source: string; default: string }>;
   indexes?: string[];
   database?: DatabaseConfig;
