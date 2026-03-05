@@ -93,6 +93,7 @@ interface ContentTypeConfig {
   directory: string;
   field_mapping?: Record<string, string | { source: string; default: string }>;
   indexes?: string[];
+  unique_fields?: string[];
   database: DatabaseConfig | null;
   url_pattern: Record<string, string>;
   static_entry_count?: number;
@@ -1307,13 +1308,21 @@ function FieldMappingDialog({
 
   const [mappings, setMappings] = useState<Record<string, string>>({});
   const [indexedFields, setIndexedFields] = useState<string[]>([]);
+  const [uniqueFields, setUniqueFields] = useState<string[]>(["slug"]);
   const [newKey, setNewKey] = useState("");
   const [newValue, setNewValue] = useState("");
+  const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
   const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
   const [validation, setValidation] = useState<ValidationState>({});
   const [newValueValidation, setNewValueValidation] = useState<FieldValidationResult | "loading" | null>(null);
   const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   const requestCounters = useRef<Record<string, number>>({});
+
+  const { data: availableProps } = useQuery<{ common: string[]; partial: { key: string; count: number; total: number }[] }>({
+    queryKey: ["/api/content-types", contentType, "available-properties-exclude-mapped"],
+    queryFn: () => fetch(`/api/content-types/${contentType}/available-properties?exclude_mapped=true`).then(r => r.json()),
+    enabled: open,
+  });
 
   useEffect(() => {
     if (!config) return;
@@ -1336,6 +1345,7 @@ function FieldMappingDialog({
     setMappings(fm);
     setTransformerModes(tmodes);
     setIndexedFields(config.indexes || []);
+    setUniqueFields(config.unique_fields ?? ["slug"]);
     setValidation({});
     requestCounters.current = {};
   }, [config]);
@@ -1425,6 +1435,16 @@ function FieldMappingDialog({
     debouncedValidateNew(value.trim() || newKey.trim());
   };
 
+  const filteredAvailableProps = useMemo(() => {
+    if (!availableProps) return { common: [], partial: [] };
+    const q = newValue.toLowerCase().trim();
+    if (!q) return availableProps;
+    return {
+      common: availableProps.common.filter(k => k.toLowerCase().includes(q)),
+      partial: availableProps.partial.filter(p => p.key.toLowerCase().includes(q)),
+    };
+  }, [availableProps, newValue]);
+
   const handleAddField = () => {
     const key = newKey.trim();
     if (!key || key in mappings) return;
@@ -1438,6 +1458,7 @@ function FieldMappingDialog({
     setNewKey("");
     setNewValue("");
     setNewValueValidation(null);
+    setSourceDropdownOpen(false);
   };
 
   const handleSave = async () => {
@@ -1453,6 +1474,7 @@ function FieldMappingDialog({
       const payload = {
         field_mapping: Object.keys(fullMapping).length > 0 ? fullMapping : undefined,
         indexes: indexedFields.length > 0 ? indexedFields : undefined,
+        unique_fields: uniqueFields,
       };
 
       const res = await fetch(`/api/content-types/${contentType}/config`, {
@@ -1620,6 +1642,7 @@ function FieldMappingDialog({
                                 return next;
                               });
                               setIndexedFields((prev) => prev.filter((f) => f !== key));
+                              setUniqueFields((prev) => prev.filter((f) => f !== key));
                             }}
                             data-testid={`button-delete-mapping-${key}`}
                           >
@@ -1646,14 +1669,57 @@ function FieldMappingDialog({
                     data-testid="input-new-mapping-key"
                   />
                   <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                  <Input
-                    value={newValue}
-                    onChange={(e) => handleNewValueChange(e.target.value)}
-                    placeholder="Source (default: same)"
-                    className="text-xs font-mono flex-1"
-                    onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
-                    data-testid="input-new-mapping-value"
-                  />
+                  <div className="relative flex-1">
+                    <Input
+                      value={newValue}
+                      onChange={(e) => { handleNewValueChange(e.target.value); setSourceDropdownOpen(true); }}
+                      onFocus={() => setSourceDropdownOpen(true)}
+                      onBlur={() => setTimeout(() => setSourceDropdownOpen(false), 150)}
+                      placeholder="Source (default: same)"
+                      className="text-xs font-mono"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleAddField();
+                        if (e.key === "Escape") setSourceDropdownOpen(false);
+                      }}
+                      data-testid="input-new-mapping-value"
+                    />
+                    {sourceDropdownOpen && availableProps && (filteredAvailableProps.common.length > 0 || filteredAvailableProps.partial.length > 0) && (
+                      <div className="absolute top-full left-0 right-0 z-50 mt-0.5 border rounded-md bg-popover shadow-md max-h-[180px] overflow-y-auto" data-testid="source-dropdown">
+                        {filteredAvailableProps.common.map((k) => (
+                          <button
+                            key={k}
+                            type="button"
+                            className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs hover-elevate border-b last:border-b-0"
+                            onClick={() => {
+                              handleNewValueChange(k);
+                              setSourceDropdownOpen(false);
+                              if (!newKey.trim()) {
+                                setNewKey(k.split(".").pop() || k);
+                              }
+                            }}
+                            data-testid={`source-option-${k}`}
+                          >
+                            <IconCheck className="w-3 h-3 text-green-600 flex-shrink-0" />
+                            <span className="font-mono">{k}</span>
+                            <span className="text-[10px] text-muted-foreground ml-auto">all entries</span>
+                          </button>
+                        ))}
+                        {filteredAvailableProps.partial.map((p) => (
+                          <button
+                            key={p.key}
+                            type="button"
+                            disabled
+                            className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs opacity-50 cursor-not-allowed border-b last:border-b-0"
+                            data-testid={`source-option-${p.key}`}
+                          >
+                            <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                            <span className="font-mono">{p.key}</span>
+                            <span className="text-[10px] text-muted-foreground ml-auto">{p.count}/{p.total}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   {!isDbBacked && (newValue.trim() || newKey.trim()) && <FieldValidationIndicator result={newValueValidation} />}
                   <Button
                     variant="outline"
@@ -1696,6 +1762,45 @@ function FieldMappingDialog({
                 })}
                 {regularKeys.length === 0 && (
                   <p className="text-xs text-muted-foreground">Add field mappings first to enable indexing.</p>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-2" data-testid="section-unique-toggles">
+              <Label className="text-xs text-muted-foreground font-medium">Unique Fields</Label>
+              <p className="text-[11px] text-muted-foreground">
+                Unique fields must get a new value when this content is duplicated. The creation modal will prompt for each.
+              </p>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Badge
+                  variant={uniqueFields.includes("slug") ? "default" : "outline"}
+                  className="text-xs cursor-default no-default-active-elevate"
+                  data-testid="badge-unique-toggle-slug"
+                >
+                  {uniqueFields.includes("slug") && <IconCheck className="h-3 w-3 mr-1" />}
+                  slug
+                </Badge>
+                {regularKeys.filter(f => f !== "slug").map((field) => {
+                  const isUnique = uniqueFields.includes(field);
+                  return (
+                    <Badge
+                      key={field}
+                      variant={isUnique ? "default" : "outline"}
+                      className="text-xs cursor-pointer"
+                      onClick={() => {
+                        setUniqueFields((prev) =>
+                          isUnique ? prev.filter((f) => f !== field) : [...prev, field]
+                        );
+                      }}
+                      data-testid={`badge-unique-toggle-${field}`}
+                    >
+                      {isUnique && <IconCheck className="h-3 w-3 mr-1" />}
+                      {field}
+                    </Badge>
+                  );
+                })}
+                {regularKeys.length === 0 && (
+                  <p className="text-[11px] text-muted-foreground italic">Add field mappings first to enable unique field selection.</p>
                 )}
               </div>
             </div>

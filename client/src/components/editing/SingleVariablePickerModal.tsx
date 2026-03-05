@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { IconCheck, IconSearch, IconLoader2, IconAlertTriangle, IconPlus, IconX } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
@@ -48,11 +49,13 @@ export function SingleVariablePickerModal({
   const [newFieldSource, setNewFieldSource] = useState("");
   const [addingSaving, setAddingSaving] = useState(false);
   const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
+  const [newFieldUnique, setNewFieldUnique] = useState(false);
 
   const { data: typeConfig, refetch: refetchConfig } = useQuery<{
     name: string;
     label: string;
     field_mapping?: Record<string, string>;
+    unique_fields?: string[];
     database?: { slug?: string };
   }>({
     queryKey: [`/api/content-types/${contentType}/config`],
@@ -142,6 +145,7 @@ export function SingleVariablePickerModal({
       setShowAddForm(false);
       setNewFieldName("");
       setNewFieldSource("");
+      setNewFieldUnique(false);
     }
     onOpenChange(o);
   };
@@ -156,10 +160,15 @@ export function SingleVariablePickerModal({
       const currentMapping = { ...fieldMapping };
       currentMapping[key] = source;
 
+      const currentUnique = typeConfig?.unique_fields ?? ["slug"];
+      const newUniqueFields = newFieldUnique && !currentUnique.includes(key)
+        ? [...currentUnique, key]
+        : currentUnique;
+
       const res = await fetch(`/api/content-types/${contentType}/config`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ field_mapping: currentMapping }),
+        body: JSON.stringify({ field_mapping: currentMapping, unique_fields: newUniqueFields }),
       });
 
       if (!res.ok) {
@@ -177,6 +186,7 @@ export function SingleVariablePickerModal({
       setShowAddForm(false);
       setNewFieldName("");
       setNewFieldSource("");
+      setNewFieldUnique(false);
       setSelectedField(key);
       validateField(source);
     } catch (err) {
@@ -238,20 +248,6 @@ export function SingleVariablePickerModal({
           {showAddForm && (
             <div className="border rounded-md p-3 space-y-2 bg-muted/30" data-testid="add-field-form">
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground">Field name</label>
-                <Input
-                  value={newFieldName}
-                  onChange={(e) => setNewFieldName(e.target.value)}
-                  placeholder="e.g. title"
-                  className="text-sm font-mono"
-                  onKeyDown={(e) => { if (e.key === "Enter" && canAdd) handleAddField(); if (e.key === "Escape") setShowAddForm(false); }}
-                  data-testid="input-new-field-name"
-                />
-                {newFieldName.trim() && newFieldName.trim() in fieldMapping && (
-                  <p className="text-[11px] text-destructive">Field "{newFieldName.trim()}" already exists</p>
-                )}
-              </div>
-              <div className="space-y-1.5">
                 <label className="text-xs font-medium text-muted-foreground">Source property</label>
                 <div className="relative">
                   <Input
@@ -261,7 +257,8 @@ export function SingleVariablePickerModal({
                       setSourceDropdownOpen(true);
                     }}
                     onFocus={() => setSourceDropdownOpen(true)}
-                    placeholder={newFieldName.trim() || "e.g. meta.title"}
+                    onBlur={() => setTimeout(() => setSourceDropdownOpen(false), 150)}
+                    placeholder="e.g. meta.title"
                     className="text-sm font-mono"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && canAdd) handleAddField();
@@ -298,15 +295,8 @@ export function SingleVariablePickerModal({
                         <button
                           key={p.key}
                           type="button"
-                          className="w-full text-left px-3 py-1.5 flex items-center gap-2 text-sm hover-elevate border-b last:border-b-0"
-                          onClick={() => {
-                            setNewFieldSource(p.key);
-                            setSourceDropdownOpen(false);
-                            if (!newFieldName.trim()) {
-                              const lastPart = p.key.split(".").pop() || p.key;
-                              setNewFieldName(lastPart);
-                            }
-                          }}
+                          disabled
+                          className="w-full text-left px-3 py-1.5 flex items-center gap-2 text-sm opacity-50 cursor-not-allowed border-b last:border-b-0"
                           data-testid={`source-option-${p.key}`}
                         >
                           <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
@@ -318,11 +308,36 @@ export function SingleVariablePickerModal({
                   )}
                 </div>
               </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground">Field name</label>
+                <Input
+                  value={newFieldName}
+                  onChange={(e) => setNewFieldName(e.target.value)}
+                  placeholder="e.g. title"
+                  className="text-sm font-mono"
+                  onKeyDown={(e) => { if (e.key === "Enter" && canAdd) handleAddField(); if (e.key === "Escape") setShowAddForm(false); }}
+                  data-testid="input-new-field-name"
+                />
+                {newFieldName.trim() && newFieldName.trim() in fieldMapping && (
+                  <p className="text-[11px] text-destructive">Field "{newFieldName.trim()}" already exists</p>
+                )}
+              </div>
+              <div className="flex items-center gap-2 pt-0.5" data-testid="row-new-field-unique">
+                <Checkbox
+                  id="new-field-unique"
+                  checked={newFieldUnique}
+                  onCheckedChange={(checked) => setNewFieldUnique(!!checked)}
+                  data-testid="checkbox-new-field-unique"
+                />
+                <label htmlFor="new-field-unique" className="text-[11px] text-muted-foreground cursor-pointer select-none">
+                  Mark as unique — will prompt for a new value on duplication
+                </label>
+              </div>
               <div className="flex justify-end gap-2 pt-1">
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => { setShowAddForm(false); setNewFieldName(""); setNewFieldSource(""); }}
+                  onClick={() => { setShowAddForm(false); setNewFieldName(""); setNewFieldSource(""); setNewFieldUnique(false); }}
                   data-testid="button-cancel-add-field"
                 >
                   Cancel

@@ -2024,6 +2024,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (body.url_pattern !== undefined) update.url_pattern = body.url_pattern;
       if (body.field_mapping !== undefined) update.field_mapping = body.field_mapping;
       if (body.indexes !== undefined) update.indexes = body.indexes;
+      if (body.unique_fields !== undefined) update.unique_fields = body.unique_fields;
       if (body.database !== undefined) update.database = body.database;
       updateContentTypeConfig(type, update);
       contentIndex.invalidateCommonFields(type);
