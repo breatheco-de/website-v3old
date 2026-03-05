@@ -57,7 +57,7 @@ sections:
         url: "#apply-modal"
         variant: primary
       login_link:
-        text: ¿Ya eres estudiante? Inicia sesión aquí.
+        text: <br>
         url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
