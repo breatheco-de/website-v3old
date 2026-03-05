@@ -5,6 +5,7 @@ import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlDump } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
@@ -1298,6 +1299,7 @@ class ContentIndex {
     }
 
     const copiedFiles: string[] = [];
+    const parsedFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
     const strippedFields: string[] = [...keysToStrip];
     let replacedVars = 0;
 
@@ -1353,17 +1355,25 @@ class ContentIndex {
           parsed.title = localeTitles?.[fileLocale] ?? title;
         }
 
-        const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
-        if (!fs.existsSync(absTargetDir)) {
-          fs.mkdirSync(absTargetDir, { recursive: true });
-        }
-        const outputPath = path.join(absTargetDir, file);
-        const { escaped, map } = escapeObjectVars(parsed);
-        const dumped = yaml.dump(escaped, { lineWidth: 120, noRefs: true, sortKeys: false });
-        const yamlStr = unescapeYamlDump(dumped, map);
-        fs.writeFileSync(outputPath, yamlStr, "utf-8");
-        copiedFiles.push(file);
+        parsedFiles.push({ file, parsed });
       }
+    }
+
+    const allParsed = parsedFiles.map(f => f.parsed);
+    const { objs: regenerated } = regenerateSectionIds(allParsed);
+
+    const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
+    if (!fs.existsSync(absTargetDir)) {
+      fs.mkdirSync(absTargetDir, { recursive: true });
+    }
+    for (let i = 0; i < parsedFiles.length; i++) {
+      const { file } = parsedFiles[i];
+      const outputPath = path.join(absTargetDir, file);
+      const { escaped, map } = escapeObjectVars(regenerated[i]);
+      const dumped = yaml.dump(escaped, { lineWidth: 120, noRefs: true, sortKeys: false });
+      const yamlStr = unescapeYamlDump(dumped, map);
+      fs.writeFileSync(outputPath, yamlStr, "utf-8");
+      copiedFiles.push(file);
     }
 
     return { copiedFiles, strippedFields, replacedVars };

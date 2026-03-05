@@ -24,6 +24,7 @@ import {
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
 import { deepMerge } from "./utils/deepMerge";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { databaseManager } from "./database";
 import {
   redirectMiddleware,
@@ -7517,8 +7518,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               return;
             }
 
-            // Same-type duplication: parse YAML, modify fields, serialize back
+            // Same-type duplication: parse all files first, regenerate section IDs, then write
             const sourceFiles = fs.readdirSync(foundSourceFolder);
+            const parsedDupFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
             for (const file of sourceFiles) {
               const fileLocale = file.replace(/\.yml$/, "");
               if (
@@ -7564,7 +7566,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 parsed.title = localeTitles[fileLocale] || title;
               }
 
-              const content = safeYamlDump(parsed, { lineWidth: 120, noRefs: true, sortKeys: false });
+              parsedDupFiles.push({ file, parsed });
+            }
+
+            const allParsedDup = parsedDupFiles.map(f => f.parsed);
+            const { objs: regeneratedDup } = regenerateSectionIds(allParsedDup);
+            for (let i = 0; i < parsedDupFiles.length; i++) {
+              const { file } = parsedDupFiles[i];
+              const content = safeYamlDump(regeneratedDup[i], { lineWidth: 120, noRefs: true, sortKeys: false });
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
