@@ -304,6 +304,8 @@ sections:
         variant: primary
         icon: Rocket
     gap: "8"
+    marginY:
+      desktop: none lg
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
