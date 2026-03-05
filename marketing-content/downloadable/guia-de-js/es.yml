@@ -119,3 +119,7 @@ sections:
         icon: Rocket
     gap: "8"
     background: hsl(210 100% 50% / 0.05)
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none md
