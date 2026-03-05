@@ -109,13 +109,13 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Where AI-Powered Learning Meets Lifelong Mentorship
-    description: Our AI-powered learning, paired with unlimited 1:1 mentorship, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
+    title: AI-Powered Learning. Expert Mentorship. Real Career Support.
+    description: Our AI-powered learning, paired with unlimited 1:1 mentorship and career support, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
     bullets:
-      - heading: Personalized Learning at Every Level
+      - heading: Personalized Learning With Expert Support
         text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
       - heading: Lifelong Mentorship & Career Support
-        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
+        text: Work 1:1 with mentors and career coaches who guide your portfolio, interview preparation, and job search strategy until you land your first tech role.
       - heading: AI-Integrated Curriculum and Learning Tools
         text: Master the latest AI tools and workflows that employers are actively hiring for.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
