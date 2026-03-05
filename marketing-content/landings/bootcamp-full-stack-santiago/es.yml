@@ -99,9 +99,8 @@ sections:
       - 7
       - 5
     alignment: center
-    title: Aprende a Programar y Abre las Puertas a un Mundo de Oportunidades
     left:
-      heading: Learn By Doing
+      heading: Aprende a Programar y Abre las Puertas a un Mundo de Oportunidades
       sub_heading: Hands-on projects from day one
       description: Our project-based curriculum ensures you're building real applications while learning core concepts. No more boring tutorials—start creating immediately.
       text_align: left
