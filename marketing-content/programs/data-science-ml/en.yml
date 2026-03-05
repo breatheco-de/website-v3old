@@ -81,7 +81,6 @@ sections:
       desktop: none
   - type: modal
     version: "1.0"
-    section_id: apply-modal
     heading: Request Program Details
     description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
@@ -104,9 +103,10 @@ sections:
         program:
           visible: false
           required: true
-          default: datascience-ml
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
+    section_id: apply-modal
   - type: awards_marquee
     version: v1.0
     speed: 40
