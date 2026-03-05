@@ -507,13 +507,6 @@ sections:
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
     section_id: cta_banner-bhhrhb
-  - type: footer
-    version: v1.0
-    copyright_text: 2024 4Geeks Academy. All rights reserved.
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
