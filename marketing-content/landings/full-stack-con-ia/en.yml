@@ -15,7 +15,11 @@ schema:
 sections:
   - type: hero
     variant: ApplyFormProductShowcase
-    title: Programa de Desarrollo Full Stack con IA
+    title: Para programadores que quieren construir con IA.
+    brand_mark:
+      prefix: Programa de Desarrollo
+      highlight: Full Stack con IA
+      color: primary
     description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     form:
       variant: stacked
