@@ -290,6 +290,7 @@ export function CreateContentModal({
 }: CreateContentModalProps) {
   const [showFiles, setShowFiles] = useState(false);
   const [excludedLocales, setExcludedLocales] = useState<Set<string>>(new Set());
+  const [showAllLocales, setShowAllLocales] = useState(false);
   const [showTypeChangeDetails, setShowTypeChangeDetails] = useState(false);
   const [uniqueFieldValues, setUniqueFieldValues] = useState<Record<string, string>>({});
   const [localeTitles, setLocaleTitles] = useState<Record<string, string>>({});
@@ -460,6 +461,7 @@ export function CreateContentModal({
       setCreateContentType("page");
       setDuplicatingPage(null);
       setExcludedLocales(new Set());
+      setShowAllLocales(false);
       setShowTypeChangeDetails(false);
       setUniqueFieldValues({});
       setStep(1);
@@ -475,16 +477,25 @@ export function CreateContentModal({
   const isLocaleAgnosticPattern =
     !!urlPattern?.["default"] && !urlPattern?.[loc0] && !urlPattern?.[loc1];
 
+  const hiddenLocales = isLocaleAgnosticPattern && !showAllLocales;
+  const primaryLocale = sourceLocale ?? loc0;
+  const isLocaleVisible = (loc: string) => {
+    if (hiddenLocales) return loc === primaryLocale;
+    return true;
+  };
+
   const slugsConflict =
     isLocaleAgnosticPattern &&
     !excludedLocales.has(loc0) &&
     !excludedLocales.has(loc1) &&
+    isLocaleVisible(loc0) &&
+    isLocaleVisible(loc1) &&
     !!createContentSlugEn &&
     createContentSlugEn === createContentSlugEs;
 
   const slugsReady = (() => {
-    const loc0Needed = !excludedLocales.has(loc0);
-    const loc1Needed = !excludedLocales.has(loc1);
+    const loc0Needed = !excludedLocales.has(loc0) && isLocaleVisible(loc0);
+    const loc1Needed = !excludedLocales.has(loc1) && isLocaleVisible(loc1);
     if (!loc0Needed && !loc1Needed) return false;
     if (loc0Needed && (!createContentSlugEn || createContentSlugEnStatus !== "available")) return false;
     if (loc1Needed && (!createContentSlugEs || createContentSlugEsStatus !== "available")) return false;
@@ -512,12 +523,16 @@ export function CreateContentModal({
         },
         body: JSON.stringify({
           type: createContentType,
-          slugEn: excludedLocales.has(loc0) ? undefined : createContentSlugEn,
-          slugEs: excludedLocales.has(loc1) ? undefined : createContentSlugEs,
+          slugEn: (excludedLocales.has(loc0) || !isLocaleVisible(loc0)) ? undefined : createContentSlugEn,
+          slugEs: (excludedLocales.has(loc1) || !isLocaleVisible(loc1)) ? undefined : createContentSlugEs,
           title: createContentTitle || createContentSlugEn,
           ...(author ? { author } : {}),
           ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
-          ...(excludedLocales.size > 0 ? { skipLocales: Array.from(excludedLocales) } : {}),
+          ...(() => {
+            const skipped = new Set(excludedLocales);
+            supportedLocales.forEach((l) => { if (!isLocaleVisible(l.code)) skipped.add(l.code); });
+            return skipped.size > 0 ? { skipLocales: Array.from(skipped) } : {};
+          })(),
           ...(isTypeChanged ? { changeContentType: true } : {}),
           ...(Object.keys(allFieldValues).length > 0 ? { uniqueFieldValues: allFieldValues } : {}),
           ...(() => {
@@ -535,8 +550,9 @@ export function CreateContentModal({
 
       if (response.ok && data.success) {
         const pattern = contentTypesMap?.[createContentType]?.url_pattern;
-        const activeSlug = excludedLocales.has(loc0) ? createContentSlugEs : createContentSlugEn;
-        const activeLocaleCode = excludedLocales.has(loc0) ? loc1 : loc0;
+        const loc0Active = !excludedLocales.has(loc0) && isLocaleVisible(loc0);
+        const activeSlug = loc0Active ? createContentSlugEn : createContentSlugEs;
+        const activeLocaleCode = loc0Active ? loc0 : loc1;
         const newUrl = buildContentUrlFromPattern(pattern, activeSlug, activeLocaleCode);
         toast({
           title: duplicatingPage ? "Page duplicated" : "Content created",
@@ -679,52 +695,6 @@ export function CreateContentModal({
               </div>
             )}
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Title</label>
-              <input
-                type="text"
-                value={createContentTitle}
-                onChange={(e) => {
-                  const title = e.target.value;
-                  setCreateContentTitle(title);
-                  const slug = title
-                    .toLowerCase()
-                    .trim()
-                    .replace(/[^a-z0-9\s-]/g, "")
-                    .replace(/\s+/g, "-")
-                    .replace(/-+/g, "-")
-                    .replace(/^-|-$/g, "");
-                  setCreateContentSlugEn(slug);
-                  if (!manualTitleLocales.has(loc1)) setCreateContentSlugEs(slug);
-                  setLocaleTitles((prev) => {
-                    const next = { ...prev };
-                    for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc0)) {
-                      if (!manualTitleLocales.has(l)) next[l] = title;
-                    }
-                    return next;
-                  });
-                  if (slug) {
-                    setCreateContentSlugEnStatus("checking");
-                    checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
-                    if (!manualTitleLocales.has(loc1) && !excludedLocales.has(loc1)) {
-                      setCreateContentSlugEsStatus("checking");
-                      checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
-                    }
-                  } else {
-                    setCreateContentSlugEnStatus("idle");
-                    setSlugEnConflictReason(null);
-                    if (!manualTitleLocales.has(loc1)) {
-                      setCreateContentSlugEsStatus("idle");
-                      setSlugEsConflictReason(null);
-                    }
-                  }
-                }}
-                placeholder="e.g., Career Development Guide"
-                className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                data-testid="input-content-title"
-              />
-            </div>
-
             {duplicatingPage && !isTypeChanged && (
               <div className="flex gap-2 p-3 rounded-md bg-muted/50 border text-xs text-muted-foreground">
                 <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground" />
@@ -737,10 +707,12 @@ export function CreateContentModal({
               </div>
             )}
 
-            {createContentSlugEn && (() => {
+            {(() => {
               const loc0Excluded = excludedLocales.has(loc0);
               const loc1Excluded = excludedLocales.has(loc1);
-              const activeCount = supportedLocales.length - excludedLocales.size;
+              const visibleLocales = supportedLocales.map((l) => l.code).filter((l) => isLocaleVisible(l));
+              const activeLocales = visibleLocales.filter((l) => !excludedLocales.has(l));
+              const activeCount = activeLocales.length;
               const isLastActive = activeCount <= 1;
               const toggleLocale = (locale: string) => {
                 setExcludedLocales((prev) => {
@@ -753,7 +725,7 @@ export function CreateContentModal({
                   return next;
                 });
               };
-              const activeLocales = supportedLocales.map((l) => l.code).filter((l) => !excludedLocales.has(l));
+              const hasHiddenLocales = isLocaleAgnosticPattern && !showAllLocales && supportedLocales.length > 1;
 
               const deriveSlug = (t: string) =>
                 t.toLowerCase().trim()
@@ -764,279 +736,342 @@ export function CreateContentModal({
 
               return (
                 <div className="space-y-3 p-3 bg-muted/50 rounded-md">
-                  {activeLocales.length > 1 && (
-                    <div className="space-y-1.5">
-                      <p className="text-xs font-medium text-muted-foreground">Titles per locale:</p>
-                      {activeLocales.map((loc) => (
-                        <div key={loc} className="flex items-center gap-2">
+                  <div className="space-y-1.5">
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {visibleLocales.length > 1 ? "Titles per locale:" : "Title:"}
+                    </p>
+                    {visibleLocales.map((loc) => (
+                      <div key={loc} className="flex items-center gap-2">
+                        {visibleLocales.length > 1 && (
                           <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc}</span>
-                          {loc === loc0 ? (
-                            <input
-                              type="text"
-                              value={createContentTitle}
-                              onChange={(e) => {
-                                const title = e.target.value;
-                                setCreateContentTitle(title);
-                                const slug = title
-                                  .toLowerCase()
-                                  .trim()
-                                  .replace(/[^a-z0-9\s-]/g, "")
-                                  .replace(/\s+/g, "-")
-                                  .replace(/-+/g, "-")
-                                  .replace(/^-|-$/g, "");
+                        )}
+                        {loc === primaryLocale ? (
+                          <input
+                            type="text"
+                            value={loc === loc0 ? createContentTitle : (localeTitles[loc] ?? createContentTitle)}
+                            onChange={(e) => {
+                              const title = e.target.value;
+                              setCreateContentTitle(title);
+                              if (loc !== loc0) setLocaleTitles((prev) => ({ ...prev, [loc]: title }));
+                              const slug = deriveSlug(title);
+                              if (loc === loc0) {
+                                setCreateContentSlugEn(slug);
+                                if (!manualTitleLocales.has(loc1)) setCreateContentSlugEs(slug);
+                              } else if (loc === loc1) {
+                                setCreateContentSlugEs(slug);
+                                if (!manualTitleLocales.has(loc0)) setCreateContentSlugEn(slug);
+                              }
+                              setLocaleTitles((prev) => {
+                                const next = { ...prev };
+                                for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc)) {
+                                  if (!manualTitleLocales.has(l)) next[l] = title;
+                                }
+                                return next;
+                              });
+                              if (slug) {
+                                if (loc === loc0 || !manualTitleLocales.has(loc0)) {
+                                  setCreateContentSlugEnStatus("checking");
+                                  checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
+                                }
+                                if ((loc === loc1 || !manualTitleLocales.has(loc1)) && !excludedLocales.has(loc1) && isLocaleVisible(loc1)) {
+                                  setCreateContentSlugEsStatus("checking");
+                                  checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
+                                }
+                              } else {
+                                if (loc === loc0 || !manualTitleLocales.has(loc0)) {
+                                  setCreateContentSlugEnStatus("idle");
+                                  setSlugEnConflictReason(null);
+                                }
+                                if (loc === loc1 || !manualTitleLocales.has(loc1)) {
+                                  setCreateContentSlugEsStatus("idle");
+                                  setSlugEsConflictReason(null);
+                                }
+                              }
+                            }}
+                            placeholder="e.g., Career Development Guide"
+                            className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                            data-testid={`input-title-${loc}`}
+                          />
+                        ) : (
+                          <input
+                            type="text"
+                            value={localeTitles[loc] ?? ""}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setLocaleTitles((prev) => ({ ...prev, [loc]: val }));
+                              setManualTitleLocales((prev) => new Set(prev).add(loc));
+                              const slug = deriveSlug(val);
+                              if (loc === loc0) {
                                 setCreateContentSlugEn(slug);
                                 if (slug) {
                                   setCreateContentSlugEnStatus("checking");
-                                  checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
+                                  checkSlug(createContentType, slug, loc, setCreateContentSlugEnStatus, setSlugEnConflictReason);
                                 } else {
                                   setCreateContentSlugEnStatus("idle");
                                   setSlugEnConflictReason(null);
                                 }
-                              }}
-                              placeholder="Title"
-                              className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                              data-testid={`input-title-${loc0}`}
-                            />
-                          ) : (
-                            <input
-                              type="text"
-                              value={localeTitles[loc] ?? ""}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setLocaleTitles((prev) => ({ ...prev, [loc]: val }));
-                                setManualTitleLocales((prev) => new Set(prev).add(loc));
-                                const slug = deriveSlug(val);
-                                if (loc === loc1) {
-                                  setCreateContentSlugEs(slug);
-                                  if (slug) {
-                                    setCreateContentSlugEsStatus("checking");
-                                    checkSlug(createContentType, slug, loc, setCreateContentSlugEsStatus, setSlugEsConflictReason);
-                                  } else {
-                                    setCreateContentSlugEsStatus("idle");
-                                    setSlugEsConflictReason(null);
-                                  }
+                              } else if (loc === loc1) {
+                                setCreateContentSlugEs(slug);
+                                if (slug) {
+                                  setCreateContentSlugEsStatus("checking");
+                                  checkSlug(createContentType, slug, loc, setCreateContentSlugEsStatus, setSlugEsConflictReason);
+                                } else {
+                                  setCreateContentSlugEsStatus("idle");
+                                  setSlugEsConflictReason(null);
                                 }
-                              }}
-                              placeholder={createContentTitle || "Title"}
-                              className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                              data-testid={`input-title-${loc}`}
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <div className="space-y-2">
-                    <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
-
-                    <div className={`flex items-center gap-2 transition-opacity ${loc0Excluded ? "opacity-40" : ""}`}>
-                      <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc0}</span>
-                      {loc0Excluded ? (
-                        <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
-                          {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, loc0)}
-                        </code>
-                      ) : editingSlugEn ? (
-                        <div className="flex-1 flex items-center gap-1">
-                          <span className="text-xs font-mono text-muted-foreground">
-                            {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, "", loc0).slice(0, -1)}
-                          </span>
-                          <input
-                            type="text"
-                            value={createContentSlugEn}
-                            onChange={(e) => {
-                              const slug = e.target.value
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")
-                                .replace(/[^a-z0-9-]/g, "")
-                                .replace(/-+/g, "-");
-                              setCreateContentSlugEn(slug);
-                              if (slug) {
-                                setCreateContentSlugEnStatus("checking");
-                                checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
-                              } else {
-                                setCreateContentSlugEnStatus("idle");
-                                setSlugEnConflictReason(null);
                               }
                             }}
-                            className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                            data-testid="input-slug-en"
-                            autoFocus
-                            onBlur={() => setEditingSlugEn(false)}
-                            onKeyDown={(e) => e.key === "Enter" && setEditingSlugEn(false)}
+                            placeholder={createContentTitle || "Title"}
+                            className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                            data-testid={`input-title-${loc}`}
                           />
-                        </div>
-                      ) : (
-                        <code
-                          className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
-                          onClick={() => setEditingSlugEn(true)}
-                          data-testid="url-preview-en"
-                        >
-                          {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, loc0)}
-                        </code>
-                      )}
-                      {!loc0Excluded && (
-                        <button
-                          type="button"
-                          onClick={() => setEditingSlugEn(!editingSlugEn)}
-                          className="p-1 rounded hover-elevate"
-                          title={`Edit ${supportedLocales[0]?.label ?? loc0} slug`}
-                          data-testid="button-edit-slug-en"
-                        >
-                          <IconPencil className="h-3 w-3 text-muted-foreground" />
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => toggleLocale(loc0)}
-                        disabled={!loc0Excluded && isLastActive}
-                        className="p-1 rounded hover-elevate disabled:opacity-30 disabled:cursor-not-allowed"
-                        title={loc0Excluded ? `Restore ${supportedLocales[0]?.label ?? loc0}` : `Skip ${supportedLocales[0]?.label ?? loc0}`}
-                        data-testid="button-toggle-locale-en"
-                      >
-                        {loc0Excluded ? (
-                          <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
-                        ) : (
-                          <IconTrash className="h-3 w-3 text-muted-foreground" />
                         )}
-                      </button>
-                      {!loc0Excluded && (
-                        <div className="w-4">
-                          {createContentSlugEnStatus === "checking" && (
-                            <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                          )}
-                          {createContentSlugEnStatus === "available" && !slugsConflict && (
-                            <IconCheck className="h-4 w-4 text-green-600" />
-                          )}
-                          {(createContentSlugEnStatus === "taken" || (createContentSlugEnStatus === "available" && slugsConflict)) && (
-                            <IconX className="h-4 w-4 text-red-600" />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    {!loc0Excluded && createContentSlugEnStatus === "taken" && (
-                      <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || `${supportedLocales[0]?.label ?? loc0} slug is taken`}</p>
-                    )}
-
-                    <div className={`flex items-center gap-2 transition-opacity ${loc1Excluded ? "opacity-40" : ""}`}>
-                      <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc1}</span>
-                      {loc1Excluded ? (
-                        <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
-                          {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs || createContentSlugEn, loc1)}
-                        </code>
-                      ) : editingSlugEs ? (
-                        <div className="flex-1 flex items-center gap-1">
-                          <span className="text-xs font-mono text-muted-foreground">
-                            {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, "", loc1).slice(0, -1)}
-                          </span>
-                          <input
-                            type="text"
-                            value={createContentSlugEs}
-                            onChange={(e) => {
-                              const slug = e.target.value
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")
-                                .replace(/[^a-z0-9-]/g, "")
-                                .replace(/-+/g, "-");
-                              setCreateContentSlugEs(slug);
-                              if (slug) {
-                                setCreateContentSlugEsStatus("checking");
-                                checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
-                              } else {
-                                setCreateContentSlugEsStatus("idle");
-                                setSlugEsConflictReason(null);
-                              }
-                            }}
-                            className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                            data-testid="input-slug-es"
-                            autoFocus
-                            onBlur={() => setEditingSlugEs(false)}
-                            onKeyDown={(e) => e.key === "Enter" && setEditingSlugEs(false)}
-                          />
-                        </div>
-                      ) : (
-                        <code
-                          className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
-                          onClick={() => setEditingSlugEs(true)}
-                          data-testid="url-preview-es"
-                        >
-                          {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs, loc1)}
-                        </code>
-                      )}
-                      {!loc1Excluded && (
-                        <button
-                          type="button"
-                          onClick={() => setEditingSlugEs(!editingSlugEs)}
-                          className="p-1 rounded hover-elevate"
-                          title={`Edit ${supportedLocales[1]?.label ?? loc1} slug`}
-                          data-testid="button-edit-slug-es"
-                        >
-                          <IconPencil className="h-3 w-3 text-muted-foreground" />
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => toggleLocale(loc1)}
-                        disabled={!loc1Excluded && isLastActive}
-                        className="p-1 rounded hover-elevate disabled:opacity-30 disabled:cursor-not-allowed"
-                        title={loc1Excluded ? `Restore ${supportedLocales[1]?.label ?? loc1}` : `Skip ${supportedLocales[1]?.label ?? loc1}`}
-                        data-testid="button-toggle-locale-es"
-                      >
-                        {loc1Excluded ? (
-                          <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
-                        ) : (
-                          <IconTrash className="h-3 w-3 text-muted-foreground" />
-                        )}
-                      </button>
-                      {!loc1Excluded && (
-                        <div className="w-4">
-                          {createContentSlugEsStatus === "checking" && (
-                            <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
-                          )}
-                          {createContentSlugEsStatus === "available" && !slugsConflict && (
-                            <IconCheck className="h-4 w-4 text-green-600" />
-                          )}
-                          {(createContentSlugEsStatus === "taken" || (createContentSlugEsStatus === "available" && slugsConflict)) && (
-                            <IconX className="h-4 w-4 text-red-600" />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    {!loc1Excluded && createContentSlugEsStatus === "taken" && (
-                      <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || `${supportedLocales[1]?.label ?? loc1} slug is taken`}</p>
-                    )}
+                      </div>
+                    ))}
                   </div>
 
-                  {slugsConflict && (
-                    <div className="flex gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/30 text-xs text-destructive" data-testid="warning-slug-conflict">
-                      <IconAlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                      <span>
-                        This content type uses the same URL for all locales. Each locale must have a unique slug, or exclude one locale.
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="space-y-1">
+                  {hasHiddenLocales && (
                     <button
                       type="button"
-                      onClick={() => setShowFiles((v) => !v)}
-                      className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
-                      data-testid="button-toggle-files"
+                      onClick={() => {
+                        setShowAllLocales(true);
+                        setExcludedLocales(new Set());
+                      }}
+                      className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                      data-testid="button-include-other-locales"
                     >
-                      <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? "" : "-rotate-90"}`} />
-                      Files that will be created
+                      <IconPlus className="h-3 w-3" />
+                      Include other locales
                     </button>
-                    {showFiles && (
-                      <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
-                        <div>marketing-content/{contentTypesMap?.[createContentType]?.directory || createContentType}/{createContentSlugEn}/</div>
-                        <div className="pl-4">├── _common.yml</div>
-                        {activeLocales.map((loc, i) => (
-                          <div key={loc} className="pl-4">
-                            {i === activeLocales.length - 1 ? "└── " : "├── "}{loc}.yml
-                          </div>
-                        ))}
+                  )}
+
+                  {(isLocaleVisible(loc0) ? createContentSlugEn : createContentSlugEs) && (
+                    <>
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
+
+                        {isLocaleVisible(loc0) && (
+                          <>
+                            <div className={`flex items-center gap-2 transition-opacity ${loc0Excluded ? "opacity-40" : ""}`}>
+                              <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc0}</span>
+                              {loc0Excluded ? (
+                                <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
+                                  {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, loc0)}
+                                </code>
+                              ) : editingSlugEn ? (
+                                <div className="flex-1 flex items-center gap-1">
+                                  <span className="text-xs font-mono text-muted-foreground">
+                                    {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, "", loc0).slice(0, -1)}
+                                  </span>
+                                  <input
+                                    type="text"
+                                    value={createContentSlugEn}
+                                    onChange={(e) => {
+                                      const slug = e.target.value
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")
+                                        .replace(/[^a-z0-9-]/g, "")
+                                        .replace(/-+/g, "-");
+                                      setCreateContentSlugEn(slug);
+                                      if (slug) {
+                                        setCreateContentSlugEnStatus("checking");
+                                        checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
+                                      } else {
+                                        setCreateContentSlugEnStatus("idle");
+                                        setSlugEnConflictReason(null);
+                                      }
+                                    }}
+                                    className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                                    data-testid="input-slug-en"
+                                    autoFocus
+                                    onBlur={() => setEditingSlugEn(false)}
+                                    onKeyDown={(e) => e.key === "Enter" && setEditingSlugEn(false)}
+                                  />
+                                </div>
+                              ) : (
+                                <code
+                                  className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
+                                  onClick={() => setEditingSlugEn(true)}
+                                  data-testid="url-preview-en"
+                                >
+                                  {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, loc0)}
+                                </code>
+                              )}
+                              {!loc0Excluded && (
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingSlugEn(!editingSlugEn)}
+                                  className="p-1 rounded hover-elevate"
+                                  title={`Edit ${supportedLocales[0]?.label ?? loc0} slug`}
+                                  data-testid="button-edit-slug-en"
+                                >
+                                  <IconPencil className="h-3 w-3 text-muted-foreground" />
+                                </button>
+                              )}
+                              {visibleLocales.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => toggleLocale(loc0)}
+                                  disabled={!loc0Excluded && isLastActive}
+                                  className="p-1 rounded hover-elevate disabled:opacity-30 disabled:cursor-not-allowed"
+                                  title={loc0Excluded ? `Restore ${supportedLocales[0]?.label ?? loc0}` : `Skip ${supportedLocales[0]?.label ?? loc0}`}
+                                  data-testid="button-toggle-locale-en"
+                                >
+                                  {loc0Excluded ? (
+                                    <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
+                                  ) : (
+                                    <IconTrash className="h-3 w-3 text-muted-foreground" />
+                                  )}
+                                </button>
+                              )}
+                              {!loc0Excluded && (
+                                <div className="w-4">
+                                  {createContentSlugEnStatus === "checking" && (
+                                    <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
+                                  )}
+                                  {createContentSlugEnStatus === "available" && !slugsConflict && (
+                                    <IconCheck className="h-4 w-4 text-green-600" />
+                                  )}
+                                  {(createContentSlugEnStatus === "taken" || (createContentSlugEnStatus === "available" && slugsConflict)) && (
+                                    <IconX className="h-4 w-4 text-red-600" />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                            {!loc0Excluded && createContentSlugEnStatus === "taken" && (
+                              <p className="text-xs text-red-600 pl-1">{slugEnConflictReason || `${supportedLocales[0]?.label ?? loc0} slug is taken`}</p>
+                            )}
+                          </>
+                        )}
+
+                        {isLocaleVisible(loc1) && (
+                          <>
+                            <div className={`flex items-center gap-2 transition-opacity ${loc1Excluded ? "opacity-40" : ""}`}>
+                              <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc1}</span>
+                              {loc1Excluded ? (
+                                <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
+                                  {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs || createContentSlugEn, loc1)}
+                                </code>
+                              ) : editingSlugEs ? (
+                                <div className="flex-1 flex items-center gap-1">
+                                  <span className="text-xs font-mono text-muted-foreground">
+                                    {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, "", loc1).slice(0, -1)}
+                                  </span>
+                                  <input
+                                    type="text"
+                                    value={createContentSlugEs}
+                                    onChange={(e) => {
+                                      const slug = e.target.value
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")
+                                        .replace(/[^a-z0-9-]/g, "")
+                                        .replace(/-+/g, "-");
+                                      setCreateContentSlugEs(slug);
+                                      if (slug) {
+                                        setCreateContentSlugEsStatus("checking");
+                                        checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
+                                      } else {
+                                        setCreateContentSlugEsStatus("idle");
+                                        setSlugEsConflictReason(null);
+                                      }
+                                    }}
+                                    className="flex-1 px-2 py-1 text-xs font-mono rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                                    data-testid="input-slug-es"
+                                    autoFocus
+                                    onBlur={() => setEditingSlugEs(false)}
+                                    onKeyDown={(e) => e.key === "Enter" && setEditingSlugEs(false)}
+                                  />
+                                </div>
+                              ) : (
+                                <code
+                                  className="flex-1 text-xs bg-background px-2 py-1 rounded cursor-pointer hover-elevate"
+                                  onClick={() => setEditingSlugEs(true)}
+                                  data-testid="url-preview-es"
+                                >
+                                  {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs, loc1)}
+                                </code>
+                              )}
+                              {!loc1Excluded && (
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingSlugEs(!editingSlugEs)}
+                                  className="p-1 rounded hover-elevate"
+                                  title={`Edit ${supportedLocales[1]?.label ?? loc1} slug`}
+                                  data-testid="button-edit-slug-es"
+                                >
+                                  <IconPencil className="h-3 w-3 text-muted-foreground" />
+                                </button>
+                              )}
+                              {visibleLocales.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => toggleLocale(loc1)}
+                                  disabled={!loc1Excluded && isLastActive}
+                                  className="p-1 rounded hover-elevate disabled:opacity-30 disabled:cursor-not-allowed"
+                                  title={loc1Excluded ? `Restore ${supportedLocales[1]?.label ?? loc1}` : `Skip ${supportedLocales[1]?.label ?? loc1}`}
+                                  data-testid="button-toggle-locale-es"
+                                >
+                                  {loc1Excluded ? (
+                                    <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
+                                  ) : (
+                                    <IconTrash className="h-3 w-3 text-muted-foreground" />
+                                  )}
+                                </button>
+                              )}
+                              {!loc1Excluded && (
+                                <div className="w-4">
+                                  {createContentSlugEsStatus === "checking" && (
+                                    <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
+                                  )}
+                                  {createContentSlugEsStatus === "available" && !slugsConflict && (
+                                    <IconCheck className="h-4 w-4 text-green-600" />
+                                  )}
+                                  {(createContentSlugEsStatus === "taken" || (createContentSlugEsStatus === "available" && slugsConflict)) && (
+                                    <IconX className="h-4 w-4 text-red-600" />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                            {!loc1Excluded && createContentSlugEsStatus === "taken" && (
+                              <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || `${supportedLocales[1]?.label ?? loc1} slug is taken`}</p>
+                            )}
+                          </>
+                        )}
                       </div>
-                    )}
-                  </div>
+
+                      {slugsConflict && (
+                        <div className="flex gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/30 text-xs text-destructive" data-testid="warning-slug-conflict">
+                          <IconAlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                          <span>
+                            This content type uses the same URL for all locales. Each locale must have a unique slug, or exclude one locale.
+                          </span>
+                        </div>
+                      )}
+
+                      <div className="space-y-1">
+                        <button
+                          type="button"
+                          onClick={() => setShowFiles((v) => !v)}
+                          className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
+                          data-testid="button-toggle-files"
+                        >
+                          <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? "" : "-rotate-90"}`} />
+                          Files that will be created
+                        </button>
+                        {showFiles && (
+                          <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
+                            <div>marketing-content/{contentTypesMap?.[createContentType]?.directory || createContentType}/{createContentSlugEn || createContentSlugEs}/</div>
+                            <div className="pl-4">├── _common.yml</div>
+                            {activeLocales.map((loc, i) => (
+                              <div key={loc} className="pl-4">
+                                {i === activeLocales.length - 1 ? "└── " : "├── "}{loc}.yml
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               );
             })()}
