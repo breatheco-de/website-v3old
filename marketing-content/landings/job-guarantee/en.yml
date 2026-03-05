@@ -105,8 +105,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: High-Growth Tech Careers, Backed by Our Job Guarantee
-    subheading: Choose your path
+    heading: Launch Your Tech Career With 4Geeks
+    subheading: Learn with programs designed to launch careers
     courses:
       - name: AI Engineering
         icon: Brain
