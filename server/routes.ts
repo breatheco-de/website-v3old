@@ -1288,12 +1288,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ? parseInt(req.query.force_version as string, 10)
       : undefined;
 
-    // Get locale from query param, _common.yml, or default
+    // Get locale from query param, _common.yml, or default — then verify it exists
     const queryLocale = req.query.locale as string | undefined;
     const supported = getSupportedLocales();
     const validQueryLocale = queryLocale && supported.includes(queryLocale) ? queryLocale : undefined;
     const commonData = contentIndex.loadCommonData("landing", slug);
-    const locale = validQueryLocale || (commonData?.locale as string) || getDefaultLocale();
+    let locale = validQueryLocale || (commonData?.locale as string) || getDefaultLocale();
+    const availableLocales = contentIndex.getAvailableLocalesOrVariants("landing" as ContentType, slug);
+    if (availableLocales.length > 0 && !availableLocales.includes(locale)) {
+      locale = availableLocales[0];
+    }
 
     let landing: LandingPage | null = null;
     let experimentInfo: {
