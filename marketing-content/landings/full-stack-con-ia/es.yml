@@ -223,8 +223,8 @@ sections:
     subtitle: Respaldamos tu resultado profesional con un compromiso real
     description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
     cta:
-      text: Conocer más
-      url: /es/trabajo-garantizado
+      text: Empieza ahora
+      url: "#hero-form"
       variant: primary
     marginY:
       desktop: none lg
