@@ -212,8 +212,8 @@ function SeoTab({ data }: { data: SeoOverview }) {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
+      <div className="grid grid-cols-12 gap-6">
+        <Card className="col-span-12 md:col-span-5">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
               <IconStar className="h-4 w-4" />
@@ -237,7 +237,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="col-span-12 md:col-span-7">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
               <IconAlertTriangle className="h-4 w-4" />
