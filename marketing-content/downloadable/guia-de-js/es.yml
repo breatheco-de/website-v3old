@@ -33,7 +33,7 @@ sections:
             visible: false
             required: true
             default: full-stack
-    background: hsl(var(--sidebar-background))
+    background: hsl(210 100% 50% / 0.05)
   - type: two_column
     proportions:
       - 7
