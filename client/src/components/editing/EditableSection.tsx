@@ -263,6 +263,11 @@ interface EditableSectionProps {
   onDuplicate?: (index: number) => void;
 }
 
+function parseAutoSyncAuthor(subject: string): string | null {
+  const m = subject.match(/^\[Auto-sync\] (.+?) updated /);
+  return m ? m[1] : null;
+}
+
 export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, allSections, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
   const editMode = useEditModeOptional();
   const pageHistory = usePageHistoryOptional();
@@ -1191,6 +1196,7 @@ export function EditableSection({ children, section, index, sectionType, content
                       const d = new Date(entry.date);
                       const dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
                       const timeStr = d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false });
+                      const displayAuthor = parseAutoSyncAuthor(entry.subject) ?? entry.author;
                       return (
                         <button
                           key={entry.sha}
@@ -1199,7 +1205,7 @@ export function EditableSection({ children, section, index, sectionType, content
                             if (isSelected) return;
                             setHistoryPreviewSha(entry.sha);
                             setHistoryPreviewDate(entry.date);
-                            setHistoryPreviewAuthor(entry.author);
+                            setHistoryPreviewAuthor(displayAuthor);
                             setHistoryPreviewSection(null);
                             setHistoryPreviewLoading(true);
                             try {
@@ -1231,7 +1237,7 @@ export function EditableSection({ children, section, index, sectionType, content
                           )}
                           <div className="min-w-0 flex-1">
                             <div className="truncate font-medium text-foreground">{entry.subject}</div>
-                            <div className="text-muted-foreground">{dateStr} {timeStr} · {entry.author}</div>
+                            <div className="text-muted-foreground">{dateStr} {timeStr} · {displayAuthor}</div>
                           </div>
                         </button>
                       );

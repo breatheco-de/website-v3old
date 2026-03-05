@@ -4661,6 +4661,22 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       const commits = pushPayload.commits || [];
 
+      // Extract the real CMS author from commit messages — format: "[Auto-sync] Author Name updated file.yml"
+      // All commits share the same GitHub token so pusher.name is always the same technical user.
+      const autoSyncAuthorRe = /^\[Auto-sync\] (.+?) updated /;
+      const realAuthor = (() => {
+        const messages = [
+          pushPayload.head_commit?.message,
+          ...commits.map((c: { message?: string }) => c.message),
+        ].filter(Boolean) as string[];
+        for (const msg of messages) {
+          const m = msg.match(autoSyncAuthorRe);
+          if (m) return m[1];
+        }
+        return null;
+      })();
+      const person = realAuthor ?? pusher;
+
       const changedFiles = new Set<string>();
       for (const commit of commits) {
         for (const f of commit.added || []) changedFiles.add(f);
@@ -4675,8 +4691,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (marketingFiles.length === 0) {
         logSync(
           "WEBHOOK",
-          `Push ${commitSha?.slice(0, 7)} by ${pusher}: no marketing-content files changed`,
-          pusher,
+          `Push ${commitSha?.slice(0, 7)} by ${person}: no marketing-content files changed`,
+          person,
         );
         res.json({ ok: true, message: "No marketing-content files changed" });
         return;
@@ -4684,8 +4700,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       logSync(
         "WEBHOOK",
-        `Push ${commitSha?.slice(0, 7)} by ${pusher}: ${marketingFiles.length} marketing-content files changed`,
-        pusher,
+        `Push ${commitSha?.slice(0, 7)} by ${person}: ${marketingFiles.length} marketing-content files changed`,
+        person,
       );
 
       const isAutoPullEnabled =
