@@ -199,9 +199,9 @@ sections:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
     reverse: true
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
-      desktop: none lg
+      desktop: none md
   - type: numbered_steps
     variant: default
     title: Get Hired Faster With GeekForce
