@@ -228,7 +228,7 @@ export function HeroProductShowcase({
               {bullets && bullets.length > 0 && (
                 <div className="flex justify-center md:block">
                   <ul
-                    className="mt-4 md:mb-6 space-y-2 max-w-xl"
+                    className="mt-4 md:mb-4 space-y-2 max-w-xl"
                     data-testid="hero-bullets"
                   >
                     {bullets.map((bullet, index) => (
@@ -248,7 +248,7 @@ export function HeroProductShowcase({
               )}
 
               {data.footer && (
-                <div className="relative mt-4 max-w-xl">
+                <div className="relative">
                   <RichTextContent
                     html={data.footer}
                     className="text-sm text-muted-foreground leading-relaxed [&_p]:mb-0"
