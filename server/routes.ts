@@ -8921,7 +8921,6 @@ sections: []
         contentScore += 20;
       }
 
-      contentMax += 15;
       const emptyFields: string[] = [];
       function findEmptyFields(obj: unknown, path: string = ""): void {
         if (!obj || typeof obj !== "object") return;
@@ -8951,9 +8950,6 @@ sections: []
         }
       }
       findEmptyFields(rawData);
-      if (emptyFields.length === 0) {
-        contentScore += 15;
-      }
 
       contentMax += 20;
       if (missingFromRegistry.length === 0 && missingFromDisk.length === 0) {

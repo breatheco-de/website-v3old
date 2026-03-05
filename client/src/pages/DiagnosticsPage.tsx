@@ -930,7 +930,7 @@ function PageAnalysisTab() {
               <p><strong className="text-foreground">Total</strong> is the simple average of the three sub-scores.</p>
               <p><strong className="text-foreground">SEO</strong> (max 80 pts): page_title present (+20), title 30–60 chars (+10), description present (+20), description 70–160 chars (+10), og_image set (+10), canonical_url set (+10).</p>
               <p><strong className="text-foreground">Schema</strong> (max 100 pts): schema.include configured (+30), valid parsed schemas (+20), schema has name (+15) and description (+15), no "todo" placeholders (+10), FAQPage schema present when FAQ sections exist (+10).</p>
-              <p><strong className="text-foreground">Content</strong> (max 100 pts): has sections (+25), all sections typed (+20), counterpart locale exists (+20), no empty critical fields (+15), all images resolve (+20).</p>
+              <p><strong className="text-foreground">Content</strong> (max 85 pts): has sections (+25), all sections typed (+20), counterpart locale exists (+20), all images resolve (+20).</p>
             </InfoPopover>
           </div>
 
@@ -941,7 +941,7 @@ function PageAnalysisTab() {
                 <CardTitle className="text-sm">Empty Fields</CardTitle>
                 <InfoPopover testId="info-empty-fields">
                   <p>Scans every key in the page's YAML for the names <code className="bg-muted px-1 rounded text-foreground">title</code>, <code className="bg-muted px-1 rounded text-foreground">heading</code>, <code className="bg-muted px-1 rounded text-foreground">description</code>, <code className="bg-muted px-1 rounded text-foreground">subtitle</code>, and <code className="bg-muted px-1 rounded text-foreground">tagline</code> whose value is an empty string.</p>
-                  <p>Each path listed here is a field that exists in the content but has no value. Empty critical fields subtract <strong className="text-foreground">15 points</strong> from the Content score.</p>
+                  <p>This is informational only — empty fields can be intentional depending on the section design and do not affect the Content score.</p>
                 </InfoPopover>
               </CardHeader>
               <CardContent>
