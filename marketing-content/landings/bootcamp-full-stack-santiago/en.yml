@@ -326,7 +326,7 @@ sections:
     subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
       average: {{ global.global_review_rating | 4.8 }}
-      count: 1,294
+      count: 700+
     items:
       - name: Sarah Johnson
         role: AI Engineer
