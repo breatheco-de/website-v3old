@@ -7532,11 +7532,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               if (file === "en.yml" || file === "es.yml") {
                 const fileLocale = file.replace(/\.yml$/, "");
                 const localeTitle = localeTitles[fileLocale] || title;
-                content = content.replace(/title:\s*.*$/m, `title: ${localeTitle}`);
+                if (/^title:/m.test(content)) {
+                  content = content.replace(/^title:\s*.*$/m, `title: "${localeTitle}"`);
+                } else {
+                  content = content.replace(/^(slug:.*$)/m, `$1\ntitle: "${localeTitle}"`);
+                }
               }
 
               // Replace unique mapped field values in _common.yml
               if (file === "_common.yml") {
+                content = content.replace(/^title:\s*.*$/m, `title: "${title}"`);
                 for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
                   if (fieldName === "slug" || fieldName === "title") continue;
                   content = content.replace(
