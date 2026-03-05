@@ -8,4 +8,4 @@ sections:
       text: Obtener más información
       url: /signup
       variant: primary
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    background: hsl(var(--secondary))
