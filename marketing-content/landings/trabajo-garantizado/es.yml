@@ -150,7 +150,7 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: solid
-    heading: Descubre nuestros programas con la opción de garantía de empleo
+    heading: Descubre tu potencial en 4Geeks Academy
     subheading: Programas para convertirte en un experto en programación y complementar tu perfil profesional
     courses:
       - name: Ingeniería de IA
