@@ -422,46 +422,39 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-  - type: apply_form
-    version: "1.0"
-    hero:
-      title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
-      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
-    form:
-      program_label: Please select one program
-      program_placeholder: Select a program
-      location_label: Select your preferred location
-      location_placeholder: Select a location
-      first_name_label: First Name
-      first_name_placeholder: Enter your first name
-      last_name_label: Last Name
-      last_name_placeholder: Enter your last name
-      email_label: Email
-      email_placeholder: Enter your email address
-      phone_label: Phone Number
-      phone_placeholder: Enter your phone number
-      consent_marketing: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
-      consent_sms: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month.
-      submit_text: APPLY
-      terms_text: By signing up, you agree to the
-      terms_link_text: Terms and Conditions
-      terms_link_url: /terms-conditions
-      privacy_text: and
-      privacy_link_text: Privacy Policy
-      privacy_link_url: /privacy-policy
-    next_steps:
-      title: What Happens Next?
-      items:
-        - title: Instant confirmation
-          description: We'll send you the syllabus by email right away.
-        - title: Personal follow-up
-          description: Our admissions team will reach out by text and phone to set up a quick call.
-        - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-        - title: Decide with confidence
-          description: You'll have all the info you need to choose the path that's right for you. And we are here to help.
-      closing: Now you're ready to make the best decision for your career!
+  - type: whos_hiring
+    variant: carousel
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
