@@ -210,7 +210,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
             <div className="flex rounded-md border overflow-visible" data-testid="segmented-url-pattern-mode">
               {([
                 { value: "non-localized" as const, label: "No locale prefix" },
-                { value: "shorthand" as const, label: "Same path all languages" },
+                { value: "shorthand" as const, label: "Use locale prefix" },
                 { value: "per-locale" as const, label: "Customized" },
               ]).map((opt) => (
                 <button
