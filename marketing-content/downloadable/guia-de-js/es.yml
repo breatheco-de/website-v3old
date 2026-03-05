@@ -126,11 +126,10 @@ sections:
     paddingY:
       desktop: lg
   - type: whos_hiring
-    version: v1.0
     variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    pretitle: ""
+    title: ¡Las oportunidades te esperan!
+    subtitle: Muchas de las empresas líderes en el mundo buscan programadores web
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
