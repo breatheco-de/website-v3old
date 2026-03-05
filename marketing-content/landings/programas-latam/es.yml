@@ -86,6 +86,8 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
     video_title: GeekForce Career Support
+    marginY:
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
