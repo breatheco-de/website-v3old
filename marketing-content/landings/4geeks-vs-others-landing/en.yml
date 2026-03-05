@@ -129,46 +129,49 @@ sections:
         text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
     footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
-  - type: apply_form
+  - type: course_selector
     version: "1.0"
-    hero:
-      title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
-      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
-    form:
-      program_label: Please select one program
-      program_placeholder: Select a program
-      location_label: Select your preferred location
-      location_placeholder: Select a location
-      first_name_label: First Name
-      first_name_placeholder: Enter your first name
-      last_name_label: Last Name
-      last_name_placeholder: Enter your last name
-      email_label: Email
-      email_placeholder: Enter your email address
-      phone_label: Phone Number
-      phone_placeholder: Enter your phone number
-      consent_marketing: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
-      consent_sms: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month.
-      submit_text: APPLY
-      terms_text: By signing up, you agree to the
-      terms_link_text: Terms and Conditions
-      terms_link_url: /terms-conditions
-      privacy_text: and
-      privacy_link_text: Privacy Policy
-      privacy_link_url: /privacy-policy
-    next_steps:
-      title: What Happens Next?
-      items:
-        - title: Instant confirmation
-          description: We'll send you the syllabus by email right away.
-        - title: Personal follow-up
-          description: Our admissions team will reach out by text and phone to set up a quick call.
-        - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-        - title: Decide with confidence
-          description: You'll have all the info you need to choose the path that's right for you. And we are here to help.
-      closing: Now you're ready to make the best decision for your career!
+    variant: solid
+    heading: Launch Your Tech Career With 4Geeks
+    subheading: Learn with programs designed to launch careers
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: APIs, automation, telemetry
+        description: Build production-ready AI systems and learn to design, deploy, and scale AI-driven products.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Data Science and Machine Learning
+        duration: {{ global.data_science_week_duration | 16 }} weeks
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Brain
+            text: Python, TensorFlow, SQL
+        description: Analyze real-world data, build predictive models, and apply machine learning techniques used by modern teams.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-machine-learning
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Code
+            text: Threat detection & system protection
+        description: Develop the skills to identify threats, secure systems, and support security operations in today’s digital economy.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
   - type: comparison_table
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
