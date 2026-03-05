@@ -36,7 +36,7 @@ sections:
           required: true
         program:
           visible: false
-          default: ai-engineering
+          default: job-guarantee
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
