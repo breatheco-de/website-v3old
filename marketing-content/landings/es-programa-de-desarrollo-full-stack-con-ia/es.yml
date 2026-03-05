@@ -264,7 +264,6 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: ai_learning-6kb9rp
     title: Impacto en tu carrera profesional
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
@@ -300,7 +299,7 @@ sections:
           - text: "AI Full-Stack Engineer: 35.000 € - 50.000 €"
           - text: "Agent / Workflow Automation Engineer: 30.000 € - 45.000 €"
           - text: "AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €"
-      - value: 5,000+
+      - value: 400+
         label: Empresas que contratan talento
         description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
@@ -309,6 +308,7 @@ sections:
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
+    section_id: ai_learning-6kb9rp
     marginY:
       mobile: none
       desktop: none
