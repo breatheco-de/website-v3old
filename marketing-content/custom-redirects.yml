@@ -6,3 +6,5 @@ redirects:
   - from: /es/([a-z\-_]+)/([a-z\-_\d]+)
     to: /es/blog/$1/$2
     priority: fallback
+  - from: /es/landing/carne-joven
+    to: https://old.4geeksacademy.com/es/landing/carne-joven

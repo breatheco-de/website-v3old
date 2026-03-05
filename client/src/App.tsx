@@ -45,12 +45,12 @@ function LoadingFallback() {
 const STATIC_ROUTE_TYPES = new Set(["page", "program", "location", "blog"]);
 
 function useDynamicRoutes() {
-  const { data: contentTypes } = useQuery<ContentTypeApiItem[]>({
+  const { data: contentTypes, isLoading } = useQuery<ContentTypeApiItem[]>({
     queryKey: ["/api/content-types"],
     staleTime: Infinity,
   });
 
-  return useMemo(() => {
+  const routes = useMemo(() => {
     if (!contentTypes) return [];
 
     const routes: Array<{
@@ -108,10 +108,12 @@ function useDynamicRoutes() {
 
     return routes;
   }, [contentTypes]);
+
+  return { routes, isLoading };
 }
 
 function Router() {
-  const dynamicRoutes = useDynamicRoutes();
+  const { routes: dynamicRoutes, isLoading: dynamicRoutesLoading } = useDynamicRoutes();
 
   return (
     <Suspense fallback={<LoadingFallback />}>
@@ -181,7 +183,11 @@ function Router() {
         <Route path="/politica-privacidad" component={PrivacyPage} />
         <Route path="/en/:slug" component={TemplatePage} />
         <Route path="/es/:slug" component={TemplatePage} />
-        <Route component={NotFound} />
+        {dynamicRoutesLoading ? (
+          <Route>{() => <LoadingFallback />}</Route>
+        ) : (
+          <Route component={NotFound} />
+        )}
       </Switch>
     </Suspense>
   );

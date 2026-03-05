@@ -13,26 +13,14 @@ schema:
     - organization
     - website
 sections:
-  - type: testimonials_grid
-    version: v1.0
-    title: What Our Students Say
-    subtitle: Real stories from graduates who transformed their careers
-    title_color: hsl(var(--foreground))
-    subtitle_color: hsl(var(--muted-foreground))
-    default_box_color: hsl(var(--muted))
-    default_name_color: hsl(var(--foreground))
-    default_role_color: hsl(var(--muted-foreground))
-    default_comment_color: hsl(var(--muted-foreground))
-    default_star_color: hsl(45 93% 47%)
-    columns: 3
-    related_features:
-      - data-science
-    limit: 12
-    background: hsl(var(--background))
   - type: hero
     variant: ApplyFormProductShowcase
-    title: Programa de Desarrollo Full Stack con IA
-    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    title: Construye código con IA
+    brand_mark:
+      prefix: Programa de
+      highlight: Full Stack con IA
+      color: primary
+    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     form:
       variant: stacked
       conversion_name: student_application
@@ -57,7 +45,7 @@ sections:
           default_country: MX
         program:
           visible: false
-          default: ai-engineering
+          default: full-stack
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
@@ -69,11 +57,6 @@ sections:
         sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
         sms_usa_only: false
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
     image: data:image/jpeg;base64,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
     paddingY:
       mobile: md none
@@ -82,7 +65,6 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    subtitle: Para programadores que quieren construir con IA.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -102,44 +84,49 @@ sections:
       - name: Rigo
         role: Asistente de Aprendizaje con IA
         image: https://randomuser.me/api/portraits/lego/1.jpg
-  - type: award_badges
+  - type: awards_marquee
     version: v1.0
-    variant: simple
-    showBorder: true
+    speed: 40
+    gradient: true
+    gradientWidth: 400
     items:
-      - id: coursereport-1
-        logo: /images/awards/course-report.svg
-        alt: Course Report - Best Coding Bootcamp
+      - id: switchup-2025
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
-        source: Course Report
-        name: Best Coding Bootcamp
-        year: "2024"
-      - id: switchup-1
-        logo: /images/awards/switchup.svg
-        alt: SwitchUp - Top Bootcamp
+      - id: course-report-2024
+        alt: Course Report - Best Coding Bootcamp 2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
-        source: SwitchUp
-        name: Top Bootcamp
-        year: "2024"
-      - id: careerkarma-1
-        logo: /images/awards/career-karma.svg
-        alt: Career Karma - Best Value
+      - id: tech-hub
+        alt: South Florida Tech Hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 64px
-        source: Career Karma
-        name: Best Value
-        year: "2024"
-  - type: cta_banner
-    version: "1.0"
-    title: ¿Listo para empezar tu carrera en tech?
-    background: hsl(var(--primary))
-    variant: default
-    buttons:
-      - text: Aplica ahora
-        url: "#hero-form"
-        variant: primary
-      - text: Solicitar más información
-        url: /en/job-guarantee
-        variant: outline
+      - id: ebootcamp
+        alt: eBootcamp Top
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logoHeight: 64px
+      - id: premios-tecnologia
+        alt: Premios Tecnologia Siglo XXI
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        logoHeight: 64px
+      - id: newsweek
+        alt: Newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logoHeight: 64px
+      - id: reviews-coursereport
+        alt: 4.9 on Course Report Reviews
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        logoHeight: 64px
+      - id: excelencia-educativa
+        alt: Excelencia Educativa - Institutional Quality
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logoHeight: 64px
+    marginY:
+      desktop: none md
+    paddingY:
+      mobile: md
+      desktop: none md
   - type: double_cta
     title: Take the Next Step in Your Tech Career
     subtitle: Join thousands of students who have transformed their careers with 4Geeks Academy.

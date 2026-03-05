@@ -17,12 +17,12 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: y construye sistemas reales en producción
+    title: Mentoría personalizada y resultados profesionales comprobados.
     brand_mark:
-      prefix: Conviértete en
-      highlight: Ingeniero de IA
+      prefix: Programa de Desarrollo
+      highlight: Full Stack con IA
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA.
     form:
       variant: stacked
       conversion_name: student_application
@@ -46,8 +46,8 @@ sections:
           required: true
           default_country: ES
         program:
-          visible: true
-          default: ai-engineering
+          visible: false
+          default: full-stack
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
@@ -66,9 +66,9 @@ sections:
       ratio: "9:16"
       muted: true
     bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+      - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
+      - text: Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos.
+      - text: Integra herramientas y flujos de trabajo con IA en aplicaciones web reales.
     paddingY:
       mobile: md none
       desktop: lg none
@@ -182,27 +182,23 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: features_grid
+  - type: syllabus
     version: "1.0"
-    variant: stats-text-card
-    title: ¿Por qué aprender Ingeniería de IA ahora?
-    subtitle: Porque el mercado ya la está exigiendo.
-    description: La IA está transformando cómo operan las empresas, desde automatización hasta productos inteligentes en producción. Sin embargo, el talento especializado no está creciendo al mismo ritmo. Según McKinsey, el 87 % de las empresas no encuentra ingenieros de IA preparados para liderar estos cambios. Esa brecha no es un riesgo. Es una oportunidad para quienes deciden formarse hoy.
-    card_color: bg-background
-    background: hsl(210 100% 50% / 0.05)
-    items:
-      - value: "800.000"
-        title: Roles relacionados con IA previstos para 2027
-      - value: ~30%
-        title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: 30.000€-50.000€
-        title: Salario inicial promedio para ingenieros de IA
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: none md
-      desktop: none md
+    title: Get Job-Ready with Our Syllabus!
+    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
+    modules:
+      - title: Introduction To HTML And CSS
+        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
+      - title: JavaScript Fundamentals
+        description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
+      - title: React Development
+        description: Build modern user interfaces with React, learning component architecture, state management, and hooks.
+      - title: Backend with Python
+        description: Create server-side applications using Python and Flask, handling routing, databases, and REST APIs.
+      - title: Databases & SQL
+        description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
+      - title: API Development
+        description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
   - type: syllabus
     variant: program-modules
     program_title: Lo que construirás en 24 semanas

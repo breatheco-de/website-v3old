@@ -1,4 +1,4 @@
-slug: full-stack
+slug: "bootcamp-full-stack-santiago"
 title: Full Stack Developer
 meta:
   robots: index, follow
@@ -7,13 +7,7 @@ meta:
   change_frequency: weekly
   page_title: Full Stack Developer Career Program | 4Geeks
   description: Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $65K+ starting salaries.
-  redirects:
-    - /bootcamp/full-stack
-    - /programs/fullstack-developer
-    - /coding-bootcamp/full-stack
-    - /us/coding-bootcamps/part-time-full-stack-developer
-    - /us/coding-bootcamps/full-time-full-stack-developer
-    - /us/coding-bootcamps/full-stack-developer-at-your-own-pace
+
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.

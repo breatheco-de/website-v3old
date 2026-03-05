@@ -1,0 +1,67 @@
+experiments:
+  - slug: hero-messaging-test
+    status: planned
+    description: Test career-focused vs salary-focused hero messaging
+    variants:
+      - slug: career-focus
+        version: 1
+        allocation: 50
+      - slug: salary-focus
+        version: 1
+        allocation: 50
+    targeting:
+      languages:
+        - en
+      devices:
+        - mobile
+    max_visitors: 1000
+  - slug: latam-pricing
+    status: planned
+    description: Test different pricing presentation for LATAM visitors
+    variants:
+      - slug: standard-pricing
+        version: 1
+        allocation: 50
+      - slug: regional-pricing
+        version: 1
+        allocation: 50
+    targeting:
+      regions:
+        - latam
+      languages:
+        - es
+    max_visitors: 500
+  - slug: mobile-cta-test
+    status: planned
+    description: Test CTA button text on mobile devices
+    variants:
+      - slug: apply-now
+        version: 1
+        allocation: 50
+      - slug: get-started
+        version: 1
+        allocation: 50
+    targeting:
+      devices:
+        - mobile
+    max_visitors: 2000
+  - slug: google-ads-layout
+    status: planned
+    description: Test landing page layouts for Google Ads traffic
+    variants:
+      - slug: testimonials-first
+        version: 1
+        allocation: 33
+      - slug: outcomes-first
+        version: 1
+        allocation: 33
+      - slug: pricing-first
+        version: 1
+        allocation: 34
+    targeting:
+      utm_sources:
+        - google
+      utm_mediums:
+        - cpc
+        - ppc
+    max_visitors: 3000

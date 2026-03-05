@@ -1,11 +1,10 @@
-# Common properties shared across all variants
-# For landings, locale is defined here (not in filenames)
-
 slug: "full-stack-con-ia"
-title: "Full-Stack-con-ia"
-locale: "en"
+locale: "es"
+title: "Full-Stack-Con-IA"
 
 meta:
+  page_title: "programas latam | 4Geeks Academy"
+  description: "programas latam - Learn more at 4Geeks Academy."
   robots: "index, follow"
   og_image: "/images/landing-og.jpg"
   priority: 0.9

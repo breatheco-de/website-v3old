@@ -1,0 +1,16 @@
+slug: es-programas-espaa
+locale: es
+title: ES Programas España
+meta:
+  page_title: Programas España| formación en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
+  description: La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
+  robots: index, follow
+  og_image: /images/landing-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+schema:
+  include:
+    - organization
+    - website
+locations:
+  - madrid-spain
