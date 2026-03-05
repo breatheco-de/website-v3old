@@ -91,7 +91,6 @@ sections:
         variant: primary
         icon: Rocket
     right:
-      video: "-2ZvlgDnltc"
-      justify: center
       image: https://storage.googleapis.com/4geeks-academy-website/media/image_1765300905942.png
+      justify: center
     gap: "8"
