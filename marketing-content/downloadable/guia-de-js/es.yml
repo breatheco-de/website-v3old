@@ -117,7 +117,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: none sm
+      desktop: none
   - type: two_column
     proportions:
       - 6
