@@ -108,7 +108,7 @@ sections:
         variant: primary
         icon: Rocket
     right:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/image_1765300905942.png
+      image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6660_1765391357731.png
       justify: center
     gap: "8"
     marginY:
