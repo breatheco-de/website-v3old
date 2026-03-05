@@ -84,32 +84,49 @@ sections:
       - name: Rigo
         role: Asistente de Aprendizaje con IA
         image: https://randomuser.me/api/portraits/lego/1.jpg
-  - type: award_badges
+  - type: awards_marquee
     version: v1.0
-    variant: simple
-    showBorder: true
+    speed: 40
+    gradient: true
+    gradientWidth: 400
     items:
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+      - id: switchup-2025
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
-        source: Course Report
-        name: Best Coding Bootcamp
-        year: "2024"
-      - id: logo-forbes-advisor-2025
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
+      - id: course-report-2024
+        alt: Course Report - Best Coding Bootcamp 2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
-        source: SwitchUp
-        name: Top Bootcamp
-        year: "2024"
-      - id: pee-career
-        alt: Career excellence award
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/pee-career_1765549482702.png
+      - id: tech-hub
+        alt: South Florida Tech Hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
         logoHeight: 64px
-        source: Career Karma
-        name: Best Value
-        year: "2024"
+      - id: ebootcamp
+        alt: eBootcamp Top
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logoHeight: 64px
+      - id: premios-tecnologia
+        alt: Premios Tecnologia Siglo XXI
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        logoHeight: 64px
+      - id: newsweek
+        alt: Newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logoHeight: 64px
+      - id: reviews-coursereport
+        alt: 4.9 on Course Report Reviews
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        logoHeight: 64px
+      - id: excelencia-educativa
+        alt: Excelencia Educativa - Institutional Quality
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logoHeight: 64px
+    marginY:
+      desktop: none md
+    paddingY:
+      mobile: md
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para empezar tu carrera en tech?
