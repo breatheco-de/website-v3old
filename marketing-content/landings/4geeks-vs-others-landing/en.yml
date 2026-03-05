@@ -222,9 +222,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: md
-  - type: testimonials_slide
-    title: Real Careers Start Here
-    description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
   - type: split_cards
     variant: primary-left
     primary:
@@ -257,6 +254,9 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+  - type: testimonials_slide
+    title: Real Careers Start Here
+    description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
   - type: value_proof_panel
     title: Global Recognition You Can Trust
     subtitle: Awards, media praise, and alumni success back our results.
