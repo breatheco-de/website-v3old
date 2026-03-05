@@ -129,6 +129,10 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: none sm
   - type: why_learn_ai
     variant: laptop-edge
     title: Tu futuro profesional, con garantía*
