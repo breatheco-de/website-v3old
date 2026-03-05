@@ -175,7 +175,7 @@ sections:
   - type: comparison_table
     version: "1.0"
     title: Why 4Geeks Stands Apart
-    subtitle: AI-ready skills and lifelong support — how 4Geeks delivers results.
+    subtitle: AI-ready skills and lifelong support, how 4Geeks delivers results.
     columns:
       - name: Feature
       - name: 4Geeks Academy
