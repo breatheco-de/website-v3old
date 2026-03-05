@@ -253,16 +253,15 @@ sections:
       desktop: none
   - type: cta_banner
     version: "1.0"
+    title: Start Your Tech Career with the Confidence of a Job Guarantee
+    subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.
+    background: hsl(var(--primary))
     variant: form
-    background: bg-primary
-    title: Start Your AI Career Today
-    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
     form:
       variant: stacked
-      submit_label: Get Started
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-      show_terms: true
+      conversion_name: student_application
+      submit_label: Apply Now
+      tags: website-lead
       fields:
         email:
           visible: true
@@ -276,5 +275,25 @@ sections:
           visible: true
           required: true
           placeholder: Last name
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: false
+          default: ai-engineering
       success:
         message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: lg
+      desktop: lg
