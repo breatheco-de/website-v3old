@@ -1,0 +1,16 @@
+name: frequently asked questions
+source:
+  type: local
+  local:
+    filename: faqs.yml
+    results_path: faqs
+cache:
+  ttl_hours: 24
+field_mapping:
+  locale: locale
+  question: question
+  answer: answer
+  locations: locations
+  related_features: related_features
+  last_updated: last_updated
+  priority: priority
