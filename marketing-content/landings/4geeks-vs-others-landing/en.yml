@@ -100,20 +100,6 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
     video_title: GeekForce Career Support
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
-    title: Hyperpersonalized Learning & Support that Lasts a Lifetime
-    description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
-    bullets:
-      - heading: Unlimited 1:1 Mentorship
-        text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
-      - heading: AI-Powered Learning & Feedback
-        text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
-      - heading: Lifelong Career Support
-        text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
-    footer: We've helped more than 7,000 graduates launch successful tech careers.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: features_grid
     version: "1.0"
     variant: stats-cards
@@ -129,6 +115,20 @@ sections:
         title: Salary Boost
     marginY:
       desktop: md
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: Hyperpersonalized Learning & Support that Lasts a Lifetime
+    description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
+    bullets:
+      - heading: Unlimited 1:1 Mentorship
+        text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
+      - heading: AI-Powered Learning & Feedback
+        text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
+      - heading: Lifelong Career Support
+        text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
+    footer: We've helped more than 7,000 graduates launch successful tech careers.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: comparison_table
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
