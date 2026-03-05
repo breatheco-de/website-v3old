@@ -12,59 +12,6 @@ sections:
       desktop: lg none
     marginY:
       desktop: none md
-  - type: apply_form
-    version: "1.0"
-    hero:
-      title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
-      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: Aplicar ahora
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo Electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: true
-          placeholder: Apellido
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
-      show_terms: true
-    next_steps:
-      title: What Happens Next?
-      items:
-        - title: Instant confirmation
-          description: We'll send you the syllabus by email right away.
-        - title: Personal follow-up
-          description: Our admissions team will reach out by text and phone to set up a quick call.
-        - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-      closing: Now you're ready to make the best decision for your career!
-    paddingY:
-      desktop: lg none
   - type: features_quad
     version: "1.0"
     variant: default
