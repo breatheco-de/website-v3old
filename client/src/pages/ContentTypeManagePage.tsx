@@ -1297,6 +1297,7 @@ function FieldMappingDialog({
   const [newValue, setNewValue] = useState("");
   const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
   const [showAddField, setShowAddField] = useState(false);
+  const [pendingDeleteKey, setPendingDeleteKey] = useState<string | null>(null);
   const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
   const [validation, setValidation] = useState<ValidationState>({});
   const [newValueValidation, setNewValueValidation] = useState<FieldValidationResult | "loading" | null>(null);
@@ -1333,6 +1334,7 @@ function FieldMappingDialog({
     setUniqueFields(config.unique_fields ?? ["slug"]);
     setValidation({});
     setShowAddField(false);
+    setPendingDeleteKey(null);
     requestCounters.current = {};
   }, [config]);
 
@@ -1612,31 +1614,57 @@ function FieldMappingDialog({
                             variant="ghost"
                             size="icon"
                             className="flex-shrink-0"
-                            onClick={() => {
-                              setMappings((prev) => {
-                                const next = { ...prev };
-                                delete next[key];
-                                return next;
-                              });
-                              setTransformerModes((prev) => {
-                                const next = { ...prev };
-                                delete next[key];
-                                return next;
-                              });
-                              setValidation((prev) => {
-                                const next = { ...prev };
-                                delete next[key];
-                                return next;
-                              });
-                              setIndexedFields((prev) => prev.filter((f) => f !== key));
-                              setUniqueFields((prev) => prev.filter((f) => f !== key));
-                            }}
+                            onClick={() => setPendingDeleteKey(key)}
                             data-testid={`button-delete-mapping-${key}`}
                           >
                             <IconTrashX className="h-3.5 w-3.5" />
                           </Button>
                         </div>
-                        {!isFn && !isDbBacked && <FieldValidationMessage result={vResult} fieldKey={key} source={mappings[key]} />}
+                        {pendingDeleteKey === key && (
+                          <div className="flex items-center gap-2 ml-[7.5rem] text-[11px] mt-1" data-testid={`confirm-delete-${key}`}>
+                            <span className="text-muted-foreground">
+                              Remove "<span className="font-mono font-medium">{key}</span>" mapping? Values in your YML files will not be affected.
+                            </span>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              className="text-[11px]"
+                              onClick={() => {
+                                setMappings((prev) => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                                setTransformerModes((prev) => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                                setValidation((prev) => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                                setIndexedFields((prev) => prev.filter((f) => f !== key));
+                                setUniqueFields((prev) => prev.filter((f) => f !== key));
+                                setPendingDeleteKey(null);
+                              }}
+                              data-testid={`button-confirm-delete-${key}`}
+                            >
+                              Remove
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-[11px]"
+                              onClick={() => setPendingDeleteKey(null)}
+                              data-testid={`button-cancel-delete-${key}`}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        )}
+                        {!isFn && !isDbBacked && pendingDeleteKey !== key && <FieldValidationMessage result={vResult} fieldKey={key} source={mappings[key]} />}
                       </div>
                     );
                   })}
