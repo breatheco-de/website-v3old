@@ -733,7 +733,9 @@ export function CreateContentModal({
                 <div className="space-y-3 p-3 bg-muted/50 rounded-md">
                   <div className="space-y-1.5">
                     <p className="text-xs font-medium text-muted-foreground">
-                      {visibleLocales.length > 1 ? "Titles per locale:" : "Title:"}
+                      {visibleLocales.length > 1
+                        ? "Titles per locale:"
+                        : `Title in ${supportedLocales.find((l) => l.code === visibleLocales[0])?.label ?? visibleLocales[0]}:`}
                     </p>
                     {visibleLocales.map((loc) => (
                       <div key={loc} className="flex items-center gap-2">
@@ -837,6 +839,22 @@ export function CreateContentModal({
                     >
                       <IconPlus className="h-3 w-3" />
                       Include other locales
+                    </button>
+                  )}
+
+                  {isLocaleAgnosticPattern && showAllLocales && supportedLocales.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAllLocales(false);
+                        const others = supportedLocales.map((l) => l.code).filter((c) => c !== primaryLocale);
+                        setExcludedLocales(new Set(others));
+                      }}
+                      className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                      data-testid="button-only-primary-locale"
+                    >
+                      <IconX className="h-3 w-3" />
+                      Show only {supportedLocales.find((l) => l.code === primaryLocale)?.label ?? primaryLocale}
                     </button>
                   )}
 
