@@ -2,6 +2,7 @@ export function normalizeLocale(locale: string | undefined | null): string {
   if (!locale) return "en";
   const normalized = locale.toLowerCase().split("-")[0].split("_")[0];
   if (normalized === "us") return "en";
+  if (!/^[a-z]{2}$/.test(normalized)) return "en";
   return normalized;
 }
 
@@ -11,7 +12,7 @@ export function buildContentUrlFromPattern(
   locale: string,
 ): string {
   if (!urlPattern) return `/${locale}/${slug}`;
-  const pattern = urlPattern[locale];
+  const pattern = urlPattern[locale] || urlPattern["default"] || urlPattern["en"];
   if (!pattern) return `/${locale}/${slug}`;
   return pattern.replace(/:slug/g, slug);
 }

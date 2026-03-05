@@ -10,10 +10,13 @@ import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LazyRender from "@/components/LazyRender";
+import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 
 const LEGACY_API_PATHS: Record<string, string> = {
   program: "/api/career-programs",
   location: "/api/locations",
+  landing: "/api/landings",
 };
 
 function getApiPath(type: string): string {
@@ -33,8 +36,8 @@ interface ContentTypeDetailProps {
 
 export default function ContentTypeDetail({ type, slug, locale, urlPattern }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
-  const [, setLocation] = useLocation();
-  const effectiveLocale = locale || (i18n.language as string) || "en";
+  const [currentLocation, setLocation] = useLocation();
+  const effectiveLocale = (locale && locale !== "default") ? locale : (i18n.language as string) || "en";
   const apiPath = getApiPath(type);
 
   const { data, isLoading, error, refetch } = useQuery<Record<string, unknown>>({
@@ -51,7 +54,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   useEffect(() => {
     if (data?.slug && data.slug !== slug && urlPattern) {
-      const pattern = urlPattern[effectiveLocale] || urlPattern["en"];
+      const pattern = urlPattern[effectiveLocale] || urlPattern["default"] || urlPattern["en"];
       if (pattern) {
         const correctUrl = pattern.replace(":slug", String(data.slug));
         setLocation(correctUrl, { replace: true });
@@ -59,7 +62,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     }
   }, [data?.slug, slug, effectiveLocale, urlPattern, setLocation]);
 
-  const alternates = useAlternateUrls(location);
+  const alternates = useAlternateUrls(currentLocation);
   const metaWithAlternates = useMemo(() => {
     if (!data?.meta) return undefined;
     return { ...(data.meta as object), alternates };
@@ -105,9 +108,23 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     );
   }
 
+  const layoutMenu = (data.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined)?.menu;
+  const topMenuId = layoutMenu?.top;
+  const bottomMenuId = layoutMenu?.bottom;
+
   return (
     <div data-testid={`page-${type}`}>
-      <Header />
+      <div className="group relative">
+        <MenuSlotPlaceholder
+          position="top"
+          currentMenuId={topMenuId ?? null}
+          contentType={type}
+          slug={slug}
+          locale={effectiveLocale}
+          onMenuChange={() => refetch()}
+        />
+        {topMenuId && <Header menuId={topMenuId} />}
+      </div>
       <SectionRenderer
         sections={(data.sections as any[]) || []}
         settings={data.settings}
@@ -117,8 +134,22 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
         programSlug={type === "program" ? slug : undefined}
         singleEntry={data.singleEntry as Record<string, unknown> | undefined}
       />
-      <div className="pb-12">
-        <Footer />
+      <div className="group relative">
+        {bottomMenuId && (
+          <LazyRender>
+            <div className="pb-12">
+              <Footer menuId={bottomMenuId} />
+            </div>
+          </LazyRender>
+        )}
+        <MenuSlotPlaceholder
+          position="bottom"
+          currentMenuId={bottomMenuId ?? null}
+          contentType={type}
+          slug={slug}
+          locale={effectiveLocale}
+          onMenuChange={() => refetch()}
+        />
       </div>
     </div>
   );

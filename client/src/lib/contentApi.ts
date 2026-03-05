@@ -2,7 +2,7 @@ import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import type { EditOperation } from "@shared/schema";
 
 export interface ContentEditRequest {
-  contentType: "program" | "landing" | "location" | "page";
+  contentType: string;
   slug: string;
   locale: string;
   operations: EditOperation[];
@@ -15,6 +15,33 @@ export interface ContentEditResponse {
   updatedSections?: unknown[];
   warning?: string;
   error?: string;
+}
+
+export interface CommonEditRequest {
+  contentType: string;
+  slug: string;
+  operations: { action: "update_field"; path: string; value: unknown }[];
+}
+
+export async function editCommonContent(request: CommonEditRequest): Promise<{ success: boolean; error?: string }> {
+  const token = getDebugToken();
+  const author = await resolveAuthorName();
+
+  const response = await fetch("/api/content/edit-common", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Token ${token}` } : {}),
+    },
+    body: JSON.stringify({ ...request, author }),
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+    return { success: false, error: errorData.error || `Request failed with status ${response.status}` };
+  }
 }
 
 export async function editContent(request: ContentEditRequest): Promise<ContentEditResponse> {

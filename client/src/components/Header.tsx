@@ -6,16 +6,20 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Navbar, MobileNav, type NavbarConfig } from "@/components/menus";
 import UniversalImage from "@/components/UniversalImage";
 
-export default function Header() {
+interface HeaderProps {
+  menuId?: string;
+}
+
+export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const handleLinkClick = useInternalNav();
   const { t, i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const locale = i18n.language || 'en';
 
   const { data: menuResponse, isLoading } = useQuery<{ name: string; data: NavbarConfig }>({
-    queryKey: ["/api/menus", "main-navbar", locale],
+    queryKey: ["/api/menus", menuId, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/menus/main-navbar?locale=${locale}`);
+      const response = await fetch(`/api/menus/${menuId}?locale=${locale}`);
       if (!response.ok) throw new Error("Failed to load menu");
       return response.json();
     },

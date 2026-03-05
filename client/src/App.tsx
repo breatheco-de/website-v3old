@@ -15,9 +15,8 @@ import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
 import "./i18n";
 
 import ContentTypeDetail from "@/pages/ContentTypeDetail";
-import LandingDetail from "@/pages/LandingDetail";
 import TemplatePage from "@/pages/page";
-import HomePage from "@/pages/HomePage";
+
 
 const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
@@ -43,7 +42,7 @@ function LoadingFallback() {
   );
 }
 
-const STATIC_ROUTE_TYPES = new Set(["page", "landing", "program", "location", "blog"]);
+const STATIC_ROUTE_TYPES = new Set(["page", "program", "location", "blog"]);
 
 function useDynamicRoutes() {
   const { data: contentTypes } = useQuery<ContentTypeApiItem[]>({
@@ -68,7 +67,6 @@ function useDynamicRoutes() {
       if (STATIC_ROUTE_TYPES.has(ct.name)) continue;
 
       for (const [locale, pattern] of Object.entries(ct.url_pattern)) {
-        if (locale === "default") continue;
 
         const slugParam = "slug";
 
@@ -118,12 +116,9 @@ function Router() {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Switch>
-        <Route path="/" component={HomePage} />
-        <Route path="/en/" component={HomePage} />
-        <Route path="/es/" component={HomePage} />
-        <Route path="/en/landing/:slug" component={LandingDetail} />
-        <Route path="/es/landing/:slug" component={LandingDetail} />
-        <Route path="/landing/:slug" component={LandingDetail} />
+        <Route path="/" component={TemplatePage} />
+        <Route path="/en/" component={TemplatePage} />
+        <Route path="/es/" component={TemplatePage} />
         <Route path="/en/career-programs/:slug">
           {(params) => <ContentTypeDetail type="program" slug={params.slug} locale="en" />}
         </Route>

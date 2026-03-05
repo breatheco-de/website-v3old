@@ -1,7 +1,8 @@
-import { createContext, useContext, useState, useCallback, useMemo, useEffect } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from "react";
 import type { Section, EditOperation } from "@shared/schema";
 import { editContent } from "@/lib/contentApi";
 import { navigate } from "wouter/use-browser-location";
+import { useContentTypes } from "@/hooks/useContentTypes";
 
 export type PreviewBreakpoint = 'desktop' | 'mobile';
 
@@ -21,30 +22,38 @@ function getStoredEditMode(): boolean {
   return localStorage.getItem(EDIT_MODE_KEY) === 'true';
 }
 
-function publicUrlToPreviewUrl(pathname: string): string | null {
-  const programEnMatch = pathname.match(/^\/en\/career-programs\/([^/]+)\/?$/);
-  if (programEnMatch) return `/private/preview/programs/${programEnMatch[1]}?locale=en`;
+function publicUrlToPreviewUrl(
+  pathname: string,
+  contentTypes?: Record<string, { directory: string; url_pattern: Record<string, string> }> | null
+): string | null {
+  if (!contentTypes) return null;
 
-  const programEsMatch = pathname.match(/^\/es\/programas-de-carrera\/([^/]+)\/?$/);
-  if (programEsMatch) return `/private/preview/programs/${programEsMatch[1]}?locale=es`;
+  const pathLocale = pathname.startsWith('/es/') ? 'es' : 'en';
 
-  const landingMatch = pathname.match(/^\/landing\/([^/]+)\/?$/);
-  if (landingMatch) return `/private/preview/landings/${landingMatch[1]}?locale=en`;
+  const sortedTypes = Object.entries(contentTypes).sort(([a], [b]) => {
+    if (a === 'page') return 1;
+    if (b === 'page') return -1;
+    return 0;
+  });
 
-  const locationEnMatch = pathname.match(/^\/en\/location\/([^/]+)\/?$/);
-  if (locationEnMatch) return `/private/preview/locations/${locationEnMatch[1]}?locale=en`;
-
-  const locationEsMatch = pathname.match(/^\/es\/ubicacion\/([^/]+)\/?$/);
-  if (locationEsMatch) return `/private/preview/locations/${locationEsMatch[1]}?locale=es`;
-
-  const pageEnMatch = pathname.match(/^\/en\/([^/]+)\/?$/);
-  if (pageEnMatch && !["career-programs", "location"].includes(pageEnMatch[1])) {
-    return `/private/preview/pages/${pageEnMatch[1]}?locale=en`;
-  }
-
-  const pageEsMatch = pathname.match(/^\/es\/([^/]+)\/?$/);
-  if (pageEsMatch && !["programas-de-carrera", "ubicacion"].includes(pageEsMatch[1])) {
-    return `/private/preview/pages/${pageEsMatch[1]}?locale=es`;
+  for (const [typeName, ct] of sortedTypes) {
+    for (const [locale, pattern] of Object.entries(ct.url_pattern)) {
+      let slugGroupIndex = 1;
+      let paramIndex = 0;
+      const regexStr = '^' + pattern.replace(/:([a-zA-Z_]+)/g, (_m, name) => {
+        paramIndex++;
+        if (name === 'slug') slugGroupIndex = paramIndex;
+        return '([^/]+)';
+      }) + '\\/?$';
+      try {
+        const regex = new RegExp(regexStr);
+        const match = pathname.match(regex);
+        if (match) {
+          const effectiveLocale = pattern.match(/^\/(en|es)\//) ? locale : pathLocale;
+          return `/private/preview/${ct.directory}/${match[slugGroupIndex]}?locale=${effectiveLocale}`;
+        }
+      } catch {}
+    }
   }
 
   return null;
@@ -62,7 +71,7 @@ interface EditModeContextValue {
   clearPendingChanges: (pageKey: string) => void;
   hasPendingChanges: boolean;
   isSaving: boolean;
-  saveChanges: (pageKey: string, contentType: "program" | "landing" | "location", slug: string, locale: string) => Promise<boolean>;
+  saveChanges: (pageKey: string, contentType: string, slug: string, locale: string) => Promise<boolean>;
   previewBreakpoint: PreviewBreakpoint;
   setPreviewBreakpoint: (breakpoint: PreviewBreakpoint) => void;
   togglePreviewBreakpoint: () => void;
@@ -86,6 +95,8 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
   const [pendingChanges, setPendingChanges] = useState<Map<string, EditOperation[]>>(new Map());
   const [isSaving, setIsSaving] = useState(false);
   const [previewBreakpoint, setPreviewBreakpointState] = useState<PreviewBreakpoint>(getStoredPreviewBreakpoint);
+  const contentTypesMap = useContentTypes();
+  const contentTypesRef = useRef(contentTypesMap);
 
 
   const setPreviewBreakpoint = useCallback((breakpoint: PreviewBreakpoint) => {
@@ -160,7 +171,7 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
 
   const saveChanges = useCallback(async (
     pageKey: string,
-    contentType: "program" | "landing" | "location",
+    contentType: string,
     slug: string,
     locale: string
   ): Promise<boolean> => {
@@ -194,6 +205,10 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
   }, [pendingChanges, clearPendingChanges]);
 
   useEffect(() => {
+    contentTypesRef.current = contentTypesMap;
+  }, [contentTypesMap]);
+
+  useEffect(() => {
     if (!isEditMode) return;
 
     const handleClick = (e: MouseEvent) => {
@@ -203,7 +218,7 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
       const href = anchor.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:')) return;
 
-      const previewUrl = publicUrlToPreviewUrl(href);
+      const previewUrl = publicUrlToPreviewUrl(href, contentTypesRef.current);
       if (previewUrl) {
         e.preventDefault();
         e.stopPropagation();

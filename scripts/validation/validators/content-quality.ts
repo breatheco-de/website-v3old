@@ -140,7 +140,6 @@ export const contentQualityValidator: Validator = {
     let missingTranslations = 0;
     const groups = new Map<string, Set<string>>();
     for (const file of context.contentFiles) {
-      if (file.type === "landing") continue;
       const key = `${file.type}:${file.slug}`;
       const locales = groups.get(key) || new Set<string>();
       locales.add(file.locale);

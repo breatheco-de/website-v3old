@@ -111,15 +111,8 @@ export function CreateContentModal({
 
   const creatableTypes = useMemo(() => {
     if (!rawContentTypes) return [];
-    const nonDb = rawContentTypes.filter(ct => !ct.has_database);
-    if (duplicatingPage) {
-      if (duplicatingPage.contentType === 'landing') {
-        return nonDb.filter(ct => ct.name === 'landing');
-      }
-      return nonDb.filter(ct => ct.name !== 'landing');
-    }
-    return nonDb;
-  }, [rawContentTypes, duplicatingPage]);
+    return rawContentTypes.filter(ct => !ct.has_database);
+  }, [rawContentTypes]);
 
   return (
     <Dialog open={open} onOpenChange={(openVal) => {
@@ -427,7 +420,7 @@ export function CreateContentModal({
                   <div className="space-y-0.5 font-mono text-xs text-muted-foreground pl-4 pt-1">
                     <div>marketing-content/landings/{createContentSlugEn}/</div>
                     <div className="pl-4">├── _common.yml</div>
-                    <div className="pl-4">└── promoted.yml</div>
+                    <div className="pl-4">└── {createLandingLocale}.yml</div>
                   </div>
                 )}
               </div>

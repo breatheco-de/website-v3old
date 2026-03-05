@@ -13,6 +13,8 @@ import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables
 import { resolveDeep } from "@/lib/variable-manager";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LazyRender from "@/components/LazyRender";
+import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 
 interface DatabaseSinglePageProps {
   contentType: string;
@@ -101,9 +103,24 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
     );
   }
 
+  const layoutMenu = (page as any).layout?.menu;
+  const topMenuId = layoutMenu?.top as string | null | undefined;
+  const bottomMenuId = layoutMenu?.bottom as string | null | undefined;
+
   return (
     <div data-testid={`page-${contentType}-${slug}`}>
-      <Header />
+      <div className="group relative">
+        <MenuSlotPlaceholder
+          position="top"
+          currentMenuId={topMenuId ?? null}
+          contentType={contentType}
+          slug={slug}
+          locale={locale}
+          onMenuChange={() => refetch()}
+          isSharedTemplate
+        />
+        {topMenuId && <Header menuId={topMenuId} />}
+      </div>
       <SectionRenderer
         sections={page.sections}
         settings={page.settings}
@@ -113,7 +130,22 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
         isSharedTemplate
         singleEntry={page.singleEntry}
       />
-      <Footer />
+      <div className="group relative">
+        {bottomMenuId && (
+          <LazyRender>
+            <Footer menuId={bottomMenuId} />
+          </LazyRender>
+        )}
+        <MenuSlotPlaceholder
+          position="bottom"
+          currentMenuId={bottomMenuId ?? null}
+          contentType={contentType}
+          slug={slug}
+          locale={locale}
+          onMenuChange={() => refetch()}
+          isSharedTemplate
+        />
+      </div>
     </div>
   );
 }

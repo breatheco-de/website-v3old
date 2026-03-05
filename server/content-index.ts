@@ -91,6 +91,7 @@ class ContentIndex {
   private localeSlugMap: Map<string, string> = new Map();
   private contentTypeConfigs: Record<string, ContentTypeConfig> = {};
   private commonFieldsCache: Map<string, CommonFieldInfo> = new Map();
+  private menuUsage: Map<string, { contentType: string; slug: string; source: string; position: "top" | "bottom" }[]> = new Map();
   private initialized = false;
 
   private static instance: ContentIndex;
@@ -188,6 +189,7 @@ class ContentIndex {
     this.redirectEntries = [];
     this.localeSlugMap = new Map();
     this.commonFieldsCache = new Map();
+    this.menuUsage = new Map();
 
     for (const contentType of contentTypes) {
       const diskFolder = this.contentTypeConfigs[contentType]?.directory || contentType;
@@ -235,6 +237,7 @@ class ContentIndex {
             this.extractVariableReferences(raw, relFilePath);
             const parsed = this.safeYamlLoad(raw);
             this.extractImageReferences(parsed, relFilePath);
+            this.extractMenuReferences(parsed, contentType, folderName, file);
             const locale = file.replace(/\.(yml|yaml)$/, "");
             if (parsed && this.contentTypeHasRedirects(contentType)) {
               const localeSlugForRedirect = (parsed.slug && typeof parsed.slug === "string") ? parsed.slug : slug;
@@ -259,7 +262,8 @@ class ContentIndex {
     this.initialized = true;
     const imageRefCount = this.imageUsage.size;
     const variableRefCount = this.variableUsage.size;
-    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${this.redirectEntries.length} redirects`);
+    const menuRefCount = this.menuUsage.size;
+    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${menuRefCount} menu references tracked, ${this.redirectEntries.length} redirects`);
   }
 
   safeYamlLoad(raw: string): Record<string, unknown> | null {
@@ -299,6 +303,35 @@ class ContentIndex {
     while ((match = regex.exec(rawContent)) !== null) {
       this.addVariableRef(match[1], filePath);
     }
+  }
+
+  private addMenuRef(menuId: string, contentType: string, slug: string, source: string, position: "top" | "bottom"): void {
+    if (!menuId || typeof menuId !== "string") return;
+    const existing = this.menuUsage.get(menuId) || [];
+    existing.push({ contentType, slug, source, position });
+    this.menuUsage.set(menuId, existing);
+  }
+
+  private extractMenuReferences(parsed: Record<string, unknown> | null, contentType: string, slug: string, fileName: string): void {
+    if (!parsed) return;
+    const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined;
+    if (!layout?.menu) return;
+    if (layout.menu.top && typeof layout.menu.top === "string") {
+      this.addMenuRef(layout.menu.top, contentType, slug, fileName, "top");
+    }
+    if (layout.menu.bottom && typeof layout.menu.bottom === "string") {
+      this.addMenuRef(layout.menu.bottom, contentType, slug, fileName, "bottom");
+    }
+  }
+
+  getMenuUsageByMenuId(menuId: string): { contentType: string; slug: string; source: string; position: "top" | "bottom" }[] {
+    this.ensureInitialized();
+    return this.menuUsage.get(menuId) || [];
+  }
+
+  getAllMenuUsage(): Map<string, { contentType: string; slug: string; source: string; position: "top" | "bottom" }[]> {
+    this.ensureInitialized();
+    return this.menuUsage;
   }
 
   private extractImageReferences(obj: unknown, filePath: string): void {
@@ -514,10 +547,8 @@ class ContentIndex {
     return folderName;
   }
 
-  private extractTitle(folderPath: string, files: string[], contentType: string): string | undefined {
-    const candidates = contentType === "landing"
-      ? ["_common.yml", "_common.yaml"]
-      : ["en.yml", "en.yaml"];
+  private extractTitle(folderPath: string, files: string[], _contentType: string): string | undefined {
+    const candidates = ["_common.yml", "_common.yaml", "en.yml", "en.yaml"];
     for (const candidate of candidates) {
       if (files.includes(candidate)) {
         try {
@@ -535,12 +566,7 @@ class ContentIndex {
     return undefined;
   }
 
-  private extractLocales(files: string[], contentType: string): string[] {
-    if (contentType === "landing") {
-      return files
-        .filter(f => f !== "_common.yml" && f !== "_common.yaml")
-        .map(f => f.replace(/\.(yml|yaml)$/, ""));
-    }
+  private extractLocales(files: string[], _contentType: string): string[] {
     return files
       .map(f => f.replace(/\.(yml|yaml)$/, ""))
       .filter(name => /^[a-z]{2}$/.test(name));
@@ -588,9 +614,7 @@ class ContentIndex {
         `${locale}.yml`,
         `${locale}.yaml`,
       ];
-      if (entry.contentType === "landing") {
-        candidates.unshift("_common.yml", "_common.yaml");
-      }
+      candidates.push("_common.yml", "_common.yaml");
       for (const candidate of candidates) {
         const filePath = path.join(basePath, candidate);
         if (fs.existsSync(filePath)) {
@@ -895,9 +919,6 @@ class ContentIndex {
       return path.join(folder, `${variant}.v${version}.${locale}.yml`);
     }
 
-    if (contentType === "landing") {
-      return path.join(folder, "promoted.yml");
-    }
 
     const perSlugPath = path.join(folder, `${locale}.yml`);
     if (fs.existsSync(perSlugPath)) return perSlugPath;

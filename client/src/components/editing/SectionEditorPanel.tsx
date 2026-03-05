@@ -155,7 +155,7 @@ function getFieldLabel(fieldPath: string): string {
 interface SectionEditorPanelProps {
   section: Section;
   sectionIndex: number;
-  contentType?: "program" | "landing" | "location" | "page";
+  contentType?: string;
   slug?: string;
   locale?: string;
   variant?: string;

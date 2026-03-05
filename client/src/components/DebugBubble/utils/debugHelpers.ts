@@ -7,66 +7,81 @@ export function deslugify(slug: string): string {
     .join(" ");
 }
 
-export function detectContentInfo(pathname: string): ContentInfo {
-  const typeLabels: Record<string, string> = {
-    program: "Program",
-    page: "Page",
-    landing: "Landing",
-    location: "Location",
-  };
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
-  const toSingular: Record<string, string> = { programs: "program", pages: "page", landings: "landing", locations: "location" };
+const PLURAL_TO_SINGULAR: Record<string, string> = {
+  programs: "program",
+  pages: "page",
+  landings: "landing",
+  locations: "location",
+};
 
-  const previewMatch = pathname.match(/^\/private\/preview\/(program|page|landing|location|programs|pages|landings|locations)\/([^/]+)\/?$/);
+export function detectContentInfo(
+  pathname: string,
+  contentTypes?: Record<string, { directory: string; url_pattern: Record<string, string> }> | null
+): ContentInfo {
+  const previewMatch = pathname.match(/^\/private\/preview\/([^/]+)\/([^/]+)\/?$/);
   if (previewMatch) {
-    const normalizedType = (toSingular[previewMatch[1]] || previewMatch[1]) as ContentInfo["type"];
-    return { 
-      type: normalizedType, 
-      slug: previewMatch[2], 
-      label: typeLabels[normalizedType!] || "Content" 
-    };
+    let type = previewMatch[1];
+    type = PLURAL_TO_SINGULAR[type] || type;
+    if (contentTypes) {
+      for (const [name, ct] of Object.entries(contentTypes)) {
+        if (ct.directory === previewMatch[1] || name === type) {
+          type = name;
+          break;
+        }
+      }
+    }
+    return { type, slug: previewMatch[2], label: capitalize(type) };
   }
 
-  const experimentMatch = pathname.match(/^\/private\/(program|page|landing|location|programs|pages|landings|locations)\/([^/]+)\/experiment\/[^/]+\/?$/);
+  const experimentMatch = pathname.match(/^\/private\/([^/]+)\/([^/]+)\/experiment\/[^/]+\/?$/);
   if (experimentMatch) {
-    const normalizedType = (toSingular[experimentMatch[1]] || experimentMatch[1]) as ContentInfo["type"];
-    return { 
-      type: normalizedType, 
-      slug: experimentMatch[2], 
-      label: typeLabels[normalizedType!] || "Content" 
-    };
+    let type = experimentMatch[1];
+    type = PLURAL_TO_SINGULAR[type] || type;
+    if (contentTypes) {
+      for (const [name, ct] of Object.entries(contentTypes)) {
+        if (ct.directory === experimentMatch[1] || name === type) {
+          type = name;
+          break;
+        }
+      }
+    }
+    return { type, slug: experimentMatch[2], label: capitalize(type) };
   }
 
-  const programEnMatch = pathname.match(/^\/en\/career-programs\/([^/]+)\/?$/);
-  if (programEnMatch) {
-    return { type: "program", slug: programEnMatch[1], label: "Program" };
-  }
-  const programEsMatch = pathname.match(/^\/es\/programas-de-carrera\/([^/]+)\/?$/);
-  if (programEsMatch) {
-    return { type: "program", slug: programEsMatch[1], label: "Program" };
+  if (contentTypes) {
+    const sortedTypes = Object.entries(contentTypes).sort(([a], [b]) => {
+      if (a === 'page') return 1;
+      if (b === 'page') return -1;
+      return 0;
+    });
+
+    for (const [typeName, ct] of sortedTypes) {
+      for (const [locale, pattern] of Object.entries(ct.url_pattern)) {
+        let slugGroupIndex = 1;
+        let paramIndex = 0;
+        const regexStr = '^' + pattern.replace(/:([a-zA-Z_]+)/g, (_m, name) => {
+          paramIndex++;
+          if (name === 'slug') slugGroupIndex = paramIndex;
+          return '([^/]+)';
+        }) + '\\/?$';
+        try {
+          const regex = new RegExp(regexStr);
+          const match = pathname.match(regex);
+          if (match) {
+            return { type: typeName, slug: match[slugGroupIndex], label: capitalize(typeName) };
+          }
+        } catch {}
+      }
+    }
   }
 
-  const landingMatch = pathname.match(/^\/landing\/([^/]+)\/?$/);
-  if (landingMatch) {
-    return { type: "landing", slug: landingMatch[1], label: "Landing" };
-  }
-
-  const locationEnMatch = pathname.match(/^\/en\/location\/([^/]+)\/?$/);
-  if (locationEnMatch) {
-    return { type: "location", slug: locationEnMatch[1], label: "Location" };
-  }
-  const locationEsMatch = pathname.match(/^\/es\/ubicacion\/([^/]+)\/?$/);
-  if (locationEsMatch) {
-    return { type: "location", slug: locationEsMatch[1], label: "Location" };
-  }
-
-  const pageEnMatch = pathname.match(/^\/en\/([^/]+)\/?$/);
-  if (pageEnMatch && !["career-programs", "location"].includes(pageEnMatch[1])) {
-    return { type: "page", slug: pageEnMatch[1], label: "Page" };
-  }
-  const pageEsMatch = pathname.match(/^\/es\/([^/]+)\/?$/);
-  if (pageEsMatch && !["programas-de-carrera", "ubicacion"].includes(pageEsMatch[1])) {
-    return { type: "page", slug: pageEsMatch[1], label: "Page" };
+  const pageMatch = pathname.match(/^\/(en|es)\/([^/]+)\/?$/);
+  if (pageMatch) {
+    return { type: "page", slug: pageMatch[2], label: "Page" };
   }
 
   return { type: null, slug: null, label: "" };

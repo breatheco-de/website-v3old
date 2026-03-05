@@ -57,7 +57,7 @@ export interface ContentFile {
   title: string;
   meta?: ContentMeta;
   schema?: SchemaRef;
-  type: "program" | "landing" | "location" | "page";
+  type: string;
   locale: string;
   filePath: string;
   variant?: string;
@@ -72,7 +72,7 @@ export interface RedirectEntry {
 
 export interface SitemapEntry {
   loc: string;
-  type: "static" | "program" | "landing" | "location" | "page";
+  type: string;
   slug?: string;
   locale?: string;
 }

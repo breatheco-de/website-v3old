@@ -7,6 +7,7 @@ import {
   locationPageSchema,
 } from "@shared/schema";
 import { resolveDynamicEntries } from "./dynamic-entries";
+import { resolveLayout } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
 
 interface InitialDataPayload {
@@ -28,10 +29,18 @@ const SCHEMA_MAP: Record<string, typeof templatePageSchema> = {
   location: locationPageSchema,
 };
 
-async function resolveInitialData(url: string): Promise<InitialDataPayload | null> {
+async function resolveInitialData(
+  url: string,
+): Promise<InitialDataPayload | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
-  if (cleanUrl === "/" || cleanUrl === "/en" || cleanUrl === "/en/" || cleanUrl === "/es" || cleanUrl === "/es/") {
+  if (
+    cleanUrl === "/" ||
+    cleanUrl === "/en" ||
+    cleanUrl === "/en/" ||
+    cleanUrl === "/es" ||
+    cleanUrl === "/es/"
+  ) {
     const locale = cleanUrl.startsWith("/es") ? "es" : "en";
     const slug = "home";
     const schema = SCHEMA_MAP["page"];
@@ -45,8 +54,14 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
-        data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+        data.sections = (await resolveDynamicEntries(
+          data.sections,
+          locale,
+        )) as any;
       }
+      const pageRaw = contentIndex.loadMergedContent("page", slug, locale);
+      const layout = resolveLayout("page", pageRaw.data || {});
+      data.layout = layout;
       return {
         queryKey: ["/api/pages", slug, locale],
         data,
@@ -67,10 +82,18 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
 
     const apiPath = API_PATH_MAP[contentType];
     const schema = SCHEMA_MAP[contentType];
-    const locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+    let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+    if (resolved.params?.locale) {
+      locale = resolved.params.locale;
+    } else if (!cleanUrl.match(/^\/(en|es)\b/)) {
+      const commonData = contentIndex.loadCommonData(contentType, slug);
+      if (commonData?.locale && typeof commonData.locale === "string") {
+        locale = commonData.locale;
+      }
+    }
 
     if (apiPath && schema) {
-      const localeOrVariant = contentType === "landing" ? "promoted" : locale;
+      const localeOrVariant = locale;
 
       const result = contentIndex.loadContent({
         contentType,
@@ -85,9 +108,23 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
       }
-      if (contentType === "page" && data.sections && Array.isArray(data.sections)) {
-        data.sections = await resolveDynamicEntries(data.sections, locale) as any;
+      if (
+        contentType === "page" &&
+        data.sections &&
+        Array.isArray(data.sections)
+      ) {
+        data.sections = (await resolveDynamicEntries(
+          data.sections,
+          locale,
+        )) as any;
       }
+      const rawContent = contentIndex.loadMergedContent(
+        contentType,
+        slug,
+        locale,
+      );
+      const layout = resolveLayout(contentType, rawContent.data || {});
+      data.layout = layout;
 
       return {
         queryKey: [apiPath, slug, locale],
@@ -107,8 +144,18 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
     const genericData = genericResult.data as any;
     if (genericData.sections && Array.isArray(genericData.sections)) {
       applyComponentSectionDefaults(genericData.sections);
-      genericData.sections = await resolveDynamicEntries(genericData.sections, locale) as any;
+      genericData.sections = (await resolveDynamicEntries(
+        genericData.sections,
+        locale,
+      )) as any;
     }
+    const genericRaw = contentIndex.loadMergedContent(
+      contentType,
+      slug,
+      locale,
+    );
+    const genericLayout = resolveLayout(contentType, genericRaw.data || {});
+    genericData.layout = genericLayout;
 
     const genericApiPath = `/api/content-pages/${contentType}`;
     return {
@@ -120,13 +167,36 @@ async function resolveInitialData(url: string): Promise<InitialDataPayload | nul
   }
 }
 
-export function initialDataMiddleware(req: Request, res: Response, next: NextFunction) {
+export function initialDataMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   if (req.path.startsWith("/api/") || req.path.startsWith("/private/")) {
     return next();
   }
 
   const ext = req.path.split(".").pop();
-  if (ext && ["js", "ts", "tsx", "css", "map", "woff2", "woff", "ttf", "png", "jpg", "jpeg", "webp", "svg", "ico", "json"].includes(ext)) {
+  if (
+    ext &&
+    [
+      "js",
+      "ts",
+      "tsx",
+      "css",
+      "map",
+      "woff2",
+      "woff",
+      "ttf",
+      "png",
+      "jpg",
+      "jpeg",
+      "webp",
+      "svg",
+      "ico",
+      "json",
+    ].includes(ext)
+  ) {
     return next();
   }
 
@@ -136,26 +206,29 @@ export function initialDataMiddleware(req: Request, res: Response, next: NextFun
   res.end = function (this: Response, chunk?: any, ...args: any[]) {
     const contentType = res.getHeader("content-type");
     if (contentType && String(contentType).includes("text/html") && chunk) {
-      payloadPromise.then((payload) => {
-        if (payload) {
-          try {
-            const html = typeof chunk === "string" ? chunk : chunk.toString("utf-8");
-            const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
-            const injected = html.replace("</body>", scriptTag + "</body>");
+      payloadPromise
+        .then((payload) => {
+          if (payload) {
+            try {
+              const html =
+                typeof chunk === "string" ? chunk : chunk.toString("utf-8");
+              const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
+              const injected = html.replace("</body>", scriptTag + "</body>");
 
-            const newLength = Buffer.byteLength(injected, "utf-8");
-            res.setHeader("content-length", newLength);
+              const newLength = Buffer.byteLength(injected, "utf-8");
+              res.setHeader("content-length", newLength);
 
-            originalEnd.call(this, injected, ...args);
-          } catch {
+              originalEnd.call(this, injected, ...args);
+            } catch {
+              originalEnd.call(this, chunk, ...args);
+            }
+          } else {
             originalEnd.call(this, chunk, ...args);
           }
-        } else {
+        })
+        .catch(() => {
           originalEnd.call(this, chunk, ...args);
-        }
-      }).catch(() => {
-        originalEnd.call(this, chunk, ...args);
-      });
+        });
       return this;
     }
     return originalEnd.call(this, chunk, ...args);

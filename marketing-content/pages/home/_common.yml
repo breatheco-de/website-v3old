@@ -1,12 +1,13 @@
-slug: "home"
-title: "The AI Reskilling Platform"
-
+slug: home
+title: The AI Reskilling Platform
 meta:
-  priority: 1.0
-  change_frequency: "daily"
-
+  priority: 1
+  change_frequency: daily
 schema:
   include:
-    - "organization"
-    - "website"
-    - "educational"
+    - organization
+    - website
+    - educational
+layout:
+  menu:
+    top: main-navbar

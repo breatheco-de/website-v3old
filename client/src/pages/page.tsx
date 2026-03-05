@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
 import type { TemplatePage } from "@shared/schema";
@@ -11,13 +12,22 @@ import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
 import { useAlternateUrls } from "@/hooks/useAlternateUrls";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LazyRender from "@/components/LazyRender";
+import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 
 export default function Page() {
   const [location, setLocation] = useLocation();
+  const { i18n } = useTranslation();
   const locale = location.startsWith("/es/") || location.startsWith("/es") ? "es" : "en";
   const params = useParams<{ slug: string }>();
   const slugFromPath = location.split("?")[0].replace(/^\/(?:en|es)\//, "").split("/")[0] || "";
-  const slug = params.slug || slugFromPath;
+  const slug = params.slug || slugFromPath || "home";
+
+  useEffect(() => {
+    if (i18n.language !== locale) {
+      i18n.changeLanguage(locale);
+    }
+  }, [locale, i18n]);
 
   const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
     queryKey: ["/api/pages", slug, locale],
@@ -83,9 +93,23 @@ export default function Page() {
     );
   }
 
+  const layoutMenu = (page as any).layout?.menu;
+  const topMenuId = layoutMenu?.top as string | null | undefined;
+  const bottomMenuId = layoutMenu?.bottom as string | null | undefined;
+
   return (
     <div data-testid={`page-${slug}`}>
-      <Header />
+      <div className="group relative">
+        <MenuSlotPlaceholder
+          position="top"
+          currentMenuId={topMenuId ?? null}
+          contentType="page"
+          slug={slug}
+          locale={locale}
+          onMenuChange={() => refetch()}
+        />
+        {topMenuId && <Header menuId={topMenuId} />}
+      </div>
       <SectionRenderer 
         sections={page.sections} 
         settings={page.settings}
@@ -94,7 +118,21 @@ export default function Page() {
         locale={locale}
         singleEntry={page.singleEntry}
       />
-      <Footer />
+      <div className="group relative">
+        {bottomMenuId && (
+          <LazyRender>
+            <Footer menuId={bottomMenuId} />
+          </LazyRender>
+        )}
+        <MenuSlotPlaceholder
+          position="bottom"
+          currentMenuId={bottomMenuId ?? null}
+          contentType="page"
+          slug={slug}
+          locale={locale}
+          onMenuChange={() => refetch()}
+        />
+      </div>
     </div>
   );
 }

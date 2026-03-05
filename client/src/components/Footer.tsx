@@ -44,7 +44,11 @@ const socialIconMap: Record<string, typeof IconBrandLinkedin> = {
   instagram: IconBrandInstagram,
 };
 
-export default function Footer() {
+interface FooterProps {
+  menuId?: string;
+}
+
+export default function Footer({ menuId = "main-footer" }: FooterProps) {
   const handleLinkClick = useInternalNav();
   const { i18n } = useTranslation();
   const locale = i18n.language || "en";
@@ -66,9 +70,9 @@ export default function Footer() {
     name: string;
     data: { footer: FooterConfig };
   }>({
-    queryKey: ["/api/menus", "main-footer", locale],
+    queryKey: ["/api/menus", menuId, locale],
     queryFn: async () => {
-      const response = await fetch(`/api/menus/main-footer?locale=${locale}`);
+      const response = await fetch(`/api/menus/${menuId}?locale=${locale}`);
       if (!response.ok) throw new Error("Failed to load footer menu");
       return response.json();
     },

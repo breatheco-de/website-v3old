@@ -94,6 +94,9 @@ import {
   normalizeUrlPattern,
   getLocaleSource,
   resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
 } from "./content-types";
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { resolveSingleVars } from "./single-resolver";
@@ -234,12 +237,13 @@ function listCareerPrograms(
   return programs;
 }
 
-function loadLandingPage(slug: string): LandingPage | null {
+function loadLandingPage(slug: string, locale?: string): LandingPage | null {
+  const effectiveLocale = locale || ((contentIndex.loadCommonData("landing", slug)?.locale as string) || getDefaultLocale());
   const result = contentIndex.loadContent({
     contentType: "landing",
     slug,
     schema: landingPageSchema,
-    localeOrVariant: "promoted",
+    localeOrVariant: effectiveLocale,
   });
 
   if (!result.success) {
@@ -262,10 +266,10 @@ function listLandingPages(): Array<{
   const landings: Array<{ slug: string; title: string; locale: string }> = [];
 
   for (const slug of slugs) {
-    const landing = loadLandingPage(slug);
+    const commonData = contentIndex.loadCommonData("landing", slug);
+    const locale = (commonData?.locale as string) || getDefaultLocale();
+    const landing = loadLandingPage(slug, locale);
     if (landing) {
-      const commonData = contentIndex.loadCommonData("landing", slug);
-      const locale = (commonData?.locale as string) || getDefaultLocale();
       const landingSlug = landing.slug || slug;
       const landingTitle = landing.title || "";
       if (landingTitle) {
@@ -1239,10 +1243,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const singleEntry = buildSingleEntryFromContent("program", program as unknown as Record<string, unknown>);
+    const programData = program as unknown as Record<string, unknown>;
+    const programRaw = contentIndex.loadMergedContent("program", slug, locale);
+    const layout = resolveLayout("program", programRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent("program", programData);
+    const { layout: _stripLayout, ...rest } = programData;
     res.json({
-      ...program,
+      ...rest,
       ...(singleEntry ? { singleEntry } : {}),
+      layout,
       _experiment: experimentInfo,
     });
   });
@@ -1297,7 +1306,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Fall back to default content
     if (!landing) {
-      landing = loadLandingPage(slug);
+      landing = loadLandingPage(slug, locale);
     }
 
     if (!landing) {
@@ -1307,12 +1316,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const landingLocations =
       (commonData?.locations as string[] | undefined) || undefined;
-    const singleEntry = buildSingleEntryFromContent("landing", landing as unknown as Record<string, unknown>);
+    const landingData = landing as unknown as Record<string, unknown>;
+    const rawMerged = contentIndex.loadMergedContent("landing", slug, locale);
+    const layout = resolveLayout("landing", rawMerged.data || commonData || {});
+    const singleEntry = buildSingleEntryFromContent("landing", landingData);
+    const { layout: _stripLayout, ...restLanding } = landingData;
     res.json({
-      ...landing,
+      ...restLanding,
       ...(singleEntry ? { singleEntry } : {}),
       locale,
       landing_locations: landingLocations,
+      layout,
       _experiment: experimentInfo,
     });
   });
@@ -1341,10 +1355,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    const singleEntry = buildSingleEntryFromContent("location", location as unknown as Record<string, unknown>);
+    const locationData = location as unknown as Record<string, unknown>;
+    const locationRaw = contentIndex.loadMergedContent("location", slug, locale);
+    const layout = resolveLayout("location", locationRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent("location", locationData);
+    const { layout: _stripLayout, ...restLocation } = locationData;
     res.json({
-      ...location,
+      ...restLocation,
       ...(singleEntry ? { singleEntry } : {}),
+      layout,
     });
   });
 
@@ -1366,7 +1385,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    res.json(page);
+    const cpPageData = page as unknown as Record<string, unknown>;
+    const cpRaw = contentIndex.loadMergedContent("page", "career-programs", locale);
+    const cpLayout = resolveLayout("page", cpRaw.data || {});
+    const { layout: _cpStripLayout, ...cpRest } = cpPageData;
+    res.json({ ...cpRest, layout: cpLayout });
   });
 
   // Special handler for apply page (includes programs and locations from _common.yml)
@@ -1380,13 +1403,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    // Load common data for programs and locations
     const commonData = contentIndex.loadCommonData("page", "apply");
+    const applyRaw = contentIndex.loadMergedContent("page", "apply", locale);
+    const layout = resolveLayout("page", applyRaw.data || {});
+    const { layout: _stripLayout, ...restApply } = page as unknown as Record<string, unknown>;
 
     res.json({
-      ...page,
+      ...restApply,
       programs: commonData?.programs || [],
       locations: commonData?.locations || [],
+      layout,
     });
   });
 
@@ -1464,11 +1490,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       applyComponentSectionDefaults(page.sections);
     }
 
-    const singleEntry = buildSingleEntryFromContent("page", page as unknown as Record<string, unknown>);
+    const pageData = page as unknown as Record<string, unknown>;
+    const pageRaw = contentIndex.loadMergedContent("page", slug, locale);
+    const layout = resolveLayout("page", pageRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent("page", pageData);
     if (singleEntry) {
-      (page as any).singleEntry = singleEntry;
+      pageData.singleEntry = singleEntry;
     }
-    res.json(page);
+    const { layout: _stripLayout, ...restPage } = pageData;
+    res.json({ ...restPage, layout });
   });
 
   app.get("/api/content-pages/:contentType/:slug", async (req, res) => {
@@ -1489,7 +1519,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (page.sections && Array.isArray(page.sections)) {
         page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
       }
-      res.json(page);
+      const dbPageData = page as unknown as Record<string, unknown>;
+      const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+      const dbLayout = resolveLayout(contentType, dbRaw.data || {});
+      const { layout: _dbStripLayout, ...dbRest } = dbPageData;
+      res.json({ ...dbRest, layout: dbLayout });
       return;
     }
 
@@ -1511,12 +1545,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
     }
 
-    const singleEntry = buildSingleEntryFromContent(contentType, page as unknown as Record<string, unknown>);
+    const genericPageData = page as unknown as Record<string, unknown>;
+    const genericRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+    const genericLayout = resolveLayout(contentType, genericRaw.data || {});
+    const singleEntry = buildSingleEntryFromContent(contentType, genericPageData);
     if (singleEntry) {
-      (page as any).singleEntry = singleEntry;
+      genericPageData.singleEntry = singleEntry;
     }
-
-    res.json(page);
+    const { layout: _genericStripLayout, ...genericRest } = genericPageData;
+    res.json({ ...genericRest, layout: genericLayout });
   });
 
   // Dynamic sitemap with caching
@@ -1666,7 +1703,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         content = await fetchMarkdownContent((post as any).readme_url);
       }
 
-      res.json({ ...post, content });
+      const blogLayout = resolveLayout("blog", post as unknown as Record<string, unknown>);
+      res.json({ ...post, content, layout: blogLayout });
     } catch (error) {
       console.error("[Blog] Error fetching post:", error);
       res.status(500).json({ error: "Failed to fetch blog post" });
@@ -1769,7 +1807,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      res.json(page);
+      const dbSingleRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+      const dbSingleLayout = resolveLayout(contentType, dbSingleRaw.data || (page as unknown as Record<string, unknown>));
+      const { layout: _dbSingleStripLayout, ...dbSingleRest } = page as unknown as Record<string, unknown>;
+      res.json({ ...dbSingleRest, layout: dbSingleLayout });
     } catch (error) {
       console.error("[DatabaseSingle] Error:", error);
       res.status(500).json({ error: "Failed to load database single page" });
@@ -1798,6 +1839,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           url_pattern: config.url_pattern,
           locale_key: config.field_mapping?._locale || null,
           static_entry_count: contentIndex.findByType(type).length,
+          layout: getLayout(type),
         });
       }
       res.json(result);
@@ -2319,6 +2361,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       clearMarkdownCache(slug);
       res.json({ success: true, message: `Cache cleared for "${slug}"` });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/content-types/:type/entries/:slug/migrate-legacy", async (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(400).json({ error: `Unknown content type "${type}"` });
+        return;
+      }
+      const dir = path.join(process.cwd(), "marketing-content", config.directory, slug);
+      const promotedPath = path.join(dir, "promoted.yml");
+      if (!fs.existsSync(promotedPath)) {
+        res.status(400).json({ error: "Not a legacy entry — promoted.yml not found" });
+        return;
+      }
+      const commonPath = path.join(dir, "_common.yml");
+      let locale = "en";
+      if (fs.existsSync(commonPath)) {
+        const commonData = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown> | null;
+        if (commonData?.locale && typeof commonData.locale === "string") {
+          locale = commonData.locale.trim().replace(/^["']|["']$/g, "");
+        }
+      }
+      const destPath = path.join(dir, `${locale}.yml`);
+      if (fs.existsSync(destPath)) {
+        res.status(409).json({ error: `Already migrated — ${locale}.yml already exists` });
+        return;
+      }
+      fs.renameSync(promotedPath, destPath);
+      contentIndex.refresh();
+      clearSitemapCache();
+      res.json({ success: true, locale, newFile: `${locale}.yml` });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
@@ -3090,7 +3168,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const basePath = path.join(process.cwd(), entry.directory);
 
       let targetFile: string;
-      if (getType(contentType) === "landing" || allLanguages) {
+      if (allLanguages) {
         targetFile = "_common.yml";
       } else {
         targetFile = `${locale}.yml`;
@@ -3508,7 +3586,106 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json({ menus });
   });
 
-  // Menus API - get a specific menu file (with optional locale)
+  app.get("/api/menus/:name/usage", (req, res) => {
+    try {
+      const { name } = req.params;
+      const configs = getAllConfigs();
+      const defaultContentTypes: { name: string; position: "top" | "bottom" | "both" }[] = [];
+      for (const [typeName, config] of Object.entries(configs)) {
+        const top = config.layout?.menu?.top === name;
+        const bottom = config.layout?.menu?.bottom === name;
+        if (top && bottom) {
+          defaultContentTypes.push({ name: typeName, position: "both" });
+        } else if (top) {
+          defaultContentTypes.push({ name: typeName, position: "top" });
+        } else if (bottom) {
+          defaultContentTypes.push({ name: typeName, position: "bottom" });
+        }
+      }
+
+      const rawOverrides = contentIndex.getMenuUsageByMenuId(name);
+      const overrides = rawOverrides.filter(o => {
+        const matchesDefault = defaultContentTypes.some(
+          d => d.name === o.contentType && (d.position === "both" || d.position === o.position)
+        );
+        if (matchesDefault && o.source === "_common.yml") return false;
+        return true;
+      });
+
+      res.json({ defaultContentTypes, overrides });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/content-types/:type/layout", (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const body = req.body;
+      if (!body?.menu || typeof body.menu !== "object") {
+        res.status(400).json({ error: "Request body must include { menu: { top?: string|null, bottom?: string|null } }" });
+        return;
+      }
+
+      for (const key of ["top", "bottom"] as const) {
+        if (key in body.menu && body.menu[key] !== null && typeof body.menu[key] !== "string") {
+          res.status(400).json({ error: `menu.${key} must be a string or null` });
+          return;
+        }
+      }
+
+      const currentLayout = config.layout?.menu || { top: null, bottom: null };
+      const newMenu: { top?: string | null; bottom?: string | null } = {};
+      if ("top" in body.menu) newMenu.top = body.menu.top;
+      else newMenu.top = currentLayout.top;
+      if ("bottom" in body.menu) newMenu.bottom = body.menu.bottom;
+      else newMenu.bottom = currentLayout.bottom;
+
+      updateContentTypeConfig(type, { layout: { menu: newMenu } });
+
+      const slugs = contentIndex.listContentSlugs(type);
+      for (const slug of slugs) {
+        const commonPath = contentIndex.getCommonFilePath(type, slug);
+        if (!fs.existsSync(commonPath)) continue;
+        try {
+          const raw = fs.readFileSync(commonPath, "utf-8");
+          const parsed = yaml.load(raw) as Record<string, unknown> | null;
+          if (!parsed?.layout) continue;
+          const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
+          if (!layout.menu) continue;
+          let changed = false;
+          if ("top" in body.menu && layout.menu.top !== undefined) {
+            delete layout.menu.top;
+            changed = true;
+          }
+          if ("bottom" in body.menu && layout.menu.bottom !== undefined) {
+            delete layout.menu.bottom;
+            changed = true;
+          }
+          if (changed) {
+            if (Object.keys(layout.menu).length === 0) {
+              delete (parsed.layout as any).menu;
+            }
+            if (Object.keys(parsed.layout as any).length === 0) {
+              delete parsed.layout;
+            }
+            fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+          }
+        } catch {}
+      }
+
+      contentIndex.refresh();
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/menus/:name", (req, res) => {
     const { name } = req.params;
     const locale = req.query.locale as string | undefined;
@@ -5701,15 +5878,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       for (const entry of allEntries) {
         const entryContentType = entry.contentType.replace(/s$/, "");
-        if (
-          !entry.locales.includes(normalizedLocale) &&
-          entryContentType !== "landing"
-        )
+        if (!entry.locales.includes(normalizedLocale))
           continue;
 
         try {
-          const localeForLoad =
-            entryContentType === "landing" ? "promoted" : normalizedLocale;
+          const localeForLoad = normalizedLocale;
           const { data: merged } = contentIndex.loadMergedContent(
             entryContentType,
             entry.slug,
@@ -6417,7 +6590,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      const effectiveLocale = contentType === "landing" ? "promoted" : locale;
+      const effectiveLocale = contentType === "landing"
+        ? ((contentIndex.loadCommonData("landing", resolvedFolderSlug)?.locale as string) || locale)
+        : locale;
       const localeFile = [
         `${effectiveLocale}.yml`,
         `${effectiveLocale}.yaml`,
@@ -6525,26 +6700,22 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       slug,
     );
 
-    // For landings, also check that it's not a reserved name (starts with _)
-    if (type === "landing" && slug.startsWith("_")) {
+    if (slug.startsWith("_")) {
       res.json({ available: false, slug, type, reason: "Reserved prefix" });
       return;
     }
 
     const folderExists = fs.existsSync(folderPath);
 
-    if (folderExists && type !== "landing") {
+    if (folderExists) {
       const hasCommon = fs.existsSync(path.join(folderPath, "_common.yml"));
-      const hasEn = fs.existsSync(path.join(folderPath, "en.yml"));
-      const hasEs = fs.existsSync(path.join(folderPath, "es.yml"));
-      const isComplete = hasCommon && hasEn && hasEs;
-      if (isComplete) {
+      const hasLocaleFile = getSupportedLocales().some(loc =>
+        fs.existsSync(path.join(folderPath, `${loc}.yml`))
+      );
+      if (hasCommon && hasLocaleFile) {
         res.json({ available: false, slug, type, reason: "slug_taken" });
         return;
       }
-    } else if (folderExists) {
-      res.json({ available: false, slug, type, reason: "slug_taken" });
-      return;
     }
 
     const locale =
@@ -6751,6 +6922,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       // Use English slug for folder name (primary identifier), fall back to Spanish if EN is skipped
       const folderSlug = enSlug || esSlug;
+
+      const existingTypeSlugs = contentIndex.listContentSlugs(type);
+      if (existingTypeSlugs.includes(folderSlug!)) {
+        res
+          .status(409)
+          .json({
+            error: `A ${type} with slug "${folderSlug}" already exists`,
+          });
+        return;
+      }
+
       const folderPath = path.join(
         process.cwd(),
         "marketing-content",
@@ -6758,20 +6940,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         folderSlug!,
       );
 
-      // Check if folder already exists
       if (fs.existsSync(folderPath)) {
-        const hasCommon = fs.existsSync(path.join(folderPath, "_common.yml"));
-        const hasEn = fs.existsSync(path.join(folderPath, "en.yml"));
-        const hasEs = fs.existsSync(path.join(folderPath, "es.yml"));
-
-        if (hasCommon && hasEn && hasEs) {
-          res
-            .status(409)
-            .json({
-              error: `A ${type} with slug "${folderSlug}" already exists`,
-            });
-          return;
-        }
+        res
+          .status(409)
+          .json({
+            error: `A ${type} with slug "${folderSlug}" already exists`,
+          });
+        return;
       }
 
       // Create folder
@@ -7310,6 +7485,14 @@ sections: []
         return;
       }
 
+      const existingSlugs = contentIndex.listContentSlugs("landing");
+      if (existingSlugs.includes(slug)) {
+        res
+          .status(409)
+          .json({ error: `A landing with slug "${slug}" already exists` });
+        return;
+      }
+
       const folderPath = path.join(
         process.cwd(),
         "marketing-content",
@@ -7317,7 +7500,6 @@ sections: []
         slug,
       );
 
-      // Check if folder already exists
       if (fs.existsSync(folderPath)) {
         res
           .status(409)
@@ -7394,7 +7576,7 @@ sections: []
         }
       }
 
-      // Create starter YAML files for landings (_common.yml and promoted.yml)
+      // Create starter YAML files for landings (_common.yml and {locale}.yml)
       const commonYml = `slug: "${slug}"
 locale: "${landingLocale}"
 title: "${title}"
@@ -7413,7 +7595,7 @@ schema:
     - "website"
 `;
 
-      const promotedYml = `# Promoted variant - customize for marketing campaigns
+      const localeYml = `# Landing page content
 sections: []
 `;
 
@@ -7423,9 +7605,9 @@ sections: []
         `marketing-content/landings/${slug}/_common.yml`,
         landingAuthorName,
       );
-      fs.writeFileSync(path.join(folderPath, "promoted.yml"), promotedYml);
+      fs.writeFileSync(path.join(folderPath, `${landingLocale}.yml`), localeYml);
       markFileAsModified(
-        `marketing-content/landings/${slug}/promoted.yml`,
+        `marketing-content/landings/${slug}/${landingLocale}.yml`,
         landingAuthorName,
       );
 
@@ -7437,7 +7619,7 @@ sections: []
         slug,
         locale: landingLocale,
         directory: `marketing-content/landings/${slug}`,
-        files: ["_common.yml", "promoted.yml"],
+        files: ["_common.yml", `${landingLocale}.yml`],
       });
     } catch (error) {
       console.error("Landing create error:", error);
@@ -7449,13 +7631,13 @@ sections: []
     const { contentType, slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
-    if (!["program", "landing", "location"].includes(contentType)) {
+    if (!isValidType(contentType)) {
       res.status(400).json({ error: "Invalid content type" });
       return;
     }
 
     const result = getContentForEdit(
-      contentType as "program" | "landing" | "location",
+      contentType as string,
       slug,
       locale,
     );
@@ -8099,8 +8281,7 @@ sections: []
             inferredLocale =
               urlLocale || (url.startsWith("/es/") ? "es" : "en");
           }
-          const localeOrVariant =
-            file.type === "landing" ? "promoted" : inferredLocale;
+          const localeOrVariant = inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
           const result = contentIndex.loadContent({
             contentType: file.type,
