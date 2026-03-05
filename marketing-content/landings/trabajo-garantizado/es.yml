@@ -310,36 +310,22 @@ sections:
         text: Recibirá el reembolso completo en un plazo de 30 días a partir de la fecha en que se apruebe su solicitud.
         title: Reembolso
     section_id: numbered_steps-2ramas
-  - type: cards_deck
+  - type: features_grid
     version: "1.0"
-    heading: Historias reales de cambios de carrera
-    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
+    variant: cardHeader
+    heading: Por qué elegir el Plan Trabajo Garantizado
+    description: La garantía de empleo se basa en resultados reales y en un modelo centrado en la contratación. Nuestros programas, enfoque docente y apoyo profesional están diseñados en función de cómo se contrata realmente a las personas en el mercado laboral tecnológico actual. A lo largo de los años, hemos ayudado a más de 3500 graduados a iniciar sus carreras tecnológicas en diferentes puestos y sectores.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image_alt: 4Geeks Academy community support
+    background: bg-primary/5
     cards:
-      - video:
-          url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Hernán García
-        title: "\"Recibí ofertas de empresas que no esperaba\""
-        description: Hernán consiguió un trabajo en tecnología dentro de un mes de comenzar su búsqueda laboral.
-        alt: Geekforce
-      - video:
-          url: https://youtu.be/MBXqEnhodx0
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Joao Henrique
-        title: "\"Siempre tendrás el apoyo de la academia\""
-        description: Joao comparte su experiencia recibiendo mentoría de programación como estudiante, después de graduarse y en su trabajo actual.
-        alt: Geekpal
-      - video:
-          url: https://youtu.be/oeX_ocy6zv4
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Jonathan Ferragut
-        title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
-        description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
-        alt: Geekpal
-    section_id: cards_deck-q5vsak
+      - icon: BriefcaseFilled
+        text: Resultados de contratación consistentes en toda nuestra comunidad de graduados.
+      - icon: BrandStackshare
+        text: Fuerte demanda de profesionales tecnológicos cualificados.
+      - icon: ChalkboardTeacher
+        text: Formación intensiva combinada con apoyo profesional práctico y continuo.
+    section_id: features_grid-aay8s3
   - type: testimonials
     version: v1.0
     title: Testimonios de Nuestros Graduados
