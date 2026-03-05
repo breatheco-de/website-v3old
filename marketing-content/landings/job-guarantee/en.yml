@@ -12,6 +12,93 @@ sections:
       desktop: lg none
     marginY:
       desktop: none md
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    brand_mark:
+      prefix: Become an
+      highlight: AI Engineer
+      color: primary
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+    video_id: "-2ZvlgDnltc"
+    video_ratio: "9:12"
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    form_vertical_align: center
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Mejores Bootcamps de Código 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Mejor Bootcamp de Código 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 en Reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
   - type: features_quad
     version: "1.0"
     variant: default
