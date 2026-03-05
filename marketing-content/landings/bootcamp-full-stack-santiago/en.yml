@@ -156,9 +156,9 @@ sections:
       desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
-    title: Enroll with a Job Guarantee* for Extra Confidence
+    title: JavaScript y Python
     subtitle: Back your career outcome with a stronger commitment
-    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
+    description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
     cta:
       text: Get more info
       url: /en/job-guarantee
