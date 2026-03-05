@@ -127,18 +127,6 @@ sections:
     paddingY:
       mobile: md
       desktop: none md
-  - type: cta_banner
-    version: "1.0"
-    title: ¿Listo para empezar tu carrera en tech?
-    background: hsl(var(--primary))
-    variant: default
-    buttons:
-      - text: Aplica ahora
-        url: "#hero-form"
-        variant: primary
-      - text: Solicitar más información
-        url: /en/job-guarantee
-        variant: outline
   - type: double_cta
     title: Take the Next Step in Your Tech Career
     subtitle: Join thousands of students who have transformed their careers with 4Geeks Academy.
