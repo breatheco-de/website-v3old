@@ -125,21 +125,6 @@ sections:
       text: Join now!
       url: /signup
       variant: primary
-  - type: two_column
-    proportions:
-      - 5
-      - 7
-    background: bg-muted/30
-    alignment: center
-    left:
-      heading: JavaScript y Python
-      description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
-      font_size: base
-    right:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
-      justify: center
-    reverse_on_mobile: true
-    gap: "12"
   - type: course_selector
     version: "1.0"
     variant: solid
