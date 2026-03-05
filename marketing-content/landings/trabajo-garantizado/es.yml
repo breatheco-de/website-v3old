@@ -91,21 +91,6 @@ sections:
     paddingY:
       desktop: md none
     section_id: hero-u2i0eb
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    compact: true
-    heading: Cómo funciona nuestra Garantía de Empleo
-    cards:
-      - icon: Handshake
-        title: 1. Elije el plan Garantía de Empleo al matricularte
-      - icon: Graduation
-        title: 2. Completa el programa y crea tu portfolio
-      - icon: ChecklistVerify
-        title: 3. Aplica nuestra metodología de inserción laboral
-      - icon: Briefcase
-        title: 4. Consigue un empleo en 9 meses o te devolvemos el 100 % de la matrícula
-    background: hsl(210 100% 50% / 0.05)
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -147,6 +132,21 @@ sections:
     marginY:
       desktop: none lg
     section_id: awards_marquee-cz908y
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    compact: true
+    heading: Cómo funciona nuestra Garantía de Empleo
+    cards:
+      - icon: Handshake
+        title: 1. Elije el plan Garantía de Empleo al matricularte
+      - icon: Graduation
+        title: 2. Completa el programa y crea tu portfolio
+      - icon: ChecklistVerify
+        title: 3. Aplica nuestra metodología de inserción laboral
+      - icon: Briefcase
+        title: 4. Consigue un empleo en 9 meses o te devolvemos el 100 % de la matrícula
+    background: hsl(210 100% 50% / 0.05)
   - type: course_selector
     version: "1.0"
     variant: solid
