@@ -604,7 +604,7 @@ export function CreateContentModal({
         </DialogHeader>
 
         {step === 1 && (
-          <div className="space-y-4 py-4">
+          <div className="space-y-4 py-4 overflow-y-auto max-h-[60vh] pr-1">
             <div className="space-y-2">
               <label className="text-sm font-medium">Content Type</label>
               <Select
@@ -933,7 +933,7 @@ export function CreateContentModal({
         )}
 
         {step === 2 && (
-          <div className="space-y-4 py-4">
+          <div className="space-y-4 py-4 overflow-y-auto max-h-[60vh] pr-1">
             <div className="flex items-start justify-between gap-3">
               <p className="text-sm text-muted-foreground">
                 All{" "}
@@ -991,7 +991,7 @@ export function CreateContentModal({
                       onChange={(e) =>
                         setUniqueFieldValues((prev) => ({ ...prev, [field]: e.target.value }))
                       }
-                      placeholder={humanizeField(field)}
+                      placeholder={exampleData?.fields?.[field] ?? humanizeField(field)}
                       className="flex-1 px-2 py-1 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
                       data-testid={`input-field-${field}`}
                     />
@@ -1030,7 +1030,7 @@ export function CreateContentModal({
                           onChange={(e) =>
                             setNonUniqueValues((prev) => ({ ...prev, [field]: e.target.value }))
                           }
-                          placeholder={humanizeField(field)}
+                          placeholder={exampleData?.fields?.[field] ?? humanizeField(field)}
                           className="flex-1 px-2 py-1 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
                           data-testid={`input-field-${field}`}
                         />
