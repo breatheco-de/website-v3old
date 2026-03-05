@@ -1,131 +1,43 @@
 /**
  * Content Loader
- * 
- * Scans and loads all YAML content files from marketing-content directory.
+ *
+ * Builds the list of resolved ContentFile entries for validation by delegating
+ * entirely to ContentIndex, which is the single source of truth for content
+ * merging (_common.single.yml → _common.yml → locale.yml).
+ *
+ * Previously this module read individual YAML files in isolation, which caused
+ * false-positive validation errors for fields inherited from parent files
+ * (schema, meta, etc.). Now it reuses the same merge logic used at serve-time.
  */
 
-import * as fs from "fs";
-import * as path from "path";
-import * as yaml from "js-yaml";
-import { escapeTemplateVars, unescapeObjectVars } from "../../../shared/templateVars";
-import { getAllConfigs } from "../../../server/content-types";
-import type { ContentFile, ContentMeta, SchemaRef } from "./types";
+import { contentIndex } from "../../../server/content-index";
+import type { ContentFile } from "./types";
 
-const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
-
-function buildContentPaths(): Record<string, string> {
-  const configs = getAllConfigs();
-  const paths: Record<string, string> = {};
-  for (const [type, config] of Object.entries(configs)) {
-    paths[type] = path.join(MARKETING_CONTENT_PATH, config.directory);
-  }
-  return paths;
-}
-
-export const CONTENT_PATHS = buildContentPaths();
-
-interface RawContentData {
-  slug?: string;
-  title?: string;
-  name?: string;
-  meta?: ContentMeta;
-  schema?: SchemaRef;
-  variant?: string;
-  version?: number;
-}
-
-function parseYamlFile(filePath: string): RawContentData | null {
-  try {
-    const content = fs.readFileSync(filePath, "utf-8");
-    const { escaped, map } = escapeTemplateVars(content);
-    const parsed = yaml.load(escaped) as RawContentData;
-    if (!parsed) return null;
-    return unescapeObjectVars(parsed, map) as RawContentData;
-  } catch (err) {
-    console.error(`Failed to parse ${filePath}:`, err);
-    return null;
-  }
-}
-
-function extractLocaleFromFilename(filename: string): string {
-  const match = filename.match(/\.([a-z]{2})\.yml$/);
-  if (match) return match[1];
-  
-  const simpleMatch = filename.match(/^([a-z]{2})\.yml$/);
-  if (simpleMatch) return simpleMatch[1];
-  
-  return "en";
-}
-
-function extractVariantFromFilename(filename: string): { variant?: string; version?: number } {
-  const match = filename.match(/^(.+?)\.v(\d+)\.([a-z]{2})\.yml$/);
-  if (match) {
-    return { variant: match[1], version: parseInt(match[2], 10) };
-  }
-  return {};
-}
-
-export function loadContentDirectory(
-  dirPath: string,
-  type: ContentFile["type"]
-): ContentFile[] {
+export function loadAllContent(): ContentFile[] {
+  const index = contentIndex;
+  const entries = index.listAll();
   const files: ContentFile[] = [];
 
-  if (!fs.existsSync(dirPath)) {
-    return files;
-  }
+  for (const entry of entries) {
+    for (const locale of entry.locales) {
+      if (locale.startsWith("_") || locale.includes(".")) continue;
 
-  const dirs = fs.readdirSync(dirPath);
+      const result = index.loadMergedContent(entry.contentType, entry.slug, locale);
+      if (!result.data) continue;
 
-  for (const dir of dirs) {
-    const contentPath = path.join(dirPath, dir);
-    if (!fs.statSync(contentPath).isDirectory()) continue;
-
-    const yamlFiles = fs.readdirSync(contentPath).filter((f) => f.endsWith(".yml"));
-
-    for (const yamlFile of yamlFiles) {
-      const isCommon = yamlFile === "_common.yml" || yamlFile === "_common.yaml";
-      if (yamlFile.startsWith("_") && !isCommon) continue;
-      
-      const filePath = path.join(contentPath, yamlFile);
-      const data = parseYamlFile(filePath);
-      
-      if (!data) continue;
-
-      const locale = isCommon ? "_common" : extractLocaleFromFilename(yamlFile);
-      const { variant, version } = isCommon ? {} : extractVariantFromFilename(yamlFile);
+      const data = result.data as Record<string, unknown>;
 
       files.push({
-        slug: data.slug || dir,
-        title: data.title || data.name || dir,
-        meta: data.meta,
-        schema: data.schema,
-        type,
+        slug: entry.slug,
+        title: ((data.title || data.name || entry.title || entry.slug) as string) || entry.slug,
+        meta: data.meta as ContentFile["meta"],
+        schema: data.schema as ContentFile["schema"],
+        type: entry.contentType,
         locale,
-        filePath,
-        variant,
-        version,
+        filePath: result.filePath,
       });
     }
   }
 
   return files;
-}
-
-export function loadAllContent(): ContentFile[] {
-  const configs = getAllConfigs();
-  const files: ContentFile[] = [];
-  for (const [type, config] of Object.entries(configs)) {
-    files.push(...loadContentDirectory(
-      path.join(MARKETING_CONTENT_PATH, config.directory),
-      type as ContentFile["type"]
-    ));
-  }
-  return files;
-}
-
-export function getContentByType(type: ContentFile["type"]): ContentFile[] {
-  const dirPath = CONTENT_PATHS[type];
-  if (!dirPath) return [];
-  return loadContentDirectory(dirPath, type);
 }
