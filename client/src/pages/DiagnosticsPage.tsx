@@ -41,6 +41,8 @@ import {
   IconChevronDown,
   IconDeviceFloppy,
   IconLoader2,
+  IconSparkles,
+  IconClipboard,
 } from "@tabler/icons-react";
 import {
   DropdownMenu,
@@ -265,6 +267,214 @@ function LengthBar({ value, max, optimal }: { value: number; max: number; optima
       </div>
       <span className="text-xs text-muted-foreground tabular-nums">{value}/{max}</span>
     </div>
+  );
+}
+
+function AiPromptDialog({
+  open,
+  onOpenChange,
+  prompt,
+  validatorName,
+  isPending,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  prompt: string | null;
+  validatorName: string;
+  isPending: boolean;
+}) {
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    if (!prompt) return;
+    navigator.clipboard.writeText(prompt).then(() => {
+      setCopied(true);
+      toast({ title: "Prompt copied", description: "Paste it into your LLM" });
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-3xl max-h-[90vh] flex flex-col gap-0 p-0">
+        <DialogHeader className="px-6 pt-6 pb-4 border-b">
+          <DialogTitle className="text-base font-semibold">
+            AI Prompt — {validatorName}
+          </DialogTitle>
+          <DialogDescription className="text-xs text-muted-foreground">
+            Copy this prompt and paste it into any LLM running locally.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex-1 overflow-hidden flex flex-col">
+          {isPending && (
+            <div className="flex items-center justify-center py-16">
+              <div className="text-center">
+                <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent" />
+                <p className="mt-3 text-sm text-muted-foreground">Generating prompt…</p>
+              </div>
+            </div>
+          )}
+          {!isPending && prompt && (
+            <ScrollArea className="flex-1 max-h-[60vh]">
+              <pre className="p-4 text-xs font-mono text-foreground whitespace-pre-wrap break-words leading-relaxed bg-muted rounded-none">
+                {prompt}
+              </pre>
+            </ScrollArea>
+          )}
+        </div>
+
+        <DialogFooter className="px-6 py-4 border-t">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            disabled={!prompt || isPending}
+            data-testid="button-copy-prompt"
+          >
+            {copied ? (
+              <IconCheck className="h-3.5 w-3.5" />
+            ) : (
+              <IconClipboard className="h-3.5 w-3.5" />
+            )}
+            {copied ? "Copied!" : "Copy to clipboard"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function ValidatorCard({
+  v,
+  runSingleMutation,
+  openResolver,
+}: {
+  v: ValidatorResult;
+  runSingleMutation: { mutate: (name: string) => void; isPending: boolean };
+  openResolver?: (issue: ValidatorIssue) => void;
+}) {
+  const [promptOpen, setPromptOpen] = useState(false);
+  const [promptText, setPromptText] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const promptMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/validation/run.prompt", {
+        validators: [v.name],
+      });
+      return (await res.json()) as { prompt: string; validatorNames: string[]; issueCount: number };
+    },
+    onSuccess: (data) => {
+      setPromptText(data.prompt);
+    },
+    onError: (err) => {
+      toast({
+        title: "Failed to generate prompt",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const hasIssues = v.errors.length + v.warnings.length > 0;
+
+  function handleOpenPrompt() {
+    setPromptText(null);
+    setPromptOpen(true);
+    promptMutation.mutate();
+  }
+
+  return (
+    <>
+      <Card style={{ borderRadius: "0.8rem" }} data-testid={`card-validator-${v.name}`}>
+        <CardHeader className="flex flex-row items-start justify-between gap-2 pb-2">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-sm font-semibold truncate">{v.name}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{v.description}</p>
+          </div>
+          <StatusBadge status={v.status} />
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+            {v.errors.length > 0 && (
+              <span className="flex items-center gap-1">
+                <IconX className="h-3 w-3 text-destructive" />
+                {v.errors.length} error{v.errors.length !== 1 ? "s" : ""}
+              </span>
+            )}
+            {v.warnings.length > 0 && (
+              <span className="flex items-center gap-1">
+                <IconAlertTriangle className="h-3 w-3 text-chart-2" />
+                {v.warnings.length} warning{v.warnings.length !== 1 ? "s" : ""}
+              </span>
+            )}
+            <span>{v.duration}ms</span>
+          </div>
+
+          {hasIssues && (
+            <Accordion type="single" collapsible>
+              <AccordionItem value="issues" className="border-0">
+                <AccordionTrigger className="py-2 text-xs" data-testid={`trigger-issues-${v.name}`}>
+                  View Issues ({v.errors.length + v.warnings.length})
+                </AccordionTrigger>
+                <AccordionContent className="text-sm">
+                  <div className="max-h-64 overflow-y-auto space-y-0">
+                    {v.errors.map((e, i) => (
+                      <IssueRow
+                        key={`e-${i}`}
+                        issue={e}
+                        onResolve={v.name === "redirects" ? openResolver : undefined}
+                      />
+                    ))}
+                    {v.warnings.map((w, i) => (
+                      <IssueRow
+                        key={`w-${i}`}
+                        issue={w}
+                        onResolve={v.name === "redirects" ? openResolver : undefined}
+                      />
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
+
+          <div className="flex justify-end gap-2">
+            {hasIssues && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleOpenPrompt}
+                data-testid={`button-ai-prompt-${v.name}`}
+              >
+                <IconSparkles className="h-3.5 w-3.5" />
+                AI Prompt
+              </Button>
+            )}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => runSingleMutation.mutate(v.name)}
+              disabled={runSingleMutation.isPending}
+              data-testid={`button-run-${v.name}`}
+            >
+              <IconPlayerPlay className="h-3.5 w-3.5" />
+              Run
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <AiPromptDialog
+        open={promptOpen}
+        onOpenChange={setPromptOpen}
+        prompt={promptText}
+        validatorName={v.name}
+        isPending={promptMutation.isPending}
+      />
+    </>
   );
 }
 
@@ -529,73 +739,12 @@ function GlobalHealthTab() {
       {results && (
         <div className="grid grid-cols-1 gap-4">
           {filteredValidators.map((v) => (
-            <Card key={v.name} style={{ borderRadius: "0.8rem" }} data-testid={`card-validator-${v.name}`}>
-              <CardHeader className="flex flex-row items-start justify-between gap-2 pb-2">
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-sm font-semibold truncate">{v.name}</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{v.description}</p>
-                </div>
-                <StatusBadge status={v.status} />
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                  {v.errors.length > 0 && (
-                    <span className="flex items-center gap-1">
-                      <IconX className="h-3 w-3 text-destructive" />
-                      {v.errors.length} error{v.errors.length !== 1 ? "s" : ""}
-                    </span>
-                  )}
-                  {v.warnings.length > 0 && (
-                    <span className="flex items-center gap-1">
-                      <IconAlertTriangle className="h-3 w-3 text-chart-2" />
-                      {v.warnings.length} warning{v.warnings.length !== 1 ? "s" : ""}
-                    </span>
-                  )}
-                  <span>{v.duration}ms</span>
-                </div>
-
-                {(v.errors.length > 0 || v.warnings.length > 0) && (
-                  <Accordion type="single" collapsible>
-                    <AccordionItem value="issues" className="border-0">
-                      <AccordionTrigger className="py-2 text-xs" data-testid={`trigger-issues-${v.name}`}>
-                        View Issues ({v.errors.length + v.warnings.length})
-                      </AccordionTrigger>
-                      <AccordionContent className="text-sm">
-                        <div className="max-h-64 overflow-y-auto space-y-0">
-                            {v.errors.map((e, i) => (
-                              <IssueRow
-                                key={`e-${i}`}
-                                issue={e}
-                                onResolve={v.name === "redirects" ? openResolver : undefined}
-                              />
-                            ))}
-                            {v.warnings.map((w, i) => (
-                              <IssueRow
-                                key={`w-${i}`}
-                                issue={w}
-                                onResolve={v.name === "redirects" ? openResolver : undefined}
-                              />
-                            ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                )}
-
-                <div className="flex justify-end">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => runSingleMutation.mutate(v.name)}
-                    disabled={runSingleMutation.isPending}
-                    data-testid={`button-run-${v.name}`}
-                  >
-                    <IconPlayerPlay className="h-3.5 w-3.5" />
-                    Run
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <ValidatorCard
+              key={v.name}
+              v={v}
+              runSingleMutation={runSingleMutation}
+              openResolver={openResolver}
+            />
           ))}
         </div>
       )}

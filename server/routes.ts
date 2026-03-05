@@ -8221,6 +8221,58 @@ sections: []
     }
   });
 
+  // Explicit JSON format alias — same as /run but with a format extension
+  app.post("/api/validation/run.json", async (req, res) => {
+    try {
+      const { validators: validatorNames, includeArtifacts } = req.body;
+      const service = getValidationService();
+      service.clearContext();
+      await service.buildContext();
+      const result = await service.runValidators({
+        validators: validatorNames,
+        includeArtifacts: includeArtifacts ?? false,
+      });
+      res.json(result);
+    } catch (error) {
+      console.error("Validation error:", error);
+      res.status(500).json({
+        error: "Validation failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
+  // LLM prompt format — runs validators and returns a copy-pasteable prompt
+  app.post("/api/validation/run.prompt", async (req, res) => {
+    try {
+      const { validators: validatorNames, includeArtifacts } = req.body;
+      const { formatAsLlmPrompt } = await import("../scripts/validation/reporting/llm-prompt");
+      const service = getValidationService();
+      service.clearContext();
+      await service.buildContext();
+      const result = await service.runValidators({
+        validators: validatorNames,
+        includeArtifacts: includeArtifacts ?? false,
+      });
+      const prompt = formatAsLlmPrompt(result);
+      const issueCount = result.validators.reduce(
+        (n, v) => n + v.errors.length + v.warnings.length,
+        0,
+      );
+      res.json({
+        prompt,
+        validatorNames: result.validators.map((v) => v.name),
+        issueCount,
+      });
+    } catch (error) {
+      console.error("Validation prompt error:", error);
+      res.status(500).json({
+        error: "Validation prompt failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
   // Save a full JSON report to /tmp/validation-reports/
   app.post("/api/validation/save-report", async (_req, res) => {
     try {
