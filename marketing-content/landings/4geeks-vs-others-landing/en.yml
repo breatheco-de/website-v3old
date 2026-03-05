@@ -117,16 +117,22 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-cards
-    title: Graduate Success by the Numbers
-    subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
+    title: Real Outcomes, Proven Results
+    subtitle: Our alumni land jobs fast, boost their salaries, and launch tech careers that last.
     use_card: true
     items:
       - value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
+        title: Graduates Hired
+        text: Within 6 months of completing the program
       - value: 3-6 months
-        title: Average time to get hired
+        title: Time to Get Hired
+        text: Average time to secure a tech role
       - value: {{ global.global_salary_increase | 55 }}%
-        title: Salary increase after graduation
+        title: Salary Boost
+        text: Average increase after graduation
+      - value: AI, Full-Stack, Data & Cybersecurity
+        title: Programs Offered
+        text: Launch your career in your chosen tech path
     marginY:
       desktop: md
   - type: comparison_table
