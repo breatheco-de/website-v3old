@@ -22,10 +22,20 @@
 #
 # database (optional):
 #   slug: database name (matches a db config in marketing-content/db/)
+#
+# layout (optional):
+#   menu:
+#     top: menu ID for navbar (e.g., "main-navbar") or null for no navbar
+#     bottom: menu ID for footer (e.g., "main-footer") or null for no footer
+#   System default (when absent): { menu: { top: null, bottom: null } }
+#   Per-entry override: set layout.menu.top / layout.menu.bottom in _common.yml or locale files
 
 program:
   directory: programs
-  unique_fields: [slug, bc_slug, job_role]
+  unique_fields:
+    - slug
+    - bc_slug
+    - job_role
   field_mapping:
     slug: slug
     title: title
@@ -57,6 +67,7 @@ location:
   indexes:
     - region
     - country
+    - city
   url_pattern:
     en: /en/location/:slug
     es: /es/ubicacion/:slug
@@ -64,6 +75,12 @@ location:
     menu:
       top: main-navbar
       bottom: main-footer
+  unique_fields:
+    - slug
+    - name
+    - latitude
+    - longitude
+    - city
 landing:
   directory: landings
   field_mapping:
