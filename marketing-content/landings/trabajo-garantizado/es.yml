@@ -87,7 +87,7 @@ sections:
     video_title: GeekForce Career Support
     marginY:
       desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    background: hsl(var(--background))
     paddingY:
       desktop: md none
     section_id: hero-u2i0eb
