@@ -122,8 +122,6 @@ sections:
     background: bg-muted/30
     alignment: center
     left:
-      image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
-      image_alt: Team collaborating on a project
       justify: center
     right:
       heading: ¡Desde Cero Hasta Tu Primer Empleo!
@@ -134,6 +132,7 @@ sections:
         - text: Mentorías y career support de por vida
       bullet_icon: Check
       font_size: base
+      image: https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635.webp
     reverse_on_mobile: true
     gap: "12"
   - type: course_selector
