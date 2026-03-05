@@ -136,7 +136,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: lg
+      desktop: lg sm
   - type: whos_hiring
     variant: carousel
     pretitle: ""
