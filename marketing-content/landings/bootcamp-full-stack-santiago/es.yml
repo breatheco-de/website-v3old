@@ -2,7 +2,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Construye tu camino
+    title: ""
     brand_mark:
       prefix: Conviértete en un
       highlight: Desarrollador Full Stack
