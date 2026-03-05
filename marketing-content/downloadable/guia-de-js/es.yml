@@ -32,7 +32,7 @@ sections:
             required: true
     background: hsl(var(--primary))
     marginY:
-      desktop: none lg
+      desktop: md lg
     paddingY:
       desktop: none
   - type: two_column
