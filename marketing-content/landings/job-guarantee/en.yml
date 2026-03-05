@@ -203,32 +203,6 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
-    variant: bubbleText
-    title: Get Hired Faster With GeekForce
-    description: Our 3-step Career Acceleration System is designed to help you land a tech job quickly by combining proven strategies, personalized guidance, and direct access to hiring companies.
-    steps:
-      - icon: Optimization
-        title: Profile Optimization
-        bullets:
-          - Optimize LinkedIn, GitHub, and portfolio to get noticed fast.
-          - Craft an ATS-ready resume that shows your strengths.
-          - Present a portfolio recruiters can’t ignore.
-      - icon: Interview
-        title: Interview Preparation
-        bullets:
-          - Ace technical and behavioral interviews with practice.
-          - Sharpen coding skills with hands-on exercises.
-          - Master strategies to land your offers.
-      - icon: JobSearch
-        title: Strategic Job Search
-        bullets:
-          - Follow a tailored job search plan.
-          - Leverage AI tools recruiters use every day.
-          - Get direct access to top hiring companies.
-    background: bg-background
-    paddingY:
-      desktop: none
-  - type: numbered_steps
     variant: default
     title: Get Hired Faster With GeekForce
     description: Our 3-step Career Acceleration System combines proven strategies, personalized guidance, and direct access to hiring companies to help you land a tech role quickly.
