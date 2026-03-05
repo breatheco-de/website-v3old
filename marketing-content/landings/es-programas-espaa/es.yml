@@ -2,7 +2,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
+    title: en 4Geeks Academy.
     brand_mark:
       prefix: Saca el máximo de tu
       highlight: potencial
