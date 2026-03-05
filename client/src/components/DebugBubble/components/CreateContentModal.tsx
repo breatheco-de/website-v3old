@@ -466,12 +466,24 @@ export function CreateContentModal({
     }
   };
 
+  const urlPattern = contentTypesMap?.[createContentType]?.url_pattern;
+  const isLocaleAgnosticPattern =
+    !!urlPattern?.["default"] && !urlPattern?.[loc0] && !urlPattern?.[loc1];
+
+  const slugsConflict =
+    isLocaleAgnosticPattern &&
+    !excludedLocales.has(loc0) &&
+    !excludedLocales.has(loc1) &&
+    !!createContentSlugEn &&
+    createContentSlugEn === createContentSlugEs;
+
   const slugsReady = (() => {
     const loc0Needed = !excludedLocales.has(loc0);
     const loc1Needed = !excludedLocales.has(loc1);
     if (!loc0Needed && !loc1Needed) return false;
     if (loc0Needed && (!createContentSlugEn || createContentSlugEnStatus !== "available")) return false;
     if (loc1Needed && (!createContentSlugEs || createContentSlugEsStatus !== "available")) return false;
+    if (slugsConflict) return false;
     return true;
   })();
 
@@ -903,6 +915,15 @@ export function CreateContentModal({
                       <p className="text-xs text-red-600 pl-1">{slugEsConflictReason || `${supportedLocales[1]?.label ?? loc1} slug is taken`}</p>
                     )}
                   </div>
+
+                  {slugsConflict && (
+                    <div className="flex gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/30 text-xs text-destructive" data-testid="warning-slug-conflict">
+                      <IconAlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                      <span>
+                        This content type uses the same URL for all locales. Each locale must have a unique slug, or exclude one locale.
+                      </span>
+                    </div>
+                  )}
 
                   <div className="space-y-1">
                     <button
