@@ -89,6 +89,11 @@ interface EntryFieldsResponse {
   computed: string[];
 }
 
+interface ContentTypeConfig {
+  field_mapping?: Record<string, string | { source: string }>;
+  unique_fields?: string[];
+}
+
 function humanizeField(field: string): string {
   const map: Record<string, string> = {
     bc_slug: "Breathecode Slug",
@@ -348,7 +353,7 @@ export function CreateContentModal({
   const hasStep2 = extraUniqueFields.length > 0;
 
   const { editableNonUniqueFields, computedFields } = useMemo(() => {
-    const fm = selectedTypeData?.field_mapping ?? {};
+    const fm = typeConfig?.field_mapping ?? {};
     const uniqueSet = new Set(selectedTypeData?.unique_fields ?? ["slug"]);
     const skip = new Set(["slug", "title", "locale"]);
     const editable: string[] = [];
@@ -365,7 +370,7 @@ export function CreateContentModal({
       }
     }
     return { editableNonUniqueFields: editable, computedFields: computed };
-  }, [selectedTypeData]);
+  }, [typeConfig, selectedTypeData]);
 
   const sourceSlug = useMemo(() => {
     if (!duplicatingPage) return undefined;
@@ -380,6 +385,13 @@ export function CreateContentModal({
     }
     return undefined;
   }, [duplicatingPage, supportedLocales]);
+
+  const { data: typeConfig } = useQuery<ContentTypeConfig>({
+    queryKey: ["/api/content-types", createContentType, "config"],
+    queryFn: () => fetch(`/api/content-types/${createContentType}/config`).then((r) => r.json()),
+    enabled: open && hasStep2,
+    staleTime: 60000,
+  });
 
   const { data: exampleData, isLoading: exampleLoading } = useQuery<EntryFieldsResponse>({
     queryKey: ["/api/content-types", createContentType, "entry-fields"],
