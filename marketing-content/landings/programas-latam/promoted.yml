@@ -171,47 +171,47 @@ sections:
       desktop: md lg
   - type: testimonials
     version: v1.0
-    title: What Our Students Say
-    subtitle: Real stories from graduates who transformed their careers
+    title: Testimonios de Nuestros Graduados
+    subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
       average: "4.9"
       count: 700+
     items:
       - name: Maria Rodriguez
-        role: Software Engineer
+        role: Ingeniera de Software
         company: Google
         rating: 5
-        comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
-        outcome: Hired in 4 months
+        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
+        outcome: Contratada en 4 meses
       - name: James Chen
-        role: Full Stack Developer
+        role: Desarrollador Full Stack
         company: Spotify
         rating: 5
-        comment: The mentorship was incredible. Having unlimited access to senior developers made all the difference.
-        outcome: 3x salary increase
+        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
+        outcome: Aumento salarial 3x
       - name: Sarah Williams
-        role: Frontend Developer
+        role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: The AI-powered learning tools helped me understand complex concepts faster than any other course I've tried.
-        outcome: Career change at 35
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
-        role: Backend Engineer
+        role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: Practical projects and real-world scenarios prepared me better than my computer science degree.
-        outcome: Remote work achieved
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        outcome: Trabajo remoto conseguido
       - name: Emily Thompson
-        role: DevOps Engineer
+        role: Ingeniera DevOps
         company: Netflix
         rating: 5
-        comment: The career support team helped me negotiate a 50% higher salary than I expected.
-        outcome: 50% salary boost
+        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
+        outcome: Aumento salarial del 50%
       - name: David Kim
         role: Tech Lead
         company: Uber
         rating: 5
-        comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
-        outcome: Promoted in 1 year
+        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
+        outcome: Promovido en 1 año
     marginY:
-      desktop: lg none
+      desktop: none lg
