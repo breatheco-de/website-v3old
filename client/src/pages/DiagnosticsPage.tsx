@@ -1169,25 +1169,26 @@ export default function DiagnosticsPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex flex-wrap items-center gap-3 mb-6">
-          <Link href="/">
-            <Button variant="ghost" size="icon" data-testid="button-back-home">
-              <IconArrowLeft className="h-5 w-5" />
-            </Button>
-          </Link>
-          <div className="flex items-center gap-2">
-            <IconStethoscope className="h-5 w-5 text-primary" />
-            <h1 className="text-lg font-semibold text-foreground" data-testid="text-diagnostics-title">
-              Diagnostics
-            </h1>
-          </div>
-        </div>
-
         <Tabs defaultValue="global-health">
-          <TabsList data-testid="tabs-diagnostics">
-            <TabsTrigger value="global-health" data-testid="tab-global-health">Global Health</TabsTrigger>
-            <TabsTrigger value="page-analysis" data-testid="tab-page-analysis">Page Analysis</TabsTrigger>
-          </TabsList>
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div className="flex items-center gap-3">
+              <Link href="/">
+                <Button variant="ghost" size="icon" data-testid="button-back-home">
+                  <IconArrowLeft className="h-5 w-5" />
+                </Button>
+              </Link>
+              <div className="flex items-center gap-2">
+                <IconStethoscope className="h-5 w-5 text-primary" />
+                <h1 className="text-lg font-semibold text-foreground" data-testid="text-diagnostics-title">
+                  Diagnostics
+                </h1>
+              </div>
+            </div>
+            <TabsList data-testid="tabs-diagnostics">
+              <TabsTrigger value="global-health" data-testid="tab-global-health">Global Health</TabsTrigger>
+              <TabsTrigger value="page-analysis" data-testid="tab-page-analysis">Page Analysis</TabsTrigger>
+            </TabsList>
+          </div>
           <TabsContent value="global-health">
             <GlobalHealthTab />
           </TabsContent>
