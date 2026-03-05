@@ -185,23 +185,24 @@ sections:
   - type: testimonials_slide
     title: The Stories Behind the Stats
     description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
-  - type: ai_learning
+  - type: numbered_steps
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    variant: bubbleText
+    title: What Happens If You Don’t Get Hired
+    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition."
+    description_link:
+      text: Conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        title: Notify Us
+        text: Let us know if you haven’t been hired into a qualifying role within 9 months after graduation.
+      - icon: Interview
+        title: Requirement Review
+        text: Our team verifies that all Job Guarantee requirements were completed during the program and job search period.
+      - icon: JobSearch
+        title: Full Refund
+        text: Once approved, you'll receive your full tuition refund within 30 days.
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
