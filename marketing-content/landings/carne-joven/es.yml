@@ -286,6 +286,25 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: none md
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: "-2ZvlgDnltc"
+      justify: center
+    right:
+      heading: See It In Action
+      sub_heading: Watch how our platform transforms careers
+      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      button:
+        text: Start Free Trial
+        url: /signup
+        variant: primary
+        icon: Rocket
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
