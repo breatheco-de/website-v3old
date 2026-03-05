@@ -184,7 +184,7 @@ sections:
       desktop: none
   - type: whos_hiring
     variant: carousel
-    title: Where 4Geeks Graduates Launch Their Careers
+    title: Where 4Geeks Graduates Work
     subtitle: Our alumni have joined leading companies across tech, media, and startups worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
