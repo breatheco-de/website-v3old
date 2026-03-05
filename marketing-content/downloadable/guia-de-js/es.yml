@@ -55,7 +55,7 @@ sections:
     gap: "12"
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: none lg
+      desktop: lg
   - type: awards_marquee
     version: v1.0
     speed: 40
