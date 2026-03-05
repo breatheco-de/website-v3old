@@ -1,11 +1,14 @@
 /**
  * @migration 001_add_section_ids
  * @description Adds a stable `section_id` to every section in marketing-content that is missing one. Idempotent — safe to re-run, existing IDs are never overwritten.
+ *
+ * IMPORTANT: This migration uses pure text injection — it never does a full YAML round-trip.
+ * This preserves template variables like {{ global.x | default }} which would otherwise be
+ * corrupted by yaml.load() / yaml.dump() (YAML parses {{ }} as flow mappings).
  */
 
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
 
 function generateSectionId(componentType: string): string {
   const suffix = Math.random().toString(36).slice(2, 8);
@@ -26,6 +29,55 @@ function walkDir(dir: string, results: string[] = []): string[] {
   return results;
 }
 
+/**
+ * Check if a section block (starting at lineIndex) already has a section_id
+ * before the next top-level section starts.
+ */
+function sectionHasId(lines: string[], startLine: number): boolean {
+  for (let i = startLine + 1; i < lines.length; i++) {
+    if (/^  - type:/.test(lines[i])) break;
+    if (/^    section_id:/.test(lines[i])) return true;
+  }
+  return false;
+}
+
+/**
+ * Check if the file has any sections at all (contains `  - type:` pattern).
+ */
+function hasSections(rawText: string): boolean {
+  return /^  - type:\s*\S+/m.test(rawText);
+}
+
+/**
+ * Pure text injection: find each `  - type: <name>` line and insert
+ * `    section_id: <id>` immediately after it, if no section_id already exists
+ * in that section block.
+ *
+ * Never parses or dumps YAML — template vars are completely untouched.
+ */
+function addMissingSectionIds(rawText: string): { patched: string; idsAdded: number } {
+  const lines = rawText.split("\n");
+  const result: string[] = [];
+  let idsAdded = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    result.push(line);
+
+    const typeMatch = line.match(/^  - type:\s*(\S+)/);
+    if (typeMatch) {
+      if (!sectionHasId(lines, i)) {
+        const sectionType = typeMatch[1];
+        const id = generateSectionId(sectionType);
+        result.push(`    section_id: ${id}`);
+        idsAdded++;
+      }
+    }
+  }
+
+  return { patched: result.join("\n"), idsAdded };
+}
+
 const MARKETING_CONTENT = path.join(process.cwd(), "marketing-content");
 const files = walkDir(MARKETING_CONTENT);
 
@@ -35,38 +87,15 @@ let totalIdsAdded = 0;
 for (const filePath of files) {
   const rawContent = fs.readFileSync(filePath, "utf-8");
 
-  let parsed: Record<string, unknown> | null = null;
-  try {
-    const result = yaml.load(rawContent.replace(/\{\{[^}]*\}\}/g, "__TPL__"));
-    if (result && typeof result === "object" && !Array.isArray(result)) {
-      parsed = result as Record<string, unknown>;
-    }
-  } catch {
-    continue;
-  }
+  if (!hasSections(rawContent)) continue;
 
-  if (!parsed) continue;
+  const { patched, idsAdded } = addMissingSectionIds(rawContent);
 
-  const sections = parsed.sections;
-  if (!Array.isArray(sections)) continue;
-
-  let fileIdsAdded = 0;
-  for (const section of sections) {
-    if (section && typeof section === "object") {
-      const s = section as Record<string, unknown>;
-      if (!s.section_id) {
-        s.section_id = generateSectionId((s.type as string) || "section");
-        fileIdsAdded++;
-        totalIdsAdded++;
-      }
-    }
-  }
-
-  if (fileIdsAdded > 0) {
-    const dumped = yaml.dump(parsed, { lineWidth: 120, noRefs: true, sortKeys: false });
-    fs.writeFileSync(filePath, dumped, "utf-8");
+  if (idsAdded > 0) {
+    fs.writeFileSync(filePath, patched, "utf-8");
     totalFilesChanged++;
-    console.log(`  Updated: ${path.relative(process.cwd(), filePath)} (+${fileIdsAdded} ids)`);
+    totalIdsAdded += idsAdded;
+    console.log(`  Updated: ${path.relative(process.cwd(), filePath)} (+${idsAdded} ids)`);
   }
 }
 

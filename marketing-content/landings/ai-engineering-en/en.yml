@@ -3,24 +3,21 @@ settings:
     eager_count: 3
 meta:
   page_title: Become an AI Engineer in 20 Weeks | 4Geeks Academy
-  description: >-
-    Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K
-    as an AI Engineer.
+  description: Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K as an AI Engineer.
   redirects:
     - /landing/ai-engineering
     - /campaign/ai-engineer
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-n55vo7
+    version: "1.0"
     variant: ApplyFormProductShowcase
     title: Thrive in Today’s Tech and Shape Tomorrow’s.
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
       color: primary
-    description: >-
-      Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the
-      professional companies can’t wait to hire.
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
     form:
       variant: stacked
       conversion_name: student_application
@@ -52,14 +49,8 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
-          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
-          moment.
-        sms_text: >-
-          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
-          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
-          per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     cta_button:
@@ -69,7 +60,7 @@ sections:
       icon: Download
     video:
       url: https://www.youtube.com/shorts/sSxJnelPJT8
-      ratio: '9:16'
+      ratio: "9:16"
       muted: true
     paddingY:
       mobile: md none
@@ -78,9 +69,9 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    section_id: hero-n55vo7
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-x7fhrp
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -107,9 +98,9 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-x7fhrp
   - type: awards_marquee
-    version: '1.0'
+    section_id: awards_marquee-mc1p9l
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -161,16 +152,13 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-    section_id: awards_marquee-mc1p9l
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-o2kd1x
+    version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent shortage is your opportunity
-    description: >-
-      AI Engineers build AI-powered systems, automate workflows, and create AI-integrated products. They are leading the
-      changes companies need today. Yet, according to McKinsey, 87% of companies report they are lacking the AI
-      engineering talent to transform their operations. This gap is your opportunity.
+    description: AI Engineers build AI-powered systems, automate workflows, and create AI-integrated products. They are leading the changes companies need today. Yet, according to McKinsey, 87% of companies report they are lacking the AI engineering talent to transform their operations. This gap is your opportunity.
     card_color: bg-background
     items:
       - value: 800,000
@@ -186,13 +174,11 @@ sections:
       mobile: none md
       desktop: none md
     background: hsl(210 100% 50% / 0.05)
-    section_id: features_grid-o2kd1x
   - type: syllabus
+    section_id: syllabus-4klheu
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
-    program_description: >-
-      From day one, you'll choose one company. Yours, one you want to build, or one you want to reimagine. Over the
-      course of 10 milestones, you'll transform it into a fully operational, AI-powered business.
+    program_description: From day one, you'll choose one company. Yours, one you want to build, or one you want to reimagine. Over the course of 10 milestones, you'll transform it into a fully operational, AI-powered business.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -334,15 +320,15 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-    section_id: syllabus-4klheu
   - type: ai_learning
+    section_id: ai_learning-96yuqs
     badge: Why 4Geeks?
     title: Why Learn AI Engineering with 4Geeks?
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
     features:
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get personalized 1:1 coaching
@@ -352,11 +338,11 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: Start learning now!
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -366,11 +352,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Start learning now!
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -381,17 +367,15 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-    section_id: ai_learning-96yuqs
   - type: certificate
+    section_id: certificate-codmci
     title: Career Outcomes
-    description: >-
-      Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access
-      high-paying roles:
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: 'AI Software Engineer: $95K–$135K'
-      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-      - text: 'Agent Engineer: $105K–$155K'
-      - text: 'Workflow Automation Engineer: $85K–$120K'
+      - text: "AI Software Engineer: $95K–$135K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$155K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
@@ -407,28 +391,22 @@ sections:
           - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: >-
-          Most graduates land their first role within 3–6 months of graduation. With our structured 3-step career
-          development process, technical skills turn into job offers fast.
+        description: Most graduates land their first role within 3–6 months of graduation. With our structured 3-step career development process, technical skills turn into job offers fast.
         benefits:
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Prepare through mock technical and behavioral interviews with real-world problem-solving practice
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
       - value: 55%
         label: Average salary increase
-        description: >-
-          Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment
-          pays for itself.
+        description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
         benefits:
-          - text: 'AI Software Engineer: $95K–$135K'
-          - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-          - text: 'Agent Engineer: $105K–$155K'
-          - text: 'Workflow Automation Engineer: $85K–$120K'
+          - text: "AI Software Engineer: $95K–$135K"
+          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+          - text: "Agent Engineer: $105K–$155K"
+          - text: "Workflow Automation Engineer: $85K–$120K"
       - value: 5,000+
         label: Hiring partners
-        description: >-
-          Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and
-          priority referrals.
+        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -443,14 +421,14 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-    section_id: certificate-codmci
   - type: pricing
-    version: '1.0'
+    section_id: pricing-8pb379
+    version: "1.0"
     variant: product
     title: Finance Your Investment
     subtitle: Your future in tech is within reach.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting below'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
     tech_icons:
       - openai
@@ -484,13 +462,13 @@ sections:
         text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
     cta:
       text: Get more info
-      url: '#hero-form'
+      url: "#hero-form"
       variant: primary
     paddingY:
       mobile: lg none
       desktop: lg none
-    section_id: pricing-8pb379
   - type: whos_hiring
+    section_id: whos_hiring-oz1gpy
     variant: carousel
     title: Trusted by Leading Innovators
     subtitle: Our graduates are hired by top employers.
@@ -525,9 +503,9 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-    section_id: whos_hiring-oz1gpy
   - type: bullet_tabs_showcase
-    version: '1.0'
+    section_id: bullet_tabs_showcase-7bd03u
+    version: "1.0"
     heading: Is This Program Right for You?
     tabs:
       - label: Collaborative documents
@@ -552,21 +530,19 @@ sections:
     paddingY:
       mobile: none
       desktop: none
-    section_id: bullet_tabs_showcase-7bd03u
   - type: testimonials
+    section_id: testimonials-404m72
     title: Real Results from Real Graduates
     subtitle: Join thousands who've transformed their careers
     rating_summary:
-      average: '4.7'
+      average: "4.7"
       count: 1,294
     items:
       - name: Sarah Johnson
         role: AI Engineer
         company: Google
         rating: 5
-        comment: >-
-          This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum
-          is perfect for real-world AI applications.
+        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfect for real-world AI applications.
         outcome: +55% salary increase
       - name: Michael Chen
         role: ML Engineer
@@ -580,9 +556,9 @@ sections:
         rating: 5
         comment: Excellent content and great mentor support. Now I'm working on cutting-edge AI.
         outcome: +100% salary increase
-    section_id: testimonials-404m72
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-nw5mm6
+    version: "1.0"
     title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -627,13 +603,12 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    section_id: cta_banner-nw5mm6
   - type: footer
-    version: '1.0'
+    section_id: footer-frz6kz
+    version: "1.0"
     copyright_text: 2024 4Geeks. All rights reserved.
     paddingY:
       mobile: none
       desktop: none
     marginY:
       desktop: sm none
-    section_id: footer-frz6kz

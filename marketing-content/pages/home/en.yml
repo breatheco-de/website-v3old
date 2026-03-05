@@ -9,9 +9,7 @@ meta:
   priority: 1
   change_frequency: daily
   page_title: 4Geeks Academy | The AI Reskilling Platform
-  description: >-
-    Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to
-    launch your tech career.
+  description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
   redirects:
     - /home
     - /us/index
@@ -23,20 +21,19 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-24ohep
     variant: showcase
     title: Where AI Careers Are Built.
-    subtitle: >-
-      AI-native programs in AI Engineering, Data Science, Software Development and Cybersecurity for high-demand roles
-      in tech.
+    subtitle: AI-native programs in AI Engineering, Data Science, Software Development and Cybersecurity for high-demand roles in tech.
     trust_bar:
-      rating: __TPL__/5
+      rating: {{ global.global_review_rating | 4.9 }}/5
       rating_count: 3,000+
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Explore our Programs
-      url: '#course_selector-ht6wh3'
+      url: "#course_selector-6"
       variant: primary
-      icon: ''
+      icon: ""
     left_images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Community illustration
@@ -53,8 +50,8 @@ sections:
     background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
     paddingY:
       desktop: sm none
-    section_id: hero-24ohep
   - type: award_badges
+    section_id: award_badges-fxohnc
     version: v1.0
     variant: detailed
     showBorder: false
@@ -79,8 +76,8 @@ sections:
         linkText: Learn more
     marginY:
       desktop: none md
-    section_id: award_badges-fxohnc
   - type: image_row
+    section_id: image_row-z97kqt
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
@@ -91,13 +88,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: >-
-        <span style="font-size: 1.25rem;"><span style="font-size: 1.25rem;">Tech Careers Aren’t Built on
-        One-Size-Fits-All.</span></span>
-      text: >-
-        <span style="font-size: 1.125rem;"><span><span><span style="font-size: 1.25rem;">Our programs combine 1:1
-        mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster
-        readiness for high-growth tech roles.</span></span></span></span>
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
+      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
       background: primary
       width: 2
     height: 31rem
@@ -109,23 +101,17 @@ sections:
       desktop: none
     paddingY:
       desktop: md xl
-    section_id: image_row-z97kqt
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-d26z2a
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Where AI-Powered Learning Meets Lifelong Mentorship
-    description: >-
-      AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in
-      high-growth tech roles faster and smarter.
+    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
     bullets:
       - heading: Personalized Learning at Every Level
-        text: >-
-          Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast,
-          adaptive, and focused on what matters.
+        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
       - heading: Lifelong Mentorship & Career Support
-        text: >-
-          1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your
-          career evolves.
+        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
       - heading: AI-Integrated Curriculum and Learning Tools
         text: Master the latest AI tools and workflows that employers are actively hiring for.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
@@ -137,31 +123,29 @@ sections:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
     paddingY:
       desktop: none
-    section_id: two_column_accordion_card-d26z2a
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-95o7vf
+    version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
-    subtitle: >-
-      4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and
-      cybersecurity, landing jobs and increasing earning potential.
+    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
     items:
       - icon: Briefcase
-        value: __TPL__%
+        value: {{ global.global_job_placement_rate | 84 }}%
         title: Job placement rate
       - icon: Graduation
         value: 3-6 months
         title: Average time to get hired
       - icon: GrowthChart
-        value: __TPL__%
+        value: {{ global.global_salary_increase | 55 }}%
         title: Average salary increase after graduation
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
     marginY:
       desktop: none md
-    section_id: features_grid-95o7vf
   - type: career_support_explain
+    section_id: career_support_explain-xpc3k2
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era.
     description: Our career support program is designed to help you land your first job in tech
@@ -170,11 +154,9 @@ sections:
       - tab_label: Job-Ready, Faster
         layout: three_columns
         col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
-        col1_description: >-
+        col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-
-          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio,
-          and interview performance for optimal  impact.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal  impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -199,15 +181,12 @@ sections:
       - tab_label: Real Hiring Access
         layout: two_column_cards
         title: Access the Hidden Job Market.
-        left_text: >-
-          Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and
-          decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a
-          targeted networking strategy.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: __TPL__+
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
@@ -232,11 +211,9 @@ sections:
       - tab_label: Proof That Converts
         layout: text_and_image
         title: Projects that Demonstrate Real Skill.
-        left_description: >-
+        left_description: |-
           Visibility gets attention. Proof closes the gap.
-
-          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that
-          solves real business problems, your work becomes clear evidence of your ability.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
           - icon: IconBriefcase
             text: Industry-aligned, real-world projects
@@ -250,11 +227,9 @@ sections:
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
         title: Turn Your Background into an Advantage.
-        left_description: >-
+        left_description: |-
           Once offers are on the table, we help you choose and negotiate with confidence.
-
-          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and
-          support you through salary negotiation and long-term growth.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
         left_bullets:
           - icon: IconTransfer
             text: Transferable skills mapping
@@ -270,18 +245,14 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: >-
-              MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her
-              endeavor.
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
             achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
-            description: >-
-              Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a
-              career he is passionate about, and a whole new professional life.
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
@@ -289,21 +260,18 @@ sections:
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: >-
-              Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and
-              committed software developer working at a software company in her home country.
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-xpc3k2
   - type: course_selector
     section_id: course_selector-ht6wh3
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
     courses:
       - name: AI Engineering
         icon: Brain
-        duration: __TPL__ weeks
+        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
         label: Updated in 2026
         title: AI Engineering
         badges:
@@ -311,15 +279,13 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: >-
-          Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment
-          strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
       - name: Full Stack Development with AI
         icon: Code
-        duration: __TPL__ weeks
+        duration: {{ global.fullstack_week_duration | 2O }} weeks
         label: Updated in 2026
         title: Full Stack Development with AI
         badges:
@@ -328,17 +294,15 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: >-
-          Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools
-          and workflows.
+          - icon: ""
+            text: ""
+        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
       - name: Data Science & ML
         icon: ChartLine
-        duration: __TPL__ weeks
+        duration: {{ global.data_science_week_duration | 18 }} weeks
         label: Updated in 2026
         title: Data Science & Machine Learning with AI
         badges:
@@ -346,15 +310,13 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: >-
-          Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world
-          problems.  
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
       - name: Cybersecurity
         icon: Shield
-        duration: __TPL__ weeks
+        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
         label: Updated in 2026
         title: Cybersecurity
         badges:
@@ -362,9 +324,7 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: >-
-          Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity
-          threats.  
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -374,17 +334,11 @@ sections:
     paddingY:
       desktop: md lg
   - type: why_learn_ai
+    section_id: why_learn_ai-9pbrek
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: >-
-      <span style="font-size: 1.125rem;"><span><span>Add our optional Job Guarantee for additional peace of mind. If you
-      don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition
-      refund.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
-      regions. <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-      conditions apply.</a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span
-      style="font-size: 1rem;"></span></span></div>
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for additional peace of mind. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
       url: /en/job-guarantee
@@ -410,8 +364,8 @@ sections:
       - buenosaires-argentina
       - costa-rica
       - mexicocity-mexico
-    section_id: why_learn_ai-9pbrek
   - type: testimonials_slide
+    section_id: testimonials_slide-gdqa76
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
     background: hsl(var(--card))
@@ -419,8 +373,8 @@ sections:
       desktop: none
     paddingY:
       desktop: none
-    section_id: testimonials_slide-gdqa76
   - type: faq
+    section_id: faq-ra6e9m
     title: Frequently Asked Questions
     related_features:
       - online-platform
@@ -430,9 +384,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
-    section_id: faq-ra6e9m
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-y7nw0f
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -473,4 +427,3 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-y7nw0f

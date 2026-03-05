@@ -16,39 +16,35 @@ schema:
     - website
 sections:
   - type: dynamic_table
-    version: '1.0'
+    section_id: dynamic_table-544ddh
+    version: "1.0"
     variant: comparison
-    endpoint: >-
-      https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
+    endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results
     title: Cohort Overview
     columns:
       - key: kickoff_date
         label: Date
         type: text
-        function: >-
-          KHJvdykgPT4geyBjb25zdCBrZCA9IHJvdy5raWNrb2ZmX2RhdGUgPyBuZXcgRGF0ZShyb3cua2lja29mZl9kYXRlKSA6IG51bGw7IGNvbnN0IGVkID0gcm93LmVuZGluZ19kYXRlID8gbmV3IERhdGUocm93LmVuZGluZ19kYXRlKSA6IG51bGw7IGlmICgha2QgJiYgIWVkKSByZXR1cm4gIiI7IGNvbnN0IG1vbnRoID0ga2QgPyBrZC50b0xvY2FsZVN0cmluZygnZW4tVVMnLCB7IG1vbnRoOiAnbG9uZycgfSkgOiAiIjsgY29uc3Qgc3RhcnQgPSBrZCA/IGAke1N0cmluZyhrZC5nZXRNb250aCgpKzEpLnBhZFN0YXJ0KDIsJzAnKX0vJHtTdHJpbmcoa2QuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCcwJyl9YCA6ICIiOyBjb25zdCBlbmQgPSBlZCA/IGAke1N0cmluZyhlZC5nZXRNb250aCgpKzEpLnBhZFN0YXJ0KDIsJzAnKX0vJHtTdHJpbmcoZWQuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCcwJyl9YCA6ICIiOyByZXR1cm4gbW9udGggPyBgJHttb250aH1cbiR7c3RhcnR9IHRvICR7ZW5kfWAgOiBgJHtzdGFydH0gdG8gJHtlbmR9YDsgfQ==
+        function: KHJvdykgPT4geyBjb25zdCBrZCA9IHJvdy5raWNrb2ZmX2RhdGUgPyBuZXcgRGF0ZShyb3cua2lja29mZl9kYXRlKSA6IG51bGw7IGNvbnN0IGVkID0gcm93LmVuZGluZ19kYXRlID8gbmV3IERhdGUocm93LmVuZGluZ19kYXRlKSA6IG51bGw7IGlmICgha2QgJiYgIWVkKSByZXR1cm4gIiI7IGNvbnN0IG1vbnRoID0ga2QgPyBrZC50b0xvY2FsZVN0cmluZygnZW4tVVMnLCB7IG1vbnRoOiAnbG9uZycgfSkgOiAiIjsgY29uc3Qgc3RhcnQgPSBrZCA/IGAke1N0cmluZyhrZC5nZXRNb250aCgpKzEpLnBhZFN0YXJ0KDIsJzAnKX0vJHtTdHJpbmcoa2QuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCcwJyl9YCA6ICIiOyBjb25zdCBlbmQgPSBlZCA/IGAke1N0cmluZyhlZC5nZXRNb250aCgpKzEpLnBhZFN0YXJ0KDIsJzAnKX0vJHtTdHJpbmcoZWQuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCcwJyl9YCA6ICIiOyByZXR1cm4gbW9udGggPyBgJHttb250aH1cbiR7c3RhcnR9IHRvICR7ZW5kfWAgOiBgJHtzdGFydH0gdG8gJHtlbmR9YDsgfQ==
       - key: syllabus_version.name
         label: Program
         type: text
-        function: >-
-          KHJvdykgPT4geyBjb25zdCBuYW1lID0gcm93LnN5bGxhYnVzX3ZlcnNpb24/Lm5hbWUgfHwgJyc7IGNvbnN0IGNsZWFuZWQgPSBuYW1lLnJlcGxhY2UoL1xkK1xzKncoa3xrcyk/XGIvZ2ksICcnKS5yZXBsYWNlKC9cYlxkK3dcYi9naSwgJycpLnRyaW0oKTsgcmV0dXJuIGNsZWFuZWQucmVwbGFjZSgvLSskLywnJykudHJpbSgpOyB9
+        function: KHJvdykgPT4geyBjb25zdCBuYW1lID0gcm93LnN5bGxhYnVzX3ZlcnNpb24/Lm5hbWUgfHwgJyc7IGNvbnN0IGNsZWFuZWQgPSBuYW1lLnJlcGxhY2UoL1xkK1xzKncoa3xrcyk/XGIvZ2ksICcnKS5yZXBsYWNlKC9cYlxkK3dcYi9naSwgJycpLnRyaW0oKTsgcmV0dXJuIGNsZWFuZWQucmVwbGFjZSgvLSskLywnJykudHJpbSgpOyB9
       - key: academy.name
         label: Location
         type: text
-        function: >-
-          KHJvdykgPT4gYCR7cm93LmFjYWRlbXk/Lm5hbWUgfHwgJyd9IC0gJHtyb3cuYWNhZGVteT8uY291bnRyeT8ubmFtZSB8fCAnJ31gLnRyaW0oKQ==
+        function: KHJvdykgPT4gYCR7cm93LmFjYWRlbXk/Lm5hbWUgfHwgJyd9IC0gJHtyb3cuYWNhZGVteT8uY291bnRyeT8ubmFtZSB8fCAnJ31gLnRyaW0oKQ==
       - key: syllabus_version.duration_in_days
         label: Duration
         type: text
-        function: >-
-          KHJvdykgPT4geyBjb25zdCBuYW1lID0gKHJvdy5zeWxsYWJ1c192ZXJzaW9uPy5uYW1lIHx8ICcnKS50b0xvd2VyQ2FzZSgpOyBpZiAobmFtZS5pbmNsdWRlcygnY3liZXJzZWN1cml0eScpKSByZXR1cm4gJzE2IHdlZWtzJzsgaWYgKG5hbWUuaW5jbHVkZXMoJ2RhdGEgc2NpZW5jZScpKSByZXR1cm4gJzE2IHdlZWtzJzsgaWYgKG5hbWUuaW5jbHVkZXMoJ2Z1bGwtc3RhY2snKSB8fCBuYW1lLmluY2x1ZGVzKCdmdWxsIHN0YWNrJykpIHJldHVybiAnMjAgd2Vla3MnOyBpZiAobmFtZS5pbmNsdWRlcygnYWkgZW5naW5lZXInKSkgeyByZXR1cm4gbmFtZS5pbmNsdWRlcygnZnQnKSA/ICcxNiB3ZWVrcycgOiAnMjQgd2Vla3MnOyB9IHJldHVybiAnJzsgfQ==
+        function: KHJvdykgPT4geyBjb25zdCBuYW1lID0gKHJvdy5zeWxsYWJ1c192ZXJzaW9uPy5uYW1lIHx8ICcnKS50b0xvd2VyQ2FzZSgpOyBpZiAobmFtZS5pbmNsdWRlcygnY3liZXJzZWN1cml0eScpKSByZXR1cm4gJzE2IHdlZWtzJzsgaWYgKG5hbWUuaW5jbHVkZXMoJ2RhdGEgc2NpZW5jZScpKSByZXR1cm4gJzE2IHdlZWtzJzsgaWYgKG5hbWUuaW5jbHVkZXMoJ2Z1bGwtc3RhY2snKSB8fCBuYW1lLmluY2x1ZGVzKCdmdWxsIHN0YWNrJykpIHJldHVybiAnMjAgd2Vla3MnOyBpZiAobmFtZS5pbmNsdWRlcygnYWkgZW5naW5lZXInKSkgeyByZXR1cm4gbmFtZS5pbmNsdWRlcygnZnQnKSA/ICcxNiB3ZWVrcycgOiAnMjQgd2Vla3MnOyB9IHJldHVybiAnJzsgfQ==
     action:
       label: Apply
       href: /en/apply
-    section_id: dynamic_table-544ddh
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-vntwmi
+    version: "1.0"
     title: Ready to launch your tech career?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -82,9 +78,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-vntwmi
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-t0g0wj
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -113,4 +109,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-t0g0wj

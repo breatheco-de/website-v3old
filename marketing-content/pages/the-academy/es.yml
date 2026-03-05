@@ -14,13 +14,11 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-1dzhwx
     version: '1.0'
     variant: singleColumn
     title: Construyendo carreras en la era de la IA
-    subtitle: >-
-      4Geeks Academy es un coding bootcamp internacional con 8 campus en EE. UU., Latinoamérica y Europa. Formamos
-      estudiantes en Ingeniería en IA, Data Science & Machine Learning y Ciberseguridad — con un camino claro hacia el
-      empleo.
+    subtitle: 4Geeks Academy es un coding bootcamp internacional con 8 campus en EE. UU., Latinoamérica y Europa. Formamos estudiantes en Ingeniería en IA, Data Science & Machine Learning y Ciberseguridad — con un camino claro hacia el empleo.
     badge: 10+ años lanzando carreras en tecnología
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
@@ -31,18 +29,13 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-    section_id: hero-1dzhwx
   - type: split_cards
+    section_id: split_cards-4sew7d
     variant: primary-left
     primary_width: narrow
     primary:
       heading: Nuestra misión y enfoque
-      description: >-
-        Desde 2015, 4Geeks Academy ha ayudado a miles de estudiantes a hacer la transición hacia carreras en tecnología.
-        Nuestro modelo combina formación práctica basada en proyectos con mentorías ilimitadas 1:1, herramientas de
-        aprendizaje impulsadas por IA y acompañamiento estructurado para la búsqueda de empleo. El objetivo es simple:
-        brindar la profundidad técnica, experiencia práctica y estrategia profesional necesarias para conseguir trabajo
-        — y seguir creciendo.
+      description: 'Desde 2015, 4Geeks Academy ha ayudado a miles de estudiantes a hacer la transición hacia carreras en tecnología. Nuestro modelo combina formación práctica basada en proyectos con mentorías ilimitadas 1:1, herramientas de aprendizaje impulsadas por IA y acompañamiento estructurado para la búsqueda de empleo. El objetivo es simple: brindar la profundidad técnica, experiencia práctica y estrategia profesional necesarias para conseguir trabajo — y seguir creciendo.'
       badge: Modelo respaldado por resultados
     secondary:
       benefits:
@@ -54,8 +47,8 @@ sections:
       image_object_position: 60% 100%
     marginY:
       desktop: lg none
-    section_id: split_cards-4sew7d
   - type: features_quad
+    section_id: features_quad-b7t650
     version: '1.0'
     variant: laptopEdge
     heading: Qué nos hace diferentes
@@ -78,26 +71,24 @@ sections:
       desktop: lg none
     paddingY:
       desktop: none
-    section_id: features_quad-b7t650
   - type: stats
+    section_id: stats-r34w4a
     version: '1.0'
     items:
       - value: +{{ global.global_total_alumni | 7000 }}
         label: Alumni
-      - value:
-          '[object Object]': null
+      - value: {{ global.global_campuses | 10 }}
         label: Campus
       - value: ~{{ global.global_job_placement_rate | 84 }}%
         label: Tasa de Contratación
-      - value:
-          '[object Object]': null
+      - value: {{ global.global_review_rating | 4.9 }}
         label: Calificación Promedio
     marginY:
       desktop: lg
     paddingY:
       desktop: none sm
-    section_id: stats-r34w4a
   - type: two_column
+    section_id: two_column-4q8dyy
     proportions:
       - 4
       - 8
@@ -111,22 +102,15 @@ sections:
       justify: end
     right:
       heading: Impulsando el ecosistema tecnológico global
-      description: >-
-        En 4Geeks Academy creemos que la colaboración genera impacto real. Trabajamos con universidades, organizaciones
-        sin fines de lucro, iniciativas de desarrollo laboral, organizaciones globales y comunidades tecnológicas
-        locales para ampliar el acceso a educación tecnológica de alto nivel y fortalecer las oportunidades
-        profesionales. Juntos formamos y colocamos talento diverso, cerramos la brecha de habilidades digitales y
-        construimos la fuerza laboral tecnológica del futuro. También participamos activamente en la comunidad,
-        colaborando en hackatones, desafíos tecnológicos y eventos de la industria que conectan talento con
-        oportunidades y muestran las habilidades de nuestros estudiantes y graduados.
+      description: En 4Geeks Academy creemos que la colaboración genera impacto real. Trabajamos con universidades, organizaciones sin fines de lucro, iniciativas de desarrollo laboral, organizaciones globales y comunidades tecnológicas locales para ampliar el acceso a educación tecnológica de alto nivel y fortalecer las oportunidades profesionales. Juntos formamos y colocamos talento diverso, cerramos la brecha de habilidades digitales y construimos la fuerza laboral tecnológica del futuro. También participamos activamente en la comunidad, colaborando en hackatones, desafíos tecnológicos y eventos de la industria que conectan talento con oportunidades y muestran las habilidades de nuestros estudiantes y graduados.
       text_align: left
     gap: '12'
     marginY:
       desktop: md none
     paddingY:
       desktop: sm
-    section_id: two_column-4q8dyy
   - type: awards_marquee
+    section_id: awards_marquee-di0a41
     version: v1.0
     speed: 40
     gradient: true
@@ -170,17 +154,13 @@ sections:
         logoHeight: 56px
     paddingY:
       desktop: lg none
-    section_id: awards_marquee-di0a41
   - type: whos_hiring
+    section_id: whos_hiring-sfj8fr
     variant: carousel
     title: Empresas que confían en nuestros graduados
-    description: >-
-      Los graduados de 4Geeks son contratados por empresas tecnológicas líderes en EE. UU., Latinoamérica y Europa. Los
-      empleadores destacan constantemente su profundidad técnica, experiencia práctica y capacidad de aportar valor
-      desde el primer día.
-
-      'Siempre me impresiona la profundidad de conocimiento de los estudiantes de 4Geeks. Una de mis contrataciones se
-      convirtió en líder de equipo.' - CodeNinjas
+    description: |-
+      Los graduados de 4Geeks son contratados por empresas tecnológicas líderes en EE. UU., Latinoamérica y Europa. Los empleadores destacan constantemente su profundidad técnica, experiencia práctica y capacidad de aportar valor desde el primer día.
+      'Siempre me impresiona la profundidad de conocimiento de los estudiantes de 4Geeks. Una de mis contrataciones se convirtió en líder de equipo.' - CodeNinjas
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -208,13 +188,11 @@ sections:
         alt: Jooble
     marginY:
       desktop: lg none
-    section_id: whos_hiring-sfj8fr
   - type: profiles_carousel
+    section_id: profiles_carousel-o4egkg
     version: v1.0
     heading: Conoce a los Geeks
-    description: >-
-      Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la
-      tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
+    description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
     image_round: false
     profiles:
       - image_id: alejandro_sanchez
@@ -249,8 +227,8 @@ sections:
         name: Ariana Sánchez
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
-    section_id: profiles_carousel-o4egkg
   - type: cta_banner
+    section_id: cta_banner-b9w150
     version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
@@ -282,9 +260,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -293,8 +269,8 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-b9w150
   - type: sticky_cta
+    section_id: sticky_cta-9wup64
     version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
@@ -323,4 +299,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-9wup64

@@ -15,12 +15,11 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-9s8pqz
+    version: "1.0"
     variant: singleColumn
     title: Careers at 4Geeks
-    subtitle: >-
-      Join a global coding academy recognized for quality, impact, and innovation. Be part of a dynamic global team and
-      help thousands of students worldwide launch tech careers in AI engineering, data science, and cybersecurity.
+    subtitle: Join a global coding academy recognized for quality, impact, and innovation. Be part of a dynamic global team and help thousands of students worldwide launch tech careers in AI engineering, data science, and cybersecurity.
     badge: Job Opportunities
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
@@ -28,8 +27,8 @@ sections:
     image_full_width: false
     marginY:
       desktop: none xl
-    section_id: hero-9s8pqz
   - type: two_column
+    section_id: two_column-r3vh2m
     proportions:
       - 5
       - 7
@@ -44,19 +43,17 @@ sections:
       bullets:
         - text: Remote-first, flexible roles across the U.S., Europe, and LATAM.
         - text: Make a measurable impact on tech education and the future workforce.
-        - text: >-
-            Collaborate with a global, mission-driven team recognized by Forbes and trusted by institutions like IDB,
-            UTEC, and United Way.
+        - text: Collaborate with a global, mission-driven team recognized by Forbes and trusted by institutions like IDB, UTEC, and United Way.
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: '12'
+    gap: "12"
     marginY:
       desktop: none md
     paddingY:
       desktop: lg
-    section_id: two_column-r3vh2m
   - type: faq
+    section_id: faq-pxkb2c
     title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
@@ -64,9 +61,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: lg none
-    section_id: faq-pxkb2c
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-tni4bz
+    version: "1.0"
     title: Contact Us
     subtitle: Fill out the form to find out about our open positions.
     background: hsl(var(--primary))
@@ -102,9 +99,9 @@ sections:
       desktop: md
     paddingY:
       desktop: lg
-    section_id: cta_banner-tni4bz
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-nkaeq8
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -133,4 +130,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-nkaeq8

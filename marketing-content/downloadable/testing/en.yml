@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-4ju2pa
     version: '1.0'
     variant: singleColumn
     title: Top Coding Bootcamp
@@ -29,8 +30,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
-    section_id: hero-4ju2pa
   - type: press_mentions
+    section_id: press_mentions-w0plj5
     version: v1.0
     title: Our Awards
     subtitle: Globally recognized for excellence in tech education
@@ -188,8 +189,8 @@ sections:
           education.
         link_text: Read article
         link_url: http://premiosexcelenciaeducativa.org/wp-content/uploads/2022/03/PALMAR%C3%89S-EXCELENCIA-2022.pdf
-    section_id: press_mentions-w0plj5
   - type: cta_banner
+    section_id: cta_banner-13e2qc
     version: '1.0'
     title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -228,8 +229,8 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-13e2qc
   - type: sticky_cta
+    section_id: sticky_cta-5hnk9p
     version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
@@ -259,4 +260,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-5hnk9p

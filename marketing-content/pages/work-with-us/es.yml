@@ -6,9 +6,7 @@ meta:
   priority: 0.8
   change_frequency: weekly
   page_title: Trabaja con Nosotros | 4Geeks Academy
-  description: >-
-    Únete al equipo de 4Geeks Academy. Conoce más sobre las oportunidades laborales en una academia global de
-    programación reconocida por su calidad, impacto e innovación.
+  description: Únete al equipo de 4Geeks Academy. Conoce más sobre las oportunidades laborales en una academia global de programación reconocida por su calidad, impacto e innovación.
   redirects:
     - /trabaja-con-nosotros
 schema:
@@ -17,20 +15,18 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-3iq24c
+    version: "1.0"
     variant: singleColumn
     title: Carreras en 4Geeks
-    subtitle: >-
-      Únete a una academia global de programación reconocida por su calidad, impacto e innovación. Forma parte de un
-      equipo dinámico y global que ayuda a miles de estudiantes en todo el mundo a lanzar carreras en ingeniería de IA,
-      ciencia de datos y ciberseguridad.
+    subtitle: Únete a una academia global de programación reconocida por su calidad, impacto e innovación. Forma parte de un equipo dinámico y global que ayuda a miles de estudiantes en todo el mundo a lanzar carreras en ingeniería de IA, ciencia de datos y ciberseguridad.
     badge: Oportunidades Laborales
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
       alt: Estudiantes programando en computadoras en un aula
     image_full_width: false
-    section_id: hero-3iq24c
   - type: two_column
+    section_id: two_column-id28c8
     proportions:
       - 5
       - 7
@@ -45,19 +41,17 @@ sections:
       bullets:
         - text: Trabajo remoto prioritario, roles flexibles en EE.UU., Europa y LATAM.
         - text: Genera un impacto medible en la educación tecnológica y en el futuro del mercado laboral.
-        - text: >-
-            Colabora con un equipo global impulsado por una misión, reconocido por Forbes y confiado por instituciones
-            como BID, UTEC y United Way.
+        - text: Colabora con un equipo global impulsado por una misión, reconocido por Forbes y confiado por instituciones como BID, UTEC y United Way.
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: '12'
+    gap: "12"
     marginY:
       desktop: none md
     paddingY:
       desktop: lg
-    section_id: two_column-id28c8
   - type: faq
+    section_id: faq-rzoxg0
     title: Preguntas Frecuentes
     related_features:
       - mentors-and-teachers
@@ -65,9 +59,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: lg none
-    section_id: faq-rzoxg0
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-a9ipci
+    version: "1.0"
     title: Contáctanos
     subtitle: Completa el formulario para conocer nuestras posiciones abiertas.
     background: hsl(var(--primary))
@@ -103,9 +97,9 @@ sections:
       desktop: md
     paddingY:
       desktop: lg
-    section_id: cta_banner-a9ipci
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-opewi9
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -133,4 +127,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-opewi9

@@ -15,9 +15,7 @@ available_programs:
   - full-stack
 context:
   when_to_use: Para visitantes del área de Miami o interesados en oportunidades tech en el creciente ecosistema de South Florida.
-  target_audience: >-
-    Residentes locales de Miami, inmigrantes latinoamericanos buscando carreras tech en EE.UU., y profesionales en las
-    diversas industrias de South Florida.
+  target_audience: Residentes locales de Miami, inmigrantes latinoamericanos buscando carreras tech en EE.UU., y profesionales en las diversas industrias de South Florida.
   goals:
     - Destacar el estatus emergente de Miami como hub tech
     - Enfatizar el soporte bilingüe (inglés/español)
@@ -38,17 +36,15 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: 1395 Brickell Ave
         addressLocality: Miami
         addressRegion: FL
-        postalCode: '33131'
+        postalCode: "33131"
         addressCountry: US
 meta:
   page_title: 4Geeks Academy Miami | Bootcamp de Programación en Florida
-  description: >-
-    Únete al bootcamp de programación 4Geeks en Miami. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría
-    ilimitada y garantía de empleo.
+  description: Únete al bootcamp de programación 4Geeks en Miami. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/miami-og.jpg
   priority: 0.8
@@ -58,28 +54,26 @@ meta:
     - /es/coding-campus/bootcamp-programacion-miami
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-jxq9gx
+    version: "1.0"
     variant: singleColumn
     title: Construye tu carrera en tecnología en Miami
-    subtitle: >-
-      Prepárate para los roles más demandados, incluyendo Ingeniería en IA, en uno de los mercados tecnológicos de mayor
-      crecimiento en Estados Unidos. Estudia online o presencial con mentoría 1:1, proyectos reales y acompañamiento
-      profesional diseñado para impulsar tu desarrollo profesional.
+    subtitle: Prepárate para los roles más demandados, incluyendo Ingeniería en IA, en uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos. Estudia online o presencial con mentoría 1:1, proyectos reales y acompañamiento profesional diseñado para impulsar tu desarrollo profesional.
     badge: Campus Miami
     cta_buttons:
       - text: Aplicar ahora
         url: /es/apply
         variant: primary
       - text: Ver el programa
-        url: '#cta_banner-3o0kd6'
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-jxq9gx
   - type: awards_marquee
+    section_id: awards_marquee-6g3u8f
     version: v1.0
     speed: 40
     gradient: true
@@ -119,9 +113,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-6g3u8f
   - type: banner
-    version: '1.0'
+    section_id: banner-80fzy3
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -129,16 +123,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: En el centro del crecimiento tecnológico de Miami
-    description: >-
-      Miami es uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos, y 4Geeks Academy forma parte
-      activa de su ecosistema. Desde nuestro campus en la ciudad, organizamos eventos técnicos, charlas especializadas y
-      encuentros enfocados en empleabilidad que conectan a estudiantes con empresas locales y profesionales del sector
-      en el sur de Florida.
+    description: Miami es uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos, y 4Geeks Academy forma parte activa de su ecosistema. Desde nuestro campus en la ciudad, organizamos eventos técnicos, charlas especializadas y encuentros enfocados en empleabilidad que conectan a estudiantes con empresas locales y profesionales del sector en el sur de Florida.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-80fzy3
   - type: two_column
+    section_id: two_column-p79gwg
     proportions:
       - 6
       - 6
@@ -147,25 +137,20 @@ sections:
       video: https://youtu.be/4n-ZAUPIxJI
     right:
       heading: La visión del alcalde sobre el futuro tech de Miami
-      sub_heading: >-
-        El alcalde Francis Suárez explica por qué Miami se ha consolidado como uno de los mercados tecnológicos de mayor
-        crecimiento en Estados Unidos.
-      description: >-
-        En esta entrevista, comparte su visión sobre la expansión del empleo en tecnología en la ciudad y el papel clave
-        del desarrollo de software y la inteligencia artificial en su futuro económico.
+      sub_heading: El alcalde Francis Suárez explica por qué Miami se ha consolidado como uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos.
+      description: En esta entrevista, comparte su visión sobre la expansión del empleo en tecnología en la ciudad y el papel clave del desarrollo de software y la inteligencia artificial en su futuro económico.
       button:
         text: Ver entrevista completa
         url: https://youtu.be/4n-ZAUPIxJI
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-p79gwg
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explora Nuestros Programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -180,9 +165,7 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: >-
-          Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de
-          despliegue en el mundo real.
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
@@ -197,11 +180,9 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ''
-            text: ''
-        description: >-
-          Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con
-          herramientas estándar de la industria.
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
@@ -215,9 +196,7 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: >-
-          Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones
-          impulsadas por IA para problemas del mundo real.
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -231,9 +210,7 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: >-
-          Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas
-          modernas de ciberseguridad.
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
@@ -244,29 +221,20 @@ sections:
     background: hsl(var(--muted))
     section_id: course_selector-nyglwg
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-tbipjz
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que necesitas para crecer en la industria tech de hoy
-    description: >-
-      Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech
-      actual.
+    description: Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech actual.
     bullets:
       - heading: Mentoría 1:1 ilimitada y de por vida
-        text: >-
-          Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante
-          el programa y continúa recibiendo apoyo incluso después de graduarte.
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
       - heading: Aprendizaje potenciado por IA
-        text: >-
-          Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma
-          continua con guía adaptada a tu progreso.
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
       - heading: Acompañamiento profesional ilimitado y de por vida
-        text: >-
-          Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento
-          profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
       - heading: Comunidad tech global activa
-        text: >-
-          Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades
-          y mantente conectado a una red global incluso después de graduarte.
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
@@ -275,101 +243,71 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(var(--muted))
-    section_id: two_column_accordion_card-tbipjz
   - type: testimonials_slide
-    title: Historias reales de crecimiento profesional en tech
-    description: >-
-      Las experiencias de nuestros graduados muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y
-      el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
-    background: bg-sidebar
     section_id: testimonials_slide-qhlyoy
+    title: Historias reales de crecimiento profesional en tech
+    description: Las experiencias de nuestros graduados muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
+    background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-pz6c50
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
-      description: >-
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de
-        Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras
-        muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un
-        rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
-
-        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif;
-        white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones
-        aplican.</a></span><!--EndFragment-->
+      description: |-
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Estamos dispuestos a respaldarlo. Nuestra Garantía de Empleo opcional está diseñada para dar confianza extra a los estudiantes al transitar al mundo tech. Mientras muchas escuelas hablan de apoyo profesional, nosotros nos comprometemos con resultados: consigue empleo en un rol tech en 9 meses después de graduarte, o recibe reembolso completo de matrícula.&nbsp;
+        <br><!--StartFragment--><span style="font-family: &quot;Google Sans&quot;, Roboto, Arial, sans-serif; white-space-collapse: preserve;">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf">Condiciones aplican.</a></span><!--EndFragment-->
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: __TPL__% tasa de contratación entre graduados
+        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: __TPL__% aumento salarial promedio en roles tech
+        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    section_id: split_cards-pz6c50
   - type: why_learn_ai
+    section_id: why_learn_ai-wggj5a
     variant: laptop-edge
     title: Por Qué Miami es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech de rápido crecimiento con momentum real de contratación
-    description: >-
-      Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., con empresas contratando activamente en
-      software, IA y roles de datos. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span
-      style="font-size: 0.875rem; color: rgb(0, 7, 26);">Miami ocupa el puesto 4 en EE.UU. en crecimiento de empleos
-      tech, señalando una demanda fuerte y sostenida&nbsp;&nbsp;</span></li><li>Reconocido entre los top 30 ecosistemas
-      de startups globales, con rápido crecimiento en capital de riesgo y relocalización de
-      empresas&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech,
-      healthcare, logística y tech emergente&nbsp;&nbsp;</li></ul></div><div>Ubicado en Brickell, nuestro campus en
-      Miami te conecta con empleadores locales, socios de contratación y eventos tech, para que construyas relaciones
-      que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>
-    section_id: why_learn_ai-wggj5a
+    description: "Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., con empresas contratando activamente en software, IA y roles de datos. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ocupa el puesto 4 en EE.UU. en crecimiento de empleos tech, señalando una demanda fuerte y sostenida&nbsp;&nbsp;</span></li><li>Reconocido entre los top 30 ecosistemas de startups globales, con rápido crecimiento en capital de riesgo y relocalización de empresas&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, healthcare, logística y tech emergente&nbsp;&nbsp;</li></ul></div><div>Ubicado en Brickell, nuestro campus en Miami te conecta con empleadores locales, socios de contratación y eventos tech, para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
-    version: v1.0
-    title: Mentoría y Soporte
-    subtitle: Nunca estás solo en tu camino de aprendizaje
-    cards:
-      - icon: user
-        title: Mentoría 1:1
-        description: >-
-          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
-          profesionalmente.
-      - icon: users
-        title: Coaching de Carrera
-        description: >-
-          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
-          contratación.
-      - icon: headset
-        title: Soporte Comunitario 24/7
-        description: >-
-          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
-          entienden tu journey.
     section_id: mentorship-y95926
-  - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: >-
-          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
-          profesionalmente.
+        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: >-
-          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
-          contratación.
+        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: >-
-          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
-          entienden tu journey.
+        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+  - type: mentorship
     section_id: mentorship-is2tr8
+    version: v1.0
+    title: Mentoría y Soporte
+    subtitle: Nunca estás solo en tu camino de aprendizaje
+    cards:
+      - icon: user
+        title: Mentoría 1:1
+        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
+      - icon: users
+        title: Coaching de Carrera
+        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
+      - icon: headset
+        title: Soporte Comunitario 24/7
+        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-56pdz6
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -388,17 +326,13 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -414,13 +348,13 @@ sections:
         outcome: Promovido en 1 año
     marginY:
       desktop: none lg
-    section_id: testimonials-56pdz6
   - type: testimonials
+    section_id: testimonials-yzwhi6
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -439,17 +373,13 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -463,8 +393,8 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-yzwhi6
   - type: faq
+    section_id: faq-zs20ex
     title: Preguntas Frecuentes
     related_features:
       - certification
@@ -474,9 +404,8 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    section_id: faq-zs20ex
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
@@ -508,9 +437,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -522,9 +449,9 @@ sections:
       desktop: md
     section_id: cta_banner-3o0kd6
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: __TPL__
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

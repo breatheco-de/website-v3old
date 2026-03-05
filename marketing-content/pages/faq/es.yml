@@ -3,20 +3,20 @@ template: faq
 title: Preguntas Frecuentes
 meta:
   page_title: Preguntas Frecuentes | 4Geeks Academy
-  description: >-
-    Encuentra respuestas a las preguntas más comunes sobre el bootcamp de programación de 4Geeks Academy, programas,
-    soporte de carrera, precios y más.
+  description: Encuentra respuestas a las preguntas más comunes sobre el bootcamp de programación de 4Geeks Academy, programas, soporte de carrera, precios y más.
   redirects:
     - /es/faqs
     - /es/preguntas-frecuentes
+
 sections:
   - type: faq_editor
+    section_id: faq_editor-3jww68
     version: v1.0
     title: Preguntas Frecuentes
     subtitle: Edita y administra todas las preguntas frecuentes desde esta ubicación centralizada
-    section_id: faq_editor-3jww68
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-6xvswn
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -44,4 +44,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-6xvswn

@@ -16,19 +16,18 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-t12r78
     version: '1.0'
     variant: singleColumn
     title: Contact Us
-    subtitle: >-
-      Do you have any questions? We will be happy to respond as soon as possible. We also invite you to review our <a
-      href="/en/faq">Frequently Asked Questions page</a>.
+    subtitle: Do you have any questions? We will be happy to respond as soon as possible. We also invite you to review our <a href="/en/faq">Frequently Asked Questions page</a>.
     badge: Contact
     marginY:
       desktop: none
     paddingY:
       desktop: md sm
-    section_id: hero-t12r78
   - type: contact_us_info
+    section_id: contact_us_info-tflvss
     version: '1.0'
     title: Tell us about you
     background: hsl(var(--muted))
@@ -82,8 +81,8 @@ sections:
         email: venezuela@4GeeksAcademy.com
     paddingY:
       desktop: sm
-    section_id: contact_us_info-tflvss
   - type: sticky_cta
+    section_id: sticky_cta-nb2b12
     version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
@@ -113,4 +112,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-nb2b12

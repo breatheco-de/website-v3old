@@ -15,9 +15,7 @@ available_programs:
   - full-stack
 context:
   when_to_use: For Miami-area visitors or those interested in tech opportunities in South Florida's growing tech ecosystem.
-  target_audience: >-
-    Local Miami residents, Latin American immigrants seeking tech careers in the US, and professionals in South
-    Florida's diverse industries.
+  target_audience: Local Miami residents, Latin American immigrants seeking tech careers in the US, and professionals in South Florida's diverse industries.
   goals:
     - Highlight Miami's emerging tech hub status
     - Emphasize bilingual (English/Spanish) support
@@ -38,17 +36,15 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: 1395 Brickell Ave
         addressLocality: Miami
         addressRegion: FL
-        postalCode: '33131'
+        postalCode: "33131"
         addressCountry: US
 meta:
   page_title: 4Geeks Academy Miami | Coding Bootcamp in Florida
-  description: >-
-    Join 4Geeks Miami coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and
-    job guarantee.
+  description: Join 4Geeks Miami coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and job guarantee.
   robots: index, follow
   og_image: /images/locations/miami-og.jpg
   priority: 0.8
@@ -58,28 +54,26 @@ meta:
     - /us/coding-campus/coding-bootcamp-miami
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-e7kqb0
+    version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Miami
-    subtitle: >-
-      Train for today’s most in-demand tech roles, including AI Engineering, in one of the country’s fastest-growing
-      tech hubs and home to our global headquarters. Learn online or in person with live instruction, hands-on projects,
-      and personalized career support built for real hiring.
+    subtitle: Train for today’s most in-demand tech roles, including AI Engineering, in one of the country’s fastest-growing tech hubs and home to our global headquarters. Learn online or in person with live instruction, hands-on projects, and personalized career support built for real hiring.
     badge: Miami Campus
     cta_buttons:
       - text: Apply Now
         url: /en/apply
         variant: primary
       - text: Get Program Details
-        url: '#cta_banner-7vc9sj'
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-e7kqb0
   - type: awards_marquee
+    section_id: awards_marquee-fqza2v
     version: v1.0
     speed: 40
     gradient: true
@@ -119,9 +113,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-fqza2v
   - type: banner
-    version: '1.0'
+    section_id: banner-gu1brb
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -129,15 +123,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: At the Center of Miami’s Tech Momentum
-    description: >-
-      Miami is one of the fastest-growing tech hubs in the U.S., and 4Geeks Academy plays a key role in its ecosystem.
-      From our Miami campus, we host hands-on events, tech talks, and hiring-focused meetups that connect students with
-      local employers, alumni, and builders shaping the South Florida tech scene.
+    description: Miami is one of the fastest-growing tech hubs in the U.S., and 4Geeks Academy plays a key role in its ecosystem. From our Miami campus, we host hands-on events, tech talks, and hiring-focused meetups that connect students with local employers, alumni, and builders shaping the South Florida tech scene.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-gu1brb
   - type: two_column
+    section_id: two_column-cdb86q
     proportions:
       - 6
       - 6
@@ -147,22 +138,19 @@ sections:
     right:
       heading: What Miami’s Tech Boom Unlocks for Local Talent
       sub_heading: Hear directly from Mayor Francis Suarez on why Miami has become one of the fastest-growing tech hubs in the U.S.
-      description: >-
-        Mayor Suarez shares advice for people entering tech and explains what’s driving Miami’s job growth — and why
-        software development and AI skills are central to the city’s future.
+      description: Mayor Suarez shares advice for people entering tech and explains what’s driving Miami’s job growth — and why software development and AI skills are central to the city’s future.
       button:
         text: Watch the full interview
         url: https://youtu.be/4n-ZAUPIxJI
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-cdb86q
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -177,9 +165,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: >-
-          Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment
-          strategies.  
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -194,11 +180,9 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: >-
-          Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools
-          and workflows.
+          - icon: ""
+            text: ""
+        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -212,9 +196,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: >-
-          Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world
-          problems.  
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -228,9 +210,7 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: >-
-          Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity
-          threats.  
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -241,93 +221,55 @@ sections:
     background: hsl(var(--muted))
     section_id: course_selector-0lgvpc
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-quibap
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: >-
-          Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the
-          program and continue receiving support long after you graduate.
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
       - heading: AI-Powered Learning Support
-        text: >-
-          Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve
-          continuously with guidance tailored to your learning path.
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
-        text: >-
-          Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning
-          to interviews and negotiation, support evolves with your goals and experience.
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
-        text: >-
-          Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and
-          stay connected to a global network well beyond graduation.
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-quibap
   - type: testimonials_slide
-    title: Proven Paths to Tech Careers
-    description: >-
-      These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real
-      outcomes.
-    background: bg-sidebar
     section_id: testimonials_slide-3fijc0
+    title: Proven Paths to Tech Careers
+    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-k4v0l0
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
-      description: >-
-        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job
-        Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk
-        about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or
-        receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-        conditions apply.</a></span>
-
+      description: |-
+        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div></div>
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: __TPL__% hiring rate among graduates
+        - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
-        - text: __TPL__% average salary increase in tech roles
+        - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    section_id: split_cards-k4v0l0
   - type: why_learn_ai
+    section_id: why_learn_ai-itu7b0
     variant: laptop-edge
     title: Why Miami Is a Smart Place to Launch Your Tech Career
     subtitle: A fast-growing tech ecosystem with real hiring momentum
-    description: >-
-      Miami is one of the fastest-growing tech hubs in the U.S., with companies actively hiring across software, AI, and
-      data roles. It’s a market with real demand for technical talent.<br><div><div><ul><li><span style="font-size:
-      0.875rem; color: rgb(0, 7, 26);">Miami ranks 4th in the U.S. for tech job growth, signaling strong and sustained
-      hiring demand&nbsp;&nbsp;</span></li><li>Recognized among the top 30 global startup ecosystems, with rapid growth
-      in venture capital and company relocations&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills
-      across fintech, healthcare, logistics, and emerging tech sectors&nbsp;&nbsp;</li></ul></div><div>Located in
-      Brickell, our Miami campus connects you with local employers, hiring partners, and tech events, so you build
-      relationships that support your entry and&nbsp; long-term growth in tech.</div></div>
-    section_id: why_learn_ai-itu7b0
+    description: "Miami is one of the fastest-growing tech hubs in the U.S., with companies actively hiring across software, AI, and data roles. It’s a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ranks 4th in the U.S. for tech job growth, signaling strong and sustained hiring demand&nbsp;&nbsp;</span></li><li>Recognized among the top 30 global startup ecosystems, with rapid growth in venture capital and company relocations&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, healthcare, logistics, and emerging tech sectors&nbsp;&nbsp;</li></ul></div><div>Located in Brickell, our Miami campus connects you with local employers, hiring partners, and tech events, so you build relationships that support your entry and&nbsp; long-term growth in tech.</div></div>"
   - type: mentorship
-    version: v1.0
-    title: Mentorship & Support
-    subtitle: You're never alone in your learning journey
-    cards:
-      - icon: user
-        title: 1-on-1 Mentorship
-        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
-      - icon: users
-        title: Career Coaching
-        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
-      - icon: headset
-        title: 24/7 Community Support
-        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-gje87e
-  - type: mentorship
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -341,21 +283,36 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+  - type: mentorship
     section_id: mentorship-f65vnw
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-t4jjg5
+    version: "1.0"
     title: Miami Graduate Success Stories
     filter_by_location: miami-usa
     marginY:
       desktop: none lg
-    section_id: testimonials-t4jjg5
   - type: testimonials
+    section_id: testimonials-cz4m7i
     version: v1.0
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -393,8 +350,8 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
-    section_id: testimonials-cz4m7i
   - type: faq
+    section_id: faq-etpl4v
     title: Frequently Asked Questions
     related_features:
       - certification
@@ -404,9 +361,8 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    section_id: faq-etpl4v
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     background: hsl(var(--primary))
@@ -450,7 +406,7 @@ sections:
       desktop: md
     section_id: cta_banner-7vc9sj
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

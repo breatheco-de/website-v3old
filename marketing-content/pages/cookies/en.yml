@@ -15,34 +15,24 @@ schema:
     - website
 sections:
   - type: article
-    content: >
+    section_id: article-jcsogl
+    content: |
       # Cookies Policy. 4Geeks Academy
-
 
       ## Information About Cookies
 
-
-      Following the amendment to the Spanish "Law on Information Society Services and Electronic Commerce" (LSSICE),
-      established by Royal Decree 13/2012, websites that use non-essential cookies are required to obtain the user's
-      explicit consent before allowing them to browse.
-
+      Following the amendment to the Spanish "Law on Information Society Services and Electronic Commerce" (LSSICE), established by Royal Decree 13/2012, websites that use non-essential cookies are required to obtain the user's explicit consent before allowing them to browse.
 
       ## What Are Cookies?
 
+      Cookies and similar technologies, such as local shared objects, flash cookies, or pixels, are tools used by web servers to store and retrieve information about visitors, as well as to ensure the proper functioning of the website.
 
-      Cookies and similar technologies, such as local shared objects, flash cookies, or pixels, are tools used by web
-      servers to store and retrieve information about visitors, as well as to ensure the proper functioning of the
-      website.
-
-
-      Through the use of these technologies, the web server may remember certain user data, such as display preferences,
-      username and password, products of interest, and other relevant information that helps improve the browsing
-      experience.
+      Through the use of these technologies, the web server may remember certain user data, such as display preferences, username and password, products of interest, and other relevant information that helps improve the browsing experience.
     show_toc: true
     max_width: xl
-    section_id: article-jcsogl
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-7t17bh
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -71,4 +61,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-7t17bh

@@ -7,9 +7,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Programa Full Stack con IA en España | 4Geeks Academy
-  description: >-
-    Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24
-    semanas.
+  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
 schema:
   include:
     - organization
@@ -17,16 +15,15 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-83a7ov
+    version: "1.0"
     variant: ApplyFormProductShowcase
     title: Mentoría personalizada y resultados profesionales comprobados.
     brand_mark:
       prefix: Programa de Desarrollo
       highlight: Full Stack con IA
       color: primary
-    description: >-
-      Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por
-      IA.
+    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA.
     form:
       variant: stacked
       conversion_name: student_application
@@ -58,9 +55,7 @@ sections:
       privacy_url: /politica-privacidad
       consent:
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     cta_button:
       text: Descargar programa
@@ -69,7 +64,7 @@ sections:
       icon: Download
     video:
       url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
-      ratio: '9:16'
+      ratio: "9:16"
       muted: true
     bullets:
       - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
@@ -82,9 +77,9 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    section_id: hero-83a7ov
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-geg3ym
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -118,34 +113,15 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
       consent:
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-    section_id: sticky_cta-geg3ym
   - type: awards_marquee
-    version: '1.0'
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
-  - type: award_badges
-    version: v1.0
-    variant: detailed
-    showBorder: false
     items:
-      - id: coursereport-detailed
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-        description: Reconocida como una de las mejores escuelas tecnológicas a nivel mundial
-        link: https://www.coursereport.com
-        linkText: Leer reviews
-      - id: logo-premios-excelencia-educativa
-        alt: 17 Premios Excelencia Educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        logoHeight: 64px
-        description: La mejor inversión para quienes empiezan de cero o buscan un cambio de carrera
       - id: logo-switchup-best-bootcamps-2025
         alt: SwitchUp Best Bootcamps 2025
         logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
@@ -192,8 +168,7 @@ sections:
         logoHeight: 56px
       - id: logo-european-excellence-education
         alt: European Excellence Education
-        logo: >-
-          https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
         logoHeight: 56px
       - id: logo-forbes-advisor-2025
         logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
@@ -209,21 +184,14 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-    section_id: awards_marquee-66rh3f
-    description: La escuela tecnológica mejor valorada, en base a reseñas verificadas de alumnos
-    link: https://www.switchup.org
-    linkText: Leer reviews
   - type: syllabus
-    version: '1.0'
+    section_id: awards_marquee-66rh3f
+    version: "1.0"
     title: Get Job-Ready with Our Syllabus!
-    subtitle: >-
-      We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into
-      tech.
+    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
     modules:
       - title: Introduction To HTML And CSS
-        description: >-
-          Learn to create web structures with HTML and style them with CSS, essential for building visually appealing
-          and functional websites.
+        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
       - title: JavaScript Fundamentals
         description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
       - title: React Development
@@ -234,90 +202,154 @@ sections:
         description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
       - title: API Development
         description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
-    section_id: syllabus-uav9v6
   - type: syllabus
+    section_id: syllabus-uav9v6
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
-    program_description: >-
-      Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás
-      soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
-    variant: program-modules
-    program_title: Full Stack with AI Program Overview
-    program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
+    program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
     tech_logos:
-      - name: HTML5
-        icon: html
-      - name: CSS3
-        icon: css
-      - name: JavaScript
-        icon: javascript
-      - name: React
-        icon: react
+      - name: OpenAI
+        icon: openai
+      - name: Claude
+        icon: claude
       - name: Python
         icon: python
+      - name: Pandas
+        icon: pandas
+      - name: NumPy
+        icon: numpy
+      - name: Scikit-learn
+        icon: scikitlearn
+      - name: PyTorch
+        icon: pytorch
+      - name: Matplotlib
+        icon: matplotlib
+      - name: React
+        icon: react
+      - name: Next.js
+        icon: nextjs
+      - name: Tailwind CSS
+        icon: tailwindcss
+      - name: Node.js
+        icon: nodejs
+      - name: Vercel
+        icon: vercel
+      - name: Supabase
+        icon: supabase
       - name: Git
         icon: git
+      - name: GitHub
+        icon: github
+      - name: Postman
+        icon: postman
+      - name: n8n
+        icon: n8n
     module_cards:
-      - title: Introduction To HTML And CSS
-        duration: Weeks 1-2
+      - title: Prework con enfoque en IA
+        duration: Hito 0
         objectives:
-          - Create web structures with semantic HTML
-          - Style pages with modern CSS techniques
-          - Build visually appealing and accessible websites
-        projects: Build responsive landing pages from scratch
-        orientation: vertical
+          - Fundamentos YAML/JSON
+          - Control de versiones con Git
+          - Bases de JavaScript
+          - Fundamentos de internet
+          - Agentes de código
+        icon: IconRocket
+      - title: Fundamentos web
+        duration: Hito 1
+        objectives:
+          - HTML, CSS, Tailwind
+          - Mejores prácticas de accesibilidad
+          - Técnicas de maquetado
+        projects: Construye la primera página web de la empresa
+        icon: IconWorld
+      - title: Fundamentos de programación
+        duration: Hito 2
+        objectives:
+          - Algoritmos y estructuras de datos
+          - Stateflow vs controlflow
+          - Dominio de JavaScript
+        projects: Implementa pequeñas funcionalidades para la empresa
         icon: IconCode
-      - title: JavaScript
-        duration: Weeks 3-5
+      - title: UI con IA
+        duration: Hito 3
         objectives:
-          - Master variables, functions, and loops
-          - DOM manipulation for interactive pages
-          - Modern ES6+ features and async programming
-        projects: Create dynamic, interactive web applications
-        orientation: vertical
-        icon: IconBrandJavascript
-      - title: React
-        duration: Weeks 6-9
+          - Prompting de visión a especificación
+          - Generación de componentes con IA
+        projects: Reconstruye la UI de la empresa con IA
+        icon: IconSparkles
+      - title: Fundamentos de React
+        duration: Hito 4
         objectives:
-          - Build component-based user interfaces
-          - State management with hooks
-          - Routing and best practices for scalable apps
-        projects: Build modern single-page applications
-        orientation: vertical
+          - Arquitectura SPA
+          - Props, state y effects
+          - Técnicas de depuración
+        projects: Construye el frontend interactivo de la empresa
         icon: IconBrandReact
-      - title: Python
-        duration: Weeks 10-12
+      - title: Backend para frontends con IA
+        duration: Hito 5
         objectives:
-          - Core programming concepts and data structures
-          - Object-oriented programming principles
-          - Web development and automation skills
-        projects: Create backend services and automation scripts
-        orientation: vertical
-        icon: IconBrandPython
-      - title: Creating APIs
-        duration: Weeks 13-15
+          - APIs y bases de datos
+          - Serialización y autenticación
+          - Funciones serverless
+        projects: Crea el backend de la empresa
+        icon: IconServer
+      - title: Telemetría y pipelines de datos
+        duration: Hito 6
         objectives:
-          - Design and build RESTful APIs
-          - Authentication and database integration
-          - API documentation and best practices
-        projects: Build a full REST API with Flask/Express
-        orientation: vertical
-        icon: IconApi
-      - title: Agile Methodologies
-        duration: Week 16
+          - Recopilar, transformar, agregar y reportar
+        projects: Construye la telemetría de la empresa
+        icon: IconChartLine
+      - title: RAG y memoria
+        duration: Hito 7
         objectives:
-          - Scrum, Kanban, and agile frameworks
-          - Sprint planning and daily standups
-          - Effective collaboration in dev teams
-        projects: Work in agile teams on group projects
-        orientation: vertical
-        icon: IconUsers
+          - Chunking y embeddings
+          - Búsqueda vectorial
+        projects: Añade la capa de conocimiento de la empresa
+        icon: IconBrain
+      - title: Ingeniería de agentes
+        duration: Hito 8
+        objectives:
+          - Reglas y memoria
+          - Llamadas a herramientas
+          - Planificación multi-agente
+        projects: Construye los agentes de la empresa
+        icon: IconRobot
+      - title: Generación de flujos agenticos
+        duration: Hito 9
+        objectives:
+          - Usar LLMs para analizar el caso de la empresa
+          - Generar y validar flujos internos
+          - Implementar pipelines de automatización
+        projects: Serverless, colas, cronjobs o n8n
+        icon: IconSitemap
+      - title: Sistemas en tiempo real
+        duration: Hito 10
+        objectives:
+          - Streaming y sockets
+          - Patrones pub/sub
+        projects: Habilita interacciones en tiempo real para datos, clientes, IA o empleados
+        icon: IconBolt
+      - title: Empresa transformada por IA
+        duration: Capstone
+        objectives:
+          - Frontend generado por IA
+          - API y autenticación
+          - Pipeline de telemetría y reportes
+          - Automatización de flujos (generada por agentes)
+          - Capa de conocimiento RAG
+          - Agentes con llamadas a herramientas
+          - Capa de comunicación en tiempo real
+        projects: Entrega la transformación completa de la empresa que elegiste
+        orientation: horizontal
+        icon: IconTrophy
+    marginY:
+      mobile: none
+      desktop: none
     paddingY:
       mobile: lg none
       desktop: lg md
-      desktop: md
-    section_id: syllabus-2ly5ws
   - type: award_badges
+    section_id: syllabus-2ly5ws
     version: v1.0
     variant: detailed
     showBorder: false
@@ -341,18 +373,15 @@ sections:
         description: La escuela tecnológica mejor valorada, en base a reseñas verificadas de alumnos
         link: https://www.switchup.org
         linkText: Leer reviews
-    section_id: award_badges-vf18kn
   - type: ai_learning
-    variant: feature-tabs
+    section_id: award_badges-vf18kn
     badge: ¿Por qué 4Geeks?
     title: ¿Por qué aprender Ingeniería de IA con 4Geeks?
-    description: >-
-      Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que
-      desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
+    description: Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
     features:
       - icon: TrendingUp
         title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Recibe coaching 1:1 personalizado
@@ -362,66 +391,44 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Robot
         title: Avanza más rápido con herramientas potenciadas por IA
-        description: ''
-    title: Todo lo que necesitas para lanzar tu carrera en tecnología
-    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
-    features:
-      - icon: Robot
-        title: Progresa más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
-          - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
-          - text: Ayuda con depuración y tareas de resolución de problemas
-          - text: Accede a cientos de ejercicios interactivos en Learnpack
+          - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
+          - text: Recibe consejos adaptados a tu nivel y progreso
+          - text: Ayuda 24/7 con depuración y resolución de problemas
+          - text: Accede a cientos de ejercicios de código en Learnpack, nuestra plataforma educativa
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ''
-      - icon: TrendingUp
-        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
         description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Coaching personalizado 1:1
-          - text: Currículums optimizados para procesos de contratación con IA
-          - text: Preparación de entrevistas y negociación salarial
-          - text: Acceso de por vida para apoyar tu crecimiento profesional
-        video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Headset
-        title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ""
->>>>>>> 077c693472931a6c64d44dcfbd9f018982493740
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
-          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
-          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
+          - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
+          - text: Colaboración entre pares en canales de Slack y check-ins semanales
+          - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
         image_id: mentoring_zoom_call
     paddingY:
       mobile: lg none
-      desktop: md none
-    section_id: ai_learning-6kb9rp
+      desktop: lg none
   - type: certificate
+    section_id: ai_learning-6kb9rp
     title: Impacto en tu carrera profesional
-    description: >-
-      Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
-      Florida. Accede a roles bien pagados:
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: 'Ingeniero de software IA: $95K–$135K'
-      - text: 'Ingeniero full-stack (IA): $100K–$145K'
-      - text: 'Ingeniero de agentes: $105K–$155K'
-      - text: 'Ingeniero de automatización de flujos: $85K–$120K'
+      - text: "Ingeniero de software IA: $95K–$135K"
+      - text: "Ingeniero full-stack (IA): $100K–$145K"
+      - text: "Ingeniero de agentes: $105K–$155K"
+      - text: "Ingeniero de automatización de flujos: $85K–$120K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -437,30 +444,22 @@ sections:
           - text: Perfil profesional y estrategia de búsqueda optimizados
       - value: 3-6 meses
         label: Para encontrar empleo
-        description: >-
-          La mayoría de nuestros graduados encuentra empleo en 3–6 meses gracias a nuestro proceso de desarrollo
-          profesional.
+        description: La mayoría de nuestros graduados encuentra empleo en 3–6 meses gracias a nuestro proceso de desarrollo profesional.
         benefits:
-          - text: >-
-              Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros
-              automatizados
+          - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
       - value: 30%
         label: Aumento salarial medio
-        description: >-
-          Nuestros graduados ven un aumento salarial promedio del 30% al pasar a roles de ingeniería de IA. La inversión
-          se paga sola.
+        description: Nuestros graduados ven un aumento salarial promedio del 30% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: 'AI Software Engineer: 30.000 € - 40.000 €'
-          - text: 'AI Full-Stack Engineer: 35.000 € - 50.000 €'
-          - text: 'Agent / Workflow Automation Engineer: 30.000 € - 45.000 €'
-          - text: 'AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €'
+          - text: "AI Software Engineer: 30.000 € - 40.000 €"
+          - text: "AI Full-Stack Engineer: 35.000 € - 50.000 €"
+          - text: "Agent / Workflow Automation Engineer: 30.000 € - 45.000 €"
+          - text: "AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €"
       - value: 5,000+
         label: Empresas que contratan talento
-        description: >-
-          Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de
-          selección prioritarios.
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a nuestra bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -474,8 +473,8 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-    section_id: certificate-kocdaz
   - type: whos_hiring
+    section_id: certificate-kocdaz
     variant: carousel
     title: Empresas líderes confían en nuestro talento
     subtitle: Nuestros graduados trabajan en compañías de referencia del sector tecnológico.
@@ -510,9 +509,9 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-    section_id: whos_hiring-8wyhut
   - type: bullet_tabs_showcase
-    version: '1.0'
+    section_id: whos_hiring-8wyhut
+    version: "1.0"
     heading: ¿Este programa es para ti?
     tabs:
       - label: Compromiso real
@@ -542,21 +541,19 @@ sections:
     paddingY:
       mobile: none
       desktop: none
-    section_id: bullet_tabs_showcase-a1ucwe
   - type: testimonials
+    section_id: bullet_tabs_showcase-a1ucwe
     title: Graduados que hoy trabajan en tecnología
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 700+
     items:
       - name: Sara García
         role: Ingeniera de IA
         company: Google
         rating: 5
-        comment: >-
-          Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo
-          es perfecto para aplicaciones de IA del mundo real.
+        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo es perfecto para aplicaciones de IA del mundo real.
         outcome: +55% aumento salarial
       - name: Miguel Chen
         role: Ingeniero ML
@@ -570,14 +567,12 @@ sections:
         rating: 5
         comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
-    section_id: testimonials-vx254t
   - type: numbered_steps
-    version: '1.0'
+    section_id: testimonials-vx254t
+    version: "1.0"
     variant: bubbleText
     title: Nuestro proceso de admisión
-    description: >-
-      Postular no significa inscribirse automáticamente. Evaluamos cada perfil para asegurar que este programa sea el
-      adecuado para ti.
+    description: Postular no significa inscribirse automáticamente. Evaluamos cada perfil para asegurar que este programa sea el adecuado para ti.
     steps:
       - icon: Application
         title: Aplicación al programa
@@ -590,9 +585,7 @@ sections:
         bullets:
           - Tendrás una conversación con nuestro equipo académico o de admisiones.
           - Evaluamos tu motivación, disponibilidad y encaje con el programa.
-          - >-
-            No es un examen técnico, es una conversación para entender si encajas en el perfil que buscamos y si este es
-            el momento adecuado para ti.
+          - No es un examen técnico, es una conversación para entender si encajas en el perfil que buscamos y si este es el momento adecuado para ti.
       - icon: Decision
         title: Selección y próximos pasos
         bullets:
@@ -600,9 +593,9 @@ sections:
           - Recibirás orientación clara sobre fechas, inversión y expectativas.
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
-    section_id: numbered_steps-d0xnne
   - type: cta_banner
-    version: '1.0'
+    section_id: numbered_steps-d0xnne
+    version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -637,9 +630,7 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary border-white
       terms_className: text-white/80
@@ -651,13 +642,12 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    section_id: cta_banner-1zvnel
   - type: footer
-    version: '1.0'
+    section_id: cta_banner-1zvnel
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
       desktop: none
     marginY:
       desktop: sm none
-    section_id: footer-fm5ukr

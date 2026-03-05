@@ -15,21 +15,20 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-v9dqc2
+    version: "1.0"
     variant: singleColumn
     title: Contact Us
-    subtitle: >-
-      ¿Tienes alguna consulta? Estaremos encantados de responderla lo antes posible. También te invitamos a revisar
-      nuestra página de <a href="/es/faq">Preguntas Frecuentes</a>.
+    subtitle: ¿Tienes alguna consulta? Estaremos encantados de responderla lo antes posible. También te invitamos a revisar nuestra página de <a href="/es/faq">Preguntas Frecuentes</a>.
     badge: Contacto
     marginY:
       desktop: none
     paddingY:
       desktop: md sm
     background: hsl(var(--muted))
-    section_id: hero-v9dqc2
   - type: contact_us_info
-    version: '1.0'
+    section_id: contact_us_info-0hh78p
+    version: "1.0"
     title: Cuéntanos sobre ti
     form:
       variant: stacked
@@ -81,9 +80,9 @@ sections:
         email: venezuela@4GeeksAcademy.com
     paddingY:
       desktop: md
-    section_id: contact_us_info-0hh78p
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-4pmi55
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -111,4 +110,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-4pmi55

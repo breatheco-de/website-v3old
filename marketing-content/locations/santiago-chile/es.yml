@@ -33,16 +33,14 @@ schema:
   overrides:
     organization:
       address:
-        '@type': PostalAddress
+        "@type": PostalAddress
         streetAddress: Av. Apoquindo 3000
         addressLocality: Santiago
         addressRegion: Región Metropolitana
         addressCountry: CL
 meta:
   page_title: 4Geeks Academy Santiago | Bootcamp de Programación en Chile
-  description: >-
-    Únete al bootcamp de programación 4Geeks en Santiago. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con
-    mentoría ilimitada y garantía de empleo.
+  description: Únete al bootcamp de programación 4Geeks en Santiago. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/santiago-og.jpg
   priority: 0.8
@@ -51,27 +49,26 @@ meta:
     - /es/coding-campus/bootcamp-programacion-santiago
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-bb2o04
+    version: "1.0"
     variant: singleColumn
     title: Lanza tu carrera tech preparada para la era de la IA en Santiago
-    subtitle: >-
-      Capacítate para los roles tech más demandados —incluida Ingeniería en IA— dentro del dinámico hub tecnológico de
-      Santiago. Clases en vivo, proyectos prácticos y acompañamiento profesional enfocado en tu empleabilidad real.
+    subtitle: Capacítate para los roles tech más demandados —incluida Ingeniería en IA— dentro del dinámico hub tecnológico de Santiago. Clases en vivo, proyectos prácticos y acompañamiento profesional enfocado en tu empleabilidad real.
     badge: Campus Santiago
     cta_buttons:
-      - text: __TPL__
+      - text: {{ global.call_to_action_apply | Aplicar Ahora }}
         url: /es/apply
         variant: primary
       - text: Solicitar Programa
-        url: '#cta_banner-84re7m'
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-bb2o04
   - type: awards_marquee
+    section_id: awards_marquee-ak4ra1
     version: v1.0
     speed: 40
     gradient: true
@@ -111,9 +108,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-ak4ra1
   - type: banner
-    version: '1.0'
+    section_id: banner-14t0nu
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -121,17 +118,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: En el corazón del impulso tech de Santiago
-    description: >-
-      El ecosistema tecnológico de Santiago está en pleno crecimiento, con cada vez más startups y empresas tecnológicas
-      consolidándose en la ciudad. Hoy, Santiago se posiciona como un polo de innovación donde grandes compañías y
-      nuevos proyectos conviven y generan oportunidades reales. A medida que el sector tech local sigue expandiéndose,
-      te conectamos con empleadores, eventos de la comunidad tech y partners de contratación, para que construyas redes
-      que impulsen tu inserción laboral y crecimiento profesional a largo plazo en tecnología.
+    description: El ecosistema tecnológico de Santiago está en pleno crecimiento, con cada vez más startups y empresas tecnológicas consolidándose en la ciudad. Hoy, Santiago se posiciona como un polo de innovación donde grandes compañías y nuevos proyectos conviven y generan oportunidades reales. A medida que el sector tech local sigue expandiéndose, te conectamos con empleadores, eventos de la comunidad tech y partners de contratación, para que construyas redes que impulsen tu inserción laboral y crecimiento profesional a largo plazo en tecnología.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-14t0nu
   - type: two_column
+    section_id: two_column-lamz6l
     proportions:
       - 6
       - 6
@@ -141,23 +133,19 @@ sections:
     right:
       heading: Descubre el Escenario de la Programación en Santiago
       sub_heading: Perspectivas de Hernan sobre 4GeeksAcademy
-      description: >-
-        Plan de estudios alineado con la industria enfocado en aplicabilidad práctica. Aprendizaje práctico basado en
-        proyectos para el perfeccionamiento de habilidades. Orientación profesional para navegar el dinámico sector
-        tecnológico de Santiago.
+      description: Plan de estudios alineado con la industria enfocado en aplicabilidad práctica. Aprendizaje práctico basado en proyectos para el perfeccionamiento de habilidades. Orientación profesional para navegar el dinámico sector tecnológico de Santiago.
       button:
         text: Ver video completo
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-lamz6l
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explora Nuestros Programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
@@ -172,9 +160,7 @@ sections:
             text: LLMs, Agentes de IA y Automatización
           - icon: Database
             text: Sistemas de IA en Producción
-        description: >-
-          Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de
-          despliegue en el mundo real.
+        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: hsl(var(--accent))
@@ -189,11 +175,9 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-          - icon: ''
-            text: ''
-        description: >-
-          Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con
-          herramientas estándar de la industria.
+          - icon: ""
+            text: ""
+        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: hsl(var(--destructive))
@@ -207,9 +191,7 @@ sections:
             text: Machine Learning y Modelos de IA
           - icon: BarChart
             text: Análisis y Visualización de Datos
-        description: >-
-          Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones
-          impulsadas por IA para problemas del mundo real.
+        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--primary))
@@ -223,142 +205,103 @@ sections:
             text: Detección de Amenazas y Seguridad de Redes
           - icon: Server
             text: Seguridad en la Nube
-        description: >-
-          Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas
-          modernas de ciberseguridad.
+        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ggfjpb
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-fboieb
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que necesitas para triunfar en una industria impulsada por la IA
-    description: >-
-      Formación preparada para la era de la IA, mentoría experta y soporte continuo diseñados para el entorno tech
-      actual.
+    description: Formación preparada para la era de la IA, mentoría experta y soporte continuo diseñados para el entorno tech actual.
     bullets:
       - heading: Mentoría 1:1 ilimitada y de por vida
-        text: >-
-          Obtén orientación técnica personalizada cuando la necesites. Trabaja directamente con mentores con experiencia
-          en la industria durante el programa y sigue recibiendo apoyo incluso después de graduarte.
+        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja directamente con mentores con experiencia en la industria durante el programa y sigue recibiendo apoyo incluso después de graduarte.
       - heading: Soporte de aprendizaje impulsado por IA
-        text: >-
-          Recibe feedback inmediato de RigoBot, nuestro asistente de aprendizaje con IA integrado. Practica, depura y
-          mejora de forma continua con una guía adaptada a tu ritmo y objetivos.
+        text: Recibe feedback inmediato de RigoBot, nuestro asistente de aprendizaje con IA integrado. Practica, depura y mejora de forma continua con una guía adaptada a tu ritmo y objetivos.
       - heading: Soporte profesional ilimitado y de por vida
-        text: >-
-          Accede a coaching profesional personalizado enfocado en tu empleabilidad. Desde estrategia de búsqueda laboral
-          y posicionamiento profesional hasta preparación de entrevistas, el acompañamiento evoluciona contigo y tu
-          experiencia.
+        text: Accede a coaching profesional personalizado enfocado en tu empleabilidad. Desde estrategia de búsqueda laboral y posicionamiento profesional hasta preparación de entrevistas, el acompañamiento evoluciona contigo y tu experiencia.
       - heading: Una comunidad tech global y activa
-        text: >-
-          Únete a nuestra comunidad en Slack con estudiantes, mentores y egresados. Resuelve dudas, comparte
-          oportunidades y mantente conectado a una red global que te acompaña más allá de la graduación.
+        text: Únete a nuestra comunidad en Slack con estudiantes, mentores y egresados. Resuelve dudas, comparte oportunidades y mantente conectado a una red global que te acompaña más allá de la graduación.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-fboieb
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: >-
-      Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching
-      experto llevan a resultados reales.
-    background: bg-sidebar
     section_id: testimonials_slide-ezy7z3
+    title: Caminos Probados hacia Carreras Tech
+    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-0ke9ey
     variant: primary-left
     primary:
       heading: Apoyo en la Búsqueda Laboral de Por Vida
-      description: >
-        ¿La prueba más fuerte de que nuestro enfoque funciona? Acompañamos a nuestros estudiantes en su desarrollo
-        profesional más allá de la graduación. Con GeekFORCE, ofrecemos apoyo continuo en la búsqueda laboral de por
-        vida: orientación en CV, preparación para entrevistas, acceso a oportunidades y acompañamiento estratégico para
-        impulsar tu carrera en tecnología. Más que prometer empleo, nos comprometemos a estar contigo en cada etapa de
-        tu crecimiento profesional en el mundo tech. Condiciones aplican.
+      description: |
+        ¿La prueba más fuerte de que nuestro enfoque funciona? Acompañamos a nuestros estudiantes en su desarrollo profesional más allá de la graduación. Con GeekFORCE, ofrecemos apoyo continuo en la búsqueda laboral de por vida: orientación en CV, preparación para entrevistas, acceso a oportunidades y acompañamiento estratégico para impulsar tu carrera en tecnología. Más que prometer empleo, nos comprometemos a estar contigo en cada etapa de tu crecimiento profesional en el mundo tech. Condiciones aplican.
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: __TPL__% tasa de contratación entre graduados
+        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: __TPL__% aumento salarial promedio en roles tech
+        - text: {{ global.global_salary_increase | 55 }}% aumento salarial promedio en roles tech
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    section_id: split_cards-0ke9ey
   - type: why_learn_ai
+    section_id: why_learn_ai-qhgno2
     variant: laptop-edge
     title: Por qué Santiago es un lugar estratégico para lanzar tu carrera tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
-    description: >-
-      Un ecosistema tecnológico en expansión, con oportunidades reales de contratación.<br><br>Santiago ha experimentado
-      un crecimiento sostenido en la demanda de talento en programación y tecnología, impulsado por la digitalización de
-      múltiples industrias. En este contexto, los bootcamps tech se han convertido en una vía efectiva para acelerar la
-      inserción laboral en el sector.<br><div><div><ul><li>Creciente presencia de empresas tecnológicas y
-      multinacionales con operaciones en Chile</li><li>Alta demanda de talento tech en industrias como fintech, retail,
-      salud y startups</li><li>Necesidad creciente de habilidades en desarrollo de software, inteligencia artificial y
-      análisis de datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con
-      empleadores locales, eventos de la comunidad tech y un ecosistema dinámico que te ayudará a construir redes
-      profesionales y potenciar tu inserción y crecimiento a largo plazo en tecnología.</div></div>
-    section_id: why_learn_ai-qhgno2
+    description: Un ecosistema tecnológico en expansión, con oportunidades reales de contratación.<br><br>Santiago ha experimentado un crecimiento sostenido en la demanda de talento en programación y tecnología, impulsado por la digitalización de múltiples industrias. En este contexto, los bootcamps tech se han convertido en una vía efectiva para acelerar la inserción laboral en el sector.<br><div><div><ul><li>Creciente presencia de empresas tecnológicas y multinacionales con operaciones en Chile</li><li>Alta demanda de talento tech en industrias como fintech, retail, salud y startups</li><li>Necesidad creciente de habilidades en desarrollo de software, inteligencia artificial y análisis de datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con empleadores locales, eventos de la comunidad tech y un ecosistema dinámico que te ayudará a construir redes profesionales y potenciar tu inserción y crecimiento a largo plazo en tecnología.</div></div>
   - type: mentorship
-    version: v1.0
-    title: Mentoría y Soporte
-    subtitle: Nunca estás solo en tu camino de aprendizaje
-    cards:
-      - icon: user
-        title: Mentoría 1:1
-        description: >-
-          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
-          profesionalmente.
-      - icon: users
-        title: Coaching de Carrera
-        description: >-
-          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
-          contratación.
-      - icon: headset
-        title: Soporte Comunitario 24/7
-        description: >-
-          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
-          entienden tu journey.
     section_id: mentorship-2e7bqk
-  - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
     cards:
       - icon: user
         title: Mentoría 1:1
-        description: >-
-          Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer
-          profesionalmente.
+        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
       - icon: users
         title: Coaching de Carrera
-        description: >-
-          Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de
-          contratación.
+        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
       - icon: headset
         title: Soporte Comunitario 24/7
-        description: >-
-          Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
-          entienden tu journey.
+        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
+  - type: mentorship
     section_id: mentorship-gy0rnh
+    version: v1.0
+    title: Mentoría y Soporte
+    subtitle: Nunca estás solo en tu camino de aprendizaje
+    cards:
+      - icon: user
+        title: Mentoría 1:1
+        description: Sesiones semanales con desarrolladores experimentados que te guían a través de desafíos y ayudan a crecer profesionalmente.
+      - icon: users
+        title: Coaching de Carrera
+        description: Coaches dedicados te ayudan a construir tu CV, prepararte para entrevistas y conectar con socios de contratación.
+      - icon: headset
+        title: Soporte Comunitario 24/7
+        description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-eiaq2h
+    version: "1.0"
     title: Historias de Éxito de Graduados de Santiago
     filter_by_location: santiago-chile
     marginY:
       desktop: none lg
-    section_id: testimonials-eiaq2h
   - type: testimonials
+    section_id: testimonials-b3v25k
     version: v1.0
     title: Graduados que hoy trabajan en tecnología
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
-      average: '4.9'
-      count: __TPL__+
+      average: "4.9"
+      count: {{ global.global_review_count | 2,847 }}+
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -376,17 +319,13 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -400,8 +339,8 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-b3v25k
   - type: faq
+    section_id: faq-0jci42
     title: Preguntas Frecuentes
     related_features:
       - certification
@@ -477,9 +416,8 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(var(--muted))
-    section_id: faq-0jci42
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
@@ -511,9 +449,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -525,9 +461,9 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: __TPL__
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

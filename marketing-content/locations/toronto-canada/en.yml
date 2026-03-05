@@ -1,8 +1,6 @@
 meta:
   page_title: 4Geeks Academy Toronto | Coding Bootcamp in Canada
-  description: >-
-    Join 4Geeks Toronto coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and
-    job guarantee.
+  description: Join 4Geeks Toronto coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and job guarantee.
   robots: index, follow
   og_image: /images/locations/toronto-og.jpg
   priority: 0.8
@@ -11,27 +9,26 @@ meta:
     - /us/coding-campus/coding-bootcamp-toronto-canada
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-9a7gkc
+    version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Toronto
-    subtitle: >-
-      Train for in-demand tech roles, including AI Engineering, in Toronto's thriving tech hub. Live instruction,
-      hands-on projects, and career support for real hiring.
+    subtitle: Train for in-demand tech roles, including AI Engineering, in Toronto's thriving tech hub. Live instruction, hands-on projects, and career support for real hiring.
     badge: Toronto Campus
     cta_buttons:
       - text: Apply Now
         url: /en/apply
         variant: primary
       - text: Get Program Details
-        url: '#cta_banner-z1ta88'
+        url: "#cta_banner-14"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-9a7gkc
   - type: awards_marquee
+    section_id: awards_marquee-yfq9jn
     version: v1.0
     speed: 40
     gradient: true
@@ -71,9 +68,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-yfq9jn
   - type: banner
-    version: '1.0'
+    section_id: banner-2j0grl
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -81,16 +78,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: At the Center of Toronto's Tech Momentum
-    description: >-
-      Toronto's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a
-      hub for innovation and technology, with major corporations establishing their presence. As Toronto continues to
-      expand its tech sector, we connect you with local employers, tech events, and hiring partners—helping you build
-      relationships that support your entry and long-term growth in tech.
+    description: Toronto's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence. As Toronto continues to expand its tech sector, we connect you with local employers, tech events, and hiring partners—helping you build relationships that support your entry and long-term growth in tech.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-2j0grl
   - type: two_column
+    section_id: two_column-9ayfjn
     proportions:
       - 6
       - 6
@@ -100,23 +93,19 @@ sections:
     right:
       heading: Launch Your Tech Career in Toronto
       sub_heading: Alissa on How 4Geeks Empowers Toronto Learners
-      description: >-
-        4Geeks Academy offers the guidance, structure, and hands-on experience you need to succeed in Toronto's growing
-        tech ecosystem. Build practical job-ready skills through project-based learning, explore tools and workflows
-        used in today's tech careers, and get expert coaching tailored to Toronto's evolving job market.
+      description: 4Geeks Academy offers the guidance, structure, and hands-on experience you need to succeed in Toronto's growing tech ecosystem. Build practical job-ready skills through project-based learning, explore tools and workflows used in today's tech careers, and get expert coaching tailored to Toronto's evolving job market.
       button:
         text: Watch the full interview
         url: https://youtu.be/ln3bQsV1BaQ
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-9ayfjn
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -131,9 +120,7 @@ sections:
             text: LLMs, AI Agents & Automation
           - icon: Database
             text: Production AI Systems
-        description: >-
-          Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment
-          strategies.  
+        description: "Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -148,11 +135,9 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
-        description: >-
-          Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools
-          and workflows.
+          - icon: ""
+            text: ""
+        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -166,9 +151,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: >-
-          Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world
-          problems.  
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -182,100 +165,61 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: >-
-          Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity
-          threats.  
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-oqzfih
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-he8jmc
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: >-
-          Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the
-          program and continue receiving support long after you graduate.
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
       - heading: AI-Powered Learning Support
-        text: >-
-          Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve
-          continuously with guidance tailored to your learning path.
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
-        text: >-
-          Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning
-          to interviews and negotiation, support evolves with your goals and experience.
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
-        text: >-
-          Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and
-          stay connected to a global network well beyond graduation.
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-he8jmc
   - type: testimonials_slide
-    title: Proven Paths to Tech Careers
-    description: >-
-      These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real
-      outcomes.
-    background: bg-sidebar
     section_id: testimonials_slide-13y9ui
+    title: Proven Paths to Tech Careers
+    description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
+    background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-2q6plw
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
-      description: >-
-        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job
-        Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk
-        about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or
-        receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-        conditions apply.</a></span>
-
+      description: |-
+        The strongest proof that our approach works?&nbsp;<div>We’re willing to stand behind it. Our optional Job Guarantee is designed to give students extra confidence when transitioning into tech. While many schools talk about career support, we commit to outcomes: get hired into a tech role within 9 months of graduation, or receive a full tuition refund.&nbsp;<div><span style="font-size: 0.875rem;">* Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span>
         </div></div>
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: __TPL__% hiring rate among graduates
+        - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
         - text: 3–6 months average time to get hired
-        - text: __TPL__% average salary increase in tech roles
+        - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
-    section_id: split_cards-2q6plw
   - type: why_learn_ai
+    section_id: why_learn_ai-9ik3e8
     variant: laptop-edge
     title: Why Toronto Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech ecosystem with real hiring momentum
-    description: >-
-      Toronto's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a
-      hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span
-      style="font-size: 0.875rem; color: rgb(0, 7, 26);">Toronto-Fort Worth is home to numerous Fortune 500 companies
-      and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and
-      healthcare to startups</li><li>Growing demand for software, AI, and data skills across the
-      region</li></ul></div><div>From our Toronto campus, we connect you with local employers, tech events, and a
-      thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>
-    section_id: why_learn_ai-9ik3e8
+    description: "Toronto's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Toronto-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Toronto campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
-    version: v1.0
-    title: Mentorship & Support
-    subtitle: You're never alone in your learning journey
-    cards:
-      - icon: user
-        title: 1-on-1 Mentorship
-        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
-      - icon: users
-        title: Career Coaching
-        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
-      - icon: headset
-        title: 24/7 Community Support
-        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-v8nmuq
-  - type: mentorship
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -289,21 +233,36 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+  - type: mentorship
     section_id: mentorship-m9sit0
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-ek11th
+    version: "1.0"
     title: Toronto Graduate Success Stories
     filter_by_location: toronto-canada
     marginY:
       desktop: none lg
-    section_id: testimonials-ek11th
   - type: testimonials
+    section_id: testimonials-aazy1c
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
-      average: __TPL__
-      count: __TPL__
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -341,8 +300,8 @@ sections:
         rating: 5
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
-    section_id: testimonials-aazy1c
   - type: faq
+    section_id: faq-pkt83i
     title: Frequently Asked Questions
     related_features:
       - certification
@@ -352,9 +311,8 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    section_id: faq-pkt83i
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
@@ -398,7 +356,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-z1ta88
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

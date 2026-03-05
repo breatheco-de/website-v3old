@@ -13,6 +13,7 @@ schema:
     - website
 sections:
   - type: listing_cards
+    section_id: listing_cards-nuobzr
     title: Blog
     sub_heading: Articles, tutorials and news about coding and technology
     layout:
@@ -31,23 +32,15 @@ sections:
       empty_text: No articles found.
     dynamic_entries:
       content_type: blog
-      sort: '-published_at'
+      sort: "-published_at"
       item_template:
-        image:
-          '[object Object]': null
-        title:
-          '[object Object]': null
-        description:
-          '[object Object]': null
-        badge:
-          '[object Object]': null
-        url:
-          '[object Object]': null
-        meta_left:
-          '[object Object]': null
-        meta_right:
-          '[object Object]': null
+        image: {{ single.image }}
+        title: {{ single.title }}
+        description: {{ single.description }}
+        badge: {{ single.category }}
+        url: {{ single._resolved_url }}
+        meta_left: {{ single.author }}
+        meta_right: {{ single.published_at | }}
         cta_text: Read more
     maxWidth:
       desktop: xl
-    section_id: listing_cards-nuobzr

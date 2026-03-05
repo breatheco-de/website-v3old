@@ -9,15 +9,13 @@ region: europe
 default_language: en
 timezone: UTC
 visibility: listed
-phone: ''
-address: ''
+phone: ""
+address: ""
 available_programs:
   - full-stack
 context:
   when_to_use: For visitors in Europe interested in learning to code from home; Europe-focused online/remote audience.
-  target_audience: >-
-    Learners across Europe who want live instruction, unlimited mentorship, and lifetime career support; European
-    community and global locations access.
+  target_audience: Learners across Europe who want live instruction, unlimited mentorship, and lifetime career support; European community and global locations access.
   goals:
     - Emphasize coding bootcamp remoto Europa (all programs online, hybrid, or in person)
     - Highlight community, mentoría, and job support for life in Europe
@@ -36,9 +34,7 @@ schema:
     - website
 meta:
   page_title: 4Geeks Academy | Bootcamp de Programación en el Resto de Europa
-  description: >-
-    Aprende a programar en Europa desde casa con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte
-    profesional de por vida. Full Stack, Data Science o Ciberseguridad.
+  description: Aprende a programar en Europa desde casa con 4Geeks Academy. Soporte 1:1 ilimitado, aprendizaje con IA y soporte profesional de por vida. Full Stack, Data Science o Ciberseguridad.
   robots: index, follow
   og_image: /images/locations/rest-of-europe-og.jpg
   priority: 0.8
@@ -47,28 +43,26 @@ meta:
     - /es/coding-campus/bootcamp-programacion-europa-online
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-fwx8v5
+    version: "1.0"
     variant: singleColumn
     title: Aprende a programar en Europa y desde casa
-    subtitle: >-
-      Aprende a programar en Europa y desde casa con clases en vivo, mentoría ilimitada y soporte profesional de por
-      vida. Únete a nuestra comunidad en Europa.
+    subtitle: Aprende a programar en Europa y desde casa con clases en vivo, mentoría ilimitada y soporte profesional de por vida. Únete a nuestra comunidad en Europa.
     badge: Europa
     cta_buttons:
       - text: Aplicar Ahora
-        url: '#bottom'
+        url: "#bottom"
         variant: primary
       - text: Descargar Programa
-        url: '#syllabus-modal'
+        url: "#syllabus-modal"
         variant: outline
     marginY:
       desktop: none lg
     paddingY:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    section_id: hero-fwx8v5
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: syllabus-modal
     heading: Comienza tu Aplicación
     description: Completa el formulario y nos pondremos en contacto contigo en 24 horas.
@@ -96,6 +90,7 @@ sections:
       success:
         message: Gracias. Nos pondremos en contacto en 24 horas.
   - type: awards_marquee
+    section_id: awards_marquee-90wrbx
     version: v1.0
     speed: 40
     gradient: true
@@ -135,9 +130,9 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: lg none
-    section_id: awards_marquee-90wrbx
   - type: banner
-    version: '1.0'
+    section_id: banner-6p7f79
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -145,15 +140,12 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Tu Viaje con 4Geeks Academy en Europa
-    description: >-
-      Desarrolla tus habilidades en tecnología desde cualquier lugar. Cursos interactivos enfocados en habilidades
-      técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad colaborativa
-      de aprendizaje, y preparación para desafíos del mundo real y oportunidades laborales en tecnología en Europa.
+    description: Desarrolla tus habilidades en tecnología desde cualquier lugar. Cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad colaborativa de aprendizaje, y preparación para desafíos del mundo real y oportunidades laborales en tecnología en Europa.
     background: gradient
     marginY:
       desktop: lg none
-    section_id: banner-6p7f79
   - type: two_column
+    section_id: two_column-7mleni
     proportions:
       - 6
       - 6
@@ -163,23 +155,20 @@ sections:
     right:
       heading: Tu Viaje con 4Geeks Academy en Europa
       sub_heading: Desarrolla tus Habilidades en Tecnología desde Cualquier Lugar
-      description: >-
-        Cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual, acceso a
-        profesores experimentados y una comunidad colaborativa de aprendizaje, y preparación para oportunidades
-        laborales en tecnología.
+      description: Cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual, acceso a profesores experimentados y una comunidad colaborativa de aprendizaje, y preparación para oportunidades laborales en tecnología.
       button:
         text: Ver la entrevista completa
         url: https://youtu.be/EcqasocRKHo
         variant: primary
         icon: Rocket
-    gap: '8'
+    gap: "8"
     marginY:
       desktop: none sm
     paddingY:
       desktop: none md
-    section_id: two_column-7mleni
   - type: course_selector
-    version: '1.0'
+    section_id: course_selector-xs5ua4
+    version: "1.0"
     variant: default
     heading: Programas Cubiertos por la Garantía de Empleo
     subheading: La Garantía de Empleo aplica a programas selectos de 4Geeks diseñados para resultados de contratación directa.
@@ -194,9 +183,7 @@ sections:
         tags:
           - icon: Plus
             text: Desarrollo de APIs
-        description: >-
-          Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando
-          herramientas y frameworks estándar de la industria.
+        description: Domina el desarrollo web moderno de frontend a backend. Construye aplicaciones listas para producción usando herramientas y frameworks estándar de la industria.
         price: 200€
         original_price: 300€
         price_info: con pagos a plazos de 4Geeks
@@ -210,9 +197,7 @@ sections:
         badges:
           - icon: Brain
             text: LLMs y entrenamiento en IA Generativa
-        description: >-
-          Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine
-          learning usadas por equipos de datos modernos.
+        description: Trabaja con datasets reales para analizar datos, construir modelos predictivos y aplicar técnicas de machine learning usadas por equipos de datos modernos.
         price: 200€
         original_price: 300€
         price_info: con pagos a plazos de 4Geeks
@@ -226,57 +211,45 @@ sections:
         badges:
           - icon: Code
             text: Detección de amenazas y protección de sistemas
-        description: >-
-          Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad
-          alineadas con estándares de la industria.
+        description: Desarrolla habilidades para identificar amenazas, asegurar sistemas y apoyar operaciones de seguridad alineadas con estándares de la industria.
         price: 200€
         original_price: 300€
         price_info: con pagos a plazos de 4Geeks
         cta_text: Descubre el programa
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
-    section_id: course_selector-xs5ua4
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-6mbt5i
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
     description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
     bullets:
       - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: >-
-          Obtén orientación técnica personalizada cuando la necesites. En línea y en persona, por el resto de tu vida,
-          incluso para dudas laborales de programación.
+        text: Obtén orientación técnica personalizada cuando la necesites. En línea y en persona, por el resto de tu vida, incluso para dudas laborales de programación.
       - heading: Soporte de Aprendizaje Impulsado por IA
-        text: >-
-          Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y
-          mejora continuamente con guía adaptada a tu camino de aprendizaje.
+        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
       - heading: Soporte Profesional a la Medida
         text: Recibe coaching profesional personalizado basado en cada oportunidad laboral y tu perfil único.
       - heading: Una Comunidad Tech Global Activa
-        text: >-
-          Cuando aprendes a programar online con 4Geeks en Europa no solo tienes acceso a nuestra plataforma; también
-          tendrás disponible cualquiera de nuestras ubicaciones a nivel mundial.
+        text: Cuando aprendes a programar online con 4Geeks en Europa no solo tienes acceso a nuestra plataforma; también tendrás disponible cualquiera de nuestras ubicaciones a nivel mundial.
     image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
     image_alt: Estudiante trabajando en proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
-    section_id: two_column_accordion_card-6mbt5i
   - type: testimonials_slide
-    title: Caminos Probados hacia Carreras Tech
-    description: >-
-      Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching
-      experto llevan a resultados reales.
-    background: bg-sidebar
     section_id: testimonials_slide-4rw1nl
+    title: Caminos Probados hacia Carreras Tech
+    description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
+    background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-64kdfq
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo
-      description: >
-        Nos comprometemos con tu carrera futura. Completa todas las etapas de nuestro proceso de apoyo profesional,
-        accede a una red de más de 5K socios contratantes y obtén un trabajo dentro de los 9 meses posteriores a la
-        graduación o recupera tu dinero. Condiciones aplican.
+      description: |
+        Nos comprometemos con tu carrera futura. Completa todas las etapas de nuestro proceso de apoyo profesional, accede a una red de más de 5K socios contratantes y obtén un trabajo dentro de los 9 meses posteriores a la graduación o recupera tu dinero. Condiciones aplican.
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
@@ -286,47 +259,41 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-    section_id: split_cards-64kdfq
   - type: why_learn_ai
+    section_id: why_learn_ai-yzx1g3
     variant: laptop-edge
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
-    description: >-
-      Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1
-      ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en
-      streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto,
-      tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
-    section_id: why_learn_ai-yzx1g3
+    description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
   - type: mentorship
+    section_id: mentorship-g0rum3
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
     cards:
       - icon: user
         title: Todas las Mentorías que Necesitas
-        description: >-
-          En línea y en persona, por el resto de tu vida, incluso para codificación de dudas laborales. No te llevará
-          más de 15 minutos para que un instructor te ayude.
+        description: En línea y en persona, por el resto de tu vida, incluso para codificación de dudas laborales. No te llevará más de 15 minutos para que un instructor te ayude.
       - icon: users
-        title: 'Proporción 1:9 Profesor : Estudiante'
+        title: "Proporción 1:9 Profesor : Estudiante"
         description: Encontrarás más profesores en 4Geeks que el promedio de la industria.
       - icon: headset
         title: Soporte Profesional a la Medida
         description: Basado en cada oportunidad laboral y tu perfil único.
-    section_id: mentorship-g0rum3
   - type: testimonials
-    version: '1.0'
+    section_id: testimonials-qdmdbt
+    version: "1.0"
     title: Historias de Éxito de Graduados en Europa
     filter_by_location: rest-of-europe
     marginY:
       desktop: none lg
-    section_id: testimonials-qdmdbt
   - type: testimonials
+    section_id: testimonials-xx3fk0
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -345,17 +312,13 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -369,8 +332,8 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-    section_id: testimonials-xx3fk0
   - type: faq
+    section_id: faq-ni2zq9
     title: Preguntas Frecuentes
     related_features:
       - certification
@@ -380,9 +343,8 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    section_id: faq-ni2zq9
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para Iniciar tu Carrera Tech?
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -413,9 +375,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -428,10 +388,9 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-sxkn6i
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label:
-      '[object Object]': null
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

@@ -1,15 +1,14 @@
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-kygxz1
+    version: "1.0"
     variant: ApplyFormProductShowcase
     title: Construye sistemas reales, listos para producción.
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
       color: primary
-    description: >-
-      Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una
-      comunidad profesional que acompaña tu crecimiento profesional.
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
     form:
       variant: stacked
       conversion_name: student_application
@@ -42,9 +41,7 @@ sections:
       consent:
         sms: false
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     cta_button:
       text: Descargar programa
@@ -58,4 +55,3 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    section_id: hero-kygxz1

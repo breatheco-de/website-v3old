@@ -3,9 +3,7 @@ template: default
 title: Resultados
 meta:
   page_title: Informe de Resultados de 4Geeks Academy | Datos de Éxito Profesional
-  description: >-
-    Descubre los resultados profesionales de graduados de 4Geeks Academy. Ve tasas de empleo, aumentos salariales e
-    historias de éxito de nuestros alumni.
+  description: Descubre los resultados profesionales de graduados de 4Geeks Academy. Ve tasas de empleo, aumentos salariales e historias de éxito de nuestros alumni.
   robots: index, follow
   redirects: []
 schema:
@@ -14,12 +12,11 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-rp6vvm
+    version: "1.0"
     variant: simpleTwoColumn
     title: Resultados profesionales reales, respaldados por datos
-    subtitle: >-
-      Descubre los resultados profesionales verificados de nuestros graduados contratados en ingeniería de IA, ciencia
-      de datos y ciberseguridad. Medimos el éxito por resultados reales.
+    subtitle: Descubre los resultados profesionales verificados de nuestros graduados contratados en ingeniería de IA, ciencia de datos y ciberseguridad. Medimos el éxito por resultados reales.
     badge: Informe de Resultados de 4Geeks Academy
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573.png
@@ -29,25 +26,20 @@ sections:
       desktop: none
     paddingY:
       desktop: lg none
-    section_id: hero-rp6vvm
   - type: vertical_bars_cards
-    version: '1.0'
+    section_id: vertical_bars_cards-syvr11
+    version: "1.0"
     title: Resultados de contratación año tras año
-    subtitle: >-
-      Cómo se desempeñan nuestros graduados en el mercado laboral, basado en resultados verificados de cohortes
-      recientes.
+    subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en resultados verificados de cohortes recientes.
     metrics:
       - title: Tasa de colocación laboral
         unit: Graduados contratados en 6 meses
-        description: >-
-          Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en
-          contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación
-          para mantener los datos precisos y comparables entre cohortes.
+        description: Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación para mantener los datos precisos y comparables entre cohortes.
         years:
-          - year: '2023'
+          - year: "2023"
             value: 86
             displayValue: 86%
-          - year: '2024'
+          - year: "2024"
             value: 84
             displayValue: 84%
           - year: Mid 2025
@@ -55,15 +47,12 @@ sections:
             displayValue: 82%
       - title: Aumento salarial promedio
         unit: Comparado con salario pre-bootcamp
-        description: >-
-          Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del
-          mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el
-          bootcamp.
+        description: Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el bootcamp.
         years:
-          - year: '2023'
+          - year: "2023"
             value: 12500
             displayValue: $12.5k
-          - year: '2024'
+          - year: "2024"
             value: 14200
             displayValue: $14.2k
           - year: Mid 2025
@@ -71,14 +60,12 @@ sections:
             displayValue: $15.8k
       - title: Días para el primer empleo
         unit: Tiempo promedio desde graduación hasta oferta
-        description: >-
-          Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con
-          empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
+        description: Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
         years:
-          - year: '2023'
+          - year: "2023"
             value: 52
             displayValue: 52 días
-          - year: '2024'
+          - year: "2024"
             value: 48
             displayValue: 48 días
           - year: Mid 2025
@@ -111,23 +98,20 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-    section_id: vertical_bars_cards-syvr11
   - type: vertical_bars_cards
-    version: '1.0'
+    section_id: vertical_bars_cards-ultzcf
+    version: "1.0"
     title: Resultados de contratación año tras año
     subtitle: Cómo se desempeñan nuestros graduados en el mercado laboral, basado en datos verificados de cohortes recientes.
     metrics:
       - title: Tasa de colocación laboral
         unit: Graduados contratados en 6 meses
-        description: >-
-          Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en
-          contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación
-          para mantener los datos precisos y comparables entre cohortes.
+        description: Nuestra tasa de colocación se mantiene consistentemente por encima del 80%, reflejando un programa enfocado en contratación y soporte profesional práctico. Rastreamos outcomes hasta nueve meses después de la graduación para mantener los datos precisos y comparables entre cohortes.
         years:
-          - year: '2023'
+          - year: "2023"
             value: 80
             displayValue: 80%
-          - year: '2024'
+          - year: "2024"
             value: 75
             displayValue: 75%
           - year: Mid 2025
@@ -135,15 +119,12 @@ sections:
             displayValue: 75%
       - title: Aumento salarial promedio
         unit: Comparado con salario pre-bootcamp
-        description: >-
-          Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del
-          mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el
-          bootcamp.
+        description: Los graduados ganan significativamente más después de completar el programa. Esto refleja tanto la demanda del mercado por talento tech como las habilidades prácticas y listas para el empleo que desarrollan durante el bootcamp.
         years:
-          - year: '2023'
+          - year: "2023"
             value: 22
             displayValue: 22%
-          - year: '2024'
+          - year: "2024"
             value: 18
             displayValue: 18%
           - year: Mid 2025
@@ -151,14 +132,12 @@ sections:
             displayValue: 33%
       - title: Días para el primer empleo
         unit: Tiempo promedio desde graduación hasta oferta
-        description: >-
-          Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con
-          empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
+        description: Los graduados están consiguiendo roles más rápido cada año. Con coaching personalizado y conexiones con empleadores, ayudamos a los estudiantes a pasar de la graduación a su primera oferta rápidamente.
         years:
-          - year: '2023'
+          - year: "2023"
             value: 96
             displayValue: 96 días
-          - year: '2024'
+          - year: "2024"
             value: 128
             displayValue: 128 días
           - year: Mid 2025
@@ -180,9 +159,9 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
-    section_id: vertical_bars_cards-ultzcf
   - type: stats
-    version: '1.0'
+    section_id: stats-4iokfv
+    version: "1.0"
     title: Resultados de contratación por regiones
     subtitle: Nuestros graduados consiguen empleo y aumentan sus salarios en múltiples mercados laborales.
     background: hsl(210 100% 50% / 0.05)
@@ -201,9 +180,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: lg
-    section_id: stats-4iokfv
   - type: pie_charts
-    version: '1.0'
+    section_id: pie_charts-7nlotg
+    version: "1.0"
     title: Nuestra comunidad estudiantil de un vistazo
     subtitle: Un snapshot de quiénes son nuestros estudiantes por edad, género y región.
     background: hsl(var(--background))
@@ -239,12 +218,10 @@ sections:
       desktop: none
     paddingY:
       desktop: sm none
-    section_id: pie_charts-7nlotg
   - type: value_proof_panel
+    section_id: value_proof_panel-j9bpz7
     title: Reconocidos globalmente por resultados reales
-    subtitle: >-
-      Organizaciones independientes reconocen a 4Geeks por los resultados de graduados, la calidad de nuestros programas
-      y el soporte profesional.
+    subtitle: Organizaciones independientes reconocen a 4Geeks por los resultados de graduados, la calidad de nuestros programas y el soporte profesional.
     evidence_items:
       - icon: Trophy
         title: Top 5 coding bootcamps mundiales
@@ -262,11 +239,11 @@ sections:
       type: image
       src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Estudiantes colaborando en el aula
-      aspect_ratio: '4:3'
+      aspect_ratio: "4:3"
       style: rounded
     stacked_header: true
-    section_id: value_proof_panel-j9bpz7
   - type: awards_marquee
+    section_id: awards_marquee-wwpzeo
     version: v1.0
     speed: 40
     gradient: true
@@ -308,21 +285,17 @@ sections:
       desktop: md lg
     marginY:
       desktop: none sm
-    section_id: awards_marquee-wwpzeo
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-u89jw0
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Por qué nuestros graduados siempre consiguen empleo
     description: Los excelentes resultados provienen de cómo enseñamos, apoyamos y colocamos a los estudiantes en roles tech.
     bullets:
       - heading: Soporte profesional GeekFORCE de por vida
-        text: >-
-          Mentoría ilimitada 1:1 en carrera, preparación de entrevistas, y coaching de CV y portafolio, diseñado para
-          los procesos de contratación impulsados por IA actuales.
+        text: Mentoría ilimitada 1:1 en carrera, preparación de entrevistas, y coaching de CV y portafolio, diseñado para los procesos de contratación impulsados por IA actuales.
       - heading: Mentoría técnica GeekPAL de por vida
-        text: >-
-          Acceso ilimitado a mentores humanos que ayudan a los estudiantes a seguir progresando y ganar confianza en el
-          mundo real.
+        text: Acceso ilimitado a mentores humanos que ayudan a los estudiantes a seguir progresando y ganar confianza en el mundo real.
       - heading: Aprendizaje y feedback impulsado por IA
         text: Feedback personalizado 24/7 que ayuda a los estudiantes a aprender más rápido y de forma más efectiva.
       - heading: Red global de socios de contratación
@@ -333,16 +306,14 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
-    section_id: two_column_accordion_card-u89jw0
   - type: testimonials
+    section_id: testimonials-jkcrpv
     version: v1.0
     title: Resultados profesionales reales
     subtitle: Nuestros alumni comparten cómo consiguieron roles, avanzaron en sus carreras y aumentaron su poder adquisitivo.
     rating_summary:
-      average:
-        '[object Object]': null
-      count:
-        '[object Object]': null
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 2,847 }}
     items:
       - name: Maria Rodriguez
         role: Ingeniera de Software
@@ -360,17 +331,13 @@ sections:
         role: Desarrolladora Frontend
         company: Meta
         rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
         outcome: Cambio de carrera a los 35
       - name: Carlos Mendez
         role: Ingeniero Backend
         company: Amazon
         rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
         outcome: Trabajo remoto conseguido
       - name: Emily Thompson
         role: Ingeniera DevOps
@@ -387,8 +354,8 @@ sections:
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
-    section_id: testimonials-jkcrpv
   - type: faq
+    section_id: faq-ik7fic
     title: Preguntas frecuentes
     related_features:
       - outcomes
@@ -396,9 +363,8 @@ sections:
       desktop: md
     paddingY:
       desktop: lg none
-    section_id: faq-ik7fic
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -428,9 +394,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -442,7 +406,8 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-l5m2ie
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-kpmomo
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -469,4 +434,3 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    section_id: sticky_cta-kpmomo

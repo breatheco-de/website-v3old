@@ -8,14 +8,16 @@ meta:
     - /faq
     - /faqs
     - /frequently-asked-questions
+
 sections:
   - type: faq_editor
+    section_id: faq_editor-dp86k5
     version: v1.0
     title: Frequently Asked Questions
     subtitle: Do you have any questions? We may have already answered it in this section.
-    section_id: faq_editor-dp86k5
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-ipgbbv
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -44,4 +46,3 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-ipgbbv

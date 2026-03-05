@@ -1,11 +1,12 @@
 meta:
-  page_title: '{{ single.title }} | 4Geeks Academy'
-  description: '{{ single.description }}'
-  og_image: '{{ single.image }}'
+  page_title: "{{ single.title }} | 4Geeks Academy"
+  description: "{{ single.description }}"
+  og_image: "{{ single.image }}"
+
 sections:
   - type: article
+    section_id: article-631g5w
     show_toc: true
     toc_position: side
     max_width: lg
-    content: '{{ single.content }}'
-    section_id: article-631g5w
+    content: "{{ single.content }}"

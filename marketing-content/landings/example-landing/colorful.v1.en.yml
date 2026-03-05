@@ -1,29 +1,32 @@
 meta:
-  page_title: Example Landing Page (Colorful) | 4Geeks
+  page_title: "Example Landing Page (Colorful) | 4Geeks"
   description: This is an example landing page demonstrating the various section types and layouts available.
   redirects:
     - /example/colorful
     - /demo/colorful-landing
 sections:
   - type: hero
+    section_id: hero-w2h9qs
     variant: singleColumn
-    version: '1.0'
-    background: linear-gradient(to bottom, hsl(var(--primary) / 0.05), hsl(var(--background)))
+    version: "1.0"
+    background: "linear-gradient(to bottom, hsl(var(--primary) / 0.05), hsl(var(--background)))"
     badge: Example Page
     title: Learn to Code with AI in 2024
-    subtitle: Discover how AI-powered tools are revolutionizing tech education. See the future of learning.
+    subtitle: >-
+      Discover how AI-powered tools are revolutionizing tech education. See the future
+      of learning.
     cta_buttons:
       - text: Get Started
         url: /signup
         variant: primary
         icon: Calendar
       - text: Watch Preview
-        url: '#preview'
+        url: "#preview"
         variant: outline
         icon: Player
-    section_id: hero-w2h9qs
   - type: features_grid
-    version: '1.0'
+    section_id: features_grid-nc3s6n
+    version: "1.0"
     title: What You'll Learn
     subtitle: Discover the tools that make learning faster and easier
     items:
@@ -36,9 +39,9 @@ sections:
       - icon: Code
         title: Live Demo
         description: Watch a live demonstration of our AI coding assistant in action
-    section_id: features_grid-nc3s6n
   - type: stats
-    version: '1.0'
+    section_id: stats-uzjmy4
+    version: "1.0"
     title: Join 50,000+ Learners
     items:
       - value: 50,000+
@@ -47,10 +50,10 @@ sections:
         label: Average Rating
       - value: 1,500+
         label: Success Stories
-    section_id: stats-uzjmy4
   - type: faq
-    version: '1.0'
-    background: muted
+    section_id: faq-exxhx9
+    version: "1.0"
+    background: "muted"
     title: Frequently Asked Questions
     items:
       - question: Is this program really free?
@@ -59,9 +62,9 @@ sections:
         answer: No prior experience needed. This program is designed for complete beginners.
       - question: Will there be support available?
         answer: Yes, all students have access to mentors and a supportive community.
-    section_id: faq-exxhx9
   - type: cta_banner
-    version: '1.0'
+    section_id: cta_banner-q7gr3l
+    version: "1.0"
     title: Ready to Transform Your Learning?
     subtitle: Get started today. Limited spots available!
     buttons:
@@ -71,9 +74,8 @@ sections:
       - text: Ask a Question
         url: /contact
         variant: outline
-    section_id: cta_banner-q7gr3l
   - type: footer
-    version: '1.0'
-    copyright_text: 2024 4Geeks. All rights reserved.
     section_id: footer-0gx73m
+    version: "1.0"
+    copyright_text: 2024 4Geeks. All rights reserved.
 title: colorful

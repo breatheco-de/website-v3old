@@ -6,9 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: GeekPAL Support | 4Geeks Academy
-  description: >-
-    Get unlimited 1:1 coding mentorship and AI-powered guidance from Rigobot 24/7. Never code alone, get instant
-    feedback, and join a global developer community.
+  description: Get unlimited 1:1 coding mentorship and AI-powered guidance from Rigobot 24/7. Never code alone, get instant feedback, and join a global developer community.
   redirects:
     - /geekpal-support
     - /us/geekpal-support
@@ -18,18 +16,17 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    section_id: hero-ivsy21
+    version: "1.0"
     variant: productShowcase
     title: Lifetime Mentorship & AI-Powered Coding Support
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
       highlight: PAL
-      suffix: ':'
+      suffix: ":"
       color: destructive
-    description: >-
-      Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to
-      accelerate your learning and advance your tech career.
+    description: Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to accelerate your learning and advance your tech career.
     bullets:
       - text: Unlimited 1:1 coding mentorship
       - text: AI-powered guidance from Rigobot 24/7
@@ -37,13 +34,13 @@ sections:
       - text: Real community support
     video:
       url: https://youtu.be/D5nUZNL52-Q
-      ratio: '3:4'
+      ratio: "3:4"
     paddingY:
       mobile: none lg
       desktop: md lg
-    section_id: hero-ivsy21
   - type: banner
-    version: '1.0'
+    section_id: banner-7ct56k
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -51,26 +48,22 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Advance Faster, Never Lose Momentum
-    description: >-
-      The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows
-      up exactly when you need it.
+    description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
     background: gradient
-    section_id: banner-7ct56k
   - type: human_and_ai_duo
-    version: '1.0'
-    heading: 'Human + AI: The Perfect Support Duo'
-    description: >-
-      Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and
-      smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
+    section_id: human_and_ai_duo-zg16oa
+    version: "1.0"
+    heading: "Human + AI: The Perfect Support Duo"
+    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
-      - title: 'Our team of expert mentors:'
+      - title: "Our team of expert mentors:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: Personalized guidance
           - text: Live troubleshooting
           - text: Expert bug fixing assistance
           - text: Industry insights and career advice
-      - title: 'Rigobot + Learnpack:'
+      - title: "Rigobot + Learnpack:"
         bullets:
           - text: Instant feedback and tutoring 24/7
           - text: Adjusts advice to your skills and progress
@@ -103,25 +96,19 @@ sections:
     paddingY:
       mobile: sm none
       desktop: md none
-    section_id: human_and_ai_duo-zg16oa
   - type: community_support
-    version: '1.0'
+    section_id: community_support-hnuq6q
+    version: "1.0"
     heading: A Global Tech Community to Support your Growth
-    description: >-
-      4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you
-      progressing in your career.
+    description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
-        description: >-
-          Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding
-          support, to job boards and career advice (and yes, there's coding humor too!).
+        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding support, to job boards and career advice (and yes, there's coding humor too!).
         icon: BrandSlack
         badge: 6,000+ Members
         accent_color: primary
       - title: 4Geeks.com
-        description: >-
-          Keep advancing your skills with further training resources, live events, and collaborative projects. Connect
-          with people who've been where you are — and know how to help you get where you want to go.
+        description: Keep advancing your skills with further training resources, live events, and collaborative projects. Connect with people who've been where you are — and know how to help you get where you want to go.
         icon: Rigobot
         accent_color: primary
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
@@ -129,8 +116,8 @@ sections:
     background: bg-primary/5
     paddingY:
       desktop: none md
-    section_id: community_support-hnuq6q
   - type: two_column
+    section_id: two_column-wtzzue
     proportions:
       - 12
       - 0
@@ -140,26 +127,24 @@ sections:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
       heading: The Impact of Unlimited Coding Mentorship
-      description: >-
-        Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow
-        professionally afterward.
+      description: Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow professionally afterward.
       justify: center
       text_align: center
       font_size: lg
     heading_above_on_md: false
-    gap: '8'
+    gap: "8"
     paddingY:
       desktop: lg md
-    section_id: two_column-wtzzue
   - type: testimonials_slide
+    section_id: testimonials_slide-rrnpaj
     title: Real Careers Start Here
     description: See how our alumni achieved their goals
     marginY:
       desktop: none
     paddingY:
       desktop: md none
-    section_id: testimonials_slide-rrnpaj
   - type: faq
+    section_id: faq-zr2zqa
     title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
@@ -195,9 +180,8 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
-    section_id: faq-zr2zqa
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
@@ -241,7 +225,8 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-yh5dbf
   - type: sticky_cta
-    version: '1.0'
+    section_id: sticky_cta-ycj71c
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -270,4 +255,3 @@ sections:
           default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-ycj71c
