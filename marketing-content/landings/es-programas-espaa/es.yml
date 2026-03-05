@@ -344,12 +344,9 @@ sections:
     marginY:
       desktop: lg
   - type: whos_hiring
-    section_id: whos_hiring-aihz6z
-    version: v1.0
     variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -375,8 +372,11 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-ed05rj
     marginY:
-      desktop: none lg
+      desktop: none md
+    paddingY:
+      desktop: none
   - type: cta_banner
     section_id: cta_banner-n4bqol
     version: "1.0"
