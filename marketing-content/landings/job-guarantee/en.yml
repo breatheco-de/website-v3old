@@ -142,23 +142,33 @@ sections:
         text: If you haven’t received a qualifying job offer within 180 days of graduation, request your full tuition refund.
     background: bg-muted/30
     variant: default
-  - type: ai_learning
+  - type: numbered_steps
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    variant: bubbleText
+    title: Get Hired with our 3-Step Career Development Process
+    description: Our structured process is designed to get you hired fast.
+    steps:
+      - icon: Optimization
+        title: Profile Optimization
+        bullets:
+          - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
+          - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
+          - Showcase your skills with a recruiter-ready portfolio.
+      - icon: Interview
+        title: Interview Preparation
+        bullets:
+          - Gain confidence with mock technical and behavioral interviews.
+          - Practice coding and problem-solving with auto-graded exercises.
+          - Develop tailored strategies for upcoming interviews.
+      - icon: JobSearch
+        title: Strategic Job Search
+        bullets:
+          - Create a personalized job search plan aligned with your goals.
+          - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
+          - Connect with our extensive network of global hiring partners.
+    background: bg-background
+    paddingY:
+      desktop: none
   - type: whos_hiring
     variant: carousel
     title: Where 4Geeks Graduates Work
