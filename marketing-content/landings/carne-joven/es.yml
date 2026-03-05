@@ -89,20 +89,20 @@ sections:
     paddingY:
       desktop: md none
   - type: two_column_accordion_card
-    version: "1.0"
     variant: image_background
-    title: Transform Your Career
-    description: "Start your journey into tech with our proven approach:"
+    version: "1.0"
+    title: ¡Aprovecha un 50% de descuento con tu Carné Joven!
+    description: Si estás buscando una oportunidad para desarrollar tus habilidades como programador, 4Geeks Academy te ofrece la formación que necesitas con un 50% de descuento gracias a Carné Joven. Este bootcamp está diseñado para enseñarte a crear nuevas aplicaciones, manejar múltiples bases de datos y dominar lenguajes de programación muy demandados en la industria tecnológica actual.
     bullets:
-      - heading: No Experience Required
-        text: Our curriculum is designed for complete beginners. We'll teach you everything from the fundamentals up.
-      - heading: Real-World Projects
-        text: Build a professional portfolio with projects that showcase your skills to potential employers.
-      - heading: Lifetime Access
-        text: Keep access to all course materials and community support even after you graduate.
-    footer: Over 10,000 graduates have launched new careers with us.
+      - heading: Plazas limitadas
+        text: 15 plazas disponibles. Aprovecha una de las 15 plazas con descuento antes de que se agoten.
+      - heading: Certificación reconocida internacionalmente
+        text: Obtén una certificación avalada a nivel internacional al completar el programa.
+      - heading: Alta demanda laboral
+        text: El salario promedio en España en 2024 para desarrolladores Full Stack es de €32,000 al año o €2,600 al mes.
+    footer: La Beca Carné Joven tiene un número limitado de plazas disponibles. Solicita tu plaza a tiempo para no perder esta oportunidad.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
-    image_alt: Student learning with mentor support
+    image_alt: Estudiante usando laptop con promoción Carné Joven 50% descuento
     reverse: true
   - type: awards_marquee
     section_id: awards_marquee-cz908y
