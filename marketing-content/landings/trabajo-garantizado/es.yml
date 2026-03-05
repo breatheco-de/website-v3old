@@ -99,7 +99,7 @@ sections:
     cards:
       - icon: Handshake
         title: 1. Elije el plan Garantía de Empleo al matricularte
-      - icon: Graduación
+      - icon: Graduation
         title: 2. Completa el programa y crea tu portfolio
       - icon: ChecklistVerify
         title: 3. Aplica nuestra metodología de inserción laboral
