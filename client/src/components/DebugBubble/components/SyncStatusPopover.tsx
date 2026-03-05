@@ -29,7 +29,7 @@ interface SyncInfo {
     url?: string;
     createdAt?: string;
   };
-  recentLog: string[];
+  recentLog: Array<{ ts: string; category: string; message: string; person?: string } | string>;
 }
 
 interface SyncStatusPopoverProps {
@@ -125,9 +125,16 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
             <ScrollArea className="h-[140px]">
               <div className="px-3 pb-2 space-y-0.5">
                 {syncInfo.recentLog.slice().reverse().map((entry, i) => {
-                  const match = entry.match(/^(\S+)\s+\[(\S+)\]\s+(.+)$/);
-                  if (!match) return null;
-                  const [, ts, cat, msg] = match;
+                  let ts: string, cat: string, msg: string;
+                  if (typeof entry === "string") {
+                    const match = entry.match(/^(\S+)\s+\[(\S+)\]\s+(.+)$/);
+                    if (!match) return null;
+                    [, ts, cat, msg] = match;
+                  } else {
+                    ts = entry.ts;
+                    cat = entry.category;
+                    msg = entry.message;
+                  }
                   const time = ts.includes('T') ? ts.split('T')[1]?.replace('Z', '').slice(0, 8) : ts;
                   return (
                     <div key={i} className="text-xs leading-relaxed flex gap-2">
