@@ -34,26 +34,7 @@ sections:
     signup_card:
       title: Completa el formulario para recibir información
       description: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de plagos en tu correo electrónico.
-      cta_button:
-        text: Solicitar información
-        url: "#apply-modal"
-        variant: primary
-      features:
-        - icon: IconCalendar
-          text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
-        - icon: code
-          text: +100 ejercicios interactivos de programación
-        - icon: robot
-          text: Feedback con IA en tiempo real
-        - icon: calendar
-          text: Ratio 1:7 estudiante–profesor
-        - icon: users
-          text: Mentoría personalizada 1:1
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none
-    form:
+      form: null
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
@@ -94,6 +75,14 @@ sections:
       url: /programa/ai-engineering
       variant: outline
       icon: Download
+      cta_button:
+        text: Solicitar información
+        url: "#apply-modal"
+        variant: primary
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none
   - type: modal
     version: "1.0"
     heading: Request Program Details
