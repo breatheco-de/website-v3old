@@ -23,7 +23,7 @@ sections:
       prefix: Conviértete en
       highlight: Ingeniero de IA
       color: primary
-    description: Aprende a sdesarrosllar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
     form:
       variant: stacked
       conversion_name: student_application
