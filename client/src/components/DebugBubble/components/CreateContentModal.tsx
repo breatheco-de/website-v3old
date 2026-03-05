@@ -773,9 +773,46 @@ export function CreateContentModal({
                         <div key={loc} className="flex items-center gap-2">
                           <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc}</span>
                           {loc === loc0 ? (
-                            <span className="flex-1 text-xs bg-background px-2 py-1 rounded border text-foreground truncate">
-                              {createContentTitle || "—"}
-                            </span>
+                            <input
+                              type="text"
+                              value={createContentTitle}
+                              onChange={(e) => {
+                                const title = e.target.value;
+                                setCreateContentTitle(title);
+                                const slug = title
+                                  .toLowerCase()
+                                  .trim()
+                                  .replace(/[^a-z0-9\s-]/g, "")
+                                  .replace(/\s+/g, "-")
+                                  .replace(/-+/g, "-")
+                                  .replace(/^-|-$/g, "");
+                                setCreateContentSlugEn(slug);
+                                setCreateContentSlugEs(slug);
+                                setLocaleTitles((prev) => {
+                                  const next = { ...prev };
+                                  for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc0)) {
+                                    if (!manualTitleLocales.has(l)) next[l] = title;
+                                  }
+                                  return next;
+                                });
+                                if (slug) {
+                                  setCreateContentSlugEnStatus("checking");
+                                  setCreateContentSlugEsStatus("checking");
+                                  checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
+                                  if (!excludedLocales.has(loc1)) {
+                                    checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
+                                  }
+                                } else {
+                                  setCreateContentSlugEnStatus("idle");
+                                  setCreateContentSlugEsStatus("idle");
+                                  setSlugEnConflictReason(null);
+                                  setSlugEsConflictReason(null);
+                                }
+                              }}
+                              placeholder="Title"
+                              className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                              data-testid={`input-title-${loc0}`}
+                            />
                           ) : (
                             <input
                               type="text"
