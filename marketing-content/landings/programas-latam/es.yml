@@ -263,7 +263,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
