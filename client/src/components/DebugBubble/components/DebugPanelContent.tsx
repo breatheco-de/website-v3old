@@ -123,6 +123,7 @@ export interface DebugPanelContentProps {
   handleDuplicatePage: (url: string) => void;
   handleDeletePage: (url: string) => void;
   handleDownloadYml: (url: string) => void;
+  contentLocale: string | null;
 
   session: { location?: { slug?: string; name?: string } };
   currentLocationOverride: string | null;
@@ -397,8 +398,9 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                       if (props.contentInfo.type && props.contentInfo.slug && !props.pathname.startsWith('/private/preview/')) {
                         const pathSegments = props.pathname.split('/').filter(Boolean);
                         const urlLocale = pathSegments[0];
-                        const normalizedLocale = normalizeLocale(urlLocale || i18n.language);
-                        const previewUrl = `/private/preview/${props.contentInfo.type}/${props.contentInfo.slug}?locale=${normalizedLocale}`;
+                        const hasPathLocale = /^[a-z]{2}$/.test(urlLocale);
+                        const resolvedLocale = hasPathLocale ? normalizeLocale(urlLocale) : (props.contentLocale || normalizeLocale(i18n.language));
+                        const previewUrl = `/private/preview/${props.contentInfo.type}/${props.contentInfo.slug}?locale=${resolvedLocale}`;
                         props.navigate(previewUrl);
                       }
                     }

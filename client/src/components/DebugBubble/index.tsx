@@ -431,13 +431,14 @@ export function DebugBubble() {
         if (contentInfo.type && contentInfo.slug && !pathname.startsWith('/private/preview/')) {
           const pathSegments = pathname.split('/').filter(Boolean);
           const urlLocale = pathSegments[0];
-          const normalizedLocale = normalizeLocale(urlLocale || i18n.language);
-          const previewUrl = `/private/preview/${contentInfo.type}/${contentInfo.slug}?locale=${normalizedLocale}`;
+          const hasPathLocale = /^[a-z]{2}$/.test(urlLocale);
+          const resolvedLocale = hasPathLocale ? normalizeLocale(urlLocale) : (pageDiagnostics?.locale || normalizeLocale(i18n.language));
+          const previewUrl = `/private/preview/${contentInfo.type}/${contentInfo.slug}?locale=${resolvedLocale}`;
           navigate(previewUrl);
         }
       }
     }
-  }, [isValidated, isLoading, pendingAutoEditMode, editMode, contentInfo, pathname, i18n.language, navigate]);
+  }, [isValidated, isLoading, pendingAutoEditMode, editMode, contentInfo, pathname, i18n.language, navigate, pageDiagnostics?.locale]);
 
   // Fetch sitemap URLs when entering sitemap view
   useEffect(() => {
@@ -1581,6 +1582,7 @@ export function DebugBubble() {
     handleDuplicatePage,
     handleDeletePage,
     handleDownloadYml,
+    contentLocale: pageDiagnostics?.locale || null,
     session,
     currentLocationOverride,
     setSelectedLocationSlug,
