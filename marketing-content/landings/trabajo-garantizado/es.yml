@@ -294,21 +294,21 @@ sections:
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
-    title: How the Refund Works
-    description: "We've made it simple: if you complete all the required steps, and you don't land a qualifying job within 9 months after graduation, we'll refund 100% of your tuition."
+    title: Cómo funciona el reembolso
+    description: "Lo hemos simplificado: si completas todos los pasos necesarios y no consigues un trabajo que cumpla los requisitos en los 9 meses posteriores a tu graduación, te reembolsaremos el 100 % de la matrícula."
     description_link:
       text: Conditions apply.
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
     steps:
-      - icon: Optimization
-        text: Notify us that you weren't hired into any qualifying role within 9 months of graduation.
-        title: Notification
+      - icon: Optimización
+        text: Si dentro de los nueve meses posteriores a su graduación no ha sido contratado para un puesto que cumpla con los requisitos debe notificarnos.
+        title: Notificación
       - icon: Interview
-        text: Our team thoroughly verifies that you have successfully completed all Job Guarantee requirements.
-        title: Verification
+        text: Nuestro equipo verifica minuciosamente que hayas completado con éxito todos los requisitos de la Garantía de Empleo.
+        title: Verificación
       - icon: JobSearch
-        text: You will receive your full refund within 30 days from the date your request is approved.
-        title: Full Refund
+        text: Recibirá el reembolso completo en un plazo de 30 días a partir de la fecha en que se apruebe su solicitud.
+        title: Reembolso
     section_id: numbered_steps-2ramas
   - type: cards_deck
     version: "1.0"
