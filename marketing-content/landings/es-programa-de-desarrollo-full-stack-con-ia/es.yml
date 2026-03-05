@@ -19,8 +19,8 @@ sections:
     variant: ApplyFormProductShowcase
     title: y construye sistemas reales en producción
     brand_mark:
-      prefix: Conviértete en
-      highlight: Ingeniero de IA
+      prefix: Programa de Desarrollo
+      highlight: Full Stack con IA
       color: primary
     description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
     form:
