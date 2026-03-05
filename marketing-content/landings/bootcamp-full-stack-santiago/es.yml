@@ -33,15 +33,12 @@ sections:
       - ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida.
       - Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses.
     signup_card:
-      title: Obtén el programa completo
-      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
+      title: Completa el formulario para recibir información
+      description: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de plagos en tu correo electrónico.
       cta_button:
         text: Solicitar información
         url: "#apply-modal"
         variant: primary
-      login_link:
-        text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
           text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
