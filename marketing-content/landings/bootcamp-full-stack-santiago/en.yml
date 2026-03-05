@@ -401,7 +401,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para convertirte en Desarrollador Full Stack?
-    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
