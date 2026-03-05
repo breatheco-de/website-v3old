@@ -232,6 +232,25 @@ sections:
       - icon: JobSearch
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
+  - type: features_quad
+    version: "1.0"
+    variant: laptopEdge
+    heading: Who Can Add the Job Guarantee?
+    description: "You can enroll in the Job Guarantee if you:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: Have U.S. work authorization
+      - icon: IconCircleDashedCheck
+        title: Complete all coursework
+      - icon: IconBrain
+        title: Pass our logic test
+      - icon: IconArrowGuideFilled
+        title: Follow our career plan
+    background: hsl(var(--muted))
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     variant: form
@@ -259,22 +278,3 @@ sections:
           placeholder: Last name
       success:
         message: Thank you! We'll be in touch soon.
-  - type: features_quad
-    version: "1.0"
-    variant: laptopEdge
-    heading: Who Can Add the Job Guarantee?
-    description: "You can enroll in the Job Guarantee if you:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
-      - icon: IconCircleDashedCheck
-        title: Complete all coursework
-      - icon: IconBrain
-        title: Pass our logic test
-      - icon: IconArrowGuideFilled
-        title: Follow our career plan
-    background: hsl(var(--muted))
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: none
