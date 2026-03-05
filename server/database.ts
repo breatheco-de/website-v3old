@@ -101,6 +101,21 @@ function parseFileContent(content: string, ext: string, resultsPath?: string): u
     return items;
   }
   if (Array.isArray(data)) return data;
+  // Auto-detect: if the root is an object, find top-level keys whose value is an array
+  if (data && typeof data === "object") {
+    const arrayKeys = Object.keys(data as Record<string, unknown>).filter(
+      (k) => Array.isArray((data as Record<string, unknown>)[k])
+    );
+    if (arrayKeys.length === 1) {
+      return (data as Record<string, unknown>)[arrayKeys[0]] as unknown[];
+    }
+    if (arrayKeys.length > 1) {
+      throw new Error(
+        `File contains multiple array keys: ${arrayKeys.map((k) => `"${k}"`).join(", ")}. ` +
+        `Set the Results Path field to one of these.`
+      );
+    }
+  }
   throw new Error("File content is not an array and no results_path configured");
 }
 
@@ -192,6 +207,21 @@ async function fetchFromApi(
   }
 
   if (Array.isArray(data)) return data;
+  // Auto-detect: if the root is an object, find top-level keys whose value is an array
+  if (data && typeof data === "object") {
+    const arrayKeys = Object.keys(data as Record<string, unknown>).filter(
+      (k) => Array.isArray((data as Record<string, unknown>)[k])
+    );
+    if (arrayKeys.length === 1) {
+      return (data as Record<string, unknown>)[arrayKeys[0]] as unknown[];
+    }
+    if (arrayKeys.length > 1) {
+      throw new Error(
+        `Response contains multiple array keys: ${arrayKeys.map((k) => `"${k}"`).join(", ")}. ` +
+        `Set the Results Path field to one of these.`
+      );
+    }
+  }
   throw new Error("API response is not an array and no results_path configured");
 }
 
