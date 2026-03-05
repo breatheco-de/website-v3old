@@ -100,6 +100,8 @@ sections:
     gap: "8"
     marginY:
       desktop: none lg
+    paddingY:
+      desktop: none lg
   - type: two_column
     proportions:
       - 6
