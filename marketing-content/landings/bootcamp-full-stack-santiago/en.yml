@@ -400,47 +400,46 @@ sections:
       desktop: md
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
-    subtitle: Limited spots available. Start your transformation today.
+    title: ¿Listo para convertirte en Desarrollador Full Stack?
+    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Your email address
+          placeholder: Tu correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre
         phone:
           visible: true
-          required: true
-          placeholder: Phone number
+          required: false
+          placeholder: Número de teléfono
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: full-stack
       success:
-        message: Thank you! We'll be in touch soon.
+        message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information about courses and promotions
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    paddingY:
-      desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
-    section_id: cta_banner-yno9xp
+    paddingY:
+      desktop: md
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
