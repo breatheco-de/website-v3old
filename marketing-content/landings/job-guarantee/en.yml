@@ -148,18 +148,19 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Real Outcomes Behind the Job Guarantee
-    description: The Job Guarantee is built on real results and a hiring-focused model. Our programs, teaching approach, and career support are structured around how people actually get hired. Over 6,000 graduates have launched succesful careers across tech roles and industries.
+    heading: Confidence You Can Rely On
+    description: |
+      Our students get hired, and our high placement and retention rates prove it. At 4Geeks, you develop the AI-native, hands-on skills companies are actively looking for, all backed by a growth mindset. With an industry-aligned curriculum and unlimited 1:1 mentorship, you’re prepared for in-demand roles — and employers notice the difference.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
+    image_alt: 4Geeks Academy career support
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Consistent hiring success across our graduates
-      - icon: BrandStackshare
-        text: High demand for skilled tech talent
+        text: Career Support with Proven Track Record
+      - icon: Brain
+        text: AI-Native Training Employers Are Hiring For
       - icon: ChalkboardTeacher
-        text: Structured training + ongoing career mentorship
+        text: Structured, Personalized Learning Method
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
