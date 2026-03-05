@@ -157,12 +157,12 @@ export function StatCard({
   const valueSizeClass = value_size 
     ? value_size
     : isSmall 
-      ? (isHorizontalMobile ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl" : "text-xl md:text-5xl")
-      : (isHorizontalMobile ? "text-4xl sm:text-5xl" : "text-5xl");
+      ? (isHorizontalMobile ? "sm:text-3xl md:text-4xl lg:text-5xl" : "md:text-5xl")
+      : (isHorizontalMobile ? "sm:text-5xl" : "md:text-5xl");
   
   const content = (
     <div className={`font-inter ${isHorizontalMobile ? "flex items-center gap-4 sm:block" : ""}`}>
-      <div className={`font-bold text-primary lg:${valueSizeClass} shrink-0`}>
+      <div className={`font-bold text-primary text-2xl ${valueSizeClass} shrink-0`}>
         {isTemplate ? (
           value
         ) : animate ? (
