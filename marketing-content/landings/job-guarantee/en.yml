@@ -185,7 +185,7 @@ sections:
     description: "You can enroll in the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete all coursework
       - icon: IconBrain
