@@ -219,6 +219,8 @@ sections:
     background: hsl(var(--secondary))
     bullet_icon: Check
     bullet_icon_color: text-green-600
+    paddingY:
+      desktop: lg none
   - type: whos_hiring
     variant: carousel
     title: Where 4Geeks Graduates Work
