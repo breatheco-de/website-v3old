@@ -182,6 +182,9 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
+  - type: testimonials_slide
+    title: The Stories Behind the Stats
+    description: Discover how our graduates transformed their careers
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
@@ -201,6 +204,3 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-  - type: testimonials_slide
-    title: The Stories Behind the Stats
-    description: Discover how our graduates transformed their careers
