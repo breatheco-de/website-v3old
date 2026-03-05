@@ -16,7 +16,6 @@ schema:
   include:
     - organization
     - website
-    - educational
 sections:
   - type: hero
     variant: showcase

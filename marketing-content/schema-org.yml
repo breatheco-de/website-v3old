@@ -163,33 +163,35 @@ website:
 courses:
   full-stack:
     type: "Course"
-    name: "Full Stack Development"
-    description: "Comprehensive program covering front-end and back-end web development with modern technologies including React, Node.js, Python, and databases."
+    name: "Full Stack Development with AI"
+    description: "Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $65K+ starting salaries."
     provider: "@organization"
     educational_level: "Beginner to Advanced"
-    time_required: "PT480H"
+    time_required: "PT384H"
     teaches:
       - "HTML5"
       - "CSS3"
       - "JavaScript"
       - "React"
       - "Python"
-      - "Node.js"
-      - "SQL"
+      - "Flask"
+      - "SQLAlchemy"
       - "REST APIs"
       - "Git"
+      - "JWT Authentication"
+      - "Agile Methodologies"
     locales:
       es:
-        name: "Desarrollo Full Stack"
-        description: "Programa integral que cubre desarrollo web front-end y back-end con tecnologías modernas incluyendo React, Node.js, Python y bases de datos."
+        name: "Desarrollador Full Stack"
+        description: "Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $65K+."
 
   data-science:
     type: "Course"
-    name: "Data Science & Machine Learning"
-    description: "Learn data analysis, machine learning, and AI with Python. Master pandas, scikit-learn, TensorFlow and build real-world projects."
+    name: "Data Science and Machine Learning"
+    description: "Learn data science and machine learning at your own pace with AI-powered tools, unlimited mentorship, and a global community. Master Python, TensorFlow, and predictive modeling."
     provider: "@organization"
     educational_level: "Intermediate"
-    time_required: "PT400H"
+    time_required: "PT432H"
     teaches:
       - "Python"
       - "Pandas"
@@ -198,10 +200,40 @@ courses:
       - "TensorFlow"
       - "Machine Learning"
       - "Data Visualization"
+      - "SQL"
+      - "Git"
+      - "Predictive Modeling"
+      - "Jupyter Notebooks"
+      - "Matplotlib"
+      - "Seaborn"
+      - "BeautifulSoup"
     locales:
       es:
         name: "Ciencia de Datos y Machine Learning"
-        description: "Aprende análisis de datos, machine learning e IA con Python. Domina pandas, scikit-learn, TensorFlow y construye proyectos reales."
+        description: "Aprende ciencia de datos y machine learning a tu propio ritmo con herramientas potenciadas por IA, mentoría ilimitada y una comunidad global. Domina Python, TensorFlow y modelado predictivo."
+
+  cybersecurity:
+    type: "Course"
+    name: "Cybersecurity Specialist"
+    description: "Launch a high-paying career in cybersecurity. Learn to defend systems and respond to real-world cyber threats with a hands-on, AI-integrated curriculum—designed by leading cybersecurity experts."
+    provider: "@organization"
+    educational_level: "Beginner to Intermediate"
+    time_required: "PT384H"
+    teaches:
+      - "Network Security"
+      - "Linux Administration"
+      - "Python"
+      - "Penetration Testing"
+      - "Threat Detection"
+      - "OSINT"
+      - "Shell Scripting"
+      - "Security Operations"
+      - "Git"
+      - "EJPT Certification Prep"
+    locales:
+      es:
+        name: "Especialista en Ciberseguridad"
+        description: "Inicia una carrera bien remunerada en ciberseguridad. Aprende a defender sistemas y responder a amenazas cibernéticas reales con un currículo práctico e integrado con IA, diseñado por expertos líderes en ciberseguridad."
 
   ai-engineering:
     type: "Course"

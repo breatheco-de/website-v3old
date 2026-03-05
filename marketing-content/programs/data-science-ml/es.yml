@@ -16,7 +16,7 @@ schema:
   include:
     - organization
     - website
-    - courses:data-science-ml
+    - courses:data-science
 sections:
   - type: hero
     version: "1.0"

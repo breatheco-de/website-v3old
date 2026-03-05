@@ -10,4 +10,4 @@ schema:
   include:
     - organization
     - website
-    - courses:data-science-ml
+    - courses:data-science

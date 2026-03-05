@@ -7,7 +7,6 @@ schema:
   include:
     - organization
     - website
-    - educational
 layout:
   menu:
     top: main-navbar

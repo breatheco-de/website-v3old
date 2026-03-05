@@ -68,14 +68,14 @@ properties:
   secondary:
     type: object
     required: true
-    description: "Secondary card content (smaller card with benefits list)"
+    description: "Secondary card content (smaller card). Supports either a benefits list or a full-bleed image — at least one must be provided."
     fields:
       benefits:
         type: array
-        required: true
+        required: false
         min: 1
         max: 5
-        description: "List of benefit items with checkmarks"
+        description: "List of benefit items with checkmarks. Required when no image_id is provided."
         items:
           text:
             type: string
@@ -85,6 +85,19 @@ properties:
             type: string
             required: false
             description: "Optional custom icon (defaults to checkmark)"
+      image_id:
+        type: string
+        required: false
+        description: "Image registry ID to display as a full-bleed image in the secondary card. Use instead of benefits."
+      object_fit:
+        type: string
+        enum: ["cover", "contain", "fill", "none"]
+        required: false
+        description: "CSS object-fit for the image. Defaults to 'cover'."
+      object_position:
+        type: string
+        required: false
+        description: "CSS object-position for the image (e.g. 'center center', 'top left')."
 
   background:
     type: string
