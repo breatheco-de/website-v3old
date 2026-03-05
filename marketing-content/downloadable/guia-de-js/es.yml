@@ -33,9 +33,9 @@ sections:
             placeholder: Número de teléfono
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
-      desktop: none
-    paddingY:
       desktop: md none
+    paddingY:
+      desktop: none
   - type: two_column
     proportions:
       - 7
