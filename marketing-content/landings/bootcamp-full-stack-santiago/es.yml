@@ -128,7 +128,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 16 semanas
+        duration: 18 semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning con IA
         badges:
