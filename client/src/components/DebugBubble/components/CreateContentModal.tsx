@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   IconCopy,
   IconPlus,
@@ -107,6 +107,17 @@ export function CreateContentModal({
   const contentTypesMap = useContentTypes();
   const { data: rawContentTypes } = useContentTypesRaw();
 
+  useEffect(() => {
+    if (duplicatingPage) {
+      const sourceLocale = duplicatingPage.loc.startsWith('/es/') ? 'es' : 'en';
+      const oppositeLocale = sourceLocale === 'en' ? 'es' : 'en';
+      setExcludedLocales(new Set([oppositeLocale]));
+      setCreateLandingLocale(sourceLocale);
+    } else {
+      setExcludedLocales(new Set());
+    }
+  }, [duplicatingPage]);
+
   const isTypeChanged = !!(duplicatingPage && createContentType !== duplicatingPage.contentType);
 
   const creatableTypes = useMemo(() => {
@@ -211,7 +222,7 @@ export function CreateContentModal({
                 </SelectContent>
               </Select>
               
-              {createContentType === 'landing' && (
+              {createContentType === 'landing' && !duplicatingPage && (
                 <Select value={createLandingLocale} onValueChange={(v) => setCreateLandingLocale(v as 'en' | 'es')}>
                   <SelectTrigger className="w-36" data-testid="select-landing-locale">
                     <SelectValue>
