@@ -32,9 +32,9 @@ sections:
             required: true
     background: hsl(210 100% 50% / 0.05)
     marginY:
-      desktop: none sm
+      desktop: md
     paddingY:
-      desktop: md none
+      desktop: none
   - type: two_column
     proportions:
       - 7
