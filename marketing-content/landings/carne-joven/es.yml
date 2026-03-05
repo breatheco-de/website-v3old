@@ -104,6 +104,8 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
     image_alt: Estudiante usando laptop con promoción Carné Joven 50% descuento
     reverse: true
+    marginY:
+      desktop: none md
   - type: awards_marquee
     section_id: awards_marquee-cz908y
     version: v1.0
