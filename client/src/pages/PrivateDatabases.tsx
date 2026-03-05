@@ -425,8 +425,27 @@ function CreateDatabaseDialog({
   const [params, setParams] = useState<KeyValuePair[]>([]);
   const [headers, setHeaders] = useState<KeyValuePair[]>([]);
   const [localFilename, setLocalFilename] = useState("");
+  const [localFileStatus, setLocalFileStatus] = useState<"idle" | "checking" | "found" | "not-found">("idle");
   const [remoteUrl, setRemoteUrl] = useState("");
   const [datasetPickerOpen, setDatasetPickerOpen] = useState(false);
+
+  useEffect(() => {
+    if (sourceType !== "local" || !localFilename.trim() || !slug.trim()) {
+      setLocalFileStatus("idle");
+      return;
+    }
+    setLocalFileStatus("checking");
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/databases/check-file?slug=${encodeURIComponent(slug)}&filename=${encodeURIComponent(localFilename.trim())}`);
+        const data = await res.json();
+        setLocalFileStatus(data.exists ? "found" : "not-found");
+      } catch {
+        setLocalFileStatus("idle");
+      }
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [localFilename, slug, sourceType]);
 
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<{
@@ -767,13 +786,25 @@ function CreateDatabaseDialog({
               <>
                 <div className="space-y-2">
                   <Label htmlFor="db-local-filename">Filename</Label>
-                  <Input
-                    id="db-local-filename"
-                    placeholder="e.g. products.json, data.csv"
-                    value={localFilename}
-                    onChange={(e) => setLocalFilename(e.target.value)}
-                    data-testid="input-db-local-filename"
-                  />
+                  <div className="relative">
+                    <Input
+                      id="db-local-filename"
+                      placeholder="e.g. products.json, data.csv"
+                      value={localFilename}
+                      onChange={(e) => setLocalFilename(e.target.value)}
+                      data-testid="input-db-local-filename"
+                      className="pr-8"
+                    />
+                    {localFileStatus === "checking" && (
+                      <IconLoader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+                    )}
+                    {localFileStatus === "found" && (
+                      <IconCheck className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
+                    )}
+                    {localFileStatus === "not-found" && (
+                      <IconX className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+                    )}
+                  </div>
                   <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
                     <p className="font-medium text-foreground">Where to place the file</p>
                     <p>
@@ -1204,8 +1235,27 @@ function DatabaseConfigEditor({
     return Object.entries(h).map(([key, value]) => ({ key, value }));
   });
   const [localFilename, setLocalFilename] = useState(config.source.local?.filename || "");
+  const [localFileStatus, setLocalFileStatus] = useState<"idle" | "checking" | "found" | "not-found">("idle");
   const [remoteUrl, setRemoteUrl] = useState(config.source.remote?.url || "");
   const [datasetPickerOpen, setDatasetPickerOpen] = useState(false);
+
+  useEffect(() => {
+    if (sourceType !== "local" || !localFilename.trim()) {
+      setLocalFileStatus("idle");
+      return;
+    }
+    setLocalFileStatus("checking");
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/databases/check-file?slug=${encodeURIComponent(dbName)}&filename=${encodeURIComponent(localFilename.trim())}`);
+        const data = await res.json();
+        setLocalFileStatus(data.exists ? "found" : "not-found");
+      } catch {
+        setLocalFileStatus("idle");
+      }
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [localFilename, dbName, sourceType]);
 
   const [testResult, setTestResult] = useState<{
     success: boolean;
@@ -1447,13 +1497,25 @@ function DatabaseConfigEditor({
         <>
           <div className="space-y-2">
             <Label htmlFor="edit-local-filename">Filename</Label>
-            <Input
-              id="edit-local-filename"
-              placeholder="e.g. products.json, data.csv"
-              value={localFilename}
-              onChange={(e) => setLocalFilename(e.target.value)}
-              data-testid="input-edit-local-filename"
-            />
+            <div className="relative">
+              <Input
+                id="edit-local-filename"
+                placeholder="e.g. products.json, data.csv"
+                value={localFilename}
+                onChange={(e) => setLocalFilename(e.target.value)}
+                data-testid="input-edit-local-filename"
+                className="pr-8"
+              />
+              {localFileStatus === "checking" && (
+                <IconLoader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+              )}
+              {localFileStatus === "found" && (
+                <IconCheck className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
+              )}
+              {localFileStatus === "not-found" && (
+                <IconX className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+              )}
+            </div>
             <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
               <p className="font-medium text-foreground">Where to place the file</p>
               <p>

@@ -2937,6 +2937,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   const DATASET_EXTENSIONS_SET = new Set([".json", ".csv", ".yaml", ".yml"]);
 
+  app.get("/api/databases/check-file", (req, res) => {
+    const slug = (req.query.slug as string) || "";
+    const filename = (req.query.filename as string) || "";
+    if (!slug || !filename) {
+      res.status(400).json({ error: "slug and filename are required" });
+      return;
+    }
+    const filePath = path.join(process.cwd(), "marketing-content", "db", slug, filename);
+    res.json({ exists: fs.existsSync(filePath), path: `marketing-content/db/${slug}/${filename}` });
+  });
+
   app.get("/api/databases/datasets", async (req, res) => {
     try {
       const results: {
