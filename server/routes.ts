@@ -7257,6 +7257,18 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json({ taken: false });
   });
 
+  function formatValidationError(type: string, raw: string): string {
+    try {
+      const match = raw.match(/(\[[\s\S]*\])/);
+      if (match) {
+        const issues = JSON.parse(match[1]) as Array<{ path: string[]; message: string }>;
+        const fieldErrors = issues.map(i => `"${i.path.join(".")}" ${i.message}`).join("; ");
+        return `Cannot save ${type}: ${fieldErrors}`;
+      }
+    } catch {}
+    return `Cannot save ${type}: ${raw}`;
+  }
+
   // Create new content (location/page/program)
   app.post("/api/content/create", async (req, res) => {
     try {
@@ -7437,6 +7449,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 newSlugs: { en: enSlug || undefined, es: esSlug || undefined },
                 title: title || folderSlug!,
                 skipLocales,
+                localeTitles,
               });
 
               for (const file of result.copiedFiles) {
@@ -7448,6 +7461,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
               clearSitemapCache();
               contentIndex.refresh();
+
+              const localesToValidate1 = getSupportedLocales().filter(l => !skipLocales.includes(l));
+              for (const locale of localesToValidate1) {
+                const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug!, locale);
+                if (validationError) {
+                  fs.rmSync(folderPath, { recursive: true, force: true });
+                  contentIndex.refresh();
+                  res.status(400).json({ error: formatValidationError(type, validationError) });
+                  return;
+                }
+              }
 
               res.json({
                 success: true,
@@ -7509,11 +7533,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               if (file === "en.yml" || file === "es.yml") {
                 const fileLocale = file.replace(/\.yml$/, "");
                 const localeTitle = localeTitles[fileLocale] || title;
-                content = content.replace(/title:\s*.*$/m, `title: ${localeTitle}`);
+                if (/^title:/m.test(content)) {
+                  content = content.replace(/^title:\s*.*$/m, `title: "${localeTitle}"`);
+                } else {
+                  content = content.replace(/^(slug:.*$)/m, `$1\ntitle: "${localeTitle}"`);
+                }
               }
 
               // Replace unique mapped field values in _common.yml
               if (file === "_common.yml") {
+                content = content.replace(/^title:\s*.*$/m, `title: "${title}"`);
                 for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
                   if (fieldName === "slug" || fieldName === "title") continue;
                   content = content.replace(
@@ -7532,6 +7561,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
             clearSitemapCache();
             contentIndex.refresh();
+
+            const localesToValidate2 = getSupportedLocales().filter(l => !skipLocales.includes(l));
+            for (const locale of localesToValidate2) {
+              const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug!, locale);
+              if (validationError) {
+                fs.rmSync(folderPath, { recursive: true, force: true });
+                contentIndex.refresh();
+                res.status(400).json({ error: formatValidationError(type, validationError) });
+                return;
+              }
+            }
 
             res.json({
               success: true,
@@ -7613,6 +7653,18 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       clearSitemapCache();
 
       contentIndex.refresh();
+
+      const localesToValidate3 = getSupportedLocales().filter(l => !skipLocales.includes(l));
+      for (const locale of localesToValidate3) {
+        const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug!, locale);
+        if (validationError) {
+          fs.rmSync(folderPath, { recursive: true, force: true });
+          contentIndex.refresh();
+          res.status(400).json({ error: formatValidationError(type, validationError) });
+          return;
+        }
+      }
+
       res.json({
         success: true,
         slugEn: enSlug,

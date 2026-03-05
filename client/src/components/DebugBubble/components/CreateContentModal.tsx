@@ -37,7 +37,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { buildContentUrlFromPattern } from "@/lib/locale";
 import { useContentTypes, useContentTypesRaw } from "@/hooks/useContentTypes";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import type { ContentTypeValue, SlugCheckStatus, SitemapUrl } from "../types";
 
 export interface CreateContentModalProps {
@@ -298,6 +298,7 @@ export function CreateContentModal({
   const [step, setStep] = useState<1 | 2>(1);
   const [nonUniqueValues, setNonUniqueValues] = useState<Record<string, string>>({});
   const [showNonUnique, setShowNonUnique] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
   const [exampleOpen, setExampleOpen] = useState(false);
 
   const contentTypesMap = useContentTypes();
@@ -497,9 +498,11 @@ export function CreateContentModal({
     if (!slugsReady) return;
     if (!uniqueFieldsFilled) return;
 
+    setCreateError(null);
     setIsCreatingContent(true);
     try {
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const allFieldValues = { ...uniqueFieldValues, ...nonUniqueValues };
       const response = await fetch("/api/content/create", {
         method: "POST",
@@ -512,6 +515,7 @@ export function CreateContentModal({
           slugEn: excludedLocales.has(loc0) ? undefined : createContentSlugEn,
           slugEs: excludedLocales.has(loc1) ? undefined : createContentSlugEs,
           title: createContentTitle || createContentSlugEn,
+          ...(author ? { author } : {}),
           ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
           ...(excludedLocales.size > 0 ? { skipLocales: Array.from(excludedLocales) } : {}),
           ...(isTypeChanged ? { changeContentType: true } : {}),
@@ -565,19 +569,11 @@ export function CreateContentModal({
 
         window.location.href = newUrl;
       } else {
-        toast({
-          title: "Failed to create content",
-          description: data.error || "An error occurred",
-          variant: "destructive",
-        });
+        setCreateError(data.error || "An error occurred");
       }
     } catch (error) {
       console.error("Error creating content:", error);
-      toast({
-        title: "Failed to create content",
-        description: "Network error occurred",
-        variant: "destructive",
-      });
+      setCreateError("Network error — please try again");
     } finally {
       setIsCreatingContent(false);
     }
@@ -699,7 +695,7 @@ export function CreateContentModal({
                     .replace(/-+/g, "-")
                     .replace(/^-|-$/g, "");
                   setCreateContentSlugEn(slug);
-                  setCreateContentSlugEs(slug);
+                  if (!manualTitleLocales.has(loc1)) setCreateContentSlugEs(slug);
                   setLocaleTitles((prev) => {
                     const next = { ...prev };
                     for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc0)) {
@@ -709,16 +705,18 @@ export function CreateContentModal({
                   });
                   if (slug) {
                     setCreateContentSlugEnStatus("checking");
-                    setCreateContentSlugEsStatus("checking");
                     checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
-                    if (!excludedLocales.has(loc1)) {
+                    if (!manualTitleLocales.has(loc1) && !excludedLocales.has(loc1)) {
+                      setCreateContentSlugEsStatus("checking");
                       checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
                     }
                   } else {
                     setCreateContentSlugEnStatus("idle");
-                    setCreateContentSlugEsStatus("idle");
                     setSlugEnConflictReason(null);
-                    setSlugEsConflictReason(null);
+                    if (!manualTitleLocales.has(loc1)) {
+                      setCreateContentSlugEsStatus("idle");
+                      setSlugEsConflictReason(null);
+                    }
                   }
                 }}
                 placeholder="e.g., Career Development Guide"
@@ -773,9 +771,32 @@ export function CreateContentModal({
                         <div key={loc} className="flex items-center gap-2">
                           <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc}</span>
                           {loc === loc0 ? (
-                            <span className="flex-1 text-xs bg-background px-2 py-1 rounded border text-foreground truncate">
-                              {createContentTitle || "—"}
-                            </span>
+                            <input
+                              type="text"
+                              value={createContentTitle}
+                              onChange={(e) => {
+                                const title = e.target.value;
+                                setCreateContentTitle(title);
+                                const slug = title
+                                  .toLowerCase()
+                                  .trim()
+                                  .replace(/[^a-z0-9\s-]/g, "")
+                                  .replace(/\s+/g, "-")
+                                  .replace(/-+/g, "-")
+                                  .replace(/^-|-$/g, "");
+                                setCreateContentSlugEn(slug);
+                                if (slug) {
+                                  setCreateContentSlugEnStatus("checking");
+                                  checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
+                                } else {
+                                  setCreateContentSlugEnStatus("idle");
+                                  setSlugEnConflictReason(null);
+                                }
+                              }}
+                              placeholder="Title"
+                              className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                              data-testid={`input-title-${loc0}`}
+                            />
                           ) : (
                             <input
                               type="text"
@@ -809,6 +830,7 @@ export function CreateContentModal({
                     <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
 
                     <div className={`flex items-center gap-2 transition-opacity ${loc0Excluded ? "opacity-40" : ""}`}>
+                      <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc0}</span>
                       {loc0Excluded ? (
                         <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
                           {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, loc0)}
@@ -896,6 +918,7 @@ export function CreateContentModal({
                     )}
 
                     <div className={`flex items-center gap-2 transition-opacity ${loc1Excluded ? "opacity-40" : ""}`}>
+                      <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc1}</span>
                       {loc1Excluded ? (
                         <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
                           {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs || createContentSlugEn, loc1)}
@@ -1076,9 +1099,10 @@ export function CreateContentModal({
                     <input
                       type="text"
                       value={uniqueFieldValues[field] ?? ""}
-                      onChange={(e) =>
-                        setUniqueFieldValues((prev) => ({ ...prev, [field]: e.target.value }))
-                      }
+                      onChange={(e) => {
+                        setUniqueFieldValues((prev) => ({ ...prev, [field]: e.target.value }));
+                        setCreateError(null);
+                      }}
                       placeholder={exampleData?.fields?.[field] ?? humanizeField(field)}
                       className="flex-1 px-2 py-1 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
                       data-testid={`input-field-${field}`}
@@ -1146,6 +1170,9 @@ export function CreateContentModal({
         )}
 
         <DialogFooter className="gap-2 sm:gap-0">
+          {createError && (
+            <p className="text-xs text-destructive flex-1 self-center" data-testid="text-create-error">{createError}</p>
+          )}
           {step === 1 && (
             <Button
               variant="outline"

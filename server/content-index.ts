@@ -1267,10 +1267,11 @@ class ContentIndex {
     newSlugs: { en?: string; es?: string };
     title: string;
     skipLocales: string[];
+    localeTitles?: Record<string, string>;
   }): { copiedFiles: string[]; strippedFields: string[]; replacedVars: number } {
     this.ensureInitialized();
 
-    const { sourceDir, sourceType, targetType, targetDir, newSlugs, title, skipLocales } = opts;
+    const { sourceDir, sourceType, targetType, targetDir, newSlugs, title, skipLocales, localeTitles } = opts;
 
     const sourceFieldMapping = getFieldMapping(sourceType) || {};
     const targetFieldMapping = getFieldMapping(targetType) || {};
@@ -1341,6 +1342,7 @@ class ContentIndex {
           parsed.title = title;
         } else if (newSlugs[fileLocale as keyof typeof newSlugs]) {
           parsed.slug = newSlugs[fileLocale as keyof typeof newSlugs];
+          parsed.title = localeTitles?.[fileLocale] ?? title;
         }
 
         const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
@@ -1426,6 +1428,7 @@ class ContentIndex {
     if (Array.isArray(sections)) {
       for (const section of sections) {
         if (section && typeof section === "object") {
+          if ((section as Record<string, unknown>).type === "modal") continue;
           delete (section as Record<string, unknown>).section_id;
         }
       }
