@@ -912,7 +912,13 @@ function PageAnalysisTab() {
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-foreground" data-testid="text-page-title">{pageDiag.title}</h3>
-            <p className="text-sm text-muted-foreground font-mono">{pageDiag.url}</p>
+            <a
+              href={pageDiag.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground font-mono hover:text-primary transition-colors"
+              data-testid="link-page-url"
+            >{pageDiag.url}</a>
           </div>
 
           <div className="flex flex-wrap items-center justify-start gap-6" data-testid="score-dashboard">
