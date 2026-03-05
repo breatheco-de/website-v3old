@@ -42,4 +42,4 @@ sections:
         meta_right: {{ single.published_at | }}
         cta_text: Read more
     maxWidth:
-      desktop: lg
+      desktop: xl
