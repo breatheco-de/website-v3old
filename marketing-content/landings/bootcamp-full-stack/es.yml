@@ -25,20 +25,40 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Conviértete en un Desarrollador Full Stack
+    title: Programa de Desarrollo Full Stack con IA
     title_highlight: Full Stack Developer con IA
-    subtitle: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: Más de 1.000 estudiantes en LATAM y EE. UU.
     bullet_points:
-      - Aprende a programar desde cero hasta ser un profesional
-      - ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida.
-      - Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses.
+      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
+      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
+      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
+      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
+    tutors:
+      - name: Instructor Experto
+        role: Instructor Principal
+        image: https://randomuser.me/api/portraits/men/10.jpg
+      - name: Rigo
+        role: Asistente de Aprendizaje con IA
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tus instructores:"
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     signup_card:
-      title: Completa el formulario para recibir información
-      description: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de plagos en tu correo electrónico.
+      title: Obtén el programa completo
+      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
       cta_button:
         text: Solicitar información
         url: "#apply-modal"
         variant: primary
+      login_link:
+        text: <br>
+        url: https://4geeks.com/es/login
       features:
         - icon: IconCalendar
           text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
@@ -401,65 +421,6 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Matrícula y opciones de financiamiento
-    subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
-    financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: {{ global.price_fullstack | $299 }}
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    features_title: Elige la opción que mejor se adapte a ti.
-    features:
-      - icon: IconCheck
-        text: La matrícula estándar es {{ global.price_full_fullstack | $10,999 }}. Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
-      - icon: IconCheck
-        text: "Inscríbete con garantía de empleo* para mayor seguridad. Consigue tu primer trabajo dentro de los 9 meses posteriores a tu graduación o te devolvemos tu dinero.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span>*No disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Aplican términos y condiciones</a>.</span></span></div>"
-      - icon: IconCheck
-        text: 2–3 becas por mérito disponibles por cohorte para aspirantes altamente calificados.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
-    cta:
-      text: Recibir más información
-      url: "#apply-modal"
-      variant: primary
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: lg md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - newyork-usa
-      - losangeles-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: whos_hiring
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes

@@ -82,7 +82,7 @@ global.call_to_action_apply:
       value: "Postular Ahora"
     - query:
         location: "madrid-spain"
-      value: "Solicita tu plaza"
+      value: "Aplicar Ahora"
     - query:
         region: "latam"
       value: "Aplicar Ahora"
