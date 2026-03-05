@@ -17,6 +17,7 @@ sections:
       form:
         variant: stacked
         submit_label: Descargar la Guía Gratis
+        tags: request_downloadable
         fields:
           email:
             visible: true
