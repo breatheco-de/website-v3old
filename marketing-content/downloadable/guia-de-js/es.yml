@@ -95,21 +95,20 @@ sections:
       justify: center
     gap: "8"
   - type: two_column
-    version: v1.0
     proportions:
       - 6
       - 6
     alignment: center
-    gap: "8"
     left:
-      video: "-2ZvlgDnltc"
+      video: https://www.youtube.com/watch?v=OtJvrNwQw9E&t=1s
       justify: center
     right:
-      heading: See It In Action
-      sub_heading: Watch how our platform transforms careers
-      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      heading: Descubre por qué 4Geeks Academy es tu mejor opción para aprender JavaScript
+      sub_heading: ""
+      description: La guía de JavaScript que te ofrecemos es solo una pequeña muestra de todo lo que nuestro Bootcamp de Programación tiene para ofrecer. Con nuestro programa completo, podrás aprender a desarrollar aplicaciones web complejas, analizar datos y convertirte en un profesional altamente capacitado en el mundo de la tecnología. Ya sea que aspires a convertirte en un Full Stack Developer o un Data Analyst, 4Geeks está listo para llevarte de la mano para que puedas convertirte en un profesional de la programación.
       button:
-        text: Start Free Trial
-        url: /signup
+        text: Descarga la Guía Gratis
+        url: bottom
         variant: primary
         icon: Rocket
+    gap: "8"
