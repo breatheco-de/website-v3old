@@ -151,7 +151,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Descubre tu potencial en 4Geeks Academy
-    subheading: Programas para convertirte en un experto en programación y complementar tu perfil profesional
+    subheading: Añade la garantía de empleo para mayor tranquilidad al iniciar tu carrera profesional. Se aplican requisitos de elegibilidad.
     courses:
       - name: Ingeniería de IA
         icon: Brain
