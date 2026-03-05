@@ -344,7 +344,7 @@ sections:
         value: {{ global.global_job_placement_rate | 84 }}%
         title: Tasa de inserción laboral
       - icon: Graduation
-        value: 3-6 months
+        value: 3-6 meses
         title: Tiempo medio para conseguir un empleo
       - icon: GrowthChart
         value: {{ global.global_salary_increase | 55 }}%
