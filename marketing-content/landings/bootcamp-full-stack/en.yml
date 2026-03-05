@@ -49,49 +49,58 @@ sections:
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
-  - type: awards_marquee
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 400
-    items:
-      - id: switchup-2025
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        logoHeight: 64px
-      - id: course-report-2024
-        alt: Course Report - Best Coding Bootcamp 2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        logoHeight: 64px
-      - id: ebootcamp
-        alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 64px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 on Course Report Reviews
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Institutional Quality
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        logoHeight: 64px
+  - type: hero
+    version: "1.0"
+    variant: course
+    title: Programa de Desarrollo Full Stack con IA
+    title_highlight: Full Stack Developer con IA
+    subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: Más de 1.000 estudiantes en LATAM y EE. UU.
+    bullet_points:
+      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
+      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
+      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
+      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
+    tutors:
+      - name: Instructor Experto
+        role: Instructor Principal
+        image: https://randomuser.me/api/portraits/men/10.jpg
+      - name: Rigo
+        role: Asistente de Aprendizaje con IA
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tus instructores:"
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    signup_card:
+      title: Obtén el programa completo
+      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
+      cta_button:
+        text: Solicitar información
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: ¿Ya eres estudiante? Inicia sesión aquí.
+        url: https://4geeks.com/es/login
+      features:
+        - icon: IconCalendar
+          text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
+        - icon: code
+          text: +100 ejercicios interactivos de programación
+        - icon: robot
+          text: Feedback con IA en tiempo real
+        - icon: calendar
+          text: Ratio 1:7 estudiante–profesor
+        - icon: users
+          text: Mentoría personalizada 1:1
     paddingY:
-      mobile: md
-      desktop: none md
+      desktop: md lg
     marginY:
-      desktop: none md
+      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
