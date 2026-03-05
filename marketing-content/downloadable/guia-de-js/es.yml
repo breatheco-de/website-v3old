@@ -77,16 +77,14 @@ sections:
         name: Best Value
         year: "2024"
   - type: two_column
-    version: v1.0
     proportions:
       - 6
       - 6
     alignment: center
-    gap: "8"
-    left:
+    right:
       video: "-2ZvlgDnltc"
       justify: center
-    right:
+    left:
       heading: See It In Action
       sub_heading: Watch how our platform transforms careers
       description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
@@ -95,3 +93,4 @@ sections:
         url: /signup
         variant: primary
         icon: Rocket
+    gap: "8"
