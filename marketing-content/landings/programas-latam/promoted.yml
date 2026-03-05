@@ -248,8 +248,8 @@ sections:
         alt: Jooble
   - type: cta_banner
     version: "1.0"
-    title: ¿Listo para convertirte en Ingeniero de IA?
-    subtitle: Cupos limitados. Comienza tu transformación hoy.
+    title: Rellena el formulario y obtén más información
+    subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
     background: hsl(var(--primary))
     variant: form
     form:
