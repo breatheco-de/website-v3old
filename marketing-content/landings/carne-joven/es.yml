@@ -241,7 +241,7 @@ sections:
         title: Reconocimiento Internacional
         description: 4Geeks Academy es reconocido internacionalmente por su enfoque práctico y la calidad de sus programas.
     footer_description: Con nuestra colaboración especial con Carné Joven, puedes acceder a una formación de alta calidad a un precio accesible.
-    background: bg-background
+    background: hsl(var(--secondary))
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
