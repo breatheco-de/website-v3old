@@ -87,7 +87,7 @@ sections:
       description: Empieza aprendiendo a incluir un script de JavaScript en HTML, luego continua con los conceptos básicos, variables, tipos de datos, funciones, eventos y muchos más con nuestra guía
       button:
         text: Descargar la guía
-        url: /hero
+        url: bottom
         variant: primary
         icon: Rocket
     right:
