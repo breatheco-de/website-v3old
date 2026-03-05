@@ -154,7 +154,7 @@ sections:
           - icon: BarChart
             text: Análisis y Visualización de Datos
         description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
-        cta_text: Solicita más Información
+        cta_text: Empieza ahora
         cta_url: "#hero-form"
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
@@ -168,7 +168,7 @@ sections:
           - icon: Server
             text: Seguridad en la Nube
         description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
-        cta_text: Empieza a aprender ahora
+        cta_text: Empieza ahora
         cta_url: "#hero-form"
         course_background: hsl(var(--secondary-foreground))
     background: hsl(var(--muted))
