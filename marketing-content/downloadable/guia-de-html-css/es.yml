@@ -134,7 +134,7 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: lg
   - type: whos_hiring
