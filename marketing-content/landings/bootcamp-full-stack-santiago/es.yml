@@ -94,6 +94,36 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: none lg
+  - type: two_column
+    proportions:
+      - 5
+      - 7
+    background: bg-muted/30
+    alignment: center
+    left:
+      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
+      image_alt: Team collaborating on a project
+      justify: center
+    right:
+      heading: ¡Desde Cero Hasta Tu Primer Empleo!
+      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
+      bullets:
+        - text: No se requiere experiencia previa
+        - text: Horario part-time adaptable a tu vida actual
+        - text: Mentorías y career support de por vida
+      bullet_icon: Check
+      font_size: base
+    reverse_on_mobile: true
+    gap: "12"
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: JavaScript y Python
+    subtitle: ""
+    description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
+    cta:
+      text: Obtener más información
+      url: /signup
+      variant: primary
   - type: syllabus
     version: "1.0"
     variant: program-modules
@@ -145,36 +175,6 @@ sections:
         projects: Launch your capstone project
         orientation: horizontal
         icon: IconStack2
-  - type: two_column
-    proportions:
-      - 5
-      - 7
-    background: bg-muted/30
-    alignment: center
-    left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
-      image_alt: Team collaborating on a project
-      justify: center
-    right:
-      heading: ¡Desde Cero Hasta Tu Primer Empleo!
-      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
-      bullets:
-        - text: No se requiere experiencia previa
-        - text: Horario part-time adaptable a tu vida actual
-        - text: Mentorías y career support de por vida
-      bullet_icon: Check
-      font_size: base
-    reverse_on_mobile: true
-    gap: "12"
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: JavaScript y Python
-    subtitle: ""
-    description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
-    cta:
-      text: Obtener más información
-      url: /signup
-      variant: primary
   - type: course_selector
     version: "1.0"
     variant: solid
