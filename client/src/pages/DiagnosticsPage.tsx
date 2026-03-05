@@ -1144,7 +1144,7 @@ function PageAnalysisTab() {
                     const missingReg = pageDiag.images.missingFromRegistry.includes(id);
                     const missingDisk = pageDiag.images.missingFromDisk.includes(id);
                     const isMissing = missingReg || missingDisk;
-                    return (
+                    const badge = (
                       <Badge
                         key={id}
                         variant={isMissing ? "destructive" : "secondary"}
@@ -1154,6 +1154,19 @@ function PageAnalysisTab() {
                         {isMissing ? <IconX className="h-3 w-3" /> : <IconCheck className="h-3 w-3" />}
                         {id}
                       </Badge>
+                    );
+                    if (!isMissing) return badge;
+                    return (
+                      <Popover key={id}>
+                        <PopoverTrigger asChild>{badge}</PopoverTrigger>
+                        <PopoverContent align="start" className="w-64 space-y-2 p-3">
+                          <p className="text-xs font-medium text-foreground">Why is this image missing?</p>
+                          <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
+                            {missingReg && <li>Not found in the media registry</li>}
+                            {missingDisk && <li>File not found on disk</li>}
+                          </ul>
+                        </PopoverContent>
+                      </Popover>
                     );
                   })}
                 </div>
