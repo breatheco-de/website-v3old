@@ -222,6 +222,8 @@ sections:
     section_id: syllabus-vr2u4r
     paddingY:
       desktop: md
+    marginY:
+      desktop: none md
   - type: features_quad
     version: "1.0"
     variant: default
