@@ -48,3 +48,4 @@ sections:
       description: JavaScript es un lenguaje de programación versátil que se utiliza para crear una amplia gama de aplicaciones web, desde interfaces interactivas hasta juegos en línea y aplicaciones web complejas.
       text_align: left
     gap: "12"
+    background: hsl(210 100% 50% / 0.05)
