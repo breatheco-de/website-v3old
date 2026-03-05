@@ -54,6 +54,8 @@ sections:
       text_align: left
     gap: "12"
     background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: none lg
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -92,6 +94,8 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
+    paddingY:
+      desktop: lg none
   - type: two_column
     proportions:
       - 6
