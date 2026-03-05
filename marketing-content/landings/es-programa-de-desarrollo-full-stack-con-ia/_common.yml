@@ -13,6 +13,5 @@ schema:
     - organization
     - website
     - courses:ai-engineering
-    - courses:full-stack
 locations:
   - madrid-spain
