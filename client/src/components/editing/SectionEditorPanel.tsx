@@ -641,6 +641,8 @@ export function SectionEditorPanel({
     currentRegistryId?: string;
     // Optional tag filter (e.g., "logo" to show only logos)
     tagFilter?: string;
+    // When true, Remove clears the field instead of removing the array item
+    clearFieldOnly?: boolean;
   } | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
@@ -659,6 +661,9 @@ export function SectionEditorPanel({
     fieldPath?: string;
     label?: string;
     currentUrl: string;
+    arrayPath?: string;
+    index?: number;
+    field?: string;
   } | null>(null);
   const [videoPickerMode, setVideoPickerMode] = useState<"browse" | "upload" | "url">("url");
   const [videoUploading, setVideoUploading] = useState(false);
@@ -5051,7 +5056,7 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath} className="space-y-2">
                       <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel.replace(/_/g, " ")}
+                        {getFieldLabel(itemField)}
                       </Label>
                       <div className="flex flex-wrap gap-2">
                         {safeArrayData.map((item, index) => {
@@ -5125,6 +5130,11 @@ export function SectionEditorPanel({
                   const isTabsArray =
                     arrayPath === "tabs" || arrayPath.endsWith(".tabs");
 
+                  // Detect if array items have non-image fields (e.g. cards with title, description, video).
+                  // In that case, delete should clear the image field instead of removing the whole item.
+                  const imageRelatedKeys = new Set(["src", "alt", "object_fit", "object_position", "border_radius", "width", "height", "max_width", "max_height", "opacity", "filter", "image_id", "image_object_fit", "image_object_position", itemField]);
+                  const isMixedItemArray = safeArrayData.length > 0 && Object.keys(safeArrayData[0]).some(k => !imageRelatedKeys.has(k));
+
                   // For tabs: use image_object_fit/image_object_position (schema naming)
                   // For images: use object_fit/object_position
                   const objectFitField = isTabsArray
@@ -5174,7 +5184,7 @@ export function SectionEditorPanel({
                         <Label className="text-sm font-medium">
                           {isTabsArray
                             ? `Imágenes de Tabs (${safeArrayData.length})`
-                            : `Imágenes (${safeArrayData.length}/${MAX_IMAGES})`}
+                            : `${getFieldLabel(itemField)} (${safeArrayData.length}/${MAX_IMAGES})`}
                         </Label>
                         {!hasImages && !isTabsArray && (
                           <Button
@@ -5254,6 +5264,7 @@ export function SectionEditorPanel({
                                           currentSrc,
                                           currentAlt,
                                           tagFilter: variant,
+                                          clearFieldOnly: isMixedItemArray,
                                         });
                                         setImagePickerOpen(true);
                                       }}
@@ -5302,9 +5313,13 @@ export function SectionEditorPanel({
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        onClick={() =>
-                                          removeArrayItem(arrayPath, index)
-                                        }
+                                        onClick={() => {
+                                          if (isMixedItemArray) {
+                                            updateArrayItemField(arrayPath, index, itemField, "");
+                                          } else {
+                                            removeArrayItem(arrayPath, index);
+                                          }
+                                        }}
                                         className="text-muted-foreground hover:text-destructive"
                                         data-testid={`props-image-style-${index}-delete`}
                                         title="Eliminar imagen"
@@ -5514,6 +5529,244 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (editorType === "video-picker") {
+                  const resolveNestedValue = (obj: Record<string, unknown>, path: string): unknown => {
+                    const parts = path.split(".");
+                    let cur: unknown = obj;
+                    for (const p of parts) {
+                      if (!cur || typeof cur !== "object") return undefined;
+                      cur = (cur as Record<string, unknown>)[p];
+                    }
+                    return cur;
+                  };
+
+                  const itemFieldParts = itemField.split(".");
+                  const parentPrefix = itemFieldParts.length > 1
+                    ? itemFieldParts.slice(0, -1).join(".") + "."
+                    : "";
+
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium capitalize">
+                        {getFieldLabel(itemField)} Videos
+                      </Label>
+                      <div className="space-y-2">
+                        {safeArrayData.map((item, index) => {
+                          const currentUrl = (resolveNestedValue(item, itemField) as string) || "";
+                          const currentRatio = (resolveNestedValue(item, parentPrefix + "ratio") as string) || "";
+                          const currentMuted = resolveNestedValue(item, parentPrefix + "muted");
+                          const currentAutoplay = resolveNestedValue(item, parentPrefix + "autoplay");
+                          const currentLoop = resolveNestedValue(item, parentPrefix + "loop");
+                          const currentPreviewImage = (resolveNestedValue(item, parentPrefix + "preview_image_url") as string) || "";
+                          const itemLabel =
+                            (item.title as string) ||
+                            (item.name as string) ||
+                            (item.label as string) ||
+                            `Item ${index + 1}`;
+
+                          return (
+                            <Collapsible key={index} className="border rounded-md">
+                              <CollapsibleTrigger asChild>
+                                <button
+                                  type="button"
+                                  className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
+                                  data-testid={`props-video-${arrayFieldLabel}-${index}-trigger`}
+                                >
+                                  <div className="w-10 h-10 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
+                                    <IconVideo className={`h-5 w-5 ${currentUrl ? "text-primary" : "text-muted-foreground"}`} />
+                                  </div>
+                                  <div className="flex-1 text-left min-w-0">
+                                    <span className="text-sm font-medium block">
+                                      {itemLabel}
+                                    </span>
+                                    {currentUrl && (
+                                      <span className="text-xs text-muted-foreground truncate block">
+                                        {currentUrl.split("/").pop() || currentUrl}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                </button>
+                              </CollapsibleTrigger>
+                              <CollapsibleContent>
+                                <div className="p-3 pt-0 space-y-3 border-t">
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setVideoPickerTarget({
+                                          arrayPath,
+                                          index,
+                                          field: itemField,
+                                          currentUrl,
+                                          label: `${itemLabel} Video`,
+                                        });
+                                        setVideoPickerOpen(true);
+                                      }}
+                                      className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                                      data-testid={`props-video-${arrayFieldLabel}-${index}-picker`}
+                                      title="Change video"
+                                    >
+                                      {currentUrl ? (
+                                        <>
+                                          <div className="w-full h-full flex items-center justify-center bg-muted">
+                                            <IconVideo className="h-6 w-6 text-primary" />
+                                          </div>
+                                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <IconVideo className="h-5 w-5 text-white" />
+                                          </div>
+                                        </>
+                                      ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                          <IconVideo className="h-6 w-6 text-muted-foreground" />
+                                        </div>
+                                      )}
+                                    </button>
+                                    <div className="flex-1 min-w-0">
+                                      {currentUrl ? (
+                                        <span className="text-xs text-muted-foreground break-all line-clamp-3">
+                                          {currentUrl}
+                                        </span>
+                                      ) : (
+                                        <span className="text-xs text-muted-foreground italic">
+                                          No video selected
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-1">
+                                    <div className="flex items-center gap-2">
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setImagePickerTarget({
+                                            arrayPath,
+                                            index,
+                                            srcField: parentPrefix + "preview_image_url",
+                                            currentSrc: currentPreviewImage,
+                                            currentAlt: "",
+                                          });
+                                          setImagePickerOpen(true);
+                                        }}
+                                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group flex-shrink-0"
+                                        data-testid={`props-video-${arrayFieldLabel}-${index}-preview-image`}
+                                        title="Change preview image"
+                                      >
+                                        {currentPreviewImage ? (
+                                          <>
+                                            <img
+                                              src={currentPreviewImage}
+                                              alt="Preview"
+                                              className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                              <IconPhoto className="h-4 w-4 text-white" />
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <div className="w-full h-full flex items-center justify-center">
+                                            <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                          </div>
+                                        )}
+                                      </button>
+                                      <div className="flex-1 min-w-0">
+                                        {currentPreviewImage ? (
+                                          <div className="flex items-center gap-1">
+                                            <span className="text-xs text-muted-foreground truncate flex-1">
+                                              {currentPreviewImage.split("/").pop() || currentPreviewImage}
+                                            </span>
+                                            <Button
+                                              size="icon"
+                                              variant="ghost"
+                                              className="h-6 w-6 flex-shrink-0"
+                                              onClick={() => updateArrayItemField(arrayPath, index, parentPrefix + "preview_image_url", "")}
+                                              data-testid={`props-video-${arrayFieldLabel}-${index}-preview-image-clear`}
+                                            >
+                                              <IconX className="h-3 w-3" />
+                                            </Button>
+                                          </div>
+                                        ) : (
+                                          <span className="text-xs text-muted-foreground italic">
+                                            No preview image selected
+                                          </span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="space-y-1">
+                                    <Label className="text-xs text-muted-foreground">
+                                      Aspect Ratio
+                                    </Label>
+                                    <Select
+                                      value={currentRatio || "16:9"}
+                                      onValueChange={(value) =>
+                                        updateArrayItemField(arrayPath, index, parentPrefix + "ratio", value)
+                                      }
+                                    >
+                                      <SelectTrigger
+                                        className="h-8 text-sm"
+                                        data-testid={`props-video-${arrayFieldLabel}-${index}-ratio`}
+                                      >
+                                        <SelectValue />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectItem value="16:9">16:9 (Landscape)</SelectItem>
+                                        <SelectItem value="9:16">9:16 (Portrait)</SelectItem>
+                                        <SelectItem value="4:3">4:3 (Classic)</SelectItem>
+                                        <SelectItem value="1:1">1:1 (Square)</SelectItem>
+                                        <SelectItem value="21:9">21:9 (Ultra-wide)</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <Label className="text-xs text-muted-foreground">
+                                      Playback Options
+                                    </Label>
+                                    <div className="grid grid-cols-1 gap-2">
+                                      <div className="flex items-center justify-between gap-2">
+                                        <Label className="text-sm">Muted</Label>
+                                        <Switch
+                                          checked={currentMuted !== false}
+                                          onCheckedChange={(checked) =>
+                                            updateArrayItemField(arrayPath, index, parentPrefix + "muted", checked)
+                                          }
+                                          data-testid={`props-video-${arrayFieldLabel}-${index}-muted`}
+                                        />
+                                      </div>
+                                      <div className="flex items-center justify-between gap-2">
+                                        <Label className="text-sm">Autoplay</Label>
+                                        <Switch
+                                          checked={currentAutoplay === true}
+                                          onCheckedChange={(checked) =>
+                                            updateArrayItemField(arrayPath, index, parentPrefix + "autoplay", checked)
+                                          }
+                                          data-testid={`props-video-${arrayFieldLabel}-${index}-autoplay`}
+                                        />
+                                      </div>
+                                      <div className="flex items-center justify-between gap-2">
+                                        <Label className="text-sm">Loop</Label>
+                                        <Switch
+                                          checked={currentLoop !== false}
+                                          onCheckedChange={(checked) =>
+                                            updateArrayItemField(arrayPath, index, parentPrefix + "loop", checked)
+                                          }
+                                          data-testid={`props-video-${arrayFieldLabel}-${index}-loop`}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </CollapsibleContent>
+                            </Collapsible>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
                 {
                   const getItemLabel = (item: Record<string, unknown>, idx: number) =>
                     (item.tab_label as string) ||
@@ -5623,7 +5876,7 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath} className="space-y-3">
                       <Label className="text-sm font-medium capitalize">
-                        {arrayFieldLabel.replace(/_/g, " ")}
+                        {getFieldLabel(itemField)}
                       </Label>
                       <div className="space-y-2">
                         {safeArrayData.map((item, index) => renderItemEditor(item, index))}
@@ -5945,7 +6198,9 @@ export function SectionEditorPanel({
               type="button"
               variant="destructive"
               onClick={() => {
-                if (videoPickerTarget?.fieldPath) {
+                if (videoPickerTarget?.arrayPath != null && videoPickerTarget.index != null && videoPickerTarget.field) {
+                  updateArrayItemField(videoPickerTarget.arrayPath, videoPickerTarget.index, videoPickerTarget.field, "");
+                } else if (videoPickerTarget?.fieldPath) {
                   updateProperty(videoPickerTarget.fieldPath, "");
                 }
                 setVideoPickerOpen(false);
@@ -5971,7 +6226,9 @@ export function SectionEditorPanel({
               <Button
                 type="button"
                 onClick={() => {
-                  if (videoPickerTarget?.fieldPath) {
+                  if (videoPickerTarget?.arrayPath != null && videoPickerTarget.index != null && videoPickerTarget.field) {
+                    updateArrayItemField(videoPickerTarget.arrayPath, videoPickerTarget.index, videoPickerTarget.field, videoPickerTarget.currentUrl);
+                  } else if (videoPickerTarget?.fieldPath) {
                     updateProperty(videoPickerTarget.fieldPath, videoPickerTarget.currentUrl);
                   }
                   setVideoPickerOpen(false);
@@ -6274,22 +6531,30 @@ export function SectionEditorPanel({
                     imagePickerTarget.arrayPath &&
                     imagePickerTarget.index !== undefined
                   ) {
-                    // Array field - remove this item
-                    const pathParts = imagePickerTarget.arrayPath.split(".");
-                    let current: Record<string, unknown> | null = parsedSection;
-                    for (let i = 0; i < pathParts.length - 1 && current; i++) {
-                      current = current[pathParts[i]] as Record<
-                        string,
-                        unknown
-                      > | null;
+                    if (imagePickerTarget.clearFieldOnly && imagePickerTarget.srcField) {
+                      updateArrayItemField(
+                        imagePickerTarget.arrayPath,
+                        imagePickerTarget.index,
+                        imagePickerTarget.srcField,
+                        "",
+                      );
+                    } else {
+                      const pathParts = imagePickerTarget.arrayPath.split(".");
+                      let current: Record<string, unknown> | null = parsedSection;
+                      for (let i = 0; i < pathParts.length - 1 && current; i++) {
+                        current = current[pathParts[i]] as Record<
+                          string,
+                          unknown
+                        > | null;
+                      }
+                      const arrayField = pathParts[pathParts.length - 1];
+                      const array =
+                        (current?.[arrayField] as Record<string, unknown>[]) ||
+                        [];
+                      const newArray = [...array];
+                      newArray.splice(imagePickerTarget.index, 1);
+                      updateArrayField(imagePickerTarget.arrayPath, newArray);
                     }
-                    const arrayField = pathParts[pathParts.length - 1];
-                    const array =
-                      (current?.[arrayField] as Record<string, unknown>[]) ||
-                      [];
-                    const newArray = [...array];
-                    newArray.splice(imagePickerTarget.index, 1);
-                    updateArrayField(imagePickerTarget.arrayPath, newArray);
                   }
                 }
                 setImagePickerOpen(false);

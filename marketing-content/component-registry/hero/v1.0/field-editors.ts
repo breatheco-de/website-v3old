@@ -50,4 +50,8 @@ export const fieldEditors: Record<string, EditorType> = {
   "ApplyFormProductShowcase:image": "image-with-style-picker",
   "productShowcase:form_vertical_align": "string-picker:top,center,bottom" as EditorType,
   "ApplyFormProductShowcase:form_vertical_align": "string-picker:top,center,bottom" as EditorType,
+  "productShowcase:show_awards_marquee": "boolean-toggle",
+  "ApplyFormProductShowcase:show_awards_marquee": "boolean-toggle",
+  "productShowcase:awards_marquee.items[].logo": "image-picker:logo",
+  "ApplyFormProductShowcase:awards_marquee.items[].logo": "image-picker:logo",
 };
