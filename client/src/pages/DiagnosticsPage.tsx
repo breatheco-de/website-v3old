@@ -38,7 +38,17 @@ import {
   IconLink,
   IconArrowRight,
   IconTool,
+  IconChevronDown,
+  IconDeviceFloppy,
+  IconLoader2,
 } from "@tabler/icons-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -260,6 +270,7 @@ function LengthBar({ value, max, optimal }: { value: number; max: number; optima
 
 function GlobalHealthTab() {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [search, setSearch] = useState("");
   const [severityFilter, setSeverityFilter] = useState<SeverityFilter>("all");
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
@@ -322,6 +333,26 @@ function GlobalHealthTab() {
     },
   });
 
+  const saveReportMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/validation/save-report");
+      return (await res.json()) as { ok: boolean; path: string; timestamp: string; summary: RunResult["summary"] };
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Report saved",
+        description: data.path,
+      });
+    },
+    onError: (err) => {
+      toast({
+        title: "Failed to save report",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    },
+  });
+
   const filteredValidators = useMemo(() => {
     if (!results) return [];
     return results.validators.filter((v) => {
@@ -359,14 +390,41 @@ function GlobalHealthTab() {
             </p>
           )}
         </div>
-        <Button
-          onClick={() => runAllMutation.mutate()}
-          disabled={runAllMutation.isPending}
-          data-testid="button-run-all"
-        >
-          <IconRefresh className={`h-4 w-4 ${runAllMutation.isPending ? "animate-spin" : ""}`} />
-          {runAllMutation.isPending ? "Running..." : "Run All"}
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              disabled={runAllMutation.isPending || saveReportMutation.isPending}
+              data-testid="button-run-all"
+            >
+              {runAllMutation.isPending ? (
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+              ) : saveReportMutation.isPending ? (
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <IconRefresh className="h-4 w-4" />
+              )}
+              {runAllMutation.isPending ? "Running..." : saveReportMutation.isPending ? "Saving..." : "Run All"}
+              <IconChevronDown className="h-3 w-3 ml-1" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => runAllMutation.mutate()}
+              data-testid="menu-item-run-validators"
+            >
+              <IconRefresh className="h-4 w-4" />
+              Run validators
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => saveReportMutation.mutate()}
+              data-testid="menu-item-save-report"
+            >
+              <IconDeviceFloppy className="h-4 w-4" />
+              Save JSON report
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {results && (

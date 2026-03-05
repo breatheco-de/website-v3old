@@ -8221,6 +8221,37 @@ sections: []
     }
   });
 
+  // Save a full JSON report to /tmp/validation-reports/
+  app.post("/api/validation/save-report", async (_req, res) => {
+    try {
+      const { formatAsJson } = await import("../scripts/validation/reporting/json");
+      const fs = await import("fs");
+      const path = await import("path");
+
+      const service = getValidationService();
+      service.clearContext();
+      await service.buildContext();
+
+      const result = await service.runValidators({ includeArtifacts: true });
+
+      const timestamp = new Date().toISOString();
+      const fileName = `report-${timestamp.replace(/[:.]/g, "-")}.json`;
+      const dir = "/tmp/validation-reports";
+      const filePath = path.join(dir, fileName);
+
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(filePath, formatAsJson(result, { pretty: true, includeTimestamp: true }), "utf-8");
+
+      res.json({ ok: true, path: filePath, timestamp, summary: result.summary });
+    } catch (error) {
+      console.error("Save-report error:", error);
+      res.status(500).json({
+        error: "Failed to save report",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
   // Run a single validator
   app.post("/api/validation/run/:name", async (req, res) => {
     try {
