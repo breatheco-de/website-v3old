@@ -101,7 +101,7 @@ sections:
     background: bg-muted/30
     alignment: center
     left:
-      image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
+      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
       image_alt: Team collaborating on a project
       justify: center
     right:
