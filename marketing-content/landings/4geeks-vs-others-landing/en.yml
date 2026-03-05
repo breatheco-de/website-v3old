@@ -15,10 +15,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Why 4Geeks Stands Out
+    title: Stands Out
     brand_mark:
-      prefix: Launch a
-      highlight: High-Growth
+      prefix: Why
+      highlight: 4Geeks
       color: primary
     description: Build AI-ready skills, get hyper-personalized support, and access lifelong mentorship that helps you launch your tech career faster than other programs.
     bullets:
