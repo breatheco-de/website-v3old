@@ -30,7 +30,7 @@ sections:
           phone:
             visible: true
             required: true
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    background: hsl(var(--primary))
     marginY:
       desktop: none lg
     paddingY:
