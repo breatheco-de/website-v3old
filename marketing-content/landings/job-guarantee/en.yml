@@ -97,9 +97,9 @@ sections:
         title: 1. Add the Job Guarantee When You Enroll
       - icon: Graduation
         title: 2. Complete the Program and Build Your Portfolio
-      - icon: Briefcase
+      - icon: ChecklistVerify
         title: 3. Follow Our Proven Career Placement System
-      - icon: Contract
+      - icon: Briefcase
         title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
   - type: course_selector
