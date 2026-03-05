@@ -246,6 +246,8 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    marginY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
