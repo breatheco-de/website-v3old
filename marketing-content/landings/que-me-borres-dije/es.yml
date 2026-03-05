@@ -1,27 +1,58 @@
+slug: que-me-borres-dije
+visibility: listed
+context:
+  when_to_use: For Berlin and Germany visitors or those interested in tech opportunities in Europe's leading startup hub.
+  target_audience: >-
+    Local professionals, international developers, and European residents seeking a coding bootcamp with global
+    recognition and job-focused training.
+  goals:
+    - Position Berlin as Europe's leading tech and startup hub
+    - Emphasize online, hybrid, and in-person programs
+    - Highlight job outcomes and connections to local and international employers
+catalog:
+  admission_advisors:
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
+      languages:
+        - en
+        - es
+schema:
+  include:
+    - organization
+    - website
+  overrides:
+    organization:
+      address:
+        '@type': PostalAddress
+        streetAddress: Friedrichstraße 123
+        addressLocality: Berlin
+        postalCode: '10117'
+        addressCountry: DE
 meta:
-  page_title: 4Geeks Academy Austin | Bootcamp de Programación en Texas
+  page_title: 4Geeks Academy Berlín | Bootcamp de Programación en Alemania
   description: >-
-    Únete al bootcamp de programación 4Geeks en Austin. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con
+    Únete al bootcamp de programación 4Geeks en Berlín. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con
     mentoría ilimitada y garantía de empleo.
   robots: index, follow
-  og_image: /images/locations/austin-og.jpg
+  og_image: /images/locations/berlin-og.jpg
   priority: 0.8
   change_frequency: monthly
 sections:
   - type: hero
     version: '1.0'
     variant: singleColumn
-    title: Lanza una Carrera Tech Lista para IA en Austin
+    title: Lanza una Carrera Tech Lista para IA en Berlín
     subtitle: >-
-      Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en la ciudad más innovadora de Texas.
+      Capacítate para roles tech demandados, incluyendo Ingeniería de IA, en el principal hub de startups de Europa.
       Instrucción en vivo, proyectos prácticos y soporte profesional para contrataciones reales.
-    badge: Campus Austin
+    badge: Campus Berlín
     cta_buttons:
-      - text: Aplicar Ahora
+      - text: Aplicar ahora
         url: /es/apply
         variant: primary
-      - text: Descargar Programa
-        url: '#cta_banner-14'
+      - text: Ver el programa
+        url: '#bottom'
         variant: outline
     marginY:
       desktop: none lg
@@ -76,13 +107,15 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: En el Centro del Impulso Tech de Austin
+    title: En el Centro del Impulso Tech de Berlín
     description: >-
-      La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación a medida que la
-      tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como
-      contribuyentes clave a esta tendencia. Desde nuestro campus en Austin, conectamos a estudiantes con empleadores
-      locales, empresas como IBM e Indeed, y startups—para que construyas relaciones que apoyen tu entrada y crecimiento
-      a largo plazo en tech.
+      El ecosistema tecnológico de Berlín ha experimentado una rápida transformación, convirtiendo a la ciudad en un
+      semillero de startups innovadoras. La comunidad de programadores en Berlín ha experimentado una notable expansión,
+      influenciada en gran medida por la creciente demanda de bootcamps de programación. Estos bootcamps han desempeñado
+      un papel crucial en el fomento de una diversa cantera de desarrolladores talentosos y en los logros de la ciudad
+      en el ámbito tecnológico. Desde nuestro campus en Berlín, te conectamos con empleadores locales, eventos tech y un
+      ecosistema en crecimiento—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en
+      tech.
     background: gradient
     marginY:
       desktop: lg none
@@ -92,17 +125,17 @@ sections:
       - 6
     alignment: center
     left:
-      video: https://youtu.be/EcqasocRKHo
+      video: https://www.youtube.com/watch?v=ln3bQsV1BaQ
     right:
-      heading: Descubre el Escenario de la Programación en Austin
-      sub_heading: Mira a Alissa contar por qué 4Geeks es la opción ideal para el talento tech en Austin
+      heading: Tu Viaje con 4Geeks Academy en Berlín
+      sub_heading: Desarrolla tus Habilidades en Tecnología desde Berlín
       description: >-
-        4Geeks Academy te prepara para el éxito en la innovadora comunidad tecnológica de Austin con mentoría
-        personalizada, aprendizaje basado en proyectos y apoyo profesional. Nuestro plan de estudios orientado a la IA
-        refleja lo que los empleadores de Austin están buscando.
+        Cursos interactivos enfocados en habilidades técnicas esenciales para el mundo digital actual. Acceso a
+        profesores experimentados y una comunidad colaborativa de aprendizaje. Preparación para desafíos del mundo real
+        y oportunidades laborales en tecnología.
       button:
-        text: Ver la entrevista completa
-        url: https://youtu.be/EcqasocRKHo
+        text: Ver video completo
+        url: https://www.youtube.com/watch?v=ln3bQsV1BaQ
         variant: primary
         icon: Rocket
     gap: '8'
@@ -113,7 +146,7 @@ sections:
   - type: course_selector
     version: '1.0'
     variant: solid
-    heading: Explora Nuestros Programas
+    heading: Explora nuestros programas
     subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
     courses:
       - name: Ingeniería de IA
@@ -153,7 +186,7 @@ sections:
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 16 semanas
+        duration: 18 semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning con IA
         badges:
@@ -233,27 +266,38 @@ sections:
       badge: Promesa Respaldada por Resultados
     secondary:
       benefits:
-        - text: {{ global.global_job_placement_rate | 84% }} tasa de contratación entre graduados
+        - text: {{ global.global_job_placement_rate | 84 }}% tasa de contratación entre graduados
         - text: 3–6 meses tiempo promedio para conseguir empleo
-        - text: {{ global.global_salary_increase | 55% }} aumento salarial promedio en roles tech
+        - text: {{ global.global_salary_increase | 55% }}% aumento salarial promedio en roles tech
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
-    title: Por Qué Austin es un Lugar Inteligente para Lanzar tu Carrera Tech
-    subtitle: La ciudad más innovadora de Texas con una comunidad tech próspera
+    title: Por Qué Berlín es un Lugar Inteligente para Lanzar tu Carrera Tech
+    subtitle: El principal hub de startups de Europa con impulso de contratación real
     description: >-
-      La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación a medida que la
-      tecnología se integra cada vez más en diversos sectores. Es un mercado con oportunidades reales para
-      desarrolladores.<br><div><div><ul><li><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">Crecimiento
-      sustancial de demanda de conocimientos en programación en fintech, logística y sectores
-      empresariales</span></li><li>Los bootcamps de programación han surgido como contribuyentes clave, ofreciendo
-      capacitación accesible y integral para la creciente comunidad tech de Austin</li><li>Fuerte demanda de habilidades
-      en software, IA y datos con empresas como IBM, Indeed y startups locales contratando
-      activamente</li></ul></div><div>Desde nuestro campus en Austin, te conectamos con empleadores locales, eventos
-      tech y una próspera comunidad de innovación—para que construyas relaciones que apoyen tu entrada y crecimiento a
-      largo plazo en tech.</div></div>
+      El ecosistema tecnológico de Berlín ha experimentado una rápida transformación, convirtiendo a la ciudad en un
+      semillero de startups innovadoras. La comunidad de programadores en Berlín ha experimentado una notable expansión,
+      influenciada en gran medida por la creciente demanda de bootcamps de programación.<br><div><div><ul><li><span
+      style="font-size: 0.875rem; color: rgb(0, 7, 26);">Bootcamps de programación fomentando una diversa cantera de
+      desarrolladores talentosos</span></li><li>Rápida transformación y expansión del ecosistema
+      tecnológico</li><li>Creciente demanda de conocimientos en programación en todos los
+      sectores</li></ul></div><div>Desde nuestro campus en Berlín, te conectamos con empleadores locales, eventos tech y
+      un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en
+      tech.</div></div>
   - type: mentorship
     version: v1.0
     title: Mentoría y Soporte
@@ -295,59 +339,15 @@ sections:
           Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que
           entienden tu journey.
   - type: testimonials
-    version: v1.0
-    title: Testimonios de Nuestros Graduados
-    subtitle: Experiencias que respaldan nuestros resultados.
-    rating_summary:
-      average: '4.9'
-      count: 2,847
-    items:
-      - name: Maria Rodriguez
-        role: Ingeniera de Software
-        company: Google
-        rating: 5
-        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
-        outcome: Contratada en 4 meses
-      - name: James Chen
-        role: Desarrollador Full Stack
-        company: Spotify
-        rating: 5
-        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
-        outcome: Aumento salarial 3x
-      - name: Sarah Williams
-        role: Desarrolladora Frontend
-        company: Meta
-        rating: 5
-        comment: >-
-          Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que
-          cualquier otro curso que haya probado.
-        outcome: Cambio de carrera a los 35
-      - name: Carlos Mendez
-        role: Ingeniero Backend
-        company: Amazon
-        rating: 4
-        comment: >-
-          Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la
-          computación.
-        outcome: Trabajo remoto conseguido
-      - name: Emily Thompson
-        role: Ingeniera DevOps
-        company: Netflix
-        rating: 5
-        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
-        outcome: Aumento salarial del 50%
-      - name: David Kim
-        role: Tech Lead
-        company: Uber
-        rating: 5
-        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
-        outcome: Promovido en 1 año
+    version: '1.0'
+    title: Historias de Éxito de Graduados de Berlín
+    filter_by_location: berlin-germany
     marginY:
       desktop: none lg
   - type: testimonials
     version: v1.0
-    title: Testimonios de Nuestros Graduados
-    subtitle: Experiencias que respaldan nuestros resultados.
+    title: Lo que Dicen Nuestros Estudiantes
+    subtitle: Escucha directamente de graduados que transformaron sus carreras
     rating_summary:
       average: '4.9'
       count: 2,847
@@ -480,5 +480,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-slug: borrame-ya
-title: borrame ya
+title: que me borres dije
