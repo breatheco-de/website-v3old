@@ -56,6 +56,11 @@ sections:
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión.
         url: https://4geeks.com/es/login
+        media: null
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program introduction
       features:
         - icon: calendar
           text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
