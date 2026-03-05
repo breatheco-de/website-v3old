@@ -7449,6 +7449,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 newSlugs: { en: enSlug || undefined, es: esSlug || undefined },
                 title: title || folderSlug!,
                 skipLocales,
+                localeTitles,
               });
 
               for (const file of result.copiedFiles) {
