@@ -38,13 +38,13 @@ sections:
       - 7
       - 5
     alignment: center
-    right:
-      heading: Learn By Doing
-      sub_heading: Hands-on projects from day one
-      description: Our project-based curriculum ensures you're building real applications while learning core concepts. No more boring tutorials—start creating immediately.
-      text_align: left
     left:
       image: https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop
       image_alt: Student coding on laptop
       justify: end
+    right:
+      heading: Guía de JavaScript, descubre por qué JS es una Habilidad indispensable para un programador web
+      sub_heading: ""
+      description: JavaScript es un lenguaje de programación versátil que se utiliza para crear una amplia gama de aplicaciones web, desde interfaces interactivas hasta juegos en línea y aplicaciones web complejas.
+      text_align: left
     gap: "12"
