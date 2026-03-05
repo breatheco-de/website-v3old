@@ -1930,6 +1930,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/migrations", (_req, res) => {
+    try {
+      const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
+      if (!fs.existsSync(migrationsDir)) {
+        res.json([]);
+        return;
+      }
+      const files = fs.readdirSync(migrationsDir)
+        .filter(f => /^\d{3}_[\w]+\.ts$/.test(f))
+        .sort();
+      const result = files.map(filename => {
+        const fullPath = path.join(migrationsDir, filename);
+        const content = fs.readFileSync(fullPath, "utf-8");
+        const nameMatch = content.match(/@migration\s+([^\n*]+)/);
+        const descMatch = content.match(/@description\s+([^\n*]+(?:\n\s*\*\s+[^\n*@]+)*)/);
+        const name = nameMatch ? nameMatch[1].trim() : filename.replace(/\.ts$/, "");
+        const description = descMatch
+          ? descMatch[1].replace(/\n\s*\*\s*/g, " ").trim()
+          : "No description provided.";
+        return { filename, name, description };
+      });
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.post("/api/migrations/run", (req, res) => {
+    const { filename } = req.body || {};
+    if (!filename || !/^\d{3}_[\w]+\.ts$/.test(filename)) {
+      res.status(400).json({ error: "Invalid migration filename." });
+      return;
+    }
+    const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
+    const fullPath = path.join(migrationsDir, filename);
+    if (!fs.existsSync(fullPath)) {
+      res.status(404).json({ error: "Migration script not found." });
+      return;
+    }
+    const { execFile } = require("child_process") as typeof import("child_process");
+    execFile(
+      "npx",
+      ["tsx", fullPath],
+      { cwd: process.cwd(), timeout: 120000 },
+      (err, stdout, stderr) => {
+        const output = [stdout, stderr].filter(Boolean).join("\n").trim();
+        if (err && err.killed) {
+          res.json({ success: false, output: `Timed out after 120s.\n${output}` });
+        } else if (err && err.code !== 0) {
+          res.json({ success: false, output: output || err.message });
+        } else {
+          res.json({ success: true, output });
+        }
+      },
+    );
+  });
+
   app.get("/api/content-types/:type/config", (req, res) => {
     try {
       const { type } = req.params;
