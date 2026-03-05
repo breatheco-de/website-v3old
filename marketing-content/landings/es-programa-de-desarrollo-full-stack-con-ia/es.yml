@@ -46,8 +46,8 @@ sections:
           required: true
           default_country: ES
         program:
-          visible: true
-          default: ai-engineering
+          visible: false
+          default: full-stack
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
