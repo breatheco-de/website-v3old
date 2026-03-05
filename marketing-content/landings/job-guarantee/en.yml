@@ -67,6 +67,8 @@ sections:
         - title: Ask us anything
           description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
       closing: Now you're ready to make the best decision for your career!
+    paddingY:
+      desktop: lg none
   - type: features_quad
     version: "1.0"
     variant: default
