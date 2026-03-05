@@ -393,7 +393,7 @@ sections:
         text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
     cta:
       text: Recibir más información
-      url: "#apply-modal"
+      url: "#hero-form"
       variant: primary
     marginY:
       desktop: none md
