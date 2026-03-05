@@ -1,16 +1,26 @@
-slug: "full-stack-con-ia"
-locale: "es"
-title: "Full-Stack-con-IA"
-
+slug: full-stack-con-ia
+locale: es
+title: Full-Stack-con-IA
 meta:
-  page_title: "programas latam | 4Geeks Academy"
-  description: "programas latam - Learn more at 4Geeks Academy."
-  robots: "index, follow"
-  og_image: "/images/landing-og.jpg"
+  page_title: programas latam | 4Geeks Academy
+  description: programas latam - Learn more at 4Geeks Academy.
+  robots: index, follow
+  og_image: /images/landing-og.jpg
   priority: 0.9
-  change_frequency: "weekly"
-
+  change_frequency: weekly
 schema:
   include:
-    - "organization"
-    - "website"
+    - organization
+    - website
+locations:
+  - bogota-colombia
+  - buenosaires-argentina
+  - caracas-venezuela
+  - costa-rica
+  - lapaz-bolivia
+  - lima-peru
+  - ciudad-de-mexico
+  - montevideo-uruguay
+  - ciudad-de-panama
+  - quito-ecuador
+  - santiago-chile
