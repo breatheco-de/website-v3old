@@ -281,51 +281,43 @@ sections:
         link: https://www.switchup.org
         linkText: Leer reviews
   - type: ai_learning
+    variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: ¿Por qué aprender Ingeniería de IA con 4Geeks?
-    description: Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
+    title: Todo lo que necesitas para lanzar tu carrera en tecnología
+    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
-      - icon: TrendingUp
-        title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Recibe coaching 1:1 personalizado
-          - text: Construye tu currículum y portafolio listos para IA
-          - text: Prepárate para entrevistas y negociación salarial
-          - text: Sigue creciendo con acceso de por vida al apoyo de carrera
-        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
       - icon: Robot
-        title: Avanza más rápido con herramientas potenciadas por IA
+        title: Progresa más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
-          - text: Recibe consejos adaptados a tu nivel y progreso
-          - text: Ayuda 24/7 con depuración y resolución de problemas
-          - text: Accede a cientos de ejercicios de código en Learnpack, nuestra plataforma educativa
+          - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
+          - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
+          - text: Ayuda con depuración y tareas de resolución de problemas
+          - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
+      - icon: TrendingUp
+        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching personalizado 1:1
+          - text: Currículums optimizados para procesos de contratación con IA
+          - text: Preparación de entrevistas y negociación salarial
+          - text: Acceso de por vida para apoyar tu crecimiento profesional
+        video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
-        title: Mentoría 1:1 ilimitada y una comunidad activa
+        title: Mentoría ilimitada 1:1 y una comunidad activa
         description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
-          - text: Colaboración entre pares en canales de Slack y check-ins semanales
-          - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
+          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
+          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
+          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: mentoring_zoom_call
     paddingY:
-      mobile: lg none
-      desktop: lg none
+      desktop: md none
   - type: certificate
     title: Impacto en tu carrera profesional
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
