@@ -92,6 +92,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    video:
+      url: https://youtu.be/QlJpTqXCAFw?is=CLYXW9MtMyxQZLJU
   - type: course_selector
     version: "1.0"
     variant: solid
