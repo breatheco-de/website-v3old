@@ -14,32 +14,22 @@ sections:
     signup_card:
       title: Descargar Guía
       description: En breves minutos, después de haber completado el formulario, en tu correo electrónico habrás recibido la guía de JavaScript, donde tendrás los conceptos básicos para empezar a aprender programación web.
-      form: null
-      variant: stacked
-      submit_label: Descargar la Guía Gratis
-      tags: request_downloadable
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre Completo
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-      success:
-        message: ¡Gracias! En unos minutos recibirás la guía.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Al completar este formulario acepto que mi información será utilizada para enviarme información comercial sobre 4Geeks Academy y que podría resultar una relación comercial a partir de esto. Revisa nuestra Política de Privacidad
-      show_terms: true
-      button_className: bg-primary
-      terms_className: text-white/80
+      form:
+        variant: stacked
+        submit_label: Descargar la Guía Gratis
+        tags: request_downloadable
+        fields:
+          email:
+            visible: true
+            required: true
+            placeholder: Correo electrónico
+          first_name:
+            visible: true
+            required: true
+            placeholder: Nombre completo
+          phone:
+            visible: true
+            required: true
     background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none lg
