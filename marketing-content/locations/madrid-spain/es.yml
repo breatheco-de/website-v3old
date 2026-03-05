@@ -132,7 +132,7 @@ sections:
       description: El sector tech de España creció un 5,8% en 2024, generando más de 120.000 millones de euros en facturación. Madrid atrae el 85% de toda la inversión tecnológica extranjera del país y destaca entre los principales ecosistemas de startups europeos.
       button:
         text: Conoce nuestros programas
-        url: /es/full-stack
+        url: /es/programas-de-carrera/ingenieria-ia
         variant: primary
         icon: Rocket
     gap: "8"

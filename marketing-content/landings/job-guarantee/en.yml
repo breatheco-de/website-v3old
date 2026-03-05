@@ -2,8 +2,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Get Into Tech With Our Job Guarantee*
-    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
+    title: Start a Tech Career Backed by a Job Guarantee
+    subtitle: Train for the skills companies are hiring for. If you don’t land a qualifying job within 9 months of graduating, you get your tuition back. <ul style='margin-top:12px; margin-bottom:12px; padding-left:18px;'> <li>AI-native training built for today’s tech jobs</li> <li>Unlimited 1:1 mentorship and career guidance</li> <li>Proven hiring outcomes across 6,000+ graduates</li> <li>Full tuition refund if you’re not hired</li> </ul> <div> <span style='font-size:0.75rem;'>*Not available in all regions.  <a href='https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf'> Terms and conditions apply. </a></span> </div>
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
@@ -183,11 +183,9 @@ sections:
     paddingY:
       desktop: none
   - type: whos_hiring
-    version: v1.0
     variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    title: Where 4Geeks Graduates Work
+    subtitle: Our alumni have joined leading companies across tech, media, and startups worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -234,6 +232,7 @@ sections:
       - icon: JobSearch
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
+    background: hsl(var(--secondary))
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
@@ -253,3 +252,45 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+  - type: cta_banner
+    version: "1.0"
+    title: Start Your Tech Career with the Confidence of a Job Guarantee
+    subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply Now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: lg
+      desktop: lg
