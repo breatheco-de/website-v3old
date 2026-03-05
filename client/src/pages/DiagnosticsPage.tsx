@@ -44,7 +44,9 @@ import {
   IconSparkles,
   IconClipboard,
   IconTargetArrow,
+  IconInfoCircle,
 } from "@tabler/icons-react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -166,6 +168,26 @@ function getScoreCssVar(score: number): string {
   if (score >= 80) return "var(--chart-3)";
   if (score >= 50) return "var(--chart-2)";
   return "var(--destructive)";
+}
+
+function InfoPopover({ children, testId }: { children: React.ReactNode; testId?: string }) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="ml-auto h-5 w-5 shrink-0"
+          data-testid={testId ?? "button-info-popover"}
+        >
+          <IconInfoCircle className="h-3.5 w-3.5 text-muted-foreground" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-80 space-y-2 text-sm text-muted-foreground">
+        {children}
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 function ScoreCircle({ label, score }: { label: string; score: number }) {
@@ -898,6 +920,12 @@ function PageAnalysisTab() {
             <ScoreCircle label="SEO" score={pageDiag.score.seo} />
             <ScoreCircle label="Schema" score={pageDiag.score.schema} />
             <ScoreCircle label="Content" score={pageDiag.score.content} />
+            <InfoPopover testId="info-scores">
+              <p><strong className="text-foreground">Total</strong> is the simple average of the three sub-scores.</p>
+              <p><strong className="text-foreground">SEO</strong> (max 80 pts): page_title present (+20), title 30–60 chars (+10), description present (+20), description 70–160 chars (+10), og_image set (+10), canonical_url set (+10).</p>
+              <p><strong className="text-foreground">Schema</strong> (max 100 pts): schema.include configured (+30), valid parsed schemas (+20), schema has name (+15) and description (+15), no "todo" placeholders (+10), FAQPage schema present when FAQ sections exist (+10).</p>
+              <p><strong className="text-foreground">Content</strong> (max 100 pts): has sections (+25), all sections typed (+20), counterpart locale exists (+20), no empty critical fields (+15), all images resolve (+20).</p>
+            </InfoPopover>
           </div>
 
           {pageDiag.emptyFields.length > 0 && (
@@ -905,6 +933,10 @@ function PageAnalysisTab() {
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
                 <IconAlertTriangle className="h-4 w-4 text-chart-2" />
                 <CardTitle className="text-sm">Empty Fields</CardTitle>
+                <InfoPopover testId="info-empty-fields">
+                  <p>Scans every key in the page's YAML for the names <code className="bg-muted px-1 rounded text-foreground">title</code>, <code className="bg-muted px-1 rounded text-foreground">heading</code>, <code className="bg-muted px-1 rounded text-foreground">description</code>, <code className="bg-muted px-1 rounded text-foreground">subtitle</code>, and <code className="bg-muted px-1 rounded text-foreground">tagline</code> whose value is an empty string.</p>
+                  <p>Each path listed here is a field that exists in the content but has no value. Empty critical fields subtract <strong className="text-foreground">15 points</strong> from the Content score.</p>
+                </InfoPopover>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-1">
@@ -924,6 +956,11 @@ function PageAnalysisTab() {
                 <Badge variant="destructive" className="ml-auto text-xs">
                   {pageDiag.schemaValidation.errors.length} {pageDiag.schemaValidation.errors.length === 1 ? "error" : "errors"}
                 </Badge>
+                <InfoPopover testId="info-schema-validation">
+                  <p>The page's raw YAML is validated against its content-type's structure definition. Errors here mean the content does not match what the renderer expects.</p>
+                  <p>Each error includes a <strong className="text-foreground">code</strong>, the offending <strong className="text-foreground">path</strong> within the YAML, and what was expected vs. what was received.</p>
+                  <p>Structural validation errors can prevent the page from rendering correctly in production.</p>
+                </InfoPopover>
               </CardHeader>
               <CardContent className="space-y-2">
                 <p className="text-xs text-muted-foreground mb-2">These errors prevent the page from rendering. The YAML content does not match the expected schema.</p>
@@ -951,6 +988,11 @@ function PageAnalysisTab() {
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
                 <IconAlertTriangle className="h-4 w-4 text-muted-foreground" />
                 <CardTitle className="text-sm">Issues</CardTitle>
+                <InfoPopover testId="info-issues">
+                  <p><strong className="text-foreground">Errors</strong> (red) indicate problems that likely break something — for example a missing required field or an invalid reference.</p>
+                  <p><strong className="text-foreground">Warnings</strong> (amber) are non-blocking but should be addressed. Common codes include <code className="bg-muted px-1 rounded text-foreground">MISSING_PAGE_TITLE</code>, <code className="bg-muted px-1 rounded text-foreground">MISSING_DESCRIPTION</code>, and <code className="bg-muted px-1 rounded text-foreground">ORPHAN_PAGE</code>.</p>
+                  <p>Issues are raised by content validators that run against the merged YAML for this page.</p>
+                </InfoPopover>
               </CardHeader>
               <CardContent className="space-y-2">
                 {pageDiag.issues.filter(i => i.type === "error").map((issue, i) => (
@@ -973,6 +1015,14 @@ function PageAnalysisTab() {
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
               <IconFileText className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Meta Information</CardTitle>
+              <InfoPopover testId="info-meta">
+                <p>Reads from the <code className="bg-muted px-1 rounded text-foreground">meta:</code> block of the page's YAML.</p>
+                <p><strong className="text-foreground">page_title</strong> — shown in browser tabs and search results. Optimal: 30–60 characters (+30 pts to SEO).</p>
+                <p><strong className="text-foreground">description</strong> — the meta description shown in search snippets and social previews. Optimal: 70–160 characters (+30 pts to SEO).</p>
+                <p><strong className="text-foreground">og_image</strong> — the image displayed when this page is shared on social media (+10 pts).</p>
+                <p><strong className="text-foreground">canonical_url</strong> — tells search engines which URL is authoritative, preventing duplicate-content penalties (+10 pts).</p>
+                <p><strong className="text-foreground">robots</strong> — controls crawler directives, e.g. <code className="bg-muted px-1 rounded text-foreground">noindex</code>.</p>
+              </InfoPopover>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -1012,6 +1062,12 @@ function PageAnalysisTab() {
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
               <IconCode className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Schema / JSON-LD</CardTitle>
+              <InfoPopover testId="info-schema">
+                <p>Schema.org structured data helps search engines and AI assistants understand page content beyond plain text.</p>
+                <p><strong className="text-foreground">schema.include</strong> lists the schema type IDs to embed (e.g. <code className="bg-muted px-1 rounded text-foreground">organization</code>, <code className="bg-muted px-1 rounded text-foreground">courses:full-stack</code>). These are resolved into full JSON-LD objects and injected into the page's <code className="bg-muted px-1 rounded text-foreground">&lt;head&gt;</code>.</p>
+                <p>If the page has FAQ sections, a <code className="bg-muted px-1 rounded text-foreground">FAQPage</code> schema should also be included to unlock rich results. Any <code className="bg-muted px-1 rounded text-foreground">todo</code> placeholder in a schema field is flagged and penalises the Schema score.</p>
+                <p>The JSON-LD preview shows the fully resolved objects that will be rendered.</p>
+              </InfoPopover>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
@@ -1053,6 +1109,11 @@ function PageAnalysisTab() {
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
               <IconLayoutGrid className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Sections</CardTitle>
+              <InfoPopover testId="info-sections">
+                <p>Content blocks defined in the YAML <code className="bg-muted px-1 rounded text-foreground">sections:</code> array. Each block is rendered as a UI component.</p>
+                <p>Every section should have a <code className="bg-muted px-1 rounded text-foreground">type</code> field (e.g. <code className="bg-muted px-1 rounded text-foreground">hero</code>, <code className="bg-muted px-1 rounded text-foreground">features_grid</code>, <code className="bg-muted px-1 rounded text-foreground">faq</code>, <code className="bg-muted px-1 rounded text-foreground">pricing</code>). Having sections earns +25 pts and all being typed earns another +20 pts toward the Content score.</p>
+                <p><strong className="text-foreground">FAQ sections</strong> are especially important: they improve AI search engine coverage and make the page eligible for a FAQPage schema, which can unlock rich results in Google and AI assistants.</p>
+              </InfoPopover>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -1079,6 +1140,12 @@ function PageAnalysisTab() {
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
               <IconPhoto className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Images</CardTitle>
+              <InfoPopover testId="info-images">
+                <p>Scans every <code className="bg-muted px-1 rounded text-foreground">image_id</code> and <code className="bg-muted px-1 rounded text-foreground">image</code> key anywhere in the page's merged YAML content and collects the referenced IDs.</p>
+                <p><strong className="text-foreground">Green badge</strong> — image is registered in the media registry and the file exists on disk.</p>
+                <p><strong className="text-foreground">Red badge</strong> — image is either missing from the registry or the physical file cannot be found. This will produce broken images in production.</p>
+                <p>If any images are missing, <strong className="text-foreground">20 points</strong> are deducted from the Content score.</p>
+              </InfoPopover>
             </CardHeader>
             <CardContent className="space-y-2">
               {pageDiag.images.referencedIds.length === 0 && (
@@ -1112,6 +1179,11 @@ function PageAnalysisTab() {
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
                 <IconWorld className="h-4 w-4 text-muted-foreground" />
                 <CardTitle className="text-sm">Translations</CardTitle>
+                <InfoPopover testId="info-translations">
+                  <p>Detects the companion locale file for this page. 4Geeks content is published in <strong className="text-foreground">English (en)</strong> and <strong className="text-foreground">Spanish (es)</strong>.</p>
+                  <p>If a counterpart locale file exists, it is linked here so you can quickly jump to its diagnostics. Having a translation file earns <strong className="text-foreground">+20 points</strong> toward the Content score.</p>
+                  <p>Available locales are shown as badges. A page with only one locale is missing an opportunity to reach a wider audience.</p>
+                </InfoPopover>
               </CardHeader>
               <CardContent className="space-y-2">
                 <div className="flex flex-wrap gap-2">
@@ -1137,6 +1209,11 @@ function PageAnalysisTab() {
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
                 <IconLink className="h-4 w-4 text-muted-foreground" />
                 <CardTitle className="text-sm">Incoming Redirects</CardTitle>
+                <InfoPopover testId="info-redirects">
+                  <p>Lists all redirect rules in the repository whose destination points to this page's URL.</p>
+                  <p>These are 301/302 redirects configured in the redirects file — useful for auditing legacy URL migrations and ensuring old links still lead here.</p>
+                  <p>Having no incoming redirects is not a problem; this section is purely informational and does not affect any score.</p>
+                </InfoPopover>
               </CardHeader>
               <CardContent>
                 {pageDiag.redirects.incomingRedirects.length === 0 ? (
