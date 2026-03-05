@@ -767,26 +767,13 @@ function CreateDatabaseDialog({
               <>
                 <div className="space-y-2">
                   <Label htmlFor="db-local-filename">Filename</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="db-local-filename"
-                      placeholder="e.g. products.json, data.csv"
-                      value={localFilename}
-                      onChange={(e) => setLocalFilename(e.target.value)}
-                      data-testid="input-db-local-filename"
-                      className="flex-1"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setDatasetPickerOpen(true)}
-                      data-testid="button-db-pick-file-local"
-                    >
-                      <IconFile className="h-4 w-4 mr-1.5" />
-                      Pick File
-                    </Button>
-                  </div>
+                  <Input
+                    id="db-local-filename"
+                    placeholder="e.g. products.json, data.csv"
+                    value={localFilename}
+                    onChange={(e) => setLocalFilename(e.target.value)}
+                    data-testid="input-db-local-filename"
+                  />
                   <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
                     <p className="font-medium text-foreground">Where to place the file</p>
                     <p>
@@ -1460,26 +1447,13 @@ function DatabaseConfigEditor({
         <>
           <div className="space-y-2">
             <Label htmlFor="edit-local-filename">Filename</Label>
-            <div className="flex gap-2">
-              <Input
-                id="edit-local-filename"
-                placeholder="e.g. products.json, data.csv"
-                value={localFilename}
-                onChange={(e) => setLocalFilename(e.target.value)}
-                data-testid="input-edit-local-filename"
-                className="flex-1"
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => setDatasetPickerOpen(true)}
-                data-testid="button-edit-pick-file"
-              >
-                <IconFile className="h-4 w-4 mr-1.5" />
-                Pick File
-              </Button>
-            </div>
+            <Input
+              id="edit-local-filename"
+              placeholder="e.g. products.json, data.csv"
+              value={localFilename}
+              onChange={(e) => setLocalFilename(e.target.value)}
+              data-testid="input-edit-local-filename"
+            />
             <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
               <p className="font-medium text-foreground">Where to place the file</p>
               <p>
