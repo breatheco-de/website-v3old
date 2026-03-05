@@ -7,15 +7,14 @@ meta:
   change_frequency: weekly
   page_title: Sobre 4Geeks Academy | 4Geeks Academy
   description: La Academia - Aprende más sobre 4Geeks Academy.
-  redirects:
-    - es/the-academy
+  redirects: []
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Construyendo carreras en la era de la IA
     subtitle: 4Geeks Academy es un coding bootcamp internacional con 8 campus en EE. UU., Latinoamérica y Europa. Formamos estudiantes en Ingeniería en IA, Data Science & Machine Learning y Ciberseguridad — con un camino claro hacia el empleo.
@@ -34,7 +33,7 @@ sections:
     primary_width: narrow
     primary:
       heading: Nuestra misión y enfoque
-      description: "Desde 2015, 4Geeks Academy ha ayudado a miles de estudiantes a hacer la transición hacia carreras en tecnología. Nuestro modelo combina formación práctica basada en proyectos con mentorías ilimitadas 1:1, herramientas de aprendizaje impulsadas por IA y acompañamiento estructurado para la búsqueda de empleo. El objetivo es simple: brindar la profundidad técnica, experiencia práctica y estrategia profesional necesarias para conseguir trabajo — y seguir creciendo."
+      description: 'Desde 2015, 4Geeks Academy ha ayudado a miles de estudiantes a hacer la transición hacia carreras en tecnología. Nuestro modelo combina formación práctica basada en proyectos con mentorías ilimitadas 1:1, herramientas de aprendizaje impulsadas por IA y acompañamiento estructurado para la búsqueda de empleo. El objetivo es simple: brindar la profundidad técnica, experiencia práctica y estrategia profesional necesarias para conseguir trabajo — y seguir creciendo.'
       badge: Modelo respaldado por resultados
     secondary:
       benefits:
@@ -47,7 +46,7 @@ sections:
     marginY:
       desktop: lg none
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: laptopEdge
     heading: Qué nos hace diferentes
     cards:
@@ -70,7 +69,7 @@ sections:
     paddingY:
       desktop: none
   - type: stats
-    version: "1.0"
+    version: '1.0'
     items:
       - value: +{{ global.global_total_alumni | 7000 }}
         label: Alumni
@@ -100,7 +99,7 @@ sections:
       heading: Impulsando el ecosistema tecnológico global
       description: En 4Geeks Academy creemos que la colaboración genera impacto real. Trabajamos con universidades, organizaciones sin fines de lucro, iniciativas de desarrollo laboral, organizaciones globales y comunidades tecnológicas locales para ampliar el acceso a educación tecnológica de alto nivel y fortalecer las oportunidades profesionales. Juntos formamos y colocamos talento diverso, cerramos la brecha de habilidades digitales y construimos la fuerza laboral tecnológica del futuro. También participamos activamente en la comunidad, colaborando en hackatones, desafíos tecnológicos y eventos de la industria que conectan talento con oportunidades y muestran las habilidades de nuestros estudiantes y graduados.
       text_align: left
-    gap: "12"
+    gap: '12'
     marginY:
       desktop: md none
     paddingY:
@@ -221,7 +220,7 @@ sections:
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     background: hsl(var(--primary))
@@ -262,7 +261,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
