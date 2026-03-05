@@ -225,22 +225,22 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Why Choose Our AI Engineering Program?
-    description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
+    heading: ¿Qué Hace Único a Nuestro Bootcamp?
+    description: 4Geeks Academy es reconocido internacionalmente por su enfoque práctico y la calidad de sus programas. Ofrecemos una educación personalizada con tutorías ilimitadas y acceso a una comunidad global de programadores.
     cards:
-      - icon: Trophy
-        title: Industry Recognition
-        description: Ranked among the top coding bootcamps by Forbes, Course Report, and Career Karma.
-      - icon: Wallet
-        title: Affordable Tuition
-        description: Among the most affordable tuition of any top-ranked bootcamp, with flexible payment options.
-      - icon: Clock
-        title: Flexible Schedule
-        description: Learn at your own pace with part-time and full-time options to fit your lifestyle.
       - icon: Users
-        title: Career Support
-        description: Get unlimited 1:1 mentorship and job placement assistance for life.
-    footer_description: Join thousands of graduates who have launched successful tech careers.
+        title: Formación Personalizada
+        description: Acceso a mentorías ilimitadas y de por vida, asegurando tu éxito en cada etapa de tu carrera.
+      - icon: Globe
+        title: Comunidad Global
+        description: Conéctate con más de 6,000 profesionales en todo el mundo, creando redes valiosas y oportunidades de colaboración.
+      - icon: Briefcase
+        title: Preparación Laboral
+        description: Capacitación enfocada en habilidades altamente demandadas en el mercado laboral, garantizando tu empleabilidad en sectores en crecimiento.
+      - icon: Award
+        title: Reconocimiento Internacional
+        description: 4Geeks Academy es reconocido internacionalmente por su enfoque práctico y la calidad de sus programas.
+    footer_description: Con nuestra colaboración especial con Carné Joven, puedes acceder a una formación de alta calidad a un precio accesible.
     background: bg-background
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
