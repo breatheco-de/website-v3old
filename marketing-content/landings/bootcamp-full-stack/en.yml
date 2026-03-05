@@ -21,34 +21,6 @@ schema:
     - website
     - courses:full-stack
 sections:
-  - type: modal
-    version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Get the Full Overview
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | ai-engineering }}
-      success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: apply-modal
   - type: hero
     version: "1.0"
     variant: course
