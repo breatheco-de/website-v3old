@@ -501,3 +501,15 @@ global.total_scholarships:
       value: "17M€"
 global.number_of_hiring_partners_aprox:
   default: "400"
+global.who_is_eligible_work_authorization:
+  conditions:
+    - query:
+        region: "latam"
+      value: "Have authorization to work in your country of residence"
+    - query:
+        region: "europe"
+      value: "Have authorization to work in your country of residence"
+    - query:
+        region: "usa-canada"
+      value: "Have U.S. work authorization"
+  default: "Have authorization to work in your country of residence"

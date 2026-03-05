@@ -1,45 +1,38 @@
 sections:
   - type: hero
     version: "1.0"
-    variant: simpleTwoColumn
-    title: Start a Tech Career Backed by a Job Guarantee
-    subtitle: Train for the skills companies are hiring for. If you don’t land a qualifying job within 9 months of graduating, you get your tuition back. <ul style='margin-top:12px; margin-bottom:12px; padding-left:18px;'> <li>AI-native training built for today’s tech jobs</li> <li>Unlimited 1:1 mentorship and career guidance</li> <li>Proven hiring outcomes across 6,000+ graduates</li> <li>Full tuition refund if you’re not hired</li> </ul> <div> <span style='font-size:0.75rem;'>*Not available in all regions.  <a href='https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf'> Terms and conditions apply. </a></span> </div>
-    image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
-      alt: Students collaborating in a tech workspace
-    cta_buttons:
-      - text: Get more info
-        url: "#bottom"
-        variant: primary
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: lg none
-    marginY:
-      desktop: none md
-  - type: apply_form
-    version: "1.0"
-    hero:
-      title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
-      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
+    variant: productShowcase
+    title: Tech Career with Extra Confidence.
+    brand_mark:
+      prefix: Launch a
+      highlight: High-Growth
+      color: primary
+    description: Build the skills companies are hiring for and add the Job Guarantee* for extra confidence.
+    bullets:
+      - text: 84% of graduates land a tech job
+      - text: Get hired within 9 months or receive a full refund
+      - text: 1:1 career coaching and employer network access
+      - text: Join 6000+ graduates who have launched careers with us
+    video_id: "-2ZvlgDnltc"
+    video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Apply now
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Correo Electrónico
+          placeholder: Email
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Apellido
+          placeholder: Last name
         phone:
           visible: true
           required: true
@@ -47,26 +40,53 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
       show_terms: true
-    next_steps:
-      title: What Happens Next?
+    form_vertical_align: center
+    show_awards_marquee: true
+    awards_marquee:
       items:
-        - title: Instant confirmation
-          description: We'll send you the syllabus by email right away.
-        - title: Personal follow-up
-          description: Our admissions team will reach out by text and phone to set up a quick call.
-        - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-      closing: Now you're ready to make the best decision for your career!
+        - id: switchup-2025
+          alt: SwitchUp - Mejores Bootcamps de Código 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Mejor Bootcamp de Código 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 en Reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
   - type: features_quad
     version: "1.0"
     variant: default
@@ -164,13 +184,13 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Where AI-Powered Learning Meets Lifelong Mentorship
-    description: Our AI-powered learning, paired with unlimited 1:1 mentorship, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
+    title: AI-Powered Learning. Expert Mentorship. Real Career Support.
+    description: Our AI-powered learning, paired with unlimited 1:1 mentorship and career support, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
     bullets:
-      - heading: Personalized Learning at Every Level
+      - heading: Personalized Learning With Expert Support
         text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
       - heading: Lifelong Mentorship & Career Support
-        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
+        text: Work 1:1 with mentors and career coaches who guide your portfolio, interview preparation, and job search strategy until you land your first tech role.
       - heading: AI-Integrated Curriculum and Learning Tools
         text: Master the latest AI tools and workflows that employers are actively hiring for.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
@@ -180,6 +200,48 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
+    paddingY:
+      desktop: none
+  - type: numbered_steps
+    title: How the Job Guarantee Works
+    description: We stand behind your success. If you complete the program, actively engage with our career services, and still don’t secure a qualifying tech role within 180 days of graduation, you may be eligible for a tuition refund under our Job Guarantee (conditions apply).
+    description_link:
+      text: Read the full terms
+      url: /terms-and-conditions
+    steps:
+      - icon: School
+        text: Complete our intensive coding bootcamp and graduate within 180 days of your program start date.
+      - icon: Briefcase
+        text: Actively apply for jobs using our career services, attend all coaching sessions, and follow our job search methodology.
+      - icon: Cash
+        text: If you haven’t received a qualifying job offer within 180 days of graduation, request your full tuition refund.
+    background: bg-muted/30
+    variant: default
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: Get Hired with our 3-Step Career Development Process
+    description: Our structured process is designed to get you hired fast.
+    steps:
+      - icon: Optimization
+        title: Profile Optimization
+        bullets:
+          - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
+          - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
+          - Showcase your skills with a recruiter-ready portfolio.
+      - icon: Interview
+        title: Interview Preparation
+        bullets:
+          - Gain confidence with mock technical and behavioral interviews.
+          - Practice coding and problem-solving with auto-graded exercises.
+          - Develop tailored strategies for upcoming interviews.
+      - icon: JobSearch
+        title: Strategic Job Search
+        bullets:
+          - Create a personalized job search plan aligned with your goals.
+          - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
+          - Connect with our extensive network of global hiring partners.
+    background: bg-background
     paddingY:
       desktop: none
   - type: whos_hiring
@@ -240,7 +302,7 @@ sections:
     description: "You can enroll in the Job Guarantee if you:"
     cards:
       - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete all coursework
       - icon: IconBrain

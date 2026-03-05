@@ -71,6 +71,8 @@ sections:
       desktop: md
     marginY:
       desktop: none
+    video:
+      url: https://youtu.be/QlJpTqXCAFw?is=CLYXW9MtMyxQZLJU
   - type: modal
     version: "1.0"
     section_id: apply-modal
