@@ -269,40 +269,26 @@ sections:
     section_id: graduates_stats-rdqav1
     paddingY:
       desktop: none
-  - type: geeks_vs_others_comparison
+  - type: features_quad
     version: "1.0"
-    title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
-    columns:
-      - name: Característica
-      - name: 4Geeks Academy
-        highlight: true
-      - name: Promedio de la industria / competidores
-    rows:
-      - feature: Apoyo profesional personalizado
-        values:
-          - Soporte de por vida hasta que consigas trabajo (y más allá)
-          - Limitado, a menudo expira después de meses
-      - feature: Proporción profesor:estudiante
-        values:
-          - "1:7"
-          - 1:10+
-      - feature: Retroalimentación con IA
-        values:
-          - Personalizada según tu progreso
-          - Genérica o inexistente
-      - feature: Mentoría 1 a 1
-        values:
-          - Ilimitada y continua
-          - Sesiones limitadas
-      - feature: Plan de estudios
-        values:
-          - Actualizado continuamente para coincidir con las necesidades de la industria
-          - Lento para adaptarse
+    variant: laptopEdge
+    heading: Who's Eligible?
+    description: "You'll qualify for the Job Guarantee if you:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: __TPL__
+      - icon: IconCircleDashedCheck
+        title: Complete all coursework and projects
+      - icon: IconBrain
+        title: Pass our logic test
+      - icon: IconArrowGuideFilled
+        title: Follow our career development process
+    background: hsl(var(--muted))
+    section_id: features_quad-loz8eb
     marginY:
-      desktop: none xl
+      desktop: none md
     paddingY:
       desktop: none
-    section_id: geeks_vs_others_comparison-bdczjl
   - type: features_grid
     version: "1.0"
     variant: detailed
