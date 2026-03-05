@@ -118,16 +118,16 @@ sections:
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
-    title: Hyperpersonalized Learning & Support that Lasts a Lifetime
-    description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
+    title: Hyperpersonalized Learning & Support That Lasts a Lifetime
+    description: Learn AI-native, in-demand skills with guidance that doesn’t stop at graduation. Most programs leave you on your own — we stick with you for the long term.
     bullets:
       - heading: Unlimited 1:1 Mentorship
-        text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
+        text: Get guidance whenever you need it. From debugging code to preparing for senior roles, mentors support your learning and career growth at every stage.
       - heading: AI-Powered Learning & Feedback
-        text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
+        text: Rigobot + LearnPack tailor your learning, give instant feedback, guide you to solve problems efficiently, and track your skill development.
       - heading: Lifelong Career Support
-        text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
-    footer: We've helped more than 7,000 graduates launch successful tech careers.
+        text: GeekFORCE helps you land your first role and keep advancing. Career coaching, job search strategies, and employer connections are always accessible.
+    footer: Join 7,000+ graduates who’ve launched successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
   - type: course_selector
     version: "1.0"
